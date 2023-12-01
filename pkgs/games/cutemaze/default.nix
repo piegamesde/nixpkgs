@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     qtbase
     qtsvg
-  ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
+  ] ++ lib.optionals stdenv.isLinux [qtwayland];
 
   installPhase =
     if stdenv.isDarwin then
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "Simple, top-down game in which mazes are randomly generated";
     homepage = "https://gottcode.org/cutemaze/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     platforms = platforms.unix;
   };
 }

@@ -7,7 +7,7 @@
 bundlerApp {
   pname = "procodile";
   gemdir = ./.;
-  exes = [ "procodile" ];
+  exes = ["procodile"];
 
   passthru.updateScript = bundlerUpdateScript "procodile";
 

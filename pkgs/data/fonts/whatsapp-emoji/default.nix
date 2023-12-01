@@ -21,7 +21,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-AYdyNZYskBNT3v2wl+M0BAYi5piwmrVIDfucSZ3nfTE=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   enableParallelBuilding = true;
 
@@ -33,13 +33,13 @@ stdenvNoCC.mkDerivation rec {
     zopfli
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "WhatsApp Emoji for GNU/Linux";
     homepage = "https://github.com/dmlls/whatsapp-emoji-linux";
-    maintainers = [ lib.maintainers.lucasew ];
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
+    maintainers = [lib.maintainers.lucasew];
+    sourceProvenance = [lib.sourceTypes.fromSource];
     license = lib.licenses.unfree;
   };
 }

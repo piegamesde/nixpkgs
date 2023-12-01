@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "asdf-system-connections";
   version = "20170124-git";
 
   description = "Allows for ASDF system to be connected so that auto-loading may occur.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/asdf-system-connections/2017-01-24/asdf-system-connections-20170124-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "asdf-system-connections";
 
-  asdFilesToKeep = [ "asdf-system-connections.asd" ];
+  asdFilesToKeep = ["asdf-system-connections.asd"];
   overrides = x: x;
 }
 /* (SYSTEM asdf-system-connections DESCRIPTION

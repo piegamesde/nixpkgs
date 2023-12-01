@@ -1,4 +1,4 @@
-{ lib, gemConfig, ... }:
+{lib, gemConfig, ...}:
 
 let
   inherit (lib)
@@ -30,7 +30,7 @@ rec {
     };
 
   filterGemset =
-    { ruby, groups, ... }:
+    {ruby, groups, ...}:
     gemset:
     let
       platformGems = filterAttrs (_: platformMatches ruby) gemset;
@@ -39,7 +39,7 @@ rec {
       expandDependencies =
         gems:
         let
-          depNames = concatMap (gem: gem.dependencies or [ ]) (attrValues gems);
+          depNames = concatMap (gem: gem.dependencies or []) (attrValues gems);
           deps = getAttrs depNames platformGems;
         in
         gems // deps;
@@ -47,7 +47,7 @@ rec {
     converge expandDependencies directlyMatchingGems;
 
   platformMatches =
-    { rubyEngine, version, ... }:
+    {rubyEngine, version, ...}:
     attrs:
     (
       !(attrs ? platforms)
@@ -63,9 +63,7 @@ rec {
 
   groupMatches =
     groups: attrs:
-    groups == null
-    || !(attrs ? groups)
-    || (intersectLists (groups ++ [ "default" ]) attrs.groups) != [ ];
+    groups == null || !(attrs ? groups) || (intersectLists (groups ++ ["default"]) attrs.groups) != [];
 
   applyGemConfigs =
     attrs: (if gemConfig ? ${attrs.gemName} then attrs // gemConfig.${attrs.gemName} attrs else attrs);
@@ -104,7 +102,7 @@ rec {
         name = gemName;
         version = version;
         outPath = "${path}";
-        outputs = [ "out" ];
+        outputs = ["out"];
         out = res;
         outputName = "out";
       };
@@ -114,13 +112,13 @@ rec {
   composeGemAttrs =
     ruby: gems: name: attrs:
     (
-      (removeAttrs attrs [ "platforms" ])
+      (removeAttrs attrs ["platforms"])
       // {
         inherit ruby;
         inherit (attrs.source) type;
-        source = removeAttrs attrs.source [ "type" ];
+        source = removeAttrs attrs.source ["type"];
         gemName = name;
-        gemPath = map (gemName: gems.${gemName}) (attrs.dependencies or [ ]);
+        gemPath = map (gemName: gems.${gemName}) (attrs.dependencies or []);
       }
     );
 }

@@ -19,6 +19,6 @@ rustPlatform.buildRustPackage {
     description = "like cargo, but backwards";
     homepage = "https://crates.io/crates/ograc";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ sciencentistguy ];
+    maintainers = with maintainers; [sciencentistguy];
   };
 }

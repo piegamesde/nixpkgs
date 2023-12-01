@@ -141,7 +141,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://www.latticesemi.com/latticediamond";
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ q3k ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [q3k];
+    platforms = ["x86_64-linux"];
   };
 }

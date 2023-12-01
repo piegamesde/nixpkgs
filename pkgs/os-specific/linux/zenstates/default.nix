@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     sha256 = "1h1h2n50d2cwcyw3zp4lamfvrdjy1gjghffvl3qrp6arfsfa615y";
   };
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     description = "Linux utility for Ryzen processors and motherboards";
     homepage = "https://github.com/r4m0n/ZenStates-Linux";
     license = licenses.mit;
-    maintainers = with maintainers; [ savannidgerinel ];
+    maintainers = with maintainers; [savannidgerinel];
     platforms = platforms.linux;
   };
 }

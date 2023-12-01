@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
       protobuf
       python3
     ]
-    ++ lib.optionals stdenv.isDarwin [ qtmacextras ];
+    ++ lib.optionals stdenv.isDarwin [qtmacextras];
 
   postUnpack = ''
     # copy monero sources here
@@ -115,7 +115,7 @@ stdenv.mkDerivation rec {
       --replace 'add_subdirectory(external)' ""
   '';
 
-  cmakeFlags = [ "-DARCH=default" ];
+  cmakeFlags = ["-DARCH=default"];
 
   desktopItem = makeDesktopItem {
     name = "monero-wallet-gui";
@@ -148,6 +148,6 @@ stdenv.mkDerivation rec {
     homepage = "https://getmonero.org/";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
   };
 }

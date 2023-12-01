@@ -19,6 +19,6 @@ stdenv.mkDerivation rec {
     homepage = src.url;
     license = licenses.gpl2;
     platforms = platforms.unix;
-    maintainers = [ maintainers.oxij ];
+    maintainers = [maintainers.oxij];
   };
 }

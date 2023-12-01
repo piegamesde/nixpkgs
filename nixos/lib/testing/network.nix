@@ -1,4 +1,4 @@
-{ lib, nodes, ... }:
+{lib, nodes, ...}:
 
 let
   inherit (lib)
@@ -32,7 +32,7 @@ let
     let
       interfacesNumbered = zipLists config.virtualisation.vlans (range 1 255);
       interfaces = forEach interfacesNumbered (
-        { fst, snd }:
+        {fst, snd}:
         nameValuePair "eth${toString snd}" {
           ipv4.addresses = [
             {
@@ -49,7 +49,7 @@ let
         networking.interfaces = listToAttrs interfaces;
 
         networking.primaryIPAddress =
-          optionalString (interfaces != [ ])
+          optionalString (interfaces != [])
             (head (head interfaces).value.ipv4.addresses).address;
 
         # Put the IP addresses of all VMs in this machine's
@@ -75,10 +75,10 @@ let
 
         virtualisation.qemu.options =
           let
-            qemu-common = import ../qemu-common.nix { inherit lib pkgs; };
+            qemu-common = import ../qemu-common.nix {inherit lib pkgs;};
           in
           flip concatMap interfacesNumbered (
-            { fst, snd }: qemu-common.qemuNICFlags snd fst config.virtualisation.test.nodeNumber
+            {fst, snd}: qemu-common.qemuNICFlags snd fst config.virtualisation.test.nodeNumber
           );
       };
     in
@@ -93,7 +93,7 @@ let
 
   nodeNumberModule =
     (
-      regular@{ config, name, ... }:
+      regular@{config, name, ...}:
       {
         options = {
           virtualisation.test.nodeName = mkOption {

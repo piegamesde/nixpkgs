@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     description = "Highly dynamic multi-platform foreign function call interface library";
     homepage = "https://www.dyncall.org";
     license = licenses.isc;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
   };
 }

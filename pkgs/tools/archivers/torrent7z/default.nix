@@ -25,9 +25,9 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   postPatch = ''
     # Remove non-free RAR source code
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/BubblesInTheTub/torrent7z";
     description = "A fork of torrent7z, viz a derivative of 7zip that produces invariant .7z archives for torrenting";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ cirno-999 ];
+    maintainers = with maintainers; [cirno-999];
     mainProgram = "t7z";
     # RAR code is under non-free UnRAR license, but we remove it
     license = licenses.gpl3Only;

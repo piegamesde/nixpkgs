@@ -1,9 +1,9 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "nginx-sso";
     meta = {
-      maintainers = with pkgs.lib.maintainers; [ delroth ];
+      maintainers = with pkgs.lib.maintainers; [delroth];
     };
 
     nodes.machine = {
@@ -28,7 +28,7 @@ import ./make-test-python.nix (
                     equals = "MyApp";
                   }
                 ];
-                allow = [ "myuser" ];
+                allow = ["myuser"];
               }
             ];
           };

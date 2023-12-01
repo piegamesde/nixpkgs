@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "yason";
   version = "v0.7.8";
@@ -18,7 +18,7 @@ rec {
 
   packageName = "yason";
 
-  asdFilesToKeep = [ "yason.asd" ];
+  asdFilesToKeep = ["yason.asd"];
   overrides = x: x;
 }
 /* (SYSTEM yason DESCRIPTION JSON parser/encoder SHA256

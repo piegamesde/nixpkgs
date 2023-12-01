@@ -9,7 +9,7 @@ buildGoModule rec {
   version = "1.1.2";
   rev = "v${version}";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   vendorSha256 = null;
 

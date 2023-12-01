@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   let
     password = "foobar";
     newPass = "barfoo";
@@ -7,12 +7,12 @@ import ./make-test-python.nix (
   {
     name = "systemd-homed";
     nodes.machine =
-      { config, pkgs, ... }:
+      {config, pkgs, ...}:
       {
         services.homed.enable = true;
 
         users.users.test-normal-user = {
-          extraGroups = [ "wheel" ];
+          extraGroups = ["wheel"];
           isNormalUser = true;
           initialPassword = password;
         };

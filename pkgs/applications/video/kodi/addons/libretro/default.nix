@@ -18,7 +18,7 @@ buildKodiBinaryAddon rec {
     sha256 = "sha256-RwaLGAJt13PLKy45HU64TvQFyY532WWq2YX34Eyu+6o=";
   };
 
-  extraBuildInputs = [ tinyxml ];
+  extraBuildInputs = [tinyxml];
 
   meta = with lib; {
     homepage = "https://github.com/kodi-game/game.libretro";

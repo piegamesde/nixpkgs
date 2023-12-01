@@ -5,8 +5,8 @@
   dpkg,
   makeWrapper,
   buildFHSEnv,
-  extraPkgs ? pkgs: [ ],
-  extraLibs ? pkgs: [ ],
+  extraPkgs ? pkgs: [],
+  extraLibs ? pkgs: [],
 }:
 
 stdenv.mkDerivation rec {
@@ -143,6 +143,6 @@ stdenv.mkDerivation rec {
       tesq0
       huantian
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

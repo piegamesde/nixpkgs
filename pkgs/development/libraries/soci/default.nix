@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     "-DSOCI_TESTS=off"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     sqlite
     postgresql
@@ -47,6 +47,6 @@ stdenv.mkDerivation rec {
     homepage = "https://soci.sourceforge.net/";
     license = licenses.boost;
     platforms = platforms.all;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

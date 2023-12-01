@@ -34,7 +34,7 @@ buildPythonPackage rec {
     toml
     types-toml
     urllib3
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  ] ++ lib.optionals (pythonOlder "3.8") [typing-extensions];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -42,12 +42,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "responses" ];
+  pythonImportsCheck = ["responses"];
 
   meta = with lib; {
     description = "Python module for mocking out the requests Python library";
     homepage = "https://github.com/getsentry/responses";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

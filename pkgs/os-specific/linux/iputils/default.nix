@@ -52,8 +52,8 @@ stdenv.mkDerivation rec {
     libxslt.bin
     docbook_xsl_ns
   ];
-  buildInputs = [ libcap ] ++ lib.optional (!stdenv.hostPlatform.isMusl) libidn2;
-  nativeCheckInputs = [ iproute2 ];
+  buildInputs = [libcap] ++ lib.optional (!stdenv.hostPlatform.isMusl) libidn2;
+  nativeCheckInputs = [iproute2];
 
   postInstall = ''
     mkdir $apparmor
@@ -64,8 +64,8 @@ stdenv.mkDerivation rec {
       include <abstractions/consoles>
       include <abstractions/nameservice>
       include "${
-        apparmorRulesFromClosure { name = "ping"; } (
-          [ libcap ] ++ lib.optional (!stdenv.hostPlatform.isMusl) libidn2
+        apparmorRulesFromClosure {name = "ping";} (
+          [libcap] ++ lib.optional (!stdenv.hostPlatform.isMusl) libidn2
         )
       }"
       include <local/bin.ping>

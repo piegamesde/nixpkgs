@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     dbus
   ];
 
-  configureFlags = [ "--enable-call" ];
+  configureFlags = ["--enable-call"];
 
   preFixup = ''
     wrapProgram "$out/libexec/telepathy-logger" \
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     description = "Logger service for Telepathy framework";
     homepage = "https://telepathy.freedesktop.org/components/telepathy-logger/";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.gnu ++ platforms.linux; # Arbitrary choice
   };
 }

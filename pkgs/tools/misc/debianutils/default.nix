@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
       publicDomain
       smail
     ];
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

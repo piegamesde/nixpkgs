@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     expat
   ];
 
-  cmakeFlags = [ "-DBUILD_CODE_GEN=ON" ];
+  cmakeFlags = ["-DBUILD_CODE_GEN=ON"];
 
   meta = with lib; {
     homepage = "https://github.com/Kistler-Group/sdbus-cpp";
@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     mainProgram = "sdbus-c++-xml2cpp";
     license = licenses.lgpl2Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.ivar ];
+    maintainers = [maintainers.ivar];
   };
 }

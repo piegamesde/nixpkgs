@@ -28,6 +28,6 @@ buildPythonPackage rec {
     description = "Portable tool for executing LLVM and Clang style test suites";
     homepage = "http://llvm.org/docs/CommandGuide/lit.html";
     license = lib.licenses.ncsa;
-    maintainers = with lib.maintainers; [ dtzWill ];
+    maintainers = with lib.maintainers; [dtzWill];
   };
 }

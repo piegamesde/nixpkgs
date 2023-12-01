@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   postPatch = ''
     substituteInPlace commands.cpp \
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
   ];
 
   # https://github.com/AGWA/git-crypt/issues/232
-  CXXFLAGS = [ "-DOPENSSL_API_COMPAT=0x30000000L" ];
+  CXXFLAGS = ["-DOPENSSL_API_COMPAT=0x30000000L"];
 
   postFixup = ''
     wrapProgram $out/bin/git-crypt \

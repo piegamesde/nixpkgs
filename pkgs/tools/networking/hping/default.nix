@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  buildInputs = [ libpcap ] ++ lib.optional withTcl tcl;
+  buildInputs = [libpcap] ++ lib.optional withTcl tcl;
 
   postPatch =
     ''
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
         libpcap_stuff.c script.c
     '';
 
-  configureFlags = [ (if withTcl then "TCLSH=${tcl}/bin/tclsh" else "--no-tcl") ];
+  configureFlags = [(if withTcl then "TCLSH=${tcl}/bin/tclsh" else "--no-tcl")];
 
   installPhase = ''
     install -Dm755 hping3 -t $out/sbin

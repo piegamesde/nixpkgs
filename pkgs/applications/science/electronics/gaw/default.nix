@@ -15,9 +15,9 @@ stdenv.mkDerivation rec {
     sha256 = "0j2bqi9444s1mfbr7x9rqp232xf7ab9z7ifsnl305jsklp6qmrbg";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   meta = with lib; {
     description = "Gtk Analog Wave viewer";
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://gaw.tuxfamily.org";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ fbeffa ];
+    maintainers = with maintainers; [fbeffa];
     platforms = platforms.linux;
   };
 }

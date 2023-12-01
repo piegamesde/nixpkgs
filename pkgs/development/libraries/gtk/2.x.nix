@@ -91,9 +91,9 @@ stdenv.mkDerivation (
         libXi
         libXcursor
       ]
-      ++ lib.optionals stdenv.isDarwin [ libXdamage ]
+      ++ lib.optionals stdenv.isDarwin [libXdamage]
       ++ lib.optional xineramaSupport libXinerama
-      ++ lib.optionals cupsSupport [ cups ]
+      ++ lib.optionals cupsSupport [cups]
       ++ lib.optionals stdenv.isDarwin [
         AppKit
         Cocoa
@@ -123,7 +123,7 @@ stdenv.mkDerivation (
         "ac_cv_path_GDK_PIXBUF_CSOURCE=${buildPackages.gdk-pixbuf.dev}/bin/gdk-pixbuf-csource"
       ];
 
-    installFlags = [ "sysconfdir=${placeholder "out"}/etc" ];
+    installFlags = ["sysconfdir=${placeholder "out"}/etc"];
 
     doCheck = false; # needs X11
 

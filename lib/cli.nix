@@ -1,4 +1,4 @@
-{ lib }:
+{lib}:
 
 rec {
   /* Automatically convert an attribute set to command-line options.
@@ -65,11 +65,11 @@ rec {
       # are forbidden (lists, attrsets, functions). `null` values are omitted.
       mkOption ? k: v:
         if v == null then
-          [ ]
+          []
         else
           [
             (mkOptionName k)
-            (lib.generators.mkValueStringDefault { } v)
+            (lib.generators.mkValueStringDefault {} v)
           ],
     }:
     options:

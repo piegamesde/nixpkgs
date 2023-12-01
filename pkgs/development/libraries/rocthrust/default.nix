@@ -19,7 +19,7 @@ stdenv.mkDerivation (
 
     outputs = [
       "out"
-    ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildBenchmarks [ "benchmark" ];
+    ] ++ lib.optionals buildTests ["test"] ++ lib.optionals buildBenchmarks ["benchmark"];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -35,7 +35,7 @@ stdenv.mkDerivation (
       hip
     ];
 
-    buildInputs = lib.optionals buildTests [ gtest ];
+    buildInputs = lib.optionals buildTests [gtest];
 
     cmakeFlags =
       [
@@ -47,8 +47,8 @@ stdenv.mkDerivation (
         "-DCMAKE_INSTALL_LIBDIR=lib"
         "-DCMAKE_INSTALL_INCLUDEDIR=include"
       ]
-      ++ lib.optionals buildTests [ "-DBUILD_TEST=ON" ]
-      ++ lib.optionals buildBenchmarks [ "-DBUILD_BENCHMARKS=ON" ]
+      ++ lib.optionals buildTests ["-DBUILD_TEST=ON"]
+      ++ lib.optionals buildBenchmarks ["-DBUILD_BENCHMARKS=ON"]
       ++ lib.optionals (buildTests || buildBenchmarks) [
         "-DCMAKE_CXX_FLAGS=-Wno-deprecated-builtins" # Too much spam
       ];
@@ -75,7 +75,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "ROCm parallel algorithm library";
       homepage = "https://github.com/ROCmSoftwarePlatform/rocThrust";
-      license = with licenses; [ asl20 ];
+      license = with licenses; [asl20];
       maintainers = teams.rocm.members;
       platforms = platforms.linux;
       broken = versions.minor finalAttrs.version != versions.minor hip.version;

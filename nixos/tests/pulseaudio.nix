@@ -5,7 +5,7 @@ let
       fullVersion ? false,
     }:
     import ./make-test-python.nix (
-      { pkgs, lib, ... }:
+      {pkgs, lib, ...}:
       let
         testFile = pkgs.fetchurl {
           url = "https://file-examples.com/storage/fe5947fd2362fc197a3c2df/2017/11/file_example_MP3_700KB.mp3";
@@ -14,7 +14,7 @@ let
 
         makeTestPlay =
           key:
-          { sox, alsa-utils }:
+          {sox, alsa-utils}:
           pkgs.writeScriptBin key ''
             set -euxo pipefail
             ${sox}/bin/play ${testFile}
@@ -33,20 +33,18 @@ let
       in
       {
         name = "pulseaudio${lib.optionalString fullVersion "Full"}${lib.optionalString systemWide "-systemWide"}";
-        meta = with pkgs.lib.maintainers; {
-          maintainers = [ synthetica ] ++ pkgs.pulseaudio.meta.maintainers;
-        };
+        meta = with pkgs.lib.maintainers; {maintainers = [synthetica] ++ pkgs.pulseaudio.meta.maintainers;};
 
         nodes.machine =
-          { ... }:
+          {...}:
 
           {
-            imports = [ ./common/wayland-cage.nix ];
+            imports = [./common/wayland-cage.nix];
             hardware.pulseaudio = {
               enable = true;
               support32Bit = true;
               inherit systemWide;
-            } // lib.optionalAttrs fullVersion { package = pkgs.pulseaudioFull; };
+            } // lib.optionalAttrs fullVersion {package = pkgs.pulseaudioFull;};
 
             environment.systemPackages = [
               testers.testPlay
@@ -54,14 +52,14 @@ let
             ] ++ lib.optional pkgs.stdenv.isx86_64 testers.testPlay32;
           }
           // lib.optionalAttrs systemWide {
-            users.users.alice.extraGroups = [ "pulse-access" ];
-            systemd.services.pulseaudio.wantedBy = [ "multi-user.target" ];
+            users.users.alice.extraGroups = ["pulse-access"];
+            systemd.services.pulseaudio.wantedBy = ["multi-user.target"];
           };
 
         enableOCR = true;
 
         testScript =
-          { ... }:
+          {...}:
           ''
             machine.wait_until_succeeds("pgrep xterm")
             machine.wait_for_text("alice@machine")

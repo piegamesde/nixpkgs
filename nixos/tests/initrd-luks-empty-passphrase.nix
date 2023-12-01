@@ -1,11 +1,11 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
   systemdStage1 ? false,
 }:
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
   let
 
     keyfile = pkgs.writeText "luks-keyfile" ''
@@ -18,10 +18,10 @@ import ./make-test-python.nix (
     name = "initrd-luks-empty-passphrase";
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         virtualisation = {
-          emptyDiskImages = [ 512 ];
+          emptyDiskImages = [512];
           useBootLoader = true;
           useEFIBoot = true;
         };
@@ -31,7 +31,7 @@ import ./make-test-python.nix (
           enable = true;
           emergencyAccess = true;
         };
-        environment.systemPackages = with pkgs; [ cryptsetup ];
+        environment.systemPackages = with pkgs; [cryptsetup];
 
         specialisation.boot-luks-wrong-keyfile.configuration = {
           boot.initrd.luks.devices = lib.mkVMOverride {

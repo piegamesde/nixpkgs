@@ -23,14 +23,14 @@ stdenv.mkDerivation rec {
     cmake
     makeWrapper
   ];
-  buildInputs = [ libminc ];
+  buildInputs = [libminc];
   propagatedBuildInputs = with perlPackages; [
     perl
     GetoptTabular
     MNI-Perllib
   ];
 
-  cmakeFlags = [ "-DLIBMINC_DIR=${libminc}/lib/cmake" ];
+  cmakeFlags = ["-DLIBMINC_DIR=${libminc}/lib/cmake"];
   # testing broken: './minc_wrapper: Permission denied' from Testing/ellipse0.mnc
 
   postFixup = ''
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/BIC-MNI/mni_autoreg";
     description = "Tools for automated registration using the MINC image format";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = platforms.unix;
     license = licenses.free;
   };

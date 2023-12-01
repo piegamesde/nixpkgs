@@ -25,7 +25,7 @@ buildNimPackage rec {
     rev = version;
     hash = "sha256-6vlD/woqTkbSRWhRtQD/ynk0DG+GrGwh6x+qUmo6YSQ=";
   };
-  propagatedNativeBuildInputs = [ pkg-config ];
+  propagatedNativeBuildInputs = [pkg-config];
   propagatedBuildInputs = [
     base32
     coap
@@ -44,7 +44,7 @@ buildNimPackage rec {
   '';
   meta = src.meta // {
     license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
     mainProgram = "eriscmd";
   };
 }

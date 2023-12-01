@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
     homepage = "https://repo.or.cz/w/llpp.git";
     description = "A MuPDF based PDF pager written in OCaml";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     license = licenses.gpl3;
   };
 }

@@ -67,6 +67,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "LaTeX editor written in Python with Gtk";
     homepage = src.meta.homepage;
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

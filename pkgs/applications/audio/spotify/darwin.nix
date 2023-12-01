@@ -24,7 +24,7 @@ stdenv.mkDerivation {
         sha256 = "sha256-uPpD8Hv70FlaSjtt9rq5ntI64agxG8+/LNEvRe4ocJ4=";
       });
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   sourceRoot = ".";
 
@@ -34,6 +34,6 @@ stdenv.mkDerivation {
   '';
 
   meta = meta // {
-    maintainers = with lib.maintainers; [ Enzime ];
+    maintainers = with lib.maintainers; [Enzime];
   };
 }

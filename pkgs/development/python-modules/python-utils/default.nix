@@ -30,7 +30,7 @@ buildPythonPackage rec {
   '';
 
   passthru.optional-dependencies = {
-    loguru = [ loguru ];
+    loguru = [loguru];
   };
 
   nativeCheckInputs = [
@@ -39,9 +39,9 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ passthru.optional-dependencies.loguru;
 
-  pythonImportsCheck = [ "python_utils" ];
+  pythonImportsCheck = ["python_utils"];
 
-  pytestFlagsArray = [ "_python_utils_tests" ];
+  pytestFlagsArray = ["_python_utils_tests"];
 
   disabledTests =
     lib.optionals stdenv.isDarwin
@@ -55,6 +55,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/WoLpH/python-utils";
     changelog = "https://github.com/wolph/python-utils/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

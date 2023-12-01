@@ -21,17 +21,17 @@ buildPythonPackage rec {
     hash = "sha256-KfO+6bZOZOv9SWTV4eqJTWb3/PeCpnXknSF47ddZR5o=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "multimethod" ];
+  pythonImportsCheck = ["multimethod"];
 
   meta = with lib; {
     description = "Multiple argument dispatching";
     homepage = "https://coady.github.io/multimethod/";
     changelog = "https://github.com/coady/multimethod/tree/v${version}#changes";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

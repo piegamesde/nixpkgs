@@ -26,12 +26,12 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   meta = {
     homepage = "https://github.com/oklm-wsh/Callipyge";
     description = "Curve25519 in OCaml";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fufexan ];
+    maintainers = with lib.maintainers; [fufexan];
   };
 }

@@ -30,7 +30,7 @@ buildGoModule rec {
     '';
   };
 
-  subPackages = [ "cmd/fastly" ];
+  subPackages = ["cmd/fastly"];
 
   vendorHash = "sha256-Ch9TT5gPC8NpwuqkwHP+3HEFocWHrCZPC0T7+3VweVc=";
 
@@ -62,7 +62,7 @@ buildGoModule rec {
     '';
 
   preFixup = ''
-    wrapProgram $out/bin/fastly --prefix PATH : ${lib.makeBinPath [ viceroy ]} \
+    wrapProgram $out/bin/fastly --prefix PATH : ${lib.makeBinPath [viceroy]} \
       --set FASTLY_VICEROY_USE_PATH 1
   '';
 

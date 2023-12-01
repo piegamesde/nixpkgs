@@ -8,32 +8,32 @@
     }
   ];
   layers = [
-    { name = "default"; }
+    {name = "default";}
     {
       enable = true;
       name = "colorscheme";
     }
-    { name = "fzf"; }
+    {name = "fzf";}
     {
       default_height = 30;
       default_position = "top";
       name = "shell";
     }
-    { name = "edit"; }
-    { name = "VersionControl"; }
-    { name = "git"; }
+    {name = "edit";}
+    {name = "VersionControl";}
+    {name = "git";}
     {
       auto-completion-return-key-behavior = "complete";
       auto-completion-tab-key-behavior = "cycle";
       autocomplete_method = "coc";
       name = "autocomplete";
     }
-    { name = "lang#ruby"; }
-    { name = "lang#nix"; }
-    { name = "lang#java"; }
-    { name = "lang#kotlin"; }
-    { name = "lang#sh"; }
-    { name = "lang#html"; }
+    {name = "lang#ruby";}
+    {name = "lang#nix";}
+    {name = "lang#java";}
+    {name = "lang#kotlin";}
+    {name = "lang#sh";}
+    {name = "lang#html";}
   ];
   options = {
     buffer_index_type = 4;

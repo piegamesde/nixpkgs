@@ -29,13 +29,13 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "BGRT theme with a spinning NixOS logo";
     homepage = "https://github.com/helsinki-systems/plymouth-theme-nixos-bgrt";
     license = licenses.mit;
-    maintainers = with maintainers; [ lilyinstarlight ];
+    maintainers = with maintainers; [lilyinstarlight];
     platforms = platforms.all;
   };
 }

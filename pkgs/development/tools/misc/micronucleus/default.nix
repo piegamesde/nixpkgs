@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "14msy9amlbflw5mqrbs57b7bby3nsgx43srr7215zyhfdgsla0in";
   };
 
-  buildInputs = [ libusb-compat-0_1 ];
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  buildInputs = [libusb-compat-0_1];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     description = "Upload tool for micronucleus";
     homepage = "https://github.com/micronucleus/micronucleus";
     license = licenses.gpl3;
-    maintainers = [ maintainers.cab404 ];
+    maintainers = [maintainers.cab404];
   };
 }

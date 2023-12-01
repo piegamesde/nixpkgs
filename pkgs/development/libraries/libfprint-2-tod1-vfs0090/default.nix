@@ -65,6 +65,6 @@ stdenv.mkDerivation {
     homepage = "https://gitlab.freedesktop.org/3v1n0/libfprint-tod-vfs0090";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ valodim ];
+    maintainers = with maintainers; [valodim];
   };
 }

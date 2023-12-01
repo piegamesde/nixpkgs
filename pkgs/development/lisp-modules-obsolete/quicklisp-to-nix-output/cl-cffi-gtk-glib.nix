@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-cffi-gtk-glib";
   version = "cl-cffi-gtk-20201220-git";
@@ -22,7 +22,7 @@ rec {
 
   packageName = "cl-cffi-gtk-glib";
 
-  asdFilesToKeep = [ "cl-cffi-gtk-glib.asd" ];
+  asdFilesToKeep = ["cl-cffi-gtk-glib.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-cffi-gtk-glib DESCRIPTION A Lisp binding to GLib 2 SHA256

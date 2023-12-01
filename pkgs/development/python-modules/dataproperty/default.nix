@@ -24,8 +24,8 @@ buildPythonPackage rec {
     typepy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  checkInputs = [ termcolor ];
+  nativeCheckInputs = [pytestCheckHook];
+  checkInputs = [termcolor];
 
   # Tests fail, even on non-nixos
   pytestFlagsArray = [
@@ -37,7 +37,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/thombashi/dataproperty";
     description = "A library for extracting properties from data";
-    maintainers = with maintainers; [ genericnerdyusername ];
+    maintainers = with maintainers; [genericnerdyusername];
     license = licenses.mit;
   };
 }

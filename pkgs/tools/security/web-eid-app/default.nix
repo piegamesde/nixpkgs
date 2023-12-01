@@ -44,7 +44,7 @@ mkDerivation rec {
     '';
     homepage = "https://github.com/web-eid/web-eid-app";
     license = licenses.mit;
-    maintainers = [ maintainers.flokli ];
+    maintainers = [maintainers.flokli];
     platforms = platforms.linux;
   };
 }

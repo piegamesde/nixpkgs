@@ -16,13 +16,13 @@ stdenv.mkDerivation rec {
     sha256 = "042f1czcs9n2sbqvg4rsvfwlqib2gk976mfa2kxlfjghx5laqf04";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     ncurses
     gtk2
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   configurePhase = ''
     sed -i Makefile \
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.gpl2Plus;
 
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 }

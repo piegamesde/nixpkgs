@@ -17,7 +17,7 @@ gerbil-support.gerbilPackage {
     gerbil-utils
     gerbil-crypto
   ];
-  buildInputs = [ ];
+  buildInputs = [];
   gambit-params = gambit-support.unstable-params;
   version-path = "version";
   softwareName = "Gerbil-POO";
@@ -32,6 +32,6 @@ gerbil-support.gerbilPackage {
     homepage = "https://github.com/fare/gerbil-poo";
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ fare ];
+    maintainers = with lib.maintainers; [fare];
   };
 }

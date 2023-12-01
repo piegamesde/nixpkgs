@@ -16,7 +16,7 @@ stdenv.mkDerivation {
     hash = "sha256-lwms+qUelfpTC+i2m5b3dW7ww9298YMPFdPVsFrwcDQ=";
   };
 
-  buildInputs = [ SDL2 ];
+  buildInputs = [SDL2];
 
   dontConfigure = true;
 
@@ -46,7 +46,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://wiki.xxiivv.com/site/uxn.html";
     description = "An assembler and emulator for the Uxn stack machine";
-    license = with licenses; [ mit ];
+    license = with licenses; [mit];
     maintainers = with maintainers; [
       AndersonTorres
       kototama

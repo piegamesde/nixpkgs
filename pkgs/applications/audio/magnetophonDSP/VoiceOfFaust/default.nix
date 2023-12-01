@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     faust2lv2
   ];
 
-  runtimeInputs = [ pitchTracker ];
+  runtimeInputs = [pitchTracker];
 
   patchPhase = ''
     sed -i "s@pd -nodac@${pitchTracker}/bin/pd -nodac@g" launchers/synthWrapper
@@ -66,6 +66,6 @@ stdenv.mkDerivation rec {
     description = "Turn your voice into a synthesizer";
     homepage = "https://github.com/magnetophon/VoiceOfFaust";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.magnetophon ];
+    maintainers = [lib.maintainers.magnetophon];
   };
 }

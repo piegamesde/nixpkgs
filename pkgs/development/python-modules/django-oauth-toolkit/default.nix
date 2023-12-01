@@ -41,8 +41,8 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
-  pythonRelaxDeps = [ "django" ];
+  nativeBuildInputs = [pythonRelaxDepsHook];
+  pythonRelaxDeps = ["django"];
 
   DJANGO_SETTINGS_MODULE = "tests.settings";
 
@@ -64,6 +64,6 @@ buildPythonPackage rec {
     description = "OAuth2 goodies for the Djangonauts";
     homepage = "https://github.com/jazzband/django-oauth-toolkit";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ mmai ];
+    maintainers = with maintainers; [mmai];
   };
 }

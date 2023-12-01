@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     ${lib.optionalString isCrossCompiling "substituteInPlace Makefile --replace ./s9 '${buildPackages.s9fes}/bin/s9'"}
   '';
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
     "PREFIX=$(out)"
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     description = "Scheme 9 From Empty Space, an interpreter for R4RS Scheme";
     homepage = "http://www.t3x.org/s9fes/index.html";
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.unix;
   };
 }

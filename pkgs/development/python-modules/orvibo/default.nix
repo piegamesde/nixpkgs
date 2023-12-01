@@ -17,12 +17,12 @@ buildPythonPackage rec {
 
   # Project as no tests
   doCheck = false;
-  pythonImportsCheck = [ "orvibo" ];
+  pythonImportsCheck = ["orvibo"];
 
   meta = with lib; {
     description = "Python client to work with Orvibo devices";
     homepage = "https://github.com/happyleavesaoc/python-orvibo";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

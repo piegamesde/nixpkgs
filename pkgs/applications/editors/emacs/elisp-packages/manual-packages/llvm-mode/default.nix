@@ -1,4 +1,4 @@
-{ trivialBuild, llvmPackages }:
+{trivialBuild, llvmPackages}:
 
 trivialBuild {
   pname = "llvm-mode";

@@ -37,7 +37,7 @@ buildPythonApplication rec {
     sha256 = "sha256-YcXQ2wAgFSsJEqcaDQotpX1put4pQaF511kwq/c2yHw=";
   };
 
-  patches = [ ./0001-Poetry-core-and-pillow-9.patch ];
+  patches = [./0001-Poetry-core-and-pillow-9.patch];
 
   nativeBuildInputs = [
     gobject-introspection
@@ -67,7 +67,7 @@ buildPythonApplication rec {
     pango
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Wrapping this manually for SVG recognition
   dontWrapGApps = true;
@@ -94,7 +94,7 @@ buildPythonApplication rec {
     description = "A QR code scanner desktop app for Linux";
     homepage = "https://github.com/hongquan/CoBang";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ wolfangaukang ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [wolfangaukang];
+    platforms = ["x86_64-linux"];
   };
 }

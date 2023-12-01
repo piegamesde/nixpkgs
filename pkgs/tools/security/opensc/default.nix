@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     libxslt
     libiconv
     docbook_xml_dtd_412
-  ] ++ lib.optional stdenv.isDarwin Carbon ++ (if withApplePCSC then [ PCSC ] else [ pcsclite ]);
+  ] ++ lib.optional stdenv.isDarwin Carbon ++ (if withApplePCSC then [PCSC] else [pcsclite]);
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
@@ -82,6 +82,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/OpenSC/OpenSC/wiki";
     license = licenses.lgpl21Plus;
     platforms = platforms.all;
-    maintainers = [ maintainers.michaeladler ];
+    maintainers = [maintainers.michaeladler];
   };
 }

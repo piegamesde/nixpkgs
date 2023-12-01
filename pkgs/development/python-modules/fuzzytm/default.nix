@@ -34,12 +34,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "FuzzyTM" ];
+  pythonImportsCheck = ["FuzzyTM"];
 
   meta = with lib; {
     description = "Library for Fuzzy Topic Models";
     homepage = "https://github.com/ERijck/FuzzyTM";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

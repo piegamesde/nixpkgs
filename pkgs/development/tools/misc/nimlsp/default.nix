@@ -41,6 +41,6 @@ nimPackages.buildNimPackage rec {
     homepage = "https://github.com/PMunch/nimlsp";
     license = licenses.mit;
     platforms = nim.meta.platforms;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

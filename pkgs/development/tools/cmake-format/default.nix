@@ -38,7 +38,7 @@ buildPythonApplication rec {
     description = "Source code formatter for cmake listfiles";
     homepage = "https://github.com/cheshirekow/cmake_format";
     license = licenses.gpl3;
-    maintainers = [ maintainers.tobim ];
+    maintainers = [maintainers.tobim];
     platforms = platforms.all;
   };
 }

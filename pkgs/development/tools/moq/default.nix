@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-lfs61YK5HmUd3/qA4o9MiWeTFhu4MTAkNH+f0iGlRe0=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -34,6 +34,6 @@ buildGoModule rec {
       be used in test code as a mock of the interface.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ anpryl ];
+    maintainers = with maintainers; [anpryl];
   };
 }

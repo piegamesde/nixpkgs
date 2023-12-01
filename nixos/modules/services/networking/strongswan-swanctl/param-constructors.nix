@@ -69,7 +69,7 @@ rec {
         ''
       );
 
-  single = f: name: value: { ${name} = f value; };
+  single = f: name: value: {${name} = f value;};
 
   mkStrParam = mkParamOfType types.str;
   mkOptionalStrParam = mkStrParam null;
@@ -115,7 +115,7 @@ rec {
     render = single (value: concatStringsSep sep value);
   };
 
-  mkAttrsOfParams = params: mkAttrsOf params (types.submodule { options = paramsToOptions params; });
+  mkAttrsOfParams = params: mkAttrsOf params (types.submodule {options = paramsToOptions params;});
 
   mkAttrsOfParam = param: mkAttrsOf param param.option.type;
 
@@ -123,14 +123,14 @@ rec {
     _type = "param";
     option = mkOption {
       type = types.attrsOf option;
-      default = { };
+      default = {};
       description = mdDoc description;
     };
     render = single (attrs: (paramsToRenderedStrings attrs (mapAttrs (_n: _v: param) attrs)));
   };
 
   mkPrefixedAttrsOfParams =
-    params: mkPrefixedAttrsOf params (types.submodule { options = paramsToOptions params; });
+    params: mkPrefixedAttrsOf params (types.submodule {options = paramsToOptions params;});
 
   mkPrefixedAttrsOfParam = param: mkPrefixedAttrsOf param param.option.type;
 
@@ -138,7 +138,7 @@ rec {
     _type = "param";
     option = mkOption {
       type = types.attrsOf option;
-      default = { };
+      default = {};
       description = mdDoc description;
     };
     render =
@@ -152,8 +152,8 @@ rec {
   mkPostfixedAttrsOfParams = params: description: {
     _type = "param";
     option = mkOption {
-      type = types.attrsOf (types.submodule { options = paramsToOptions params; });
-      default = { };
+      type = types.attrsOf (types.submodule {options = paramsToOptions params;});
+      default = {};
       description = lib.mdDoc description;
     };
     render =

@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "gyunaev";
     repo = pname;
-    rev = "RELEASE_${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "RELEASE_${lib.replaceStrings ["."] ["_"] version}";
     sha256 = "sha256-YNpiBf6AFBCRbAZRPODvqGbQQedJJJrZFQIQyzIeBlw=";
   };
 
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     description = "CHM (Winhelp) files viewer";
     homepage = "http://www.ulduzsoft.com/linux/kchmviewer/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.linux;
   };
 }

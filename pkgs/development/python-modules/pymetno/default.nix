@@ -27,7 +27,7 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  pythonImportsCheck = [ "metno" ];
+  pythonImportsCheck = ["metno"];
 
   # Project has no tests
   doCheck = false;
@@ -36,6 +36,6 @@ buildPythonPackage rec {
     description = "A library to communicate with the met.no API";
     homepage = "https://github.com/Danielhiversen/pyMetno/";
     license = licenses.mit;
-    maintainers = with maintainers; [ flyfloh ];
+    maintainers = with maintainers; [flyfloh];
   };
 }

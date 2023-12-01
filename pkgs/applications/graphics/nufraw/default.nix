@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
 
   # Fixes an upstream issue where headers with templates were included in an extern-C scope
   # which caused the build to fail
-  patches = [ ./move-extern-c.patch ];
+  patches = [./move-extern-c.patch];
 
   meta = with lib; {
     homepage = "https://nufraw.sourceforge.io/";
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
       ufraw in a brand new improved user interface.
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ asbachb ];
+    maintainers = with maintainers; [asbachb];
     platforms = [
       "x86_64-linux"
       "i686-linux"

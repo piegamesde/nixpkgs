@@ -26,10 +26,10 @@
   #   https://doc.rust-lang.org/cargo/reference/registries.html#using-an-alternate-registry
   # - "download URL" is the "dl" value of its associated index configuration
   #   https://doc.rust-lang.org/cargo/reference/registry-index.html#index-configuration
-  extraRegistries ? { },
+  extraRegistries ? {},
 
   # Hashes for git dependencies.
-  outputHashes ? { },
+  outputHashes ? {},
 }@args:
 
 assert (lockFile == null) != (lockFileContents == null);
@@ -50,7 +50,7 @@ let
         url = builtins.elemAt parts 0;
         sha = builtins.elemAt parts 4;
       }
-      // lib.optionalAttrs (type != null) { inherit type value; };
+      // lib.optionalAttrs (type != null) {inherit type value;};
 
   # shadows args.lockFileContents
   lockFileContents = if lockFile != null then builtins.readFile lockFile else args.lockFileContents;
@@ -138,7 +138,7 @@ let
           tomli
           tomli-w
         ];
-        flakeIgnore = [ "E501" ];
+        flakeIgnore = ["E501"];
       }
       (builtins.readFile ./replace-workspace-values.py);
 
@@ -153,7 +153,7 @@ let
       let
         crateTarball = fetchCrate pkg registries.${registryIndexUrl};
       in
-      runCommand "${pkg.name}-${pkg.version}" { } ''
+      runCommand "${pkg.name}-${pkg.version}" {} ''
         mkdir $out
         tar xf "${crateTarball}" -C $out --strip-components=1
 
@@ -190,7 +190,7 @@ let
           else
             missingHash;
       in
-      runCommand "${pkg.name}-${pkg.version}" { } ''
+      runCommand "${pkg.name}-${pkg.version}" {} ''
         tree=${tree}
 
         # If the target package is in a workspace, or if it's the top-level
@@ -250,7 +250,7 @@ let
         if lockFile == null then
           {
             inherit lockFileContents;
-            passAsFile = [ "lockFileContents" ];
+            passAsFile = ["lockFileContents"];
           }
         else
           {

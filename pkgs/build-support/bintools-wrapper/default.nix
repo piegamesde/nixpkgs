@@ -32,13 +32,13 @@
   nativeLibc,
   nativePrefix ? "",
   propagateDoc ? bintools != null && bintools ? man,
-  extraPackages ? [ ],
+  extraPackages ? [],
   extraBuildCommands ? "",
   isGNU ? bintools.isGNU or false,
   isLLVM ? bintools.isLLVM or false,
   isCCTools ? bintools.isCCTools or false,
-  buildPackages ? { },
-  targetPackages ? { },
+  buildPackages ? {},
+  targetPackages ? {},
   useMacosReexportHack ? false,
   wrapGas ? false,
 
@@ -134,7 +134,7 @@ let
   expand-response-params =
     lib.optionalString
       (buildPackages ? stdenv && buildPackages.stdenv.hasCC && buildPackages.stdenv.cc != "/dev/null")
-      (import ../expand-response-params { inherit (buildPackages) stdenv; });
+      (import ../expand-response-params {inherit (buildPackages) stdenv;});
 in
 
 stdenv.mkDerivation {
@@ -143,7 +143,7 @@ stdenv.mkDerivation {
 
   preferLocalBuild = true;
 
-  outputs = [ "out" ] ++ optionals propagateDoc ([ "man" ] ++ optional (bintools ? info) "info");
+  outputs = ["out"] ++ optionals propagateDoc (["man"] ++ optional (bintools ? info) "info");
 
   passthru = {
     inherit targetPrefix suffixSalt;
@@ -471,9 +471,9 @@ stdenv.mkDerivation {
 
   meta =
     let
-      bintools_ = if bintools != null then bintools else { };
+      bintools_ = if bintools != null then bintools else {};
     in
-    (if bintools_ ? meta then removeAttrs bintools.meta [ "priority" ] else { })
+    (if bintools_ ? meta then removeAttrs bintools.meta ["priority"] else {})
     // {
       description =
         lib.attrByPath
@@ -486,5 +486,5 @@ stdenv.mkDerivation {
         + " (wrapper script)";
       priority = 10;
     }
-    // optionalAttrs useMacosReexportHack { platforms = lib.platforms.darwin; };
+    // optionalAttrs useMacosReexportHack {platforms = lib.platforms.darwin;};
 }

@@ -1,4 +1,4 @@
-{ fetchMaven }:
+{fetchMaven}:
 
 {
   sisuInjectBean_2_1_1 =

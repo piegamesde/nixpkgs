@@ -36,6 +36,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/NVIDIA/eglexternalplatform";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ hedning ];
+    maintainers = with maintainers; [hedning];
   };
 }

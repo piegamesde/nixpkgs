@@ -43,7 +43,7 @@ buildPythonPackage rec {
       "test_threads_ttl_expiry"
     ];
 
-  pythonImportsCheck = [ "cached_property" ];
+  pythonImportsCheck = ["cached_property"];
 
   meta = with lib; {
     description = "A decorator for caching properties in classes";
@@ -51,6 +51,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/pydanny/cached-property/releases/tag/${version}";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ericsagnes ];
+    maintainers = with maintainers; [ericsagnes];
   };
 }

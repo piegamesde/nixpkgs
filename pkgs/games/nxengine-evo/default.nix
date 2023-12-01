@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     libpng
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
       gpl3 # Game engine
       unfreeRedistributable # Game assets, freeware
     ];
-    maintainers = [ lib.maintainers.scubed2 ];
+    maintainers = [lib.maintainers.scubed2];
     homepage = "https://github.com/nxengine/nxengine-evo";
     platforms = lib.platforms.linux;
   };

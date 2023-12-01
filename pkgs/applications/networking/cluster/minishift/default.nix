@@ -52,7 +52,7 @@ buildGoPackage rec {
   ];
 
   goPackagePath = "github.com/minishift/minishift";
-  subPackages = [ "cmd/minishift" ];
+  subPackages = ["cmd/minishift"];
 
   postPatch = ''
     # minishift downloads openshift if not found therefore set the cache to /nix/store/...
@@ -91,7 +91,7 @@ buildGoPackage rec {
       or develop with it, day-to-day, on your local host.
     '';
     homepage = "https://github.com/minishift/minishift";
-    maintainers = with maintainers; [ vdemeester ];
+    maintainers = with maintainers; [vdemeester];
     platforms = platforms.linux;
     license = licenses.asl20;
   };

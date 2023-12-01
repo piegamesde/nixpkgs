@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-rpath ${libargon2}/lib";
 
-  patches = [ ./darwin.patch ];
+  patches = [./darwin.patch];
 
   cmakeFlags =
     [

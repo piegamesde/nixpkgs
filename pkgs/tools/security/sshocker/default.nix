@@ -28,6 +28,6 @@ buildGoModule rec {
     homepage = "https://github.com/lima-vm/sshocker";
     changelog = "https://github.com/lima-vm/sshocker/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

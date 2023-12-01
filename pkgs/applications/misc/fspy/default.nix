@@ -23,7 +23,7 @@ appimageTools.wrapType2 {
     description = "A cross platform app for quick and easy still image camera matching";
     license = licenses.gpl3;
     homepage = "https://fspy.io/";
-    maintainers = with maintainers; [ polygon ];
+    maintainers = with maintainers; [polygon];
     platforms = platforms.linux;
     mainProgram = "fspy";
   };

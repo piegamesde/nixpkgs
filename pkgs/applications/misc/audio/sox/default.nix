@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
         pkg-config
       ];
 
-  patches = [ ./0001-musl-rewind-pipe-workaround.patch ];
+  patches = [./0001-musl-rewind-pipe-workaround.patch];
 
   buildInputs =
     lib.optional (enableAlsa && stdenv.isLinux) alsa-lib
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Sample Rate Converter for audio";
     homepage = "https://sox.sourceforge.net/";
-    maintainers = with maintainers; [ marcweber ];
+    maintainers = with maintainers; [marcweber];
     license = if enableAMR then licenses.unfree else licenses.gpl2Plus;
     platforms = platforms.unix;
   };

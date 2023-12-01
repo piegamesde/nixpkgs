@@ -19,23 +19,23 @@ buildPythonPackage rec {
   };
 
   dontUseCmakeConfigure = true;
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ pybind11 ];
+  buildInputs = [pybind11];
 
   propagatedBuildInputs = [
     numpy
     scipy
   ];
 
-  pythonImportsCheck = [ "qdldl" ];
-  nativeCheckInputs = [ pytestCheckHook ];
+  pythonImportsCheck = ["qdldl"];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "A free LDL factorization routine";
     homepage = "https://github.com/oxfordcontrol/qdldl";
     downloadPage = "https://github.com/oxfordcontrol/qdldl-python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

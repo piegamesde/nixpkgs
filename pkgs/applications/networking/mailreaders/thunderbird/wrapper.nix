@@ -7,7 +7,7 @@
 
 browser: args:
 
-(wrapFirefox browser ({ libName = "thunderbird"; } // args))
+(wrapFirefox browser ({libName = "thunderbird";} // args))
 
 .overrideAttrs
   (
@@ -23,8 +23,8 @@ browser: args:
         old.buildCommand
         + ''
           wrapProgram $out/bin/${browser.binaryName} \
-            --prefix LD_LIBRARY_PATH ':' "${lib.makeLibraryPath [ gpgme ]}" \
-            --prefix PATH ':' "${lib.makeBinPath [ gnupg ]}"
+            --prefix LD_LIBRARY_PATH ':' "${lib.makeLibraryPath [gpgme]}" \
+            --prefix PATH ':' "${lib.makeBinPath [gnupg]}"
         '';
     }
   )

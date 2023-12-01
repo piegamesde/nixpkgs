@@ -29,10 +29,10 @@ with lib;
 
   config = mkIf config.services.deepin.app-services.enable {
 
-    environment.systemPackages = [ pkgs.deepin.dde-app-services ];
+    environment.systemPackages = [pkgs.deepin.dde-app-services];
 
-    services.dbus.packages = [ pkgs.deepin.dde-app-services ];
+    services.dbus.packages = [pkgs.deepin.dde-app-services];
 
-    environment.pathsToLink = [ "/share/dsg" ];
+    environment.pathsToLink = ["/share/dsg"];
   };
 }

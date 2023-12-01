@@ -29,9 +29,9 @@ let
 
   zms = "/cgi-bin/zms";
 
-  dirs = dirList: [ dirName ] ++ map (e: "${dirName}/${e}") dirList;
+  dirs = dirList: [dirName] ++ map (e: "${dirName}/${e}") dirList;
 
-  cacheDirs = [ "swap" ];
+  cacheDirs = ["swap"];
   libDirs = [
     "events"
     "exports"
@@ -227,7 +227,7 @@ in
       mysql = lib.mkIf cfg.database.createLocally {
         enable = true;
         package = lib.mkDefault pkgs.mariadb;
-        ensureDatabases = [ cfg.database.name ];
+        ensureDatabases = [cfg.database.name];
         ensureUsers = [
           {
             name = cfg.database.username;
@@ -311,7 +311,7 @@ in
         pools.zoneminder = {
           inherit user group;
           phpPackage = pkgs.php.withExtensions (
-            { enabled, all }:
+            {enabled, all}:
             enabled
             ++ [
               all.apcu
@@ -342,14 +342,14 @@ in
     systemd.services = {
       zoneminder = with pkgs; {
         inherit (zoneminder.meta) description;
-        documentation = [ "https://zoneminder.readthedocs.org/en/latest/" ];
+        documentation = ["https://zoneminder.readthedocs.org/en/latest/"];
         path = [
           coreutils
           procps
           psmisc
         ];
-        after = [ "nginx.service" ] ++ lib.optional cfg.database.createLocally "mysql.service";
-        wantedBy = [ "multi-user.target" ];
+        after = ["nginx.service"] ++ lib.optional cfg.database.createLocally "mysql.service";
+        wantedBy = ["multi-user.target"];
         restartTriggers = [
           defaultsFile
           configFile
@@ -378,7 +378,7 @@ in
         serviceConfig = {
           User = user;
           Group = group;
-          SupplementaryGroups = [ "video" ];
+          SupplementaryGroups = ["video"];
           ExecStart = "${zoneminder}/bin/zmpkg.pl start";
           ExecStop = "${zoneminder}/bin/zmpkg.pl stop";
           ExecReload = "${zoneminder}/bin/zmpkg.pl restart";
@@ -388,8 +388,8 @@ in
           RestartSec = "10s";
           CacheDirectory = dirs cacheDirs;
           RuntimeDirectory = dirName;
-          ReadWriteDirectories = lib.mkIf useCustomDir [ cfg.storageDir ];
-          StateDirectory = dirs (if useCustomDir then [ ] else libDirs);
+          ReadWriteDirectories = lib.mkIf useCustomDir [cfg.storageDir];
+          StateDirectory = dirs (if useCustomDir then [] else libDirs);
           LogsDirectory = dirName;
           PrivateTmp = true;
           ProtectSystem = "strict";
@@ -412,5 +412,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ ];
+  meta.maintainers = with lib.maintainers; [];
 }

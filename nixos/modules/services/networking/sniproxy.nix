@@ -71,8 +71,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.sniproxy = {
       description = "sniproxy server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "forking";

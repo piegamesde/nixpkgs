@@ -34,12 +34,12 @@ buildPythonPackage rec {
   dontUsePipInstall = true;
   dontUseSetuptoolsCheck = true;
 
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
 
   meta = with lib; {
     homepage = "https://github.com/xtensor-stack/xtensor-python";
     description = "Python bindings for the xtensor C++ multi-dimensional array library";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ lsix ];
+    maintainers = with maintainers; [lsix];
   };
 }

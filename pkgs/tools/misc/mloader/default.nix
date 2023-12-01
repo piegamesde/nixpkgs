@@ -1,4 +1,4 @@
-{ lib, python3Packages }:
+{lib, python3Packages}:
 
 python3Packages.buildPythonApplication rec {
   pname = "mloader";
@@ -24,12 +24,12 @@ python3Packages.buildPythonApplication rec {
   # No tests in repository
   doCheck = false;
 
-  pythonImportsCheck = [ "mloader" ];
+  pythonImportsCheck = ["mloader"];
 
   meta = with lib; {
     description = "Command-line tool to download manga from mangaplus";
     homepage = "https://github.com/hurlenko/mloader";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [marsam];
   };
 }

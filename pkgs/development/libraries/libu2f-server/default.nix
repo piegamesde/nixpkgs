@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     json_c
     openssl
@@ -47,6 +47,6 @@ stdenv.mkDerivation rec {
     description = "A C library that implements the server-side of the U2F protocol";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ philandstuff ];
+    maintainers = with maintainers; [philandstuff];
   };
 }

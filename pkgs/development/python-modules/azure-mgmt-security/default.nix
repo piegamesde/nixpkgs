@@ -28,7 +28,7 @@ buildPythonPackage rec {
     azure-mgmt-core
     msrest
     msrestazure
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  ] ++ lib.optionals (pythonOlder "3.8") [typing-extensions];
 
   # no tests included
   doCheck = false;
@@ -42,6 +42,6 @@ buildPythonPackage rec {
     description = "Microsoft Azure Security Center Management Client Library for Python";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

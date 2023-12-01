@@ -19,7 +19,7 @@ stdenv.mkDerivation (
       sha256 = "sha256-1Xe3QFThIvJDCUznDP5ZBzwZEMuqmxpDIV+BcVvQDG8=";
     };
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     installPhase = ''
       runHook preInstall
@@ -27,7 +27,7 @@ stdenv.mkDerivation (
       install -D --target-directory=$out/bin/ ./rofi-bluetooth
 
       wrapProgram $out/bin/rofi-bluetooth \
-        --prefix PATH ":" ${lib.makeBinPath [ bluez ]}
+        --prefix PATH ":" ${lib.makeBinPath [bluez]}
 
       runHook postInstall
     '';
@@ -36,7 +36,7 @@ stdenv.mkDerivation (
       description = "Rofi-based interface to connect to bluetooth devices and display status info";
       homepage = "https://github.com/nickclyde/rofi-bluetooth";
       license = licenses.gpl3Only;
-      maintainers = with maintainers; [ MoritzBoehme ];
+      maintainers = with maintainers; [MoritzBoehme];
       platforms = platforms.linux;
     };
   }

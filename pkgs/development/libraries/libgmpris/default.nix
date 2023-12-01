@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   postInstall = ''
     mkdir -p $out/share/doc/${pname}
@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.sonarnerd.net/src/";
     description = "GMPRIS GDBus bindings GDBus bindings generated from the GMPRIS XML spec files";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ lovesegfault ];
+    maintainers = with maintainers; [lovesegfault];
   };
 }

@@ -31,7 +31,7 @@ in
 
     package = mkOption {
       type = types.path;
-      default = pkgs.xwayland.override (oldArgs: { inherit (cfg) defaultFontPath; });
+      default = pkgs.xwayland.override (oldArgs: {inherit (cfg) defaultFontPath;});
       defaultText = literalExpression ''
         pkgs.xwayland.override (oldArgs: {
           inherit (config.programs.xwayland) defaultFontPath;
@@ -44,8 +44,8 @@ in
   config = mkIf cfg.enable {
 
     # Needed by some applications for fonts and default settings
-    environment.pathsToLink = [ "/share/X11" ];
+    environment.pathsToLink = ["/share/X11"];
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

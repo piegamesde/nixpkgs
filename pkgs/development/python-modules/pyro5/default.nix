@@ -21,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-ZP3OE3sP5TLohhTSRrfJi74KT0JnhsUkU5rNxeaUCGo=";
   };
 
-  propagatedBuildInputs = [ serpent ];
+  propagatedBuildInputs = [serpent];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # Ignore network related tests, which fail in sandbox
@@ -32,15 +32,15 @@ buildPythonPackage rec {
     "GetIP"
     "TestNameServer"
     "TestBCSetup"
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ "Socket" ];
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin ["Socket"];
 
-  pythonImportsCheck = [ "Pyro5" ];
+  pythonImportsCheck = ["Pyro5"];
 
   meta = with lib; {
     description = "Distributed object middleware for Python (RPC)";
     homepage = "https://github.com/irmen/Pyro5";
     changelog = "https://github.com/irmen/Pyro5/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

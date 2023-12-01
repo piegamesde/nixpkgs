@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     tecla
     libusb1
-  ] ++ lib.optionals stdenv.isLinux [ udev ] ++ lib.optionals stdenv.isDarwin [ ncurses ];
+  ] ++ lib.optionals stdenv.isLinux [udev] ++ lib.optionals stdenv.isDarwin [ncurses];
 
   postUnpack = ''
     cp -r ${noos}/* source/thirdparty/analogdevicesinc/no-OS/
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
   '';
 
   cmakeFlags =
-    [ "-DBUILD_DOCUMENTATION=ON" ]
+    ["-DBUILD_DOCUMENTATION=ON"]
     ++ lib.optionals stdenv.isLinux [
       "-DUDEV_RULES_PATH=etc/udev/rules.d"
       "-DINSTALL_UDEV_RULES=ON"
@@ -73,13 +73,13 @@ stdenv.mkDerivation rec {
         "-Wno-error=array-bounds"
       ];
 
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   meta = with lib; {
     homepage = "https://nuand.com/libbladeRF-doc";
     description = "Supporting library of the BladeRF SDR opensource hardware";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

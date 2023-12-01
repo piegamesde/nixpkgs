@@ -1,4 +1,4 @@
-{ buildPecl, lib }:
+{buildPecl, lib}:
 
 buildPecl {
   pname = "igbinary";
@@ -6,8 +6,8 @@ buildPecl {
   version = "3.2.12";
   sha256 = "072qd4i22g0qmz0h1p6jhxx8rv0c8k7pgzwk52qfdijc0pgzz75n";
 
-  configureFlags = [ "--enable-igbinary" ];
-  makeFlags = [ "phpincludedir=$(dev)/include" ];
+  configureFlags = ["--enable-igbinary"];
+  makeFlags = ["phpincludedir=$(dev)/include"];
   outputs = [
     "out"
     "dev"

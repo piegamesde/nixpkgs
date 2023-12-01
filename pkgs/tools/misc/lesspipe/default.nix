@@ -41,11 +41,11 @@ stdenv.mkDerivation rec {
     "--shell=${bash}/bin/bash"
     "--prefix=/"
   ];
-  configurePlatforms = [ ];
+  configurePlatforms = [];
 
   dontBuild = true;
 
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   postInstall = ''
     for f in lesspipe.sh lesscomplete; do
@@ -75,6 +75,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/wofr06/lesspipe";
     platforms = platforms.all;
     license = licenses.gpl2;
-    maintainers = [ maintainers.martijnvermaat ];
+    maintainers = [maintainers.martijnvermaat];
   };
 }

@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     gnugrep
     gnused
     perl
-  ] ++ (with perlPackages; [ DigestSHA1 ]);
+  ] ++ (with perlPackages; [DigestSHA1]);
   prePatch = ''
     # Patch configure and install.sh files
     patchShebangs .

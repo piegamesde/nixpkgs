@@ -31,7 +31,7 @@ mkDerivation rec {
     sha256 = "sha256-Z3uwjOYJ7di/LLllbzdKjzUE7m119i03bA8dJPqhxWA=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     boost
@@ -47,7 +47,7 @@ mkDerivation rec {
     qtbase
     qtsvg
     qttools
-  ] ++ lib.optionals stdenv.isDarwin [ VideoDecodeAcceleration ];
+  ] ++ lib.optionals stdenv.isDarwin [VideoDecodeAcceleration];
 
   meta = with lib; {
     description = "Scientific visualization and analysis software for atomistic and particle simulation data";
@@ -56,7 +56,7 @@ mkDerivation rec {
       gpl3Only
       mit
     ];
-    maintainers = with maintainers; [ twhitehead ];
+    maintainers = with maintainers; [twhitehead];
     broken = stdenv.isDarwin; # clang-11: error: no such file or directory: '$-DOVITO_COPYRIGHT_NOTICE=...
   };
 }

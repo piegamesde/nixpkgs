@@ -9,7 +9,7 @@
 
 mkDerivation {
   pname = "flatpak-kcm";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     flatpak
     kcmutils

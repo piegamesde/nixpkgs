@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-De/8PLio63xn2byfVzGVCdzRwFxzFMy0ftjB+VEBLrQ=";
 
-  subPackages = [ "cmd/shfmt" ];
+  subPackages = ["cmd/shfmt"];
 
   ldflags = [
     "-s"

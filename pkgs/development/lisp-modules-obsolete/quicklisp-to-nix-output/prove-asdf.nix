@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "prove-asdf";
   version = "prove-20200218-git";
 
   description = "System lacks description";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/prove/2020-02-18/prove-20200218-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "prove-asdf";
 
-  asdFilesToKeep = [ "prove-asdf.asd" ];
+  asdFilesToKeep = ["prove-asdf.asd"];
   overrides = x: x;
 }
 /* (SYSTEM prove-asdf DESCRIPTION System lacks description SHA256

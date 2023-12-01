@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  buildInputs = [ SDL ];
+  buildInputs = [SDL];
 
   enableParallelBuilding = true;
 
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       music (*.sap, *.cmc, *.mpt, *.rmt, *.tmc, ...) on modern computers and
       mobile devices.
     '';
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     license = licenses.gpl2Plus;
     platforms = platforms.all;
   };

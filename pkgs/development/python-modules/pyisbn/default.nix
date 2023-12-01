@@ -29,12 +29,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pyisbn" ];
+  pythonImportsCheck = ["pyisbn"];
 
   meta = with lib; {
     description = "Python module for working with 10- and 13-digit ISBNs";
     homepage = "https://github.com/JNRowe/pyisbn";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ eigengrau ];
+    maintainers = with maintainers; [eigengrau];
   };
 }

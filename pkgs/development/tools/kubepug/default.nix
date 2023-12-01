@@ -23,12 +23,12 @@ buildGoModule rec {
     "-X=github.com/rikatz/kubepug/version.Version=${src.rev}"
   ];
 
-  patches = [ ./skip-external-network-tests.patch ];
+  patches = [./skip-external-network-tests.patch];
 
   meta = with lib; {
     description = "Checks a Kubernetes cluster for objects using deprecated API versions";
     homepage = "https://github.com/rikatz/kubepug";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mausch ];
+    maintainers = with maintainers; [mausch];
   };
 }

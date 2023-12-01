@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.services.stubby;
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   confFile = settingsFormat.generate "stubby.yml" cfg.settings;
 in
 {
@@ -112,9 +112,9 @@ in
 
     systemd.services.stubby = {
       description = "Stubby local DNS resolver";
-      after = [ "network.target" ];
-      before = [ "nss-lookup.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      before = ["nss-lookup.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "notify";

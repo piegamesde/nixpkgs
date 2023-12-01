@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.conduktor.io/";
     changelog = "https://www.conduktor.io/changelog/#${version}";
     license = licenses.unfree;
-    maintainers = with maintainers; [ trobert ];
+    maintainers = with maintainers; [trobert];
     platforms = platforms.linux;
   };
 }

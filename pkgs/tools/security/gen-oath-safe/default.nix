@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "1914z0jgj7lni0nf3hslkjgkv87mhxdr92cmhmbzhpjgjgr23ydp";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontBuild = true;
 
@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
     description = "Script for generating HOTP/TOTP keys (and QR code)";
     platforms = platforms.unix;
     license = licenses.mit;
-    maintainers = [ maintainers.makefu ];
+    maintainers = [maintainers.makefu];
   };
 }

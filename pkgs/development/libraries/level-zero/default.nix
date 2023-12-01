@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/oneapi-src/level-zero";
     changelog = "https://github.com/oneapi-src/level-zero/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ maintainers.ziguana ];
+    maintainers = [maintainers.ziguana];
   };
 }

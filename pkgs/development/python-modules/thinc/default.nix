@@ -41,7 +41,7 @@ buildPythonPackage rec {
   };
 
   buildInputs =
-    [ cython ]
+    [cython]
     ++ lib.optionals stdenv.isDarwin [
       Accelerate
       CoreFoundation
@@ -62,7 +62,7 @@ buildPythonPackage rec {
     srsly
     tqdm
     wasabi
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  ] ++ lib.optionals (pythonOlder "3.8") [typing-extensions];
 
   nativeCheckInputs = [
     hypothesis
@@ -79,12 +79,12 @@ buildPythonPackage rec {
     rm -r thinc
   '';
 
-  pythonImportsCheck = [ "thinc" ];
+  pythonImportsCheck = ["thinc"];
 
   meta = with lib; {
     description = "Library for NLP machine learning";
     homepage = "https://github.com/explosion/thinc";
     license = licenses.mit;
-    maintainers = with maintainers; [ aborsu ];
+    maintainers = with maintainers; [aborsu];
   };
 }

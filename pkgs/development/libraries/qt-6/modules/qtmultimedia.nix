@@ -29,7 +29,7 @@ qtModule {
     qtsvg
     qtshadertools
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       libunwind
@@ -49,7 +49,7 @@ qtModule {
       gst-libav
       gst-vaapi
     ]
-    ++ lib.optionals stdenv.isDarwin [ VideoToolbox ];
+    ++ lib.optionals stdenv.isDarwin [VideoToolbox];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-include AudioToolbox/AudioToolbox.h";
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-framework AudioToolbox";

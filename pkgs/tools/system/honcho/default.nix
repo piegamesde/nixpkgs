@@ -20,7 +20,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "1y0r8dw4pqcq7r4n58ixjdg1iy60lp0gxsd7d2jmhals16ij71rj";
   };
 
-  propagatedBuildInputs = [ python3Packages.setuptools ];
+  propagatedBuildInputs = [python3Packages.setuptools];
 
   nativeCheckInputs = with python3Packages; [
     jinja2
@@ -42,7 +42,7 @@ python3Packages.buildPythonApplication rec {
     description = "A Python clone of Foreman, a tool for managing Procfile-based applications";
     license = licenses.mit;
     homepage = "https://github.com/nickstenning/honcho";
-    maintainers = with maintainers; [ benley ];
+    maintainers = with maintainers; [benley];
     platforms = platforms.unix;
   };
 }

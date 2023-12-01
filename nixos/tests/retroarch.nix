@@ -1,15 +1,15 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   {
     name = "retroarch";
-    meta = with pkgs.lib; { maintainers = teams.libretro.members ++ [ maintainers.j0hax ]; };
+    meta = with pkgs.lib; {maintainers = teams.libretro.members ++ [maintainers.j0hax];};
 
     nodes.machine =
-      { ... }:
+      {...}:
 
       {
-        imports = [ ./common/user-account.nix ];
+        imports = [./common/user-account.nix];
         services.xserver.enable = true;
         services.xserver.desktopManager.retroarch = {
           enable = true;
@@ -26,7 +26,7 @@ import ./make-test-python.nix (
       };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         user = nodes.machine.config.users.users.alice;
         xdo = "${pkgs.xdotool}/bin/xdotool";

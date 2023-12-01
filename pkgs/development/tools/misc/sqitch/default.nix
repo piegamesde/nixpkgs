@@ -13,7 +13,7 @@ let
   sqitch = perlPackages.AppSqitch;
   modules =
     with perlPackages;
-    [ ]
+    []
     ++ lib.optional mysqlSupport DBDmysql
     ++ lib.optional postgresqlSupport DBDPg
     ++ lib.optional templateToolkitSupport TemplateToolkit;
@@ -23,7 +23,7 @@ stdenv.mkDerivation {
   pname = "sqitch";
   version = sqitch.version;
 
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optional stdenv.isDarwin shortenPerlShebang;
+  nativeBuildInputs = [makeWrapper] ++ lib.optional stdenv.isDarwin shortenPerlShebang;
 
   src = sqitch;
   dontBuild = true;

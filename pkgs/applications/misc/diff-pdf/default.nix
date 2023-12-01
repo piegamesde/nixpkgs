@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     cairo
     poppler
     wxGTK
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  ] ++ lib.optionals stdenv.isDarwin [Cocoa];
 
   preConfigure = "./bootstrap";
 
@@ -40,6 +40,6 @@ stdenv.mkDerivation rec {
     description = "Simple tool for visually comparing two PDF files";
     license = licenses.gpl2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
   };
 }

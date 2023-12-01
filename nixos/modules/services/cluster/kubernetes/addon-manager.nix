@@ -13,7 +13,7 @@ let
 
   isRBACEnabled = elem "RBAC" top.apiserver.authorizationMode;
 
-  addons = pkgs.runCommand "kubernetes-addons" { } ''
+  addons = pkgs.runCommand "kubernetes-addons" {} ''
     mkdir -p $out
     # since we are mounting the addons to the addon manager, they need to be copied
     ${concatMapStringsSep ";" (a: "cp -v ${a}/* $out/") (
@@ -30,7 +30,7 @@ in
         Bootstrap addons are like regular addons, but they are applied with cluster-admin rights.
         They are applied at addon-manager startup only.
       '';
-      default = { };
+      default = {};
       type = attrsOf attrs;
       example = literalExpression ''
         {
@@ -49,7 +49,7 @@ in
 
     addons = mkOption {
       description = lib.mdDoc "Kubernetes addons (any kind of Kubernetes resource can be an addon).";
-      default = { };
+      default = {};
       type = attrsOf (either attrs (listOf attrs));
       example = literalExpression ''
         {
@@ -76,10 +76,10 @@ in
 
     systemd.services.kube-addon-manager = {
       description = "Kubernetes addon manager";
-      wantedBy = [ "kubernetes.target" ];
-      after = [ "kube-apiserver.service" ];
+      wantedBy = ["kubernetes.target"];
+      after = ["kube-apiserver.service"];
       environment.ADDON_PATH = "/etc/kubernetes/addons/";
-      path = [ pkgs.gawk ];
+      path = [pkgs.gawk];
       serviceConfig = {
         Slice = "kubernetes.slice";
         ExecStart = "${top.package}/bin/kube-addons";
@@ -109,9 +109,9 @@ in
           };
           rules = [
             {
-              apiGroups = [ "*" ];
-              resources = [ "*" ];
-              verbs = [ "*" ];
+              apiGroups = ["*"];
+              resources = ["*"];
+              verbs = ["*"];
             }
           ];
         };
@@ -144,9 +144,9 @@ in
           };
           rules = [
             {
-              apiGroups = [ "*" ];
-              resources = [ "*" ];
-              verbs = [ "list" ];
+              apiGroups = ["*"];
+              resources = ["*"];
+              verbs = ["list"];
             }
           ];
         };

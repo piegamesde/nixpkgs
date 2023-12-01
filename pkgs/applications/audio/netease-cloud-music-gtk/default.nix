@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
     description = "A Rust + GTK based netease cloud music player";
     homepage = "https://github.com/gmg137/netease-cloud-music-gtk";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ diffumist ];
+    maintainers = with maintainers; [diffumist];
     mainProgram = "netease-cloud-music-gtk4";
   };
 }

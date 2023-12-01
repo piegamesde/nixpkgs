@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-SsDNMhTja2obakQmhnIqXYzESWA6qDPz8PQL2oNnBKM=";
   };
 
-  propagatedBuildInputs = [ azure-nspkg ] ++ lib.optionals (!isPy3k) [ setuptools ]; # need for namespace lookup
+  propagatedBuildInputs = [azure-nspkg] ++ lib.optionals (!isPy3k) [setuptools]; # need for namespace lookup
 
   postInstall =
     if isPy3k then

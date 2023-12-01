@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     qtdeclarative
     qttools
   ];
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
   version = "2.0.3";
   src = fetchurl {

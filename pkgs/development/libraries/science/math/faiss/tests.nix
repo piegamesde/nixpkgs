@@ -20,7 +20,7 @@ buildPythonPackage {
   dontInstall = true;
 
   # Tests that need GPUs and would fail in the sandbox
-  disabledTestPaths = lib.optionals faiss.cudaSupport [ "test_contrib.py" ];
+  disabledTestPaths = lib.optionals faiss.cudaSupport ["test_contrib.py"];
 
   disabledTests =
     [

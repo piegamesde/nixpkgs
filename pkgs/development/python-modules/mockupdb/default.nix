@@ -19,11 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-020OW2RF/5FB400BL6K13+WJhHqh4+y413QHSWKvlE4=";
   };
 
-  propagatedBuildInputs = [ pymongo ];
+  propagatedBuildInputs = [pymongo];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "mockupdb" ];
+  pythonImportsCheck = ["mockupdb"];
 
   disabledTests = [
     # AssertionError: expected to receive Request(), got nothing
@@ -38,6 +38,6 @@ buildPythonPackage rec {
     description = "Simulate a MongoDB server";
     license = licenses.asl20;
     homepage = "https://github.com/ajdavis/mongo-mockup-db";
-    maintainers = with maintainers; [ globin ];
+    maintainers = with maintainers; [globin];
   };
 }

@@ -28,15 +28,15 @@ resholve.mkDerivation {
   '';
 
   solutions.default = {
-    scripts = [ "bin/ix" ];
+    scripts = ["bin/ix"];
     interpreter = "${lib.getExe bash}";
-    inputs = [ curl ];
+    inputs = [curl];
   };
 
   meta = with lib; {
     homepage = "http://ix.io";
     description = "Command line pastebin";
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.all;
   };
 }

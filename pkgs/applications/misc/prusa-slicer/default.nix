@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
     tbb
     wxGTK-prusa
     xorg.libX11
-  ] ++ lib.optionals withSystemd [ systemd ] ++ nativeCheckInputs;
+  ] ++ lib.optionals withSystemd [systemd] ++ nativeCheckInputs;
 
   patches = [
     # Fix detection of TBB, see https://github.com/prusa3d/PrusaSlicer/issues/6355
@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
   ];
 
   doCheck = true;
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
 
   separateDebugInfo = true;
 
@@ -192,5 +192,5 @@ stdenv.mkDerivation rec {
         tweber
       ];
     }
-    // lib.optionalAttrs (stdenv.isDarwin) { mainProgram = "PrusaSlicer"; };
+    // lib.optionalAttrs (stdenv.isDarwin) {mainProgram = "PrusaSlicer";};
 }

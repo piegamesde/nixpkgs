@@ -25,11 +25,11 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   postInstall = ''
     moveToOutput $out/include $dev
@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
       JACK).
     '';
     license = libpulseaudio.meta.license; # "same as PA headers"
-    maintainers = [ maintainers.oxij ]; # also the author
+    maintainers = [maintainers.oxij]; # also the author
   };
 }

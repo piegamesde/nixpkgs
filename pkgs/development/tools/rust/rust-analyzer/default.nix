@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage rec {
 
   # Code format check requires more dependencies but don't really matter for packaging.
   # So just ignore it.
-  checkFlags = [ "--skip=tidy::check_code_formatting" ];
+  checkFlags = ["--skip=tidy::check_code_formatting"];
 
   nativeBuildInputs = lib.optional useMimalloc cmake;
 
@@ -67,9 +67,9 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     # FIXME: Pass overrided `rust-analyzer` once `buildRustPackage` also implements #119942
-    tests.neovim-lsp = callPackage ./test-neovim-lsp.nix { };
+    tests.neovim-lsp = callPackage ./test-neovim-lsp.nix {};
   };
 
   meta = with lib; {
@@ -79,7 +79,7 @@ rustPlatform.buildRustPackage rec {
       mit
       asl20
     ];
-    maintainers = with maintainers; [ oxalica ];
+    maintainers = with maintainers; [oxalica];
     mainProgram = "rust-analyzer";
   };
 }

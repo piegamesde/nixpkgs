@@ -41,12 +41,12 @@ mkXfceDerivation {
     xfconf
   ];
 
-  configureFlags = [ "--without-console-kit" ];
+  configureFlags = ["--without-console-kit"];
 
-  makeFlags = [ "DBUS_SESSION_SERVICE_DIR=$(out)/etc" ];
+  makeFlags = ["DBUS_SESSION_SERVICE_DIR=$(out)/etc"];
 
   meta = {
     description = "Screensaver for Xfce";
-    maintainers = with lib.maintainers; [ symphorien ];
+    maintainers = with lib.maintainers; [symphorien];
   };
 }

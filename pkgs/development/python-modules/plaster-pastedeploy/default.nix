@@ -32,12 +32,12 @@ buildPythonPackage rec {
     pastedeploy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "PasteDeploy binding to the plaster configuration loader";
     homepage = "https://github.com/Pylons/plaster_pastedeploy";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

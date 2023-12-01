@@ -5,7 +5,7 @@
   openssl,
   # Many Salt modules require various Python modules to be installed,
   # passing them in this array enables Salt to find them.
-  extraInputs ? [ ],
+  extraInputs ? [],
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -35,7 +35,7 @@ python3.pkgs.buildPythonApplication rec {
     ]
     ++ extraInputs;
 
-  patches = [ ./fix-libcrypto-loading.patch ];
+  patches = [./fix-libcrypto-loading.patch];
 
   postPatch = ''
     substituteInPlace "salt/utils/rsax931.py" \
@@ -64,7 +64,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://saltproject.io/";
     changelog = "https://docs.saltproject.io/en/latest/topics/releases/${version}.html";
     description = "Portable, distributed, remote execution and configuration management system";
-    maintainers = with maintainers; [ Flakebi ];
+    maintainers = with maintainers; [Flakebi];
     license = licenses.asl20;
   };
 }

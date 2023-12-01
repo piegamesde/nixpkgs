@@ -25,6 +25,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ pkgs.ratpoison ];
+    environment.systemPackages = [pkgs.ratpoison];
   };
 }

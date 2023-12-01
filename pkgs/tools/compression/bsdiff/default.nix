@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "0j2zm3z271x5aw63mwhr3vymzn45p2vvrlrpm9cz2nywna41b0hq";
   };
 
-  buildInputs = [ bzip2 ];
+  buildInputs = [bzip2];
   patches =
     [
       (fetchpatch {
@@ -60,6 +60,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.daemonology.net/bsdiff/";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = [ maintainers.thoughtpolice ];
+    maintainers = [maintainers.thoughtpolice];
   };
 }

@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  nativeBuildInputs = [ cmake ] ++ lib.optional enablePython python3Packages.sphinx;
+  nativeBuildInputs = [cmake] ++ lib.optional enablePython python3Packages.sphinx;
   buildInputs =
     [
       swig
@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
       gpl3
     ];
     homepage = "https://openturns.github.io/www/";
-    maintainers = with maintainers; [ gdinh ];
+    maintainers = with maintainers; [gdinh];
     platforms = platforms.unix;
   };
 }

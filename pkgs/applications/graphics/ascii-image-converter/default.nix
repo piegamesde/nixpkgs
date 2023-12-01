@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Convert images into ASCII art on the console";
     homepage = "https://github.com/TheZoraiz/ascii-image-converter#readme";
     license = licenses.asl20;
-    maintainers = [ maintainers.danth ];
+    maintainers = [maintainers.danth];
   };
 }

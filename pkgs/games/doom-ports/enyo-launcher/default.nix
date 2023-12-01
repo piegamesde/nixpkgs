@@ -17,15 +17,15 @@ mkDerivation rec {
     sha256 = "sha256-qdVP5QN2t0GK4VBWuFGrnRfgamQDZGRjwaAe6TIK604=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   meta = {
     homepage = "https://gitlab.com/sdcofer70/enyo-launcher";
     description = "Frontend for Doom engines";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.usrfriendly ];
+    maintainers = [lib.maintainers.usrfriendly];
   };
 }

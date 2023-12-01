@@ -70,6 +70,6 @@ stdenv.mkDerivation rec {
     description = "Enhanced fork of ECWolf, a Wolfenstein 3D source port";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ tgunnoe ];
+    maintainers = with maintainers; [tgunnoe];
   };
 }

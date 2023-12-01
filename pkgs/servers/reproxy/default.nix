@@ -48,6 +48,6 @@ buildGoModule rec {
     description = "Simple edge server / reverse proxy";
     homepage = "https://reproxy.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

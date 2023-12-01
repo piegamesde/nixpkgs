@@ -23,9 +23,9 @@ rustPlatform.buildRustPackage rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       Security
       SystemConfiguration
@@ -39,6 +39,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/siedentop/git-quickfix";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ msfjarvis ];
+    maintainers = with maintainers; [msfjarvis];
   };
 }

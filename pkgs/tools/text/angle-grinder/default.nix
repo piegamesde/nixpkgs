@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Slice and dice logs on the command line";
     homepage = "https://github.com/rcoh/angle-grinder";
     license = licenses.mit;
-    maintainers = with maintainers; [ bbigras ];
+    maintainers = with maintainers; [bbigras];
     mainProgram = "agrind";
   };
 }

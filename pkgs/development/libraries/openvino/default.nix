@@ -144,7 +144,7 @@ stdenv.mkDerivation rec {
     "-DENABLE_SAMPLES:BOOL=OFF"
   ];
 
-  autoPatchelfIgnoreMissingDeps = [ "libngraph_backend.so" ];
+  autoPatchelfIgnoreMissingDeps = ["libngraph_backend.so"];
 
   buildInputs = [
     libusb1
@@ -182,9 +182,9 @@ stdenv.mkDerivation rec {
       It supports pre-trained models from the Open Model Zoo, along with 100+ open source and public models in popular formats such as Caffe*, TensorFlow*, MXNet* and ONNX*.
     '';
     homepage = "https://docs.openvinotoolkit.org/";
-    license = with licenses; [ asl20 ];
+    license = with licenses; [asl20];
     platforms = platforms.all;
     broken = stdenv.isDarwin; # Cannot find macos sdk
-    maintainers = with maintainers; [ tfmoraes ];
+    maintainers = with maintainers; [tfmoraes];
   };
 }

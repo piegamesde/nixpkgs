@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
 
   # Disable auto-adding stack protector flags,
   # so musl can selectively disable as needed
-  hardeningDisable = [ "stackprotector" ];
+  hardeningDisable = ["stackprotector"];
 
   # Leave these, be friendlier to debuggers/perf tools
   # Don't force them on, but don't force off either

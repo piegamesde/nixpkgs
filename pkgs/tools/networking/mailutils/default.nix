@@ -70,9 +70,9 @@ stdenv.mkDerivation rec {
       sasl
       libxcrypt
     ]
-    ++ lib.optionals stdenv.isLinux [ nettools ]
-    ++ lib.optionals pythonSupport [ python3 ]
-    ++ lib.optionals guileSupport [ guile ];
+    ++ lib.optionals stdenv.isLinux [nettools]
+    ++ lib.optionals pythonSupport [python3]
+    ++ lib.optionals guileSupport [guile];
 
   patches = [
     ./fix-build-mb-len-max.patch
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
   ];
 
   enableParallelBuilding = true;
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   configureFlags =
     [

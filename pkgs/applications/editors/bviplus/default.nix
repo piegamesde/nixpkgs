@@ -28,17 +28,17 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
-  buildFlags = [ "CFLAGS=-fgnu89-inline" ];
+  buildFlags = ["CFLAGS=-fgnu89-inline"];
 
   meta = with lib; {
     description = "Ncurses based hex editor with a vim-like interface";
     homepage = "https://bviplus.sourceforge.net";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ cstrahan ];
+    maintainers = with maintainers; [cstrahan];
   };
 }

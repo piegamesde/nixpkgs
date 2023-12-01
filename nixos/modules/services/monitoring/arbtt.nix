@@ -47,8 +47,8 @@ in
   config = mkIf cfg.enable {
     systemd.user.services.arbtt = {
       description = "arbtt statistics capture service";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      partOf = ["graphical-session.target"];
 
       serviceConfig = {
         Type = "simple";
@@ -58,5 +58,5 @@ in
     };
   };
 
-  meta.maintainers = [ maintainers.michaelpj ];
+  meta.maintainers = [maintainers.michaelpj];
 }

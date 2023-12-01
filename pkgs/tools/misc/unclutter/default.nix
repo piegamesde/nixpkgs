@@ -13,9 +13,9 @@ stdenv.mkDerivation rec {
     sha256 = "33a78949a7dedf2e8669ae7b5b2c72067896497820292c96afaa60bb71d1f2a6";
   };
 
-  buildInputs = [ libX11 ];
+  buildInputs = [libX11];
 
-  buildFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  buildFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     mkdir -pv "$out/bin"
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
 
           unclutter -idle 1 &
     '';
-    maintainers = with maintainers; [ domenkozar ];
+    maintainers = with maintainers; [domenkozar];
     platforms = platforms.unix;
     license = lib.licenses.publicDomain;
   };

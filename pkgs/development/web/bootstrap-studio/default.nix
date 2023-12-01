@@ -11,7 +11,7 @@ let
     url = "https://bootstrapstudio.io/releases/desktop/${version}/Bootstrap%20Studio.AppImage";
     sha256 = "sha256-1+3YCM1K2k1Gga7Y2ciMqmwzxYJQ7Ab5uDHP1iHXK7g=";
   };
-  appimageContents = appimageTools.extractType2 { inherit pname version src; };
+  appimageContents = appimageTools.extractType2 {inherit pname version src;};
 in
 appimageTools.wrapType2 {
   inherit pname version src;
@@ -32,7 +32,7 @@ appimageTools.wrapType2 {
     description = "Drag-and-drop designer for bootstrap";
     homepage = "https://bootstrapstudio.io/";
     license = licenses.unfree;
-    maintainers = with maintainers; [ khushraj ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [khushraj];
+    platforms = ["x86_64-linux"];
   };
 }

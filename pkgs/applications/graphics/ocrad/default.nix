@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     lzip # unpack
   ];
-  buildInputs = [ texinfo ];
+  buildInputs = [texinfo];
 
   doCheck = true;
 
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     '';
 
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = platforms.unix;
   };
 }

@@ -34,7 +34,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pytestFlagsArray = [ "joblib/test" ];
+  pytestFlagsArray = ["joblib/test"];
   disabledTests =
     [
       "test_disk_used" # test_disk_used is broken: https://github.com/joblib/joblib/issues/57
@@ -49,6 +49,6 @@ buildPythonPackage rec {
     description = "Lightweight pipelining: using Python functions as pipeline jobs";
     homepage = "https://joblib.readthedocs.io/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

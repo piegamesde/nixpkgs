@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     homepage = "http://chromium-bsu.sourceforge.net/";
     description = "A fast paced, arcade-style, top-scrolling space shooter";
     license = licenses.artistic1;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.unix;
   };
 }

@@ -16,18 +16,18 @@ buildPythonPackage rec {
     sha256 = "sha256-Qiu0URjUyx8QDVQQUFGxPax0J80e2m4+bPJeqFoKxX8=";
   };
 
-  propagatedBuildInputs = [ docopt ];
+  propagatedBuildInputs = [docopt];
 
   # No tests
   doCheck = false;
 
-  pythonImportsCheck = [ "spoofmac" ];
+  pythonImportsCheck = ["spoofmac"];
 
   meta = with lib; {
     description = "Change your MAC address for debugging purposes";
     homepage = "https://github.com/feross/SpoofMAC";
     license = licenses.mit;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.unix;
   };
 }

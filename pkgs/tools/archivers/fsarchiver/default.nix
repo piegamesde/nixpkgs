@@ -62,7 +62,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://www.fsarchiver.org/";
     license = licenses.lgpl2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

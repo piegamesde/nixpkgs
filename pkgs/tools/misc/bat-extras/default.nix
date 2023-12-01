@@ -50,7 +50,7 @@ let
     };
 
     # bat needs to be in the PATH during building so EXECUTABLE_BAT picks it up
-    nativeBuildInputs = [ bat ];
+    nativeBuildInputs = [bat];
 
     dontConfigure = true;
 
@@ -70,7 +70,7 @@ let
       bash
       fish
       zsh
-    ] ++ (lib.optionals stdenv.isDarwin [ getconf ]);
+    ] ++ (lib.optionals stdenv.isDarwin [getconf]);
     checkPhase = ''
       runHook preCheck
       # test list repeats suites. Unique them
@@ -100,7 +100,7 @@ let
     meta = with lib; {
       description = "Bash scripts that integrate bat with various command line tools";
       homepage = "https://github.com/eth-p/bat-extras";
-      license = with licenses; [ mit ];
+      license = with licenses; [mit];
       maintainers = with maintainers; [
         bbigras
         lilyball
@@ -117,7 +117,7 @@ let
 
       src = core;
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
       # Make the dependencies available to the tests.
       buildInputs = dependencies;
 
@@ -134,7 +134,7 @@ let
         bash
         fish
         zsh
-      ] ++ (lib.optionals stdenv.isDarwin [ getconf ]);
+      ] ++ (lib.optionals stdenv.isDarwin [getconf]);
       checkPhase = ''
         runHook preCheck
         bash ./test.sh --compiled --suite ${name}
@@ -147,7 +147,7 @@ let
           mkdir -p $out/bin
           cp -p bin/${name} $out/bin/${name}
         ''
-        + lib.optionalString (dependencies != [ ]) ''
+        + lib.optionalString (dependencies != []) ''
           wrapProgram $out/bin/${name} \
             --prefix PATH : ${lib.makeBinPath dependencies}
         ''
@@ -176,8 +176,8 @@ in
     coreutils
     ripgrep
   ];
-  batman = script "batman" [ util-linux ];
-  batpipe = script "batpipe" [ less ];
+  batman = script "batman" [util-linux];
+  batpipe = script "batpipe" [less];
   batwatch = script "batwatch" (
     [
       less
@@ -186,7 +186,7 @@ in
     ++ optionalDep withEntr entr
   );
   prettybat = script "prettybat" (
-    [ ]
+    []
     ++ optionalDep withShFmt shfmt
     ++ optionalDep withPrettier nodePackages.prettier
     ++ optionalDep withClangTools clang-tools

@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     description = "Optimized HTTP/1 and HTTP/2 server";
     homepage = "https://h2o.examp1e.net";
     license = licenses.mit;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
     platforms = platforms.linux;
   };
 }

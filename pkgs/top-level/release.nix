@@ -23,7 +23,7 @@
     "aarch64-linux"
     "aarch64-darwin"
   ],
-  limitedSupportedSystems ? [ "i686-linux" ],
+  limitedSupportedSystems ? ["i686-linux"],
   # Strip most of attributes when evaluating to spare memory usage
   scrubJobs ? true,
   # Attributes passed to nixpkgs. Don't build packages marked as unfree.
@@ -35,7 +35,7 @@
   },
 }:
 
-with import ./release-lib.nix { inherit supportedSystems scrubJobs nixpkgsArgs; };
+with import ./release-lib.nix {inherit supportedSystems scrubJobs nixpkgsArgs;};
 
 let
 
@@ -59,11 +59,11 @@ let
         ;
     };
 
-    metrics = import ./metrics.nix { inherit pkgs nixpkgs; };
+    metrics = import ./metrics.nix {inherit pkgs nixpkgs;};
 
-    manual = import ../../doc { inherit pkgs nixpkgs; };
-    lib-tests = import ../../lib/tests/release.nix { inherit pkgs; };
-    pkgs-lib-tests = import ../pkgs-lib/tests { inherit pkgs; };
+    manual = import ../../doc {inherit pkgs nixpkgs;};
+    lib-tests = import ../../lib/tests/release.nix {inherit pkgs;};
+    pkgs-lib-tests = import ../pkgs-lib/tests {inherit pkgs;};
 
     darwin-tested =
       if supportDarwin.x86_64 then
@@ -259,11 +259,11 @@ let
 
         #emacsPackages = packagePlatforms pkgs.emacsPackages;
         #rPackages = packagePlatforms pkgs.rPackages;
-        ocamlPackages = { };
-        perlPackages = { };
+        ocamlPackages = {};
+        perlPackages = {};
 
         darwin = packagePlatforms pkgs.darwin // {
-          xcode = { };
+          xcode = {};
         };
       }
     )

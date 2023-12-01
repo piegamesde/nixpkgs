@@ -47,6 +47,6 @@ mkDerivation rec {
     description = "Plasma 5 applet in order to show window buttons in your panels";
     homepage = "https://github.com/psifidotos/applet-window-buttons";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

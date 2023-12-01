@@ -28,7 +28,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "16sz8i0sw7ggy6kijcx4qyl2zr6xj789x4iav0yyllx12dfgp5b1";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     pcre
     sqlite
@@ -38,7 +38,7 @@ python3.pkgs.buildPythonApplication rec {
     flask
     kanjidraw
   ];
-  nativeCheckInputs = [ nodejs ];
+  nativeCheckInputs = [nodejs];
 
   preBuild = ''
     export JITEN_VERSION=${version}   # override `git describe`
@@ -108,6 +108,6 @@ python3.pkgs.buildPythonApplication rec {
       cc-by-sa-30 # jmdict/kanjidic
       unfreeRedistributable # pitch data & audio are non-commercial
     ];
-    maintainers = [ maintainers.obfusk ];
+    maintainers = [maintainers.obfusk];
   };
 }

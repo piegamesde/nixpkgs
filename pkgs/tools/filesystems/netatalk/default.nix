@@ -73,7 +73,7 @@ stdenv.mkDerivation (
       homepage = "http://netatalk.sourceforge.net/";
       license = licenses.gpl2Plus;
       platforms = platforms.linux;
-      maintainers = with maintainers; [ jcumming ];
+      maintainers = with maintainers; [jcumming];
     };
   }
 )

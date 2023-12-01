@@ -21,8 +21,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-KRoP/Reo5nDKJYG9zVTVpoYL7soAGMNk46vDoaLfnv4=";
   };
 
-  buildInputs = [ python3 ];
-  nativeBuildInputs = [ help2man ];
+  buildInputs = [python3];
+  nativeBuildInputs = [help2man];
 
   postPatch =
     # This sed command modifies output of --version command in way that
@@ -59,6 +59,6 @@ stdenv.mkDerivation rec {
     description = "Script displaying terminal colors in various formats";
     homepage = "https://github.com/eikenb/terminal-colors";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

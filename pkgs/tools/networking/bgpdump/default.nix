@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile.in --replace 'ar r libbgpdump.a' '$(AR) r libbgpdump.a'
   '';
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     zlib
     bzip2
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/RIPE-NCC/bgpdump";
     description = "Analyze dump files produced by Zebra/Quagga or MRT";
     license = lib.licenses.hpnd;
-    maintainers = with lib.maintainers; [ lewo ];
+    maintainers = with lib.maintainers; [lewo];
     platforms = with lib.platforms; linux;
   };
 }

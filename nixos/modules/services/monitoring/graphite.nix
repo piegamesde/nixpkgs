@@ -66,7 +66,7 @@ let
   carbonEnv = {
     PYTHONPATH =
       let
-        cenv = pkgs.python3.buildEnv.override { extraLibs = [ pkgs.python3Packages.carbon ]; };
+        cenv = pkgs.python3.buildEnv.override {extraLibs = [pkgs.python3Packages.carbon];};
       in
       "${cenv}/${pkgs.python3.sitePackages}";
     GRAPHITE_ROOT = dataDir;
@@ -286,7 +286,7 @@ in
       };
 
       extraConfig = mkOption {
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Extra seyren configuration. See
           <https://github.com/scobal/seyren#config>
@@ -312,8 +312,8 @@ in
         in
         {
           description = "Graphite Data Storage Backend";
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
+          wantedBy = ["multi-user.target"];
+          after = ["network.target"];
           environment = carbonEnv;
           serviceConfig = {
             RuntimeDirectory = name;
@@ -338,8 +338,8 @@ in
         {
           enable = cfg.carbon.enableAggregator;
           description = "Carbon Data Aggregator";
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
+          wantedBy = ["multi-user.target"];
+          after = ["network.target"];
           environment = carbonEnv;
           serviceConfig = {
             RuntimeDirectory = name;
@@ -358,8 +358,8 @@ in
         in
         {
           description = "Carbon Data Relay";
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
+          wantedBy = ["multi-user.target"];
+          after = ["network.target"];
           environment = carbonEnv;
           serviceConfig = {
             RuntimeDirectory = name;
@@ -372,19 +372,19 @@ in
     })
 
     (mkIf (cfg.carbon.enableCache || cfg.carbon.enableAggregator || cfg.carbon.enableRelay) {
-      environment.systemPackages = [ pkgs.python3Packages.carbon ];
+      environment.systemPackages = [pkgs.python3Packages.carbon];
     })
 
     (mkIf cfg.web.enable ({
       systemd.services.graphiteWeb = {
         description = "Graphite Web Interface";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
-        path = [ pkgs.perl ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
+        path = [pkgs.perl];
         environment = {
           PYTHONPATH =
             let
-              penv = pkgs.python3.buildEnv.override { extraLibs = [ pkgs.python3Packages.graphite-web ]; };
+              penv = pkgs.python3.buildEnv.override {extraLibs = [pkgs.python3Packages.graphite-web];};
               penvPack = "${penv}/${pkgs.python3.sitePackages}";
             in
             concatStringsSep ":" [
@@ -430,13 +430,13 @@ in
         '';
       };
 
-      environment.systemPackages = [ pkgs.python3Packages.graphite-web ];
+      environment.systemPackages = [pkgs.python3Packages.graphite-web];
     }))
 
     (mkIf cfg.seyren.enable {
       systemd.services.seyren = {
         description = "Graphite Alerting Dashboard";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         after = [
           "network.target"
           "mongodb.service"

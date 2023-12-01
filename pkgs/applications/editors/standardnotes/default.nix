@@ -18,7 +18,7 @@ let
 
   src = fetchurl (srcjson.appimage.${stdenv.hostPlatform.system} or throwSystem);
 
-  appimageContents = appimageTools.extract { inherit name src; };
+  appimageContents = appimageTools.extract {inherit name src;};
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -28,7 +28,7 @@ in
 appimageTools.wrapType2 rec {
   inherit name src;
 
-  extraPkgs = pkgs: with pkgs; [ libsecret ];
+  extraPkgs = pkgs: with pkgs; [libsecret];
 
   extraInstallCommands = ''
     # directory in /nix/store so readonly
@@ -42,7 +42,7 @@ appimageTools.wrapType2 rec {
     ln -s ${appimageContents}/usr/share/icons share
   '';
 
-  passthru.updateScript = callPackage ./update.nix { };
+  passthru.updateScript = callPackage ./update.nix {};
 
   meta = with lib; {
     description = "A simple and private notes app";
@@ -57,7 +57,7 @@ appimageTools.wrapType2 rec {
       chuangzhu
       squalus
     ];
-    sourceProvenance = [ sourceTypes.binaryNativeCode ];
+    sourceProvenance = [sourceTypes.binaryNativeCode];
     platforms = builtins.attrNames srcjson.appimage;
   };
 }

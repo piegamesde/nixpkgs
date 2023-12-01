@@ -26,9 +26,9 @@ buildPythonPackage rec {
     pygments
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  disabledTests = [ "test_pathcompleter_can_expanduser" ];
+  disabledTests = ["test_pathcompleter_can_expanduser"];
 
   meta = with lib; {
     description = "Python library for building powerful interactive command lines";
@@ -39,7 +39,7 @@ buildPythonPackage rec {
       with a nice interactive Python shell (called ptpython) built on top.
     '';
     homepage = "https://github.com/jonathanslenders/python-prompt-toolkit";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.bsd3;
   };
 }

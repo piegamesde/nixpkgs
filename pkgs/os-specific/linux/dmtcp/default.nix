@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   dontDisableStatic = true;
 
-  patches = [ ./ld-linux-so-buffer-size.patch ];
+  patches = [./ld-linux-so-buffer-size.patch];
 
   postPatch = ''
     patchShebangs .

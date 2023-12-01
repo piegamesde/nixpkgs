@@ -19,9 +19,9 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  buildInputs = [ docker ];
+  buildInputs = [docker];
 
   preBuild = ''
     export HOME=$TMPDIR
@@ -35,6 +35,6 @@ buildGoModule rec {
     description = "Command-line tool for the fn project";
     homepage = "https://fnproject.io";
     license = licenses.asl20;
-    maintainers = [ maintainers.c4605 ];
+    maintainers = [maintainers.c4605];
   };
 }

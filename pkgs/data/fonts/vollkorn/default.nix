@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url = "http://vollkorn-typeface.com/download/vollkorn-${
-      builtins.replaceStrings [ "." ] [ "-" ] version
+      builtins.replaceStrings ["."] ["-"] version
     }.zip";
     stripRoot = false;
     hash = "sha256-oG79GgCwCavbMFAPakza08IPmt13Gwujrkc/NKTai7g=";
@@ -34,6 +34,6 @@ stdenvNoCC.mkDerivation rec {
     description = "The free and healthy typeface for bread and butter use";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ maintainers.schmittlauch ];
+    maintainers = [maintainers.schmittlauch];
   };
 }

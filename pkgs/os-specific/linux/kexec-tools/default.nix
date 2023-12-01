@@ -41,9 +41,9 @@ stdenv.mkDerivation rec {
     "build"
     "host"
   ];
-  configureFlags = [ "BUILD_CC=${buildPackages.stdenv.cc.targetPrefix}cc" ];
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
-  buildInputs = [ zlib ];
+  configureFlags = ["BUILD_CC=${buildPackages.stdenv.cc.targetPrefix}cc"];
+  depsBuildBuild = [buildPackages.stdenv.cc];
+  buildInputs = [zlib];
 
   meta = with lib; {
     homepage = "http://horms.net/projects/kexec/kexec-tools";

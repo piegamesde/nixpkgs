@@ -98,7 +98,7 @@
 }:
 
 let
-  opusWithCustomModes = libopus.override { withCustomModes = true; };
+  opusWithCustomModes = libopus.override {withCustomModes = true;};
 
   version = chromium.upstream-info.version;
 
@@ -242,7 +242,7 @@ stdenv.mkDerivation {
     makeWrapper "$out/share/google/$appname/google-$appname" "$exe" \
       --prefix LD_LIBRARY_PATH : "$rpath" \
       --prefix PATH            : "$binpath" \
-      --suffix PATH            : "${lib.makeBinPath [ xdg-utils ]}" \
+      --suffix PATH            : "${lib.makeBinPath [xdg-utils]}" \
       --prefix XDG_DATA_DIRS   : "$XDG_ICON_DIRS:$GSETTINGS_SCHEMAS_PATH:${addOpenGLRunpath.driverLink}/share" \
       --set CHROME_WRAPPER  "google-chrome-$dist" \
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
@@ -260,12 +260,12 @@ stdenv.mkDerivation {
     description = "A freeware web browser developed by Google";
     homepage = "https://www.google.com/chrome/browser/";
     license = licenses.unfree;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ primeos ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    maintainers = with maintainers; [primeos];
     # Note from primeos: By updating Chromium I also update Google Chrome and
     # will try to merge PRs and respond to issues but I'm not actually using
     # Google Chrome.
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     mainProgram = if (channel == "dev") then "google-chrome-unstable" else "google-chrome-${channel}";
   };
 }

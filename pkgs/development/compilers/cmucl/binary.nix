@@ -35,7 +35,7 @@ stdenv.mkDerivation (
       "man"
     ];
 
-    nativeBuildInputs = [ installShellFiles ];
+    nativeBuildInputs = [installShellFiles];
 
     dontConfigure = true;
     dontBuild = true;

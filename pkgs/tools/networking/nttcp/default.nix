@@ -19,12 +19,12 @@ stdenv.mkDerivation rec {
       ./format-security.patch
     ];
 
-  makeFlags = [ "prefix=${placeholder "out"}" ];
+  makeFlags = ["prefix=${placeholder "out"}"];
 
   meta = with lib; {
     description = "New test TCP program";
     license = licenses.unfree;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.all;
   };
 }

@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     platforms = platforms.linux;
-    maintainers = [ maintainers.sander ];
+    maintainers = [maintainers.sander];
     license = licenses.afl21;
   };
 }

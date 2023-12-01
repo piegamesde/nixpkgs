@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-eWtQaYUWZNQYQOUXnbUfjrtpoO6CnNJ8WjlowA49sG0=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     homepage = "https://github.com/libplctag/libplctag";
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
       lgpl2Plus
       mpl20
     ];
-    maintainers = with maintainers; [ petterstorvik ];
+    maintainers = with maintainers; [petterstorvik];
     platforms = platforms.all;
   };
 }

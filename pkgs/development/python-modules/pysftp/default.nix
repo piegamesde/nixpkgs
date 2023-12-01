@@ -16,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "0jl5qix5cxzrv4lb8rfpjkpcghbkacnxkb006ikn7mkl5s05mxgv";
   };
 
-  propagatedBuildInputs = [ paramiko ];
+  propagatedBuildInputs = [paramiko];
 
   meta = with lib; {
     homepage = "https://bitbucket.org/dundeemt/pysftp";

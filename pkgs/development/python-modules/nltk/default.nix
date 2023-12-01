@@ -37,12 +37,12 @@ buildPythonPackage rec {
   # best.
   doCheck = false;
 
-  pythonImportsCheck = [ "nltk" ];
+  pythonImportsCheck = ["nltk"];
 
   meta = with lib; {
     description = "Natural Language Processing ToolKit";
     homepage = "http://nltk.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lheckemann ];
+    maintainers = with maintainers; [lheckemann];
   };
 }

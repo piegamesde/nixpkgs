@@ -10,8 +10,8 @@
 
     inherit (geant4) src;
 
-    nativeBuildInputs = [ cmake ];
-    buildInputs = [ geant4 ];
+    nativeBuildInputs = [cmake];
+    buildInputs = [geant4];
     nativeCheckInputs = with geant4.data; [
       G4EMLOW
       G4ENSDFSTATE

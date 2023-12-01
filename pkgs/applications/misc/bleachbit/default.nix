@@ -48,11 +48,11 @@ python3Packages.buildPythonApplication rec {
 
   dontBuild = true;
 
-  installFlags = [ "prefix=${placeholder "out"}" ];
+  installFlags = ["prefix=${placeholder "out"}"];
 
   # Prevent double wrapping from wrapGApps and wrapPythonProgram
   dontWrapGApps = true;
-  makeWrapperArgs = [ "\${gappsWrapperArgs[@]}" ];
+  makeWrapperArgs = ["\${gappsWrapperArgs[@]}"];
 
   strictDeps = false;
 

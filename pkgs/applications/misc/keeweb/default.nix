@@ -69,9 +69,9 @@ let
     description = "Free cross-platform password manager compatible with KeePass";
     homepage = "https://keeweb.info/";
     changelog = "https://github.com/keeweb/keeweb/blob/v${version}/release-notes.md";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = builtins.attrNames srcs;
   };
 in
@@ -84,7 +84,7 @@ if stdenv.isDarwin then
       meta
       ;
 
-    nativeBuildInputs = [ undmg ];
+    nativeBuildInputs = [undmg];
 
     sourceRoot = ".";
 

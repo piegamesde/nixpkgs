@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
         - Mute or unmute a device
     '';
     homepage = "https://github.com/cdemoulins/pamixer";
-    maintainers = with maintainers; [ thiagokokada ];
+    maintainers = with maintainers; [thiagokokada];
     license = licenses.gpl3;
     platforms = platforms.linux;
     mainProgram = "pamixer";

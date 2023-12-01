@@ -29,7 +29,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/dirkvdb/ps3netsrv--";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ makefu ];
+    maintainers = with lib.maintainers; [makefu];
     mainProgram = "ps3netsrv++";
   };
 }

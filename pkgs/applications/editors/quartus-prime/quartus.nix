@@ -51,7 +51,7 @@ let
   version = "20.1.1.720";
 
   download =
-    { name, sha256 }:
+    {name, sha256}:
     fetchurl {
       inherit name sha256;
       # e.g. "20.1.1.720" -> "20.1std.1/720"
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
     )
   );
 
-  nativeBuildInputs = [ unstick ];
+  nativeBuildInputs = [unstick];
 
   buildCommand =
     let
@@ -119,9 +119,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://fpgasoftware.intel.com";
     description = "FPGA design and simulation software";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ kwohlfahrt ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [kwohlfahrt];
   };
 }

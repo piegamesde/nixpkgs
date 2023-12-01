@@ -39,6 +39,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Automagical shell alias completion";
     homepage = "https://github.com/cykerway/complete-alias";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ tuxinaut ];
+    maintainers = with maintainers; [tuxinaut];
   };
 }

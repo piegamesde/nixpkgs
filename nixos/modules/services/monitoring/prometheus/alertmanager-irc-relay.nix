@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.services.prometheus.alertmanagerIrcRelay;
 
-  configFormat = pkgs.formats.yaml { };
+  configFormat = pkgs.formats.yaml {};
   configFile = configFormat.generate "alertmanager-irc-relay.yml" cfg.settings;
 in
 {
@@ -26,7 +26,7 @@ in
 
     extraFlags = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = mdDoc "Extra command line options to pass to alertmanager-irc-relay.";
     };
 
@@ -64,8 +64,8 @@ in
     systemd.services.alertmanager-irc-relay = {
       description = "Alertmanager IRC Relay";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
 
       serviceConfig = {
         ExecStart = ''
@@ -111,5 +111,5 @@ in
     };
   };
 
-  meta.maintainers = [ maintainers.oxzi ];
+  meta.maintainers = [maintainers.oxzi];
 }

@@ -24,7 +24,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonImportsCheck = [ "mrkd" ];
+  pythonImportsCheck = ["mrkd"];
 
   meta = with lib; {
     description = "Write man pages using Markdown, and convert them to Roff or HTML";

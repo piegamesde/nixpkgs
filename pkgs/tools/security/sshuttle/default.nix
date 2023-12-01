@@ -19,7 +19,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-9aPtHlqxITx6bfhgr0HxqQOrLK+/73Hzcazc/yHmnuY=";
   };
 
-  patches = [ ./sudo.patch ];
+  patches = [./sudo.patch];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -31,7 +31,7 @@ python3Packages.buildPythonApplication rec {
     python3Packages.setuptools-scm
   ];
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [pytestCheckHook];
 
   postInstall = ''
     wrapProgram $out/bin/sshuttle \

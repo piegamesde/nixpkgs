@@ -66,15 +66,15 @@ in
   config = mkIf cfg.enable {
     systemd.services.kube-scheduler = {
       description = "Kubernetes Scheduler Service";
-      wantedBy = [ "kubernetes.target" ];
-      after = [ "kube-apiserver.service" ];
+      wantedBy = ["kubernetes.target"];
+      after = ["kube-apiserver.service"];
       serviceConfig = {
         Slice = "kubernetes.slice";
         ExecStart = ''
           ${top.package}/bin/kube-scheduler \
                     --bind-address=${cfg.address} \
                     ${
-                      optionalString (cfg.featureGates != [ ])
+                      optionalString (cfg.featureGates != [])
                         "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"
                     } \
                     --kubeconfig=${top.lib.mkKubeConfig "kube-scheduler" cfg.kubeconfig} \

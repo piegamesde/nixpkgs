@@ -20,8 +20,8 @@ stdenv.mkDerivation rec {
     sha256 = "1fgw1jqdlp83gv56mgnxpakky0q6i6f922niis4awvxjind8pbm1";
   };
 
-  nativeBuildInputs = [ git ];
-  buildFlags = [ "dist" ];
+  nativeBuildInputs = [git];
+  buildFlags = ["dist"];
   installPhase = ''
     mkdir -p $out/bin
     cp mkspiffs $out/bin
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     description = "Tool to build and unpack SPIFFS images";
     license = licenses.mit;
     homepage = "https://github.com/igrr/mkspiffs";
-    maintainers = with maintainers; [ haslersn ];
+    maintainers = with maintainers; [haslersn];
     platforms = platforms.linux;
   };
 }

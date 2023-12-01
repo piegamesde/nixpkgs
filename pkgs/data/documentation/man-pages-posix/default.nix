@@ -18,12 +18,12 @@ stdenv.mkDerivation rec {
     sha256 = "ce67bb25b5048b20dad772e405a83f4bc70faf051afa289361c81f9660318bc3";
   };
 
-  makeFlags = [ "MANDIR=${placeholder "out"}/share/man" ];
+  makeFlags = ["MANDIR=${placeholder "out"}/share/man"];
 
   meta = {
     description = "POSIX man-pages (0p, 1p, 3p)";
     homepage = "https://www.kernel.org/doc/man-pages/";
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.sternenseemann ];
+    maintainers = [lib.maintainers.sternenseemann];
   };
 }

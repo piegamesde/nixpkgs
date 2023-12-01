@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-uitnVqR2VVNAf8H1Q/u6LezhvfQJ/G2bE0Dv9dyP8+A=";
   };
 
-  patches = [ ./installed-tests-path.patch ];
+  patches = [./installed-tests-path.patch];
 
   nativeBuildInputs = [
     docbook_xml_dtd_43
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
     description = "A library to help create and query binary XML blobs";
     homepage = "https://github.com/hughsie/libxmlb";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

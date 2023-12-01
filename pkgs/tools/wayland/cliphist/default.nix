@@ -22,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/sentriz/cliphist";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

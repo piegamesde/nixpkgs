@@ -18,7 +18,7 @@ stdenv.mkDerivation {
     sha256 = "0kibcaim01inb6xxn4mr6affn4hm50vz9kahb5k9iz8dmdsrhxy1";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     SDL2
     libGLU
@@ -40,7 +40,7 @@ stdenv.mkDerivation {
     description = "A library for high-performance, modern 2D graphics with SDL written in C";
     homepage = "https://github.com/grimfang4/sdl-gpu";
     license = licenses.mit;
-    maintainers = with maintainers; [ pmiddend ];
+    maintainers = with maintainers; [pmiddend];
     platforms = platforms.linux;
   };
 }

@@ -10,13 +10,13 @@ let
 in
 
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "solanum";
     nodes =
       {
         "${server}" = {
-          networking.firewall.allowedTCPPorts = [ ircPort ];
+          networking.firewall.allowedTCPPorts = [ircPort];
           services.solanum = {
             enable = true;
             motd = ''
@@ -31,11 +31,11 @@ import ./make-test-python.nix (
           (
             client:
             lib.nameValuePair client {
-              imports = [ ./common/user-account.nix ];
+              imports = [./common/user-account.nix];
 
               systemd.services.ii = {
-                requires = [ "network.target" ];
-                wantedBy = [ "default.target" ];
+                requires = ["network.target"];
+                wantedBy = ["default.target"];
 
                 serviceConfig = {
                   Type = "simple";

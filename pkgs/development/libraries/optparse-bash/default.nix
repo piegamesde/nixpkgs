@@ -30,7 +30,7 @@ stdenvNoCC.mkDerivation {
 
   doCheck = true;
 
-  nativeCheckInputs = [ bash ];
+  nativeCheckInputs = [bash];
 
   # `#!/usr/bin/env` isn't okay for OfBorg
   # Need external bash to run
@@ -59,6 +59,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/nk412/optparse";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ShamrockLee ];
+    maintainers = with maintainers; [ShamrockLee];
   };
 }

@@ -27,7 +27,7 @@ stdenv.mkDerivation {
 
   # from https://github.com/PhantomX/slackbuilds/tree/master/gcolor2/patches
   patches =
-    (if stdenv.hostPlatform.system == "x86_64-linux" then [ ./gcolor2-amd64.patch ] else [ ])
+    (if stdenv.hostPlatform.system == "x86_64-linux" then [./gcolor2-amd64.patch] else [])
     ++ [
       # Pull patch pending upstream inclusion for -fno-common toolchains:
       #   https://sourceforge.net/p/gcolor2/patches/8/
@@ -38,9 +38,9 @@ stdenv.mkDerivation {
       })
     ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
-    [ gtk2 ]
+    [gtk2]
     ++ (
       with perlPackages; [
         perl
@@ -52,7 +52,7 @@ stdenv.mkDerivation {
     description = "Simple GTK 2 color selector";
     homepage = "https://gcolor2.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ notthemessiah ];
+    maintainers = with lib.maintainers; [notthemessiah];
     platforms = with lib.platforms; unix;
   };
 }

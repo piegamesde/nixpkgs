@@ -25,22 +25,22 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  buildInputs = [ cppy ];
+  buildInputs = [cppy];
 
   preCheck = ''
     rm -rf atom
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "atom.api" ];
+  pythonImportsCheck = ["atom.api"];
 
   meta = with lib; {
     description = "Memory efficient Python objects";
     homepage = "https://github.com/nucleic/atom";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bhipple ];
+    maintainers = with maintainers; [bhipple];
   };
 }

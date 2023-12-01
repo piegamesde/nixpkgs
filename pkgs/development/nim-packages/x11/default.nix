@@ -22,7 +22,7 @@ buildNimPackage rec {
     src.meta
     // {
       description = "X11 library for nim";
-      license = [ licenses.mit ];
-      maintainers = [ maintainers.marcusramberg ];
+      license = [licenses.mit];
+      maintainers = [maintainers.marcusramberg];
     };
 }

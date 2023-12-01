@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "1im45a9z7ryrfyp1v6i39qia5qagw6i1mhif0hl0praz9iv4j1ac";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # Failing tests
@@ -24,7 +24,7 @@ buildPythonPackage rec {
     "testXMLPlistWithData"
   ];
 
-  pythonImportsCheck = [ "biplist" ];
+  pythonImportsCheck = ["biplist"];
 
   meta = with lib; {
     homepage = "https://bitbucket.org/wooster/biplist/src/master/";
@@ -37,6 +37,6 @@ buildPythonPackage rec {
       by OS X, iOS, or other clients.
     '';
     license = licenses.bsd3;
-    maintainers = with maintainers; [ siriobalmelli ];
+    maintainers = with maintainers; [siriobalmelli];
   };
 }

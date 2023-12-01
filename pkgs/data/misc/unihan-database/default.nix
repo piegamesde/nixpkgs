@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-JLFUaR/JfLRCZ7kl1iBkKXCGs/iWtXqBgce21CcCoCY=";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   setSourceRoot = ''
     sourceRoot=$PWD

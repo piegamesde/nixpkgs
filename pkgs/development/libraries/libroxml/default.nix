@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     description = "This library is minimum, easy-to-use, C implementation for xml file parsing";
     homepage = "https://www.libroxml.net/";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ mpickering ];
+    maintainers = with maintainers; [mpickering];
     mainProgram = "roxml";
     platforms = platforms.unix;
   };

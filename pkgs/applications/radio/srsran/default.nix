@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "srsran";
     repo = "srsran";
-    rev = "release_${builtins.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "release_${builtins.replaceStrings ["."] ["_"] version}";
     sha256 = "sha256-O43MXJ6EyKXg7hA1WjW8TqLmAWC+h5RLBGzBO6f/0zo=";
   };
 
@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
     description = "Open-source 4G and 5G software radio suite.";
     license = licenses.agpl3;
     platforms = with platforms; linux;
-    maintainers = with maintainers; [ hexagonal-sun ];
+    maintainers = with maintainers; [hexagonal-sun];
   };
 }

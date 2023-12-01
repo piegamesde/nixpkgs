@@ -18,8 +18,8 @@ let
   mopidyEnv = buildEnv {
     name = "mopidy-with-extensions-${mopidy.version}";
     paths = closePropagation cfg.extensionPackages;
-    pathsToLink = [ "/${mopidyPackages.python.sitePackages}" ];
-    nativeBuildInputs = [ makeWrapper ];
+    pathsToLink = ["/${mopidyPackages.python.sitePackages}"];
+    nativeBuildInputs = [makeWrapper];
     postBuild = ''
       makeWrapper ${mopidy}/bin/mopidy $out/bin/mopidy \
         --prefix PYTHONPATH : $out/${mopidyPackages.python.sitePackages}
@@ -43,7 +43,7 @@ in
       };
 
       extensionPackages = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.package;
         example = literalExpression "[ pkgs.mopidy-spotify ]";
         description = lib.mdDoc ''
@@ -60,7 +60,7 @@ in
       };
 
       extraConfigFiles = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           Extra config file read by Mopidy when the service starts.
@@ -74,10 +74,10 @@ in
 
   config = mkIf cfg.enable {
 
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' - mopidy mopidy - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.dataDir}' - mopidy mopidy - -"];
 
     systemd.services.mopidy = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network.target"
         "sound.target"
@@ -85,7 +85,7 @@ in
       description = "mopidy music player daemon";
       serviceConfig = {
         ExecStart = "${mopidyEnv}/bin/mopidy --config ${
-          concatStringsSep ":" ([ mopidyConf ] ++ cfg.extraConfigFiles)
+          concatStringsSep ":" ([mopidyConf] ++ cfg.extraConfigFiles)
         }";
         User = "mopidy";
       };
@@ -95,7 +95,7 @@ in
       description = "mopidy local files scanner";
       serviceConfig = {
         ExecStart = "${mopidyEnv}/bin/mopidy --config ${
-          concatStringsSep ":" ([ mopidyConf ] ++ cfg.extraConfigFiles)
+          concatStringsSep ":" ([mopidyConf] ++ cfg.extraConfigFiles)
         } local scan";
         User = "mopidy";
         Type = "oneshot";
@@ -105,7 +105,7 @@ in
     users.users.mopidy = {
       inherit uid;
       group = "mopidy";
-      extraGroups = [ "audio" ];
+      extraGroups = ["audio"];
       description = "Mopidy daemon user";
       home = cfg.dataDir;
     };

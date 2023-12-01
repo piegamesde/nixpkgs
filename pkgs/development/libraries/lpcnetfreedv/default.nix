@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-eHYZoDgoZBuuLvQn9X7H/zmK5onOAniOgY1/8RVn8gk=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   postPatch = ''
     mkdir build
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     homepage = "https://freedv.org/";
     description = "Experimental Neural Net speech coding for FreeDV";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ mvs ];
+    maintainers = with maintainers; [mvs];
     platforms = platforms.all;
   };
 }

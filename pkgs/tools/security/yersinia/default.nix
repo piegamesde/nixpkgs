@@ -60,13 +60,13 @@ stdenv.mkDerivation rec {
     "--with-libnet-includes=${libnet}/include"
   ] ++ lib.optional (!enableAdmin) "--disable-admin" ++ lib.optional (!withGtk) "--disable-gtk";
 
-  makeFlags = [ "LDFLAGS=-lncurses" ];
+  makeFlags = ["LDFLAGS=-lncurses"];
 
   meta = with lib; {
     description = "A framework for layer 2 attacks";
     homepage = "https://github.com/tomac/yersinia";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ vdot0x23 ];
+    maintainers = with maintainers; [vdot0x23];
     # INSTALL and FAQ in this package seem a little outdated
     # so not sure, but it could work on openbsd, illumos, and freebsd
     # if you have a machine to test with, feel free to add these

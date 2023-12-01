@@ -4,7 +4,7 @@
   stdenv,
 }:
 let
-  inherit (import ./semver.nix { inherit lib ireplace; }) satisfiesSemver;
+  inherit (import ./semver.nix {inherit lib ireplace;}) satisfiesSemver;
   inherit (builtins) genList length;
 
   # Replace a list entry at defined index with set value
@@ -30,7 +30,7 @@ let
   getPythonVersion =
     python:
     let
-      pyVer = lib.splitVersion python.pythonVersion ++ [ "0" ];
+      pyVer = lib.splitVersion python.pythonVersion ++ ["0"];
       ver = lib.splitVersion python.version;
       major = l: lib.elemAt l 0;
       minor = l: lib.elemAt l 1;
@@ -50,7 +50,7 @@ let
       splitRe =
         "("
         + (builtins.concatStringsSep "|" (
-          builtins.map (x: lib.replaceStrings [ "|" ] [ "\\|" ] x) (lib.attrNames operators)
+          builtins.map (x: lib.replaceStrings ["|"] ["\\|"] x) (lib.attrNames operators)
         ))
         + ")";
     in
@@ -64,7 +64,7 @@ let
           operator = if isOperator then (builtins.elemAt v 0) else acc.operator;
         in
         if isOperator then
-          (acc // { inherit operator; })
+          (acc // {inherit operator;})
         else
           {
             inherit operator;
@@ -109,27 +109,27 @@ let
     in
     if lib.strings.hasInfix "manylinux1" f then
       {
-        pkg = [ ml.manylinux1 ];
+        pkg = [ml.manylinux1];
         str = "1";
       }
     else if lib.strings.hasInfix "manylinux2010" f then
       {
-        pkg = [ ml.manylinux2010 ];
+        pkg = [ml.manylinux2010];
         str = "2010";
       }
     else if lib.strings.hasInfix "manylinux2014" f then
       {
-        pkg = [ ml.manylinux2014 ];
+        pkg = [ml.manylinux2014];
         str = "2014";
       }
     else if lib.strings.hasInfix "manylinux_" f then
       {
-        pkg = [ ml.manylinux2014 ];
+        pkg = [ml.manylinux2014];
         str = "pep600";
       }
     else
       {
-        pkg = [ ];
+        pkg = [];
         str = null;
       };
 
@@ -189,7 +189,7 @@ let
       system = "builtin";
 
       preferLocalBuild = true;
-      impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ [ "NIX_CURL_FLAGS" ];
+      impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ ["NIX_CURL_FLAGS"];
 
       inherit
         pname
@@ -206,7 +206,7 @@ let
       outputHash = hash;
 
       passthru = {
-        urls = [ predictedURL ]; # retain compatibility with nixpkgs' fetchurl
+        urls = [predictedURL]; # retain compatibility with nixpkgs' fetchurl
       };
     })
   );
@@ -220,12 +220,12 @@ let
       hash,
     }:
     let
-      pathParts = (builtins.filter ({ prefix, path }: "NETRC" == prefix) builtins.nixPath);
-      netrc_file = if (pathParts != [ ]) then (builtins.head pathParts).path else "";
+      pathParts = (builtins.filter ({prefix, path}: "NETRC" == prefix) builtins.nixPath);
+      netrc_file = if (pathParts != []) then (builtins.head pathParts).path else "";
     in
     pkgs.runCommand file
       {
-        nativeBuildInputs = [ python ];
+        nativeBuildInputs = [python];
         impureEnvVars = lib.fetchers.proxyImpureEnvVars;
         outputHashMode = "flat";
         outputHashAlgo = "sha256";
@@ -239,7 +239,7 @@ let
   );
 
   getBuildSystemPkgs =
-    { pythonPackages, pyProject }:
+    {pythonPackages, pyProject}:
     let
       missingBuildBackendError =
         "No build-system.build-backend section in pyproject.toml. "
@@ -266,7 +266,7 @@ let
       gitIgnore = path + "/.gitignore";
       isGitRoot = builtins.pathExists (path + "/.git");
       hasGitIgnore = builtins.pathExists gitIgnore;
-      gitIgnores = if hasGitIgnore then [ gitIgnore ] else [ ];
+      gitIgnores = if hasGitIgnore then [gitIgnore] else [];
     in
     lib.optionals (builtins.pathExists path && builtins.toString path != "/" && !isGitRoot) (
       findGitIgnores parent
@@ -280,7 +280,7 @@ let
      - Uses cleanSourceFilter to filter out .git/.hg, .o/.so, editor backup files & nix result symlinks
   */
   cleanPythonSources =
-    { src }:
+    {src}:
     let
       gitIgnores = findGitIgnores src;
       pycacheFilter =

@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/hlissner/zsh-autopair";
     description = "A plugin that auto-closes, deletes and skips over matching delimiters in zsh intelligently";
     license = licenses.mit;
-    maintainers = with maintainers; [ _0qq ];
+    maintainers = with maintainers; [_0qq];
     platforms = platforms.all;
   };
 }

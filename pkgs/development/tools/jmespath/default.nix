@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-Q12muprcKB7fCxemESb4sGPyYIdmgOt3YXVUln7oabw=";
 
-  excludedPackages = [ "./internal/testify" ];
+  excludedPackages = ["./internal/testify"];
 
   ldflags = [
     "-s"
@@ -28,7 +28,7 @@ buildGoModule rec {
     description = "A JMESPath implementation in Go";
     homepage = "https://github.com/jmespath/go-jmespath";
     license = licenses.asl20;
-    maintainers = with maintainers; [ cransom ];
+    maintainers = with maintainers; [cransom];
     mainProgram = "jpgo";
   };
 }

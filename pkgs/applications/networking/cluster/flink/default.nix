@@ -15,9 +15,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-x60Lk/xXf+Isg1J6z5qAIZ2/dbDiztPIKWrdPITp3Tg=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ jre ];
+  buildInputs = [jre];
 
   installPhase = ''
     rm bin/*.bat || true

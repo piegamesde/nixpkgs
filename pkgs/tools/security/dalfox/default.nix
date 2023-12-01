@@ -25,6 +25,6 @@ buildGoModule rec {
     homepage = "https://github.com/hahwul/dalfox";
     changelog = "https://github.com/hahwul/dalfox/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

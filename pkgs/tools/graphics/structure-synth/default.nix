@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   ];
 
   # Thanks to https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=672000#15:
-  patches = [ ./gcc47.patch ];
+  patches = [./gcc47.patch];
 
   enableParallelBuilding = true;
 
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Application for generating 3D structures by specifying a design grammar";
     homepage = "https://structuresynth.sourceforge.net";
-    maintainers = with maintainers; [ hodapp ];
+    maintainers = with maintainers; [hodapp];
     license = licenses.gpl3;
     platforms = platforms.linux;
   };

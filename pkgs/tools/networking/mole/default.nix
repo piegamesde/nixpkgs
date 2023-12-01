@@ -27,8 +27,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "CLI application to create SSH tunnels";
     homepage = "https://github.com/davrodpin/mole";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
     broken = stdenv.isDarwin; # build fails with go > 1.17
   };
 }

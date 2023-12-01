@@ -32,6 +32,6 @@ stdenvNoCC.mkDerivation rec {
     '';
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.romildo ];
+    maintainers = [lib.maintainers.romildo];
   };
 }

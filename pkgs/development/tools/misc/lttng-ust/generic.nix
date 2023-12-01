@@ -1,4 +1,4 @@
-{ version, sha256 }:
+{version, sha256}:
 
 {
   lib,
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     "devdoc"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     numactl
     python3
@@ -47,9 +47,9 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  configureFlags = [ "--disable-examples" ];
+  configureFlags = ["--disable-examples"];
 
-  propagatedBuildInputs = [ liburcu ];
+  propagatedBuildInputs = [liburcu];
 
   enableParallelBuilding = true;
 
@@ -62,6 +62,6 @@ stdenv.mkDerivation rec {
       mit
     ];
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

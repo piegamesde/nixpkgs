@@ -1,14 +1,14 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "powerdns-recursor";
 
     nodes.server =
-      { ... }:
+      {...}:
       {
         services.pdns-recursor.enable = true;
         services.pdns-recursor.exportHosts = true;
-        networking.hosts."192.0.2.1" = [ "example.com" ];
+        networking.hosts."192.0.2.1" = ["example.com"];
       };
 
     testScript = ''

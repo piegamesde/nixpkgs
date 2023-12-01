@@ -18,12 +18,12 @@ buildPythonPackage rec {
     hash = "sha256-/hdT4Y8L1tPJtXhoyAEa59BWpuurcGcGOWoV71MScl4=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "git_filter_repo" ];
+  pythonImportsCheck = ["git_filter_repo"];
 
   meta = with lib; {
     description = "Quickly rewrite git repository history";
@@ -32,6 +32,6 @@ buildPythonPackage rec {
       mit # or
       gpl2Plus
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

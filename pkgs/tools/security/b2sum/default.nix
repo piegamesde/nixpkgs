@@ -26,10 +26,10 @@ stdenv.mkDerivation (
 
     sourceRoot = "source/b2sum";
 
-    buildInputs = [ openmp ];
+    buildInputs = [openmp];
 
-    buildFlags = [ (lib.optional (openmp == null) "NO_OPENMP=1") ];
-    installFlags = [ "PREFIX=$(out)" ];
+    buildFlags = [(lib.optional (openmp == null) "NO_OPENMP=1")];
+    installFlags = ["PREFIX=$(out)"];
 
     meta = with lib; {
       description = "The b2sum utility is similar to the md5sum or shasum utilities but for BLAKE2";
@@ -39,7 +39,7 @@ stdenv.mkDerivation (
         cc0
         openssl
       ];
-      maintainers = with maintainers; [ kirelagin ];
+      maintainers = with maintainers; [kirelagin];
       platforms = platforms.unix;
     };
   }

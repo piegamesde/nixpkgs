@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
       gpl2Plus
       lgpl2Plus
     ];
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.linux;
   };
 }

@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-rzCRxmwppBno6o4RM2GjE0pe/5yvyzyo375XdfX04As=";
   };
 
-  buildInputs = [ ghostscript ];
+  buildInputs = [ghostscript];
 
   makeFlags = [
     "PREFIX=$(out)/"
@@ -51,6 +51,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3Plus;
 
     platforms = lib.platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -15,7 +15,7 @@
 
 mkDerivation {
   pname = "kcmutils";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     kcoreaddons
     kdeclarative

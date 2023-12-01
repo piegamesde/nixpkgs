@@ -7,14 +7,14 @@
 bundlerApp {
   pname = "vpsfree-client";
   gemdir = ./.;
-  exes = [ "vpsfreectl" ];
+  exes = ["vpsfreectl"];
 
   passthru.updateScript = bundlerUpdateScript "vpsfree-client";
 
   meta = with lib; {
     description = "Ruby API and CLI for the vpsFree.cz API";
     homepage = "https://github.com/vpsfreecz/vpsfree-client";
-    maintainers = with maintainers; [ zimbatm ];
+    maintainers = with maintainers; [zimbatm];
     license = licenses.gpl3;
     platforms = platforms.unix;
   };

@@ -45,7 +45,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-12bePpI8z35gzCHGKDpaGUVvosQqijP60NCgElHDsyw=";
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     cargo-c
@@ -54,7 +54,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ zlib ]
+    [zlib]
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       Security
@@ -83,6 +83,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/xiph/rav1e";
     changelog = "https://github.com/xiph/rav1e/releases/tag/v${version}";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

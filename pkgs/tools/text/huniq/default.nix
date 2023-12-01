@@ -19,6 +19,6 @@ rustPlatform.buildRustPackage rec {
     description = "Command line utility to remove duplicates from the given input";
     homepage = "https://github.com/koraa/huniq";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

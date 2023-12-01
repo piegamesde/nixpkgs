@@ -25,7 +25,7 @@ runCommand "appimage-run-tests"
       file
       xdg-utils
     ];
-    meta.platforms = [ "x86_64-linux" ];
+    meta.platforms = ["x86_64-linux"];
   }
   ''
     export HOME=$(mktemp -d)

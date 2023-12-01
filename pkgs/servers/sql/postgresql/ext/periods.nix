@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XAqjP8Cih+HzqlI8XjgCNzSVQSbaetLRvJReiwHdaIc=";
   };
 
-  buildInputs = [ postgresql ];
+  buildInputs = [postgresql];
 
   installPhase = ''
     install -D -t $out/lib *.so
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "PostgreSQL extension implementing SQL standard functionality for PERIODs and SYSTEM VERSIONING";
     homepage = "https://github.com/xocolatl/periods";
-    maintainers = with maintainers; [ ivan ];
+    maintainers = with maintainers; [ivan];
     platforms = postgresql.meta.platforms;
     license = licenses.postgresql;
     broken = versionOlder postgresql.version "9.5";

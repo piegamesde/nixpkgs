@@ -13,7 +13,7 @@
   llvmPackages,
 }:
 let
-  py = python3.withPackages (ps: with ps; [ numpy ]);
+  py = python3.withPackages (ps: with ps; [numpy]);
   option = cond: if cond then "1" else "0";
 in
 stdenv.mkDerivation rec {
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     sha256 = "1yfws5bn4kh62yk6hdyp9h9775l6iz7wsfisbn58jap6b56s8j5s";
   };
 
-  patches = [ ./0001-pkgconfig-darwin.patch ];
+  patches = [./0001-pkgconfig-darwin.patch];
 
   # https://bugs.llvm.org/show_bug.cgi?id=45034
   postPatch =
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    lib.optionals (withTools && datatype != "simd") [ libpng ]
+    lib.optionals (withTools && datatype != "simd") [libpng]
     # TODO: This may mismatch the LLVM version in the stdenv, see #79818.
     ++ lib.optional (enableOpenmp && stdenv.cc.isClang) llvmPackages.openmp;
 
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     (if datatype == "float" then fftwFloat else fftw)
   ];
 
-  checkFlags = [ "testsingle" ];
+  checkFlags = ["testsingle"];
 
   postInstall = ''
     ln -s ${pname}.pc $out/lib/pkgconfig/kissfft.pc
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
     description = "A mixed-radix Fast Fourier Transform based up on the KISS principle";
     homepage = "https://github.com/mborgerding/kissfft";
     license = licenses.bsd3;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
     platforms = platforms.all;
   };
 }

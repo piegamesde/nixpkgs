@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     attr
     zlib
   ];
-  propagatedBuildInputs = [ acl ];
+  propagatedBuildInputs = [acl];
 
   meta = with lib; {
     homepage = "http://libburnia-project.org/";

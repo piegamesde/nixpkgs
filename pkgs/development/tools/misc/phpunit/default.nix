@@ -20,7 +20,7 @@ stdenv.mkDerivation {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -36,7 +36,7 @@ stdenv.mkDerivation {
     license = licenses.bsd3;
     homepage = "https://phpunit.de";
     changelog = "https://github.com/sebastianbergmann/phpunit/blob/${version}/ChangeLog-${lib.versions.majorMinor version}.md";
-    maintainers = with maintainers; [ onny ] ++ teams.php.members;
+    maintainers = with maintainers; [onny] ++ teams.php.members;
     platforms = platforms.all;
   };
 }

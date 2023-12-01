@@ -1,4 +1,4 @@
-{ pkgs, haskellLib }:
+{pkgs, haskellLib}:
 
 with haskellLib;
 
@@ -49,7 +49,7 @@ self: super: {
   xhtml = if self.ghc.hasHaddock or true then null else self.xhtml_3000_2_2_1;
 
   # Needs Cabal 3.0.x.
-  jailbreak-cabal = super.jailbreak-cabal.override { Cabal = self.Cabal_3_2_1_0; };
+  jailbreak-cabal = super.jailbreak-cabal.override {Cabal = self.Cabal_3_2_1_0;};
 
   # https://github.com/tibbe/unordered-containers/issues/214
   unordered-containers = dontCheck super.unordered-containers;
@@ -83,14 +83,14 @@ self: super: {
 
   # cabal2nix needs the latest version of Cabal, and the one
   # hackage-db uses must match, so take the latest
-  cabal2nix = super.cabal2nix.overrideScope (self: super: { Cabal = self.Cabal_3_2_1_0; });
+  cabal2nix = super.cabal2nix.overrideScope (self: super: {Cabal = self.Cabal_3_2_1_0;});
 
   # cabal2spec needs a recent version of Cabal
-  cabal2spec = super.cabal2spec.overrideScope (self: super: { Cabal = self.Cabal_3_2_1_0; });
+  cabal2spec = super.cabal2spec.overrideScope (self: super: {Cabal = self.Cabal_3_2_1_0;});
 
   # https://github.com/pikajude/stylish-cabal/issues/12
   stylish-cabal = doDistribute (
-    markUnbroken (super.stylish-cabal.override { haddock-library = self.haddock-library_1_7_0; })
+    markUnbroken (super.stylish-cabal.override {haddock-library = self.haddock-library_1_7_0;})
   );
   haddock-library_1_7_0 = dontCheck super.haddock-library_1_7_0;
 

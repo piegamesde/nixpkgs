@@ -1,14 +1,14 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-store";
   version = "20200925-git";
 
-  parasites = [ "cl-store-tests" ];
+  parasites = ["cl-store-tests"];
 
   description = "Serialization package";
 
-  deps = [ args."rt" ];
+  deps = [args."rt"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-store/2020-09-25/cl-store-20200925-git.tgz";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "cl-store";
 
-  asdFilesToKeep = [ "cl-store.asd" ];
+  asdFilesToKeep = ["cl-store.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-store DESCRIPTION Serialization package SHA256

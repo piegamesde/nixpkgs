@@ -34,7 +34,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   nativeCheckInputs = [
     cssselect
@@ -42,7 +42,7 @@ buildPythonPackage rec {
     lxml
     mock
     pytestCheckHook
-  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  ] ++ lib.optionals (pythonOlder "3.9") [importlib-resources];
 
   disabledTests = [
     # access network
@@ -51,13 +51,13 @@ buildPythonPackage rec {
     "website.logging"
   ];
 
-  pythonImportsCheck = [ "cssutils" ];
+  pythonImportsCheck = ["cssutils"];
 
   meta = with lib; {
     description = "A CSS Cascading Style Sheets library for Python";
     homepage = "https://github.com/jaraco/cssutils";
     changelog = "https://github.com/jaraco/cssutils/blob/v${version}/CHANGES.rst";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

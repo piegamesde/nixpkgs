@@ -34,14 +34,14 @@ stdenv.mkDerivation rec {
     mv * $f
     for i in $f/*.sh; do
       n=$(basename ''${i%.sh})
-      makeWrapper $i $out/bin/$n --prefix PATH : ${lib.makeBinPath [ jre ]}
+      makeWrapper $i $out/bin/$n --prefix PATH : ${lib.makeBinPath [jre]}
     done
   '';
 
   meta = with lib; {
     homepage = "https://sourceforge.net/projects/dex2jar/";
     description = "Tools to work with android .dex and java .class files";
-    maintainers = with maintainers; [ makefu ];
+    maintainers = with maintainers; [makefu];
     license = licenses.asl20;
     platforms = platforms.linux;
   };

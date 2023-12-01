@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-I5GTaVWzz0ryGLDSS3rzxp+XFVXZa9hZmgwon/6r83A=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     SDL2
     SDL2_mixer
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/bvschaik/julius";
     description = "An open source re-implementation of Caesar III";
     license = licenses.agpl3;
-    maintainers = with maintainers; [ Thra11 ];
+    maintainers = with maintainers; [Thra11];
     platforms = platforms.all;
     broken = stdenv.isDarwin;
   };

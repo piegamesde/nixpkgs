@@ -42,7 +42,7 @@ let
       setuptools
     ];
 
-    propagatedBuildInputs = [ numpy ];
+    propagatedBuildInputs = [numpy];
 
     passthru.optional-depdendencies = {
       bokeh = [
@@ -61,17 +61,17 @@ let
     ];
 
     passthru.tests = {
-      check = countourpy.overridePythonAttrs (_: { doCheck = true; });
+      check = countourpy.overridePythonAttrs (_: {doCheck = true;});
     };
 
-    pythonImportsCheck = [ "contourpy" ];
+    pythonImportsCheck = ["contourpy"];
 
     meta = with lib; {
       changelog = "https://github.com/contourpy/contourpy/releases/tag/v${version}";
       description = "Python library for calculating contours in 2D quadrilateral grids";
       homepage = "https://github.com/contourpy/contourpy";
       license = licenses.bsd3;
-      maintainers = with maintainers; [ ];
+      maintainers = with maintainers; [];
     };
   };
 in

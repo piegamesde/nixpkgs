@@ -16,7 +16,7 @@ buildPythonPackage rec {
   # error: invalid command 'test'
   doCheck = false;
 
-  propagatedBuildInputs = [ django ];
+  propagatedBuildInputs = [django];
 
   meta = {
     description = "A generic tagging application for Django projects";

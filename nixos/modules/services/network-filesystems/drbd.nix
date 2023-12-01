@@ -41,11 +41,11 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ pkgs.drbd ];
+    environment.systemPackages = [pkgs.drbd];
 
-    services.udev.packages = [ pkgs.drbd ];
+    services.udev.packages = [pkgs.drbd];
 
-    boot.kernelModules = [ "drbd" ];
+    boot.kernelModules = ["drbd"];
 
     boot.extraModprobeConfig = ''
       options drbd usermode_helper=/run/current-system/sw/bin/drbdadm
@@ -60,8 +60,8 @@ in
         "systemd-udev.settle.service"
         "network.target"
       ];
-      wants = [ "systemd-udev.settle.service" ];
-      wantedBy = [ "multi-user.target" ];
+      wants = ["systemd-udev.settle.service"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.drbd}/sbin/drbdadm up all";
         ExecStop = "${pkgs.drbd}/sbin/drbdadm down all";

@@ -120,6 +120,6 @@ stdenv.mkDerivation {
       maggesi
       vrthra
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

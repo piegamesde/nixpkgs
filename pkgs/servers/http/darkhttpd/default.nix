@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     description = "Small and secure static webserver";
     homepage = "https://unix4lyfe.org/darkhttpd/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bobvanderlinden ];
+    maintainers = with maintainers; [bobvanderlinden];
     platforms = platforms.all;
   };
 }

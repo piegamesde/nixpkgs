@@ -24,15 +24,15 @@ stdenv.mkDerivation rec {
 
   dontWrapQtApps = true;
 
-  patches = [ ./0002-Fix-install-name-Darwin.patch ];
+  patches = [./0002-Fix-install-name-Darwin.patch];
 
-  cmakeFlags = [ "-DQT_TRANSLATIONS_DIR=share/qt/translations" ];
+  cmakeFlags = ["-DQT_TRANSLATIONS_DIR=share/qt/translations"];
 
-  nativeBuildInputs = [ cmake ] ++ lib.optionals (!stdenv.isDarwin) [ pkg-config ] # for finding libsecret
+  nativeBuildInputs = [cmake] ++ lib.optionals (!stdenv.isDarwin) [pkg-config] # for finding libsecret
   ;
 
   buildInputs =
-    lib.optionals (!stdenv.isDarwin) [ libsecret ]
+    lib.optionals (!stdenv.isDarwin) [libsecret]
     ++ [
       qtbase
       qttools

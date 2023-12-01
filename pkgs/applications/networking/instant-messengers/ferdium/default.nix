@@ -15,7 +15,7 @@ mkFranzDerivation rec {
     sha256 = "sha256-jG3NdolWqQzj/62jYwnqJHz5uT6QIuOkrpL/FcLl56k=";
   };
 
-  extraBuildInputs = [ xorg.libxshmfence ];
+  extraBuildInputs = [xorg.libxshmfence];
 
   passthru = {
     updateScript = nix-update-script {
@@ -30,8 +30,8 @@ mkFranzDerivation rec {
     description = "All your services in one place built by the community";
     homepage = "https://ferdium.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ magnouvean ];
-    platforms = [ "x86_64-linux" ];
-    hydraPlatforms = [ ];
+    maintainers = with maintainers; [magnouvean];
+    platforms = ["x86_64-linux"];
+    hydraPlatforms = [];
   };
 }

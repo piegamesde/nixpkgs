@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "dbi";
   version = "cl-20211020-git";
 
-  parasites = [ "dbi/test" ];
+  parasites = ["dbi/test"];
 
   description = "Database independent interface for Common Lisp";
 
@@ -32,7 +32,7 @@ rec {
 
   packageName = "dbi";
 
-  asdFilesToKeep = [ "dbi.asd" ];
+  asdFilesToKeep = ["dbi.asd"];
   overrides = x: x;
 }
 /* (SYSTEM dbi DESCRIPTION Database independent interface for Common Lisp

@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Lr5OC14N6KTZNU3Ei4O9taYGL+1NZd5JmejYBmmELUE=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     freetype
@@ -62,6 +62,6 @@ stdenv.mkDerivation rec {
     description = "Enlightenment DR16 window manager";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

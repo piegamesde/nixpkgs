@@ -24,7 +24,7 @@ buildPythonPackage rec {
 
   # Avoid propagating the dependency on `jaxlib`, see
   # https://github.com/NixOS/nixpkgs/issues/156767
-  buildInputs = [ jaxlib ];
+  buildInputs = [jaxlib];
 
   propagatedBuildInputs = [
     jax
@@ -35,12 +35,12 @@ buildPythonPackage rec {
     tensorboard
   ];
 
-  pythonImportsCheck = [ "objax" ];
+  pythonImportsCheck = ["objax"];
 
   meta = with lib; {
     description = "Objax is a machine learning framework that provides an Object Oriented layer for JAX.";
     homepage = "https://github.com/google/objax";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ndl ];
+    maintainers = with maintainers; [ndl];
   };
 }

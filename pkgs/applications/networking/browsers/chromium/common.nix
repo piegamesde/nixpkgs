@@ -170,7 +170,7 @@ let
     # "opus"
   ];
 
-  opusWithCustomModes = libopus.override { withCustomModes = true; };
+  opusWithCustomModes = libopus.override {withCustomModes = true;};
 
   # build paths and release info
   packageName = extraAttrs.packageName or extraAttrs.name;
@@ -178,7 +178,7 @@ let
   buildPath = "out/${buildType}";
   libExecPath = "$out/libexec/${packageName}";
 
-  ungoogler = ungoogled-chromium { inherit (upstream-info.deps.ungoogled-patches) rev sha256; };
+  ungoogler = ungoogled-chromium {inherit (upstream-info.deps.ungoogled-patches) rev sha256;};
 
   base = rec {
     pname = "${packageName}-unwrapped";
@@ -203,7 +203,7 @@ let
 
     buildInputs =
       [
-        (libpng.override { apngSupport = false; }) # https://bugs.chromium.org/p/chromium/issues/detail?id=752403
+        (libpng.override {apngSupport = false;}) # https://bugs.chromium.org/p/chromium/issues/detail?id=752403
         bzip2
         flac
         speex
@@ -418,7 +418,7 @@ let
         link_pulseaudio = true;
       }
       // lib.optionalAttrs ungoogled (lib.importTOML ./ungoogled-flags.toml)
-      // (extraAttrs.gnFlags or { })
+      // (extraAttrs.gnFlags or {})
     );
 
     configurePhase = ''
@@ -451,7 +451,7 @@ let
             process_template chrome/app/resources/manpage.1.in "${buildPath}/chrome.1"
           )
         '';
-        targets = extraAttrs.buildTargets or [ ];
+        targets = extraAttrs.buildTargets or [];
         commands = map buildCommand targets;
       in
       ''
@@ -489,6 +489,6 @@ stdenv.mkDerivation (
     "buildTargets"
   ]
   // {
-    passthru = base.passthru // (extraAttrs.passthru or { });
+    passthru = base.passthru // (extraAttrs.passthru or {});
   }
 )

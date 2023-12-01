@@ -48,12 +48,12 @@ buildPythonPackage rec {
     rm tests/conftest.py
   '';
 
-  pythonImportsCheck = [ "aiohttp_swagger" ];
+  pythonImportsCheck = ["aiohttp_swagger"];
 
   meta = with lib; {
     description = "Swagger API Documentation builder for aiohttp";
     homepage = "https://github.com/cr0hn/aiohttp-swagger";
     license = licenses.mit;
-    maintainers = with maintainers; [ elohmeier ];
+    maintainers = with maintainers; [elohmeier];
   };
 }

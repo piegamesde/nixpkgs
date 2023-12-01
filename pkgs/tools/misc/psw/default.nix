@@ -24,6 +24,6 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ wulfsta ];
+    maintainers = with maintainers; [wulfsta];
   };
 }

@@ -51,8 +51,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.jellyfin = {
       description = "Jellyfin Media Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       # This is mostly follows: https://github.com/jellyfin/jellyfin/blob/master/fedora/jellyfin.service
       # Upstream also disable some hardenings when running in LXC, we do the same with the isContainer option
@@ -127,7 +127,7 @@ in
       };
     };
 
-    users.groups = mkIf (cfg.group == "jellyfin") { jellyfin = { }; };
+    users.groups = mkIf (cfg.group == "jellyfin") {jellyfin = {};};
 
     networking.firewall = mkIf cfg.openFirewall {
       # from https://jellyfin.org/docs/general/networking/index.html
@@ -142,5 +142,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ minijackson ];
+  meta.maintainers = with lib.maintainers; [minijackson];
 }

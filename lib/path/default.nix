@@ -1,5 +1,5 @@
 # Functions for working with paths, see ./path.md
-{ lib }:
+{lib}:
 let
 
   inherit (builtins)
@@ -78,7 +78,7 @@ let
     # componentCount of -1 due to the skipStart/skipEnd not verifying that
     # they don't refer to the same character
     if path == "." then
-      [ ]
+      []
 
     # Generate the result list directly. This is more efficient than a
     # combination of `filter`, `init` and `tail`, because here we don't
@@ -100,7 +100,7 @@ let
     "./"
     +
       # An empty string is not a valid relative path, so we need to return a `.` when we have no components
-      (if components == [ ] then "." else concatStringsSep "/" components);
+      (if components == [] then "." else concatStringsSep "/" components);
 in
 # No rec! Add dependencies on this file at the top.
 {

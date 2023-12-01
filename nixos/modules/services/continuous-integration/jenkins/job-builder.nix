@@ -78,7 +78,7 @@ in
       };
 
       jsonJobs = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         example = literalExpression ''
           [
@@ -98,7 +98,7 @@ in
       };
 
       nixJobs = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.attrs;
         example = literalExpression ''
           [ { job =
@@ -142,8 +142,8 @@ in
       description = "Jenkins Job Builder Service";
       # JJB can run either before or after jenkins. We chose after, so we can
       # always use curl to notify (running) jenkins to reload its config.
-      after = [ "jenkins.service" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["jenkins.service"];
+      wantedBy = ["multi-user.target"];
 
       path = with pkgs; [
         jenkins-job-builder
@@ -158,7 +158,7 @@ in
         let
           yamlJobsFile = builtins.toFile "jobs.yaml" cfg.yamlJobs;
           jsonJobsFiles = map (x: (builtins.toFile "jobs.json" x)) (
-            cfg.jsonJobs ++ [ (builtins.toJSON cfg.nixJobs) ]
+            cfg.jsonJobs ++ [(builtins.toJSON cfg.nixJobs)]
           );
           jobBuilderOutputDir = "/run/jenkins-job-builder/output";
           # Stamp file is placed in $JENKINS_HOME/jobs/$JOB_NAME/ to indicate

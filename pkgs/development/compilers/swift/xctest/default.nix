@@ -10,7 +10,7 @@
 }:
 
 let
-  sources = callPackage ../sources.nix { };
+  sources = callPackage ../sources.nix {};
 in
 stdenv.mkDerivation {
   pname = "swift-corelibs-xctest";
@@ -18,14 +18,14 @@ stdenv.mkDerivation {
   inherit (sources) version;
   src = sources.swift-corelibs-xctest;
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   nativeBuildInputs = [
     cmake
     ninja
     swift
   ] ++ lib.optional stdenv.isDarwin DarwinTools; # sw_vers
-  buildInputs = [ Foundation ];
+  buildInputs = [Foundation];
 
   postPatch = lib.optionalString stdenv.isDarwin ''
     # On Darwin only, Swift uses arm64 as cpu arch.

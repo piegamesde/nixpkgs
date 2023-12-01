@@ -5,7 +5,7 @@
   symlinkJoin,
   stdenv,
   cmake,
-  cudaPackages ? { },
+  cudaPackages ? {},
   cudaSupport ? config.cudaSupport or false,
   nvidia-thrust,
   useThrustSourceBuild ? true,
@@ -18,9 +18,9 @@
   addOpenGLRunpath,
   optLevel ? let
     optLevels =
-      lib.optionals stdenv.hostPlatform.avx2Support [ "avx2" ]
-      ++ lib.optionals stdenv.hostPlatform.sse4_1Support [ "sse4" ]
-      ++ [ "generic" ];
+      lib.optionals stdenv.hostPlatform.avx2Support ["avx2"]
+      ++ lib.optionals stdenv.hostPlatform.sse4_1Support ["sse4"]
+      ++ ["generic"];
   in
   # Choose the maximum available optimization level
   builtins.head optLevels,
@@ -48,8 +48,8 @@ let
         libcublas
         libcurand
       ]
-      ++ lib.optionals useThrustSourceBuild [ nvidia-thrust ]
-      ++ lib.optionals (!useThrustSourceBuild) [ cuda_cccl ]
+      ++ lib.optionals useThrustSourceBuild [nvidia-thrust]
+      ++ lib.optionals (!useThrustSourceBuild) [cuda_cccl]
       ++ lib.optionals (cudaPackages ? cuda_profiler_api) [
         cuda_profiler_api # cuda_profiler_api.h
       ]
@@ -83,20 +83,20 @@ stdenv.mkDerivation {
       pythonPackages.pip
       pythonPackages.wheel
     ]
-    ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ]
-    ++ lib.optionals cudaSupport [ cudaJoined ];
+    ++ lib.optionals stdenv.cc.isClang [llvmPackages.openmp]
+    ++ lib.optionals cudaSupport [cudaJoined];
 
-  propagatedBuildInputs = lib.optionals pythonSupport [ pythonPackages.numpy ];
+  propagatedBuildInputs = lib.optionals pythonSupport [pythonPackages.numpy];
 
   nativeBuildInputs =
-    [ cmake ]
+    [cmake]
     ++ lib.optionals cudaSupport [
       cudaPackages.cuda_nvcc
       addOpenGLRunpath
     ]
-    ++ lib.optionals pythonSupport [ pythonPackages.python ];
+    ++ lib.optionals pythonSupport [pythonPackages.python];
 
-  passthru.extra-requires.all = [ pythonPackages.numpy ];
+  passthru.extra-requires.all = [pythonPackages.numpy];
 
   cmakeFlags =
     [
@@ -148,12 +148,12 @@ stdenv.mkDerivation {
 
     tests = {
       runDemos =
-        runCommand "${pname}-run-demos" { buildInputs = [ faiss.demos ]; }
+        runCommand "${pname}-run-demos" {buildInputs = [faiss.demos];}
           # There are more demos, we run just the one that documentation mentions
           ''
             demo_ivfpq_indexing && touch $out
           '';
-    } // lib.optionalAttrs pythonSupport { pytest = pythonPackages.callPackage ./tests.nix { }; };
+    } // lib.optionalAttrs pythonSupport {pytest = pythonPackages.callPackage ./tests.nix {};};
   };
 
   meta = with lib; {
@@ -161,6 +161,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/facebookresearch/faiss";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ SomeoneSerge ];
+    maintainers = with maintainers; [SomeoneSerge];
   };
 }

@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   pname = "gcs";
   version = "4.8.0";
 
-  src = runCommand "${pname}-${version}-src" { preferLocalBuild = true; } ''
+  src = runCommand "${pname}-${version}-src" {preferLocalBuild = true;} ''
     mkdir -p $out
     cd $out
 
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     cp -r ${library} gcs_library
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     jdk8
     jre8
@@ -87,6 +87,6 @@ stdenv.mkDerivation rec {
     ];
     license = licenses.mpl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

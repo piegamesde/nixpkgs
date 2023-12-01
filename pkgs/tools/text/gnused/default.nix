@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     "info"
   ];
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
   preConfigure = "patchShebangs ./build-aux/help2man";
 
   # Prevents attempts of running 'help2man' on cross-built binaries.
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3Plus;
 
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ mic92 ];
+    maintainers = with lib.maintainers; [mic92];
     mainProgram = "sed";
   };
 }

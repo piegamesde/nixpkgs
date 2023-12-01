@@ -19,7 +19,7 @@ mkCoqDerivation rec {
   release."2016-10-24".sha256 = "16y57vibq3f5i5avgj80f4i3aw46wdwzx36k5d3pf3qk17qrlrdi";
 
   mlPlugin = true;
-  buildInputs = [ python27 ];
+  buildInputs = [python27];
 
   prePatch = "patchShebangs etc/coq-scripts";
 
@@ -37,6 +37,6 @@ mkCoqDerivation rec {
   meta = {
     homepage = "http://plv.csail.mit.edu/fiat/";
     description = "A library for the Coq proof assistant for synthesizing efficient correct-by-construction programs from declarative specifications";
-    maintainers = with lib.maintainers; [ jwiegley ];
+    maintainers = with lib.maintainers; [jwiegley];
   };
 }

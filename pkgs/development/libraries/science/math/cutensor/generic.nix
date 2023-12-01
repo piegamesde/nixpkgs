@@ -39,9 +39,9 @@ stdenv.mkDerivation {
     addOpenGLRunpath
   ];
 
-  buildInputs = [ stdenv.cc.cc.lib ];
+  buildInputs = [stdenv.cc.cc.lib];
 
-  propagatedBuildInputs = [ cudatoolkit ];
+  propagatedBuildInputs = [cudatoolkit];
 
   # Set RUNPATH so that libcuda in /run/opengl-driver(-32)/lib can be found.
   # See the explanation in addOpenGLRunpath.
@@ -66,9 +66,9 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "cuTENSOR: A High-Performance CUDA Library For Tensor Primitives";
     homepage = "https://developer.nvidia.com/cutensor";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ obsidian-systems-maintenance ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [obsidian-systems-maintenance];
   };
 }

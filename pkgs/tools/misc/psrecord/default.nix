@@ -20,7 +20,7 @@ buildPythonApplication rec {
     matplotlib
   ];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   checkPhase = ''
     runHook preCheck
@@ -32,6 +32,6 @@ buildPythonApplication rec {
     description = "Record the CPU and memory activity of a process";
     homepage = "https://github.com/astrofrog/psrecord";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ johnazoidberg ];
+    maintainers = with lib.maintainers; [johnazoidberg];
   };
 }

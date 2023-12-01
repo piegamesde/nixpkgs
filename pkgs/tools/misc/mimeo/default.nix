@@ -23,7 +23,7 @@ python3Packages.buildPythonApplication {
     desktop-file-utils
   ];
 
-  propagatedBuildInputs = [ python3Packages.pyxdg ];
+  propagatedBuildInputs = [python3Packages.pyxdg];
 
   preConfigure = ''
     substituteInPlace Mimeo.py \
@@ -43,8 +43,8 @@ python3Packages.buildPythonApplication {
   meta = with lib; {
     description = "Open files by MIME-type or file name using regular expressions";
     homepage = "https://xyne.dev/projects/mimeo/";
-    license = [ licenses.gpl2Only ];
-    maintainers = [ maintainers.rycee ];
+    license = [licenses.gpl2Only];
+    maintainers = [maintainers.rycee];
     platforms = platforms.unix;
   };
 }

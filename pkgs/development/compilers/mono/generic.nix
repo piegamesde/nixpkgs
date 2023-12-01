@@ -27,11 +27,11 @@
   gnumake42,
   enableParallelBuilding ? true,
   srcArchiveSuffix ? "tar.bz2",
-  extraPatches ? [ ],
+  extraPatches ? [],
 }:
 
 let
-  llvm = callPackage ./llvm.nix { };
+  llvm = callPackage ./llvm.nix {};
 in
 stdenv.mkDerivation rec {
   pname = "mono";
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
 
   # We want pkg-config to take priority over the dlls in the Mono framework and the GAC
   # because we control pkg-config
-  patches = [ ./pkgconfig-before-gac.patch ] ++ extraPatches;
+  patches = [./pkgconfig-before-gac.patch] ++ extraPatches;
 
   # Patch all the necessary scripts. Also, if we're using LLVM, we fix the default
   # LLVM path to point into the Mono LLVM build, since it's private anyway.

@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   let
     # A filesystem image with a (presumably) bootable debian
     debianImage = pkgs.vmTools.diskImageFuns.debian11i386 {
@@ -46,7 +46,7 @@ import ./make-test-python.nix (
         forceInstall = true;
       };
       nix.settings = {
-        substituters = lib.mkForce [ ];
+        substituters = lib.mkForce [];
         hashed-mirrors = null;
         connect-timeout = 1;
       };
@@ -67,7 +67,7 @@ import ./make-test-python.nix (
     name = "os-prober";
 
     nodes.machine =
-      { config, pkgs, ... }:
+      {config, pkgs, ...}:
       (
         simpleConfig
         // {

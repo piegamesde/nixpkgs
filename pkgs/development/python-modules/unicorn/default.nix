@@ -32,7 +32,7 @@ buildPythonPackage rec {
       "macosx_11_0"
     ];
 
-  propagatedBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [setuptools];
 
   checkPhase = ''
     runHook preCheck
@@ -44,7 +44,7 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "unicorn" ];
+  pythonImportsCheck = ["unicorn"];
 
   meta = with lib; {
     description = "Python bindings for Unicorn CPU emulator engine";

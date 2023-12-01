@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     export GSOAP_SSL_PP_LIBS="$(pkg-config --libs gsoapssl++ zlib)"
   '';
 
-  configureFlags = [ "--with-gsoap-wsdl2h=${gsoap}/bin/wsdl2h" ];
+  configureFlags = ["--with-gsoap-wsdl2h=${gsoap}/bin/wsdl2h"];
 
   postFixup = ''
     ${lib.optionalString (externalEtc != null) ''
@@ -84,6 +84,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/italiangrid/voms/blob/master/ChangeLog";
     license = licenses.asl20;
     platforms = platforms.linux; # gsoap is currently Linux-only in Nixpkgs
-    maintainers = with maintainers; [ ShamrockLee ];
+    maintainers = with maintainers; [ShamrockLee];
   };
 }

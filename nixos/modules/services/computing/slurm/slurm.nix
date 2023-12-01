@@ -74,7 +74,7 @@ in
 
   ###### interface
 
-  meta.maintainers = [ maintainers.markuskowa ];
+  meta.maintainers = [maintainers.markuskowa];
 
   options = {
 
@@ -151,7 +151,7 @@ in
 
       package = mkOption {
         type = types.package;
-        default = pkgs.slurm.override { enableX11 = !cfg.enableSrunX11; };
+        default = pkgs.slurm.override {enableX11 = !cfg.enableSrunX11;};
         defaultText = literalExpression "pkgs.slurm";
         example = literalExpression "pkgs.slurm-full";
         description = lib.mdDoc ''
@@ -192,7 +192,7 @@ in
 
       nodeName = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = literalExpression ''[ "linux[1-32] CPUs=1 State=UNKNOWN" ];'';
         description = lib.mdDoc ''
           Name that SLURM uses to refer to a node (or base partition for BlueGene
@@ -203,7 +203,7 @@ in
 
       partitionName = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = literalExpression ''[ "debug Nodes=linux[1-32] Default=YES MaxTime=INFINITE State=UP" ];'';
         description = lib.mdDoc ''
           Name by which the partition may be referenced. Note that now you have
@@ -286,7 +286,7 @@ in
 
       extraConfigPaths = mkOption {
         type = with types; listOf path;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Slurm expects config files for plugins in the same path
           as `slurm.conf`. Add extra nix store
@@ -371,7 +371,7 @@ in
     in
     mkIf (cfg.enableStools || cfg.client.enable || cfg.server.enable || cfg.dbdserver.enable) {
 
-      environment.systemPackages = [ wrappedSlurm ];
+      environment.systemPackages = [wrappedSlurm];
 
       services.munge.enable = mkDefault true;
 
@@ -393,14 +393,14 @@ in
           ]
           ++ lib.optional cfg.enableSrunX11 slurm-spank-x11;
 
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         after = [
           "systemd-tmpfiles-clean.service"
           "munge.service"
           "network-online.target"
           "remote-fs.target"
         ];
-        wants = [ "network-online.target" ];
+        wants = ["network-online.target"];
 
         serviceConfig = {
           Type = "forking";
@@ -413,7 +413,7 @@ in
         };
       };
 
-      systemd.tmpfiles.rules = mkIf cfg.client.enable [ "d /var/spool/slurmd 755 root root -" ];
+      systemd.tmpfiles.rules = mkIf cfg.client.enable ["d /var/spool/slurmd 755 root root -"];
 
       services.openssh.settings.X11Forwarding = mkIf cfg.client.enable (mkDefault true);
 
@@ -427,12 +427,12 @@ in
           ]
           ++ lib.optional cfg.enableSrunX11 slurm-spank-x11;
 
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         after = [
           "network.target"
           "munged.service"
         ];
-        requires = [ "munged.service" ];
+        requires = ["munged.service"];
 
         serviceConfig = {
           Type = "forking";
@@ -459,7 +459,7 @@ in
             coreutils
           ];
 
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
           after = [
             "network.target"
             "munged.service"

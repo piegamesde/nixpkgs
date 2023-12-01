@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-sGJwtf8DVIrE4hcU3IksnyAAt8yf67UBJIiVILDSsv8=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     docopt
@@ -32,14 +32,14 @@ buildPythonPackage rec {
     sqlalchemy
   ];
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
-  pythonImportsCheck = [ "pygtfs" ];
+  pythonImportsCheck = ["pygtfs"];
 
   meta = with lib; {
     description = "Python module for GTFS";
     homepage = "https://github.com/jarondl/pygtfs";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

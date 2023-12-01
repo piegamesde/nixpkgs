@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     autoreconfHook
     perl
-  ] ++ lib.optionals isx86 [ nasm ];
+  ] ++ lib.optionals isx86 [nasm];
 
   buildInputs = [
     zlib
@@ -46,12 +46,12 @@ stdenv.mkDerivation rec {
     lz4
   ];
 
-  configureFlags = lib.optionals (!isx86) [ "--disable-asm" ];
+  configureFlags = lib.optionals (!isx86) ["--disable-asm"];
 
   meta = with lib; {
     homepage = "http://ck.kolivas.org/apps/lrzip/";
     description = "The CK LRZIP compression program (LZMA + RZIP)";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
   };

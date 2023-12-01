@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   pname = "AntTweakBar";
   version = "1.16";
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
   buildInputs = [
     xorg.libX11
     libGLU
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://sourceforge/project/anttweakbar/AntTweakBar_${
-      lib.replaceStrings [ "." ] [ "" ] version
+      lib.replaceStrings ["."] [""] version
     }.zip";
     sha256 = "0z3frxpzf54cjs07m6kg09p7nljhr7140f4pznwi7srwq4cvgkpv";
   };
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://anttweakbar.sourceforge.net/";
     license = lib.licenses.zlib;
-    maintainers = [ lib.maintainers.razvan ];
+    maintainers = [lib.maintainers.razvan];
     platforms = lib.platforms.linux;
   };
 }

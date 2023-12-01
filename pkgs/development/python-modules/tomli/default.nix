@@ -25,11 +25,11 @@ buildPythonPackage rec {
     hash = "sha256-v0ZMrHIIaGeORwD4JiBeLthmnKZODK5odZVL0SY4etA=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "tomli" ];
+  pythonImportsCheck = ["tomli"];
 
   passthru.tests = {
     # test downstream dependencies

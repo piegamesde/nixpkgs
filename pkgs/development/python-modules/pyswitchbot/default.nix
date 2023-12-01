@@ -37,7 +37,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests =
     [
@@ -45,14 +45,14 @@ buildPythonPackage rec {
       "test_parse_advertisement_data_curtain"
     ];
 
-  pythonImportsCheck = [ "switchbot" ];
+  pythonImportsCheck = ["switchbot"];
 
   meta = with lib; {
     description = "Python library to control Switchbot IoT devices";
     homepage = "https://github.com/Danielhiversen/pySwitchbot";
     changelog = "https://github.com/Danielhiversen/pySwitchbot/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
     platforms = platforms.linux;
   };
 }

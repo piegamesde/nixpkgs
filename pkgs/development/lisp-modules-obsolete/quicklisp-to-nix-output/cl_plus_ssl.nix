@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl_plus_ssl";
   version = "cl+ssl-20211209-git";
 
-  parasites = [ "cl+ssl/config" ];
+  parasites = ["cl+ssl/config"];
 
   description = "Common Lisp interface to OpenSSL.";
 
@@ -29,7 +29,7 @@ rec {
 
   packageName = "cl+ssl";
 
-  asdFilesToKeep = [ "cl+ssl.asd" ];
+  asdFilesToKeep = ["cl+ssl.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl+ssl DESCRIPTION Common Lisp interface to OpenSSL. SHA256

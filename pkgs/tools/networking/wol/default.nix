@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   };
 
   # for pod2man in order to get a manpage
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   enableParallelBuilding = true;
 
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     description = "Implements Wake On LAN functionality in a small program";
     homepage = "https://sourceforge.net/projects/wake-on-lan/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ makefu ];
+    maintainers = with maintainers; [makefu];
     platforms = platforms.linux;
   };
 }

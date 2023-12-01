@@ -59,9 +59,9 @@ python3.pkgs.buildPythonApplication rec {
 
   setupPyBuildFlags = [
     "--build-lib=$CHIPSEC_BUILD_LIB"
-  ] ++ lib.optionals (!withDriver) [ "--skip-driver" ];
+  ] ++ lib.optionals (!withDriver) ["--skip-driver"];
 
-  pythonImportsCheck = [ "chipsec" ];
+  pythonImportsCheck = ["chipsec"];
 
   meta = with lib; {
     description = "Platform Security Assessment Framework";
@@ -74,7 +74,7 @@ python3.pkgs.buildPythonApplication rec {
     '';
     license = licenses.gpl2Only;
     homepage = "https://github.com/chipsec/chipsec";
-    maintainers = with maintainers; [ johnazoidberg ];
-    platforms = [ "x86_64-linux" ] ++ lib.optional (!withDriver) "x86_64-darwin";
+    maintainers = with maintainers; [johnazoidberg];
+    platforms = ["x86_64-linux"] ++ lib.optional (!withDriver) "x86_64-darwin";
   };
 }

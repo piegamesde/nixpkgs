@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
     lapack
     suitesparse
     trilinos
-  ] ++ lib.optionals withMPI [ mpi ];
+  ] ++ lib.optionals withMPI [mpi];
 
   doCheck = enableTests;
 
@@ -196,7 +196,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://xyce.sandia.gov";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ fbeffa ];
+    maintainers = with maintainers; [fbeffa];
     platforms = platforms.all;
   };
 }

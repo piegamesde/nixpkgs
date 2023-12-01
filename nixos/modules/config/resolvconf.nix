@@ -158,7 +158,7 @@ in
 
       extraOptions = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "ndots:1"
           "rotate"
@@ -195,15 +195,15 @@ in
     (mkIf cfg.enable {
       networking.resolvconf.package = pkgs.openresolv;
 
-      environment.systemPackages = [ cfg.package ];
+      environment.systemPackages = [cfg.package];
 
       systemd.services.resolvconf = {
         description = "resolvconf update";
 
-        before = [ "network-pre.target" ];
-        wants = [ "network-pre.target" ];
-        wantedBy = [ "multi-user.target" ];
-        restartTriggers = [ config.environment.etc."resolvconf.conf".source ];
+        before = ["network-pre.target"];
+        wants = ["network-pre.target"];
+        wantedBy = ["multi-user.target"];
+        restartTriggers = [config.environment.etc."resolvconf.conf".source];
 
         serviceConfig = {
           Type = "oneshot";

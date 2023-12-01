@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = lib.optional stdenv.isLinux net-snmp;
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   enableParallelBuilding = true;
 
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Report network interfaces bandwith just like vmstat/iostat do for other system counters - legacy version";
     homepage = "http://gael.roualland.free.fr/ifstat/";
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.unix;
     license = licenses.gpl2;
   };

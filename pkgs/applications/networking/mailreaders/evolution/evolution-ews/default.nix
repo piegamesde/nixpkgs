@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
     description = "Evolution connector for Microsoft Exchange Server protocols";
     homepage = "https://gitlab.gnome.org/GNOME/evolution-ews";
     license = licenses.lgpl21Plus; # https://gitlab.gnome.org/GNOME/evolution-ews/issues/111
-    maintainers = [ maintainers.dasj19 ];
+    maintainers = [maintainers.dasj19];
     platforms = platforms.linux;
   };
 }

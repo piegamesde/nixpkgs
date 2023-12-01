@@ -1,16 +1,16 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "split-sequence";
   version = "v2.0.1";
 
-  parasites = [ "split-sequence/tests" ];
+  parasites = ["split-sequence/tests"];
 
   description = ''
     Splits a sequence into a list of subsequences
       delimited by objects satisfying a test.'';
 
-  deps = [ args."fiveam" ];
+  deps = [args."fiveam"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/split-sequence/2021-05-31/split-sequence-v2.0.1.tgz";
@@ -19,7 +19,7 @@ rec {
 
   packageName = "split-sequence";
 
-  asdFilesToKeep = [ "split-sequence.asd" ];
+  asdFilesToKeep = ["split-sequence.asd"];
   overrides = x: x;
 }
 /* (SYSTEM split-sequence DESCRIPTION

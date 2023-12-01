@@ -14,7 +14,7 @@ buildDunePackage {
     minimumOCamlVersion
     ;
 
-  propagatedBuildInputs = [ mirage-clock ];
+  propagatedBuildInputs = [mirage-clock];
 
   meta = mirage-clock.meta // {
     description = "Paravirtual implementation of the MirageOS Clock interface";

@@ -23,7 +23,7 @@ buildDunePackage rec {
     hash = "sha256-h1K5YDLbXGEJi/quKXvSR0gZ+WkBzut7AsVFv+Bm8/g=";
   };
 
-  buildInputs = [ ppx_cstruct ];
+  buildInputs = [ppx_cstruct];
   propagatedBuildInputs = [
     rresult
     cstruct-unix
@@ -34,6 +34,6 @@ buildDunePackage rec {
     description = "DBF format parsing";
     homepage = "https://github.com/pveber/dbf";
     license = licenses.isc;
-    maintainers = [ maintainers.deltadelta ];
+    maintainers = [maintainers.deltadelta];
   };
 }

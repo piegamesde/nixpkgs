@@ -33,12 +33,12 @@ buildPythonPackage rec {
     semver
   ];
 
-  pythonImportsCheck = [ "milc" ];
+  pythonImportsCheck = ["milc"];
 
   meta = with lib; {
     description = "An Opinionated Batteries-Included Python 3 CLI Framework";
     homepage = "https://milc.clueboard.co";
     license = licenses.mit;
-    maintainers = with maintainers; [ bhipple ];
+    maintainers = with maintainers; [bhipple];
   };
 }

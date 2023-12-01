@@ -25,13 +25,13 @@ rustPlatform.buildRustPackage rec {
     libxkbcommon
   ];
   doCheck = false; # Integration tests do not work in sandbox environment
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     description = "Efficient animated wallpaper daemon for wayland, controlled at runtime";
     homepage = "https://github.com/Horus645/swww";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ mateodd25 ];
+    maintainers = with maintainers; [mateodd25];
     platforms = platforms.linux;
   };
 }

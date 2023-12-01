@@ -25,22 +25,22 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ freetype ];
+  propagatedBuildInputs = [freetype];
 
   preCheck = ''
     cd tests
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "freetype" ];
+  pythonImportsCheck = ["freetype"];
 
   meta = with lib; {
     homepage = "https://github.com/rougier/freetype-py";
     description = "FreeType (high-level Python API)";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ goertzenator ];
+    maintainers = with maintainers; [goertzenator];
   };
 }

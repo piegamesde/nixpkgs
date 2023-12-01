@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
     zstd
   ] ++ lib.optionals (kernel != null) kernel.moduleBuildDependencies;
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   postUnpack = ''
     cp -r ${
@@ -158,8 +158,8 @@ stdenv.mkDerivation rec {
       gpl2
       mit
     ];
-    maintainers = [ maintainers.raskin ];
-    platforms = [ "x86_64-linux" ] ++ platforms.darwin;
+    maintainers = [maintainers.raskin];
+    platforms = ["x86_64-linux"] ++ platforms.darwin;
     broken = kernel != null && versionOlder kernel.version "4.14";
     homepage = "https://sysdig.com/opensource/";
     downloadPage = "https://github.com/draios/sysdig/releases";

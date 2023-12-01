@@ -26,16 +26,16 @@ buildPythonPackage rec {
     hash = "sha256-AYHA1xFS0g99cloGIjvi8loKS/Q/AteyLiLH8rf+2No=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     attrs
     cattrs
     click-option-group
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  ] ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   passthru.optional-dependencies = {
-    click = [ click ];
+    click = [click];
   };
 
   checkInputs = [
@@ -43,7 +43,7 @@ buildPythonPackage rec {
     typing-extensions
   ] ++ passthru.optional-dependencies.click;
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
   disabledTests =
     [
@@ -51,13 +51,13 @@ buildPythonPackage rec {
       "test_deep_options"
     ];
 
-  pythonImportsCheck = [ "typed_settings" ];
+  pythonImportsCheck = ["typed_settings"];
 
   meta = {
     description = "Typed settings based on attrs classes";
     homepage = "https://gitlab.com/sscherfke/typed-settings";
     changelog = "https://gitlab.com/sscherfke/typed-settings/-/blob/${version}/CHANGELOG.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fridh ];
+    maintainers = with lib.maintainers; [fridh];
   };
 }

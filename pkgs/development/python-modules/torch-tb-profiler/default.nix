@@ -45,12 +45,12 @@ buildPythonPackage rec {
     "test_tensorboard_with_symlinks"
   ];
 
-  pythonImportsCheck = [ "torch_tb_profiler" ];
+  pythonImportsCheck = ["torch_tb_profiler"];
 
   meta = with lib; {
     description = "PyTorch Profiler TensorBoard Plugin";
     homepage = "https://github.com/pytorch/kineto";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

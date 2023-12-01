@@ -22,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/CycloneDX/license-scanner";
     changelog = "https://github.com/CycloneDX/license-scanner/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -15,11 +15,11 @@ stdenv.mkDerivation rec {
   };
   JAVA_HOME = jdk;
   PREFIX = "\${out}";
-  buildInputs = [ jdk ];
+  buildInputs = [jdk];
 
   meta = with lib; {
     platforms = platforms.linux;
-    maintainers = [ maintainers.sander ];
+    maintainers = [maintainers.sander];
     license = licenses.mit;
   };
 }

@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-n5QFN1B2GjbzylFuW9Y4r0+ioIJlfKwcGK8X3ZwKLI8=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   doCheck = false;
 
@@ -37,7 +37,7 @@ buildGoModule rec {
     description = "A CLI to provide enhanced history for your ZSH shell";
     homepage = "https://github.com/b4b4r07/history";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     mainProgram = "history";
   };
 }

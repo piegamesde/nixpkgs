@@ -28,13 +28,13 @@ stdenv.mkDerivation rec {
     sh fix.sh unix
   '';
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  makeFlags = [ "SYSTEM_DIR=$(out)" ];
+  makeFlags = ["SYSTEM_DIR=$(out)"];
 
   meta = with lib; {
     description = "A multiplatform basic GUI library";
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux;
     license = licenses.free;
   };

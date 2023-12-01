@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  buildInputs = [ m4ri ];
+  buildInputs = [m4ri];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     homepage = "https://malb.bitbucket.io/m4rie/";

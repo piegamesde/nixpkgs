@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "moodle";
-    meta.maintainers = [ lib.maintainers.aanderse ];
+    meta.maintainers = [lib.maintainers.aanderse];
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
         services.moodle.enable = true;
         services.moodle.virtualHost.hostName = "localhost";

@@ -49,9 +49,9 @@ stdenv.mkDerivation rec {
     libstroke
   ];
 
-  configureFlags = [ "--disable-update-xdg-database" ];
+  configureFlags = ["--disable-update-xdg-database"];
 
-  CFLAGS = [ "-DSCM_DEBUG_TYPING_STRICTNESS=2" ];
+  CFLAGS = ["-DSCM_DEBUG_TYPING_STRICTNESS=2"];
 
   postInstall = ''
     libs="${lib.makeLibraryPath propagatedBuildInputs}"
@@ -71,6 +71,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ tesq0 ];
+    maintainers = with maintainers; [tesq0];
   };
 }

@@ -58,13 +58,13 @@ rec {
     meta = {
       description = "Brother ${lib.strings.toUpper model} driver";
       homepage = "http://www.brother.com/";
-      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
       license = lib.licenses.unfree;
       platforms = [
         "x86_64-linux"
         "i686-linux"
       ];
-      maintainers = [ lib.maintainers.steveej ];
+      maintainers = [lib.maintainers.steveej];
     };
   };
 
@@ -103,13 +103,13 @@ rec {
     meta = {
       description = "Brother ${lib.strings.toUpper model} CUPS wrapper driver";
       homepage = "http://www.brother.com/";
-      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
       license = lib.licenses.gpl2;
       platforms = [
         "x86_64-linux"
         "i686-linux"
       ];
-      maintainers = [ lib.maintainers.steveej ];
+      maintainers = [lib.maintainers.steveej];
     };
   };
 }

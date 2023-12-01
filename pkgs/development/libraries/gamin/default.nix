@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
   ];
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   # `_GNU_SOURCE' is needed, e.g., to get `struct ucred' from
   # <sys/socket.h> with Glibc 2.9.
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
   '';
 
   patches =
-    [ ./deadlock.patch ]
+    [./deadlock.patch]
     ++ map fetchurl (import ./debian-patches.nix)
     ++ lib.optional stdenv.cc.isClang ./returnval.patch
     ++ lib.optional stdenv.hostPlatform.isMusl (
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://people.gnome.org/~veillard/gamin/";
     description = "A file and directory monitoring system";
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     license = licenses.gpl2;
     platforms = platforms.unix;
   };

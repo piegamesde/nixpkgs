@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-vfezalq3x9KAMtwixUkIVQIwBO2zd+BDl+JwdRqBn7w=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     bluetooth-data-tools
@@ -32,20 +32,20 @@ buildPythonPackage rec {
     sensor-state-data
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace " --cov=qingping_ble --cov-report=term-missing:skip-covered" ""
   '';
 
-  pythonImportsCheck = [ "qingping_ble" ];
+  pythonImportsCheck = ["qingping_ble"];
 
   meta = with lib; {
     description = "Library for Qingping BLE devices";
     homepage = "https://github.com/bluetooth-devices/qingping-ble";
     changelog = "https://github.com/Bluetooth-Devices/qingping-ble/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

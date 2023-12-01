@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Simple GTD-style todo list for the command line";
     homepage = "https://ultralist.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ uvnikita ];
+    maintainers = with maintainers; [uvnikita];
   };
 }

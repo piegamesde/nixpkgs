@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  configureFlags = [ "--with-appdefaultdir=$out/share/X11/app-defaults" ];
+  configureFlags = ["--with-appdefaultdir=$out/share/X11/app-defaults"];
 
   buildInputs = [
     xorg.libX11
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "X Window System logo display demo";
     homepage = "https://gitlab.freedesktop.org/xorg/app/xlogo";
-    maintainers = with maintainers; [ raboof ];
+    maintainers = with maintainers; [raboof];
     platforms = platforms.unix;
     license = licenses.mit;
   };

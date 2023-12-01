@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     findlib
     ocamlbuild
   ];
-  buildInputs = [ topkg ];
+  buildInputs = [topkg];
 
   strictDeps = true;
 

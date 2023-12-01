@@ -20,7 +20,7 @@ mkDerivation {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -36,6 +36,6 @@ mkDerivation {
     description = "PHP coding standard tool";
     license = licenses.bsd3;
     homepage = "https://squizlabs.github.io/PHP_CodeSniffer/";
-    maintainers = with maintainers; [ javaguirre ] ++ teams.php.members;
+    maintainers = with maintainers; [javaguirre] ++ teams.php.members;
   };
 }

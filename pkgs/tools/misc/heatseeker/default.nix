@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     description = "A general-purpose fuzzy selector";
     homepage = "https://github.com/rschmitt/heatseeker";
     license = licenses.mit;
-    maintainers = [ maintainers.michaelpj ];
+    maintainers = [maintainers.michaelpj];
     mainProgram = "hs";
     platforms = platforms.unix;
   };

@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
+  cmakeFlags = ["-DCMAKE_INSTALL_LIBDIR=lib"];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

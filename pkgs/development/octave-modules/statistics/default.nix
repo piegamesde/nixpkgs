@@ -16,7 +16,7 @@ buildOctavePackage rec {
     sha256 = "sha256-gFauFIaXKzcPeNvpWHv5FAxYQvZNh7ELrSUIvn43IfQ=";
   };
 
-  requiredOctavePackages = [ io ];
+  requiredOctavePackages = [io];
 
   meta = with lib; {
     homepage = "https://octave.sourceforge.io/statistics/index.html";
@@ -24,7 +24,7 @@ buildOctavePackage rec {
       gpl3Plus
       publicDomain
     ];
-    maintainers = with maintainers; [ KarlJoad ];
+    maintainers = with maintainers; [KarlJoad];
     description = "Additional statistics functions for Octave";
   };
 }

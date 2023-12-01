@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     pugixml
   ];
 
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
 
   doCheck = true;
 
@@ -60,6 +60,6 @@ stdenv.mkDerivation rec {
     homepage = "https://kiwix.org";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ colinsane ];
+    maintainers = with maintainers; [colinsane];
   };
 }

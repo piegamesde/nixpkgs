@@ -23,7 +23,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace "--cov-report=" ""
   '';
 
-  nativeBuildInputs = with python3.pkgs; [ setuptools-scm ];
+  nativeBuildInputs = with python3.pkgs; [setuptools-scm];
 
   nativeCheckInputs = with python3.pkgs; [
     aspell-python
@@ -45,7 +45,7 @@ python3.pkgs.buildPythonApplication rec {
     "test_dictionary_formatting"
   ];
 
-  pythonImportsCheck = [ "codespell_lib" ];
+  pythonImportsCheck = ["codespell_lib"];
 
   meta = with lib; {
     description = "Fix common misspellings in source code";

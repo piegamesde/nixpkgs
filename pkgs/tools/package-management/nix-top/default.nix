@@ -32,9 +32,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-w/TKzbZmMt4CX2KnLwPvR1ydp5NNlp9nNx78jJvhp54=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ ruby ];
+  buildInputs = [ruby];
 
   installPhase =
     ''
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     description = "Tracks what nix is building";
     homepage = "https://github.com/samueldr/nix-top";
     license = licenses.mit;
-    maintainers = with maintainers; [ samueldr ];
+    maintainers = with maintainers; [samueldr];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

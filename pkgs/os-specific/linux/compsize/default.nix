@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OX41ChtHX36lVRL7O2gH21Dfw6GPPEClD+yafR/PFm8=";
   };
 
-  buildInputs = [ btrfs-progs ];
+  buildInputs = [btrfs-progs];
 
-  installFlags = [ "PREFIX=${placeholder "out"}" ];
+  installFlags = ["PREFIX=${placeholder "out"}"];
 
   preInstall = ''
     mkdir -p $out/share/man/man8
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     description = "btrfs: Find compression type/ratio on a file or set of files";
     homepage = "https://github.com/kilobyte/compsize";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ CrazedProgrammer ];
+    maintainers = with maintainers; [CrazedProgrammer];
     platforms = platforms.linux;
   };
 }

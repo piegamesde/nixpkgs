@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     qtbase
     qttools
     qtsvg
-  ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
+  ] ++ lib.optionals stdenv.isLinux [qtwayland];
 
   postPatch = ''
     substituteInPlace qalculate-qt.pro\
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "The ultimate desktop calculator";
     homepage = "http://qalculate.github.io";
-    maintainers = with maintainers; [ _4825764518 ];
+    maintainers = with maintainers; [_4825764518];
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
   };

@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
   '';
 
   postFixup = ''
-    wrapProgram $out/bin/run_konan --prefix PATH ":" ${lib.makeBinPath [ jre ]}
+    wrapProgram $out/bin/run_konan --prefix PATH ":" ${lib.makeBinPath [jre]}
   '';
 
   meta = {
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
       standard library.
     '';
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fabianhjr ];
-    platforms = [ "x86_64-linux" ] ++ lib.platforms.darwin;
+    maintainers = with lib.maintainers; [fabianhjr];
+    platforms = ["x86_64-linux"] ++ lib.platforms.darwin;
   };
 }

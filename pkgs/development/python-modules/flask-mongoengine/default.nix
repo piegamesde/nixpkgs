@@ -38,7 +38,7 @@ buildPythonPackage rec {
     flask
     flask-wtf
     mongoengine
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  ] ++ lib.optionals (pythonOlder "3.8") [typing-extensions];
 
   passthru.optional-dependencies = {
     wtf = [
@@ -48,19 +48,19 @@ buildPythonPackage rec {
     # toolbar = [
     #   flask-debugtoolbar
     # ];
-    legacy = [ markupsafe ];
+    legacy = [markupsafe];
   };
 
   # Tests require working mongodb connection
   doCheck = false;
 
-  pythonImportsCheck = [ "flask_mongoengine" ];
+  pythonImportsCheck = ["flask_mongoengine"];
 
   meta = with lib; {
     description = "Flask extension that provides integration with MongoEngine and WTF model forms";
     homepage = "https://github.com/mongoengine/flask-mongoengine";
     changelog = "https://github.com/MongoEngine/flask-mongoengine/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

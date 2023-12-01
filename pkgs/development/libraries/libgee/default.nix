@@ -32,7 +32,7 @@ stdenv.mkDerivation (
       gobject-introspection
     ];
 
-    buildInputs = [ glib ];
+    buildInputs = [glib];
 
     doCheck = true;
 

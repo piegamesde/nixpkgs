@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5IiNuGN9kuZnRIOGmS0IVrlUzyUVuY05tmfaQ8SC1pM=";
   };
 
-  nativeBuildInputs = [ pkg-config ] ++ [ sphinx ];
+  nativeBuildInputs = [pkg-config] ++ [sphinx];
 
   buildInputs = [
     acl
@@ -53,15 +53,15 @@ stdenv.mkDerivation rec {
       # Built separately, see python3Packages.btrfsutil
       "--disable-python"
     ]
-    ++ lib.optionals stdenv.hostPlatform.isMusl [ "--disable-backtrace" ]
-    ++ lib.optionals (!udevSupport) [ "--disable-libudev" ];
+    ++ lib.optionals stdenv.hostPlatform.isMusl ["--disable-backtrace"]
+    ++ lib.optionals (!udevSupport) ["--disable-libudev"];
 
-  makeFlags = [ "udevruledir=$(out)/lib/udev/rules.d" ];
+  makeFlags = ["udevruledir=$(out)/lib/udev/rules.d"];
 
   enableParallelBuilding = true;
 
   passthru.tests = {
-    simple-filesystem = runCommand "btrfs-progs-create-fs" { } ''
+    simple-filesystem = runCommand "btrfs-progs-create-fs" {} ''
       mkdir -p $out
       truncate -s110M $out/disc
       ${btrfs-progs}/bin/mkfs.btrfs $out/disc | tee $out/success
@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
     homepage = "https://btrfs.readthedocs.io/en/latest/";
     changelog = "https://github.com/kdave/btrfs-progs/raw/v${version}/CHANGES";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
   };
 }

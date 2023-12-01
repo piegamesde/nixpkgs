@@ -20,7 +20,7 @@ buildDunePackage rec {
     sha256 = "sha256-tpKOoPVXkg/k+NW5R8A4fGAKhdMn9UcqMogCjafJuw4=";
   };
 
-  propagatedBuildInputs = [ ];
+  propagatedBuildInputs = [];
 
   doCheck = true;
   checkInputs = [
@@ -31,7 +31,7 @@ buildDunePackage rec {
   meta = {
     description = "A date calculation library";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.niols ];
+    maintainers = [lib.maintainers.niols];
     homepage = "https://github.com/catalalang/dates-calc";
   };
 }

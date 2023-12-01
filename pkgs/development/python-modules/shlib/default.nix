@@ -18,11 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-2fwRxa64QXKJuhYwt9Z4BxhTeq1iwbd/IznfxPUjeSM=";
   };
 
-  pythonImportsCheck = [ "shlib" ];
+  pythonImportsCheck = ["shlib"];
   postPatch = ''
     patchShebangs .
   '';
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
   propagatedBuildInputs = [
     braceexpand
     inform
@@ -33,6 +33,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/KenKundert/shlib";
     changelog = "https://github.com/KenKundert/shlib/releases/tag/v${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ jpetrucciani ];
+    maintainers = with maintainers; [jpetrucciani];
   };
 }

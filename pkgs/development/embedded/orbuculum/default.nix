@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     ncurses
   ];
 
-  installFlags = [ "INSTALL_ROOT=$(out)/" ];
+  installFlags = ["INSTALL_ROOT=$(out)/"];
 
   postInstall = ''
     mkdir -p $out/etc/udev/rules.d/
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     homepage = "https://orbcode.org";
     changelog = "https://github.com/orbcode/orbuculum/blob/V${version}/CHANGES.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ newam ];
+    maintainers = with maintainers; [newam];
     platforms = platforms.linux;
   };
 }

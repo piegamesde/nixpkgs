@@ -33,12 +33,12 @@ buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "bashate" ];
+  pythonImportsCheck = ["bashate"];
 
   meta = with lib; {
     description = "Style enforcement for bash programs";
     homepage = "https://opendev.org/openstack/bashate";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

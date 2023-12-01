@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-Wa3Pm+5Knhua18IHME8S4PIdgt94QdhU1jY5pudlwp0=";
 
-  subPackages = [ "cmd/traefik" ];
+  subPackages = ["cmd/traefik"];
 
   preBuild = ''
     go generate
@@ -41,6 +41,6 @@ buildGoModule rec {
     description = "A modern reverse proxy";
     changelog = "https://github.com/traefik/traefik/raw/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ vdemeester ];
+    maintainers = with maintainers; [vdemeester];
   };
 }

@@ -29,7 +29,7 @@ mkDerivation rec {
     runHook postInstall
   '';
 
-  qmakeFlags = [ "MLVApp.pro" ];
+  qmakeFlags = ["MLVApp.pro"];
 
   preConfigure = ''
     export HOME=$TMPDIR
@@ -47,13 +47,13 @@ mkDerivation rec {
     wrapQtApp "$out/bin/mlvapp"
   '';
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
   meta = with lib; {
     description = "All in one MLV processing app that is pretty great";
     homepage = "https://mlv.app";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ kiwi ];
+    maintainers = with maintainers; [kiwi];
     platforms = platforms.linux;
   };
 }

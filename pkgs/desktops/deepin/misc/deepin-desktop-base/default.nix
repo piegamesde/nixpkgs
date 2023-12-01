@@ -14,7 +14,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-GTgIHWz+x1Pl3F4zKA9V8o2oq6c53OK94q95WoMG+Qo=";
   };
 
-  makeFlags = [ "DESTDIR=${placeholder "out"}" ];
+  makeFlags = ["DESTDIR=${placeholder "out"}"];
 
   # distribution_logo_transparent.svg come form nixos-artwork(https://github.com/NixOS/nixos-artwork)/logo/nixos-white.svg under CC-BY license, used for dde-lock
   postInstall = ''

@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     intltool
   ];
 
-  configureFlags = [ "--disable-introspection" ];
+  configureFlags = ["--disable-introspection"];
 
   # Desktop file from Debian
   postInstall = ''
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/Archive/policykit-gnome";
     description = "A dbus session bus service that is used to bring up authentication dialogs";
     license = lib.licenses.lgpl2Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 }

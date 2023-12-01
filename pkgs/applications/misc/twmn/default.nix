@@ -47,7 +47,7 @@ mkDerivation {
     description = "A notification system for tiling window managers";
     homepage = "https://github.com/sboli/twmn";
     platforms = with lib.platforms; linux;
-    maintainers = [ lib.maintainers.matejc ];
+    maintainers = [lib.maintainers.matejc];
     license = lib.licenses.lgpl3;
   };
 }

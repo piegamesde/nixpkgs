@@ -1,4 +1,4 @@
-{ version, sha256 }:
+{version, sha256}:
 
 {
   fetchurl,
@@ -21,7 +21,7 @@ python.pkgs.buildPythonApplication rec {
 
   setupHook = ./setup-hook.sh;
 
-  patches = lib.optionals (lib.versionAtLeast version "4.3.0") [ ./env.patch ];
+  patches = lib.optionals (lib.versionAtLeast version "4.3.0") [./env.patch];
 
   postPatch =
     lib.optionalString (lib.versionAtLeast version "4.0.0") ''
@@ -61,6 +61,6 @@ python.pkgs.buildPythonApplication rec {
     changelog = "https://raw.githubusercontent.com/SConsProject/scons/rel_${version}/src/CHANGES.txt";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

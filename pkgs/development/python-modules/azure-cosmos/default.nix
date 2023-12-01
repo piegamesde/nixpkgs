@@ -20,7 +20,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonNamespaces = [ "azure" ];
+  pythonNamespaces = ["azure"];
 
   # requires an active Azure Cosmos service
   doCheck = false;
@@ -29,6 +29,6 @@ buildPythonPackage rec {
     description = "Azure Cosmos DB API";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

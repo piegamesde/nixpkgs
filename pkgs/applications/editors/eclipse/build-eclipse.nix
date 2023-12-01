@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     comment = "Integrated Development Environment";
     desktopName = "Eclipse IDE";
     genericName = "Integrated Development Environment";
-    categories = [ "Development" ];
+    categories = ["Development"];
   };
 
   nativeBuildInputs = [
@@ -113,7 +113,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://www.eclipse.org/";
     inherit description;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

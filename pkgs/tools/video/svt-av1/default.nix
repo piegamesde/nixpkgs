@@ -24,7 +24,7 @@ stdenv.mkDerivation (
       nasm
     ];
 
-    passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+    passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
     meta = with lib; {
       homepage = "https://gitlab.com/AOMediaCodec/SVT-AV1";
@@ -44,7 +44,7 @@ stdenv.mkDerivation (
         aom
         bsd3
       ];
-      maintainers = with maintainers; [ Madouura ];
+      maintainers = with maintainers; [Madouura];
       platforms = platforms.unix;
       # error: use of undeclared identifier 'kCVPixelFormatType_444YpCbCr16BiPlanarVideoRange'
       broken = stdenv.isAarch64 && stdenv.isDarwin;

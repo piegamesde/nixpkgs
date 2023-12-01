@@ -21,16 +21,16 @@ stdenv.mkDerivation rec {
     findlib
     ocamlbuild
   ];
-  buildInputs = with ocamlPackages; [ opam-file-format ];
+  buildInputs = with ocamlPackages; [opam-file-format];
 
   preInstall = "mkdir -p $out/bin";
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = {
     description = "OPAm Light INstaller Engine";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     inherit (src.meta) homepage;
     inherit (ocamlPackages.ocaml.meta) platforms;
   };

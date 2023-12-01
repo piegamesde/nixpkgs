@@ -19,18 +19,18 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-AIi57DWMvAKl0PhuwHO/0cHoDKk5e0bJsqHYBka4NiU=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ curl ];
+  buildInputs = [curl];
 
-  subPackages = [ "cmd/cameradar" ];
+  subPackages = ["cmd/cameradar"];
   # At least one test is outdated
   #doCheck = false;
 
   meta = with lib; {
     description = "RTSP stream access tool";
     homepage = "https://github.com/Ullaakut/cameradar";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

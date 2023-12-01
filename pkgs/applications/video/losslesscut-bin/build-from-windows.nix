@@ -6,7 +6,7 @@
   pname,
   version,
   hash,
-  metaCommon ? { },
+  metaCommon ? {},
 }:
 
 stdenvNoCC.mkDerivation {
@@ -17,7 +17,7 @@ stdenvNoCC.mkDerivation {
     inherit hash;
   };
 
-  nativeBuildInputs = [ p7zip ];
+  nativeBuildInputs = [p7zip];
 
   unpackPhase = ''
     7z x $src -oLosslessCut-win-x64

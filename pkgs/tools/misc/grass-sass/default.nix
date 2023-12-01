@@ -22,9 +22,9 @@ rustPlatform.buildRustPackage rec {
     description = "A Sass compiler written purely in Rust";
     homepage = "https://github.com/connorskees/grass";
     changelog = "https://github.com/connorskees/grass/blob/master/CHANGELOG.md#${
-      replaceStrings [ "." ] [ "" ] version
+      replaceStrings ["."] [""] version
     }";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

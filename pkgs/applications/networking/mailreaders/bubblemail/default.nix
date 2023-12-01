@@ -71,6 +71,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "http://bubblemail.free.fr/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

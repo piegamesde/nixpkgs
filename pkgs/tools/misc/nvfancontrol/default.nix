@@ -35,8 +35,8 @@ rustPlatform.buildRustPackage rec {
     description = "NVidia dynamic fan control for Linux";
     homepage = "https://github.com/foucault/nvfancontrol";
     changelog = "https://github.com/foucault/nvfancontrol/releases/tag/${version}";
-    license = with licenses; [ gpl3Only ];
+    license = with licenses; [gpl3Only];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ devins2518 ];
+    maintainers = with maintainers; [devins2518];
   };
 }

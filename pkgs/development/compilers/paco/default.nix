@@ -27,7 +27,7 @@ buildGoModule rec {
       })
     ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -38,6 +38,6 @@ buildGoModule rec {
     description = "A simple compiled programming language";
     homepage = "https://github.com/pacolang/paco";
     license = licenses.mit;
-    maintainers = with maintainers; [ hugolgst ];
+    maintainers = with maintainers; [hugolgst];
   };
 }

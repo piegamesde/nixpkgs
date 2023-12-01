@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A tool for doing record analysis and transformation";
     homepage = "https://github.com/dflemstr/rq";
-    license = with licenses; [ asl20 ];
+    license = with licenses; [asl20];
     maintainers = with maintainers; [
       aristid
       Br1ght0ne

@@ -1,5 +1,5 @@
 {
-  pkgs ? (import <nixpkgs> { }),
+  pkgs ? (import <nixpkgs> {}),
   variant,
 }:
 
@@ -7,7 +7,7 @@ with pkgs;
 
 let
 
-  primary-src = callPackage (./. + "/src-${variant}/primary.nix") { };
+  primary-src = callPackage (./. + "/src-${variant}/primary.nix") {};
 in
 
 stdenv.mkDerivation {
@@ -21,7 +21,7 @@ stdenv.mkDerivation {
     builder = ./download-list-builder.sh;
   };
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   shellHook = ''
     function generate {

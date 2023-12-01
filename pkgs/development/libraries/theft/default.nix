@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
   checkTarget = "test";
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   # fix the libtheft.pc file to use the right installation
   # directory. should be fixed upstream, too

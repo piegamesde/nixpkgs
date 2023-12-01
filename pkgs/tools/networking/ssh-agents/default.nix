@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "1l09zy87033v7hd17lhkxikwikqz5nj9x6c2w80rqpad4lp9ihwz";
   };
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "ssh-agents capable of spawning and maintaining multiple ssh-agents across terminals";
@@ -38,7 +38,7 @@ stdenvNoCC.mkDerivation rec {
     '';
     homepage = "https://github.com/kalbasit/ssh-agents";
     license = licenses.mit;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
     platforms = platforms.unix;
   };
 }

@@ -17,7 +17,7 @@ stdenvNoCC.mkDerivation rec {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   installPhase = ''
     runHook preInstall
@@ -36,9 +36,9 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "Move and resize windows in macOS using keyboard shortcuts or snap areas";
     homepage = "https://rectangleapp.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     platforms = platforms.darwin;
-    maintainers = with maintainers; [ Enzime ];
+    maintainers = with maintainers; [Enzime];
     license = licenses.mit;
   };
 }

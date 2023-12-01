@@ -46,16 +46,16 @@ python3.pkgs.buildPythonApplication rec {
     ++ typer.optional-dependencies.all;
 
   passthru.optional-dependencies = with python3.pkgs; {
-    aws = [ boto3 ];
+    aws = [boto3];
     azure = [
       azure-storage-blob
       azure-identity
     ];
-    gcp = [ google-cloud-storage ];
+    gcp = [google-cloud-storage];
   };
 
   nativeCheckInputs =
-    [ git ]
+    [git]
     ++ (
       with python3.pkgs; [
         pytest-asyncio
@@ -70,7 +70,7 @@ python3.pkgs.buildPythonApplication rec {
     export PATH="$PATH:$out/bin"
   '';
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
   disabledTests = [
     # Fails because of dbfs CLI wrong call
@@ -80,13 +80,13 @@ python3.pkgs.buildPythonApplication rec {
     "test_python_basic_sanity_check"
   ];
 
-  pythonImportsCheck = [ "dbx" ];
+  pythonImportsCheck = ["dbx"];
 
   meta = with lib; {
     description = "CLI tool for advanced Databricks jobs management";
     homepage = "https://github.com/databrickslabs/dbx";
     changelog = "https://github.com/databrickslabs/dbx/blob/v${version}/CHANGELOG.md";
     license = licenses.databricks-dbx;
-    maintainers = with maintainers; [ GuillaumeDesforges ];
+    maintainers = with maintainers; [GuillaumeDesforges];
   };
 }

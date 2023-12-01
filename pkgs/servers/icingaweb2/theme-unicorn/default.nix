@@ -47,6 +47,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Mikesch-mp/icingaweb2-theme-unicorn";
     license = licenses.publicDomain;
     platforms = platforms.all;
-    maintainers = with maintainers; [ das_j ];
+    maintainers = with maintainers; [das_j];
   };
 }

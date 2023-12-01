@@ -25,7 +25,7 @@ stdenv.mkDerivation (
         "doc"
       ]
       # configure: WARNING: cannot generate manual pages while cross compiling
-      ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ "man" ];
+      ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) ["man"];
 
     src = fetchFromGitHub {
       owner = "liblouis";
@@ -51,7 +51,7 @@ stdenv.mkDerivation (
         libyaml
       ];
 
-    nativeCheckInputs = [ perl ];
+    nativeCheckInputs = [perl];
 
     configureFlags =
       [
@@ -79,7 +79,7 @@ stdenv.mkDerivation (
         lgpl21Plus # library
         gpl3Plus # tools
       ];
-      maintainers = with maintainers; [ jtojnar ];
+      maintainers = with maintainers; [jtojnar];
       platforms = platforms.unix;
     };
   }

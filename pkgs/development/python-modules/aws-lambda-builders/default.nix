@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-JSN51zwIh9N/Id3fhBXjmwGa2tLK/LoyPlHPl2rbVU4=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   patches =
     [
@@ -66,7 +66,7 @@ buildPythonPackage rec {
     "test_move_dependencies_action_1_multiple_files"
   ];
 
-  pythonImportsCheck = [ "aws_lambda_builders" ];
+  pythonImportsCheck = ["aws_lambda_builders"];
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);
@@ -78,6 +78,6 @@ buildPythonPackage rec {
       AWS Lambda functions for several runtimes & frameworks.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ dhkl ];
+    maintainers = with maintainers; [dhkl];
   };
 }

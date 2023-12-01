@@ -34,15 +34,15 @@ let
         mkParam =
           k: v:
           if v == null then
-            [ ]
+            []
           else if isBool v then
-            if v then [ ("--" + k) ] else [ ]
+            if v then [("--" + k)] else []
           else
             [
               ("--" + k)
               v
             ];
-        mkParams = k: v: map (mkParam k) (if isList v then v else [ v ]);
+        mkParams = k: v: map (mkParam k) (if isList v then v else [v]);
       in
       escapeShellArgs (concatLists (concatLists (mapAttrsToList mkParams value)));
   };
@@ -55,7 +55,7 @@ in
         description = lib.mdDoc ''
           Parameters of freeciv-server.
         '';
-        default = { };
+        default = {};
         type = types.submodule {
           freeformType = argsFormat.type;
           options.Announce = mkOption {
@@ -119,13 +119,13 @@ in
     };
   };
   config = mkIf cfg.enable {
-    users.groups.freeciv = { };
+    users.groups.freeciv = {};
     # Use with:
     #   journalctl -u freeciv.service -f -o cat &
     #   cat >/run/freeciv.stdin
     #   load saves/2020-11-14_05-22-27/freeciv-T0005-Y-3750-interrupted.sav.bz2
     systemd.sockets.freeciv = {
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
       socketConfig = {
         ListenFIFO = "/run/freeciv.stdin";
         SocketGroup = groups.freeciv.name;
@@ -135,8 +135,8 @@ in
     };
     systemd.services.freeciv = {
       description = "Freeciv Service";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       environment.HOME = "/var/lib/freeciv";
       serviceConfig = {
         Restart = "on-failure";
@@ -158,16 +158,16 @@ in
             ]
           )
           + " "
-          + argsFormat.generate "freeciv-server" (cfg.settings // { saves = null; })
+          + argsFormat.generate "freeciv-server" (cfg.settings // {saves = null;})
         );
         DynamicUser = true;
         # Create rootDir in the host's mount namespace.
-        RuntimeDirectory = [ (baseNameOf rootDir) ];
+        RuntimeDirectory = [(baseNameOf rootDir)];
         RuntimeDirectoryMode = "755";
-        StateDirectory = [ "freeciv" ];
+        StateDirectory = ["freeciv"];
         WorkingDirectory = "/var/lib/freeciv";
         # Avoid mounting rootDir in the own rootDir of ExecStart='s mount namespace.
-        InaccessiblePaths = [ "-+${rootDir}" ];
+        InaccessiblePaths = ["-+${rootDir}"];
         # This is for BindPaths= and BindReadOnlyPaths=
         # to allow traversal of directories they create in RootDirectory=.
         UMask = "0066";
@@ -228,7 +228,7 @@ in
         SystemCallErrorNumber = "EPERM";
       };
     };
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.settings.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {allowedTCPPorts = [cfg.settings.port];};
   };
-  meta.maintainers = with lib.maintainers; [ julm ];
+  meta.maintainers = with lib.maintainers; [julm];
 }

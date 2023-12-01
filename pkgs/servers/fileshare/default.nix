@@ -25,9 +25,9 @@ stdenv.mkDerivation rec {
     pkg-config
     git
   ];
-  buildInputs = [ libmicrohttpd ];
+  buildInputs = [libmicrohttpd];
 
-  makeFlags = [ "BUILD=release" ];
+  makeFlags = ["BUILD=release"];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     longDescription = "Fileshare is a simple tool for sharing the contents of a directory via a webserver and optionally allowing uploads.";
     homepage = "https://git.tkolb.de/Public/fileshare";
     license = licenses.mit;
-    maintainers = [ maintainers.esclear ];
+    maintainers = [maintainers.esclear];
     platforms = platforms.linux;
   };
 }

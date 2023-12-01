@@ -24,12 +24,12 @@ let
     sha256 = "sha256-Bx9SJLK97uZ/k09LIj8dHwmRetg6krI5iO7mtojV3PU=";
   };
 
-  libtensorflow = pkgs.callPackage ./libtensorflow.nix { };
-  backend = pkgs.callPackage ./backend.nix { inherit libtensorflow src version; };
-  frontend = pkgs.callPackage ./frontend.nix { inherit src version; };
+  libtensorflow = pkgs.callPackage ./libtensorflow.nix {};
+  backend = pkgs.callPackage ./backend.nix {inherit libtensorflow src version;};
+  frontend = pkgs.callPackage ./frontend.nix {inherit src version;};
 
   fetchModel =
-    { name, sha256 }:
+    {name, sha256}:
     fetchzip {
       inherit sha256;
       url = "https://dl.photoprism.org/tensorflow/${name}.zip";
@@ -56,7 +56,7 @@ in
 stdenv.mkDerivation {
   inherit pname version;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontUnpack = true;
   dontBuild = true;
@@ -86,13 +86,13 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.tests.version = testers.testVersion { package = pkgs.photoprism; };
+  passthru.tests.version = testers.testVersion {package = pkgs.photoprism;};
 
   meta = with lib; {
     homepage = "https://photoprism.app";
     description = "Personal Photo Management powered by Go and Google TensorFlow";
     inherit (libtensorflow.meta) platforms;
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ benesim ];
+    maintainers = with maintainers; [benesim];
   };
 }

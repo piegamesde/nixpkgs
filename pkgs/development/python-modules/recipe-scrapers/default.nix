@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-6iUagD1PTTAraBHOWLjHiLFFsImO30w84p+6IcIv52c=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     beautifulsoup4
@@ -45,12 +45,12 @@ buildPythonPackage rec {
       "templates/test_scraper.py"
     ];
 
-  pythonImportsCheck = [ "recipe_scrapers" ];
+  pythonImportsCheck = ["recipe_scrapers"];
 
   meta = with lib; {
     description = "Python package for scraping recipes data ";
     homepage = "https://github.com/hhursev/recipe-scrapers";
     license = licenses.mit;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

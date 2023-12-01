@@ -18,7 +18,7 @@ buildPythonPackage rec {
   # too complicated to setup - needs a running django instance
   doCheck = false;
 
-  propagatedBuildInputs = [ django ];
+  propagatedBuildInputs = [django];
 
   meta = with lib; {
     description = "Adds Content-Security-Policy headers to Django";

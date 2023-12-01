@@ -16,7 +16,7 @@ toKodiAddon (
 
       dontStrip = true;
 
-      extraRuntimeDependencies = [ ];
+      extraRuntimeDependencies = [];
 
       installPhase = ''
         runHook preInstall

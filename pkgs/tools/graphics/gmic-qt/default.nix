@@ -46,7 +46,7 @@ assert lib.assertMsg (builtins.hasAttr variant variants)
       lib.concatStringsSep ", " (builtins.attrNames variants)
     }.'';
 
-assert lib.assertMsg (builtins.all (d: d != null) variants.${variant}.extraDeps or [ ])
+assert lib.assertMsg (builtins.all (d: d != null) variants.${variant}.extraDeps or [])
     ''gmic-qt variant "${variant}" is missing one of its dependencies.'';
 
 stdenv.mkDerivation (
@@ -79,7 +79,7 @@ stdenv.mkDerivation (
       openexr
       graphicsmagick
       curl
-    ] ++ variants.${variant}.extraDeps or [ ];
+    ] ++ variants.${variant}.extraDeps or [];
 
     preConfigure = ''
       cd gmic-qt
@@ -109,14 +109,14 @@ stdenv.mkDerivation (
         inherit cimg gmic;
       };
 
-      updateScript = nix-update-script { };
+      updateScript = nix-update-script {};
     };
 
     meta = {
       homepage = "http://gmic.eu/";
       inherit (variants.${variant}) description;
       license = lib.licenses.gpl3Plus;
-      maintainers = [ lib.maintainers.lilyinstarlight ];
+      maintainers = [lib.maintainers.lilyinstarlight];
       platforms = lib.platforms.unix;
       mainProgram = "gmic_qt";
     };

@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     ripgrep
   ];
 
-  buildInputs = [ libunwind ];
+  buildInputs = [libunwind];
 
   propagatedBuildInputs = [
     bison
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.stellar.org/";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.asl20;
   };
 }

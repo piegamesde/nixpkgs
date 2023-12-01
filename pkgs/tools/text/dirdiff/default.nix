@@ -17,14 +17,14 @@ stdenv.mkDerivation rec {
     sha256 = "0lljd8av68j70733yshzzhxjr1lm0vgmbqsm8f02g03qsma3cdyb";
   };
 
-  nativeBuildInputs = [ copyDesktopItems ];
+  nativeBuildInputs = [copyDesktopItems];
   buildInputs = [
     tcl
     tk
   ];
 
   # Some light path patching.
-  patches = [ ./dirdiff-2.1-vars.patch ];
+  patches = [./dirdiff-2.1-vars.patch];
   postPatch = ''
     for file in dirdiff Makefile; do
       substituteInPlace "$file" \
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       desktopName = "Dirdiff";
       genericName = "Directory Diff Viewer";
       comment = "Diff and merge directory trees";
-      categories = [ "Development" ];
+      categories = ["Development"];
     })
   ];
 
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.samba.org/ftp/paulus/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ khumba ];
+    maintainers = with maintainers; [khumba];
     platforms = platforms.linux;
   };
 }

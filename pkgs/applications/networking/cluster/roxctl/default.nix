@@ -20,9 +20,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-kv5kNFFw57ZuNgwNMucmCPIwaAhpzT0hs2K1B65WxpU=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  subPackages = [ "roxctl" ];
+  subPackages = ["roxctl"];
 
   ldflags = [
     "-s"
@@ -46,6 +46,6 @@ buildGoModule rec {
     description = "Command-line client of the StackRox Kubernetes Security Platform";
     license = licenses.asl20;
     homepage = "https://www.stackrox.io";
-    maintainers = with maintainers; [ stehessel ];
+    maintainers = with maintainers; [stehessel];
   };
 }

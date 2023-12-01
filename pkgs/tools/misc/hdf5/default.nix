@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ removeReferencesTo ] ++ optional fortranSupport fortran;
+  nativeBuildInputs = [removeReferencesTo] ++ optional fortranSupport fortran;
 
   buildInputs =
     optional fortranSupport fortran ++ optional szipSupport szip ++ optional javaSupport jdk;
@@ -130,7 +130,7 @@ stdenv.mkDerivation rec {
       applications for managing, manipulating, viewing, and analyzing data in the HDF5 format.
     '';
     license = licenses.bsd3; # Lawrence Berkeley National Labs BSD 3-Clause variant
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
     homepage = "https://www.hdfgroup.org/HDF5/";
     platforms = platforms.unix;
   };

@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://www.roomeqwizard.com/installers/REW_linux_${
-      lib.replaceStrings [ "." ] [ "_" ] version
+      lib.replaceStrings ["."] ["_"] version
     }.sh";
     sha256 = "NYTRiOZmwkni4k+jI2SV84z5umO7+l+eKpwPCdlDD3U=";
   };
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     icon = pname;
     desktopName = "REW";
     genericName = "Software for audio measurements";
-    categories = [ "AudioVideo" ];
+    categories = ["AudioVideo"];
   };
 
   responseFile = writeTextFile {
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     SUBSYSTEM=="usb", ATTR{idVendor}=="2752", ATTR{idProduct}=="0007", TAG+="uaccess"
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildPhase = ''
     runHook preBuild
@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.roomeqwizard.com/";
     license = licenses.unfree;
     platforms = platforms.all;
-    maintainers = with maintainers; [ zaninime ];
+    maintainers = with maintainers; [zaninime];
     description = "Room Acoustics Software";
     longDescription = ''
       REW is free software for room acoustic measurement, loudspeaker

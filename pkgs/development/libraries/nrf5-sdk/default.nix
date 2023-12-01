@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.nordicsemi.com/Products/Development-software/nRF5-SDK";
     license = licenses.unfree;
     platforms = platforms.all;
-    maintainers = with maintainers; [ stargate01 ];
+    maintainers = with maintainers; [stargate01];
   };
 }

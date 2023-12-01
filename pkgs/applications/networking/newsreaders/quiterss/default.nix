@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/QuiteRSS/quiterss/blob/${version}/CHANGELOG";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
   };
 }

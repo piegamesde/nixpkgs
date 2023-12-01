@@ -26,7 +26,7 @@ buildPythonPackage rec {
     sip_4
     clipper
   ];
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   CLIPPER_PATH = "${clipper.out}";
 

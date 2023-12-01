@@ -27,13 +27,13 @@ let
       SDL2
       libGLU
     ];
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
     meta = with lib; {
       homepage = "https://github.com/grimfang4/sdl-gpu";
       description = "A library for high-performance, modern 2D graphics with SDL written in C";
       license = licenses.mit;
-      maintainers = with maintainers; [ CrazedProgrammer ];
+      maintainers = with maintainers; [CrazedProgrammer];
     };
   };
 in
@@ -55,10 +55,10 @@ stdenv.mkDerivation rec {
     curl
     curlpp
   ];
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  hardeningDisable = [ "fortify" ];
-  cmakeFlags = [ ''-DSDL2_gpu_INCLUDE_DIR="${sdl-gpu}/include"'' ];
+  hardeningDisable = ["fortify"];
+  cmakeFlags = [''-DSDL2_gpu_INCLUDE_DIR="${sdl-gpu}/include"''];
 
   # Riko4 needs the data/ and scripts/ directories to be in its PWD.
   installPhase = ''
@@ -79,6 +79,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/incinirate/Riko4";
     description = "Fantasy console for pixel art game development";
     license = licenses.mit;
-    maintainers = with maintainers; [ CrazedProgrammer ];
+    maintainers = with maintainers; [CrazedProgrammer];
   };
 }

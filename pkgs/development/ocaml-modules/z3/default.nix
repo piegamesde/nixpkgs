@@ -34,8 +34,8 @@ else
       runHook postInstall
     '';
 
-    nativeBuildInputs = [ findlib ];
-    propagatedBuildInputs = [ zarith ];
+    nativeBuildInputs = [findlib];
+    propagatedBuildInputs = [zarith];
 
     strictDeps = true;
 

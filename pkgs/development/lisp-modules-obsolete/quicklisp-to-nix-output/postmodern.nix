@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "postmodern";
   version = "20211209-git";
 
-  parasites = [ "postmodern/tests" ];
+  parasites = ["postmodern/tests"];
 
   description = "PostgreSQL programming API";
 
@@ -39,7 +39,7 @@ rec {
 
   packageName = "postmodern";
 
-  asdFilesToKeep = [ "postmodern.asd" ];
+  asdFilesToKeep = ["postmodern.asd"];
   overrides = x: x;
 }
 /* (SYSTEM postmodern DESCRIPTION PostgreSQL programming API SHA256

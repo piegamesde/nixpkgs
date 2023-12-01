@@ -32,6 +32,6 @@ buildDunePackage rec {
     description = "Minimalist framework to build extensible HTTP servers and clients";
     homepage = "https://github.com/rgrinberg/opium";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

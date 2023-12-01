@@ -1,21 +1,21 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   {
     name = "plasma5";
-    meta = with pkgs.lib.maintainers; { maintainers = [ ttuegel ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [ttuegel];};
 
     nodes.machine =
-      { ... }:
+      {...}:
 
       {
-        imports = [ ./common/user-account.nix ];
+        imports = [./common/user-account.nix];
         services.xserver.enable = true;
         services.xserver.displayManager.sddm.enable = true;
         services.xserver.displayManager.defaultSession = "plasma";
         services.xserver.desktopManager.plasma5 = {
           enable = true;
-          excludePackages = [ pkgs.plasma5Packages.elisa ];
+          excludePackages = [pkgs.plasma5Packages.elisa];
         };
         services.xserver.displayManager.autoLogin = {
           enable = true;
@@ -25,7 +25,7 @@ import ./make-test-python.nix (
       };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         user = nodes.machine.config.users.users.alice;
         xdo = "${pkgs.xdotool}/bin/xdotool";

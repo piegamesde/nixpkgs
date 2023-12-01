@@ -1,11 +1,11 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
   systemdStage1 ? false,
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
 
 let
@@ -76,7 +76,7 @@ let
 
         hardware.enableAllFirmware = lib.mkForce false;
 
-        ${replaceStrings [ "\n" ] [ "\n  " ] extraConfig}
+        ${replaceStrings ["\n"] ["\n  "] extraConfig}
       }
     '';
 
@@ -338,14 +338,14 @@ let
       preBootCommands ? "",
       postBootCommands ? "",
       extraConfig ? "",
-      extraInstallerConfig ? { },
+      extraInstallerConfig ? {},
       bootLoader ? "grub", # either "grub" or "systemd-boot"
       grubVersion ? 2,
       grubDevice ? "/dev/vda",
       grubIdentifier ? "uuid",
       grubUseEfi ? false,
       enableOCR ? false,
-      meta ? { },
+      meta ? {},
       testSpecialisationConfig ? false,
     }:
     makeTest {
@@ -353,13 +353,13 @@ let
       name = "installer-" + name;
       meta = with pkgs.lib.maintainers; {
         # put global maintainers here, individuals go into makeInstallerTest fkt call
-        maintainers = (meta.maintainers or [ ]);
+        maintainers = (meta.maintainers or []);
       };
       nodes = {
 
         # The configuration of the machine used to run "nixos-install".
         machine =
-          { pkgs, ... }:
+          {pkgs, ...}:
           {
             imports = [
               ../modules/profiles/installation-device.nix
@@ -377,7 +377,7 @@ let
             # Use a small /dev/vdb as the root disk for the
             # installer. This ensures the target disk (/dev/vda) is
             # the same during and after installation.
-            virtualisation.emptyDiskImages = [ 512 ];
+            virtualisation.emptyDiskImages = [512];
             virtualisation.rootDevice =
               if grubVersion == 1 then "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive2" else "/dev/vdb";
             virtualisation.bootLoaderDevice = "/dev/vda";
@@ -388,7 +388,7 @@ let
             # (with a different configuration for legacy reasons),
             # and spend 5 minutes waiting for the vlan interface to show up
             # (which will never happen).
-            virtualisation.vlans = [ ];
+            virtualisation.vlans = [];
 
             boot.loader.systemd-boot.enable = mkIf (bootLoader == "systemd-boot") true;
 
@@ -405,7 +405,7 @@ let
                 desktop-file-utils
                 docbook5
                 docbook_xsl_ns
-                (docbook-xsl-ns.override { withManOptDedupPatch = true; })
+                (docbook-xsl-ns.override {withManOptDedupPatch = true;})
                 kbd.dev
                 kmod.dev
                 libarchive.dev
@@ -425,7 +425,7 @@ let
                         includeSiteCustomize = true;
                       });
                   in
-                  self.withPackages (p: [ p.mistune ])
+                  self.withPackages (p: [p.mistune])
                 )
                 shared-mime-info
                 sudo
@@ -440,16 +440,16 @@ let
               ++ optional (bootLoader == "grub" && grubVersion == 1) pkgs.grub
               ++ optionals (bootLoader == "grub" && grubVersion == 2) (
                 let
-                  zfsSupport = lib.any (x: x == "zfs") (extraInstallerConfig.boot.supportedFilesystems or [ ]);
+                  zfsSupport = lib.any (x: x == "zfs") (extraInstallerConfig.boot.supportedFilesystems or []);
                 in
                 [
-                  (pkgs.grub2.override { inherit zfsSupport; })
-                  (pkgs.grub2_efi.override { inherit zfsSupport; })
+                  (pkgs.grub2.override {inherit zfsSupport;})
+                  (pkgs.grub2_efi.override {inherit zfsSupport;})
                 ]
               );
 
             nix.settings = {
-              substituters = mkForce [ ];
+              substituters = mkForce [];
               hashed-mirrors = null;
               connect-timeout = 1;
             };
@@ -563,9 +563,7 @@ let
   };
   # disable zfs so we can support latest kernel if needed
   no-zfs-module = {
-    nixpkgs.overlays = [
-      (final: super: { zfs = super.zfs.overrideAttrs (_: { meta.platforms = [ ]; }); })
-    ];
+    nixpkgs.overlays = [(final: super: {zfs = super.zfs.overrideAttrs (_: {meta.platforms = [];});})];
   };
 in
 {
@@ -653,7 +651,7 @@ in
   # zfs on / with swap
   zfsroot = makeInstallerTest "zfs-root" {
     extraInstallerConfig = {
-      boot.supportedFilesystems = [ "zfs" ];
+      boot.supportedFilesystems = ["zfs"];
     };
 
     extraConfig = ''
@@ -866,8 +864,8 @@ in
 
   bcachefsSimple = makeInstallerTest "bcachefs-simple" {
     extraInstallerConfig = {
-      boot.supportedFilesystems = [ "bcachefs" ];
-      imports = [ no-zfs-module ];
+      boot.supportedFilesystems = ["bcachefs"];
+      imports = [no-zfs-module];
     };
 
     createPartitions = ''
@@ -890,12 +888,12 @@ in
 
   bcachefsEncrypted = makeInstallerTest "bcachefs-encrypted" {
     extraInstallerConfig = {
-      boot.supportedFilesystems = [ "bcachefs" ];
+      boot.supportedFilesystems = ["bcachefs"];
 
       # disable zfs so we can support latest kernel if needed
-      imports = [ no-zfs-module ];
+      imports = [no-zfs-module];
 
-      environment.systemPackages = with pkgs; [ keyutils ];
+      environment.systemPackages = with pkgs; [keyutils];
     };
 
     extraConfig = ''
@@ -931,10 +929,10 @@ in
 
   bcachefsMulti = makeInstallerTest "bcachefs-multi" {
     extraInstallerConfig = {
-      boot.supportedFilesystems = [ "bcachefs" ];
+      boot.supportedFilesystems = ["bcachefs"];
 
       # disable zfs so we can support latest kernel if needed
-      imports = [ no-zfs-module ];
+      imports = [no-zfs-module];
     };
 
     createPartitions = ''

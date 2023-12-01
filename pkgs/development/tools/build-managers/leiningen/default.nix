@@ -28,8 +28,8 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
-  propagatedBuildInputs = [ jdk ];
+  nativeBuildInputs = [makeWrapper];
+  propagatedBuildInputs = [jdk];
 
   # the jar is not in share/java, because it's a standalone jar and should
   # never be picked up by set-java-classpath.sh
@@ -67,10 +67,10 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://leiningen.org/";
     description = "Project automation for Clojure";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.epl10;
     platforms = jdk.meta.platforms;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "lein";
   };
 }

@@ -60,7 +60,7 @@ buildPythonPackage rec {
     rm -f $out/{LICENSE.txt,README.rst,requirements.txt}
   '';
 
-  pythonImportsCheck = [ "icontract" ];
+  pythonImportsCheck = ["icontract"];
 
   meta = with lib; {
     description = "Provide design-by-contract with informative violation messages";

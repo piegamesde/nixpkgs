@@ -138,9 +138,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Where developers come to talk";
     downloadPage = "https://gitter.im/apps";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.mit;
-    maintainers = [ maintainers.imalison ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.imalison];
+    platforms = ["x86_64-linux"];
   };
 }

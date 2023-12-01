@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
       FAQ, please contact us.
     '';
     license = licenses.unfree;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
     platforms = platforms.linux;
   };
 }

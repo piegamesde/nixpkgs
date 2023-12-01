@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-yGSjwagCd5TiwEFtF6ZhDuVqj4PTa5pVXhs8ebr2O/g=";
   };
 
-  propagatedBuildInputs = [ urwid ];
+  propagatedBuildInputs = [urwid];
 
   patches = [
     (fetchpatch {
@@ -27,7 +27,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeCheckInputs = [ glibcLocales ];
+  nativeCheckInputs = [glibcLocales];
   LC_ALL = "en_US.UTF-8";
 
   meta = with lib; {

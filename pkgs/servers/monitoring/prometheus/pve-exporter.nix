@@ -23,7 +23,7 @@ python3.pkgs.buildPythonApplication rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [ "pve_exporter" ];
+  pythonImportsCheck = ["pve_exporter"];
 
   passthru.tests = {
     inherit (nixosTests.prometheus-exporters) pve;
@@ -33,6 +33,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Exposes information gathered from Proxmox VE cluster for use by the Prometheus monitoring system";
     homepage = "https://github.com/prometheus-pve/prometheus-pve-exporter";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nukaduka ];
+    maintainers = with maintainers; [nukaduka];
   };
 }

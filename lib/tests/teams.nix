@@ -2,7 +2,7 @@
 # nix-build nixpkgs/lib/tests/teams.nix
 # If it builds, all tests passed
 {
-  pkgs ? import ../.. { },
+  pkgs ? import ../.. {},
   lib ? pkgs.lib,
 }:
 
@@ -10,22 +10,22 @@ let
   inherit (lib) types;
 
   teamModule =
-    { config, ... }:
+    {config, ...}:
     {
       options = {
-        shortName = lib.mkOption { type = types.str; };
-        scope = lib.mkOption { type = types.str; };
+        shortName = lib.mkOption {type = types.str;};
+        scope = lib.mkOption {type = types.str;};
         enableFeatureFreezePing = lib.mkOption {
           type = types.bool;
           default = false;
         };
         members = lib.mkOption {
-          type = types.listOf (types.submodule (import ./maintainer-module.nix { inherit lib; }));
-          default = [ ];
+          type = types.listOf (types.submodule (import ./maintainer-module.nix {inherit lib;}));
+          default = [];
         };
         githubTeams = lib.mkOption {
           type = types.listOf types.str;
-          default = [ ];
+          default = [];
         };
       };
     };

@@ -48,7 +48,7 @@ in
 
       extraOptions = mkOption {
         description = lib.mdDoc "Extra xpra options";
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
       };
     };
@@ -57,7 +57,7 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-    services.xserver.videoDrivers = [ "dummy" ];
+    services.xserver.videoDrivers = ["dummy"];
 
     services.xserver.monitorSection = ''
       HorizSync   1.0 - 2000.0
@@ -323,7 +323,7 @@ in
 
     services.xserver.terminateOnReset = false;
 
-    environment.systemPackages = [ pkgs.xpra ];
+    environment.systemPackages = [pkgs.xpra];
 
     virtualisation.virtualbox.guest.x11 = false;
     hardware.pulseaudio.enable = mkDefault cfg.pulseaudio;

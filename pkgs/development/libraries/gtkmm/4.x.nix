@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [ libepoxy ];
+  buildInputs = [libepoxy];
 
   propagatedBuildInputs = [
     glibmm_2_68
@@ -46,10 +46,10 @@ stdenv.mkDerivation rec {
     pangomm_2_48
   ];
 
-  nativeCheckInputs = lib.optionals (!stdenv.isDarwin) [ xvfb-run ];
+  nativeCheckInputs = lib.optionals (!stdenv.isDarwin) [xvfb-run];
 
   # Tests require fontconfig.
-  FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ ]; };
+  FONTCONFIG_FILE = makeFontsConf {fontDirectories = [];};
 
   doCheck = true;
 
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://gtkmm.org/";
     license = licenses.lgpl2Plus;
-    maintainers = teams.gnome.members ++ (with maintainers; [ raskin ]);
+    maintainers = teams.gnome.members ++ (with maintainers; [raskin]);
     platforms = platforms.unix;
   };
 }

@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     libpulseaudio
     libnotify
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   postPatch = ''substituteInPlace Makefile --replace "\$(DESTDIR)/usr" "$out"'';
 
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/falconindy/ponymix";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ericsagnes ];
+    maintainers = with maintainers; [ericsagnes];
   };
 }

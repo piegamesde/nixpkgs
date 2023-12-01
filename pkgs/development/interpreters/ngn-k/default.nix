@@ -26,7 +26,7 @@ useStdenv.mkDerivation {
     sha256 = "1pn416znrdndb8iccprzx4zicmsx8c6i9dm3wq5z3jg8nan53p69";
   };
 
-  patches = [ ./repl-license-path.patch ];
+  patches = [./repl-license-path.patch];
 
   postPatch = ''
     patchShebangs --build a19/a.sh a20/a.sh a21/a.sh dy/a.sh e/a.sh
@@ -37,7 +37,7 @@ useStdenv.mkDerivation {
     done
   '';
 
-  makeFlags = [ "-e" ];
+  makeFlags = ["-e"];
   buildFlags = [
     (if withLibc then "k-libc" else "k")
     "libk.so"
@@ -67,7 +67,7 @@ useStdenv.mkDerivation {
     description = "A simple fast vector programming language";
     homepage = "https://codeberg.org/ngn/k";
     license = lib.licenses.agpl3Only;
-    maintainers = [ lib.maintainers.sternenseemann ];
+    maintainers = [lib.maintainers.sternenseemann];
     platforms = [
       "x86_64-linux"
       "x86_64-freebsd13"

@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   };
 
   # Adds the CMakeLists.txt not provided by upstream
-  patches = [ ./cmake.patch ];
+  patches = [./cmake.patch];
   postPatch = "rm build";
   nativeBuildInputs = [
     cmake
@@ -40,6 +40,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Zren/plasma-applet-volumewin7mixer";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mdevlamynck ];
+    maintainers = with maintainers; [mdevlamynck];
   };
 }

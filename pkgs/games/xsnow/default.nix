@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fPMy5AxKspFkcWphf/IjMc/ZQtayljThKxbcMtvOjRc=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gtk3-x11
     libxml2
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     libXpm
   ];
 
-  makeFlags = [ "gamesdir=$(out)/bin" ];
+  makeFlags = ["gamesdir=$(out)/bin"];
 
   enableParallelBuilding = true;
 
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     description = "An X-windows application that will let it snow on the root, in between and on windows";
     homepage = "https://ratrabbit.nl/ratrabbit/xsnow/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ robberer ];
+    maintainers = with maintainers; [robberer];
     platforms = platforms.unix;
   };
 }

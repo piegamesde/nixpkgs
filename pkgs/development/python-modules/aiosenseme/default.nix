@@ -20,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-ShK4DP1lAtAFI6z2kf5T1ecbNTKUn2kqUjps2ABRegg=";
   };
 
-  propagatedBuildInputs = [ ifaddr ];
+  propagatedBuildInputs = [ifaddr];
 
-  pythonImportsCheck = [ "aiosenseme" ];
+  pythonImportsCheck = ["aiosenseme"];
 
   # Module has no tests
   doCheck = false;
@@ -30,7 +30,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module to interact with SenseME fans and lights by Big Ass Fans";
     homepage = "https://github.com/bdraco/aiosenseme";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -32,12 +32,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "azure.mgmt.logic" ];
+  pythonImportsCheck = ["azure.mgmt.logic"];
 
   meta = with lib; {
     description = "This is the Microsoft Azure Logic Apps Management Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxwilson ];
+    maintainers = with maintainers; [maxwilson];
   };
 }

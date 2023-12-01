@@ -25,8 +25,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "Office 365 enumeration tool";
     homepage = "https://github.com/optiv/Go365";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
     mainProgram = "Go365";
   };
 }

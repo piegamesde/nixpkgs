@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     changelog = "https://git.sr.ht/~sircmpwn/scdoc/refs/${version}";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
   };
 }

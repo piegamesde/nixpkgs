@@ -8,7 +8,7 @@
 let
   generic =
     {
-      patches ? [ ],
+      patches ? [],
     }:
     buildGoPackage rec {
       version = "1.6.4";
@@ -38,7 +38,7 @@ let
     };
 in
 {
-  certmgr = generic { };
+  certmgr = generic {};
 
   certmgr-selfsigned = generic {
     # The following patch makes it possible to use a self-signed x509 cert

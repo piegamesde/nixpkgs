@@ -36,6 +36,6 @@ buildPythonApplication rec {
     description = "A simple but flexible solution to saving and restoring i3 workspaces";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ magnetophon ];
+    maintainers = with maintainers; [magnetophon];
   };
 }

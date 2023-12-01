@@ -22,14 +22,14 @@ buildPythonPackage rec {
     hash = "sha256-ZsoWz+35hQS15dbpe1IOzft6JwZygKjv5AQWjVe+8kQ=";
   };
 
-  propagatedBuildInputs = [ ply ];
+  propagatedBuildInputs = [ply];
 
   nativeCheckInputs = [
     parameterized
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pyomo" ];
+  pythonImportsCheck = ["pyomo"];
 
   preCheck = ''
     export HOME=$(mktemp -d);
@@ -54,6 +54,6 @@ buildPythonPackage rec {
     homepage = "http://pyomo.org";
     changelog = "https://github.com/Pyomo/pyomo/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

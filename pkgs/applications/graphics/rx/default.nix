@@ -60,6 +60,6 @@ rustPlatform.buildRustPackage rec {
       minijackson
       Br1ght0ne
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

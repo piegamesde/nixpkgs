@@ -15,7 +15,7 @@ buildPythonApplication rec {
 
   version = "0.15.1.0";
 
-  buildInputs = [ gdb ];
+  buildInputs = [gdb];
   propagatedBuildInputs = [
     eventlet
     flask-compress
@@ -37,7 +37,7 @@ buildPythonApplication rec {
 
   postInstall = ''
     wrapProgram $out/bin/gdbgui \
-      --prefix PATH : ${lib.makeBinPath [ gdb ]}
+      --prefix PATH : ${lib.makeBinPath [gdb]}
   '';
 
   # tests do not work without stdout/stdin

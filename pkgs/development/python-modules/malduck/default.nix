@@ -47,16 +47,16 @@ buildPythonPackage rec {
       --replace "dnfile==0.11.0" "dnfile"
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "malduck" ];
+  pythonImportsCheck = ["malduck"];
 
   meta = with lib; {
     description = "Helper for malware analysis";
     homepage = "https://github.com/CERT-Polska/malduck";
     changelog = "https://github.com/CERT-Polska/malduck/releases/tag/v${version}";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
     # Compatibility issues with yara-python v4.3.0
     # https://github.com/CERT-Polska/malduck/issues/88
     broken = true;

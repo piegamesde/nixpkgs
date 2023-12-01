@@ -36,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-QVAFzV9sao8+eegI7bLfm+pPHyvDFhnADS80+nqqgtE=";
   };
 
-  patches = [ ./use-system-sqlite.patch ];
+  patches = [./use-system-sqlite.patch];
 
   postPatch = ''
     cp ${./Cargo.lock} Cargo.lock
@@ -71,7 +71,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ sqlite ]
+    [sqlite]
     ++ lib.optionals stdenv.isDarwin [
       CoreFoundation
       Security
@@ -91,11 +91,11 @@ rustPlatform.buildRustPackage rec {
   LIGHTHOUSE_DEPOSIT_CONTRACT_SPEC_URL = "file://${depositContractSpec}";
   LIGHTHOUSE_DEPOSIT_CONTRACT_TESTNET_URL = "file://${testnetDepositContractSpec}";
 
-  cargoBuildFlags = [ "--package lighthouse" ];
+  cargoBuildFlags = ["--package lighthouse"];
 
   __darwinAllowLocalNetworking = true;
 
-  checkFeatures = [ ];
+  checkFeatures = [];
 
   # All of these tests require network access and/or docker
   cargoTestFlags = [
@@ -132,7 +132,7 @@ rustPlatform.buildRustPackage rec {
       command = "lighthouse --version";
       version = "v${lighthouse.version}";
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

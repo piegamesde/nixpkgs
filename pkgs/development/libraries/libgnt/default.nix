@@ -58,6 +58,6 @@ stdenv.mkDerivation rec {
     homepage = "https://keep.imfreedom.org/libgnt/libgnt/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with lib.maintainers; [ ony ];
+    maintainers = with lib.maintainers; [ony];
   };
 }

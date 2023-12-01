@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     makeWrapper
     setJavaClassPath
   ];
-  buildInputs = [ deps ];
+  buildInputs = [deps];
 
   dontUnpack = true;
 

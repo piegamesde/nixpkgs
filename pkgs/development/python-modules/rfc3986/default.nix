@@ -19,16 +19,16 @@ buildPythonPackage rec {
     hash = "sha256-l6rPnb1L/YKbqtbmMJ+mVzqvG+P2+nNcirBeRs7LJhw=";
   };
 
-  propagatedBuildInputs = [ idna ];
+  propagatedBuildInputs = [idna];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "rfc3986" ];
+  pythonImportsCheck = ["rfc3986"];
 
   meta = with lib; {
     description = "Validating URI References per RFC 3986";
     homepage = "https://rfc3986.readthedocs.org";
     license = licenses.asl20;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

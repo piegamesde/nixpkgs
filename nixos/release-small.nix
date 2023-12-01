@@ -23,7 +23,7 @@ let
 
   nixpkgsSrc = nixpkgs; # urgh
 
-  pkgs = import ./.. { system = "x86_64-linux"; };
+  pkgs = import ./.. {system = "x86_64-linux";};
 
   lib = pkgs.lib;
 
@@ -38,7 +38,7 @@ let
         inherit supportedSystems;
         nixpkgs = nixpkgsSrc;
       })
-      [ "unstable" ];
+      ["unstable"];
 in
 rec {
 
@@ -114,14 +114,14 @@ rec {
       name = "nixos-${nixos.channel.version}";
       meta = {
         description = "Release-critical builds for the NixOS channel";
-        maintainers = [ lib.maintainers.eelco ];
+        maintainers = [lib.maintainers.eelco];
       };
       constituents = lib.flatten [
         [
           "nixos.channel"
           "nixpkgs.tarball"
         ]
-        (map (onSystems [ "x86_64-linux" ]) [
+        (map (onSystems ["x86_64-linux"]) [
           "nixos.tests.boot.biosCdrom"
           "nixos.tests.installer.lvm"
           "nixos.tests.installer.separateBoot"

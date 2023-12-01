@@ -57,7 +57,7 @@ let
       binaryNativeCode # some jars include native binaries
     ];
     platforms = with platforms; linux ++ darwin;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 
   linuxPkg = stdenv.mkDerivation {
@@ -79,7 +79,7 @@ let
       hash = "sha256-DhZ9inK/6Cc/vunYNHhyP4tI/9/toUOgV4lZWmFIj3c=";
     };
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     installPhase = ''
       install -D geogebra/* -t "$out/libexec/geogebra/"
@@ -112,7 +112,7 @@ let
 
     dontUnpack = true;
 
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [unzip];
 
     installPhase = ''
       install -dm755 $out/Applications

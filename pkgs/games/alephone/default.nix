@@ -72,8 +72,8 @@ let
       zlib
     ];
 
-    configureFlags = [ "--with-boost=${boost}" ];
-    makeFlags = [ "AR:=$(AR)" ];
+    configureFlags = ["--with-boost=${boost}"];
+    makeFlags = ["AR:=$(AR)"];
 
     enableParallelBuilding = true;
 
@@ -90,8 +90,8 @@ let
     meta = with lib; {
       description = "Aleph One is the open source continuation of Bungie’s Marathon 2 game engine";
       homepage = "https://alephone.lhowon.org/";
-      license = with licenses; [ gpl3 ];
-      maintainers = with maintainers; [ ehmry ];
+      license = with licenses; [gpl3];
+      maintainers = with maintainers; [ehmry];
       platforms = platforms.linux;
     };
   };
@@ -116,7 +116,7 @@ self
           name = desktopName;
           exec = pname;
           genericName = pname;
-          categories = [ "Game" ];
+          categories = ["Game"];
           comment = meta.description;
           inherit desktopName icon;
         };
@@ -145,7 +145,7 @@ self
           alephone.meta
           // {
             license = lib.licenses.free;
-            hydraPlatforms = [ ];
+            hydraPlatforms = [];
           }
           // meta;
       }

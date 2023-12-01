@@ -26,6 +26,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://github.com/raelgc/scudcloud";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ volhovm ];
+    maintainers = with maintainers; [volhovm];
   };
 }

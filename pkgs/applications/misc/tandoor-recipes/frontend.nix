@@ -6,7 +6,7 @@
   nodejs_16,
 }:
 let
-  common = callPackage ./common.nix { };
+  common = callPackage ./common.nix {};
 in
 stdenv.mkDerivation {
   pname = "tandoor-recipes-frontend";

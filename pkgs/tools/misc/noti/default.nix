@@ -20,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   buildInputs = lib.optional stdenv.isDarwin Cocoa;
 

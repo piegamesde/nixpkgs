@@ -20,10 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-z0y4z+/JE6rZWHAvps/taDZvutyVhxxs2gMujV5rNu4=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   propagatedBuildInputs =
-    [ six ]
+    [six]
     ++ lib.optionals (pythonOlder "3.4") [
       enum34
       pathlib
@@ -37,6 +37,6 @@ buildPythonPackage rec {
     description = "A Scss compiler for Python";
     homepage = "https://pyscss.readthedocs.org/en/latest/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

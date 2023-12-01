@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "A JSON implementation in C";
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
       objects.
     '';
     homepage = "https://github.com/json-c/json-c/wiki";
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     platforms = platforms.unix;
     license = licenses.mit;
   };

@@ -12,7 +12,7 @@ let
   eachBitcoind = config.services.bitcoind;
 
   rpcUserOpts =
-    { name, ... }:
+    {name, ...}:
     {
       options = {
         name = mkOption {
@@ -101,7 +101,7 @@ let
             description = lib.mdDoc "Override the default port on which to listen for JSON-RPC connections.";
           };
           users = mkOption {
-            default = { };
+            default = {};
             example = literalExpression ''
               {
                 alice.passwordHMAC = "f7efda5c189b999524f151318c0c86$d5b51b3beffbc02b724e5d095828e0bc8b2456e9ac8757ae3211a5d9b16a22ae";
@@ -164,7 +164,7 @@ let
 
         extraCmdlineOptions = mkOption {
           type = types.listOf types.str;
-          default = [ ];
+          default = [];
           description = lib.mdDoc ''
             Extra command line options to pass to bitcoind.
             Run bitcoind --help to list all available options.
@@ -178,12 +178,12 @@ in
   options = {
     services.bitcoind = mkOption {
       type = types.attrsOf (types.submodule bitcoindOpts);
-      default = { };
+      default = {};
       description = lib.mdDoc "Specification of one or more bitcoind instances.";
     };
   };
 
-  config = mkIf (eachBitcoind != { }) {
+  config = mkIf (eachBitcoind != {}) {
 
     assertions = flatten (
       mapAttrsToList
@@ -205,7 +205,7 @@ in
             '';
           }
           {
-            assertion = (cfg.rpc.users != { }) -> (cfg.configFile == null);
+            assertion = (cfg.rpc.users != {}) -> (cfg.configFile == null);
             message = ''
               You cannot set both services.bitcoind.${bitcoindName}.rpc.users and services.bitcoind.${bitcoindName}.configFile
               as they are exclusive. RPC user setting would have no effect if custom configFile would be used.
@@ -216,7 +216,7 @@ in
     );
 
     environment.systemPackages = flatten (
-      mapAttrsToList (bitcoindName: cfg: [ cfg.package ]) eachBitcoind
+      mapAttrsToList (bitcoindName: cfg: [cfg.package]) eachBitcoind
     );
 
     systemd.services =
@@ -239,8 +239,8 @@ in
             in
             {
               description = "Bitcoin daemon";
-              after = [ "network-online.target" ];
-              wantedBy = [ "multi-user.target" ];
+              after = ["network-online.target"];
+              wantedBy = ["multi-user.target"];
               serviceConfig = {
                 User = cfg.user;
                 Group = cfg.group;
@@ -271,7 +271,7 @@ in
         eachBitcoind;
 
     systemd.tmpfiles.rules = flatten (
-      mapAttrsToList (bitcoindName: cfg: [ "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ])
+      mapAttrsToList (bitcoindName: cfg: ["d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -"])
         eachBitcoind
     );
 
@@ -289,8 +289,8 @@ in
         )
         eachBitcoind;
 
-    users.groups = mapAttrs' (bitcoindName: cfg: (nameValuePair "${cfg.group}" { })) eachBitcoind;
+    users.groups = mapAttrs' (bitcoindName: cfg: (nameValuePair "${cfg.group}" {})) eachBitcoind;
   };
 
-  meta.maintainers = with maintainers; [ _1000101 ];
+  meta.maintainers = with maintainers; [_1000101];
 }

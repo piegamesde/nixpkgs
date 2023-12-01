@@ -22,13 +22,13 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  propagatedBuildInputs = [ zlib ];
+  propagatedBuildInputs = [zlib];
 
   passthru = {
     inherit zlib;
   };
 
-  configureFlags = [ "--enable-static" ];
+  configureFlags = ["--enable-static"];
 
   postInstall = ''mv "$out/bin" "$dev/bin"'';
 
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "The official reference implementation for the PNG file format";
     homepage = "http://www.libpng.org/pub/png/libpng.html";
     license = licenses.libpng;
-    maintainers = [ ];
+    maintainers = [];
     branch = "1.2";
     platforms = platforms.unix;
   };

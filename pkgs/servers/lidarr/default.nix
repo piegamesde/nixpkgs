@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     sha256 = hash;
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     description = "A Usenet/BitTorrent music downloader";
     homepage = "https://lidarr.audio/";
     license = licenses.gpl3;
-    maintainers = [ maintainers.etu ];
+    maintainers = [maintainers.etu];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

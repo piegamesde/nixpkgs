@@ -22,8 +22,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-RH4w7PpzC+fhqCHikXQO2pUUvWD2qrA0mVMUGxpauwE=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ gmp ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [gmp];
 
   cmakeDir = "../src";
 

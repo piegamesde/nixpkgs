@@ -29,15 +29,15 @@ buildPythonPackage rec {
   ];
   dontUseCmakeConfigure = true;
 
-  pythonImportsCheck = [ "tweedledum" ];
+  pythonImportsCheck = ["tweedledum"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pytestFlagsArray = [ "python/test" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pytestFlagsArray = ["python/test"];
 
   meta = with lib; {
     description = "A library for synthesizing and manipulating quantum circuits";
     homepage = "https://github.com/boschmitt/tweedledum";
     license = licenses.mit;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

@@ -52,7 +52,7 @@ stdenv.mkDerivation (
       nodejs
       makeWrapper
       copyDesktopItems
-    ] ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ];
+    ] ++ lib.optionals stdenv.isDarwin [desktopToDarwinBundle];
 
     configurePhase = ''
       runHook preConfigure
@@ -103,7 +103,7 @@ stdenv.mkDerivation (
         desktopName = "Podman Desktop";
         genericName = "Desktop client for podman";
         comment = finalAttrs.meta.description;
-        categories = [ "Utility" ];
+        categories = ["Utility"];
         startupWMClass = "Podman Desktop";
       })
     ];
@@ -113,7 +113,7 @@ stdenv.mkDerivation (
       homepage = "https://podman-desktop.io";
       changelog = "https://github.com/containers/podman-desktop/releases/tag/v${finalAttrs.version}";
       license = licenses.asl20;
-      maintainers = with maintainers; [ panda2134 ];
+      maintainers = with maintainers; [panda2134];
       inherit (electron.meta) platforms;
     };
   }

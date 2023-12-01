@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests.version = testers.testVersion { package = packcc; };
+  passthru.tests.version = testers.testVersion {package = packcc;};
 
   meta = with lib; {
     description = "A parser generator for C";
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/arithy/packcc";
     changelog = "https://github.com/arithy/packcc/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
     platforms = platforms.unix;
   };
 }

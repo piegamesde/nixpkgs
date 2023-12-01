@@ -80,7 +80,7 @@ buildGoModule rec {
 
   postInstall = ''
     wrapProgram $out/bin/opensnitchd \
-      --prefix PATH : ${lib.makeBinPath [ iptables ]}
+      --prefix PATH : ${lib.makeBinPath [iptables]}
   '';
 
   passthru.tests.version = testers.testVersion {
@@ -92,7 +92,7 @@ buildGoModule rec {
     description = "An application firewall";
     homepage = "https://github.com/evilsocket/opensnitch/wiki";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
     platforms = platforms.linux;
   };
 }

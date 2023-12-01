@@ -92,6 +92,6 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/casperstorm/ajour/blob/master/CHANGELOG.md";
     license = licenses.mit;
     broken = stdenv.isDarwin;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

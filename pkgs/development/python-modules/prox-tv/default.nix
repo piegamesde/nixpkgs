@@ -21,7 +21,7 @@ buildPythonPackage {
     sha256 = "0mlrjbb5rw78dgijkr3bspmsskk6jqs9y7xpsgs35i46dvb327q5";
   };
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
   propagatedBuildInputs = [
     numpy
@@ -33,7 +33,7 @@ buildPythonPackage {
     nosetests --exclude=test_tvp_1d ${lib.optionalString stdenv.isDarwin " --exclude=test_tv2_1d"}
   '';
 
-  propagatedNativeBuildInputs = [ cffi ];
+  propagatedNativeBuildInputs = [cffi];
 
   buildInputs = [
     blas
@@ -46,6 +46,6 @@ buildPythonPackage {
     homepage = "https://github.com/albarji/proxTV";
     description = "A toolbox for fast Total Variation proximity operators";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ multun ];
+    maintainers = with maintainers; [multun];
   };
 }

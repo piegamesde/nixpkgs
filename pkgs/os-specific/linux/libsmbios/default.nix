@@ -42,9 +42,9 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
-  configureFlags = [ "--disable-graphviz" ];
+  configureFlags = ["--disable-graphviz"];
 
   enableParallelBuilding = true;
 
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
       osl21
       gpl2Plus
     ];
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = [
       "i686-linux"
       "x86_64-linux"

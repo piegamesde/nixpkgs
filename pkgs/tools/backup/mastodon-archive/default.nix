@@ -28,6 +28,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Utility for backing up your Mastodon content";
     homepage = "https://alexschroeder.ch/software/Mastodon_Archive";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ julm ];
+    maintainers = with maintainers; [julm];
   };
 }

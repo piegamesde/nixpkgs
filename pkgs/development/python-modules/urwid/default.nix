@@ -29,17 +29,17 @@ buildPythonPackage rec {
 
   # tests need to be able to set locale
   LC_ALL = "en_US.UTF-8";
-  nativeCheckInputs = [ glibcLocales ];
+  nativeCheckInputs = [glibcLocales];
 
   # tests which assert on strings don't decode results correctly
   doCheck = isPy3k;
 
-  pythonImportsCheck = [ "urwid" ];
+  pythonImportsCheck = ["urwid"];
 
   meta = with lib; {
     description = "A full-featured console (xterm et al.) user interface library";
     homepage = "https://urwid.org/";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

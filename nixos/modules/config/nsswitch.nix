@@ -17,7 +17,7 @@ with lib;
     system.nssModules = mkOption {
       type = types.listOf types.path;
       internal = true;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Search path for NSS (Name Service Switch) modules.  This allows
         several DNS resolution methods to be specified via
@@ -39,7 +39,7 @@ with lib;
 
           This option only takes effect if nscd is enabled.
         '';
-        default = [ ];
+        default = [];
       };
 
       group = mkOption {
@@ -51,7 +51,7 @@ with lib;
 
           This option only takes effect if nscd is enabled.
         '';
-        default = [ ];
+        default = [];
       };
 
       shadow = mkOption {
@@ -63,7 +63,7 @@ with lib;
 
           This option only takes effect if nscd is enabled.
         '';
-        default = [ ];
+        default = [];
       };
 
       hosts = mkOption {
@@ -75,7 +75,7 @@ with lib;
 
           This option only takes effect if nscd is enabled.
         '';
-        default = [ ];
+        default = [];
       };
 
       services = mkOption {
@@ -87,7 +87,7 @@ with lib;
 
           This option only takes effect if nscd is enabled.
         '';
-        default = [ ];
+        default = [];
       };
     };
   };
@@ -137,14 +137,14 @@ with lib;
     '';
 
     system.nssDatabases = {
-      passwd = mkBefore [ "files" ];
-      group = mkBefore [ "files" ];
-      shadow = mkBefore [ "files" ];
+      passwd = mkBefore ["files"];
+      group = mkBefore ["files"];
+      shadow = mkBefore ["files"];
       hosts = mkMerge [
-        (mkOrder 998 [ "files" ])
-        (mkOrder 1499 [ "dns" ])
+        (mkOrder 998 ["files"])
+        (mkOrder 1499 ["dns"])
       ];
-      services = mkBefore [ "files" ];
+      services = mkBefore ["files"];
     };
   };
 }

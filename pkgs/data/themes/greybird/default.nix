@@ -35,15 +35,15 @@ stdenv.mkDerivation rec {
     librsvg
   ];
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = with lib; {
     description = "Grey and blue theme from the Shimmer Project for GTK-based environments";
     homepage = "https://github.com/shimmerproject/Greybird";
-    license = [ licenses.gpl2Plus ]; # or alternatively: cc-by-nc-sa-30 or later
+    license = [licenses.gpl2Plus]; # or alternatively: cc-by-nc-sa-30 or later
     platforms = platforms.linux;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     xorg.libXdmcp
   ];
 
-  propagatedBuildInputs = [ dtkgui ];
+  propagatedBuildInputs = [dtkgui];
 
   cmakeFlags = [
     "-DDVERSION=${version}"

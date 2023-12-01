@@ -22,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     description = "Print the duration between two times";
     homepage = "https://codeberg.org/annaaurora/dabet";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ annaaurora ];
+    maintainers = with maintainers; [annaaurora];
   };
 }

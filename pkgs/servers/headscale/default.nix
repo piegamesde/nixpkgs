@@ -23,10 +23,10 @@ buildGoModule rec {
     "-X github.com/juanfont/headscale/cmd/headscale/cli.Version=v${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
-  checkFlags = [ "-short" ];
+  nativeBuildInputs = [installShellFiles];
+  checkFlags = ["-short"];
 
-  tags = [ "ts2019" ];
+  tags = ["ts2019"];
 
   postInstall = ''
     installShellCompletion --cmd headscale \

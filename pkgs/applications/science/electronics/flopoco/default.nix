@@ -89,6 +89,6 @@ stdenv.mkDerivation rec {
     homepage = "https://flopoco.org/";
     license = licenses.unfree;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 }

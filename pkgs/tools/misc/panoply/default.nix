@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-C/FMR276qx7yo7UaZ3a794B3mDy1/mrrZiua2eaIoxg=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -37,7 +37,7 @@ stdenvNoCC.mkDerivation rec {
     description = "netCDF, HDF and GRIB Data Viewer";
     homepage = "https://www.giss.nasa.gov/tools/panoply";
     platforms = platforms.linux;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
     license = licenses.unfree; # Package does not state a license
   };
 }

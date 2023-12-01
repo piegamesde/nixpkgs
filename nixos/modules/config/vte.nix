@@ -52,6 +52,6 @@ in
       programs.bash.interactiveShellInit = mkBefore vteInitSnippet;
     })
 
-    (mkIf config.programs.zsh.vteIntegration { programs.zsh.interactiveShellInit = vteInitSnippet; })
+    (mkIf config.programs.zsh.vteIntegration {programs.zsh.interactiveShellInit = vteInitSnippet;})
   ];
 }

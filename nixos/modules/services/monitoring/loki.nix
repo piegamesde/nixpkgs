@@ -18,7 +18,7 @@ let
 
   prettyJSON =
     conf:
-    pkgs.runCommand "loki-config.json" { } ''
+    pkgs.runCommand "loki-config.json" {} ''
       echo '${builtins.toJSON conf}' | ${pkgs.jq}/bin/jq 'del(._module)' > $out
     '';
 in
@@ -34,7 +34,7 @@ in
       '';
     };
 
-    package = lib.mkPackageOptionMD pkgs "grafana-loki" { };
+    package = lib.mkPackageOptionMD pkgs "grafana-loki" {};
 
     group = mkOption {
       type = types.str;
@@ -53,8 +53,8 @@ in
     };
 
     configuration = mkOption {
-      type = (pkgs.formats.json { }).type;
-      default = { };
+      type = (pkgs.formats.json {}).type;
+      default = {};
       description = lib.mdDoc ''
         Specify the configuration for Loki in Nix.
       '';
@@ -70,8 +70,8 @@ in
 
     extraFlags = mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "--server.http-listen-port=3101" ];
+      default = [];
+      example = ["--server.http-listen-port=3101"];
       description = lib.mdDoc ''
         Specify a list of additional command line flags,
         which get escaped and are then passed to Loki.
@@ -84,8 +84,8 @@ in
       {
         assertion =
           (
-            (cfg.configuration == { } -> cfg.configFile != null)
-            && (cfg.configFile != null -> cfg.configuration == { })
+            (cfg.configuration == {} -> cfg.configFile != null)
+            && (cfg.configFile != null -> cfg.configuration == {})
           );
         message = ''
           Please specify either
@@ -95,9 +95,9 @@ in
       }
     ];
 
-    environment.systemPackages = [ cfg.package ]; # logcli
+    environment.systemPackages = [cfg.package]; # logcli
 
-    users.groups.${cfg.group} = { };
+    users.groups.${cfg.group} = {};
     users.users.${cfg.user} = {
       description = "Loki Service User";
       group = cfg.group;
@@ -108,7 +108,7 @@ in
 
     systemd.services.loki = {
       description = "Loki Service Daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig =
         let

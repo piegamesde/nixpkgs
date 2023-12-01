@@ -61,9 +61,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Mastodon/Misskey Client for PC";
     homepage = "https://thedesk.top";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ wolfangaukang ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [wolfangaukang];
+    platforms = ["x86_64-linux"];
   };
 }

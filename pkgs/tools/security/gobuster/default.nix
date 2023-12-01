@@ -22,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/OJ/gobuster";
     changelog = "https://github.com/OJ/gobuster/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ pamplemousse ];
+    maintainers = with maintainers; [pamplemousse];
   };
 }

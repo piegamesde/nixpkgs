@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jwCoJ2shFGuJHhmXmlw/paFpMl5ARD6e5zDnDZHlsoo=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   preInstall = ''
     mkdir -p $out/bin $out/man/man1
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
       corner of the screen.
     '';
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.choochootrain ];
+    maintainers = [lib.maintainers.choochootrain];
     platforms = lib.platforms.linux;
   };
 }

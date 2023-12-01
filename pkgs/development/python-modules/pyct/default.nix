@@ -27,15 +27,15 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyct" ];
+  pythonImportsCheck = ["pyct"];
 
   meta = with lib; {
     description = "ClI for Python common tasks for users";
     homepage = "https://github.com/pyviz/pyct";
     changelog = "https://github.com/pyviz-dev/pyct/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

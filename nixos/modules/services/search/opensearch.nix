@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.services.opensearch;
 
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
 
   configDir = cfg.dataDir + "/config";
 
@@ -30,7 +30,7 @@ in
   options.services.opensearch = {
     enable = mkEnableOption (lib.mdDoc "OpenSearch");
 
-    package = lib.mkPackageOptionMD pkgs "OpenSearch" { default = [ "opensearch" ]; };
+    package = lib.mkPackageOptionMD pkgs "OpenSearch" {default = ["opensearch"];};
 
     settings = lib.mkOption {
       type = lib.types.submodule {
@@ -77,7 +77,7 @@ in
         };
       };
 
-      default = { };
+      default = {};
 
       description = lib.mdDoc ''
         OpenSearch configuration.
@@ -136,15 +136,15 @@ in
 
     extraCmdLineOptions = lib.mkOption {
       description = lib.mdDoc "Extra command line options for the OpenSearch launcher.";
-      default = [ ];
+      default = [];
       type = lib.types.listOf lib.types.str;
     };
 
     extraJavaOptions = lib.mkOption {
       description = lib.mdDoc "Extra command line options for Java.";
-      default = [ ];
+      default = [];
       type = lib.types.listOf lib.types.str;
-      example = [ "-Djava.net.preferIPv4Stack=true" ];
+      example = ["-Djava.net.preferIPv4Stack=true"];
     };
 
     restartIfChanged = lib.mkOption {
@@ -162,9 +162,9 @@ in
   config = mkIf cfg.enable {
     systemd.services.opensearch = {
       description = "OpenSearch Daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      path = [ pkgs.inetutils ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      path = [pkgs.inetutils];
       inherit (cfg) restartIfChanged;
       environment = {
         OPENSEARCH_HOME = cfg.dataDir;
@@ -253,6 +253,6 @@ in
         });
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

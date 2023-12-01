@@ -40,6 +40,6 @@ buildPythonPackage rec {
     description = "Experimental SMB/CIFS library written in Python to support file sharing between Windows and Linux machines";
     homepage = "https://miketeo.net/wp/index.php/projects/pysmb";
     license = licenses.zlib;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

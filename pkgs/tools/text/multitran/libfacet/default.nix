@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "dc53351c4035a3c27dc6c1d0410e808346fbc107e7e7c112ec65c59d0df7a144";
   };
 
-  buildInputs = [ libmtsupport ];
+  buildInputs = [libmtsupport];
 
   patchPhase = ''
     sed -i -e 's@\$(DESTDIR)/usr@'$out'@' \

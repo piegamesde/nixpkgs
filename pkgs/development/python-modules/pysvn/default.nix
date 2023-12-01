@@ -28,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-LbAz+KjEY3nkSJAzJNwlnSRYoWr4i1ITRUPV3ZBH7cc=";
   };
 
-  patches = [ ./replace-python-first.patch ];
+  patches = [./replace-python-first.patch];
 
   buildInputs = [
     bash
@@ -38,7 +38,7 @@ buildPythonPackage rec {
     expat
     neon
     openssl
-  ] ++ lib.optionals stdenv.isLinux [ e2fsprogs ] ++ lib.optionals stdenv.isDarwin [ gcc ];
+  ] ++ lib.optionals stdenv.isLinux [e2fsprogs] ++ lib.optionals stdenv.isDarwin [gcc];
 
   preConfigure = ''
     cd Source
@@ -54,7 +54,7 @@ buildPythonPackage rec {
       --svn-bin-dir=${subversion.out}/bin
   '';
 
-  nativeCheckInputs = [ glibcLocales ];
+  nativeCheckInputs = [glibcLocales];
 
   checkPhase = ''
     runHook preCheck
@@ -67,7 +67,7 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "pysvn" ];
+  pythonImportsCheck = ["pysvn"];
 
   installPhase = ''
     dest=$(toPythonPath $out)/pysvn
@@ -83,7 +83,7 @@ buildPythonPackage rec {
     description = "Python bindings for Subversion";
     homepage = "https://pysvn.sourceforge.io/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     # g++: command not found
     broken = stdenv.isDarwin;
   };

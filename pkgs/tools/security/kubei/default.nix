@@ -26,7 +26,7 @@ buildGoModule rec {
       Kubernetes cluster, including images of application pods and system pods.
     '';
     homepage = "https://github.com/Portshift/kubei";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

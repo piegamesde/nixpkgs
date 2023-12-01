@@ -24,7 +24,7 @@ buildPythonPackage rec {
   # No tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [ "ecpy" ];
+  pythonImportsCheck = ["ecpy"];
 
   meta = with lib; {
     description = "Pure Pyhton Elliptic Curve Library";

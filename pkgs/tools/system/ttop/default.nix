@@ -30,6 +30,6 @@ nimPackages.buildNimPackage rec {
       description = "Top-like system monitoring tool";
       license = licenses.mit;
       platforms = platforms.linux;
-      maintainers = with maintainers; [ sikmir ];
+      maintainers = with maintainers; [sikmir];
     };
 }

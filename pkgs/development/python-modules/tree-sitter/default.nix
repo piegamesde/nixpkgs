@@ -29,12 +29,12 @@ buildPythonPackage rec {
   # PyPI tarball doesn't contains tests and source has additional requirements
   doCheck = false;
 
-  pythonImportsCheck = [ "tree_sitter" ];
+  pythonImportsCheck = ["tree_sitter"];
 
   meta = with lib; {
     description = "Python bindings to the Tree-sitter parsing library";
     homepage = "https://github.com/tree-sitter/py-tree-sitter";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -133,7 +133,7 @@ stdenv.mkDerivation rec {
     rm -rf ffmpeg
   '';
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   nativeBuildInputs = [
     pkg-config
     yasm
@@ -185,7 +185,7 @@ stdenv.mkDerivation rec {
       ]
     );
 
-  configurePlatforms = [ ];
+  configurePlatforms = [];
   configureFlags =
     with lib;
     [
@@ -259,10 +259,10 @@ stdenv.mkDerivation rec {
         "-lXext"
       ]
       ++ optional x264Support "-lx264"
-      ++ [ "-lfreetype" ]
+      ++ ["-lfreetype"]
     );
 
-  installTargets = [ "install" ] ++ lib.optional x11Support "install-gui";
+  installTargets = ["install"] ++ lib.optional x11Support "install-gui";
 
   enableParallelBuilding = true;
 
@@ -279,7 +279,7 @@ stdenv.mkDerivation rec {
     description = "A movie player that supports many video formats";
     homepage = "http://mplayerhq.hu";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ eelco ];
+    maintainers = with maintainers; [eelco];
     platforms = [
       "i686-linux"
       "x86_64-linux"

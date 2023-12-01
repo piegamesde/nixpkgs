@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     extra-cmake-modules
     wrapQtAppsHook
   ];
-  buildInputs = [ kwin ];
+  buildInputs = [kwin];
 
   cmakeFlags = [
     "-DCMAKE_INSTALL_PREFIX=$out"
@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/kupiqu/SierraBreezeEnhanced";
     changelog = "https://github.com/kupiqu/SierraBreezeEnhanced/releases/tag/V${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ flexagoon ];
+    maintainers = with maintainers; [flexagoon];
   };
 }

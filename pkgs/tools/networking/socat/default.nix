@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     readline
   ];
 
-  hardeningEnable = [ "pie" ];
+  hardeningEnable = ["pie"];
 
   nativeCheckInputs = [
     which
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     description = "Utility for bidirectional data transfer between two independent data channels";
     homepage = "http://www.dest-unreach.org/socat/";
     platforms = platforms.unix;
-    license = with licenses; [ gpl2Only ];
-    maintainers = with maintainers; [ eelco ];
+    license = with licenses; [gpl2Only];
+    maintainers = with maintainers; [eelco];
   };
 }

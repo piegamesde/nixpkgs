@@ -26,6 +26,6 @@ stdenv.mkDerivation {
       platforms
       homepage
       ;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

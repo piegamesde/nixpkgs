@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     downloadPage = "https://github.com/the-djmaze/snappymail/releases";
     license = licenses.agpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
   };
 }

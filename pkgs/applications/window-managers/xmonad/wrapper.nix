@@ -7,13 +7,13 @@
 }:
 
 let
-  xmonadEnv = ghcWithPackages (self: [ self.xmonad ] ++ packages self);
+  xmonadEnv = ghcWithPackages (self: [self.xmonad] ++ packages self);
 in
 stdenv.mkDerivation {
   pname = "xmonad-with-packages";
   inherit (xmonadEnv) version;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildCommand = ''
     install -D ${xmonadEnv}/share/man/man1/xmonad.1.gz $out/share/man/man1/xmonad.1.gz

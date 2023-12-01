@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-nPjeUOEJqX+gRRHUER6NFL0KRAdxMqz3PmzwAp/pa9Q=";
   };
 
-  nativeBuildInputs = [ flex ];
+  nativeBuildInputs = [flex];
 
   enableParallelBuilding = true;
 
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       and their conversion to image coordinate systems. This is the
       standard library for this purpose in astronomy.
     '';
-    maintainers = with maintainers; [ hjones2199 ];
+    maintainers = with maintainers; [hjones2199];
     license = licenses.lgpl3Plus;
     platforms = platforms.unix;
   };

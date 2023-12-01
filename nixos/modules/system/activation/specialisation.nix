@@ -30,7 +30,7 @@ in
   options = {
 
     specialisation = mkOption {
-      default = { };
+      default = {};
       example = lib.literalExpression "{ fewJobsManyCores.configuration = { nix.settings = { core = 0; max-jobs = 1; }; }; }";
       description = lib.mdDoc ''
         Additional configurations to build. If
@@ -46,7 +46,7 @@ in
       '';
       type = types.attrsOf (
         types.submodule (
-          local@{ ... }:
+          local@{...}:
           let
             extend = if local.config.inheritParentConfig then extendModules else noUserModules.extendModules;
           in
@@ -58,7 +58,7 @@ in
             };
 
             options.configuration = mkOption {
-              default = { };
+              default = {};
               description = lib.mdDoc ''
                 Arbitrary NixOS configuration.
 
@@ -67,7 +67,7 @@ in
                 specialisations will be ignored.
               '';
               visible = "shallow";
-              inherit (extend { modules = [ ./no-clone.nix ]; }) type;
+              inherit (extend {modules = [./no-clone.nix];}) type;
             };
           }
         )

@@ -107,7 +107,7 @@ let
               libkrb5
               systemd
             ]
-            ++ (if (lib.versionOlder version "10.6") then [ libaio ] else [ liburing ])
+            ++ (if (lib.versionOlder version "10.6") then [libaio] else [liburing])
           )
           ++ lib.optionals stdenv.hostPlatform.isDarwin [
             CoreServices
@@ -115,13 +115,13 @@ let
             perl
             libedit
           ]
-          ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ jemalloc ]
-          ++ (if (lib.versionOlder version "10.5") then [ pcre ] else [ pcre2 ])
+          ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [jemalloc]
+          ++ (if (lib.versionOlder version "10.5") then [pcre] else [pcre2])
           ++ (
             if (lib.versionOlder version "10.5") then
               [
                 openssl_1_1
-                (curl.override { openssl = openssl_1_1; })
+                (curl.override {openssl = openssl_1_1;})
               ]
             else
               [
@@ -135,7 +135,7 @@ let
         '';
 
         patches =
-          [ ./patch/cmake-includedir.patch ]
+          [./patch/cmake-includedir.patch]
           # Fixes a build issue as documented on
           # https://jira.mariadb.org/browse/MDEV-26769?focusedCommentId=206073&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-206073
           ++
@@ -214,7 +214,7 @@ let
 
         passthru.tests =
           let
-            testVersion = "mariadb_${builtins.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor version)}";
+            testVersion = "mariadb_${builtins.replaceStrings ["."] [""] (lib.versions.majorMinor version)}";
           in
           {
             mariadb-galera-rsync = nixosTests.mariadb-galera.${testVersion};
@@ -242,7 +242,7 @@ let
         // {
           pname = "mariadb-client";
 
-          patches = common.patches ++ [ ./patch/cmake-plugin-includedir.patch ];
+          patches = common.patches ++ [./patch/cmake-plugin-includedir.patch];
 
           cmakeFlags = common.cmakeFlags ++ [
             "-DPLUGIN_AUTH_PAM=NO"
@@ -289,7 +289,7 @@ let
               libxml2
             ]
             ++ lib.optional withNuma numactl
-            ++ lib.optionals stdenv.hostPlatform.isLinux [ linux-pam ]
+            ++ lib.optionals stdenv.hostPlatform.isLinux [linux-pam]
             ++ lib.optional (!stdenv.hostPlatform.isDarwin) mytopEnv
             ++ lib.optionals withStorageMroonga [
               kytea
@@ -297,7 +297,7 @@ let
               msgpack
               zeromq
             ]
-            ++ lib.optionals (lib.versionAtLeast common.version "10.7") [ fmt_8 ];
+            ++ lib.optionals (lib.versionAtLeast common.version "10.7") [fmt_8];
 
           propagatedBuildInputs = lib.optional withNuma numactl;
 
@@ -321,13 +321,11 @@ let
               "-DWITHOUT_FEDERATED=1"
               "-DWITHOUT_TOKUDB=1"
             ]
-            ++ lib.optionals withNuma [ "-DWITH_NUMA=ON" ]
-            ++ lib.optionals (!withStorageMroonga) [ "-DWITHOUT_MROONGA=1" ]
-            ++ lib.optionals (!withStorageRocks) [ "-DWITHOUT_ROCKSDB=1" ]
-            ++ lib.optionals (!stdenv.hostPlatform.isDarwin && withStorageRocks) [
-              "-DWITH_ROCKSDB_JEMALLOC=ON"
-            ]
-            ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ "-DWITH_JEMALLOC=yes" ]
+            ++ lib.optionals withNuma ["-DWITH_NUMA=ON"]
+            ++ lib.optionals (!withStorageMroonga) ["-DWITHOUT_MROONGA=1"]
+            ++ lib.optionals (!withStorageRocks) ["-DWITHOUT_ROCKSDB=1"]
+            ++ lib.optionals (!stdenv.hostPlatform.isDarwin && withStorageRocks) ["-DWITH_ROCKSDB_JEMALLOC=ON"]
+            ++ lib.optionals (!stdenv.hostPlatform.isDarwin) ["-DWITH_JEMALLOC=yes"]
             ++ lib.optionals stdenv.hostPlatform.isDarwin [
               "-DPLUGIN_AUTH_PAM=NO"
               "-DPLUGIN_AUTH_PAM_V1=NO"
@@ -360,7 +358,7 @@ let
         }
       );
     in
-    server // { inherit client server; };
+    server // {inherit client server;};
 in
 self: {
   # see https://mariadb.org/about/#maintenance-policy for EOLs

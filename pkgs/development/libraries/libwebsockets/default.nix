@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     libuv
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags =
     [
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withExternalPoll "-DLWS_WITH_EXTERNAL_POLL=ON"
     ++ (
       if stdenv.hostPlatform.isStatic then
-        [ "-DLWS_WITH_SHARED=OFF" ]
+        ["-DLWS_WITH_SHARED=OFF"]
       else
         [
           "-DLWS_WITH_STATIC=OFF"
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
   '';
 
   # $out/share/libwebsockets-test-server/plugins/libprotocol_*.so refers to crtbeginS.o
-  disallowedReferences = [ stdenv.cc.cc ];
+  disallowedReferences = [stdenv.cc.cc];
 
   meta = with lib; {
     description = "Light, portable C library for websockets";
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
       bsd3
       asl20
     ];
-    maintainers = with maintainers; [ mindavi ];
+    maintainers = with maintainers; [mindavi];
     platforms = platforms.all;
   };
 }

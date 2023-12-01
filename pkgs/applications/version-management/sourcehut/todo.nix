@@ -36,7 +36,7 @@ buildPythonPackage rec {
       modRoot = "api";
       vendorSha256 = "sha256-LB1H4jwnvoEyaaYJ09NI/M6IkgZwRet/fkso6b9EPV0=";
     }
-    // import ./fix-gqlgen-trimpath.nix { inherit unzip; }
+    // import ./fix-gqlgen-trimpath.nix {inherit unzip;}
   );
 
   propagatedBuildInputs = [
@@ -62,12 +62,12 @@ buildPythonPackage rec {
   ];
 
   dontUseSetuptoolsCheck = true;
-  pythonImportsCheck = [ "todosrht" ];
+  pythonImportsCheck = ["todosrht"];
 
   meta = with lib; {
     homepage = "https://todo.sr.ht/~sircmpwn/todo.sr.ht";
     description = "Ticket tracking service for the sr.ht network";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ eadwu ];
+    maintainers = with maintainers; [eadwu];
   };
 }

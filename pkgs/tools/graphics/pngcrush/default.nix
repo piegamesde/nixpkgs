@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sed -i s,/usr,$out, Makefile
   '';
 
-  buildInputs = [ libpng ];
+  buildInputs = [libpng];
 
   meta = {
     homepage = "http://pmt.sourceforge.net/pngcrush";

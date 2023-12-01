@@ -47,7 +47,7 @@ stdenv.mkDerivation (
       pkg-config
       which
       wrapGAppsHook
-    ] ++ lib.optionals stdenv.isDarwin [ libicns ];
+    ] ++ lib.optionals stdenv.isDarwin [libicns];
 
     buildInputs =
       [
@@ -74,7 +74,7 @@ stdenv.mkDerivation (
     enableParallelBuilding = true;
 
     makeFlags =
-      lib.optionals stdenv.isLinux [ "hiro=gtk3" ]
+      lib.optionals stdenv.isLinux ["hiro=gtk3"]
       ++ lib.optionals stdenv.isDarwin [
         "hiro=cocoa"
         "lto=false"

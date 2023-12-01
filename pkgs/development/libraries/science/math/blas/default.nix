@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     gfortran
   ];
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ] ++ lib.optional blas64 "-DBUILD_INDEX64=ON";
+  cmakeFlags = ["-DBUILD_SHARED_LIBS=ON"] ++ lib.optional blas64 "-DBUILD_INDEX64=ON";
 
   postInstall =
     let
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Basic Linear Algebra Subprograms";
     license = licenses.publicDomain;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
     homepage = "http://www.netlib.org/blas/";
     platforms = platforms.unix;
   };

@@ -114,7 +114,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isLinux pulsectl;
 
   makeWrapperArgs = [
-    "--prefix PATH : ${lib.makeBinPath [ ffmpeg ]}"
+    "--prefix PATH : ${lib.makeBinPath [ffmpeg]}"
     "--prefix LD_LIBRARY_PATH : ${pulseaudio}/lib"
     "--prefix PYTHONPATH : $out/share/tauon"
     "--set GI_TYPELIB_PATH $GI_TYPELIB_PATH"
@@ -139,7 +139,7 @@ stdenv.mkDerivation rec {
     homepage = "https://tauonmusicbox.rocks/";
     changelog = "https://github.com/Taiko2k/TauonMusicBox/releases/tag/v${version}";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ jansol ];
+    maintainers = with maintainers; [jansol];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

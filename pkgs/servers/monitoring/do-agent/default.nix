@@ -15,7 +15,7 @@ buildGoModule rec {
     sha256 = "sha256-glHrWRZqkKoCLy3nuOZQG98I35ZR4S9nL6XqBsa2rOQ=";
   };
 
-  ldflags = [ "-X main.version=${version}" ];
+  ldflags = ["-X main.version=${version}"];
 
   vendorHash = null;
 
@@ -34,7 +34,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/digitalocean/do-agent";
     license = licenses.asl20;
-    maintainers = with maintainers; [ yvt ];
+    maintainers = with maintainers; [yvt];
     platforms = platforms.linux;
   };
 }

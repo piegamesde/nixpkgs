@@ -19,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-tk71FBvlWc+t5EjwRPpFwiYDUe3Lao72t+AMfc7wwyM=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "webob" ];
+  pythonImportsCheck = ["webob"];
 
   disabledTestPaths = [
     # AttributeError: 'Thread' object has no attribute 'isAlive'
@@ -33,6 +33,6 @@ buildPythonPackage rec {
     description = "WSGI request and response object";
     homepage = "https://webob.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

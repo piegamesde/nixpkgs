@@ -25,12 +25,12 @@ buildPythonPackage rec {
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pam_auth_provider" ];
+  pythonImportsCheck = ["pam_auth_provider"];
 
   meta = with lib; {
     description = "PAM auth provider for the Synapse Matrix server";
     homepage = "https://github.com/14mRh4X0r/matrix-synapse-pam";
     license = licenses.eupl12;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

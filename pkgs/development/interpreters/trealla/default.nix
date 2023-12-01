@@ -36,13 +36,13 @@ stdenv.mkDerivation rec {
     (lib.optionalString stdenv.isDarwin "NOLDLIBS=1")
   ];
 
-  nativeBuildInputs = [ xxd ];
+  nativeBuildInputs = [xxd];
   buildInputs = [
     readline
     openssl
     libffi
   ];
-  checkInputs = lib.optionals (!(stdenv.isDarwin && stdenv.isAarch64)) [ valgrind ];
+  checkInputs = lib.optionals (!(stdenv.isDarwin && stdenv.isAarch64)) [valgrind];
   enableParallelBuilding = true;
 
   installPhase = ''
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     description = "A compact, efficient Prolog interpreter written in ANSI C";
     homepage = "https://github.com/trealla-prolog/trealla";
     license = licenses.mit;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     mainProgram = "tpl";
     platforms = platforms.all;
   };

@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-6miqTjiGLK7r6evfchwuAXTHj+JwoH/CqgRoa5+jDJI=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     colorama
@@ -31,12 +31,12 @@ buildPythonPackage rec {
   # No tests available
   doCheck = false;
 
-  pythonImportsCheck = [ "shell_genie" ];
+  pythonImportsCheck = ["shell_genie"];
 
   meta = with lib; {
     description = "Describe your shell commands in natural language";
     homepage = "https://github.com/dylanjcastillo/shell-genie";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

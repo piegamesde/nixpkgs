@@ -36,7 +36,7 @@ buildPythonApplication {
         nativeBuildInputs = [
           pandoc
           pandoc-acro
-          (texlive.combine { inherit (texlive) scheme-tetex acro translations; })
+          (texlive.combine {inherit (texlive) scheme-tetex acro translations;})
         ];
       };
     in
@@ -59,6 +59,6 @@ buildPythonApplication {
     homepage = "https://pypi.org/project/pandoc-acro/";
     description = "Pandoc filter which manages acronyms in Pandoc flavored Markdown sources";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ tfc ];
+    maintainers = with maintainers; [tfc];
   };
 }

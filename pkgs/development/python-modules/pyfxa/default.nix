@@ -46,7 +46,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "fxa" ];
+  pythonImportsCheck = ["fxa"];
 
   disabledTestPaths = [
     # Requires network access
@@ -58,6 +58,6 @@ buildPythonPackage rec {
     description = "Firefox Accounts client library";
     homepage = "https://github.com/mozilla/PyFxA";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

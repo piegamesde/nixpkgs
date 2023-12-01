@@ -66,7 +66,7 @@ buildPythonPackage rec {
     dbus
   ];
 
-  propagatedBuildInputs = [ sip_4 ];
+  propagatedBuildInputs = [sip_4];
 
   postInstall = ''
     for i in $out/bin/*; do
@@ -84,7 +84,7 @@ buildPythonPackage rec {
     description = "Python bindings for Qt";
     license = "GPL";
     homepage = "http://www.riverbankcomputing.co.uk";
-    maintainers = [ maintainers.sander ];
+    maintainers = [maintainers.sander];
     platforms = platforms.mesaPlatforms;
   };
 }

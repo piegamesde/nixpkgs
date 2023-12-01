@@ -18,13 +18,13 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-zOWX0AiLAs1FtOn+VtRexfn6oOmJT1PoTPHkcpwvxRY=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Friends don't let friends leak secrets on their terminal window";
     homepage = "https://github.com/SpectralOps/senv";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
     broken = stdenv.isDarwin; # needs golang.org/x/sys bump
   };
 }

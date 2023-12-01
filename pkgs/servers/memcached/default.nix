@@ -16,26 +16,24 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-L9SLBHFGOYsHOliOl5F9m8kIzlGXhYDY4L7aoSO0xw0=";
   };
 
-  configureFlags = [
-    "ac_cv_c_endian=${if stdenv.hostPlatform.isBigEndian then "big" else "little"}"
-  ];
+  configureFlags = ["ac_cv_c_endian=${if stdenv.hostPlatform.isBigEndian then "big" else "little"}"];
 
   buildInputs = [
     cyrus_sasl
     libevent
   ];
 
-  hardeningEnable = [ "pie" ];
+  hardeningEnable = ["pie"];
 
   env.NIX_CFLAGS_COMPILE = toString (
-    [ "-Wno-error=deprecated-declarations" ] ++ lib.optional stdenv.isDarwin "-Wno-error"
+    ["-Wno-error=deprecated-declarations"] ++ lib.optional stdenv.isDarwin "-Wno-error"
   );
 
   meta = with lib; {
     description = "A distributed memory object caching system";
     homepage = "http://memcached.org/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.coconnor ];
+    maintainers = [maintainers.coconnor];
     platforms = platforms.linux ++ platforms.darwin;
   };
   passthru.tests = {

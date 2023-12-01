@@ -376,7 +376,7 @@ in
           echo 'echo "Compile grub2 with { kbdcompSupport = true; } to enable support for this command."' >> util/grub-kbdcomp.in
         '';
 
-    depsBuildBuild = [ buildPackages.stdenv.cc ];
+    depsBuildBuild = [buildPackages.stdenv.cc];
     nativeBuildInputs = [
       bison
       flex
@@ -398,7 +398,7 @@ in
 
     strictDeps = true;
 
-    hardeningDisable = [ "all" ];
+    hardeningDisable = ["all"];
 
     separateDebugInfo = !xenSupport;
 
@@ -504,7 +504,7 @@ in
 
       platforms = platforms.gnu ++ platforms.linux;
 
-      maintainers = [ maintainers.samueldr ];
+      maintainers = [maintainers.samueldr];
     };
   }
 )

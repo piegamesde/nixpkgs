@@ -42,9 +42,9 @@ buildPythonPackage rec {
     hash = "sha256-MNbzDqqNhij9JizozLp9hhQjbRGzWxECOErS3TOPlAA=";
   };
 
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  nativeBuildInputs = [pythonRelaxDepsHook];
 
-  buildInputs = [ gmp ];
+  buildInputs = [gmp];
 
   propagatedBuildInputs = [
     aiohttp
@@ -74,7 +74,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonRelaxDeps = [ "frozendict" ];
+  pythonRelaxDeps = ["frozendict"];
 
   pythonRemoveDeps = [
     # TODO: pytest and pytest-asyncio must be removed as they are check inputs
@@ -95,6 +95,6 @@ buildPythonPackage rec {
     description = "Tooling for Cairo language";
     homepage = "https://github.com/starkware/cairo-lang";
     license = licenses.mit;
-    maintainers = with maintainers; [ raitobezarius ];
+    maintainers = with maintainers; [raitobezarius];
   };
 }

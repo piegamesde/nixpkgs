@@ -26,7 +26,7 @@ let
   system = stdenv.hostPlatform.system;
 
   nodejs = nodejs_16;
-  yarn' = yarn.override { inherit nodejs; };
+  yarn' = yarn.override {inherit nodejs;};
   defaultYarnOpts = [
     "frozen-lockfile"
     "non-interactive"
@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
     moreutils
   ];
   buildInputs =
-    lib.optionals (!stdenv.isDarwin) [ libsecret ]
+    lib.optionals (!stdenv.isDarwin) [libsecret]
     ++ (
       with xorg; [
         libX11

@@ -45,7 +45,7 @@ buildPythonPackage rec {
     ")
   '';
 
-  pythonImportsCheck = [ "subunit2sql" ];
+  pythonImportsCheck = ["subunit2sql"];
 
   meta = with lib; {
     description = "Command to Read a subunit file or stream and put the data in a SQL DB";

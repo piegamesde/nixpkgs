@@ -10,7 +10,7 @@
   nixosTests,
 }:
 let
-  inherit (nixos { }) config;
+  inherit (nixos {}) config;
   version = config.system.nixos.version;
 in
 (buildEnv {
@@ -23,7 +23,7 @@ in
     inherit (config.system.build.manual) manpages;
   };
 
-  extraOutputsToInstall = [ "man" ];
+  extraOutputsToInstall = ["man"];
 
   meta = {
     description = "The essential commands from the NixOS installer as a package";

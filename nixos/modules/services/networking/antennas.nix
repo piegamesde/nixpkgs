@@ -45,7 +45,7 @@ in
   config = mkIf cfg.enable {
     systemd.services.antennas = {
       description = "Antennas HDHomeRun emulator for Tvheadend. ";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       # Config
       environment = {
@@ -62,7 +62,7 @@ in
         WorkingDirectory = "${pkgs.antennas}/libexec/antennas/deps/antennas/";
 
         # Hardening
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         DynamicUser = true;
         LockPersonality = true;
         ProcSubset = "pid";

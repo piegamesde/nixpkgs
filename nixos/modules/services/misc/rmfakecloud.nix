@@ -58,7 +58,7 @@ in
 
       extraSettings = mkOption {
         type = with types; attrsOf str;
-        default = { };
+        default = {};
         example = {
           DATADIR = "/custom/path/for/rmfakecloud/data";
         };
@@ -113,9 +113,9 @@ in
         ${cfg.package}/bin/rmfakecloud
       '';
 
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
 
       serviceConfig = {
         Type = "simple";
@@ -123,7 +123,7 @@ in
 
         EnvironmentFile = mkIf (cfg.environmentFile != null) cfg.environmentFile;
 
-        AmbientCapabilities = mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
+        AmbientCapabilities = mkIf (cfg.port < 1024) ["CAP_NET_BIND_SERVICE"];
 
         DynamicUser = true;
         PrivateDevices = true;
@@ -131,7 +131,7 @@ in
         ProtectKernelTunables = true;
         ProtectKernelModules = true;
         ProtectControlGroups = true;
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         DevicePolicy = "closed";
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
@@ -156,5 +156,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ pacien ];
+  meta.maintainers = with maintainers; [pacien];
 }

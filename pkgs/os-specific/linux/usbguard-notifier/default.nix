@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     libnotify
   ];
 
-  configureFlags = [ "CPPFLAGS=-I${catch2}/include/catch2" ];
+  configureFlags = ["CPPFLAGS=-I${catch2}/include/catch2"];
 
   prePatch = ''
     substituteInPlace configure.ac \
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Notifications for detecting usbguard policy and device presence changes";
     homepage = "https://github.com/Cropi/usbguard-notifier";
-    maintainers = with lib.maintainers; [ fpletz ];
+    maintainers = with lib.maintainers; [fpletz];
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2Plus;
   };

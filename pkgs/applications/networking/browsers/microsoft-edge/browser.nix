@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     inherit sha256;
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   unpackCmd = "${binutils-unwrapped}/bin/ar p $src data.tar.xz | ${xz}/bin/xz -dc | ${gnutar}/bin/tar -xf -";
   sourceRoot = ".";
@@ -126,7 +126,7 @@ stdenv.mkDerivation rec {
           xorg.libxcb
           wayland
         ];
-        libsmartscreenn = lib.makeLibraryPath [ libuuid ];
+        libsmartscreenn = lib.makeLibraryPath [libuuid];
         liboneauth = lib.makeLibraryPath [
           libuuid
           xorg.libX11
@@ -222,8 +222,8 @@ stdenv.mkDerivation rec {
     homepage = "https://www.microsoft.com/en-us/edge";
     description = "The web browser from Microsoft";
     license = licenses.unfree;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    platforms = [ "x86_64-linux" ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    platforms = ["x86_64-linux"];
     maintainers = with maintainers; [
       zanculmarktum
       kuwii

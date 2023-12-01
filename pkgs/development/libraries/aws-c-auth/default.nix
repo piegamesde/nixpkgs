@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-PvdkTw5JydJT0TbXLB2C9tk4T+ho+fAbaw4jU9m5KuU=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     aws-c-cal
@@ -35,9 +35,9 @@ stdenv.mkDerivation rec {
     s2n-tls
   ];
 
-  propagatedBuildInputs = [ aws-c-sdkutils ];
+  propagatedBuildInputs = [aws-c-sdkutils];
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
+  cmakeFlags = ["-DBUILD_SHARED_LIBS=ON"];
 
   passthru.tests = {
     inherit nix;
@@ -48,6 +48,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/awslabs/aws-c-auth";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
   };
 }

@@ -19,7 +19,7 @@ javaPackages.mavenfod rec {
 
   mvnHash = "sha256-CK42d+Ta1/XNQWCLaje6sI+C90YvzUcteuasVkUPfCk=";
 
-  nativeBuildInputs = [ maven ];
+  nativeBuildInputs = [maven];
 
   installPhase = ''
     install -D "target/scim-user-spi-0.0.1-SNAPSHOT.jar" "$out/scim-user-spi-0.0.1-SNAPSHOT.jar"
@@ -28,8 +28,8 @@ javaPackages.mavenfod rec {
   meta = with lib; {
     homepage = "https://github.com/justin-stephenson/scim-keycloak-user-storage-spi";
     description = "A third party module that extends Keycloak, allow for user storage in an external scimv2 server";
-    sourceProvenance = with sourceTypes; [ fromSource ];
+    sourceProvenance = with sourceTypes; [fromSource];
     license = licenses.mit;
-    maintainers = with maintainers; [ s1341 ];
+    maintainers = with maintainers; [s1341];
   };
 }

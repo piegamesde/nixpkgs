@@ -267,7 +267,7 @@ in
 
     systemd.timers.journalwatch = {
       description = "Periodic journalwatch run";
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig = {
         OnCalendar = cfg.interval;
         AccuracySec = cfg.accuracy;
@@ -277,6 +277,6 @@ in
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ florianjacob ];
+    maintainers = with lib.maintainers; [florianjacob];
   };
 }

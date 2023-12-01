@@ -18,12 +18,12 @@ buildPythonPackage rec {
     hash = "sha256-Pi0PIOUhMMAWft9ackB04IgF6DyPrXppNqyVjozIjN4=";
   };
 
-  propagatedBuildInputs = [ livestreamer ];
+  propagatedBuildInputs = [livestreamer];
 
   meta = with lib; {
     homepage = "https://github.com/gapato/livestreamer-curses";
     description = "Curses frontend for livestreamer";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

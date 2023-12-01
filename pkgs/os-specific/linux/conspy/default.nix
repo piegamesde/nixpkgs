@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     autoconf
     automake
   ];
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   preConfigure = ''
     touch NEWS
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Linux text console viewer";
     license = licenses.epl10;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
   };
 }

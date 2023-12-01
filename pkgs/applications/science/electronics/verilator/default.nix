@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
   };
 
   enableParallelBuilding = true;
-  buildInputs = [ perl ];
+  buildInputs = [perl];
   nativeBuildInputs = [
     makeWrapper
     flex
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     autoconf
     help2man
   ];
-  nativeCheckInputs = [ which ];
+  nativeCheckInputs = [which];
 
   doCheck = stdenv.isLinux; # darwin tests are broken for now...
   checkTarget = "test";
@@ -60,6 +60,6 @@ stdenv.mkDerivation rec {
       artistic2
     ];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

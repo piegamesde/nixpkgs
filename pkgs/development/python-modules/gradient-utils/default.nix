@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-swnl0phdOsBSP8AX/OySI/aYI9z60Ss3SsJox/mb9KY=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     hyperopt
@@ -59,13 +59,13 @@ buildPythonPackage rec {
       "tests/integration/test_metrics.py"
     ];
 
-  pythonImportsCheck = [ "gradient_utils" ];
+  pythonImportsCheck = ["gradient_utils"];
 
   meta = with lib; {
     description = "Python utils and helpers library for Gradient";
     homepage = "https://github.com/Paperspace/gradient-utils";
     license = licenses.mit;
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
     platforms = platforms.unix;
   };
 }

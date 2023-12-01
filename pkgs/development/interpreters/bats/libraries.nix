@@ -24,7 +24,7 @@
       platforms = lib.platforms.all;
       homepage = "https://github.com/bats-core/bats-assert";
       license = lib.licenses.cc0;
-      maintainers = with lib.maintainers; [ infinisil ];
+      maintainers = with lib.maintainers; [infinisil];
     };
   };
 
@@ -48,7 +48,7 @@
       platforms = lib.platforms.all;
       homepage = "https://github.com/bats-core/bats-file";
       license = lib.licenses.cc0;
-      maintainers = with lib.maintainers; [ infinisil ];
+      maintainers = with lib.maintainers; [infinisil];
     };
   };
 
@@ -72,7 +72,7 @@
       platforms = lib.platforms.all;
       homepage = "https://github.com/bats-core/bats-support";
       license = lib.licenses.cc0;
-      maintainers = with lib.maintainers; [ infinisil ];
+      maintainers = with lib.maintainers; [infinisil];
     };
   };
 }

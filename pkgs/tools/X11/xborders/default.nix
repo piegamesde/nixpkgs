@@ -54,7 +54,7 @@ python3Packages.buildPythonPackage rec {
     description = "Active window border replacement for window managers";
     homepage = "https://github.com/deter0/xborder";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ elnudev ];
+    maintainers = with maintainers; [elnudev];
     platforms = platforms.linux;
   };
 }

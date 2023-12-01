@@ -28,7 +28,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Libretro's core info files";
     homepage = "https://libretro.com";
     license = licenses.mit;
-    maintainers = with maintainers; teams.libretro.members ++ [ ];
+    maintainers = with maintainers; teams.libretro.members ++ [];
     platforms = platforms.all;
   };
 }

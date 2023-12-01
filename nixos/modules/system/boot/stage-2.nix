@@ -68,7 +68,7 @@ in
       };
 
       extraSystemdUnitPaths = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           Additional paths that get appended to the SYSTEMD_UNIT_PATH environment variable

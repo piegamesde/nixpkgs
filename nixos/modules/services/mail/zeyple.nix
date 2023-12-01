@@ -8,9 +8,9 @@
 with lib;
 let
   cfg = config.services.zeyple;
-  ini = pkgs.formats.ini { };
+  ini = pkgs.formats.ini {};
 
-  gpgHome = pkgs.runCommand "zeyple-gpg-home" { } ''
+  gpgHome = pkgs.runCommand "zeyple-gpg-home" {} ''
     mkdir -p $out
     for file in ${lib.concatStringsSep " " cfg.keys}; do
       ${config.programs.gnupg.package}/bin/gpg --homedir="$out" --import "$file"
@@ -56,7 +56,7 @@ in
 
     settings = mkOption {
       type = ini.type;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Zeyple configuration. refer to
         <https://github.com/infertux/zeyple/blob/master/zeyple/zeyple.conf.example>
@@ -77,7 +77,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    users.groups = optionalAttrs (cfg.group == "zeyple") { "${cfg.group}" = { }; };
+    users.groups = optionalAttrs (cfg.group == "zeyple") {"${cfg.group}" = {};};
     users.users = optionalAttrs (cfg.user == "zeyple") {
       "${cfg.user}" = {
         isSystemUser = true;
@@ -91,7 +91,7 @@ in
         force_encrypt = true;
       };
 
-      gpg = mapAttrs (name: mkDefault) { home = "${gpgHome}"; };
+      gpg = mapAttrs (name: mkDefault) {home = "${gpgHome}";};
 
       relay = mapAttrs (name: mkDefault) {
         host = "localhost";
@@ -101,9 +101,7 @@ in
 
     environment.etc."zeyple.conf".source = ini.generate "zeyple.conf" cfg.settings;
 
-    systemd.tmpfiles.rules = [
-      "f '${cfg.settings.zeyple.log_file}' 0600 ${cfg.user} ${cfg.group} - -"
-    ];
+    systemd.tmpfiles.rules = ["f '${cfg.settings.zeyple.log_file}' 0600 ${cfg.user} ${cfg.group} - -"];
     services.logrotate = mkIf cfg.rotateLogs {
       enable = true;
       settings.zeyple = {

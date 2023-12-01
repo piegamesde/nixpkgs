@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-V9IOxLEN1pTSsFu2S8axCcboWmwUBXlM6H7Ys0GrP0Q=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     packaging
@@ -33,7 +33,7 @@ buildPythonPackage rec {
   ];
 
   preCheck = "HOME=$TMPDIR";
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
   # tries to touch network
   disabledTests = [
     "pooch_custom_url"
@@ -54,9 +54,9 @@ buildPythonPackage rec {
 
   passthru = {
     optional-dependencies = {
-      progress = [ tqdm ];
-      sftp = [ paramiko ];
-      xxhash = [ xxhash ];
+      progress = [tqdm];
+      sftp = [paramiko];
+      xxhash = [xxhash];
     };
   };
 
@@ -64,6 +64,6 @@ buildPythonPackage rec {
     description = "A friend to fetch your data files.";
     homepage = "https://github.com/fatiando/pooch";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ GuillaumeDesforges ];
+    maintainers = with maintainers; [GuillaumeDesforges];
   };
 }

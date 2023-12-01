@@ -52,7 +52,7 @@ mkDerivation rec {
     pkg-config
   ];
 
-  qmakeFlags = [ "jacktrip.pro" ];
+  qmakeFlags = ["jacktrip.pro"];
 
   meta = with lib; {
     description = "Multi-machine audio network performance over the Internet";
@@ -62,7 +62,7 @@ mkDerivation rec {
       lgpl3
       mit
     ];
-    maintainers = [ maintainers.iwanb ];
+    maintainers = [maintainers.iwanb];
     platforms = platforms.linux;
   };
 }

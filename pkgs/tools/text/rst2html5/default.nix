@@ -1,4 +1,4 @@
-{ lib, python3Packages }:
+{lib, python3Packages}:
 
 python3Packages.buildPythonPackage rec {
   pname = "rst2html5";
@@ -20,6 +20,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://rst2html5.readthedocs.io/en/latest/";
     description = "Converts ReSTructuredText to (X)HTML5";
     license = licenses.mit;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
   };
 }

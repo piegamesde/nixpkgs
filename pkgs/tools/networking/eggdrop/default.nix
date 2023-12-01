@@ -14,9 +14,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-4mkY6opk2YV1ecW2DGYaM38gdz7dgwhrNWUlvrWBc2o=";
   };
 
-  buildInputs = [ tcl ];
+  buildInputs = [tcl];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   preConfigure = ''
     prefix=$out/eggdrop

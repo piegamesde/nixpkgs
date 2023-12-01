@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-ox1qKWxJlUIFzEqeyzG2kqZix3AHnOKFrlpf6O5QM+k=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     install -Dm644 syntax.d/* -t $out/share/kibi/syntax.d
@@ -29,6 +29,6 @@ rustPlatform.buildRustPackage rec {
     description = "A text editor in ≤1024 lines of code, written in Rust";
     homepage = "https://github.com/ilai-deutel/kibi";
     license = licenses.mit;
-    maintainers = with maintainers; [ robertodr ];
+    maintainers = with maintainers; [robertodr];
   };
 }

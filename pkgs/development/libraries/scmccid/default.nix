@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     else
       throw "Architecture not supported";
 
-  nativeBuildInputs = [ patchelf ];
+  nativeBuildInputs = [patchelf];
 
   installPhase = ''
     RPATH=${libusb-compat-0_1.out}/lib:${stdenv.cc.libc.out}/lib
@@ -44,9 +44,9 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "http://www.scmmicro.com/support/pc-security-support/downloads.html";
     description = "PCSC drivers for linux, for the SCM SCR3310 v2.0 card and others";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ viric ];
+    maintainers = with lib.maintainers; [viric];
     platforms = with lib.platforms; linux;
   };
 }

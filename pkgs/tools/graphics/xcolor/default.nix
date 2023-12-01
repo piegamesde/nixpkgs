@@ -45,7 +45,7 @@ rustPlatform.buildRustPackage rec {
       desktopName = "XColor";
       comment = "Select colors visible anywhere on the screen to get their RGB representation";
       icon = "xcolor";
-      categories = [ "Graphics" ];
+      categories = ["Graphics"];
     })
   ];
 
@@ -61,7 +61,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Lightweight color picker for X11";
     homepage = "https://github.com/Soft/xcolor";
-    maintainers = with lib.maintainers; [ fortuneteller2k ];
+    maintainers = with lib.maintainers; [fortuneteller2k];
     license = licenses.mit;
   };
 }

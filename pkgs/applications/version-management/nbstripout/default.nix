@@ -49,6 +49,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Strip output from Jupyter and IPython notebooks";
     homepage = "https://github.com/kynan/nbstripout";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jluttine ];
+    maintainers = with lib.maintainers; [jluttine];
   };
 }

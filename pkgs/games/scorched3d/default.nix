@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     fftwSinglePrec
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   patches = [
     ./file-existence.patch
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "scorched";
 
-  configureFlags = [ "--with-fftw=${fftwSinglePrec.dev}" ];
+  configureFlags = ["--with-fftw=${fftwSinglePrec.dev}"];
 
   NIX_LDFLAGS = "-lopenal";
 
@@ -71,6 +71,6 @@ stdenv.mkDerivation rec {
     description = "3D Clone of the classic Scorched Earth";
     license = licenses.gpl2Plus;
     platforms = platforms.linux; # maybe more
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

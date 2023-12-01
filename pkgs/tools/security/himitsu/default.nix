@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     homepage = "https://himitsustore.org/";
     description = "A secret storage manager";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ auchter ];
+    maintainers = with maintainers; [auchter];
     inherit (hare.meta) platforms badPlatforms;
   };
 }

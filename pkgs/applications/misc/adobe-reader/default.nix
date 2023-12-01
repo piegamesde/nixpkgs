@@ -47,12 +47,12 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Adobe Reader, a viewer for PDF documents";
     homepage = "http://www.adobe.com/products/reader";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
     knownVulnerabilities = [
       "Numerous unresolved vulnerabilities"
       "See: https://www.cvedetails.com/product/497/Adobe-Acrobat-Reader.html?vendor_id=53"
     ];
-    platforms = [ "i686-linux" ];
+    platforms = ["i686-linux"];
   };
 }

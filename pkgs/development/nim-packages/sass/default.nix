@@ -13,5 +13,5 @@ buildNimPackage rec {
     rev = version;
     sha256 = "0qvly5rilsqqsyvr67pqhglm55ndc4nd6v90jwswbnigxiqf79lc";
   };
-  propagatedBuildInputs = [ libsass ];
+  propagatedBuildInputs = [libsass];
 }

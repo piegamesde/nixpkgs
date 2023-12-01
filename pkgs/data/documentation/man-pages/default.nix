@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-YU2uPv59/UgJhnY6KiqBeSFQMqWkUmwL5eiZol8Ja4s=";
   };
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
   postInstall = ''
     # conflict with shadow-utils
     rm $out/share/man/man5/passwd.5 \

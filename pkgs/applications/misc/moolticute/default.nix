@@ -38,7 +38,7 @@ mkDerivation rec {
   ];
 
   preConfigure = "mkdir -p build && cd build";
-  qmakeFlags = [ "../Moolticute.pro" ];
+  qmakeFlags = ["../Moolticute.pro"];
 
   preInstall = ''
     mkdir -p $udev/lib/udev/rules.d

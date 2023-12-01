@@ -78,10 +78,10 @@ stdenv.mkDerivation rec {
       wxGTK32
       xine-ui
     ]
-    ++ optionals dvdisasterSupport [ dvdisaster ]
-    ++ optionals udevSupport [ udev ]
-    ++ optionals dbusSupport [ dbus ]
-    ++ optionals thumbnailSupport [ libgnomeui ];
+    ++ optionals dvdisasterSupport [dvdisaster]
+    ++ optionals udevSupport [udev]
+    ++ optionals dbusSupport [dbus]
+    ++ optionals thumbnailSupport [libgnomeui];
 
   enableParallelBuilding = true;
 
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
           dvdauthor
           dvdplusrwtools
         ]
-        ++ optionals dvdisasterSupport [ dvdisaster ]
+        ++ optionals dvdisasterSupport [dvdisaster]
       );
     in
     ''
@@ -137,7 +137,7 @@ stdenv.mkDerivation rec {
       - customize navigation using DVD scripting
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = with platforms; linux;
   };
 }

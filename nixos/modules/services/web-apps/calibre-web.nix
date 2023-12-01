@@ -139,8 +139,8 @@ in
       in
       {
         description = "Web app for browsing, reading and downloading eBooks stored in a Calibre database";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
 
         serviceConfig = {
           Type = "simple";
@@ -164,7 +164,7 @@ in
         };
       };
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.listen.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {allowedTCPPorts = [cfg.listen.port];};
 
     users.users = mkIf (cfg.user == "calibre-web") {
       calibre-web = {
@@ -173,8 +173,8 @@ in
       };
     };
 
-    users.groups = mkIf (cfg.group == "calibre-web") { calibre-web = { }; };
+    users.groups = mkIf (cfg.group == "calibre-web") {calibre-web = {};};
   };
 
-  meta.maintainers = with lib.maintainers; [ pborzenkov ];
+  meta.maintainers = with lib.maintainers; [pborzenkov];
 }

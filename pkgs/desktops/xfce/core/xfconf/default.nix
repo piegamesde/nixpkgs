@@ -18,10 +18,10 @@ mkXfceDerivation {
     vala
   ];
 
-  buildInputs = [ libxfce4util ];
+  buildInputs = [libxfce4util];
 
   meta = with lib; {
     description = "Simple client-server configuration storage and query system for Xfce";
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    maintainers = with maintainers; [] ++ teams.xfce.members;
   };
 }

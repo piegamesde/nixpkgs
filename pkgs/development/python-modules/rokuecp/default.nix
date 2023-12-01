@@ -30,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-3GHG4FBGMiF5kNk2gl05xiX9+5tcrUyi4SUCXTa6Qco=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -65,13 +65,13 @@ buildPythonPackage rec {
     "test_get_tv_channels_single_channel"
   ];
 
-  pythonImportsCheck = [ "rokuecp" ];
+  pythonImportsCheck = ["rokuecp"];
 
   meta = with lib; {
     description = "Asynchronous Python client for Roku (ECP)";
     homepage = "https://github.com/ctalkington/python-rokuecp";
     changelog = "https://github.com/ctalkington/python-rokuecp/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

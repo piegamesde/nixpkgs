@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs =
-    [ perl' ]
+    [perl']
     ++ lib.optional (!stdenv.isDarwin) bsd-finger
     ++ lib.optional withAbook abook
     ++ lib.optional withGnupg gnupg
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withMu mu;
 
   configureFlags =
-    [ ]
+    []
     ++ lib.optional withAbook "--with-abook"
     ++ lib.optional withGnupg "--with-gpg"
     ++ lib.optional withGoobook "--with-goobook"
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       url = "https://github.com/RolandRosenfeld/lbdb/commit/60b7bae255011f59212d96adfbded459d6a27129.patch";
       sha256 = "129zg086glmlalrg395jq8ljcp787dl3rxjf9v7apsd8mqfdkl2v";
-      excludes = [ "debian/changelog" ];
+      excludes = ["debian/changelog"];
     })
   ];
 

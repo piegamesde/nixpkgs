@@ -57,20 +57,20 @@ let
     };
     extraFlags = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc "Extra flags to pass to iperf3(1).";
     };
   };
 
   imp = {
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {allowedTCPPorts = [cfg.port];};
 
     systemd.services.iperf3 = {
       description = "iperf3 daemon";
       unitConfig.Documentation = "man:iperf3(1) https://iperf.fr/iperf-doc.php";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         Restart = "on-failure";

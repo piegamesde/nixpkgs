@@ -23,20 +23,20 @@
   buildTests ? true,
   targetName ? "llvm",
   targetDir ? "llvm",
-  targetProjects ? [ ],
-  targetRuntimes ? [ ],
+  targetProjects ? [],
+  targetRuntimes ? [],
   # "NATIVE" resolves into x86 or aarch64 depending on stdenv
-  llvmTargetsToBuild ? [ "NATIVE" ],
-  extraPatches ? [ ],
-  extraNativeBuildInputs ? [ ],
-  extraBuildInputs ? [ ],
-  extraCMakeFlags ? [ ],
+  llvmTargetsToBuild ? ["NATIVE"],
+  extraPatches ? [],
+  extraNativeBuildInputs ? [],
+  extraBuildInputs ? [],
+  extraCMakeFlags ? [],
   extraPostPatch ? "",
   checkTargets ? [
     (lib.optionalString buildTests (if targetDir == "runtimes" then "check-runtimes" else "check-all"))
   ],
   extraPostInstall ? "",
-  extraLicenses ? [ ],
+  extraLicenses ? [],
   isBroken ? false,
 }:
 
@@ -49,7 +49,7 @@ let
     else
       throw "Unsupported ROCm LLVM platform";
   inferNativeTarget = t: if t == "NATIVE" then llvmNativeTarget else t;
-  llvmTargetsToBuild' = [ "AMDGPU" ] ++ builtins.map inferNativeTarget llvmTargetsToBuild;
+  llvmTargetsToBuild' = ["AMDGPU"] ++ builtins.map inferNativeTarget llvmTargetsToBuild;
 in
 stdenv.mkDerivation (
   finalAttrs: {
@@ -57,8 +57,8 @@ stdenv.mkDerivation (
     version = "5.4.4";
 
     outputs =
-      [ "out" ]
-      ++ lib.optionals buildDocs [ "doc" ]
+      ["out"]
+      ++ lib.optionals buildDocs ["doc"]
       ++ lib.optionals buildMan [
         "man"
         "info" # Avoid `attribute 'info' missing` when using with wrapCC
@@ -86,7 +86,7 @@ stdenv.mkDerivation (
         sphinx
         python3Packages.recommonmark
       ]
-      ++ lib.optionals (buildTests && !finalAttrs.passthru.isLLVM) [ lit ]
+      ++ lib.optionals (buildTests && !finalAttrs.passthru.isLLVM) [lit]
       ++ extraNativeBuildInputs;
 
     buildInputs = [
@@ -105,13 +105,13 @@ stdenv.mkDerivation (
     sourceRoot = "${finalAttrs.src.name}/${targetDir}";
 
     cmakeFlags =
-      [ "-DLLVM_TARGETS_TO_BUILD=${builtins.concatStringsSep ";" llvmTargetsToBuild'}" ]
-      ++ lib.optionals (finalAttrs.passthru.isLLVM && targetProjects != [ ]) [
+      ["-DLLVM_TARGETS_TO_BUILD=${builtins.concatStringsSep ";" llvmTargetsToBuild'}"]
+      ++ lib.optionals (finalAttrs.passthru.isLLVM && targetProjects != []) [
         "-DLLVM_ENABLE_PROJECTS=${lib.concatStringsSep ";" targetProjects}"
       ]
-      ++
-        lib.optionals ((finalAttrs.passthru.isLLVM || targetDir == "runtimes") && targetRuntimes != [ ])
-          [ "-DLLVM_ENABLE_RUNTIMES=${lib.concatStringsSep ";" targetRuntimes}" ]
+      ++ lib.optionals ((finalAttrs.passthru.isLLVM || targetDir == "runtimes") && targetRuntimes != []) [
+        "-DLLVM_ENABLE_RUNTIMES=${lib.concatStringsSep ";" targetRuntimes}"
+      ]
       ++ lib.optionals (finalAttrs.passthru.isLLVM || finalAttrs.passthru.isClang) [
         "-DLLVM_ENABLE_RTTI=ON"
         "-DLLVM_ENABLE_EH=ON"
@@ -176,7 +176,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "ROCm fork of the LLVM compiler infrastructure";
       homepage = "https://github.com/RadeonOpenCompute/llvm-project";
-      license = with licenses; [ ncsa ] ++ extraLicenses;
+      license = with licenses; [ncsa] ++ extraLicenses;
       maintainers =
         with maintainers;
         [

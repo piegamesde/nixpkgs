@@ -16,7 +16,7 @@ buildDunePackage {
   inherit (ppx_irmin) src version strictDeps;
   duneVersion = "3";
 
-  nativeBuildInputs = [ ppx_irmin ];
+  nativeBuildInputs = [ppx_irmin];
 
   propagatedBuildInputs = [
     irmin

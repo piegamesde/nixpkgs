@@ -20,9 +20,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-l2UuYrkFdZYaqQUW57y0OZyu1gPO22C+AwNdIYymV9k=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  excludedPackages = [ "./test/e2e" ];
+  excludedPackages = ["./test/e2e"];
 
   ldflags = [
     "-s"

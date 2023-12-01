@@ -24,13 +24,13 @@ let
     optional (cfg.dnsBlacklistOverrides != "")
       "check_client_access hash:/etc/postfix/client_access";
 
-  dnsBl = optionals (cfg.dnsBlacklists != [ ]) (map (s: "reject_rbl_client " + s) cfg.dnsBlacklists);
+  dnsBl = optionals (cfg.dnsBlacklists != []) (map (s: "reject_rbl_client " + s) cfg.dnsBlacklists);
 
   clientRestrictions = concatStringsSep ", " (clientAccess ++ dnsBl);
 
   mainCf =
     let
-      escape = replaceStrings [ "$" ] [ "$$" ];
+      escape = replaceStrings ["$"] ["$$"];
       mkList = items: "\n  " + concatStringsSep ",\n  " items;
       mkVal =
         value:
@@ -151,7 +151,7 @@ let
 
         args = mkOption {
           type = types.listOf types.str;
-          default = [ ];
+          default = [];
           example = [
             "-o"
             "smtp_helo_timeout=5"
@@ -165,7 +165,7 @@ let
 
         rawEntry = mkOption {
           type = types.listOf types.str;
-          default = [ ];
+          default = [];
           internal = true;
           description = lib.mdDoc ''
             The raw configuration line for the {file}`master.cf`.
@@ -244,7 +244,7 @@ let
           lines = [
             labels
             labelDefaults
-          ] ++ (map (l: init l ++ [ "" ]) masterCf);
+          ] ++ (map (l: init l ++ [""]) masterCf);
         in
         foldr foldLine (genList (const 0) (length labels)) lines;
 
@@ -277,7 +277,7 @@ let
     formattedLabels + "\n" + concatMapStringsSep "\n" formatLine masterCf + "\n" + cfg.extraMasterConf;
 
   headerCheckOptions =
-    { ... }:
+    {...}:
     {
       options = {
         pattern = mkOption {
@@ -432,7 +432,7 @@ in
       networks = mkOption {
         type = types.nullOr (types.listOf types.str);
         default = null;
-        example = [ "192.168.0.1/24" ];
+        example = ["192.168.0.1/24"];
         description = lib.mdDoc ''
           Net masks for trusted - allowed to relay mail to third parties -
           hosts. Leave empty to use mynetworks_style configuration or use
@@ -478,7 +478,7 @@ in
       destination = mkOption {
         type = types.nullOr (types.listOf types.str);
         default = null;
-        example = [ "localhost" ];
+        example = ["localhost"];
         description = lib.mdDoc ''
           Full (!) list of domains we deliver locally. Leave blank for
           acceptable Postfix default.
@@ -488,7 +488,7 @@ in
       relayDomains = mkOption {
         type = types.nullOr (types.listOf types.str);
         default = null;
-        example = [ "localdomain" ];
+        example = ["localdomain"];
         description = lib.mdDoc ''
           List of domains we agree to relay to. Default is empty.
         '';
@@ -664,7 +664,7 @@ in
       };
 
       dnsBlacklists = mkOption {
-        default = [ ];
+        default = [];
         type = with types; listOf str;
         description = lib.mdDoc "dns blacklist servers to use with smtpd_client_restrictions";
       };
@@ -677,7 +677,7 @@ in
 
       masterConfig = mkOption {
         type = types.attrsOf (types.submodule masterCfOptions);
-        default = { };
+        default = {};
         example = {
           submission = {
             type = "inet";
@@ -710,7 +710,7 @@ in
 
       headerChecks = mkOption {
         type = types.listOf (types.submodule headerCheckOptions);
-        default = [ ];
+        default = [];
         example = [
           {
             pattern = "/^X-Spam-Flag:/";
@@ -729,13 +729,13 @@ in
 
       aliasFiles = mkOption {
         type = types.attrsOf types.path;
-        default = { };
+        default = {};
         description = lib.mdDoc "Aliases' tables to be compiled and placed into /var/lib/postfix/conf.";
       };
 
       mapFiles = mkOption {
         type = types.attrsOf types.path;
-        default = { };
+        default = {};
         description = lib.mdDoc "Maps to be compiled and placed into /var/lib/postfix/conf.";
       };
 
@@ -757,7 +757,7 @@ in
           etc.postfix.source = "/var/lib/postfix/conf";
 
           # This makes it comfortable to run 'postqueue/postdrop' for example.
-          systemPackages = [ pkgs.postfix ];
+          systemPackages = [pkgs.postfix];
         };
 
         services.pfix-srsd.enable = config.services.postfix.useSrs;
@@ -807,8 +807,8 @@ in
         };
 
         users.groups =
-          optionalAttrs (group == "postfix") { ${group}.gid = config.ids.gids.postfix; }
-          // optionalAttrs (setgidGroup == "postdrop") { ${setgidGroup}.gid = config.ids.gids.postdrop; };
+          optionalAttrs (group == "postfix") {${group}.gid = config.ids.gids.postfix;}
+          // optionalAttrs (setgidGroup == "postdrop") {${setgidGroup}.gid = config.ids.gids.postdrop;};
 
         systemd.services.postfix-setup = {
           description = "Setup for Postfix mail server";
@@ -863,13 +863,13 @@ in
         systemd.services.postfix = {
           description = "Postfix mail server";
 
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
           after = [
             "network.target"
             "postfix-setup.service"
           ];
-          requires = [ "postfix-setup.service" ];
-          path = [ pkgs.postfix ];
+          requires = ["postfix-setup.service"];
+          path = [pkgs.postfix];
 
           serviceConfig = {
             Type = "forking";
@@ -913,33 +913,29 @@ in
               else
                 "[${cfg.relayHost}]:${toString cfg.relayPort}";
           }
-          // optionalAttrs (!config.networking.enableIPv6) { inet_protocols = mkDefault "ipv4"; }
-          // optionalAttrs (cfg.networks != null) { mynetworks = cfg.networks; }
-          // optionalAttrs (cfg.networksStyle != "") { mynetworks_style = cfg.networksStyle; }
-          // optionalAttrs (cfg.hostname != "") { myhostname = cfg.hostname; }
-          // optionalAttrs (cfg.domain != "") { mydomain = cfg.domain; }
-          // optionalAttrs (cfg.origin != "") { myorigin = cfg.origin; }
-          // optionalAttrs (cfg.destination != null) { mydestination = cfg.destination; }
-          // optionalAttrs (cfg.relayDomains != null) { relay_domains = cfg.relayDomains; }
-          // optionalAttrs (cfg.recipientDelimiter != "") { recipient_delimiter = cfg.recipientDelimiter; }
-          // optionalAttrs haveAliases { alias_maps = [ "${cfg.aliasMapType}:/etc/postfix/aliases" ]; }
-          // optionalAttrs haveTransport { transport_maps = [ "hash:/etc/postfix/transport" ]; }
-          // optionalAttrs haveVirtual {
-            virtual_alias_maps = [ "${cfg.virtualMapType}:/etc/postfix/virtual" ];
-          }
+          // optionalAttrs (!config.networking.enableIPv6) {inet_protocols = mkDefault "ipv4";}
+          // optionalAttrs (cfg.networks != null) {mynetworks = cfg.networks;}
+          // optionalAttrs (cfg.networksStyle != "") {mynetworks_style = cfg.networksStyle;}
+          // optionalAttrs (cfg.hostname != "") {myhostname = cfg.hostname;}
+          // optionalAttrs (cfg.domain != "") {mydomain = cfg.domain;}
+          // optionalAttrs (cfg.origin != "") {myorigin = cfg.origin;}
+          // optionalAttrs (cfg.destination != null) {mydestination = cfg.destination;}
+          // optionalAttrs (cfg.relayDomains != null) {relay_domains = cfg.relayDomains;}
+          // optionalAttrs (cfg.recipientDelimiter != "") {recipient_delimiter = cfg.recipientDelimiter;}
+          // optionalAttrs haveAliases {alias_maps = ["${cfg.aliasMapType}:/etc/postfix/aliases"];}
+          // optionalAttrs haveTransport {transport_maps = ["hash:/etc/postfix/transport"];}
+          // optionalAttrs haveVirtual {virtual_alias_maps = ["${cfg.virtualMapType}:/etc/postfix/virtual"];}
           // optionalAttrs haveLocalRecipients {
-            local_recipient_maps = [
-              "hash:/etc/postfix/local_recipients"
-            ] ++ optional haveAliases "$alias_maps";
+            local_recipient_maps = ["hash:/etc/postfix/local_recipients"] ++ optional haveAliases "$alias_maps";
           }
-          // optionalAttrs (cfg.dnsBlacklists != [ ]) { smtpd_client_restrictions = clientRestrictions; }
+          // optionalAttrs (cfg.dnsBlacklists != []) {smtpd_client_restrictions = clientRestrictions;}
           // optionalAttrs cfg.useSrs {
-            sender_canonical_maps = [ "tcp:127.0.0.1:10001" ];
-            sender_canonical_classes = [ "envelope_sender" ];
-            recipient_canonical_maps = [ "tcp:127.0.0.1:10002" ];
-            recipient_canonical_classes = [ "envelope_recipient" ];
+            sender_canonical_maps = ["tcp:127.0.0.1:10001"];
+            sender_canonical_classes = ["envelope_sender"];
+            recipient_canonical_maps = ["tcp:127.0.0.1:10002"];
+            recipient_canonical_classes = ["envelope_recipient"];
           }
-          // optionalAttrs cfg.enableHeaderChecks { header_checks = [ "regexp:/etc/postfix/header_checks" ]; }
+          // optionalAttrs cfg.enableHeaderChecks {header_checks = ["regexp:/etc/postfix/header_checks"];}
           // optionalAttrs (cfg.tlsTrustedAuthorities != "") {
             smtp_tls_CAfile = cfg.tlsTrustedAuthorities;
             smtp_tls_security_level = mkDefault "may";
@@ -1010,18 +1006,18 @@ in
             showq = {
               private = false;
             };
-            error = { };
+            error = {};
             retry = {
               command = "error";
             };
-            discard = { };
+            discard = {};
             local = {
               privileged = true;
             };
             virtual = {
               privileged = true;
             };
-            lmtp = { };
+            lmtp = {};
             anvil = {
               maxproc = 1;
             };
@@ -1051,7 +1047,7 @@ in
               private = false;
               command = "smtpd";
             };
-            smtp = { };
+            smtp = {};
             relay = {
               command = "smtp";
               args = [
@@ -1080,22 +1076,20 @@ in
                     // {
                       smtpd_tls_wrappermode = "yes";
                     }
-                    // optionalAttrs adjustSmtpTlsSecurityLevel { smtpd_tls_security_level = "encrypt"; };
+                    // optionalAttrs adjustSmtpTlsSecurityLevel {smtpd_tls_security_level = "encrypt";};
                 in
                 concatLists (mapAttrsToList mkKeyVal submissionsOptions);
             };
           };
       }
 
-      (mkIf haveAliases { services.postfix.aliasFiles.aliases = aliasesFile; })
-      (mkIf haveCanonical { services.postfix.mapFiles.canonical = canonicalFile; })
-      (mkIf haveTransport { services.postfix.mapFiles.transport = transportFile; })
-      (mkIf haveVirtual { services.postfix.mapFiles.virtual = virtualFile; })
-      (mkIf haveLocalRecipients { services.postfix.mapFiles.local_recipients = localRecipientMapFile; })
-      (mkIf cfg.enableHeaderChecks { services.postfix.mapFiles.header_checks = headerChecksFile; })
-      (mkIf (cfg.dnsBlacklists != [ ]) {
-        services.postfix.mapFiles.client_access = checkClientAccessFile;
-      })
+      (mkIf haveAliases {services.postfix.aliasFiles.aliases = aliasesFile;})
+      (mkIf haveCanonical {services.postfix.mapFiles.canonical = canonicalFile;})
+      (mkIf haveTransport {services.postfix.mapFiles.transport = transportFile;})
+      (mkIf haveVirtual {services.postfix.mapFiles.virtual = virtualFile;})
+      (mkIf haveLocalRecipients {services.postfix.mapFiles.local_recipients = localRecipientMapFile;})
+      (mkIf cfg.enableHeaderChecks {services.postfix.mapFiles.header_checks = headerChecksFile;})
+      (mkIf (cfg.dnsBlacklists != []) {services.postfix.mapFiles.client_access = checkClientAccessFile;})
     ]
   );
 

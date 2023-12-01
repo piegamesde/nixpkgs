@@ -70,7 +70,7 @@ let
         inherit hash;
       };
 
-      hardeningEnable = lib.optionals (!stdenv'.cc.isClang) [ "pie" ];
+      hardeningEnable = lib.optionals (!stdenv'.cc.isClang) ["pie"];
 
       outputs = [
         "out"
@@ -88,13 +88,13 @@ let
           libxml2
           icu
         ]
-        ++ lib.optionals (olderThan "13") [ libxcrypt ]
-        ++ lib.optionals jitSupport [ llvmPackages.llvm ]
-        ++ lib.optionals lz4Enabled [ lz4 ]
-        ++ lib.optionals zstdEnabled [ zstd ]
-        ++ lib.optionals enableSystemd [ systemd ]
-        ++ lib.optionals gssSupport [ libkrb5 ]
-        ++ lib.optionals (!stdenv'.isDarwin) [ libossp_uuid ];
+        ++ lib.optionals (olderThan "13") [libxcrypt]
+        ++ lib.optionals jitSupport [llvmPackages.llvm]
+        ++ lib.optionals lz4Enabled [lz4]
+        ++ lib.optionals zstdEnabled [zstd]
+        ++ lib.optionals enableSystemd [systemd]
+        ++ lib.optionals gssSupport [libkrb5]
+        ++ lib.optionals (!stdenv'.isDarwin) [libossp_uuid];
 
       nativeBuildInputs =
         [
@@ -111,7 +111,7 @@ let
 
       separateDebugInfo = true;
 
-      buildFlags = [ "world" ];
+      buildFlags = ["world"];
 
       env.NIX_CFLAGS_COMPILE = "-I${libxml2.dev}/include/libxml2";
 
@@ -130,11 +130,11 @@ let
           (lib.optionalString enableSystemd "--with-systemd")
           (if stdenv'.isDarwin then "--with-uuid=e2fs" else "--with-ossp-uuid")
         ]
-        ++ lib.optionals lz4Enabled [ "--with-lz4" ]
-        ++ lib.optionals zstdEnabled [ "--with-zstd" ]
-        ++ lib.optionals gssSupport [ "--with-gssapi" ]
-        ++ lib.optionals stdenv'.hostPlatform.isRiscV [ "--disable-spinlocks" ]
-        ++ lib.optionals jitSupport [ "--with-llvm" ];
+        ++ lib.optionals lz4Enabled ["--with-lz4"]
+        ++ lib.optionals zstdEnabled ["--with-zstd"]
+        ++ lib.optionals gssSupport ["--with-gssapi"]
+        ++ lib.optionals stdenv'.hostPlatform.isRiscV ["--disable-spinlocks"]
+        ++ lib.optionals jitSupport ["--with-llvm"];
 
       patches =
         [
@@ -148,7 +148,7 @@ let
           (if atLeast "13" then ./patches/socketdir-in-run-13.patch else ./patches/socketdir-in-run.patch)
         ];
 
-      installTargets = [ "install-world" ];
+      installTargets = ["install-world"];
 
       LC_ALL = "C";
 
@@ -239,7 +239,7 @@ let
 
       doInstallCheck = false; # needs a running daemon?
 
-      disallowedReferences = [ stdenv'.cc ];
+      disallowedReferences = [stdenv'.cc];
 
       passthru =
         let
@@ -284,9 +284,9 @@ let
 
           tests = {
             postgresql = nixosTests.postgresql-wal-receiver.${thisAttr};
-          } // lib.optionalAttrs jitSupport { postgresql-jit = nixosTests.postgresql-jit.${thisAttr}; };
+          } // lib.optionalAttrs jitSupport {postgresql-jit = nixosTests.postgresql-jit.${thisAttr};};
         }
-        // lib.optionalAttrs jitSupport { inherit (llvmPackages) llvm; };
+        // lib.optionalAttrs jitSupport {inherit (llvmPackages) llvm;};
 
       meta = with lib; {
         homepage = "https://www.postgresql.org";
@@ -330,7 +330,7 @@ let
         postgresql.lib
         postgresql.man # in case user installs this into environment
       ];
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
 
       # We include /bin to ensure the $out/bin directory is created, which is
       # needed because we'll be removing the files from that directory in postBuild

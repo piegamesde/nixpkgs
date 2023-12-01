@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     description = "Feedly theme for Tiny Tiny RSS";
     license = licenses.wtfpl;
     homepage = "https://github.com/levito/tt-rss-feedly-theme";
-    maintainers = with maintainers; [ das_j ];
+    maintainers = with maintainers; [das_j];
     platforms = platforms.all;
   };
 }

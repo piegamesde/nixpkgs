@@ -36,7 +36,7 @@ python3Packages.buildPythonApplication rec {
   # Tests seem to be broken, but the tool works
   doCheck = false;
 
-  pythonImportsCheck = [ "abz" ];
+  pythonImportsCheck = ["abz"];
 
   meta = with lib; {
     description = "A client to upload data to an AcousticBrainz server";
@@ -47,6 +47,6 @@ python3Packages.buildPythonApplication rec {
       "x86_64-linux"
       "i686-linux"
     ];
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

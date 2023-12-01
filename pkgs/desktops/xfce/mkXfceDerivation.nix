@@ -50,8 +50,8 @@ let
       xfce4-dev-tools
       wrapGAppsHook
     ];
-    buildInputs = [ hicolor-icon-theme ];
-    configureFlags = [ "--enable-maintainer-mode" ];
+    buildInputs = [hicolor-icon-theme];
+    configureFlags = ["--enable-maintainer-mode"];
 
     src = fetchFromGitLab {
       domain = "gitlab.xfce.org";
@@ -68,7 +68,7 @@ let
 
     pos = builtins.unsafeGetAttrPos "pname" args;
 
-    passthru.updateScript = gitUpdater { inherit rev-prefix odd-unstable patchlevel-unstable; };
+    passthru.updateScript = gitUpdater {inherit rev-prefix odd-unstable patchlevel-unstable;};
 
     meta = with lib; {
       homepage = "https://gitlab.xfce.org/${category}/${pname}";

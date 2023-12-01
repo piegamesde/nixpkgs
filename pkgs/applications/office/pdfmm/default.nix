@@ -29,7 +29,7 @@ resholve.mkDerivation rec {
   '';
 
   solutions.default = {
-    scripts = [ "bin/pdfmm" ];
+    scripts = ["bin/pdfmm"];
     interpreter = "${bash}/bin/bash";
     inputs = [
       coreutils
@@ -51,6 +51,6 @@ resholve.mkDerivation rec {
     description = "Graphical assistant to reduce the size of a PDF file";
     homepage = "https://github.com/jpfleury/pdfmm";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
   };
 }

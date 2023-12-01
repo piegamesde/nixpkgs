@@ -44,10 +44,10 @@ stdenv.mkDerivation rec {
 
   # for tests, adding gtest to checkInputs does not work
   # https://github.com/NixOS/nixpkgs/pull/212200
-  buildInputs = [ gtest ];
-  cmakeFlags = [ "-DGTEST_SOURCE_DIR=${gtest.dev}/include" ];
+  buildInputs = [gtest];
+  cmakeFlags = ["-DGTEST_SOURCE_DIR=${gtest.dev}/include"];
 
-  nativeCheckInputs = [ valgrind ];
+  nativeCheckInputs = [valgrind];
   doCheck = !stdenv.hostPlatform.isStatic && !stdenv.isDarwin;
 
   meta = with lib; {

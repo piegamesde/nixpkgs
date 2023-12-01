@@ -92,7 +92,7 @@ in
     };
 
     bars = mkOption {
-      default = { };
+      default = {};
       type = types.attrsOf (
         types.submodule {
           options = {
@@ -120,7 +120,7 @@ in
             };
 
             extra = mkOption {
-              default = { };
+              default = {};
               type = types.attrsOf types.str;
 
               description = lib.mdDoc ''
@@ -129,7 +129,7 @@ in
             };
 
             indicators = mkOption {
-              default = { };
+              default = {};
               type = types.attrsOf (
                 types.submodule {
                   options.exec = mkOption {
@@ -155,7 +155,7 @@ in
                   };
 
                   options.extra = mkOption {
-                    default = { };
+                    default = {};
                     type = types.attrsOf (types.either types.str types.int);
 
                     description = lib.mdDoc ''
@@ -182,8 +182,8 @@ in
   config = mkIf cfg.enable {
     systemd.user.services.yabar = {
       description = "yabar service";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      partOf = ["graphical-session.target"];
 
       script = ''
         ${cfg.package}/bin/yabar -c ${configFile}

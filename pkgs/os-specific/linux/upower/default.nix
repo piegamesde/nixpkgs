@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   outputs = [
     "out"
     "dev"
-  ] ++ lib.optionals withDocs [ "devdoc" ];
+  ] ++ lib.optionals withDocs ["devdoc"];
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     meson
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     systemd
     # Duplicate from nativeCheckInputs until https://github.com/NixOS/nixpkgs/issues/161570 is solved
     umockdev
-  ] ++ lib.optionals useIMobileDevice [ libimobiledevice ];
+  ] ++ lib.optionals useIMobileDevice [libimobiledevice];
 
   nativeCheckInputs = [
     python3.pkgs.dbus-python
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
     python3.pkgs.packaging
   ];
 
-  propagatedBuildInputs = [ glib ];
+  propagatedBuildInputs = [glib];
 
   mesonFlags = [
     "--localstatedir=/var"

@@ -22,7 +22,7 @@ mkDerivation rec {
     sha256 = "sha256-IFQ0kw9nU2wgUZFir33fQ1hG4qGhJdegmG9M4n+bM8g=";
   };
 
-  buildInputs = [ boost ];
+  buildInputs = [boost];
 
   nativeBuildInputs = [
     extra-cmake-modules
@@ -38,13 +38,13 @@ mkDerivation rec {
     kiconthemes
   ];
 
-  cmakeFlags = [ "-Wno-dev" ];
+  cmakeFlags = ["-Wno-dev"];
 
   meta = with lib; {
     description = "Compares and merges 2 or 3 files or directories";
     homepage = "https://invent.kde.org/sdk/kdiff3";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = with platforms; linux;
   };
 }

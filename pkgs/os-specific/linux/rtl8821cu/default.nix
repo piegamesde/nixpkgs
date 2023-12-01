@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-Dg+At0iHvi4pl8umhQyml1bODhkeK8YWYpEckqqzNcQ=";
   };
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
-  nativeBuildInputs = [ bc ] ++ kernel.moduleBuildDependencies;
+  nativeBuildInputs = [bc] ++ kernel.moduleBuildDependencies;
   makeFlags = kernel.makeFlags;
 
   prePatch = ''
@@ -40,6 +40,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/morrownr/8821cu";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.contrun ];
+    maintainers = [maintainers.contrun];
   };
 }

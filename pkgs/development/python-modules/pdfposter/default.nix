@@ -10,7 +10,7 @@ buildPythonPackage rec {
   version = "0.8.1";
   format = "setuptools";
 
-  propagatedBuildInputs = [ pypdf2 ];
+  propagatedBuildInputs = [pypdf2];
 
   src = fetchPypi {
     inherit pname version;
@@ -26,6 +26,6 @@ buildPythonPackage rec {
     description = "Split large pages of a PDF into smaller ones for poster printing";
     homepage = "https://pdfposter.readthedocs.io";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ wamserma ];
+    maintainers = with maintainers; [wamserma];
   };
 }

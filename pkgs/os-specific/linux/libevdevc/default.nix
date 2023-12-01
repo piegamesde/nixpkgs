@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     license = licenses.bsd3;
     platforms = platforms.linux;
     homepage = "https://chromium.googlesource.com/chromiumos/platform/libevdev/";
-    maintainers = with maintainers; [ kcalvinalvin ];
+    maintainers = with maintainers; [kcalvinalvin];
   };
 }

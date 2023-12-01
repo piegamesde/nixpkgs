@@ -21,6 +21,6 @@ buildDunePackage rec {
     inherit (src.meta) homepage;
     license = lib.licenses.mit;
     description = "Strict impure trie tree";
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

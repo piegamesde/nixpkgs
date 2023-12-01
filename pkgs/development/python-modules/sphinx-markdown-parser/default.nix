@@ -44,13 +44,13 @@ buildPythonPackage rec {
     ${python.interpreter} -m unittest -v tests/test_basic.py tests/test_sphinx.py
   '';
 
-  pythonImportsCheck = [ "sphinx_markdown_parser" ];
+  pythonImportsCheck = ["sphinx_markdown_parser"];
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64) || stdenv.isDarwin;
     description = "Write markdown inside of docutils & sphinx projects";
     homepage = "https://github.com/clayrisser/sphinx-markdown-parser";
     license = licenses.mit;
-    maintainers = with maintainers; [ FlorianFranzen ];
+    maintainers = with maintainers; [FlorianFranzen];
   };
 }

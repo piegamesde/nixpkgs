@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.smarty.net";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ das_j ];
+    maintainers = with maintainers; [das_j];
   };
 }

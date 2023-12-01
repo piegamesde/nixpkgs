@@ -37,7 +37,7 @@ stdenv.mkDerivation (
       "man"
     ];
 
-    mesonFlags = [ "-Ddocs=disabled" ];
+    mesonFlags = ["-Ddocs=disabled"];
 
     strictDeps = true;
 
@@ -46,9 +46,9 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "High-quality data compression program";
       license = licenses.bsdOriginal;
-      pkgConfigModules = [ "bz2" ];
+      pkgConfigModules = ["bz2"];
       platforms = platforms.all;
-      maintainers = [ ];
+      maintainers = [];
     };
   }
 )

@@ -1,4 +1,4 @@
-{ pkgs, haskellLib }:
+{pkgs, haskellLib}:
 
 let
   inherit (pkgs) fetchpatch lib;
@@ -85,7 +85,7 @@ in
   constraints = doJailbreak super.constraints;
   cpphs =
     overrideCabal
-      (drv: { postPatch = "sed -i -e 's,time >=1.5 && <1.11,time >=1.5 \\&\\& <1.12,' cpphs.cabal"; })
+      (drv: {postPatch = "sed -i -e 's,time >=1.5 && <1.11,time >=1.5 \\&\\& <1.12,' cpphs.cabal";})
       super.cpphs;
   data-fix = doJailbreak super.data-fix;
   dec = doJailbreak super.dec;
@@ -96,18 +96,18 @@ in
   ghc-lib-parser-ex = doDistribute self.ghc-lib-parser-ex_9_4_0_0;
   hackage-security = doJailbreak super.hackage-security;
   hashable-time = doJailbreak super.hashable-time;
-  HTTP = overrideCabal (drv: { postPatch = "sed -i -e 's,! Socket,!Socket,' Network/TCP.hs"; }) (
+  HTTP = overrideCabal (drv: {postPatch = "sed -i -e 's,! Socket,!Socket,' Network/TCP.hs";}) (
     doJailbreak super.HTTP
   );
   integer-logarithms =
-    overrideCabal (drv: { postPatch = "sed -i -e 's, <1.1, <1.3,' integer-logarithms.cabal"; })
+    overrideCabal (drv: {postPatch = "sed -i -e 's, <1.1, <1.3,' integer-logarithms.cabal";})
       (doJailbreak super.integer-logarithms);
   lifted-async = doJailbreak super.lifted-async;
   lukko = doJailbreak super.lukko;
   lzma-conduit = doJailbreak super.lzma-conduit;
   parallel = doJailbreak super.parallel;
   path = doJailbreak super.path;
-  polyparse = overrideCabal (drv: { postPatch = "sed -i -e 's, <0.11, <0.12,' polyparse.cabal"; }) (
+  polyparse = overrideCabal (drv: {postPatch = "sed -i -e 's, <0.11, <0.12,' polyparse.cabal";}) (
     doJailbreak super.polyparse
   );
   primitive = dontCheck (doJailbreak self.primitive_0_7_4_0);
@@ -150,9 +150,7 @@ in
       (drv: {
         # Cabal 3.6 seems to preserve comments when reading, which makes this test fail
         # 2021-10-10: 9.2.1 is not yet supported (also no issue)
-        testFlags = [
-          "--skip=/Hpack/renderCabalFile/is inverse to readCabalFile/"
-        ] ++ drv.testFlags or [ ];
+        testFlags = ["--skip=/Hpack/renderCabalFile/is inverse to readCabalFile/"] ++ drv.testFlags or [];
       })
       (doJailbreak super.hpack);
 
@@ -184,7 +182,7 @@ in
   hiedb = dontCheck super.hiedb;
 
   hlint = self.hlint_3_5;
-  hls-hlint-plugin = super.hls-hlint-plugin.override { inherit (self) hlint; };
+  hls-hlint-plugin = super.hls-hlint-plugin.override {inherit (self) hlint;};
 
   # 2022-10-06: https://gitlab.haskell.org/ghc/ghc/-/issues/22260
   ghc-check = dontHaddock super.ghc-check;
@@ -236,7 +234,7 @@ in
   ormolu = doDistribute self.ormolu_0_5_3_0;
   # https://github.com/tweag/ormolu/issues/941
   fourmolu =
-    overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; })
+    overrideCabal (drv: {libraryHaskellDepends = drv.libraryHaskellDepends ++ [self.file-embed];})
       (disableCabalFlag "fixity-th" super.fourmolu_0_10_1_0);
 
   # Apply workaround for Cabal 3.8 bug https://github.com/haskell/cabal/issues/8455

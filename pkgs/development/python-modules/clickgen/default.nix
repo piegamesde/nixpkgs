@@ -31,14 +31,14 @@ buildPythonPackage rec {
     numpy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postInstall = ''
     # Copying scripts directory needed by clickgen script at $out/bin/
     cp -R src/clickgen/scripts $out/${python.sitePackages}/clickgen/scripts
   '';
 
-  pythonImportsCheck = [ "clickgen" ];
+  pythonImportsCheck = ["clickgen"];
 
   meta = with lib; {
     homepage = "https://github.com/ful1e5/clickgen";
@@ -48,7 +48,7 @@ buildPythonPackage rec {
       .png files. clickgen is using anicursorgen and xcursorgen under the hood.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ AdsonCicilioti ];
+    maintainers = with maintainers; [AdsonCicilioti];
     # fails with:
     # ld: unknown option: -zdefs
     broken = stdenv.isDarwin;

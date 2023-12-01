@@ -43,7 +43,7 @@ let
         inherit (lilypond.meta) homepage platforms;
         description = "${fontName} font for LilyPond";
         license = licenses.ofl;
-        maintainers = with maintainers; [ yurrriq ];
+        maintainers = with maintainers; [yurrriq];
       };
     };
 in

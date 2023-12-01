@@ -16,7 +16,7 @@
 
 let
   sshuttle-telepresence = lib.overrideDerivation sshuttle (
-    p: { postInstall = "mv $out/bin/sshuttle $out/bin/sshuttle-telepresence"; }
+    p: {postInstall = "mv $out/bin/sshuttle $out/bin/sshuttle-telepresence";}
   );
 in
 pythonPackages.buildPythonPackage rec {
@@ -30,7 +30,7 @@ pythonPackages.buildPythonPackage rec {
     sha256 = "1ccc8bzcdxp6rh6llk7grcnmyc05fq7dz5w0mifdzjv3a473hsky";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/telepresence \
@@ -53,7 +53,7 @@ pythonPackages.buildPythonPackage rec {
   meta = {
     homepage = "https://www.telepresence.io/";
     description = "Local development against a remote Kubernetes or OpenShift cluster";
-    license = with lib.licenses; [ asl20 ];
-    maintainers = with lib.maintainers; [ offline ];
+    license = with lib.licenses; [asl20];
+    maintainers = with lib.maintainers; [offline];
   };
 }

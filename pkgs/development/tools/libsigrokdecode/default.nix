@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     python3
     libxcrypt
   ];
-  nativeCheckInputs = [ check ];
+  nativeCheckInputs = [check];
   doCheck = true;
 
   meta = with lib; {
@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
     homepage = "https://sigrok.org/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

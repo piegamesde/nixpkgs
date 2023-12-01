@@ -23,9 +23,9 @@ stdenv.mkDerivation {
   ];
 
   strictDeps = true;
-  propagatedBuildInputs = [ ncurses ];
+  propagatedBuildInputs = [ncurses];
 
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
 
   configureFlags =
     lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
@@ -72,7 +72,7 @@ stdenv.mkDerivation {
 
     license = licenses.gpl3Plus;
 
-    maintainers = [ ];
+    maintainers = [];
 
     platforms = platforms.unix;
     branch = "6.3";

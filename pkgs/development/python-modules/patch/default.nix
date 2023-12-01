@@ -21,6 +21,6 @@ buildPythonPackage rec {
     description = "A library to parse and apply unified diffs";
     homepage = "https://github.com/techtonik/python-patch/";
     license = licenses.mit;
-    maintainers = [ maintainers.igsha ];
+    maintainers = [maintainers.igsha];
   };
 }

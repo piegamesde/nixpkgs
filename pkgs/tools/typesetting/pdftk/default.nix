@@ -77,7 +77,7 @@ in
 stdenv.mkDerivation rec {
   inherit pname version src;
 
-  nativeBuildInputs = [ gradle ];
+  nativeBuildInputs = [gradle];
 
   buildPhase = ''
     export GRADLE_USER_HOME=$(mktemp -d)

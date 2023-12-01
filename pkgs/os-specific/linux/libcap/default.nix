@@ -29,11 +29,11 @@ stdenv.mkDerivation rec {
     "doc"
   ] ++ lib.optional usePam "pam";
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   buildInputs = lib.optional usePam pam;
 
-  propagatedBuildInputs = [ attr ];
+  propagatedBuildInputs = [attr];
 
   makeFlags = [
     "lib=lib"
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
       --replace 'man_prefix=$(prefix)' "man_prefix=$doc"
   '';
 
-  installFlags = [ "RAISE_SETFCAP=no" ];
+  installFlags = ["RAISE_SETFCAP=no"];
 
   postInstall =
     ''

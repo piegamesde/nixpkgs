@@ -34,7 +34,7 @@ buildPythonPackage rec {
       --replace poetry.masonry.api poetry.core.masonry.api
   '';
 
-  pythonRelaxDeps = [ "testfixtures" ];
+  pythonRelaxDeps = ["testfixtures"];
 
   nativeBuildInputs = [
     # hatchling used for > 0.2.2
@@ -42,7 +42,7 @@ buildPythonPackage rec {
     pythonRelaxDepsHook
   ];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   propagatedBuildInputs = [
     atomicwrites
@@ -55,12 +55,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pytest_golden" ];
+  pythonImportsCheck = ["pytest_golden"];
 
   meta = with lib; {
     description = "Plugin for pytest that offloads expected outputs to data files";
     homepage = "https://github.com/oprypin/pytest-golden";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

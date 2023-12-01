@@ -22,7 +22,7 @@ buildPythonApplication rec {
     hash = "sha256-UpByKN2L0g42ProwHNRxPw6ggxyDVTUZfWRF+TpUVKc=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   nativeCheckInputs = [
     git
@@ -41,7 +41,7 @@ buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -49,6 +49,6 @@ buildPythonApplication rec {
     description = "Git repository organizer and rebase/merge workflow automation tool";
     changelog = "https://github.com/VirtusLab/git-machete/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ blitz ];
+    maintainers = with maintainers; [blitz];
   };
 }

@@ -12,7 +12,7 @@ let
 
   inherit (builtins) concatStringsSep;
 
-  config_file_content = lib.generators.toKeyValue { } cfg.configItems;
+  config_file_content = lib.generators.toKeyValue {} cfg.configItems;
   config_file = pkgs.writeText "rabbitmq.conf" config_file_content;
 
   advanced_config_file = pkgs.writeText "advanced.config" cfg.config;
@@ -84,7 +84,7 @@ in
       };
 
       configItems = mkOption {
-        default = { };
+        default = {};
         type = types.attrsOf types.str;
         example = literalExpression ''
           {
@@ -128,13 +128,13 @@ in
       };
 
       plugins = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         description = lib.mdDoc "The names of plugins to enable";
       };
 
       pluginDirs = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.path;
         description = lib.mdDoc "The list of directories containing external plugins";
       };
@@ -156,7 +156,7 @@ in
   config = mkIf cfg.enable {
 
     # This is needed so we will have 'rabbitmqctl' in our PATH
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     services.epmd.enable = true;
 
@@ -184,7 +184,7 @@ in
     systemd.services.rabbitmq = {
       description = "RabbitMQ Server";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network.target"
         "epmd.socket"
@@ -208,7 +208,7 @@ in
         RABBITMQ_ENABLED_PLUGINS_FILE = pkgs.writeText "enabled_plugins" ''
           [ ${concatStringsSep "," cfg.plugins} ].
         '';
-      } // optionalAttrs (cfg.config != "") { RABBITMQ_ADVANCED_CONFIG_FILE = advanced_config_file; };
+      } // optionalAttrs (cfg.config != "") {RABBITMQ_ADVANCED_CONFIG_FILE = advanced_config_file;};
 
       serviceConfig = {
         ExecStart = "${cfg.package}/sbin/rabbitmq-server";

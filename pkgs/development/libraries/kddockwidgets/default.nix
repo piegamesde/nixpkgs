@@ -18,7 +18,7 @@ mkDerivation rec {
     sha256 = "sha256-rAv0P7tRcgCTB/ZM93wKF8oRZc7KqPyoDcnRn5Rel/k=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     qtbase
     qtx11extras
@@ -31,6 +31,6 @@ mkDerivation rec {
       gpl2Only
       gpl3Only
     ];
-    maintainers = with maintainers; [ _1000teslas ];
+    maintainers = with maintainers; [_1000teslas];
   };
 }

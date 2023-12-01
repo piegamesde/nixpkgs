@@ -1,9 +1,9 @@
-{ lib, pkgs, ... }:
+{lib, pkgs, ...}:
 
 with lib;
 
 {
-  imports = [ ../profiles/qemu-guest.nix ];
+  imports = [../profiles/qemu-guest.nix];
 
   config = {
     fileSystems."/" = {
@@ -12,7 +12,7 @@ with lib;
     };
 
     boot.growPartition = true;
-    boot.kernelParams = [ "console=tty0" ];
+    boot.kernelParams = ["console=tty0"];
     boot.loader.grub.device = "/dev/vda";
     boot.loader.timeout = 0;
 
@@ -26,7 +26,7 @@ with lib;
     services.cloud-init.enable = true;
     # Wget is needed for setting password. This is of little use as
     # root password login is disabled above.
-    environment.systemPackages = [ pkgs.wget ];
+    environment.systemPackages = [pkgs.wget];
     # Only enable CloudStack datasource for faster boot speed.
     environment.etc."cloud/cloud.cfg.d/99_cloudstack.cfg".text = ''
       datasource:

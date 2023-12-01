@@ -29,6 +29,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://www.kreativekorp.com/software/fonts/sitelenselikiwen/";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ somasis ];
+    maintainers = with maintainers; [somasis];
   };
 }

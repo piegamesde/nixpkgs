@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-vRF9MPcw/hCreHVLD6QB7g1r0wQiZv1xrfzIHj1Yf9M=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libphonenumber
     icu
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Orange-OpenSource/pn";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = [ maintainers.McSinyx ];
+    maintainers = [maintainers.McSinyx];
   };
 }

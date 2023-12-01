@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     sqlite
   ];
 
-  mesonFlags = [ "-Dplugin_bluez=true" ];
+  mesonFlags = ["-Dplugin_bluez=true"];
 
   meta = with lib; {
     description = "An implementation of the KDE Connect protocol, built on GNOME platform libraries";
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
       gpl3Plus
       cc0
     ];
-    maintainers = with maintainers; [ federicoschonborn ];
+    maintainers = with maintainers; [federicoschonborn];
     platforms = platforms.linux;
   };
 }

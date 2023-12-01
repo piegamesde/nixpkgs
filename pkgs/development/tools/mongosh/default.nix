@@ -26,17 +26,17 @@ buildNpmPackage {
 
   makeCacheWritable = true;
   dontNpmBuild = true;
-  npmFlags = [ "--omit=optional" ];
+  npmFlags = ["--omit=optional"];
 
   passthru = {
-    tests.version = testers.testVersion { package = mongosh; };
+    tests.version = testers.testVersion {package = mongosh;};
     updateScript = ./update.sh;
   };
 
   meta = with lib; {
     homepage = "https://www.mongodb.com/try/download/shell";
     description = "The MongoDB Shell";
-    maintainers = with maintainers; [ aaronjheng ];
+    maintainers = with maintainers; [aaronjheng];
     license = licenses.asl20;
     mainProgram = "mongosh";
   };

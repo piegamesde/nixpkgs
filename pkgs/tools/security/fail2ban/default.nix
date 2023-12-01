@@ -22,7 +22,7 @@ python3.pkgs.buildPythonApplication rec {
     "man"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   pythonPath =
     with python3.pkgs;

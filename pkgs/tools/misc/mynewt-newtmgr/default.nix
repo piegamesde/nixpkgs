@@ -14,7 +14,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "apache";
     repo = "mynewt-newtmgr";
-    rev = "mynewt_${builtins.replaceStrings [ "." ] [ "_" ] version}_tag";
+    rev = "mynewt_${builtins.replaceStrings ["."] ["_"] version}_tag";
     sha256 = "sha256-fobaMkYLLK5qclogtClGdOjgTbmuse/72T3APNssYa4=";
   };
 
@@ -33,7 +33,7 @@ buildGoModule rec {
       with and manage remote devices running the Mynewt OS
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ bezmuth ];
+    maintainers = with maintainers; [bezmuth];
     # never built on aarch64-darwin, x86_64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin;
   };

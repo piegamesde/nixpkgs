@@ -29,6 +29,6 @@ buildGoModule rec {
     description = "A fork of esbuild maintained by netlify";
     homepage = "https://github.com/netlify/esbuild";
     license = licenses.mit;
-    maintainers = with maintainers; [ roberth ];
+    maintainers = with maintainers; [roberth];
   };
 }

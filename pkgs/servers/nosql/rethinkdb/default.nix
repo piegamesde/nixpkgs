@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     "--lib-path=${jemalloc}/lib"
   ];
 
-  makeFlags = [ "rethinkdb" ];
+  makeFlags = ["rethinkdb"];
 
   buildInputs = [
     protobuf

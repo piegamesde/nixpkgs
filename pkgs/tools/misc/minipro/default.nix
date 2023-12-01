@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-6i4PYzSm6lcO/Nb6n3holrNe4TtAnG2o81ZIMAIGqOE=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libusb1 ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libusb1];
   makeFlags = [
     "VERSION=${version}"
     "PREFIX=$(out)"
@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/DavidGriffith/minipro";
     description = "An open source program for controlling the MiniPRO TL866xx series of chip programmers";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.bmwalters ];
+    maintainers = [maintainers.bmwalters];
   };
 }

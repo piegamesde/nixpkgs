@@ -20,8 +20,8 @@ let
     ++ concatMap (i: attrNames (filterAttrs (_: config: config.type != "internal") i.interfaces)) (
       attrValues cfg.vswitches
     )
-    ++ concatMap (i: [ i.interface ]) (attrValues cfg.macvlans)
-    ++ concatMap (i: [ i.interface ]) (attrValues cfg.vlans);
+    ++ concatMap (i: [i.interface]) (attrValues cfg.macvlans)
+    ++ concatMap (i: [i.interface]) (attrValues cfg.vlans);
 
   # We must escape interfaces due to the systemd interpretation
   subsystemDevice = interface: "sys-subsystem-net-devices-${escapeSystemdPath interface}.device";
@@ -75,9 +75,9 @@ let
           nameValuePair "40-${i.name}" {
             matchConfig.OriginalName = i.name;
             linkConfig =
-              optionalAttrs (i.macAddress != null) { MACAddress = i.macAddress; }
-              // optionalAttrs (i.mtu != null) { MTUBytes = toString i.mtu; }
-              // optionalAttrs (i.wakeOnLan.enable == true) { WakeOnLan = "magic"; };
+              optionalAttrs (i.macAddress != null) {MACAddress = i.macAddress;}
+              // optionalAttrs (i.mtu != null) {MTUBytes = toString i.mtu;}
+              // optionalAttrs (i.wakeOnLan.enable == true) {WakeOnLan = "magic";};
           };
       in
       listToAttrs (map createNetworkLink interfaces);
@@ -97,7 +97,7 @@ let
             || (hasAttr dev cfg.vlans)
             || (hasAttr dev cfg.vswitches)
           then
-            [ "${dev}-netdev.service" ]
+            ["${dev}-netdev.service"]
           else
             optional (dev != null && dev != "lo" && !config.boot.isContainer) (subsystemDevice dev);
 
@@ -109,8 +109,8 @@ let
           cfg.resolvconf.enable || cfg.defaultGateway != null || cfg.defaultGateway6 != null;
 
         networkLocalCommands = lib.mkIf needNetworkSetup {
-          after = [ "network-setup.service" ];
-          bindsTo = [ "network-setup.service" ];
+          after = ["network-setup.service"];
+          bindsTo = ["network-setup.service"];
         };
 
         networkSetup = lib.mkIf needNetworkSetup {
@@ -125,17 +125,17 @@ let
             "network.target"
             "shutdown.target"
           ];
-          wants = [ "network.target" ];
+          wants = ["network.target"];
           # exclude bridges from the partOf relationship to fix container networking bug #47210
           partOf = map (i: "network-addresses-${i.name}.service") (
             filter (i: !(hasAttr i.name cfg.bridges)) interfaces
           );
-          conflicts = [ "shutdown.target" ];
-          wantedBy = [ "multi-user.target" ] ++ optional hasDefaultGatewaySet "network-online.target";
+          conflicts = ["shutdown.target"];
+          wantedBy = ["multi-user.target"] ++ optional hasDefaultGatewaySet "network-online.target";
 
           unitConfig.ConditionCapability = "CAP_NET_ADMIN";
 
-          path = [ pkgs.iproute2 ];
+          path = [pkgs.iproute2];
 
           serviceConfig = {
             Type = "oneshot";
@@ -148,10 +148,10 @@ let
             ${optionalString config.networking.resolvconf.enable ''
               # Set the static DNS configuration, if given.
               ${pkgs.openresolv}/sbin/resolvconf -m 1 -a static <<EOF
-              ${optionalString (cfg.nameservers != [ ] && cfg.domain != null) ''
+              ${optionalString (cfg.nameservers != [] && cfg.domain != null) ''
                 domain ${cfg.domain}
               ''}
-              ${optionalString (cfg.search != [ ]) ("search " + concatStringsSep " " cfg.search)}
+              ${optionalString (cfg.search != []) ("search " + concatStringsSep " " cfg.search)}
               ${flip concatMapStrings cfg.nameservers (
                 ns: ''
                   nameserver ${ns}
@@ -215,15 +215,15 @@ let
             ];
             # order before network-setup because the routes that are configured
             # there may need ip addresses configured
-            before = [ "network-setup.service" ];
+            before = ["network-setup.service"];
             bindsTo = deviceDependency i.name;
-            after = [ "network-pre.target" ] ++ (deviceDependency i.name);
+            after = ["network-pre.target"] ++ (deviceDependency i.name);
             serviceConfig.Type = "oneshot";
             serviceConfig.RemainAfterExit = true;
             # Restart rather than stop+start this unit to prevent the
             # network from dying during switch-to-configuration.
             stopIfChanged = false;
-            path = [ pkgs.iproute2 ];
+            path = [pkgs.iproute2];
             script = ''
               state="/run/nixos/network/addresses/${i.name}"
               mkdir -p $(dirname "$state")
@@ -296,14 +296,14 @@ let
           nameValuePair "${i.name}-netdev" {
             description = "Virtual Network Interface ${i.name}";
             bindsTo = optional (!config.boot.isContainer) "dev-net-tun.device";
-            after = optional (!config.boot.isContainer) "dev-net-tun.device" ++ [ "network-pre.target" ];
+            after = optional (!config.boot.isContainer) "dev-net-tun.device" ++ ["network-pre.target"];
             wantedBy = [
               "network-setup.service"
               (subsystemDevice i.name)
             ];
-            partOf = [ "network-setup.service" ];
-            before = [ "network-setup.service" ];
-            path = [ pkgs.iproute2 ];
+            partOf = ["network-setup.service"];
+            before = ["network-setup.service"];
+            path = [pkgs.iproute2];
             serviceConfig = {
               Type = "oneshot";
               RemainAfterExit = true;
@@ -329,16 +329,16 @@ let
                 (subsystemDevice n)
               ];
               bindsTo = deps ++ optional v.rstp "mstpd.service";
-              partOf = [ "network-setup.service" ] ++ optional v.rstp "mstpd.service";
+              partOf = ["network-setup.service"] ++ optional v.rstp "mstpd.service";
               after =
-                [ "network-pre.target" ]
+                ["network-pre.target"]
                 ++ deps
                 ++ optional v.rstp "mstpd.service"
                 ++ map (i: "network-addresses-${i}.service") v.interfaces;
-              before = [ "network-setup.service" ];
+              before = ["network-setup.service"];
               serviceConfig.Type = "oneshot";
               serviceConfig.RemainAfterExit = true;
-              path = [ pkgs.iproute2 ];
+              path = [pkgs.iproute2];
               script = ''
                 # Remove Dead Interfaces
                 echo "Removing old bridge ${n}..."
@@ -442,9 +442,9 @@ let
               # before = [ "network-setup.service" ];
               # should work without internalConfigs dependencies because address/link configuration depends
               # on the device, which is created by ovs-vswitchd with type=internal, but it does not...
-              before = [ "network-setup.service" ] ++ internalConfigs;
-              partOf = [ "network-setup.service" ]; # shutdown the bridge when network is shutdown
-              bindsTo = [ "ovs-vswitchd.service" ]; # requires ovs-vswitchd to be alive at all times
+              before = ["network-setup.service"] ++ internalConfigs;
+              partOf = ["network-setup.service"]; # shutdown the bridge when network is shutdown
+              bindsTo = ["ovs-vswitchd.service"]; # requires ovs-vswitchd to be alive at all times
               after = [
                 "network-pre.target"
                 "ovs-vswitchd.service"
@@ -512,9 +512,9 @@ let
                 (subsystemDevice n)
               ];
               bindsTo = deps;
-              partOf = [ "network-setup.service" ];
-              after = [ "network-pre.target" ] ++ deps ++ map (i: "network-addresses-${i}.service") v.interfaces;
-              before = [ "network-setup.service" ];
+              partOf = ["network-setup.service"];
+              after = ["network-pre.target"] ++ deps ++ map (i: "network-addresses-${i}.service") v.interfaces;
+              before = ["network-setup.service"];
               serviceConfig.Type = "oneshot";
               serviceConfig.RemainAfterExit = true;
               path = [
@@ -561,12 +561,12 @@ let
                 (subsystemDevice n)
               ];
               bindsTo = deps;
-              partOf = [ "network-setup.service" ];
-              after = [ "network-pre.target" ] ++ deps;
-              before = [ "network-setup.service" ];
+              partOf = ["network-setup.service"];
+              after = ["network-pre.target"] ++ deps;
+              before = ["network-setup.service"];
               serviceConfig.Type = "oneshot";
               serviceConfig.RemainAfterExit = true;
-              path = [ pkgs.iproute2 ];
+              path = [pkgs.iproute2];
               script = ''
                 # Remove Dead Interfaces
                 ip link show "${n}" >/dev/null 2>&1 && ip link delete "${n}"
@@ -587,7 +587,7 @@ let
               # if we have a device to bind to we can wait for its addresses to be
               # configured, otherwise external sequencing is required.
               deps = optionals (v.local != null && v.local.dev != null) (
-                deviceDependency v.local.dev ++ [ "network-addresses-${v.local.dev}.service" ]
+                deviceDependency v.local.dev ++ ["network-addresses-${v.local.dev}.service"]
               );
               fouSpec = "port ${toString v.port} ${
                 if v.protocol != null then "ipproto ${toString v.protocol}" else "gue"
@@ -605,12 +605,12 @@ let
                 (subsystemDevice n)
               ];
               bindsTo = deps;
-              partOf = [ "network-setup.service" ];
-              after = [ "network-pre.target" ] ++ deps;
-              before = [ "network-setup.service" ];
+              partOf = ["network-setup.service"];
+              after = ["network-pre.target"] ++ deps;
+              before = ["network-setup.service"];
               serviceConfig.Type = "oneshot";
               serviceConfig.RemainAfterExit = true;
-              path = [ pkgs.iproute2 ];
+              path = [pkgs.iproute2];
               script = ''
                 # always remove previous incarnation since show can't filter
                 ip fou del ${fouSpec} >/dev/null 2>&1 || true
@@ -635,12 +635,12 @@ let
                 (subsystemDevice n)
               ];
               bindsTo = deps;
-              partOf = [ "network-setup.service" ];
-              after = [ "network-pre.target" ] ++ deps;
-              before = [ "network-setup.service" ];
+              partOf = ["network-setup.service"];
+              after = ["network-pre.target"] ++ deps;
+              before = ["network-setup.service"];
               serviceConfig.Type = "oneshot";
               serviceConfig.RemainAfterExit = true;
-              path = [ pkgs.iproute2 ];
+              path = [pkgs.iproute2];
               script = ''
                 # Remove Dead Interfaces
                 ip link show "${n}" >/dev/null 2>&1 && ip link delete "${n}"
@@ -678,12 +678,12 @@ let
                 (subsystemDevice n)
               ];
               bindsTo = deps;
-              partOf = [ "network-setup.service" ];
-              after = [ "network-pre.target" ] ++ deps;
-              before = [ "network-setup.service" ];
+              partOf = ["network-setup.service"];
+              after = ["network-pre.target"] ++ deps;
+              before = ["network-setup.service"];
               serviceConfig.Type = "oneshot";
               serviceConfig.RemainAfterExit = true;
-              path = [ pkgs.iproute2 ];
+              path = [pkgs.iproute2];
               script = ''
                 # Remove Dead Interfaces
                 ip link show "${n}" >/dev/null 2>&1 && ip link delete "${n}"
@@ -713,12 +713,12 @@ let
                 (subsystemDevice n)
               ];
               bindsTo = deps;
-              partOf = [ "network-setup.service" ];
-              after = [ "network-pre.target" ] ++ deps;
-              before = [ "network-setup.service" ];
+              partOf = ["network-setup.service"];
+              after = ["network-pre.target"] ++ deps;
+              before = ["network-setup.service"];
               serviceConfig.Type = "oneshot";
               serviceConfig.RemainAfterExit = true;
-              path = [ pkgs.iproute2 ];
+              path = [pkgs.iproute2];
               script = ''
                 # Remove Dead Interfaces
                 ip link show "${n}" >/dev/null 2>&1 && ip link delete "${n}"
@@ -764,7 +764,7 @@ in
     (mkIf (!cfg.useNetworkd) normalConfig)
     {
       # Ensure slave interfaces are brought up
-      networking.interfaces = genAttrs slaves (i: { });
+      networking.interfaces = genAttrs slaves (i: {});
     }
   ];
 }

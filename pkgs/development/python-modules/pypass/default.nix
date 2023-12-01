@@ -47,7 +47,7 @@ buildPythonPackage rec {
     substituteInPlace requirements.txt --replace "enum34" ""
   '';
 
-  nativeBuildInputs = [ pbr ];
+  nativeBuildInputs = [pbr];
 
   propagatedBuildInputs = [
     click
@@ -55,7 +55,7 @@ buildPythonPackage rec {
     pexpect
   ] ++ lib.optional (pythonOlder "3.4") enum34;
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
   # Configuration so that the tests work
   preCheck = ''
@@ -80,6 +80,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/aviau/python-pass";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

@@ -16,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "17mdhi2sq9017nq8rkjhhc87djpi5z99xiil0xz17dyplr7nmkqk";
   };
 
-  nativeCheckInputs = [ zope_testrunner ];
+  nativeCheckInputs = [zope_testrunner];
   propagatedBuildInputs = [
     six
     chardet
@@ -26,6 +26,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/kilink/ghdiff";
     license = licenses.mit;
     description = "Generate Github-style HTML for unified diffs.";
-    maintainers = [ maintainers.mic92 ];
+    maintainers = [maintainers.mic92];
   };
 }

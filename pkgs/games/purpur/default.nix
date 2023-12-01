@@ -12,13 +12,11 @@ stdenv.mkDerivation rec {
   version = "1.19.2r1763";
 
   src = fetchurl {
-    url = "https://api.purpurmc.org/v2/purpur/${
-      builtins.replaceStrings [ "r" ] [ "/" ] version
-    }/download";
+    url = "https://api.purpurmc.org/v2/purpur/${builtins.replaceStrings ["r"] ["/"] version}/download";
     sha256 = "sha256-6wcCwVIGV32YQlgB57qthy6uWtuXGN4G8S7uAAgVyDE=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   preferLocalBuild = true;
 
@@ -45,10 +43,10 @@ stdenv.mkDerivation rec {
       gameplay features, and performance built on top of Airplane.
     '';
     homepage = "https://purpurmc.org/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ joelkoen ];
+    maintainers = with maintainers; [joelkoen];
     mainProgram = "minecraft-server";
   };
 }

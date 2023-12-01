@@ -19,6 +19,6 @@ nimPackages.buildNimPackage rec {
     homepage = "https://github.com/greenfork/nimraylib_now";
     description = "The Ultimate Raylib gaming library wrapper for Nim";
     license = licenses.mit;
-    maintainers = with maintainers; [ annaaurora ];
+    maintainers = with maintainers; [annaaurora];
   };
 }

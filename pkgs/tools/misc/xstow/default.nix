@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wXQ5XSmogAt1torfarrqIU4nBYj69MGM/HBYqeIE+dw=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   # Upstream seems to try to support building both static and dynamic version
   # of executable on dynamic systems, but fails with link error when attempting
@@ -24,14 +24,14 @@ stdenv.mkDerivation rec {
     substituteInPlace src/Makefile.am --replace xstow-stow ""
   '';
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   meta = with lib; {
     broken = stdenv.isDarwin;
     description = "A replacement of GNU Stow written in C++";
     homepage = "https://xstow.sourceforge.net";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ nzbr ];
+    maintainers = with maintainers; [nzbr];
     platforms = platforms.unix;
   };
 }

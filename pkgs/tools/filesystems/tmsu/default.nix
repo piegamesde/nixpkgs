@@ -19,7 +19,7 @@ buildGoPackage rec {
 
   goDeps = ./deps.nix;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   preBuild = ''
     mv go/src/${goPackagePath} src
@@ -40,7 +40,7 @@ buildGoPackage rec {
   meta = with lib; {
     homepage = "http://www.tmsu.org";
     description = "A tool for tagging your files using a virtual filesystem";
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
   };

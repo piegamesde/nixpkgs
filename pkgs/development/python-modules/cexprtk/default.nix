@@ -14,14 +14,14 @@ buildPythonPackage rec {
     hash = "sha256-c7QXB+oXzkRveiPpNrW/HY8pMtpZx/RtDpJMVE7fY/A=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "cexprtk" ];
+  pythonImportsCheck = ["cexprtk"];
 
   meta = with lib; {
     description = "Mathematical expression parser, cython wrapper";
     homepage = "https://github.com/mjdrushton/cexprtk";
     license = licenses.cpl10;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

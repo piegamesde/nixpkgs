@@ -31,7 +31,7 @@ else
       ocaml
       findlib
     ];
-    buildInputs = [ ncurses ];
+    buildInputs = [ncurses];
     propagatedBuildInputs = [
       integers
       libffi
@@ -62,7 +62,7 @@ else
       homepage = "https://github.com/ocamllabs/ocaml-ctypes";
       description = "Library for binding to C libraries using pure OCaml";
       license = licenses.mit;
-      maintainers = [ maintainers.ericbmerritt ];
+      maintainers = [maintainers.ericbmerritt];
       inherit (ocaml.meta) platforms;
     };
   }

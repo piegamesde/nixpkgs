@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "idna";
   version = "20120107-git";
 
   description = "IDNA (international domain names) string encoding and decoding routines";
 
-  deps = [ args."split-sequence" ];
+  deps = [args."split-sequence"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/idna/2012-01-07/idna-20120107-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "idna";
 
-  asdFilesToKeep = [ "idna.asd" ];
+  asdFilesToKeep = ["idna.asd"];
   overrides = x: x;
 }
 /* (SYSTEM idna DESCRIPTION

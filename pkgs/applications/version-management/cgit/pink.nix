@@ -24,6 +24,6 @@ callPackage
 
     homepage = "https://git.causal.agency/cgit-pink/about/";
     description = "cgit fork aiming for better maintenance";
-    maintainers = with lib.maintainers; [ sternenseemann ];
+    maintainers = with lib.maintainers; [sternenseemann];
   })
-  { }
+  {}

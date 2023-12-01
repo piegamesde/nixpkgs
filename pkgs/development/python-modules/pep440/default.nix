@@ -19,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-WLNyRswrE/7hyio8CSyzcE0h7PYhpb27Fo5E5pf20E0=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths =
     [
@@ -29,12 +29,12 @@ buildPythonPackage rec {
       "tests/test_cli.py"
     ];
 
-  pythonImportsCheck = [ "pep440" ];
+  pythonImportsCheck = ["pep440"];
 
   meta = with lib; {
     description = "Python module to check whether versions number match PEP 440";
     homepage = "https://github.com/Carreau/pep440";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "lisp-binary";
   version = "20210411-git";
@@ -26,7 +26,7 @@ rec {
 
   packageName = "lisp-binary";
 
-  asdFilesToKeep = [ "lisp-binary.asd" ];
+  asdFilesToKeep = ["lisp-binary.asd"];
   overrides = x: x;
 }
 /* (SYSTEM lisp-binary DESCRIPTION

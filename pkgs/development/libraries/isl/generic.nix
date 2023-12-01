@@ -2,8 +2,8 @@
   version,
   urls,
   sha256,
-  configureFlags ? [ ],
-  patches ? [ ],
+  configureFlags ? [],
+  patches ? [],
 }:
 
 {
@@ -18,7 +18,7 @@ stdenv.mkDerivation {
   pname = "isl";
   inherit version;
 
-  src = fetchurl { inherit urls sha256; };
+  src = fetchurl {inherit urls sha256;};
 
   inherit patches;
 
@@ -26,7 +26,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = lib.optionals (stdenv.hostPlatform.isRiscV && lib.versionOlder version "0.24") [
     autoreconfHook
   ];
-  buildInputs = [ gmp ];
+  buildInputs = [gmp];
 
   inherit configureFlags;
 

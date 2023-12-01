@@ -37,7 +37,7 @@ let
   '';
 
   bindingCfg =
-    { ... }:
+    {...}:
     {
       options = {
 
@@ -91,7 +91,7 @@ in
 
       bindings = mkOption {
         type = types.listOf (types.submodule bindingCfg);
-        default = [ ];
+        default = [];
         example = lib.literalExpression ''
           [ { keys = ["PLAYPAUSE"];  cmd = "''${pkgs.mpc-cli}/bin/mpc -q toggle"; } ]
         '';
@@ -116,12 +116,12 @@ in
 
     systemd.sockets.triggerhappy = {
       description = "Triggerhappy Socket";
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
       socketConfig.ListenDatagram = socket;
     };
 
     systemd.services.triggerhappy = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       description = "Global hotkey daemon";
       serviceConfig = {
         ExecStart = "${pkgs.triggerhappy}/bin/thd ${

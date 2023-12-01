@@ -27,13 +27,13 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "arsenal" ];
+  pythonImportsCheck = ["arsenal"];
 
   meta = with lib; {
     description = "Tool to generate commands for security and network tools";
     homepage = "https://github.com/Orange-Cyberdefense/arsenal";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [fab];
     mainProgram = "arsenal";
   };
 }

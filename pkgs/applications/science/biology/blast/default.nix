@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     "--with-dll" # build dynamic libraries (static are default)
   ];
 
-  makeFlags = [ "all_projects=app/" ];
+  makeFlags = ["all_projects=app/"];
 
   preConfigure = ''
     export NCBICXX_RECONF_POLICY=warn
@@ -87,8 +87,8 @@ stdenv.mkDerivation rec {
         --replace /bin/date ${coreutils}/bin/date
   '';
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ perl ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
+  nativeBuildInputs = [perl];
 
   # perl is necessary in buildInputs so that installed perl scripts get patched
   # correctly
@@ -99,14 +99,14 @@ stdenv.mkDerivation rec {
     zlib
     bzip2
     cpio
-  ] ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
-  hardeningDisable = [ "format" ];
+  ] ++ lib.optionals stdenv.isDarwin [ApplicationServices];
+  hardeningDisable = ["format"];
 
   postInstall = ''
     substituteInPlace $out/bin/get_species_taxids.sh \
         --replace /bin/rm ${coreutils}/bin/rm
   '';
-  patches = [ ./no_slash_bin.patch ];
+  patches = [./no_slash_bin.patch];
 
   enableParallelBuilding = true;
 
@@ -123,6 +123,6 @@ stdenv.mkDerivation rec {
     # Version 2.10.0 fails on Darwin
     # See https://github.com/NixOS/nixpkgs/pull/61430
     platforms = platforms.linux;
-    maintainers = with maintainers; [ luispedro ];
+    maintainers = with maintainers; [luispedro];
   };
 }

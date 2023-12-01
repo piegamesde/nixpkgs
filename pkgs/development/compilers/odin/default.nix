@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "ke2HPxVtF/Lh74Tv6XbpM9iLBuXLdH1+IE78MAacfYY=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = lib.optional stdenv.isDarwin libiconv;
 
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  buildFlags = [ "release" ];
+  buildFlags = ["release"];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     description = "A fast, concise, readable, pragmatic and open sourced programming language";
     homepage = "https://odin-lang.org/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ luc65r ];
+    maintainers = with maintainers; [luc65r];
     platforms = platforms.x86_64;
   };
 }

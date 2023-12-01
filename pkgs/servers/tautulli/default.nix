@@ -12,7 +12,7 @@ buildPythonApplication rec {
   version = "2.12.3";
   format = "other";
 
-  pythonPath = [ setuptools ];
+  pythonPath = [setuptools];
   nativeBuildInputs = [
     wrapPython
     makeWrapper
@@ -58,6 +58,6 @@ buildPythonApplication rec {
     homepage = "https://tautulli.com/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ rhoriguchi ];
+    maintainers = with maintainers; [rhoriguchi];
   };
 }

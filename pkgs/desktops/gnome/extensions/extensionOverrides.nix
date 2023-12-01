@@ -26,7 +26,7 @@ let
   # Helper method to reduce redundancy
   patchExtension =
     name: override: super:
-    (super // { ${name} = super.${name}.overrideAttrs override; });
+    (super // {${name} = super.${name}.overrideAttrs override;});
 in
 # A set of overrides for automatically packaged extensions that require some small fixes.
 # The input must be an attribute set with the extensions' UUIDs as keys and the extension
@@ -37,7 +37,7 @@ in
 super:
 lib.trivial.pipe super [
   (patchExtension "caffeine@patapon.info" (
-    old: { meta.maintainers = with lib.maintainers; [ eperuffo ]; }
+    old: {meta.maintainers = with lib.maintainers; [eperuffo];}
   ))
 
   (patchExtension "ddterm@amezin.github.com" (
@@ -47,7 +47,7 @@ lib.trivial.pipe super [
         gobject-introspection
         wrapGAppsHook
       ];
-      buildInputs = [ vte ];
+      buildInputs = [vte];
       postPatch = ''
         for file in *.js com.github.amezin.ddterm; do
           substituteInPlace $file --replace "gjs" "${gjs}/bin/gjs"
@@ -136,9 +136,9 @@ lib.trivial.pipe super [
 
   (patchExtension "unite@hardpixel.eu" (
     old: {
-      buildInputs = [ xprop ];
+      buildInputs = [xprop];
 
-      meta.maintainers = with lib.maintainers; [ rhoriguchi ];
+      meta.maintainers = with lib.maintainers; [rhoriguchi];
     }
   ))
 

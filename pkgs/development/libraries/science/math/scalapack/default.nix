@@ -46,14 +46,14 @@ stdenv.mkDerivation rec {
     sed -i '/xssep/d;/xsgsep/d;/xssyevr/d' TESTING/CMakeLists.txt
   '';
 
-  nativeBuildInputs = [ cmake ];
-  nativeCheckInputs = [ openssh ];
+  nativeBuildInputs = [cmake];
+  nativeCheckInputs = [openssh];
   buildInputs = [
     blas
     lapack
   ];
-  propagatedBuildInputs = [ mpi ];
-  hardeningDisable = lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [ "stackprotector" ];
+  propagatedBuildInputs = [mpi];
+  hardeningDisable = lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) ["stackprotector"];
 
   # xslu and xsllt tests seem to time out on x86_64-darwin.
   # this line is left so those who force installation on x86_64-darwin can still build
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
 
   # Increase individual test timeout from 1500s to 10000s because hydra's builds
   # sometimes fail due to this
-  checkFlagsArray = [ "ARGS=--timeout 10000" ];
+  checkFlagsArray = ["ARGS=--timeout 10000"];
 
   preCheck = ''
     # make sure the test starts even if we have less than 4 cores

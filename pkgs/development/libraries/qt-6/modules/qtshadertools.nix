@@ -1,6 +1,6 @@
-{ qtModule, qtbase }:
+{qtModule, qtbase}:
 
 qtModule {
   pname = "qtshadertools";
-  qtInputs = [ qtbase ];
+  qtInputs = [qtbase];
 }

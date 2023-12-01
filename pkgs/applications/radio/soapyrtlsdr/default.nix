@@ -38,7 +38,7 @@ stdenv.mkDerivation (
         Security
       ];
 
-    cmakeFlags = [ "-DSoapySDR_DIR=${soapysdr}/share/cmake/SoapySDR/" ];
+    cmakeFlags = ["-DSoapySDR_DIR=${soapysdr}/share/cmake/SoapySDR/"];
 
     meta = with lib; {
       homepage = "https://github.com/pothosware/SoapyRTLSDR";

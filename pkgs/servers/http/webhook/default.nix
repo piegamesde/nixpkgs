@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   doCheck = false;
 
@@ -30,6 +30,6 @@ buildGoModule rec {
     description = "Incoming webhook server that executes shell commands";
     homepage = "https://github.com/adnanh/webhook";
     license = licenses.mit;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
   };
 }

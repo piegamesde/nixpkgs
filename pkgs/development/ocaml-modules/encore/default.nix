@@ -26,13 +26,13 @@ buildDunePackage rec {
     fmt
     bigstringaf
   ];
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
   doCheck = true;
 
   meta = {
     homepage = "https://github.com/mirage/encore";
     description = "Library to generate encoder/decoder which ensure isomorphism";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

@@ -9,7 +9,7 @@
   buildContainer =
     {
       args,
-      mounts ? { },
+      mounts ? {},
       os ? "linux",
       arch ? "x86_64",
       readonly ? false,
@@ -92,7 +92,7 @@
           };
 
           linux = {
-            namespaces = map (type: { inherit type; }) [
+            namespaces = map (type: {inherit type;}) [
               "pid"
               "network"
               "mount"
@@ -137,7 +137,7 @@
         }
       );
     in
-    runCommand "join" { } ''
+    runCommand "join" {} ''
       set -o pipefail
       mkdir -p $out/rootfs/{dev,proc,sys}
       cp ${config} $out/config.json

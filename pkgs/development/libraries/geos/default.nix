@@ -16,7 +16,7 @@ stdenv.mkDerivation (
       hash = "sha256-sfB3ZpSBxaPmKv/EnpbrBvKBmHpdNv2rIlIX5bgl5Mw=";
     };
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
     doCheck = true;
 
@@ -26,8 +26,8 @@ stdenv.mkDerivation (
       description = "C++ port of the Java Topology Suite (JTS)";
       homepage = "https://trac.osgeo.org/geos";
       license = licenses.lgpl21Only;
-      pkgConfigModules = [ "geos" ];
-      maintainers = with lib.maintainers; [ willcohen ];
+      pkgConfigModules = ["geos"];
+      maintainers = with lib.maintainers; [willcohen];
     };
   }
 )

@@ -45,12 +45,12 @@ in
       }
     ];
 
-    environment.systemPackages = [ package ];
+    environment.systemPackages = [package];
 
-    services.dbus.packages = [ package ];
+    services.dbus.packages = [package];
 
-    services.udev.packages = [ package ];
+    services.udev.packages = [package];
 
-    systemd.packages = [ package ];
+    systemd.packages = [package];
   };
 }

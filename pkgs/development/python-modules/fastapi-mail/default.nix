@@ -41,7 +41,7 @@ buildPythonPackage rec {
       --replace 'black = "^22.12.0"' ""
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aioredis
@@ -67,13 +67,13 @@ buildPythonPackage rec {
     "test_redis_checker"
   ];
 
-  pythonImportsCheck = [ "fastapi_mail" ];
+  pythonImportsCheck = ["fastapi_mail"];
 
   meta = with lib; {
     description = "Module for sending emails and attachments";
     homepage = "https://github.com/sabuhish/fastapi-mail";
     changelog = "https://github.com/sabuhish/fastapi-mail/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

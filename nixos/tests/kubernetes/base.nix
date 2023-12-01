@@ -1,10 +1,10 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../../.. {inherit system config;},
 }:
 
-with import ../../lib/testing-python.nix { inherit system pkgs; };
+with import ../../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
 
 let
@@ -31,7 +31,7 @@ let
       '';
       wrapKubectl =
         with pkgs;
-        runCommand "wrap-kubectl" { nativeBuildInputs = [ makeWrapper ]; } ''
+        runCommand "wrap-kubectl" {nativeBuildInputs = [makeWrapper];} ''
           mkdir -p $out/bin
           makeWrapper ${pkgs.kubernetes}/bin/kubectl $out/bin/kubectl --set KUBECONFIG "/etc/kubernetes/cluster-admin.kubeconfig"
         '';
@@ -63,7 +63,7 @@ let
                     allowedTCPPorts = [
                       10250 # kubelet
                     ];
-                    trustedInterfaces = [ "mynet" ];
+                    trustedInterfaces = ["mynet"];
 
                     extraCommands =
                       concatMapStrings
@@ -74,7 +74,7 @@ let
                   };
                 };
                 programs.bash.enableCompletion = true;
-                environment.systemPackages = [ wrapKubectl ];
+                environment.systemPackages = [wrapKubectl];
                 services.flannel.iface = "eth1";
                 services.kubernetes = {
                   proxy.hostname = "${masterName}.${domain}";
@@ -130,11 +130,11 @@ let
       {
         machines = {
           machine1 = {
-            roles = [ "master" ];
+            roles = ["master"];
             ip = "192.168.1.1";
           };
           machine2 = {
-            roles = [ "node" ];
+            roles = ["node"];
             ip = "192.168.1.2";
           };
         };

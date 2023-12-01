@@ -36,7 +36,7 @@ stdenv.mkDerivation (
       rm -r contrib
     '';
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
     buildInputs = [
       expat
@@ -56,7 +56,7 @@ stdenv.mkDerivation (
       "-DEXTERNAL_FMT=ON"
     ] ++ lib.optional withLuaJIT "-DWITH_LUAJIT:BOOL=ON";
 
-    passthru.tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+    passthru.tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
 
     meta = with lib; {
       description = "OpenStreetMap data to PostgreSQL converter";

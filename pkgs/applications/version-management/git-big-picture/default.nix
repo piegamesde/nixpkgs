@@ -31,6 +31,6 @@ python3Packages.buildPythonApplication rec {
     description = "Tool for visualization of Git repositories";
     homepage = "https://github.com/git-big-picture/git-big-picture";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ lib.maintainers.nthorne ];
+    maintainers = [lib.maintainers.nthorne];
   };
 }

@@ -33,7 +33,7 @@ stdenv.mkDerivation (
       hash = "sha256-FUKR5nceEhm9GWa61hHO8+y4GBz7LYKXPB0OpQcQ674=";
     };
 
-    patches = [ ./000-dont-set-compiler.diff ];
+    patches = [./000-dont-set-compiler.diff];
 
     nativeBuildInputs = [
       cmake
@@ -68,14 +68,14 @@ stdenv.mkDerivation (
     '';
 
     postFixup = ''
-      wrapProgram $out/bin/Hypr --prefix PATH : ${lib.makeBinPath [ xmodmap ]}
+      wrapProgram $out/bin/Hypr --prefix PATH : ${lib.makeBinPath [xmodmap]}
     '';
 
     meta = with lib; {
       inherit (finalAttrs.src.meta) homepage;
       description = "A tiling X11 window manager written in modern C++";
       license = licenses.bsd3;
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       inherit (libX11.meta) platforms;
       mainProgram = "Hypr";
     };

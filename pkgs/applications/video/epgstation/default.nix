@@ -41,8 +41,8 @@ let
       # dependencies are pruned afterwards.
       production = false;
 
-      buildInputs = (drv.buildInputs or [ ]) ++ [ bash ];
-      nativeBuildInputs = (drv.nativeBuildInputs or [ ]) ++ [ makeWrapper ];
+      buildInputs = (drv.buildInputs or []) ++ [bash];
+      nativeBuildInputs = (drv.nativeBuildInputs or []) ++ [makeWrapper];
 
       preRebuild = ''
         # Fix for OpenSSL compat with newer Node.js
@@ -112,7 +112,7 @@ let
 
       # NOTE: this may take a while since it has to update all packages in
       # nixpkgs.nodePackages
-      passthru.updateScript = callPackage ./update.nix { };
+      passthru.updateScript = callPackage ./update.nix {};
 
       # nodePackages.epgstation is a stub package to fetch npm dependencies and
       # its meta.platforms is made empty to prevent users from installing it
@@ -134,7 +134,7 @@ server
     with lib;
     server.meta
     // {
-      maintainers = with maintainers; [ midchildan ];
+      maintainers = with maintainers; [midchildan];
 
       # NOTE: updateScript relies on this being correct
       position = toString ./default.nix + ":1";

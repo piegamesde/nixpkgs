@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-cli";
   version = "20151218-git";
 
   description = "Command line parser";
 
-  deps = [ args."split-sequence" ];
+  deps = [args."split-sequence"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-cli/2015-12-18/cl-cli-20151218-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "cl-cli";
 
-  asdFilesToKeep = [ "cl-cli.asd" ];
+  asdFilesToKeep = ["cl-cli.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-cli DESCRIPTION Command line parser SHA256

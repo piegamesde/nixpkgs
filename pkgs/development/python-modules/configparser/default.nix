@@ -17,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-i+JngktUHAmwjbEkkX9Iq1JabD6DcBHzEweBoiTFcJA=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preConfigure = ''
     export LC_ALL=${if stdenv.isDarwin then "en_US" else "C"}.UTF-8
@@ -29,6 +29,6 @@ buildPythonPackage rec {
     description = "Updated configparser from Python 3.7 for Python 2.6+.";
     homepage = "https://github.com/jaraco/configparser";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

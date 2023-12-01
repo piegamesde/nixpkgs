@@ -35,18 +35,18 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   # jax is not declared in the dependencies, but is necessary.
-  propagatedBuildInputs = [ jax ];
+  propagatedBuildInputs = [jax];
 
-  nativeCheckInputs = [ jaxlib ];
-  pythonImportsCheck = [ "treeo" ];
+  nativeCheckInputs = [jaxlib];
+  pythonImportsCheck = ["treeo"];
 
   meta = with lib; {
     description = "A small library for creating and manipulating custom JAX Pytree classes.";
     homepage = "https://github.com/cgarciae/treeo";
     license = licenses.mit;
-    maintainers = with maintainers; [ ndl ];
+    maintainers = with maintainers; [ndl];
   };
 }

@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-MqXsBOl+wIN7zfATdnq9LnHM7u/TwuFMgECYzlGtbNk=";
   };
 
-  propagatedBuildInputs = [ python-dateutil ];
+  propagatedBuildInputs = [python-dateutil];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -26,12 +26,12 @@ buildPythonPackage rec {
     tzlocal
   ];
 
-  pythonImportsCheck = [ "croniter" ];
+  pythonImportsCheck = ["croniter"];
 
   meta = with lib; {
     description = "Library to iterate over datetime object with cron like format";
     homepage = "https://github.com/kiorky/croniter";
     license = licenses.mit;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

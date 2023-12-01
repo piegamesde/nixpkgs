@@ -13,7 +13,7 @@ buildDunePackage rec {
 
   dontAddPrefix = true;
 
-  propagatedBuildInputs = [ dune-private-libs ];
+  propagatedBuildInputs = [dune-private-libs];
 
   preBuild = ''
     rm -r vendor/csexp
@@ -22,7 +22,7 @@ buildDunePackage rec {
   meta = with lib; {
     description = "A library for embedding location information inside executable and libraries";
     inherit (dune_3.meta) homepage;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     license = licenses.mit;
   };
 }

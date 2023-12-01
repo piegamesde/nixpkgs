@@ -1,10 +1,10 @@
 {
   system ? builtins.currentSystem,
-  pkgs ? import ../../.. { inherit system; },
+  pkgs ? import ../../.. {inherit system;},
 }:
 let
-  dns = import ./dns.nix { inherit system pkgs; };
-  rbac = import ./rbac.nix { inherit system pkgs; };
+  dns = import ./dns.nix {inherit system pkgs;};
+  rbac = import ./rbac.nix {inherit system pkgs;};
 in
 {
   dns-single-node = dns.singlenode.test;

@@ -15,7 +15,7 @@ let
   '';
 
   tailwindcssWithPlugins = tailwindcss.overrideAttrs (
-    oldAttrs: { plugins = [ nodePackages."@tailwindcss/typography" ]; }
+    oldAttrs: {plugins = [nodePackages."@tailwindcss/typography"];}
   );
 
   tailwindcssWithPluginsConfig = builtins.toFile "tailwind.config.js" ''
@@ -28,7 +28,7 @@ let
   '';
 in
 
-runCommand "${packageName}-tests" { meta.timeout = 60; } ''
+runCommand "${packageName}-tests" {meta.timeout = 60;} ''
   mkdir $out
 
   # Ensure CLI runs

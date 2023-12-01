@@ -17,21 +17,21 @@ buildPythonPackage rec {
     hash = "sha256-rXF7SQtrcFWQn6oZXoKkQytwb4+VhUBQFy9Ckx5HhCY=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
   propagatedBuildInputs = [
     docutils
     pyparsing
   ];
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "amply" ];
+  pythonImportsCheck = ["amply"];
 
   meta = with lib; {
     homepage = "https://github.com/willu47/amply";
     description = ''
       Allows you to load and manipulate AMPL/GLPK data as Python data structures
     '';
-    maintainers = with maintainers; [ ris ];
+    maintainers = with maintainers; [ris];
     license = licenses.epl10;
   };
 }

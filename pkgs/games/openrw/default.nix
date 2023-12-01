@@ -34,7 +34,7 @@ stdenv.mkDerivation {
       --replace 'target_link_libraries(rw_interface INTERFACE "stdc++fs")' ""
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs =
     [
@@ -62,7 +62,7 @@ stdenv.mkDerivation {
       OpenRW is an open source re-implementation of Rockstar Games' Grand Theft
       Auto III, a classic 3D action game first published in 2001.
     '';
-    maintainers = with maintainers; [ kragniz ];
+    maintainers = with maintainers; [kragniz];
     platforms = platforms.all;
   };
 }

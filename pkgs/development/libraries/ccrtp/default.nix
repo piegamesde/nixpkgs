@@ -17,14 +17,14 @@ stdenv.mkDerivation rec {
     sha256 = "17ili8l7zqbbkzr1rcy4hlnazkf50mds41wg6n7bfdsx3c7cldgh";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   propagatedBuildInputs = [
     ucommon
     openssl
     libgcrypt
   ];
 
-  configureFlags = [ "--disable-demos" ];
+  configureFlags = ["--disable-demos"];
 
   doCheck = true;
 
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     description = "An implementation of the IETF real-time transport protocol (RTP)";
     homepage = "https://www.gnu.org/software/ccrtp/";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ marcweber ];
+    maintainers = with lib.maintainers; [marcweber];
     platforms = lib.platforms.linux;
   };
 }

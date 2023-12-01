@@ -22,7 +22,7 @@ let
   # Whether given IP (plus optional port) is an IPv6.
   isIPv6 = ip: builtins.length (lib.splitString ":" ip) > 2;
 
-  helpers = import ./helpers.nix { inherit config lib; };
+  helpers = import ./helpers.nix {inherit config lib;};
 
   flushNat = ''
     ${helpers}
@@ -57,7 +57,7 @@ let
         cfg.internalInterfaces}
 
       # NAT the marked packets.
-      ${optionalString (cfg.internalInterfaces != [ ]) ''
+      ${optionalString (cfg.internalInterfaces != []) ''
         ${iptables} -w -t nat -A nixos-nat-post -m mark --mark 1 \
           ${optionalString (cfg.externalInterface != null) "-o ${cfg.externalInterface}"} ${dest}
       ''}
@@ -91,7 +91,7 @@ let
                   if m == null then
                     throw "bad ip:ports `${fwd.destination}'"
                   else
-                    builtins.replaceStrings [ "-" ] [ ":" ] (elemAt m 1);
+                    builtins.replaceStrings ["-"] [":"] (elemAt m 1);
               in
               ''
                 # Allow connections to ${loopbackip}:${toString fwd.sourcePort} from the host itself
@@ -186,7 +186,7 @@ in
 
   config = mkIf (!config.networking.nftables.enable) (
     mkMerge [
-      ({ networking.firewall.extraCommands = mkBefore flushNat; })
+      ({networking.firewall.extraCommands = mkBefore flushNat;})
       (mkIf config.networking.nat.enable {
 
         networking.firewall = mkIf config.networking.firewall.enable {
@@ -197,12 +197,12 @@ in
         systemd.services = mkIf (!config.networking.firewall.enable) {
           nat = {
             description = "Network Address Translation";
-            wantedBy = [ "network.target" ];
+            wantedBy = ["network.target"];
             after = [
               "network-pre.target"
               "systemd-modules-load.service"
             ];
-            path = [ config.networking.firewall.package ];
+            path = [config.networking.firewall.package];
             unitConfig.ConditionCapability = "CAP_NET_ADMIN";
 
             serviceConfig = {

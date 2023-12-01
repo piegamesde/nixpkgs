@@ -16,10 +16,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.packages = [ pkgs.do-agent ];
+    systemd.packages = [pkgs.do-agent];
 
     systemd.services.do-agent = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = [
           ""

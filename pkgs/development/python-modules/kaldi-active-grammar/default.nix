@@ -20,7 +20,7 @@
 #
 
 let
-  kaldi = callPackage ./fork.nix { };
+  kaldi = callPackage ./fork.nix {};
 in
 buildPythonPackage rec {
   pname = "kaldi-active-grammar";
@@ -75,7 +75,7 @@ buildPythonPackage rec {
     description = "Python Kaldi speech recognition";
     homepage = "https://github.com/daanzu/kaldi-active-grammar";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ ckie ];
+    maintainers = with maintainers; [ckie];
     # Other platforms are supported upstream.
     platforms = platforms.linux;
   };

@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-s48hdJo1LIRXTf+PeSBa6y/AH1NLmnyAafFydJ+exDk=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     docutils
@@ -29,12 +29,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "rich_rst" ];
+  pythonImportsCheck = ["rich_rst"];
 
   meta = with lib; {
     description = "A beautiful reStructuredText renderer for rich";
     homepage = "https://github.com/wasi-master/rich-rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ joelkoen ];
+    maintainers = with maintainers; [joelkoen];
   };
 }

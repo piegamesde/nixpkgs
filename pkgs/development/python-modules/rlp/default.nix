@@ -23,19 +23,19 @@ buildPythonPackage rec {
       --replace "'setuptools-markdown'" ""
   '';
 
-  propagatedBuildInputs = [ eth-utils ];
+  propagatedBuildInputs = [eth-utils];
 
   nativeCheckInputs = [
     hypothesis
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "rlp" ];
+  pythonImportsCheck = ["rlp"];
 
   meta = with lib; {
     description = "RLP serialization library";
     homepage = "https://github.com/ethereum/pyrlp";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

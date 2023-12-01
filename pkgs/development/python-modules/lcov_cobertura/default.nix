@@ -16,7 +16,7 @@ buildPythonPackage rec {
   };
 
   doCheck = true;
-  pythonImportsCheck = [ "lcov_cobertura" ];
+  pythonImportsCheck = ["lcov_cobertura"];
 
   meta = {
     description = "Converts code coverage from lcov format to Cobertura's XML format";

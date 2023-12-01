@@ -33,6 +33,6 @@ mkDerivation {
     description = "Audio jukebox app, supporting collections of MP3, Ogg Vorbis and FLAC audio files";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

@@ -190,11 +190,11 @@ in
 
   config = mkIf cfg.enable {
 
-    services.xserver.modules = [ pkg.out ];
+    services.xserver.modules = [pkg.out];
 
     environment.etc.${etcFile}.source = "${pkg.out}/share/X11/xorg.conf.d/70-synaptics.conf";
 
-    environment.systemPackages = [ pkg ];
+    environment.systemPackages = [pkg];
 
     services.xserver.config = ''
       # Automatically enable the synaptics driver for all touchpads.

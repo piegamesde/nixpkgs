@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     ocaml
     findlib
   ];
-  propagatedBuildInputs = [ easy-format ];
+  propagatedBuildInputs = [easy-format];
 
   strictDeps = true;
 
@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/mjambon/dum";
     description = "Inspect the runtime representation of arbitrary OCaml values";
     license = licenses.lgpl21Plus;
-    maintainers = [ maintainers.alexfmpe ];
+    maintainers = [maintainers.alexfmpe];
   };
 }

@@ -5,16 +5,16 @@
   jsoncpp,
 }:
 
-{ ... }:
+{...}:
 
 {
-  nativeBuildInputs ? [ ],
-  buildInputs ? [ ],
+  nativeBuildInputs ? [],
+  buildInputs ? [],
   ...
 }:
 
 {
-  nativeBuildInputs = [ pkg-config ] ++ nativeBuildInputs;
+  nativeBuildInputs = [pkg-config] ++ nativeBuildInputs;
   buildInputs = [
     libsecret
     jsoncpp

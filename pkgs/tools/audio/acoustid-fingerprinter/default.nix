@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     ffmpeg_4
   ];
 
-  cmakeFlags = [ "-DTAGLIB_MIN_VERSION=${lib.getVersion taglib}" ];
+  cmakeFlags = ["-DTAGLIB_MIN_VERSION=${lib.getVersion taglib}"];
 
   patches = [
     (fetchpatch {
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     homepage = "https://acoustid.org/fingerprinter";
     description = "Audio fingerprinting tool using chromaprint";
     license = lib.licenses.gpl2Plus;
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
     platforms = with platforms; linux;
   };
 }

@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     description = "CLI downloader optimized for speed and early preview";
     homepage = "https://saldl.github.io";
     license = licenses.agpl3;
-    maintainers = with maintainers; [ zowoq ];
+    maintainers = with maintainers; [zowoq];
     platforms = platforms.all;
   };
 }

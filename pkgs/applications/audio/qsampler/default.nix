@@ -42,7 +42,7 @@ mkDerivation rec {
     homepage = "http://www.linuxsampler.org";
     description = "Graphical frontend to LinuxSampler";
     license = licenses.gpl2;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
     platforms = platforms.linux;
   };
 }

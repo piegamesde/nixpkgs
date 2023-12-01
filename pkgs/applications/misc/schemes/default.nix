@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "Edit GtkSourceView style-schemes for an application or platform";
     homepage = "https://gitlab.gnome.org/chergert/schemes";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ _0xMRTT ];
+    maintainers = with maintainers; [_0xMRTT];
     platforms = platforms.linux;
   };
 }

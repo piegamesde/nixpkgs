@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     django
@@ -46,12 +46,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "ckeditor" ];
+  pythonImportsCheck = ["ckeditor"];
 
   meta = with lib; {
     description = " Django admin CKEditor integration";
     homepage = "https://github.com/django-ckeditor/django-ckeditor";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

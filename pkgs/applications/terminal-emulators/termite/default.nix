@@ -20,7 +20,7 @@ let
   # three of the patches have been locally modified to cleanly apply on 0.62
   vte-ng = vte.overrideAttrs (
     attrs: {
-      patches = attrs.patches or [ ] ++ [
+      patches = attrs.patches or [] ++ [
         (fetchpatch {
           name = "0001-expose-functions-for-pausing-unpausing-output.patch";
           url = "https://github.com/thestinger/vte-ng/commit/342e26574f50dcd40bbeaad9e839c2a6144d0c1c.patch";
@@ -105,7 +105,7 @@ stdenv.mkDerivation rec {
     description = "A simple VTE-based terminal";
     license = licenses.lgpl2Plus;
     homepage = "https://github.com/thestinger/termite/";
-    maintainers = with maintainers; [ koral ];
+    maintainers = with maintainers; [koral];
     platforms = platforms.all;
   };
 }

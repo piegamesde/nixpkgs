@@ -27,8 +27,8 @@ stdenv.mkDerivation (
       "dev"
     ];
 
-    nativeBuildInputs = [ autoreconfHook ];
-    depsBuildBuild = [ buildPackages.stdenv.cc ];
+    nativeBuildInputs = [autoreconfHook];
+    depsBuildBuild = [buildPackages.stdenv.cc];
     propagatedBuildInputs = [
       audiofile
       libtiff

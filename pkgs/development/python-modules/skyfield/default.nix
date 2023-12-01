@@ -46,12 +46,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "skyfield" ];
+  pythonImportsCheck = ["skyfield"];
 
   meta = with lib; {
     homepage = "https://github.com/skyfielders/python-skyfield";
     description = "Elegant astronomy for Python";
     license = licenses.mit;
-    maintainers = with maintainers; [ zane ];
+    maintainers = with maintainers; [zane];
   };
 }

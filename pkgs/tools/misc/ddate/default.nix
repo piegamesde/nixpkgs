@@ -16,13 +16,13 @@ stdenv.mkDerivation rec {
     sha256 = "1qchxnxvghbma6gp1g78wnjxsri0b72ha9axyk31cplssl7yn73f";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     homepage = "https://github.com/bo0ts/ddate";
     description = "Discordian version of the date program";
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ kovirobi ];
+    maintainers = with maintainers; [kovirobi];
     platforms = platforms.all;
   };
 }

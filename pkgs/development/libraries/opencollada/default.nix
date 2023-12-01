@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  buildInputs = lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ AGL ]);
+  buildInputs = lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [AGL]);
 
   propagatedBuildInputs = [
     libxml2
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "A library for handling the COLLADA file format";
     homepage = "https://github.com/KhronosGroup/OpenCOLLADA/";
-    maintainers = [ lib.maintainers.eelco ];
+    maintainers = [lib.maintainers.eelco];
     platforms = lib.platforms.unix;
     license = lib.licenses.mit;
   };

@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     autoPatchelfHook
     makeWrapper
   ];
-  buildInputs = [ stdenv.cc.cc ];
+  buildInputs = [stdenv.cc.cc];
 
   installPhase = ''
     runHook preInstall
@@ -50,10 +50,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Cross-platform benchmark";
     homepage = "https://geekbench.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = [ maintainers.michalrus ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.michalrus];
+    platforms = ["x86_64-linux"];
     mainProgram = "geekbench4";
   };
 }

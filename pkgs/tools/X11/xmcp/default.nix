@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-B3YkYrVEg6UJ2ApaVook4N2XvrCboxDMUG5CN9I79Sg=";
   };
 
-  buildInputs = [ libX11 ];
+  buildInputs = [libX11];
 
   installPhase = ''
     runHook preInstall
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     description = "Tiny color picker for X11";
     homepage = "https://github.com/blblapco/xmcp";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
     platforms = platforms.linux;
   };
 }

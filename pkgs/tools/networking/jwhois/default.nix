@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     ./service-name.patch
   ];
 
-  makeFlags = [ "AR=${stdenv.cc.bintools.targetPrefix}ar" ];
+  makeFlags = ["AR=${stdenv.cc.bintools.targetPrefix}ar"];
 
   # Work around error from <stdio.h> on aarch64-darwin:
   #     error: 'TARGET_OS_IPHONE' is not defined, evaluates to 0 [-Werror,-Wundef-prefix=TARGET_OS_]

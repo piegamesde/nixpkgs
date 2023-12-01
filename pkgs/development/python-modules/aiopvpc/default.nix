@@ -32,12 +32,12 @@ buildPythonPackage rec {
       " --cov --cov-report term --cov-report html" ""
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
     async-timeout
-  ] ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
+  ] ++ lib.optionals (pythonOlder "3.9") [backports-zoneinfo];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -46,13 +46,13 @@ buildPythonPackage rec {
     python-dotenv
   ];
 
-  pythonImportsCheck = [ "aiopvpc" ];
+  pythonImportsCheck = ["aiopvpc"];
 
   meta = with lib; {
     description = "Python module to download Spanish electricity hourly prices (PVPC)";
     homepage = "https://github.com/azogue/aiopvpc";
     changelog = "https://github.com/azogue/aiopvpc/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

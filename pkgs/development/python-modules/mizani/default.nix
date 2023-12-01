@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-VE0M5/s8/XmmAe8EE/FcHBFGc9ppVWuYOYMuajQeZww=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     matplotlib
@@ -34,20 +34,20 @@ buildPythonPackage rec {
     scipy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace pytest.ini \
       --replace " --cov=mizani --cov-report=xml" ""
   '';
 
-  pythonImportsCheck = [ "mizani" ];
+  pythonImportsCheck = ["mizani"];
 
   meta = with lib; {
     description = "Scales for Python";
     homepage = "https://github.com/has2k1/mizani";
     changelog = "https://github.com/has2k1/mizani/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

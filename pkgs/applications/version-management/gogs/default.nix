@@ -27,7 +27,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-ISJOEJ1DWO4nnMpDuZ36Nq528LhgekDh3XUF8adlj2w=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   postPatch = ''
     patchShebangs .
@@ -59,6 +59,6 @@ buildGoModule rec {
     description = "A painless self-hosted Git service";
     homepage = "https://gogs.io";
     license = licenses.mit;
-    maintainers = [ maintainers.schneefux ];
+    maintainers = [maintainers.schneefux];
   };
 }

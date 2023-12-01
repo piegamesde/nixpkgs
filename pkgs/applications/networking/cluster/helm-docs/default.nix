@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-xXwunk9rmzZEtqmSo8biuXnAjPp7fqWdQ+Kt9+Di9N8=";
 
-  subPackages = [ "cmd/helm-docs" ];
+  subPackages = ["cmd/helm-docs"];
   ldflags = [
     "-w"
     "-s"
@@ -28,6 +28,6 @@ buildGoModule rec {
     homepage = "https://github.com/norwoodj/helm-docs";
     description = "A tool for automatically generating markdown documentation for Helm charts";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ sagikazarmark ];
+    maintainers = with maintainers; [sagikazarmark];
   };
 }

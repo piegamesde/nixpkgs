@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
     shared-mime-info
   ];
 
-  mesonFlags = [ "-Dgtk_doc=true" ];
+  mesonFlags = ["-Dgtk_doc=true"];
 
   postInstall = ''
     # Pull in WebP support for gnome-backgrounds.

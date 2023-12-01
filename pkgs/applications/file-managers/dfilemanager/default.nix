@@ -20,7 +20,7 @@ mkDerivation {
     sha256 = "sha256-BHd2dZDVxy82vR6PyXIS5M6zBGJ4bQfOhdBCdOww4kc=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     qtbase
     qttools
@@ -28,7 +28,7 @@ mkDerivation {
     solid
   ];
 
-  cmakeFlags = [ "-DQT5BUILD=true" ];
+  cmakeFlags = ["-DQT5BUILD=true"];
 
   meta = {
     homepage = "http://dfilemanager.sourceforge.net/";

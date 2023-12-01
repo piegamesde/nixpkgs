@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     mate.mate-settings-daemon
   ];
 
-  configureFlags = [ "--disable-update-mimedb" ];
+  configureFlags = ["--disable-update-mimedb"];
 
   preFixup = ''
     gappsWrapperArgs+=(
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "Utilities to configure the MATE desktop";

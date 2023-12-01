@@ -21,7 +21,7 @@ mkDerivation rec {
   };
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   nativeBuildInputs = [
@@ -29,7 +29,7 @@ mkDerivation rec {
     qttools
     qtsvg
   ];
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   meta = with lib; {
     description = "Powerful yet simple to use screenshot software";

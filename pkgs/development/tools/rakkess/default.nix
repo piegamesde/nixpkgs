@@ -35,6 +35,6 @@ buildGoModule rec {
       `kubectl auth can-i --list`.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ jk ];
+    maintainers = with maintainers; [jk];
   };
 }

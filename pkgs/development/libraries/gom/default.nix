@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     sha256 = "17ca07hpg7dqxjn0jpqim3xqcmplk2a87wbwrrlq3dd3m8381l38";
   };
 
-  patches = [ ./longer-stress-timeout.patch ];
+  patches = [./longer-stress-timeout.patch];
 
   nativeBuildInputs = [
     gobject-introspection
@@ -43,9 +43,7 @@ stdenv.mkDerivation rec {
     python3.pkgs.pygobject3
   ];
 
-  mesonFlags = [
-    "-Dpygobject-override-dir=${placeholder "py"}/${python3.sitePackages}/gi/overrides"
-  ];
+  mesonFlags = ["-Dpygobject-override-dir=${placeholder "py"}/${python3.sitePackages}/gi/overrides"];
 
   # Success is more likely on x86_64
   doCheck = stdenv.isx86_64;

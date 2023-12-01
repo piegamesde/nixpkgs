@@ -21,7 +21,7 @@ buildPythonPackage rec {
   ];
 
   doCheck = false;
-  pythonImportsCheck = [ "rethinkdb" ];
+  pythonImportsCheck = ["rethinkdb"];
 
   meta = with lib; {
     description = "Python driver library for the RethinkDB database server";

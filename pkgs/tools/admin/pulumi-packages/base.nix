@@ -25,7 +25,7 @@ let
 
         sourceRoot = "${src.name}/provider";
 
-        subPackages = [ "cmd/${cmd}" ];
+        subPackages = ["cmd/${cmd}"];
 
         doCheck = false;
 
@@ -91,10 +91,10 @@ let
             runHook postCheck
           '';
 
-          pythonImportsCheck = [ (builtins.replaceStrings [ "-" ] [ "_" ] pname) ];
+          pythonImportsCheck = [(builtins.replaceStrings ["-"] ["_"] pname)];
         }
       )
-      { };
+      {};
 in
 {
   owner,
@@ -146,7 +146,7 @@ mkBasePackage (
 
     pname = repo;
 
-    nativeBuildInputs = [ pulumi-gen ];
+    nativeBuildInputs = [pulumi-gen];
 
     cmd = cmdRes;
 

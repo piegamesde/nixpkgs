@@ -69,8 +69,8 @@ stdenv.mkDerivation rec {
       "USE_SYSTEMD=yes"
       "USE_GETADDRINFO=1"
     ]
-    ++ lib.optionals withPrometheusExporter [ "USE_PROMEX=yes" ]
-    ++ [ "CC=${stdenv.cc.targetPrefix}cc" ];
+    ++ lib.optionals withPrometheusExporter ["USE_PROMEX=yes"]
+    ++ ["CC=${stdenv.cc.targetPrefix}cc"];
 
   enableParallelBuilding = true;
 
@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
       gpl2Plus
       lgpl21Only
     ];
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = with platforms; linux ++ darwin;
   };
 }

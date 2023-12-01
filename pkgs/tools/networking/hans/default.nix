@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     owner = "friedrich";
   };
 
-  buildInputs = [ nettools ];
+  buildInputs = [nettools];
 
   postPatch = ''
     substituteInPlace src/tun.cpp --replace "/sbin/" "${nettools}/bin/"

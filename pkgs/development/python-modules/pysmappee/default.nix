@@ -37,12 +37,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pysmappee" ];
+  pythonImportsCheck = ["pysmappee"];
 
   meta = with lib; {
     description = "Python Library for the Smappee dev API";
     homepage = "https://github.com/smappee/pysmappee";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

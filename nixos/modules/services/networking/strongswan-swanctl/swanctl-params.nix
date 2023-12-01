@@ -59,11 +59,11 @@ in
             to this base URI.
           '';
 
-          crl_uris = mkCommaSepListParam [ ] ''
+          crl_uris = mkCommaSepListParam [] ''
             List of CRL distribution points (ldap, http, or file URI).
           '';
 
-          ocsp_uris = mkCommaSepListParam [ ] ''
+          ocsp_uris = mkCommaSepListParam [] ''
             List of OCSP URIs.
           '';
         }
@@ -87,7 +87,7 @@ in
             responder, and initiates the connection actively with IKEv2.
         '';
 
-        local_addrs = mkCommaSepListParam [ ] ''
+        local_addrs = mkCommaSepListParam [] ''
           Local address(es) to use for IKE communication. Takes
           single IPv4/IPv6 addresses, DNS names, CIDR subnets or IP address ranges.
 
@@ -99,7 +99,7 @@ in
           is done. If DNS resolution times out, the lookup is delayed for that time.
         '';
 
-        remote_addrs = mkCommaSepListParam [ ] ''
+        remote_addrs = mkCommaSepListParam [] ''
           Remote address(es) to use for IKE communication. Takes
           single IPv4/IPv6 addresses, DNS names, CIDR subnets or IP address ranges.
 
@@ -129,7 +129,7 @@ in
           `4500` is used to work around NAT issues.
         '';
 
-        proposals = mkCommaSepListParam [ "default" ] ''
+        proposals = mkCommaSepListParam ["default"] ''
           A proposal is a set of algorithms. For non-AEAD algorithms, this includes
           for IKE an encryption algorithm, an integrity algorithm, a pseudo random
           function and a Diffie-Hellman group. For AEAD algorithms, instead of
@@ -147,7 +147,7 @@ in
           good choice for interoperability.
         '';
 
-        vips = mkCommaSepListParam [ ] ''
+        vips = mkCommaSepListParam [] ''
           List of virtual IPs to request in IKEv2 configuration payloads or IKEv1
           Mode Config. The wildcard addresses `0.0.0.0` and
           `::` request an arbitrary address, specific addresses may
@@ -394,7 +394,7 @@ in
           The default is equal to the configured {option}`over_time`.
         '';
 
-        pools = mkCommaSepListParam [ ] ''
+        pools = mkCommaSepListParam [] ''
           List of named IP pools to allocate virtual IP addresses
           and other configuration attributes from. Each name references a pool by
           name from either the pools section or an external pool.
@@ -453,7 +453,7 @@ in
                 config file/vici message.
               '';
 
-              certs = mkCommaSepListParam [ ] ''
+              certs = mkCommaSepListParam [] ''
                 List of certificate candidates to use for
                 authentication. The certificates may use a relative path from the
                 swanctl `x509` directory or an absolute path.
@@ -469,7 +469,7 @@ in
                 these sections offer more flexibility.
               '';
 
-              pubkeys = mkCommaSepListParam [ ] ''
+              pubkeys = mkCommaSepListParam [] ''
                 List of raw public key candidates to use for
                 authentication. The public keys may use a relative path from the swanctl
                 `pubkey` directory or an absolute path.
@@ -578,7 +578,7 @@ in
                 client for an EAP identity.
               '';
 
-              groups = mkCommaSepListParam [ ] ''
+              groups = mkCommaSepListParam [] ''
                 Authorization group memberships to require. The peer
                 must prove membership to at least one of the specified groups. Group
                 membership can be certified by different means, for example by
@@ -586,12 +586,12 @@ in
                 authentication.
               '';
 
-              cert_policy = mkCommaSepListParam [ ] ''
+              cert_policy = mkCommaSepListParam [] ''
                 List of certificate policy OIDs the peer's certificate
                 must have. OIDs are specified using the numerical dotted representation.
               '';
 
-              certs = mkCommaSepListParam [ ] ''
+              certs = mkCommaSepListParam [] ''
                 List of certificates to accept for authentication. The certificates may
                 use a relative path from the swanctl `x509` directory
                 or an absolute path.
@@ -613,7 +613,7 @@ in
                 IKE exchange.
               '';
 
-              cacerts = mkCommaSepListParam [ ] ''
+              cacerts = mkCommaSepListParam [] ''
                 List of CA certificates to accept for
                 authentication. The certificates may use a relative path from the
                 swanctl `x509ca` directory or an absolute path.
@@ -625,7 +625,7 @@ in
                 flexibility.
               '';
 
-              pubkeys = mkCommaSepListParam [ ] ''
+              pubkeys = mkCommaSepListParam [] ''
                 List of raw public keys to accept for
                 authentication. The public keys may use a relative path from the swanctl
                 `pubkey` directory or an absolute path.
@@ -696,7 +696,7 @@ in
         children =
           mkAttrsOfParams
             {
-              ah_proposals = mkCommaSepListParam [ ] ''
+              ah_proposals = mkCommaSepListParam [] ''
                 AH proposals to offer for the CHILD_SA. A proposal is a set of
                 algorithms. For AH, this includes an integrity algorithm and an optional
                 Diffie-Hellman group. If a DH group is specified, CHILD_SA/Quick Mode
@@ -716,7 +716,7 @@ in
                 are included, instead ESP is proposed.
               '';
 
-              esp_proposals = mkCommaSepListParam [ "default" ] ''
+              esp_proposals = mkCommaSepListParam ["default"] ''
                 ESP proposals to offer for the CHILD_SA. A proposal is a set of
                 algorithms. For ESP non-AEAD proposals, this includes an integrity
                 algorithm, an encryption algorithm, an optional Diffie-Hellman group and
@@ -760,7 +760,7 @@ in
                 use the incorrect truncation length (or have this option enabled).
               '';
 
-              local_ts = mkCommaSepListParam [ "dynamic" ] ''
+              local_ts = mkCommaSepListParam ["dynamic"] ''
                 List of local traffic selectors to include in CHILD_SA. Each selector is
                 a CIDR subnet definition, followed by an optional proto/port
                 selector. The special value `dynamic` may be used
@@ -787,7 +787,7 @@ in
                 identical selectors in such scenarios.
               '';
 
-              remote_ts = mkCommaSepListParam [ "dynamic" ] ''
+              remote_ts = mkCommaSepListParam ["dynamic"] ''
                 List of remote selectors to include in CHILD_SA. See
                 {option}`local_ts` for a description of the selector syntax.
               '';
@@ -1053,7 +1053,7 @@ in
                 The daemon will not install routes for CHILD_SAs that have this option set.
               '';
 
-              tfc_padding = mkParamOfType (with lib.types; either int (enum [ "mtu" ])) 0 ''
+              tfc_padding = mkParamOfType (with lib.types; either int (enum ["mtu"])) 0 ''
                 Pads ESP packets with additional data to have a consistent ESP packet
                 size for improved Traffic Flow Confidentiality. The padding defines the
                 minimum size of all ESP packets sent.  The default value of
@@ -1387,14 +1387,14 @@ in
           range (\<from\>-\<to\>). Pools must be unique and non-overlapping.
         '';
 
-        dns = mkCommaSepListParam [ ] "Address or CIDR subnets";
-        nbns = mkCommaSepListParam [ ] "Address or CIDR subnets";
-        dhcp = mkCommaSepListParam [ ] "Address or CIDR subnets";
-        netmask = mkCommaSepListParam [ ] "Address or CIDR subnets";
-        server = mkCommaSepListParam [ ] "Address or CIDR subnets";
-        subnet = mkCommaSepListParam [ ] "Address or CIDR subnets";
-        split_include = mkCommaSepListParam [ ] "Address or CIDR subnets";
-        split_exclude = mkCommaSepListParam [ ] "Address or CIDR subnets";
+        dns = mkCommaSepListParam [] "Address or CIDR subnets";
+        nbns = mkCommaSepListParam [] "Address or CIDR subnets";
+        dhcp = mkCommaSepListParam [] "Address or CIDR subnets";
+        netmask = mkCommaSepListParam [] "Address or CIDR subnets";
+        server = mkCommaSepListParam [] "Address or CIDR subnets";
+        subnet = mkCommaSepListParam [] "Address or CIDR subnets";
+        split_include = mkCommaSepListParam [] "Address or CIDR subnets";
+        split_exclude = mkCommaSepListParam [] "Address or CIDR subnets";
       }
       ''
         Section defining named pools. Named pools may be referenced by connections

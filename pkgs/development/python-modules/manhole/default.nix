@@ -48,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ionelmc/python-manhole";
     description = "Debugging manhole for Python applications";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ ivan ];
+    maintainers = with maintainers; [ivan];
   };
 }

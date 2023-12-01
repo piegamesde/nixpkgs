@@ -26,7 +26,7 @@ stdenv.mkDerivation (
       hash = "sha256-jUuY2wuN00libHDaJEmrvQAb1o989Ly3nLyKHV0jz8Q=";
     };
 
-    depsBuildBuild = [ pkg-config ];
+    depsBuildBuild = [pkg-config];
 
     nativeBuildInputs = [
       meson
@@ -44,14 +44,14 @@ stdenv.mkDerivation (
 
     strictDeps = true;
 
-    mesonFlags = [ (lib.mesonEnable "man-pages" buildDocs) ];
+    mesonFlags = [(lib.mesonEnable "man-pages" buildDocs)];
 
     meta = with lib; {
       homepage = "https://github.com/emersion/slurp";
       description = "Select a region in a Wayland compositor";
       changelog = "https://github.com/emersion/slurp/releases/tag/v${finalAttrs.version}";
       license = licenses.mit;
-      maintainers = with maintainers; [ buffet ];
+      maintainers = with maintainers; [buffet];
       inherit (wayland.meta) platforms;
     };
   }

@@ -25,7 +25,7 @@ with lib;
 
   config = mkIf config.programs.system-config-printer.enable {
 
-    environment.systemPackages = [ pkgs.system-config-printer ];
+    environment.systemPackages = [pkgs.system-config-printer];
 
     services.system-config-printer.enable = true;
   };

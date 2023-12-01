@@ -26,12 +26,12 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile.in --replace '$(libdir)/libpci.a' ""
   '';
 
-  configureFlags = [ "LDFLAGS=-lpci" ];
+  configureFlags = ["LDFLAGS=-lpci"];
 
   meta = with lib; {
     description = "Video BIOS execution tool";
     homepage = "https://www.codon.org.uk/~mjg59/vbetool/";
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux;
     license = licenses.gpl2;
   };

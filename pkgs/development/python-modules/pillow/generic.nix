@@ -3,9 +3,9 @@
   version,
   disabled,
   src,
-  patches ? [ ],
+  patches ? [],
   meta,
-  passthru ? { },
+  passthru ? {},
   ...
 }@args:
 
@@ -47,7 +47,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [
     olefile
-  ] ++ lib.optionals (lib.versionAtLeast version "8.2.0") [ defusedxml ];
+  ] ++ lib.optionals (lib.versionAtLeast version "8.2.0") [defusedxml];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -68,7 +68,7 @@ buildPythonPackage rec {
       tcl
       lcms2
     ]
-    ++ lib.optionals (lib.versionAtLeast version "7.1.0") [ libxcb ]
+    ++ lib.optionals (lib.versionAtLeast version "7.1.0") [libxcb]
     ++ lib.optionals (isPyPy) [
       tk
       libX11

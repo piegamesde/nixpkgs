@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "trivial-main-thread";
   version = "20190710-git";
@@ -22,7 +22,7 @@ rec {
 
   packageName = "trivial-main-thread";
 
-  asdFilesToKeep = [ "trivial-main-thread.asd" ];
+  asdFilesToKeep = ["trivial-main-thread.asd"];
   overrides = x: x;
 }
 /* (SYSTEM trivial-main-thread DESCRIPTION

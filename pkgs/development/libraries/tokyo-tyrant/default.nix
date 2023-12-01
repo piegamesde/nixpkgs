@@ -15,8 +15,8 @@ stdenv.mkDerivation rec {
     sha256 = "13xqcinhydqmh7231qlir6pymacjwcf98drybkhd9597kzxp1bs2";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ tokyocabinet ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [tokyocabinet];
 
   doCheck = false; # FIXME
 
@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.lgpl21Plus;
 
     platforms = lib.platforms.gnu ++ lib.platforms.linux; # arbitrary choice
-    maintainers = [ ];
+    maintainers = [];
   };
 }

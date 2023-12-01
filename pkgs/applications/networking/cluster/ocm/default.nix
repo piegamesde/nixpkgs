@@ -27,7 +27,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # Tests expect the binary to be located in the root directory.
   preCheck = ''
@@ -53,7 +53,7 @@ buildGoModule rec {
     description = "CLI for the Red Hat OpenShift Cluster Manager";
     license = licenses.asl20;
     homepage = "https://github.com/openshift-online/ocm-cli";
-    maintainers = with maintainers; [ stehessel ];
+    maintainers = with maintainers; [stehessel];
     platforms = platforms.all;
   };
 }

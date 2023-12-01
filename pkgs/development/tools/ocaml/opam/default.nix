@@ -101,7 +101,7 @@ stdenv.mkDerivation {
   buildInputs = [
     ncurses
     getconf
-  ] ++ lib.optionals stdenv.isLinux [ bubblewrap ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
+  ] ++ lib.optionals stdenv.isLinux [bubblewrap] ++ lib.optionals stdenv.isDarwin [Foundation];
 
   src = srcs.opam;
 
@@ -124,7 +124,7 @@ stdenv.mkDerivation {
     ln -sv ${srcs."stdlib-shims"} $sourceRoot/src_ext/stdlib-shims.tbz
   '';
 
-  patches = [ ./opam-shebangs.patch ];
+  patches = [./opam-shebangs.patch];
 
   preConfigure = ''
     substituteInPlace ./src_ext/Makefile --replace "%.stamp: %.download" "%.stamp:"
@@ -134,7 +134,7 @@ stdenv.mkDerivation {
   postConfigure = "make lib-ext";
 
   # Dirty, but apparently ocp-build requires a TERM
-  makeFlags = [ "TERM=screen" ];
+  makeFlags = ["TERM=screen"];
 
   outputs = [
     "out"

@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     description = "A first-person shooter video game developed by Epic Games and Digital Extreme -- demo version";
     homepage = "http://www.unrealtournament2004.com";
     license = licenses.unfree;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     platforms = [
       "x86_64-linux"
       "i686-linux"

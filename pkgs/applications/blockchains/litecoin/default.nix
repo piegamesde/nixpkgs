@@ -52,7 +52,7 @@ mkDerivation rec {
       util-linux
       libevent
     ]
-    ++ lib.optionals stdenv.isDarwin [ AppKit ]
+    ++ lib.optionals stdenv.isDarwin [AppKit]
     ++ lib.optionals withGui [
       qtbase
       qttools
@@ -60,7 +60,7 @@ mkDerivation rec {
     ];
 
   configureFlags =
-    [ "--with-boost-libdir=${boost.out}/lib" ]
+    ["--with-boost-libdir=${boost.out}/lib"]
     ++ lib.optionals withGui [
       "--with-gui=qt5"
       "--with-qt-bindir=${qtbase.dev}/bin:${qttools.dev}/bin"
@@ -88,6 +88,6 @@ mkDerivation rec {
     homepage = "https://litecoin.org/";
     platforms = platforms.unix;
     license = licenses.mit;
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
   };
 }

@@ -28,6 +28,6 @@ buildPythonApplication rec {
       Entertainment System, the Atari 2600, and the Commodore 64.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
   };
 }

@@ -7,20 +7,20 @@ let
   frontendUrl = "https://${certs.domain}";
 
   keycloakTest = import ./make-test-python.nix (
-    { pkgs, databaseType, ... }:
+    {pkgs, databaseType, ...}:
     let
       initialAdminPassword = ''h4Iho"JFn't2>iQIR9'';
       adminPasswordFile = pkgs.writeText "admin-password" "${initialAdminPassword}";
     in
     {
       name = "keycloak";
-      meta = with pkgs.lib.maintainers; { maintainers = [ talyz ]; };
+      meta = with pkgs.lib.maintainers; {maintainers = [talyz];};
 
       nodes = {
         keycloak =
-          { config, ... }:
+          {config, ...}:
           {
-            security.pki.certificateFiles = [ certs.ca.cert ];
+            security.pki.certificateFiles = [certs.ca.cert];
 
             networking.extraHosts = ''
               127.0.0.1 ${certs.domain}
@@ -58,7 +58,7 @@ let
           client = {
             clientId = "test-client";
             name = "test-client";
-            redirectUris = [ "urn:ietf:wg:oauth:2.0:oob" ];
+            redirectUris = ["urn:ietf:wg:oauth:2.0:oob"];
           };
 
           user = {
@@ -73,7 +73,7 @@ let
           realm = {
             enabled = true;
             realm = "test-realm";
-            clients = [ client ];
+            clients = [client];
             users = [
               (
                 user
@@ -181,7 +181,7 @@ let
   );
 in
 {
-  postgres = keycloakTest { databaseType = "postgresql"; };
-  mariadb = keycloakTest { databaseType = "mariadb"; };
-  mysql = keycloakTest { databaseType = "mysql"; };
+  postgres = keycloakTest {databaseType = "postgresql";};
+  mariadb = keycloakTest {databaseType = "mariadb";};
+  mysql = keycloakTest {databaseType = "mysql";};
 }

@@ -17,17 +17,17 @@ buildPythonPackage rec {
     sha256 = "e63ba935c3300ff7f48cba115f7cb4474906e83c2e9b60b95a0881eb949701e7";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # upstream has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "notify_events" ];
+  pythonImportsCheck = ["notify_events"];
 
   meta = {
     description = "Python client for Notify.Events";
     homepage = "https://github.com/notify-events/python";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

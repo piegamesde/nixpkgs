@@ -24,7 +24,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-VvGLYOESyoBpFmIibHWxazliHcscMxf3KcQ46NQ4syk=";
 
-  subPackages = [ "cmd/mattermost" ];
+  subPackages = ["cmd/mattermost"];
 
   ldflags = [
     "-s"

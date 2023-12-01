@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-SUvK9XTXIDimEMEnORnp/Af/F030TZTxLI43Jzz31Js=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libbladeRF
@@ -56,6 +56,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/flightaware/dump1090";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ earldouglas ];
+    maintainers = with maintainers; [earldouglas];
   };
 }

@@ -72,6 +72,6 @@ stdenv.mkDerivation rec {
     homepage = "https://bitwuzla.github.io";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ symphorien ];
+    maintainers = with maintainers; [symphorien];
   };
 }

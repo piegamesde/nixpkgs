@@ -22,11 +22,11 @@ stdenv.mkDerivation rec {
     pkg-config
     cmake
   ];
-  buildInputs = [ freetype ];
+  buildInputs = [freetype];
 
-  patches = lib.optionals stdenv.isDarwin [ ./macosx.patch ];
+  patches = lib.optionals stdenv.isDarwin [./macosx.patch];
 
-  cmakeFlags = lib.optionals static [ "-DBUILD_SHARED_LIBS=OFF" ];
+  cmakeFlags = lib.optionals static ["-DBUILD_SHARED_LIBS=OFF"];
 
   # Remove a test that fails to statically link (undefined reference to png and
   # freetype symbols)
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "An advanced font engine";
     homepage = "https://graphite.sil.org/";
     license = licenses.lgpl21;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     mainProgram = "gr2fonttest";
     platforms = platforms.unix;
   };

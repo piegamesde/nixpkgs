@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   configureFlags = [
     "--enable-threadsafe"
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     description = "SQLite extension that provides 256 bit AES encryption of database files";
     homepage = "https://www.zetetic.net/sqlcipher/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

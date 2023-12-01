@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     patchShebangs ./dpf/utils/generate-ttl.sh
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     boost
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     lv2
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   installPhase = ''
     runHook preInstall
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     broken = (stdenv.isLinux && stdenv.isAarch64);
     homepage = "https://github.com/jpcima/quadrafuzz";
     description = "Multi-band fuzz distortion plugin";
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.linux;
     license = licenses.gpl3Plus;
   };

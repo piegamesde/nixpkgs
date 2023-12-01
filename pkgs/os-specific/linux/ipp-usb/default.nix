@@ -49,7 +49,7 @@ buildGoModule rec {
   meta = {
     description = "Daemon to use the IPP everywhere protocol with USB printers";
     homepage = "https://github.com/OpenPrinting/ipp-usb";
-    maintainers = [ lib.maintainers.symphorien ];
+    maintainers = [lib.maintainers.symphorien];
     platforms = lib.platforms.linux;
     license = lib.licenses.bsd2;
   };

@@ -1,30 +1,30 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
   {
     name = "systemd-initrd-luks-fido2";
 
     nodes.machine =
-      { pkgs, config, ... }:
+      {pkgs, config, ...}:
       {
         # Use systemd-boot
         virtualisation = {
-          emptyDiskImages = [ 512 ];
+          emptyDiskImages = [512];
           useBootLoader = true;
           useEFIBoot = true;
-          qemu.package = lib.mkForce (pkgs.qemu_test.override { canokeySupport = true; });
-          qemu.options = [ "-device canokey,file=/tmp/canokey-file" ];
+          qemu.package = lib.mkForce (pkgs.qemu_test.override {canokeySupport = true;});
+          qemu.options = ["-device canokey,file=/tmp/canokey-file"];
         };
         boot.loader.systemd-boot.enable = true;
 
         boot.initrd.systemd.enable = true;
 
-        environment.systemPackages = with pkgs; [ cryptsetup ];
+        environment.systemPackages = with pkgs; [cryptsetup];
 
         specialisation.boot-luks.configuration = {
           boot.initrd.luks.devices = lib.mkVMOverride {
             cryptroot = {
               device = "/dev/vdb";
-              crypttabExtraOpts = [ "fido2-device=auto" ];
+              crypttabExtraOpts = ["fido2-device=auto"];
             };
           };
           virtualisation.rootDevice = "/dev/mapper/cryptroot";

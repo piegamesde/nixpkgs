@@ -18,9 +18,9 @@ stdenv.mkDerivation rec {
     sha256 = "BGL7Lm6U1QdYZgEnn9tGgY+z8Fhjj+Sd2Cesn1sxWhY=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   # Some targets are not enabled by default
   makeFlags = [
@@ -30,13 +30,13 @@ stdenv.mkDerivation rec {
     "optvgm32"
   ];
 
-  passthru.updateScript = unstableGitUpdater { url = "https://github.com/vgmrips/vgmtools.git"; };
+  passthru.updateScript = unstableGitUpdater {url = "https://github.com/vgmrips/vgmtools.git";};
 
   meta = with lib; {
     homepage = "https://github.com/vgmrips/vgmtools";
     description = "A collection of tools for the VGM file format";
     license = licenses.gpl2; # Not clarified whether Only or Plus
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = platforms.all;
   };
 }

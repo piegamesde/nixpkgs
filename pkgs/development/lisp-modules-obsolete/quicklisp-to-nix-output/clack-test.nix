@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "clack-test";
   version = "clack-20210411-git";
@@ -68,7 +68,7 @@ rec {
 
   packageName = "clack-test";
 
-  asdFilesToKeep = [ "clack-test.asd" ];
+  asdFilesToKeep = ["clack-test.asd"];
   overrides = x: x;
 }
 /* (SYSTEM clack-test DESCRIPTION Testing Clack Applications. SHA256

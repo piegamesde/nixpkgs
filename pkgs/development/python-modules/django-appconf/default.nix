@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-nS4Hwp/NYg1XGvZO1tiE9mzJA7WFifyvgAjyp3YpqS4=";
   };
 
-  propagatedBuildInputs = [ django ];
+  propagatedBuildInputs = [django];
 
   preCheck = ''
     # prove we're running tests against installed package, not build dir
@@ -39,6 +39,6 @@ buildPythonPackage rec {
     description = "A helper class for handling configuration defaults of packaged apps gracefully";
     homepage = "https://django-appconf.readthedocs.org/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ desiderius ];
+    maintainers = with maintainers; [desiderius];
   };
 }

@@ -1,16 +1,16 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "arrows";
   version = "20181018-git";
 
-  parasites = [ "arrows/test" ];
+  parasites = ["arrows/test"];
 
   description = ''
     Implements -> and ->> from Clojure, as well as several expansions on the
     idea.'';
 
-  deps = [ args."hu_dot_dwim_dot_stefil" ];
+  deps = [args."hu_dot_dwim_dot_stefil"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/arrows/2018-10-18/arrows-20181018-git.tgz";
@@ -19,7 +19,7 @@ rec {
 
   packageName = "arrows";
 
-  asdFilesToKeep = [ "arrows.asd" ];
+  asdFilesToKeep = ["arrows.asd"];
   overrides = x: x;
 }
 /* (SYSTEM arrows DESCRIPTION

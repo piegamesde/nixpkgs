@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
     repo = "zimfw";
     rev = "v${version}";
     ## zim only needs this one file to be installed.
-    sparseCheckout = [ "zimfw.zsh" ];
+    sparseCheckout = ["zimfw.zsh"];
     sha256 = "sha256-q3OSypjqAc+ul0kF6f3u+wnFyNEm4AKwyPBwQzlVzYU=";
   };
   strictDeps = true;
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     description = "The Zsh configuration framework with blazing speed and modular extensions";
     homepage = "https://zimfw.sh";
     license = licenses.mit;
-    maintainers = [ maintainers.joedevivo ];
+    maintainers = [maintainers.joedevivo];
     platforms = platforms.all;
   };
 }

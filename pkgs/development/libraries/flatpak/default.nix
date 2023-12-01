@@ -155,7 +155,7 @@ stdenv.mkDerivation (
       ostree
     ];
 
-    nativeCheckInputs = [ valgrind ];
+    nativeCheckInputs = [valgrind];
 
     # TODO: some issues with temporary files
     doCheck = false;
@@ -181,12 +181,12 @@ stdenv.mkDerivation (
 
     postPatch =
       let
-        vsc-py = python3.withPackages (pp: [ pp.pyparsing ]);
+        vsc-py = python3.withPackages (pp: [pp.pyparsing]);
       in
       ''
         patchShebangs buildutil
         patchShebangs tests
-        PATH=${lib.makeBinPath [ vsc-py ]}:$PATH patchShebangs --build subprojects/variant-schema-compiler/variant-schema-compiler
+        PATH=${lib.makeBinPath [vsc-py]}:$PATH patchShebangs --build subprojects/variant-schema-compiler/variant-schema-compiler
       '';
 
     preFixup = ''
@@ -205,7 +205,7 @@ stdenv.mkDerivation (
       tests = {
         installedTests = nixosTests.installed-tests.flatpak;
 
-        validate-icon = runCommand "test-icon-validation" { } ''
+        validate-icon = runCommand "test-icon-validation" {} ''
           ${finalAttrs.finalPackage}/libexec/flatpak-validate-icon --sandbox 512 512 ${../../../applications/audio/zynaddsubfx/ZynLogo.svg} > "$out"
           grep format=svg "$out"
         '';
@@ -216,7 +216,7 @@ stdenv.mkDerivation (
       description = "Linux application sandboxing and distribution framework";
       homepage = "https://flatpak.org/";
       license = licenses.lgpl21Plus;
-      maintainers = with maintainers; [ jtojnar ];
+      maintainers = with maintainers; [jtojnar];
       platforms = platforms.linux;
     };
   }

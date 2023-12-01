@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs =
     [
@@ -61,10 +61,10 @@ stdenv.mkDerivation rec {
     ];
 
   propagatedBuildInputs =
-    [ glib ]
-    ++ lib.optionals (variant == "gtk3") [ gtk3 ]
-    ++ lib.optionals (variant == "gtk4") [ gtk4 ]
-    ++ lib.optionals (variant == "qt5") [ libsForQt5.qtbase ];
+    [glib]
+    ++ lib.optionals (variant == "gtk3") [gtk3]
+    ++ lib.optionals (variant == "gtk4") [gtk4]
+    ++ lib.optionals (variant == "qt5") [libsForQt5.qtbase];
 
   mesonFlags = [
     "-Dbackends=${lib.optionalString (variant != null) variant}"
@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
     description = "Flatpak portal library";
     homepage = "https://github.com/flatpak/libportal";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.unix;
   };
 }

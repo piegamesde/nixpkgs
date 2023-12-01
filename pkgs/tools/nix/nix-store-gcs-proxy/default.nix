@@ -25,6 +25,6 @@ buildGoModule rec {
     description = "A HTTP nix store that proxies requests to Google Storage";
     homepage = "https://github.com/tweag/nix-store-gcs-proxy";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ zimbatm ];
+    maintainers = with lib.maintainers; [zimbatm];
   };
 }

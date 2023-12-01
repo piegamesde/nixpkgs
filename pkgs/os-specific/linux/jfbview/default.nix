@@ -26,7 +26,7 @@ let
         "jpdfgrep"
       ] # all require imlib2
     else
-      [ "jfbpdf" ]; # does not
+      ["jfbpdf"]; # does not
 in
 
 stdenv.mkDerivation rec {
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       --replace "<stropts.h>" "<sys/ioctl.h>"
   '';
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   buildInputs = [
     freetype
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     ncurses
     openjpeg
     openssl
-  ] ++ lib.optionals imageSupport [ imlib2 ];
+  ] ++ lib.optionals imageSupport [imlib2];
 
   configurePhase = ''
     # Hack. Probing (`ldconfig -p`) fails with ‘cannot execute binary file’.

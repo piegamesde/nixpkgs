@@ -17,7 +17,7 @@
   buildTests ? false,
   buildBenchmarks ? false,
   buildSamples ? false,
-  gpuTargets ? [ ], # gpuTargets = [ "gfx803" "gfx900:xnack-" "gfx906:xnack-" ... ]
+  gpuTargets ? [], # gpuTargets = [ "gfx803" "gfx900:xnack-" "gfx906:xnack-" ... ]
 }:
 
 stdenv.mkDerivation (
@@ -26,10 +26,10 @@ stdenv.mkDerivation (
     version = "5.4.3";
 
     outputs =
-      [ "out" ]
-      ++ lib.optionals buildTests [ "test" ]
-      ++ lib.optionals buildBenchmarks [ "benchmark" ]
-      ++ lib.optionals buildSamples [ "sample" ];
+      ["out"]
+      ++ lib.optionals buildTests ["test"]
+      ++ lib.optionals buildBenchmarks ["benchmark"]
+      ++ lib.optionals buildSamples ["sample"];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -52,7 +52,7 @@ stdenv.mkDerivation (
       rocrand
       openmp
       openmpi
-    ] ++ lib.optionals buildTests [ gtest ];
+    ] ++ lib.optionals buildTests [gtest];
 
     cmakeFlags =
       [
@@ -69,11 +69,11 @@ stdenv.mkDerivation (
         "-DCMAKE_INSTALL_LIBDIR=lib"
         "-DCMAKE_INSTALL_INCLUDEDIR=include"
       ]
-      ++ lib.optionals (gpuTargets != [ ]) [
+      ++ lib.optionals (gpuTargets != []) [
         "-DAMDGPU_TARGETS=${lib.strings.concatStringsSep ";" gpuTargets}"
       ]
-      ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
-      ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ];
+      ++ lib.optionals buildTests ["-DBUILD_CLIENTS_TESTS=ON"]
+      ++ lib.optionals buildBenchmarks ["-DBUILD_CLIENTS_BENCHMARKS=ON"];
 
     postInstall =
       lib.optionalString buildTests ''
@@ -91,7 +91,7 @@ stdenv.mkDerivation (
         rm $sample/bin/rocalution-bench || true
 
         patchelf --set-rpath \
-          $out/lib:${lib.makeLibraryPath (finalAttrs.buildInputs ++ [ hip ])} \
+          $out/lib:${lib.makeLibraryPath (finalAttrs.buildInputs ++ [hip])} \
           $sample/bin/*
       ''
       + lib.optionalString (buildTests || buildBenchmarks) ''
@@ -107,7 +107,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "Iterative sparse solvers for ROCm";
       homepage = "https://github.com/ROCmSoftwarePlatform/rocALUTION";
-      license = with licenses; [ mit ];
+      license = with licenses; [mit];
       maintainers = teams.rocm.members;
       platforms = platforms.linux;
       broken = versions.minor finalAttrs.version != versions.minor hip.version;

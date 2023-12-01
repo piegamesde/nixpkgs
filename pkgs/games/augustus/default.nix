@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-NS6ijgI/wLsGF5KabjaR7ElKWFXIdjpmPYHVmI4oMzQ=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     SDL2
     SDL2_mixer
@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
     license = licenses.agpl3Only;
     platforms = platforms.all;
     broken = stdenv.isDarwin;
-    maintainers = with maintainers; [ Thra11 ];
+    maintainers = with maintainers; [Thra11];
   };
 }

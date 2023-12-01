@@ -56,7 +56,7 @@ stdenv.mkDerivation {
   pname = "hubstaff";
   inherit version;
 
-  src = fetchurl { inherit sha256 url; };
+  src = fetchurl {inherit sha256 url;};
 
   nativeBuildInputs = [
     unzip
@@ -110,9 +110,9 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Time tracking software";
     homepage = "https://hubstaff.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     maintainers = with maintainers; [
       michalrus
       srghma

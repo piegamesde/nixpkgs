@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     lz4
   ];
 
-  buildFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  buildFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   # Upstream's install target is broken; copy manually
   installPhase = ''
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "SAM/BAM processing tool";
     homepage = "https://lomereiter.github.io/sambamba/";
-    maintainers = with maintainers; [ jbedo ];
+    maintainers = with maintainers; [jbedo];
     license = with licenses; gpl2;
     platforms = platforms.x86_64;
   };

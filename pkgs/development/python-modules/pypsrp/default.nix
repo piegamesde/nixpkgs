@@ -51,17 +51,17 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    credssp = [ requests-credssp ];
+    credssp = [requests-credssp];
     kerberos = [
       # pyspnego[kerberos] will have those two dependencies
       gssapi
       krb5
     ];
-    named_pipe = [ psutil ];
-    ssh = [ asyncssh ];
+    named_pipe = [psutil];
+    ssh = [asyncssh];
   };
 
-  pythonImportsCheck = [ "pypsrp" ];
+  pythonImportsCheck = ["pypsrp"];
 
   disabledTests = [
     # TypeError: Backend.load_rsa_private_numbers() missing 1 required...
@@ -75,6 +75,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jborean93/pypsrp";
     changelog = "https://github.com/jborean93/pypsrp/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

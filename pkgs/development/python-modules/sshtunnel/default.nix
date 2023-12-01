@@ -16,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-58sOp3Tbgb+RhE2yLecqQKro97D5u5ug9mbUdO9r+fw=";
   };
 
-  propagatedBuildInputs = [ paramiko ];
+  propagatedBuildInputs = [paramiko];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -34,6 +34,6 @@ buildPythonPackage rec {
     description = "Pure python SSH tunnels";
     homepage = "https://github.com/pahaz/sshtunnel";
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

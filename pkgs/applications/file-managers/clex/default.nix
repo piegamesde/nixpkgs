@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     url = "${meta.homepage}/download/${pname}-${version}.tar.gz";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   enableParallelBuilding = true;
 

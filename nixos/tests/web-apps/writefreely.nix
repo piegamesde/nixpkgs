@@ -1,20 +1,20 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../../.. {inherit system config;},
 }:
 
-with import ../../lib/testing-python.nix { inherit system pkgs; };
+with import ../../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
 
 let
   writefreelyTest =
-    { name, type }:
+    {name, type}:
     makeTest {
       name = "writefreely-${name}";
 
       nodes.machine =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         {
           services.writefreely = {
             enable = true;

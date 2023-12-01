@@ -25,6 +25,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ pkgs.smallwm ];
+    environment.systemPackages = [pkgs.smallwm];
   };
 }

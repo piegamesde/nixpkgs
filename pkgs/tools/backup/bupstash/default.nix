@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     pkg-config
     installShellFiles
   ];
-  buildInputs = [ libsodium ];
+  buildInputs = [libsodium];
 
   postBuild = ''
     RUBYOPT="-KU -E utf-8:utf-8" ronn -r doc/man/*.md
@@ -41,6 +41,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://bupstash.io";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ andrewchambers ];
+    maintainers = with maintainers; [andrewchambers];
   };
 }

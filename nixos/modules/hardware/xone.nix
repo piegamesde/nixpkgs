@@ -20,12 +20,12 @@ in
         "xpad"
         "mt76x2u"
       ];
-      extraModulePackages = with config.boot.kernelPackages; [ xone ];
+      extraModulePackages = with config.boot.kernelPackages; [xone];
     };
-    hardware.firmware = [ pkgs.xow_dongle-firmware ];
+    hardware.firmware = [pkgs.xow_dongle-firmware];
   };
 
   meta = {
-    maintainers = with maintainers; [ rhysmdnz ];
+    maintainers = with maintainers; [rhysmdnz];
   };
 }

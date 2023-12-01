@@ -88,6 +88,6 @@ stdenv.mkDerivation rec {
     homepage = "https://instead.syscall.ru/";
     license = lib.licenses.gpl2;
     platforms = with lib.platforms; linux;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

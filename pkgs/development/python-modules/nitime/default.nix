@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-NnoVrSt6MTTcNup1e+/1v5JoHCYcycuQH4rHLzXJt+Y=";
   };
 
-  buildInputs = [ cython ];
+  buildInputs = [cython];
   propagatedBuildInputs = [
     numpy
     scipy
@@ -33,14 +33,14 @@ buildPythonPackage rec {
     nibabel
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
   doCheck = !stdenv.isDarwin; # tests hang indefinitely
-  pythonImportsCheck = [ "nitime" ];
+  pythonImportsCheck = ["nitime"];
 
   meta = with lib; {
     homepage = "https://nipy.org/nitime";
     description = "Algorithms and containers for time-series analysis in time and spectral domains";
     license = licenses.bsd3;
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
   };
 }

@@ -62,6 +62,6 @@ stdenv.mkDerivation rec {
     homepage = "https://tla.msr-inria.inria.fr/tlaps/content/Home.html";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ florentc ];
+    maintainers = with lib.maintainers; [florentc];
   };
 }

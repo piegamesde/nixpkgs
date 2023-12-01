@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "vas-string-metrics";
   version = "20211209-git";
 
   description = "Jaro-Winkler and Levenshtein string distance algorithms.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/vas-string-metrics/2021-12-09/vas-string-metrics-20211209-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "vas-string-metrics";
 
-  asdFilesToKeep = [ "vas-string-metrics.asd" ];
+  asdFilesToKeep = ["vas-string-metrics.asd"];
   overrides = x: x;
 }
 /* (SYSTEM vas-string-metrics DESCRIPTION

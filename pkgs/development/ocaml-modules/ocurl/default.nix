@@ -43,6 +43,6 @@ else
         dandellion
         bennofs
       ];
-      platforms = ocaml.meta.platforms or [ ];
+      platforms = ocaml.meta.platforms or [];
     };
   }

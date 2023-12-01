@@ -42,13 +42,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
-  pythonImportsCheck = [ "simpful" ];
+  pythonImportsCheck = ["simpful"];
 
   meta = with lib; {
     description = "Library for fuzzy logic";
     homepage = "https://github.com/aresio/simpful";
     changelog = "https://github.com/aresio/simpful/releases/tag/${version}";
-    license = with licenses; [ lgpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [lgpl3Only];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -9,7 +9,7 @@
 }:
 
 let
-  dropDevOutput = { outputs, ... }: { outputs = lib.filter (x: x != "doc") outputs; };
+  dropDevOutput = {outputs, ...}: {outputs = lib.filter (x: x != "doc") outputs;};
 
   python3' = python310.override {
     packageOverrides = self: super: {
@@ -25,7 +25,7 @@ let
         }
       );
       # fails with `no tests ran in 1.75s`
-      alembic = super.alembic.overridePythonAttrs (lib.const { doCheck = false; });
+      alembic = super.alembic.overridePythonAttrs (lib.const {doCheck = false;});
       flask_migrate = super.flask_migrate.overridePythonAttrs (
         oldAttrs: rec {
           version = "2.7.0";
@@ -55,7 +55,7 @@ let
             inherit version;
             hash = "sha256-bICx5a02ZSkOo5MguR4b4eDV9gZSuWSjBwIW3oPS5Hw=";
           };
-          nativeCheckInputs = old.nativeCheckInputs ++ (with self; [ requests ]);
+          nativeCheckInputs = old.nativeCheckInputs ++ (with self; [requests]);
           doCheck = false;
         }
       );
@@ -77,7 +77,7 @@ let
             (fetchpatch {
               url = "https://github.com/mkrizek/jinja/commit/bd8bad37d1c0e2d8995a44fd88e234f5340afec5.patch";
               hash = "sha256-Uow+gaO+/dH6zavC0X/SsuMAfhTLRWpamVlL87DXDRA=";
-              excludes = [ "CHANGES.rst" ];
+              excludes = ["CHANGES.rst"];
             })
           ];
         }
@@ -112,7 +112,7 @@ let
       );
       sqlsoup = super.sqlsoup.overrideAttrs (
         {
-          meta ? { },
+          meta ? {},
           ...
         }:
         {
@@ -135,13 +135,13 @@ let
       # for the test-suite apparently, let's skip it for now.
       mako = super.mako.overridePythonAttrs (
         lib.const {
-          nativeCheckInputs = [ ];
+          nativeCheckInputs = [];
           doCheck = false;
         }
       );
       # Requires pytest-httpserver as checkInput now which requires Werkzeug>=2 which is not
       # supported by current privacyIDEA.
-      responses = super.responses.overridePythonAttrs (lib.const { doCheck = false; });
+      responses = super.responses.overridePythonAttrs (lib.const {doCheck = false;});
       flask-babel =
         (super.flask-babel.override {
           sphinxHook = null;
@@ -167,17 +167,17 @@ let
           sphinx-better-theme = null;
         }).overridePythonAttrs
           dropDevOutput;
-      hypothesis = super.hypothesis.override { enableDocumentation = false; };
+      hypothesis = super.hypothesis.override {enableDocumentation = false;};
       pyjwt =
         (super.pyjwt.override {
           sphinxHook = null;
           sphinx-rtd-theme = null;
         }).overridePythonAttrs
-          (old: (dropDevOutput old) // { format = "setuptools"; });
+          (old: (dropDevOutput old) // {format = "setuptools";});
       beautifulsoup4 =
-        (super.beautifulsoup4.override { sphinxHook = null; }).overridePythonAttrs
+        (super.beautifulsoup4.override {sphinxHook = null;}).overridePythonAttrs
           dropDevOutput;
-      pydash = (super.pydash.override { sphinx-rtd-theme = null; }).overridePythonAttrs (
+      pydash = (super.pydash.override {sphinx-rtd-theme = null;}).overridePythonAttrs (
         old: rec {
           version = "5.1.0";
           src = self.fetchPypi {
@@ -273,7 +273,7 @@ python3'.pkgs.buildPythonPackage rec {
     "test_05_logging_config_broken_yaml"
   ];
 
-  pythonImportsCheck = [ "privacyidea" ];
+  pythonImportsCheck = ["privacyidea"];
 
   postPatch = ''
     patchShebangs tests/testdata/scripts

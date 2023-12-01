@@ -49,13 +49,13 @@ buildPythonPackage rec {
     yarl
   ];
 
-  pythonImportsCheck = [ "python_socks" ];
+  pythonImportsCheck = ["python_socks"];
 
   meta = with lib; {
     changelog = "https://github.com/romis2012/python-socks/releases/tag/v${version}";
     description = "Core proxy client (SOCKS4, SOCKS5, HTTP) functionality for Python";
     homepage = "https://github.com/romis2012/python-socks";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

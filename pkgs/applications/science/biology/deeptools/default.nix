@@ -27,7 +27,7 @@ buildPythonApplication rec {
     deeptoolsintervals
   ];
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
   meta = with lib; {
     homepage = "https://deeptools.readthedocs.io/en/develop";
@@ -41,6 +41,6 @@ buildPythonApplication rec {
       annotations of the genome.
     '';
     license = licenses.gpl3;
-    maintainers = with maintainers; [ scalavision ];
+    maintainers = with maintainers; [scalavision];
   };
 }

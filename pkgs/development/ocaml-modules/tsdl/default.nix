@@ -45,7 +45,7 @@ else
       ocamlbuild
       topkg
     ];
-    buildInputs = [ topkg ];
+    buildInputs = [topkg];
     propagatedBuildInputs =
       [
         SDL2

@@ -27,12 +27,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pyplaato" ];
+  pythonImportsCheck = ["pyplaato"];
 
   meta = with lib; {
     description = "Python API client for fetching Plaato data";
     homepage = "https://github.com/JohNan/pyplaato";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

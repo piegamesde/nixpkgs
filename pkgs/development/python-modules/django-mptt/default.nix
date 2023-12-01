@@ -24,7 +24,7 @@ buildPythonPackage rec {
     django-js-asset
   ];
 
-  pythonImportsCheck = [ "mptt" ];
+  pythonImportsCheck = ["mptt"];
 
   checkPhase = ''
     runHook preCheck
@@ -35,7 +35,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Utilities for implementing a modified pre-order traversal tree in Django";
     homepage = "https://github.com/django-mptt/django-mptt";
-    maintainers = with maintainers; [ hexa ];
-    license = with licenses; [ mit ];
+    maintainers = with maintainers; [hexa];
+    license = with licenses; [mit];
   };
 }

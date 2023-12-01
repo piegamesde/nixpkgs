@@ -31,7 +31,7 @@ buildPythonPackage rec {
       modRoot = "api";
       vendorSha256 = "sha256-xnmMkRSokbhWD+kz0XQ9AinYdm6/50FRBISURPvlzD0=";
     }
-    // import ./fix-gqlgen-trimpath.nix { inherit unzip; }
+    // import ./fix-gqlgen-trimpath.nix {inherit unzip;}
   );
 
   postPatch = ''
@@ -57,12 +57,12 @@ buildPythonPackage rec {
     ln -s ${listssrht-api}/bin/api $out/bin/listssrht-api
   '';
 
-  pythonImportsCheck = [ "listssrht" ];
+  pythonImportsCheck = ["listssrht"];
 
   meta = with lib; {
     homepage = "https://git.sr.ht/~sircmpwn/lists.sr.ht";
     description = "Mailing list service for the sr.ht network";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ eadwu ];
+    maintainers = with maintainers; [eadwu];
   };
 }

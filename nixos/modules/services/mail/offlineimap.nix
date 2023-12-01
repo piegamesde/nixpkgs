@@ -39,7 +39,7 @@ in
 
     path = mkOption {
       type = types.listOf types.path;
-      default = [ ];
+      default = [];
       example = literalExpression "[ pkgs.pass pkgs.bash pkgs.notmuch ]";
       description = lib.mdDoc "List of derivations to put in Offlineimap's path.";
     };
@@ -66,7 +66,7 @@ in
       };
       path = cfg.path;
     };
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     systemd.user.timers.offlineimap = {
       description = "offlineimap timer";
       timerConfig = {
@@ -75,6 +75,6 @@ in
         # start immediately after computer is started:
         Persistent = "true";
       };
-    } // optionalAttrs cfg.enable { wantedBy = [ "default.target" ]; };
+    } // optionalAttrs cfg.enable {wantedBy = ["default.target"];};
   };
 }

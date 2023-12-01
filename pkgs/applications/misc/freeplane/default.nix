@@ -145,6 +145,6 @@ stdenv.mkDerivation rec {
     homepage = "https://freeplane.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ chaduffy ];
+    maintainers = with maintainers; [chaduffy];
   };
 }

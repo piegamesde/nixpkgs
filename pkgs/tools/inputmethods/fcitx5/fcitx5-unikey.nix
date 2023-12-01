@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "Unikey engine support for Fcitx5";
     homepage = "https://github.com/fcitx/fcitx5-unikey";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ berberman ];
+    maintainers = with maintainers; [berberman];
     platforms = platforms.linux;
   };
 }

@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
   ];
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   meta = with lib; {
     description = "Wallpaper collection for adapta-project";
@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
       cc-by-sa-40
     ];
     platforms = platforms.all;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

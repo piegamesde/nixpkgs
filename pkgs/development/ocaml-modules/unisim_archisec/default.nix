@@ -20,6 +20,6 @@ buildDunePackage rec {
     downloadPage = "https://github.com/binsec/unisim_archisec";
     description = "UNISIM-VP DBA decoder";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.david-hamelin ];
+    maintainers = [lib.maintainers.david-hamelin];
   };
 }

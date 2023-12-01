@@ -1,4 +1,4 @@
-{ lib, fetchurl, ... }:
+{lib, fetchurl, ...}:
 let
   version = "1.7.3.0";
 in
@@ -19,6 +19,6 @@ fetchurl {
     homepage = "http://prototypejs.org/";
     downloadPage = "http://prototypejs.org/download/";
     license = licenses.mit;
-    maintainers = with maintainers; [ das_j ];
+    maintainers = with maintainers; [das_j];
   };
 }

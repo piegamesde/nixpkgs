@@ -29,6 +29,6 @@ stdenvNoCC.mkDerivation {
 
     license = licenses.free;
     platforms = platforms.all;
-    maintainers = with maintainers; [ emily ];
+    maintainers = with maintainers; [emily];
   };
 }

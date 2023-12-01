@@ -58,9 +58,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Master PDF Editor";
     homepage = "https://code-industry.net/free-pdf-editor/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfreeRedistributable;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ cmcdragonkai ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [cmcdragonkai];
   };
 }

@@ -88,7 +88,7 @@ stdenv.mkDerivation {
     "-DCMAKE_RANLIB=${gcc-unwrapped}/bin/gcc-ranlib"
   ];
 
-  ninjaFlags = [ "dragonfly" ];
+  ninjaFlags = ["dragonfly"];
 
   doCheck = false;
   dontUseNinjaInstall = true;
@@ -105,6 +105,6 @@ stdenv.mkDerivation {
     homepage = "https://dragonflydb.io/";
     license = licenses.bsl11;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ yureien ];
+    maintainers = with maintainers; [yureien];
   };
 }

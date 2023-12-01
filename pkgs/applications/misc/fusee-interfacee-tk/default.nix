@@ -25,8 +25,8 @@ stdenv.mkDerivation rec {
     sha256 = "0ngwbwsj999flprv14xvhk7lp51nprrvcnlbnbk6y4qx5casm5md";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ pythonEnv ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [pythonEnv];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     longDescription = ''
       A mod of falquinhos Fusée Launcher for use with Nintendo Homebrew Switch Guide. It also adds the ability to mount SD while in RCM.
           Must be run as sudo.'';
-    maintainers = with maintainers; [ kristian-brucaj ];
+    maintainers = with maintainers; [kristian-brucaj];
     license = licenses.gpl2;
   };
 }

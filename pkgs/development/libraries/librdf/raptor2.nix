@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
       lgpl21
       asl20
     ];
-    maintainers = with lib.maintainers; [ marcweber ];
+    maintainers = with lib.maintainers; [marcweber];
     platforms = lib.platforms.unix;
   };
 }

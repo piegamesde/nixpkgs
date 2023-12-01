@@ -21,14 +21,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "0lb53sk7rikmj365gvcvn1hq70d6dmhp0aj2dyipb2qasypqz5l3";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = [openssl] ++ lib.optionals stdenv.isDarwin [Security];
 
   meta = with lib; {
     homepage = "https://github.com/jsdw/git-backup";
     description = "A tool to help you backup your git repositories from services like GitHub";
     license = licenses.mit;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

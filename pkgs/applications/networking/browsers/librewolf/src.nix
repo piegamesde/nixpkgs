@@ -1,4 +1,4 @@
-{ fetchurl, fetchFromGitLab }:
+{fetchurl, fetchFromGitLab}:
 let
   src = builtins.fromJSON (builtins.readFile ./src.json);
 in

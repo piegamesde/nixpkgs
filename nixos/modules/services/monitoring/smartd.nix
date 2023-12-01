@@ -71,7 +71,7 @@ let
   '';
 
   smartdDeviceOpts =
-    { ... }:
+    {...}:
     {
 
       options = {
@@ -114,7 +114,7 @@ in
       };
 
       extraOptions = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         example = [
           "-A /var/log/smartd/"
@@ -228,9 +228,9 @@ in
       };
 
       devices = mkOption {
-        default = [ ];
+        default = [];
         example = [
-          { device = "/dev/sda"; }
+          {device = "/dev/sda";}
           {
             device = "/dev/sdb";
             options = "-d sat";
@@ -248,14 +248,14 @@ in
 
     assertions = [
       {
-        assertion = cfg.autodetect || cfg.devices != [ ];
+        assertion = cfg.autodetect || cfg.devices != [];
         message = "smartd can't run with both disabled autodetect and an empty list of devices to monitor.";
       }
     ];
 
     systemd.services.smartd = {
       description = "S.M.A.R.T. Daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig.ExecStart = "${pkgs.smartmontools}/sbin/smartd ${lib.concatStringsSep " " cfg.extraOptions} --no-fork --configfile=${smartdConf}";
     };
   };

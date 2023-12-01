@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "hu_dot_dwim_dot_def";
   version = "20201016-darcs";
@@ -21,7 +21,7 @@ rec {
 
   packageName = "hu.dwim.def";
 
-  asdFilesToKeep = [ "hu.dwim.def.asd" ];
+  asdFilesToKeep = ["hu.dwim.def.asd"];
   overrides = x: x;
 }
 /* (SYSTEM hu.dwim.def DESCRIPTION

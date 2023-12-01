@@ -16,7 +16,7 @@
   repoRepoRev ? "",
   referenceDir ? "",
   manifestName ? "",
-  localManifests ? [ ],
+  localManifests ? [],
   createMirror ? false,
   useArchive ? false,
 }:
@@ -83,7 +83,7 @@ stdenvNoCC.mkDerivation {
     cd $out
 
     mkdir .repo
-    ${optionalString (local_manifests != [ ]) ''
+    ${optionalString (local_manifests != []) ''
       mkdir .repo/local_manifests
       for local_manifest in ${concatMapStringsSep " " toString local_manifests}; do
         cp $local_manifest .repo/local_manifests/$(stripHash $local_manifest; echo $strippedName)

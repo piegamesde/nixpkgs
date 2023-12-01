@@ -19,11 +19,11 @@ stdenv.mkDerivation (
       hash = "sha256-Y9uBJKM34UTEj/3c1w69QHhvwFcMNlAohEco0O0B+xI=";
     };
 
-    nativeBuildInputs = [ autoreconfHook ];
+    nativeBuildInputs = [autoreconfHook];
 
-    buildInputs = lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
+    buildInputs = lib.optionals stdenv.cc.isClang [llvmPackages.openmp];
 
-    nativeCheckInputs = [ boost ];
+    nativeCheckInputs = [boost];
 
     postInstall = ''
       mkdir -p $out/lib/
@@ -35,7 +35,7 @@ stdenv.mkDerivation (
       description = "A collection of multi-dimensional data structure and indexing algorithms";
       changelog = "https://gitlab.com/mdds/mdds/-/blob/${finalAttrs.version}/CHANGELOG";
       license = licenses.mit;
-      maintainers = [ maintainers.AndersonTorres ];
+      maintainers = [maintainers.AndersonTorres];
       platforms = platforms.unix;
     };
   }

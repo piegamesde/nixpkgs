@@ -15,7 +15,7 @@ stdenv.mkDerivation {
     perl
     pkg-config
   ];
-  buildInputs = [ libxcrypt ];
+  buildInputs = [libxcrypt];
 
   inherit (whois) preConfigure;
   buildPhase = "make mkpasswd";

@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "lla";
   version = "20180328-git";
 
-  parasites = [ "lla-tests" ];
+  parasites = ["lla-tests"];
 
   description = "Lisp Linear Algebra";
 
@@ -28,7 +28,7 @@ rec {
 
   packageName = "lla";
 
-  asdFilesToKeep = [ "lla.asd" ];
+  asdFilesToKeep = ["lla.asd"];
   overrides = x: x;
 }
 /* (SYSTEM lla DESCRIPTION Lisp Linear Algebra SHA256

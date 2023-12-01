@@ -51,7 +51,7 @@ python3Packages.buildPythonApplication rec {
     pysatochip
   ];
 
-  nativeBuildInputs = [ wrapQtAppsHook ];
+  nativeBuildInputs = [wrapQtAppsHook];
 
   postPatch = ''
     substituteInPlace contrib/requirements/requirements.txt \
@@ -61,7 +61,7 @@ python3Packages.buildPythonApplication rec {
       --replace "(share_dir" "(\"share\""
   '';
 
-  nativeCheckInputs = with python3Packages; [ pytest ];
+  nativeCheckInputs = with python3Packages; [pytest];
 
   checkPhase = ''
     unset HOME

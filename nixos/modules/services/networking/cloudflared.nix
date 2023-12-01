@@ -177,7 +177,7 @@ in
       '';
       type = types.attrsOf (
         types.submodule (
-          { name, ... }:
+          {name, ...}:
           {
             options = {
               inherit originRequest;
@@ -219,7 +219,7 @@ in
                   attrsOf (
                     either str (
                       submodule (
-                        { hostname, ... }:
+                        {hostname, ...}:
                         {
                           options = {
                             inherit originRequest;
@@ -250,7 +250,7 @@ in
                       )
                     )
                   );
-                default = { };
+                default = {};
                 description = lib.mdDoc ''
                   Ingress rules.
 
@@ -266,7 +266,7 @@ in
         )
       );
 
-      default = { };
+      default = {};
       example = {
         "00000000-0000-0000-0000-000000000000" = {
           credentialsFile = "/tmp/test";
@@ -288,8 +288,8 @@ in
           name: tunnel:
           nameValuePair "cloudflared-tunnel-${name}" {
             description = "Cloudflare tunnel '${name}' target";
-            requires = [ "cloudflared-tunnel-${name}.service" ];
-            after = [ "cloudflared-tunnel-${name}.service" ];
+            requires = ["cloudflared-tunnel-${name}.service"];
+            after = ["cloudflared-tunnel-${name}.service"];
             unitConfig.StopWhenUnneeded = true;
           }
         )
@@ -304,8 +304,8 @@ in
               _: v:
               !builtins.elem v [
                 null
-                [ ]
-                { }
+                []
+                {}
               ]
             );
 
@@ -319,7 +319,7 @@ in
               tunnel = name;
               "credentials-file" = tunnel.credentialsFile;
               ingress =
-                (map (key: { hostname = key; } // getAttr key (filterConfig (filterConfig ingressesSet))) (
+                (map (key: {hostname = key;} // getAttr key (filterConfig (filterConfig ingressesSet))) (
                   attrNames ingressesSet
                 ))
                 ++ (map
@@ -329,7 +329,7 @@ in
                   })
                   (attrNames ingressesStr)
                 )
-                ++ [ { service = tunnel.default; } ];
+                ++ [{service = tunnel.default;}];
             };
             mkConfigFile = pkgs.writeText "cloudflared.yml" (builtins.toJSON fullConfig);
           in
@@ -342,7 +342,7 @@ in
               "network.target"
               "network-online.target"
             ];
-            wantedBy = [ "multi-user.target" ];
+            wantedBy = ["multi-user.target"];
             serviceConfig = {
               User = cfg.user;
               Group = cfg.group;
@@ -360,8 +360,8 @@ in
       };
     };
 
-    users.groups = mkIf (cfg.group == "cloudflared") { cloudflared = { }; };
+    users.groups = mkIf (cfg.group == "cloudflared") {cloudflared = {};};
   };
 
-  meta.maintainers = with maintainers; [ bbigras ];
+  meta.maintainers = with maintainers; [bbigras];
 }

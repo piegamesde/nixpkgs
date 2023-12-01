@@ -36,14 +36,14 @@ buildPythonPackage rec {
     sphinx-better-theme
   ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ openssl ];
+  buildInputs = lib.optionals stdenv.isDarwin [openssl];
 
   sphinxRoot = "doc/src";
 
   # Requires setting up a PostgreSQL database
   doCheck = false;
 
-  pythonImportsCheck = [ "psycopg2" ];
+  pythonImportsCheck = ["psycopg2"];
 
   meta = with lib; {
     description = "PostgreSQL database adapter for the Python programming language";
@@ -52,6 +52,6 @@ buildPythonPackage rec {
       lgpl3Plus
       zpl20
     ];
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

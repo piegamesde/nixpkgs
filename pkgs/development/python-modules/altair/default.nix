@@ -38,7 +38,7 @@ buildPythonPackage rec {
     six
     toolz
     jinja2
-  ] ++ lib.optionals (pythonOlder "3.5") [ typing ];
+  ] ++ lib.optionals (pythonOlder "3.5") [typing];
 
   nativeCheckInputs = [
     glibcLocales
@@ -49,7 +49,7 @@ buildPythonPackage rec {
     vega_datasets
   ];
 
-  pythonImportsCheck = [ "altair" ];
+  pythonImportsCheck = ["altair"];
 
   # avoid examples directory, which fetches web resources
   preCheck = ''
@@ -60,7 +60,7 @@ buildPythonPackage rec {
     description = "A declarative statistical visualization library for Python.";
     homepage = "https://github.com/altair-viz/altair";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ teh ];
+    maintainers = with maintainers; [teh];
     platforms = platforms.unix;
   };
 }

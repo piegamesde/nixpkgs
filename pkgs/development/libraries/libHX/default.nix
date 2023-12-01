@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "18w39j528lyg2026dr11f2xxxphy91cg870nx182wbd8cjlqf86c";
   };
 
-  patches = [ ];
+  patches = [];
 
   nativeBuildInputs = [
     autoconf
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
       and functions commonly needed, such as maps, deques, linked lists, string formatting
       and autoresizing, option and config file parsing, type checking casts and more.
     '';
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     license = with licenses; [
       gpl3

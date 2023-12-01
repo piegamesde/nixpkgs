@@ -56,7 +56,7 @@ buildPythonPackage rec {
       # https://github.com/python/mypy/pull/14787
       url = "https://github.com/python/mypy/commit/243f584d43e6eb316920f3155067ce7c1b65d473.patch";
       hash = "sha256-uuh3S5ZyuJeTXyMvav2uSEao2qq23xMjK8rJjkY8RCY=";
-      includes = [ "mypyc/build.py" ];
+      includes = ["mypyc/build.py"];
     })
   ];
 
@@ -67,16 +67,16 @@ buildPythonPackage rec {
     types-setuptools
     types-typed-ast
     typing-extensions
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  ] ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   propagatedBuildInputs = [
     mypy-extensions
     typing-extensions
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  ] ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   passthru.optional-dependencies = {
-    dmypy = [ psutil ];
-    reports = [ lxml ];
+    dmypy = [psutil];
+    reports = [lxml];
   };
 
   # Compile mypy with mypyc, which makes mypy about 4 times faster. The compiled

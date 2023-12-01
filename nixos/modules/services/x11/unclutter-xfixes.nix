@@ -41,7 +41,7 @@ in
     extraOptions = mkOption {
       description = lib.mdDoc "More arguments to pass to the unclutter-xfixes command.";
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "exclude-root"
         "ignore-scrolling"
@@ -53,8 +53,8 @@ in
   config = mkIf cfg.enable {
     systemd.user.services.unclutter-xfixes = {
       description = "unclutter-xfixes";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      partOf = ["graphical-session.target"];
       serviceConfig.ExecStart = ''
         ${cfg.package}/bin/unclutter \
           --timeout ${toString cfg.timeout} \

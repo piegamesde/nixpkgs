@@ -17,14 +17,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-qpS1TLShJwXgmtuhWIPOlcHMofUgOWZ8vbri36i+hpM=";
 
-  subPackages = [ "cmd/pgo" ];
+  subPackages = ["cmd/pgo"];
 
   meta = with lib; {
     description = "A CLI client for Crunchy PostgreSQL Kubernetes Operator";
     homepage = "https://github.com/CrunchyData/postgres-operator";
     changelog = "https://github.com/CrunchyData/postgres-operator/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = [ maintainers.bryanasdev000 ];
+    maintainers = [maintainers.bryanasdev000];
     mainProgram = "pgo";
   };
 }

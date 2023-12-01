@@ -11,10 +11,10 @@ with import ../lib;
     "x86_64-linux"
     "aarch64-linux"
   ],
-  configuration ? { },
+  configuration ? {},
 }:
 
-with import ../pkgs/top-level/release-lib.nix { inherit supportedSystems; };
+with import ../pkgs/top-level/release-lib.nix {inherit supportedSystems;};
 
 let
 
@@ -30,22 +30,22 @@ let
     system:
     import ./tests/all-tests.nix {
       inherit system;
-      pkgs = import ./.. { inherit system; };
-      callTest = config: { ${system} = hydraJob config.test; };
+      pkgs = import ./.. {inherit system;};
+      callTest = config: {${system} = hydraJob config.test;};
     }
     // {
       # for typechecking of the scripts and evaluation of
       # the nodes, without running VMs.
       allDrivers = import ./tests/all-tests.nix {
         inherit system;
-        pkgs = import ./.. { inherit system; };
-        callTest = config: { ${system} = hydraJob config.driver; };
+        pkgs = import ./.. {inherit system;};
+        callTest = config: {${system} = hydraJob config.driver;};
       };
     };
 
-  allTests = foldAttrs recursiveUpdate { } (map allTestsForSystem supportedSystems);
+  allTests = foldAttrs recursiveUpdate {} (map allTestsForSystem supportedSystems);
 
-  pkgs = import ./.. { system = "x86_64-linux"; };
+  pkgs = import ./.. {system = "x86_64-linux";};
 
   versionModule = {
     system.nixos.versionSuffix = versionSuffix;
@@ -67,42 +67,42 @@ let
       ...
     }:
 
-    with import ./.. { inherit system; };
+    with import ./.. {inherit system;};
 
     hydraJob (
       (import lib/eval-config.nix {
         inherit system;
-        modules = makeModules module { isoImage.isoBaseName = "nixos-${type}"; };
+        modules = makeModules module {isoImage.isoBaseName = "nixos-${type}";};
       }).config.system.build.isoImage
     );
 
   makeSdImage =
-    { module, system, ... }:
+    {module, system, ...}:
 
-    with import ./.. { inherit system; };
+    with import ./.. {inherit system;};
 
     hydraJob (
       (import lib/eval-config.nix {
         inherit system;
-        modules = makeModules module { };
+        modules = makeModules module {};
       }).config.system.build.sdImage
     );
 
   makeSystemTarball =
     {
       module,
-      maintainers ? [ "viric" ],
+      maintainers ? ["viric"],
       system,
     }:
 
-    with import ./.. { inherit system; };
+    with import ./.. {inherit system;};
 
     let
 
       config =
         (import lib/eval-config.nix {
           inherit system;
-          modules = makeModules module { };
+          modules = makeModules module {};
         }).config;
 
       tarball = config.system.build.tarball;
@@ -127,7 +127,7 @@ let
           (import ./lib/eval-config.nix {
             inherit system;
             modules = makeModules module (
-              { ... }:
+              {...}:
               {
                 fileSystems."/".device = mkDefault "/dev/sda1";
                 boot.loader.grub.device = mkDefault "/dev/sda";
@@ -138,11 +138,11 @@ let
     );
 
   makeNetboot =
-    { module, system, ... }:
+    {module, system, ...}:
     let
       configEvaled = import lib/eval-config.nix {
         inherit system;
-        modules = makeModules module { };
+        modules = makeModules module {};
       };
       build = configEvaled.config.system.build;
       kernelTarget = configEvaled.pkgs.stdenv.hostPlatform.linux-kernel.target;
@@ -174,21 +174,21 @@ rec {
       ;
   };
 
-  manualHTML = buildFromConfig ({ ... }: { }) (config: config.system.build.manual.manualHTML);
+  manualHTML = buildFromConfig ({...}: {}) (config: config.system.build.manual.manualHTML);
   manual = manualHTML; # TODO(@oxij): remove eventually
-  manualEpub = (buildFromConfig ({ ... }: { }) (config: config.system.build.manual.manualEpub));
-  manpages = buildFromConfig ({ ... }: { }) (config: config.system.build.manual.manpages);
+  manualEpub = (buildFromConfig ({...}: {}) (config: config.system.build.manual.manualEpub));
+  manpages = buildFromConfig ({...}: {}) (config: config.system.build.manual.manpages);
   options =
-    (buildFromConfig ({ ... }: { }) (config: config.system.build.manual.optionsJSON)).x86_64-linux;
+    (buildFromConfig ({...}: {}) (config: config.system.build.manual.optionsJSON)).x86_64-linux;
 
   # Build the initial ramdisk so Hydra can keep track of its size over time.
-  initialRamdisk = buildFromConfig ({ ... }: { }) (config: config.system.build.initialRamdisk);
+  initialRamdisk = buildFromConfig ({...}: {}) (config: config.system.build.initialRamdisk);
 
   kexec = forMatchingSystems supportedSystems (
     system:
     (import lib/eval-config.nix {
       inherit system;
-      modules = [ ./modules/installer/netboot/netboot-minimal.nix ];
+      modules = [./modules/installer/netboot/netboot-minimal.nix];
     }).config.system.build.kexecTree
   );
 
@@ -282,7 +282,7 @@ rec {
         }
       );
 
-  sd_image_new_kernel = forMatchingSystems [ "aarch64-linux" ] (
+  sd_image_new_kernel = forMatchingSystems ["aarch64-linux"] (
     system:
     makeSdImage {
       module =
@@ -295,7 +295,7 @@ rec {
     }
   );
 
-  sd_image_new_kernel_no_zfs = forMatchingSystems [ "aarch64-linux" ] (
+  sd_image_new_kernel_no_zfs = forMatchingSystems ["aarch64-linux"] (
     system:
     makeSdImage {
       module =
@@ -309,10 +309,10 @@ rec {
   );
 
   # A bootable VirtualBox virtual appliance as an OVA file (i.e. packaged OVF).
-  ova = forMatchingSystems [ "x86_64-linux" ] (
+  ova = forMatchingSystems ["x86_64-linux"] (
     system:
 
-    with import ./.. { inherit system; };
+    with import ./.. {inherit system;};
 
     hydraJob (
       (import lib/eval-config.nix {
@@ -327,27 +327,27 @@ rec {
   );
 
   # KVM image for proxmox in VMA format
-  proxmoxImage = forMatchingSystems [ "x86_64-linux" ] (
+  proxmoxImage = forMatchingSystems ["x86_64-linux"] (
     system:
-    with import ./.. { inherit system; };
+    with import ./.. {inherit system;};
 
     hydraJob (
       (import lib/eval-config.nix {
         inherit system;
-        modules = [ ./modules/virtualisation/proxmox-image.nix ];
+        modules = [./modules/virtualisation/proxmox-image.nix];
       }).config.system.build.VMA
     )
   );
 
   # LXC tarball for proxmox
-  proxmoxLXC = forMatchingSystems [ "x86_64-linux" ] (
+  proxmoxLXC = forMatchingSystems ["x86_64-linux"] (
     system:
-    with import ./.. { inherit system; };
+    with import ./.. {inherit system;};
 
     hydraJob (
       (import lib/eval-config.nix {
         inherit system;
-        modules = [ ./modules/virtualisation/proxmox-lxc.nix ];
+        modules = [./modules/virtualisation/proxmox-lxc.nix];
       }).config.system.build.tarball
     )
   );
@@ -362,7 +362,7 @@ rec {
       (
         system:
 
-        with import ./.. { inherit system; };
+        with import ./.. {inherit system;};
 
         hydraJob (
           (import lib/eval-config.nix {
@@ -385,7 +385,7 @@ rec {
       (
         system:
 
-        with import ./.. { inherit system; };
+        with import ./.. {inherit system;};
 
         hydraJob (
           (import lib/eval-config.nix {
@@ -411,7 +411,7 @@ rec {
       (
         system:
 
-        with import ./.. { inherit system; };
+        with import ./.. {inherit system;};
 
         hydraJob (
           (import lib/eval-config.nix {
@@ -420,7 +420,7 @@ rec {
               configuration
               versionModule
               ./maintainers/scripts/ec2/amazon-image.nix
-              ({ ... }: { amazonImage.sizeMB = "auto"; })
+              ({...}: {amazonImage.sizeMB = "auto";})
             ];
           }).config.system.build.amazonImage
         )
@@ -437,7 +437,7 @@ rec {
       (
         system:
 
-        with import ./.. { inherit system; };
+        with import ./.. {inherit system;};
 
         hydraJob (
           (import lib/eval-config.nix {
@@ -462,7 +462,7 @@ rec {
       (
         system:
 
-        with import ./.. { inherit system; };
+        with import ./.. {inherit system;};
 
         hydraJob (
           (import lib/eval-config.nix {
@@ -486,7 +486,7 @@ rec {
           (import lib/eval-config.nix {
             inherit system;
             modules = singleton (
-              { ... }:
+              {...}:
               {
                 fileSystems."/".device = mkDefault "/dev/sda1";
                 boot.loader.grub.device = mkDefault "/dev/sda";
@@ -517,7 +517,7 @@ rec {
   closures = {
 
     smallContainer = makeClosure (
-      { ... }:
+      {...}:
       {
         boot.isContainer = true;
         services.openssh.enable = true;
@@ -525,17 +525,17 @@ rec {
     );
 
     tinyContainer = makeClosure (
-      { ... }:
+      {...}:
       {
         boot.isContainer = true;
-        imports = [ modules/profiles/minimal.nix ];
+        imports = [modules/profiles/minimal.nix];
       }
     );
 
-    ec2 = makeClosure ({ ... }: { imports = [ modules/virtualisation/amazon-image.nix ]; });
+    ec2 = makeClosure ({...}: {imports = [modules/virtualisation/amazon-image.nix];});
 
     kde = makeClosure (
-      { ... }:
+      {...}:
       {
         services.xserver.enable = true;
         services.xserver.displayManager.sddm.enable = true;
@@ -544,7 +544,7 @@ rec {
     );
 
     xfce = makeClosure (
-      { ... }:
+      {...}:
       {
         services.xserver.enable = true;
         services.xserver.desktopManager.xfce.enable = true;
@@ -552,7 +552,7 @@ rec {
     );
 
     gnome = makeClosure (
-      { ... }:
+      {...}:
       {
         services.xserver.enable = true;
         services.xserver.displayManager.gdm.enable = true;
@@ -561,7 +561,7 @@ rec {
     );
 
     pantheon = makeClosure (
-      { ... }:
+      {...}:
       {
         services.xserver.enable = true;
         services.xserver.desktopManager.pantheon.enable = true;
@@ -570,7 +570,7 @@ rec {
 
     # Linux/Apache/PostgreSQL/PHP stack.
     lapp = makeClosure (
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         services.httpd.enable = true;
         services.httpd.adminAddr = "foo@example.org";

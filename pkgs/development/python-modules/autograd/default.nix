@@ -28,6 +28,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/HIPS/autograd";
     description = "Compute derivatives of NumPy code efficiently";
     license = licenses.mit;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

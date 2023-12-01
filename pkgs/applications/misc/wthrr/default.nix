@@ -21,10 +21,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-izJ0TT69QnnOTLOGi1bqvy0AHJw1mMI/io5twa2Y4x0=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       darwin.apple_sdk.frameworks.CoreFoundation
       darwin.apple_sdk.frameworks.Security
@@ -41,6 +41,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/tobealive/wthrr-the-weathercrab";
     changelog = "https://github.com/tobealive/wthrr-the-weathercrab/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

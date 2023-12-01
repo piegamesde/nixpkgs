@@ -29,9 +29,9 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=misleading-indentation -Wno-error=pointer-compare";
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  pythonPath = with python3Packages; [ pygobject3 ];
+  pythonPath = with python3Packages; [pygobject3];
 
   nativeBuildInputs = [
     pkg-config

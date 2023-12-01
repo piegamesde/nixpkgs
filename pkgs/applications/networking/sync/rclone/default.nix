@@ -24,7 +24,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-UA6PlhKxJ9wpg3mbiJ4Mqc4npwEBa93qi6WrQR8JQSk=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   outputs = [
     "out"
@@ -37,7 +37,7 @@ buildGoModule rec {
     makeWrapper
   ];
 
-  tags = lib.optionals enableCmount [ "cmount" ];
+  tags = lib.optionals enableCmount ["cmount"];
 
   ldflags = [
     "-s"
@@ -66,7 +66,7 @@ buildGoModule rec {
         # as the setuid wrapper is required as non-root on NixOS.
         ''
           wrapProgram $out/bin/rclone \
-            --suffix PATH : "${lib.makeBinPath [ fuse ]}" \
+            --suffix PATH : "${lib.makeBinPath [fuse]}" \
             --prefix LD_LIBRARY_PATH : "${fuse}/lib"
         '';
 

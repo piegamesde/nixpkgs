@@ -37,7 +37,7 @@ mkXfceDerivation {
     libSM
   ];
 
-  configureFlags = [ "--with-vendor-info=NixOS" ];
+  configureFlags = ["--with-vendor-info=NixOS"];
 
   meta = with lib; {
     description = "Widgets library for Xfce";
@@ -45,6 +45,6 @@ mkXfceDerivation {
       lgpl2Plus
       lgpl21Plus
     ];
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    maintainers = with maintainers; [] ++ teams.xfce.members;
   };
 }

@@ -39,7 +39,7 @@ stdenvNoCC.mkDerivation (
         simple API and more.
       '';
       license = licenses.mit;
-      maintainers = with maintainers; [ ];
+      maintainers = with maintainers; [];
       platforms = platforms.all;
     };
   }

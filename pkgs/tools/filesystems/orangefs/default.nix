@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
       lgpl21Plus
       openldap
     ];
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ markuskowa ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [markuskowa];
   };
 }

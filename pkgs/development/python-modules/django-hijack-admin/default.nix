@@ -18,8 +18,8 @@ buildPythonPackage rec {
     sha256 = "0m98lchp2y43886n67j4s7miyd50pg2r5r966vjnxmd7nx7qkihf";
   };
 
-  nativeCheckInputs = [ django_nose ];
-  propagatedBuildInputs = [ django_hijack ];
+  nativeCheckInputs = [django_nose];
+  propagatedBuildInputs = [django_hijack];
 
   checkPhase = ''
     runHook preCheck
@@ -39,7 +39,7 @@ buildPythonPackage rec {
     description = "Admin integration for django-hijack";
     homepage = "https://github.com/arteria/django-hijack-admin";
     license = licenses.mit;
-    maintainers = with maintainers; [ lsix ];
+    maintainers = with maintainers; [lsix];
     # may be unmaintained, doesn't work with recent django-hijack:
     # https://github.com/django-hijack/django-hijack-admin/issues/46
     broken = true;

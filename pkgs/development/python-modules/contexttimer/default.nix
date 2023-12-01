@@ -27,9 +27,9 @@ buildPythonPackage rec {
       })
     ];
 
-  pythonImportsCheck = [ "contexttimer" ];
+  pythonImportsCheck = ["contexttimer"];
 
-  nativeCheckInputs = [ mock ];
+  nativeCheckInputs = [mock];
 
   checkPhase = ''
     ${python.interpreter} -m unittest tests/test_timer.py
@@ -39,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/brouberol/contexttimer";
     description = "A timer as a context manager";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ atila ];
+    maintainers = with maintainers; [atila];
   };
 }

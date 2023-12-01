@@ -16,11 +16,11 @@ buildPerlPackage rec {
   src = fetchFromGitHub {
     owner = "bioperl";
     repo = "bioperl-ext";
-    rev = "bioperl-ext-release-${lib.replaceStrings [ "." ] [ "-" ] version}";
+    rev = "bioperl-ext-release-${lib.replaceStrings ["."] ["-"] version}";
     sha256 = "sha256-+0tZ6q3PFem8DWa2vq+njOLmjDvMB0JhD0FGk00lVMA=";
   };
 
-  patches = [ ./fprintf.patch ];
+  patches = [./fprintf.patch];
 
   # Do not install other Bio-ext packages
   preConfigure = ''
@@ -38,6 +38,6 @@ buildPerlPackage rec {
     longDescription = ''
       Part of BioPerl Extensions (BioPerl-Ext) distribution, a collection of Bioperl C-compiled extensions.
     '';
-    license = with lib.licenses; [ artistic1 ];
+    license = with lib.licenses; [artistic1];
   };
 }

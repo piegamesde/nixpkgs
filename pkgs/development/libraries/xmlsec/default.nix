@@ -27,7 +27,7 @@ lib.fix (
 
     patches = [
       ./lt_dladdsearchdir.patch
-    ] ++ lib.optionals stdenv.isDarwin [ ./remove_bsd_base64_decode_flag.patch ];
+    ] ++ lib.optionals stdenv.isDarwin [./remove_bsd_base64_decode_flag.patch];
     postPatch = ''
       substituteAllInPlace src/dl.c
     '';
@@ -37,7 +37,7 @@ lib.fix (
       "dev"
     ];
 
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
 
     buildInputs = [
       libxml2
@@ -56,7 +56,7 @@ lib.fix (
 
     enableParallelBuilding = true;
     doCheck = true;
-    nativeCheckInputs = [ nss.tools ];
+    nativeCheckInputs = [nss.tools];
     preCheck = ''
       substituteInPlace tests/testrun.sh \
         --replace 'timestamp=`date +%Y%m%d_%H%M%S`' 'timestamp=19700101_000000' \
@@ -65,7 +65,7 @@ lib.fix (
 
     # enable deprecated soap headers required by lasso
     # https://dev.entrouvert.org/issues/18771
-    configureFlags = [ "--enable-soap" ];
+    configureFlags = ["--enable-soap"];
 
     # otherwise libxmlsec1-gnutls.so won't find libgcrypt.so, after #909
     NIX_LDFLAGS = "-lgcrypt";
@@ -78,7 +78,7 @@ lib.fix (
     passthru.tests.libxmlsec1-crypto =
       runCommandCC "libxmlsec1-crypto-test"
         {
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             self
             libxml2
@@ -110,7 +110,7 @@ lib.fix (
       downloadPage = "https://www.aleksey.com/xmlsec/download.html";
       license = licenses.mit;
       mainProgram = "xmlsec1";
-      maintainers = with maintainers; [ ];
+      maintainers = with maintainers; [];
       platforms = with platforms; linux ++ darwin;
     };
   }

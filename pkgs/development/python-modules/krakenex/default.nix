@@ -16,17 +16,17 @@ buildPythonPackage rec {
     sha256 = "0j8qmpk6lm57h80i5njhgvm1qnxllm18dlqxfd4kyxdb93si4z2p";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # no tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [ "krakenex" ];
+  pythonImportsCheck = ["krakenex"];
 
   meta = with lib; {
     description = "Kraken.com cryptocurrency exchange API";
     homepage = "https://github.com/veox/python3-krakenex";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -41,12 +41,12 @@ buildPythonPackage rec {
   checkPhase = ''
     export NUMBA_CACHE_DIR="$(mktemp -d)"
   '';
-  pythonImportsCheck = [ "torchlibrosa" ];
+  pythonImportsCheck = ["torchlibrosa"];
 
   meta = with lib; {
     description = "PyTorch implemention of part of librosa functions";
     homepage = "https://github.com/qiuqiangkong/torchlibrosa";
     license = licenses.mit;
-    maintainers = with maintainers; [ azuwis ];
+    maintainers = with maintainers; [azuwis];
   };
 }

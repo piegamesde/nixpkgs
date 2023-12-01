@@ -29,13 +29,13 @@ buildPythonPackage rec {
   # tests are not implemented
   doCheck = false;
 
-  pythonImportsCheck = [ "aiolifx" ];
+  pythonImportsCheck = ["aiolifx"];
 
   meta = with lib; {
     description = "Module for local communication with LIFX devices over a LAN";
     homepage = "https://github.com/frawau/aiolifx";
     changelog = "https://github.com/frawau/aiolifx/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ netixx ];
+    maintainers = with maintainers; [netixx];
   };
 }

@@ -24,6 +24,6 @@ stdenv.mkDerivation rec {
     description = "Free Software for extracting Microsoft cabinet files";
     platforms = platforms.all;
     license = licenses.gpl3;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

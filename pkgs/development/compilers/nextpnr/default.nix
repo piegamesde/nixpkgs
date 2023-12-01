@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "nextpnr";
 
-  nativeBuildInputs = [ cmake ] ++ (lib.optional enableGui wrapQtAppsHook);
+  nativeBuildInputs = [cmake] ++ (lib.optional enableGui wrapQtAppsHook);
   buildInputs = [
     boostPython
     python3

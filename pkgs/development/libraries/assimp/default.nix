@@ -23,13 +23,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-vQx+PaET5mlvvIGHk6pEnZvM3qw8DiC3hd1Po6OAHxQ=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     boost
     zlib
   ];
 
-  cmakeFlags = [ "-DASSIMP_BUILD_ASSIMP_TOOLS=ON" ];
+  cmakeFlags = ["-DASSIMP_BUILD_ASSIMP_TOOLS=ON"];
 
   env.NIX_CFLAGS_COMPILE =
     toString
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     description = "A library to import various 3D model formats";
     homepage = "https://www.assimp.org/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

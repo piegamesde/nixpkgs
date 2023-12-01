@@ -15,19 +15,19 @@ buildPythonPackage rec {
     hash = "sha256-dAXX/eYIGdkFqfqM6J5M2DDjGM2tIqADD3qQHacFWF0=";
   };
 
-  nativeBuildInputs = [ jupyter-packaging ];
+  nativeBuildInputs = [jupyter-packaging];
 
   # no tests exist on upstream repo
   doCheck = false;
 
-  propagatedBuildInputs = [ pygments ];
+  propagatedBuildInputs = [pygments];
 
-  pythonImportsCheck = [ "jupyterlab_pygments" ];
+  pythonImportsCheck = ["jupyterlab_pygments"];
 
   meta = with lib; {
     description = "Jupyterlab syntax coloring theme for pygments";
     homepage = "https://github.com/jupyterlab/jupyterlab_pygments";
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

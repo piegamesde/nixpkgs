@@ -20,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-EqZlmOoQtC3Iuf0LG2PL0K2pluGqbyA6132lzgF4+ic=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -46,7 +46,7 @@ buildGoModule rec {
     changelog = "https://github.com/mrjosh/helm-ls/releases/tag/v${version}";
     homepage = "https://github.com/mrjosh/helm-ls";
     license = licenses.mit;
-    maintainers = with maintainers; [ stehessel ];
+    maintainers = with maintainers; [stehessel];
     mainProgram = "helm_ls";
   };
 }

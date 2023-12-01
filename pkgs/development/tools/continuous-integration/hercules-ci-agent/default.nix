@@ -32,7 +32,7 @@ let
           }
         '';
       })
-      (addBuildTools [ makeWrapper ] (justStaticExecutables haskellPackages.hercules-ci-agent));
+      (addBuildTools [makeWrapper] (justStaticExecutables haskellPackages.hercules-ci-agent));
 in
 pkg.overrideAttrs (
   o: {

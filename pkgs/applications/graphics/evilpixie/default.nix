@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/bcampbell/evilpixie"; # http://evilpixie.scumways.com/ is gone
     downloadPage = "https://github.com/bcampbell/evilpixie/releases";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
     # Undefined symbols for architecture x86_64:
     # "_bundle_path", referenced from: App::SetupPaths() in src_app.cpp.o

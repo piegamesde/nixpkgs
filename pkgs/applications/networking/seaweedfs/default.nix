@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-xmo82HgPRnrR53zKfKPadmut/vuNEM9jqbnqj0cTAuM=";
 
-  subPackages = [ "weed" ];
+  subPackages = ["weed"];
 
   ldflags = [
     "-w"

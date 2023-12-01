@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     intltool
     util-linux
   ];
-  buildInputs = [ util-linux ];
+  buildInputs = [util-linux];
 
   configureFlags = [
     "--with-media-dir=${mediaDir}"

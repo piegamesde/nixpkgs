@@ -9,7 +9,7 @@
   mkDerivation,
   openssl,
   wrapGAppsHook,
-  avahiWithLibdnssdCompat ? avahi.override { withLibdnssdCompat = true; },
+  avahiWithLibdnssdCompat ? avahi.override {withLibdnssdCompat = true;},
   fetchpatch,
 }:
 
@@ -53,7 +53,7 @@ mkDerivation rec {
     substituteInPlace "$out/share/applications/barrier.desktop" --replace "Exec=barrier" "Exec=$out/bin/barrier"
   '';
 
-  qtWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ openssl ]}" ];
+  qtWrapperArgs = ["--prefix PATH : ${lib.makeBinPath [openssl]}"];
 
   meta = {
     description = "Open-source KVM software";
@@ -65,7 +65,7 @@ mkDerivation rec {
     homepage = "https://github.com/debauchee/barrier";
     downloadPage = "https://github.com/debauchee/barrier/releases";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.phryneas ];
+    maintainers = [lib.maintainers.phryneas];
     platforms = lib.platforms.linux;
   };
 }

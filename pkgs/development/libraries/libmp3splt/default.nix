@@ -20,18 +20,18 @@ stdenv.mkDerivation rec {
     "out"
     "dev"
   ];
-  nativeBuildInputs = [ libtool ];
+  nativeBuildInputs = [libtool];
   buildInputs = [
     libmad
     libid3tag
   ];
 
-  configureFlags = [ "--disable-pcre" ];
+  configureFlags = ["--disable-pcre"];
 
   meta = with lib; {
     homepage = "https://sourceforge.net/projects/mp3splt/";
     description = "Utility to split mp3, ogg vorbis and FLAC files without decoding";
-    maintainers = with maintainers; [ bosu ];
+    maintainers = with maintainers; [bosu];
     platforms = platforms.unix;
     license = licenses.gpl2;
   };

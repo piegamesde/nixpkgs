@@ -18,14 +18,14 @@ buildDunePackage rec {
     sha256 = "sha256-eh/ymZO/3a1z6uvZdnXgma/7AU2NBVs2lddA+R/kuQA=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [ frei0r ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [dune-configurator];
+  propagatedBuildInputs = [frei0r];
 
   meta = with lib; {
     homepage = "https://github.com/savonet/ocaml-frei0r";
     description = "Bindings for the frei0r API which provides video effects";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

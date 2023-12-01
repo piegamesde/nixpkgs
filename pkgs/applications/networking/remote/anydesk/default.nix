@@ -35,7 +35,7 @@ let
     icon = "anydesk";
     desktopName = "AnyDesk";
     genericName = description;
-    categories = [ "Network" ];
+    categories = ["Network"];
     startupNotify = false;
   };
 in
@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
       ]
     );
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -140,9 +140,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     inherit description;
     homepage = "https://www.anydesk.com";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     maintainers = with maintainers; [
       shyim
       cheriimoya

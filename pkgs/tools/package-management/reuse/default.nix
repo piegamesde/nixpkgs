@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-J+zQrokrAX5tRU/2RPPSaFDyfsACPHHQYbK5sO99CMs=";
   };
 
-  nativeBuildInputs = with python3Packages; [ poetry-core ];
+  nativeBuildInputs = with python3Packages; [poetry-core];
 
   propagatedBuildInputs = with python3Packages; [
     binaryornot
@@ -28,7 +28,7 @@ python3Packages.buildPythonApplication rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [pytestCheckHook];
 
   meta = with lib; {
     description = "A tool for compliance with the REUSE Initiative recommendations";

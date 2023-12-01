@@ -62,7 +62,7 @@ let
     }
     .${guiModule};
 
-  mruby-zest = callPackage ./mruby-zest { };
+  mruby-zest = callPackage ./mruby-zest {};
 in
 stdenv.mkDerivation rec {
   pname = "zynaddsubfx";
@@ -99,15 +99,15 @@ stdenv.mkDerivation rec {
       minixml
       zlib
     ]
-    ++ lib.optionals alsaSupport [ alsa-lib ]
+    ++ lib.optionals alsaSupport [alsa-lib]
     ++ lib.optionals dssiSupport [
       dssi
       ladspaH
     ]
-    ++ lib.optionals jackSupport [ libjack2 ]
-    ++ lib.optionals lashSupport [ lash ]
-    ++ lib.optionals portaudioSupport [ portaudio ]
-    ++ lib.optionals sndioSupport [ sndio ]
+    ++ lib.optionals jackSupport [libjack2]
+    ++ lib.optionals lashSupport [lash]
+    ++ lib.optionals portaudioSupport [portaudio]
+    ++ lib.optionals sndioSupport [sndio]
     ++ lib.optionals (guiModule == "fltk") [
       fltk
       libjpeg
@@ -124,7 +124,7 @@ stdenv.mkDerivation rec {
     ];
 
   cmakeFlags =
-    [ "-DGuiModule=${guiModule}" ]
+    ["-DGuiModule=${guiModule}"]
     # OSS library is included in glibc.
     # Must explicitly disable if support is not wanted.
     ++ lib.optional (!ossSupport) "-DOssEnable=OFF"
@@ -143,7 +143,7 @@ stdenv.mkDerivation rec {
       disabledTests =
         # PortChecker test fails when lashSupport is enabled because
         # zynaddsubfx takes to long to start trying to connect to lash
-        lib.optionals lashSupport [ "PortChecker" ]
+        lib.optionals lashSupport ["PortChecker"]
 
         # Tests fail on aarch64
         ++ lib.optionals stdenv.isAarch64 [

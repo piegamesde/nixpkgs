@@ -23,22 +23,22 @@ buildPythonPackage rec {
     hash = "sha256-Nu9pulVSZysgm/F7jl+VpoqMCiHeysZjQDQ1dT7AnpE=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   checkInputs = [
     numpy
     pandas
     pytestCheckHook
   ];
-  pythonImportsCheck = [ "ancpbids" ];
+  pythonImportsCheck = ["ancpbids"];
 
-  pytestFlagsArray = [ "tests/auto" ];
-  disabledTests = [ "test_fetch_dataset" ];
+  pytestFlagsArray = ["tests/auto"];
+  disabledTests = ["test_fetch_dataset"];
 
   meta = with lib; {
     homepage = "https://ancpbids.readthedocs.io";
     description = "Read/write/validate/query BIDS datasets";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

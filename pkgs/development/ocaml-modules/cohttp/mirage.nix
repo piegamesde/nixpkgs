@@ -20,7 +20,7 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  nativeBuildInputs = [ ppx_sexp_conv ];
+  nativeBuildInputs = [ppx_sexp_conv];
 
   propagatedBuildInputs = [
     mirage-flow

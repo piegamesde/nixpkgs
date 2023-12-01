@@ -21,8 +21,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-hYNnzVhw0yCqgRcRJCZusuY+g+MZn1DD5pfDTJlTv+w=";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl] ++ lib.optional stdenv.isDarwin Security;
 
   # Tests fail because of client server setup which is not possible inside the pure environment,
   # see https://github.com/mozilla/sccache/issues/460

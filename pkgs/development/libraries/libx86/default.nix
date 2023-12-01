@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   # using BACKEND=x86emu on 64bit systems fixes:
   #  http://www.mail-archive.com/suspend-devel@lists.sourceforge.net/msg02355.html
-  makeFlags = [ "DESTDIR=$(out)" ] ++ lib.optional (!stdenv.isi686) "BACKEND=x86emu";
+  makeFlags = ["DESTDIR=$(out)"] ++ lib.optional (!stdenv.isi686) "BACKEND=x86emu";
 
   preBuild = ''
     sed -i lrmi.c -e 's@defined(__i386__)@(defined(__i386__) || defined(__x86_64__))@'
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Real-mode x86 code emulator";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = [
       "x86_64-linux"
       "i686-linux"

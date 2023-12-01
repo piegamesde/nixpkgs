@@ -27,9 +27,9 @@ buildPythonPackage rec {
     pyparsing
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pulp" ];
+  pythonImportsCheck = ["pulp"];
 
   disabledTests = [
     # The solver is not available
@@ -41,6 +41,6 @@ buildPythonPackage rec {
     description = "Module to generate  generate MPS or LP files";
     homepage = "https://github.com/coin-or/pulp";
     license = licenses.mit;
-    maintainers = with maintainers; [ teto ];
+    maintainers = with maintainers; [teto];
   };
 }

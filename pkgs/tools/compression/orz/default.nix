@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
     "lib"
   ];
 
-  nativeBuildInputs = [ rust-cbindgen ];
+  nativeBuildInputs = [rust-cbindgen];
 
   postInstall = ''
     cbindgen -o $dev/include/orz.h
@@ -37,6 +37,6 @@ rustPlatform.buildRustPackage rec {
     description = "A high performance, general purpose data compressor written in rust";
     homepage = "https://github.com/richox/orz";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

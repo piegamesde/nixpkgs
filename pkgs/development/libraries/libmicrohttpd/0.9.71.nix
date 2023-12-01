@@ -1,4 +1,4 @@
-{ callPackage, fetchurl }:
+{callPackage, fetchurl}:
 
 callPackage ./generic.nix (rec {
   version = "0.9.71";

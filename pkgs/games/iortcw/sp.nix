@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     "USE_CURL_DLOPEN=0"
   ];
 
-  installTargets = [ "copyfiles" ];
+  installTargets = ["copyfiles"];
 
   buildInputs = [
     opusfile
@@ -45,13 +45,13 @@ stdenv.mkDerivation rec {
     openal
     curl
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-I${SDL2.dev}/include/SDL2"
     "-I${opusfile.dev}/include/opus"
   ];
-  NIX_CFLAGS_LINK = [ "-lSDL2" ];
+  NIX_CFLAGS_LINK = ["-lSDL2"];
 
   postInstall = ''
     for i in `find $out/opt/iortcw -maxdepth 1 -type f -executable`; do
@@ -64,6 +64,6 @@ stdenv.mkDerivation rec {
     homepage = src.meta.homepage;
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

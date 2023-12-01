@@ -36,7 +36,7 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ flask ];
+  propagatedBuildInputs = [flask];
 
   checkPhase = ''
     runHook preCheck
@@ -44,12 +44,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "flask_basicauth" ];
+  pythonImportsCheck = ["flask_basicauth"];
 
   meta = with lib; {
     homepage = "https://github.com/jpvanhal/flask-basicauth";
     description = "HTTP basic access authentication for Flask";
     license = licenses.mit;
-    maintainers = with maintainers; [ wesnel ];
+    maintainers = with maintainers; [wesnel];
   };
 }

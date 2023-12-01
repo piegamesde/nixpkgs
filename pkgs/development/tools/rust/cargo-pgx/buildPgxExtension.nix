@@ -51,8 +51,8 @@
 {
   buildAndTestSubdir ? null,
   buildType ? "release",
-  buildFeatures ? [ ],
-  cargoBuildFlags ? [ ],
+  buildFeatures ? [],
+  cargoBuildFlags ? [],
   postgresql,
   # cargo-pgx calls rustfmt on generated bindings, this is not strictly necessary, so we avoid the
   # dependency here. Set to false and provide rustfmt in nativeBuildInputs, if you need it, e.g.
@@ -62,7 +62,7 @@
 }@args:
 let
   rustfmtInNativeBuildInputs = lib.lists.any (dep: lib.getName dep == "rustfmt") (
-    args.nativeBuildInputs or [ ]
+    args.nativeBuildInputs or []
   );
 in
 
@@ -108,17 +108,17 @@ let
   # so we don't accidentally `(rustPlatform.buildRustPackage argsForBuildRustPackage) // { ... }` because
   # we forgot parentheses
   finalArgs = argsForBuildRustPackage // {
-    buildInputs = (args.buildInputs or [ ]) ++ lib.optionals stdenv.isDarwin [ Security ];
+    buildInputs = (args.buildInputs or []) ++ lib.optionals stdenv.isDarwin [Security];
 
     nativeBuildInputs =
-      (args.nativeBuildInputs or [ ])
+      (args.nativeBuildInputs or [])
       ++ [
         cargo-pgx
         postgresql
         pkg-config
         rustPlatform.bindgenHook
       ]
-      ++ lib.optionals useFakeRustfmt [ fakeRustfmt ];
+      ++ lib.optionals useFakeRustfmt [fakeRustfmt];
 
     buildPhase = ''
       runHook preBuild
@@ -164,7 +164,7 @@ let
     RUST_BACKTRACE = "full";
 
     checkNoDefaultFeatures = true;
-    checkFeatures = (args.checkFeatures or [ ]) ++ [ "pg_test pg${pgxPostgresMajor}" ];
+    checkFeatures = (args.checkFeatures or []) ++ ["pg_test pg${pgxPostgresMajor}"];
   };
 in
 rustPlatform.buildRustPackage finalArgs

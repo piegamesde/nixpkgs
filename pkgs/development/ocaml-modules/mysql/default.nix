@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
 
   createFindlibDestdir = true;
 
-  propagatedBuildInputs = [ libmysqlclient ];
+  propagatedBuildInputs = [libmysqlclient];
 
   strictDeps = true;
 
@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     homepage = "http://ocaml-mysql.forge.ocamlcore.org";
     description = "Bindings for interacting with MySQL databases from ocaml";
     license = lib.licenses.lgpl21Plus;
-    maintainers = [ lib.maintainers.roconnor ];
+    maintainers = [lib.maintainers.roconnor];
   };
 }

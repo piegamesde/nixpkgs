@@ -52,12 +52,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "sql" ];
+  pythonImportsCheck = ["sql"];
 
   meta = with lib; {
     description = "Introduces a %sql (or %%sql) magic.";
     homepage = "https://github.com/catherinedevlin/ipython-sql";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

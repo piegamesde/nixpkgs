@@ -19,7 +19,7 @@ in
 
 {
   meta = {
-    maintainers = with maintainers; [ arobyn ];
+    maintainers = with maintainers; [arobyn];
   };
 
   options = {
@@ -49,12 +49,12 @@ in
       isSystemUser = true;
       group = "dante";
     };
-    users.groups.dante = { };
+    users.groups.dante = {};
 
     systemd.services.dante = {
       description = "Dante SOCKS v4 and v5 compatible proxy server";
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "simple";

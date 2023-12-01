@@ -20,7 +20,7 @@ mkDerivation {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -36,6 +36,6 @@ mkDerivation {
     description = "An application for building and managing Phars";
     license = licenses.mit;
     homepage = "https://github.com/box-project/box";
-    maintainers = with maintainers; [ jtojnar ] ++ teams.php.members;
+    maintainers = with maintainers; [jtojnar] ++ teams.php.members;
   };
 }

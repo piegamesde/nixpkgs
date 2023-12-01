@@ -33,14 +33,14 @@ buildPythonPackage rec {
     in
     ''
       # required for the custom _find_library function in setup.py
-      export ${ldLibraryPathEnvName}="${lib.makeLibraryPath [ liberasurecode ]}"
+      export ${ldLibraryPathEnvName}="${lib.makeLibraryPath [liberasurecode]}"
     '';
 
-  buildInputs = [ liberasurecode ];
+  buildInputs = [liberasurecode];
 
-  nativeCheckInputs = [ six ];
+  nativeCheckInputs = [six];
 
-  pythonImportsCheck = [ "pyeclib" ];
+  pythonImportsCheck = ["pyeclib"];
 
   meta = with lib; {
     description = "This library provides a simple Python interface for implementing erasure codes.";

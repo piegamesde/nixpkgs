@@ -18,14 +18,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-6I9a841qohA42lhOgZf/hharnjkthuB8lRptPDxUgMI=";
   };
 
-  configureFlags = [ "--with-moduledir=${placeholder "out"}/lib/security" ];
+  configureFlags = ["--with-moduledir=${placeholder "out"}/lib/security"];
 
   buildInputs = [
     pam
     gnupg
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     description = "Unlock GnuPG keys on login";
@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/cruegge/pam-gnupg";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ mtreca ];
+    maintainers = with maintainers; [mtreca];
   };
 }

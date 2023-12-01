@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "0670a5sghvqx32c9gfsird15mg9nqcvwxsrfcjrwc0sj7br9bd2g";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postPatch = ''
     # Use zfs binaries from PATH, because often the zfs package from nixpkgs is
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     description = "A portable, performant script to make rolling ZFS snapshots easy";
     homepage = "https://github.com/zfsnap/zfsnap";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ woffs ];
+    maintainers = with maintainers; [woffs];
     platforms = platforms.linux;
   };
 }

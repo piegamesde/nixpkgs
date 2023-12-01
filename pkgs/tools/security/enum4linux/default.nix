@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = [
     openldap
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     description = "A tool for enumerating information from Windows and Samba systems";
     homepage = "https://labs.portcullis.co.uk/tools/enum4linux/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ fishi0x01 ];
+    maintainers = with maintainers; [fishi0x01];
     platforms = platforms.unix;
   };
 }

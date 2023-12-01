@@ -35,8 +35,8 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    async = [ aiofiles ];
-    usb = [ libusb1 ];
+    async = [aiofiles];
+    usb = [libusb1];
   };
 
   nativeCheckInputs = [
@@ -45,12 +45,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ passthru.optional-dependencies.async ++ passthru.optional-dependencies.usb;
 
-  pythonImportsCheck = [ "adb_shell" ];
+  pythonImportsCheck = ["adb_shell"];
 
   meta = with lib; {
     description = "Python implementation of ADB with shell and FileSync functionality";
     homepage = "https://github.com/JeffLIrion/adb_shell";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jamiemagee ];
+    maintainers = with maintainers; [jamiemagee];
   };
 }

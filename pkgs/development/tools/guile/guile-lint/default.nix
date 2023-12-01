@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "1gnhnmki05pkmzpbfc07vmb2iwza6vhy75y03bw2x2rk4fkggz2v";
   };
 
-  buildInputs = [ guile ];
+  buildInputs = [guile];
 
   unpackPhase = ''tar xjvf "$src" && sourceRoot="$PWD/${pname}-${version}"'';
 
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     description = "Checks syntax and semantics in a Guile program or module";
     homepage = "https://user42.tuxfamily.org/guile-lint/index.html";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ vyp ];
+    maintainers = with maintainers; [vyp];
     platforms = platforms.all;
   };
 }

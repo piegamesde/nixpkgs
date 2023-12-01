@@ -20,8 +20,8 @@ stdenv.mkDerivation rec {
     sha256 = "1x5hb97zbvkm73q53ydp1gwj8nnznm72q9c4rm6ny7phr995l3db";
   };
 
-  patches = [ ./nagios.patch ];
-  nativeBuildInputs = [ unzip ];
+  patches = [./nagios.patch];
+  nativeBuildInputs = [unzip];
   buildInputs = [
     php
     perl
@@ -30,8 +30,8 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  configureFlags = [ "--localstatedir=/var/lib/nagios" ];
-  buildFlags = [ "all" ];
+  configureFlags = ["--localstatedir=/var/lib/nagios"];
+  buildFlags = ["all"];
 
   # Do not create /var directories
   preInstall = ''

@@ -2,14 +2,14 @@ import ./make-test-python.nix {
   name = "dhparams";
 
   nodes.machine =
-    { pkgs, ... }:
+    {pkgs, ...}:
     {
       security.dhparams.enable = true;
-      environment.systemPackages = [ pkgs.openssl ];
+      environment.systemPackages = [pkgs.openssl];
 
       specialisation = {
         gen1.configuration =
-          { config, ... }:
+          {config, ...}:
           {
             security.dhparams.params = {
               # Use low values here because we don't want the test to run for ages.
@@ -21,7 +21,7 @@ import ./make-test-python.nix {
 
             systemd.services.foo = {
               description = "Check systemd Ordering";
-              wantedBy = [ "multi-user.target" ];
+              wantedBy = ["multi-user.target"];
               unitConfig = {
                 # This is to make sure that the dhparams generation of foo occurs
                 # before this service so we need this service to start as early as
@@ -44,7 +44,7 @@ import ./make-test-python.nix {
         gen2.configuration = {
           security.dhparams.params.foo.bits = 1026;
         };
-        gen3.configuration = { };
+        gen3.configuration = {};
         gen4.configuration = {
           security.dhparams.stateful = false;
           security.dhparams.params.foo2.bits = 1027;
@@ -52,14 +52,14 @@ import ./make-test-python.nix {
         };
         gen5.configuration = {
           security.dhparams.defaultBitSize = 1029;
-          security.dhparams.params.foo3 = { };
-          security.dhparams.params.bar3 = { };
+          security.dhparams.params.foo3 = {};
+          security.dhparams.params.bar3 = {};
         };
       };
     };
 
   testScript =
-    { nodes, ... }:
+    {nodes, ...}:
     let
       getParamPath =
         gen: name:

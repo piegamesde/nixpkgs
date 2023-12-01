@@ -39,13 +39,13 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
-    [ gtk2 ]
-    ++ lib.optionals gpgSupport [ gpgme ]
-    ++ lib.optionals sslSupport [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ Foundation ];
+    [gtk2]
+    ++ lib.optionals gpgSupport [gpgme]
+    ++ lib.optionals sslSupport [openssl]
+    ++ lib.optionals stdenv.isDarwin [Foundation];
 
   configureFlags = lib.optional gpgSupport "--enable-gpgme" ++ lib.optional sslSupport "--enable-ssl";
 
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://sylpheed.sraoss.jp/en/";
     description = "Lightweight and user-friendly e-mail client";
-    maintainers = with maintainers; [ eelco ];
+    maintainers = with maintainers; [eelco];
     platforms = platforms.linux ++ platforms.darwin;
     license = licenses.gpl2;
   };

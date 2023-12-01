@@ -1,11 +1,11 @@
 import ../make-test-python.nix (
-  { ... }:
+  {...}:
 
   {
     name = "pam-u2f";
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
         security.pam.u2f = {
           control = "required";

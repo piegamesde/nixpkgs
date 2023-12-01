@@ -12,7 +12,7 @@ let
     description = "The swiss army knife of lossless video/audio editing";
     homepage = "https://mifi.no/losslesscut/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ ShamrockLee ];
+    maintainers = with maintainers; [ShamrockLee];
   };
   x86_64-appimage = callPackage ./build-from-appimage.nix {
     inherit pname version metaCommon;
@@ -46,7 +46,7 @@ in
 ).overrideAttrs
   (
     oldAttrs: {
-      passthru = (oldAttrs.passthru or { }) // {
+      passthru = (oldAttrs.passthru or {}) // {
         inherit
           x86_64-appimage
           x86_64-dmg

@@ -22,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/awslabs/eks-node-viewer";
     changelog = "https://github.com/awslabs/eks-node-viewer/releases/tag/${version}";
     license = licenses.afl20;
-    maintainers = [ maintainers.ivankovnatsky ];
+    maintainers = [maintainers.ivankovnatsky];
   };
 }

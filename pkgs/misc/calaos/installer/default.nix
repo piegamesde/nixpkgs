@@ -23,9 +23,9 @@ mkDerivation rec {
     qmake
     qttools
   ];
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
-  qmakeFlags = [ "REVISION=${version}" ];
+  qmakeFlags = ["REVISION=${version}"];
 
   installPhase =
     if stdenv.isDarwin then
@@ -44,6 +44,6 @@ mkDerivation rec {
     homepage = "https://www.calaos.fr/";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ tiramiseb ];
+    maintainers = with maintainers; [tiramiseb];
   };
 }

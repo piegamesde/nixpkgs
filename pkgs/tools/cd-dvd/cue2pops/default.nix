@@ -17,7 +17,7 @@ stdenv.mkDerivation {
 
   dontConfigure = true;
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     install --directory --mode=755 $out/bin
@@ -27,7 +27,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Convert CUE to ISO suitable to POPStarter";
     homepage = "https://github.com/makefu/cue2pops-linux";
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.all;
   };
 }

@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A very small CLI for converting TOML to JSON";
     homepage = "https://github.com/woodruffw/toml2json";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ rvarago ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [rvarago];
   };
 }

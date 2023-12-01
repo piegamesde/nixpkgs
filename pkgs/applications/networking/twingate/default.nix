@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     description = "Twingate Client";
     homepage = "https://twingate.com";
     license = licenses.unfree;
-    maintainers = with maintainers; [ tonyshkurenko ];
+    maintainers = with maintainers; [tonyshkurenko];
     platforms = platforms.linux;
   };
 }

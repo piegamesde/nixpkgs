@@ -21,6 +21,6 @@ buildPythonPackage rec {
     description = "A dash component starter pack";
     homepage = "https://dash.plot.ly/dash-core-components";
     license = licenses.mit;
-    maintainers = [ maintainers.antoinerg ];
+    maintainers = [maintainers.antoinerg];
   };
 }

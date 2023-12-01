@@ -17,11 +17,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-PgWg396AQ15CAnfTXGDpSg1UXx7mNCtknEjJd/KV4MU=";
   };
 
-  buildInputs = [ python ];
+  buildInputs = [python];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   postInstall = ''
     installShellCompletion --bash --name googler.bash auto-completion/bash/googler-completion.bash

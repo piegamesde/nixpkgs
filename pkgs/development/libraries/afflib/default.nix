@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xkqBfTftzn+rgeuoaKfHP7vQmy4VZuaCq8VFlfZTUE4=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs =
     [
       zlib
@@ -32,15 +32,15 @@ stdenv.mkDerivation rec {
       openssl
       python3
     ]
-    ++ lib.optionals (with stdenv; isLinux || isDarwin) [ fuse ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv ];
+    ++ lib.optionals (with stdenv; isLinux || isDarwin) [fuse]
+    ++ lib.optionals stdenv.isDarwin [libiconv];
 
   meta = {
     homepage = "http://afflib.sourceforge.net/";
     description = "Advanced forensic format library";
     platforms = lib.platforms.unix;
     license = lib.licenses.bsdOriginal;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     downloadPage = "https://github.com/sshock/AFFLIBv3/tags";
   };
 }

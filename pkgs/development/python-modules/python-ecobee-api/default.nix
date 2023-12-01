@@ -14,17 +14,17 @@ buildPythonPackage rec {
     hash = "sha256-wzL1WylQAFLxWu3lDFqQtLxJbQjse4OX/fbzaaEuvGQ=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # no tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [ "pyecobee" ];
+  pythonImportsCheck = ["pyecobee"];
 
   meta = with lib; {
     description = "Python API for talking to Ecobee thermostats";
     homepage = "https://github.com/nkgilley/python-ecobee-api";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

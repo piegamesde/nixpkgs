@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "1g8i6vpjnnfh7vc1269c91bap267w4bxdqqwnzb8x18vqgn2fx8i";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildPhase = null;
 
@@ -42,6 +42,6 @@ stdenv.mkDerivation rec {
     description = "See your latest local git branches, formatted real fancy";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [ maintainers.jlesquembre ];
+    maintainers = [maintainers.jlesquembre];
   };
 }

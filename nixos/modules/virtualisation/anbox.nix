@@ -75,7 +75,7 @@ in
       message = "Anbox needs user namespace support to work properly";
     };
 
-    environment.systemPackages = with pkgs; [ anbox ];
+    environment.systemPackages = with pkgs; [anbox];
 
     services.udev.extraRules = ''
       KERNEL=="ashmem", NAME="%k", MODE="0666"
@@ -83,12 +83,12 @@ in
     '';
 
     virtualisation.lxc.enable = true;
-    networking.bridges.anbox0.interfaces = [ ];
-    networking.interfaces.anbox0.ipv4.addresses = [ cfg.ipv4.gateway ];
+    networking.bridges.anbox0.interfaces = [];
+    networking.interfaces.anbox0.ipv4.addresses = [cfg.ipv4.gateway];
 
     networking.nat = {
       enable = true;
-      internalInterfaces = [ "anbox0" ];
+      internalInterfaces = ["anbox0"];
     };
 
     systemd.services.anbox-container-manager =
@@ -100,7 +100,7 @@ in
 
         environment.XDG_RUNTIME_DIR = "${anboxloc}";
 
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         preStart =
           let
             initsh = pkgs.writeText "nixos-init" (

@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-9W9Pz0VrFU+HNpf98I3CLrn8+kpjjNLOUK8gGcDJcI8=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     gflags
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     "-DDISABLE_CRASH_LOG=TRUE"
   ];
 
-  CXXFLAGS = lib.optionals stdenv.cc.isClang [ "-std=c++17" ];
+  CXXFLAGS = lib.optionals stdenv.cc.isClang ["-std=c++17"];
 
   doCheck = true;
 
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     homepage = "https://eternalterminal.dev/";
     changelog = "https://github.com/MisterTea/EternalTerminal/releases/tag/et-v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dezgeg ];
+    maintainers = with maintainers; [dezgeg];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

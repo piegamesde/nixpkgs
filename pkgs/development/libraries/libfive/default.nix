@@ -53,7 +53,7 @@ mkDerivation {
     export XDG_CACHE_HOME=$(mktemp -d)/.cache
   '';
 
-  cmakeFlags = [ "-DGUILE_CCACHE_DIR=${placeholder "out"}/lib/guile/3.0/ccache" ];
+  cmakeFlags = ["-DGUILE_CCACHE_DIR=${placeholder "out"}/lib/guile/3.0/ccache"];
 
   postInstall =
     if stdenv.isDarwin then

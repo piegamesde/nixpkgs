@@ -59,9 +59,9 @@ buildPythonPackage rec {
     scipy
     types-python-dateutil
     types-retry
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  ] ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   checkInputs = [
     pytest-asyncio
@@ -99,13 +99,13 @@ buildPythonPackage rec {
     "test_classical"
   ];
 
-  pythonImportsCheck = [ "pyquil" ];
+  pythonImportsCheck = ["pyquil"];
 
   meta = with lib; {
     description = "Python library for creating Quantum Instruction Language (Quil) programs";
     homepage = "https://github.com/rigetti/pyquil";
     changelog = "https://github.com/rigetti/pyquil/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

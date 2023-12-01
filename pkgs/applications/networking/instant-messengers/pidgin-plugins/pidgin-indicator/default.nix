@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "An AppIndicator and KStatusNotifierItem Plugin for Pidgin";
     homepage = "https://github.com/philipl/pidgin-indicator";
-    maintainers = with maintainers; [ imalison ];
+    maintainers = with maintainers; [imalison];
     license = licenses.gpl2;
     platforms = with platforms; linux;
   };

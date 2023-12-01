@@ -33,6 +33,6 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.02")
       description = "Semantic versioning module";
       platforms = ocaml.meta.platforms;
       license = lib.licenses.bsd3;
-      maintainers = [ lib.maintainers.ulrikstrid ];
+      maintainers = [lib.maintainers.ulrikstrid];
     };
   }

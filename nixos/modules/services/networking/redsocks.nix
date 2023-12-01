@@ -67,14 +67,14 @@ in
             proxy = "1.2.3.4:8080";
             type = "http-relay";
             redirectCondition = "--dport 80";
-            doNotRedirect = [ "-d 1.2.0.0/16" ];
+            doNotRedirect = ["-d 1.2.0.0/16"];
           }
           {
             port = 23457;
             proxy = "1.2.3.4:8080";
             type = "http-connect";
             redirectCondition = true;
-            doNotRedirect = [ "-d 1.2.0.0/16" ];
+            doNotRedirect = ["-d 1.2.0.0/16"];
           }
         ];
         type = types.listOf (
@@ -156,12 +156,12 @@ in
 
               doNotRedirect = mkOption {
                 type = with types; listOf str;
-                default = [ ];
+                default = [];
                 description = lib.mdDoc ''
                   Iptables filters that if matched will get the packet off of
                   redsocks.
                 '';
-                example = [ "-d 1.2.3.4" ];
+                example = ["-d 1.2.3.4"];
               };
 
               redirectCondition = mkOption {
@@ -271,7 +271,7 @@ in
           cfg.redsocks;
     in
     mkIf cfg.enable {
-      users.groups.redsocks = { };
+      users.groups.redsocks = {};
       users.users.redsocks = {
         description = "Redsocks daemon";
         group = "redsocks";
@@ -280,8 +280,8 @@ in
 
       systemd.services.redsocks = {
         description = "Redsocks";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
         script = "${pkgs.redsocks}/bin/redsocks -c ${configfile}";
       };
 
@@ -300,5 +300,5 @@ in
           cfg.redsocks;
     };
 
-  meta.maintainers = with lib.maintainers; [ ekleog ];
+  meta.maintainers = with lib.maintainers; [ekleog];
 }

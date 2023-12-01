@@ -17,11 +17,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-D5FUhv1moQKzcLj/3VWJNs24jTXJir1dMpv59orPTtc=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   postInstall = ''
     installShellCompletion --bash --name ddgr.bash auto-completion/bash/ddgr-completion.bash

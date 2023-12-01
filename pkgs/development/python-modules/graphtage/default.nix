@@ -41,15 +41,15 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "graphtage" ];
+  pythonImportsCheck = ["graphtage"];
 
   meta = with lib; {
     description = "A utility to diff tree-like files such as JSON and XML";
     homepage = "https://github.com/trailofbits/graphtage";
     changelog = "https://github.com/trailofbits/graphtage/releases/tag/v${version}";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ veehaitch ];
+    maintainers = with maintainers; [veehaitch];
   };
 }

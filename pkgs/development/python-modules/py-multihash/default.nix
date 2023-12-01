@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-z1lmSypGCMFWJNzNgV9hx/IStyXbpd5jvrptFpewuOA=";
   };
 
-  nativeBuildInputs = [ pytest-runner ];
+  nativeBuildInputs = [pytest-runner];
 
   propagatedBuildInputs = [
     base58
@@ -32,14 +32,14 @@ buildPythonPackage rec {
     varint
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "multihash" ];
+  pythonImportsCheck = ["multihash"];
 
   meta = with lib; {
     description = "Self describing hashes - for future proofing";
     homepage = "https://github.com/multiformats/py-multihash";
     license = licenses.mit;
-    maintainers = with maintainers; [ rakesh4g ];
+    maintainers = with maintainers; [rakesh4g];
   };
 }

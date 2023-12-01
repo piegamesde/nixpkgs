@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
     description = "A C library that provides a simple interface to read whole-slide images.";
     license = licenses.lgpl21;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ lromor ];
+    maintainers = with maintainers; [lromor];
   };
 }

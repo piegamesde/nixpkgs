@@ -24,8 +24,8 @@ stdenv.mkDerivation {
     sha256 = "0pm5rbsfrm04hnifzdmsyz17rjk8h9h6d19jaikjc5y36z03xf1c";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ perlPackages.perl ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [perlPackages.perl];
   dontBuild = true;
 
   installPhase = ''
@@ -50,7 +50,7 @@ stdenv.mkDerivation {
     description = "Bluetooth HSP/HFP daemon";
     homepage = "https://github.com/pali/hsphfpd-prototype";
     license = licenses.artistic1;
-    maintainers = with maintainers; [ gebner ];
+    maintainers = with maintainers; [gebner];
     platforms = platforms.linux;
   };
 }

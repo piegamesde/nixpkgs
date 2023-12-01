@@ -25,7 +25,7 @@ mkDerivation {
     hash = "sha256-L0ZEyovnfMzM7JuITBuhb4tJ2Aqgw52IiKEfEGq7Yo0=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     csxcad
@@ -47,7 +47,7 @@ mkDerivation {
     description = "Minimal Application using the QCSXCAD library";
     homepage = "https://github.com/thliebig/AppCSXCAD";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ matthuszagh ];
+    maintainers = with maintainers; [matthuszagh];
     platforms = platforms.linux;
   };
 }

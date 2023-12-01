@@ -34,9 +34,9 @@ buildDotnetModule rec {
     bintools
   ];
 
-  runtimeDeps = [ mono ];
+  runtimeDeps = [mono];
 
-  executables = [ "EventStore.ClusterNode" ];
+  executables = ["EventStore.ClusterNode"];
 
   # This test has a problem running on macOS
   disabledTests = lib.optionals stdenv.isDarwin [

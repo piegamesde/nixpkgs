@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/NigelCunningham/pam-MySQL";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ netali ];
+    maintainers = with maintainers; [netali];
   };
 }

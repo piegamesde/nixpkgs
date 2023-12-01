@@ -19,7 +19,7 @@ stdenv.mkDerivation {
     sha256 = "13kwaymzkymjsdv8q95byd173i4vanj211vgx9cm0y8ag2r3cjsb";
   };
 
-  buildInputs = [ pidgin ];
+  buildInputs = [pidgin];
 
   installPhase = ''
     mkdir -p $out/lib/pidgin/
@@ -31,6 +31,6 @@ stdenv.mkDerivation {
     description = "Message delivery receipts (XEP-0184) Pidgin plugin";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

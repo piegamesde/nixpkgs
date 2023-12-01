@@ -52,7 +52,7 @@ let
   # build the final rustc arguments that can be different between different
   # crates
   libRustcOpts = lib.concatStringsSep " " (
-    baseRustcOpts ++ [ rustcMeta ] ++ (map (x: "--crate-type ${x}") crateType)
+    baseRustcOpts ++ [rustcMeta] ++ (map (x: "--crate-type ${x}") crateType)
   );
 
   binRustcOpts = lib.concatStringsSep " " (baseRustcOpts);
@@ -69,7 +69,7 @@ in
   LIB_PATH="${libPath}"
   LIB_NAME="${libName}"
 
-  CRATE_NAME='${lib.replaceStrings [ "-" ] [ "_" ] libName}'
+  CRATE_NAME='${lib.replaceStrings ["-"] ["_"] libName}'
 
   setup_link_paths
 

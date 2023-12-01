@@ -39,13 +39,13 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  pythonImportsCheck = [ "pudb" ];
+  pythonImportsCheck = ["pudb"];
 
   meta = with lib; {
     description = "A full-screen, console-based Python debugger";
     homepage = "https://github.com/inducer/pudb";
     changelog = "https://github.com/inducer/pudb/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

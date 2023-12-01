@@ -38,8 +38,8 @@ stdenv.mkDerivation rec {
     pari
     ntl
     gmp
-  ] ++ lib.optionals withFlint [ flint ];
-  nativeBuildInputs = [ autoreconfHook ];
+  ] ++ lib.optionals withFlint [flint];
+  nativeBuildInputs = [autoreconfHook];
   doCheck = true;
   meta = with lib; {
     description = "Elliptic curve tools";

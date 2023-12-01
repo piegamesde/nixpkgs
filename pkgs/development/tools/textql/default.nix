@@ -33,7 +33,7 @@ buildGoModule rec {
   '';
 
   # needed for tests
-  nativeBuildInputs = [ sqlite ];
+  nativeBuildInputs = [sqlite];
 
   doCheck = true;
 
@@ -41,6 +41,6 @@ buildGoModule rec {
     description = "Execute SQL against structured text like CSV or TSV";
     homepage = "https://github.com/dinedal/textql";
     license = licenses.mit;
-    maintainers = with maintainers; [ vrthra ];
+    maintainers = with maintainers; [vrthra];
   };
 }

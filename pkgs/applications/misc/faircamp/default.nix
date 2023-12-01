@@ -44,12 +44,12 @@ rustPlatform.buildRustPackage {
 
   postInstall = ''
     wrapProgram $out/bin/faircamp \
-      --prefix PATH : ${lib.makeBinPath [ ffmpeg ]}
+      --prefix PATH : ${lib.makeBinPath [ffmpeg]}
   '';
 
-  passthru.tests.wav = callPackage ./test-wav.nix { };
+  passthru.tests.wav = callPackage ./test-wav.nix {};
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "A self-hostable, statically generated bandcamp alternative";
@@ -67,7 +67,7 @@ rustPlatform.buildRustPackage {
     '';
     homepage = "https://simonrepp.com/faircamp/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
   };
 }

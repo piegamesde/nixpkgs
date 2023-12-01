@@ -27,8 +27,8 @@ buildDunePackage rec {
       --replace "libraries bigarray lwt" "libraries lwt"
   '';
 
-  nativeBuildInputs = [ cppo ];
-  buildInputs = [ dune-configurator ];
+  nativeBuildInputs = [cppo];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     libev
     ocplib-endian
@@ -37,7 +37,7 @@ buildDunePackage rec {
   meta = {
     homepage = "https://ocsigen.org/lwt/";
     description = "A cooperative threads library for OCaml";
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     license = lib.licenses.mit;
   };
 }

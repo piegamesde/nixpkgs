@@ -54,7 +54,7 @@ stdenv.mkDerivation {
     description = "A simple MP3 and Media player client for UNIX and UNIX like systems";
     homepage = "https://gmtp.sourceforge.io";
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     license = lib.licenses.bsd3;
   };
 }

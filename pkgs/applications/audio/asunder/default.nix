@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional opusSupport opusTools
     ++ lib.optional wavpackSupport wavpack
     ++ lib.optional monkeysAudioSupport monkeysAudio
-    ++ [ cdparanoia ];
+    ++ [cdparanoia];
 
   postInstall = ''
     wrapProgram "$out/bin/asunder" \
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     description = "A graphical Audio CD ripper and encoder for Linux";
     homepage = "http://littlesvr.ca/asunder/index.php";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ mudri ];
+    maintainers = with maintainers; [mudri];
     platforms = platforms.linux;
 
     longDescription = ''

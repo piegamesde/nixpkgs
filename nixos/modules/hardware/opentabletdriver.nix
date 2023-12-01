@@ -10,7 +10,7 @@ let
   cfg = config.hardware.opentabletdriver;
 in
 {
-  meta.maintainers = with lib.maintainers; [ thiagokokada ];
+  meta.maintainers = with lib.maintainers; [thiagokokada];
 
   options = {
     hardware.opentabletdriver = {
@@ -56,9 +56,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
-    services.udev.packages = [ cfg.package ];
+    services.udev.packages = [cfg.package];
 
     boot.blacklistedKernelModules = cfg.blacklistedKernelModules;
 
@@ -66,8 +66,8 @@ in
       with pkgs;
       mkIf cfg.daemon.enable {
         description = "Open source, cross-platform, user-mode tablet driver";
-        wantedBy = [ "graphical-session.target" ];
-        partOf = [ "graphical-session.target" ];
+        wantedBy = ["graphical-session.target"];
+        partOf = ["graphical-session.target"];
 
         serviceConfig = {
           Type = "simple";

@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ fuse ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [fuse];
 
   postPatch = ''
     # very ugly way of replacing the adb calls
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     description = "Mount Android phones on Linux with adb, no root required";
     inherit (src.meta) homepage;
     license = licenses.bsd3;
-    maintainers = with maintainers; [ Profpatsch ];
+    maintainers = with maintainers; [Profpatsch];
     platforms = platforms.linux;
   };
 }

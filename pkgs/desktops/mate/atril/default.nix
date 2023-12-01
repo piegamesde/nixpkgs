@@ -54,26 +54,26 @@ stdenv.mkDerivation rec {
       hicolor-icon-theme
       texlive.bin.core # for synctex, used by the pdf back-end
     ]
-    ++ lib.optionals enableDjvu [ djvulibre ]
-    ++ lib.optionals enableEpub [ webkitgtk ]
-    ++ lib.optionals enablePostScript [ libspectre ]
-    ++ lib.optionals enableXps [ libgxps ];
+    ++ lib.optionals enableDjvu [djvulibre]
+    ++ lib.optionals enableEpub [webkitgtk]
+    ++ lib.optionals enablePostScript [libspectre]
+    ++ lib.optionals enableXps [libgxps];
 
   configureFlags =
-    [ ]
-    ++ lib.optionals (enableDjvu) [ "--enable-djvu" ]
-    ++ lib.optionals (enableEpub) [ "--enable-epub" ]
-    ++ lib.optionals (enablePostScript) [ "--enable-ps" ]
-    ++ lib.optionals (enableXps) [ "--enable-xps" ]
-    ++ lib.optionals (enableImages) [ "--enable-pixbuf" ];
+    []
+    ++ lib.optionals (enableDjvu) ["--enable-djvu"]
+    ++ lib.optionals (enableEpub) ["--enable-epub"]
+    ++ lib.optionals (enablePostScript) ["--enable-ps"]
+    ++ lib.optionals (enableXps) ["--enable-xps"]
+    ++ lib.optionals (enableImages) ["--enable-pixbuf"];
 
   env.NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
 
-  makeFlags = [ "cajaextensiondir=$$out/lib/caja/extensions-2.0" ];
+  makeFlags = ["cajaextensiondir=$$out/lib/caja/extensions-2.0"];
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "A simple multi-page document viewer for the MATE desktop";

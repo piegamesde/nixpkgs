@@ -19,7 +19,7 @@ else
   stdenvNoCC.mkDerivation {
     name = "chicken-${name}-export-${version}";
     builder = ./builder.sh;
-    nativeBuildInputs = [ chicken ];
+    nativeBuildInputs = [chicken];
 
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";

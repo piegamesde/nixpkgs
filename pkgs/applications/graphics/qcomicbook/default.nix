@@ -52,6 +52,6 @@ mkDerivation rec {
     '';
 
     platforms = platforms.linux;
-    maintainers = with maintainers; [ greydot ];
+    maintainers = with maintainers; [greydot];
   };
 }

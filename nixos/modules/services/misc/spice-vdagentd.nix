@@ -18,11 +18,11 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ pkgs.spice-vdagent ];
+    environment.systemPackages = [pkgs.spice-vdagent];
 
     systemd.services.spice-vdagentd = {
       description = "spice-vdagent daemon";
-      wantedBy = [ "graphical.target" ];
+      wantedBy = ["graphical.target"];
       preStart = ''
         mkdir -p "/run/spice-vdagentd/"
       '';

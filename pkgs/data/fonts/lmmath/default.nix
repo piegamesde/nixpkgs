@@ -31,7 +31,7 @@ stdenvNoCC.mkDerivation rec {
     # which is a free license, legally equivalent to the LaTeX Project Public
     # License (LPPL), version 1.3c or later." - GUST website
     license = licenses.lppl13c;
-    maintainers = with maintainers; [ siddharthist ];
+    maintainers = with maintainers; [siddharthist];
     platforms = platforms.all;
   };
 }

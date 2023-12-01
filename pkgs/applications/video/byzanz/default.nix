@@ -25,7 +25,7 @@ stdenv.mkDerivation {
     hash = "sha256-3DUwXCPBAmeCRlDkiPUgwNyBa6bCvC/TLguMCK3bo4E=";
   };
 
-  patches = [ ./add-amflags.patch ];
+  patches = [./add-amflags.patch];
 
   preBuild = ''
     ./autogen.sh --prefix=$out
@@ -68,6 +68,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/GNOME/byzanz";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

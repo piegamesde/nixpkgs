@@ -5,7 +5,7 @@
   config,
 }:
 let
-  buildShellExtension = callPackage ./buildGnomeExtension.nix { };
+  buildShellExtension = callPackage ./buildGnomeExtension.nix {};
 
   # Index of all scraped extensions (with supported versions)
   extensionsIndex = lib.importJSON ./extensions.json;
@@ -78,9 +78,9 @@ rec {
   # Keep the last three versions in here
   gnomeExtensions = lib.trivial.pipe (gnome42Extensions // gnome43Extensions // gnome44Extensions) [
     # Apply some custom patches for automatically packaged extensions
-    (callPackage ./extensionOverrides.nix { })
+    (callPackage ./extensionOverrides.nix {})
     # Add all manually packaged extensions
-    (extensions: extensions // (callPackages ./manuallyPackaged.nix { }))
+    (extensions: extensions // (callPackages ./manuallyPackaged.nix {}))
     # Map the extension UUIDs to readable names
     (lib.attrValues)
     (mapReadableNames)
@@ -99,7 +99,7 @@ rec {
       }
     )
     # Export buildShellExtension function
-    (extensions: extensions // { inherit buildShellExtension; })
+    (extensions: extensions // {inherit buildShellExtension;})
     # Make the set "public"
     lib.recurseIntoAttrs
   ];

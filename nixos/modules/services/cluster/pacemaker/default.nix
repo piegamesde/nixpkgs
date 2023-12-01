@@ -33,7 +33,7 @@ in
       }
     ];
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     # required by pacemaker
     users.users.hacluster = {
@@ -41,13 +41,13 @@ in
       group = "pacemaker";
       home = "/var/lib/pacemaker";
     };
-    users.groups.pacemaker = { };
+    users.groups.pacemaker = {};
 
-    systemd.tmpfiles.rules = [ "d /var/log/pacemaker 0700 hacluster pacemaker -" ];
+    systemd.tmpfiles.rules = ["d /var/log/pacemaker 0700 hacluster pacemaker -"];
 
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
     systemd.services.pacemaker = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         StateDirectory = "pacemaker";
         StateDirectoryMode = "0700";

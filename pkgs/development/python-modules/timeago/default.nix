@@ -16,16 +16,16 @@ buildPythonPackage rec {
     sha256 = "sha256-PqORJKAVrjezU/yP2ky3gb1XsM8obDI3GQzi+mok/OM=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "test/testcase.py" ];
+  pytestFlagsArray = ["test/testcase.py"];
 
-  pythonImportsCheck = [ "timeago" ];
+  pythonImportsCheck = ["timeago"];
 
   meta = with lib; {
     description = "Python module to format past datetime output";
     homepage = "https://github.com/hustcc/timeago";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "1wpn15c617r7lfm1z9d5aggmmi339s6yn4pdz698j0r2bkl5gw6g";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libestr
     json_c
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     fastJson
   ];
 
-  configureFlags = [ "--enable-regexp" ];
+  configureFlags = ["--enable-regexp"];
 
   meta = with lib; {
     description = "Help to make sense out of syslog data, or, actually, any event data that is present in text form";

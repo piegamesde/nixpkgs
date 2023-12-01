@@ -19,7 +19,7 @@ buildDunePackage rec {
     sha256 = "0lh3591ad4v7nxpd410b75idmgdq668mqdilvkg4avrwqw1wzdib";
   };
 
-  buildInputs = [ ppx_cstruct ];
+  buildInputs = [ppx_cstruct];
   propagatedBuildInputs = [
     cstruct
     lwt
@@ -30,6 +30,6 @@ buildDunePackage rec {
     description = "Collect runtime profiling information in CTF format";
     homepage = "https://github.com/mirage/mirage-profile";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ vbgl ];
+    maintainers = with maintainers; [vbgl];
   };
 }

@@ -33,7 +33,7 @@ python3.pkgs.buildPythonApplication rec {
     export PATH=$PATH:$out/bin
   '';
 
-  pythonImportsCheck = [ "yamlpath" ];
+  pythonImportsCheck = ["yamlpath"];
 
   meta = with lib; {
     description = "Command-line processors for YAML/JSON/Compatible data";
@@ -44,6 +44,6 @@ python3.pkgs.buildPythonApplication rec {
       using powerful, intuitive, command-line friendly syntax
     '';
     license = licenses.isc;
-    maintainers = with maintainers; [ Flakebi ];
+    maintainers = with maintainers; [Flakebi];
   };
 }

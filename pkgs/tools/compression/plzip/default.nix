@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     lzip
     texinfo
   ];
-  buildInputs = [ lzlib ];
+  buildInputs = [lzlib];
 
   enableParallelBuilding = true;
 
@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
     description = "A massively parallel lossless data compressor based on the lzlib compression library";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ _360ied ];
+    maintainers = with maintainers; [_360ied];
   };
 }

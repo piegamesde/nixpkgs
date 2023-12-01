@@ -21,8 +21,8 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ zlib ];
-  propagatedBuildInputs = [ libzen ];
+  buildInputs = [zlib];
+  propagatedBuildInputs = [libzen];
 
   sourceRoot = "MediaInfoLib/Project/GNU/Library";
 
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       --replace "pkg-config " "${stdenv.cc.targetPrefix}pkg-config "
   '';
 
-  configureFlags = [ "--enable-shared" ];
+  configureFlags = ["--enable-shared"];
 
   enableParallelBuilding = true;
 
@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     homepage = "https://mediaarea.net/";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = [ maintainers.devhell ];
+    maintainers = [maintainers.devhell];
   };
 }

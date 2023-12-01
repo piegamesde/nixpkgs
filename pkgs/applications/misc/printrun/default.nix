@@ -48,7 +48,7 @@ python3Packages.buildPythonApplication rec {
   # pyglet.canvas.xlib.NoSuchDisplayException: Cannot connect to "None"
   doCheck = false;
 
-  setupPyBuildFlags = [ "-i" ];
+  setupPyBuildFlags = ["-i"];
 
   postInstall = ''
     for f in $out/share/applications/*.desktop; do

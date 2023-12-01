@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     homepage = "https://als.regnet.cz/fpm2/";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ hce ];
+    maintainers = with maintainers; [hce];
   };
 }

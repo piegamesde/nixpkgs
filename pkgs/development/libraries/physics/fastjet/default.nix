@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = lib.optional withPython python;
 
-  configureFlags = [ "--enable-allcxxplugins" ] ++ lib.optional withPython "--enable-pyext";
+  configureFlags = ["--enable-allcxxplugins"] ++ lib.optional withPython "--enable-pyext";
 
   enableParallelBuilding = true;
 
@@ -26,6 +26,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
     homepage = "http://fastjet.fr/";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ veprbl ];
+    maintainers = with lib.maintainers; [veprbl];
   };
 }

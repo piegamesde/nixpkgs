@@ -54,7 +54,7 @@ mkDerivation rec {
     description = "Cross-platform desktop IM client for the Matrix protocol";
     homepage = "https://matrix.org/docs/projects/client/quaternion.html";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     inherit (qtquickcontrols2.meta) platforms;
   };
 }

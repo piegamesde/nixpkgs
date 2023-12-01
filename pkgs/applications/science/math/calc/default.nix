@@ -28,10 +28,10 @@ stdenv.mkDerivation (
         --replace '-install_name ''${LIBDIR}/libcustcalc''${LIB_EXT_VERSION}' '-install_name ''${T}''${LIBDIR}/libcustcalc''${LIB_EXT_VERSION}'
     '';
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     buildInputs =
-      [ util-linux ]
+      [util-linux]
       ++ lib.optionals enableReadline [
         ncurses
         readline
@@ -62,7 +62,7 @@ stdenv.mkDerivation (
       # The licensing situation depends on readline (see section 3 of the LGPL)
       # If linked against readline then GPLv2 otherwise LGPLv2.1
       license = if enableReadline then lib.licenses.gpl2Only else lib.licenses.lgpl21Only;
-      maintainers = with lib.maintainers; [ matthewbauer ];
+      maintainers = with lib.maintainers; [matthewbauer];
       platforms = lib.platforms.all;
     };
   }

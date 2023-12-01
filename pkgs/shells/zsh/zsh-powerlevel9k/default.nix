@@ -29,6 +29,6 @@ stdenv.mkDerivation {
     license = lib.licenses.mit;
 
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.pierrechevalier83 ];
+    maintainers = [lib.maintainers.pierrechevalier83];
   };
 }

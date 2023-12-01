@@ -1,10 +1,10 @@
-{ config, lib, ... }:
+{config, lib, ...}:
 let
   inherit (lib) stringAfter;
 in
 {
 
-  imports = [ ./etc.nix ];
+  imports = [./etc.nix];
 
   config = {
     system.activationScripts.etc =

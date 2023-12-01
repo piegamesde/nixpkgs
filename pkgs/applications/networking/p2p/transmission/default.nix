@@ -78,7 +78,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     pkg-config
     cmake
-  ] ++ lib.optionals enableGTK3 [ wrapGAppsHook ] ++ lib.optionals enableQt [ qt5.wrapQtAppsHook ];
+  ] ++ lib.optionals enableGTK3 [wrapGAppsHook] ++ lib.optionals enableQt [qt5.wrapQtAppsHook];
 
   buildInputs =
     [
@@ -101,9 +101,9 @@ stdenv.mkDerivation {
       gtk3
       xorg.libpthreadstubs
     ]
-    ++ lib.optionals enableSystemd [ systemd ]
-    ++ lib.optionals stdenv.isLinux [ inotify-tools ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv ];
+    ++ lib.optionals enableSystemd [systemd]
+    ++ lib.optionals stdenv.isLinux [inotify-tools]
+    ++ lib.optionals stdenv.isDarwin [libiconv];
 
   postInstall = ''
     mkdir $apparmor
@@ -114,7 +114,7 @@ stdenv.mkDerivation {
       include <abstractions/nameservice>
       include <abstractions/ssl_certs>
       include "${
-        apparmorRulesFromClosure { name = "transmission-daemon"; } (
+        apparmorRulesFromClosure {name = "transmission-daemon";} (
           [
             curl
             libevent
@@ -124,8 +124,8 @@ stdenv.mkDerivation {
             libnatpmp
             miniupnpc
           ]
-          ++ lib.optionals enableSystemd [ systemd ]
-          ++ lib.optionals stdenv.isLinux [ inotify-tools ]
+          ++ lib.optionals enableSystemd [systemd]
+          ++ lib.optionals stdenv.isLinux [inotify-tools]
         )
       }"
       r @{PROC}/sys/kernel/random/uuid,

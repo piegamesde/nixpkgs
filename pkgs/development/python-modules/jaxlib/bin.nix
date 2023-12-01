@@ -29,7 +29,7 @@
   stdenv,
   # Options:
   cudaSupport ? config.cudaSupport or false,
-  cudaPackages ? { },
+  cudaPackages ? {},
 }:
 
 let
@@ -94,7 +94,7 @@ buildPythonPackage rec {
     addOpenGLRunpath
   ];
   # Dynamic link dependencies
-  buildInputs = [ stdenv.cc.cc ];
+  buildInputs = [stdenv.cc.cc];
 
   # jaxlib contains shared libraries that open other shared libraries via dlopen
   # and these implicit dependencies are not recognized by ldd or
@@ -137,14 +137,14 @@ buildPythonPackage rec {
     ln -s ${cudatoolkit}/bin/ptxas $out/bin/ptxas
   '';
 
-  pythonImportsCheck = [ "jaxlib" ];
+  pythonImportsCheck = ["jaxlib"];
 
   meta = with lib; {
     description = "XLA library for JAX";
     homepage = "https://github.com/google/jax";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.asl20;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
     platforms = [
       "aarch64-darwin"
       "x86_64-linux"

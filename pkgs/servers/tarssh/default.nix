@@ -20,8 +20,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A simple SSH tarpit inspired by endlessh";
     homepage = "https://github.com/Freaky/tarssh";
-    license = [ licenses.mit ];
-    maintainers = with maintainers; [ sohalt ];
+    license = [licenses.mit];
+    maintainers = with maintainers; [sohalt];
     platforms = platforms.unix;
   };
 }

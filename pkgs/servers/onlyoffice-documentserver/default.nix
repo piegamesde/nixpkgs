@@ -29,7 +29,7 @@ let
 
     unpackCmd = "dpkg -x $curSrc source";
 
-    nativeBuildInputs = [ dpkg ];
+    nativeBuildInputs = [dpkg];
 
     installPhase = ''
       # replace dangling symlinks which are not copied into fhs with actually files
@@ -144,9 +144,9 @@ let
       '';
       homepage = "ONLYOFFICE Document Server is an online office suite comprising viewers and editors";
       license = licenses.agpl3;
-      platforms = [ "x86_64-linux" ];
-      sourceProvenance = [ sourceTypes.binaryNativeCode ];
-      maintainers = with maintainers; [ SuperSandro2000 ];
+      platforms = ["x86_64-linux"];
+      sourceProvenance = [sourceTypes.binaryNativeCode];
+      maintainers = with maintainers; [SuperSandro2000];
     };
   };
 in

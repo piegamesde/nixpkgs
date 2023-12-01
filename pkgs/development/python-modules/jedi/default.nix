@@ -26,7 +26,7 @@ buildPythonPackage rec {
     fetchSubmodules = true;
   };
 
-  propagatedBuildInputs = [ parso ];
+  propagatedBuildInputs = [parso];
 
   nativeCheckInputs = [
     attrs
@@ -66,6 +66,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/davidhalter/jedi";
     changelog = "https://github.com/davidhalter/jedi/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

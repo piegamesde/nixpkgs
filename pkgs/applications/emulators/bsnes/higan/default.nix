@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-HZItJ97x20OjFKv2OVbMja7g+c1ZXcgcaC/XDe3vMZM=";
   };
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ libicns ];
+  nativeBuildInputs = [pkg-config] ++ lib.optionals stdenv.isDarwin [libicns];
 
   buildInputs =
     [
@@ -158,7 +158,7 @@ stdenv.mkDerivation rec {
       Challenge V2.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.unix;
     broken = stdenv.isDarwin;
   };

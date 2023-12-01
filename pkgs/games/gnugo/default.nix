@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = {
     description = "GNU Go - A computer go player";

@@ -23,7 +23,7 @@
 let
   patchedTransmission = transmission.overrideAttrs (
     oldAttrs: {
-      patches = (oldAttrs.patches or [ ]) ++ [
+      patches = (oldAttrs.patches or []) ++ [
         (fetchpatch {
           url = "https://raw.githubusercontent.com/flathub/de.haeckerfelix.Fragments/2aee477c8e26a24570f8dbbdbd1c49e017ae32eb/transmission_pdeathsig.patch";
           sha256 = "sha256-/rCoA566tMmzqcIfffC082Y56TwEyyQJ0knxymtscbA=";
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
   };
 
   # https://github.com/gtk-rs/gtk4-rs/issues/1201
-  patches = [ ./gtk4-rs.patch ];
+  patches = [./gtk4-rs.patch];
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src patches;
     name = "${pname}-${version}";
@@ -81,14 +81,14 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : "${lib.makeBinPath [ patchedTransmission ]}"
+      --prefix PATH : "${lib.makeBinPath [patchedTransmission]}"
     )
   '';
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/World/Fragments";
     description = "Easy to use BitTorrent client for the GNOME desktop environment";
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

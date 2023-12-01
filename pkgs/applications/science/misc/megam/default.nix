@@ -30,9 +30,9 @@ stdenv.mkDerivation {
   '';
   strictDeps = true;
 
-  nativeBuildInputs = [ ocaml ];
+  nativeBuildInputs = [ocaml];
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   makeFlags = [
     "CAML_INCLUDES=${ocaml}/lib/ocaml/caml"
@@ -63,7 +63,7 @@ stdenv.mkDerivation {
     '';
     homepage = "http://www.umiacs.umd.edu/~hal/megam";
     license = "non-commercial";
-    maintainers = with maintainers; [ leixb ];
+    maintainers = with maintainers; [leixb];
     platforms = platforms.unix;
   };
 }

@@ -51,7 +51,7 @@ buildPythonPackage rec {
     websocket-client
   ];
 
-  pythonImportsCheck = [ "kubernetes" ];
+  pythonImportsCheck = ["kubernetes"];
 
   nativeCheckInputs = [
     mock

@@ -21,7 +21,7 @@ buildGoModule rec {
     description = "A command line utility for creating image macro style memes";
     homepage = "https://github.com/nomad-software/meme";
     license = licenses.mit;
-    maintainers = [ maintainers.fgaz ];
+    maintainers = [maintainers.fgaz];
     platforms = with platforms; linux ++ darwin;
   };
 }

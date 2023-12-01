@@ -28,7 +28,7 @@ python3.pkgs.buildPythonApplication rec {
     );
   sourceRoot = "source";
 
-  nativeBuildInputs = [ unzip ]; # The music is zipped
+  nativeBuildInputs = [unzip]; # The music is zipped
   propagatedBuildInputs = with python3.pkgs; [
     pygame
     numpy
@@ -57,6 +57,6 @@ python3.pkgs.buildPythonApplication rec {
       free # earth images from NASA, some fonts
       cc0 # cick0.wav
     ];
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
   };
 }

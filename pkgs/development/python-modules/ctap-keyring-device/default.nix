@@ -57,9 +57,9 @@ buildPythonPackage rec {
     cryptography
   ];
 
-  pythonImportsCheck = [ "ctap_keyring_device" ];
+  pythonImportsCheck = ["ctap_keyring_device"];
 
-  checkInputs = [ pytestCheckHook ];
+  checkInputs = [pytestCheckHook];
 
   disabledTests = [
     # Disabled tests that needs pyobjc or windows
@@ -71,6 +71,6 @@ buildPythonPackage rec {
     description = "CTAP (client-to-authenticator-protocol) device backed by python's keyring library";
     homepage = "https://github.com/dany74q/ctap-keyring-device";
     license = licenses.mit;
-    maintainers = with maintainers; [ dennajort ];
+    maintainers = with maintainers; [dennajort];
   };
 }

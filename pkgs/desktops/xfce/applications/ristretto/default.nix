@@ -30,6 +30,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "A fast and lightweight picture-viewer for the Xfce desktop environment";
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    maintainers = with maintainers; [] ++ teams.xfce.members;
   };
 }

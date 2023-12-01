@@ -30,7 +30,7 @@ in
       };
 
       extraOptions = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         example = literalExpression ''
           [ "--bind-address 192.168.9.1"
@@ -56,8 +56,8 @@ in
 
     systemd.services.atftpd = {
       description = "TFTP Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       # runs as nobody
       serviceConfig.ExecStart = "${pkgs.atftp}/sbin/atftpd --daemon --no-fork ${lib.concatStringsSep " " cfg.extraOptions} ${cfg.root}";
     };

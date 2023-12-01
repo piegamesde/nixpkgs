@@ -20,7 +20,7 @@ buildGoModule rec {
 
   proxyVendor = true;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   subPackages = ".";
 
@@ -30,7 +30,7 @@ buildGoModule rec {
     "-X github.com/life4/enc/version.GitCommit=${version}"
   ];
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   postInstall = ''
     installShellCompletion --cmd enc \
@@ -51,6 +51,6 @@ buildGoModule rec {
       and commands. It is the most beginner-friendly CLI tool for encryption, and keeping it that way is our top priority.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ rvnstn ];
+    maintainers = with maintainers; [rvnstn];
   };
 }

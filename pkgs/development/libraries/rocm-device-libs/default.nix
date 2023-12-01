@@ -29,15 +29,15 @@ stdenv.mkDerivation (
       hash = "sha256-8gxvgy2GlROxM5qKtZVu5Lxa1FmTIVlBTpfp8rxhNhk=";
     };
 
-    patches = [ ./cmake.patch ];
+    patches = [./cmake.patch];
 
     nativeBuildInputs = [
       cmake
       rocm-cmake
     ];
 
-    buildInputs = [ libxml2 ];
-    cmakeFlags = [ "-DLLVM_TARGETS_TO_BUILD=AMDGPU;${llvmNativeTarget}" ];
+    buildInputs = [libxml2];
+    cmakeFlags = ["-DLLVM_TARGETS_TO_BUILD=AMDGPU;${llvmNativeTarget}"];
 
     passthru.updateScript = rocmUpdateScript {
       name = finalAttrs.pname;
@@ -49,7 +49,7 @@ stdenv.mkDerivation (
       description = "Set of AMD-specific device-side language runtime libraries";
       homepage = "https://github.com/RadeonOpenCompute/ROCm-Device-Libs";
       license = licenses.ncsa;
-      maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
+      maintainers = with maintainers; [lovesegfault] ++ teams.rocm.members;
       platforms = platforms.linux;
       broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
     };

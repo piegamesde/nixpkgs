@@ -25,7 +25,7 @@ buildPythonPackage rec {
     toml
   ];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   propagatedBuildInputs = [
     requests
@@ -36,12 +36,12 @@ buildPythonPackage rec {
   # no tests in PyPI tarball
   doCheck = false;
 
-  pythonImportsCheck = [ "pytest_services" ];
+  pythonImportsCheck = ["pytest_services"];
 
   meta = with lib; {
     description = "Services plugin for pytest testing framework";
     homepage = "https://github.com/pytest-dev/pytest-services";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

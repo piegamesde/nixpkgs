@@ -29,6 +29,6 @@ buildDunePackage rec {
     description = "Base58 encoding for Tezos";
     homepage = "https://github.com/tarides/tezos-base58/";
     license = licenses.mit;
-    maintainers = with maintainers; [ bezmuth ];
+    maintainers = with maintainers; [bezmuth];
   };
 }

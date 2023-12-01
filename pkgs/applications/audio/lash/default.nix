@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     libxml2
     readline
   ];
-  propagatedBuildInputs = [ libuuid ];
+  propagatedBuildInputs = [libuuid];
   NIX_LDFLAGS = "-lm -lpthread -luuid";
 
   postInstall = ''
@@ -57,6 +57,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.nongnu.org/lash";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
   };
 }

@@ -27,7 +27,7 @@ buildPythonPackage rec {
     sed -i '/from .sql import/d' tests/__init__.py
   '';
 
-  pythonImportsCheck = [ "pydal" ];
+  pythonImportsCheck = ["pydal"];
 
   checkPhase = ''
     runHook preCheck
@@ -38,7 +38,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python Database Abstraction Layer";
     homepage = "https://github.com/web2py/pydal";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ wamserma ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [wamserma];
   };
 }

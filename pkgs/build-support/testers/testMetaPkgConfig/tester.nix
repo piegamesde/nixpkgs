@@ -12,7 +12,7 @@ runCommand "check-meta-pkg-config-modules-for-${package.name}"
       description = "Test whether ${package.name} exposes all pkg-config modules ${toString package.meta.pkgConfigModules}";
     };
     dependsOn =
-      map (moduleName: testers.hasPkgConfigModule { inherit package moduleName; })
+      map (moduleName: testers.hasPkgConfigModule {inherit package moduleName;})
         package.meta.pkgConfigModules;
   }
   ''

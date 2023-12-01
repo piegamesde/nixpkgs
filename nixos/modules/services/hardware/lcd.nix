@@ -34,7 +34,7 @@ let
 in
 with lib; {
 
-  meta.maintainers = with maintainers; [ peterhoeg ];
+  meta.maintainers = with maintainers; [peterhoeg];
 
   options = with types; {
     services.hardware.lcd = {
@@ -144,7 +144,7 @@ with lib; {
     systemd.services = {
       lcdd = mkIf cfg.server.enable {
         description = "LCDproc - server";
-        wantedBy = [ "lcd.target" ];
+        wantedBy = ["lcd.target"];
         serviceConfig = serviceCfg // {
           ExecStart = "${pkg}/bin/LCDd -f -c ${serverCfg}";
           SupplementaryGroups = cfg.server.usbGroup;
@@ -153,8 +153,8 @@ with lib; {
 
       lcdproc = mkIf cfg.client.enable {
         description = "LCDproc - client";
-        after = [ "lcdd.service" ];
-        wantedBy = [ "lcd.target" ];
+        after = ["lcdd.service"];
+        wantedBy = ["lcd.target"];
         # Allow restarting for eternity
         startLimitIntervalSec = lib.mkIf cfg.client.restartForever 0;
         serviceConfig = serviceCfg // {
@@ -172,7 +172,7 @@ with lib; {
         "lcdd.service"
         "lcdproc.service"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
   };
 }

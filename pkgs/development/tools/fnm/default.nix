@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-dwnPFbgfrc+1qF3u5Nm1KQu84UWK6H6VerSUaQacbRs=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   buildInputs = lib.optionals stdenv.isDarwin [
     DiskArbitration
@@ -43,6 +43,6 @@ rustPlatform.buildRustPackage rec {
     description = "Fast and simple Node.js version manager";
     homepage = "https://github.com/Schniz/fnm";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ kidonng ];
+    maintainers = with maintainers; [kidonng];
   };
 }

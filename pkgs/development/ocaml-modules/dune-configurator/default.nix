@@ -24,7 +24,7 @@ buildDunePackage rec {
 
   meta = with lib; {
     description = "Helper library for gathering system configuration";
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
     license = licenses.mit;
   };
 }

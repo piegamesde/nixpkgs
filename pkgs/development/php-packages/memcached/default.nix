@@ -20,14 +20,14 @@ buildPecl rec {
     sha256 = "sha256-g9IzGSZUxLlOE32o9ZJOa3erb5Qs1ntR8nzS3kRd/EU=";
   };
 
-  internalDeps = [ php.extensions.session ];
+  internalDeps = [php.extensions.session];
 
   configureFlags = [
     "--with-zlib-dir=${zlib.dev}"
     "--with-libmemcached-dir=${libmemcached}"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     cyrus_sasl
     zlib

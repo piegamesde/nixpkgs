@@ -33,7 +33,7 @@ stdenv.mkDerivation {
     lprdeb
     cupsdeb
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     cups
     ghostscript
@@ -98,7 +98,7 @@ stdenv.mkDerivation {
   meta = {
     homepage = "http://www.brother.com/";
     description = "Brother HL1210W printer driver";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
     platforms = lib.platforms.linux;
     downloadPage = "https://support.brother.com/g/b/downloadlist.aspx?c=nz&lang=en&prod=hl1210w_eu_as&os=128";

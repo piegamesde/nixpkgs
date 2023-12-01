@@ -53,7 +53,7 @@ rebar3Relx rec {
     description = "Erlang Style Reviewer";
     platforms = platforms.unix;
     license = licenses.asl20;
-    maintainers = with lib.maintainers; [ dlesl ];
+    maintainers = with lib.maintainers; [dlesl];
     mainProgram = "elvis";
   };
 }

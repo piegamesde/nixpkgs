@@ -66,6 +66,6 @@ stdenv.mkDerivation rec {
       mit
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ aske ];
+    maintainers = with maintainers; [aske];
   };
 }

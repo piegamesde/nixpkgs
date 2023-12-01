@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "_3bmd-ext-code-blocks";
   version = "3bmd-20210411-git";
@@ -23,7 +23,7 @@ rec {
 
   packageName = "3bmd-ext-code-blocks";
 
-  asdFilesToKeep = [ "3bmd-ext-code-blocks.asd" ];
+  asdFilesToKeep = ["3bmd-ext-code-blocks.asd"];
   overrides = x: x;
 }
 /* (SYSTEM 3bmd-ext-code-blocks DESCRIPTION

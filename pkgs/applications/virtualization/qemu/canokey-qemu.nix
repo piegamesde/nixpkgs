@@ -27,12 +27,12 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     homepage = "https://github.com/canokeys/canokey-qemu";
     description = "CanoKey QEMU Virt Card";
     license = licenses.asl20;
-    maintainers = with maintainers; [ oxalica ];
+    maintainers = with maintainers; [oxalica];
   };
 }

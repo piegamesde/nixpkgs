@@ -22,7 +22,7 @@ stdenv.mkDerivation {
     cmake
     pkg-config
   ];
-  buildInputs = [ libyaml ];
+  buildInputs = [libyaml];
 
   meta = with lib; {
     homepage = "https://github.com/thefloweringash/rewrite-tbd/";

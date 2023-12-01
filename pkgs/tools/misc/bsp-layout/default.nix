@@ -24,9 +24,9 @@ stdenv.mkDerivation rec {
     git
     bc
   ];
-  buildInputs = [ bspwm ];
+  buildInputs = [bspwm];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   postInstall = ''
     substituteInPlace $out/lib/bsp-layout/layout.sh --replace 'bc ' '${bc}/bin/bc '
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/phenax/bsp-layout";
     license = licenses.mit;
-    maintainers = with maintainers; [ totoroot ];
+    maintainers = with maintainers; [totoroot];
     platforms = platforms.linux;
   };
 }

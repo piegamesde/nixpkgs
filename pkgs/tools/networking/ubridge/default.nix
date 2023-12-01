@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
       --replace "setcap" "#setcap"
   '';
 
-  buildInputs = [ libpcap ];
+  buildInputs = [libpcap];
 
   preInstall = ''
     mkdir -p $out/bin
@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/GNS3/ubridge/releases/tag/v${version}";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
   };
 }

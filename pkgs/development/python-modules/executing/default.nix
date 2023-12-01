@@ -27,20 +27,20 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   nativeCheckInputs = [
     asttokens
     littleutils
     pytestCheckHook
-  ] ++ lib.optionals (pythonAtLeast "3.11") [ rich ];
+  ] ++ lib.optionals (pythonAtLeast "3.11") [rich];
 
-  pythonImportsCheck = [ "executing" ];
+  pythonImportsCheck = ["executing"];
 
   meta = with lib; {
     description = "Get information about what a frame is currently doing, particularly the AST node being executed";
     homepage = "https://github.com/alexmojaki/executing";
     license = licenses.mit;
-    maintainers = with maintainers; [ renatoGarcia ];
+    maintainers = with maintainers; [renatoGarcia];
   };
 }

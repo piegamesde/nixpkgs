@@ -96,7 +96,7 @@ mkDerivation {
   # Frei0r path needs to be set too or Kdenlive will complain. See:
   # https://github.com/NixOS/nixpkgs/issues/83885
   # https://github.com/NixOS/nixpkgs/issues/29614#issuecomment-488849325
-  qtWrapperArgs = [ "--set FREI0R_PATH ${frei0r}/lib/frei0r-1" ];
+  qtWrapperArgs = ["--set FREI0R_PATH ${frei0r}/lib/frei0r-1"];
 
   preFixup = ''
     qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
@@ -105,7 +105,7 @@ mkDerivation {
   meta = {
     homepage = "https://apps.kde.org/kdenlive/";
     description = "Video editor";
-    license = with lib.licenses; [ gpl2Plus ];
-    maintainers = with lib.maintainers; [ turion ];
+    license = with lib.licenses; [gpl2Plus];
+    maintainers = with lib.maintainers; [turion];
   };
 }

@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-KpGvDfQExU6pHheqmcOFoAhHdF4P+GBQu779h+/L5mE=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/bin $out/share/janusgraph
@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     mainProgram = "janusgraph-server";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = [ maintainers.ners ];
+    maintainers = [maintainers.ners];
   };
 }

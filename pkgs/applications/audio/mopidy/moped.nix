@@ -15,8 +15,8 @@ pythonPackages.buildPythonApplication rec {
   };
 
   LC_ALL = "en_US.UTF-8";
-  buildInputs = [ glibcLocales ];
-  propagatedBuildInputs = [ mopidy ];
+  buildInputs = [glibcLocales];
+  propagatedBuildInputs = [mopidy];
 
   # no tests implemented
   doCheck = false;
@@ -25,7 +25,7 @@ pythonPackages.buildPythonApplication rec {
     homepage = "https://github.com/martijnboland/moped";
     description = "A web client for Mopidy";
     license = licenses.mit;
-    maintainers = [ ];
-    hydraPlatforms = [ ];
+    maintainers = [];
+    hydraPlatforms = [];
   };
 }

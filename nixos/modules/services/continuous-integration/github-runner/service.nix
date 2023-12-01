@@ -27,8 +27,8 @@ in
 {
   description = "GitHub Actions runner";
 
-  wantedBy = [ "multi-user.target" ];
-  wants = [ "network-online.target" ];
+  wantedBy = ["multi-user.target"];
+  wants = ["network-online.target"];
   after = [
     "network.target"
     "network-online.target"
@@ -49,7 +49,7 @@ in
         gzip
       ]
     )
-    ++ [ config.nix.package ]
+    ++ [config.nix.package]
     ++ cfg.extraPackages;
 
   serviceConfig = mkMerge [
@@ -210,14 +210,14 @@ in
       Restart = if cfg.ephemeral then "on-success" else "no";
       # If the runner exits with `ReturnCode.RetryableError = 2`, always restart the service:
       # https://github.com/actions/runner/blob/40ed7f8/src/Runner.Common/Constants.cs#L146
-      RestartForceExitStatus = [ 2 ];
+      RestartForceExitStatus = [2];
 
       # Contains _diag
-      LogsDirectory = [ systemdDir ];
+      LogsDirectory = [systemdDir];
       # Default RUNNER_ROOT which contains ephemeral Runner data
-      RuntimeDirectory = [ systemdDir ];
+      RuntimeDirectory = [systemdDir];
       # Home of persistent runner data, e.g., credentials
-      StateDirectory = [ systemdDir ];
+      StateDirectory = [systemdDir];
       StateDirectoryMode = "0700";
       WorkingDirectory = workDir;
 
@@ -233,10 +233,10 @@ in
       # Hardening (may overlap with DynamicUser=)
       # The following options are only for optimizing:
       # systemd-analyze security github-runner
-      AmbientCapabilities = mkBefore [ "" ];
-      CapabilityBoundingSet = mkBefore [ "" ];
+      AmbientCapabilities = mkBefore [""];
+      CapabilityBoundingSet = mkBefore [""];
       # ProtectClock= adds DeviceAllow=char-rtc r
-      DeviceAllow = mkBefore [ "" ];
+      DeviceAllow = mkBefore [""];
       NoNewPrivileges = mkDefault true;
       PrivateDevices = mkDefault true;
       PrivateMounts = mkDefault true;
@@ -275,7 +275,7 @@ in
         "AF_NETLINK"
       ];
 
-      BindPaths = lib.optionals (cfg.workDir != null) [ cfg.workDir ];
+      BindPaths = lib.optionals (cfg.workDir != null) [cfg.workDir];
 
       # Needs network access
       PrivateNetwork = mkDefault false;
@@ -297,7 +297,7 @@ in
       # want to consult the systemd docs if using both.
       DynamicUser = mkDefault true;
     }
-    (mkIf (cfg.user != null) { User = cfg.user; })
+    (mkIf (cfg.user != null) {User = cfg.user;})
     cfg.serviceOverrides
   ];
 }

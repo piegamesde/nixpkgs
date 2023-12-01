@@ -11,7 +11,7 @@ bundlerApp {
 
   inherit ruby;
 
-  exes = [ "docker-sync" ];
+  exes = ["docker-sync"];
 
   passthru.updateScript = bundlerUpdateScript "docker-sync";
 

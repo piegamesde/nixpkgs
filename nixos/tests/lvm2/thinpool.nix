@@ -2,25 +2,25 @@
   kernelPackages ? null,
 }:
 import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "lvm2-thinpool";
-    meta.maintainers = with pkgs.lib.maintainers; [ ajs124 ];
+    meta.maintainers = with pkgs.lib.maintainers; [ajs124];
 
     nodes.machine =
-      { pkgs, lib, ... }:
+      {pkgs, lib, ...}:
       {
-        virtualisation.emptyDiskImages = [ 4096 ];
+        virtualisation.emptyDiskImages = [4096];
         services.lvm = {
           boot.thin.enable = true;
           dmeventd.enable = true;
         };
-        environment.systemPackages = with pkgs; [ xfsprogs ];
+        environment.systemPackages = with pkgs; [xfsprogs];
         environment.etc."lvm/lvm.conf".text = ''
           activation/thin_pool_autoextend_percent = 10
           activation/thin_pool_autoextend_threshold = 80
         '';
-        boot = lib.mkIf (kernelPackages != null) { inherit kernelPackages; };
+        boot = lib.mkIf (kernelPackages != null) {inherit kernelPackages;};
       };
 
     testScript = ''

@@ -45,12 +45,12 @@ buildPythonPackage rec {
       "test_session_ssl_error"
     ];
 
-  pythonImportsCheck = [ "restfly" ];
+  pythonImportsCheck = ["restfly"];
 
   meta = with lib; {
     description = "Python RESTfly API Library Framework";
     homepage = "https://github.com/stevemcgrath/restfly";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

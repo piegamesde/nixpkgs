@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ libxcrypt ];
+  buildInputs = [libxcrypt];
 
   enableParallelBuilding = true;
 

@@ -15,12 +15,12 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  propagatedBuildInputs = [ fonttools ];
+  propagatedBuildInputs = [fonttools];
 
   # can't run normal tests due to circular dependency with fontParts
   doCheck = false;
   pythonImportsCheck =
-    [ "fontPens" ]
+    ["fontPens"]
     ++ (builtins.map (s: "fontPens." + s) [
       "angledMarginPen"
       "digestPointPen"
@@ -40,6 +40,6 @@ buildPythonPackage rec {
     description = "A collection of classes implementing the pen protocol for manipulating glyphs";
     homepage = "https://github.com/robotools/fontPens";
     license = licenses.bsd3;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

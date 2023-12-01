@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "flow";
   version = "20200610-git";
@@ -19,7 +19,7 @@ rec {
 
   packageName = "flow";
 
-  asdFilesToKeep = [ "flow.asd" ];
+  asdFilesToKeep = ["flow.asd"];
   overrides = x: x;
 }
 /* (SYSTEM flow DESCRIPTION A flowchart and generalised graph library. SHA256

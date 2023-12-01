@@ -38,7 +38,7 @@ let
           wirew0rm
         ]
         ++ teams.lumiguide.members;
-      platforms = [ "x86_64-linux" ];
+      platforms = ["x86_64-linux"];
       license = licenses.unfree;
     };
 
@@ -55,12 +55,12 @@ let
         stdenv.mkDerivation rec {
           pname = "libpicoipp";
           inherit (sources.libpicoipp) version;
-          src = fetchurl { inherit (sources.libpicoipp) url sha256; };
+          src = fetchurl {inherit (sources.libpicoipp) url sha256;};
           nativeBuildInputs = [
             dpkg
             autoPatchelfHook
           ];
-          buildInputs = [ stdenv.cc.cc.lib ];
+          buildInputs = [stdenv.cc.cc.lib];
           sourceRoot = ".";
           unpackCmd = "dpkg-deb -x $src .";
           installPhase = ''
@@ -74,16 +74,16 @@ let
             with lib;
             shared_meta lib
             // {
-              sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+              sourceProvenance = with sourceTypes; [binaryNativeCode];
               description = "library for picotech oscilloscope software";
             };
         }
       )
-      { };
+      {};
 
   # If we don't have a platform available, put a dummy version here, so at
   # least evaluation succeeds.
-  sources = (lib.importJSON ./sources.json).${stdenv.system} or { picoscope.version = "unknown"; };
+  sources = (lib.importJSON ./sources.json).${stdenv.system} or {picoscope.version = "unknown";};
 
   scopePkg =
     name:
@@ -95,9 +95,9 @@ let
     stdenv.mkDerivation rec {
       pname = "lib${name}";
       inherit version;
-      src = fetchurl { inherit url sha256; };
+      src = fetchurl {inherit url sha256;};
       # picoscope does a signature check, so we can't patchelf these
-      nativeBuildInputs = [ dpkg ];
+      nativeBuildInputs = [dpkg];
       sourceRoot = ".";
       unpackCmd = "dpkg-deb -x $src .";
       installPhase = ''
@@ -107,7 +107,7 @@ let
          runHook postInstall
       '';
       meta =
-        with lib; shared_meta lib // { description = "library for picotech oscilloscope ${name} series"; };
+        with lib; shared_meta lib // {description = "library for picotech oscilloscope ${name} series";};
     };
 
   scopePkgs = lib.mapAttrs scopePkg sources;
@@ -116,7 +116,7 @@ stdenv.mkDerivation rec {
   pname = "picoscope";
   inherit (sources.picoscope) version;
 
-  src = fetchurl { inherit (sources.picoscope) url sha256; };
+  src = fetchurl {inherit (sources.picoscope) url sha256;};
 
   nativeBuildInputs = [
     dpkg
@@ -184,6 +184,6 @@ stdenv.mkDerivation rec {
         PicoScope for Linux, PicoScope for macOS and PicoScope for Windows
         users, or exported in text, CSV and MathWorks MATLAB 4 formats.
       '';
-      sourceProvenance = with sourceTypes; [ binaryBytecode ];
+      sourceProvenance = with sourceTypes; [binaryBytecode];
     };
 }

@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/solusipse/fiche";
     changelog = "https://github.com/solusipse/fiche/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = [ maintainers.pinpox ];
+    maintainers = [maintainers.pinpox];
     platforms = platforms.all;
   };
 }

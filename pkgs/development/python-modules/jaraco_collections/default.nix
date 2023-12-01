@@ -22,23 +22,23 @@ buildPythonPackage rec {
     sed -i "/'jaraco.text',/d" setup.cfg
   '';
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     jaraco_classes
     jaraco_text
   ];
 
-  pythonNamespaces = [ "jaraco" ];
+  pythonNamespaces = ["jaraco"];
 
   doCheck = false;
 
-  pythonImportsCheck = [ "jaraco.collections" ];
+  pythonImportsCheck = ["jaraco.collections"];
 
   meta = with lib; {
     description = "Models and classes to supplement the stdlib 'collections' module";
     homepage = "https://github.com/jaraco/jaraco.collections";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

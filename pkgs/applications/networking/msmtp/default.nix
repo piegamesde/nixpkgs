@@ -38,7 +38,7 @@ let
     description = "Simple and easy to use SMTP client with excellent sendmail compatibility";
     homepage = "https://marlam.de/msmtp/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.unix;
   };
 
@@ -49,13 +49,13 @@ let
     configureFlags = [
       "--sysconfdir=/etc"
       "--with-libgsasl"
-    ] ++ optionals stdenv.isDarwin [ "--with-macosx-keyring" ];
+    ] ++ optionals stdenv.isDarwin ["--with-macosx-keyring"];
 
     buildInputs = [
       gnutls
       gsasl
       libidn2
-    ] ++ optionals stdenv.isDarwin [ Security ] ++ optionals withKeyring [ libsecret ];
+    ] ++ optionals stdenv.isDarwin [Security] ++ optionals withKeyring [libsecret];
 
     nativeBuildInputs = [
       autoreconfHook
@@ -75,7 +75,7 @@ let
     pname = "msmtp-scripts";
     inherit version src meta;
 
-    patches = [ ./paths.patch ];
+    patches = [./paths.patch];
 
     postPatch = ''
       substituteInPlace scripts/msmtpq/msmtpq \
@@ -103,7 +103,7 @@ let
 
     solutions = {
       msmtpq = {
-        scripts = [ "bin/msmtpq" ];
+        scripts = ["bin/msmtpq"];
         interpreter = getExe bash;
         inputs = [
           binaries
@@ -111,20 +111,20 @@ let
           gnugrep
           netcat-gnu
           which
-        ] ++ optionals withSystemd [ systemd ];
+        ] ++ optionals withSystemd [systemd];
         execer = [
           "cannot:${getBin binaries}/bin/msmtp"
           "cannot:${getBin netcat-gnu}/bin/nc"
-        ] ++ optionals withSystemd [ "cannot:${getBin systemd}/bin/systemd-cat" ];
-        fix."$MSMTP" = [ "msmtp" ];
-        fake.external = [ "ping" ] ++ optionals (!withSystemd) [ "systemd-cat" ];
+        ] ++ optionals withSystemd ["cannot:${getBin systemd}/bin/systemd-cat"];
+        fix."$MSMTP" = ["msmtp"];
+        fake.external = ["ping"] ++ optionals (!withSystemd) ["systemd-cat"];
       };
 
       msmtp-queue = {
-        scripts = [ "bin/msmtp-queue" ];
+        scripts = ["bin/msmtp-queue"];
         interpreter = getExe bash;
-        inputs = [ "${placeholder "out"}/bin" ];
-        execer = [ "cannot:${placeholder "out"}/bin/msmtpq" ];
+        inputs = ["${placeholder "out"}/bin"];
+        execer = ["cannot:${placeholder "out"}/bin/msmtpq"];
       };
     };
   };

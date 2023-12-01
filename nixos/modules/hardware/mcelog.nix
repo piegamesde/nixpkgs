@@ -8,7 +8,7 @@
 with lib;
 
 {
-  meta.maintainers = with maintainers; [ grahamc ];
+  meta.maintainers = with maintainers; [grahamc];
   options = {
 
     hardware.mcelog = {
@@ -24,10 +24,10 @@ with lib;
 
   config = mkIf config.hardware.mcelog.enable {
     systemd = {
-      packages = [ pkgs.mcelog ];
+      packages = [pkgs.mcelog];
 
       services.mcelog = {
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         serviceConfig = {
           ProtectHome = true;
           PrivateNetwork = true;

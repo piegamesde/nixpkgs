@@ -41,7 +41,7 @@ python3Packages.buildPythonApplication rec {
       icon = "streamdeck-ui";
       exec = "streamdeck --no-ui";
       comment = "UI for the Elgato Stream Deck";
-      categories = [ "Utility" ];
+      categories = ["Utility"];
       noDisplay = true;
     })
   ];
@@ -61,7 +61,7 @@ python3Packages.buildPythonApplication rec {
     '';
 
   dontWrapQtApps = true;
-  makeWrapperArgs = [ "\${qtWrapperArgs[@]}" ];
+  makeWrapperArgs = ["\${qtWrapperArgs[@]}"];
 
   format = "pyproject";
 
@@ -102,6 +102,6 @@ python3Packages.buildPythonApplication rec {
     description = "Linux compatible UI for the Elgato Stream Deck";
     homepage = "https://timothycrosley.github.io/streamdeck-ui/";
     license = licenses.mit;
-    maintainers = with maintainers; [ majiir ];
+    maintainers = with maintainers; [majiir];
   };
 }

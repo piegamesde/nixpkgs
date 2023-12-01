@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-fpafjI31acuGRtZ+5Z/b8mJ76toSlUwwHnwanBwRc08=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       perl
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional (stdenv.isLinux && !stdenv.hostPlatform.isMusl) "--enable-linux-netfilter";
 
   doCheck = true;
-  nativeCheckInputs = [ cppunit ];
+  nativeCheckInputs = [cppunit];
   preCheck = ''
     # tests attempt to copy around "/bin/true" to make some things
     # no-ops but this doesn't work if our "true" is a multi-call
@@ -78,6 +78,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.squid-cache.org";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
   };
 }

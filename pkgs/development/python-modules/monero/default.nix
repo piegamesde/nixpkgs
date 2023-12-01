@@ -30,7 +30,7 @@ buildPythonPackage rec {
       --replace 'ipaddress' ""
   '';
 
-  pythonImportsCheck = [ "monero" ];
+  pythonImportsCheck = ["monero"];
 
   propagatedBuildInputs = [
     pycryptodomex
@@ -51,6 +51,6 @@ buildPythonPackage rec {
     description = "Comprehensive Python module for handling Monero";
     homepage = "https://github.com/monero-ecosystem/monero-python";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

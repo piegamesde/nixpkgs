@@ -58,7 +58,7 @@ buildPythonPackage rec {
     scikit-build
   ];
 
-  pythonImportsCheck = [ "phik" ];
+  pythonImportsCheck = ["phik"];
 
   postInstall = ''
     rm -r $out/bin
@@ -74,7 +74,7 @@ buildPythonPackage rec {
     longDescription = "Phi_K is a new and practical correlation coefficient based on several refinements to Pearson’s hypothesis test of independence of two variables.";
     homepage = "https://phik.readthedocs.io/en/latest/";
     changelog = "https://github.com/KaveIO/PhiK/blob/${src.rev}/CHANGES.rst";
-    maintainers = with maintainers; [ melsigl ];
+    maintainers = with maintainers; [melsigl];
     license = licenses.asl20;
   };
 }

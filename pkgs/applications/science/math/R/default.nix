@@ -64,7 +64,7 @@ stdenv.mkDerivation (
 
     dontUseImakeConfigure = true;
 
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
     buildInputs =
       [
         bzip2
@@ -105,7 +105,7 @@ stdenv.mkDerivation (
         libcxx
       ];
 
-    patches = [ ./no-usr-local-search-paths.patch ];
+    patches = [./no-usr-local-search-paths.patch];
 
     # Test of the examples for package 'tcltk' fails in Darwin sandbox. See:
     # https://github.com/NixOS/nixpkgs/issues/146131
@@ -204,10 +204,10 @@ stdenv.mkDerivation (
         user-defined recursive functions and input and output facilities.
       '';
 
-      pkgConfigModules = [ "libR" ];
+      pkgConfigModules = ["libR"];
       platforms = platforms.all;
 
-      maintainers = with maintainers; [ jbedo ] ++ teams.sage.members;
+      maintainers = with maintainers; [jbedo] ++ teams.sage.members;
     };
   }
 )

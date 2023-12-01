@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     xmlto
   ];
 
-  propagatedBuildInputs = [ expat ];
+  propagatedBuildInputs = [expat];
 
   buildInputs =
     lib.optionals x11Support (
@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
       "--enable-apparmor"
       "--enable-libaudit"
     ]
-    ++ lib.optionals enableSystemd [ "SYSTEMCTL=${systemdMinimal}/bin/systemctl" ];
+    ++ lib.optionals enableSystemd ["SYSTEMCTL=${systemdMinimal}/bin/systemctl"];
 
   NIX_CFLAGS_LINK = lib.optionalString (!stdenv.isDarwin) "-Wl,--as-needed";
 
@@ -134,7 +134,7 @@ stdenv.mkDerivation rec {
     description = "Simple interprocess messaging system";
     homepage = "http://www.freedesktop.org/wiki/Software/dbus/";
     license = licenses.gpl2Plus; # most is also under AFL-2.1
-    maintainers = teams.freedesktop.members ++ (with maintainers; [ ]);
+    maintainers = teams.freedesktop.members ++ (with maintainers; []);
     platforms = platforms.unix;
   };
 }

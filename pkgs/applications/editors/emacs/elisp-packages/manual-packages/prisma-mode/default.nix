@@ -15,7 +15,7 @@ melpaBuild {
 
   commit = rev;
 
-  packageRequires = [ js2-mode ];
+  packageRequires = [js2-mode];
 
   src = fetchFromGitHub {
     owner = "pimeys";

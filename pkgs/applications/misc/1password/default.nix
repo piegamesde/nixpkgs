@@ -17,7 +17,7 @@ let
       args = {
         url = "https://cache.agilebits.com/dist/1P/op2/pkg/v${version}/op_${srcPlatform}_v${version}.${extension}";
         inherit sha256;
-      } // lib.optionalAttrs (extension == "zip") { stripRoot = false; };
+      } // lib.optionalAttrs (extension == "zip") {stripRoot = false;};
     in
     if extension == "zip" then fetchzip args else fetchurl args;
 
@@ -44,7 +44,7 @@ stdenv.mkDerivation {
     else
       throw "Source for ${pname} is not available for ${system}";
 
-  nativeBuildInputs = [ installShellFiles ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
+  nativeBuildInputs = [installShellFiles] ++ lib.optional stdenv.isLinux autoPatchelfHook;
 
   buildInputs = lib.optionals stdenv.isDarwin [
     xar
@@ -86,7 +86,7 @@ stdenv.mkDerivation {
       joelburget
       marsam
     ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     inherit mainProgram platforms;
   };

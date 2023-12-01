@@ -17,5 +17,5 @@ in
     };
   };
 
-  security.pki.certificateFiles = [ caCert ];
+  security.pki.certificateFiles = [caCert];
 }

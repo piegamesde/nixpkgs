@@ -49,12 +49,12 @@ stdenv.mkDerivation rec {
     ++ lib.optional withPostgresql postgresql
     ++ lib.optional withBdb db;
 
-  propagatedBuildInputs = [ librdf_rasqal ];
+  propagatedBuildInputs = [librdf_rasqal];
 
   postInstall = "rm -rvf $out/share/gtk-doc";
 
   configureFlags =
-    [ "--with-threads" ]
+    ["--with-threads"]
     ++ lib.optionals withBdb [
       "--with-bdb-include=${db.dev}/include"
       "--with-bdb-lib=${db.out}/lib"

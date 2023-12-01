@@ -1,7 +1,7 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
 with pkgs.lib;
@@ -12,20 +12,20 @@ let
     (import ./make-test-python.nix
       ({
         inherit name;
-        meta = with pkgs.lib.maintainers; { maintainers = [ nequissimus ]; };
+        meta = with pkgs.lib.maintainers; {maintainers = [nequissimus];};
 
         nodes = {
           zookeeper1 =
-            { ... }:
+            {...}:
             {
               services.zookeeper = {
                 enable = true;
               };
 
-              networking.firewall.allowedTCPPorts = [ 2181 ];
+              networking.firewall.allowedTCPPorts = [2181];
             };
           kafka =
-            { ... }:
+            {...}:
             {
               services.apache-kafka = {
                 enable = true;
@@ -37,7 +37,7 @@ let
                 zookeeper = "zookeeper1:2181";
               };
 
-              networking.firewall.allowedTCPPorts = [ 9092 ];
+              networking.firewall.allowedTCPPorts = [9092];
               # i686 tests: qemu-system-i386 can simulate max 2047MB RAM (not 2048)
               virtualisation.memorySize = 2047;
             };
@@ -71,7 +71,7 @@ let
           )
         '';
       })
-      { inherit system; }
+      {inherit system;}
     );
 in
 with pkgs; {

@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-aHA4kXHYH+KvAJSep5X3DqsiK6WFpXr3rGQl/KNiUcY=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     meson
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     description = "A digital analog clock for Wayland desktops";
     homepage = "https://git.sr.ht/~leon_plickat/wlclock";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ nomisiv ];
+    maintainers = with maintainers; [nomisiv];
     platforms = with platforms; linux;
   };
 }

@@ -27,17 +27,17 @@ buildPythonPackage rec {
     six
   ];
 
-  pythonImportsCheck = [ "sphinxfortran" ];
+  pythonImportsCheck = ["sphinxfortran"];
 
   # Tests are failing because reference files are not updated
   doCheck = false;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Fortran domain and autodoc extensions to Sphinx";
     homepage = "http://sphinx-fortran.readthedocs.org/";
     license = licenses.cecill21;
-    maintainers = with maintainers; [ loicreynier ];
+    maintainers = with maintainers; [loicreynier];
   };
 }

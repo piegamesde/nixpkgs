@@ -13,13 +13,13 @@ let
       pname,
       version,
       src,
-      meta ? { },
+      meta ? {},
     }:
     stdenv.mkDerivation {
       inherit pname version src;
 
-      depsBuildBuild = [ buildPackages.stdenv.cc ];
-      nativeBuildInputs = [ bison ];
+      depsBuildBuild = [buildPackages.stdenv.cc];
+      nativeBuildInputs = [bison];
 
       # Jambase expects ar to have flags.
       preConfigure = ''
@@ -99,7 +99,7 @@ in
     in
     base.overrideAttrs (
       oldAttrs: {
-        makeFlags = (oldAttrs.makeFlags or [ ]) ++ [ "CC=${buildPackages.stdenv.cc.targetPrefix}cc" ];
+        makeFlags = (oldAttrs.makeFlags or []) ++ ["CC=${buildPackages.stdenv.cc.targetPrefix}cc"];
       }
     );
 
@@ -140,7 +140,7 @@ in
           "build"
           "target"
         ];
-        configureFlags = (oldAttrs.configureFlags or [ ]) ++ [
+        configureFlags = (oldAttrs.configureFlags or []) ++ [
           "CC=${buildPackages.stdenv.cc.targetPrefix}cc"
           "--host=${stdenv.buildPlatform.config}"
         ];

@@ -47,9 +47,9 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
-  mesonFlags = [ "-Dgtk_doc=true" ];
+  mesonFlags = ["-Dgtk_doc=true"];
 
   doCheck = true;
 

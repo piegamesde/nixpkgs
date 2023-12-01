@@ -21,14 +21,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-xL1QbeOLnAJVcBdp2NIMlT5LMxkNwA99VzCHV9NjwUo=";
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+  nativeBuildInputs = [pkg-config] ++ lib.optionals stdenv.isDarwin [DarwinTools];
 
   buildInputs = [
     libusb1
     libftdi1
-  ] ++ lib.optionals stdenv.isDarwin [ AppKit ];
+  ] ++ lib.optionals stdenv.isDarwin [AppKit];
 
-  buildFeatures = [ "ftdi" ];
+  buildFeatures = ["ftdi"];
 
   meta = with lib; {
     description = "A cargo extension for working with microcontrollers";

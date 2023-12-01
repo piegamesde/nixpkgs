@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     gettext
   ];
 
-  configureFlags = [ "--with-tcl=${tcl}/lib" ];
+  configureFlags = ["--with-tcl=${tcl}/lib"];
 
   preConfigure = ''
     export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE"
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     '';
     license = lib.licenses.gpl2Plus;
     homepage = "https://sourceforge.net/projects/extremetuxracer/";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = with lib.platforms; linux;
   };
 }

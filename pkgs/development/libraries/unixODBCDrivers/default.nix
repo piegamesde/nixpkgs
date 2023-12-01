@@ -62,7 +62,7 @@
       fetchSubmodules = true;
     };
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
     buildInputs = [
       unixODBC
       openssl
@@ -105,13 +105,13 @@
       sha256 = "1smi4z49i4zm7cmykjkwlxxzqvn7myngsw5bc35z6gqxmi8c55xr";
     };
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
     buildInputs = [
       unixODBC
       mariadb
     ];
 
-    cmakeFlags = [ "-DWITH_UNIXODBC=1" ];
+    cmakeFlags = ["-DWITH_UNIXODBC=1"];
 
     passthru = {
       fancyName = "MySQL";
@@ -148,7 +148,7 @@
       "--with-sqlite3=${sqlite.dev}"
     ];
 
-    installTargets = [ "install-3" ];
+    installTargets = ["install-3"];
 
     # move libraries to $out/lib where they're expected to be
     postInstall = ''
@@ -166,7 +166,7 @@
       homepage = "http://www.ch-werner.de/sqliteodbc";
       license = licenses.bsd2;
       platforms = platforms.unix;
-      maintainers = with maintainers; [ vlstill ];
+      maintainers = with maintainers; [vlstill];
     };
   };
 
@@ -219,10 +219,10 @@
       broken = stdenv.isDarwin;
       description = "ODBC Driver 17 for SQL Server";
       homepage = "https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-2017";
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
       license = licenses.unfree;
       platforms = platforms.linux;
-      maintainers = with maintainers; [ spencerjanssen ];
+      maintainers = with maintainers; [spencerjanssen];
     };
   };
 
@@ -235,7 +235,7 @@
       sha256 = "sha256-r5HvsZjB7+x+ClxtWoONkE1/NAbz90NbHfzxC6tf7jA=";
     };
 
-    nativeBuildInputs = [ dpkg ];
+    nativeBuildInputs = [dpkg];
 
     unpackPhase = ''
       dpkg -x $src src
@@ -253,7 +253,7 @@
 
     dontPatchELF = true;
 
-    buildInputs = [ unixODBC ];
+    buildInputs = [unixODBC];
 
     passthru = {
       fancyName = "Amazon Redshift (x64)";
@@ -264,10 +264,10 @@
       broken = stdenv.isDarwin;
       description = "Amazon Redshift ODBC driver";
       homepage = "https://docs.aws.amazon.com/redshift/latest/mgmt/configure-odbc-connection.html";
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
       license = licenses.unfree;
       platforms = platforms.linux;
-      maintainers = with maintainers; [ sir4ur0n ];
+      maintainers = with maintainers; [sir4ur0n];
     };
   };
 }

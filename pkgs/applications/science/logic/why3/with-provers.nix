@@ -6,7 +6,7 @@
 }:
 provers:
 let
-  configAwkScript = runCommand "why3-conf.awk" { inherit provers; } ''
+  configAwkScript = runCommand "why3-conf.awk" {inherit provers;} ''
     for p in $provers; do
       for b in $p/bin/*; do
         BASENAME=$(basename $b)
@@ -20,8 +20,8 @@ stdenv.mkDerivation {
   pname = "${why3.pname}-with-provers";
   version = why3.version;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ why3 ] ++ provers;
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [why3] ++ provers;
 
   dontUnpack = true;
 

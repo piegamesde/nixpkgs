@@ -27,6 +27,6 @@ buildGoModule rec {
     description = "Wireguard client that exposes itself as a socks5 proxy";
     homepage = "https://github.com/octeep/wireproxy";
     license = licenses.isc;
-    maintainers = with maintainers; [ _3JlOy-PYCCKUi ];
+    maintainers = with maintainers; [_3JlOy-PYCCKUi];
   };
 }

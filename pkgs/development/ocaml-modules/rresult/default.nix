@@ -27,9 +27,9 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.07")
       ocamlbuild
       topkg
     ];
-    buildInputs = [ topkg ];
+    buildInputs = [topkg];
 
-    propagatedBuildInputs = [ result ];
+    propagatedBuildInputs = [result];
 
     strictDeps = true;
 
@@ -39,7 +39,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.07")
       license = lib.licenses.isc;
       homepage = "https://erratique.ch/software/rresult";
       description = "Result value combinators for OCaml";
-      maintainers = [ lib.maintainers.vbgl ];
+      maintainers = [lib.maintainers.vbgl];
       inherit (ocaml.meta) platforms;
     };
   }

@@ -30,7 +30,7 @@ let
 
   # Compute versioned attribute name to be used in this package set
   # computeName :: String -> String
-  computeName = version: "cudnn_${strings.replaceStrings [ "." ] [ "_" ] (majorMinorPatch version)}";
+  computeName = version: "cudnn_${strings.replaceStrings ["."] ["_"] (majorMinorPatch version)}";
 
   # Check whether a CUDNN release supports our CUDA version
   # Thankfully we're able to do lexicographic comparison on the version strings
@@ -44,7 +44,7 @@ let
   useCudatoolkitRunfile = strings.versionOlder cudaVersion "11.3.999";
 
   # buildCuDnnPackage :: Release -> Derivation
-  buildCuDnnPackage = callPackage ./generic.nix { inherit useCudatoolkitRunfile; };
+  buildCuDnnPackage = callPackage ./generic.nix {inherit useCudatoolkitRunfile;};
 
   # Reverse the list to have the latest release first
   # cudnnReleases :: List Release
@@ -65,7 +65,7 @@ let
   # allBuilds :: AttrSet String Derivation
   allBuilds = builtins.listToAttrs (builtins.map toBuildAttrs supportedReleases);
 
-  defaultBuild = attrsets.optionalAttrs (supportedReleases != [ ]) {
+  defaultBuild = attrsets.optionalAttrs (supportedReleases != []) {
     cudnn =
       let
         # The latest release is the first element of the list and will be our default choice

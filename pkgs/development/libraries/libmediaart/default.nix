@@ -40,14 +40,14 @@ stdenv.mkDerivation rec {
     docbook_xsl
     docbook_xml_dtd_412
     gobject-introspection
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [mesonEmulatorHook];
 
   buildInputs = [
     glib
     gdk-pixbuf
   ];
 
-  mesonFlags = [ "-Dgtk_doc=true" ];
+  mesonFlags = ["-Dgtk_doc=true"];
 
   passthru = {
     updateScript = gnome.updateScript {

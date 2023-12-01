@@ -56,7 +56,7 @@ rustPlatform.buildRustPackage rec {
     protobuf
   ];
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       Security
       libiconv
@@ -67,6 +67,6 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/dfinity/quill/releases/tag/v${version}";
     description = "Minimalistic ledger and governance toolkit for cold wallets on the Internet Computer.";
     license = licenses.asl20;
-    maintainers = with maintainers; [ imalison ];
+    maintainers = with maintainers; [imalison];
   };
 }

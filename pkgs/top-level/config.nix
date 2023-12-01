@@ -1,6 +1,6 @@
 # This file defines the structure of the `config` nixpkgs option.
 
-{ config, lib, ... }:
+{config, lib, ...}:
 
 with lib;
 
@@ -9,7 +9,7 @@ let
   mkMassRebuild =
     args:
     mkOption (
-      builtins.removeAttrs args [ "feature" ]
+      builtins.removeAttrs args ["feature"]
       // {
         type = args.type or (types.uniq types.bool);
         default = args.default or false;
@@ -30,11 +30,11 @@ let
     # Internal stuff
 
     # Hide built-in module system options from docs.
-    _module.args = mkOption { internal = true; };
+    _module.args = mkOption {internal = true;};
 
     warnings = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       internal = true;
     };
 
@@ -46,13 +46,11 @@ let
       default = false;
     };
 
-    doCheckByDefault = mkMassRebuild { feature = "run `checkPhase` by default"; };
+    doCheckByDefault = mkMassRebuild {feature = "run `checkPhase` by default";};
 
-    strictDepsByDefault = mkMassRebuild { feature = "set `strictDeps` to true by default"; };
+    strictDepsByDefault = mkMassRebuild {feature = "set `strictDeps` to true by default";};
 
-    structuredAttrsByDefault = mkMassRebuild {
-      feature = "set `__structuredAttrs` to true by default";
-    };
+    structuredAttrsByDefault = mkMassRebuild {feature = "set `__structuredAttrs` to true by default";};
 
     enableParallelBuildingByDefault = mkMassRebuild {
       feature = "set `enableParallelBuilding` to true by default";
@@ -121,8 +119,8 @@ let
     };
 
     showDerivationWarnings = mkOption {
-      type = types.listOf (types.enum [ "maintainerless" ]);
-      default = [ ];
+      type = types.listOf (types.enum ["maintainerless"]);
+      default = [];
       description = lib.mdDoc ''
         Which warnings to display for potentially dangerous
         or deprecated values passed into `stdenv.mkDerivation`.
@@ -157,14 +155,14 @@ in
         let
           r = t.merge loc defs;
         in
-        r // { _undeclared = r; };
+        r // {_undeclared = r;};
     };
 
   inherit options;
 
   config = {
     warnings = lib.optionals config.warnUndeclaredOptions (
-      lib.mapAttrsToList (k: v: "undeclared Nixpkgs option set: config.${k}") config._undeclared or { }
+      lib.mapAttrsToList (k: v: "undeclared Nixpkgs option set: config.${k}") config._undeclared or {}
     );
   };
 }

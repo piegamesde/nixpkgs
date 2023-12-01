@@ -19,7 +19,7 @@ let
       sha256 = "sha256-fC+zsR8BY6vXpUkVd6i1jF0IZZxVKVvNi6VWCKT+pA4=";
       stripRoot = false;
     }).overrideAttrs
-      (old: { nativeBuildInputs = old.nativeBuildInputs ++ [ unrar-wrapper ]; });
+      (old: {nativeBuildInputs = old.nativeBuildInputs ++ [unrar-wrapper];});
 in
 stdenv.mkDerivation rec {
   pname = "SpaceCadetPinball";
@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
       unfree
       mit
     ];
-    maintainers = [ maintainers.hqurve ];
+    maintainers = [maintainers.hqurve];
     platforms = platforms.all;
     mainProgram = "SpaceCadetPinball";
   };

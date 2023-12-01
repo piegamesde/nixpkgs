@@ -56,7 +56,7 @@ stdenv.mkDerivation (
     # gdk-pixbuf-thumbnailer is not wrapped therefore strictDeps will work
     strictDeps = true;
 
-    depsBuildBuild = [ pkg-config ];
+    depsBuildBuild = [pkg-config];
 
     nativeBuildInputs =
       [
@@ -71,7 +71,7 @@ stdenv.mkDerivation (
         # for man pages
         docutils
       ]
-      ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
+      ++ lib.optionals stdenv.isDarwin [fixDarwinDylibNames]
       ++ lib.optionals withIntrospection [
         gi-docgen
         gobject-introspection
@@ -162,9 +162,9 @@ stdenv.mkDerivation (
       description = "A library for image loading and manipulation";
       homepage = "https://gitlab.gnome.org/GNOME/gdk-pixbuf";
       license = licenses.lgpl21Plus;
-      maintainers = [ maintainers.eelco ] ++ teams.gnome.members;
+      maintainers = [maintainers.eelco] ++ teams.gnome.members;
       mainProgram = "gdk-pixbuf-thumbnailer";
-      pkgConfigModules = [ "gdk-pixbuf-2.0" ];
+      pkgConfigModules = ["gdk-pixbuf-2.0"];
       platforms = platforms.unix;
     };
   }

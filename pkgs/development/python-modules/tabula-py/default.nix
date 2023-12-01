@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-SV4QLvk7dXtU0/husS5A5mBYvbTejLyO9PpiO2oBtjs=";
   };
 
-  patches = [ ./java-interpreter-path.patch ];
+  patches = [./java-interpreter-path.patch];
 
   postPatch = ''
     sed -i 's|@JAVA@|${jre}/bin/java|g' $(find -name '*.py')
@@ -34,7 +34,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     distro
@@ -43,9 +43,9 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "tabula" ];
+  pythonImportsCheck = ["tabula"];
 
   disabledTests = [
     # Tests require network access
@@ -60,6 +60,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/chezou/tabula-py";
     changelog = "https://github.com/chezou/tabula-py/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

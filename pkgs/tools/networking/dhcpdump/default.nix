@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     perl
   ];
 
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   installPhase = ''
     mkdir -pv $out/bin

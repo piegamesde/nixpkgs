@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "fiveam";
   version = "20211209-git";
 
-  parasites = [ "fiveam/test" ];
+  parasites = ["fiveam/test"];
 
   description = "A simple regression testing framework";
 
@@ -21,7 +21,7 @@ rec {
 
   packageName = "fiveam";
 
-  asdFilesToKeep = [ "fiveam.asd" ];
+  asdFilesToKeep = ["fiveam.asd"];
   overrides = x: x;
 }
 /* (SYSTEM fiveam DESCRIPTION A simple regression testing framework SHA256

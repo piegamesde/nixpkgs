@@ -40,7 +40,7 @@ buildPythonPackage rec {
       ./0001-serialdriver-remove-pyserial-version-check.patch
     ];
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     ansicolors
@@ -73,7 +73,7 @@ buildPythonPackage rec {
     description = "Embedded control & testing library";
     homepage = "https://labgrid.org";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ emantor ];
+    maintainers = with maintainers; [emantor];
     platforms = with platforms; linux;
   };
 }

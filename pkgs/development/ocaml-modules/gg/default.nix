@@ -35,7 +35,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
       ocamlbuild
       topkg
     ];
-    buildInputs = [ topkg ];
+    buildInputs = [topkg];
 
     inherit (topkg) buildPhase installPhase;
 
@@ -50,6 +50,6 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
       inherit homepage;
       inherit (ocaml.meta) platforms;
       license = licenses.bsd3;
-      maintainers = [ maintainers.jirkamarsik ];
+      maintainers = [maintainers.jirkamarsik];
     };
   }

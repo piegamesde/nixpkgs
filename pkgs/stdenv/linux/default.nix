@@ -59,7 +59,7 @@
   crossSystem,
   config,
   overlays,
-  crossOverlays ? [ ],
+  crossOverlays ? [],
 
   bootstrapFiles ? let
     table = {
@@ -96,7 +96,7 @@
           v: system:
           if v != null then
             v
-          else if localSystem.canExecute (lib.systems.elaborate { inherit system; }) then
+          else if localSystem.canExecute (lib.systems.elaborate {inherit system;}) then
             archLookupTable.${system}
           else
             null
@@ -176,8 +176,8 @@ let
     prevStage:
     {
       name,
-      overrides ? (self: super: { }),
-      extraNativeBuildInputs ? [ ],
+      overrides ? (self: super: {}),
+      extraNativeBuildInputs ? [],
     }:
 
     let
@@ -195,9 +195,9 @@ let
           ${commonPreHook}
         '';
         shell = "${bootstrapTools}/bin/bash";
-        initialPath = [ bootstrapTools ];
+        initialPath = [bootstrapTools];
 
-        fetchurlBoot = import ../../build-support/fetchurl/boot.nix { inherit system; };
+        fetchurlBoot = import ../../build-support/fetchurl/boot.nix {inherit system;};
 
         cc =
           if prevStage.gcc-unwrapped == null then
@@ -207,7 +207,7 @@ let
               name = "${name}-gcc-wrapper";
               nativeTools = false;
               nativeLibc = false;
-              buildPackages = lib.optionalAttrs (prevStage ? stdenv) { inherit (prevStage) stdenv; };
+              buildPackages = lib.optionalAttrs (prevStage ? stdenv) {inherit (prevStage) stdenv;};
               cc = prevStage.gcc-unwrapped;
               bintools = prevStage.binutils;
               isGNU = true;
@@ -228,7 +228,7 @@ let
                 }
               );
 
-        overrides = self: super: (overrides self super) // { fetchurl = thisStdenv.fetchurlBoot; };
+        overrides = self: super: (overrides self super) // {fetchurl = thisStdenv.fetchurlBoot;};
       };
     in
     {
@@ -240,7 +240,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
 [
 
   (
-    { }:
+    {}:
     {
       __raw = true;
 
@@ -292,7 +292,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           name = "bootstrap-stage0-binutils-wrapper";
           nativeTools = false;
           nativeLibc = false;
-          buildPackages = { };
+          buildPackages = {};
           libc = getLibc self;
           inherit lib;
           inherit (self) stdenvNoCC coreutils gnugrep;
@@ -327,7 +327,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
 
       # Rebuild binutils to use from stage2 onwards.
       overrides = self: super: {
-        binutils-unwrapped = super.binutils-unwrapped.override { enableGold = false; };
+        binutils-unwrapped = super.binutils-unwrapped.override {enableGold = false;};
         inherit (prevStage)
           ccWrapperStdenv
           gcc-unwrapped
@@ -384,7 +384,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           patchelf
           ;
         ${localSystem.libc} = getLibc prevStage;
-        gmp = prev.gmp.override { cxx = false; };
+        gmp = prev.gmp.override {cxx = false;};
         gcc-unwrapped =
           (prev.gcc-unwrapped.override (
             commonGccOverrides
@@ -434,14 +434,14 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
                 # the value between the two variables differently: `--native-system-header-dir=/include`,
                 # and `--with-build-sysroot=${lib.getDev stdenv.cc.libc}`.
                 #
-                configureFlags = (a.configureFlags or [ ]) ++ [
+                configureFlags = (a.configureFlags or []) ++ [
                   "--with-native-system-header-dir=/include"
                   "--with-build-sysroot=${lib.getDev final.stdenv.cc.libc}"
                 ];
 
                 # This is a separate phase because gcc assembles its phase scripts
                 # in bash instead of nix (we should fix that).
-                preFixupPhases = (a.preFixupPhases or [ ]) ++ [ "preFixupXgccPhase" ];
+                preFixupPhases = (a.preFixupPhases or []) ++ ["preFixupXgccPhase"];
 
                 # This is needed to prevent "error: cycle detected in build of '...-xgcc-....drv'
                 # in the references of output 'lib' from output 'out'"
@@ -487,7 +487,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           texinfo
           which
           ;
-        dejagnu = super.dejagnu.overrideAttrs (a: { doCheck = false; });
+        dejagnu = super.dejagnu.overrideAttrs (a: {doCheck = false;});
 
         # We need libidn2 and its dependency libunistring as glibc dependency.
         # To avoid the cycle, we build against bootstrap libc, nuke references,
@@ -503,7 +503,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             # Apparently iconv won't work with bootstrap glibc, but it will be used
             # with glibc built later where we keep *this* build of libunistring,
             # so we need to trick it into supporting libiconv.
-            env = attrs.env or { } // {
+            env = attrs.env or {} // {
               am_cv_func_iconv_works = "yes";
             };
           }
@@ -613,12 +613,12 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           # We build a special copy of libgmp which doesn't use libstdc++, because
           # xgcc++'s libstdc++ references the bootstrap-files (which is what
           # compiles xgcc++).
-          gmp = super.gmp.override { cxx = false; };
+          gmp = super.gmp.override {cxx = false;};
         }
         // {
           ${localSystem.libc} = getLibc prevStage;
           gcc-unwrapped =
-            (super.gcc-unwrapped.override (commonGccOverrides // { inherit (prevStage) which; })).overrideAttrs
+            (super.gcc-unwrapped.override (commonGccOverrides // {inherit (prevStage) which;})).overrideAttrs
               (
                 a: {
                   # so we can add them to allowedRequisites below
@@ -634,7 +634,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
               );
         };
       extraNativeBuildInputs =
-        [ prevStage.patchelf ]
+        [prevStage.patchelf]
         ++
         # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
         lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
@@ -685,7 +685,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
 
         # To allow users' overrides inhibit dependencies too heavy for
         # bootstrap, like guile: https://github.com/NixOS/nixpkgs/issues/181188
-        gnumake = super.gnumake.override { inBootstrap = true; };
+        gnumake = super.gnumake.override {inBootstrap = true;};
 
         gcc = lib.makeOverridable (import ../../build-support/cc-wrapper) {
           nativeTools = false;
@@ -743,10 +743,10 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
 
         preHook = commonPreHook;
 
-        initialPath = ((import ../generic/common-path.nix) { pkgs = prevStage; });
+        initialPath = ((import ../generic/common-path.nix) {pkgs = prevStage;});
 
         extraNativeBuildInputs =
-          [ prevStage.patchelf ]
+          [prevStage.patchelf]
           ++
           # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
           lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
@@ -763,7 +763,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           shellPackage = prevStage.bash;
         };
 
-        disallowedRequisites = [ bootstrapTools.out ];
+        disallowedRequisites = [bootstrapTools.out];
 
         # Mainly avoid reference to bootstrap tools
         allowedRequisites =
@@ -873,7 +873,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
                 ;
             };
 
-            gnumake = super.gnumake.override { inBootstrap = false; };
+            gnumake = super.gnumake.override {inBootstrap = false;};
           }
           // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
             # Need to get rid of these when cross-compiling.

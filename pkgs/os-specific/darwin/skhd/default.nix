@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
     sha256 = "0x099979kgpim18r0vi9vd821qnv0rl3rkj0nd1nx3wljxgf7mrg";
   };
 
-  buildInputs = [ Carbon ];
+  buildInputs = [Carbon];
 
-  makeFlags = [ "BUILD_PATH=$(out)/bin" ];
+  makeFlags = ["BUILD_PATH=$(out)/bin"];
 
   postInstall = ''
     mkdir -p $out/Library/LaunchDaemons

@@ -14,7 +14,7 @@
 
 let
 
-  fontsConf = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
+  fontsConf = makeFontsConf {fontDirectories = [freefont_ttf];};
 in
 
 perlPackages.buildPerlPackage rec {
@@ -28,7 +28,7 @@ perlPackages.buildPerlPackage rec {
     sha256 = "sha256-r5rszxr65lSozkUNaqfBn4I4XjLtvQ6T/BG366JXLRM=";
   };
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   nativeBuildInputs = [
     makeWrapper
@@ -79,6 +79,6 @@ perlPackages.buildPerlPackage rec {
       gpl1Plus
     ];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ mnacamura ];
+    maintainers = with maintainers; [mnacamura];
   };
 }

@@ -349,7 +349,7 @@ in
 
     services.mysql = mkIf cfg.database.createLocally {
       enable = true;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -368,8 +368,8 @@ in
             Type = "oneshot";
             RemainAfterExit = true;
           };
-          wantedBy = [ "phpfpm-cloudlog.service" ];
-          after = [ "mysql.service" ];
+          wantedBy = ["phpfpm-cloudlog.service"];
+          after = ["mysql.service"];
           script =
             let
               mysql = "${config.services.mysql.package}/bin/mysql";
@@ -420,9 +420,9 @@ in
       timers = {
         cloudlog-upload-lotw = {
           enable = cfg.upload-lotw.enable;
-          wantedBy = [ "timers.target" ];
-          partOf = [ "cloudlog-upload-lotw.service" ];
-          after = [ "phpfpm-cloudlog.service" ];
+          wantedBy = ["timers.target"];
+          partOf = ["cloudlog-upload-lotw.service"];
+          after = ["phpfpm-cloudlog.service"];
           timerConfig = {
             OnCalendar = cfg.upload-lotw.interval;
             Persistent = true;
@@ -430,9 +430,9 @@ in
         };
         cloudlog-upload-clublog = {
           enable = cfg.upload-clublog.enable;
-          wantedBy = [ "timers.target" ];
-          partOf = [ "cloudlog-upload-clublog.service" ];
-          after = [ "phpfpm-cloudlog.service" ];
+          wantedBy = ["timers.target"];
+          partOf = ["cloudlog-upload-clublog.service"];
+          after = ["phpfpm-cloudlog.service"];
           timerConfig = {
             OnCalendar = cfg.upload-clublog.interval;
             Persistent = true;
@@ -440,9 +440,9 @@ in
         };
         cloudlog-update-lotw-users = {
           enable = cfg.update-lotw-users.enable;
-          wantedBy = [ "timers.target" ];
-          partOf = [ "cloudlog-update-lotw-users.service" ];
-          after = [ "phpfpm-cloudlog.service" ];
+          wantedBy = ["timers.target"];
+          partOf = ["cloudlog-update-lotw-users.service"];
+          after = ["phpfpm-cloudlog.service"];
           timerConfig = {
             OnCalendar = cfg.update-lotw-users.interval;
             Persistent = true;
@@ -450,9 +450,9 @@ in
         };
         cloudlog-update-dok = {
           enable = cfg.update-dok.enable;
-          wantedBy = [ "timers.target" ];
-          partOf = [ "cloudlog-update-dok.service" ];
-          after = [ "phpfpm-cloudlog.service" ];
+          wantedBy = ["timers.target"];
+          partOf = ["cloudlog-update-dok.service"];
+          after = ["phpfpm-cloudlog.service"];
           timerConfig = {
             OnCalendar = cfg.update-dok.interval;
             Persistent = true;
@@ -460,9 +460,9 @@ in
         };
         cloudlog-update-clublog-scp = {
           enable = cfg.update-clublog-scp.enable;
-          wantedBy = [ "timers.target" ];
-          partOf = [ "cloudlog-update-clublog-scp.service" ];
-          after = [ "phpfpm-cloudlog.service" ];
+          wantedBy = ["timers.target"];
+          partOf = ["cloudlog-update-clublog-scp.service"];
+          after = ["phpfpm-cloudlog.service"];
           timerConfig = {
             OnCalendar = cfg.update-clublog-scp.interval;
             Persistent = true;
@@ -470,9 +470,9 @@ in
         };
         cloudlog-update-wwff = {
           enable = cfg.update-wwff.enable;
-          wantedBy = [ "timers.target" ];
-          partOf = [ "cloudlog-update-wwff.service" ];
-          after = [ "phpfpm-cloudlog.service" ];
+          wantedBy = ["timers.target"];
+          partOf = ["cloudlog-update-wwff.service"];
+          after = ["phpfpm-cloudlog.service"];
           timerConfig = {
             OnCalendar = cfg.update-wwff.interval;
             Persistent = true;
@@ -480,9 +480,9 @@ in
         };
         cloudlog-upload-qrz = {
           enable = cfg.upload-qrz.enable;
-          wantedBy = [ "timers.target" ];
-          partOf = [ "cloudlog-upload-qrz.service" ];
-          after = [ "phpfpm-cloudlog.service" ];
+          wantedBy = ["timers.target"];
+          partOf = ["cloudlog-upload-qrz.service"];
+          after = ["phpfpm-cloudlog.service"];
           timerConfig = {
             OnCalendar = cfg.upload-qrz.interval;
             Persistent = true;
@@ -490,9 +490,9 @@ in
         };
         cloudlog-update-sota = {
           enable = cfg.update-sota.enable;
-          wantedBy = [ "timers.target" ];
-          partOf = [ "cloudlog-update-sota.service" ];
-          after = [ "phpfpm-cloudlog.service" ];
+          wantedBy = ["timers.target"];
+          partOf = ["cloudlog-update-sota.service"];
+          after = ["phpfpm-cloudlog.service"];
           timerConfig = {
             OnCalendar = cfg.update-sota.interval;
             Persistent = true;
@@ -520,5 +520,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ melling ];
+  meta.maintainers = with maintainers; [melling];
 }

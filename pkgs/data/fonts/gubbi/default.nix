@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "10w9i3pmjvs1b3xclrgn4q5a95ss4ipldbxbqrys2dmfivx7i994";
   };
 
-  nativeBuildInputs = [ fontforge ];
+  nativeBuildInputs = [fontforge];
 
   dontConfigure = true;
 
@@ -29,6 +29,6 @@ stdenv.mkDerivation rec {
     description = "A Kannada font";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
   };
 }

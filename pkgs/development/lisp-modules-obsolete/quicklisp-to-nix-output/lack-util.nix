@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "lack-util";
   version = "lack-20211209-git";
@@ -19,7 +19,7 @@ rec {
 
   packageName = "lack-util";
 
-  asdFilesToKeep = [ "lack-util.asd" ];
+  asdFilesToKeep = ["lack-util.asd"];
   overrides = x: x;
 }
 /* (SYSTEM lack-util DESCRIPTION System lacks description SHA256

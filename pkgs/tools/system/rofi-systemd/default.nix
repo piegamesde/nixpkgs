@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "0lgffb6rk1kf91j4j303lzpx8w2g9zy2gk99p8g8pk62a30c5asm";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontBuild = true;
 
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Control your systemd units using rofi";
     homepage = "https://github.com/IvanMalison/rofi-systemd";
-    maintainers = with lib.maintainers; [ imalison ];
+    maintainers = with lib.maintainers; [imalison];
     license = lib.licenses.gpl3;
     platforms = with lib.platforms; linux;
   };

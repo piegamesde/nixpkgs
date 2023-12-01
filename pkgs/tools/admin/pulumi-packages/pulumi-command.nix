@@ -1,4 +1,4 @@
-{ lib, mkPulumiPackage }:
+{lib, mkPulumiPackage}:
 mkPulumiPackage rec {
   owner = "pulumi";
   repo = "pulumi-command";
@@ -8,7 +8,7 @@ mkPulumiPackage rec {
   vendorHash = "sha256-HyzWPRYfjdjGGBByCc8N91qWhX2QBJoQMpudHWrkmFM=";
   cmdGen = "pulumi-gen-command";
   cmdRes = "pulumi-resource-command";
-  extraLdflags = [ "-X github.com/pulumi/${repo}/provider/v4/pkg/version.Version=v${version}" ];
+  extraLdflags = ["-X github.com/pulumi/${repo}/provider/v4/pkg/version.Version=v${version}"];
 
   postConfigure = ''
     pushd ..

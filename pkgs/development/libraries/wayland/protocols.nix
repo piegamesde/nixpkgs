@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     patchShebangs tests/
   '';
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     meson
     ninja
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     wayland
   ];
 
-  mesonFlags = [ "-Dtests=${lib.boolToString doCheck}" ];
+  mesonFlags = ["-Dtests=${lib.boolToString doCheck}"];
 
   meta = {
     description = "Wayland protocol extensions";
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.freedesktop.org/wayland/wayland-protocols";
     license = lib.licenses.mit; # Expat version
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ primeos ];
+    maintainers = with lib.maintainers; [primeos];
   };
 
   passthru.version = version;

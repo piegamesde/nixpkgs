@@ -16,7 +16,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "03ag8vkbf85qww857ii8hcnn8bh5qa7rsmhka0v9vfxk272ifbyq";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ tkinter ];
+  propagatedBuildInputs = with python3.pkgs; [tkinter];
 
   postPatch = ''
     substituteInPlace Makefile --replace /bin/bash ${bash}/bin/bash
@@ -43,6 +43,6 @@ python3.pkgs.buildPythonApplication rec {
       agpl3Plus # code
       cc-by-sa-30 # data.json
     ];
-    maintainers = [ maintainers.obfusk ];
+    maintainers = [maintainers.obfusk];
   };
 }

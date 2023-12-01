@@ -13,7 +13,7 @@ let
     sha256 = "0c1335m76fv0wfbk07s8r6ln7zbmlqd66052gqfisakl8a1aafl6";
   };
 
-  appimageContents = appimageTools.extract { inherit name src; };
+  appimageContents = appimageTools.extract {inherit name src;};
 in
 appimageTools.wrapType2 {
   inherit name src;
@@ -31,7 +31,7 @@ appimageTools.wrapType2 {
     description = "Streaming music player that finds free music for you";
     homepage = "https://nuclear.js.org/";
     license = licenses.agpl3Plus;
-    maintainers = [ maintainers.ivar ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.ivar];
+    platforms = ["x86_64-linux"];
   };
 }

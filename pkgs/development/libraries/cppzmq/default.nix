@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hKMHJF/FXPeQjkEXLTN6zjKMaVGa3LdIebXya3NRSzU=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  propagatedBuildInputs = [ zeromq ];
+  nativeBuildInputs = [cmake];
+  propagatedBuildInputs = [zeromq];
 
   cmakeFlags =
     [
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/zeromq/cppzmq";
     license = licenses.bsd2;
     description = "C++ binding for 0MQ";
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     platforms = platforms.unix;
   };
 }

@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "0vfw7z9i2s9np6nmx1d4dlsywm044rkaqarn7akffmb6bf1j6zv5";
   };
 
-  nativeBuildInputs = [ gettext ];
+  nativeBuildInputs = [gettext];
   buildInputs = [
     gettext
     gawk
@@ -25,13 +25,13 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  configureFlags = [ "--with-charmaps=${stdenv.cc.libc}/share/i18n/charmaps" ];
+  configureFlags = ["--with-charmaps=${stdenv.cc.libc}/share/i18n/charmaps"];
 
   meta = {
     homepage = "https://www.nongnu.org/m17n/";
     description = "Multilingual text processing library (database)";
     license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ astsmtl ];
+    maintainers = with lib.maintainers; [astsmtl];
   };
 }

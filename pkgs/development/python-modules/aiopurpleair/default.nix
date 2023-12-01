@@ -31,7 +31,7 @@ buildPythonPackage rec {
       --replace 'pydantic = "^1.10.2"' 'pydantic = "*"'
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -51,13 +51,13 @@ buildPythonPackage rec {
       "examples/"
     ];
 
-  pythonImportsCheck = [ "aiopurpleair" ];
+  pythonImportsCheck = ["aiopurpleair"];
 
   meta = with lib; {
     description = "Python library for interacting with the PurpleAir API";
     homepage = "https://github.com/bachya/aiopurpleair";
     changelog = "https://github.com/bachya/aiopurpleair/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

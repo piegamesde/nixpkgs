@@ -34,7 +34,7 @@ buildPythonPackage rec {
     cp requirements.{in,txt}
   '';
 
-  nativeBuildInputs = [ pbr ];
+  nativeBuildInputs = [pbr];
 
   propagatedBuildInputs = [
     pyyaml
@@ -54,13 +54,13 @@ buildPythonPackage rec {
   # No tests
   doCheck = false;
 
-  pythonImportsCheck = [ "tern" ];
+  pythonImportsCheck = ["tern"];
 
   meta = with lib; {
     description = "A software composition analysis tool and Python library that generates a Software Bill of Materials for container images and Dockerfiles";
     homepage = "https://github.com/tern-tools/tern";
     changelog = "https://github.com/tern-tools/tern/releases/tag/v${version}";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

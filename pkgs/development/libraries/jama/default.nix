@@ -15,8 +15,8 @@ stdenv.mkDerivation rec {
     sha256 = "031ns526fvi2nv7jzzv02i7i5sjcyr0gj884i3an67qhsx8vyckl";
   };
 
-  nativeBuildInputs = [ unzip ];
-  propagatedBuildInputs = [ tnt ];
+  nativeBuildInputs = [unzip];
+  propagatedBuildInputs = [tnt];
 
   unpackPhase = ''
     mkdir "${pname}-${version}"

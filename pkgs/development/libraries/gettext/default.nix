@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "04kbg1sx0ncfrsbr85ggjslqkzzb243fcw9nyh3rrv1a22ihszf7";
   };
   patches =
-    [ ./absolute-paths.diff ]
+    [./absolute-paths.diff]
     ++ lib.optional stdenv.hostPlatform.isWindows (
       fetchpatch {
         url = "https://aur.archlinux.org/cgit/aur.git/plain/gettext_formatstring-ruby.patch?h=mingw-w64-gettext&id=e8b577ee3d399518d005e33613f23363a7df07ee";
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     "info"
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   LDFLAGS = lib.optionalString stdenv.isSunOS "-lm -lmd -lmp -luutil -lnvpair -lnsl -lidmap -lavl -lsec";
 
@@ -84,9 +84,9 @@ stdenv.mkDerivation rec {
     xz.bin
   ];
   buildInputs =
-    [ bash ]
+    [bash]
     # HACK, see #10874 (and 14664)
-    ++ lib.optionals (!stdenv.isLinux && !stdenv.hostPlatform.isCygwin) [ libiconv ];
+    ++ lib.optionals (!stdenv.isLinux && !stdenv.hostPlatform.isCygwin) [libiconv];
 
   setupHooks = [
     ../../../build-support/setup-hooks/role.bash
@@ -132,4 +132,4 @@ stdenv.mkDerivation rec {
   };
 }
 
-// lib.optionalAttrs stdenv.isDarwin { makeFlags = [ "CFLAGS=-D_FORTIFY_SOURCE=0" ]; }
+// lib.optionalAttrs stdenv.isDarwin {makeFlags = ["CFLAGS=-D_FORTIFY_SOURCE=0"];}

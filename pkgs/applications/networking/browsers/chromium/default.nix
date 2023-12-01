@@ -84,7 +84,7 @@ let
         gnChromium = gn.overrideAttrs (
           oldAttrs: {
             inherit (upstream-info.deps.gn) version;
-            src = fetchgit { inherit (upstream-info.deps.gn) url rev sha256; };
+            src = fetchgit {inherit (upstream-info.deps.gn) url rev sha256;};
           }
         );
       }
@@ -103,7 +103,7 @@ let
         ;
     };
 
-    ungoogled-chromium = callPackage ./ungoogled.nix { };
+    ungoogled-chromium = callPackage ./ungoogled.nix {};
   };
 
   pkgSuffix =
@@ -188,7 +188,7 @@ let
     '';
 
     meta = {
-      platforms = [ "x86_64-linux" ];
+      platforms = ["x86_64-linux"];
       license = lib.licenses.unfree;
     };
   };
@@ -207,7 +207,7 @@ let
       browser = chromium.browser;
     in
     if enableWideVine then
-      runCommand (browser.name + "-wv") { version = browser.version; } ''
+      runCommand (browser.name + "-wv") {version = browser.version;} ''
         mkdir -p $out
         cp -a ${browser}/* $out/
         chmod u+w $out/libexec/chromium

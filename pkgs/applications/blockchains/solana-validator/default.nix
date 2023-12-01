@@ -84,7 +84,7 @@ rustPlatform.buildRustPackage rec {
     zlib
     libclang
     hidapi
-  ] ++ (lib.optionals stdenv.isLinux [ udev ]);
+  ] ++ (lib.optionals stdenv.isLinux [udev]);
   strictDeps = true;
 
   doCheck = false;
@@ -93,7 +93,7 @@ rustPlatform.buildRustPackage rec {
     description = "Web-Scale Blockchain for fast, secure, scalable, decentralized apps and marketplaces. ";
     homepage = "https://solana.com";
     license = licenses.asl20;
-    maintainers = with maintainers; [ adjacentresearch ];
+    maintainers = with maintainers; [adjacentresearch];
     platforms = platforms.unix;
     # never built on aarch64-darwin, x86_64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin;

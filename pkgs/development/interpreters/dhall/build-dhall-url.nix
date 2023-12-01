@@ -65,7 +65,7 @@ let
         outputHashAlgo = null;
         outputHash = hash;
         name = baseNameOf url;
-        nativeBuildInputs = [ cacert ];
+        nativeBuildInputs = [cacert];
         impureEnvVars = lib.fetchers.proxyImpureEnvVars;
       }
       ''
@@ -83,7 +83,7 @@ let
 
   sourceFile = "source.dhall";
 in
-runCommand name { } (
+runCommand name {} (
   ''
     set -eu
 

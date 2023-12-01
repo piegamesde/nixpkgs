@@ -81,10 +81,10 @@ stdenv.mkDerivation rec {
     comment = "Software for Saleae logic analyzers";
     desktopName = "Saleae Logic";
     genericName = "Logic analyzer";
-    categories = [ "Development" ];
+    categories = ["Development"];
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   installPhase = ''
     # Copy prebuilt app to $out
@@ -130,9 +130,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Software for Saleae logic analyzers";
     homepage = "https://www.saleae.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

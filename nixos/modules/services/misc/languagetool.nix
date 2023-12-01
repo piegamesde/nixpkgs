@@ -10,7 +10,7 @@ with lib;
 
 let
   cfg = config.services.languagetool;
-  settingsFormat = pkgs.formats.javaProperties { };
+  settingsFormat = pkgs.formats.javaProperties {};
 in
 {
   options.services.languagetool = {
@@ -49,7 +49,7 @@ in
           description = mdDoc "Number of sentences cached.";
         };
       };
-      default = { };
+      default = {};
       description = mdDoc ''
         Configuration file options for LanguageTool, see
         'languagetool-http-server --help'
@@ -62,14 +62,14 @@ in
 
     systemd.services.languagetool = {
       description = "LanguageTool HTTP server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         DynamicUser = true;
         User = "languagetool";
         Group = "languagetool";
-        CapabilityBoundingSet = [ "" ];
-        RestrictNamespaces = [ "" ];
+        CapabilityBoundingSet = [""];
+        RestrictNamespaces = [""];
         SystemCallFilter = [
           "@system-service"
           "~ @privileged"

@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  buildInputs = [ blas ];
+  buildInputs = [blas];
 
   enableParallelBuilding = true;
 
@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     description = "Molecular metadynamics library";
     homepage = "https://github.com/plumed/plumed2";
     license = licenses.lgpl3Only;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

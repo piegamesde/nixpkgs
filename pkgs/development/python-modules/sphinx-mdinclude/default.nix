@@ -20,13 +20,13 @@ buildPythonPackage rec {
     hash = "sha256-KZjj0YswIsmYPRtyGR/jfiX/zNVBZcvjrLIszu3ZGvQ=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
   propagatedBuildInputs = [
     mistune
     docutils
   ];
 
-  nativeCheckInputs = [ pygments ];
+  nativeCheckInputs = [pygments];
 
   meta = with lib; {
     homepage = "https://github.com/miyakogi/m2r";
@@ -40,6 +40,6 @@ buildPythonPackage rec {
       sphinx-mdinclude is a fork of m2r and m2r2, focused only on providing a Sphinx extension.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
   };
 }

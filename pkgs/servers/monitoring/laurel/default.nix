@@ -18,15 +18,15 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-hX2nSBgXctAHGqvP/ZmMjGJf7C/wPJ/gL+gV7uI8gco=";
 
-  nativeBuildInputs = [ rustPlatform.bindgenHook ];
-  buildInputs = [ acl ];
+  nativeBuildInputs = [rustPlatform.bindgenHook];
+  buildInputs = [acl];
 
   meta = with lib; {
     description = "Transform Linux Audit logs for SIEM usage";
     homepage = "https://github.com/threathunters-io/laurel";
     changelog = "https://github.com/threathunters-io/laurel/releases/tag/v${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ indeednotjames ];
+    maintainers = with maintainers; [indeednotjames];
     platforms = platforms.linux;
   };
 }

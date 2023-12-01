@@ -16,7 +16,7 @@ buildDunePackage rec {
 
   dontAddPrefix = true;
 
-  propagatedBuildInputs = [ stdune ];
+  propagatedBuildInputs = [stdune];
 
   preBuild = ''
     rm -r vendor/csexp
@@ -24,7 +24,7 @@ buildDunePackage rec {
 
   meta = with lib; {
     description = "Private libraries of Dune";
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
     license = licenses.mit;
   };
 }

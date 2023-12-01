@@ -30,7 +30,7 @@ buildPythonPackage rec {
       --replace 'sys.platform.startswith("linux")' 'sys.platform.startswith(("darwin", "linux"))'
   '';
 
-  pythonImportsCheck = [ "readchar" ];
+  pythonImportsCheck = ["readchar"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -41,6 +41,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/magmax/python-readchar";
     description = "Python library to read characters and key strokes";
     license = licenses.mit;
-    maintainers = [ maintainers.mmahut ];
+    maintainers = [maintainers.mmahut];
   };
 }

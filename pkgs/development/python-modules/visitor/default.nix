@@ -17,6 +17,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mbr/visitor";
     description = "A tiny pythonic visitor implementation";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

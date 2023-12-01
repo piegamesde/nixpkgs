@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "CLI tool to manage POSIX message queues";
     homepage = "https://github.com/aprilabank/mq-cli";
     license = licenses.mit;
-    maintainers = with maintainers; [ tazjin ];
+    maintainers = with maintainers; [tazjin];
     platforms = platforms.linux;
   };
 }

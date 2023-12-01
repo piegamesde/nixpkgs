@@ -74,7 +74,7 @@ buildPythonPackage rec {
     ln -s ${./Cargo.lock} Cargo.lock
   '';
 
-  cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
+  cargoDeps = rustPlatform.importCargoLock {lockFile = ./Cargo.lock;};
 
   sourceRoot = "source/bindings/python";
 
@@ -92,13 +92,13 @@ buildPythonPackage rec {
     );
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       Security
     ];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   nativeCheckInputs = [
     datasets
@@ -125,7 +125,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d);
   '';
 
-  pythonImportsCheck = [ "tokenizers" ];
+  pythonImportsCheck = ["tokenizers"];
 
   disabledTests = [
     # Downloads data using the datasets module
@@ -140,7 +140,7 @@ buildPythonPackage rec {
     description = "Fast State-of-the-Art Tokenizers optimized for Research and Production";
     homepage = "https://github.com/huggingface/tokenizers";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

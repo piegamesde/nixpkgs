@@ -41,15 +41,15 @@ buildPythonPackage rec {
     mock
   ];
 
-  disabledTests = [ "test_type_name_with_module" ];
+  disabledTests = ["test_type_name_with_module"];
 
-  pythonImportsCheck = [ "stone" ];
+  pythonImportsCheck = ["stone"];
 
   meta = with lib; {
     description = "Official Api Spec Language for Dropbox";
     homepage = "https://github.com/dropbox/stone";
     changelog = "https://github.com/dropbox/stone/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

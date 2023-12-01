@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "Lua-configurable terminal emulator";
     homepage = "https://github.com/endaaman/tym";
     license = licenses.mit;
-    maintainers = [ maintainers.wesleyjrz ];
+    maintainers = [maintainers.wesleyjrz];
     platforms = platforms.linux;
   };
 }

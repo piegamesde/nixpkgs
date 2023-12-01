@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-D6j5KHx7I9UmcI6SSuDMYQE/4ae9ZfDef1bdIzryefk=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   # TVM CMake build uses some sources in the project's ./src/target/opt/
   # directory which errneously gets mangled by the eager `fixCmakeFiles`
   # function in Nix's CMake setup-hook.sh to ./src/target/var/empty/,
@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     description = "An End to End Deep Learning Compiler Stack for CPUs, GPUs and accelerators";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ adelbertc ];
+    maintainers = with maintainers; [adelbertc];
   };
 }

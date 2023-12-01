@@ -45,7 +45,7 @@ let
 
   inherit (stdenv) hostPlatform targetPlatform;
 
-  sources = callPackage ../sources.nix { };
+  sources = callPackage ../sources.nix {};
 
   # Tools invoked by swift at run-time.
   runtimeDeps =
@@ -56,7 +56,7 @@ let
         # builds. This small derivation exposes just libtool.
         # NOTE: The same applies to swift-driver, but that is currently always
         # invoked via the old `swift` / `swiftc`. May change in the future.
-        (runCommandLocal "libtool" { } ''
+        (runCommandLocal "libtool" {} ''
           mkdir -p $out/bin
           ln -s ${cctools}/bin/libtool $out/bin/libtool
         '')
@@ -92,7 +92,7 @@ let
     if hostPlatform.isDarwin then "lib/swift/${swiftOs}" else "lib/swift/${swiftOs}/${swiftArch}";
 
   # And then there's also a separate subtree for statically linked  modules.
-  toStaticSubdir = lib.replaceStrings [ "/swift/" ] [ "/swift_static/" ];
+  toStaticSubdir = lib.replaceStrings ["/swift/"] ["/swift_static/"];
   swiftStaticLibSubdir = toStaticSubdir swiftLibSubdir;
   swiftStaticModuleSubdir = toStaticSubdir swiftModuleSubdir;
 
@@ -237,7 +237,7 @@ stdenv.mkDerivation {
       swig
       libxml2
     ]
-    ++ lib.optionals stdenv.isLinux [ libuuid ]
+    ++ lib.optionals stdenv.isLinux [libuuid]
     ++ lib.optionals stdenv.isDarwin [
       CoreServices
       Foundation
@@ -602,7 +602,7 @@ stdenv.mkDerivation {
 
   # TODO: ~50 failing tests on x86_64-linux. Other platforms not checked.
   doCheck = false;
-  nativeCheckInputs = [ file ];
+  nativeCheckInputs = [file];
   # TODO: consider using stress-tester and integration-test.
   checkPhase = ''
     cd $SWIFT_BUILD_ROOT/swift

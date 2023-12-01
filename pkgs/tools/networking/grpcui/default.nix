@@ -19,7 +19,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/grpcui" ];
+  subPackages = ["cmd/grpcui"];
 
   ldflags = [
     "-s"
@@ -31,7 +31,7 @@ buildGoModule rec {
     description = "An interactive web UI for gRPC, along the lines of postman";
     homepage = "https://github.com/fullstorydev/grpcui";
     license = licenses.mit;
-    maintainers = with maintainers; [ pradyuman ];
+    maintainers = with maintainers; [pradyuman];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

@@ -19,7 +19,7 @@ let
 
     dontUnpack = true;
     src = requireFile {
-      name = "PacketTracer_${builtins.replaceStrings [ "." ] [ "" ] version}_amd64.deb";
+      name = "PacketTracer_${builtins.replaceStrings ["."] [""] version}_amd64.deb";
       sha256 = "c39802d15dd61d00ba27fb8c116da45fd8562ab4b49996555ad66b88deace27f";
       url = "https://www.netacad.com";
     };
@@ -86,16 +86,16 @@ stdenv.mkDerivation {
     ${lndir}/bin/lndir -silent ${fhs} $out
   '';
 
-  desktopItems = [ desktopItem ];
+  desktopItems = [desktopItem];
 
-  nativeBuildInputs = [ copyDesktopItems ];
+  nativeBuildInputs = [copyDesktopItems];
 
   meta = with lib; {
     description = "Network simulation tool from Cisco";
     homepage = "https://www.netacad.com/courses/packet-tracer";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ lucasew ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [lucasew];
+    platforms = ["x86_64-linux"];
   };
 }

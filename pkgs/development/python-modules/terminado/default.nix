@@ -19,14 +19,14 @@ buildPythonPackage rec {
     hash = "sha256-bMu806T4olpewEmR85oLjbUt/NSH6g5XjZd+Z1I4AzM=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     ptyprocess
     tornado
   ];
 
-  pythonImportsCheck = [ "terminado" ];
+  pythonImportsCheck = ["terminado"];
 
   nativeCheckInputs = [
     pytest-timeout
@@ -37,6 +37,6 @@ buildPythonPackage rec {
     description = "Terminals served by Tornado websockets";
     homepage = "https://github.com/jupyter/terminado";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

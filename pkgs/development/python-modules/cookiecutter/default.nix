@@ -55,6 +55,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/audreyr/cookiecutter";
     description = "A command-line utility that creates projects from project templates";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ kragniz ];
+    maintainers = with maintainers; [kragniz];
   };
 }

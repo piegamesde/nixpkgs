@@ -18,8 +18,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-kA2MAb4/EygjwiLEjF9EA7k8Tk//nwcKB1+HlzELakQ=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  propagatedBuildInputs = [ fmt ];
+  nativeBuildInputs = [cmake];
+  propagatedBuildInputs = [fmt];
 
   cmakeFlags = [
     "-DSPDLOG_BUILD_SHARED=${if staticBuild then "OFF" else "ON"}"
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     description = "Very fast, header only, C++ logging library";
     homepage = "https://github.com/gabime/spdlog";
     license = licenses.mit;
-    maintainers = with maintainers; [ obadz ];
+    maintainers = with maintainers; [obadz];
     platforms = platforms.all;
   };
 }

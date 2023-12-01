@@ -7,7 +7,7 @@
   nix-gitignore,
   stdenv,
   lib,
-  globalBuildInputs ? [ ],
+  globalBuildInputs ? [],
 }:
 
 let
@@ -856,7 +856,7 @@ in
       (
         sources."@financial-times/polyfill-useragent-normaliser-1.10.2"
         // {
-          dependencies = [ sources."semver-7.3.8" ];
+          dependencies = [sources."semver-7.3.8"];
         }
       )
       sources."@financial-times/useragent_parser-1.6.3"
@@ -873,7 +873,7 @@ in
       sources."cookie-0.4.2"
       sources."core-util-is-1.0.3"
       sources."cors-2.8.5"
-      (sources."debug-2.6.9" // { dependencies = [ sources."ms-2.0.0" ]; })
+      (sources."debug-2.6.9" // {dependencies = [sources."ms-2.0.0"];})
       sources."depd-2.0.0"
       sources."destroy-1.2.0"
       sources."ecdsa-sig-formatter-1.0.11"
@@ -928,7 +928,7 @@ in
       sources."process-nextick-args-2.0.1"
       sources."promise-polyfill-1.1.6"
       sources."range-parser-1.2.1"
-      (sources."readable-stream-2.3.7" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
+      (sources."readable-stream-2.3.7" // {dependencies = [sources."safe-buffer-5.1.2"];})
       sources."safe-buffer-5.2.1"
       sources."semver-5.7.1"
       sources."send-0.18.0"
@@ -958,7 +958,7 @@ in
       sources."statuses-2.0.1"
       sources."stream-from-promise-1.0.0"
       sources."stream-to-string-1.2.0"
-      (sources."string_decoder-1.1.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
+      (sources."string_decoder-1.1.1" // {dependencies = [sources."safe-buffer-5.1.2"];})
       sources."toidentifier-1.0.1"
       sources."toposort-2.0.2"
       sources."tslib-2.4.0"

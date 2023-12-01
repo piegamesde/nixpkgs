@@ -28,6 +28,6 @@ stdenvNoCC.mkDerivation rec {
     '';
     homepage = "http://language.moe.gov.tw/result.aspx?classify_sn=23&subclassify_sn=436&content_sn=48";
     license = lib.licenses.cc-by-nd-30;
-    maintainers = with lib.maintainers; [ ShamrockLee ];
+    maintainers = with lib.maintainers; [ShamrockLee];
   };
 }

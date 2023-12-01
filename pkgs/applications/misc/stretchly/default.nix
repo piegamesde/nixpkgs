@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "0whfg1fy2hjyk1lzpryikc1aj8agsjhfrb0bf7ggl6r9m8s1rvdl";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     icon = icon;
     desktopName = "Stretchly";
     genericName = "Stretchly";
-    categories = [ "Utility" ];
+    categories = ["Utility"];
   };
 
   meta = with lib; {

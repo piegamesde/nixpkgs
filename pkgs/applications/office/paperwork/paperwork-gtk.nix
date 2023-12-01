@@ -22,12 +22,12 @@
 
 let
   documentation_deps = [
-    (texlive.combine { inherit (texlive) scheme-small wrapfig gensymb; })
+    (texlive.combine {inherit (texlive) scheme-small wrapfig gensymb;})
     xvfb-run
     imagemagick
     perlPackages.Po4a
   ];
-  inherit (import ./src.nix { inherit fetchFromGitLab; }) version src sample_documents;
+  inherit (import ./src.nix {inherit fetchFromGitLab;}) version src sample_documents;
 in
 
 python3Packages.buildPythonApplication rec {
@@ -85,7 +85,7 @@ python3Packages.buildPythonApplication rec {
     done
   '';
 
-  nativeCheckInputs = [ dbus ];
+  nativeCheckInputs = [dbus];
 
   nativeBuildInputs = [
     wrapGAppsHook

@@ -55,12 +55,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -"];
 
     systemd.services.readarr = {
       description = "Readarr";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "simple";
@@ -71,7 +71,7 @@ in
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ 8787 ]; };
+    networking.firewall = mkIf cfg.openFirewall {allowedTCPPorts = [8787];};
 
     users.users = mkIf (cfg.user == "readarr") {
       readarr = {
@@ -82,6 +82,6 @@ in
       };
     };
 
-    users.groups = mkIf (cfg.group == "readarr") { readarr = { }; };
+    users.groups = mkIf (cfg.group == "readarr") {readarr = {};};
   };
 }

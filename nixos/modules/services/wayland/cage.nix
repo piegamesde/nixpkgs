@@ -23,10 +23,10 @@ in
 
   options.services.cage.extraArguments = mkOption {
     type = types.listOf types.str;
-    default = [ ];
+    default = [];
     defaultText = literalExpression "[]";
     description = lib.mdDoc "Additional command line arguments to pass to Cage.";
-    example = [ "-d" ];
+    example = ["-d"];
   };
 
   options.services.cage.program = mkOption {
@@ -52,14 +52,14 @@ in
         "systemd-logind.service"
         "getty@tty1.service"
       ];
-      before = [ "graphical.target" ];
+      before = ["graphical.target"];
       wants = [
         "dbus.socket"
         "systemd-logind.service"
         "plymouth-quit.service"
       ];
-      wantedBy = [ "graphical.target" ];
-      conflicts = [ "getty@tty1.service" ];
+      wantedBy = ["graphical.target"];
+      conflicts = ["getty@tty1.service"];
 
       restartIfChanged = false;
       unitConfig.ConditionPathExists = "/dev/tty1";
@@ -103,10 +103,10 @@ in
 
     hardware.opengl.enable = mkDefault true;
 
-    systemd.targets.graphical.wants = [ "cage-tty1.service" ];
+    systemd.targets.graphical.wants = ["cage-tty1.service"];
 
     systemd.defaultUnit = "graphical.target";
   };
 
-  meta.maintainers = with lib.maintainers; [ matthewbauer ];
+  meta.maintainers = with lib.maintainers; [matthewbauer];
 }

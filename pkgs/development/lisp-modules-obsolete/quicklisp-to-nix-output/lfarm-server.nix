@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "lfarm-server";
   version = "lfarm-20150608-git";
@@ -24,7 +24,7 @@ rec {
 
   packageName = "lfarm-server";
 
-  asdFilesToKeep = [ "lfarm-server.asd" ];
+  asdFilesToKeep = ["lfarm-server.asd"];
   overrides = x: x;
 }
 /* (SYSTEM lfarm-server DESCRIPTION

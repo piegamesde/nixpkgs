@@ -9,7 +9,7 @@
   libintl,
   version,
   src,
-  meta ? { },
+  meta ? {},
   fetchpatch,
 }:
 
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
       name = "CVE-2023-27371.patch";
       url = "https://git.gnunet.org/libmicrohttpd.git/patch/?id=e0754d1638c602382384f1eface30854b1defeec";
       hash = "sha256-vzrq9HPysGpc13rFEk6zLPgpUqp/ST4q/Wp30Dam97k=";
-      excludes = [ "ChangeLog" ];
+      excludes = ["ChangeLog"];
     })
   ];
 
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     "devdoc"
     "info"
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libgcrypt
     curl

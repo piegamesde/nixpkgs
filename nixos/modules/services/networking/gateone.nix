@@ -67,8 +67,8 @@ in
         WorkingDirectory = cfg.settingsDir;
       };
 
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["network.target"];
     };
   };
 }

@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     description = "View and edit tags for various audio files";
     homepage = "https://wiki.gnome.org/Apps/EasyTAG";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

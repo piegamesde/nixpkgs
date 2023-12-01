@@ -39,7 +39,7 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  buildInputs = [ pybind11 ] ++ lib.optional stdenv.cc.isClang llvmPackages.openmp;
+  buildInputs = [pybind11] ++ lib.optional stdenv.cc.isClang llvmPackages.openmp;
 
   NIX_CFLAGS_LINK = lib.optional stdenv.cc.isClang "-lomp";
 
@@ -55,5 +55,5 @@ buildPythonPackage rec {
     scipy
   ];
 
-  pythonImportsCheck = [ "cppe" ];
+  pythonImportsCheck = ["cppe"];
 }

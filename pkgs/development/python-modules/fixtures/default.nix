@@ -31,14 +31,14 @@ buildPythonPackage rec {
         })
       ];
 
-  nativeBuildInputs = [ pbr ];
+  nativeBuildInputs = [pbr];
 
   propagatedBuildInputs = [
     testtools
     six # not in install_requires, but used in fixture.py
   ];
 
-  nativeCheckInputs = [ mock ];
+  nativeCheckInputs = [mock];
 
   checkPhase = ''
     ${python.interpreter} -m testtools.run fixtures.test_suite

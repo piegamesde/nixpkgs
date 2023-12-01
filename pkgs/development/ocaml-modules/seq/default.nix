@@ -14,7 +14,7 @@ stdenv.mkDerivation (
 
     meta = {
       license = lib.licenses.lgpl21;
-      maintainers = [ lib.maintainers.vbgl ];
+      maintainers = [lib.maintainers.vbgl];
       homepage = "https://github.com/c-cube/seq";
       inherit (ocaml.meta) platforms;
     };

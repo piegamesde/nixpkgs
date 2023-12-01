@@ -17,7 +17,7 @@ tcl.mkTclDerivation {
     sha256 = "0zb5qp04x8w4gn2kvfdfq2p44kmzfcqn7v167dixz6nlyxg41hrw";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     tk
     libX11
@@ -39,7 +39,7 @@ tcl.mkTclDerivation {
     "SHAREDIR=$(out)/share"
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   dontPatchShebangs = true;
 
@@ -64,7 +64,7 @@ tcl.mkTclDerivation {
 
   meta = {
     description = "Chess database with play and training functionality";
-    maintainers = with lib.maintainers; [ agbrooks ];
+    maintainers = with lib.maintainers; [agbrooks];
     homepage = "https://scid.sourceforge.net/";
     license = lib.licenses.gpl2;
   };

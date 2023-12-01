@@ -23,7 +23,7 @@ buildGoPackage rec {
     inherit (src.meta) homepage;
     description = "librarian-puppet implementation in go";
     license = licenses.mit;
-    maintainers = with maintainers; [ womfoo ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [womfoo];
+    platforms = ["x86_64-linux"];
   };
 }

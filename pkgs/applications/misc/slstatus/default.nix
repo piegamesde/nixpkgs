@@ -8,7 +8,7 @@
   libXau,
   libXdmcp,
   conf ? null,
-  patches ? [ ],
+  patches ? [],
 }:
 
 stdenv.mkDerivation rec {
@@ -29,20 +29,20 @@ stdenv.mkDerivation rec {
 
   inherit patches;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libX11
     libXau
     libXdmcp
   ];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     homepage = "https://tools.suckless.org/slstatus/";
     description = "status monitor for window managers that use WM_NAME like dwm";
     license = licenses.isc;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
     platforms = platforms.linux;
   };
 }

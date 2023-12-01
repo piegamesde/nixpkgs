@@ -17,15 +17,15 @@ stdenv.mkDerivation rec {
     substituteInPlace jaq --replace "json2tsv" "$out/bin/json2tsv"
   '';
 
-  makeFlags = [ "RANLIB:=$(RANLIB)" ];
+  makeFlags = ["RANLIB:=$(RANLIB)"];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "JSON to TSV converter";
     homepage = "https://codemadness.org/json2tsv.html";
     license = licenses.isc;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.unix;
   };
 }

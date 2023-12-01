@@ -19,7 +19,7 @@ buildGoPackage rec {
     sha256 = "17sjxhzhmz4893x3x054anp4xvqd1px15nv3fj2m7i6r0vbgpm0j";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postFixup = ''
     wrapProgram $out/bin/dep2nix \
@@ -32,6 +32,6 @@ buildGoPackage rec {
     description = "Convert `Gopkg.lock` files from golang dep into `deps.nix`";
     license = licenses.bsd3;
     homepage = "https://github.com/nixcloud/dep2nix";
-    maintainers = [ maintainers.mic92 ];
+    maintainers = [maintainers.mic92];
   };
 }

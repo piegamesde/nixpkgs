@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dqrrzbLu4znyWOlTDIf56O3efxszetiP+CdFiy2PBd4=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libpng
     zlib
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/foobaz/pngloss";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ _2gn ];
+    maintainers = with maintainers; [_2gn];
   };
 }

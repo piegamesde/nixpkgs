@@ -27,7 +27,7 @@
 }:
 
 let
-  cryptography-vectors = callPackage ./vectors.nix { };
+  cryptography-vectors = callPackage ./vectors.nix {};
 in
 buildPythonPackage rec {
   pname = "cryptography";
@@ -66,19 +66,19 @@ buildPythonPackage rec {
     );
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       Security
       libiconv
     ]
-    ++ lib.optionals (pythonOlder "3.9") [ libxcrypt ];
+    ++ lib.optionals (pythonOlder "3.9") [libxcrypt];
 
-  propagatedBuildInputs = lib.optionals (!isPyPy) [ cffi ];
+  propagatedBuildInputs = lib.optionals (!isPyPy) [cffi];
 
   nativeCheckInputs = [
     cryptography-vectors
     # "hypothesis" indirectly depends on cryptography to build its documentation
-    (hypothesis.override { enableDocumentation = false; })
+    (hypothesis.override {enableDocumentation = false;})
     iso8601
     pretend
     py
@@ -88,7 +88,7 @@ buildPythonPackage rec {
     pytz
   ];
 
-  pytestFlagsArray = [ "--disable-pytest-warnings" ];
+  pytestFlagsArray = ["--disable-pytest-warnings"];
 
   disabledTestPaths =
     lib.optionals (stdenv.isDarwin && stdenv.isAarch64)
@@ -108,13 +108,12 @@ buildPythonPackage rec {
       supports Python 2.7, Python 3.5+, and PyPy 5.4+.
     '';
     homepage = "https://github.com/pyca/cryptography";
-    changelog =
-      "https://cryptography.io/en/latest/changelog/#v" + replaceStrings [ "." ] [ "-" ] version;
+    changelog = "https://cryptography.io/en/latest/changelog/#v" + replaceStrings ["."] ["-"] version;
     license = with licenses; [
       asl20
       bsd3
       psfl
     ];
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

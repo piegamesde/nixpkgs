@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "QT based cross platform canbus tool";
     homepage = "https://savvycan.com/";
     changelog = "https://github.com/collin80/SavvyCAN/releases/tag/${version}";
-    maintainers = with maintainers; [ simoneruffini ];
+    maintainers = with maintainers; [simoneruffini];
     platforms = platforms.all;
     license = licenses.mit;
     mainProgram = "SavvyCAN";

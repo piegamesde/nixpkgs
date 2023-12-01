@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   };
 
   patches =
-    [ ./hardening-format.patch ]
+    [./hardening-format.patch]
     ++ lib.optionals stdenv.hostPlatform.isMusl [
       (fetchpatch {
         url = "https://raw.githubusercontent.com/void-linux/void-packages/fceed4b8e96b3c1da07babf6f67b6ed1588a28b2/srcpkgs/dmraid/patches/006-musl-libc.patch";
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
 
   preConfigure = "cd */";
 
-  buildInputs = [ lvm2 ];
+  buildInputs = [lvm2];
 
   # Hand-written Makefile does not have full dependencies to survive
   # parallel build:
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       its volumes. May be needed for rescuing an older system or nuking
       the metadata when reformatting.
     '';
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2Plus;
   };

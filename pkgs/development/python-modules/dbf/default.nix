@@ -19,18 +19,18 @@ buildPythonPackage rec {
     hash = "sha256-lAJypyrCfRah22mq/vggaEASzDVT/+mHXVzS46nLadw=";
   };
 
-  propagatedBuildInputs = [ aenum ];
+  propagatedBuildInputs = [aenum];
 
   checkPhase = ''
     ${python.interpreter} dbf/test.py
   '';
 
-  pythonImportsCheck = [ "dbf" ];
+  pythonImportsCheck = ["dbf"];
 
   meta = with lib; {
     description = "Module for reading/writing dBase, FoxPro, and Visual FoxPro .dbf files";
     homepage = "https://github.com/ethanfurman/dbf";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ vrthra ];
+    maintainers = with maintainers; [vrthra];
   };
 }

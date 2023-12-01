@@ -76,7 +76,7 @@ buildPythonPackage rec {
       --replace "join(WEBAPP_DIR, 'content')" "join('$out', 'webapp', 'content')"
   '';
 
-  checkInputs = [ mock ];
+  checkInputs = [mock];
   checkPhase = ''
     runHook preCheck
 
@@ -93,7 +93,7 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "graphite" ];
+  pythonImportsCheck = ["graphite"];
 
   meta = with lib; {
     description = "Enterprise scalable realtime graphing";

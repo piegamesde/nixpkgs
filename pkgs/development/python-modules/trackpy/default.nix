@@ -34,7 +34,7 @@ buildPythonPackage rec {
     numba
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = lib.optionalString stdenv.isDarwin ''
     # specifically needed for darwin
@@ -48,6 +48,6 @@ buildPythonPackage rec {
     description = "Particle-tracking toolkit";
     homepage = "https://github.com/soft-matter/trackpy";
     license = licenses.bsd3;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

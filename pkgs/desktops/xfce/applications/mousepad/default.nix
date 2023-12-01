@@ -15,7 +15,7 @@ mkXfceDerivation {
 
   sha256 = "sha256-VmpCjR8/3rsCGkVGhT+IdC6kaQkGz8G2ktFhJk32DeQ=";
 
-  nativeBuildInputs = [ gobject-introspection ];
+  nativeBuildInputs = [gobject-introspection];
 
   buildInputs = [
     gtk3
@@ -24,10 +24,10 @@ mkXfceDerivation {
   ];
 
   # Use the GSettings keyfile backend rather than DConf
-  configureFlags = [ "--enable-keyfile-settings" ];
+  configureFlags = ["--enable-keyfile-settings"];
 
   meta = with lib; {
     description = "Simple text editor for Xfce";
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    maintainers = with maintainers; [] ++ teams.xfce.members;
   };
 }

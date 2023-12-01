@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-x3dF9IAjde/u4uxcCta38DfqnIfJKxSaljf/CZ8WJVg=";
   };
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   enableParallelBuilding = true;
 

@@ -11,17 +11,17 @@
 }:
 
 {
-  buildInputs ? [ ],
-  nativeBuildInputs ? [ ],
-  passthru ? { },
+  buildInputs ? [],
+  nativeBuildInputs ? [],
+  passthru ? {},
   preFixup ? "",
   shellHook ? "",
 
   # Go linker flags, passed to go via -ldflags
-  ldflags ? [ ],
+  ldflags ? [],
 
   # Go tags, passed to go via -tag
-  tags ? [ ],
+  tags ? [],
 
   # We want parallel builds by default
   enableParallelBuilding ? true,
@@ -30,14 +30,14 @@
   goPackagePath,
 
   # Go package aliases
-  goPackageAliases ? [ ],
+  goPackageAliases ? [],
 
   # Extra sources to include in the gopath
-  extraSrcs ? [ ],
+  extraSrcs ? [],
 
   # Extra gopaths containing src subfolder
   # with sources to include in the gopath
-  extraSrcPaths ? [ ],
+  extraSrcPaths ? [],
 
   # go2nix dependency file
   goDeps ? null,
@@ -57,7 +57,7 @@
   buildFlags ? "",
   buildFlagsArray ? "",
 
-  meta ? { },
+  meta ? {},
   ...
 }@args:
 
@@ -68,11 +68,11 @@ let
     inherit (goDep) goPackagePath;
     src =
       if goDep.fetch.type == "git" then
-        fetchgit { inherit (goDep.fetch) url rev sha256; }
+        fetchgit {inherit (goDep.fetch) url rev sha256;}
       else if goDep.fetch.type == "hg" then
-        fetchhg { inherit (goDep.fetch) url rev sha256; }
+        fetchhg {inherit (goDep.fetch) url rev sha256;}
       else if goDep.fetch.type == "bzr" then
-        fetchbzr { inherit (goDep.fetch) url rev sha256; }
+        fetchbzr {inherit (goDep.fetch) url rev sha256;}
       else if goDep.fetch.type == "FromGitHub" then
         fetchFromGitHub {
           inherit (goDep.fetch)
@@ -86,9 +86,9 @@ let
         abort "Unrecognized package fetch type: ${goDep.fetch.type}";
   };
 
-  importGodeps = { depsFile }: map dep2src (import depsFile);
+  importGodeps = {depsFile}: map dep2src (import depsFile);
 
-  goPath = if goDeps != null then importGodeps { depsFile = goDeps; } ++ extraSrcs else extraSrcs;
+  goPath = if goDeps != null then importGodeps {depsFile = goDeps;} ++ extraSrcs else extraSrcs;
   package = stdenv.mkDerivation (
     (builtins.removeAttrs args [
       "goPackageAliases"
@@ -97,7 +97,7 @@ let
     ])
     // {
 
-      nativeBuildInputs = [ go ] ++ (lib.optional (!dontRenameImports) govers) ++ nativeBuildInputs;
+      nativeBuildInputs = [go] ++ (lib.optional (!dontRenameImports) govers) ++ nativeBuildInputs;
       buildInputs = buildInputs;
 
       inherit (go) GOOS GOARCH GO386;
@@ -108,10 +108,10 @@ let
       inherit CGO_ENABLED enableParallelBuilding;
 
       GO111MODULE = "off";
-      GOFLAGS = lib.optionals (!allowGoReference) [ "-trimpath" ];
+      GOFLAGS = lib.optionals (!allowGoReference) ["-trimpath"];
 
       GOARM = toString (
-        lib.intersectLists [ (stdenv.hostPlatform.parsed.cpu.version or "") ] [
+        lib.intersectLists [(stdenv.hostPlatform.parsed.cpu.version or "")] [
           "5"
           "6"
           "7"
@@ -144,7 +144,7 @@ let
             fi
           ''
           + lib.flip lib.concatMapStrings goPath (
-            { src, goPackagePath }:
+            {src, goPackagePath}:
             ''
               mkdir goPath
               (cd goPath; unpackFile "${src}")
@@ -155,7 +155,7 @@ let
 
             ''
           )
-          + (lib.optionalString (extraSrcPaths != [ ]) ''
+          + (lib.optionalString (extraSrcPaths != []) ''
             ${rsync}/bin/rsync -a ${lib.concatMapStringsSep " " (p: "${p}/src") extraSrcPaths} go
 
           '')
@@ -177,7 +177,7 @@ let
         args.renameImports or (
           let
             inputsWithAliases = lib.filter (x: x ? goPackageAliases) (
-              buildInputs ++ (args.propagatedBuildInputs or [ ])
+              buildInputs ++ (args.propagatedBuildInputs or [])
             );
             rename = to: from: "echo Renaming '${from}' to '${to}'; govers -d -m ${from} ${to}";
             renames = p: lib.concatMapStringsSep "\n" (rename p.goPackagePath) p.goPackageAliases;
@@ -316,7 +316,7 @@ let
             goPath
         )
         + ''
-          export GOPATH=${lib.concatStringsSep ":" ([ "$d" ] ++ [ "$GOPATH" ] ++ [ "$PWD" ] ++ extraSrcPaths)}
+          export GOPATH=${lib.concatStringsSep ":" (["$d"] ++ ["$GOPATH"] ++ ["$PWD"] ++ extraSrcPaths)}
         ''
         + shellHook;
 
@@ -325,11 +325,7 @@ let
         ++ lib.optional (!dontRenameImports) govers;
 
       passthru =
-        passthru
-        // {
-          inherit go;
-        }
-        // lib.optionalAttrs (goPackageAliases != [ ]) { inherit goPackageAliases; };
+        passthru // {inherit go;} // lib.optionalAttrs (goPackageAliases != []) {inherit goPackageAliases;};
 
       meta = {
         # Add default meta information

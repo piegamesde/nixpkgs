@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
       xorg.libX11
       xorg.libXrandr
     ]
-    ++ lib.optionals stdenv.isLinux [ webkitgtk ]
+    ++ lib.optionals stdenv.isLinux [webkitgtk]
     ++ lib.optionals stdenv.isDarwin [
       WebKit
       MetalKit
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
       simd
     ];
 
-  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ];
+  cmakeFlags = ["-DCMAKE_BUILD_TYPE=Release"];
 
   meta = with lib; {
     description = "A real-time noise suppression plugin for voice based on Xiph's RNNoise";

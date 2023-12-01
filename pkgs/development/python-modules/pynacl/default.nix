@@ -28,13 +28,13 @@ buildPythonPackage rec {
     sha256 = "8ac7448f09ab85811607bdd21ec2464495ac8b7c66d146bf545b0f08fb9220ba";
   };
 
-  nativeBuildInputs = [ sphinxHook ];
+  nativeBuildInputs = [sphinxHook];
 
-  buildInputs = [ libsodium ];
+  buildInputs = [libsodium];
 
-  propagatedNativeBuildInputs = [ cffi ];
+  propagatedNativeBuildInputs = [cffi];
 
-  propagatedBuildInputs = [ cffi ];
+  propagatedBuildInputs = [cffi];
 
   nativeCheckInputs = [
     hypothesis
@@ -43,12 +43,12 @@ buildPythonPackage rec {
 
   SODIUM_INSTALL = "system";
 
-  pythonImportsCheck = [ "nacl" ];
+  pythonImportsCheck = ["nacl"];
 
   meta = with lib; {
     description = "Python binding to the Networking and Cryptography (NaCl) library";
     homepage = "https://github.com/pyca/pynacl/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

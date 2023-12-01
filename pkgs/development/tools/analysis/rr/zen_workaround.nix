@@ -18,14 +18,14 @@ stdenv.mkDerivation rec {
     sha256 = "1mbmbyymgl75wparv3rgnyxnc44rd6n935jziz9anl9apy031ryi";
   };
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  makeFlags = [ "-C${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
+  makeFlags = ["-C${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"];
   postConfigure = ''
     makeFlags="$makeFlags M=$(pwd)"
   '';
-  buildFlags = [ "modules" ];
+  buildFlags = ["modules"];
 
   installPhase =
     let
@@ -43,8 +43,8 @@ stdenv.mkDerivation rec {
     description = "Kernel module supporting the rr debugger on (some) AMD Zen-based CPUs";
     homepage = "https://github.com/rr-debugger/rr/wiki/Zen#kernel-module";
     license = licenses.gpl2;
-    maintainers = [ maintainers.vcunat ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.vcunat];
+    platforms = ["x86_64-linux"];
     broken = versionOlder kernel.version "4.19"; # 4.14 breaks and 4.19 works
   };
 }

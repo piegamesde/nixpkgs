@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "vsftpd";
 
@@ -9,7 +9,7 @@ import ./make-test-python.nix (
           enable = true;
           userlistDeny = false;
           localUsers = true;
-          userlist = [ "ftp-test-user" ];
+          userlist = ["ftp-test-user"];
           writeEnable = true;
           localRoot = "/tmp";
         };
@@ -21,11 +21,11 @@ import ./make-test-python.nix (
             password = "ftp-test-password";
             group = "ftp-test-group";
           };
-          groups.ftp-test-group = { };
+          groups.ftp-test-group = {};
         };
       };
 
-      client = { };
+      client = {};
     };
 
     testScript = ''

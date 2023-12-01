@@ -18,7 +18,7 @@ mkDerivation rec {
   src = fetchFromGitHub {
     owner = "MirBSD";
     repo = pname;
-    rev = "${pname}-${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "${pname}-${lib.replaceStrings ["."] ["_"] version}";
     sha256 = "sha256-DUtaQITzHhQrqA9QJd0U/5EDjH0IzY9/kal/7SYQ/Ck=";
   };
 
@@ -37,7 +37,7 @@ mkDerivation rec {
       --replace '/usr/bin/env mksh' ${mksh}/bin/mksh
   '';
 
-  makeFlags = [ "KDE_VER=5" ];
+  makeFlags = ["KDE_VER=5"];
 
   nativeBuildInputs = [
     makeWrapper
@@ -57,7 +57,7 @@ mkDerivation rec {
   postInstall = ''
     for program in pinentry-kwallet kwalletcli_getpin; do
       wrapProgram $out/bin/$program \
-        --prefix PATH : $out/bin:${lib.makeBinPath [ pinentry-qt ]} \
+        --prefix PATH : $out/bin:${lib.makeBinPath [pinentry-qt]} \
         --set-default PINENTRY pinentry-qt
     done
   '';
@@ -66,6 +66,6 @@ mkDerivation rec {
     description = "Command-Line Interface to the KDE Wallet";
     homepage = "https://www.mirbsd.org/kwalletcli.htm";
     license = licenses.miros;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

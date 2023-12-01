@@ -15,9 +15,9 @@ stdenv.mkDerivation rec {
     sha256 = "0nj17lhnsw4qbbk8jy4j6a78w6v2llhqdwq46g44mbm9w2qsvbvb";
   };
 
-  propagatedBuildInputs = [ libogg ];
+  propagatedBuildInputs = [libogg];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     homepage = "https://xiph.org/oggz/";

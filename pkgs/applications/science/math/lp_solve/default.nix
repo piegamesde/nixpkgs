@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
       cctools
       fixDarwinDylibNames
     ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [autoSignDarwinBinariesHook];
 
   dontConfigure = true;
 
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     description = "A Mixed Integer Linear Programming (MILP) solver";
     homepage = "https://lpsolve.sourceforge.net";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ smironov ];
+    maintainers = with maintainers; [smironov];
     platforms = platforms.unix;
   };
 }

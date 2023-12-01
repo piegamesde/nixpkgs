@@ -19,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-8SNiPsxkjQ4gzhT47YUWIUDBPMSxCIZdGyUp+/oGwAg=";
   };
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [typing-extensions];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests =
     [
@@ -29,12 +29,12 @@ buildPythonPackage rec {
       "test_server_with_path"
     ];
 
-  pythonImportsCheck = [ "avro" ];
+  pythonImportsCheck = ["avro"];
 
   meta = with lib; {
     description = "Python serialization and RPC framework";
     homepage = "https://github.com/apache/avro";
     license = licenses.asl20;
-    maintainers = with maintainers; [ zimbatm ];
+    maintainers = with maintainers; [zimbatm];
   };
 }

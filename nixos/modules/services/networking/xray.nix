@@ -54,7 +54,7 @@ with lib;
               protocol = "http";
             }
           ];
-          outbounds = [ { protocol = "freedom"; } ];
+          outbounds = [{protocol = "freedom";}];
         };
         description = lib.mdDoc ''
           The configuration object.
@@ -92,8 +92,8 @@ with lib;
 
       systemd.services.xray = {
         description = "xray Daemon";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
         serviceConfig = {
           DynamicUser = true;
           ExecStart = "${cfg.package}/bin/xray -config ${settingsFile}";

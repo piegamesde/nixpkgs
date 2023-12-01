@@ -32,7 +32,7 @@ buildPythonPackage rec {
     patchShebangs tests/mock_commands/vsim
   '';
 
-  propagatedBuildInputs = [ jinja2 ];
+  propagatedBuildInputs = [jinja2];
 
   passthru.optional-dependencies = {
     reporting = [
@@ -47,7 +47,7 @@ buildPythonPackage rec {
     yosys
   ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
-  pythonImportsCheck = [ "edalize" ];
+  pythonImportsCheck = ["edalize"];
 
   disabledTestPaths = [
     "tests/test_questa_formal.py"
@@ -81,6 +81,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/olofk/edalize";
     changelog = "https://github.com/olofk/edalize/releases/tag/v${version}";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
   };
 }

@@ -46,7 +46,7 @@ let
             )
             sections
         );
-      setupConf = makeSections "config" { inherit setup; };
+      setupConf = makeSections "config" {inherit setup;};
       connectionsConf = makeSections "conn" connections;
       caConf = makeSections "ca" ca;
     in
@@ -77,7 +77,7 @@ let
       }
 
       starter {
-        config_file = ${ipsecConf { inherit setup connections ca; }}
+        config_file = ${ipsecConf {inherit setup connections ca;}}
       }
     '';
 in
@@ -87,8 +87,8 @@ in
 
     secrets = mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "/run/keys/ipsec-foo.secret" ];
+      default = [];
+      example = ["/run/keys/ipsec-foo.secret"];
       description = lib.mdDoc ''
         A list of paths to IPSec secret files. These
         files will be included into the main ipsec.secrets file with
@@ -99,7 +99,7 @@ in
 
     setup = mkOption {
       type = types.attrsOf types.str;
-      default = { };
+      default = {};
       example = {
         cachecrls = "yes";
         strictcrlpolicy = "yes";
@@ -113,7 +113,7 @@ in
 
     connections = mkOption {
       type = types.attrsOf (types.attrsOf types.str);
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           "%default" = {
@@ -137,7 +137,7 @@ in
 
     ca = mkOption {
       type = types.attrsOf (types.attrsOf types.str);
-      default = { };
+      default = {};
       example = {
         strongswan = {
           auto = "add";
@@ -164,7 +164,7 @@ in
 
     enabledPlugins = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         A list of additional plugins to enable if
         {option}`managePlugins` is true.
@@ -185,14 +185,14 @@ in
 
       systemd.services.strongswan = {
         description = "strongSwan IPSec Service";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         path = with pkgs; [
           kmod
           iproute2
           iptables
           util-linux
         ]; # XXX Linux
-        after = [ "network-online.target" ];
+        after = ["network-online.target"];
         environment = {
           STRONGSWAN_CONF = strongswanConf {
             inherit

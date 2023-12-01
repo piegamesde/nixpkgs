@@ -47,11 +47,11 @@ buildPythonPackage rec {
     msgpack
   ] ++ jsonschema.optional-dependencies.format;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  checkInputs = [ mock ];
+  checkInputs = [mock];
 
-  pythonImportsCheck = [ "bravado_core" ];
+  pythonImportsCheck = ["bravado_core"];
 
   disabledTestPaths = [
     # skip benchmarks

@@ -26,16 +26,16 @@ stdenv.mkDerivation rec {
     pkg-config
     texinfo
   ];
-  buildInputs = [ guile ];
-  propagatedBuildInputs = [ libgcrypt ];
-  makeFlags = [ "GUILE_AUTO_COMPILE=0" ];
+  buildInputs = [guile];
+  propagatedBuildInputs = [libgcrypt];
+  makeFlags = ["GUILE_AUTO_COMPILE=0"];
   doCheck = true;
 
   meta = with lib; {
     description = "Bindings to Libgcrypt for GNU Guile";
     homepage = "https://notabug.org/cwebber/guile-gcrypt";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ethancedwards8 ];
+    maintainers = with maintainers; [ethancedwards8];
     platforms = platforms.linux;
   };
 }

@@ -35,6 +35,6 @@ stdenv.mkDerivation {
     description = "Native Hangouts support for pidgin";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ralith ];
+    maintainers = with maintainers; [ralith];
   };
 }

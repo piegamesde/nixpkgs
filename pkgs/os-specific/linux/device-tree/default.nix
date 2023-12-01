@@ -10,7 +10,7 @@ with lib; {
       base: overlays':
       stdenvNoCC.mkDerivation {
         name = "device-tree-overlays";
-        nativeBuildInputs = [ dtc ];
+        nativeBuildInputs = [dtc];
         buildCommand =
           let
             overlays = toList overlays';

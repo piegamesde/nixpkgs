@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-4ghfenwmauR4Ft9n7dvBflwIMXPdFq1vh6FpIegHnZk=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       postgresql
@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
     ]
     ++ (
       if !stdenv.isDarwin then
-        [ openssl ]
+        [openssl]
       else
         [
           Security
@@ -61,6 +61,6 @@ rustPlatform.buildRustPackage rec {
       Consider <link xling:href="https://diesel.rs/">diesel</link> instead if
       you want an ORM.
     '';
-    maintainers = with maintainers; [ netcrns ];
+    maintainers = with maintainers; [netcrns];
   };
 }

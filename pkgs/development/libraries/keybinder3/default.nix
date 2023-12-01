@@ -55,6 +55,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/kupferlauncher/keybinder/";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ maintainers.cstrahan ];
+    maintainers = [maintainers.cstrahan];
   };
 }

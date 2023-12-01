@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
   ];
 
   doCheck = true;
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
   # this fails inside of the sandbox due to missing access
   # to the FUSE device
   GTEST_FILTER = "-tools.everything";
@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
     description = "A fast high compression read-only file system";
     homepage = "https://github.com/mhx/dwarfs";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ keksbg ];
+    maintainers = with maintainers; [keksbg];
     platforms = platforms.linux;
   };
 }

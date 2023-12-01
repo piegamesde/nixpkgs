@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       gpl2
       gpl2Plus
     ];
-    maintainers = with maintainers; [ felixsinger ];
+    maintainers = with maintainers; [felixsinger];
     platforms = platforms.all;
     broken = stdenv.isDarwin; # requires DirectHW
   };

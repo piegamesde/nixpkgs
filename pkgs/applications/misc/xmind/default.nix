@@ -28,9 +28,9 @@ stdenv.mkDerivation rec {
 
   preferLocalBuild = true;
 
-  patches = [ ./java-env-config-fixes.patch ];
+  patches = [./java-env-config-fixes.patch];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontBuild = true;
   dontPatchELF = true;
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     icon = "xmind";
     desktopName = "XMind";
     comment = meta.description;
-    categories = [ "Office" ];
+    categories = ["Office"];
     mimeTypes = [
       "application/xmind"
       "x-scheme-handler/xmind"
@@ -109,6 +109,6 @@ stdenv.mkDerivation rec {
     mainProgram = "XMind";
     license = licenses.unfree;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ michalrus ];
+    maintainers = with maintainers; [michalrus];
   };
 }

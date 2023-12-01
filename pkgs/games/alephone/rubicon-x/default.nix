@@ -1,4 +1,4 @@
-{ alephone, fetchurl }:
+{alephone, fetchurl}:
 
 alephone.makeWrapper rec {
   pname = "rubicon-x";

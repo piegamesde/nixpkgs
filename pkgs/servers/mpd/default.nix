@@ -67,47 +67,47 @@
 }:
 
 let
-  concatAttrVals = nameList: set: lib.concatMap (x: set.${x} or [ ]) nameList;
+  concatAttrVals = nameList: set: lib.concatMap (x: set.${x} or []) nameList;
 
   featureDependencies = {
     # Storage plugins
-    udisks = [ dbus ];
+    udisks = [dbus];
     webdav = [
       curl
       expat
     ];
     # Input plugins
-    curl = [ curl ];
-    io_uring = [ liburing ];
-    mms = [ libmms ];
-    nfs = [ libnfs ];
-    smbclient = [ samba ];
+    curl = [curl];
+    io_uring = [liburing];
+    mms = [libmms];
+    nfs = [libnfs];
+    smbclient = [samba];
     # Archive support
-    bzip2 = [ bzip2 ];
-    zzip = [ zziplib ];
+    bzip2 = [bzip2];
+    zzip = [zziplib];
     # Decoder plugins
-    audiofile = [ audiofile ];
-    faad = [ faad2 ];
-    ffmpeg = [ ffmpeg ];
-    flac = [ flac ];
-    fluidsynth = [ fluidsynth ];
-    gme = [ game-music-emu ];
-    mad = [ libmad ];
-    mikmod = [ libmikmod ];
-    mpg123 = [ mpg123 ];
-    opus = [ libopus ];
-    vorbis = [ libvorbis ];
+    audiofile = [audiofile];
+    faad = [faad2];
+    ffmpeg = [ffmpeg];
+    flac = [flac];
+    fluidsynth = [fluidsynth];
+    gme = [game-music-emu];
+    mad = [libmad];
+    mikmod = [libmikmod];
+    mpg123 = [mpg123];
+    opus = [libopus];
+    vorbis = [libvorbis];
     # Encoder plugins
-    vorbisenc = [ libvorbis ];
-    lame = [ lame ];
+    vorbisenc = [libvorbis];
+    lame = [lame];
     # Filter plugins
-    libsamplerate = [ libsamplerate ];
+    libsamplerate = [libsamplerate];
     # Output plugins
-    alsa = [ alsa-lib ];
-    jack = [ libjack2 ];
-    pipewire = [ pipewire ];
-    pulse = [ libpulseaudio ];
-    shout = [ libshout ];
+    alsa = [alsa-lib];
+    jack = [libjack2];
+    pipewire = [pipewire];
+    pulse = [libpulseaudio];
+    shout = [libshout];
     # Commercial services
     qobuz = [
       curl
@@ -119,18 +119,18 @@ let
       yajl
     ];
     # Client support
-    libmpdclient = [ libmpdclient ];
+    libmpdclient = [libmpdclient];
     # Tag support
-    id3tag = [ libid3tag ];
+    id3tag = [libid3tag];
     # Misc
-    dbus = [ dbus ];
-    expat = [ expat ];
-    icu = [ icu ];
-    pcre = [ pcre2 ];
-    sqlite = [ sqlite ];
-    syslog = [ ];
-    systemd = [ systemd ];
-    yajl = [ yajl ];
+    dbus = [dbus];
+    expat = [expat];
+    icu = [icu];
+    pcre = [pcre2];
+    sqlite = [sqlite];
+    syslog = [];
+    systemd = [systemd];
+    yajl = [yajl];
     zeroconf = [
       avahi
       dbus
@@ -179,13 +179,13 @@ let
           let
             unknown = lib.subtractLists knownFeatures features;
           in
-          if (unknown != [ ]) then
+          if (unknown != []) then
             throw "Unknown feature(s): ${lib.concatStringsSep " " unknown}"
           else
             let
               unsupported = lib.subtractLists platformFeatures features;
             in
-            if (unsupported != [ ]) then
+            if (unsupported != []) then
               throw "Feature(s) ${lib.concatStringsSep " " unsupported} are not supported on ${stdenv.hostPlatform.system}"
             else
               features;
@@ -224,7 +224,7 @@ let
         pkg-config
       ] ++ concatAttrVals features_ nativeFeatureDependencies;
 
-      depsBuildBuild = [ buildPackages.stdenv.cc ];
+      depsBuildBuild = [buildPackages.stdenv.cc];
 
       postPatch =
         lib.optionalString
@@ -238,7 +238,7 @@ let
       # Otherwise, the meson log says:
       #
       #    Program zip found: NO
-      nativeCheckInputs = [ zip ];
+      nativeCheckInputs = [zip];
 
       doCheck = true;
 
@@ -286,7 +286,7 @@ let
     };
 in
 {
-  mpd = run { };
+  mpd = run {};
   mpd-small = run {
     features =
       [

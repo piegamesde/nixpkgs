@@ -33,12 +33,12 @@ buildPythonPackage rec {
     nose
   ];
 
-  pythonImportsCheck = [ "mf2py" ];
+  pythonImportsCheck = ["mf2py"];
 
   meta = with lib; {
     description = "Microformats2 parser written in Python";
     homepage = "https://microformats.org/wiki/mf2py";
     license = licenses.mit;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

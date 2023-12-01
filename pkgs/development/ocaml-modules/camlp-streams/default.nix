@@ -18,6 +18,6 @@ buildDunePackage rec {
   meta = {
     description = "Stream and Genlex libraries for use with Camlp4 and Camlp5";
     license = lib.licenses.lgpl21Only;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

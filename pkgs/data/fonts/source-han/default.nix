@@ -26,7 +26,7 @@ let
         inherit hash;
       };
 
-      nativeBuildInputs = lib.optionals (zip == ".zip") [ unzip ];
+      nativeBuildInputs = lib.optionals (zip == ".zip") [unzip];
 
       unpackPhase =
         lib.optionalString (zip == "") ''

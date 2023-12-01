@@ -1,4 +1,4 @@
-{ lib, requireFile }:
+{lib, requireFile}:
 
 # To calculate the hash of an installer, use a command like this:
 #

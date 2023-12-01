@@ -17,7 +17,7 @@
 
   prePatch ? "",
   postPatch ? null,
-  patches ? [ ],
+  patches ? [],
   broken ? false,
   brokenOpen ? broken,
 }@args:
@@ -85,7 +85,7 @@ let
         fetchurl {
           urls =
             if args ? url then
-              [ args.url ]
+              [args.url]
             else
               [
                 "https://us.download.nvidia.com/XFree86/Linux-x86_64/${version}/NVIDIA-Linux-x86_64-${version}${pkgSuffix}.run"
@@ -97,7 +97,7 @@ let
         fetchurl {
           urls =
             if args ? url then
-              [ args.url ]
+              [args.url]
             else
               [
                 "https://us.download.nvidia.com/XFree86/Linux-x86/${version}/NVIDIA-Linux-x86-${version}${pkgSuffix}.run"
@@ -109,7 +109,7 @@ let
         fetchurl {
           urls =
             if args ? url then
-              [ args.url ]
+              [args.url]
             else
               [
                 "https://us.download.nvidia.com/XFree86/aarch64/${version}/NVIDIA-Linux-aarch64-${version}${pkgSuffix}.run"
@@ -127,7 +127,7 @@ let
     inherit i686bundled;
 
     outputs =
-      [ "out" ]
+      ["out"]
       ++ optional i686bundled "lib32"
       ++ optional (!libsOnly) "bin"
       ++ optional (!libsOnly && firmware) "firmware";
@@ -164,7 +164,7 @@ let
       libarchive
     ] ++ optionals (!libsOnly) kernel.moduleBuildDependencies;
 
-    disallowedReferences = optionals (!libsOnly) [ kernel.dev ];
+    disallowedReferences = optionals (!libsOnly) [kernel.dev];
 
     passthru = {
       open =
@@ -186,21 +186,21 @@ let
             withGtk3 = !preferGtk2;
           };
       persistenced =
-        mapNullable (hash: callPackage (import ./persistenced.nix self hash) { })
+        mapNullable (hash: callPackage (import ./persistenced.nix self hash) {})
           persistencedSha256;
       inherit persistencedVersion settingsVersion;
       compressFirmware = false;
       ibtSupport = ibtSupport || (lib.versionAtLeast version "530");
-    } // optionalAttrs (!i686bundled) { inherit lib32; };
+    } // optionalAttrs (!i686bundled) {inherit lib32;};
 
     meta = with lib; {
       homepage = "https://www.nvidia.com/object/unix.html";
       description = "X.org driver and kernel module for NVIDIA graphics cards";
       license = licenses.unfreeRedistributable;
       platforms =
-        [ "x86_64-linux" ]
-        ++ optionals (sha256_32bit != null) [ "i686-linux" ]
-        ++ optionals (sha256_aarch64 != null) [ "aarch64-linux" ];
+        ["x86_64-linux"]
+        ++ optionals (sha256_32bit != null) ["i686-linux"]
+        ++ optionals (sha256_aarch64 != null) ["aarch64-linux"];
       maintainers = with maintainers; [
         jonringer
         kiskae

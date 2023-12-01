@@ -34,6 +34,6 @@ buildGoModule rec {
     description = "A tunneling/pivoting tool that uses a TUN interface";
     platforms = platforms.unix;
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ elohmeier ];
+    maintainers = with maintainers; [elohmeier];
   };
 }

@@ -24,7 +24,7 @@ in
 
       addresses = mkOption {
         type = types.listOf types.str;
-        default = [ "0.0.0.0:1965" ];
+        default = ["0.0.0.0:1965"];
         description = lib.mdDoc ''
           Addresses to listen on, IP:PORT, if you haven't disabled forwarding
           only set IPv4.
@@ -44,7 +44,7 @@ in
       };
 
       hostnames = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           Domain name of this Gemini server, enables checking hostname and port
@@ -66,8 +66,8 @@ in
 
       extraArgs = mkOption {
         type = types.listOf types.str;
-        default = [ "" ];
-        example = [ "--log-ip" ];
+        default = [""];
+        example = ["--log-ip"];
         description = lib.mdDoc "Extra arguments to use running agate.";
       };
     };
@@ -76,11 +76,11 @@ in
   config = mkIf cfg.enable {
     # available for generating certs by hand
     # it can be a bit arduous with openssl
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.agate = {
       description = "Agate";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network.target"
         "network-online.target"
@@ -109,13 +109,13 @@ in
                 "${cfg.certificatesDir}"
               ]
               ++ addresses
-              ++ (optionals (cfg.hostnames != [ ]) hostnames)
+              ++ (optionals (cfg.hostnames != []) hostnames)
               ++ (optionals (cfg.language != null) [
                 "--lang"
                 cfg.language
               ])
-              ++ (optionals cfg.onlyTls_1_3 [ "--only-tls13" ])
-              ++ (optionals (cfg.extraArgs != [ ]) cfg.extraArgs)
+              ++ (optionals cfg.onlyTls_1_3 ["--only-tls13"])
+              ++ (optionals (cfg.extraArgs != []) cfg.extraArgs)
             )
           }
         '';

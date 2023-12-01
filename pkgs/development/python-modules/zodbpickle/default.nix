@@ -20,13 +20,13 @@ buildPythonPackage rec {
   # fails..
   doCheck = false;
 
-  pythonImportsCheck = [ "zodbpickle" ];
+  pythonImportsCheck = ["zodbpickle"];
 
   meta = with lib; {
     description = "Fork of Python's pickle module to work with ZODB";
     homepage = "https://github.com/zopefoundation/zodbpickle";
     changelog = "https://github.com/zopefoundation/zodbpickle/blob/${version}/CHANGES.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

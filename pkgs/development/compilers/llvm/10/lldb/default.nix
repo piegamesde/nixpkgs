@@ -69,7 +69,7 @@ stdenv.mkDerivation (
         darwin.apple_sdk.frameworks.Cocoa
       ];
 
-    hardeningDisable = [ "format" ];
+    hardeningDisable = ["format"];
 
     cmakeFlags =
       [
@@ -78,7 +78,7 @@ stdenv.mkDerivation (
         "-DClang_DIR=${libclang.dev}/lib/cmake"
         "-DLLVM_EXTERNAL_LIT=${lit}/bin/lit"
       ]
-      ++ lib.optionals stdenv.isDarwin [ "-DLLDB_USE_SYSTEM_DEBUGSERVER=ON" ]
+      ++ lib.optionals stdenv.isDarwin ["-DLLDB_USE_SYSTEM_DEBUGSERVER=ON"]
       ++ lib.optionals (!stdenv.isDarwin) [
         "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
       ]
@@ -133,7 +133,7 @@ stdenv.mkDerivation (
       make docs-man
     '';
 
-    propagatedBuildInputs = [ ];
+    propagatedBuildInputs = [];
 
     # manually install lldb man page
     installPhase = ''
@@ -144,7 +144,7 @@ stdenv.mkDerivation (
     postPatch = null;
     postInstall = null;
 
-    outputs = [ "out" ];
+    outputs = ["out"];
 
     doCheck = false;
 

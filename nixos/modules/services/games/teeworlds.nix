@@ -83,7 +83,7 @@ in
 
       extraOptions = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Extra configuration lines for the {file}`teeworlds.cfg`. See [Teeworlds Documentation](https://www.teeworlds.com/?page=docs&wiki=server_settings).
         '';
@@ -96,12 +96,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.firewall = mkIf cfg.openPorts { allowedUDPPorts = [ cfg.port ]; };
+    networking.firewall = mkIf cfg.openPorts {allowedUDPPorts = [cfg.port];};
 
     systemd.services.teeworlds = {
       description = "Teeworlds Server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         DynamicUser = true;

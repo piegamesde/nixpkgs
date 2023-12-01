@@ -17,7 +17,7 @@ buildGoPackage rec {
 
   goPackagePath = "github.com/twitchtv/twirp";
 
-  subPackages = [ "protoc-gen-twirp" ];
+  subPackages = ["protoc-gen-twirp"];
 
   doCheck = true;
 
@@ -25,6 +25,6 @@ buildGoPackage rec {
     description = "A simple RPC framework with protobuf service definitions";
     homepage = "https://github.com/twitchtv/twirp";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jojosch ];
+    maintainers = with maintainers; [jojosch];
   };
 }

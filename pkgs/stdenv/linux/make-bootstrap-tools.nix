@@ -1,16 +1,16 @@
 {
-  pkgs ? import ../../.. { },
+  pkgs ? import ../../.. {},
 }:
 
 let
   libc = pkgs.stdenv.cc.libc;
   patchelf = pkgs.patchelf.overrideAttrs (
     previousAttrs: {
-      NIX_CFLAGS_COMPILE = (previousAttrs.NIX_CFLAGS_COMPILE or [ ]) ++ [
+      NIX_CFLAGS_COMPILE = (previousAttrs.NIX_CFLAGS_COMPILE or []) ++ [
         "-static-libgcc"
         "-static-libstdc++"
       ];
-      NIX_CFLAGS_LINK = (previousAttrs.NIX_CFLAGS_LINK or [ ]) ++ [
+      NIX_CFLAGS_LINK = (previousAttrs.NIX_CFLAGS_LINK or []) ++ [
         "-static-libgcc"
         "-static-libstdc++"
       ];
@@ -29,7 +29,7 @@ with pkgs; rec {
     }
   );
 
-  tarMinimal = gnutar.override { acl = null; };
+  tarMinimal = gnutar.override {acl = null;};
 
   busyboxMinimal = busybox.override {
     useMusl = lib.meta.availableOn stdenv.hostPlatform musl;
@@ -46,7 +46,7 @@ with pkgs; rec {
     '';
   };
 
-  bootGCC = gcc.cc.override { enableLTO = false; };
+  bootGCC = gcc.cc.override {enableLTO = false;};
   bootBinutils = binutils.bintools.override {
     withAllTargets = false;
     # Don't need two linkers, disable whatever's not primary/default.
@@ -236,7 +236,7 @@ with pkgs; rec {
       # The result should not contain any references (store paths) so
       # that we can safely copy them out of the store and to other
       # locations in the store.
-      allowedReferences = [ ];
+      allowedReferences = [];
     };
 
   dist = stdenv.mkDerivation {
@@ -257,9 +257,9 @@ with pkgs; rec {
 
   bootstrapFiles = {
     # Make them their own store paths to test that busybox still works when the binary is named /nix/store/HASH-busybox
-    busybox = runCommand "busybox" { } "cp ${build}/on-server/busybox $out";
+    busybox = runCommand "busybox" {} "cp ${build}/on-server/busybox $out";
     bootstrapTools =
-      runCommand "bootstrap-tools.tar.xz" { }
+      runCommand "bootstrap-tools.tar.xz" {}
         "cp ${build}/on-server/bootstrap-tools.tar.xz $out";
   };
 

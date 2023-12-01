@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{pkgs, lib, ...}:
 let
   commonConfig = ./common/acme/client;
 
@@ -30,7 +30,7 @@ let
     '';
   };
 
-  documentRoot = pkgs.runCommand "docroot" { } ''
+  documentRoot = pkgs.runCommand "docroot" {} ''
     mkdir -p "$out"
     echo hello world > "$out/index.html"
   '';
@@ -52,7 +52,7 @@ let
       };
     };
 
-    networking.firewall.allowedTCPPorts = [ 80 ];
+    networking.firewall.allowedTCPPorts = [80];
   };
 
   # Base specialisation config for testing general ACME features
@@ -69,14 +69,14 @@ let
       server,
       group,
       vhostBaseData,
-      extraConfig ? { },
+      extraConfig ? {},
     }:
     let
       baseConfig =
         {
           nodes,
           config,
-          specialConfig ? { },
+          specialConfig ? {},
         }:
         lib.mkMerge [
           {
@@ -88,20 +88,20 @@ let
               };
             };
 
-            users.users."${config.services."${server}".user}".extraGroups = [ "acme" ];
+            users.users."${config.services."${server}".user}".extraGroups = ["acme"];
 
             services."${server}" = {
               enable = true;
               virtualHosts = {
                 # Run-of-the-mill vhost using HTTP-01 validation
                 "${server}-http.example.test" = vhostBaseData // {
-                  serverAliases = [ "${server}-http-alias.example.test" ];
+                  serverAliases = ["${server}-http-alias.example.test"];
                   enableACME = true;
                 };
 
                 # Another which inherits the DNS-01 config
                 "${server}-dns.example.test" = vhostBaseData // {
-                  serverAliases = [ "${server}-dns-alias.example.test" ];
+                  serverAliases = ["${server}-dns-alias.example.test"];
                   enableACME = true;
                   # Set acmeRoot to null instead of using the default of "/var/lib/acme/acme-challenge"
                   # webroot + dnsProvider are mutually exclusive.
@@ -110,7 +110,7 @@ let
 
                 # One using the wildcard certificate
                 "${server}-wildcard.example.test" = vhostBaseData // {
-                  serverAliases = [ "${server}-wildcard-alias.example.test" ];
+                  serverAliases = ["${server}-wildcard-alias.example.test"];
                   useACMEHost = "example.test";
                 };
               };
@@ -118,7 +118,7 @@ let
 
             # Used to determine if service reload was triggered
             systemd.targets."test-renew-${server}" = {
-              wants = [ "acme-${server}-http.example.test.service" ];
+              wants = ["acme-${server}-http.example.test.service"];
               after = [
                 "acme-${server}-http.example.test.service"
                 "${server}-config-reload.service"
@@ -130,11 +130,11 @@ let
         ];
     in
     {
-      "${server}".configuration = { nodes, config, ... }: baseConfig { inherit nodes config; };
+      "${server}".configuration = {nodes, config, ...}: baseConfig {inherit nodes config;};
 
       # Test that server reloads when an alias is removed (and subsequently test removal works in acme)
       "${server}-remove-alias".configuration =
-        { nodes, config, ... }:
+        {nodes, config, ...}:
         baseConfig {
           inherit nodes config;
           specialConfig = {
@@ -142,7 +142,7 @@ let
             # This configuration results in certificate errors as useACMEHost does not imply
             # append extraDomains, and thus we can validate the SAN is removed.
             services."${server}" = {
-              virtualHosts."${server}-http.example.test".serverAliases = lib.mkForce [ ];
+              virtualHosts."${server}-http.example.test".serverAliases = lib.mkForce [];
               virtualHosts."${server}-http-alias.example.test" = vhostBaseData // {
                 useACMEHost = "${server}-http.example.test";
               };
@@ -152,7 +152,7 @@ let
 
       # Test that the server reloads when only the acme configuration is changed.
       "${server}-change-acme-conf".configuration =
-        { nodes, config, ... }:
+        {nodes, config, ...}:
         baseConfig {
           inherit nodes config;
           specialConfig = {
@@ -176,47 +176,47 @@ in
   nodes = {
     # The fake ACME server which will respond to client requests
     acme =
-      { nodes, ... }:
+      {nodes, ...}:
       {
-        imports = [ ./common/acme/server ];
-        networking.nameservers = lib.mkForce [ (dnsServerIP nodes) ];
+        imports = [./common/acme/server];
+        networking.nameservers = lib.mkForce [(dnsServerIP nodes)];
       };
 
     # A fake DNS server which can be configured with records as desired
     # Used to test DNS-01 challenge
     dnsserver =
-      { nodes, ... }:
+      {nodes, ...}:
       {
         networking.firewall.allowedTCPPorts = [
           8055
           53
         ];
-        networking.firewall.allowedUDPPorts = [ 53 ];
+        networking.firewall.allowedUDPPorts = [53];
         systemd.services.pebble-challtestsrv = {
           enable = true;
           description = "Pebble ACME challenge test server";
-          wantedBy = [ "network.target" ];
+          wantedBy = ["network.target"];
           serviceConfig = {
             ExecStart = "${pkgs.pebble}/bin/pebble-challtestsrv -dns01 ':53' -defaultIPv6 '' -defaultIPv4 '${nodes.webserver.networking.primaryIPAddress}'";
             # Required to bind on privileged ports.
-            AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+            AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
           };
         };
       };
 
     # A web server which will be the node requesting certs
     webserver =
-      { nodes, config, ... }:
+      {nodes, config, ...}:
       {
-        imports = [ commonConfig ];
-        networking.nameservers = lib.mkForce [ (dnsServerIP nodes) ];
+        imports = [commonConfig];
+        networking.nameservers = lib.mkForce [(dnsServerIP nodes)];
         networking.firewall.allowedTCPPorts = [
           80
           443
         ];
 
         # OpenSSL will be used for more thorough certificate validation
-        environment.systemPackages = [ pkgs.openssl ];
+        environment.systemPackages = [pkgs.openssl];
 
         # Set log level to info so that we can see when the service is reloaded
         services.nginx.logError = "stderr info";
@@ -238,12 +238,12 @@ in
             # Tests that account creds can be safely changed.
             accountchange.configuration = lib.mkMerge [
               simpleConfig
-              { security.acme.certs."http.example.test".email = "admin@example.test"; }
+              {security.acme.certs."http.example.test".email = "admin@example.test";}
             ];
 
             # First derivation used to test general ACME features
             general.configuration =
-              { ... }:
+              {...}:
               let
                 caDomain = nodes.acme.test-support.acme.caDomain;
                 email = config.security.acme.defaults.email;
@@ -271,7 +271,7 @@ in
 
             # Test OCSP Stapling
             ocsp-stapling.configuration =
-              { ... }:
+              {...}:
               lib.mkMerge [
                 webserverBasicConfig
                 {
@@ -288,7 +288,7 @@ in
             # Validate service relationships by adding a slow start service to nginx' wants.
             # Reproducer for https://github.com/NixOS/nixpkgs/issues/81842
             slow-startup.configuration =
-              { ... }:
+              {...}:
               lib.mkMerge [
                 webserverBasicConfig
                 {
@@ -297,7 +297,7 @@ in
                       "multi-user.target"
                       "nginx.service"
                     ];
-                    before = [ "nginx.service" ];
+                    before = ["nginx.service"];
                     preStart = "sleep 5";
                     script = "${pkgs.python3}/bin/python -m http.server";
                   };
@@ -313,7 +313,7 @@ in
             # Test lego internal server (listenHTTP option)
             # Also tests useRoot option
             lego-server.configuration =
-              { ... }:
+              {...}:
               {
                 security.acme.useRoot = true;
                 security.acme.certs."lego.example.test" = {
@@ -333,7 +333,7 @@ in
           // (
             let
               baseCaddyConfig =
-                { nodes, config, ... }:
+                {nodes, config, ...}:
                 {
                   security.acme = {
                     defaults = (dnsConfig nodes);
@@ -343,7 +343,7 @@ in
                     };
                   };
 
-                  users.users."${config.services.caddy.user}".extraGroups = [ "acme" ];
+                  users.users."${config.services.caddy.user}".extraGroups = ["acme"];
 
                   services.caddy = {
                     enable = true;
@@ -361,9 +361,9 @@ in
 
               # Test that the server reloads when only the acme configuration is changed.
               "caddy-change-acme-conf".configuration =
-                { nodes, config, ... }:
+                {nodes, config, ...}:
                 lib.mkMerge [
-                  (baseCaddyConfig { inherit nodes config; })
+                  (baseCaddyConfig {inherit nodes config;})
                   {
                     security.acme.certs."example.test" = {
                       keyType = "ec384";
@@ -393,18 +393,18 @@ in
 
     # The client will be used to curl the webserver to validate configuration
     client =
-      { nodes, ... }:
+      {nodes, ...}:
       {
-        imports = [ commonConfig ];
-        networking.nameservers = lib.mkForce [ (dnsServerIP nodes) ];
+        imports = [commonConfig];
+        networking.nameservers = lib.mkForce [(dnsServerIP nodes)];
 
         # OpenSSL will be used for more thorough certificate validation
-        environment.systemPackages = [ pkgs.openssl ];
+        environment.systemPackages = [pkgs.openssl];
       };
   };
 
   testScript =
-    { nodes, ... }:
+    {nodes, ...}:
     let
       caDomain = nodes.acme.test-support.acme.caDomain;
       newServerSystem = nodes.webserver.config.system.build.toplevel;

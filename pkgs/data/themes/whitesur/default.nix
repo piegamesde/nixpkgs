@@ -10,10 +10,10 @@
   libxml2,
   sassc,
   util-linux,
-  altVariants ? [ ], # default: normal
-  colorVariants ? [ ], # default: all
-  opacityVariants ? [ ], # default: all
-  themeVariants ? [ ], # default: default (BigSur-like theme)
+  altVariants ? [], # default: normal
+  colorVariants ? [], # default: all
+  opacityVariants ? [], # default: all
+  themeVariants ? [], # default: default (BigSur-like theme)
   nautilusSize ? null, # default: 200px
   panelOpacity ? null, # default: 15%
   panelSize ? null, # default: 32px
@@ -148,13 +148,13 @@ lib.checkListOfEnum "${pname}: alt variants"
       runHook postInstall
     '';
 
-    passthru.updateScript = gitUpdater { };
+    passthru.updateScript = gitUpdater {};
 
     meta = with lib; {
       description = "MacOS Big Sur like theme for Gnome desktops";
       homepage = "https://github.com/vinceliuice/WhiteSur-gtk-theme";
       license = licenses.mit;
       platforms = platforms.unix;
-      maintainers = [ maintainers.romildo ];
+      maintainers = [maintainers.romildo];
     };
   }

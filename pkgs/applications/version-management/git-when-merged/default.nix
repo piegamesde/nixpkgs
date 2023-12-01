@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "0sw98gmsnd4iki9fx455jga9m80bxvvfgys8i1r2fc7d5whc2qa6";
   };
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   installPhase = ''
     install -D --target-directory $out/bin/ bin/git-when-merged
@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/mhagger/git-when-merged";
     license = licenses.gpl2Only;
     platforms = python3.meta.platforms;
-    maintainers = with maintainers; [ DamienCassou ];
+    maintainers = with maintainers; [DamienCassou];
   };
 }

@@ -96,6 +96,6 @@ stdenv.mkDerivation rec {
     homepage = "http://snapper.io";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ markuskowa ];
+    maintainers = with maintainers; [markuskowa];
   };
 }

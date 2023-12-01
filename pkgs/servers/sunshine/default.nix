@@ -33,10 +33,10 @@
   vulkan-loader,
   libappindicator,
   cudaSupport ? false,
-  cudaPackages ? { },
+  cudaPackages ? {},
 }:
 let
-  libcbs = callPackage ./libcbs.nix { };
+  libcbs = callPackage ./libcbs.nix {};
   # get cmake file used to find external ffmpeg from previous sunshine version
   findFfmpeg = fetchurl {
     url = "https://raw.githubusercontent.com/LizardByte/Sunshine/6702802829869547708dfec98db5b8cbef39be89/cmake/FindFFMPEG.cmake";
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
     pkg-config
     autoPatchelfHook
     makeWrapper
-  ] ++ lib.optionals cudaSupport [ cudaPackages.autoAddOpenGLRunpathHook ];
+  ] ++ lib.optionals cudaSupport [cudaPackages.autoAddOpenGLRunpathHook];
 
   buildInputs = [
     libcbs
@@ -120,7 +120,7 @@ stdenv.mkDerivation rec {
     amf-headers
     svt-av1
     libappindicator
-  ] ++ lib.optionals cudaSupport [ cudaPackages.cudatoolkit ];
+  ] ++ lib.optionals cudaSupport [cudaPackages.cudatoolkit];
 
   runtimeDependencies = [
     avahi
@@ -129,7 +129,7 @@ stdenv.mkDerivation rec {
     libxcb
   ];
 
-  cmakeFlags = [ "-Wno-dev" ];
+  cmakeFlags = ["-Wno-dev"];
 
   postPatch = ''
     # fix hardcoded libevdev and icon path
@@ -153,7 +153,7 @@ stdenv.mkDerivation rec {
   # allow Sunshine to find libvulkan
   postFixup = lib.optionalString cudaSupport ''
     wrapProgram $out/bin/sunshine \
-      --set LD_LIBRARY_PATH ${lib.makeLibraryPath [ vulkan-loader ]}
+      --set LD_LIBRARY_PATH ${lib.makeLibraryPath [vulkan-loader]}
   '';
 
   postInstall = ''
@@ -166,7 +166,7 @@ stdenv.mkDerivation rec {
     description = "Sunshine is a Game stream host for Moonlight.";
     homepage = "https://github.com/LizardByte/Sunshine";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ devusb ];
+    maintainers = with maintainers; [devusb];
     platforms = platforms.linux;
   };
 }

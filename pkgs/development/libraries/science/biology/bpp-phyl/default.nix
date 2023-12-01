@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "192zks6wyk903n06c2lbsscdhkjnfwms8p7jblsmk3lvjhdipb20";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     bpp-core
     bpp-seq

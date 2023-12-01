@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     "--datadir=${placeholder "out"}/share"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gtk2
     freeglut
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     libXmu
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
   enableParallelBuilding = true;
 
   meta = {
@@ -53,6 +53,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.nongnu.org/crack-attack/";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

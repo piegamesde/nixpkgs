@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
       over their web browser’s behaviour and interface.
     '';
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     platforms = platforms.unix;
   };
 }

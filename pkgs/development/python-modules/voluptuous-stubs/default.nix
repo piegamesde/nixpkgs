@@ -15,9 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-cPscCIJC8g4RAjJStWSM13+DH2ks2RDI+XE8wTXPjMg=";
   };
 
-  nativeBuildInputs = [ mypy ];
+  nativeBuildInputs = [mypy];
 
-  pythonImportsCheck = [ "voluptuous-stubs" ];
+  pythonImportsCheck = ["voluptuous-stubs"];
 
   doCheck = false;
 
@@ -25,6 +25,6 @@ buildPythonPackage rec {
     description = "Typing stubs for voluptuous";
     homepage = "https://github.com/ryanwang520/voluptuous-stubs";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

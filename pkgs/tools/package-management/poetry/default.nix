@@ -7,7 +7,7 @@
 let
   python = python3.override {
     packageOverrides = self: super: {
-      poetry = self.callPackage ./unwrapped.nix { };
+      poetry = self.callPackage ./unwrapped.nix {};
 
       # version overrides required by poetry and its plugins
       platformdirs = super.platformdirs.overridePythonAttrs (
@@ -37,8 +37,8 @@ let
   };
 
   plugins = with python.pkgs; {
-    poetry-audit-plugin = callPackage ./plugins/poetry-audit-plugin.nix { };
-    poetry-plugin-up = callPackage ./plugins/poetry-plugin-up.nix { };
+    poetry-audit-plugin = callPackage ./plugins/poetry-audit-plugin.nix {};
+    poetry-plugin-up = callPackage ./plugins/poetry-plugin-up.nix {};
   };
 
   # selector is a function mapping pythonPackages to a list of plugins
@@ -54,7 +54,7 @@ let
           propagatedBuildInputs = old.propagatedBuildInputs ++ selected;
 
           # save some build time when adding plugins by disabling tests
-          doCheck = selected == [ ];
+          doCheck = selected == [];
 
           # Propagating dependencies leaks them through $PYTHONPATH which causes issues
           # when used in nix-shell.
@@ -69,4 +69,4 @@ let
       )
     );
 in
-withPlugins (ps: [ ])
+withPlugins (ps: [])

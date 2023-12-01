@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.services.minidlna;
-  settingsFormat = pkgs.formats.keyValue { listsAsDuplicateKeys = true; };
+  settingsFormat = pkgs.formats.keyValue {listsAsDuplicateKeys = true;};
   settingsFile = settingsFormat.generate "minidlna.conf" cfg.settings;
 in
 
@@ -35,7 +35,7 @@ in
   };
 
   options.services.minidlna.settings = mkOption {
-    default = { };
+    default = {};
     description = lib.mdDoc ''
       The contents of MiniDLNA's configuration file.
       When the service is activated, a basic template is generated from the current options opened here.
@@ -45,7 +45,7 @@ in
 
       options.media_dir = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "/data/media"
           "V,/home/alice/video"
@@ -210,8 +210,8 @@ in
 
   ###### implementation
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.settings.port ];
-    networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [ 1900 ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.settings.port];
+    networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [1900];
 
     users.users.minidlna = {
       description = "MiniDLNA daemon user";
@@ -223,8 +223,8 @@ in
 
     systemd.services.minidlna = {
       description = "MiniDLNA Server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         User = "minidlna";

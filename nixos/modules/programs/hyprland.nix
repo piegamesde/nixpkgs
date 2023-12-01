@@ -61,7 +61,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     fonts.enableDefaultFonts = mkDefault true;
     hardware.opengl.enable = mkDefault true;
@@ -73,11 +73,11 @@ in
 
     security.polkit.enable = true;
 
-    services.xserver.displayManager.sessionPackages = [ cfg.package ];
+    services.xserver.displayManager.sessionPackages = [cfg.package];
 
     xdg.portal = {
       enable = mkDefault true;
-      extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+      extraPortals = [pkgs.xdg-desktop-portal-hyprland];
     };
   };
 }

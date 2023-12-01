@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-FQMYHxKxHEP+x98JbGyjaM0OL8QK/p3epsAWvQkv6bc=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     readline
@@ -27,13 +27,13 @@ stdenv.mkDerivation rec {
     knightos-scas
   ];
 
-  cmakeFlags = [ "-Denable-sdl=YES" ];
+  cmakeFlags = ["-Denable-sdl=YES"];
 
   meta = with lib; {
     homepage = "https://knightos.org/";
     description = "A Z80 calculator emulator and debugger";
     license = licenses.mit;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.unix;
   };
 }

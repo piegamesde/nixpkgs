@@ -21,6 +21,6 @@ rustPlatform.buildRustPackage rec {
     description = "Convert CSV files to Apache Parquet";
     homepage = "https://github.com/domoritz/csv2parquet";
     license = licenses.mit;
-    maintainers = with maintainers; [ john-shaffer ];
+    maintainers = with maintainers; [john-shaffer];
   };
 }

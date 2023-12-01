@@ -65,13 +65,13 @@ in
     # We need to ensure the et package is fully installed because
     # the (remote) et client runs the `etterminal` binary when it
     # connects.
-    environment.systemPackages = [ pkgs.eternal-terminal ];
+    environment.systemPackages = [pkgs.eternal-terminal];
 
     systemd.services = {
       eternal-terminal = {
         description = "Eternal Terminal server.";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
         serviceConfig = {
           Type = "forking";
           ExecStart = "${pkgs.eternal-terminal}/bin/etserver --daemon --cfgfile=${pkgs.writeText "et.cfg" ''
@@ -94,6 +94,6 @@ in
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-3uK6mWaLEGPFoPuznU+OcnkjFZ+beDoIw0vOC4l5gRg=";
   };
 
-  propagatedBuildInputs = [ bottle ];
+  propagatedBuildInputs = [bottle];
 
   nativeCheckInputs = [
     numpy
@@ -32,12 +32,12 @@ buildPythonPackage rec {
     redis
   ];
 
-  pythonImportsCheck = [ "jug" ];
+  pythonImportsCheck = ["jug"];
 
   meta = with lib; {
     description = "A Task-Based Parallelization Framework";
     homepage = "https://jug.readthedocs.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ luispedro ];
+    maintainers = with maintainers; [luispedro];
   };
 }

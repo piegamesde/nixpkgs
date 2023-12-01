@@ -20,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-SwHJRw75pP1zwi9ZMfUfcXt788pURM1KSbTNQF6XVqk=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -53,7 +53,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Validate and remediate Kubernetes resources to ensure configuration best practices are followed";
     homepage = "https://www.fairwinds.com/polaris";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ longer ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [longer];
   };
 }

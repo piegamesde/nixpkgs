@@ -35,7 +35,7 @@ python3.pkgs.buildPythonApplication rec {
     mv $out/bin/rsf.py $out/bin/rsf
   '';
 
-  pythonImportsCheck = [ "routersploit" ];
+  pythonImportsCheck = ["routersploit"];
 
   pytestFlagsArray = [
     "-n"
@@ -49,7 +49,7 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Exploitation Framework for Embedded Devices";
     homepage = "https://github.com/threat9/routersploit";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
   };
 }

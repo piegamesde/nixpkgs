@@ -20,13 +20,13 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs =
-    [ libuuid ]
+    [libuuid]
     ++ lib.optionals stdenv.isDarwin [
       Foundation
       readline
     ];
 
-  patches = [ ./no-curl-ca.patch ];
+  patches = [./no-curl-ca.patch];
   patchPhase =
     ''
       substituteInPlace contrib/curl/premake5.lua \

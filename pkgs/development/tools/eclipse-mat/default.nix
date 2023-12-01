@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     comment = "Eclipse Memory Analyzer";
     desktopName = "Eclipse MAT";
     genericName = "Java Memory Analyzer";
-    categories = [ "Development" ];
+    categories = ["Development"];
   };
 
   unpackPhase = ''
@@ -125,9 +125,9 @@ stdenv.mkDerivation rec {
       run a report to automatically extract leak suspects.
     '';
     homepage = "https://www.eclipse.org/mat";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.epl20;
-    maintainers = [ maintainers.ktor ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.ktor];
+    platforms = ["x86_64-linux"];
   };
 }

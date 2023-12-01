@@ -21,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-PqqyBh+oMmu7Ynly3fqx/+6mQYX+6SpI0Okj2O+YLz0=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   propagatedBuildInputs = [
     rtmpdump
@@ -30,13 +30,13 @@ buildPythonPackage rec {
   ];
 
   postInstall = ''
-    wrapProgram $out/bin/livestreamer --prefix PATH : ${lib.makeBinPath [ rtmpdump ]}
+    wrapProgram $out/bin/livestreamer --prefix PATH : ${lib.makeBinPath [rtmpdump]}
   '';
 
   meta = with lib; {
     homepage = "http://livestreamer.tanuki.se";
     description = "Livestreamer is CLI program that extracts streams from various services and pipes them into a video player of choice";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "nar-serve";
-    meta.maintainers = [ lib.maintainers.rizary ];
+    meta.maintainers = [lib.maintainers.rizary];
     nodes = {
       server =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           services.nginx = {
             enable = true;
@@ -22,7 +22,7 @@ import ./make-test-python.nix (
             pkgs.curl
           ];
 
-          networking.firewall.allowedTCPPorts = [ 8383 ];
+          networking.firewall.allowedTCPPorts = [8383];
 
           # virtualisation.diskSize = 2 * 1024;
         };

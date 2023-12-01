@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     rev = "84664cda094efe6e49d9b1550e4f4f98c33eefa2";
     sha256 = "sha256-SWLP926SyVTjn+UT1DCaJSo4Ue0RbyzImVnlNJQksS0=";
   };
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libGLU
     libGL
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     homepage = "https://mars-game.sourceforge.net/";
     description = "A game about fighting with ships in a 2D space setting";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.astsmtl ];
+    maintainers = [maintainers.astsmtl];
     platforms = platforms.linux;
   };
 }

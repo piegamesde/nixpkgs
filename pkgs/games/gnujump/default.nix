@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "05syy9mzbyqcfnm0hrswlmhwlwx54f0l6zhcaq8c1c0f8dgzxhqk";
   };
 
-  nativeBuildInputs = [ copyDesktopItems ];
+  nativeBuildInputs = [copyDesktopItems];
   buildInputs = [
     SDL
     SDL_image
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
       once you've tried you'll realize how addictive this is.
     '';
     license = licenses.gpl3;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.linux;
   };
 }

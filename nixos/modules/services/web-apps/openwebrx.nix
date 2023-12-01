@@ -23,7 +23,7 @@ in
 
   config = lib.mkIf cfg.enable {
     systemd.services.openwebrx = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       path = with pkgs; [
         csdr
         digiham
@@ -38,7 +38,7 @@ in
         Restart = "always";
         DynamicUser = true;
         # openwebrx uses /var/lib/openwebrx by default
-        StateDirectory = [ "openwebrx" ];
+        StateDirectory = ["openwebrx"];
       };
     };
   };

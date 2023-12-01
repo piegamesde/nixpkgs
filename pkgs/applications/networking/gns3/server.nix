@@ -30,7 +30,7 @@ python3.pkgs.buildPythonApplication {
     "sentry-sdk"
   ];
 
-  nativeBuildInputs = with python3.pkgs; [ pythonRelaxDepsHook ];
+  nativeBuildInputs = with python3.pkgs; [pythonRelaxDepsHook];
 
   propagatedBuildInputs = with python3.pkgs; [
     aiofiles
@@ -69,6 +69,6 @@ python3.pkgs.buildPythonApplication {
     changelog = "https://github.com/GNS3/gns3-server/releases/tag/v${version}";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ anthonyroussel ];
+    maintainers = with maintainers; [anthonyroussel];
   };
 }

@@ -16,17 +16,17 @@ buildPythonPackage rec {
     hash = "sha256-Ubl+kdcjMm1A7pa3Q5G+fFBwPIxA375Ci04/vVyUl+A=";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   # upstream has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pysabnzbd" ];
+  pythonImportsCheck = ["pysabnzbd"];
 
   meta = {
     description = "Python wrapper for SABnzbd API";
     homepage = "https://github.com/jeradM/pysabnzbd";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

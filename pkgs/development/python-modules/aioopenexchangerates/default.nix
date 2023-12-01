@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-Ykbw/s932XXX3qWutWUOLV1O9MMgBWPJNveKG8SDhWY=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -43,13 +43,13 @@ buildPythonPackage rec {
       --replace " --cov=aioopenexchangerates --cov-report=term-missing:skip-covered" ""
   '';
 
-  pythonImportsCheck = [ "aioopenexchangerates" ];
+  pythonImportsCheck = ["aioopenexchangerates"];
 
   meta = with lib; {
     description = "Library for the Openexchangerates API";
     homepage = "https://github.com/MartinHjelmare/aioopenexchangerates";
     changelog = "https://github.com/MartinHjelmare/aioopenexchangerates/blob/vv${version}/CHANGELOG.md";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

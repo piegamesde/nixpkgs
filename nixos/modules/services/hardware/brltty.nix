@@ -42,8 +42,8 @@ in
       group = "brltty";
     };
     users.groups = {
-      brltty = { };
-      brlapi = { };
+      brltty = {};
+      brlapi = {};
     };
 
     systemd.services."brltty@".serviceConfig = {
@@ -51,10 +51,10 @@ in
     };
 
     # Install all upstream-provided files
-    systemd.packages = [ pkgs.brltty ];
-    systemd.tmpfiles.packages = [ pkgs.brltty ];
-    services.udev.packages = [ pkgs.brltty ];
-    environment.systemPackages = [ pkgs.brltty ];
+    systemd.packages = [pkgs.brltty];
+    systemd.tmpfiles.packages = [pkgs.brltty];
+    services.udev.packages = [pkgs.brltty];
+    environment.systemPackages = [pkgs.brltty];
 
     # Add missing WantedBys (see issue #81138)
     systemd.paths.brltty.wantedBy = targets;

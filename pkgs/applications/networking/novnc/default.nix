@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
         inherit websockify;
       })
     ]
-    ++ [ ./fix-paths.patch ];
+    ++ [./fix-paths.patch];
 
   postPatch = ''
     substituteAllInPlace utils/novnc_proxy
@@ -51,6 +51,6 @@ stdenv.mkDerivation rec {
       bsd2
       mit
     ];
-    maintainers = with maintainers; [ neverbehave ];
+    maintainers = with maintainers; [neverbehave];
   };
 }

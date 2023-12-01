@@ -91,13 +91,13 @@ stdenv.mkDerivation {
       --replace /bin/sh ${bash}/bin/sh
   '';
 
-  patches = [ ./fix-install-dir.patch ];
+  patches = [./fix-install-dir.patch];
 
   meta = with lib; {
     homepage = "https://github.com/berarma/oversteer";
     description = "Steering Wheel Manager for Linux";
     license = licenses.gpl3;
-    maintainers = [ maintainers.srounce ];
+    maintainers = [maintainers.srounce];
     platforms = platforms.unix;
   };
 }

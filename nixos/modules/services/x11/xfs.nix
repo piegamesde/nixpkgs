@@ -38,9 +38,9 @@ in
 
     systemd.services.xfs = {
       description = "X Font Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.xorg.xfs ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.xorg.xfs];
       script = "xfs -config ${configFile}";
     };
   };

@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     doxygen
     python3
   ];
-  buildInputs = [ gettext ];
+  buildInputs = [gettext];
 
   enableParallelBuilding = false;
   # Build procedure requires the data folder
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     homepage = "https://colobot.info/";
     description = "Game data for colobot";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
     platforms = platforms.linux;
   };
 }

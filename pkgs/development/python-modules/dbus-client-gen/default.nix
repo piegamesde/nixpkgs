@@ -17,6 +17,6 @@ buildPythonPackage rec {
     description = "A Python Library for Generating D-Bus Client Code";
     homepage = "https://github.com/stratis-storage/dbus-client-gen";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

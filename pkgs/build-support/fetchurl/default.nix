@@ -1,6 +1,6 @@
 {
   lib,
-  buildPackages ? { inherit stdenvNoCC; },
+  buildPackages ? {inherit stdenvNoCC;},
   stdenvNoCC,
   curl, # Note that `curl' may be `null', in case of the native stdenvNoCC.
   cacert ? null,
@@ -52,7 +52,7 @@ in
 
   # Alternatively, a list of URLs specifying alternative download
   # locations.  They are tried in order.
-  urls ? [ ],
+  urls ? [],
 
   # Additional curl options needed for the download to succeed.
   # Warning: Each space (no matter the escaping) will start a new argument.
@@ -60,7 +60,7 @@ in
   curlOpts ? "",
 
   # Additional curl options needed for the download to succeed.
-  curlOptsList ? [ ],
+  curlOptsList ? [],
 
   # Name of the file.  If empty, use the basename of `url' (or of the
   # first element of `urls').
@@ -88,7 +88,7 @@ in
 
   # Impure env vars (https://nixos.org/nix/manual/#sec-advanced-attributes)
   # needed for netrcPhase
-  netrcImpureEnvVars ? [ ],
+  netrcImpureEnvVars ? [],
 
   # Shell code executed after the file has been fetched
   # successfully. This can do things like check or transform the file.
@@ -107,24 +107,24 @@ in
   showURLs ? false,
 
   # Meta information, if any.
-  meta ? { },
+  meta ? {},
 
   # Passthru information, if any.
-  passthru ? { },
+  passthru ? {},
   # Doing the download on a remote machine just duplicates network
   # traffic, so don't do that by default
   preferLocalBuild ? true,
 
   # Additional packages needed as part of a fetch
-  nativeBuildInputs ? [ ],
+  nativeBuildInputs ? [],
 }:
 
 let
   urls_ =
-    if urls != [ ] && url == "" then
+    if urls != [] && url == "" then
       (if lib.isList urls then urls else throw "`urls` is not a list")
-    else if urls == [ ] && url != "" then
-      (if lib.isString url then [ url ] else throw "`url` is not a string")
+    else if urls == [] && url != "" then
+      (if lib.isString url then [url] else throw "`url` is not a string")
     else
       throw "fetchurl requires either `url` or `urls` to be set";
 
@@ -142,7 +142,7 @@ let
     else if md5 != "" then
       throw "fetchurl does not support md5 anymore, please use sha256 or sha512"
     else if (outputHash != "" && outputHashAlgo != "") then
-      { inherit outputHashAlgo outputHash; }
+      {inherit outputHashAlgo outputHash;}
     else if sha512 != "" then
       {
         outputHashAlgo = "sha512";
@@ -170,7 +170,7 @@ in
 stdenvNoCC.mkDerivation (
   (
     if (pname != "" && version != "") then
-      { inherit pname version; }
+      {inherit pname version;}
     else
       {
         name =
@@ -185,7 +185,7 @@ stdenvNoCC.mkDerivation (
   // {
     builder = ./builder.sh;
 
-    nativeBuildInputs = [ curl ] ++ nativeBuildInputs;
+    nativeBuildInputs = [curl] ++ nativeBuildInputs;
 
     urls = urls_;
 
@@ -215,7 +215,7 @@ stdenvNoCC.mkDerivation (
       lib.warnIf (lib.isList curlOpts)
         ''
           fetchurl for ${toString (builtins.head urls_)}: curlOpts is a list (${
-            lib.generators.toPretty { multiline = false; } curlOpts
+            lib.generators.toPretty {multiline = false;} curlOpts
           }), which is not supported anymore.
           - If you wish to get the same effect as before, for elements with spaces (even if escaped) to expand to multiple curl arguments, use a string argument instead:
             curlOpts = ${lib.strings.escapeNixString (toString curlOpts)};

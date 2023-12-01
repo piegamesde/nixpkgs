@@ -26,7 +26,7 @@ buildGoModule rec {
     description = "OpenSMTPD filter integration for the Rspamd daemon";
     homepage = "https://github.com/poolpOrg/filter-rspamd";
     license = licenses.isc;
-    maintainers = with maintainers; [ Flakebi ];
+    maintainers = with maintainers; [Flakebi];
     mainProgram = "filter-rspamd";
   };
 }

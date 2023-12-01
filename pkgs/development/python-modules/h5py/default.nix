@@ -56,15 +56,15 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [ hdf5 ] ++ lib.optional mpiSupport mpi;
+  buildInputs = [hdf5] ++ lib.optional mpiSupport mpi;
 
   propagatedBuildInputs =
-    [ numpy ]
+    [numpy]
     ++ lib.optionals mpiSupport [
       mpi4py
       openssh
     ]
-    ++ lib.optionals (pythonOlder "3.8") [ cached-property ];
+    ++ lib.optionals (pythonOlder "3.8") [cached-property];
 
   # tests now require pytest-mpi, which isn't available and difficult to package
   doCheck = false;
@@ -73,13 +73,13 @@ buildPythonPackage rec {
     openssh
   ];
 
-  pythonImportsCheck = [ "h5py" ];
+  pythonImportsCheck = ["h5py"];
 
   meta = with lib; {
     changelog = "https://github.com/h5py/h5py/blob/${version}/docs/whatsnew/${lib.versions.majorMinor version}.rst";
     description = "Pythonic interface to the HDF5 binary data format";
     homepage = "http://www.h5py.org/";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

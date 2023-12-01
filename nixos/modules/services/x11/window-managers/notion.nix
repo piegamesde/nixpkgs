@@ -28,6 +28,6 @@ in
         }
       ];
     };
-    environment.systemPackages = [ pkgs.notion ];
+    environment.systemPackages = [pkgs.notion];
   };
 }

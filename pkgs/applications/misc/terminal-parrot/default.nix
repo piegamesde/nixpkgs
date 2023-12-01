@@ -23,6 +23,6 @@ buildGoModule rec {
     description = "Shows colorful, animated party parrot in your terminial";
     homepage = "https://github.com/jmhobbs/terminal-parrot";
     license = licenses.mit;
-    maintainers = [ maintainers.heel ];
+    maintainers = [maintainers.heel];
   };
 }

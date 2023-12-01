@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-QDfXgLkwh5rfyNZv0S7+cq6ubldXsbuCiTr6VYx8ZQs=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -37,6 +37,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/MousaZeidBaker/poetry-plugin-up";
     changelog = "https://github.com/MousaZeidBaker/poetry-plugin-up/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = [ maintainers.k900 ];
+    maintainers = [maintainers.k900];
   };
 }

@@ -72,7 +72,7 @@ in
 
       excludeDomains = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "Origin domains to exclude from rewriting in addition to primary domain";
       };
 
@@ -103,15 +103,15 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "postsrsd") { postsrsd.gid = config.ids.gids.postsrsd; };
+    users.groups = optionalAttrs (cfg.group == "postsrsd") {postsrsd.gid = config.ids.gids.postsrsd;};
 
     systemd.services.postsrsd = {
       description = "PostSRSd SRS rewriting server";
-      after = [ "network.target" ];
-      before = [ "postfix.service" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      before = ["postfix.service"];
+      wantedBy = ["multi-user.target"];
 
-      path = [ pkgs.coreutils ];
+      path = [pkgs.coreutils];
 
       serviceConfig = {
         ExecStart = ''${pkgs.postsrsd}/sbin/postsrsd "-s${cfg.secretsFile}" "-d${cfg.domain}" -a${cfg.separator} -f${toString cfg.forwardPort} -r${toString cfg.reversePort} -t${toString cfg.timeout} "-X${concatStringsSep "," cfg.excludeDomains}"'';

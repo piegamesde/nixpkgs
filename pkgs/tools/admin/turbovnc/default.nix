@@ -112,7 +112,7 @@ stdenv.mkDerivation rec {
   postInstall = ''
     # turbovnc dlopen()s libssl.so depending on the requested encryption.
     wrapProgram $out/bin/Xvnc \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ openssl ]}
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [openssl]}
 
     # `twm` is the default window manager that `vncserver` tries to start,
     # and it has minimal dependencies (no non-Xorg).
@@ -137,8 +137,8 @@ stdenv.mkDerivation rec {
     # path, cannot be multiple separated paths).
     # For SSH support, `ssh` is required on `PATH`.
     wrapProgram $out/bin/vncviewer \
-      --set JAVA_HOME "${lib.makeLibraryPath [ openjdk ]}/openjdk" \
-      --prefix PATH : ${lib.makeBinPath [ openssh ]}
+      --set JAVA_HOME "${lib.makeLibraryPath [openjdk]}/openjdk" \
+      --prefix PATH : ${lib.makeBinPath [openssh]}
   '';
 
   passthru.tests.turbovnc-headless-server = nixosTests.turbovnc-headless-server;
@@ -147,7 +147,7 @@ stdenv.mkDerivation rec {
     homepage = "https://turbovnc.org/";
     license = lib.licenses.gpl2Plus;
     description = "High-speed version of VNC derived from TightVNC";
-    maintainers = with lib.maintainers; [ nh2 ];
+    maintainers = with lib.maintainers; [nh2];
     platforms = with lib.platforms; linux;
     changelog = "https://github.com/TurboVNC/turbovnc/blob/${version}/ChangeLog.md";
   };

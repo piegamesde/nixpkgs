@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
       --replace '$$[QT_INSTALL_BINS]/lrelease' lrelease
   '';
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   nativeBuildInputs = [
     qmake
@@ -62,6 +62,6 @@ stdenv.mkDerivation rec {
     '';
     platforms = platforms.all;
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ hqurve ];
+    maintainers = with maintainers; [hqurve];
   };
 }

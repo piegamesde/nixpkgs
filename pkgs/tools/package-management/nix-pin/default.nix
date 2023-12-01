@@ -20,7 +20,7 @@ let
       rev = "version-${version}";
       sha256 = "1pccvc0iqapms7kidrh09g5fdx44x622r5l9k7bkmssp3v4c68vy";
     };
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
     buildInputs = [
       python3
       mypy
@@ -49,7 +49,7 @@ let
             pinConfig ? defaults.pinConfig,
           }:
           let
-            impl = import "${self}/share/nix/api.nix" { inherit pkgs pinConfig; };
+            impl = import "${self}/share/nix/api.nix" {inherit pkgs pinConfig;};
           in
           {
             inherit (impl) augmentedPkgs pins callPackage;
@@ -74,7 +74,7 @@ let
       homepage = "https://github.com/timbertson/nix-pin";
       description = "nixpkgs development utility";
       license = licenses.mit;
-      maintainers = [ maintainers.timbertson ];
+      maintainers = [maintainers.timbertson];
       platforms = platforms.all;
     };
   };

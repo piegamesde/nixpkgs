@@ -1,9 +1,9 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "systemd-userdbd";
     nodes.machine =
-      { config, pkgs, ... }:
+      {config, pkgs, ...}:
       {
         services.userdbd.enable = true;
 
@@ -15,7 +15,7 @@ import ./make-test-python.nix (
           userName = "test-user-dropin";
         };
 
-        environment.systemPackages = with pkgs; [ libvarlink ];
+        environment.systemPackages = with pkgs; [libvarlink];
       };
     testScript = ''
       import json

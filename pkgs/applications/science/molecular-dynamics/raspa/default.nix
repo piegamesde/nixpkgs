@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       --set RASPA_DIR "$out"
   '';
 
-  passthru.tests.run-an-example = runCommandLocal "raspa-test-run-an-example" { } ''
+  passthru.tests.run-an-example = runCommandLocal "raspa-test-run-an-example" {} ''
     set -eu -o pipefail
     exampleDir="${raspa-data}/share/raspa/examples/Basic/1_MC_Methane_in_Box"
     exampleDirWritable="$(basename "$exampleDir")"
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     homepage = "https://iraspa.org/raspa/";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ShamrockLee ];
+    maintainers = with maintainers; [ShamrockLee];
     mainProgram = "simulate";
   };
 }

@@ -3,7 +3,7 @@
   pkgs,
   poetry2nix,
   lib,
-  overrides ? (self: super: { }),
+  overrides ? (self: super: {}),
 }:
 
 let
@@ -14,7 +14,7 @@ let
       python = pkgs.python310;
       overrides = [
         poetry2nix.defaultPoetryOverrides
-        (import ./poetry-git-overlay.nix { inherit pkgs; })
+        (import ./poetry-git-overlay.nix {inherit pkgs;})
         (self: super: {
 
           nixops = super.nixops.overridePythonAttrs (
@@ -50,7 +50,7 @@ let
           self: super:
           let
             # Create a fake sphinx directory that doesn't pull the entire setup hook and incorrect python machinery
-            sphinx = pkgs.runCommand "sphinx" { } ''
+            sphinx = pkgs.runCommand "sphinx" {} ''
               mkdir -p $out/bin
               for f in ${pkgs.python3.pkgs.sphinx}/bin/*; do
                 ln -s $f $out/bin/$(basename $f)
@@ -62,7 +62,7 @@ let
               drv = super.nixops;
               finalDrv = self.nixops;
 
-              nativeBuildInputs = [ sphinx ];
+              nativeBuildInputs = [sphinx];
 
               postInstall = ''
                 doc_cache=$(mktemp -d)
@@ -80,7 +80,7 @@ let
             old: {
               meta = old.meta // {
                 knownVulnerabilities =
-                  old.meta.knownVulnerabilities or [ ]
+                  old.meta.knownVulnerabilities or []
                   ++ lib.optionals (lib.versionOlder old.version "39.0.1") [
                     "CVE-2022-4304"
                     "CVE-2023-0215"
@@ -115,7 +115,7 @@ let
     // rec {
       # Workaround for https://github.com/NixOS/nixpkgs/issues/119407
       # TODO after #1199407: Use .overrideAttrs(pkg: old: { passthru.tests = .....; })
-      tests = nixosTests.nixops.unstable.override { nixopsPkg = pkg; };
+      tests = nixosTests.nixops.unstable.override {nixopsPkg = pkg;};
       # Not strictly necessary, but probably expected somewhere; part of the workaround:
       passthru.tests = tests;
     };

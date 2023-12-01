@@ -46,7 +46,7 @@ buildPythonPackage rec {
 
   src =
     let
-      versionTag = lib.replaceStrings [ "." ] [ "_" ] version;
+      versionTag = lib.replaceStrings ["."] ["_"] version;
     in
     fetchFromGitHub {
       owner = pname;
@@ -76,7 +76,7 @@ buildPythonPackage rec {
     ln -s ${comic-neue}/share/fonts/truetype/ComicNeue-Regular.ttf Data/Fonts/
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     boost
@@ -89,7 +89,7 @@ buildPythonPackage rec {
     pillow
   ];
 
-  hardeningDisable = [ "format" ]; # required by yaehmop
+  hardeningDisable = ["format"]; # required by yaehmop
 
   dontUseSetuptoolsBuild = true;
   dontUsePipInstall = true;
@@ -148,7 +148,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Open source toolkit for cheminformatics";
-    maintainers = [ maintainers.rmcgibbo ];
+    maintainers = [maintainers.rmcgibbo];
     license = licenses.bsd3;
     homepage = "https://www.rdkit.org";
   };

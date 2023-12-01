@@ -28,9 +28,9 @@ else
       ocamlbuild
       topkg
     ];
-    buildInputs = [ topkg ];
+    buildInputs = [topkg];
 
-    propagatedBuildInputs = [ faraday ];
+    propagatedBuildInputs = [faraday];
 
     strictDeps = true;
 
@@ -40,7 +40,7 @@ else
       description = "A printf-like for Faraday library";
       homepage = "https://github.com/oklm-wsh/Farfadet";
       license = lib.licenses.mit;
-      maintainers = [ lib.maintainers.vbgl ];
+      maintainers = [lib.maintainers.vbgl];
       inherit (ocaml.meta) platforms;
     };
   }

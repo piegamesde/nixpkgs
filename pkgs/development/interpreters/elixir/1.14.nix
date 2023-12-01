@@ -1,4 +1,4 @@
-{ mkDerivation }:
+{mkDerivation}:
 
 mkDerivation {
   version = "1.14.4";

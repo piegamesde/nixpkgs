@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jEzZ6MWFaNXBS8CAzfn/ufMPpWcua9HhBFzetWMlH1Y=";
   };
 
-  nativeBuildInputs = [ dpkg ];
+  nativeBuildInputs = [dpkg];
 
   unpackPhase = ''
     mkdir pkg
@@ -119,8 +119,8 @@ stdenv.mkDerivation rec {
       puffnfresh
       fabiangd
     ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.mit;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

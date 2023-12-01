@@ -65,6 +65,6 @@ buildPythonPackage rec {
     description = "Library and resources for PiJuice HAT for Raspberry Pi";
     homepage = "https://github.com/PiSupply/PiJuice";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ hexagonal-sun ];
+    maintainers = with maintainers; [hexagonal-sun];
   };
 }

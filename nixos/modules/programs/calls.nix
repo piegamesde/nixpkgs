@@ -24,8 +24,8 @@ in
   config = mkIf cfg.enable {
     programs.dconf.enable = true;
 
-    environment.systemPackages = [ pkgs.calls ];
+    environment.systemPackages = [pkgs.calls];
 
-    services.dbus.packages = [ pkgs.callaudiod ];
+    services.dbus.packages = [pkgs.callaudiod];
   };
 }

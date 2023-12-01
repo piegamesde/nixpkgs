@@ -14,12 +14,12 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://docs.broadcom.com/docs-and-downloads/raid-controllers/raid-controllers-common-files/${
-      builtins.replaceStrings [ "." ] [ "-" ] version
+      builtins.replaceStrings ["."] ["-"] version
     }_MegaCLI.zip";
     sha256 = "1sdn58fbmd3fj4nzbajq3gcyw71ilgdh45r5p4sa6xmb7np55cfr";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
   buildInputs = [
     rpmextract
     ncurses5
@@ -49,8 +49,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "CLI program for LSI MegaRAID cards, which also works with some Dell PERC RAID cards";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -67,7 +67,7 @@ buildPythonPackage rec {
     stestr run
   '';
 
-  pythonImportsCheck = [ "keystoneauth1" ];
+  pythonImportsCheck = ["keystoneauth1"];
 
   meta = with lib; {
     description = "Authentication Library for OpenStack Identity";

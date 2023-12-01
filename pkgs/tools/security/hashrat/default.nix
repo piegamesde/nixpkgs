@@ -15,9 +15,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-+3IPCJS++7CE0ZrJb62LCRrAn2J4uCF3a1oOzDoOW0w=";
   };
 
-  configureFlags = [ "--enable-xattr" ];
+  configureFlags = ["--enable-xattr"];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Command-line hash-generation utility";
@@ -28,6 +28,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.cjpaget.co.uk/Code/Hashrat";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

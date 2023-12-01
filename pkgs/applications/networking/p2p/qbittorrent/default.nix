@@ -34,7 +34,7 @@ mkDerivation rec {
   enableParallelBuilding = true;
 
   # NOTE: 2018-05-31: CMake is working but it is not officially supported
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     [
@@ -62,7 +62,7 @@ mkDerivation rec {
     ++ lib.optional (!webuiSupport) "--disable-webui"
     ++ lib.optional debugSupport "--enable-debug";
 
-  qtWrapperArgs = lib.optional trackerSearch "--prefix PATH : ${lib.makeBinPath [ python3 ]}";
+  qtWrapperArgs = lib.optional trackerSearch "--prefix PATH : ${lib.makeBinPath [python3]}";
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     mkdir -p $out/{Applications,bin}
@@ -76,6 +76,6 @@ mkDerivation rec {
     changelog = "https://github.com/qbittorrent/qBittorrent/blob/release-${version}/Changelog";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ Anton-Latukha ];
+    maintainers = with maintainers; [Anton-Latukha];
   };
 }

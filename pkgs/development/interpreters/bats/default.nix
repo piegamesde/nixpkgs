@@ -69,8 +69,8 @@ resholve.mkDerivation rec {
         ];
       };
       fix = {
-        "$BATS_ROOT" = [ "${placeholder "out"}" ];
-        "$BATS_LIBEXEC" = [ "${placeholder "out"}/libexec/bats-core" ];
+        "$BATS_ROOT" = ["${placeholder "out"}"];
+        "$BATS_LIBEXEC" = ["${placeholder "out"}/libexec/bats-core"];
       };
       keep = {
         "${placeholder "out"}/libexec/bats-core/bats" = true;
@@ -113,16 +113,16 @@ resholve.mkDerivation rec {
     };
   };
 
-  passthru.libraries = callPackages ./libraries.nix { };
+  passthru.libraries = callPackages ./libraries.nix {};
 
   passthru.withLibraries =
     selector:
     symlinkJoin {
       name = "bats-with-libraries-${bats.version}";
 
-      paths = [ bats ] ++ selector bats.libraries;
+      paths = [bats] ++ selector bats.libraries;
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
 
       postBuild = ''
         wrapProgram "$out/bin/bats" \
@@ -166,7 +166,7 @@ resholve.mkDerivation rec {
             assert_output "hi"
           }
         '';
-        passAsFile = [ "testScript" ];
+        passAsFile = ["testScript"];
       }
       ''
         ${
@@ -190,7 +190,7 @@ resholve.mkDerivation rec {
         parallel # skips some tests if it can't detect
         flock # skips some tests if it can't detect
         procps
-      ] ++ lib.optionals stdenv.isDarwin [ lsof ];
+      ] ++ lib.optionals stdenv.isDarwin [lsof];
       inherit doInstallCheck;
       installCheckPhase =
         ''
@@ -221,7 +221,7 @@ resholve.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/bats-core/bats-core";
     description = "Bash Automated Testing System";
-    maintainers = with maintainers; [ abathur ];
+    maintainers = with maintainers; [abathur];
     license = licenses.mit;
     platforms = platforms.unix;
   };

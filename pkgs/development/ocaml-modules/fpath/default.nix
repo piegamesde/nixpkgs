@@ -28,9 +28,9 @@ else
       ocamlbuild
       topkg
     ];
-    buildInputs = [ topkg ];
+    buildInputs = [topkg];
 
-    propagatedBuildInputs = [ astring ];
+    propagatedBuildInputs = [astring];
 
     strictDeps = true;
 
@@ -40,7 +40,7 @@ else
       description = "An OCaml module for handling file system paths with POSIX and Windows conventions";
       homepage = "https://erratique.ch/software/fpath";
       license = lib.licenses.isc;
-      maintainers = [ lib.maintainers.vbgl ];
+      maintainers = [lib.maintainers.vbgl];
       inherit (ocaml.meta) platforms;
     };
   }

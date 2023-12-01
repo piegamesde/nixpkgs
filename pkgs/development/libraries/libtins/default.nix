@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     homepage = "https://libtins.github.io/";
     changelog = "https://raw.githubusercontent.com/mfontanini/${pname}/v${version}/CHANGES.md";
     license = lib.licenses.bsd2;
-    maintainers = with maintainers; [ fdns ];
+    maintainers = with maintainers; [fdns];
     platforms = lib.platforms.unix;
   };
 }

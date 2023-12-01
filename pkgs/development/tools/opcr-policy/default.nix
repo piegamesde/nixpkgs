@@ -22,7 +22,7 @@ buildGoModule rec {
     "-X github.com/opcr-io/policy/pkg/version.ver=${version}"
   ];
 
-  subPackages = [ "cmd/policy" ];
+  subPackages = ["cmd/policy"];
   # disable go workspaces
   GOWORK = "off";
 

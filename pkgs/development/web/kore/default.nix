@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     homepage = "https://kore.io";
     license = licenses.isc;
     platforms = platforms.all;
-    maintainers = with maintainers; [ johnmh ];
+    maintainers = with maintainers; [johnmh];
   };
 }

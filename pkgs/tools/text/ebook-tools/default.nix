@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://ebook-tools.sourceforge.net";
     description = "Tools and library for dealing with various ebook file formats";
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
     license = licenses.mit;
   };

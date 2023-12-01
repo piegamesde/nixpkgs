@@ -68,6 +68,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     homepage = "https://openjade.sourceforge.net/";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

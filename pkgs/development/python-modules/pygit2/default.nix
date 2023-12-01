@@ -29,16 +29,16 @@ buildPythonPackage rec {
     export DYLD_LIBRARY_PATH="${libgit2}/lib"
   '';
 
-  buildInputs = [ libgit2 ];
+  buildInputs = [libgit2];
 
   propagatedBuildInputs = [
     cached-property
     pycparser
-  ] ++ lib.optionals (!isPyPy) [ cffi ];
+  ] ++ lib.optionals (!isPyPy) [cffi];
 
-  propagatedNativeBuildInputs = lib.optionals (!isPyPy) [ cffi ];
+  propagatedNativeBuildInputs = lib.optionals (!isPyPy) [cffi];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # Disable tests that require networking
@@ -59,12 +59,12 @@ buildPythonPackage rec {
   # https://github.com/NixOS/nixpkgs/pull/72544#issuecomment-582681068
   doCheck = false;
 
-  pythonImportsCheck = [ "pygit2" ];
+  pythonImportsCheck = ["pygit2"];
 
   meta = with lib; {
     description = "A set of Python bindings to the libgit2 shared library";
     homepage = "https://github.com/libgit2/pygit2";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

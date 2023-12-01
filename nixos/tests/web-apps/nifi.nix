@@ -1,12 +1,12 @@
 import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "nifi";
-    meta.maintainers = with pkgs.lib.maintainers; [ izorkin ];
+    meta.maintainers = with pkgs.lib.maintainers; [izorkin];
 
     nodes = {
       nifi =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           virtualisation = {
             memorySize = 2048;

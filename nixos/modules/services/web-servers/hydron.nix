@@ -72,8 +72,8 @@ with lib; {
 
     importPaths = mkOption {
       type = types.listOf types.path;
-      default = [ ];
-      example = [ "/home/okina/Pictures" ];
+      default = [];
+      example = ["/home/okina/Pictures"];
       description = lib.mdDoc "Paths that hydron will recursively import.";
     };
 
@@ -98,7 +98,7 @@ with lib; {
 
     services.postgresql = {
       enable = true;
-      ensureDatabases = [ "hydron" ];
+      ensureDatabases = ["hydron"];
       ensureUsers = [
         {
           name = "hydron";
@@ -124,7 +124,7 @@ with lib; {
         "network.target"
         "postgresql.service"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         User = "hydron";
@@ -157,7 +157,7 @@ with lib; {
         "network.target"
         "hydron.service"
       ];
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
 
       timerConfig = {
         Persistent = true;
@@ -192,5 +192,5 @@ with lib; {
     )
   ];
 
-  meta.maintainers = with maintainers; [ Madouura ];
+  meta.maintainers = with maintainers; [Madouura];
 }

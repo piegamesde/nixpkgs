@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
         'cmake_minimum_required(VERSION 2.8.12)' 'cmake_minimum_required(VERSION 3.1.0)'
   '';
 
-  nativeBuildInputs = [ cmake ] ++ lib.optional enableGUI wrapQtAppsHook;
+  nativeBuildInputs = [cmake] ++ lib.optional enableGUI wrapQtAppsHook;
 
   cmakeFlags = [
     "-DSYSTEM_XPDFRC=/etc/xpdfrc"
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     comment = "Views Adobe PDF files";
     icon = "xpdf";
     exec = "xpdf %f";
-    categories = [ "Office" ];
+    categories = ["Office"];
   };
 
   postInstall = lib.optionalString (!stdenv.isDarwin) ''
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
       gpl3Only
     ];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     knownVulnerabilities = [
       "CVE-2018-7453: loop in PDF objects"
       "CVE-2018-16369: loop in PDF objects"

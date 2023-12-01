@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     jre
     ncurses.dev
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out

@@ -30,7 +30,7 @@ buildPythonApplication rec {
     pyqtwebengine
   ];
 
-  nativeBuildInputs = [ pyqtwebengine.wrapQtAppsHook ];
+  nativeBuildInputs = [pyqtwebengine.wrapQtAppsHook];
 
   # Needed because source is fetched from git
   preBuild = ''
@@ -42,7 +42,7 @@ buildPythonApplication rec {
   doCheck = false;
 
   dontWrapQtApps = true;
-  makeWrapperArgs = [ "\${qtWrapperArgs[@]}" ];
+  makeWrapperArgs = ["\${qtWrapperArgs[@]}"];
 
   meta = with lib; {
     homepage = "https://frescobaldi.org/";
@@ -60,7 +60,7 @@ buildPythonApplication rec {
       fonts and keyboard shortcuts
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ sepi ];
+    maintainers = with maintainers; [sepi];
     platforms = platforms.all;
     broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/frescobaldi.x86_64-darwin
   };

@@ -149,6 +149,6 @@ stdenv.mkDerivation rec {
     homepage = src.meta.homepage;
     license = licenses.boost;
     platforms = platforms.all;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
   };
 }

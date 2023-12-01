@@ -1,16 +1,16 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "emacs-daemon";
-    meta = with pkgs.lib.maintainers; { maintainers = [ ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [];};
 
     enableOCR = true;
 
     nodes.machine =
-      { ... }:
+      {...}:
 
       {
-        imports = [ ./common/x11.nix ];
+        imports = [./common/x11.nix];
         services.emacs = {
           enable = true;
           defaultEditor = true;

@@ -27,12 +27,12 @@ buildPythonPackage rec {
     msrestazure
   ];
 
-  pythonImportsCheck = [ "azure.mgmt.synapse" ];
+  pythonImportsCheck = ["azure.mgmt.synapse"];
 
   meta = with lib; {
     description = "Azure python SDK";
     homepage = "https://github.com/Azure/azure-sdk-for-python/";
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

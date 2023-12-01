@@ -62,7 +62,7 @@ pythonPackages.buildPythonApplication rec {
     pythonPackages.wrapPython
     pythonPackages.setuptools-scm
   ];
-  buildInputs = [ librsync ];
+  buildInputs = [librsync];
 
   pythonPath = with pythonPackages; [
     b2sdk

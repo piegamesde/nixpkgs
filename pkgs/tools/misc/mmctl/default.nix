@@ -29,6 +29,6 @@ buildGoModule rec {
     description = "A remote CLI tool for Mattermost";
     homepage = "https://github.com/mattermost/mmctl";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ppom ];
+    maintainers = with maintainers; [ppom];
   };
 }

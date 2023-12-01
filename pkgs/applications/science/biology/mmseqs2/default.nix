@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     description = "Ultra fast and sensitive sequence search and clustering suite";
     homepage = "https://mmseqs.com/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
     platforms = platforms.unix;
   };
 }

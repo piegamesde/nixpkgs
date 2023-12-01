@@ -17,12 +17,12 @@ let
 
   package = pkgs.buildEnv {
     name = "opengl-drivers";
-    paths = [ cfg.package ] ++ cfg.extraPackages;
+    paths = [cfg.package] ++ cfg.extraPackages;
   };
 
   package32 = pkgs.buildEnv {
     name = "opengl-drivers-32bit";
-    paths = [ cfg.package32 ] ++ cfg.extraPackages32;
+    paths = [cfg.package32] ++ cfg.extraPackages32;
   };
 in
 
@@ -108,7 +108,7 @@ in
 
       extraPackages = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         example = literalExpression "with pkgs; [ intel-media-driver intel-ocl vaapiIntel ]";
         description = lib.mdDoc ''
           Additional packages to add to OpenGL drivers.
@@ -122,7 +122,7 @@ in
 
       extraPackages32 = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         example = literalExpression "with pkgs.pkgsi686Linux; [ intel-media-driver vaapiIntel ]";
         description = lib.mdDoc ''
           Additional packages to add to 32-bit OpenGL drivers on 64-bit systems.
@@ -175,7 +175,7 @@ in
     ];
 
     environment.sessionVariables.LD_LIBRARY_PATH = mkIf cfg.setLdLibraryPath (
-      [ "/run/opengl-driver/lib" ] ++ optional cfg.driSupport32Bit "/run/opengl-driver-32/lib"
+      ["/run/opengl-driver/lib"] ++ optional cfg.driSupport32Bit "/run/opengl-driver-32/lib"
     );
 
     hardware.opengl.package = mkDefault pkgs.mesa.drivers;

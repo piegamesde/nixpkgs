@@ -49,8 +49,8 @@ stdenv.mkDerivation rec {
     description = "Flash-optimized, in-memory, NoSQL database";
     homepage = "https://aerospike.com/";
     license = licenses.agpl3;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ kalbasit ];
-    knownVulnerabilities = [ "CVE-2020-13151" ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [kalbasit];
+    knownVulnerabilities = ["CVE-2020-13151"];
   };
 }

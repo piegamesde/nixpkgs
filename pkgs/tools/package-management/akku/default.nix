@@ -34,14 +34,14 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ guile ];
+  buildInputs = [guile];
 
   # Use a dummy package index to boostrap Akku
   preBuild = ''
     touch bootstrap.db
   '';
 
-  makeFlags = [ "GUILE_AUTO_COMPILE=0" ];
+  makeFlags = ["GUILE_AUTO_COMPILE=0"];
 
   meta = with lib; {
     homepage = "https://akkuscm.org/";
@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
     changelog = "https://gitlab.com/akkuscm/akku/-/raw/v${version}/NEWS.md";
     platforms = platforms.all;
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [marsam];
   };
 }

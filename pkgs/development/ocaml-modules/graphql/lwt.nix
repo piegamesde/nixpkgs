@@ -17,7 +17,7 @@ buildDunePackage rec {
     ocaml_lwt
   ];
 
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   doCheck = true;
 

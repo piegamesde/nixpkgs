@@ -13,7 +13,7 @@
   llvmPackages,
   perl,
   cudaSupport ? config.cudaSupport or false,
-  cudaPackages ? { },
+  cudaPackages ? {},
   nvidia_x11,
   cudnnSupport ? cudaSupport,
 }:
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "2-auto-disable-sse-for-non-x86.patch";
       url = "https://github.com/apache/incubator-mxnet/commit/c1b96f562f55dfa024ac941d7b104f00e239ee0f.patch";
-      excludes = [ "ci/docker/runtime_functions.sh" ];
+      excludes = ["ci/docker/runtime_functions.sh"];
       hash = "sha256-r1LbC8ueRooW5tTNakAlRSJ+9aR4WXXoEKx895DgOs4=";
     })
   ];
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional cudnnSupport cudnn;
 
   cmakeFlags =
-    [ "-DUSE_MKL_IF_AVAILABLE=OFF" ]
+    ["-DUSE_MKL_IF_AVAILABLE=OFF"]
     ++ (
       if cudaSupport then
         [
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
           "-DMXNET_CUDA_ARCH=${builtins.concatStringsSep ";" cudaFlags.realArches}"
         ]
       else
-        [ "-DUSE_CUDA=OFF" ]
+        ["-DUSE_CUDA=OFF"]
     )
     ++ lib.optional (!cudnnSupport) "-DUSE_CUDNN=OFF";
 
@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Lightweight, Portable, Flexible Distributed/Mobile Deep Learning with Dynamic, Mutation-aware Dataflow Dep Scheduler";
     homepage = "https://mxnet.incubator.apache.org/";
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     license = licenses.asl20;
     platforms = platforms.unix;
     # Build failures when linking mxnet_unit_tests: https://gist.github.com/6d17447ee3557967ec52c50d93b17a1d

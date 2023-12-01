@@ -17,14 +17,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-mpHw9fzGpYz04rgnfG/qTNrXIf6q+vFfIsjb56kJsLg=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [openssl];
 
   meta = with lib; {
     description = "A C++ header-only HTTP/HTTPS server and client library";
     homepage = "https://github.com/yhirose/cpp-httplib";
     changelog = "https://github.com/yhirose/cpp-httplib/releases/tag/v${version}";
-    maintainers = with maintainers; [ aidalgol ];
+    maintainers = with maintainers; [aidalgol];
     license = licenses.mit;
   };
 }

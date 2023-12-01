@@ -31,7 +31,7 @@ let
       "-DCRABNET_ENABLE_DLL=OFF"
     ];
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
     installPhase = ''
       install -Dm555 lib/libRakNetLibStatic.a $out/lib/libRakNetLibStatic.a
@@ -72,9 +72,9 @@ let
         sha256 = "8/bV4sw7Q8l8bDTHGQ0t4owf6J6h9q468JFx4KegY5o=";
       };
 
-      nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ makeWrapper ];
+      nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [makeWrapper];
 
-      buildInputs = oldAttrs.buildInputs ++ [ luajit ];
+      buildInputs = oldAttrs.buildInputs ++ [luajit];
 
       cmakeFlags = oldAttrs.cmakeFlags ++ [
         "-DBUILD_OPENCS=OFF"
@@ -89,7 +89,7 @@ let
       '';
 
       # https://github.com/TES3MP/openmw-tes3mp/issues/552
-      patches = oldAttrs.patches ++ [ ./tes3mp.patch ];
+      patches = oldAttrs.patches ++ [./tes3mp.patch];
 
       env.NIX_CFLAGS_COMPILE = "-fpermissive";
 
@@ -108,7 +108,7 @@ let
         description = "Multiplayer for TES3:Morrowind based on OpenMW";
         homepage = "https://tes3mp.com/";
         license = licenses.gpl3Only;
-        maintainers = with maintainers; [ peterhoeg ];
+        maintainers = with maintainers; [peterhoeg];
         platforms = [
           "x86_64-linux"
           "i686-linux"
@@ -134,9 +134,9 @@ symlinkJoin {
   name = "openmw-tes3mp-${unwrapped.version}";
   inherit (unwrapped) version meta;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  paths = [ unwrapped ];
+  paths = [unwrapped];
 
   postBuild = ''
     mkdir -p $out/bin

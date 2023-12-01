@@ -37,7 +37,7 @@ buildPythonPackage rec {
     hash = "sha256-Yb3AgUSqr9r2TIymiEUIhKThNC7yjQEkhi8GSI9fqNA=";
   };
 
-  nativeBuildInputs = [ packaging ];
+  nativeBuildInputs = [packaging];
 
   propagatedBuildInputs = [
     babel
@@ -56,13 +56,13 @@ buildPythonPackage rec {
     unidecode
   ];
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
   checkPhase = ''
     nosetests
   '';
 
-  pythonImportsCheck = [ "woob" ];
+  pythonImportsCheck = ["woob"];
 
   passthru.tests.version = testers.testVersion {
     package = woob;
@@ -73,6 +73,6 @@ buildPythonPackage rec {
     description = "Collection of applications and APIs to interact with websites";
     homepage = "https://woob.tech";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ DamienCassou ];
+    maintainers = with maintainers; [DamienCassou];
   };
 }

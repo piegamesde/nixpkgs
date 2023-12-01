@@ -66,7 +66,7 @@ mkDerivation rec {
     microsoft_gsl
     range-v3
     yaml-cpp
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.libs.utmp ];
+  ] ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk.libs.utmp];
 
   preConfigure = ''
     mkdir -p _deps/sources
@@ -96,7 +96,7 @@ mkDerivation rec {
     homepage = "https://github.com/contour-terminal/contour";
     changelog = "https://github.com/contour-terminal/contour/raw/v${version}/Changelog.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fortuneteller2k ];
+    maintainers = with maintainers; [fortuneteller2k];
     platforms = platforms.unix;
   };
 }

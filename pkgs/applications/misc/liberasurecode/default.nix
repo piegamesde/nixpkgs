@@ -36,9 +36,9 @@ stdenv.mkDerivation rec {
     installShellFiles
   ];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
-  configureFlags = [ "--enable-doxygen" ];
+  configureFlags = ["--enable-doxygen"];
 
   postInstall = ''
     # remove useless man pages about directories

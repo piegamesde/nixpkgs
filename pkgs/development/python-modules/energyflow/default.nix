@@ -33,19 +33,19 @@ buildPythonPackage rec {
     wasserstein
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pytestFlagsArray = [ "energyflow/tests" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pytestFlagsArray = ["energyflow/tests"];
   disabledTestPaths = [
     "energyflow/tests/test_archs.py" # requires tensorflow
     "energyflow/tests/test_emd.py" # requires "ot"
   ];
 
-  pythonImportsCheck = [ "energyflow" ];
+  pythonImportsCheck = ["energyflow"];
 
   meta = with lib; {
     description = "Python package for the EnergyFlow suite of tools";
     homepage = "https://energyflow.network/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

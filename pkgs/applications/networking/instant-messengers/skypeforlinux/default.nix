@@ -122,7 +122,7 @@ stdenv.mkDerivation {
     glib # For setup hook populating GSETTINGS_SCHEMA_PATH
   ];
 
-  buildInputs = [ dpkg ];
+  buildInputs = [dpkg];
 
   dontUnpack = true;
   installPhase = ''
@@ -156,12 +156,12 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Linux client for skype";
     homepage = "https://www.skype.com";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     maintainers = with maintainers; [
       panaeon
       jraygauthier
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

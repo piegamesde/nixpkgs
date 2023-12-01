@@ -22,8 +22,8 @@ buildPythonPackage rec {
       --replace "/usr/bin/pkg-config" "${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config"
   '';
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ zstd ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [zstd];
 
   setupPyBuildFlags = [
     "--external"
@@ -37,7 +37,7 @@ buildPythonPackage rec {
   VERSION = zstd.version;
   PKG_VERSION = version;
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
   checkPhase = ''
     pytest
   '';
@@ -46,6 +46,6 @@ buildPythonPackage rec {
     description = "Simple python bindings to Yann Collet ZSTD compression library";
     homepage = "https://github.com/sergey-dryabzhinsky/python-zstd";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ eadwu ];
+    maintainers = with maintainers; [eadwu];
   };
 }

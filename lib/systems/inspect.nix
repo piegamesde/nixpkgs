@@ -1,5 +1,5 @@
-{ lib }:
-with import ./parse.nix { inherit lib; };
+{lib}:
+with import ./parse.nix {inherit lib;};
 with lib.attrsets;
 with lib.lists;
 
@@ -7,7 +7,7 @@ let
   abis_ = abis;
 in
 let
-  abis = lib.mapAttrs (_: abi: builtins.removeAttrs abi [ "assertions" ]) abis_;
+  abis = lib.mapAttrs (_: abi: builtins.removeAttrs abi ["assertions"]) abis_;
 in
 
 rec {
@@ -80,7 +80,7 @@ rec {
     isArmv7 =
       map
         (
-          { arch, ... }:
+          {arch, ...}:
           {
             cpu = {
               inherit arch;
@@ -334,12 +334,12 @@ rec {
     };
 
     isAndroid = [
-      { abi = abis.android; }
-      { abi = abis.androideabi; }
+      {abi = abis.android;}
+      {abi = abis.androideabi;}
     ];
     isGnu =
       with abis;
-      map (a: { abi = a; }) [
+      map (a: {abi = a;}) [
         gnuabi64
         gnu
         gnueabi
@@ -349,7 +349,7 @@ rec {
       ];
     isMusl =
       with abis;
-      map (a: { abi = a; }) [
+      map (a: {abi = a;}) [
         musl
         musleabi
         musleabihf
@@ -358,7 +358,7 @@ rec {
       ];
     isUClibc =
       with abis;
-      map (a: { abi = a; }) [
+      map (a: {abi = a;}) [
         uclibc
         uclibceabi
         uclibceabihf
@@ -410,7 +410,7 @@ rec {
   # that `lib.meta.availableOn` can distinguish them from the patterns which
   # apply only to the `parsed` field.
 
-  platformPatterns = mapAttrs (_: p: { parsed = { }; } // p) {
+  platformPatterns = mapAttrs (_: p: {parsed = {};} // p) {
     isStatic = {
       isStatic = true;
     };

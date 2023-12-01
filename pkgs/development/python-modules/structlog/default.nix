@@ -35,9 +35,9 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [typing-extensions];
 
-  pythonImportsCheck = [ "structlog" ];
+  pythonImportsCheck = ["structlog"];
 
   nativeCheckInputs = [
     freezegun
@@ -51,6 +51,6 @@ buildPythonPackage rec {
     description = "Painless structural logging";
     homepage = "https://github.com/hynek/structlog";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

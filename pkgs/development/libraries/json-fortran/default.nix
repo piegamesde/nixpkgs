@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     gfortran
   ];
 
-  cmakeFlags = [ "-DUSE_GNU_INSTALL_CONVENTION=ON" ];
+  cmakeFlags = ["-DUSE_GNU_INSTALL_CONVENTION=ON"];
 
   # Due to some misconfiguration in CMake the Fortran modules end up in $out/$out.
   # Move them back to the desired location.
@@ -36,6 +36,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jacobwilliams/json-fortran";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

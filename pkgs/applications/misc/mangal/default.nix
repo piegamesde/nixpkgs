@@ -25,7 +25,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform) ''
     # Mangal creates a config file in the folder ~/.config/mangal and fails if not possible
@@ -42,6 +42,6 @@ buildGoModule rec {
     description = "A fancy CLI app written in Go which scrapes, downloads and packs manga into different formats";
     homepage = "https://github.com/metafates/mangal";
     license = licenses.mit;
-    maintainers = [ maintainers.bertof ];
+    maintainers = [maintainers.bertof];
   };
 }

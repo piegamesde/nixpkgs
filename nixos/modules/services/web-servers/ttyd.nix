@@ -41,7 +41,7 @@ let
       "--terminal-type"
       cfg.terminalType
     ]
-    ++ optionals cfg.checkOrigin [ "--check-origin" ]
+    ++ optionals cfg.checkOrigin ["--check-origin"]
     ++ [
       "--max-clients"
       (toString cfg.maxClients)
@@ -50,7 +50,7 @@ let
       "--index"
       cfg.indexFile
     ]
-    ++ optionals cfg.enableIPv6 [ "--ipv6" ]
+    ++ optionals cfg.enableIPv6 ["--ipv6"]
     ++ optionals cfg.enableSSL [
       "--ssl-cert"
       cfg.certFile
@@ -118,7 +118,7 @@ in
 
       clientOptions = mkOption {
         type = types.attrsOf types.str;
-        default = { };
+        default = {};
         example = literalExpression ''
           {
                     fontSize = "16";
@@ -220,7 +220,7 @@ in
     systemd.services.ttyd = {
       description = "ttyd Web Server Daemon";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         # Runs login which needs to be run as root

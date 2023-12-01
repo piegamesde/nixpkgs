@@ -32,8 +32,8 @@ in
     };
   };
   config = mkIf cfg.enable {
-    services.printing.drivers = [ pkg ];
-    hardware.sane.extraBackends = [ pkg ];
+    services.printing.drivers = [pkg];
+    hardware.sane.extraBackends = [pkg];
     environment.etc = {
       "samsung/scanner/share/oem.conf".source = "${pkg}/etc/samsung/scanner/share/oem.conf";
       "smfp-common/scanner/share/libsane-smfp.cfg".source = "${pkg}/etc/smfp-common/scanner/share/libsane-smfp.cfg";

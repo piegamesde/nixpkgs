@@ -47,9 +47,9 @@ stdenv.mkDerivation rec {
     pcre
     readline
     zlib
-  ] ++ lib.optionals (stdenv.isDarwin) [ libiconv ];
+  ] ++ lib.optionals (stdenv.isDarwin) [libiconv];
 
-  propagatedBuildInputs = [ ncurses ];
+  propagatedBuildInputs = [ncurses];
 
   buildFlags = lib.optional stdenv.hostPlatform.isStatic "static";
   installTargets = lib.optional stdenv.hostPlatform.isStatic "install-static";
@@ -103,7 +103,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.jedsoft.org/slang/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     mainProgram = "slsh";
     platforms = platforms.unix;
   };

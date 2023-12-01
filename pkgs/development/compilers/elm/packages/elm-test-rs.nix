@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage rec {
   };
 
   buildInputs =
-    lib.optionals (!stdenv.isDarwin) [ openssl ]
+    lib.optionals (!stdenv.isDarwin) [openssl]
     ++ lib.optionals stdenv.isDarwin (
       with darwin.apple_sdk.frameworks; [
         Security
@@ -35,6 +35,6 @@ rustPlatform.buildRustPackage rec {
     description = "Fast and portable executable to run your Elm tests";
     homepage = "https://github.com/mpizenberg/elm-test-rs";
     license = licenses.bsd3;
-    maintainers = [ maintainers.jpagex ];
+    maintainers = [maintainers.jpagex];
   };
 }

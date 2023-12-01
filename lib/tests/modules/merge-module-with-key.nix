@@ -1,4 +1,4 @@
-{ lib, ... }:
+{lib, ...}:
 let
   inherit (lib) mkOption types;
 
@@ -17,7 +17,7 @@ let
 
   decl = {
     options = {
-      raw = mkOption { type = types.lines; };
+      raw = mkOption {type = types.lines;};
     };
   };
 in
@@ -31,7 +31,7 @@ in
           moduleWithKey
         ];
       };
-      default = { };
+      default = {};
     };
     twice = mkOption {
       type = types.submodule {
@@ -41,7 +41,7 @@ in
           moduleWithoutKey
         ];
       };
-      default = { };
+      default = {};
     };
   };
 }

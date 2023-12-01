@@ -15,12 +15,12 @@ buildOctavePackage rec {
     sha256 = "1lvfxbqmw8h1nlrxmvrl6j4xffmbzxfhdpxz3vrc6lg2g4jwaa6h";
   };
 
-  buildInputs = [ gsl ];
+  buildInputs = [gsl];
 
   meta = with lib; {
     homepage = "https://octave.sourceforge.io/gsl/index.html";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ KarlJoad ];
+    maintainers = with maintainers; [KarlJoad];
     description = "Octave bindings to the GNU Scientific Library";
     # error: use of undeclared identifier 'feval'; did you mean 'octave::feval'?
     # error: no member named 'is_real_type' in 'octave_value'

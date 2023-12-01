@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
             (x: {
               inherit (x) f;
               p = x.p // {
-                src = applyPatches { inherit (x.p) src patches; };
+                src = applyPatches {inherit (x.p) src patches;};
               };
             })
             [
@@ -210,7 +210,7 @@ stdenv.mkDerivation rec {
     homepage = "https://proxysql.com/";
     broken = stdenv.isDarwin;
     description = "High-performance MySQL proxy";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ ajs124 ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [ajs124];
   };
 }

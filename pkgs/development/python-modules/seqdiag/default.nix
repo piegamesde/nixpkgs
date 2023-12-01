@@ -33,7 +33,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "src/seqdiag/tests/" ];
+  pytestFlagsArray = ["src/seqdiag/tests/"];
 
   disabledTests =
     [
@@ -41,13 +41,13 @@ buildPythonPackage rec {
       "test_setup_inline_svg_is_true_with_multibytes"
     ];
 
-  pythonImportsCheck = [ "seqdiag" ];
+  pythonImportsCheck = ["seqdiag"];
 
   meta = with lib; {
     description = "Generate sequence-diagram image from spec-text file (similar to Graphviz)";
     homepage = "http://blockdiag.com/";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
   };
 }

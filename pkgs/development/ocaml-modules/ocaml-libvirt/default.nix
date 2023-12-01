@@ -27,7 +27,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.02")
       sha256 = "0xpkdmknk74yqxgw8z2w8b7ss8hpx92xnab5fsqg2byyj55gzf2k";
     };
 
-    propagatedBuildInputs = [ libvirt ];
+    propagatedBuildInputs = [libvirt];
 
     nativeBuildInputs = [
       autoreconfHook
@@ -59,7 +59,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.02")
       description = "OCaml bindings for libvirt";
       homepage = "https://libvirt.org/ocaml/";
       license = licenses.gpl2;
-      maintainers = [ ];
+      maintainers = [];
       inherit (ocaml.meta) platforms;
     };
   }

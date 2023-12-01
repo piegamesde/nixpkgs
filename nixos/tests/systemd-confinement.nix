@@ -2,7 +2,7 @@ import ./make-test-python.nix {
   name = "systemd-confinement";
 
   nodes.machine =
-    { pkgs, lib, ... }:
+    {pkgs, lib, ...}:
     let
       testServer = pkgs.writeScript "testserver.sh" ''
         #!${pkgs.runtimeShell}
@@ -23,13 +23,13 @@ import ./make-test-python.nix {
         num:
         {
           testScript,
-          config ? { },
+          config ? {},
           serviceName ? "test${toString num}",
         }:
         {
           systemd.sockets.${serviceName} = {
             description = "Socket for Test Service ${toString num}";
-            wantedBy = [ "sockets.target" ];
+            wantedBy = ["sockets.target"];
             socketConfig.ListenStream = "/run/test${toString num}.sock";
             socketConfig.Accept = true;
           };
@@ -37,10 +37,10 @@ import ./make-test-python.nix {
           systemd.services."${serviceName}@" =
             {
               description = "Confined Test Service ${toString num}";
-              confinement = (config.confinement or { }) // {
+              confinement = (config.confinement or {}) // {
                 enable = true;
               };
-              serviceConfig = (config.serviceConfig or { }) // {
+              serviceConfig = (config.serviceConfig or {}) // {
                 ExecStart = testServer;
                 StandardInput = "socket";
               };
@@ -81,7 +81,7 @@ import ./make-test-python.nix {
           '';
         }
         {
-          config.serviceConfig.BindReadOnlyPaths = [ "/etc" ];
+          config.serviceConfig.BindReadOnlyPaths = ["/etc"];
           testScript = ''
             with subtest("check existence of bind-mounted /etc"):
                 passwd = machine.succeed('chroot-exec cat /etc/passwd').strip()
@@ -207,7 +207,7 @@ import ./make-test-python.nix {
         }
       );
 
-      config.users.groups.chroot-testgroup = { };
+      config.users.groups.chroot-testgroup = {};
       config.users.users.chroot-testuser = {
         isSystemUser = true;
         description = "Chroot Test User";
@@ -216,7 +216,7 @@ import ./make-test-python.nix {
     };
 
   testScript =
-    { nodes, ... }:
+    {nodes, ...}:
     ''
       def assert_eq(a, b):
           assert a == b, f"{a} != {b}"

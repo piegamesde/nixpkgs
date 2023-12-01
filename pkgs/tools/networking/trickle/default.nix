@@ -32,11 +32,11 @@ stdenv.mkDerivation rec {
     "-levent"
     "-ltirpc"
   ];
-  env.NIX_CFLAGS_COMPILE = toString [ "-I${libtirpc.dev}/include/tirpc" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-I${libtirpc.dev}/include/tirpc"];
 
-  configureFlags = [ "--with-libevent" ];
+  configureFlags = ["--with-libevent"];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = {
     description = "Lightweight userspace bandwidth shaper";

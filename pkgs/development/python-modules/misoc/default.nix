@@ -27,14 +27,14 @@ buildPythonPackage rec {
     migen
   ];
 
-  nativeCheckInputs = [ numpy ];
+  nativeCheckInputs = [numpy];
 
-  pythonImportsCheck = [ "misoc" ];
+  pythonImportsCheck = ["misoc"];
 
   meta = with lib; {
     description = "The original high performance and small footprint system-on-chip based on Migen";
     homepage = "https://github.com/m-labs/misoc";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

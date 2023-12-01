@@ -1,4 +1,4 @@
-{ godot, lib }:
+{godot, lib}:
 godot.overrideAttrs (
   oldAttrs: rec {
     pname = "godot-server";

@@ -6,9 +6,9 @@
   ghc,
   all-cabal-hashes,
   buildHaskellPackages,
-  compilerConfig ? (self: super: { }),
-  packageSetConfig ? (self: super: { }),
-  overrides ? (self: super: { }),
+  compilerConfig ? (self: super: {}),
+  packageSetConfig ? (self: super: {}),
+  overrides ? (self: super: {}),
   initialPackages ? import ./initial-packages.nix,
   nonHackagePackages ? import ./non-hackage-packages.nix,
   configurationCommon ? import ./configuration-common.nix,
@@ -35,16 +35,14 @@ let
   };
 
   platformConfigurations =
-    lib.optionals stdenv.hostPlatform.isAarch [ (configurationArm { inherit pkgs haskellLib; }) ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      (configurationDarwin { inherit pkgs haskellLib; })
-    ];
+    lib.optionals stdenv.hostPlatform.isAarch [(configurationArm {inherit pkgs haskellLib;})]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [(configurationDarwin {inherit pkgs haskellLib;})];
 
   extensions = lib.composeManyExtensions (
     [
       nonHackagePackages
-      (configurationNix { inherit pkgs haskellLib; })
-      (configurationCommon { inherit pkgs haskellLib; })
+      (configurationNix {inherit pkgs haskellLib;})
+      (configurationCommon {inherit pkgs haskellLib;})
     ]
     ++ platformConfigurations
     ++ [

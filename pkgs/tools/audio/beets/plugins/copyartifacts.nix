@@ -22,7 +22,7 @@ python3Packages.buildPythonApplication {
     printf 'from pkgutil import extend_path\n__path__ = extend_path(__path__, __name__)\n' >beetsplug/__init__.py
   '';
 
-  pytestFlagsArray = [ "-r fEs" ];
+  pytestFlagsArray = ["-r fEs"];
 
   nativeCheckInputs = with python3Packages; [
     pytestCheckHook

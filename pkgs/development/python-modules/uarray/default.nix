@@ -52,12 +52,12 @@ buildPythonPackage rec {
     "--pyargs"
     "uarray"
   ];
-  pythonImportsCheck = [ "uarray" ];
+  pythonImportsCheck = ["uarray"];
 
   meta = with lib; {
     description = "Universal array library";
     homepage = "https://github.com/Quansight-Labs/uarray";
     license = licenses.bsd0;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

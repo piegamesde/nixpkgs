@@ -1,9 +1,9 @@
 {
-  pkgs ? import ../. { },
+  pkgs ? import ../. {},
 }:
-(import ./default.nix { }).overrideAttrs (
+(import ./default.nix {}).overrideAttrs (
   x: {
-    buildInputs = (x.buildInputs or [ ]) ++ [
+    buildInputs = (x.buildInputs or []) ++ [
       pkgs.xmloscopy
       pkgs.ruby
     ];

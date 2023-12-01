@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "swap-bytes";
   version = "v1.2";
 
-  parasites = [ "swap-bytes/test" ];
+  parasites = ["swap-bytes/test"];
 
   description = "Optimized byte-swapping primitives.";
 
@@ -20,7 +20,7 @@ rec {
 
   packageName = "swap-bytes";
 
-  asdFilesToKeep = [ "swap-bytes.asd" ];
+  asdFilesToKeep = ["swap-bytes.asd"];
   overrides = x: x;
 }
 /* (SYSTEM swap-bytes DESCRIPTION Optimized byte-swapping primitives. SHA256

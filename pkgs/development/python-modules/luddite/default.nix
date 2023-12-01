@@ -24,19 +24,19 @@ buildPythonPackage rec {
       --replace "--cov=luddite --cov-report=html --cov-report=term --no-cov-on-fail" ""
   '';
 
-  propagatedBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [setuptools];
 
   nativeCheckInputs = [
     pytestCheckHook
     pytest-socket
     pytest-mock
   ];
-  pythonImportsCheck = [ "luddite" ];
+  pythonImportsCheck = ["luddite"];
 
   meta = with lib; {
     description = "Checks for out-of-date package versions";
     homepage = "https://github.com/jumptrading/luddite";
     license = licenses.asl20;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
   };
 }

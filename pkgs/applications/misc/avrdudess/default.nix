@@ -19,7 +19,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-x3xcsJLBJVO8XdV4OUveZ4KLqN5z/z0FsNLbGHSNoHs=";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   dontUnpack = true;
   dontInstall = true;
@@ -60,6 +60,6 @@ stdenv.mkDerivation {
     changelog = "https://github.com/ZakKemble/AVRDUDESS/blob/v${version}/Changelog.txt";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

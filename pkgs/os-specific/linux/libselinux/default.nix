@@ -59,16 +59,16 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     pkg-config
     python3
-  ] ++ optionals enablePython [ swig ];
+  ] ++ optionals enablePython [swig];
   buildInputs = [
     libsepol
     pcre
     fts
-  ] ++ optionals enablePython [ python3 ];
+  ] ++ optionals enablePython [python3];
 
   # drop fortify here since package uses it by default, leading to compile error:
   # command-line>:0:0: error: "_FORTIFY_SOURCE" redefined [-Werror]
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
       "LIBSEPOLA=${lib.getLib libsepol}/lib/libsepol.a"
       "ARCH=${stdenv.hostPlatform.linuxArch}"
     ]
-    ++ optionals stdenv.hostPlatform.isStatic [ "DISABLE_SHARED=y" ]
+    ++ optionals stdenv.hostPlatform.isStatic ["DISABLE_SHARED=y"]
     ++ optionals enablePython [
       "PYTHON=${python3.pythonForBuild.interpreter}"
       "PYTHONLIBDIR=$(py)/${python3.sitePackages}"
@@ -101,9 +101,9 @@ stdenv.mkDerivation rec {
     mkdir -p $py/${python3.sitePackages}/selinux
   '';
 
-  installTargets = [ "install" ] ++ optional enablePython "install-pywrap";
+  installTargets = ["install"] ++ optional enablePython "install-pywrap";
 
-  meta = removeAttrs libsepol.meta [ "outputsToInstall" ] // {
+  meta = removeAttrs libsepol.meta ["outputsToInstall"] // {
     description = "SELinux core library";
   };
 }

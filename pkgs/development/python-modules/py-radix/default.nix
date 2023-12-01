@@ -33,6 +33,6 @@ buildPythonPackage rec {
       isc
       bsdOriginal
     ];
-    maintainers = with maintainers; [ mkg ];
+    maintainers = with maintainers; [mkg];
   };
 }

@@ -42,7 +42,7 @@ buildPythonPackage rec {
     sed -i 's/antlr4-python3-runtime==.*/antlr4-python3-runtime/' requirements/base.txt
   '';
 
-  nativeBuildInputs = [ jre_minimal ];
+  nativeBuildInputs = [jre_minimal];
 
   propagatedBuildInputs = [
     antlr4-python3-runtime
@@ -55,7 +55,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "omegaconf" ];
+  pythonImportsCheck = ["omegaconf"];
 
   pytestFlagsArray = [
     "-W"
@@ -67,6 +67,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/omry/omegaconf";
     changelog = "https://github.com/omry/omegaconf/blob/v${version}/NEWS.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     rinutils
   ];
 
-  buildInputs = [ recode ];
+  buildInputs = [recode];
 
   cmakeFlags = [
     "-DLOCALDIR=${placeholder "out"}/share/fortunes"
@@ -60,6 +60,6 @@ stdenv.mkDerivation rec {
     description = "A program that displays a pseudorandom message from a database of quotations";
     license = licenses.bsdOriginal;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ vonfry ];
+    maintainers = with maintainers; [vonfry];
   };
 }

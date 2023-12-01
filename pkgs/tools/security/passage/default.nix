@@ -23,7 +23,7 @@ stdenv.mkDerivation {
     sha256 = "1val8wl9kzlxj4i1rrh2iiyf97w9akffvr0idvbkdb09hfzz4lz8";
   };
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   extraPath = lib.makeBinPath [
     age
@@ -47,7 +47,7 @@ stdenv.mkDerivation {
     description = "Stores, retrieves, generates, and synchronizes passwords securely";
     homepage = "https://github.com/FiloSottile/passage";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
     platforms = platforms.unix;
 
     longDescription = ''

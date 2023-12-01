@@ -51,7 +51,7 @@ mkDerivation rec {
     '';
     homepage = "https://luckybackup.sourceforge.net/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.linux;
   };
 }

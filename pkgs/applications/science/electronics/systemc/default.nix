@@ -17,6 +17,6 @@ stdenv.mkDerivation rec {
     description = "The language for System-level design, modeling and verification";
     homepage = "https://systemc.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ victormignot ];
+    maintainers = with maintainers; [victormignot];
   };
 }

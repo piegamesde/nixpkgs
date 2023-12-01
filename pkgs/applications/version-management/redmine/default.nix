@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-byY4jCOJKWJVLKSR1e/tq9QtrIiGHdnYC8M0WPZb4ek=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     rubyEnv
     rubyEnv.wrappedRuby
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
 
   # taken from https://www.redmine.org/issues/33784
   # can be dropped when the upstream bug is closed and the fix is present in the upstream release
-  patches = [ ./0001-python3.patch ];
+  patches = [./0001-python3.patch];
 
   buildPhase = ''
     mv config config.dist

@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "18qfn5kjzvnyh29x40zm2maqzfmrnay9r58n8pfpq5lcphdhhv8p";
   };
 
-  patches = [ ./nlojet_clang_fix.patch ];
+  patches = [./nlojet_clang_fix.patch];
 
   # error: no member named 'finite' in the global namespace; did you mean simply 'finite'?
   env.NIX_CFLAGS_COMPILE =
@@ -25,6 +25,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2;
     description = "Implementation of calculation of the hadron jet cross sections";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ veprbl ];
+    maintainers = with lib.maintainers; [veprbl];
   };
 }

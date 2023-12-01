@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   postInstall = "ln -s $out/lib/pidgin $out/share/pidgin-otr";
 
-  nativeBuildInputs = [ intltool ];
+  nativeBuildInputs = [intltool];
   buildInputs = [
     libotr
     pidgin
@@ -28,6 +28,6 @@ stdenv.mkDerivation rec {
     description = "Plugin for Pidgin 2.x which implements OTR Messaging";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

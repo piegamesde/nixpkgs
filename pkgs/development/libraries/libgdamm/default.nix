@@ -12,7 +12,7 @@
 }:
 
 let
-  gda = libgda.override { inherit mysqlSupport postgresSupport; };
+  gda = libgda.override {inherit mysqlSupport postgresSupport;};
 in
 stdenv.mkDerivation rec {
   pname = "libgdamm";
@@ -28,12 +28,12 @@ stdenv.mkDerivation rec {
     sha256 = "1fyh15b3f8hmwbswalxk1g4l04yvvybksn5nm7gznn5jl5q010p9";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     glibmm
     libxml2
   ];
-  propagatedBuildInputs = [ gda ];
+  propagatedBuildInputs = [gda];
 
   enableParallelBuilding = true;
 

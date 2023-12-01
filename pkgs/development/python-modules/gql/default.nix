@@ -66,21 +66,21 @@ buildPythonPackage rec {
       urllib3
       websockets
     ];
-    aiohttp = [ aiohttp ];
+    aiohttp = [aiohttp];
     requests = [
       requests
       requests-toolbelt
       urllib3
     ];
-    websockets = [ websockets ];
-    botocore = [ botocore ];
+    websockets = [websockets];
+    botocore = [botocore];
   };
 
   preCheck = ''
     export PATH=$out/bin:$PATH
   '';
 
-  pytestFlagsArray = [ "--asyncio-mode=auto" ];
+  pytestFlagsArray = ["--asyncio-mode=auto"];
 
   disabledTests = [
     # Tests requires network access
@@ -110,13 +110,13 @@ buildPythonPackage rec {
     "tests/test_websocket_subscription.py"
   ];
 
-  pythonImportsCheck = [ "gql" ];
+  pythonImportsCheck = ["gql"];
 
   meta = with lib; {
     description = "GraphQL client in Python";
     homepage = "https://github.com/graphql-python/gql";
     changelog = "https://github.com/graphql-python/gql/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

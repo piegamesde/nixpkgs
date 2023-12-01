@@ -30,6 +30,6 @@ buildPythonPackage rec {
     description = "Telemetry for Jupyter Applications and extensions";
     homepage = "https://jupyter-telemetry.readthedocs.io/";
     license = licenses.bsd3;
-    maintainers = with lib.maintainers; [ chiroptical ];
+    maintainers = with lib.maintainers; [chiroptical];
   };
 }

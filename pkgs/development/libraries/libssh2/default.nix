@@ -42,6 +42,6 @@ stdenv.mkDerivation rec {
       bsd3
       libssh2
     ];
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

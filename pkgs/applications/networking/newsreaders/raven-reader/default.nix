@@ -11,7 +11,7 @@ let
     url = "https://github.com/hello-efficiency-inc/raven-reader/releases/download/v${version}/Raven-Reader-${version}.AppImage";
     sha256 = "sha256-H9V2zTD80fBuIuNZnGDR21IYAAl/b6iYrde5rfsMECQ=";
   };
-  appimageContents = appimageTools.extractType2 { inherit pname version src; };
+  appimageContents = appimageTools.extractType2 {inherit pname version src;};
 in
 appimageTools.wrapType2 {
   inherit pname version src;
@@ -35,7 +35,7 @@ appimageTools.wrapType2 {
     description = "Open source desktop news reader with flexible settings to optimize your experience";
     homepage = "https://ravenreader.app/";
     license = licenses.mit;
-    maintainers = with maintainers; [ wolfangaukang ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [wolfangaukang];
+    platforms = ["x86_64-linux"];
   };
 }

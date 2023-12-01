@@ -37,7 +37,7 @@ stdenv.mkDerivation (
       "-O2"
     ];
 
-    stripDebugList = [ "parser" ];
+    stripDebugList = ["parser"];
 
     configurePhase =
       lib.optionalString generate ''

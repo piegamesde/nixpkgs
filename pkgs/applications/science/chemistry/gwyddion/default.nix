@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
   # This patch corrects problems with python support, but should apply cleanly
   # regardless of whether python support is enabled, and have no effects if
   # it is disabled.
-  patches = [ ./codegen.patch ];
+  patches = [./codegen.patch];
   meta = {
     homepage = "http://gwyddion.net/";
 
@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
     '';
     license = lib.licenses.gpl2;
     platforms = with lib.platforms; linux ++ darwin;
-    maintainers = [ lib.maintainers.cge ];
+    maintainers = [lib.maintainers.cge];
     # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };

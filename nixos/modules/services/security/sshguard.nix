@@ -85,7 +85,7 @@ in
       };
 
       whitelist = mkOption {
-        default = [ ];
+        default = [];
         example = [
           "198.51.100.56"
           "198.51.100.2"
@@ -97,7 +97,7 @@ in
       };
 
       services = mkOption {
-        default = [ "sshd" ];
+        default = ["sshd"];
         example = [
           "sshd"
           "exim"
@@ -119,11 +119,11 @@ in
     systemd.services.sshguard = {
       description = "SSHGuard brute-force attacks protection system";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       partOf = optional config.networking.firewall.enable "firewall.service";
 
-      restartTriggers = [ configFile ];
+      restartTriggers = [configFile];
 
       path =
         with pkgs;

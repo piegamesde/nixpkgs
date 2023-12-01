@@ -54,7 +54,7 @@ let
       version,
     }:
     builtins.toJSON {
-      components = [ component ];
+      components = [component];
       inherit revision schema_version version;
     };
 
@@ -139,7 +139,7 @@ let
           component;
       dependencies = builtins.map (dep: builtins.getAttr dep components) component.dependencies;
       platforms =
-        if component.platform == { } then
+        if component.platform == {} then
           lib.platforms.all
         else
           builtins.concatMap (arch: builtins.map (os: toNixPlatform arch os) operating_systems) architectures;
@@ -159,7 +159,7 @@ let
       # Checksum for the source tarball, if there is a source
       sha256 ? "",
       # Other components this one depends on
-      dependencies ? [ ],
+      dependencies ? [],
       # Short text describing the component
       description ? "",
       # Platforms supported
@@ -196,12 +196,12 @@ let
       nativeBuildInputs = [
         python3
         stdenv.cc.cc
-      ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
-      buildInputs = [ libxcrypt-legacy ];
+      ] ++ lib.optionals stdenv.isLinux [autoPatchelfHook];
+      buildInputs = [libxcrypt-legacy];
       passthru = {
         dependencies = filterForSystem dependencies;
       };
-      passAsFile = [ "snapshot" ];
+      passAsFile = ["snapshot"];
       meta = {
         inherit description platforms;
       };

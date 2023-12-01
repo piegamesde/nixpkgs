@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     sha256 = "1l8llpcnapcaafxp7wlyny2ywh7k6q5zygwwjl9h0l6p04cghss4";
   };
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ timokau ];
+    maintainers = with maintainers; [timokau];
     broken = (lib.versions.majorMinor kernel.modDirVersion) != "5.15";
   };
 }

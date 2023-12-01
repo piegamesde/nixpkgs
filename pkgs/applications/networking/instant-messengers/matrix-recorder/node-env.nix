@@ -15,7 +15,7 @@ let
   python = if nodejs ? python then nodejs.python else python2;
 
   # Create a tar wrapper that filters all the 'Ignoring unknown extended header keyword' noise
-  tarWrapper = runCommand "tarWrapper" { } ''
+  tarWrapper = runCommand "tarWrapper" {} ''
     mkdir -p $out/bin
 
     cat > $out/bin/tar <<EOF
@@ -38,7 +38,7 @@ let
     stdenv.mkDerivation {
       name = "node-tarball-${name}-${version}";
       inherit src;
-      buildInputs = [ nodejs ];
+      buildInputs = [nodejs];
       buildPhase = ''
         export HOME=$TMPDIR
         tgzFile=$(npm pack | tail -n 1) # Hooks to the pack command will add output (https://docs.npmjs.com/misc/scripts)
@@ -52,8 +52,8 @@ let
     };
 
   includeDependencies =
-    { dependencies }:
-    lib.optionalString (dependencies != [ ]) (
+    {dependencies}:
+    lib.optionalString (dependencies != []) (
       lib.concatMapStrings
         (dependency: ''
           # Bundle the dependencies of the package
@@ -77,7 +77,7 @@ let
       name,
       packageName,
       src,
-      dependencies ? [ ],
+      dependencies ? [],
       ...
     }@args:
     ''
@@ -121,13 +121,13 @@ let
 
       # Include the dependencies of the package
       cd "$DIR/${packageName}"
-      ${includeDependencies { inherit dependencies; }}
+      ${includeDependencies {inherit dependencies;}}
       cd ..
       ${lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
     '';
 
   pinpointDependencies =
-    { dependencies, production }:
+    {dependencies, production}:
     let
       pinpointDependenciesFromPackageJSON = writeTextFile {
         name = "pinpointDependencies.js";
@@ -185,7 +185,7 @@ let
     ''
       node ${pinpointDependenciesFromPackageJSON} ${if production then "production" else "development"}
 
-      ${lib.optionalString (dependencies != [ ]) ''
+      ${lib.optionalString (dependencies != []) ''
         if [ -d node_modules ]
         then
             cd node_modules
@@ -202,7 +202,7 @@ let
   pinpointDependenciesOfPackage =
     {
       packageName,
-      dependencies ? [ ],
+      dependencies ? [],
       production ? true,
       ...
     }@args:
@@ -210,7 +210,7 @@ let
       if [ -d "${packageName}" ]
       then
           cd "${packageName}"
-          ${pinpointDependencies { inherit dependencies production; }}
+          ${pinpointDependencies {inherit dependencies production;}}
           cd ..
           ${lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
       fi
@@ -218,7 +218,7 @@ let
 
   # Extract the Node.js source code which is used to compile packages with
   # native bindings
-  nodeSources = runCommand "node-sources" { } ''
+  nodeSources = runCommand "node-sources" {} ''
     tar --no-same-owner --no-same-permissions -xf ${nodejs.src}
     mv node-* $out
   '';
@@ -414,8 +414,8 @@ let
       name,
       packageName,
       version,
-      dependencies ? [ ],
-      buildInputs ? [ ],
+      dependencies ? [],
+      buildInputs ? [],
       production ? true,
       npmFlags ? "",
       dontNpmInstall ? false,
@@ -521,8 +521,8 @@ let
       packageName,
       version,
       src,
-      dependencies ? [ ],
-      buildInputs ? [ ],
+      dependencies ? [],
+      buildInputs ? [],
       production ? true,
       npmFlags ? "",
       dontNpmInstall ? false,
@@ -558,7 +558,7 @@ let
           inherit dontStrip; # Stripping may fail a build for some package deployments
           inherit dontNpmInstall unpackPhase buildPhase;
 
-          includeScript = includeDependencies { inherit dependencies; };
+          includeScript = includeDependencies {inherit dependencies;};
           pinpointDependenciesScript = pinpointDependenciesOfPackage args;
 
           passAsFile = [
@@ -626,7 +626,7 @@ let
 
       # Provide the dependencies in a development shell through the NODE_PATH environment variable
       inherit nodeDependencies;
-      shellHook = lib.optionalString (dependencies != [ ]) ''
+      shellHook = lib.optionalString (dependencies != []) ''
         export NODE_PATH=$nodeDependencies/lib/node_modules
         export PATH="$nodeDependencies/bin:$PATH"
       '';

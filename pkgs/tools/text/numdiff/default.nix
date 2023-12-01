@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "1vzmjh8mhwwysn4x4m2vif7q2k8i19x8azq7pzmkwwj4g48lla47";
   };
 
-  buildInputs = [ libintl ];
+  buildInputs = [libintl];
 
   meta = with lib; {
     description = ''
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.nongnu.org/numdiff/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

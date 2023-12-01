@@ -29,6 +29,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://www.kreativekorp.com/software/fonts/ksquare.shtml";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ maintainers.linus ];
+    maintainers = [maintainers.linus];
   };
 }

@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "0xn31hkkqs0kj9203rzx6w4nr0lq8fnrlm5i76g0px3q4v2dzw1s";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   doCheck = true;
 
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
       of time as regular SHA-1.
     '';
     platforms = platforms.all;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
     license = licenses.mit;
   };
 }

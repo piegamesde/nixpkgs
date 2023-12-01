@@ -31,8 +31,8 @@ stdenv.mkDerivation rec {
   '';
 
   # autoreconfHook required for the splashimage patch.
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ texinfo ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [texinfo];
 
   hardeningDisable = [
     "format"

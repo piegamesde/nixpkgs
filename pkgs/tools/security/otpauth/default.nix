@@ -22,6 +22,6 @@ buildGoModule rec {
     description = "Google Authenticator migration decoder";
     homepage = "https://github.com/dim13/otpauth";
     license = licenses.isc;
-    maintainers = with maintainers; [ ereslibre ];
+    maintainers = with maintainers; [ereslibre];
   };
 }

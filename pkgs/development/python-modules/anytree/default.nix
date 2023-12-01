@@ -29,7 +29,7 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   # tests print “Fontconfig error: Cannot load default config file”
   preCheck = lib.optionalString withGraphviz ''
@@ -54,6 +54,6 @@ buildPythonPackage rec {
     description = "Powerful and Lightweight Python Tree Data Structure";
     homepage = "https://github.com/c0fec0de/anytree";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

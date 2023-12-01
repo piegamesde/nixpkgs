@@ -14,14 +14,14 @@ buildPythonPackage rec {
     hash = "sha256-Tl2rYH/GifNfB9w4nG9UIqAQz0O6kujCED/4iZnPKDw=";
   };
 
-  propagatedBuildInputs = [ pyramid ];
+  propagatedBuildInputs = [pyramid];
 
-  pythonImportsCheck = [ "pyramid_exclog" ];
+  pythonImportsCheck = ["pyramid_exclog"];
 
   meta = with lib; {
     description = "A package which logs to a Python logger when an exception is raised by a Pyramid application";
     homepage = "https://docs.pylonsproject.org/";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ domenkozar ];
+    maintainers = with maintainers; [domenkozar];
   };
 }

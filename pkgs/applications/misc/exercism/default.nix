@@ -20,9 +20,9 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "./exercism" ];
+  subPackages = ["./exercism"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     inherit (src.meta) homepage;

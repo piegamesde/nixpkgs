@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/lvm-cache-stats --prefix PATH : \
-      ${lib.makeBinPath [ thin-provisioning-tools ]}
+      ${lib.makeBinPath [thin-provisioning-tools]}
   '';
 
   meta = with lib; {
@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
       lgpl2Plus
       gpl2Plus
     ]; # lgpl2Plus for the library, gpl2Plus for the utils
-    maintainers = with maintainers; [ johnazoidberg ];
+    maintainers = with maintainers; [johnazoidberg];
     platforms = platforms.linux;
   };
 }

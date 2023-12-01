@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qzhy4yHmOk13dFUd2KEZhXtWY86QwyjJgYxx9GGoN80=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jdk ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jdk];
 
   installPhase = ''
     runHook preInstall
@@ -62,9 +62,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "The Most Advanced REST & SOAP Testing Tool in the World";
     homepage = "https://www.soapui.org/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = "SoapUI End User License Agreement";
-    maintainers = with maintainers; [ gerschtli ];
+    maintainers = with maintainers; [gerschtli];
     platforms = platforms.all;
   };
 }

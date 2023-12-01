@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   # Not adding 'hostname' command, the build shouldn't depend on what the build
   # host is called.
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     which
     gtk2
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   ];
 
   # Fixes '#error You must compile this program without "-O"'
-  hardeningDisable = [ "all" ];
+  hardeningDisable = ["all"];
 
   # Ignore undefined references to a bunch of libsoup symbols
   NIX_LDFLAGS = "--unresolved-symbol=ignore-all";
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
   '';
 
   # Makefile supports DESTDIR but not PREFIX (it hardcodes $DESTDIR/usr/).
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
   postInstall = ''
     mv "$out/usr/"* "$out"
     rmdir "$out/usr"
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     homepage = "http://hardinfo.org/";
     description = "Display information about your hardware and operating system";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
     platforms = [
       "x86_64-linux"
       "i686-linux"

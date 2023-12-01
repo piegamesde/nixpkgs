@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase =
     let
@@ -49,9 +49,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "The Java SQL database";
     homepage = "http://www.h2database.com/html/main.html";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.mpl20;
     platforms = lib.platforms.linux;
-    maintainers = with maintainers; [ mahe ];
+    maintainers = with maintainers; [mahe];
   };
 }

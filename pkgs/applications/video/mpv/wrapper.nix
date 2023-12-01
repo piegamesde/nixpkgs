@@ -14,21 +14,21 @@ let
   # arguments to the function (exposed as `wrapMpv` in all-packages.nix)
   wrapper =
     {
-      extraMakeWrapperArgs ? [ ],
+      extraMakeWrapperArgs ? [],
       youtubeSupport ? true,
       # a set of derivations (probably from `mpvScripts`) where each is
       # expected to have a `scriptName` passthru attribute that points to the
       # name of the script that would reside in the script's derivation's
       # `$out/share/mpv/scripts/`.
       # A script can optionally also provide an `extraWrapperArgs` passthru attribute.
-      scripts ? [ ],
-      extraUmpvWrapperArgs ? [ ],
+      scripts ? [],
+      extraUmpvWrapperArgs ? [],
     }:
     let
       binPath = lib.makeBinPath (
-        [ mpv.luaEnv ]
-        ++ lib.optionals youtubeSupport [ yt-dlp ]
-        ++ lib.optionals mpv.vapoursynthSupport [ mpv.vapoursynth.python3 ]
+        [mpv.luaEnv]
+        ++ lib.optionals youtubeSupport [yt-dlp]
+        ++ lib.optionals mpv.vapoursynthSupport [mpv.vapoursynth.python3]
       );
       # All arguments besides the input and output binaries (${mpv}/bin/mpv and
       # $out/bin/mpv). These are used by the darwin specific makeWrapper call
@@ -70,7 +70,7 @@ let
                 "--script=${script}/share/mpv/scripts/${script.scriptName}"
               ]
               # scripts can also set the `extraWrapperArgs` passthru
-              ++ (script.extraWrapperArgs or [ ])
+              ++ (script.extraWrapperArgs or [])
             )
             scripts
         ))
@@ -90,9 +90,9 @@ let
       name = "mpv-with-scripts-${mpv.version}";
 
       # TODO: don't link all mpv outputs and convert package to mpv-unwrapped?
-      paths = [ mpv.all ];
+      paths = [mpv.all];
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
 
       passthru.unwrapped = mpv;
 

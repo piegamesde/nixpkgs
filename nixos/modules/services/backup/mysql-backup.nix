@@ -60,7 +60,7 @@ in
       };
 
       databases = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           List of database names to dump.
@@ -111,7 +111,7 @@ in
     systemd = {
       timers.mysql-backup = {
         description = "Mysql backup timer";
-        wantedBy = [ "timers.target" ];
+        wantedBy = ["timers.target"];
         timerConfig = {
           OnCalendar = cfg.calendar;
           AccuracySec = "5m";
@@ -127,7 +127,7 @@ in
         };
         script = backupScript;
       };
-      tmpfiles.rules = [ "d ${cfg.location} 0700 ${cfg.user} - - -" ];
+      tmpfiles.rules = ["d ${cfg.location} 0700 ${cfg.user} - - -"];
     };
   };
 }

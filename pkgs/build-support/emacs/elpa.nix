@@ -15,7 +15,7 @@ with lib;
   pname,
   version,
   src,
-  meta ? { },
+  meta ? {},
   ...
 }@args:
 

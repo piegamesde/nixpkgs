@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     libogg
     libSM
     (gnutls.overrideAttrs (
-      oldAttrs: { configureFlags = oldAttrs.configureFlags ++ [ "--enable-openssl-compatibility" ]; }
+      oldAttrs: {configureFlags = oldAttrs.configureFlags ++ ["--enable-openssl-compatibility"];}
     ))
   ];
   env.NIX_CFLAGS_COMPILE = toString (
@@ -64,10 +64,10 @@ stdenv.mkDerivation rec {
       SDL_ttf
       SDL_gfx
     ]
-    ++ [ "-I${libxml2.dev}/include/libxml2" ]
+    ++ ["-I${libxml2.dev}/include/libxml2"]
   );
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = {
     description = "A live looping instrument with JACK and MIDI support";
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://freewheeling.sourceforge.net";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.sepi ];
+    maintainers = [lib.maintainers.sepi];
     platforms = lib.platforms.linux;
   };
 }

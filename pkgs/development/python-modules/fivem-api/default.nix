@@ -19,19 +19,19 @@ buildPythonPackage rec {
     hash = "sha256-6llrMGWbDRmysEw+B6B115hLS5xlktQEXiSHzPLbV5s=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "fivem" ];
+  pythonImportsCheck = ["fivem"];
 
   meta = with lib; {
     description = "Module for interacting with FiveM servers";
     homepage = "https://github.com/Sander0542/fivem-api";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

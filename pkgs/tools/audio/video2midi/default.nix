@@ -42,7 +42,7 @@ pythonPackages.buildPythonApplication rec {
     description = "Youtube synthesia video to midi conversion tool";
     homepage = src.meta.homepage;
     license = licenses.gpl3Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

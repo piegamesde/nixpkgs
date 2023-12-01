@@ -41,7 +41,7 @@ stdenv.mkDerivation {
 
   TK_LIBRARY = "${tk-8_5}/lib/tk8.5";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildCommand = ''
     mkdir $out
@@ -60,7 +60,7 @@ stdenv.mkDerivation {
     wrapProgram $out/bin/ozemulator --set OZHOME $out
 
     ${lib.optionalString (emacs != null) ''
-      wrapProgram $out/bin/oz --suffix PATH ":" ${lib.makeBinPath [ emacs ]}
+      wrapProgram $out/bin/oz --suffix PATH ":" ${lib.makeBinPath [emacs]}
     ''}
 
     sed -i $out/share/applications/oz.desktop \
@@ -81,9 +81,9 @@ stdenv.mkDerivation {
       interfaces. Mozart implements the Oz language and provides both
       expressive power and advanced functionality.
     '';
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.mit;
     platforms = attrNames binaries;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

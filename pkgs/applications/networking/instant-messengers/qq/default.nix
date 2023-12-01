@@ -87,7 +87,7 @@ stdenv.mkDerivation {
   '';
 
   preFixup = ''
-    gappsWrapperArgs+=(--prefix PATH : "${lib.makeBinPath [ gjs ]}")
+    gappsWrapperArgs+=(--prefix PATH : "${lib.makeBinPath [gjs]}")
   '';
 
   meta = with lib; {
@@ -98,7 +98,7 @@ stdenv.mkDerivation {
       "aarch64-linux"
     ];
     license = licenses.unfree;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with lib.maintainers; [ fee1-dead ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    maintainers = with lib.maintainers; [fee1-dead];
   };
 }

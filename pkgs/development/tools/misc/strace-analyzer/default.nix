@@ -18,12 +18,12 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-3OS3LEEk58+IJDQrgwo+BJq6hblojk22QxDtZY5ofA4=";
 
-  nativeCheckInputs = [ strace ];
+  nativeCheckInputs = [strace];
 
   meta = with lib; {
     description = "Analyzes strace output";
     homepage = "https://github.com/wookietreiber/strace-analyzer";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

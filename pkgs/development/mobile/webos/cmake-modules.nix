@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "1l4hpcmgc98kp9g1642sy111ki5qyk3q7j10xzkgmnvz8lqffnxp";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   prePatch = ''
     substituteInPlace CMakeLists.txt --replace "CMAKE_ROOT}/Modules" "CMAKE_INSTALL_PREFIX}/lib/cmake"
@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "CMake modules needed to build Open WebOS components";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
   };
 }

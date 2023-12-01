@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     runHook postUnpack
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     description = "Electron-based bilibili desktop client";
     homepage = "https://github.com/msojocs/bilibili-linux";
     license = licenses.mit;
-    maintainers = with maintainers; [ jedsek ];
+    maintainers = with maintainers; [jedsek];
     platforms = platforms.unix;
   };
 }

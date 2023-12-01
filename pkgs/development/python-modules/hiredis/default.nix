@@ -23,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-VfiYXkvLcdokT4P5ks1ReDh5sBe6pdNxWyscmSaJ1Lo=";
   };
 
-  pythonImportsCheck = [ "hiredis" ];
+  pythonImportsCheck = ["hiredis"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     rm -rf hiredis
@@ -36,6 +36,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/redis/hiredis-py";
     changelog = "https://github.com/redis/hiredis-py/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ mmai ];
+    maintainers = with maintainers; [mmai];
   };
 }

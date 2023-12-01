@@ -17,11 +17,11 @@ buildPythonPackage rec {
     sha256 = "C/MTKTHjxMsOgzuXvokw039Kv6N/PgBoOqKleWPLpw0=";
   };
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pytestFlagsArray = [ "tests/test_opensimplex.py" ];
-  pythonImportsCheck = [ "opensimplex" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pytestFlagsArray = ["tests/test_opensimplex.py"];
+  pythonImportsCheck = ["opensimplex"];
 
   meta = with lib; {
     description = "OpenSimplex Noise functions for 2D, 3D and 4D";
@@ -32,7 +32,7 @@ buildPythonPackage rec {
       directional artifacts characteristic of Perlin noise.
     '';
     homepage = "https://github.com/lmas/opensimplex";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ emilytrau ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [emilytrau];
   };
 }

@@ -18,16 +18,16 @@ buildPythonPackage rec {
     hash = "sha256-+Ti+Z5gL5vVlQDt+KRw9nNHHKhRtEfguQe1K001DK9E=";
   };
 
-  propagatedBuildInputs = [ mkdocs ];
+  propagatedBuildInputs = [mkdocs];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "mkdocs_redirects" ];
+  pythonImportsCheck = ["mkdocs_redirects"];
 
   meta = with lib; {
     description = "Open source plugin for Mkdocs page redirects";
     homepage = "https://github.com/mkdocs/mkdocs-redirects";
     license = licenses.mit;
-    maintainers = with maintainers; [ tfc ];
+    maintainers = with maintainers; [tfc];
   };
 }

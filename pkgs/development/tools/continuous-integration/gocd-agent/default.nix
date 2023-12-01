@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     ];
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   buildCommand = "\n    unzip $src -d $out\n    mv $out/go-agent-${version} $out/go-agent\n  ";
 }

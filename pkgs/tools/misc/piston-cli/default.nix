@@ -27,7 +27,7 @@ python3Packages.buildPythonApplication rec {
     $out/bin/piston --help > /dev/null
   '';
 
-  nativeBuildInputs = with python3Packages; [ poetry-core ];
+  nativeBuildInputs = with python3Packages; [poetry-core];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -40,6 +40,6 @@ python3Packages.buildPythonApplication rec {
     description = "Piston api tool";
     homepage = "https://github.com/Shivansh-007/piston-cli";
     license = licenses.mit;
-    maintainers = with maintainers; [ ethancedwards8 ];
+    maintainers = with maintainers; [ethancedwards8];
   };
 }

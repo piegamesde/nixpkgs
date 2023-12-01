@@ -14,7 +14,7 @@ let
   # This is to provide support for old configuration options (as much as is
   # reasonable). This can be removed after 18.03 was released.
   defaultConfig = {
-    libdefaults = optionalAttrs (cfg.defaultRealm != null) { default_realm = cfg.defaultRealm; };
+    libdefaults = optionalAttrs (cfg.defaultRealm != null) {default_realm = cfg.defaultRealm;};
 
     realms =
       optionalAttrs
@@ -89,7 +89,7 @@ let
         ''
 
           ${indent}''
-        ([ "{" ] ++ configLines)
+        (["{"] ++ configLines)
       )
       + ''
 
@@ -128,7 +128,7 @@ in
 
       libdefaults = mkOption {
         type = with types; either attrs lines;
-        default = { };
+        default = {};
         apply = attrs: filterEmbeddedMetadata attrs;
         example = literalExpression ''
           {
@@ -142,7 +142,7 @@ in
 
       realms = mkOption {
         type = with types; either attrs lines;
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             "ATHENA.MIT.EDU" = {
@@ -160,7 +160,7 @@ in
 
       domain_realm = mkOption {
         type = with types; either attrs lines;
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             "example.com" = "EXAMPLE.COM";
@@ -175,7 +175,7 @@ in
 
       capaths = mkOption {
         type = with types; either attrs lines;
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             "ATHENA.MIT.EDU" = {
@@ -194,7 +194,7 @@ in
 
       appdefaults = mkOption {
         type = with types; either attrs lines;
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             pam = {
@@ -215,7 +215,7 @@ in
 
       plugins = mkOption {
         type = with types; either attrs lines;
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             ccselect = {
@@ -326,7 +326,7 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ cfg.kerberos ];
+    environment.systemPackages = [cfg.kerberos];
 
     environment.etc."krb5.conf".text =
       if isString cfg.config then
@@ -384,7 +384,7 @@ in
               cfg.kerberosAdminServer
             ])
             && (
-              (builtins.any (value: value != { }) [
+              (builtins.any (value: value != {}) [
                 cfg.libdefaults
                 cfg.realms
                 cfg.domain_realm
@@ -409,7 +409,7 @@ in
           !(
             cfg.config != null
             && (
-              (builtins.any (value: value != { }) [
+              (builtins.any (value: value != {}) [
                 cfg.libdefaults
                 cfg.realms
                 cfg.domain_realm

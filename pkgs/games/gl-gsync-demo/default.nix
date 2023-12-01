@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     license = with licenses; mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ atemu ];
+    maintainers = with maintainers; [atemu];
     description = "A very basic OpenGL demo for testing NVIDIA's G-SYNC technology on Linux";
     longDescription = ''
       The demo simply draws a vertical bar moving across the screen at constant speed, but deliberately rendered at a variable frame rate.

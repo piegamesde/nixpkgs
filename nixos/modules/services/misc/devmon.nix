@@ -20,7 +20,7 @@ in
   config = mkIf cfg.enable {
     systemd.user.services.devmon = {
       description = "devmon automatic device mounting daemon";
-      wantedBy = [ "default.target" ];
+      wantedBy = ["default.target"];
       path = [
         pkgs.udevil
         pkgs.procps

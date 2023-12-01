@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs =
-    [ libpcap ]
+    [libpcap]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       Carbon
       CoreServices
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       bsdOriginalUC
       gpl3Only
     ];
-    maintainers = with maintainers; [ eleanor ];
+    maintainers = with maintainers; [eleanor];
     platforms = platforms.unix;
   };
 }

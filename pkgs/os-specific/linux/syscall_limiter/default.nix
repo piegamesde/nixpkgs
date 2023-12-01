@@ -18,7 +18,7 @@ stdenv.mkDerivation {
     sha256 = "0z5arj1kq1xczgrbw1b8m9kicbv3vs9bd32wvgfr4r6ndingsp5m";
   };
 
-  buildInputs = [ libseccomp ];
+  buildInputs = [libseccomp];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -33,7 +33,7 @@ stdenv.mkDerivation {
     description = "Start Linux programs with only selected syscalls enabled";
     homepage = "https://github.com/vi/syscall_limiter";
     license = licenses.mit;
-    maintainers = with maintainers; [ obadz ];
+    maintainers = with maintainers; [obadz];
     platforms = platforms.linux;
   };
 }

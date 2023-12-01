@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     description = "System load plugin for Xfce panel";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    maintainers = with maintainers; [] ++ teams.xfce.members;
   };
 }

@@ -131,15 +131,15 @@ in
       group = "mongodb";
       description = "MongoDB server user";
     };
-    users.groups.mongodb = mkIf (cfg.user == "mongodb") { };
+    users.groups.mongodb = mkIf (cfg.user == "mongodb") {};
 
-    environment.systemPackages = [ mongodb ];
+    environment.systemPackages = [mongodb];
 
     systemd.services.mongodb = {
       description = "MongoDB server";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         ExecStart = "${mongodb}/bin/mongod --config ${mongoCnf cfg} --fork --pidfilepath ${cfg.pidFile}";

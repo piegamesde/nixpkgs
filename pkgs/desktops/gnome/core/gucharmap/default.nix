@@ -33,7 +33,7 @@ let
   # TODO: make upstream patch allowing to use the uncompressed file,
   # preferably from XDG_DATA_DIRS.
   # https://gitlab.gnome.org/GNOME/gucharmap/issues/13
-  unihanZip = runCommand "unihan" { } ''
+  unihanZip = runCommand "unihan" {} ''
     mkdir -p $out/share/unicode
     ln -s ${unihan-database.src} $out/share/unicode/Unihan.zip
   '';
@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
     libxml2
     desktop-file-utils
     gobject-introspection
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [mesonEmulatorHook];
 
   buildInputs = [
     gtk3
@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = with lib; {

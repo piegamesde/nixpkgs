@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     homepage = "http://lgames.sourceforge.net/LBreakout2/";
     description = "Breakout clone from the LGames series";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.ciil ];
+    maintainers = [maintainers.ciil];
     platforms = platforms.unix;
     hydraPlatforms = lib.platforms.linux; # sdl-config times out on darwin
   };

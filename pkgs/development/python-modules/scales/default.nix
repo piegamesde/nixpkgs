@@ -15,8 +15,8 @@ buildPythonPackage rec {
     sha256 = "8b6930f7d4bf115192290b44c757af5e254e3fcfcb75ff9a51f5c96a404e2753";
   };
 
-  nativeCheckInputs = [ nose ];
-  propagatedBuildInputs = [ six ];
+  nativeCheckInputs = [nose];
+  propagatedBuildInputs = [six];
 
   # No tests included
   doCheck = false;

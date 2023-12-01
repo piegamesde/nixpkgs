@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   let
     client =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        environment.systemPackages = [ pkgs.glusterfs ];
+        environment.systemPackages = [pkgs.glusterfs];
         virtualisation.fileSystems = {
           "/gluster" = {
             device = "server1:/gv0";
@@ -15,7 +15,7 @@ import ./make-test-python.nix (
       };
 
     server =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         networking.firewall.enable = false;
         services.glusterfs.enable = true;
@@ -25,7 +25,7 @@ import ./make-test-python.nix (
           ${pkgs.e2fsprogs}/bin/mkfs.ext4 -L data /dev/vdb
         '';
 
-        virtualisation.emptyDiskImages = [ 1024 ];
+        virtualisation.emptyDiskImages = [1024];
 
         virtualisation.fileSystems = {
           "/data" = {

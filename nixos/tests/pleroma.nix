@@ -23,7 +23,7 @@
 */
 
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
     send-toot = pkgs.writeScriptBin "send-toot" ''
       set -eux
@@ -164,7 +164,7 @@ import ./make-test-python.nix (
         pleroma_ctl user new jamy jamy@nixos.test --password 'jamy-password' --moderator --admin -y
     '';
 
-    tls-cert = pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
+    tls-cert = pkgs.runCommand "selfSignedCerts" {buildInputs = [pkgs.openssl];} ''
       openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -subj '/CN=pleroma.nixos.test' -days 36500
       mkdir -p $out
       cp key.pem cert.pem $out
@@ -186,7 +186,7 @@ import ./make-test-python.nix (
           ...
         }:
         {
-          security.pki.certificateFiles = [ "${tls-cert}/cert.pem" ];
+          security.pki.certificateFiles = ["${tls-cert}/cert.pem"];
           networking.extraHosts = hosts nodes;
           environment.systemPackages = with pkgs; [
             toot
@@ -201,7 +201,7 @@ import ./make-test-python.nix (
           ...
         }:
         {
-          security.pki.certificateFiles = [ "${tls-cert}/cert.pem" ];
+          security.pki.certificateFiles = ["${tls-cert}/cert.pem"];
           networking.extraHosts = hosts nodes;
           networking.firewall.enable = false;
           environment.systemPackages = with pkgs; [
@@ -212,7 +212,7 @@ import ./make-test-python.nix (
           services = {
             pleroma = {
               enable = true;
-              configs = [ pleroma-conf ];
+              configs = [pleroma-conf];
             };
             postgresql = {
               enable = true;
@@ -254,7 +254,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       ''
         pleroma.wait_for_unit("postgresql.service")
         pleroma.succeed("provision-db")

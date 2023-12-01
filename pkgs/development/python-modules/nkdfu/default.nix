@@ -28,12 +28,12 @@ buildPythonPackage rec {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "nkdfu" ];
+  pythonImportsCheck = ["nkdfu"];
 
   meta = with lib; {
     description = "Python tool for Nitrokeys' firmware update";
     homepage = "https://github.com/Nitrokey/nkdfu";
-    license = with licenses; [ gpl2Only ];
-    maintainers = with maintainers; [ frogamic ];
+    license = with licenses; [gpl2Only];
+    maintainers = with maintainers; [frogamic];
   };
 }

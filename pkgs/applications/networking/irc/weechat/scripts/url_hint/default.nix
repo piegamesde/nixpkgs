@@ -16,7 +16,7 @@ stdenv.mkDerivation {
 
   dontUnpack = true;
 
-  passthru.scripts = [ "url_hint.py" ];
+  passthru.scripts = ["url_hint.py"];
 
   installPhase = ''
     runHook preInstall
@@ -28,6 +28,6 @@ stdenv.mkDerivation {
     inherit (weechat.meta) platforms;
     description = "url_hint.py is a URL opening script.";
     license = licenses.mit;
-    maintainers = with maintainers; [ eraserhd ];
+    maintainers = with maintainers; [eraserhd];
   };
 }

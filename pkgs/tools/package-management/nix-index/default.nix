@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-CzLBOLtzIYqdWjTDKHVnc1YXXyj1HqvXzoFYHS0qxog=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     openssl
     curl
@@ -40,7 +40,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A files database for nixpkgs";
     homepage = "https://github.com/bennofs/nix-index";
-    license = with licenses; [ bsd3 ];
+    license = with licenses; [bsd3];
     maintainers = with maintainers; [
       bennofs
       ncfavier

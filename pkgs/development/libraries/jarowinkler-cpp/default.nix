@@ -17,11 +17,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-GuwDSCYTfSwqTnzZSft3ufVSKL7255lVvbJhBxKxjJw=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  cmakeFlags = lib.optionals doCheck [ "-DJARO_WINKLER_BUILD_TESTING=ON" ];
+  cmakeFlags = lib.optionals doCheck ["-DJARO_WINKLER_BUILD_TESTING=ON"];
 
-  nativeCheckInputs = [ catch2_3 ];
+  nativeCheckInputs = [catch2_3];
 
   doCheck = true;
 
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/maxbachmann/jarowinkler-cpp";
     changelog = "https://github.com/maxbachmann/jarowinkler-cpp/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
     platforms = lib.platforms.unix;
   };
 }

@@ -37,8 +37,8 @@ in
 
     systemd.services."domoticz" = {
       description = pkgDesc;
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
       serviceConfig = {
         DynamicUser = true;
         StateDirectory = "domoticz";

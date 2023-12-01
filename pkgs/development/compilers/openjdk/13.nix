@@ -50,7 +50,7 @@ let
   build = "-ga";
 
   # when building a headless jdk, also bootstrap it with a headless jdk
-  openjdk-bootstrap = openjdk13-bootstrap.override { gtkSupport = !headless; };
+  openjdk-bootstrap = openjdk13-bootstrap.override {gtkSupport = !headless;};
 
   openjdk = stdenv.mkDerivation rec {
     pname = "openjdk" + lib.optionalString headless "-headless";
@@ -122,7 +122,7 @@ let
         url = "https://github.com/openjdk/panama-foreign/commit/af5c725b8109ce83fc04ef0f8bf6aaf0b50c0441.patch";
         sha256 = "0ja84kih5wkjn58pml53s59qnavb1z92dc88cbgw7vcyqwc1gs0h";
       })
-    ] ++ lib.optionals (!headless && enableGnome2) [ ./swing-use-gtk-jdk13.patch ];
+    ] ++ lib.optionals (!headless && enableGnome2) [./swing-use-gtk-jdk13.patch];
 
     prePatch = ''
       chmod +x configure
@@ -182,7 +182,7 @@ let
     # still runs in parallel.
     enableParallelBuilding = false;
 
-    buildFlags = [ "all" ];
+    buildFlags = ["all"];
 
     installPhase = ''
       mkdir -p $out/lib
@@ -242,7 +242,7 @@ let
       done
     '';
 
-    disallowedReferences = [ openjdk-bootstrap ];
+    disallowedReferences = [openjdk-bootstrap];
 
     meta = import ./meta.nix lib version;
 

@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/wfxr/forgit";
     description = "A utility tool powered by fzf for using git interactively";
     license = licenses.mit;
-    maintainers = with maintainers; [ deejayem ];
+    maintainers = with maintainers; [deejayem];
     platforms = platforms.all;
   };
 }

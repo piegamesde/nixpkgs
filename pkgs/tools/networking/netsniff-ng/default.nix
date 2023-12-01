@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
       development and analysis, debugging, auditing or network reconnaissance.
     '';
     homepage = "http://netsniff-ng.org/";
-    license = with licenses; [ gpl2Only ];
+    license = with licenses; [gpl2Only];
     platforms = platforms.linux;
   };
 }

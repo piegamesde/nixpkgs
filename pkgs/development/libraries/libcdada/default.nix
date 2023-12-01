@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-vUasCukDRZYB67eu87ckEZG9i6rsNf0aKY2kZsVezRE=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   configureFlags = [
     "--without-tests"
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/msune/libcdada";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ _0x4A6F ];
+    maintainers = with maintainers; [_0x4A6F];
     platforms = platforms.unix;
   };
 }

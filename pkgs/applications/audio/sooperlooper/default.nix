@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://sonosaurus.com/sooperlooper/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ magnetophon ];
+    maintainers = with maintainers; [magnetophon];
     platforms = platforms.linux;
   };
 }

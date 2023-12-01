@@ -9,17 +9,17 @@
   idris,
 }:
 {
-  idrisDeps ? [ ],
+  idrisDeps ? [],
   noPrelude ? false,
   noBase ? false,
   pname,
   version,
   ipkgName ? pname,
-  extraBuildInputs ? [ ],
-  idrisBuildOptions ? [ ],
-  idrisTestOptions ? [ ],
-  idrisInstallOptions ? [ ],
-  idrisDocOptions ? [ ],
+  extraBuildInputs ? [],
+  idrisBuildOptions ? [],
+  idrisTestOptions ? [],
+  idrisInstallOptions ? [],
+  idrisDocOptions ? [],
   ...
 }@attrs:
 let

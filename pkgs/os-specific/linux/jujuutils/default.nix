@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "1r74m7s7rs9d6y7cffi7mdap3jf96qwm1v6jcw53x5cikgmfxn4x";
   };
 
-  buildInputs = [ linuxHeaders ];
+  buildInputs = [linuxHeaders];
 
   meta = {
     homepage = "https://github.com/cladisch/linux-firewire-utils";

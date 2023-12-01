@@ -12,7 +12,7 @@ let
 
   nmh = cfg.nativeMessagingHosts;
 
-  policyFormat = pkgs.formats.json { };
+  policyFormat = pkgs.formats.json {};
 
   organisationInfo = ''
     When this option is in use, Firefox will inform you that "your browser
@@ -43,7 +43,7 @@ in
 
     policies = mkOption {
       type = policyFormat.type;
-      default = { };
+      default = {};
       description = mdDoc ''
         Group policies to install.
 
@@ -67,7 +67,7 @@ in
             string
           ]
         );
-      default = { };
+      default = {};
       description = mdDoc ''
         Preferences to set from `about:config`.
 
@@ -201,7 +201,7 @@ in
           "zh-TW"
         ])
       );
-      default = [ ];
+      default = [];
       description = mdDoc ''
         The language packs to install.
       '';
@@ -238,11 +238,11 @@ in
         extraPrefs = cfg.autoConfig;
         extraNativeMessagingHosts =
           with pkgs;
-          optionals nmh.ff2mpv [ ff2mpv ]
-          ++ optionals nmh.euwebid [ web-eid-app ]
-          ++ optionals nmh.gsconnect [ gnomeExtensions.gsconnect ]
-          ++ optionals nmh.jabref [ jabref ]
-          ++ optionals nmh.passff [ passff-host ];
+          optionals nmh.ff2mpv [ff2mpv]
+          ++ optionals nmh.euwebid [web-eid-app]
+          ++ optionals nmh.gsconnect [gnomeExtensions.gsconnect]
+          ++ optionals nmh.jabref [jabref]
+          ++ optionals nmh.passff [passff-host];
       })
     ];
 
@@ -257,9 +257,9 @@ in
 
     environment.etc =
       let
-        policiesJSON = policyFormat.generate "firefox-policies.json" { inherit (cfg) policies; };
+        policiesJSON = policyFormat.generate "firefox-policies.json" {inherit (cfg) policies;};
       in
-      mkIf (cfg.policies != { }) { "firefox/policies/policies.json".source = "${policiesJSON}"; };
+      mkIf (cfg.policies != {}) {"firefox/policies/policies.json".source = "${policiesJSON}";};
 
     # Preferences are converted into a policy
     programs.firefox.policies = {
@@ -285,5 +285,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ danth ];
+  meta.maintainers = with maintainers; [danth];
 }

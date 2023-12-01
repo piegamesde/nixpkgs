@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     homepage = "https://lwn.net/Articles/421072/";
     description = "cat replacement";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ qknight ];
+    maintainers = with maintainers; [qknight];
     platforms = platforms.all;
   };
 }

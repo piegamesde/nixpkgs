@@ -23,7 +23,7 @@ buildGoModule rec {
     "-X github.com/assetnote/kiterunner/cmd/kiterunner/cmd.Version=${version}"
   ];
 
-  subPackages = [ "./cmd/kiterunner" ];
+  subPackages = ["./cmd/kiterunner"];
 
   # Test data is missing in the repo
   doCheck = false;
@@ -36,7 +36,7 @@ buildGoModule rec {
       and endpoints in modern applications.
     '';
     homepage = "https://github.com/assetnote/kiterunner";
-    license = with licenses; [ agpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [agpl3Only];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -27,13 +27,13 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  cmakeFlags = [ "-DPICO_SDK_PATH=${pico-sdk}/lib/pico-sdk" ];
+  cmakeFlags = ["-DPICO_SDK_PATH=${pico-sdk}/lib/pico-sdk"];
 
   meta = with lib; {
     homepage = "https://github.com/raspberrypi/picotool";
     description = "Tool for interacting with a RP2040 device in BOOTSEL mode, or with a RP2040 binary";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ muscaln ];
+    maintainers = with maintainers; [muscaln];
     platforms = platforms.unix;
   };
 }

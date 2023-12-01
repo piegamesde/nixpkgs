@@ -18,17 +18,17 @@ buildPythonPackage rec {
     sha256 = "11ymn0cr4lchrcnf2xxlgljw223gwln01gxwr7mcgf95yc4006iq";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "niluclient" ];
+  pythonImportsCheck = ["niluclient"];
 
   meta = with lib; {
     description = "Python client for getting air pollution data from NILU sensor stations";
     homepage = "https://github.com/hfurubotten/niluclient";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

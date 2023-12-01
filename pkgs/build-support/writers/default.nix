@@ -11,7 +11,7 @@
 }:
 
 let
-  aliases = if config.allowAliases then (import ./aliases.nix lib) else prev: { };
+  aliases = if config.allowAliases then (import ./aliases.nix lib) else prev: {};
 
   writers = with lib; rec {
     # Base implementation for non-compiled executables.
@@ -39,7 +39,7 @@ let
           if (types.str.check content) then
             {
               inherit content interpreter;
-              passAsFile = [ "content" ];
+              passAsFile = ["content"];
             }
           else
             {
@@ -108,16 +108,16 @@ let
             if (types.str.check content) then
               {
                 inherit content;
-                passAsFile = [ "content" ];
+                passAsFile = ["content"];
               }
             else
-              { contentPath = content; }
+              {contentPath = content;}
           )
           // lib.optionalAttrs (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) {
             # post-link-hook expects codesign_allocate to be in PATH
             # https://github.com/NixOS/nixpkgs/issues/154203
             # https://github.com/NixOS/nixpkgs/issues/148189
-            nativeBuildInputs = [ stdenv.cc.bintools ];
+            nativeBuildInputs = [stdenv.cc.bintools];
           }
         )
         ''
@@ -140,7 +140,7 @@ let
     #   writeBash "example" ''
     #     echo hello world
     #   ''
-    writeBash = makeScriptWriter { interpreter = "${pkgs.bash}/bin/bash"; };
+    writeBash = makeScriptWriter {interpreter = "${pkgs.bash}/bin/bash";};
 
     # Like writeScriptBin but the first line is a shebang to bash
     writeBashBin = name: writeBash "/bin/${name}";
@@ -151,7 +151,7 @@ let
     #   writeDash "example" ''
     #     echo hello world
     #   ''
-    writeDash = makeScriptWriter { interpreter = "${pkgs.dash}/bin/dash"; };
+    writeDash = makeScriptWriter {interpreter = "${pkgs.dash}/bin/dash";};
 
     # Like writeScriptBin but the first line is a shebang to dash
     writeDashBin = name: writeDash "/bin/${name}";
@@ -182,14 +182,14 @@ let
     writeHaskell =
       name:
       {
-        libraries ? [ ],
+        libraries ? [],
         ghc ? pkgs.ghc,
-        ghcArgs ? [ ],
+        ghcArgs ? [],
         threadedRuntime ? true,
         strip ? true,
       }:
       let
-        appendIfNotSet = el: list: if elem el list then list else list ++ [ el ];
+        appendIfNotSet = el: list: if elem el list then list else list ++ [el];
         ghcArgs' = if threadedRuntime then appendIfNotSet "-threaded" ghcArgs else ghcArgs;
       in
       makeBinWriter
@@ -210,17 +210,17 @@ let
       name:
       {
         rustc ? pkgs.rustc,
-        rustcArgs ? [ ],
+        rustcArgs ? [],
         strip ? true,
       }:
       let
-        darwinArgs = lib.optionals stdenv.isDarwin [ "-L${lib.getLib libiconv}/lib" ];
+        darwinArgs = lib.optionals stdenv.isDarwin ["-L${lib.getLib libiconv}/lib"];
       in
       makeBinWriter
         {
           compileScript = ''
             cp "$contentPath" tmp.rs
-            PATH=${makeBinPath [ pkgs.gcc ]} ${lib.getBin rustc}/bin/rustc ${lib.escapeShellArgs rustcArgs} ${lib.escapeShellArgs darwinArgs} -o "$out" tmp.rs
+            PATH=${makeBinPath [pkgs.gcc]} ${lib.getBin rustc}/bin/rustc ${lib.escapeShellArgs rustcArgs} ${lib.escapeShellArgs darwinArgs} -o "$out" tmp.rs
           '';
           inherit strip;
         }
@@ -241,14 +241,14 @@ let
     writeJS =
       name:
       {
-        libraries ? [ ],
+        libraries ? [],
       }:
       content:
       let
         node-env = pkgs.buildEnv {
           name = "node";
           paths = libraries;
-          pathsToLink = [ "/lib/node_modules" ];
+          pathsToLink = ["/lib/node_modules"];
         };
       in
       writeDash name ''
@@ -272,8 +272,8 @@ let
       pkgs.runCommandLocal name
         {
           inherit text;
-          passAsFile = [ "text" ];
-          nativeBuildInputs = [ gixy ];
+          passAsFile = ["text"];
+          nativeBuildInputs = [gixy];
         } # sh
         ''
           # nginx-config-formatter has an error - https://github.com/1connect/nginx-config-formatter/issues/16
@@ -292,9 +292,9 @@ let
     writePerl =
       name:
       {
-        libraries ? [ ],
+        libraries ? [],
       }:
-      makeScriptWriter { interpreter = "${pkgs.perl.withPackages (p: libraries)}/bin/perl"; } name;
+      makeScriptWriter {interpreter = "${pkgs.perl.withPackages (p: libraries)}/bin/perl";} name;
 
     # writePerlBin takes the same arguments as writePerl but outputs a directory (like writeScriptBin)
     writePerlBin = name: writePerl "/bin/${name}";
@@ -305,18 +305,18 @@ let
     makePythonWriter =
       python: pythonPackages: buildPythonPackages: name:
       {
-        libraries ? [ ],
-        flakeIgnore ? [ ],
+        libraries ? [],
+        flakeIgnore ? [],
       }:
       let
         ignoreAttribute =
-          optionalString (flakeIgnore != [ ])
+          optionalString (flakeIgnore != [])
             "--ignore ${concatMapStringsSep "," escapeShellArg flakeIgnore}";
       in
       makeScriptWriter
         {
           interpreter =
-            if libraries == [ ] then
+            if libraries == [] then
               "${python}/bin/python"
             else
               "${python.withPackages (ps: libraries)}/bin/python";
@@ -383,7 +383,7 @@ let
       {
         dotnet-sdk ? pkgs.dotnet-sdk,
         fsi-flags ? "",
-        libraries ? _: [ ],
+        libraries ? _: [],
       }:
       nameOrPath:
       let
@@ -397,7 +397,7 @@ let
         nuget-source = mkNugetSource {
           name = "${fname}-nuget-source";
           description = "A Nuget source with the dependencies for ${fname}";
-          deps = [ _nugetDeps ];
+          deps = [_nugetDeps];
         };
 
         fsi = writeBash "fsi" ''
@@ -409,13 +409,13 @@ let
         '';
       in
       content:
-      writers.makeScriptWriter { interpreter = fsi; } path ''
+      writers.makeScriptWriter {interpreter = fsi;} path ''
         #i "nuget: ${nuget-source}/lib"
         ${content}
         exit 0
       '';
 
-    writeFSharp = makeFSharpWriter { };
+    writeFSharp = makeFSharpWriter {};
 
     writeFSharpBin = name: writeFSharp "/bin/${name}";
   };

@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
   {
     name = "freshrss";
     meta.maintainers = with lib.maintainers; [
@@ -8,7 +8,7 @@ import ./make-test-python.nix (
     ];
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         services.freshrss = {
           enable = true;

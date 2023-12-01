@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256:1kzgd1332pgpxf489kr0vdwsaik0y8wp3q282d4wa5jlk7l877v0";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     mod_ca
     apr
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "an MPM (Multi-Processing Module) for the Apache web server.";
-    maintainers = [ maintainers.zupo ];
+    maintainers = [maintainers.zupo];
     homepage = "http://mpm-itk.sesse.net/";
     license = licenses.asl20;
     platforms = platforms.unix;

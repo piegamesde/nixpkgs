@@ -36,10 +36,10 @@ stdenv.mkDerivation rec {
     pkg-config
   ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   doCheck = true;
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
 
   meta = with lib; {
     homepage = "https://github.com/fribidi/fribidi";

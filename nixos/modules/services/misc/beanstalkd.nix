@@ -46,14 +46,14 @@ in
 
   config = mkIf cfg.enable {
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.listen.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {allowedTCPPorts = [cfg.listen.port];};
 
-    environment.systemPackages = [ pkg ];
+    environment.systemPackages = [pkg];
 
     systemd.services.beanstalkd = {
       description = "Beanstalk Work Queue";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         DynamicUser = true;
         Restart = "always";

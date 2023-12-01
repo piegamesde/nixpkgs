@@ -29,21 +29,21 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  buildInputs = [ tesseract ];
+  buildInputs = [tesseract];
 
   propagatedBuildInputs = [
     packaging
     pillow
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     homepage = "https://pypi.org/project/pytesseract/";
     license = licenses.asl20;
     description = "A Python wrapper for Google Tesseract";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

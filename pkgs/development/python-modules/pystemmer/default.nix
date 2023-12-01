@@ -21,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-bJVFeO7XP+aZ2nowQiuws5ziL/FmS1eaOllW6QxA70U=";
   };
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
   patches = [
     (fetchpatch {
@@ -40,11 +40,11 @@ buildPythonPackage rec {
     export PYSTEMMER_SYSTEM_LIBSTEMMER="${lib.getDev libstemmer}/include"
   '';
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-I${lib.getDev libstemmer}/include" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-I${lib.getDev libstemmer}/include"];
 
-  NIX_CFLAGS_LINK = [ "-L${libstemmer}/lib" ];
+  NIX_CFLAGS_LINK = ["-L${libstemmer}/lib"];
 
-  pythonImportsCheck = [ "Stemmer" ];
+  pythonImportsCheck = ["Stemmer"];
 
   checkPhase = ''
     runHook preCheck

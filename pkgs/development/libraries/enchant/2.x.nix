@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     nuspell
   ];
 
-  nativeCheckInputs = [ unittest-cpp ];
+  nativeCheckInputs = [unittest-cpp];
 
   # libtool puts these to .la files
   propagatedBuildInputs = [
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     description = "Generic spell checking library";
     homepage = "https://abiword.github.io/enchant/";
     license = licenses.lgpl21Plus; # with extra provision for non-free checkers
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.unix;
   };
 }

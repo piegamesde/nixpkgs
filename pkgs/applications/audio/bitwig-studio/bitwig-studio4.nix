@@ -99,8 +99,8 @@ stdenv.mkDerivation rec {
       # make xdg-open overrideable at runtime
       wrapProgram $f \
         "''${gappsWrapperArgs[@]}" \
-        --prefix PATH : "${lib.makeBinPath [ ffmpeg ]}" \
-        --suffix PATH : "${lib.makeBinPath [ xdg-utils ]}" \
+        --prefix PATH : "${lib.makeBinPath [ffmpeg]}" \
+        --suffix PATH : "${lib.makeBinPath [xdg-utils]}" \
         --suffix LD_LIBRARY_PATH : "${lib.strings.makeLibraryPath buildInputs}"
     done
 
@@ -119,7 +119,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.bitwig.com/";
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     maintainers = with maintainers; [
       bfortz
       michalrus

@@ -20,8 +20,8 @@ buildPythonPackage rec {
     hash = "sha256-TmhhDrfpP+nUErAd7dUb+RtGBRtWwn3bYOoIqa0VRoc=";
   };
 
-  nativeBuildInputs = [ hatchling ];
-  propagatedBuildInputs = [ pygobject3 ];
+  nativeBuildInputs = [hatchling];
+  propagatedBuildInputs = [pygobject3];
   nativeCheckInputs = [
     dbus
     pytestCheckHook
@@ -31,6 +31,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/rhinstaller/dasbus";
     description = "DBus library in Python3";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ fortuneteller2k ];
+    maintainers = with maintainers; [fortuneteller2k];
   };
 }

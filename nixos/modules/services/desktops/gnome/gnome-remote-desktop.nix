@@ -42,6 +42,6 @@ with lib;
   config = mkIf config.services.gnome.gnome-remote-desktop.enable {
     services.pipewire.enable = true;
 
-    systemd.packages = [ pkgs.gnome.gnome-remote-desktop ];
+    systemd.packages = [pkgs.gnome.gnome-remote-desktop];
   };
 }

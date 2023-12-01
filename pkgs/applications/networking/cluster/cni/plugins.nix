@@ -53,6 +53,6 @@ buildGoModule rec {
     homepage = "https://www.cni.dev/plugins/";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ cstrahan ] ++ teams.podman.members;
+    maintainers = with maintainers; [cstrahan] ++ teams.podman.members;
   };
 }

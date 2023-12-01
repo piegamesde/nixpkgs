@@ -30,7 +30,7 @@ stdenv.mkDerivation {
     ocamlify
   ];
 
-  buildInputs = [ ocamlbuild ];
+  buildInputs = [ocamlbuild];
 
   configurePhase = ''
     runHook preConfigure

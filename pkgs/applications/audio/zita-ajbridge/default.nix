@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "Connect additional ALSA devices to JACK";
     homepage = "http://kokkinizita.linuxaudio.org/linuxaudio/index.html";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = platforms.linux;
   };
 }

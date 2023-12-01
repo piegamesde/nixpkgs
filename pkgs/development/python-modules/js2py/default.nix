@@ -26,12 +26,12 @@ buildPythonPackage rec {
   # Test require network connection
   doCheck = false;
 
-  pythonImportsCheck = [ "js2py" ];
+  pythonImportsCheck = ["js2py"];
 
   meta = with lib; {
     description = "JavaScript to Python Translator & JavaScript interpreter written in 100% pure Python";
     homepage = "https://github.com/PiotrDabkowski/Js2Py";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

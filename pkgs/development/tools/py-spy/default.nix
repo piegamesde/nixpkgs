@@ -24,15 +24,15 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-nm+44YWSJOOg9a9d8b3APXW50ThV3iA2C/QsJMttscE=";
 
-  nativeBuildInputs = [ rustPlatform.bindgenHook ];
+  nativeBuildInputs = [rustPlatform.bindgenHook];
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
 
   buildInputs =
     lib.optionals (stdenv.isDarwin && stdenv.isx86_64)
       [
         # Pull a header that contains a definition of proc_pid_rusage().
-        (runCommand "${pname}_headers" { } ''
+        (runCommand "${pname}_headers" {} ''
           install -Dm444 ${lib.getDev darwin.apple_sdk.sdk}/include/libproc.h $out/include/libproc.h
         '')
       ];
@@ -55,6 +55,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/benfred/py-spy";
     changelog = "https://github.com/benfred/py-spy/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ lnl7 ];
+    maintainers = with maintainers; [lnl7];
   };
 }

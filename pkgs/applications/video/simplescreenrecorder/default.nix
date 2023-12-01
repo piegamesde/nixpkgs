@@ -38,7 +38,7 @@ mkDerivation rec {
     "-DWITH_GLINJECT=${if stdenv.hostPlatform.isx86 then "TRUE" else "FALSE"}"
   ];
 
-  patches = [ ./fix-paths.patch ];
+  patches = [./fix-paths.patch];
 
   postPatch = ''
     for i in scripts/ssr-glinject src/AV/Input/GLInjectInput.cpp; do
@@ -75,6 +75,6 @@ mkDerivation rec {
     homepage = "https://www.maartenbaert.be/simplescreenrecorder";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
   };
 }

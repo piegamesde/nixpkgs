@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
 
   # Choose correct installation path
   # https://github.com/saivert/ddb_misc_headerbar_GTK3/commit/50ff75f76aa9d40761e352311670a894bfcd5cf6#r30319680
-  makeFlags = [ "pkglibdir=$(out)/lib/deadbeef" ];
+  makeFlags = ["pkglibdir=$(out)/lib/deadbeef"];
 
   preConfigure = "./autogen.sh";
 
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     description = "Plug-in that adds GTK 3 header bar to the DeaDBeeF music player";
     homepage = "https://github.com/saivert/ddb_misc_headerbar_GTK3";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.jtojnar ];
+    maintainers = [maintainers.jtojnar];
     platforms = platforms.linux;
   };
 }

@@ -22,7 +22,7 @@ let
   meta = with lib; {
     homepage = "https://plik.root.gg/";
     description = "Scalable & friendly temporary file upload system";
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
     license = licenses.mit;
   };
 
@@ -43,7 +43,7 @@ in
       postPatch
       ;
 
-    subPackages = [ "client" ];
+    subPackages = ["client"];
     postInstall = ''
       mv $out/bin/client $out/bin/plik
     '';
@@ -58,7 +58,7 @@ in
       postPatch
       ;
 
-    subPackages = [ "server" ];
+    subPackages = ["server"];
     postFixup = ''
       mv $out/bin/server $out/bin/plikd
     '';

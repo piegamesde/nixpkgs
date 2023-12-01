@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
       --replace '$(gawk' '$(${gawk}/bin/gawk'
   '';
 
-  buildInputs = [ gawk ];
+  buildInputs = [gawk];
 
   nativeBuildInputs = [
     cmake
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/igo95862/cfs-zen-tweaks";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
   };
 }

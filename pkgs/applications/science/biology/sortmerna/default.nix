@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     license = licenses.lgpl3;
     platforms = platforms.x86_64;
     homepage = "https://bioinfo.lifl.fr/RNA/sortmerna/";
-    maintainers = with maintainers; [ luispedro ];
+    maintainers = with maintainers; [luispedro];
     broken = stdenv.isDarwin;
   };
 }

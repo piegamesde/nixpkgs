@@ -8,7 +8,7 @@ buildGoModule rec {
   pname = "goconst";
   version = "1.5.1";
 
-  excludedPackages = [ "tests" ];
+  excludedPackages = ["tests"];
 
   src = fetchFromGitHub {
     owner = "jgautheron";
@@ -28,7 +28,7 @@ buildGoModule rec {
     description = "Find in Go repeated strings that could be replaced by a constant";
     homepage = "https://github.com/jgautheron/goconst";
     license = licenses.mit;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

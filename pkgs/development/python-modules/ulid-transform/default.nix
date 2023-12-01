@@ -29,20 +29,20 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace " --cov=ulid_transform --cov-report=term-missing:skip-covered" ""
   '';
 
-  pythonImportsCheck = [ "ulid_transform" ];
+  pythonImportsCheck = ["ulid_transform"];
 
   meta = with lib; {
     description = "Library to create and transform ULIDs";
     homepage = "https://github.com/bdraco/ulid-transform";
     changelog = "https://github.com/bdraco/ulid-transform/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

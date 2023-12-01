@@ -20,7 +20,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-boZUd1PM8puc9BTgOwCJpkfk6VMdXLsIyp+fQmW/ZqI=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ fontforge ];
+  propagatedBuildInputs = with python3Packages; [fontforge];
 
   format = "other";
 
@@ -41,6 +41,6 @@ python3Packages.buildPythonApplication rec {
     description = "Font patcher to generate Nerd font";
     homepage = "https://nerdfonts.com/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ck3d ];
+    maintainers = with maintainers; [ck3d];
   };
 }

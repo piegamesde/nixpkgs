@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     pidgin
     minixml
@@ -42,6 +42,6 @@ stdenv.mkDerivation rec {
     description = "XEP-0384: OMEMO Encryption for libpurple";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ emmanuelrosa ];
+    maintainers = with maintainers; [emmanuelrosa];
   };
 }

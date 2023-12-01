@@ -68,7 +68,7 @@ stdenv.mkDerivation {
     description = "A browser using the SerenityOS LibWeb engine with a Qt GUI";
     homepage = "https://github.com/awesomekling/ladybird";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.unix;
   };
 }

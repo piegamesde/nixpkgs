@@ -1,8 +1,8 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   let
     gpgKeyring =
-      (pkgs.runCommand "gpg-keyring" { buildInputs = [ pkgs.gnupg ]; } ''
+      (pkgs.runCommand "gpg-keyring" {buildInputs = [pkgs.gnupg];} ''
         mkdir -p $out
         export GNUPGHOME=$out
         cat > foo <<EOF
@@ -55,19 +55,16 @@ import ./make-test-python.nix (
 
     nodes = {
       server =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
-          networking.firewall.allowedTCPPorts = [ 80 ];
+          networking.firewall.allowedTCPPorts = [80];
           services.nginx = {
             enable = true;
             virtualHosts."server".root = nspawnImages;
           };
         };
       client =
-        { pkgs, ... }:
-        {
-          environment.etc."systemd/import-pubring.gpg".source = "${gpgKeyring}/pubkey.gpg";
-        };
+        {pkgs, ...}: {environment.etc."systemd/import-pubring.gpg".source = "${gpgKeyring}/pubkey.gpg";};
     };
 
     testScript = ''

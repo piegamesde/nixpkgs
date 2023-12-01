@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "CVE-2023-0795.CVE-2023-0796.CVE-2023-0797.CVE-2023-0798.CVE-2023-0799.prerequisite-1.patch";
       url = "https://gitlab.com/libtiff/libtiff/-/commit/d63de61b1ec3385f6383ef9a1f453e4b8b11d536.patch";
-      includes = [ "tools/tiffcrop.c" ];
+      includes = ["tools/tiffcrop.c"];
       sha256 = "sha256-VHg5aAcHKwRkDFDyC1rLjCjj1rMzcq/2SUR/r1fQubQ=";
     })
     (fetchpatch {
@@ -121,14 +121,14 @@ stdenv.mkDerivation rec {
         ;
       inherit (python3Packages) pillow imread;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Library and utilities for working with the TIFF image file format";
     homepage = "https://libtiff.gitlab.io/libtiff";
     changelog = "https://libtiff.gitlab.io/libtiff/v${version}.html";
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     license = licenses.libtiff;
     platforms = platforms.unix;
   };

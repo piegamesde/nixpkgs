@@ -43,12 +43,12 @@ python3.pkgs.buildPythonApplication rec {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "MATE Desktop menu editor";
     homepage = "https://github.com/mate-desktop/mozo";
-    license = with licenses; [ lgpl2Plus ];
+    license = with licenses; [lgpl2Plus];
     platforms = platforms.unix;
     maintainers = teams.mate.members;
   };

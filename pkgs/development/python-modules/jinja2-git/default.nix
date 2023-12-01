@@ -21,14 +21,14 @@ buildPythonPackage rec {
     sha256 = "0yw0318w57ksn8azmdyk3zmyzfhw0k281fddnxyf4115bx3aph0g";
   };
 
-  nativeBuildInputs = [ poetry-core ];
-  propagatedBuildInputs = [ jinja2 ];
-  pythonImportsCheck = [ "jinja2_git" ];
+  nativeBuildInputs = [poetry-core];
+  propagatedBuildInputs = [jinja2];
+  pythonImportsCheck = ["jinja2_git"];
 
   meta = with lib; {
     homepage = "https://github.com/wemake-services/jinja2-git";
     description = "Jinja2 extension to handle git-specific things";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

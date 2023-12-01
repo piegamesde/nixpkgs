@@ -10,7 +10,7 @@ let
   versionMajor = "1";
   versionMinor = "0.6";
   version = versionMajor + "." + versionMinor;
-  removeDots = lib.replaceStrings [ "." ] [ "" ];
+  removeDots = lib.replaceStrings ["."] [""];
   src-doc = fetchurl {
     url = "http://www.inchi-trust.org/download/${removeDots version}/INCHI-1-DOC.zip";
     sha256 = "1kyda09i9p89xfq90ninwi7w13k1w3ljpl4gqdhpfhi5g8fgxx7f";
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     sha256 = "1zbygqn0443p0gxwr4kx3m1bkqaj8x9hrpch3s41py7jq08f6x28";
   };
 
-  nativeBuildInputs = [ unzip ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [unzip] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
   outputs = [
     "out"
     "doc"
@@ -77,6 +77,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.inchi-trust.org/";
     description = "IUPAC International Chemical Identifier library";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ rmcgibbo ];
+    maintainers = with maintainers; [rmcgibbo];
   };
 }

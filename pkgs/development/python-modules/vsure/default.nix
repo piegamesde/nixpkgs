@@ -24,12 +24,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "verisure" ];
+  pythonImportsCheck = ["verisure"];
 
   meta = with lib; {
     description = "Python library for working with verisure devices";
     homepage = "https://github.com/persandstrom/python-verisure";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

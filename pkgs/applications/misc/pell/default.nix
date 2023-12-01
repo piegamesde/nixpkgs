@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ebzzry/pell";
     description = "A simple host availability monitor";
     license = licenses.mit;
-    maintainers = [ maintainers.ebzzry ];
+    maintainers = [maintainers.ebzzry];
     platforms = platforms.unix;
   };
 

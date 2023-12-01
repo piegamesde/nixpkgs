@@ -23,6 +23,6 @@ buildGoModule rec {
     description = "Convert websites into ebooks and markdown";
     homepage = "https://papeer.tech/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
   };
 }

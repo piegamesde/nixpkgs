@@ -83,8 +83,8 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    sqlserver = [ pyodbc ];
-    sparql = [ sparqlwrapper ];
+    sqlserver = [pyodbc];
+    sparql = [sparqlwrapper];
   };
 
   meta = {
@@ -92,6 +92,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/aws/aws-sdk-pandas";
     changelog = "https://github.com/aws/aws-sdk-pandas/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ mcwitt ];
+    maintainers = with lib.maintainers; [mcwitt];
   };
 }

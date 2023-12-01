@@ -51,7 +51,7 @@ buildPythonPackage rec {
     typer
   ];
 
-  pythonImportsCheck = [ "npe2" ];
+  pythonImportsCheck = ["npe2"];
 
   passthru.tests = {
     inherit napari;
@@ -61,6 +61,6 @@ buildPythonPackage rec {
     description = "Plugin system for napari (the image visualizer)";
     homepage = "https://github.com/napari/npe2";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ SomeoneSerge ];
+    maintainers = with maintainers; [SomeoneSerge];
   };
 }

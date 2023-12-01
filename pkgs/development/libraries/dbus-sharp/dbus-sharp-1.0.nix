@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     pkg-config
     autoreconfHook
   ];
-  buildInputs = [ mono ];
+  buildInputs = [mono];
 
   dontStrip = true;
 

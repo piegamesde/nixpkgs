@@ -11,7 +11,7 @@ stdenvNoCC.mkDerivation {
   dontUnpack = true;
   dontBuild = true;
 
-  nativeBuildInputs = [ checkReexportsHook ];
+  nativeBuildInputs = [checkReexportsHook];
 
   installPhase = ''
     mkdir -p $out/lib

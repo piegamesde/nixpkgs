@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-nuP5szNTdWIXeJNVmtT3uNXCPr6Cju9TBWwC2xQEnQg=";
   };
 
-  patches = [ ./no-dropdir-literals.patch ];
+  patches = [./no-dropdir-literals.patch];
 
   postPatch = ''
     sed -i configure.ac \
@@ -73,9 +73,9 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ python3 ]
-    ++ lib.optionals stdenv.isLinux [ systemdMinimal ]
-    ++ lib.optionals stdenv.isDarwin [ IOKit ]
+    [python3]
+    ++ lib.optionals stdenv.isLinux [systemdMinimal]
+    ++ lib.optionals stdenv.isDarwin [IOKit]
     ++ lib.optionals polkitSupport [
       dbus
       polkit

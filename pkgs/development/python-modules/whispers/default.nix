@@ -55,12 +55,12 @@ buildPythonPackage rec {
     export PATH=$out/bin:$PATH
   '';
 
-  pythonImportsCheck = [ "whispers" ];
+  pythonImportsCheck = ["whispers"];
 
   meta = with lib; {
     description = "Tool to identify hardcoded secrets in static structured text";
     homepage = "https://github.com/Skyscanner/whispers";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

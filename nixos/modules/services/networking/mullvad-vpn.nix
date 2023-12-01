@@ -38,9 +38,9 @@ with lib; {
   };
 
   config = mkIf cfg.enable {
-    boot.kernelModules = [ "tun" ];
+    boot.kernelModules = ["tun"];
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     # mullvad-daemon writes to /etc/iproute2/rt_tables
     networking.iproute2.enable = true;
@@ -58,8 +58,8 @@ with lib; {
 
     systemd.services.mullvad-daemon = {
       description = "Mullvad VPN daemon";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network.target"];
       after = [
         "network-online.target"
         "NetworkManager.service"

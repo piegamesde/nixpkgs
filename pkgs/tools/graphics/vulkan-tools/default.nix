@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
       Cocoa
     ];
 
-  libraryPath = lib.strings.makeLibraryPath [ vulkan-loader ];
+  libraryPath = lib.strings.makeLibraryPath [vulkan-loader];
 
   patches =
     [
@@ -112,6 +112,6 @@ stdenv.mkDerivation rec {
     ];
     platforms = platforms.unix;
     license = licenses.asl20;
-    maintainers = [ maintainers.ralith ];
+    maintainers = [maintainers.ralith];
   };
 }

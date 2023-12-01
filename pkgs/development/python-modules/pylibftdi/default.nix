@@ -30,12 +30,12 @@ buildPythonPackage rec {
       --replace "self._load_library('libftdi')" "cdll.LoadLibrary('${libftdi1.out}/lib/libftdi1.so')"
   '';
 
-  pythonImportsCheck = [ "pylibftdi" ];
+  pythonImportsCheck = ["pylibftdi"];
 
   meta = with lib; {
     homepage = "https://pylibftdi.readthedocs.io/";
     description = "Wrapper to Intra2net's libftdi driver for FTDI's USB devices";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthuszagh ];
+    maintainers = with maintainers; [matthuszagh];
   };
 }

@@ -29,12 +29,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-oBdTj7IPlmtF5rEgDVN/wwa0ZxkN6h2QMN3PQB0nCgQ=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeDir = "../fizz";
 
   cmakeFlags =
-    [ "-Wno-dev" ]
+    ["-Wno-dev"]
     ++ lib.optionals stdenv.isDarwin [
       "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
     ];

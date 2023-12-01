@@ -1,4 +1,4 @@
-{ fetchurl }:
+{fetchurl}:
 
 {
   version = "0.996";

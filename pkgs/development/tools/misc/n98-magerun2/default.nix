@@ -23,7 +23,7 @@ stdenv.mkDerivation {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -31,7 +31,7 @@ stdenv.mkDerivation {
     install -D $src/n98-magerun2 $out/libexec/n98-magerun2/n98-magerun2-${version}.phar
     makeWrapper ${php}/bin/php $out/bin/n98-magerun2 \
       --add-flags "$out/libexec/n98-magerun2/n98-magerun2-${version}.phar" \
-      --prefix PATH : ${lib.makeBinPath [ unzip ]}
+      --prefix PATH : ${lib.makeBinPath [unzip]}
     runHook postInstall
   '';
 

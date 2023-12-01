@@ -18,15 +18,15 @@ buildPythonPackage rec {
     hash = "sha256-vLlCS5gnc7NgDN4cEZSxxInzbEq4HXAXmvlVfwn3cSM=";
   };
 
-  propagatedBuildInputs = [ chardet ];
+  propagatedBuildInputs = [chardet];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  checkInputs = [ faker ];
+  nativeCheckInputs = [pytestCheckHook];
+  checkInputs = [faker];
 
   meta = with lib; {
     homepage = "https://github.com/thombashi/mbstrdecoder";
     description = "A library for decoding multi-byte character strings";
-    maintainers = with maintainers; [ genericnerdyusername ];
+    maintainers = with maintainers; [genericnerdyusername];
     license = licenses.mit;
   };
 }

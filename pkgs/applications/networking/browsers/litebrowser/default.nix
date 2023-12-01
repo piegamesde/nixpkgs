@@ -36,7 +36,7 @@ stdenv.mkDerivation {
     gumbo
   ];
 
-  cmakeFlags = [ "-DEXTERNAL_GUMBO=ON" ];
+  cmakeFlags = ["-DEXTERNAL_GUMBO=ON"];
 
   installPhase = ''
     runHook preInstall
@@ -49,6 +49,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/litehtml/litebrowser-linux";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

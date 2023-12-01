@@ -20,7 +20,7 @@
     owner = "rvirding";
     repo = "lfe";
   },
-  patches ? [ ],
+  patches ? [],
 }:
 
 let
@@ -56,7 +56,7 @@ buildRebar3 {
     makeWrapper
     erlang
   ];
-  beamDeps = [ proper ];
+  beamDeps = [proper];
   patches = [
     ./fix-rebar-config.patch
     ./dedup-ebins.patch

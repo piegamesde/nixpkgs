@@ -105,7 +105,7 @@ stdenv.mkDerivation rec {
       gpl2Only
       cc-by-sa-40
     ];
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
     platforms = platforms.linux;
     mainProgram = "vcmilauncher";
   };

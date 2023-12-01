@@ -25,6 +25,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ericflo/pynzb";
     description = "Unified API for parsing NZB files";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ domenkozar ];
+    maintainers = with maintainers; [domenkozar];
   };
 }

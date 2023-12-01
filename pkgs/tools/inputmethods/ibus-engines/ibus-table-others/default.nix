@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-nOj5gwhFodZv29hAN6S8EhQ+XlWp31FDOGIXtyAOM1E=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     ibus
     ibus-table
@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/moebiuscurve/ibus-table-others";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mudri ];
+    maintainers = with maintainers; [mudri];
   };
 }

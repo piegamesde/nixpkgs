@@ -24,14 +24,14 @@ buildPythonPackage rec {
     hash = "sha256-2kXs6ZdemA6taV4aa9xBKLmhbSgpybjg3Z61EUFabrk=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace setup.cfg \
       --replace " --cov=charset_normalizer --cov-report=term-missing" ""
   '';
 
-  pythonImportsCheck = [ "charset_normalizer" ];
+  pythonImportsCheck = ["charset_normalizer"];
 
   passthru.tests = {
     inherit aiohttp requests;
@@ -41,6 +41,6 @@ buildPythonPackage rec {
     description = "Python module for encoding and language detection";
     homepage = "https://charset-normalizer.readthedocs.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

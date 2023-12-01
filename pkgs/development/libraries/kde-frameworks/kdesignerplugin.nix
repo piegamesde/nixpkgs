@@ -37,5 +37,5 @@ mkDerivation {
     kxmlgui
     sonnet
   ];
-  propagatedBuildInputs = [ qttools ];
+  propagatedBuildInputs = [qttools];
 }

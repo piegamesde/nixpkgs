@@ -20,8 +20,8 @@ mkDerivation rec {
   ];
 
   meta = with lib; {
-    license = [ licenses.mit ];
-    maintainers = [ maintainers.k900 ];
+    license = [licenses.mit];
+    maintainers = [maintainers.k900];
     description = "Framework for collecting user feedback for apps via telemetry and surveys";
   };
 }

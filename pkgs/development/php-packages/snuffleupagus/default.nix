@@ -17,9 +17,9 @@ buildPecl rec {
     sha256 = "1la6wa9xznc110b7isiy502x71mkvhisq6m8llhczpq4rs4nbcw2";
   };
 
-  buildInputs = [ pcre2 ];
+  buildInputs = [pcre2];
 
-  internalDeps = with php.extensions; [ session ];
+  internalDeps = with php.extensions; [session];
 
   patches = [
     (fetchpatch {
@@ -31,7 +31,7 @@ buildPecl rec {
 
   sourceRoot = "source/src";
 
-  configureFlags = [ "--enable-snuffleupagus" ];
+  configureFlags = ["--enable-snuffleupagus"];
 
   postPhpize = ''
     ./configure --enable-snuffleupagus
@@ -41,6 +41,6 @@ buildPecl rec {
     description = "Security module for php7 and php8 - Killing bugclasses and virtual-patching the rest!";
     license = licenses.lgpl3Only;
     homepage = "https://github.com/jvoisin/snuffleupagus";
-    maintainers = teams.php.members ++ [ maintainers.zupo ];
+    maintainers = teams.php.members ++ [maintainers.zupo];
   };
 }

@@ -15,7 +15,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-4Zsb/OBtU/jV0gThEYe8bcrb+6hW+hnzQS19q1H409Q=";
   };
 
-  patches = [ ./copytree-permissions.patch ];
+  patches = [./copytree-permissions.patch];
 
   propagatedBuildInputs = with python3.pkgs; [
     # install_requires
@@ -35,11 +35,11 @@ python3.pkgs.buildPythonApplication rec {
     setuptools # needs pkg_resources
   ];
 
-  nativeCheckInputs = [ ffmpeg ] ++ (with python3.pkgs; [ pytestCheckHook ]);
+  nativeCheckInputs = [ffmpeg] ++ (with python3.pkgs; [pytestCheckHook]);
 
-  disabledTests = lib.optionals stdenv.isDarwin [ "test_nonmedia_files" ];
+  disabledTests = lib.optionals stdenv.isDarwin ["test_nonmedia_files"];
 
-  makeWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ ffmpeg ]}" ];
+  makeWrapperArgs = ["--prefix PATH : ${lib.makeBinPath [ffmpeg]}"];
 
   meta = with lib; {
     description = "Yet another simple static gallery generator";

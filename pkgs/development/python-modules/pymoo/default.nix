@@ -57,7 +57,7 @@ buildPythonPackage rec {
                 "print('Missing alive_progress needed for progress=True!') if progress else None"
   '';
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
   propagatedBuildInputs = [
     autograd
     cma
@@ -81,7 +81,7 @@ buildPythonPackage rec {
     numba
   ];
   # Select some lightweight tests
-  pytestFlagsArray = [ "-m 'not long'" ];
+  pytestFlagsArray = ["-m 'not long'"];
   disabledTests = [
     # ModuleNotFoundError: No module named 'pymoo.cython.non_dominated_sorting'
     "test_fast_non_dominated_sorting"
@@ -92,12 +92,12 @@ buildPythonPackage rec {
     backend: Agg
   '';
 
-  pythonImportsCheck = [ "pymoo" ];
+  pythonImportsCheck = ["pymoo"];
 
   meta = with lib; {
     description = "Multi-objective Optimization in Python";
     homepage = "https://pymoo.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

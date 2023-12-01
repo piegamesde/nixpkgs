@@ -22,9 +22,9 @@ stdenv.mkDerivation (
         "insert( 0U, 1U,"
     '';
 
-    nativeBuildInputs = [ lzip ];
+    nativeBuildInputs = [lzip];
 
-    buildInputs = [ ncurses ];
+    buildInputs = [ncurses];
 
     meta = {
       homepage = "https://www.gnu.org/software/moe/";
@@ -39,7 +39,7 @@ stdenv.mkDerivation (
         delimiter matching, text conversion from/to UTF-8, romanization, etc.
       '';
       license = lib.licenses.gpl2Plus;
-      maintainers = with lib.maintainers; [ AndersonTorres ];
+      maintainers = with lib.maintainers; [AndersonTorres];
       platforms = lib.platforms.unix;
     };
   }

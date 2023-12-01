@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   let
     cagebreakConfigfile = pkgs.writeText "config" ''
@@ -10,16 +10,16 @@ import ./make-test-python.nix (
   in
   {
     name = "cagebreak";
-    meta = with pkgs.lib.maintainers; { maintainers = [ berbiche ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [berbiche];};
 
     nodes.machine =
-      { config, ... }:
+      {config, ...}:
       let
         alice = config.users.users.alice;
       in
       {
         # Automatically login on tty1 as a normal user:
-        imports = [ ./common/user-account.nix ];
+        imports = [./common/user-account.nix];
         services.getty.autologinUser = "alice";
         programs.bash.loginShellInit = ''
           if [ "$(tty)" = "/dev/tty1" ]; then
@@ -41,13 +41,13 @@ import ./make-test-python.nix (
         ];
 
         # Need to switch to a different GPU driver than the default one (-vga std) so that Cagebreak can launch:
-        virtualisation.qemu.options = [ "-vga none -device virtio-gpu-pci" ];
+        virtualisation.qemu.options = ["-vga none -device virtio-gpu-pci"];
       };
 
     enableOCR = true;
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         user = nodes.machine.config.users.users.alice;
         XDG_RUNTIME_DIR = "/run/user/${toString user.uid}";

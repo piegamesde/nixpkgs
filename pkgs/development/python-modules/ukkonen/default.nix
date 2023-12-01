@@ -21,16 +21,16 @@ buildPythonPackage rec {
     sha256 = "jG6VP/P5sadrdrmneH36/ExSld9blyMAAG963QS9+p0=";
   };
 
-  nativeBuildInputs = [ cffi ];
+  nativeBuildInputs = [cffi];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ukkonen" ];
+  pythonImportsCheck = ["ukkonen"];
 
   meta = with lib; {
     description = "Python implementation of bounded Levenshtein distance (Ukkonen)";
     homepage = "https://github.com/asottile/ukkonen";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-Pz/TtGjwGHaDSueBEHMtHjyAxYO5V+8jzXCowHcUW/4=";
 
-  ui = callPackage ./webui.nix { inherit version src; };
+  ui = callPackage ./webui.nix {inherit version src;};
 
   postPatch =
     if enableWebui then

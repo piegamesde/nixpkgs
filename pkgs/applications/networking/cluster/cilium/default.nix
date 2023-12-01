@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "cmd/cilium" ];
+  subPackages = ["cmd/cilium"];
 
   ldflags = [
     "-s"
@@ -35,7 +35,7 @@ buildGoModule rec {
     $out/bin/cilium version | grep ${version} > /dev/null
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   postInstall = ''
     installShellCompletion --cmd cilium \
       --bash <($out/bin/cilium completion bash) \

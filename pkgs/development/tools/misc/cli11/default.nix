@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-x3/kBlf5LdzkTO4NYOKanZBfcU4oK+fJw9L7cf88LsY=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   nativeCheckInputs = [
     boost
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     description = "Command line parser for C++11";
     homepage = "https://github.com/CLIUtils/CLI11";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.bsd3;
   };
 }

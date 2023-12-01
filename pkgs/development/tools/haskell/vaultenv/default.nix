@@ -39,7 +39,7 @@ mkDerivation rec {
     sha256 = "sha256-yoYkAypH+HQSVTvd/qKNFkL5krbB5mZw3ec9ojvy+Pw=";
   };
 
-  buildTools = [ hpack ];
+  buildTools = [hpack];
 
   prePatch = ''
     substituteInPlace package.yaml \

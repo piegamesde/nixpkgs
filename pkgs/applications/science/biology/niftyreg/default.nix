@@ -15,16 +15,16 @@ stdenv.mkDerivation rec {
     sha256 = "07v9v9s41lvw72wpb1jgh2nzanyc994779bd35p76vg8mzifmprl";
   };
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=narrowing" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-error=narrowing"];
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ zlib ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [zlib];
 
   meta = with lib; {
     homepage = "http://cmictig.cs.ucl.ac.uk/wiki/index.php/NiftyReg";
     description = "Medical image registration software";
-    maintainers = with maintainers; [ bcdarwin ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [bcdarwin];
+    platforms = ["x86_64-linux"];
     license = licenses.bsd3;
   };
 }

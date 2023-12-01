@@ -15,9 +15,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-mVYR8THGGfaTsx3aaSbQBxExRo87K47SD+PU5cZ8z58=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
-  buildInputs = [ libgit2 ];
+  buildInputs = [libgit2];
 
   meta = with lib; {
     description = "git static site generator";

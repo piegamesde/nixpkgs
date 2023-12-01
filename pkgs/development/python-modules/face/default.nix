@@ -19,11 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-1daS+QvI9Zh7Y25H42OEubvaSZqvCneqCwu+g0x2kj0=";
   };
 
-  propagatedBuildInputs = [ boltons ];
+  propagatedBuildInputs = [boltons];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "face" ];
+  pythonImportsCheck = ["face"];
 
   disabledTests =
     [
@@ -39,6 +39,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/mahmoud/face";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ twey ];
+    maintainers = with maintainers; [twey];
   };
 }

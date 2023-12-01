@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "02qn7x348p23z1x5lwhkyj7i8z6mgwpzpnwr8dyina0yzsdkr71s";
   };
 
-  buildInputs = [ chez ];
+  buildInputs = [chez];
 
   buildPhase = ''
     make PREFIX=$out CHEZ=${chez}/bin/scheme
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "This is a Library for ChezScheme providing the portable hygenic pattern matcher by Alex Shinn";
     homepage = "https://github.com/fedeinthemix/chez-matchable/";
-    maintainers = [ maintainers.jitwit ];
+    maintainers = [maintainers.jitwit];
     license = licenses.publicDomain;
   };
 }

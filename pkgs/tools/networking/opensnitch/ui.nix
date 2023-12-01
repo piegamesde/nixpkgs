@@ -56,7 +56,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   dontWrapQtApps = true;
-  makeWrapperArgs = [ "\${qtWrapperArgs[@]}" ];
+  makeWrapperArgs = ["\${qtWrapperArgs[@]}"];
 
   # All tests are sandbox-incompatible and disabled for now
   doCheck = false;
@@ -65,7 +65,7 @@ python3Packages.buildPythonApplication rec {
     description = "An application firewall";
     homepage = "https://github.com/evilsocket/opensnitch/wiki";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
     platforms = platforms.linux;
   };
 }

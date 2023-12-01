@@ -72,7 +72,7 @@ mkDerivation rec {
     description = "OpenStreetMap editor";
     homepage = "http://merkaartor.be/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.unix;
   };
 }

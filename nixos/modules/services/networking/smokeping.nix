@@ -316,7 +316,7 @@ in
       };
     };
     environment.etc."smokeping.conf".source = configPath;
-    environment.systemPackages = [ pkgs.fping ];
+    environment.systemPackages = [pkgs.fping];
     users.users.${cfg.user} = {
       isNormalUser = false;
       isSystemUser = true;
@@ -336,10 +336,10 @@ in
       # Thus, we need to make `smokepingHome` (which is given to `thttpd -d` below) `755`.
       homeMode = "755";
     };
-    users.groups.${cfg.user} = { };
+    users.groups.${cfg.user} = {};
     systemd.services.smokeping = {
-      reloadTriggers = [ configPath ];
-      requiredBy = [ "multi-user.target" ];
+      reloadTriggers = [configPath];
+      requiredBy = ["multi-user.target"];
       serviceConfig = {
         User = cfg.user;
         Restart = "on-failure";
@@ -355,8 +355,8 @@ in
       '';
     };
     systemd.services.thttpd = mkIf cfg.webService {
-      requiredBy = [ "multi-user.target" ];
-      requires = [ "smokeping.service" ];
+      requiredBy = ["multi-user.target"];
+      requires = ["smokeping.service"];
       path = with pkgs; [
         bash
         rrdtool
@@ -367,13 +367,13 @@ in
         Restart = "always";
         ExecStart = lib.concatStringsSep " " (
           lib.concatLists [
-            [ "${pkgs.thttpd}/bin/thttpd" ]
-            [ "-u ${cfg.user}" ]
-            [ ''-c "**.fcgi"'' ]
-            [ "-d ${smokepingHome}" ]
+            ["${pkgs.thttpd}/bin/thttpd"]
+            ["-u ${cfg.user}"]
+            [''-c "**.fcgi"'']
+            ["-d ${smokepingHome}"]
             (lib.optional (cfg.host != null) "-h ${cfg.host}")
-            [ "-p ${builtins.toString cfg.port}" ]
-            [ "-D -nos" ]
+            ["-p ${builtins.toString cfg.port}"]
+            ["-D -nos"]
           ]
         );
       };

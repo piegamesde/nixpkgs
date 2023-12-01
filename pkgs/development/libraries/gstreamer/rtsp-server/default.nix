@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     gobject-introspection
     pkg-config
     python3
-  ] ++ lib.optionals enableDocumentation [ hotdoc ];
+  ] ++ lib.optionals enableDocumentation [hotdoc];
 
   buildInputs = [
     gst-plugins-base
@@ -62,6 +62,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.lgpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ bkchr ];
+    maintainers = with maintainers; [bkchr];
   };
 }

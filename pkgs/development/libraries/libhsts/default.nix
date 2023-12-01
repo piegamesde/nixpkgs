@@ -54,6 +54,6 @@ stdenv.mkDerivation rec {
       mit
       bsd3
     ];
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

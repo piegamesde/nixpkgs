@@ -80,9 +80,9 @@ buildBazelPackage rec {
 
   bazel = bazel_4;
   removeRulesCC = false;
-  bazelTargets = [ ":install-binaries" ];
-  bazelTestTargets = [ "//..." ];
-  bazelBuildFlags = [ "-c opt" ];
+  bazelTargets = [":install-binaries"];
+  bazelTestTargets = ["//..."];
+  bazelBuildFlags = ["-c opt"];
   buildAttrs = {
     installPhase = ''
       mkdir -p "$out/bin"

@@ -54,12 +54,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -"];
 
     systemd.services.ombi = {
       description = "Ombi";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "simple";
@@ -70,7 +70,7 @@ in
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {allowedTCPPorts = [cfg.port];};
 
     users.users = mkIf (cfg.user == "ombi") {
       ombi = {
@@ -80,6 +80,6 @@ in
       };
     };
 
-    users.groups = mkIf (cfg.group == "ombi") { ombi = { }; };
+    users.groups = mkIf (cfg.group == "ombi") {ombi = {};};
   };
 }

@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
     description = "Comparative visualisation of related audio recordings";
     homepage = "https://www.sonicvisualiser.org/sonic-lineup/";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.vandenoever ];
+    maintainers = [maintainers.vandenoever];
     platforms = platforms.linux;
   };
 }

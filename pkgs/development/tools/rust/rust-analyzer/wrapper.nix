@@ -13,7 +13,7 @@ runCommand "${pname}-${version}"
   {
     inherit pname version;
     inherit (rust-analyzer-unwrapped) src meta;
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
   }
   ''
     mkdir -p $out/bin

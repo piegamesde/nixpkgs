@@ -21,9 +21,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-BEfsNSzrdV/tnzWk4oOwchOupW6PzZ8TEx7zUzwLBV8=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ libusb1 ] ++ lib.optional stdenv.isDarwin AppKit;
+  buildInputs = [libusb1] ++ lib.optional stdenv.isDarwin AppKit;
 
   postInstall = ''
     mkdir -p $out/etc/udev/rules.d
@@ -38,6 +38,6 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/adamgreig/ecpdap";
     license = licenses.asl20;
-    maintainers = with maintainers; [ expipiplus1 ];
+    maintainers = with maintainers; [expipiplus1];
   };
 }

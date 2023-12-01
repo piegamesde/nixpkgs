@@ -70,14 +70,14 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  disallowedReferences = [ stdenv.cc ];
+  disallowedReferences = [stdenv.cc];
 
   postFixup = ''
     remove-references-to -t ${stdenv.cc} "$(readlink -f $out/lib/libnetcdf.settings)"
   '';
 
   doCheck = !(mpiSupport || (stdenv.isDarwin && stdenv.isAarch64));
-  nativeCheckInputs = [ unzip ];
+  nativeCheckInputs = [unzip];
 
   preCheck = ''
     export HOME=$TEMP

@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-SwFuA7iuJlU5dXpT66JLm/2lBvuU+84L7oQ8bwVUGhU=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   doCheck = false;
 
@@ -22,6 +22,6 @@ buildPythonPackage rec {
     description = "Dictionary wrapper for quick access to deeply nested keys";
     homepage = "https://dotty-dict.readthedocs.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
   };
 }

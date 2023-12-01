@@ -16,16 +16,16 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "1f5dm3772hiik9irnyvbs7wygcafbwi7czw3b47cwhb90b8fi5hg";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ colorama ];
+  propagatedBuildInputs = with python3.pkgs; [colorama];
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [pytestCheckHook];
 
-  pythonImportsCheck = [ "uddup" ];
+  pythonImportsCheck = ["uddup"];
 
   meta = with lib; {
     description = "Tool for de-duplication URLs";
     homepage = "https://github.com/rotemreiss/uddup";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

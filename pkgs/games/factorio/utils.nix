@@ -1,11 +1,11 @@
 # This file provides a top-level function that will be used by both nixpkgs and nixos
 # to generate mod directories for use at runtime by factorio.
-{ lib, stdenv }:
+{lib, stdenv}:
 with lib; {
   mkModDirDrv =
     mods: modsDatFile: # a list of mod derivations
     let
-      recursiveDeps = modDrv: [ modDrv ] ++ map recursiveDeps modDrv.deps;
+      recursiveDeps = modDrv: [modDrv] ++ map recursiveDeps modDrv.deps;
       modDrvs = unique (flatten (map recursiveDeps mods));
     in
     stdenv.mkDerivation {
@@ -26,20 +26,20 @@ with lib; {
     };
 
   modDrv =
-    { allRecommendedMods, allOptionalMods }:
+    {allRecommendedMods, allOptionalMods}:
     {
       src,
       name ? null,
-      deps ? [ ],
-      optionalDeps ? [ ],
-      recommendedDeps ? [ ],
+      deps ? [],
+      optionalDeps ? [],
+      recommendedDeps ? [],
     }:
     stdenv.mkDerivation {
 
       inherit src;
 
       # Use the name of the zip, but endstrip ".zip" and possibly the querystring that gets left in by fetchurl
-      name = replaceStrings [ "_" ] [ "-" ] (
+      name = replaceStrings ["_"] ["-"] (
         if name != null then name else removeSuffix ".zip" (head (splitString "?" src.name))
       );
 

@@ -24,19 +24,19 @@ buildPythonApplication {
       "/usr/include" "${linuxHeaders}/include"
   '';
 
-  buildInputs = [ libusb1 ];
+  buildInputs = [libusb1];
   propagatedBuildInputs = [
     psutil
     python3Packages.libusb1
   ];
   doCheck = false;
-  pythonImportsCheck = [ "steamcontroller" ];
+  pythonImportsCheck = ["steamcontroller"];
 
   meta = with lib; {
     description = "A standalone Steam controller driver";
     homepage = "https://github.com/ynsta/steamcontroller";
     license = licenses.mit;
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
     platforms = platforms.linux;
   };
 }

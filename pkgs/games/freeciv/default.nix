@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "freeciv";
     repo = "freeciv";
-    rev = "R${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "R${lib.replaceStrings ["."] ["_"] version}";
     sha256 = "sha256-hhX+aM/NHdqOM0qSKSJyW2FAWTsyAHrjaNhxtP2vbVA=";
   };
 
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     autoreconfHook
     pkg-config
-  ] ++ lib.optionals qtClient [ qt5.wrapQtAppsHook ] ++ lib.optionals gtkClient [ wrapGAppsHook ];
+  ] ++ lib.optionals qtClient [qt5.wrapQtAppsHook] ++ lib.optionals gtkClient [wrapGAppsHook];
 
   buildInputs =
     [
@@ -75,8 +75,8 @@ stdenv.mkDerivation rec {
       freetype
       fluidsynth
     ]
-    ++ lib.optionals gtkClient [ gtk3 ]
-    ++ lib.optionals qtClient [ qt5.qtbase ]
+    ++ lib.optionals gtkClient [gtk3]
+    ++ lib.optionals qtClient [qt5.qtbase]
     ++ lib.optional server readline
     ++ lib.optional enableSqlite sqlite;
 
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
     export CPPFLAGS="$(echo $SDL2_PATH | sed 's#/nix/store/#-I/nix/store/#g')"
   '';
   configureFlags =
-    [ "--enable-shared" ]
+    ["--enable-shared"]
     ++ lib.optionals sdl2Client [
       "--enable-client=sdl2"
       "--enable-sdl-mixer=sdl2"
@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
       "--enable-client=qt"
       "--with-qt5-includes=${qt5.qtbase.dev}/include"
     ]
-    ++ lib.optionals gtkClient [ "--enable-client=gtk3.22" ]
+    ++ lib.optionals gtkClient ["--enable-client=gtk3.22"]
     ++ lib.optional enableSqlite "--enable-fcdb=sqlite3"
     ++ lib.optional (!gtkClient) "--enable-fcmp=cli"
     ++ lib.optional (!server) "--disable-server";
@@ -123,7 +123,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.freeciv.org"; # http only
     license = licenses.gpl2;
-    maintainers = with maintainers; [ pierron ];
+    maintainers = with maintainers; [pierron];
     platforms = platforms.unix;
     hydraPlatforms = platforms.linux; # sdl-config times out on darwin
   };

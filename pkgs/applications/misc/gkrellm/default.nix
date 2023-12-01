@@ -38,9 +38,9 @@ stdenv.mkDerivation rec {
     libX11
     libSM
     libICE
-  ] ++ lib.optionals stdenv.isDarwin [ IOKit ];
+  ] ++ lib.optionals stdenv.isDarwin [IOKit];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   # Makefiles are patched to fix references to `/usr/X11R6' and to add
   # `-lX11' to make sure libX11's store path is in the RPATH.
@@ -52,8 +52,8 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  makeFlags = [ "STRIP=-s" ];
-  installFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = ["STRIP=-s"];
+  installFlags = ["DESTDIR=$(out)"];
 
   # This icon is used by the desktop file.
   postInstall = ''
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
 
     homepage = "http://gkrellm.srcbox.net";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ khumba ];
+    maintainers = with maintainers; [khumba];
     platforms = platforms.linux;
   };
 }

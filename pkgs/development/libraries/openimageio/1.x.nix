@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     openexr
   ];
 
-  cmakeFlags = [ "-DUSE_PYTHON=OFF" ];
+  cmakeFlags = ["-DUSE_PYTHON=OFF"];
 
   makeFlags = [
     "ILMBASE_HOME=${ilmbase.dev}"
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.openimageio.org";
     description = "A library and tools for reading and writing images";
     license = licenses.bsd3;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
     platforms = platforms.unix;
     knownVulnerabilities = [
       # all discovered in 2.x but there is no reason to

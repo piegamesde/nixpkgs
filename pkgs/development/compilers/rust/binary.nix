@@ -33,7 +33,7 @@ rec {
     meta = with lib; {
       homepage = "http://www.rust-lang.org/";
       description = "A safe, concurrent, practical language";
-      maintainers = with maintainers; [ qknight ];
+      maintainers = with maintainers; [qknight];
       license = [
         licenses.mit
         licenses.asl20
@@ -42,7 +42,7 @@ rec {
 
     nativeBuildInputs = lib.optional (!stdenv.isDarwin) autoPatchelfHook;
     buildInputs =
-      [ bash ]
+      [bash]
       ++ lib.optionals (!stdenv.isDarwin) [
         gcc.cc.lib
         zlib
@@ -82,14 +82,14 @@ rec {
     meta = with lib; {
       homepage = "http://www.rust-lang.org/";
       description = "A safe, concurrent, practical language";
-      maintainers = with maintainers; [ qknight ];
+      maintainers = with maintainers; [qknight];
       license = [
         licenses.mit
         licenses.asl20
       ];
     };
 
-    nativeBuildInputs = [ makeWrapper ] ++ lib.optional (!stdenv.isDarwin) autoPatchelfHook;
+    nativeBuildInputs = [makeWrapper] ++ lib.optional (!stdenv.isDarwin) autoPatchelfHook;
     buildInputs = [
       bash
     ] ++ lib.optional (!stdenv.isDarwin) gcc.cc.lib ++ lib.optional stdenv.isDarwin Security;

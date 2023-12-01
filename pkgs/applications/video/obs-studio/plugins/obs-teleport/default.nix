@@ -46,12 +46,12 @@ buildGoModule rec {
     mv obs-teleport.so $out/lib/obs-plugins
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "An OBS Studio plugin for an open NDI-like replacement";
     homepage = "https://github.com/fzwoch/obs-teleport";
-    maintainers = [ lib.maintainers.paveloom ];
+    maintainers = [lib.maintainers.paveloom];
     license = lib.licenses.gpl2Plus;
     platforms = obs-studio.meta.platforms;
   };

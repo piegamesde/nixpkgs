@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [ jdk ];
+  buildInputs = [jdk];
 
   buildPhase = ''
     ant -f build/build.xml dist
@@ -59,8 +59,8 @@ stdenv.mkDerivation rec {
     description = "Graphical tool to analyze data, gathered from various hardware devices";
     homepage = "https://www.nongnu.org/dataexplorer/index.html";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ panicgh ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [panicgh];
+    platforms = ["x86_64-linux"];
     sourceProvenance = with sourceTypes; [
       fromSource
       binaryNativeCode # contains RXTXcomm (JNI library with *.so files)

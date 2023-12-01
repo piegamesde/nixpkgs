@@ -8,9 +8,9 @@
 symlinkJoin {
   name = "gsignond-with-plugins-${gsignond.version}";
 
-  paths = [ gsignond ] ++ plugins;
+  paths = [gsignond] ++ plugins;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     wrapProgram $out/bin/gsignond \

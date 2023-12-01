@@ -31,7 +31,7 @@ buildPythonPackage rec {
     sphinxHook
   ];
 
-  propagatedBuildInputs = [ colorzero ];
+  propagatedBuildInputs = [colorzero];
 
   pythonImportsCheck = [
     "gpiozero"
@@ -48,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/gpiozero/gpiozero";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

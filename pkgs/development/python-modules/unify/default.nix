@@ -18,14 +18,14 @@ buildPythonPackage rec {
     sha256 = "1l6xxygaigacsxf0g5f7w5gpqha1ava6mcns81kqqy6vw91pyrbi";
   };
 
-  propagatedBuildInputs = [ untokenize ];
+  propagatedBuildInputs = [untokenize];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   meta = with lib; {
     description = "Modifies strings to all use the same quote where possible";
     homepage = "https://github.com/myint/unify";
     license = licenses.mit;
-    maintainers = with maintainers; [ FlorianFranzen ];
+    maintainers = with maintainers; [FlorianFranzen];
   };
 }

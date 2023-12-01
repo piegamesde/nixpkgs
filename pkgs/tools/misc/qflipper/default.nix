@@ -62,7 +62,7 @@ mkDerivation {
     qtquickcontrols
     qtquickcontrols2
     qtgraphicaleffects
-  ] ++ lib.optionals (stdenv.isLinux) [ qtwayland ];
+  ] ++ lib.optionals (stdenv.isLinux) [qtwayland];
 
   qmakeFlags = [
     "DEFINES+=DISABLE_APPLICATION_UPDATES"
@@ -90,14 +90,14 @@ mkDerivation {
     cp installer-assets/udev/42-flipperzero.rules $out/etc/udev/rules.d/
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     broken = stdenv.isDarwin;
     description = "Cross-platform desktop tool to manage your flipper device";
     homepage = "https://flipperzero.one/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ cab404 ];
+    maintainers = with maintainers; [cab404];
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"

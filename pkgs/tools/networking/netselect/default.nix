@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
       --replace "/usr/bin/" ""
   '';
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   installPhase = ''
     runHook preInstall

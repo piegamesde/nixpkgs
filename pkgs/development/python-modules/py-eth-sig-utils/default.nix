@@ -34,12 +34,12 @@ buildPythonPackage rec {
     ${python.interpreter} -m unittest
   '';
 
-  pythonImportsCheck = [ "py_eth_sig_utils" ];
+  pythonImportsCheck = ["py_eth_sig_utils"];
 
   meta = with lib; {
     description = "Collection of functions to generate hashes for signing on Ethereum";
     homepage = "https://github.com/rmeissner/py-eth-sig-utils";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

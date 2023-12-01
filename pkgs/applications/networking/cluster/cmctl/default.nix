@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-tKvvqYGwLEoSfGzBRLx8xC/0Kz1uLmHYQ+gcHOW+550=";
 
-  subPackages = [ "cmd/ctl" ];
+  subPackages = ["cmd/ctl"];
 
   ldflags = [
     "-s"
@@ -29,7 +29,7 @@ buildGoModule rec {
     "-X github.com/cert-manager/cert-manager/pkg/util.AppGitCommit=${src.rev}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     mv $out/bin/ctl $out/bin/cmctl
@@ -56,6 +56,6 @@ buildGoModule rec {
     downloadPage = "https://github.com/cert-manager/cert-manager";
     license = licenses.asl20;
     homepage = "https://cert-manager.io/";
-    maintainers = with maintainers; [ joshvanl ];
+    maintainers = with maintainers; [joshvanl];
   };
 }

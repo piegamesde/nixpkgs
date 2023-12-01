@@ -24,9 +24,9 @@ stdenv.mkDerivation rec {
     sha256 = "1rpf63pdn54c4yg13k7cb1w1c7zsvl97c4qxcpz41c8l91xd55kn";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  patches = [ ./fltk-path.patch ];
+  patches = [./fltk-path.patch];
 
   buildInputs = [
     alsa-lib
@@ -47,6 +47,6 @@ stdenv.mkDerivation rec {
     homepage = "https://rakarrack.sourceforge.net";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
   };
 }

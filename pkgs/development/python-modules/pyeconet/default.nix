@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-x94V6qdDHgeeFLAuciC7mHMWbC0d3AtS0aQNaZOCajI=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     paho-mqtt
@@ -32,13 +32,13 @@ buildPythonPackage rec {
   # Tests require credentials
   doCheck = false;
 
-  pythonImportsCheck = [ "pyeconet" ];
+  pythonImportsCheck = ["pyeconet"];
 
   meta = with lib; {
     description = "Python interface to the EcoNet API";
     homepage = "https://github.com/w1ll1am23/pyeconet";
     changelog = "https://github.com/w1ll1am23/pyeconet/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

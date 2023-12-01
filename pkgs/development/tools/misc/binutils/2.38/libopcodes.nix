@@ -18,7 +18,7 @@ stdenv.mkDerivation {
     "dev"
   ];
 
-  patches = binutils-unwrapped_2_38.patches ++ [ ./build-components-separately.patch ];
+  patches = binutils-unwrapped_2_38.patches ++ [./build-components-separately.patch];
 
   # We just want to build libopcodes
   postPatch = ''
@@ -26,14 +26,14 @@ stdenv.mkDerivation {
     find . ../include/opcode -type f -exec sed {} -i -e 's/"bfd.h"/<bfd.h>/' \;
   '';
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   nativeBuildInputs = [
     autoreconfHook
     bison
   ];
-  buildInputs = [ libiberty ];
+  buildInputs = [libiberty];
   # dis-asm.h includes bfd.h
-  propagatedBuildInputs = [ libbfd_2_38 ];
+  propagatedBuildInputs = [libbfd_2_38];
 
   configurePlatforms = [
     "build"
@@ -52,7 +52,7 @@ stdenv.mkDerivation {
     description = "A library from binutils for manipulating machine code";
     homepage = "https://www.gnu.org/software/binutils/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ericson2314 ];
+    maintainers = with maintainers; [ericson2314];
     platforms = platforms.unix;
   };
 }

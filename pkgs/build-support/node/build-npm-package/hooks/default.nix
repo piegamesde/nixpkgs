@@ -27,13 +27,13 @@
       }
       ./npm-config-hook.sh;
 
-  npmBuildHook = makeSetupHook { name = "npm-build-hook"; } ./npm-build-hook.sh;
+  npmBuildHook = makeSetupHook {name = "npm-build-hook";} ./npm-build-hook.sh;
 
   npmInstallHook =
     makeSetupHook
       {
         name = "npm-install-hook";
-        propagatedBuildInputs = [ buildPackages.makeWrapper ];
+        propagatedBuildInputs = [buildPackages.makeWrapper];
         substitutions = {
           hostNode = "${nodejs}/bin/node";
           jq = "${buildPackages.jq}/bin/jq";

@@ -28,8 +28,8 @@ in
 
     include = mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "/home" ];
+      default = [];
+      example = ["/home"];
       description = lib.mdDoc ''
         List of paths to include into the backups. See the FILE SELECTION
         section in {manpage}`duplicity(1)` for details on the syntax.
@@ -38,7 +38,7 @@ in
 
     exclude = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         List of paths to exclude from backups. See the FILE SELECTION section in
         {manpage}`duplicity(1)` for details on the syntax.
@@ -81,7 +81,7 @@ in
 
     extraFlags = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "--backend-retry-delay"
         "100"
@@ -201,9 +201,9 @@ in
             ProtectHome = "read-only";
             StateDirectory = baseNameOf stateDirectory;
           }
-          // optionalAttrs (localTarget != null) { ReadWritePaths = localTarget; }
-          // optionalAttrs (cfg.secretFile != null) { EnvironmentFile = cfg.secretFile; };
-      } // optionalAttrs (cfg.frequency != null) { startAt = cfg.frequency; };
+          // optionalAttrs (localTarget != null) {ReadWritePaths = localTarget;}
+          // optionalAttrs (cfg.secretFile != null) {EnvironmentFile = cfg.secretFile;};
+      } // optionalAttrs (cfg.frequency != null) {startAt = cfg.frequency;};
 
       tmpfiles.rules = optional (localTarget != null) "d ${localTarget} 0700 root root -";
     };
@@ -211,7 +211,7 @@ in
     assertions = singleton {
       # Duplicity will fail if the last file selection option is an include. It
       # is not always possible to detect but this simple case can be caught.
-      assertion = cfg.include != [ ] -> cfg.exclude != [ ] || cfg.extraFlags != [ ];
+      assertion = cfg.include != [] -> cfg.exclude != [] || cfg.extraFlags != [];
       message = ''
         Duplicity will fail if you only specify included paths ("Because the
         default is to include all files, the expression is redundant. Exiting

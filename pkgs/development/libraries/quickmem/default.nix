@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/arpa2/Quick-MEM/";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ leungbk ];
+    maintainers = with maintainers; [leungbk];
   };
 }

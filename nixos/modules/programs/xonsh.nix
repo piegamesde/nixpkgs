@@ -75,7 +75,7 @@ in
       ${cfg.config}
     '';
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     environment.shells = [
       "/run/current-system/sw/bin/xonsh"

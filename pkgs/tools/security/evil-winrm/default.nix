@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
     gemset = ./gemset.nix;
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ env.wrappedRuby ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [env.wrappedRuby];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/Hackplayers/evil-winrm/releases/tag/v${version}";
     description = "WinRM shell for hacking/pentesting";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ elohmeier ];
+    maintainers = with maintainers; [elohmeier];
   };
 }

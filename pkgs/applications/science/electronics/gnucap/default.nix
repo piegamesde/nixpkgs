@@ -26,6 +26,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     platforms = platforms.all;
     broken = stdenv.isDarwin; # Relies on LD_LIBRARY_PATH
-    maintainers = [ maintainers.raboof ];
+    maintainers = [maintainers.raboof];
   };
 }

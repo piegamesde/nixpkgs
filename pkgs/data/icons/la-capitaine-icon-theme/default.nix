@@ -51,6 +51,6 @@ stdenvNoCC.mkDerivation rec {
       mit
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

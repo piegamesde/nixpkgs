@@ -19,19 +19,19 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-ZUmOhPGy+24AuxdeRVF0Vnu8zDGFrHoUlYiDdfIV5lc=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  nativeCheckInputs = [ jq ];
+  nativeCheckInputs = [jq];
 
   postInstall = ''
     wrapProgram $out/bin/jiq \
-      --prefix PATH : ${lib.makeBinPath [ jq ]}
+      --prefix PATH : ${lib.makeBinPath [jq]}
   '';
 
   meta = with lib; {
     homepage = "https://github.com/fiatjaf/jiq";
     license = licenses.mit;
     description = "jid on jq - interactive JSON query tool using jq expressions";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

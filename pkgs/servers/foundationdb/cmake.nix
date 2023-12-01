@@ -21,7 +21,7 @@
 let
   stdenv = if useClang then llvmPackages.libcxxStdenv else gccStdenv;
 
-  tests = builtins.replaceStrings [ "\n" ] [ " " ] (lib.fileContents ./test-list.txt);
+  tests = builtins.replaceStrings ["\n"] [" "] (lib.fileContents ./test-list.txt);
 
   # Only even numbered versions compile on aarch64; odd numbered versions have avx enabled.
   avxEnabled =
@@ -38,7 +38,7 @@ let
       sha256,
       rev ? "refs/tags/${version}",
       officialRelease ? true,
-      patches ? [ ],
+      patches ? [],
       boost,
       ssl,
     }:
@@ -69,7 +69,7 @@ let
         python3
         openjdk
         mono
-      ] ++ lib.optionals useClang [ llvmPackages.lld ];
+      ] ++ lib.optionals useClang [llvmPackages.lld];
 
       separateDebugInfo = true;
       dontFixCmake = true;
@@ -114,7 +114,7 @@ let
           "-DOPENSSL_SSL_LIBRARY=${ssl.out}/lib/libssl.so"
         ];
 
-      hardeningDisable = [ "fortify" ];
+      hardeningDisable = ["fortify"];
 
       env.NIX_CFLAGS_COMPILE = toString [
         # Needed with GCC 12
@@ -180,9 +180,9 @@ let
         description = "Open source, distributed, transactional key-value store";
         homepage = "https://www.foundationdb.org";
         license = licenses.asl20;
-        platforms =
-          [ "x86_64-linux" ]
-          ++ lib.optionals (lib.versionAtLeast version "7.1.0" && !(avxEnabled version)) [ "aarch64-linux" ];
+        platforms = [
+          "x86_64-linux"
+        ] ++ lib.optionals (lib.versionAtLeast version "7.1.0" && !(avxEnabled version)) ["aarch64-linux"];
         maintainers = with maintainers; [
           thoughtpolice
           lostnet

@@ -9,7 +9,7 @@
 let
   combine =
     basegcc:
-    runCommand "combine-gcc-libc" { } ''
+    runCommand "combine-gcc-libc" {} ''
       mkdir -p $out
       cp -r ${basegcc.cc}/lib $out/lib
 
@@ -48,7 +48,7 @@ let
     # `gccForLibs`.
     libc = gcc_multi_sysroot;
 
-    bintools = clang.bintools.override { libc = gcc_multi_sysroot; };
+    bintools = clang.bintools.override {libc = gcc_multi_sysroot;};
 
     gccForLibs = gcc_multi_sysroot;
   };

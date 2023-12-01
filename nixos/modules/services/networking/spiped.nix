@@ -141,7 +141,7 @@ in
           })
         );
 
-        default = { };
+        default = {};
 
         example = literalExpression ''
           {
@@ -188,7 +188,7 @@ in
 
     systemd.services."spiped@" = {
       description = "Secure pipe '%i'";
-      after = [ "network.target" ];
+      after = ["network.target"];
 
       serviceConfig = {
         Restart = "always";
@@ -205,7 +205,7 @@ in
       script = "exec ${pkgs.spiped}/bin/spiped -F `cat /etc/spiped/$1.spec`";
     };
 
-    system.activationScripts.spiped = optionalString (cfg.config != { }) "mkdir -p /var/lib/spiped";
+    system.activationScripts.spiped = optionalString (cfg.config != {}) "mkdir -p /var/lib/spiped";
 
     # Setup spiped config files
     environment.etc =

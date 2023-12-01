@@ -15,10 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-vknJ/0id1mEMrWVB50PDOE6slunyRwfaezkp2PKsZNg=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libmnl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libmnl];
 
-  configureFlags = [ "--with-kmod=no" ];
+  configureFlags = ["--with-kmod=no"];
 
   meta = with lib; {
     homepage = "https://ipset.netfilter.org/";

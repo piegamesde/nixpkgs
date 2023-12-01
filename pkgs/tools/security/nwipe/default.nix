@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "Securely erase disks";
     homepage = "https://github.com/martijnvanbrummelen/nwipe";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ woffs ];
+    maintainers = with maintainers; [woffs];
     platforms = platforms.linux;
   };
 }

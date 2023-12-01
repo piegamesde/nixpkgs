@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   };
 
   # QLibrary and dlopen work with LD_LIBRARY_PATH
-  patches = [ ./dont_use_libPath.diff ];
+  patches = [./dont_use_libPath.diff];
 
   postPatch = ''
     substituteInPlace src/CMakeLists.txt \
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
       ]
     );
 
-  cmakeFlags = [ "-DVERSION=${version}" ];
+  cmakeFlags = ["-DVERSION=${version}"];
 
   strictDeps = true;
 

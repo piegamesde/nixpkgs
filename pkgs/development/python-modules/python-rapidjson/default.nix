@@ -29,7 +29,7 @@ let
         })
       ];
       # valgrind_unittest failed
-      cmakeFlags = old.cmakeFlags ++ [ "-DCMAKE_CTEST_ARGUMENTS=-E;valgrind_unittest" ];
+      cmakeFlags = old.cmakeFlags ++ ["-DCMAKE_CTEST_ARGUMENTS=-E;valgrind_unittest"];
     }
   );
 in
@@ -43,14 +43,14 @@ buildPythonPackage rec {
     hash = "sha256-vn01HHES2sYIEzoj9g6VOVZo0JgaB/QDf2Pg6Ir88Bo=";
   };
 
-  setupPyBuildFlags = [ "--rj-include-dir=${lib.getDev rapidjson'}/include" ];
+  setupPyBuildFlags = ["--rj-include-dir=${lib.getDev rapidjson'}/include"];
 
   nativeCheckInputs = [
     pytestCheckHook
     pytz
   ];
 
-  disabledTestPaths = [ "benchmarks" ];
+  disabledTestPaths = ["benchmarks"];
 
   meta = with lib; {
     homepage = "https://github.com/python-rapidjson/python-rapidjson";

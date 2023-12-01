@@ -18,8 +18,8 @@ stdenv.mkDerivation {
 
   KERN_DIR = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
 
-  makeFlags = [ "INSTALL_MOD_PATH=$(out)" ];
-  installTargets = [ "install" ];
+  makeFlags = ["INSTALL_MOD_PATH=$(out)"];
+  installTargets = ["install"];
 
   enableParallelBuilding = true;
 

@@ -14,11 +14,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-zdbV4RpwY/kmXaQ6QjCcZGVUuLaLA5gsqEctvisIphM=";
   };
 
-  patches = [ ./no-chown-while-installing.patch ];
+  patches = [./no-chown-while-installing.patch];
 
-  buildInputs = [ libevent ];
+  buildInputs = [libevent];
 
-  nativeBuildInputs = [ mandoc ];
+  nativeBuildInputs = [mandoc];
 
   makeFlags = [
     "-f Makefile.gnu"
@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     description = "Library for creating OpenSMTPD filters";
     homepage = "http://imperialat.at/dev/libopensmtpd/";
     license = licenses.isc;
-    maintainers = with maintainers; [ malte-v ];
+    maintainers = with maintainers; [malte-v];
   };
 }

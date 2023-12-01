@@ -82,6 +82,6 @@ py.pkgs.buildPythonPackage rec {
     description = "Automatically extract obfuscated strings from malware";
     homepage = "https://github.com/mandiant/flare-floss";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

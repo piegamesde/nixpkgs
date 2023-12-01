@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     meson
     ninja
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     '';
     changelog = "https://github.com/francma/wob/releases/tag/${version}";
     license = licenses.isc;
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
     platforms = platforms.linux;
   };
 }

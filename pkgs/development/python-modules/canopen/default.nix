@@ -21,21 +21,21 @@ buildPythonPackage rec {
     hash = "sha256-vBJrsdy2Ljs02KEuOKB7WqgxnBdFfJv+II8Lu9qQ/2E=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     can
     canmatrix
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "canopen" ];
+  pythonImportsCheck = ["canopen"];
 
   meta = with lib; {
     homepage = "https://github.com/christiansandberg/canopen/";
     description = "CANopen stack implementation";
     license = licenses.mit;
-    maintainers = with maintainers; [ sorki ];
+    maintainers = with maintainers; [sorki];
   };
 }

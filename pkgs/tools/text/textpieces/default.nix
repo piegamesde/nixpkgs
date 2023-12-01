@@ -21,7 +21,7 @@
 }:
 
 let
-  pythonEnv = python3.withPackages (ps: with ps; [ pyyaml ]);
+  pythonEnv = python3.withPackages (ps: with ps; [pyyaml]);
 in
 stdenv.mkDerivation rec {
   pname = "textpieces";
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  runtimeDependencies = [ pythonEnv ];
+  runtimeDependencies = [pythonEnv];
 
   postPatch = ''
     chmod +x build-aux/meson/postinstall.py
@@ -70,6 +70,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/liferooter/textpieces";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

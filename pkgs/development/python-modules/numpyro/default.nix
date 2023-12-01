@@ -31,9 +31,9 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "numpyro" ];
+  pythonImportsCheck = ["numpyro"];
 
   disabledTests = [
     # AssertionError due to tolerance issues
@@ -55,6 +55,6 @@ buildPythonPackage rec {
     homepage = "https://num.pyro.ai/";
     changelog = "https://github.com/pyro-ppl/numpyro/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

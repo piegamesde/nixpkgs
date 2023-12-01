@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     html-tidy
     pam
   ];
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   NIX_LDFLAGS = "-lpam";
 

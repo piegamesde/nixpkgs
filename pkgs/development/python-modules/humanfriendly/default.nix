@@ -26,6 +26,6 @@ buildPythonPackage rec {
     description = "Human friendly output for text interfaces using Python";
     homepage = "https://humanfriendly.readthedocs.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ montag451 ];
+    maintainers = with maintainers; [montag451];
   };
 }

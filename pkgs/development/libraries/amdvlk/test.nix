@@ -14,7 +14,7 @@ makeImpureTest {
     "/dev/dri"
   ];
 
-  nativeBuildInputs = [ vulkan-tools ];
+  nativeBuildInputs = [vulkan-tools];
 
   VK_ICD_FILENAMES = "${amdvlk}/share/vulkan/icd.d/amd_icd64.json";
   XDG_RUNTIME_DIR = "/tmp";
@@ -52,5 +52,5 @@ makeImpureTest {
     vulkaninfo --summary | grep '= ${amdvlk.version}'
   '';
 
-  meta = with lib.maintainers; { maintainers = [ Flakebi ]; };
+  meta = with lib.maintainers; {maintainers = [Flakebi];};
 }

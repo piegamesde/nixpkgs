@@ -41,7 +41,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [ pybind11 ];
+  buildInputs = [pybind11];
 
   nativeCheckInputs = [
     psutil

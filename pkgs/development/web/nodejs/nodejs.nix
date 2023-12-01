@@ -33,7 +33,7 @@
   enableNpm ? true,
   version,
   sha256,
-  patches ? [ ],
+  patches ? [],
 }@args:
 
 let
@@ -48,7 +48,7 @@ let
 
   sharedLibDeps = {
     inherit openssl zlib libuv;
-  } // (lib.optionalAttrs useSharedHttpParser { inherit http-parser; });
+  } // (lib.optionalAttrs useSharedHttpParser {inherit http-parser;});
 
   sharedConfigureFlags =
     lib.concatMap
@@ -60,13 +60,13 @@ let
         #  Including pkg-config in build inputs would also have the same effect!
       ])
       (builtins.attrNames sharedLibDeps)
-    ++ [ "--with-intl=system-icu" ];
+    ++ ["--with-intl=system-icu"];
 
   copyLibHeaders = map (name: "${lib.getDev sharedLibDeps.${name}}/include/*") (
     builtins.attrNames sharedLibDeps
   );
 
-  extraConfigFlags = lib.optionals (!enableNpm) [ "--without-npm" ];
+  extraConfigFlags = lib.optionals (!enableNpm) ["--without-npm"];
   self = stdenv.mkDerivation {
     inherit pname version;
 
@@ -101,7 +101,7 @@ let
       which
       pkg-config
       python
-    ] ++ lib.optionals stdenv.isDarwin [ xcbuild ];
+    ] ++ lib.optionals stdenv.isDarwin [xcbuild];
 
     outputs = [
       "out"
@@ -116,7 +116,7 @@ let
         inherit (stdenv.hostPlatform) gcc isAarch32;
       in
       sharedConfigureFlags
-      ++ lib.optionals (lib.versionOlder version "19") [ "--without-dtrace" ]
+      ++ lib.optionals (lib.versionOlder version "19") ["--without-dtrace"]
       ++ (lib.optionals isCross [
         "--cross-compiling"
         "--without-intl"
@@ -151,13 +151,13 @@ let
             throw "unsupported cpu ${stdenv.hostPlatform.uname.processor}"
         }"
       ])
-      ++ (lib.optionals (isCross && isAarch32 && lib.hasAttr "fpu" gcc) [ "--with-arm-fpu=${gcc.fpu}" ])
+      ++ (lib.optionals (isCross && isAarch32 && lib.hasAttr "fpu" gcc) ["--with-arm-fpu=${gcc.fpu}"])
       ++ (lib.optionals (isCross && isAarch32 && lib.hasAttr "float-abi" gcc) [
         "--with-arm-float-abi=${gcc.float-abi}"
       ])
       ++ extraConfigFlags;
 
-    configurePlatforms = [ ];
+    configurePlatforms = [];
 
     dontDisableStatic = true;
 
@@ -173,7 +173,7 @@ let
 
     passthru.interpreterName = "nodejs";
 
-    passthru.pkgs = callPackage ../../node-packages/default.nix { nodejs = self; };
+    passthru.pkgs = callPackage ../../node-packages/default.nix {nodejs = self;};
 
     setupHook = ./setup-hook.sh;
 
@@ -200,7 +200,7 @@ let
                -e "s|std::tr1|std|" src/util.h
       '';
 
-    nativeCheckInputs = [ procps ];
+    nativeCheckInputs = [procps];
     doCheck = false; # fails 4 out of 1453 tests
 
     postInstall = ''

@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = "-lre2 -lpthread";
 
-  configureFlags = [ "--enable-maintainer-mode" ];
+  configureFlags = ["--enable-maintainer-mode"];
 
   meta = with lib; {
     homepage = "http://marcomaggi.github.io/docs/cre2.html";

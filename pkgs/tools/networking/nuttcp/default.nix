@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fq16ieeqoFnSDjQELFihmMKYHK1ylVDROI3fyQNtOYM=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl2Only;
     homepage = "http://nuttcp.net/";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

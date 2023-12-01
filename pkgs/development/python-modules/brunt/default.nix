@@ -30,17 +30,17 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # tests require Brunt hardware
   doCheck = false;
 
-  pythonImportsCheck = [ "brunt" ];
+  pythonImportsCheck = ["brunt"];
 
   meta = {
     description = "Unofficial Python SDK for Brunt";
     homepage = "https://github.com/eavanvalkenburg/brunt-api";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

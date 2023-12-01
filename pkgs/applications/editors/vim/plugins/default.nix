@@ -13,11 +13,11 @@
 
 let
 
-  inherit (vimUtils.override { inherit vim; }) buildVimPluginFrom2Nix;
+  inherit (vimUtils.override {inherit vim;}) buildVimPluginFrom2Nix;
 
   inherit (lib) extends;
 
-  initialPackages = self: { };
+  initialPackages = self: {};
 
   plugins = callPackage ./generated.nix {
     inherit buildVimPluginFrom2Nix;
@@ -36,7 +36,7 @@ let
     inherit llvmPackages luaPackages;
   };
 
-  aliases = if config.allowAliases then (import ./aliases.nix lib) else final: prev: { };
+  aliases = if config.allowAliases then (import ./aliases.nix lib) else final: prev: {};
 
   extensible-self = lib.makeExtensible (
     extends aliases (extends overrides (extends plugins initialPackages))

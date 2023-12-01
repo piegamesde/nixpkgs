@@ -20,15 +20,15 @@ buildDunePackage rec {
     sha256 = "06dl04fcmwpkydzni2fzwrhk0bqypd55mgxfax9v82x65xrgj5gw";
   };
 
-  propagatedBuildInputs = [ astring ];
+  propagatedBuildInputs = [astring];
 
   doCheck = lib.versionAtLeast ocaml.version "4.04";
-  checkInputs = [ ounit ];
+  checkInputs = [ounit];
 
   meta = {
     description = "Process strings into sets of command-line arguments";
     homepage = "https://github.com/mirage/parse-argv";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

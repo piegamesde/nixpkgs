@@ -18,12 +18,12 @@ buildDunePackage rec {
     sha256 = "sha256-d3gleiaPEDJTbHtieL4oAq1NlA/0NtzdW9SA1sItFeQ=";
   };
 
-  patches = [ ./bytes.patch ];
+  patches = [./bytes.patch];
 
   meta = {
     description = "Core qcheck library";
     homepage = "https://c-cube.github.io/qcheck/";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

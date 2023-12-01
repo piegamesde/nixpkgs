@@ -26,7 +26,7 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     systemd
     libyaml
@@ -48,7 +48,7 @@ buildPythonPackage rec {
       --replace /usr/local/etc/openzwave ${openzwave}/etc/openzwave
   '';
 
-  patches = [ ./cython.patch ];
+  patches = [./cython.patch];
 
   # no tests available
   doCheck = false;
@@ -57,7 +57,7 @@ buildPythonPackage rec {
     description = "Python wrapper for the OpenZWave C++ library";
     homepage = "https://github.com/OpenZWave/python-openzwave";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     inherit (openzwave.meta) platforms;
   };
 }

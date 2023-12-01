@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "doxygen";
     repo = "doxygen";
-    rev = "Release_${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "Release_${lib.replaceStrings ["."] ["_"] version}";
     sha256 = "sha256-SqboPBqK7gDVTTjGgCUB9oIGBZR55EA7x65a0wumiKw=";
   };
 
@@ -30,14 +30,14 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ libiconv ]
+    [libiconv]
     ++ lib.optionals (qt5 != null) (
       with qt5; [
         qtbase
         wrapQtAppsHook
       ]
     )
-    ++ lib.optionals stdenv.isDarwin [ CoreServices ];
+    ++ lib.optionals stdenv.isDarwin [CoreServices];
 
   cmakeFlags = [
     "-DICONV_INCLUDE_DIR=${libiconv}/include"

@@ -16,11 +16,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-l2BFojQfTpqFBosh9L2SiZMpKTPu7O/qNy2wngIZ6t0=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ python3 ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [python3];
 
   enableParallelBuilding = true;
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     description = "A robust high performance CORBA ORB for C++ and Python";
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
       gpl2Plus
       lgpl21Plus
     ];
-    maintainers = with maintainers; [ smironov ];
+    maintainers = with maintainers; [smironov];
     platforms = platforms.unix;
   };
 }

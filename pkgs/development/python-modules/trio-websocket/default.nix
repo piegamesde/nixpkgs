@@ -33,11 +33,11 @@ buildPythonPackage rec {
     trustme
   ];
 
-  pythonImportsCheck = [ "trio_websocket" ];
+  pythonImportsCheck = ["trio_websocket"];
 
   meta = with lib; {
     description = "WebSocket client and server implementation for Python Trio";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

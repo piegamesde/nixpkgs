@@ -86,7 +86,7 @@ let
     pkgs.writeText "cgitrc" ''
       # global settings
       ${concatStringsSep "\n" (
-        mapAttrsToList cgitrcLine ({ virtual-root = cfg.nginx.location; } // cfg.settings)
+        mapAttrsToList cgitrcLine ({virtual-root = cfg.nginx.location;} // cfg.settings)
       )}
       ${optionalString (cfg.scanPath != null) (cgitrcLine "scan-path" cfg.scanPath)}
 
@@ -129,15 +129,15 @@ in
   options = {
     services.cgit = mkOption {
       description = mdDoc "Configure cgit instances.";
-      default = { };
+      default = {};
       type = types.attrsOf (
         types.submodule (
-          { config, ... }:
+          {config, ...}:
           {
             options = {
               enable = mkEnableOption (mdDoc "cgit");
 
-              package = mkPackageOptionMD pkgs "cgit" { };
+              package = mkPackageOptionMD pkgs "cgit" {};
 
               nginx.virtualHost = mkOption {
                 description = mdDoc "VirtualHost to serve cgit on, defaults to the attribute name.";
@@ -156,7 +156,7 @@ in
               repos = mkOption {
                 description = mdDoc "cgit repository settings, see cgitrc(5)";
                 type = with types; attrsOf (attrsOf settingType);
-                default = { };
+                default = {};
                 example = {
                   blah = {
                     path = "/var/lib/git/example";
@@ -175,7 +175,7 @@ in
               settings = mkOption {
                 description = mdDoc "cgit configuration, see cgitrc(5)";
                 type = types.attrsOf settingType;
-                default = { };
+                default = {};
                 example = literalExpression ''
                   {
                     enable-follow-links = true;
@@ -200,7 +200,7 @@ in
     assertions =
       mapAttrsToList
         (vhost: cfg: {
-          assertion = !cfg.enable || (cfg.scanPath == null) != (cfg.repos == { });
+          assertion = !cfg.enable || (cfg.scanPath == null) != (cfg.repos == {});
           message = "Exactly one of services.cgit.${vhost}.scanPath or services.cgit.${vhost}.repos must be set.";
         })
         cfgs;

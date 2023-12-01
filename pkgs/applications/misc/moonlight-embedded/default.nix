@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     description = "Open source implementation of NVIDIA's GameStream";
     homepage = "https://github.com/moonlight-stream/moonlight-embedded";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.globin ];
+    maintainers = [maintainers.globin];
     platforms = platforms.linux;
   };
 }

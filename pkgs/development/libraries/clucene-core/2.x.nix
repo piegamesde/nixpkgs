@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "1arffdwivig88kkx685pldr784njm0249k0rb1f1plwavlrw9zfx";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     boost
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
 
     # required for darwin and linux-musl
     ./pthread-include.patch
-  ] ++ lib.optionals stdenv.isDarwin [ ./fix-darwin.patch ];
+  ] ++ lib.optionals stdenv.isDarwin [./fix-darwin.patch];
 
   # fails with "Unable to find executable:
   # /build/clucene-core-2.3.3.4/build/bin/cl_test"

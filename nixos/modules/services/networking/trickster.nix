@@ -117,8 +117,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.trickster = {
       description = "Reverse proxy cache and time series dashboard accelerator";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         DynamicUser = true;
         ExecStart = ''
@@ -138,5 +138,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ _1000101 ];
+  meta.maintainers = with maintainers; [_1000101];
 }

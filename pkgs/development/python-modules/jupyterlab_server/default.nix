@@ -30,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-muwhohg7vt2fkahmKDVUSVdfGGLYiyitX5BQGdMebCE=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     requests
@@ -39,7 +39,7 @@ buildPythonPackage rec {
     babel
     jupyter-server
     tomli
-  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  ] ++ lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
   nativeCheckInputs = [
     openapi-core
@@ -75,6 +75,6 @@ buildPythonPackage rec {
     homepage = "https://jupyterlab-server.readthedocs.io/";
     changelog = "https://github.com/jupyterlab/jupyterlab_server/blob/v${version}/CHANGELOG.md";
     license = licenses.bsdOriginal;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

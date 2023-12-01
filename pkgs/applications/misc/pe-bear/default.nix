@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   meta = with lib; {
     description = "Portable Executable reversing tool with a friendly GUI";
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       licenses.bsd2
     ];
 
-    maintainers = with maintainers; [ blitz ];
+    maintainers = with maintainers; [blitz];
     platforms = platforms.linux;
   };
 }

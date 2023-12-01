@@ -61,12 +61,12 @@ buildPythonPackage rec {
     zipp
   ];
 
-  setupPyBuildFlags = [ "--without-cseabreeze" ];
+  setupPyBuildFlags = ["--without-cseabreeze"];
 
   meta = with lib; {
     homepage = "https://github.com/ap--/python-seabreeze";
     description = "A python library to access Ocean Optics spectrometers";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.mit;
   };
 }

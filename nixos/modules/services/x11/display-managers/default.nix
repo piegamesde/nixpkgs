@@ -71,7 +71,7 @@ let
     fi
 
     # Import environment variables into the systemd user environment.
-    ${optionalString (cfg.displayManager.importedVariables != [ ]) (
+    ${optionalString (cfg.displayManager.importedVariables != []) (
       "/run/current-system/systemd/bin/systemctl --user import-environment "
       + toString (unique cfg.displayManager.importedVariables)
     )}
@@ -172,7 +172,7 @@ in
 
       xserverArgs = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "-ac"
           "-logverbose"
@@ -207,7 +207,7 @@ in
 
       hiddenUsers = mkOption {
         type = types.listOf types.str;
-        default = [ "nobody" ];
+        default = ["nobody"];
         description = lib.mdDoc ''
           A list of users which will not be shown in the display manager.
         '';
@@ -226,7 +226,7 @@ in
                   (
                     package.check p
                     && p ? providedSessions
-                    && p.providedSessions != [ ]
+                    && p.providedSessions != []
                     && all isString p.providedSessions
                   )
                   ''
@@ -239,14 +239,14 @@ in
                   '';
             }
           );
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           A list of packages containing x11 or wayland session files to be passed to the display manager.
         '';
       };
 
       session = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.attrs;
         example = literalExpression ''
           [ { manage = "desktop";
@@ -277,7 +277,7 @@ in
       sessionData = mkOption {
         description = lib.mdDoc "Data exported for display managers’ convenience";
         internal = true;
-        default = { };
+        default = {};
         apply = val: {
           wrapper = xsessionWrapper;
           desktops = installedSessions;
@@ -286,7 +286,7 @@ in
           autologinSession =
             if cfg.displayManager.defaultSession != null then
               cfg.displayManager.defaultSession
-            else if cfg.displayManager.sessionData.sessionNames != [ ] then
+            else if cfg.displayManager.sessionData.sessionNames != [] then
               head cfg.displayManager.sessionData.sessionNames
             else
               null;
@@ -344,7 +344,7 @@ in
 
         environment = mkOption {
           type = types.attrsOf types.unspecified;
-          default = { };
+          default = {};
           description = lib.mdDoc "Additional environment variables needed by the display manager.";
         };
 
@@ -370,7 +370,7 @@ in
       # Configuration for automatic login. Common for all DM.
       autoLogin = mkOption {
         type = types.submodule (
-          { config, options, ... }:
+          {config, options, ...}:
           {
             options = {
               enable = mkOption {
@@ -393,7 +393,7 @@ in
           }
         );
 
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Auto login configuration attrset.
         '';
@@ -422,8 +422,8 @@ in
         The following options are deprecated:
           ${
             concatStringsSep "\n  " (
-              map ({ c, t }: t) (
-                filter ({ c, t }: c != null) [
+              map ({c, t}: t) (
+                filter ({c, t}: c != null) [
                   {
                     c = dmDefault;
                     t = "- services.xserver.desktopManager.default";
@@ -499,7 +499,7 @@ in
       concatLists (
         builtins.map
           (
-            { dm, wm }:
+            {dm, wm}:
             let
               sessionName = "${dm.name}${optionalString (wm.name != "none") ("+" + wm.name)}";
               script = xsession dm wm;
@@ -523,7 +523,7 @@ in
                 '';
               }
               // {
-                providedSessions = [ sessionName ];
+                providedSessions = [sessionName];
               }
             )
           )
@@ -537,7 +537,7 @@ in
 
     # Make xsessions and wayland sessions available in XDG_DATA_DIRS
     # as some programs have behavior that depends on them being present
-    environment.sessionVariables.XDG_DATA_DIRS = [ "${cfg.displayManager.sessionData.desktops}/share" ];
+    environment.sessionVariables.XDG_DATA_DIRS = ["${cfg.displayManager.sessionData.desktops}/share"];
   };
 
   imports = [

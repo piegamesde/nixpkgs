@@ -25,7 +25,7 @@ let
     inherit version src;
 
     sourceRoot = "source/cpplite";
-    patches = [ ./install-adls.patch ];
+    patches = [./install-adls.patch];
 
     cmakeFlags = [
       "-DBUILD_ADLS=ON"
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Mount an Azure Blob storage as filesystem through FUSE";
     license = licenses.mit;
-    maintainers = with maintainers; [ jbgi ];
+    maintainers = with maintainers; [jbgi];
     platforms = platforms.linux;
   };
 }

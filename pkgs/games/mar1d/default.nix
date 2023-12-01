@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://mar1d.com";
     license = licenses.agpl3;
-    maintainers = with maintainers; [ taeer ];
+    maintainers = with maintainers; [taeer];
     platforms = platforms.unix;
   };
 }

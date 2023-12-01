@@ -20,9 +20,9 @@ buildPythonPackage rec {
     sha256 = "07lhfmsjcfzcchsjzh6kxdq5s47j2a6lb5wv3m1kmv2hcm3gvddh";
   };
 
-  nativeBuildInputs = [ sphinxHook ];
+  nativeBuildInputs = [sphinxHook];
 
-  pythonImportsCheck = [ "better" ];
+  pythonImportsCheck = ["better"];
 
   meta = with lib; {
     homepage = "https://github.com/irskep/sphinx-better-theme";
@@ -48,6 +48,6 @@ buildPythonPackage rec {
           html_theme = 'better'
     '';
     license = licenses.bsd2;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

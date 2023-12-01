@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "clss";
   version = "20191130-git";
@@ -20,7 +20,7 @@ rec {
 
   packageName = "clss";
 
-  asdFilesToKeep = [ "clss.asd" ];
+  asdFilesToKeep = ["clss.asd"];
   overrides = x: x;
 }
 /* (SYSTEM clss DESCRIPTION A DOM tree searching engine based on CSS selectors.

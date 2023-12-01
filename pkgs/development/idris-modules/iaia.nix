@@ -8,7 +8,7 @@ build-idris-package {
   pname = "iaia";
   version = "2017-11-10";
 
-  idrisDeps = [ contrib ];
+  idrisDeps = [contrib];
 
   src = fetchFromGitHub {
     owner = "sellout";
@@ -21,6 +21,6 @@ build-idris-package {
     description = "Recursion scheme library for Idris";
     homepage = "https://github.com/sellout/Iaia";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

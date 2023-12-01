@@ -16,17 +16,17 @@ buildPythonPackage rec {
     sha256 = "38f74db3a57e9998a9774e3614afb95cb396f139f29b3fdb130c5af554435259";
   };
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   # Tests assume network connectivity
   doCheck = false;
 
-  pythonImportsCheck = [ "javaobj" ];
+  pythonImportsCheck = ["javaobj"];
 
   meta = with lib; {
     description = "Module for serializing and de-serializing Java objects";
     homepage = "https://github.com/tcalmant/python-javaobj";
     license = licenses.asl20;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

@@ -27,7 +27,7 @@ buildPythonPackage rec {
     sed -i '/addopts/d' setup.cfg
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   nativeCheckInputs = [
     procps
@@ -37,7 +37,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
   disabledTests =
     [
@@ -57,13 +57,13 @@ buildPythonPackage rec {
     "tests/legacy_api/test_test.py"
   ];
 
-  pythonImportsCheck = [ "libtmux" ];
+  pythonImportsCheck = ["libtmux"];
 
   meta = with lib; {
     description = "Typed scripting library / ORM / API wrapper for tmux";
     homepage = "https://libtmux.git-pull.com/";
     changelog = "https://github.com/tmux-python/libtmux/raw/v${version}/CHANGES";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

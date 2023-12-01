@@ -17,7 +17,7 @@ stdenv.mkDerivation {
   pname = "terraspace";
   version = (import ./gemset.nix).terraspace.version;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontUnpack = true;
 
@@ -25,7 +25,7 @@ stdenv.mkDerivation {
     mkdir -p $out/bin
     makeWrapper ${rubyEnv}/bin/terraspace $out/bin/terraspace
     wrapProgram $out/bin/terraspace \
-      --prefix PATH : ${lib.makeBinPath [ rubyEnv.ruby ]}
+      --prefix PATH : ${lib.makeBinPath [rubyEnv.ruby]}
   '';
 
   passthru.updateScript = bundlerUpdateScript "terraspace";
@@ -35,6 +35,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/boltops-tools/terraspace";
     license = licenses.asl20;
     platforms = ruby.meta.platforms;
-    maintainers = with maintainers; [ mislavzanic ];
+    maintainers = with maintainers; [mislavzanic];
   };
 }

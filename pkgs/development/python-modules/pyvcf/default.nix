@@ -16,13 +16,13 @@ buildPythonPackage rec {
     sha256 = "0qf9lwj7r2hjjp4bd4vc7nayrhblfm4qcqs4dbd43a6p4bj2jv5p";
   };
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   meta = with lib; {
     homepage = "https://pyvcf.readthedocs.io/en/latest/index.html";
     description = "A VCF (Variant Call Format) Parser for Python, supporting version 4.0 and 4.1";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ scalavision ];
+    maintainers = with maintainers; [scalavision];
     longDescription = ''
       The intent of this module is to mimic the csv module in the Python stdlib,
       as opposed to more flexible serialization formats like JSON or YAML.

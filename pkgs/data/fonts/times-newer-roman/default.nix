@@ -27,7 +27,7 @@ stdenvNoCC.mkDerivation {
     description = "A font that looks just like Times New Roman, except each character is 5-10% wider";
     homepage = "https://timesnewerroman.com/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.all;
   };
 }

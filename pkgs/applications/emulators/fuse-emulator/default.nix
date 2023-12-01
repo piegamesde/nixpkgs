@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  configureFlags = [ "--enable-desktop-integration" ];
+  configureFlags = ["--enable-desktop-integration"];
 
   enableParallelBuilding = true;
 
@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     description = "ZX Spectrum emulator";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

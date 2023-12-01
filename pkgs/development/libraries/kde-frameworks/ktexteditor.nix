@@ -39,5 +39,5 @@ mkDerivation {
     qtquickcontrols
     editorconfig-core-c
   ];
-  propagatedBuildInputs = [ kparts ];
+  propagatedBuildInputs = [kparts];
 }

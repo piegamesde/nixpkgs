@@ -63,12 +63,12 @@ buildPythonPackage rec {
   # Taken from tox.ini
   preCheck = "cd test_project";
 
-  pythonImportsCheck = [ "dal" ];
+  pythonImportsCheck = ["dal"];
 
   meta = with lib; {
     description = "A fresh approach to autocomplete implementations, specially for Django";
     homepage = "https://django-autocomplete-light.readthedocs.io";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

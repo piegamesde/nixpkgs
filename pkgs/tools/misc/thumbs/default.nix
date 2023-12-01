@@ -17,12 +17,12 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-6htKiXMMyYRFefJzvDnmdx3CJ3XL8zONhGlV2wcbr9g=";
 
-  patches = [ ./fix.patch ];
+  patches = [./fix.patch];
 
   meta = with lib; {
     homepage = "https://github.com/fcsonline/tmux-thumbs";
     description = "A lightning fast version copy/pasting like vimium/vimperator";
     license = licenses.mit;
-    maintainers = with maintainers; [ ghostbuster91 ];
+    maintainers = with maintainers; [ghostbuster91];
   };
 }

@@ -1,4 +1,4 @@
-{ dhallPackages, dhallPackageToNix }:
+{dhallPackages, dhallPackageToNix}:
 
 # `dhallDirectoryToNix is a utility function to take a directory of Dhall files
 # and read them in as a Nix expression.
@@ -20,6 +20,6 @@
 let
   generatedPkg = dhallPackages.generateDhallDirectoryPackage args;
 
-  builtPkg = dhallPackages.callPackage generatedPkg { };
+  builtPkg = dhallPackages.callPackage generatedPkg {};
 in
 dhallPackageToNix builtPkg

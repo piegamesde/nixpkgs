@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-MAXm/9ANj6TjO1Skpg20RYt88bf6w1uPwRwOHXiXsWw=";
   };
 
-  outputs = [ "out" ] ++ lib.optionals shared [ "dev" ];
+  outputs = ["out"] ++ lib.optionals shared ["dev"];
 
   nativeBuildInputs = [
     cmake
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     "-DBUILD_SHARED_LIBS=${if shared then "ON" else "OFF"}"
   ];
 
-  nativeCheckInputs = [ check ];
+  nativeCheckInputs = [check];
 
   preConfigure = ''
     # Enable long long support (required for filezilla)
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     description = "Light-weight, simple and fast XML parser for C++ with XPath support";
     homepage = "https://pugixml.org";
     license = licenses.mit;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = platforms.unix;
   };
 }

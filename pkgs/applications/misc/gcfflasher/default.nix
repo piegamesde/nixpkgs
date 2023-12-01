@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       --replace 'main_windows.c' 'main_posix.c'
   '';
 
-  buildInputs = lib.optionals stdenv.isLinux [ libgpiod ];
+  buildInputs = lib.optionals stdenv.isLinux [libgpiod];
 
   installPhase = ''
     runHook preInstall
@@ -40,6 +40,6 @@ stdenv.mkDerivation rec {
     description = "CFFlasher is the tool to program the firmware of dresden elektronik's Zigbee products";
     license = licenses.bsd3;
     homepage = "https://github.com/dresden-elektronik/gcfflasher";
-    maintainers = with maintainers; [ fleaz ];
+    maintainers = with maintainers; [fleaz];
   };
 }

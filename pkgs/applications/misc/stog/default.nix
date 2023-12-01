@@ -38,7 +38,7 @@ else
       sha256 = "sha256:0krj5w4y05bcfx7hk9blmap8avl31gp7yi01lpqzs6ync23mvm0x";
     };
 
-    nativeBuildInputs = [ menhir ];
+    nativeBuildInputs = [menhir];
     buildInputs = [
       fmt
       lwt_ppx
@@ -64,6 +64,6 @@ else
       description = "XML documents and web site compiler";
       homepage = "https://www.good-eris.net/stog";
       license = licenses.lgpl3;
-      maintainers = with maintainers; [ regnat ];
+      maintainers = with maintainers; [regnat];
     };
   }

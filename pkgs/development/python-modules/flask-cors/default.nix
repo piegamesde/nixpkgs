@@ -35,6 +35,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A Flask extension adding a decorator for CORS support";
     homepage = "https://github.com/corydolphin/flask-cors";
-    license = with licenses; [ mit ];
+    license = with licenses; [mit];
   };
 }

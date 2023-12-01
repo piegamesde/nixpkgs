@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.6";
 
-  propagatedBuildInputs = [ typing-extensions ];
+  propagatedBuildInputs = [typing-extensions];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -27,12 +27,12 @@ buildPythonPackage rec {
   ];
 
   # also fails upstream: https://github.com/aio-libs/janus/pull/258
-  disabledTests = [ "test_format" ];
+  disabledTests = ["test_format"];
 
   meta = with lib; {
     description = "Mixed sync-async queue";
     homepage = "https://github.com/aio-libs/janus";
     license = licenses.asl20;
-    maintainers = [ maintainers.simonchatts ];
+    maintainers = [maintainers.simonchatts];
   };
 }

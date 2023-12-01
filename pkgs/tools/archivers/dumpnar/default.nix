@@ -25,6 +25,6 @@ stdenv.mkDerivation rec {
     description = "Minimal tool to produce a Nix NAR archive.";
     license = licenses.lgpl2Plus;
     platforms = platforms.all;
-    maintainers = [ maintainers.stephank ];
+    maintainers = [maintainers.stephank];
   };
 }

@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
   {
     name = "listmonk";
-    meta.maintainers = with lib.maintainers; [ raitobezarius ];
+    meta.maintainers = with lib.maintainers; [raitobezarius];
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         services.mailhog.enable = true;
         services.listmonk = {

@@ -25,7 +25,7 @@ buildGoModule rec {
   meta = {
     description = "NATS Streaming System Server";
     license = licenses.asl20;
-    maintainers = [ maintainers.swdunlop ];
+    maintainers = [maintainers.swdunlop];
     homepage = "https://nats.io/";
   };
 }

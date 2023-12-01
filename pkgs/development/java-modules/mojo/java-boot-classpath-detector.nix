@@ -1,4 +1,4 @@
-{ fetchMaven }:
+{fetchMaven}:
 
 {
   mojoJavaBootClasspathDetector_1_11 =

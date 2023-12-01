@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-hNZgQwhm4UPqmANplZGxG0DYHa31tu06nmqYaCA7Vdg=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libgit2
     openssl
@@ -35,6 +35,6 @@ rustPlatform.buildRustPackage rec {
     description = "Generate Bazel BUILD files from Cargo dependencies";
     homepage = "https://github.com/google/cargo-raze";
     license = licenses.asl20;
-    maintainers = with maintainers; [ elasticdog ];
+    maintainers = with maintainers; [elasticdog];
   };
 }

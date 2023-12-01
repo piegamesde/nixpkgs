@@ -52,7 +52,7 @@ let
     '';
     homepage = "https://wire.com/";
     downloadPage = "https://wire.com/download/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [
       arianvp
@@ -101,7 +101,7 @@ let
       wrapGAppsHook
     ];
 
-    buildInputs = [ libxshmfence ] ++ atomEnv.packages;
+    buildInputs = [libxshmfence] ++ atomEnv.packages;
 
     unpackPhase = ''
       runHook preUnpack

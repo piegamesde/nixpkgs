@@ -22,7 +22,7 @@ stdenv.mkDerivation {
     cmake
     pkg-config
   ];
-  buildInputs = [ curl ];
+  buildInputs = [curl];
 
   meta = with lib; {
     homepage = "https://github.com/tohojo/http-getter";

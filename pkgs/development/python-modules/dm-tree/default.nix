@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-VvSJTuEYjIz/4TTibSLkbg65YmcYqHImTHOomeorMJc=";
   };
 
-  patches = [ ./cmake.patch ];
+  patches = [./cmake.patch];
 
   dontUseCmakeConfigure = true;
 
@@ -44,7 +44,7 @@ buildPythonPackage rec {
     wrapt
   ];
 
-  pythonImportsCheck = [ "tree" ];
+  pythonImportsCheck = ["tree"];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

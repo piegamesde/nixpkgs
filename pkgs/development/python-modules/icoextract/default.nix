@@ -24,12 +24,12 @@ buildPythonPackage rec {
   # tests expect mingw and multiarch
   doCheck = false;
 
-  pythonImportsCheck = [ "icoextract" ];
+  pythonImportsCheck = ["icoextract"];
 
   meta = with lib; {
     description = "Extract icons from Windows PE files";
     homepage = "https://github.com/jlu5/icoextract";
     license = licenses.mit;
-    maintainers = with maintainers; [ bryanasdev000 ];
+    maintainers = with maintainers; [bryanasdev000];
   };
 }

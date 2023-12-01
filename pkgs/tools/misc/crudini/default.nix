@@ -22,7 +22,7 @@ python3Packages.buildPythonApplication rec {
     installShellFiles
   ];
 
-  propagatedBuildInputs = with python3Packages; [ iniparse ];
+  propagatedBuildInputs = with python3Packages; [iniparse];
 
   postPatch = ''
     substituteInPlace crudini-help \
@@ -53,6 +53,6 @@ python3Packages.buildPythonApplication rec {
     description = "A utility for manipulating ini files ";
     homepage = "https://www.pixelbeat.org/programs/crudini/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

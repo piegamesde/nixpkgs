@@ -37,13 +37,13 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  buildInputs = [ snappy ];
+  buildInputs = [snappy];
 
-  nativeBuildInputs = lib.optional stdenv.isDarwin fixDarwinDylibNames ++ [ cmake ];
+  nativeBuildInputs = lib.optional stdenv.isDarwin fixDarwinDylibNames ++ [cmake];
 
   doCheck = true;
 
-  buildFlags = [ "all" ];
+  buildFlags = ["all"];
 
   # NOTE: disabling tests due to gtest issue
   cmakeFlags = [

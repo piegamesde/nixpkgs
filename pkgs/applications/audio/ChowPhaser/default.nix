@@ -101,8 +101,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/jatinchowdhury18/ChowPhaser";
     description = "Phaser effect based loosely on the Schulte Compact Phasing 'A'";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ magnetophon ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [magnetophon];
     platforms = platforms.linux;
   };
 }

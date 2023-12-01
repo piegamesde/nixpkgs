@@ -19,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-goFgDaGA7IrjVCekq097gr/sHj0eUvgMtg6oK5USUBw=";
   };
 
-  propagatedBuildInputs = [ regex ];
+  propagatedBuildInputs = [regex];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # test_benchmarks.py tests are actually benchmarks and may fail due to
@@ -46,6 +46,6 @@ buildPythonPackage rec {
     description = "Arbitrary-lookahead parser";
     homepage = "https://github.com/erikrose/parsimonious";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

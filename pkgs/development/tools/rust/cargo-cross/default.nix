@@ -18,10 +18,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-x+DrKo79R8TAeLVuvIIguQs3gdAHiAQ9dUU2/eZRZ0c=";
 
-  checkFlags = [ "--skip=docker::shared::tests::directories::test_host" ];
+  checkFlags = ["--skip=docker::shared::tests::directories::test_host"];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ otavio ];
+    maintainers = with maintainers; [otavio];
     mainProgram = "cross";
   };
 }

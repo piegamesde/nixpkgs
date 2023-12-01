@@ -14,14 +14,14 @@ buildPythonPackage rec {
     hash = "sha256-D4QPoiJHvKpRQJTafzsmxgI1lCmrEtLNiL4GtJozYpA=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "persisting_theory" ];
+  pythonImportsCheck = ["persisting_theory"];
 
   meta = with lib; {
     homepage = "https://code.agate.blue/agate/persisting-theory";
     description = "Automate data discovering and access inside a list of packages";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ mmai ];
+    maintainers = with maintainers; [mmai];
   };
 }

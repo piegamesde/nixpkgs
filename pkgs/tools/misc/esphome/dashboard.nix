@@ -17,12 +17,12 @@ buildPythonPackage rec {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "esphome_dashboard" ];
+  pythonImportsCheck = ["esphome_dashboard"];
 
   meta = with lib; {
     description = "ESPHome dashboard";
     homepage = "https://esphome.io/";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ hexa ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [hexa];
   };
 }

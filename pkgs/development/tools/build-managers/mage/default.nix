@@ -29,6 +29,6 @@ buildGoModule rec {
     description = "A Make/Rake-like Build Tool Using Go";
     homepage = "https://magefile.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ swdunlop ];
+    maintainers = with maintainers; [swdunlop];
   };
 }

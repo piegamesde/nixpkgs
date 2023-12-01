@@ -28,11 +28,11 @@ stdenv.mkDerivation rec {
     sha256 = "1rk71ls33a38wx8i22plsi7d89cqqxrfxknq5i4f9igsw1ipm4gn";
   };
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-narrowing" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-narrowing"];
 
-  buildFlags = [ "VSTSDK_PATH=${vst-sdk}/VST2_SDK" ];
+  buildFlags = ["VSTSDK_PATH=${vst-sdk}/VST2_SDK"];
 
-  buildInputs = [ libX11 ];
+  buildInputs = [libX11];
 
   installPhase = ''
     mkdir -p $out/lib/lxvst
@@ -42,8 +42,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/oxesoft/oxefmsynth";
     description = "An open source VST 2.4 instrument plugin";
-    maintainers = [ maintainers.hirenashah ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.hirenashah];
+    platforms = ["x86_64-linux"];
     license = licenses.gpl3Only;
   };
 }

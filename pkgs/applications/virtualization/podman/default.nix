@@ -18,7 +18,7 @@
   makeWrapper,
   runtimeShell,
   symlinkJoin,
-  extraPackages ? [ ],
+  extraPackages ? [],
   runc,
   crun,
   conmon,
@@ -56,7 +56,7 @@ let
 
     # this only works for some binaries, others may need to be be added to `binPath` or in the modules
     paths =
-      [ gvproxy ]
+      [gvproxy]
       ++ lib.optionals stdenv.isLinux [
         aardvark-dns
         catatonit # added here for the pause image and also set in `containersConf` for `init_path`
@@ -147,7 +147,7 @@ buildGoModule rec {
 
   postFixup = lib.optionalString stdenv.isLinux ''
     RPATH=$(patchelf --print-rpath $out/bin/.podman-wrapped)
-    patchelf --set-rpath "${lib.makeLibraryPath [ systemd ]}":$RPATH $out/bin/.podman-wrapped
+    patchelf --set-rpath "${lib.makeLibraryPath [systemd]}":$RPATH $out/bin/.podman-wrapped
   '';
 
   passthru.tests =
@@ -174,6 +174,6 @@ buildGoModule rec {
     '';
     changelog = "https://github.com/containers/podman/blob/v${version}/RELEASE_NOTES.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ marsam ] ++ teams.podman.members;
+    maintainers = with maintainers; [marsam] ++ teams.podman.members;
   };
 }

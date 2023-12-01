@@ -34,7 +34,7 @@ let
       type =
         with types;
         let
-          valueType = oneOf ([ (listOf valueType) ] ++ allowedTypes) // {
+          valueType = oneOf ([(listOf valueType)] ++ allowedTypes) // {
             description = "Flat key-value file";
           };
         in
@@ -68,8 +68,8 @@ let
 
   # generic template for all daemons
   systemdService = name: extraConfig: configFile: {
-    wantedBy = [ "multi-user.target" ];
-    wants = [ "network-online.target" ];
+    wantedBy = ["multi-user.target"];
+    wants = ["network-online.target"];
     after = [
       "network.target"
       "network-online.target"
@@ -178,7 +178,7 @@ in
           type = with types; listOf str;
           default = null;
           description = lib.mdDoc "Mount points to be used by chunkserver for storage (see mfshdd.cfg).";
-          example = [ "/mnt/hdd1" ];
+          example = ["/mnt/hdd1"];
         };
 
         settings = mkOption {
@@ -204,7 +204,7 @@ in
     mkIf (cfg.client.enable || cfg.master.enable || cfg.metalogger.enable || cfg.chunkserver.enable)
       {
 
-        warnings = [ (mkIf (!cfg.runAsUser) "Running moosefs services as root is not recommended.") ];
+        warnings = [(mkIf (!cfg.runAsUser) "Running moosefs services as root is not recommended.")];
 
         # Service settings
         services.moosefs = {
@@ -238,7 +238,7 @@ in
                 description = "moosefs daemon user";
                 group = "moosefs";
               };
-              groups.moosefs = { };
+              groups.moosefs = {};
             };
 
         environment.systemPackages =
@@ -270,11 +270,11 @@ in
         );
 
         systemd.services.mfs-metalogger = mkIf cfg.metalogger.enable (
-          systemdService "metalogger" { Restart = "on-abnormal"; } metaloggerCfg
+          systemdService "metalogger" {Restart = "on-abnormal";} metaloggerCfg
         );
 
         systemd.services.mfs-chunkserver = mkIf cfg.chunkserver.enable (
-          systemdService "chunkserver" { Restart = "on-abnormal"; } chunkserverCfg
+          systemdService "chunkserver" {Restart = "on-abnormal";} chunkserverCfg
         );
       };
 }

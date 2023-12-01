@@ -83,9 +83,9 @@ stdenv.mkDerivation rec {
     inherit (platformInfo) sha256;
   };
 
-  nativeBuildInputs = [ cmake ];
-  cmakeFlags = [ "-DPROJECT_ARCH=${platformInfo.projectArch}" ];
-  makeFlags = [ "libcef_dll_wrapper" ];
+  nativeBuildInputs = [cmake];
+  cmakeFlags = ["-DPROJECT_ARCH=${platformInfo.projectArch}"];
+  makeFlags = ["libcef_dll_wrapper"];
   dontStrip = true;
   dontPatchELF = true;
 
@@ -107,7 +107,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Simple framework for embedding Chromium-based browsers in other applications";
     homepage = "https://cef-builds.spotifycdn.com/index.html";
-    maintainers = with maintainers; [ puffnfresh ];
+    maintainers = with maintainers; [puffnfresh];
     sourceProvenance = with sourceTypes; [
       fromSource
       binaryNativeCode

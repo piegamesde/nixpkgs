@@ -37,7 +37,7 @@
 
 let
 
-  srcs = import ./srcs.nix { inherit lib fetchgit fetchFromGitHub; };
+  srcs = import ./srcs.nix {inherit lib fetchgit fetchFromGitHub;};
 
   qtCompatVersion = srcs.qtbase.version;
 
@@ -68,8 +68,8 @@ let
       # prevent headaches from stale qmlcache data
       ./qtdeclarative-default-disable-qmlcache.patch
     ];
-    qtscript = [ ./qtscript.patch ];
-    qtserialport = [ ./qtserialport.patch ];
+    qtscript = [./qtscript.patch];
+    qtserialport = [./qtserialport.patch];
     qtsystems =
       [
         # Enable building with udisks support
@@ -126,7 +126,7 @@ let
         ./qtwebkit-darwin-no-readline.patch
         ./qtwebkit-darwin-no-qos-classes.patch
       ];
-    qttools = [ ./qttools.patch ];
+    qttools = [./qttools.patch];
   };
 
   addPackages =
@@ -149,7 +149,7 @@ let
                 }
                 stdenv.mkDerivation;
           }
-          { inherit self srcs patches; };
+          {inherit self srcs patches;};
 
       callPackage = self.newScope {
         inherit
@@ -210,38 +210,38 @@ let
         xcbuild = darwin.apple_sdk_11_0.xcodebuild;
       };
 
-      qt3d = callPackage ../modules/qt3d.nix { };
-      qtcharts = callPackage ../modules/qtcharts.nix { };
-      qtconnectivity = callPackage ../modules/qtconnectivity.nix { };
-      qtdeclarative = callPackage ../modules/qtdeclarative.nix { };
-      qtdoc = callPackage ../modules/qtdoc.nix { };
+      qt3d = callPackage ../modules/qt3d.nix {};
+      qtcharts = callPackage ../modules/qtcharts.nix {};
+      qtconnectivity = callPackage ../modules/qtconnectivity.nix {};
+      qtdeclarative = callPackage ../modules/qtdeclarative.nix {};
+      qtdoc = callPackage ../modules/qtdoc.nix {};
       qtgamepad = callPackage ../modules/qtgamepad.nix {
         inherit (darwin.apple_sdk_11_0.frameworks) GameController;
       };
-      qtgraphicaleffects = callPackage ../modules/qtgraphicaleffects.nix { };
-      qtimageformats = callPackage ../modules/qtimageformats.nix { };
-      qtlocation = callPackage ../modules/qtlocation.nix { };
-      qtlottie = callPackage ../modules/qtlottie.nix { };
-      qtmacextras = callPackage ../modules/qtmacextras.nix { };
-      qtmultimedia = callPackage ../modules/qtmultimedia.nix { inherit gstreamer gst-plugins-base; };
-      qtnetworkauth = callPackage ../modules/qtnetworkauth.nix { };
-      qtpositioning = callPackage ../modules/qtpositioning.nix { };
+      qtgraphicaleffects = callPackage ../modules/qtgraphicaleffects.nix {};
+      qtimageformats = callPackage ../modules/qtimageformats.nix {};
+      qtlocation = callPackage ../modules/qtlocation.nix {};
+      qtlottie = callPackage ../modules/qtlottie.nix {};
+      qtmacextras = callPackage ../modules/qtmacextras.nix {};
+      qtmultimedia = callPackage ../modules/qtmultimedia.nix {inherit gstreamer gst-plugins-base;};
+      qtnetworkauth = callPackage ../modules/qtnetworkauth.nix {};
+      qtpositioning = callPackage ../modules/qtpositioning.nix {};
       qtquick1 = null;
-      qtquickcontrols = callPackage ../modules/qtquickcontrols.nix { };
-      qtquickcontrols2 = callPackage ../modules/qtquickcontrols2.nix { };
-      qtscript = callPackage ../modules/qtscript.nix { };
-      qtsensors = callPackage ../modules/qtsensors.nix { };
-      qtserialbus = callPackage ../modules/qtserialbus.nix { };
-      qtserialport = callPackage ../modules/qtserialport.nix { };
-      qtspeech = callPackage ../modules/qtspeech.nix { };
-      qtsvg = callPackage ../modules/qtsvg.nix { };
-      qtsystems = callPackage ../modules/qtsystems.nix { };
-      qtscxml = callPackage ../modules/qtscxml.nix { };
-      qttools = callPackage ../modules/qttools.nix { };
-      qttranslations = callPackage ../modules/qttranslations.nix { };
-      qtvirtualkeyboard = callPackage ../modules/qtvirtualkeyboard.nix { };
-      qtwayland = callPackage ../modules/qtwayland.nix { };
-      qtwebchannel = callPackage ../modules/qtwebchannel.nix { };
+      qtquickcontrols = callPackage ../modules/qtquickcontrols.nix {};
+      qtquickcontrols2 = callPackage ../modules/qtquickcontrols2.nix {};
+      qtscript = callPackage ../modules/qtscript.nix {};
+      qtsensors = callPackage ../modules/qtsensors.nix {};
+      qtserialbus = callPackage ../modules/qtserialbus.nix {};
+      qtserialport = callPackage ../modules/qtserialport.nix {};
+      qtspeech = callPackage ../modules/qtspeech.nix {};
+      qtsvg = callPackage ../modules/qtsvg.nix {};
+      qtsystems = callPackage ../modules/qtsystems.nix {};
+      qtscxml = callPackage ../modules/qtscxml.nix {};
+      qttools = callPackage ../modules/qttools.nix {};
+      qttranslations = callPackage ../modules/qttranslations.nix {};
+      qtvirtualkeyboard = callPackage ../modules/qtvirtualkeyboard.nix {};
+      qtwayland = callPackage ../modules/qtwayland.nix {};
+      qtwebchannel = callPackage ../modules/qtwebchannel.nix {};
       qtwebengine = callPackage ../modules/qtwebengine.nix {
         inherit (srcs.qtwebengine) version;
         python = python3;
@@ -277,19 +277,19 @@ let
           ;
         libobjc = darwin.apple_sdk_11_0.objc4;
       };
-      qtwebglplugin = callPackage ../modules/qtwebglplugin.nix { };
+      qtwebglplugin = callPackage ../modules/qtwebglplugin.nix {};
       qtwebkit = callPackage ../modules/qtwebkit.nix {
         inherit (darwin) ICU;
         inherit (darwin.apple_sdk_11_0.frameworks) OpenGL;
       };
-      qtwebsockets = callPackage ../modules/qtwebsockets.nix { };
+      qtwebsockets = callPackage ../modules/qtwebsockets.nix {};
       qtwebview = callPackage ../modules/qtwebview.nix {
         inherit (darwin.apple_sdk_11_0.frameworks) CoreFoundation WebKit;
       };
-      qtx11extras = callPackage ../modules/qtx11extras.nix { };
-      qtxmlpatterns = callPackage ../modules/qtxmlpatterns.nix { };
+      qtx11extras = callPackage ../modules/qtx11extras.nix {};
+      qtxmlpatterns = callPackage ../modules/qtxmlpatterns.nix {};
 
-      env = callPackage ../qt-env.nix { };
+      env = callPackage ../qt-env.nix {};
       full = env "qt-full-${qtbase.version}" (
         [
           qt3d
@@ -327,7 +327,7 @@ let
         makeSetupHook
           {
             name = "qmake-hook";
-            propagatedBuildInputs = [ self.qtbase.dev ];
+            propagatedBuildInputs = [self.qtbase.dev];
             substitutions = {
               inherit debug;
               fix_qmake_libtool = ../hooks/fix-qmake-libtool.sh;
@@ -351,4 +351,4 @@ let
       overrideScope' = lib.warn ''qt5 now uses makeScopeWithSplicing which does not have "overrideScope'", use "overrideScope".'' self.overrideScope;
     };
 in
-makeScopeWithSplicing (generateSplicesForMkScope "qt5") (_: { }) (_: { }) addPackages
+makeScopeWithSplicing (generateSplicesForMkScope "qt5") (_: {}) (_: {}) addPackages

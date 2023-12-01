@@ -58,7 +58,7 @@ buildPythonPackage rec {
     sphinx-autodoc-typehints
   ];
 
-  propagatedBuildInputs = [ packaging ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs = [packaging] ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   nativeCheckInputs = [
     pytest-mock
@@ -73,13 +73,13 @@ buildPythonPackage rec {
       "test_can_build_on_python_2"
     ];
 
-  pythonImportsCheck = [ "pyproject_api" ];
+  pythonImportsCheck = ["pyproject_api"];
 
   meta = with lib; {
     changelog = "https://github.com/tox-dev/pyproject-api/releases/tag/${version}";
     description = "API to interact with the python pyproject.toml based projects";
     homepage = "https://github.com/tox-dev/pyproject-api";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -11,7 +11,7 @@ with lib;
 
 {
 
-  meta = with lib; { maintainers = with maintainers; [ ] ++ teams.pantheon.members; };
+  meta = with lib; {maintainers = with maintainers; [] ++ teams.pantheon.members;};
 
   ###### interface
 
@@ -25,10 +25,10 @@ with lib;
 
   config = mkIf config.services.zeitgeist.enable {
 
-    environment.systemPackages = [ pkgs.zeitgeist ];
+    environment.systemPackages = [pkgs.zeitgeist];
 
-    services.dbus.packages = [ pkgs.zeitgeist ];
+    services.dbus.packages = [pkgs.zeitgeist];
 
-    systemd.packages = [ pkgs.zeitgeist ];
+    systemd.packages = [pkgs.zeitgeist];
   };
 }

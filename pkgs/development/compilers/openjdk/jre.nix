@@ -3,7 +3,7 @@
   jdk,
   lib,
   callPackage,
-  modules ? [ "java.base" ],
+  modules ? ["java.base"],
 }:
 
 let
@@ -11,13 +11,13 @@ let
     pname = "${jdk.pname}-minimal-jre";
     version = jdk.version;
 
-    buildInputs = [ jdk ];
+    buildInputs = [jdk];
 
     dontUnpack = true;
 
     # Strip more heavily than the default '-S', since if you're
     # using this derivation you probably care about this.
-    stripDebugFlags = [ "--strip-unneeded" ];
+    stripDebugFlags = ["--strip-unneeded"];
 
     buildPhase = ''
       runHook preBuild
@@ -32,8 +32,8 @@ let
     passthru = {
       home = "${jre}";
       tests = [
-        (callPackage ./tests/test_jre_minimal.nix { })
-        (callPackage ./tests/test_jre_minimal_with_logging.nix { })
+        (callPackage ./tests/test_jre_minimal.nix {})
+        (callPackage ./tests/test_jre_minimal_with_logging.nix {})
       ];
     };
   };

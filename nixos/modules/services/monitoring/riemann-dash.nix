@@ -63,12 +63,12 @@ in
       group = "riemanndash";
     };
 
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' - riemanndash riemanndash - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.dataDir}' - riemanndash riemanndash - -"];
 
     systemd.services.riemann-dash = {
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "riemann.service" ];
-      after = [ "riemann.service" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["riemann.service"];
+      after = ["riemann.service"];
       preStart = ''
         mkdir -p '${cfg.dataDir}/config'
       '';

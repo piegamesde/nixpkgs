@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     mv source/src/json source/thirdparty/jsoncpp
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     jsoncpp
     libGL

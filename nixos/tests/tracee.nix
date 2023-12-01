@@ -1,12 +1,12 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "tracee-integration";
     meta.maintainers = pkgs.tracee.meta.maintainers;
 
     nodes = {
       machine =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         {
           # EventFilters/trace_only_events_from_new_containers and
           # Test_EventFilters/trace_only_events_from_"dockerd"_binary_and_contain_it's_pid
@@ -33,7 +33,7 @@ import ./make-test-python.nix (
                       --replace "/usr/bin/dockerd" "dockerd" \
                       --replace "/usr/bin" "/run/current-system/sw/bin"
                   '';
-                nativeBuildInputs = oa.nativeBuildInputs or [ ] ++ [ makeWrapper ];
+                nativeBuildInputs = oa.nativeBuildInputs or [] ++ [makeWrapper];
                 buildPhase = ''
                   runHook preBuild
                   # just build the static lib we need for the go test binary
@@ -44,7 +44,7 @@ import ./make-test-python.nix (
                   runHook postBuild
                 '';
                 doCheck = false;
-                outputs = [ "out" ];
+                outputs = ["out"];
                 installPhase = ''
                   mkdir -p $out/bin
                   mv $GOPATH/tracee-integration $out/bin/

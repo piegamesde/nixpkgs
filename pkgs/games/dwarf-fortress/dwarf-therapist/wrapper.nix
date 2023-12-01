@@ -27,9 +27,9 @@ stdenv.mkDerivation {
     therapist = "${dwarf-therapist}";
   };
 
-  paths = [ dwarf-therapist ];
+  paths = [dwarf-therapist];
 
-  nativeBuildInputs = [ wrapQtAppsHook ];
+  nativeBuildInputs = [wrapQtAppsHook];
 
   passthru = {
     inherit dwarf-fortress dwarf-therapist;

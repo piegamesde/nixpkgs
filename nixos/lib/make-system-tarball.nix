@@ -17,7 +17,7 @@
   # a list of attribute sets {object, symlink} where `object' if a
   # store path whose closure will be copied, and `symlink' is a
   # symlink to `object' that will be added to the tarball.
-  storeContents ? [ ],
+  storeContents ? [],
 
   # Extra commands to be executed before archiving files
   extraCommands ? "",
@@ -29,7 +29,7 @@
   # Extension for the compressed tarball
   compressionExtension ? ".xz",
   # extra inputs, like the compressor to use
-  extraInputs ? [ pixz ],
+  extraInputs ? [pixz],
 }:
 
 let
@@ -56,7 +56,7 @@ stdenv.mkDerivation {
   # !!! should use XML.
   inherit symlinks objects;
 
-  closureInfo = closureInfo { rootPaths = objects; };
+  closureInfo = closureInfo {rootPaths = objects;};
 
   extension = compressionExtension;
 }

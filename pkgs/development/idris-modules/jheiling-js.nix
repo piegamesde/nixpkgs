@@ -26,6 +26,6 @@ build-idris-package {
     description = "Js library for Idris";
     homepage = "https://github.com/jheiling/idris-js";
     license = lib.licenses.unlicense;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

@@ -44,14 +44,14 @@ buildPythonPackage rec {
     multidict # Optional. Without this, one test in test/test_utils.py is skipped.
   ];
 
-  pytestFlagsArray = [ "--offline" ];
+  pytestFlagsArray = ["--offline"];
 
-  pythonImportsCheck = [ "warcio" ];
+  pythonImportsCheck = ["warcio"];
 
   meta = with lib; {
     description = "Streaming WARC/ARC library for fast web archive IO";
     homepage = "https://github.com/webrecorder/warcio";
     license = licenses.asl20;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
   };
 }

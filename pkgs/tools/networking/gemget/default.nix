@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Command line downloader for the Gemini protocol";
     homepage = "https://github.com/makeworld-the-better-one/gemget";
     license = licenses.mit;
-    maintainers = with maintainers; [ amfl ];
+    maintainers = with maintainers; [amfl];
   };
 }

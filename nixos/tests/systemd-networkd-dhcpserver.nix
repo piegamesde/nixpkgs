@@ -2,15 +2,15 @@
 # setting up a DHCP server and client, and ensuring they are mutually
 # reachable via the DHCP allocated address.
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "systemd-networkd-dhcpserver";
-    meta = with pkgs.lib.maintainers; { maintainers = [ tomfitzhenry ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [tomfitzhenry];};
     nodes = {
       router =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         {
-          virtualisation.vlans = [ 1 ];
+          virtualisation.vlans = [1];
           systemd.services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL = "debug";
           networking = {
             useNetworkd = true;
@@ -40,9 +40,9 @@ import ./make-test-python.nix (
         };
 
       client =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         {
-          virtualisation.vlans = [ 1 ];
+          virtualisation.vlans = [1];
           systemd.services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL = "debug";
           networking = {
             useNetworkd = true;
@@ -53,7 +53,7 @@ import ./make-test-python.nix (
         };
     };
     testScript =
-      { ... }:
+      {...}:
       ''
         start_all()
         router.wait_for_unit("systemd-networkd-wait-online.service")

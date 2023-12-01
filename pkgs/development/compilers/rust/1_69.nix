@@ -35,9 +35,7 @@ import ./default.nix
     llvmSharedForBuild = pkgsBuildBuild.llvmPackages_15.libllvm.override {
       enableSharedLibraries = true;
     };
-    llvmSharedForHost = pkgsBuildHost.llvmPackages_15.libllvm.override {
-      enableSharedLibraries = true;
-    };
+    llvmSharedForHost = pkgsBuildHost.llvmPackages_15.libllvm.override {enableSharedLibraries = true;};
     llvmSharedForTarget = pkgsBuildTarget.llvmPackages_15.libllvm.override {
       enableSharedLibraries = true;
     };
@@ -45,7 +43,7 @@ import ./default.nix
     llvmBootstrapForDarwin = llvmPackages_11;
 
     # For use at runtime
-    llvmShared = llvm_15.override { enableSharedLibraries = true; };
+    llvmShared = llvm_15.override {enableSharedLibraries = true;};
 
     # Expose llvmPackages used for rustc from rustc via passthru for LTO in Firefox
     llvmPackages = llvmPackages_15;
@@ -72,7 +70,7 @@ import ./default.nix
 
     selectRustPackage = pkgs: pkgs.rust_1_69;
 
-    rustcPatches = [ ];
+    rustcPatches = [];
   }
 
   (

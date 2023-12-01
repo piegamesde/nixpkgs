@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     alsa-lib
     minixml
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
 
     homepage = "http://aj-snapshot.sourceforge.net/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.mrVanDalo ];
+    maintainers = [maintainers.mrVanDalo];
     platforms = platforms.all;
   };
 }

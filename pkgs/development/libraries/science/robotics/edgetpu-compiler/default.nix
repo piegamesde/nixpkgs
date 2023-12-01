@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     dpkg
   ];
 
-  buildInputs = [ libcxx ];
+  buildInputs = [libcxx];
 
   unpackPhase = ''
     mkdir bin pkg
@@ -50,9 +50,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A command line tool that compiles a TensorFlow Lite model into an Edge TPU compatible file.";
     homepage = "https://coral.ai/docs/edgetpu/compiler";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.asl20;
-    maintainers = with maintainers; [ cpcloud ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [cpcloud];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-webkit2";
   version = "cl-webkit-20211209-git";
@@ -32,7 +32,7 @@ rec {
 
   packageName = "cl-webkit2";
 
-  asdFilesToKeep = [ "cl-webkit2.asd" ];
+  asdFilesToKeep = ["cl-webkit2.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-webkit2 DESCRIPTION An FFI binding to WebKit2GTK+ SHA256

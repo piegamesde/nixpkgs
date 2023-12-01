@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = pinData.serverCargoSha256;
 
   buildInputs =
-    [ postgresql ]
+    [postgresql]
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       Security

@@ -31,11 +31,11 @@ in
     };
   };
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
-    services.dbus.packages = [ cfg.package ];
-    services.udev.packages = [ cfg.package ];
+    services.dbus.packages = [cfg.package];
+    services.udev.packages = [cfg.package];
 
-    users.groups.feedbackd = { };
+    users.groups.feedbackd = {};
   };
 }

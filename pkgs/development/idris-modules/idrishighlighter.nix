@@ -26,6 +26,6 @@ build-idris-package {
     description = "Semantic highlighter for Idris code";
     homepage = "https://github.com/david-christiansen/idris-code-highlighter";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

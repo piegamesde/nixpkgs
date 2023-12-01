@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     '';
 
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ copumpkin ];
+    maintainers = with lib.maintainers; [copumpkin];
     platforms = lib.platforms.all;
   };
 }

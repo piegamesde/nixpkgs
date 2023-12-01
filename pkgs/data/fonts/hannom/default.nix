@@ -36,7 +36,7 @@ stdenvNoCC.mkDerivation rec {
     '';
     homepage = "https://vietunicode.sourceforge.net/fonts/fonts_hannom.html";
     license = licenses.unfree;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.all;
   };
 }

@@ -27,12 +27,12 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  checkInputs = [ ounit ];
+  checkInputs = [ounit];
 
   meta = with lib; {
     homepage = "https://github.com/pdonadeo/ocaml-lens";
     description = "Functional lenses";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ kazcw ];
+    maintainers = with maintainers; [kazcw];
   };
 }

@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-w7OHGZ7zntu8ZlI5gA19Iq7TKR23BQk9KpkUO+njL9Q=";
 
-  excludedPackages = [ "scripts" ];
+  excludedPackages = ["scripts"];
 
   ldflags = [
     "-s"
@@ -28,7 +28,7 @@ buildGoModule rec {
     description = "Automatically convert your existing AutoScaling groups to up to 90% cheaper spot instances with minimal configuration changes";
     homepage = "https://github.com/cloudutil/AutoSpotting";
     license = licenses.osl3;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
     mainProgram = "AutoSpotting";
     platforms = platforms.unix;
   };

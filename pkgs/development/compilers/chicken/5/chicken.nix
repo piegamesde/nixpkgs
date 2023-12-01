@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   setupHook = lib.optional (bootstrap-chicken != null) ./setup-hook.sh;
 
   # -fno-strict-overflow is not a supported argument in clang on darwin
-  hardeningDisable = lib.optionals stdenv.isDarwin [ "strictoverflow" ];
+  hardeningDisable = lib.optionals stdenv.isDarwin ["strictoverflow"];
 
   makeFlags =
     [
@@ -52,15 +52,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     makeWrapper
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ darwin.autoSignDarwinBinariesHook ];
+  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [darwin.autoSignDarwinBinariesHook];
 
-  buildInputs = lib.optionals (bootstrap-chicken != null) [ bootstrap-chicken ];
+  buildInputs = lib.optionals (bootstrap-chicken != null) [bootstrap-chicken];
 
   postInstall = ''
     for f in $out/bin/*
     do
       wrapProgram $f \
-        --prefix PATH : ${lib.makeBinPath [ stdenv.cc ]}
+        --prefix PATH : ${lib.makeBinPath [stdenv.cc]}
     done
   '';
 

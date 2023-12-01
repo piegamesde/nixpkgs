@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
     dbus # for dbus-run-session
   ];
 
-  mesonFlags = [ "-Dsystemd_user_unit_dir=${placeholder "out"}/lib/systemd/user" ];
+  mesonFlags = ["-Dsystemd_user_unit_dir=${placeholder "out"}/lib/systemd/user"];
 
   # Too deep of a rabbit hole.
   doCheck = false;

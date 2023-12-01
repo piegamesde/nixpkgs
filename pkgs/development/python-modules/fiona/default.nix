@@ -39,7 +39,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [ gdal ];
+  buildInputs = [gdal];
 
   propagatedBuildInputs = [
     attrs
@@ -52,8 +52,8 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    calc = [ shapely ];
-    s3 = [ boto3 ];
+    calc = [shapely];
+    s3 = [boto3];
   };
 
   nativeCheckInputs = [
@@ -72,13 +72,13 @@ buildPythonPackage rec {
     "wheel"
   ];
 
-  pythonImportsCheck = [ "fiona" ];
+  pythonImportsCheck = ["fiona"];
 
   meta = with lib; {
     changelog = "https://github.com/Toblerity/Fiona/blob/${src.rev}/CHANGES.txt";
     description = "OGR's neat, nimble, no-nonsense API for Python";
     homepage = "https://fiona.readthedocs.io/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ knedlsepp ];
+    maintainers = with maintainers; [knedlsepp];
   };
 }

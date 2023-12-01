@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "caddy";
     meta = with pkgs.lib.maintainers; {
@@ -11,7 +11,7 @@ import ./make-test-python.nix (
 
     nodes = {
       webserver =
-        { pkgs, lib, ... }:
+        {pkgs, lib, ...}:
         {
           services.caddy.enable = true;
           services.caddy.extraConfig = ''
@@ -20,7 +20,7 @@ import ./make-test-python.nix (
 
               file_server
               root * ${
-                pkgs.runCommand "testdir" { } ''
+                pkgs.runCommand "testdir" {} ''
                   mkdir "$out"
                   echo hello world > "$out/example.html"
                 ''
@@ -35,7 +35,7 @@ import ./make-test-python.nix (
 
                 file_server
                 root * ${
-                  pkgs.runCommand "testdir2" { } ''
+                  pkgs.runCommand "testdir2" {} ''
                     mkdir "$out"
                     echo changed > "$out/example.html"
                   ''
@@ -52,15 +52,15 @@ import ./make-test-python.nix (
           };
           specialisation.multiple-configs.configuration = {
             services.caddy.virtualHosts = {
-              "http://localhost:8080" = { };
-              "http://localhost:8081" = { };
+              "http://localhost:8080" = {};
+              "http://localhost:8081" = {};
             };
           };
         };
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         etagSystem = "${nodes.webserver.config.system.build.toplevel}/specialisation/etag";
         justReloadSystem = "${nodes.webserver.config.system.build.toplevel}/specialisation/config-reload";

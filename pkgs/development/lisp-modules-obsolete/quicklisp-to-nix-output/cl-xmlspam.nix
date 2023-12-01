@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-xmlspam";
   version = "20101006-http";
@@ -24,7 +24,7 @@ rec {
 
   packageName = "cl-xmlspam";
 
-  asdFilesToKeep = [ "cl-xmlspam.asd" ];
+  asdFilesToKeep = ["cl-xmlspam.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-xmlspam DESCRIPTION Streaming pattern matching for XML SHA256

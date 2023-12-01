@@ -58,8 +58,8 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    extra_pubkey_algs = [ oscrypto ];
-    xmp = [ defusedxml ];
+    extra_pubkey_algs = [oscrypto];
+    xmp = [defusedxml];
     opentype = [
       fonttools
       uharfbuzz
@@ -68,8 +68,8 @@ buildPythonPackage rec {
       pillow
       python-barcode
     ];
-    pkcs11 = [ python-pkcs11 ];
-    async_http = [ aiohttp ];
+    pkcs11 = [python-pkcs11];
+    async_http = [aiohttp];
   };
 
   postPatch = ''
@@ -119,12 +119,12 @@ buildPythonPackage rec {
     "test_ts_fetch_requests"
   ];
 
-  pythonImportsCheck = [ "pyhanko" ];
+  pythonImportsCheck = ["pyhanko"];
 
   meta = with lib; {
     description = "Sign and stamp PDF files";
     homepage = "https://github.com/MatthiasValvekens/pyHanko";
     license = licenses.mit;
-    maintainers = with maintainers; [ wolfangaukang ];
+    maintainers = with maintainers; [wolfangaukang];
   };
 }

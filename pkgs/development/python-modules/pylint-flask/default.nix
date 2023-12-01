@@ -18,7 +18,7 @@ buildPythonPackage rec {
     sha256 = "05qmwgkpvaa5k05abqjxfbrfk3wpdqb8ph690z7bzxvb47i7vngl";
   };
 
-  propagatedBuildInputs = [ pylint-plugin-utils ];
+  propagatedBuildInputs = [pylint-plugin-utils];
 
   # Tests require a very old version of pylint
   #   also tests are only available at GitHub, with an old release tag
@@ -28,6 +28,6 @@ buildPythonPackage rec {
     description = "A Pylint plugin to analyze Flask applications";
     homepage = "https://github.com/jschaf/pylint-flask";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

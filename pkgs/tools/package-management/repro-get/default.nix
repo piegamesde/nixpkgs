@@ -21,7 +21,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-GM8sKIZb2G9dBj2RoRO80hQrv8D+hHYo0O9FbBuK780=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # The pkg/version test requires internet access, so disable it here and run it
   # in passthru.pkg-version
@@ -49,7 +49,7 @@ buildGoModule rec {
         name = "${repro-get.pname}-${
           builtins.unsafeDiscardStringContext (lib.substring 0 12 (baseNameOf repro-get.drvPath))
         }";
-        subPackages = [ "pkg/version" ];
+        subPackages = ["pkg/version"];
         installPhase = ''
           rm -rf $out
           touch $out
@@ -58,8 +58,8 @@ buildGoModule rec {
         outputHash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
         outputHashAlgo = "sha256";
         outputHashMode = "flat";
-        outputs = [ "out" ];
-        nativeBuildInputs = old.nativeBuildInputs ++ [ cacert ];
+        outputs = ["out"];
+        nativeBuildInputs = old.nativeBuildInputs ++ [cacert];
       }
     );
     version = testers.testVersion {
@@ -73,6 +73,6 @@ buildGoModule rec {
     description = "Reproducible apt/dnf/apk/pacman, with content-addressing";
     homepage = "https://github.com/reproducible-containers/repro-get";
     license = licenses.asl20;
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
   };
 }

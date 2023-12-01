@@ -29,7 +29,7 @@ buildGoModule rec {
   # tests expect the source files to be a build repo
   doCheck = false;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall =
     let

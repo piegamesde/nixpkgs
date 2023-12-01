@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
     url = "https://search.maven.org/remotecontent?filepath=io/zipkin/java/zipkin-server/${version}/zipkin-server-${version}-exec.jar";
     sha256 = "02369fkv0kbl1isq6y26fh2zj5wxv3zck522m5wypsjlcfcw2apa";
   };
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildCommand = ''
     mkdir -p $out/share/java
@@ -24,10 +24,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Zipkin distributed tracing system";
     homepage = "https://zipkin.io/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = [ maintainers.hectorj ];
+    maintainers = [maintainers.hectorj];
     mainProgram = "zipkin-server";
   };
 }

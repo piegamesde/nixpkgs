@@ -1,4 +1,4 @@
-{ lib, ... }:
+{lib, ...}:
 {
   imports = [
     (lib.doRename {
@@ -17,7 +17,7 @@
     })
   ];
   options = {
-    c.d.e = lib.mkOption { };
+    c.d.e = lib.mkOption {};
   };
   config = {
     a.b = 1234;

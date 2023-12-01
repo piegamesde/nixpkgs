@@ -23,15 +23,15 @@ stdenv.mkDerivation rec {
     gfortran
   ];
 
-  propagatedBuildInputs = [ (python3.withPackages (p: with p; [ pybind11 ])) ];
+  propagatedBuildInputs = [(python3.withPackages (p: with p; [pybind11]))];
 
-  cmakeFlags = [ "-DXCFUN_MAX_ORDER=3" ];
+  cmakeFlags = ["-DXCFUN_MAX_ORDER=3"];
 
   meta = with lib; {
     description = "A library of exchange-correlation functionals with arbitrary-order derivatives";
     homepage = "https://github.com/dftlibs/xcfun";
     license = licenses.mpl20;
     platforms = platforms.unix;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

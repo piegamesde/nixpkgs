@@ -37,7 +37,7 @@ buildGoModule rec {
 
   CGO_ENABLED = 0;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -54,7 +54,7 @@ buildGoModule rec {
 
   postInstall = ''
     wrapProgram "$out/bin/faas-cli" \
-      --prefix PATH : ${lib.makeBinPath [ git ]}
+      --prefix PATH : ${lib.makeBinPath [git]}
 
     installShellCompletion --cmd metal \
       --bash <($out/bin/faas-cli completion --shell bash) \

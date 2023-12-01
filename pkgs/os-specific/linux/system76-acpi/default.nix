@@ -20,11 +20,11 @@ stdenv.mkDerivation {
     inherit sha256;
   };
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  buildFlags = [ "KERNEL_DIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
+  buildFlags = ["KERNEL_DIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"];
 
   installPhase = ''
     install -D system76_acpi.ko $out/lib/modules/${kernel.modDirVersion}/misc/system76_acpi.ko
@@ -33,8 +33,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    maintainers = [ maintainers.khumba ];
-    license = [ licenses.gpl2Only ];
+    maintainers = [maintainers.khumba];
+    license = [licenses.gpl2Only];
     platforms = [
       "i686-linux"
       "x86_64-linux"

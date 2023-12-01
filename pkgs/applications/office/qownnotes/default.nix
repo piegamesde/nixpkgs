@@ -31,7 +31,7 @@ stdenv.mkDerivation {
     qmake
     qttools
     wrapQtAppsHook
-  ] ++ lib.optionals stdenv.isDarwin [ makeWrapper ];
+  ] ++ lib.optionals stdenv.isDarwin [makeWrapper];
 
   buildInputs = [
     qtbase
@@ -39,7 +39,7 @@ stdenv.mkDerivation {
     qtsvg
     qtwebsockets
     qt5compat
-  ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
+  ] ++ lib.optionals stdenv.isLinux [qtwayland];
 
   postInstall =
     # Create a lowercase symlink for Linux

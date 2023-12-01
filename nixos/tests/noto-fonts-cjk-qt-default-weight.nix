@@ -1,21 +1,21 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "noto-fonts-cjk-qt";
-    meta.maintainers = with lib.maintainers; [ oxalica ];
+    meta.maintainers = with lib.maintainers; [oxalica];
 
     nodes.machine = {
-      imports = [ ./common/x11.nix ];
+      imports = [./common/x11.nix];
       fonts = {
         enableDefaultFonts = false;
-        fonts = [ pkgs.noto-fonts-cjk-sans ];
+        fonts = [pkgs.noto-fonts-cjk-sans];
       };
     };
 
     testScript =
       let
         script =
-          pkgs.writers.writePython3 "qt-default-weight" { libraries = [ pkgs.python3Packages.pyqt6 ]; }
+          pkgs.writers.writePython3 "qt-default-weight" {libraries = [pkgs.python3Packages.pyqt6];}
             ''
               from PyQt6.QtWidgets import QApplication
               from PyQt6.QtGui import QFont, QRawFont

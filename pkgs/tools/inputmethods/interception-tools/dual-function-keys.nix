@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xlplbkeptXMBlRnSsc5NgGJfT8aoZxTRgTwTOd7aiWg=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libevdev
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/interception/linux/plugins/dual-function-keys";
     description = "Tap for one key, hold for another.";
     license = licenses.mit;
-    maintainers = with maintainers; [ svend ];
+    maintainers = with maintainers; [svend];
     platforms = platforms.linux;
   };
 }

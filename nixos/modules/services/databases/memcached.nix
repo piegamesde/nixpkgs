@@ -57,7 +57,7 @@ in
 
       extraOptions = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "A list of extra options that will be added as a suffix when running memcached.";
       };
     };
@@ -72,15 +72,15 @@ in
       memcached.isSystemUser = true;
       memcached.group = "memcached";
     };
-    users.groups = optionalAttrs (cfg.user == "memcached") { memcached = { }; };
+    users.groups = optionalAttrs (cfg.user == "memcached") {memcached = {};};
 
-    environment.systemPackages = [ memcached ];
+    environment.systemPackages = [memcached];
 
     systemd.services.memcached = {
       description = "Memcached server";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         ExecStart =

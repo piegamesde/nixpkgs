@@ -62,7 +62,7 @@ stdenvNoCC.mkDerivation rec {
     xcursorgen
   ];
 
-  patches = [ ./makefile-shell-var.patch ];
+  patches = [./makefile-shell-var.patch];
 
   postPatch = ''
     patchShebangs ./install-all ./bin/
@@ -108,14 +108,14 @@ stdenvNoCC.mkDerivation rec {
     # Have the most-traditional variant be the default output (as the first).
     # Even with outputsToInstall=[], the default/first still has an effect on
     # some Nix tools (e.g. nix-build).
-    [ default ]
+    [default]
     ++ (lib.remove default variants)
     # Need a dummy "out" output to prevent the builder scripts from breaking.
-    ++ [ "out" ];
+    ++ ["out"];
 
   # No default output (to the extent possible).  Instead, the outputs'
   # attributes are used to choose which variant(s) to have.
-  outputsToInstall = [ ];
+  outputsToInstall = [];
 
   meta = with lib; {
     description = "The Comix Cursors mouse themes";
@@ -133,7 +133,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://gitlab.com/limitland/comixcursors";
     changelog = "https://gitlab.com/limitland/comixcursors/-/blob/HEAD/NEWS";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.DerickEddington ];
+    maintainers = [maintainers.DerickEddington];
     platforms = platforms.all;
   };
 }

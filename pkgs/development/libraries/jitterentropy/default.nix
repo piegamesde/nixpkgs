@@ -21,9 +21,9 @@ stdenv.mkDerivation rec {
   ];
 
   enableParallelBuilding = true;
-  hardeningDisable = [ "fortify" ]; # avoid warnings
+  hardeningDisable = ["fortify"]; # avoid warnings
 
-  installFlags = [ "PREFIX=${placeholder "out"}" ];
+  installFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     description = "Provides a noise source using the CPU execution timing jitter";

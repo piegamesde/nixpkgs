@@ -17,12 +17,12 @@ buildPythonPackage rec {
   # requires distorm, which is optionally
   doCheck = false;
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   meta = with lib; {
     description = "Python binding of ptrace library";
     homepage = "https://github.com/vstinner/python-ptrace";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
   };
 }

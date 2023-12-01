@@ -15,10 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8We76UfdU7uevAwdzvXbatc6wdYITyxvk3bFw2DMTU4=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libnl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libnl];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = {
     description = "Tool to use nl80211";

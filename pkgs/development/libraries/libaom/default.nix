@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-  patches = [ ./outputs.patch ];
+  patches = [./outputs.patch];
 
   nativeBuildInputs = [
     yasm
@@ -56,8 +56,8 @@ stdenv.mkDerivation rec {
       "-DBUILD_SHARED_LIBS=ON"
       "-DENABLE_TESTS=OFF"
     ]
-    ++ lib.optionals enableButteraugli [ "-DCONFIG_TUNE_BUTTERAUGLI=1" ]
-    ++ lib.optionals enableVmaf [ "-DCONFIG_TUNE_VMAF=1" ]
+    ++ lib.optionals enableButteraugli ["-DCONFIG_TUNE_BUTTERAUGLI=1"]
+    ++ lib.optionals enableVmaf ["-DCONFIG_TUNE_VMAF=1"]
     ++
       lib.optionals (stdenv.isDarwin && stdenv.isAarch64)
         [
@@ -105,7 +105,7 @@ stdenv.mkDerivation rec {
       dandellion
     ];
     platforms = platforms.all;
-    outputsToInstall = [ "bin" ];
+    outputsToInstall = ["bin"];
     license = licenses.bsd2;
   };
 }

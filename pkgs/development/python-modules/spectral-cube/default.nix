@@ -28,7 +28,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     astropy
@@ -46,14 +46,14 @@ buildPythonPackage rec {
 
   # On x86_darwin, this test fails with "Fatal Python error: Aborted"
   # when sandbox = true.
-  disabledTestPaths = lib.optionals stdenv.isDarwin [ "spectral_cube/tests/test_visualization.py" ];
+  disabledTestPaths = lib.optionals stdenv.isDarwin ["spectral_cube/tests/test_visualization.py"];
 
   meta = {
     description = "Library for reading and analyzing astrophysical spectral data cubes";
     homepage = "http://radio-astro-tools.github.io";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ smaret ];
+    maintainers = with lib.maintainers; [smaret];
     broken = true;
   };
 }

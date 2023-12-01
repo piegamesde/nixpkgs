@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     let
       path = lib.makeBinPath [
         udisks2
-        (python3.withPackages (p: [ p.dbus-python ]))
+        (python3.withPackages (p: [p.dbus-python]))
       ];
 
       wrapVifmMedia = "wrapProgram $out/share/vifm/vifm-media --prefix PATH : ${path}";
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A vi-like file manager${lib.optionalString isFullPackage "; Includes support for optional features"}";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = if mediaSupport then platforms.linux else platforms.unix;
     license = licenses.gpl2;
     downloadPage = "https://vifm.info/downloads.shtml";

@@ -56,20 +56,20 @@ let
       nameSuffix ? "",
       icon ? applicationName,
       wmClass ? applicationName,
-      extraNativeMessagingHosts ? [ ],
-      pkcs11Modules ? [ ],
+      extraNativeMessagingHosts ? [],
+      pkcs11Modules ? [],
       useGlvnd ? true,
-      cfg ? config.${applicationName} or { },
+      cfg ? config.${applicationName} or {},
 
       ## Following options are needed for extra prefs & policies
       # For more information about anti tracking (german website)
       # visit https://wiki.kairaven.de/open/app/firefox
       extraPrefs ? "",
-      extraPrefsFiles ? [ ],
+      extraPrefsFiles ? [],
       # For more information about policies visit
       # https://github.com/mozilla/policy-templates#enterprisepoliciesenabled
-      extraPolicies ? { },
-      extraPoliciesFiles ? [ ],
+      extraPolicies ? {},
+      extraPoliciesFiles ? [],
       libName ? browser.libName or "firefox", # Important for tor package or the like
       nixExtensions ? null,
     }:
@@ -85,7 +85,7 @@ let
       smartcardSupport = cfg.smartcardSupport or false;
 
       nativeMessagingHosts =
-        [ ]
+        []
         ++ lib.optional (cfg.enableBrowserpass or false) (lib.getBin browserpass)
         ++ lib.optional (cfg.enableBukubrow or false) bukubrow
         ++ lib.optional (cfg.enableEUWebID or false) web-eid-app
@@ -130,7 +130,7 @@ let
         ++ lib.optional smartcardSupport opensc
         ++ lib.optional (cfg.speechSynthesisSupport or false) speechd
         ++ pkcs11Modules;
-      gtk_modules = [ libcanberra-gtk3 ];
+      gtk_modules = [libcanberra-gtk3];
 
       launcherName = "${applicationName}${nameSuffix}";
 
@@ -188,11 +188,11 @@ let
                     };
                   }
                 )
-                { }
+                {}
                 extensions;
 
             Extensions = {
-              Install = lib.foldr (e: ret: ret ++ [ "${e.outPath}/${e.extid}.xpi" ]) [ ] extensions;
+              Install = lib.foldr (e: ret: ret ++ ["${e.outPath}/${e.extid}.xpi"]) [] extensions;
             };
           }
           // lib.optionalAttrs smartcardSupport {
@@ -306,7 +306,7 @@ let
         lndir
         jq
       ];
-      buildInputs = [ browser.gtk3 ];
+      buildInputs = [browser.gtk3];
 
       buildCommand = ''
         if [ ! -x "${browser}/bin/${applicationName}" ]
@@ -480,11 +480,11 @@ let
         unwrapped = browser;
       };
 
-      disallowedRequisites = [ stdenv.cc ];
+      disallowedRequisites = [stdenv.cc];
 
       meta = browser.meta // {
         inherit (browser.meta) description;
-        hydraPlatforms = [ ];
+        hydraPlatforms = [];
         priority = (browser.meta.priority or 0) - 1; # prefer wrapper over the package
       };
     };

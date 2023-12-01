@@ -33,14 +33,14 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     platformdirs
     traitlets
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -56,12 +56,12 @@ buildPythonPackage rec {
     $out/bin/jupyter --help > /dev/null
   '';
 
-  pythonImportsCheck = [ "jupyter_core" ];
+  pythonImportsCheck = ["jupyter_core"];
 
   meta = with lib; {
     description = "Base package on which Jupyter projects rely";
     homepage = "https://jupyter.org/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fridh ];
+    maintainers = with maintainers; [fridh];
   };
 }

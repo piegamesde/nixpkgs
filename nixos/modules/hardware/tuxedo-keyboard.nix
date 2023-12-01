@@ -35,7 +35,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    boot.kernelModules = [ "tuxedo_keyboard" ];
-    boot.extraModulePackages = [ tuxedo-keyboard ];
+    boot.kernelModules = ["tuxedo_keyboard"];
+    boot.extraModulePackages = [tuxedo-keyboard];
   };
 }

@@ -13,7 +13,7 @@ buildPythonPackage {
   disabled = isPy27;
   inherit (libndtypes) version src meta;
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   postPatch = ''
     substituteInPlace setup.py \

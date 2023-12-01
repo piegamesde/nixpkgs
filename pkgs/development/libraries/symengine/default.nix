@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     cp ${catch}/include/catch/catch.hpp symengine/utilities/catch/catch.hpp
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     gmp
@@ -59,6 +59,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/symengine/symengine";
     platforms = platforms.unix ++ platforms.windows;
     license = licenses.bsd3;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

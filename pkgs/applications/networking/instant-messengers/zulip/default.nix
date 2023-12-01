@@ -14,7 +14,7 @@ let
     name = "${pname}-${version}.AppImage";
   };
 
-  appimageContents = appimageTools.extractType2 { inherit pname version src; };
+  appimageContents = appimageTools.extractType2 {inherit pname version src;};
 in
 appimageTools.wrapType2 {
   inherit pname version src;
@@ -36,6 +36,6 @@ appimageTools.wrapType2 {
       andersk
       jonafato
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

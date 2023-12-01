@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
   ];
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   src = fetchFromGitHub {
     owner = "libesmtp";

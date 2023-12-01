@@ -15,16 +15,16 @@ buildPythonPackage rec {
     hash = "sha256-aoDKBuDxJCeXbVwCXhse6FCbDDM30/Xa8p9qRvDkWBk=";
   };
 
-  propagatedBuildInputs = [ mergedict ];
+  propagatedBuildInputs = [mergedict];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "configclass" ];
+  pythonImportsCheck = ["configclass"];
 
   meta = with lib; {
     description = "A Python to class to hold configuration values";
     homepage = "https://github.com/schettino72/configclass/";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

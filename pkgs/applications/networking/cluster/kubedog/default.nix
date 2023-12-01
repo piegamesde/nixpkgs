@@ -20,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-OgfgCsysNtY7mZQXdmHFyJ0FqmBD3SeQdTLd5Lw3F7k=";
 
-  subPackages = [ "cmd/kubedog" ];
+  subPackages = ["cmd/kubedog"];
 
   ldflags = [
     "-s"
@@ -45,6 +45,6 @@ buildGoModule rec {
     homepage = "https://github.com/werf/kubedog";
     changelog = "https://github.com/werf/kubedog/releases/tag/${src.rev}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
   };
 }

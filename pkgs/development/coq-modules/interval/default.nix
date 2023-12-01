@@ -59,7 +59,7 @@ mkCoqDerivation rec {
   release."3.3.0".sha256 = "0lz2hgggzn4cvklvm8rpaxvwaryf37i8mzqajqgdxdbd8f12acsz";
   releaseRev = v: "interval-${v}";
 
-  nativeBuildInputs = [ autoconf ];
+  nativeBuildInputs = [autoconf];
   propagatedBuildInputs =
     lib.optional (lib.versions.isGe "8.6" coq.coq-version) bignums
     ++ [
@@ -68,7 +68,7 @@ mkCoqDerivation rec {
       mathcomp-ssreflect
       mathcomp-fingroup
     ]
-    ++ lib.optionals (lib.versions.isGe "4.2.0" defaultVersion) [ gnuplot_qt ];
+    ++ lib.optionals (lib.versions.isGe "4.2.0" defaultVersion) [gnuplot_qt];
   useMelquiondRemake.logpath = "Interval";
   mlPlugin = true;
   enableParallelBuilding = true;
@@ -76,6 +76,6 @@ mkCoqDerivation rec {
   meta = with lib; {
     description = "Tactics for simplifying the proofs of inequalities on expressions of real numbers for the Coq proof assistant";
     license = licenses.cecill-c;
-    maintainers = with maintainers; [ vbgl ];
+    maintainers = with maintainers; [vbgl];
   };
 }

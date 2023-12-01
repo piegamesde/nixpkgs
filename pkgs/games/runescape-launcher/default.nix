@@ -98,10 +98,10 @@ let
     meta = with lib; {
       description = "Launcher for RuneScape 3, the current main RuneScape";
       homepage = "https://www.runescape.com/";
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
       license = licenses.unfree;
-      maintainers = with maintainers; [ grburst ];
-      platforms = [ "x86_64-linux" ];
+      maintainers = with maintainers; [grburst];
+      platforms = ["x86_64-linux"];
     };
   };
 in
@@ -132,7 +132,7 @@ buildFHSEnv {
     xorg_sys_opengl
     zlib
   ];
-  multiPkgs = pkgs: [ libGL ];
+  multiPkgs = pkgs: [libGL];
   runScript = "runescape-launcher";
   extraInstallCommands = ''
     mkdir -p "$out/share/applications"
@@ -146,7 +146,7 @@ buildFHSEnv {
     description = "RuneScape Game Client (NXT) - Launcher for RuneScape 3";
     homepage = "https://www.runescape.com/";
     license = licenses.unfree;
-    maintainers = with maintainers; [ grburst ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [grburst];
+    platforms = ["x86_64-linux"];
   };
 }

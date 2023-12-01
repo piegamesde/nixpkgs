@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "fare-quasiquote-extras";
   version = "fare-quasiquote-20200925-git";
@@ -30,7 +30,7 @@ rec {
 
   packageName = "fare-quasiquote-extras";
 
-  asdFilesToKeep = [ "fare-quasiquote-extras.asd" ];
+  asdFilesToKeep = ["fare-quasiquote-extras.asd"];
   overrides = x: x;
 }
 /* (SYSTEM fare-quasiquote-extras DESCRIPTION fare-quasiquote plus extras

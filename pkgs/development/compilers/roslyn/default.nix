@@ -28,7 +28,7 @@ buildDotnetModule rec {
 
   dontDotnetFixup = true;
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   postPatch = ''
     sed -i 's/latestPatch/latestFeature/' global.json
@@ -67,6 +67,6 @@ buildDotnetModule rec {
     mainProgram = "csc";
     platforms = platforms.linux;
     license = licenses.mit;
-    maintainers = with maintainers; [ corngood ];
+    maintainers = with maintainers; [corngood];
   };
 }

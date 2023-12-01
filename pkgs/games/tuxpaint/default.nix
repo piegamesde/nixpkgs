@@ -45,14 +45,14 @@ stdenv.mkDerivation rec {
     gperf
     imagemagick
   ];
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
   makeFlags = [
     "GPERF=${gperf}/bin/gperf"
     "PREFIX=$$out"
     "COMPLETIONDIR=$$out/share/bash-completion/completions"
   ];
 
-  patches = [ ./tuxpaint-completion.diff ];
+  patches = [./tuxpaint-completion.diff];
   postPatch = ''
     grep -Zlr include.*SDL . | xargs -0 sed -i -e 's,"SDL,"SDL/SDL,'
   '';
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
     description = "Open Source Drawing Software for Children";
     homepage = "http://www.tuxpaint.org/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ woffs ];
+    maintainers = with lib.maintainers; [woffs];
     platforms = lib.platforms.linux;
   };
 }

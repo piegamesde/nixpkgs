@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     ppx_derivers
   ];
 
-  buildFlags = [ "build" ]; # do not "make tests" before reason lib is installed
+  buildFlags = ["build"]; # do not "make tests" before reason lib is installed
 
   installPhase = ''
     runHook preInstall
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.tests = {
-    hello = callPackage ./tests/hello { };
+    hello = callPackage ./tests/hello {};
   };
 
   meta = with lib; {
@@ -74,6 +74,6 @@ stdenv.mkDerivation rec {
     description = "Facebook's friendly syntax to OCaml";
     license = licenses.mit;
     inherit (ocaml.meta) platforms;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-xyVEvD8s1J9Wj9NB4Gg+0ldvde7M8IVpzCOTttC1IY0=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     fontconfig
     libX11
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/gnotclub/xst";
     description = "Suckless Terminal fork";
     license = licenses.mit;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.linux;
   };
 }

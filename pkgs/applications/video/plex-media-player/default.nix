@@ -24,7 +24,7 @@ let
   # are fetched ahead-of-time instead of during the CMake build. To update
   # plex-media-player use the update.sh script, so the versions and hashes
   # for these files are are also updated!
-  depSrcs = import ./deps.nix { inherit fetchurl; };
+  depSrcs = import ./deps.nix {inherit fetchurl;};
 in
 mkDerivation rec {
   pname = "plex-media-player";
@@ -82,7 +82,7 @@ mkDerivation rec {
   meta = with lib; {
     description = "Streaming media player for Plex";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ b4dm4n ];
+    maintainers = with maintainers; [b4dm4n];
     homepage = "https://plex.tv";
     mainProgram = "plexmediaplayer";
   };

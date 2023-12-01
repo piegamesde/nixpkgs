@@ -22,7 +22,7 @@ python3.pkgs.buildPythonApplication rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ installShellFiles ] ++ (with python3.pkgs; [ setuptools-scm ]);
+  nativeBuildInputs = [installShellFiles] ++ (with python3.pkgs; [setuptools-scm]);
 
   propagatedBuildInputs = with python3.pkgs; [
     atomicwrites
@@ -74,7 +74,7 @@ python3.pkgs.buildPythonApplication rec {
     "test_sorting_fields"
   ];
 
-  pythonImportsCheck = [ "todoman" ];
+  pythonImportsCheck = ["todoman"];
 
   meta = with lib; {
     homepage = "https://github.com/pimutils/todoman";
@@ -92,6 +92,6 @@ python3.pkgs.buildPythonApplication rec {
     '';
     changelog = "https://github.com/pimutils/todoman/raw/v${version}/CHANGELOG.rst";
     license = licenses.isc;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
   };
 }

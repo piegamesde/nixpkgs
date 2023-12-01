@@ -139,7 +139,7 @@ stdenv.mkDerivation rec {
         "AudioVideoEditing"
         "Audio"
       ];
-      keywords = [ "music" ];
+      keywords = ["music"];
     })
   ];
 
@@ -150,7 +150,7 @@ stdenv.mkDerivation rec {
     sha256 = "079alr6y0101k92v5lrnycljcbifh0hsvklbf4w5ax2zrxnyplq8";
   };
 
-  patches = [ ./rack-minimize-vendoring.patch ];
+  patches = [./rack-minimize-vendoring.patch];
 
   prePatch = ''
     # As we can't use `make dep` to set up the dependencies (as explained

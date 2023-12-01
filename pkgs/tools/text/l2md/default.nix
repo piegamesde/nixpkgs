@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-H/leDUwQM55akyXsmTnI2YsnG4i1KQtf4bBt1fizy8E=";
   };
 
-  buildInputs = [ libgit2 ];
+  buildInputs = [libgit2];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://git.kernel.org/pub/scm/linux/kernel/git/dborkman/l2md.git";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ yoctocell ];
+    maintainers = with maintainers; [yoctocell];
     platforms = platforms.unix;
   };
 }

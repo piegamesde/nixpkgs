@@ -34,7 +34,7 @@ buildPythonPackage {
     hash = "sha256-sTkAKxtJa7CVYKuXC//eMmf3l8ABsrEr2mdf1r2Gf9A=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -48,9 +48,9 @@ buildPythonPackage {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "-m 'not network'" ];
+  pytestFlagsArray = ["-m 'not network'"];
 
-  pythonImportsCheck = [ "kanidm" ];
+  pythonImportsCheck = ["kanidm"];
 
   meta = with lib; {
     description = "Kanidm client library";

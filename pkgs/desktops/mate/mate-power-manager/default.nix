@@ -50,11 +50,11 @@ stdenv.mkDerivation rec {
     mate-panel
   ];
 
-  configureFlags = [ "--enable-applets" ];
+  configureFlags = ["--enable-applets"];
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "The MATE Power Manager";
@@ -64,6 +64,6 @@ stdenv.mkDerivation rec {
       fdl11Plus
     ];
     platforms = platforms.unix;
-    maintainers = teams.mate.members ++ (with maintainers; [ chpatrick ]);
+    maintainers = teams.mate.members ++ (with maintainers; [chpatrick]);
   };
 }

@@ -28,6 +28,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Persian/Arabic Open Source Font";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -30,11 +30,11 @@ lib.makeOverridable (
     # The paths (relative to each element of `paths') that we want to
     # symlink (e.g., ["/bin"]).  Any file not inside any of the
     # directories in the list is not symlinked.
-    pathsToLink ? [ "/" ],
+    pathsToLink ? ["/"],
 
     # The package outputs to include. By default, only the default
     # output is included.
-    extraOutputsToInstall ? [ ],
+    extraOutputsToInstall ? [],
 
     # Root the result in directory "$out${extraPrefix}", e.g. "/share".
     extraPrefix ? "",
@@ -43,11 +43,11 @@ lib.makeOverridable (
     postBuild ? "",
 
     # Additional inputs
-    nativeBuildInputs ? [ ], # Handy e.g. if using makeWrapper in `postBuild`.
-    buildInputs ? [ ],
+    nativeBuildInputs ? [], # Handy e.g. if using makeWrapper in `postBuild`.
+    buildInputs ? [],
 
-    passthru ? { },
-    meta ? { },
+    passthru ? {},
+    meta ? {},
   }:
 
   let
@@ -85,7 +85,7 @@ lib.makeOverridable (
                 then
                   map (outName: drv.${outName}) drv.meta.outputsToInstall
                 else
-                  [ drv ]
+                  [drv]
               )
               # Add any extra outputs specified by the caller of `buildEnv`.
               ++ lib.filter (p: p != null) (builtins.map (outName: drv.${outName} or null) extraOutputsToInstall);
@@ -96,7 +96,7 @@ lib.makeOverridable (
       preferLocalBuild = true;
       allowSubstitutes = false;
       # XXX: The size is somewhat arbitrary
-      passAsFile = if builtins.stringLength pkgs >= 128 * 1024 then [ "pkgs" ] else [ ];
+      passAsFile = if builtins.stringLength pkgs >= 128 * 1024 then ["pkgs"] else [];
     }
     ''
       ${buildPackages.perl}/bin/perl -w ${builder}

@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     inherit (arrow-cpp.meta) license platforms;
     description = "GLib bindings for Apache Arrow";
     homepage = "https://arrow.apache.org/docs/c_glib/";
-    maintainers = with maintainers; [ amarshall ];
+    maintainers = with maintainers; [amarshall];
   };
 }

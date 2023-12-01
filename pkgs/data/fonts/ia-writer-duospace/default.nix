@@ -29,6 +29,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://ia.net/topics/in-search-of-the-perfect-writing-font";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

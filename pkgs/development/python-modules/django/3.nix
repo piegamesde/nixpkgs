@@ -51,12 +51,12 @@ buildPythonPackage rec {
   # too complicated to setup
   doCheck = false;
 
-  pythonImportsCheck = [ "django" ];
+  pythonImportsCheck = ["django"];
 
   meta = with lib; {
     description = "A high-level Python Web framework";
     homepage = "https://www.djangoproject.com/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ georgewhewell ];
+    maintainers = with maintainers; [georgewhewell];
   };
 }

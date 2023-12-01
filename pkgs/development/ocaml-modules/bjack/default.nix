@@ -22,7 +22,7 @@ buildDunePackage rec {
   };
 
   buildInputs =
-    [ dune-configurator ]
+    [dune-configurator]
     ++ lib.optionals stdenv.isDarwin [
       Accelerate
       CoreAudio
@@ -36,6 +36,6 @@ buildDunePackage rec {
     homepage = "https://github.com/savonet/ocaml-bjack";
     description = "Blocking API for the jack audio connection kit";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

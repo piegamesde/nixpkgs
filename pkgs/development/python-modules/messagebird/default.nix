@@ -35,7 +35,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "messagebird" ];
+  pythonImportsCheck = ["messagebird"];
 
   disabledTestPaths =
     [
@@ -46,7 +46,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Client for MessageBird's REST API";
     homepage = "https://github.com/messagebird/python-rest-api";
-    license = with licenses; [ bsd2 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd2];
+    maintainers = with maintainers; [fab];
   };
 }

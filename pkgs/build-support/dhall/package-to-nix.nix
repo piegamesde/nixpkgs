@@ -10,7 +10,7 @@
 # `dhallPackageToNix` utility.  It is not possible to use `dhallPackageToNix`
 # in Nixpkgs, since the Nixpkgs Hydra doesn't allow IFD.
 
-{ stdenv, dhall-nix }:
+{stdenv, dhall-nix}:
 
 dhallPackage:
 let
@@ -28,7 +28,7 @@ let
       dhall-to-nix <<< "${dhallPackage}/binary.dhall" > $out
     '';
 
-    nativeBuildInputs = [ dhall-nix ];
+    nativeBuildInputs = [dhall-nix];
   };
 in
 import drv

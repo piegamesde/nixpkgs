@@ -53,6 +53,6 @@ mkCoqDerivation {
 
   meta = {
     description = "Ring and field tactics for Mathematical Components";
-    maintainers = with lib.maintainers; [ cohencyril ];
+    maintainers = with lib.maintainers; [cohencyril];
   };
 }

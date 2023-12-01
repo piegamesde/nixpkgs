@@ -44,6 +44,6 @@ buildDunePackage rec {
     description = "A library for parsing email headers";
     homepage = "https://github.com/dinosaure/unstrctrd";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

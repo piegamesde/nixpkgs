@@ -53,8 +53,8 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "C++ Heterogeneous-Compute Interface for Portability";
       homepage = "https://github.com/ROCm-Developer-Tools/HIP";
-      license = with licenses; [ mit ];
-      maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
+      license = with licenses; [mit];
+      maintainers = with maintainers; [lovesegfault] ++ teams.rocm.members;
       platforms = platforms.linux;
       broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
     };

@@ -25,7 +25,7 @@ in
         ../virtualisation/nixos-containers.nix
         ../services/x11/desktop-managers/xterm.nix
       ];
-      config = { };
+      config = {};
       options.boot.isContainer = lib.mkOption {
         default = false;
         internal = true;
@@ -107,7 +107,7 @@ in
     #
     # This works around that by using a public DNS server other than the DNS
     # server that QEMU provides (normally 10.0.2.3)
-    networking.nameservers = [ "8.8.8.8" ];
+    networking.nameservers = ["8.8.8.8"];
 
     nix.settings = {
       auto-optimise-store = true;
@@ -128,7 +128,7 @@ in
       openssh = {
         enable = true;
 
-        authorizedKeysFiles = [ "${keysDirectory}/%u_${keyType}.pub" ];
+        authorizedKeysFiles = ["${keysDirectory}/%u_${keyType}.pub"];
       };
     };
 
@@ -179,7 +179,7 @@ in
       in
       script.overrideAttrs (
         old: {
-          meta = (old.meta or { }) // {
+          meta = (old.meta or {}) // {
             platforms = lib.platforms.darwin;
           };
         }

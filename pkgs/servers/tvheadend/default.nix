@@ -125,7 +125,7 @@ stdenv.mkDerivation {
 
   postInstall = ''
     wrapProgram $out/bin/tvheadend \
-      --prefix PATH : ${lib.makeBinPath [ bzip2 ]}
+      --prefix PATH : ${lib.makeBinPath [bzip2]}
   '';
 
   meta = with lib; {
@@ -138,6 +138,6 @@ stdenv.mkDerivation {
     homepage = "https://tvheadend.org";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ simonvandel ];
+    maintainers = with maintainers; [simonvandel];
   };
 }

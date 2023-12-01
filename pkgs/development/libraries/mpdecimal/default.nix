@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-n5zUwEH5m1xJ/7e1nZ8S2VtoPYhYVgiqVqYwdmeysh8=";
   };
 
-  configureFlags = [ "LD=${stdenv.cc.targetPrefix}cc" ];
+  configureFlags = ["LD=${stdenv.cc.targetPrefix}cc"];
 
   postInstall = ''
     mkdir -p $cxx/lib
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.bsd2;
 
-    maintainers = with lib.maintainers; [ kaction ];
+    maintainers = with lib.maintainers; [kaction];
 
     platforms = lib.platforms.unix;
   };

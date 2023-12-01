@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.opbyte.it/grsync/";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.kuznero ];
+    maintainers = [maintainers.kuznero];
   };
 }

@@ -18,10 +18,10 @@ buildPythonPackage rec {
     sha256 = "1jjhsjf5fdi1fkn7mvhnzkh6cynl8gcjrygd3cya5mmda3akhzic";
   };
 
-  makeWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ graphviz ]}" ];
+  makeWrapperArgs = ["--prefix PATH : ${lib.makeBinPath [graphviz]}"];
 
   # Needed so dot is on path of the test script
-  nativeCheckInputs = [ graphviz ];
+  nativeCheckInputs = [graphviz];
 
   checkPhase = ''
     runHook preCheck
@@ -36,6 +36,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jrfonseca/gprof2dot";
     description = "Python script to convert the output from many profilers into a dot graph";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ pmiddend ];
+    maintainers = with maintainers; [pmiddend];
   };
 }

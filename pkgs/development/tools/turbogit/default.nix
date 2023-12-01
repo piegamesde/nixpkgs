@@ -19,9 +19,9 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-280OcGXZQJD4G6z0b2WnWAS+v7XVptyf2WnlPjG99/0=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  buildInputs = [ libgit2 ];
+  buildInputs = [libgit2];
   nativeBuildInputs = [
     installShellFiles
     pkg-config
@@ -49,6 +49,6 @@ buildGoModule rec {
     homepage = "https://b4nst.github.io/turbogit";
     license = licenses.mit;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = [ maintainers.yusdacra ];
+    maintainers = [maintainers.yusdacra];
   };
 }

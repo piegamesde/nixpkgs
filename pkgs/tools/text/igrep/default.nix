@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-7cSUIwWyWPxFDuRWplidbI93zbBV84T7e4Q//Uwj6N4=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [Security];
 
   passthru.tests = {
     version = testers.testVersion {
@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/konradsz/igrep";
     changelog = "https://github.com/konradsz/igrep/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ _0x4A6F ];
+    maintainers = with maintainers; [_0x4A6F];
     mainProgram = "ig";
   };
 }

@@ -36,7 +36,7 @@ buildPythonPackage rec {
     "pytmx.util_pysdl2"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests =
     [
@@ -48,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/bitcraft/PyTMX";
     description = "Python library to read Tiled Map Editor's TMX maps";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
   };
 }

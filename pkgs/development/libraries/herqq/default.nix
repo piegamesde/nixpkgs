@@ -11,7 +11,7 @@ mkDerivation rec {
   version = "unstable-20-06-26";
   pname = "herqq";
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
   buildInputs = [
     qtbase
     qtmultimedia
@@ -34,6 +34,6 @@ mkDerivation rec {
     homepage = "http://herqq.org";
     description = "A software library for building UPnP devices and control points";
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

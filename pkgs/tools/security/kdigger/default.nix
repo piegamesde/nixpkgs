@@ -26,7 +26,7 @@ buildGoModule rec {
   };
   vendorSha256 = "sha256-rDJFowbOj77n/sBoDgFEF+2PgghxufvIgzbMqrHehws=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # static to be easily copied into containers since it's an in-pod pen-testing tool
   CGO_ENABLED = 0;
@@ -69,7 +69,7 @@ buildGoModule rec {
       pod.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ jk ];
+    maintainers = with maintainers; [jk];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

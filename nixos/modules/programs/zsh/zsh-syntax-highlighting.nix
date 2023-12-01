@@ -74,7 +74,7 @@ in
       enable = mkEnableOption (lib.mdDoc "zsh-syntax-highlighting");
 
       highlighters = mkOption {
-        default = [ "main" ];
+        default = ["main"];
 
         # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
         type = types.listOf (
@@ -98,7 +98,7 @@ in
       };
 
       patterns = mkOption {
-        default = { };
+        default = {};
         type = types.attrsOf types.str;
 
         example = literalExpression ''
@@ -115,7 +115,7 @@ in
         '';
       };
       styles = mkOption {
-        default = { };
+        default = {};
         type = types.attrsOf types.str;
 
         example = literalExpression ''
@@ -135,7 +135,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ zsh-syntax-highlighting ];
+    environment.systemPackages = with pkgs; [zsh-syntax-highlighting];
 
     assertions = [
       {
@@ -150,7 +150,7 @@ in
       with pkgs;
       lib.mkAfter (
         lib.concatStringsSep "\n" (
-          [ "source ${zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]
+          ["source ${zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"]
           ++
             optional (length (cfg.highlighters) > 0)
               "ZSH_HIGHLIGHT_HIGHLIGHTERS=(${concatStringsSep " " cfg.highlighters})"

@@ -18,6 +18,6 @@ build-idris-package {
     description = "Composable and effectful production, transformation and consumption of streams of data";
     homepage = "https://github.com/QuentinDuval/IdrisPipes";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

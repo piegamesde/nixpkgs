@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-4jKsRpzuyHH31LXndC3Ua4TYcI0G0v9qqe0cbvLuCDA=";
   };
 
-  patches = [ ./siglo-no-user-install.patch ];
+  patches = [./siglo-no-user-install.patch];
 
   postPatch = ''
     chmod +x build-aux/meson/postinstall.py # patchShebangs requires an executable file
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/theironrobin/siglo";
     changelog = "https://github.com/theironrobin/siglo/tags/v${version}";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ tomfitzhenry ];
+    maintainers = with maintainers; [tomfitzhenry];
     platforms = platforms.linux;
   };
 }

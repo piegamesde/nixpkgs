@@ -76,7 +76,7 @@ in
               (listOf str)
             ]
           );
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           automysqlbackup configuration. Refer to
           {file}`''${pkgs.automysqlbackup}/etc/automysqlbackup.conf`
@@ -119,7 +119,7 @@ in
 
     systemd.timers.automysqlbackup = {
       description = "automysqlbackup timer";
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig = {
         OnCalendar = cfg.calendar;
         AccuracySec = "5m";
@@ -135,15 +135,15 @@ in
       };
     };
 
-    environment.systemPackages = [ pkg ];
+    environment.systemPackages = [pkg];
 
     users.users.${user} = {
       group = group;
       isSystemUser = true;
     };
-    users.groups.${group} = { };
+    users.groups.${group} = {};
 
-    systemd.tmpfiles.rules = [ "d '${cfg.config.backup_dir}' 0750 ${user} ${group} - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.config.backup_dir}' 0750 ${user} ${group} - -"];
 
     services.mysql.ensureUsers =
       optional (config.services.mysql.enable && cfg.config.mysql_dump_host == "localhost")

@@ -33,7 +33,7 @@ stdenv.mkDerivation {
       --add-flags "-O $out/share/metamorphose2/metamorphose2.py -w=3"
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   propagatedBuildInputs = with python3.pkgs; [
     mutagen
     wxPython_4_2
@@ -41,13 +41,13 @@ stdenv.mkDerivation {
     six
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "a graphical mass renaming program for files and folders";
     homepage = "https://github.com/timinaust/metamorphose2";
     license = with licenses; gpl3Plus;
-    maintainers = with maintainers; [ ramkromberg ];
+    maintainers = with maintainers; [ramkromberg];
     platforms = with platforms; linux;
   };
 }

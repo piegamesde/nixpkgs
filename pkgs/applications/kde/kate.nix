@@ -40,7 +40,7 @@ mkDerivation {
       lgpl3
       lgpl2
     ];
-    maintainers = [ lib.maintainers.ttuegel ];
+    maintainers = [lib.maintainers.ttuegel];
   };
 
   # InitialPreference values are too high and end up making kate &
@@ -83,5 +83,5 @@ mkDerivation {
     kuserfeedback
     qtx11extras
   ];
-  propagatedUserEnvPkgs = [ konsole ];
+  propagatedUserEnvPkgs = [konsole];
 }

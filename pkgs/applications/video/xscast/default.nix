@@ -20,7 +20,7 @@ stdenv.mkDerivation {
     sha256 = "0br27bq9bpglfdpv63h827bipgvhlh10liyhmhcxls4227kagz72";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -48,6 +48,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/KeyboardFire/xscast";
     license = licenses.mit;
     description = "Screencasts of windows with list of keystrokes overlayed";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

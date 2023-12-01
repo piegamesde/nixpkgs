@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "0fj11gbhkaxbsgix2im7vdfvr26l75b8djk462sfw8xrwrfkjbdz";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # Install the extras headers
   postInstall = ''
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A C++ framework for property based testing inspired by QuickCheck";
     inherit (src.meta) homepage;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.bsd2;
     platforms = platforms.all;
   };

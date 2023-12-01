@@ -39,7 +39,7 @@ buildPythonPackage rec {
     hash = "sha256-eipJUHeaKB70x+WVriFZkLFcHYxviwonhQCSr1rSxkE=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   passthru.optional-dependencies = rec {
     array-types = enp;
@@ -52,21 +52,21 @@ buildPythonPackage rec {
       mediapy
     ] ++ enp ++ epy;
     edc = epy;
-    enp = [ numpy ] ++ epy;
+    enp = [numpy] ++ epy;
     epath = [
       importlib-resources
       typing-extensions
       zipp
     ] ++ epy;
-    epy = [ typing-extensions ];
+    epy = [typing-extensions];
     etqdm = [
       absl-py
       tqdm
     ] ++ epy;
     etree = array-types ++ epy ++ enp ++ etqdm;
-    etree-dm = [ dm-tree ] ++ etree;
-    etree-jax = [ jax ] ++ etree;
-    etree-tf = [ tensorflow ] ++ etree;
+    etree-dm = [dm-tree] ++ etree;
+    etree-jax = [jax] ++ etree;
+    etree-tf = [tensorflow] ++ etree;
     all =
       array-types
       ++ eapp
@@ -82,7 +82,7 @@ buildPythonPackage rec {
       ++ etree-tf;
   };
 
-  pythonImportsCheck = [ "etils" ];
+  pythonImportsCheck = ["etils"];
 
   nativeCheckInputs = [
     chex
@@ -104,6 +104,6 @@ buildPythonPackage rec {
     description = "Collection of eclectic utils for python";
     homepage = "https://github.com/google/etils";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mcwitt ];
+    maintainers = with maintainers; [mcwitt];
   };
 }

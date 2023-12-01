@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     libXaw
   ];
 
-  makeFlags = [ "INSTDIR=${placeholder "out"}" ];
+  makeFlags = ["INSTDIR=${placeholder "out"}"];
 
   meta = with lib; {
     homepage = "http://www.gedanken.org.uk/software/xbomb/";

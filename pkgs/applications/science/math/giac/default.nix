@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
 
   # 1.9.0-5's tarball contains a binary (src/mkjs) which is executed
   # at build time. we will delete and rebuild it.
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   postPatch = ''
     for i in doc/*/Makefile* micropython*/xcas/Makefile*; do
@@ -136,7 +136,7 @@ stdenv.mkDerivation rec {
 
   # xcas Phys and Turtle menus are broken with split outputs
   # and interactive use is likely to need docs
-  outputs = [ "out" ] ++ lib.optional (!enableGUI) "doc";
+  outputs = ["out"] ++ lib.optional (!enableGUI) "doc";
 
   doCheck = true;
   preCheck = lib.optionalString (!enableGUI) ''
@@ -166,8 +166,8 @@ stdenv.mkDerivation rec {
       "--enable-gui"
       "--with-x"
     ]
-    ++ lib.optionals (!enableGUI) [ "--disable-fltk" ]
-    ++ lib.optionals (!enableMicroPy) [ "--disable-micropy" ];
+    ++ lib.optionals (!enableGUI) ["--disable-fltk"]
+    ++ lib.optionals (!enableMicroPy) ["--disable-micropy"];
 
   postInstall =
     ''
@@ -199,6 +199,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     platforms = platforms.linux ++ (optionals (!enableGUI) platforms.darwin);
     broken = stdenv.isDarwin && stdenv.isAarch64;
-    maintainers = [ maintainers.symphorien ];
+    maintainers = [maintainers.symphorien];
   };
 }

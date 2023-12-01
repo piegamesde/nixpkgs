@@ -31,16 +31,16 @@ buildPythonPackage rec {
         })
       ];
 
-  propagatedBuildInputs = [ python-dateutil ];
+  propagatedBuildInputs = [python-dateutil];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "freezegun" ];
+  pythonImportsCheck = ["freezegun"];
 
   meta = with lib; {
     description = "Library that allows your Python tests to travel through time";
     homepage = "https://github.com/spulec/freezegun";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

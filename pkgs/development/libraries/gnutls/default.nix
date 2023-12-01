@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
   outputInfo = "devdoc";
   outputDoc = "devdoc";
 
-  patches = [ ./nix-ssl-cert-file.patch ];
+  patches = [./nix-ssl-cert-file.patch];
 
   # Skip some tests:
   #  - pkg-config: building against the result won't work before installing (3.5.11)
@@ -133,7 +133,7 @@ stdenv.mkDerivation rec {
     ];
 
   propagatedBuildInputs =
-    [ nettle ]
+    [nettle]
     # Builds dynamically linking against gnutls seem to need the framework now.
     ++ lib.optional isDarwin Security;
 
@@ -169,7 +169,7 @@ stdenv.mkDerivation rec {
     inherit (ocamlPackages) ocamlnet;
     haskell-gnutls = haskellPackages.gnutls;
     python3-gnutls = python3Packages.python3-gnutls;
-    rsyslog = rsyslog.override { withGnutls = true; };
+    rsyslog = rsyslog.override {withGnutls = true;};
   };
 
   meta = with lib; {
@@ -191,7 +191,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://gnutls.org/";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ vcunat ];
+    maintainers = with maintainers; [vcunat];
     platforms = platforms.all;
   };
 }

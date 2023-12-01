@@ -17,7 +17,7 @@
   lib,
 }:
 let
-  compyte = import ./compyte.nix { inherit mkDerivation fetchFromGitHub; };
+  compyte = import ./compyte.nix {inherit mkDerivation fetchFromGitHub;};
 
   inherit (cudaPackages) cudatoolkit;
 in
@@ -56,7 +56,7 @@ buildPythonPackage rec {
     py.test
   '';
 
-  nativeBuildInputs = [ addOpenGLRunpath ];
+  nativeBuildInputs = [addOpenGLRunpath];
 
   propagatedBuildInputs = [
     numpy
@@ -75,6 +75,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/inducer/pycuda/";
     description = "CUDA integration for Python.";
     license = licenses.mit;
-    maintainers = with maintainers; [ artuuge ];
+    maintainers = with maintainers; [artuuge];
   };
 }

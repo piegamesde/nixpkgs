@@ -19,7 +19,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-3ywBBCWbwDqNNkxRupNJX6mYKxVFnoCFKav3Hc4E+8A=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = [
     libuchardet
@@ -46,6 +46,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/helixarch/subedit";
     description = "Command-line subtitle editor written in BASH";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ppom ];
+    maintainers = with maintainers; [ppom];
   };
 }

@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
 
   {
     name = "zammad";
@@ -10,7 +10,7 @@ import ./make-test-python.nix (
     ];
 
     nodes.machine =
-      { config, ... }:
+      {config, ...}:
       {
         services.zammad.enable = true;
         services.zammad.secretKeyBaseFile = pkgs.writeText "secret" ''
@@ -32,7 +32,7 @@ import ./make-test-python.nix (
               StateDirectory = "zammad";
               WorkingDirectory = cfg.dataDir;
             };
-            wantedBy = [ "zammad-web.service" ];
+            wantedBy = ["zammad-web.service"];
             description = "Hack in the locale files so zammad doesn't try to access the internet";
             script = ''
               mkdir -p ./config/translations

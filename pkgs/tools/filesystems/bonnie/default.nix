@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   meta = {
     homepage = "http://www.coker.com.au/bonnie++/";

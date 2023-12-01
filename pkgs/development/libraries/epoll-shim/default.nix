@@ -17,7 +17,7 @@ stdenv.mkDerivation (
       hash = "sha256-TOfybtUEp+EtY2l/UGwVFIESDe9kELJCZHlcz22Cmi8=";
     };
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
     cmakeFlags = [
       "-DCMAKE_INSTALL_PKGCONFIGDIR=${placeholder "out"}/lib/pkgconfig"
@@ -33,7 +33,7 @@ stdenv.mkDerivation (
       homepage = "https://github.com/jiixyj/epoll-shim";
       license = licenses.mit;
       platforms = platforms.darwin ++ platforms.freebsd ++ platforms.netbsd ++ platforms.openbsd;
-      maintainers = with maintainers; [ wegank ];
+      maintainers = with maintainers; [wegank];
     };
   }
 )

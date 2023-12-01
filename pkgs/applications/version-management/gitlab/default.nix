@@ -47,15 +47,15 @@ let
       x
       // {
         gpgme = x.gpgme // {
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
         };
         # the openssl needs the openssl include files
         openssl = x.openssl // {
-          buildInputs = [ openssl ];
+          buildInputs = [openssl];
         };
         ruby-magic = x.ruby-magic // {
-          buildInputs = [ file ];
-          buildFlags = [ "--enable-system-libraries" ];
+          buildInputs = [file];
+          buildFlags = ["--enable-system-libraries"];
         };
         # the included yarn rake task attaches the yarn:install task
         # to assets:precompile, which is both unnecessary (since we
@@ -63,8 +63,8 @@ let
         # in node_modules
         railties = x.railties // {
           dontBuild = false;
-          patches = [ ./railties-remove-yarn-install-enhancement.patch ];
-          patchFlags = [ "-p2" ];
+          patches = [./railties-remove-yarn-install-enhancement.patch];
+          patchFlags = ["-p2"];
         };
       };
     groups = [
@@ -81,7 +81,7 @@ let
     # `console` executable.
     ignoreCollisions = true;
 
-    extraConfigPaths = [ "${src}/vendor" ];
+    extraConfigPaths = ["${src}/vendor"];
   };
 
   assets = stdenv.mkDerivation {
@@ -171,7 +171,7 @@ stdenv.mkDerivation {
 
   inherit src;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     rubyEnv
     rubyEnv.wrappedRuby

@@ -136,7 +136,7 @@ in
             prefixLength = 32;
           }
         ];
-        routes = [ cfg.ipv4.pool ];
+        routes = [cfg.ipv4.pool];
       };
       ipv6 = {
         addresses = [
@@ -145,14 +145,14 @@ in
             prefixLength = 128;
           }
         ];
-        routes = [ cfg.ipv6.pool ];
+        routes = [cfg.ipv6.pool];
       };
     };
 
     systemd.services.tayga = {
       description = "Stateless NAT64 implementation";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/tayga -d --nodetach --config ${configFile}";
@@ -170,7 +170,7 @@ in
           "~@resources"
         ];
         ProtectKernelLogs = true;
-        AmbientCapabilities = [ "CAP_NET_ADMIN" ];
+        AmbientCapabilities = ["CAP_NET_ADMIN"];
         CapabilityBoundingSet = "";
         RestrictAddressFamilies = [
           "AF_INET"

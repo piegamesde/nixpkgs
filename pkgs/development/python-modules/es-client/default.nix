@@ -31,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-DJIo0yFJGR9gw5UJnmgnBFZx0uXUEW3rWT49jhfnXkQ=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     certifi
@@ -50,7 +50,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [ "es_client" ];
+  pythonImportsCheck = ["es_client"];
 
   disabledTests = [
     # Tests require network access
@@ -66,6 +66,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/untergeek/es_client";
     changelog = "https://github.com/untergeek/es_client/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

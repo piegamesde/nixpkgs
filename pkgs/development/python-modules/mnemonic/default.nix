@@ -16,9 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-YYgWlYfVd1iALOziaUI8uVYjJDCIVk/dXcUmJd2jcvQ=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "mnemonic" ];
+  pythonImportsCheck = ["mnemonic"];
 
   meta = with lib; {
     description = "Reference implementation of BIP-0039";

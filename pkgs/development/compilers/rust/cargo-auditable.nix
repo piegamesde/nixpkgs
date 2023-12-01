@@ -35,23 +35,23 @@ let
         mit # or
         asl20
       ];
-      maintainers = with maintainers; [ figsoda ];
+      maintainers = with maintainers; [figsoda];
       broken = stdenv.hostPlatform != stdenv.buildPlatform;
     };
   };
 
   rustPlatform = makeRustPlatform {
     inherit rustc;
-    cargo = cargo.override { auditable = false; };
+    cargo = cargo.override {auditable = false;};
   };
 
-  bootstrap = rustPlatform.buildRustPackage (args // { auditable = false; });
+  bootstrap = rustPlatform.buildRustPackage (args // {auditable = false;});
 in
 
-rustPlatform.buildRustPackage.override { cargo-auditable = bootstrap; } (
+rustPlatform.buildRustPackage.override {cargo-auditable = bootstrap;} (
   args
   // {
-    nativeBuildInputs = [ installShellFiles ];
+    nativeBuildInputs = [installShellFiles];
 
     postInstall = ''
       installManPage cargo-auditable/cargo-auditable.1

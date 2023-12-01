@@ -92,11 +92,11 @@ stdenv.mkDerivation rec {
     lz4
     zstd
     libiconv
-  ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
+  ] ++ lib.optionals stdenv.isDarwin [CoreServices];
 
   cargoRoot = "watchman/cli";
 
-  cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
+  cargoDeps = rustPlatform.importCargoLock {lockFile = ./Cargo.lock;};
 
   postPatch = ''
     patchShebangs .

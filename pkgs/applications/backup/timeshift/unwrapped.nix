@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     sha256 = "yZNERRoNZ1K7BRiAu7sqVQyhghsS/AeZSODMVSm46oY=";
   };
 
-  patches = [ ./timeshift-launcher.patch ];
+  patches = [./timeshift-launcher.patch];
 
   postPatch = ''
     while IFS="" read -r -d $'\0' FILE; do

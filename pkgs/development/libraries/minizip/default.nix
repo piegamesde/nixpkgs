@@ -10,8 +10,8 @@ stdenv.mkDerivation {
   version = zlib.version;
   inherit (zlib) src;
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ zlib ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [zlib];
 
   sourceRoot = "zlib-${zlib.version}/contrib/minizip";
 

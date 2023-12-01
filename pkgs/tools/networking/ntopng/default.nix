@@ -88,6 +88,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/ntop/ntopng/blob/${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
   };
 }

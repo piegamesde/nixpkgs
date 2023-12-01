@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "parser-combinators";
   version = "cl-20131111-git";
@@ -18,7 +18,7 @@ rec {
 
   packageName = "parser-combinators";
 
-  asdFilesToKeep = [ "parser-combinators.asd" ];
+  asdFilesToKeep = ["parser-combinators.asd"];
   overrides = x: x;
 }
 /* (SYSTEM parser-combinators DESCRIPTION

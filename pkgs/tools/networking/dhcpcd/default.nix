@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     udev
     runtimeShellPackage # So patchShebangs finds a bash suitable for the installed scripts
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     ]
     ++ (
       if !enablePrivSep then
-        [ "--disable-privsep" ]
+        ["--disable-privsep"]
       else
         [
           "--enable-privsep"
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
         ]
     );
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   # Hack to make installation succeed.  dhcpcd will still use /var/db
   # at runtime.
@@ -85,6 +85,6 @@ stdenv.mkDerivation rec {
     homepage = "https://roy.marples.name/projects/dhcpcd";
     platforms = platforms.linux;
     license = licenses.bsd2;
-    maintainers = with maintainers; [ eelco ];
+    maintainers = with maintainers; [eelco];
   };
 }

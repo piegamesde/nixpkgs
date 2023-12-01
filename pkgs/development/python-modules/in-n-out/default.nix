@@ -30,14 +30,14 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [ future ];
+  propagatedBuildInputs = [future];
 
   nativeCheckInputs = [
     pytestCheckHook
     toolz
   ];
 
-  pythonImportsCheck = [ "in_n_out" ];
+  pythonImportsCheck = ["in_n_out"];
 
   disabledTestPaths = lib.optionals (pythonAtLeast "3.11") [
     # Fatal Python error
@@ -52,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://app-model.readthedocs.io/";
     changelog = "https://github.com/pyapp-kit/in-n-out/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

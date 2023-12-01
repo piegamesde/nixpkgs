@@ -30,9 +30,9 @@ stdenv.mkDerivation rec {
   '';
   meta = {
     description = "1D and 2D code reading library";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.linux;
     homepage = "https://github.com/zxing/zxing";
   };

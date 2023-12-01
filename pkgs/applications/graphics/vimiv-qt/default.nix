@@ -51,7 +51,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Image viewer with Vim-like keybindings (Qt port)";
     license = licenses.gpl3Plus;
     homepage = "https://github.com/karlch/vimiv-qt";
-    maintainers = with maintainers; [ dschrempf ];
+    maintainers = with maintainers; [dschrempf];
     platforms = platforms.all;
   };
 }

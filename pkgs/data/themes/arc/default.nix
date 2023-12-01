@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
   '';
 
   # Fontconfig error: Cannot load default config file: No such file: (null)
-  FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ ]; };
+  FONTCONFIG_FILE = makeFontsConf {fontDirectories = [];};
 
   mesonFlags = [
     # "-Dthemes=cinnamon,gnome-shell,gtk2,gtk3,plank,xfwm,metacity"

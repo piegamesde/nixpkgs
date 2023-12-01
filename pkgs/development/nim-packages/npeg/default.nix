@@ -16,7 +16,7 @@ buildNimPackage rec {
   doCheck = true;
   meta = src.meta // {
     description = "NPeg is a pure Nim pattern matching library";
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
     license = lib.licenses.mit;
   };
 }

@@ -55,7 +55,7 @@ let
     else
       toString value;
 
-  filterNull = filterAttrs (_: v: v != "" && v != null && v != [ ]);
+  filterNull = filterAttrs (_: v: v != "" && v != null && v != []);
 
   argsAttrToList =
     args: mapAttrsToList (name: value: "${name} " + mkArgValue value) (filterNull args);
@@ -150,8 +150,8 @@ in
 
         protocolFilter = mkOption {
           type = types.listOf types.str;
-          default = [ ];
-          example = [ "ospf" ];
+          default = [];
+          example = ["ospf"];
           description = lib.mdDoc "Information displayed in bgpmap.";
         };
 
@@ -196,7 +196,7 @@ in
 
         extraArgs = mkOption {
           type = with types; either lines (listOf str);
-          default = [ ];
+          default = [];
           description = lib.mdDoc ''
             Extra parameters documented [here](https://github.com/xddxdd/bird-lg-go#frontend).
 
@@ -218,7 +218,7 @@ in
 
         allowedIPs = mkOption {
           type = types.listOf types.str;
-          default = [ ];
+          default = [];
           example = [
             "192.168.25.52"
             "192.168.25.53"
@@ -242,7 +242,7 @@ in
 
           flags = mkOption {
             type = with types; listOf str;
-            default = [ ];
+            default = [];
             description = lib.mdDoc "Flags for traceroute process";
           };
 
@@ -255,7 +255,7 @@ in
 
         extraArgs = mkOption {
           type = with types; either lines (listOf str);
-          default = [ ];
+          default = [];
           description = lib.mdDoc ''
             Extra parameters documented [here](https://github.com/xddxdd/bird-lg-go#proxy).
 
@@ -283,8 +283,8 @@ in
     systemd.services = {
       bird-lg-frontend = mkIf cfg.frontend.enable {
         enable = true;
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
         description = "Bird Looking Glass Frontend Webserver";
         serviceConfig = {
           Type = "simple";
@@ -304,8 +304,8 @@ in
 
       bird-lg-proxy = mkIf cfg.proxy.enable {
         enable = true;
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
         description = "Bird Looking Glass Proxy";
         serviceConfig = {
           Type = "simple";
@@ -324,10 +324,10 @@ in
       };
     };
     users = mkIf (cfg.frontend.enable || cfg.proxy.enable) {
-      groups."bird-lg" = mkIf (cfg.group == "bird-lg") { };
+      groups."bird-lg" = mkIf (cfg.group == "bird-lg") {};
       users."bird-lg" = mkIf (cfg.user == "bird-lg") {
         description = "Bird Looking Glass user";
-        extraGroups = lib.optionals (config.services.bird2.enable) [ "bird2" ];
+        extraGroups = lib.optionals (config.services.bird2.enable) ["bird2"];
         group = cfg.group;
         isSystemUser = true;
       };

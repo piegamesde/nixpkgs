@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Unofficial userspace driver for HID++ Logitech devices";
     homepage = "https://github.com/PixlOne/logiops";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ckie ];
+    maintainers = with maintainers; [ckie];
     platforms = with platforms; linux;
   };
 }

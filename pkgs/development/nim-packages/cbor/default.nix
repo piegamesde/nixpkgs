@@ -20,7 +20,7 @@ buildNimPackage rec {
     // {
       description = "Concise Binary Object Representation decoder and encoder (RFC8949)";
       license = licenses.unlicense;
-      maintainers = [ maintainers.ehmry ];
+      maintainers = [maintainers.ehmry];
       mainProgram = "cbordiag";
     };
 }

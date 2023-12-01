@@ -16,8 +16,8 @@ let
   cfg = config.services.mxisd;
 
   server =
-    optionalAttrs (cfg.server.name != null) { inherit (cfg.server) name; }
-    // optionalAttrs (cfg.server.port != null) { inherit (cfg.server) port; };
+    optionalAttrs (cfg.server.name != null) {inherit (cfg.server) name;}
+    // optionalAttrs (cfg.server.port != null) {inherit (cfg.server) port;};
 
   baseConfig = {
     matrix.domain = cfg.matrix.domain;
@@ -26,7 +26,7 @@ let
       provider.sqlite.database =
         if isMa1sd cfg.package then "${cfg.dataDir}/ma1sd.db" else "${cfg.dataDir}/mxisd.db";
     };
-  } // optionalAttrs (server != { }) { inherit server; };
+  } // optionalAttrs (server != {}) {inherit server;};
 
   # merges baseConfig and extraConfig into a single file
   fullConfig = recursiveUpdate baseConfig cfg.extraConfig;
@@ -66,7 +66,7 @@ in
 
       extraConfig = mkOption {
         type = types.attrs;
-        default = { };
+        default = {};
         description = lib.mdDoc "Extra options merged into the mxisd/ma1sd configuration";
       };
 
@@ -116,8 +116,8 @@ in
 
     systemd.services.mxisd = {
       description = "a federated identity server for the matrix ecosystem";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig =
         let
@@ -127,7 +127,7 @@ in
           Type = "simple";
           User = "mxisd";
           Group = "mxisd";
-          EnvironmentFile = mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
+          EnvironmentFile = mkIf (cfg.environmentFile != null) [cfg.environmentFile];
           ExecStart = "${cfg.package}/bin/${executable} -c ${cfg.dataDir}/mxisd-config.yaml";
           ExecStartPre = "${pkgs.writeShellScript "mxisd-substitute-secrets" ''
             umask 0077

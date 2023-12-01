@@ -19,7 +19,7 @@ buildGoModule rec {
     sha256 = "sha256-aJiPtGPzgkeeRcqf9oGJhoEucINeVcaBtInxonhgqYk=";
   };
 
-  ldflags = [ "-X github.com/flannel-io/flannel/version.Version=${rev}" ];
+  ldflags = ["-X github.com/flannel-io/flannel/version.Version=${rev}"];
 
   # TestRouteCache/TestV6RouteCache fail with "Failed to create newns: operation not permitted"
   doCheck = false;

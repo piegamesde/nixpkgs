@@ -7,7 +7,7 @@
   autoreconfHook,
 }:
 let
-  common = opts: callPackage (import ./common.nix opts) { };
+  common = opts: callPackage (import ./common.nix opts) {};
 in
 {
 
@@ -20,8 +20,8 @@ in
       hash = "sha256-6bq6dwGnalHz2Fpiw4OjydzZf6kAuFm8fbEUwYaK+Kg=";
     };
 
-    extraPatches = [ ./ssh-keysign-8.5.patch ];
-    extraMeta.maintainers = with lib.maintainers; [ das_j ];
+    extraPatches = [./ssh-keysign-8.5.patch];
+    extraMeta.maintainers = with lib.maintainers; [das_j];
   };
 
   openssh_hpn = common rec {
@@ -42,7 +42,7 @@ in
         name = "ssh-hpn-wo-channels.patch";
         url = "https://raw.githubusercontent.com/freebsd/freebsd-ports/10491773d88012fe81d9c039cbbba647bde9ebc9/security/openssh-portable/files/extra-patch-hpn";
         stripLen = 1;
-        excludes = [ "channels.c" ];
+        excludes = ["channels.c"];
         sha256 = "sha256-kSj0oE7gNHfIciy0/ErhdfrbmfjQmd8hduyiRXFnVZA=";
       })
 
@@ -50,17 +50,17 @@ in
         name = "ssh-hpn-channels.patch";
         url = "https://raw.githubusercontent.com/freebsd/freebsd-ports/10491773d88012fe81d9c039cbbba647bde9ebc9/security/openssh-portable/files/extra-patch-hpn";
         extraPrefix = "";
-        includes = [ "channels.c" ];
+        includes = ["channels.c"];
         sha256 = "sha256-pDLUbjv5XIyByEbiRAXC3WMUPKmn15af1stVmcvr7fE=";
       })
     ];
 
-    extraNativeBuildInputs = [ autoreconfHook ];
+    extraNativeBuildInputs = [autoreconfHook];
 
-    extraConfigureFlags = [ "--with-hpn" ];
+    extraConfigureFlags = ["--with-hpn"];
     extraMeta = {
-      maintainers = with lib.maintainers; [ abbe ];
-      knownVulnerabilities = [ "CVE-2023-28531" ];
+      maintainers = with lib.maintainers; [abbe];
+      knownVulnerabilities = ["CVE-2023-28531"];
     };
   };
 
@@ -84,7 +84,7 @@ in
       })
     ];
 
-    extraNativeBuildInputs = [ autoreconfHook ];
-    extraMeta.knownVulnerabilities = [ "CVE-2023-28531" ];
+    extraNativeBuildInputs = [autoreconfHook];
+    extraMeta.knownVulnerabilities = ["CVE-2023-28531"];
   };
 }

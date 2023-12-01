@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-7qQGiiFkGbS/j7ouP2Joj5EGT+ferIgYYMoTe9jmTqQ=";
   };
 
-  buildInputs = [ postgresql ];
+  buildInputs = [postgresql];
 
   makeFlags = [
     "BISON=${bison}/bin/bison"
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
 
     buildPhase =
       let
-        postgresqlAge = postgresql.withPackages (ps: [ ps.age ]);
+        postgresqlAge = postgresql.withPackages (ps: [ps.age]);
       in
       ''
         # The regression tests need to be run in the order specified in the Makefile.
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     description = "A graph database extension for PostgreSQL";
     homepage = "https://age.apache.org/";
     changelog = "https://github.com/apache/age/raw/v${version}/RELEASE";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = postgresql.meta.platforms;
     license = licenses.asl20;
   };

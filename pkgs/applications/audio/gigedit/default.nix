@@ -18,7 +18,7 @@
 }:
 
 let
-  gtkmm2_with_pango242 = gtkmm2.override { pangomm = pangomm_2_42; };
+  gtkmm2_with_pango242 = gtkmm2.override {pangomm = pangomm_2_42;};
 in
 stdenv.mkDerivation rec {
   pname = "gigedit";
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.linuxsampler.org";
     description = "Gigasampler file access library";
     license = licenses.gpl2;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
     platforms = platforms.linux;
   };
 }

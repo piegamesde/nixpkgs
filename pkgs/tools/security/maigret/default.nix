@@ -16,7 +16,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-Z8SnA7Z5+oKW0AOaNf+c/zR30lrPFmXaxxKkbnDXNNs=";
   };
 
-  nativeBuildInputs = [ python3.pkgs.pythonRelaxDepsHook ];
+  nativeBuildInputs = [python3.pkgs.pythonRelaxDepsHook];
   propagatedBuildInputs = with python3.pkgs; [
     aiodns
     aiohttp
@@ -65,7 +65,7 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   pythonRelaxDeps = true;
-  pythonRemoveDeps = [ "future-annotations" ];
+  pythonRemoveDeps = ["future-annotations"];
 
   pytestFlagsArray =
     [
@@ -90,12 +90,12 @@ python3.pkgs.buildPythonApplication rec {
         "test_asyncio_progressbar_executor"
       ];
 
-  pythonImportsCheck = [ "maigret" ];
+  pythonImportsCheck = ["maigret"];
 
   meta = with lib; {
     description = "Tool to collect details about an username";
     homepage = "https://maigret.readthedocs.io";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

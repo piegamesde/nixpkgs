@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
     homepage = "https://hisham.hm/dit/";
     license = licenses.gpl2;
     platforms = with platforms; linux;
-    maintainers = with maintainers; [ davidak ];
+    maintainers = with maintainers; [davidak];
   };
 }

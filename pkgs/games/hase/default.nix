@@ -18,9 +18,9 @@ stdenv.mkDerivation {
     hash = "sha256-d9So3E8nCQJ1/BdlwMkGbaFPT9mkX1VzlDGKp71ptEE=";
   };
 
-  patches = [ ./prefer-dynamic.patch ];
+  patches = [./prefer-dynamic.patch];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     sparrow3d
@@ -50,7 +50,7 @@ stdenv.mkDerivation {
     '';
     homepage = "http://ziz.gp2x.de/hase/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ colinsane ];
+    maintainers = with lib.maintainers; [colinsane];
     platforms = lib.platforms.linux;
   };
 }

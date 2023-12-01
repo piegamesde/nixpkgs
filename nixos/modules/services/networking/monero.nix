@@ -174,7 +174,7 @@ in
 
       extraNodes = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           List of additional peer IP addresses to add to the local list.
         '';
@@ -182,7 +182,7 @@ in
 
       priorityNodes = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           List of peer IP addresses to connect to and
           attempt to keep the connection open.
@@ -191,7 +191,7 @@ in
 
       exclusiveNodes = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           List of peer IP addresses to connect to *only*.
           If given the other peer options will be ignored.
@@ -220,12 +220,12 @@ in
       createHome = true;
     };
 
-    users.groups.monero = { };
+    users.groups.monero = {};
 
     systemd.services.monero = {
       description = "monero daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         User = "monero";
@@ -248,5 +248,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ rnhmjoj ];
+  meta.maintainers = with lib.maintainers; [rnhmjoj];
 }

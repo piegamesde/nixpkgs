@@ -19,6 +19,6 @@ build-idris-package {
     description = "Port of Haskell tf-random";
     homepage = "https://github.com/david-christiansen/idris-tf-random";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.mikesperber ];
+    maintainers = [lib.maintainers.mikesperber];
   };
 }

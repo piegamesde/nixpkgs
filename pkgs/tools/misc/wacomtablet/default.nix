@@ -24,7 +24,7 @@ mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     qtx11extras
     plasma-workspace
@@ -40,7 +40,7 @@ mkDerivation rec {
     '';
     homepage = "https://invent.kde.org/system/wacomtablet";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.Thra11 ];
+    maintainers = [lib.maintainers.Thra11];
     platforms = lib.platforms.linux;
   };
 }

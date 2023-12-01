@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-SygHxTe7N4y7SdzKixPFQvqRRL57Fm8zWYHfTpW+yVY=";
   };
 
-  patches = [ ./CVE-2022-47016.patch ];
+  patches = [./CVE-2022-47016.patch];
 
   nativeBuildInputs = [
     pkg-config
@@ -55,18 +55,18 @@ stdenv.mkDerivation rec {
       ncurses
       libevent
     ]
-    ++ lib.optionals withSystemd [ systemd ]
-    ++ lib.optionals withUtf8proc [ utf8proc ]
-    ++ lib.optionals withUtempter [ libutempter ];
+    ++ lib.optionals withSystemd [systemd]
+    ++ lib.optionals withUtf8proc [utf8proc]
+    ++ lib.optionals withUtempter [libutempter];
 
   configureFlags =
     [
       "--sysconfdir=/etc"
       "--localstatedir=/var"
     ]
-    ++ lib.optionals withSystemd [ "--enable-systemd" ]
-    ++ lib.optionals withUtempter [ "--enable-utempter" ]
-    ++ lib.optionals withUtf8proc [ "--enable-utf8proc" ];
+    ++ lib.optionals withSystemd ["--enable-systemd"]
+    ++ lib.optionals withUtempter ["--enable-utempter"]
+    ++ lib.optionals withUtf8proc ["--enable-utf8proc"];
 
   enableParallelBuilding = true;
 

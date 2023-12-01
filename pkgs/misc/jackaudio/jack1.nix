@@ -34,16 +34,16 @@ stdenv.mkDerivation (
       sha256 = "0i6l25dmfk2ji2lrakqq9icnwjxklgcjzzk65dmsff91z2zva5rm";
     };
 
-    configureFlags = [ (lib.enableFeature (optLibffado != null) "firewire") ];
+    configureFlags = [(lib.enableFeature (optLibffado != null) "firewire")];
 
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
     buildInputs = [
       optAlsaLib
       optDb
       optLibffado
       optCelt
     ];
-    propagatedBuildInputs = [ optLibuuid ];
+    propagatedBuildInputs = [optLibuuid];
 
     passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
@@ -55,7 +55,7 @@ stdenv.mkDerivation (
         gpl2
         lgpl21
       ];
-      pkgConfigModules = [ "jack" ];
+      pkgConfigModules = ["jack"];
       platforms = platforms.unix;
     };
   }

@@ -27,9 +27,9 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
+  buildInputs = [openssl] ++ lib.optional stdenv.isDarwin Security;
 
   passthru.tests = {
     inherit (nixosTests.prometheus-exporters) unbound;
@@ -39,6 +39,6 @@ rustPlatform.buildRustPackage rec {
     description = "Prometheus exporter for Unbound DNS resolver";
     homepage = "https://github.com/svartalf/unbound-telemetry";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

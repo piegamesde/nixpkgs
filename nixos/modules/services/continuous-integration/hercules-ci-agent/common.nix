@@ -24,10 +24,10 @@ let
 
   cfg = config.services.hercules-ci-agent;
 
-  format = pkgs.formats.toml { };
+  format = pkgs.formats.toml {};
 
   settingsModule =
-    { config, ... }:
+    {config, ...}:
     {
       freeformType = format.type;
       options = {
@@ -66,7 +66,7 @@ let
             because each split of resources causes inefficiencies; particularly with regards
             to build latency because of extra downloads.
           '';
-          type = types.either types.ints.positive (types.enum [ "auto" ]);
+          type = types.either types.ints.positive (types.enum ["auto"]);
           default = "auto";
         };
         labels = mkOption {
@@ -268,7 +268,7 @@ in
 
         For the exhaustive list of settings, see <https://docs.hercules-ci.com/hercules-ci/reference/agent-config/>.
       '';
-      type = types.submoduleWith { modules = [ settingsModule ]; };
+      type = types.submoduleWith {modules = [settingsModule];};
     };
 
     /* Internal and/or computed values.
@@ -298,7 +298,7 @@ in
       settings.labels = {
         agent.source =
           if
-            options.services.hercules-ci-agent.package.highestPrio == (lib.modules.mkOptionDefault { }).priority
+            options.services.hercules-ci-agent.package.highestPrio == (lib.modules.mkOptionDefault {}).priority
           then
             "nixpkgs"
           else

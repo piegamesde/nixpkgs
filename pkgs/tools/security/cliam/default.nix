@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-Tcz8W/PX+9WE+0iFVhqHuElJI7qWD+AdwOKdTc7FQTE=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -42,6 +42,6 @@ buildGoModule rec {
     description = "Cloud agnostic IAM permissions enumerator";
     homepage = "https://github.com/securisec/cliam";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -21,6 +21,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python library to work with Document Object Identifiers (doi)";
     homepage = "https://github.com/alejandrogallo/python-doi";
-    maintainers = with maintainers; [ teto ];
+    maintainers = with maintainers; [teto];
   };
 }

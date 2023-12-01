@@ -17,7 +17,7 @@ assert lib.assertOneOf "lang" lang [
 stdenv.mkDerivation rec {
   pname = "gavrasm";
   version = "5.4";
-  flatVersion = lib.strings.replaceStrings [ "." ] [ "" ] version;
+  flatVersion = lib.strings.replaceStrings ["."] [""] version;
 
   src = fetchzip {
     url = "http://www.avr-asm-tutorial.net/gavrasm/v${flatVersion}/gavrasm_sources_lin_${flatVersion}.zip";
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-  nativeBuildInputs = [ fpc ];
+  nativeBuildInputs = [fpc];
 
   configurePhase = ''
     runHook preConfigure
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.avr-asm-tutorial.net/gavrasm/";
     description = "AVR Assembler for ATMEL AVR-Processors";
     license = licenses.unfree;
-    maintainers = with maintainers; [ mafo ];
+    maintainers = with maintainers; [mafo];
     platforms = platforms.linux;
   };
 }

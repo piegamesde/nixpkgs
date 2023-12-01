@@ -17,11 +17,11 @@ mkDerivation {
       where the opponents alternate in placing their respective pictogram on the game board.
       (Also known as: Connect Five, Five in a row, X and O, Naughts and Crosses)
     '';
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     kdeclarative
     knewstuff

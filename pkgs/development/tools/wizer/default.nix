@@ -40,7 +40,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru.tests = {
-    version = testers.testVersion { package = wizer; };
+    version = testers.testVersion {package = wizer;};
   };
 
   meta = with lib; {

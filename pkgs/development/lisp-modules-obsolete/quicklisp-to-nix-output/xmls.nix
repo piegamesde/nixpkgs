@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "xmls";
   version = "3.0.2";
@@ -11,7 +11,7 @@ rec {
 
   description = "System lacks description";
 
-  deps = [ args."fiveam" ];
+  deps = [args."fiveam"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/xmls/2018-04-30/xmls-3.0.2.tgz";
@@ -20,7 +20,7 @@ rec {
 
   packageName = "xmls";
 
-  asdFilesToKeep = [ "xmls.asd" ];
+  asdFilesToKeep = ["xmls.asd"];
   overrides = x: x;
 }
 /* (SYSTEM xmls DESCRIPTION System lacks description SHA256

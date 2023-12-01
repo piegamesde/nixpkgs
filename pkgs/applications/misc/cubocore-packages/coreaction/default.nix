@@ -37,7 +37,7 @@ mkDerivation rec {
     description = "A side bar for showing widgets from the C Suite";
     homepage = "https://gitlab.com/cubocore/coreapps/coreaction";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dan4ik605743 ];
+    maintainers = with maintainers; [dan4ik605743];
     platforms = platforms.linux;
   };
 }

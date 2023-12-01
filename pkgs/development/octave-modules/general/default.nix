@@ -15,14 +15,14 @@ buildOctavePackage rec {
     sha256 = "sha256-owzRp5dDxiUo2uRuvUqD+EiuRqHB2sPqq8NmYtQilM8=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ nettle ];
+  buildInputs = [nettle];
 
   meta = with lib; {
     homepage = "https://octave.sourceforge.io/general/index.html";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ KarlJoad ];
+    maintainers = with maintainers; [KarlJoad];
     description = "General tools for Octave";
   };
 }

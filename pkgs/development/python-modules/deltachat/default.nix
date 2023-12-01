@@ -34,7 +34,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  buildInputs = [ libdeltachat ];
+  buildInputs = [libdeltachat];
 
   propagatedBuildInputs = [
     cffi
@@ -43,7 +43,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "deltachat"

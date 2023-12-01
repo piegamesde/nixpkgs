@@ -29,14 +29,14 @@ buildPythonPackage rec {
     six
   ];
 
-  disabledTestPaths = [ "samples" ];
+  disabledTestPaths = ["samples"];
 
-  pythonImportsCheck = [ "Registry" ];
+  pythonImportsCheck = ["Registry"];
 
   meta = with lib; {
     description = "Pure Python parser for Windows Registry hives";
     homepage = "https://github.com/williballenthin/python-registry";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

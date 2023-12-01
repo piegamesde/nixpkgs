@@ -18,11 +18,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-yY5zVlZolc8NLiySBOwKIIa+UN/hsqe9/Pf6iLG1H38=";
 
-  buildInputs = [ libpcap ];
+  buildInputs = [libpcap];
 
   modRoot = "./v2";
 
-  subPackages = [ "cmd/naabu/" ];
+  subPackages = ["cmd/naabu/"];
 
   meta = with lib; {
     description = "Fast SYN/CONNECT port scanner";
@@ -35,6 +35,6 @@ buildGoModule rec {
     homepage = "https://github.com/projectdiscovery/naabu";
     changelog = "https://github.com/projectdiscovery/naabu/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

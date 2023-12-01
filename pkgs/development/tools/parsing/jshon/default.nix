@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "1x4zfmsjq0l2y994bxkhx3mn5vzjxxr39iib213zjchi9h6yxvnc";
   };
 
-  buildInputs = [ jansson ];
+  buildInputs = [jansson];
 
   patches = [
     (fetchpatch {
@@ -40,6 +40,6 @@ stdenv.mkDerivation rec {
     description = "JSON parser designed for maximum convenience within the shell";
     license = licenses.free;
     platforms = platforms.all;
-    maintainers = with maintainers; [ rushmorem ];
+    maintainers = with maintainers; [rushmorem];
   };
 }

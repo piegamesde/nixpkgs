@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     installShellFiles
     shared-mime-info
   ];
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.isDarwin [libiconv];
 
   preCheck = ''
     export HOME=$TEMPDIR

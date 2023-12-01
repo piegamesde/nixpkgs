@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DKbh6q0opf749tbGsDMVuI5G2UV7faCHUfddH3SGOpo=";
   };
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   dontBuild = false;
   doCheck = false;
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     homepage = "https://simple-evcorr.github.io";
     license = lib.licenses.gpl2;
     description = "Simple Event Correlator";
-    maintainers = [ lib.maintainers.tv ];
+    maintainers = [lib.maintainers.tv];
     platforms = lib.platforms.all;
   };
 }

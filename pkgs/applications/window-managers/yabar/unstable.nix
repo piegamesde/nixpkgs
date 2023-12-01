@@ -3,7 +3,7 @@
   playerctl,
   libxkbcommon,
   callPackage,
-  attrs ? { },
+  attrs ? {},
 }:
 
 let
@@ -24,9 +24,9 @@ pkg.overrideAttrs (
       libxkbcommon
     ];
 
-    makeFlags = o.makeFlags ++ [ "PLAYERCTL=1" ];
+    makeFlags = o.makeFlags ++ ["PLAYERCTL=1"];
 
-    patches = (o.patches or [ ]) ++ [
+    patches = (o.patches or []) ++ [
       (fetchpatch {
         url = "https://github.com/geommer/yabar/commit/008dc1420ff684cf12ce2ef3ac9d642e054e39f5.patch";
         sha256 = "1q7nd66ai6nr2m6iqxn55gvbr4r5gjc00c8wyjc3riv31qcbqbhv";

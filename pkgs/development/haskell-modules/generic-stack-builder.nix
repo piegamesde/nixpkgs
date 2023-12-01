@@ -10,10 +10,10 @@
 }@depArgs:
 
 {
-  buildInputs ? [ ],
-  nativeBuildInputs ? [ ],
-  extraArgs ? [ ],
-  LD_LIBRARY_PATH ? [ ],
+  buildInputs ? [],
+  nativeBuildInputs ? [],
+  extraArgs ? [],
+  LD_LIBRARY_PATH ? [],
   ghc ? depArgs.ghc,
   stack ? depArgs.stack,
   ...
@@ -25,7 +25,7 @@ let
 
   # Add all dependencies in buildInputs including propagated ones to
   # STACK_IN_NIX_EXTRA_ARGS.
-  stackHook = makeSetupHook { name = "stack-hook"; } ./stack-hook.sh;
+  stackHook = makeSetupHook {name = "stack-hook";} ./stack-hook.sh;
 in
 stdenv.mkDerivation (
   args

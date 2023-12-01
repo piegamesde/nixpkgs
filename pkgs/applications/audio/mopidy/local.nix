@@ -30,12 +30,12 @@ python3Packages.buildPythonApplication rec {
     python3Packages.uritools
   ];
 
-  nativeCheckInputs = [ python3Packages.pytestCheckHook ];
+  nativeCheckInputs = [python3Packages.pytestCheckHook];
 
   meta = with lib; {
     homepage = "https://github.com/mopidy/mopidy-local";
     description = "Mopidy extension for playing music from your local music archive";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ruuda ];
+    maintainers = with maintainers; [ruuda];
   };
 }

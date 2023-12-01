@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Tool for waiting until a particular time and then running a command";
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
     license = licenses.cc0;
     platforms = platforms.unix;
   };

@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "generic-cl_dot_container";
   version = "generic-cl-20211020-git";
@@ -42,7 +42,7 @@ rec {
 
   packageName = "generic-cl.container";
 
-  asdFilesToKeep = [ "generic-cl.container.asd" ];
+  asdFilesToKeep = ["generic-cl.container.asd"];
   overrides = x: x;
 }
 /* (SYSTEM generic-cl.container DESCRIPTION Generic container interface SHA256

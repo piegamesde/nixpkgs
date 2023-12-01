@@ -1,5 +1,5 @@
 let
-  pkgs = import ../../../../.. { };
+  pkgs = import ../../../../.. {};
 
   src = pkgs.fetchFromGitHub {
     owner = "nix-community";
@@ -11,7 +11,7 @@ let
 in
 pkgs.mkShell {
 
-  packages = [ pkgs.bash ];
+  packages = [pkgs.bash];
 
   EMACS2NIX = src;
 

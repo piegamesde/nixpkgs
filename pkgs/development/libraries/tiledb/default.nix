@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
 
   # (bundled) blosc headers have a warning on some archs that it will be using
   # unaccelerated routines.
-  cmakeFlags = [ "-DTILEDB_WERROR=0" ];
+  cmakeFlags = ["-DTILEDB_WERROR=0"];
 
   nativeBuildInputs = [
     clang-tools
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     doxygen
   ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
 
   buildInputs = [
     catch2
@@ -79,6 +79,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/TileDB-Inc/TileDB";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ rakesh4g ];
+    maintainers = with maintainers; [rakesh4g];
   };
 }

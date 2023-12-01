@@ -16,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-9Vkj7a5xU/coFyM/8i8JB0DdnbgDAEMOjmmMF8ckKuE=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # no test data
   doCheck = false;

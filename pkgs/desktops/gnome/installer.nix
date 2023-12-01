@@ -1,7 +1,7 @@
 {
   isoBaseName ? "nixos-graphical-gnome",
   system ? builtins.currentSystem,
-  extraModules ? [ ],
+  extraModules ? [],
 }:
 
 let
@@ -13,7 +13,7 @@ let
       inherit system;
       modules = [
         module
-        { isoImage.isoBaseName = isoBaseName; }
+        {isoImage.isoBaseName = isoBaseName;}
       ] ++ extraModules;
     }).config;
 in

@@ -23,7 +23,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-rJlyrPQS9UKinxIwGGo3EHlmWrzTKIm1jM1UDqnmVyg=";
 
-  subPackages = [ "cmd/musicfox.go" ];
+  subPackages = ["cmd/musicfox.go"];
 
   ldflags = [
     "-s"
@@ -31,14 +31,14 @@ buildGoModule rec {
     "-X github.com/go-musicfox/go-musicfox/pkg/constants.AppVersion=${version}"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     alsa-lib
     flac
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Terminal netease cloud music client written in Go";

@@ -23,7 +23,7 @@ buildGoPackage rec {
     description = "a CLI tool to manage packet.net services";
     homepage = "https://github.com/ebsarr/packet";
     license = licenses.mit;
-    maintainers = with maintainers; [ grahamc ];
+    maintainers = with maintainers; [grahamc];
     platforms = platforms.unix;
   };
 }

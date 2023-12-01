@@ -46,7 +46,7 @@ rustPlatform.buildRustPackage rec {
       xclip
       openssl
     ]
-    ++ lib.optionals stdenv.isLinux [ xdotool ]
+    ++ lib.optionals stdenv.isLinux [xdotool]
     ++ lib.optionals stdenv.isDarwin [
       AppKit
       Cocoa
@@ -70,7 +70,7 @@ rustPlatform.buildRustPackage rec {
     description = "Cross-platform Text Expander written in Rust";
     homepage = "https://espanso.org";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ kimat ];
+    maintainers = with maintainers; [kimat];
     platforms = platforms.unix;
 
     longDescription = ''

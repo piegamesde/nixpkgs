@@ -24,7 +24,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   preFixup = ''
     wrapProgram "$out/bin/diskrsync" --argv0 diskrsync --prefix PATH : ${openssh}/bin
@@ -34,6 +34,6 @@ buildGoModule rec {
     description = "Rsync for block devices and disk images";
     homepage = "https://github.com/dop251/diskrsync";
     license = licenses.mit;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

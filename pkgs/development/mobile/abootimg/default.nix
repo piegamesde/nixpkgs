@@ -22,8 +22,8 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ util-linux ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [util-linux];
 
   postPatch = ''
     cat <<EOF > version.h
@@ -60,6 +60,6 @@ stdenv.mkDerivation rec {
     description = "Manipulate Android Boot Images";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.flokli ];
+    maintainers = [maintainers.flokli];
   };
 }

@@ -19,7 +19,7 @@ mkDerivation rec {
     sha256 = "1h1mcw8x0jir5p39bs8ka0lcisiyi4jq61fsccgb9hsvl1i8fvk5";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     libvncserver
@@ -31,7 +31,7 @@ mkDerivation rec {
     description = "A virtual machine manager GUI for qemu";
     homepage = "https://github.com/tobimensch/aqemu";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ hrdinka ];
+    maintainers = with maintainers; [hrdinka];
     platforms = with platforms; linux;
     broken = true;
   };

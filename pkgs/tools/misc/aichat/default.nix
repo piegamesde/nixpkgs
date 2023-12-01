@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-7TTHBeZ68G6k5eHBL1zDGsYiTyx27fBbN7Rl9AiZTng=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = lib.optionals stdenv.isDarwin [
     darwin.apple_sdk.frameworks.CoreFoundation
@@ -31,6 +31,6 @@ rustPlatform.buildRustPackage rec {
     description = "Chat with gpt-3.5/chatgpt in terminal.";
     homepage = "https://github.com/sigoden/aichat";
     license = licenses.mit;
-    maintainers = with maintainers; [ mwdomino ];
+    maintainers = with maintainers; [mwdomino];
   };
 }

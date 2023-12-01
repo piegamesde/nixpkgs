@@ -20,14 +20,14 @@ buildPythonPackage rec {
     sha256 = "1FSJzz1HqhULGjXolJs7MQNfjCB15YjSa278Yllwxi4=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     at-spi2-core
     pygobject3
   ];
 
-  configureFlags = [ "PYTHON=${python.pythonForBuild.interpreter}" ];
+  configureFlags = ["PYTHON=${python.pythonForBuild.interpreter}"];
 
   postPatch = ''
     # useless python existence check for us
@@ -49,7 +49,7 @@ buildPythonPackage rec {
     description = "Python client bindings for D-Bus AT-SPI";
     homepage = "https://wiki.linuxfoundation.org/accessibility/d-bus";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = with platforms; unix;
   };
 }

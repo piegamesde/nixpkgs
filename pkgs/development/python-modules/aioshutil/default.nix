@@ -24,7 +24,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -36,12 +36,12 @@ buildPythonPackage rec {
       --replace " --cov aioshutil --cov-report xml" ""
   '';
 
-  pythonImportsCheck = [ "aioshutil" ];
+  pythonImportsCheck = ["aioshutil"];
 
   meta = with lib; {
     description = "Asynchronous version of function of shutil module";
     homepage = "https://github.com/kumaraditya303/aioshutil";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
   };
 }

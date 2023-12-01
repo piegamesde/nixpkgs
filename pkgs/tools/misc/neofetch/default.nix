@@ -47,15 +47,15 @@ stdenvNoCC.mkDerivation rec {
   ];
 
   strictDeps = true;
-  buildInputs = [ bash ];
-  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [bash];
+  nativeBuildInputs = [makeWrapper];
   postPatch = ''
     patchShebangs --host neofetch
   '';
 
   postInstall = ''
     wrapProgram $out/bin/neofetch \
-      --prefix PATH : ${lib.makeBinPath ([ pciutils ] ++ lib.optional x11Support ueberzug)}
+      --prefix PATH : ${lib.makeBinPath ([pciutils] ++ lib.optional x11Support ueberzug)}
   '';
 
   makeFlags = [

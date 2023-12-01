@@ -15,7 +15,7 @@ let
       ++ lib.optional (builtins.elem "zfs" config.boot.supportedFilesystems) config.boot.zfs.package;
   };
 
-  format = pkgs.formats.toml { };
+  format = pkgs.formats.toml {};
 
   cfgFile = format.generate "00-default.conf" cfg.settings;
 in
@@ -76,7 +76,7 @@ in
 
     extraPackages = mkOption {
       type = with types; listOf package;
-      default = [ ];
+      default = [];
       example = literalExpression ''
         [
           pkgs.gvisor
@@ -105,7 +105,7 @@ in
 
     settings = mkOption {
       type = format.type;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Configuration for cri-o, see
         <https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md>.
@@ -130,7 +130,7 @@ in
       };
 
       network = {
-        plugin_dirs = [ "${pkgs.cni-plugins}/bin" ];
+        plugin_dirs = ["${pkgs.cni-plugins}/bin"];
         network_dir = mkIf (cfg.networkDir != null) cfg.networkDir;
       };
 
@@ -144,7 +144,7 @@ in
             config.boot.kernelPackages.oci-seccomp-bpf-hook;
 
         default_runtime = mkIf (cfg.runtime != null) cfg.runtime;
-        runtimes = mkIf (cfg.runtime != null) { "${cfg.runtime}" = { }; };
+        runtimes = mkIf (cfg.runtime != null) {"${cfg.runtime}" = {};};
       };
     };
 
@@ -157,10 +157,10 @@ in
 
     systemd.services.crio = {
       description = "Container Runtime Interface for OCI (CRI-O)";
-      documentation = [ "https://github.com/cri-o/cri-o" ];
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      path = [ cfg.package ];
+      documentation = ["https://github.com/cri-o/cri-o"];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      path = [cfg.package];
       serviceConfig = {
         Type = "notify";
         ExecStart = "${cfg.package}/bin/crio";
@@ -173,7 +173,7 @@ in
         TimeoutStartSec = "0";
         Restart = "on-abnormal";
       };
-      restartTriggers = [ cfgFile ];
+      restartTriggers = [cfgFile];
     };
   };
 }

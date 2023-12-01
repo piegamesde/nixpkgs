@@ -32,8 +32,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Super fast CLI tool to decode and encode JWTs";
     homepage = "https://github.com/mike-engel/jwt-cli";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ rycee ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [rycee];
     mainProgram = "jwt";
   };
 }

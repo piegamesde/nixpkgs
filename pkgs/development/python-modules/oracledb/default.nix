@@ -19,13 +19,13 @@ buildPythonPackage rec {
     hash = "sha256-8QWkcFkWoo0z4pGPo2NAl/6DVSv16oGvw6emhSjJ4vM=";
   };
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
-  propagatedBuildInputs = [ cryptography ];
+  propagatedBuildInputs = [cryptography];
 
   doCheck = false; # Checks need an Oracle database
 
-  pythonImportsCheck = [ "oracledb" ];
+  pythonImportsCheck = ["oracledb"];
 
   meta = with lib; {
     description = "Python driver for Oracle Database";
@@ -35,6 +35,6 @@ buildPythonPackage rec {
       asl20 # and or
       upl
     ];
-    maintainers = with maintainers; [ harvidsen ];
+    maintainers = with maintainers; [harvidsen];
   };
 }

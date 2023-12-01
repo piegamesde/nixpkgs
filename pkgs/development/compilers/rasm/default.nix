@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   buildPhase = ''
     # according to official documentation
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     description = "Z80 assembler";
     # use -n option to display all licenses
     license = licenses.mit; # expat version
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

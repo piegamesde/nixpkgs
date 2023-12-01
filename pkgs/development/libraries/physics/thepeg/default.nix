@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-8hRzGXp2H8MpF7CKjSTSv6+T/1fzRB/WBdqZrJ3l1Qs=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = [
     boost
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     description = "Toolkit for High Energy Physics Event Generation";
     homepage = "https://herwig.hepforge.org/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
     platforms = platforms.unix;
   };
 }

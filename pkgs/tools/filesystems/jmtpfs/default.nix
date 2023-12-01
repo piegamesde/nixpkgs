@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     file
     fuse
@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/JasonFerrara/jmtpfs";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = [ maintainers.coconnor ];
+    maintainers = [maintainers.coconnor];
   };
 }

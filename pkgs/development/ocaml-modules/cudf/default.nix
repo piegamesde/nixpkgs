@@ -38,23 +38,23 @@ stdenv.mkDerivation rec {
     glib
     stdlib-shims
   ];
-  propagatedBuildInputs = [ extlib ];
+  propagatedBuildInputs = [extlib];
 
   checkTarget = [
     "all"
     "test"
   ];
-  checkInputs = [ ounit ];
+  checkInputs = [ounit];
   doCheck = true;
 
   preInstall = "mkdir -p $OCAMLFIND_DESTDIR";
-  installFlags = [ "BINDIR=$(out)/bin" ];
+  installFlags = ["BINDIR=$(out)/bin"];
 
   meta = with lib; {
     description = "A library for CUDF format";
     homepage = "https://www.mancoosi.org/cudf/";
     downloadPage = "https://gforge.inria.fr/projects/cudf/";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

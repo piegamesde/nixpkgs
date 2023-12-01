@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "0b5nhl9vvif1w3wdipjsk8ckw49jj1w85xw1mmqi3zbcpazia306";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   prePatch = ''
     # do not set sticky bit in nix store
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sed -i '/chown $(OWNER)/d' Makefile.in
   '';
 
-  makeFlags = [ "AR:=$(AR)" ];
+  makeFlags = ["AR:=$(AR)"];
 
   meta = {
     description = "Unix-unix cp over serial line, also includes cu program";
@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
 
     platforms = lib.platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

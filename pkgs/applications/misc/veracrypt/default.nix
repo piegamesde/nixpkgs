@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
       asl20 # and
       unfree # TrueCrypt License version 3.0
     ];
-    maintainers = with maintainers; [ dsferruzza ];
+    maintainers = with maintainers; [dsferruzza];
     platforms = platforms.linux;
   };
 }

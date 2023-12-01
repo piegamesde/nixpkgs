@@ -69,7 +69,7 @@ stdenv.mkDerivation (
       '';
       changelog = "https://raw.githubusercontent.com/pekwm/pekwm/release-${finalAttrs.version}/NEWS.md";
       license = lib.licenses.gpl2Plus;
-      maintainers = [ lib.maintainers.AndersonTorres ];
+      maintainers = [lib.maintainers.AndersonTorres];
       platforms = lib.platforms.linux;
     };
   }

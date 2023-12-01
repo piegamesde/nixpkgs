@@ -25,9 +25,9 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "cmd/boulder" ];
+  subPackages = ["cmd/boulder"];
 
-  patches = [ ./no-build-id-test.patch ];
+  patches = [./no-build-id-test.patch];
 
   ldflags = [
     "-s"
@@ -97,6 +97,6 @@ buildGoModule rec {
       Let's Encrypt.
     '';
     license = licenses.mpl20;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
   };
 }

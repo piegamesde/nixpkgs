@@ -13,7 +13,7 @@ rec {
     with types;
     attrsOf (
       submodule (
-        { name, config, ... }:
+        {name, config, ...}:
         {
           options = concreteUnitOptions;
           config = {

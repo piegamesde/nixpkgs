@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = [
     bash
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     description = "A tiny web auditor with strong opinions";
     homepage = "https://github.com/trailofbits/twa";
     license = licenses.mit;
-    maintainers = with maintainers; [ avaq ];
+    maintainers = with maintainers; [avaq];
     platforms = platforms.unix;
   };
 }

@@ -16,7 +16,7 @@ buildGoModule rec {
   };
 
   vendorHash = null;
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-X main.version=${version}"

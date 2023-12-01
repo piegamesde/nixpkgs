@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     '';
 
   configureFlags =
-    [ "--with-ncurses-include-dir=${ncurses.dev}/include" ]
+    ["--with-ncurses-include-dir=${ncurses.dev}/include"]
     ++ lib.optionals stdenv.hostPlatform.isMusl [
       # Musl doesn't define rcmd
       "--disable-rcp"
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
   # $TMPDIR is too long.
   doCheck = false;
 
-  installFlags = [ "SUIDMODE=" ];
+  installFlags = ["SUIDMODE="];
 
   postInstall = ''
     mkdir $apparmor
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
       include <abstractions/base>
       include <abstractions/consoles>
       include <abstractions/nameservice>
-      include "${apparmorRulesFromClosure { name = "ping"; } [ stdenv.cc.libc ]}"
+      include "${apparmorRulesFromClosure {name = "ping";} [stdenv.cc.libc]}"
       include <local/bin.ping>
       capability net_raw,
       network inet raw,
@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/inetutils/";
     license = licenses.gpl3Plus;
 
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
     platforms = platforms.unix;
   };
 }

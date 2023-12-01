@@ -17,10 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "0hamm6nvbjdjjd5md4jahzvn5559frigxaiybnjkh59ckxwb1hy4";
   };
 
-  cmakeFlags = [ "-DDOWNLOAD_TEST_DATA=OFF" ];
+  cmakeFlags = ["-DDOWNLOAD_TEST_DATA=OFF"];
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ zlib ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [zlib];
 
   checkPhase = ''
     runHook preCheck
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://nifti-imaging.github.io";
     description = "Medical imaging format C API";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = platforms.unix;
     license = licenses.publicDomain;
   };

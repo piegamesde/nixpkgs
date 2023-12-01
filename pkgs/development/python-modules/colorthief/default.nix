@@ -16,17 +16,17 @@ buildPythonPackage rec {
     sha256 = "0lzpflal1iqbj4k7hayss5z024qf2sn8c3wxw03a0mgxg06ca2hm";
   };
 
-  propagatedBuildInputs = [ pillow ];
+  propagatedBuildInputs = [pillow];
 
   # no tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [ "colorthief" ];
+  pythonImportsCheck = ["colorthief"];
 
   meta = with lib; {
     description = "Python module for grabbing the color palette from an image";
     homepage = "https://github.com/fengsp/color-thief-py";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

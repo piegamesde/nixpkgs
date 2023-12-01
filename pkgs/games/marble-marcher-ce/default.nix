@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     makeWrapper
     copyDesktopItems
   ];
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   prePatch = ''
     # the path /home/MMCE is always added to DESTDIR
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       icon = pname;
       desktopName = pname;
       comment = meta.description;
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
       cc-by-30 # Assets
       ofl # Fonts
     ];
-    maintainers = with maintainers; [ rampoina ];
+    maintainers = with maintainers; [rampoina];
     platforms = platforms.linux;
   };
 }

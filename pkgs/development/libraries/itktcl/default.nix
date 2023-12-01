@@ -47,6 +47,6 @@ tcl.mkTclDerivation rec {
     description = "Mega-widget toolkit for incr Tk";
     license = licenses.tcltk;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

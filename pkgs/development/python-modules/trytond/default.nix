@@ -62,7 +62,7 @@ buildPythonPackage rec {
     ++ passlib.optional-dependencies.argon2
     ++ lib.optional withPostgresql psycopg2;
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   preCheck = ''
     export HOME=$(mktemp -d)

@@ -33,9 +33,9 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -54,12 +54,12 @@ buildPythonPackage rec {
       --replace " --timeout=9 --cov=hyperion" ""
   '';
 
-  pythonImportsCheck = [ "hyperion" ];
+  pythonImportsCheck = ["hyperion"];
 
   meta = with lib; {
     description = "Python package for Hyperion Ambient Lighting";
     homepage = "https://github.com/dermotduffy/hyperion-py";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

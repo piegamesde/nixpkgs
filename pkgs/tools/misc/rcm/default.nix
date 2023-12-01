@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9P37xFHR+1dkUxKQogKgqHH2uBujwBprdsSUNchQgKU=";
   };
 
-  patches = [ ./fix-rcmlib-path.patch ];
+  patches = [./fix-rcmlib-path.patch];
 
   postPatch = ''
     for f in bin/*.in; do

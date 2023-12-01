@@ -40,7 +40,7 @@ buildPythonPackage rec {
       --replace 'simplejson==3' 'simplejson~=3'
   '';
 
-  propagatedBuildInputs = [ simplejson ];
+  propagatedBuildInputs = [simplejson];
 
   nativeBuildInputs = [
     autoconf
@@ -50,11 +50,11 @@ buildPythonPackage rec {
     perl
   ];
 
-  buildInputs = [ gcc ];
+  buildInputs = [gcc];
 
   dontUseCmakeConfigure = true;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests =
     [
@@ -72,7 +72,7 @@ buildPythonPackage rec {
     description = "AWS Lambda Runtime Interface Client for Python";
     homepage = "https://github.com/aws/aws-lambda-python-runtime-interface-client";
     license = licenses.asl20;
-    maintainers = with maintainers; [ austinbutler ];
+    maintainers = with maintainers; [austinbutler];
     platforms = platforms.linux;
   };
 }

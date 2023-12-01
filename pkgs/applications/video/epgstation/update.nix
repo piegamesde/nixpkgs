@@ -8,7 +8,7 @@
 }:
 
 let
-  updateSource = gitUpdater { rev-prefix = "v"; };
+  updateSource = gitUpdater {rev-prefix = "v";};
   updateLocks = writers.writeBash "update-epgstation" ''
     set -euxo pipefail
 

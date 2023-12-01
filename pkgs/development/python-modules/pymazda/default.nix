@@ -27,12 +27,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pymazda" ];
+  pythonImportsCheck = ["pymazda"];
 
   meta = with lib; {
     description = "Python client for interacting with the MyMazda API";
     homepage = "https://github.com/bdr99/pymazda";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

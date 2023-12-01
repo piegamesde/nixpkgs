@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ebzzry/deco";
     description = "A simple root image setter";
     license = licenses.mit;
-    maintainers = [ maintainers.ebzzry ];
+    maintainers = [maintainers.ebzzry];
     platforms = platforms.unix;
   };
 

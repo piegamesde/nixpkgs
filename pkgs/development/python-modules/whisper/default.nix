@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-CnCbRmI2jc67mTtfupoE1uHtobrAiWoUXbfX8YeEV6A=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   nativeCheckInputs = [
     mock
@@ -31,7 +31,7 @@ buildPythonPackage rec {
       "test_resize_with_aggregate"
     ];
 
-  pythonImportsCheck = [ "whisper" ];
+  pythonImportsCheck = ["whisper"];
 
   meta = with lib; {
     homepage = "https://github.com/graphite-project/whisper";

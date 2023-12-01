@@ -32,7 +32,7 @@ python3Packages.buildPythonApplication rec {
     gst_all_1.gst-plugins-base
     gst_all_1.gst-plugins-good
     gst_all_1.gst-plugins-ugly
-    (gst_all_1.gst-plugins-bad.override { inherit faacSupport; })
+    (gst_all_1.gst-plugins-bad.override {inherit faacSupport;})
   ];
 
   nativeBuildInputs = [
@@ -47,7 +47,7 @@ python3Packages.buildPythonApplication rec {
     python3Packages.pygobject3
   ];
 
-  nativeCheckInputs = [ xvfb-run ];
+  nativeCheckInputs = [xvfb-run];
 
   postPatch = ''
     substituteInPlace  bin/soundconverter --replace \
@@ -100,6 +100,6 @@ python3Packages.buildPythonApplication rec {
     '';
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jakubgs ];
+    maintainers = with maintainers; [jakubgs];
   };
 }

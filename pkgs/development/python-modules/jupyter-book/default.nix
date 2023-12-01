@@ -69,13 +69,13 @@ buildPythonPackage rec {
     "sphinx-design"
   ];
 
-  pythonImportsCheck = [ "jupyter_book" ];
+  pythonImportsCheck = ["jupyter_book"];
 
   meta = with lib; {
     description = "Build a book with Jupyter Notebooks and Sphinx";
     homepage = "https://jupyterbook.org/";
     changelog = "https://github.com/executablebooks/jupyter-book/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [marsam];
   };
 }

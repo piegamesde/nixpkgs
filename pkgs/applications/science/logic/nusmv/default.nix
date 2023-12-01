@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
         throw "only linux x86_64 and x86_32 are currently supported"
     );
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
   installPhase = ''
     install -m755 -D bin/NuSMV $out/bin/NuSMV
@@ -38,8 +38,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A new symbolic model checker for the analysis of synchronous finite-state and infinite-state systems";
     homepage = "https://nuxmv.fbk.eu/pmwiki.php";
-    maintainers = with maintainers; [ mgttlinger ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    maintainers = with maintainers; [mgttlinger];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     platforms = platforms.linux;
   };
 }

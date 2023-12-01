@@ -35,7 +35,7 @@ gsmakeDerivation rec {
     "dev"
     "lib"
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   propagatedBuildInputs = [
     aspell
     audiofile
@@ -70,7 +70,7 @@ gsmakeDerivation rec {
   meta = {
     description = "An implementation of AppKit and Foundation libraries of OPENSTEP and Cocoa";
     changelog = "https://github.com/gnustep/libs-base/releases/tag/base-${
-      builtins.replaceStrings [ "." ] [ "_" ] version
+      builtins.replaceStrings ["."] ["_"] version
     }";
   };
 }

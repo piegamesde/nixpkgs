@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/openstreetmap/mod_tile";
     description = "Efficiently render and serve OpenStreetMap tiles using Apache and Mapnik";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ jglukasik ];
+    maintainers = with maintainers; [jglukasik];
     platforms = platforms.linux;
   };
 }

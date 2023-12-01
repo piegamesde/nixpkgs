@@ -1,4 +1,4 @@
-{ lib, python3Packages }:
+{lib, python3Packages}:
 
 with python3Packages;
 
@@ -35,7 +35,7 @@ buildPythonApplication rec {
     description = "comic updater, mangafied";
     homepage = "https://github.com/Hamuko/cum";
     license = licenses.asl20;
-    maintainers = with maintainers; [ tadeokondrak ];
+    maintainers = with maintainers; [tadeokondrak];
     platforms = platforms.all;
   };
 }

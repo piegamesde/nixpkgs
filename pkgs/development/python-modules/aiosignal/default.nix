@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-vx3Fe28r+0it1UFwyDSD9NNyeIN4tywTyr4pVp49WuU=";
   };
 
-  propagatedBuildInputs = [ frozenlist ];
+  propagatedBuildInputs = [frozenlist];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -35,13 +35,13 @@ buildPythonPackage rec {
       --replace "--cov=aiosignal" ""
   '';
 
-  pythonImportsCheck = [ "aiosignal" ];
+  pythonImportsCheck = ["aiosignal"];
 
   meta = with lib; {
     description = "Python list of registered asynchronous callbacks";
     homepage = "https://github.com/aio-libs/aiosignal";
     changelog = "https://github.com/aio-libs/aiosignal/blob/v${version}/CHANGES.rst";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

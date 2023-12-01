@@ -17,9 +17,9 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-9JRw+UoxU0I5RHuimzYrM/3j8UWHuicVpoOdRRrj2Wc=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  propagatedBuildInputs = [ sg3_utils ];
+  propagatedBuildInputs = [sg3_utils];
 
   postInstall = ''
     installManPage doc/man/man1/*.1
@@ -29,6 +29,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/stanford-rc/sasutils";
     description = "A set of command-line tools to ease the administration of Serial Attached SCSI (SAS) fabrics";
     license = licenses.asl20;
-    maintainers = with maintainers; [ aij ];
+    maintainers = with maintainers; [aij];
   };
 }

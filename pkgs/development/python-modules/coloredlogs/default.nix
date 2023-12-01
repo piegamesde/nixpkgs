@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-TodI2Wh8M0qMM2K5jzqlLmUKILa5+5qq4ByLttmAA7E=";
   };
 
-  propagatedBuildInputs = [ humanfriendly ];
+  propagatedBuildInputs = [humanfriendly];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -46,12 +46,12 @@ buildPythonPackage rec {
     "test_auto_install"
   ];
 
-  pythonImportsCheck = [ "coloredlogs" ];
+  pythonImportsCheck = ["coloredlogs"];
 
   meta = with lib; {
     description = "Colored stream handler for Python's logging module";
     homepage = "https://github.com/xolox/python-coloredlogs";
     license = licenses.mit;
-    maintainers = with maintainers; [ eyjhb ];
+    maintainers = with maintainers; [eyjhb];
   };
 }

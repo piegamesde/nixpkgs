@@ -28,7 +28,7 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
     "--prefix"
     "PATH"
     ":"
-    "${lib.makeBinPath [ p7zip ]}"
+    "${lib.makeBinPath [p7zip]}"
   ];
 
   postFixup = ''
@@ -39,6 +39,6 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
     description = "Python app to convert comic/manga files or folders to EPUB, Panel View MOBI or E-Ink optimized CBZ";
     homepage = "https://kcc.iosphe.re";
     license = licenses.isc;
-    maintainers = with maintainers; [ dawidsowa ];
+    maintainers = with maintainers; [dawidsowa];
   };
 }

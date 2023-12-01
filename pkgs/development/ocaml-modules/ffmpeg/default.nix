@@ -3,7 +3,7 @@
   buildDunePackage,
   fetchFromGitHub,
   callPackage,
-  ffmpeg-base ? callPackage ./base.nix { },
+  ffmpeg-base ? callPackage ./base.nix {},
   ffmpeg-avutil,
   ffmpeg-avcodec,
   ffmpeg-avfilter,

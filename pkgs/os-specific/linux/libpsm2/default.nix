@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ numactl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [numactl];
 
   makeFlags =
     [
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       gpl2
       bsd3
     ];
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ maintainers.bzizou ];
+    platforms = ["x86_64-linux"];
+    maintainers = [maintainers.bzizou];
   };
 }

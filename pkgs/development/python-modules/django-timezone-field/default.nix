@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-GXkvF/kAOU1JK0GDpUT1irCQlkxIWieYRqPd0fr2HXw=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     django
@@ -33,7 +33,7 @@ buildPythonPackage rec {
     pytz
   ];
 
-  pythonImportsCheck = [ "timezone_field" ];
+  pythonImportsCheck = ["timezone_field"];
 
   # Uses pytest.lazy_fixture directly which is broken in pytest-lazy-fixture
   # https://github.com/TvoroG/pytest-lazy-fixture/issues/22
@@ -54,6 +54,6 @@ buildPythonPackage rec {
     description = "Django app providing database, form and serializer fields for pytz timezone objects";
     homepage = "https://github.com/mfogel/django-timezone-field";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

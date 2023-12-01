@@ -25,12 +25,12 @@ buildPythonPackage rec {
     export HGUSER=test
   '';
 
-  pythonImportsCheck = [ "hglib" ];
+  pythonImportsCheck = ["hglib"];
 
   meta = with lib; {
     description = "Library with a fast, convenient interface to Mercurial. It uses Mercurial’s command server for communication with hg.";
     homepage = "https://www.mercurial-scm.org/wiki/PythonHglibs";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

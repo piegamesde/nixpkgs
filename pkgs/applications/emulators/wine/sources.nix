@@ -1,5 +1,5 @@
 {
-  pkgs ? import <nixpkgs> { },
+  pkgs ? import <nixpkgs> {},
 }:
 ## we default to importing <nixpkgs> here, so that you can use
 ## a simple shell command to insert new hashes into this file
@@ -9,7 +9,7 @@
 
 # here we wrap fetchurl and fetchFromGitHub, in order to be able to pass additional args around it
 let
-  fetchurl = args@{ url, hash, ... }: pkgs.fetchurl { inherit url hash; } // args;
+  fetchurl = args@{url, hash, ...}: pkgs.fetchurl {inherit url hash;} // args;
   fetchFromGitHub =
     args@{
       owner,
@@ -157,7 +157,7 @@ rec {
     repo = "wine-staging";
     rev = "v${version}";
 
-    disabledPatchsets = [ ];
+    disabledPatchsets = [];
   };
 
   wayland = fetchFromGitLab {

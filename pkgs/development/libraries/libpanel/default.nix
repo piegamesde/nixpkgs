@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     libadwaita
   ];
 
-  mesonFlags = [ "-Dinstall-examples=true" ];
+  mesonFlags = ["-Dinstall-examples=true"];
 
   postFixup = ''
     # Cannot be in postInstall, otherwise _multioutDocs hook in preFixup will move right back.
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = pname; };
+    updateScript = gnome.updateScript {packageName = pname;};
   };
 
   meta = with lib; {

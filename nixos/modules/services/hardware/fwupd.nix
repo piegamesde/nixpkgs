@@ -13,50 +13,48 @@ let
   cfg = config.services.fwupd;
 
   format = pkgs.formats.ini {
-    listToValue = l: lib.concatStringsSep ";" (map (s: generators.mkValueStringDefault { } s) l);
-    mkKeyValue = generators.mkKeyValueDefault { } "=";
+    listToValue = l: lib.concatStringsSep ";" (map (s: generators.mkValueStringDefault {} s) l);
+    mkKeyValue = generators.mkKeyValueDefault {} "=";
   };
 
   customEtc = {
     "fwupd/daemon.conf" = {
-      source = format.generate "daemon.conf" { fwupd = cfg.daemonSettings; };
+      source = format.generate "daemon.conf" {fwupd = cfg.daemonSettings;};
     };
 
     "fwupd/uefi_capsule.conf" = {
-      source = format.generate "uefi_capsule.conf" { uefi_capsule = cfg.uefiCapsuleSettings; };
+      source = format.generate "uefi_capsule.conf" {uefi_capsule = cfg.uefiCapsuleSettings;};
     };
   };
 
   originalEtc =
     let
-      mkEtcFile = n: nameValuePair n { source = "${cfg.package}/etc/${n}"; };
+      mkEtcFile = n: nameValuePair n {source = "${cfg.package}/etc/${n}";};
     in
     listToAttrs (map mkEtcFile cfg.package.filesInstalledToEtc);
   extraTrustedKeys =
     let
       mkName = p: "pki/fwupd/${baseNameOf (toString p)}";
-      mkEtcFile = p: nameValuePair (mkName p) { source = p; };
+      mkEtcFile = p: nameValuePair (mkName p) {source = p;};
     in
     listToAttrs (map mkEtcFile cfg.extraTrustedKeys);
 
   enableRemote = base: remote: {
     "fwupd/remotes.d/${remote}.conf" = {
-      source = pkgs.runCommand "${remote}-enabled.conf" { } ''
+      source = pkgs.runCommand "${remote}-enabled.conf" {} ''
         sed "s,^Enabled=false,Enabled=true," \
         "${base}/etc/fwupd/remotes.d/${remote}.conf" > "$out"
       '';
     };
   };
   remotes =
-    (foldl' (configFiles: remote: configFiles // (enableRemote cfg.package remote)) { }
-      cfg.extraRemotes
-    )
+    (foldl' (configFiles: remote: configFiles // (enableRemote cfg.package remote)) {} cfg.extraRemotes)
     // (
       # We cannot include the file in $out and rely on filesInstalledToEtc
       # to install it because it would create a cyclic dependency between
       # the outputs. We also need to enable the remote,
       # which should not be done by default.
-      if cfg.enableTestRemote then (enableRemote cfg.package.installedTests "fwupd-tests") else { }
+      if cfg.enableTestRemote then (enableRemote cfg.package.installedTests "fwupd-tests") else {}
     );
 in
 {
@@ -75,7 +73,7 @@ in
 
       extraTrustedKeys = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         example = literalExpression "[ /etc/nixos/fwupd/myfirmware.pem ]";
         description = lib.mdDoc ''
           Installing a public key allows firmware signed with a matching private key to be recognized as trusted, which may require less authentication to install than for untrusted files. By default trusted firmware can be upgraded (but not downgraded) without the user or administrator password. Only very few keys are installed by default.
@@ -84,8 +82,8 @@ in
 
       extraRemotes = mkOption {
         type = with types; listOf str;
-        default = [ ];
-        example = [ "lvfs-testing" ];
+        default = [];
+        example = ["lvfs-testing"];
         description = lib.mdDoc ''
           Enables extra remotes in fwupd. See `/etc/fwupd/remotes.d`.
         '';
@@ -115,8 +113,8 @@ in
           options = {
             DisabledDevices = mkOption {
               type = types.listOf types.str;
-              default = [ ];
-              example = [ "2082b5e0-7a64-478a-b1b2-e3404fab6dad" ];
+              default = [];
+              example = ["2082b5e0-7a64-478a-b1b2-e3404fab6dad"];
               description = lib.mdDoc ''
                 List of device GUIDs to be disabled.
               '';
@@ -124,8 +122,8 @@ in
 
             DisabledPlugins = mkOption {
               type = types.listOf types.str;
-              default = [ ];
-              example = [ "udev" ];
+              default = [];
+              example = ["udev"];
               description = lib.mdDoc ''
                 List of plugins to be disabled.
               '';
@@ -142,15 +140,15 @@ in
             };
           };
         };
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Configurations for the fwupd daemon.
         '';
       };
 
       uefiCapsuleSettings = mkOption {
-        type = types.submodule { freeformType = format.type.nestedTypes.elemType; };
-        default = { };
+        type = types.submodule {freeformType = format.type.nestedTypes.elemType;};
+        default = {};
         description = lib.mdDoc ''
           UEFI capsule configurations for the fwupd daemon.
         '';
@@ -221,19 +219,19 @@ in
       EspLocation = config.boot.loader.efi.efiSysMountPoint;
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     # customEtc overrides some files from the package
     environment.etc = originalEtc // customEtc // extraTrustedKeys // remotes;
 
-    services.dbus.packages = [ cfg.package ];
+    services.dbus.packages = [cfg.package];
 
-    services.udev.packages = [ cfg.package ];
+    services.udev.packages = [cfg.package];
 
     # required to update the firmware of disks
     services.udisks2.enable = true;
 
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
 
     security.polkit.enable = true;
   };

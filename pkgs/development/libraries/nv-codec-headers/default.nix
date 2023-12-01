@@ -14,13 +14,13 @@ stdenv.mkDerivation rec {
     sha256 = "1xfvb3mhz6wfx9c732888xa82ivaig903lhvvrqqzs31qfznsplh";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = {
     description = "FFmpeg version of headers for NVENC";
     homepage = "https://ffmpeg.org/";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.MP2E ];
+    maintainers = [lib.maintainers.MP2E];
     platforms = lib.platforms.all;
   };
 }

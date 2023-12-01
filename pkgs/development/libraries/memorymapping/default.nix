@@ -40,7 +40,7 @@ stdenv.mkDerivation {
     homepage = "https://nimbuskit.github.io/memorymapping/";
     description = "fmemopen for Mac OS and iOS";
     license = licenses.asl20;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
     # Uses BSD-style funopen() to implement glibc-style fmemopen().
     # Add more BSDs if you need to.
     platforms = platforms.darwin;

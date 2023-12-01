@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     sha256 = "0rw8pxfqhl6ww4w31fbf4hi3zilh1n3b1rfjm7ra76mm78wfyylj";
   };
 
-  nativeBuildInputs = [ wrapPython ];
+  nativeBuildInputs = [wrapPython];
   buildInputs = [
     bash
     coreutils

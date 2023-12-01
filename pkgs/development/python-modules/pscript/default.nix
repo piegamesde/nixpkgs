@@ -31,13 +31,13 @@ buildPythonPackage rec {
     rm -rf pscript_legacy
   '';
 
-  pythonImportsCheck = [ "pscript" ];
+  pythonImportsCheck = ["pscript"];
 
   meta = with lib; {
     description = "Python to JavaScript compiler";
     homepage = "https://pscript.readthedocs.io";
     changelog = "https://github.com/flexxui/pscript/blob/v${version}/docs/releasenotes.rst";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
   };
 }

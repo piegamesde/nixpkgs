@@ -26,7 +26,7 @@ buildPythonPackage rec {
 
   format = "pyproject";
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     jax-jumpy
@@ -35,14 +35,14 @@ buildPythonPackage rec {
     gym-notices
     typing-extensions
     farama-notifications
-  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  ] ++ lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
-  pythonImportsCheck = [ "gymnasium" ];
+  pythonImportsCheck = ["gymnasium"];
 
   meta = with lib; {
     description = "A standard API for reinforcement learning and a diverse set of reference environments (formerly Gym)";
     homepage = "https://github.com/Farama-Foundation/Gymnasium";
     license = licenses.mit;
-    maintainers = with maintainers; [ GaetanLepage ];
+    maintainers = with maintainers; [GaetanLepage];
   };
 }

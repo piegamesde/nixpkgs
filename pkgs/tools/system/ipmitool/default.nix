@@ -22,11 +22,11 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = "IPMITOOL_${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "IPMITOOL_${lib.replaceStrings ["."] ["_"] version}";
     hash = "sha256-VVYvuldRIHhaIUibed9cLX8Avfy760fdBLNO8MoUKCk=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     openssl
     readline
@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     license = licenses.bsd3;
     homepage = "https://github.com/ipmitool/ipmitool";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
   };
 }

@@ -30,13 +30,13 @@ stdenv.mkDerivation rec {
     bzip2
   ];
 
-  configureFlags = [ "--without-libdb" ];
+  configureFlags = ["--without-libdb"];
 
   meta = with lib; {
     description = "Download utility that can fetch files from several sources simultaneously";
     homepage = "http://atterer.org/jigdo/";
     license = licenses.gpl2Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

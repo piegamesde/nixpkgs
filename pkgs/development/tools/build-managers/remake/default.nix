@@ -19,10 +19,10 @@ stdenv.mkDerivation rec {
     sha256 = "11vvch8bi0yhjfz7gn92b3xmmm0cgi3qfiyhbnnj89frkhbwd87n";
   };
 
-  patches = [ ./glibc-2.27-glob.patch ];
+  patches = [./glibc-2.27-glob.patch];
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ readline ] ++ lib.optionals guileSupport [ guile ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [readline] ++ lib.optionals guileSupport [guile];
 
   # make check fails, see https://github.com/rocky/remake/issues/117
 

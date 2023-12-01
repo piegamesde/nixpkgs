@@ -21,7 +21,7 @@ buildGoModule rec {
   ];
 
   # For patchShebangs
-  buildInputs = [ bash ];
+  buildInputs = [bash];
 
   vendorHash = "sha256-4eSfNo5S/eottEN4AptGJq6pBDHkNud0Nj5GrqutADM=";
 

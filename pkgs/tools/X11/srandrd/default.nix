@@ -24,13 +24,13 @@ stdenv.mkDerivation rec {
     libXinerama
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     homepage = "https://github.com/jceb/srandrd";
     description = "Simple randr daemon";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ maintainers.utdemir ];
+    maintainers = [maintainers.utdemir];
   };
 }

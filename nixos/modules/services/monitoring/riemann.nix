@@ -13,11 +13,11 @@ let
   cfg = config.services.riemann;
 
   classpath = concatStringsSep ":" (
-    cfg.extraClasspathEntries ++ [ "${riemann}/share/java/riemann.jar" ]
+    cfg.extraClasspathEntries ++ ["${riemann}/share/java/riemann.jar"]
   );
 
   riemannConfig = concatStringsSep "\n" (
-    [ cfg.config ] ++ (map (f: ''(load-file "${f}")'') cfg.configFiles)
+    [cfg.config] ++ (map (f: ''(load-file "${f}")'') cfg.configFiles)
   );
 
   launcher = writeScriptBin "riemann" ''
@@ -43,7 +43,7 @@ in
       };
       configFiles = mkOption {
         type = with types; listOf path;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Extra files containing Riemann configuration. These files will be
           loaded at runtime by Riemann (with Clojure's
@@ -61,14 +61,14 @@ in
       };
       extraClasspathEntries = mkOption {
         type = with types; listOf str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Extra entries added to the Java classpath when running Riemann.
         '';
       };
       extraJavaOpts = mkOption {
         type = with types; listOf str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Extra Java options used when launching Riemann.
         '';
@@ -89,8 +89,8 @@ in
     services.riemann.configFile = mkDefault (writeText "riemann-config.clj" riemannConfig);
 
     systemd.services.riemann = {
-      wantedBy = [ "multi-user.target" ];
-      path = [ inetutils ];
+      wantedBy = ["multi-user.target"];
+      path = [inetutils];
       serviceConfig = {
         User = "riemann";
         ExecStart = "${launcher}/bin/riemann";

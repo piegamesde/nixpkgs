@@ -20,7 +20,7 @@ stdenv.mkDerivation {
     inherit sha256;
   };
 
-  patches = [ ./new-skalibs.patch ];
+  patches = [./new-skalibs.patch];
   outputs = [
     "bin"
     "lib"
@@ -96,6 +96,6 @@ stdenv.mkDerivation {
     description = "A set of utilities for working with file descriptors";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.Profpatsch ];
+    maintainers = [lib.maintainers.Profpatsch];
   };
 }

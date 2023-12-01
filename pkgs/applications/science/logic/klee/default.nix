@@ -33,12 +33,12 @@
   runtimeAsserts ? false,
 
   # Extra klee-uclibc config.
-  extraKleeuClibcConfig ? { },
+  extraKleeuClibcConfig ? {},
 }:
 
 let
   # Python used for KLEE tests.
-  kleePython = python3.withPackages (ps: with ps; [ tabulate ]);
+  kleePython = python3.withPackages (ps: with ps; [tabulate]);
 
   # The klee-uclibc derivation.
   kleeuClibc = callPackage ./klee-uclibc.nix {
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
     # Should appear BEFORE lit, since lit passes through python rather
     # than the python environment we make.
     kleePython
-    (lit.override { python = kleePython; })
+    (lit.override {python = kleePython;})
   ];
 
   cmakeFlags =
@@ -114,7 +114,7 @@ stdenv.mkDerivation rec {
     ];
 
   # Silence various warnings during the compilation of fortified bitcode.
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-macro-redefined" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-macro-redefined"];
 
   prePatch = ''
     patchShebangs .
@@ -150,7 +150,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://klee.github.io/";
     license = licenses.ncsa;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ numinit ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [numinit];
   };
 }

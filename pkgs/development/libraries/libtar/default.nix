@@ -47,14 +47,14 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [];
 
   meta = with lib; {
     description = "C library for manipulating POSIX tar files";
     homepage = "https://repo.or.cz/libtar";
     license = licenses.bsd3;
     platforms = with platforms; linux ++ darwin;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

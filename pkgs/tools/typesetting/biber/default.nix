@@ -89,6 +89,6 @@ perlPackages.buildPerlModule {
       gpl1Plus
     ];
     platforms = platforms.unix;
-    maintainers = [ maintainers.ttuegel ];
+    maintainers = [maintainers.ttuegel];
   };
 }

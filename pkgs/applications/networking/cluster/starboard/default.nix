@@ -27,9 +27,9 @@ buildGoModule rec {
   };
   vendorHash = "sha256-gDBMGn3gKbAvMU3V88tjAZJlAiUXXnXGzyCT06l+DZ8=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  subPackages = [ "cmd/starboard" ];
+  subPackages = ["cmd/starboard"];
 
   ldflags = [
     "-s"
@@ -84,6 +84,6 @@ buildGoModule rec {
       tools.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ jk ];
+    maintainers = with maintainers; [jk];
   };
 }

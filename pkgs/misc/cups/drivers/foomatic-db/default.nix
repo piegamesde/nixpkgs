@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
 
   # don't let the intaller gzip ppd files as we would
   # have to unzip them later in order to patch them
-  configureFlags = [ "--disable-gzip-ppds" ];
+  configureFlags = ["--disable-gzip-ppds"];
 
   # make ppd files available to cups,
   # use a package-specific subdirectory to avoid
@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
     downloadPage = "https://www.openprinting.org/download/foomatic/";
     homepage = "https://openprinting.github.io/projects/02-foomatic/";
     license = lib.licenses.free; # mostly GPL and MIT, see README in source dir
-    maintainers = [ lib.maintainers.yarny ];
+    maintainers = [lib.maintainers.yarny];
     # list printer manufacturers here so people
     # searching for ppd files can find this package
     longDescription = ''

@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-ansi-text";
   version = "20211020-git";
@@ -19,7 +19,7 @@ rec {
 
   packageName = "cl-ansi-text";
 
-  asdFilesToKeep = [ "cl-ansi-text.asd" ];
+  asdFilesToKeep = ["cl-ansi-text.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-ansi-text DESCRIPTION

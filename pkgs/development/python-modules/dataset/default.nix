@@ -29,12 +29,12 @@ buildPythonPackage rec {
   # checks attempt to import nonexistent module 'test.test' and fail
   doCheck = false;
 
-  pythonImportsCheck = [ "dataset" ];
+  pythonImportsCheck = ["dataset"];
 
   meta = with lib; {
     description = "Toolkit for Python-based database access";
     homepage = "https://dataset.readthedocs.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ xfnw ];
+    maintainers = with maintainers; [xfnw];
   };
 }

@@ -32,7 +32,7 @@ stdenv.mkDerivation {
     libbitcoin
     secp256k1
   ];
-  propagatedBuildInputs = [ zeromq ];
+  propagatedBuildInputs = [zeromq];
 
   enableParallelBuilding = true;
 
@@ -46,7 +46,7 @@ stdenv.mkDerivation {
     description = "Bitcoin Blockchain Query Protocol";
     homepage = "https://libbitcoin.info/";
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ asymmetric ];
+    maintainers = with maintainers; [asymmetric];
 
     # AGPL with a lesser clause
     license = licenses.agpl3;

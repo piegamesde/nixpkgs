@@ -96,7 +96,7 @@ let
   };
 
   instanceConfig =
-    { name, config, ... }:
+    {name, config, ...}:
     {
       options = {
         enable = (lib.mkEnableOption (lib.mdDoc "this cups-pdf instance")) // {
@@ -122,7 +122,7 @@ let
         };
         settings = lib.mkOption {
           type = lib.types.submodule (instanceSettings name);
-          default = { };
+          default = {};
           example = {
             Out = "\${HOME}/cups-pdf";
             UserUMask = "0033";
@@ -188,7 +188,7 @@ in
     );
     instances = lib.mkOption {
       type = lib.types.attrsOf (lib.types.submodule instanceConfig);
-      default.pdf = { };
+      default.pdf = {};
       example.pdf.settings = {
         Out = "\${HOME}/cups-pdf";
         UserUMask = "0033";
@@ -202,7 +202,7 @@ in
 
   config = lib.mkIf cupsPdfCfg.enable {
     services.printing.enable = true;
-    services.printing.drivers = [ cups-pdf-wrapped ];
+    services.printing.drivers = [cups-pdf-wrapped];
     hardware.printers.ensurePrinters = printerSettings;
     # the cups module will install the default config file,
     # but we don't need it and it would confuse cups-pdf
@@ -219,5 +219,5 @@ in
     };
   };
 
-  meta.maintainers = [ lib.maintainers.yarny ];
+  meta.maintainers = [lib.maintainers.yarny];
 }

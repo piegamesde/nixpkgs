@@ -1,16 +1,16 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "domination";
-    meta = with pkgs.lib.maintainers; { maintainers = [ fgaz ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [fgaz];};
 
     nodes.machine =
-      { config, pkgs, ... }:
+      {config, pkgs, ...}:
       {
-        imports = [ ./common/x11.nix ];
+        imports = [./common/x11.nix];
 
         services.xserver.enable = true;
-        environment.systemPackages = [ pkgs.domination ];
+        environment.systemPackages = [pkgs.domination];
       };
 
     enableOCR = true;

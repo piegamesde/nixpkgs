@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     homepage = "https://micronaut.io/";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ moaxcp ];
+    maintainers = with maintainers; [moaxcp];
   };
 }

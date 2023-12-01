@@ -9,7 +9,7 @@
 
 let
   phpExt = php.withExtensions (
-    { enabled, all }:
+    {enabled, all}:
     with all; [
       filter
       mysqlnd
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-DS0klm26udXsiiFToeOJooA1WUR8gk0qf/UJL8E77ps=";
   };
 
-  buildInputs = [ phpExt ];
+  buildInputs = [phpExt];
 
   installPhase = ''
     runHook preInstall
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     homepage = "https://engelsystem.de";
     changelog = "https://github.com/engelsystem/engelsystem/releases/tag/v${version}";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ kloenk ];
+    maintainers = with maintainers; [kloenk];
     mainProgram = "migrate";
     platforms = platforms.all;
   };

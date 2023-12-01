@@ -55,7 +55,7 @@ let
       };
     in
     menuBuilderGrub2 finalCfg [
-      { class = "installer"; }
+      {class = "installer";}
       {
         class = "nomodeset";
         params = "nomodeset";
@@ -147,7 +147,7 @@ let
   '';
 
   isolinuxCfg = concatStringsSep "\n" (
-    [ baseIsolinuxCfg ] ++ optional config.boot.loader.grub.memtest86.enable isolinuxMemtest86Entry
+    [baseIsolinuxCfg] ++ optional config.boot.loader.grub.memtest86.enable isolinuxMemtest86Entry
   );
 
   refindBinary =
@@ -246,7 +246,7 @@ let
   efiDir =
     pkgs.runCommand "efi-directory"
       {
-        nativeBuildInputs = [ pkgs.buildPackages.grub2_efi ];
+        nativeBuildInputs = [pkgs.buildPackages.grub2_efi];
         strictDeps = true;
       }
       ''
@@ -648,7 +648,7 @@ in
   config.lib.isoFileSystems = {
     "/" = mkImageMediaOverride {
       fsType = "tmpfs";
-      options = [ "mode=0755" ];
+      options = ["mode=0755"];
     };
 
     # Note that /dev/root is a symlink to the actual root device
@@ -665,13 +665,13 @@ in
     "/nix/.ro-store" = mkImageMediaOverride {
       fsType = "squashfs";
       device = "/iso/nix-store.squashfs";
-      options = [ "loop" ];
+      options = ["loop"];
       neededForBoot = true;
     };
 
     "/nix/.rw-store" = mkImageMediaOverride {
       fsType = "tmpfs";
-      options = [ "mode=0755" ];
+      options = ["mode=0755"];
       neededForBoot = true;
     };
 
@@ -871,6 +871,6 @@ in
 
     # Add vfat support to the initrd to enable people to copy the
     # contents of the CD to a bootable USB stick.
-    boot.initrd.supportedFilesystems = [ "vfat" ];
+    boot.initrd.supportedFilesystems = ["vfat"];
   };
 }

@@ -26,7 +26,7 @@ buildPythonPackage rec {
     sed -i 's/fsspec==.*/fsspec/' requirements.txt
   '';
 
-  buildInputs = [ docutils ];
+  buildInputs = [docutils];
 
   propagatedBuildInputs = [
     aiobotocore
@@ -39,7 +39,7 @@ buildPythonPackage rec {
   # pythonPackages.
   doCheck = false;
 
-  pythonImportsCheck = [ "s3fs" ];
+  pythonImportsCheck = ["s3fs"];
 
   meta = with lib; {
     broken = stdenv.isDarwin;
@@ -47,6 +47,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/fsspec/s3fs";
     changelog = "https://github.com/fsspec/s3fs/raw/${version}/docs/source/changelog.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ teh ];
+    maintainers = with maintainers; [teh];
   };
 }

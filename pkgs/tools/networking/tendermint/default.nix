@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-/enY0qERFzAIJNcuw1djRGoAcmtz7R5Ikvlts0f7rLc=";
 
-  subPackages = [ "cmd/tendermint" ];
+  subPackages = ["cmd/tendermint"];
 
   preBuild = ''
     makeFlagsArray+=(
@@ -29,7 +29,7 @@ buildGoModule rec {
     description = "Byzantine-Fault Tolerant State Machines. Or Blockchain, for short";
     homepage = "https://tendermint.com/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ alexfmpe ];
+    maintainers = with maintainers; [alexfmpe];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

@@ -84,8 +84,8 @@ stdenv.mkDerivation rec {
       fromSource
       binaryBytecode # deps
     ];
-    license = with licenses; [ lgpl3 ];
-    maintainers = with maintainers; [ ekleog ];
+    license = with licenses; [lgpl3];
+    maintainers = with maintainers; [ekleog];
     mainProgram = "gp";
     platforms = platforms.all;
   };

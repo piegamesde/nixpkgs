@@ -85,7 +85,7 @@ let
 
   rewriteHashes =
     drv: hashes:
-    runCommandLocal (drvName drv) { nixStore = "${nix.out}/bin/nix-store"; } ''
+    runCommandLocal (drvName drv) {nixStore = "${nix.out}/bin/nix-store";} ''
       $nixStore --dump ${drv} | sed 's|${baseNameOf drv}|'$(basename $out)'|g' | sed -e ${
         concatStringsSep " -e " (
           mapAttrsToList (name: value: "'s|${baseNameOf name}|${baseNameOf value}|g'") hashes

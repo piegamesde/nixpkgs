@@ -5,7 +5,7 @@
   makeWrapper,
   fetchzip,
   fetchpatch,
-  pathDeps ? [ ],
+  pathDeps ? [],
 }:
 
 buildGoModule rec {
@@ -67,7 +67,7 @@ buildGoModule rec {
     '';
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   vendorHash = "sha256-fB8MxSl9E2W+BdO6i+drbCe9Z3bPHPi0MvpJEomU9co=";
   proxyVendor = true;
@@ -94,7 +94,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "A free, open source game management panel";
     homepage = "https://www.pufferpanel.com/";
-    license = with licenses; [ asl20 ];
+    license = with licenses; [asl20];
     maintainers = with maintainers; [
       ckie
       tie

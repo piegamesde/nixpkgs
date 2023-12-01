@@ -36,6 +36,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/google/liblc3";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jansol ];
+    maintainers = with maintainers; [jansol];
   };
 }

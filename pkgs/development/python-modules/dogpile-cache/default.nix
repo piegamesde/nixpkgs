@@ -46,6 +46,6 @@ buildPythonPackage rec {
     description = "A caching front-end based on the Dogpile lock";
     homepage = "https://bitbucket.org/zzzeek/dogpile.cache";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

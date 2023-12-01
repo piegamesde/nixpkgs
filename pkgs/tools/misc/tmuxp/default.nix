@@ -19,7 +19,7 @@ pypkgs.buildPythonApplication rec {
   # No tests in archive
   doCheck = false;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   propagatedBuildInputs = with pypkgs; [
     click
@@ -40,6 +40,6 @@ pypkgs.buildPythonApplication rec {
     homepage = "https://tmuxp.git-pull.com/";
     changelog = "https://github.com/tmux-python/tmuxp/raw/v${version}/CHANGES";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

@@ -84,7 +84,7 @@ buildPythonPackage rec {
     homepage = "https://cupy.chainer.org/";
     changelog = "https://github.com/cupy/cupy/releases/tag/v${version}";
     license = licenses.mit;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ hyphon81 ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [hyphon81];
   };
 }

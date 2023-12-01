@@ -28,7 +28,7 @@ buildPythonPackage rec {
   pname = "xhtml2pdf";
   version = "0.2.1";
 
-  buildInputs = [ html5 ];
+  buildInputs = [html5];
   propagatedBuildInputs = [
     httplib2
     nose
@@ -47,6 +47,6 @@ buildPythonPackage rec {
     description = "A pdf converter for the ReportLab Toolkit";
     homepage = "https://github.com/xhtml2pdf/xhtml2pdf";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ rprospero ];
+    maintainers = with lib.maintainers; [rprospero];
   };
 }

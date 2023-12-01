@@ -21,20 +21,20 @@ buildPythonPackage rec {
 
   format = "flit";
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  propagatedBuildInputs = [ sphinx ];
+  propagatedBuildInputs = [sphinx];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  pythonImportsCheck = [ "sphinx_pytest" ];
+  pythonImportsCheck = ["sphinx_pytest"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Helpful pytest fixtures for Sphinx extensions";
     homepage = "https://github.com/chrisjsewell/sphinx-pytest";
     license = licenses.mit;
-    maintainers = with maintainers; [ loicreynier ];
+    maintainers = with maintainers; [loicreynier];
   };
 }

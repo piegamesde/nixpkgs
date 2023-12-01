@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "clack-handler-hunchentoot";
   version = "clack-20210411-git";
@@ -36,7 +36,7 @@ rec {
 
   packageName = "clack-handler-hunchentoot";
 
-  asdFilesToKeep = [ "clack-handler-hunchentoot.asd" ];
+  asdFilesToKeep = ["clack-handler-hunchentoot.asd"];
   overrides = x: x;
 }
 /* (SYSTEM clack-handler-hunchentoot DESCRIPTION Clack handler for Hunchentoot.

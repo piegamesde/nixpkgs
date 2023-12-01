@@ -23,17 +23,17 @@ stdenv.mkDerivation rec {
     sha256 = "34c132b005c025c1a5079aae9210855c80f50dc51dde719298e1113ad73408a4";
   };
 
-  patches = [ ./configure-use-solib.patch ];
+  patches = [./configure-use-solib.patch];
 
-  configureFlags = [ "--with-libevent=${libevent-comb}" ];
+  configureFlags = ["--with-libevent=${libevent-comb}"];
 
-  buildInputs = [ libevent ];
+  buildInputs = [libevent];
 
   meta = with lib; {
     homepage = "http://monkey.org/~marius/nylon";
     description = "Proxy server, supporting SOCKS 4 and 5, as well as a mirror mode";
     license = licenses.bsdOriginal;
-    maintainers = with maintainers; [ edwtjo ];
+    maintainers = with maintainers; [edwtjo];
     platforms = platforms.linux;
   };
 }

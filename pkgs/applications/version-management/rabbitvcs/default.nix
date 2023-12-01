@@ -21,7 +21,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-gVrdf8vQWAGORZqlTS/axs4U7aZlS8OAgPM3iKgqAtM=";
   };
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
   pythonPath = with python3Packages; [
     configobj
     pygobject3
@@ -59,6 +59,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "http://rabbitvcs.org/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.mathnerd314 ];
+    maintainers = [lib.maintainers.mathnerd314];
   };
 }

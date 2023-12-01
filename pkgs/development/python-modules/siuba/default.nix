@@ -58,6 +58,6 @@ buildPythonPackage rec {
     description = "Use dplyr-like syntax with pandas and SQL";
     homepage = "https://siuba.org";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

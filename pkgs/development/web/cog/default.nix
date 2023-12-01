@@ -46,9 +46,9 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  depsBuildsBuild = [ pkg-config ];
+  depsBuildsBuild = [pkg-config];
 
-  cmakeFlags = [ "-DCOG_USE_WEBKITGTK=ON" ];
+  cmakeFlags = ["-DCOG_USE_WEBKITGTK=ON"];
 
   # https://github.com/Igalia/cog/issues/438
   postPatch = ''
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A small single “window” launcher for the WebKit WPE port";
     license = licenses.mit;
-    maintainers = [ maintainers.matthewbauer ];
+    maintainers = [maintainers.matthewbauer];
     platforms = platforms.linux;
   };
 }

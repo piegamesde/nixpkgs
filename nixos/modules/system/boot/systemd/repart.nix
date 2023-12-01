@@ -11,7 +11,7 @@ let
 
   writeDefinition =
     name: partitionConfig:
-    pkgs.writeText "${name}.conf" (lib.generators.toINI { } { Partition = partitionConfig; });
+    pkgs.writeText "${name}.conf" (lib.generators.toINI {} {Partition = partitionConfig;});
 
   listOfDefinitions = lib.mapAttrsToList writeDefinition (
     lib.filterAttrs (k: _: !(lib.hasPrefix "_" k)) cfg.partitions
@@ -22,7 +22,7 @@ let
   # the definition files after the sysroot has been mounted but before
   # activation. This needs a hard copy of the files and not just symlinks
   # because otherwise the files do not show up in the sysroot.
-  definitionsDirectory = pkgs.runCommand "systemd-repart-definitions" { } ''
+  definitionsDirectory = pkgs.runCommand "systemd-repart-definitions" {} ''
     mkdir -p $out
     ${(lib.concatStringsSep "\n" (map (pkg: "cp ${pkg} $out/${pkg.name}") listOfDefinitions))}
   '';
@@ -62,7 +62,7 @@ in
               ]
             )
           );
-        default = { };
+        default = {};
         example = {
           "10-root" = {
             Type = "root";
@@ -91,9 +91,9 @@ in
     environment.etc."repart.d".source = definitionsDirectory;
 
     boot.initrd.systemd = lib.mkIf initrdCfg.enable {
-      additionalUpstreamUnits = [ "systemd-repart.service" ];
+      additionalUpstreamUnits = ["systemd-repart.service"];
 
-      storePaths = [ "${config.boot.initrd.systemd.package}/bin/systemd-repart" ];
+      storePaths = ["${config.boot.initrd.systemd.package}/bin/systemd-repart"];
 
       # Override defaults in upstream unit.
       services.systemd-repart = {
@@ -119,10 +119,10 @@ in
         # upestream unit runs too early in the boot process, before the sysroot
         # is available. However, systemd-repart needs access to the sysroot to
         # find the definition files.
-        after = [ "sysroot.mount" ];
+        after = ["sysroot.mount"];
       };
     };
 
-    systemd = lib.mkIf cfg.enable { additionalUpstreamSystemUnits = [ "systemd-repart.service" ]; };
+    systemd = lib.mkIf cfg.enable {additionalUpstreamSystemUnits = ["systemd-repart.service"];};
   };
 }

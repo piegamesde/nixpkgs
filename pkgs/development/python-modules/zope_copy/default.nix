@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-epg2yjqX9m1WGzYPeGUBKGif4JNAddzg75ECe9xPOlc=";
   };
 
-  propagatedBuildInputs = [ zope_interface ];
+  propagatedBuildInputs = [zope_interface];
 
   doCheck = !isPy27; # namespace conflicts
   nativeCheckInputs = [
@@ -33,6 +33,6 @@ buildPythonPackage rec {
   ];
 
   meta = {
-    maintainers = with lib.maintainers; [ domenkozar ];
+    maintainers = with lib.maintainers; [domenkozar];
   };
 }

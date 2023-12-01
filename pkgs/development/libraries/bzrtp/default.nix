@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     bctoolbox
     sqlite
   ];
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # Do not build static libraries
   cmakeFlags = [
@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.linphone.org/BC/public/bzrtp";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

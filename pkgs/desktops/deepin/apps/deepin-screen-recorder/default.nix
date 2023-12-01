@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-43jqgiBa77UAes0ekMES6IqVOPVXfzfQQjePdxFkNDM=";
   };
 
-  patches = [ ./dont_use_libPath.diff ];
+  patches = [./dont_use_libPath.diff];
 
   postPatch = ''
     substituteInPlace screen_shot_recorder.pro deepin-screen-recorder.desktop \

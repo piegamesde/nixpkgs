@@ -26,7 +26,7 @@ let
 
   # keep the scope, as it is used throughout the derivation and tests
   # this also makes potential future overrides easier
-  pythonPackages = python3.pkgs.overrideScope (final: prev: rec { });
+  pythonPackages = python3.pkgs.overrideScope (final: prev: rec {});
 
   offlineCache = fetchYarnDeps {
     yarnLock = src + "/web/yarn.lock";
@@ -252,7 +252,7 @@ pythonPackages.buildPythonApplication rec {
     homepage = "https://www.pgadmin.org/";
     license = licenses.mit;
     changelog = "https://www.pgadmin.org/docs/pgadmin4/latest/release_notes_${lib.versions.major version}_${lib.versions.minor version}.html";
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
     mainProgram = "pgadmin4";
   };
 }

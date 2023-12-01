@@ -27,9 +27,9 @@ buildGoModule rec {
     "-X moul.io/assh/v2/pkg/version.Version=${version}"
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  nativeCheckInputs = lib.optionals stdenv.isDarwin [ ps ];
+  nativeCheckInputs = lib.optionals stdenv.isDarwin [ps];
 
   postInstall = ''
     wrapProgram "$out/bin/assh" \
@@ -46,7 +46,7 @@ buildGoModule rec {
     homepage = "https://github.com/moul/assh";
     changelog = "https://github.com/moul/assh/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ zzamboni ];
+    maintainers = with maintainers; [zzamboni];
     platforms = with platforms; linux ++ darwin;
   };
 }

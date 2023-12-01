@@ -5,7 +5,7 @@ let
   node = {
     networking.wireguard.interfaces.wg0 = {
       listenPort = listenPort;
-      ips = [ "10.10.10.1/24" ];
+      ips = ["10.10.10.1/24"];
       privateKeyFile = "/etc/wireguard/private";
       generatePrivateKeyFile = true;
     };
@@ -21,13 +21,13 @@ import ../make-test-python.nix (
   }:
   {
     name = "wireguard-with-namespaces";
-    meta = with pkgs.lib.maintainers; { maintainers = [ asymmetric ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [asymmetric];};
 
     nodes = {
       # interface should be created in the socketNamespace
       # and not moved from there
       peer0 = pkgs.lib.attrsets.recursiveUpdate node {
-        boot = lib.mkIf (kernelPackages != null) { inherit kernelPackages; };
+        boot = lib.mkIf (kernelPackages != null) {inherit kernelPackages;};
         networking.wireguard.interfaces.wg0 = {
           preSetup = ''
             ip netns add ${socketNamespace}
@@ -38,7 +38,7 @@ import ../make-test-python.nix (
       # interface should be created in the init namespace
       # and moved to the interfaceNamespace
       peer1 = pkgs.lib.attrsets.recursiveUpdate node {
-        boot = lib.mkIf (kernelPackages != null) { inherit kernelPackages; };
+        boot = lib.mkIf (kernelPackages != null) {inherit kernelPackages;};
         networking.wireguard.interfaces.wg0 = {
           preSetup = ''
             ip netns add ${interfaceNamespace}
@@ -50,7 +50,7 @@ import ../make-test-python.nix (
       # interface should be created in the socketNamespace
       # and moved to the interfaceNamespace
       peer2 = pkgs.lib.attrsets.recursiveUpdate node {
-        boot = lib.mkIf (kernelPackages != null) { inherit kernelPackages; };
+        boot = lib.mkIf (kernelPackages != null) {inherit kernelPackages;};
         networking.wireguard.interfaces.wg0 = {
           preSetup = ''
             ip netns add ${socketNamespace}
@@ -62,7 +62,7 @@ import ../make-test-python.nix (
       # interface should be created in the socketNamespace
       # and moved to the init namespace
       peer3 = pkgs.lib.attrsets.recursiveUpdate node {
-        boot = lib.mkIf (kernelPackages != null) { inherit kernelPackages; };
+        boot = lib.mkIf (kernelPackages != null) {inherit kernelPackages;};
         networking.wireguard.interfaces.wg0 = {
           preSetup = ''
             ip netns add ${socketNamespace}

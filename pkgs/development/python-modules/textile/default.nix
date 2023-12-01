@@ -27,19 +27,19 @@ buildPythonPackage rec {
     regex
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace pytest.ini \
       --replace " --cov=textile --cov-report=html --cov-append --cov-report=term-missing" ""
   '';
 
-  pythonImportsCheck = [ "textile" ];
+  pythonImportsCheck = ["textile"];
 
   meta = with lib; {
     description = "MOdule for generating web text";
     homepage = "https://github.com/textile/python-textile";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -31,9 +31,9 @@ stdenv.mkDerivation rec {
     perl
     ghostscript
   ];
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     description = "The nice editor";

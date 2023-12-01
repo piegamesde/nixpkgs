@@ -61,13 +61,13 @@ stdenv.mkDerivation rec {
         gstreamer
         gst-libav
         gst-plugins-base
-        (gst-plugins-good.override { gtkSupport = true; })
+        (gst-plugins-good.override {gtkSupport = true;})
         gst-plugins-bad
       ]
     );
 
   passthru = {
-    updateScript = nix-update-script { attrPath = "tuba"; };
+    updateScript = nix-update-script {attrPath = "tuba";};
   };
 
   meta = with lib; {
@@ -76,6 +76,6 @@ stdenv.mkDerivation rec {
     mainProgram = "dev.geopjr.Tuba";
     license = licenses.gpl3Only;
     changelog = "https://github.com/GeopJr/Tuba/releases/tag/v${version}";
-    maintainers = with maintainers; [ chuangzhu ];
+    maintainers = with maintainers; [chuangzhu];
   };
 }

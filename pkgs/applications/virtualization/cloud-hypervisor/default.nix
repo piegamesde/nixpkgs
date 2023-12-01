@@ -36,13 +36,13 @@ rustPlatform.buildRustPackage rec {
 
   separateDebugInfo = true;
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ] ++ lib.optional stdenv.isAarch64 dtc;
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl] ++ lib.optional stdenv.isAarch64 dtc;
 
   OPENSSL_NO_VENDOR = true;
 
   # Integration tests require root.
-  cargoTestFlags = [ "--bins" ];
+  cargoTestFlags = ["--bins"];
 
   meta = with lib; {
     homepage = "https://github.com/cloud-hypervisor/cloud-hypervisor";

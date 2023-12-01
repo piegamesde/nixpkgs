@@ -21,9 +21,9 @@ buildPythonPackage rec {
     rm -r pycrfsuite
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pycrfsuite" ];
+  pythonImportsCheck = ["pycrfsuite"];
 
   meta = with lib; {
     description = "Python binding for CRFsuite";

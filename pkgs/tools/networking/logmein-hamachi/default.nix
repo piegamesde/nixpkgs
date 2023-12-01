@@ -20,7 +20,7 @@ let
       "03ml9xv19km99f0z7fpr21b1zkxvw7q39kjzd8wpb2pds51wnc62"
     else
       throwSystem;
-  libraries = lib.makeLibraryPath [ stdenv.cc.cc ];
+  libraries = lib.makeLibraryPath [stdenv.cc.cc];
 in
 stdenv.mkDerivation rec {
   pname = "logmein-hamachi";
@@ -46,9 +46,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A hosted VPN service that lets you securely extend LAN-like networks to distributed teams";
     homepage = "https://secure.logmein.com/products/hamachi/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfreeRedistributable;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     platforms = platforms.linux;
   };
 }

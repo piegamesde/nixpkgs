@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2gH3h3QAl0+XVULt/fR2UUGKNIxTUmnRRdxPOFdpVy4=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # https://github.com/Taywee/args/issues/108
   postPatch = ''
@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     description = "A simple header-only C++ argument parser library";
     homepage = "https://github.com/Taywee/args";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

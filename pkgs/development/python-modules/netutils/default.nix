@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-hSSHCWi0L/ZfFz0JQ6Al5mjhb2g0DpykLF66uMKMIN8=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   nativeCheckInputs = [
     jinja2
@@ -34,7 +34,7 @@ buildPythonPackage rec {
     toml
   ];
 
-  pythonImportsCheck = [ "netutils" ];
+  pythonImportsCheck = ["netutils"];
 
   disabledTests = [
     # Tests require network access
@@ -50,7 +50,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/networktocode/netutils";
     changelog = "https://github.com/networktocode/netutils/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     broken = stdenv.isDarwin;
   };
 }

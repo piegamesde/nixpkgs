@@ -1,4 +1,4 @@
-{ lib, python3Packages }:
+{lib, python3Packages}:
 
 python3Packages.buildPythonApplication rec {
   pname = "i3a";
@@ -14,9 +14,9 @@ python3Packages.buildPythonApplication rec {
       --replace "python_requires='>=3.7,<3.10'," "python_requires='>=3.7',"
   '';
 
-  nativeBuildInputs = [ python3Packages.setuptools-scm ];
+  nativeBuildInputs = [python3Packages.setuptools-scm];
 
-  propagatedBuildInputs = [ python3Packages.i3ipc ];
+  propagatedBuildInputs = [python3Packages.i3ipc];
 
   doCheck = false;
 
@@ -24,6 +24,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://git.goral.net.pl/mgoral/i3a";
     description = "A set of scripts used for automation of i3 and sway window manager layouts";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fortuneteller2k ];
+    maintainers = with maintainers; [fortuneteller2k];
   };
 }

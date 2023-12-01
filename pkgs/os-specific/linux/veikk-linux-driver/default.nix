@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  buildInputs = [ kernel ];
+  buildInputs = [kernel];
 
   makeFlags = kernel.makeFlags ++ [
     "BUILD_DIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jlam55555/veikk-linux-driver/";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ nicbk ];
+    maintainers = with maintainers; [nicbk];
     broken = kernel.kernelOlder "4.19";
   };
 }

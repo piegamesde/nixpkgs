@@ -11,7 +11,7 @@ with lib;
 let
   cfg = config.services.grafana;
   opt = options.services.grafana;
-  provisioningSettingsFormat = pkgs.formats.yaml { };
+  provisioningSettingsFormat = pkgs.formats.yaml {};
   declarativePlugins = pkgs.linkFarm "grafana-plugins" (
     builtins.map
       (pkg: {
@@ -23,7 +23,7 @@ let
   useMysql = cfg.settings.database.type == "mysql";
   usePostgresql = cfg.settings.database.type == "postgres";
 
-  settingsFormatIni = pkgs.formats.ini { };
+  settingsFormatIni = pkgs.formats.ini {};
   configFile = settingsFormatIni.generate "config.ini" cfg.settings;
 
   mkProvisionCfg =
@@ -37,7 +37,7 @@ let
         else
           {
             apiVersion = 1;
-            ${attr} = [ ];
+            ${attr} = [];
           }
       );
 
@@ -79,7 +79,7 @@ let
       fi
     '';
   provisionConfDir =
-    pkgs.runCommand "grafana-provisioning" { nativeBuildInputs = [ pkgs.xorg.lndir ]; }
+    pkgs.runCommand "grafana-provisioning" {nativeBuildInputs = [pkgs.xorg.lndir];}
       ''
         mkdir -p $out/{datasources,dashboards,notifiers,alerting}
         ${ln {
@@ -1313,7 +1313,7 @@ in
         description = lib.mdDoc ''
           Declaratively provision Grafana's datasources.
         '';
-        default = { };
+        default = {};
         type = submodule' {
           options.settings = mkOption {
             description = lib.mdDoc ''
@@ -1334,13 +1334,13 @@ in
 
                   datasources = mkOption {
                     description = lib.mdDoc "List of datasources to insert/update.";
-                    default = [ ];
+                    default = [];
                     type = types.listOf grafanaTypes.datasourceConfig;
                   };
 
                   deleteDatasources = mkOption {
                     description = lib.mdDoc "List of datasources that should be deleted from the database.";
-                    default = [ ];
+                    default = [];
                     type = types.listOf (
                       types.submodule {
                         options.name = mkOption {
@@ -1391,7 +1391,7 @@ in
         description = lib.mdDoc ''
           Declaratively provision Grafana's dashboards.
         '';
-        default = { };
+        default = {};
         type = submodule' {
           options.settings = mkOption {
             description = lib.mdDoc ''
@@ -1411,7 +1411,7 @@ in
 
                 options.providers = mkOption {
                   description = lib.mdDoc "List of dashboards to insert/update.";
-                  default = [ ];
+                  default = [];
                   type = types.listOf grafanaTypes.dashboardConfig;
                 };
               }
@@ -1442,7 +1442,7 @@ in
 
       notifiers = mkOption {
         description = lib.mdDoc "Grafana notifier configuration.";
-        default = [ ];
+        default = [];
         type = types.listOf grafanaTypes.notifierConfig;
         apply = x: map _filter x;
       };
@@ -1478,7 +1478,7 @@ in
 
                   groups = mkOption {
                     description = lib.mdDoc "List of rule groups to import or update.";
-                    default = [ ];
+                    default = [];
                     type = types.listOf (
                       types.submodule {
                         freeformType = provisioningSettingsFormat.type;
@@ -1503,7 +1503,7 @@ in
 
                   deleteRules = mkOption {
                     description = lib.mdDoc "List of alert rule UIDs that should be deleted.";
-                    default = [ ];
+                    default = [];
                     type = types.listOf (
                       types.submodule {
                         options.orgId = mkOption {
@@ -1608,7 +1608,7 @@ in
 
                   contactPoints = mkOption {
                     description = lib.mdDoc "List of contact points to import or update.";
-                    default = [ ];
+                    default = [];
                     type = types.listOf (
                       types.submodule {
                         freeformType = provisioningSettingsFormat.type;
@@ -1623,7 +1623,7 @@ in
 
                   deleteContactPoints = mkOption {
                     description = lib.mdDoc "List of receivers that should be deleted.";
-                    default = [ ];
+                    default = [];
                     type = types.listOf (
                       types.submodule {
                         options.orgId = mkOption {
@@ -1695,13 +1695,13 @@ in
 
                   policies = mkOption {
                     description = lib.mdDoc "List of contact points to import or update.";
-                    default = [ ];
-                    type = types.listOf (types.submodule { freeformType = provisioningSettingsFormat.type; });
+                    default = [];
+                    type = types.listOf (types.submodule {freeformType = provisioningSettingsFormat.type;});
                   };
 
                   resetPolicies = mkOption {
                     description = lib.mdDoc "List of orgIds that should be reset to the default policy.";
-                    default = [ ];
+                    default = [];
                     type = types.listOf types.int;
                   };
                 };
@@ -1765,7 +1765,7 @@ in
 
                   templates = mkOption {
                     description = lib.mdDoc "List of templates to import or update.";
-                    default = [ ];
+                    default = [];
                     type = types.listOf (
                       types.submodule {
                         freeformType = provisioningSettingsFormat.type;
@@ -1785,7 +1785,7 @@ in
 
                   deleteTemplates = mkOption {
                     description = lib.mdDoc "List of alert rule UIDs that should be deleted.";
-                    default = [ ];
+                    default = [];
                     type = types.listOf (
                       types.submodule {
                         options.orgId = mkOption {
@@ -1853,7 +1853,7 @@ in
 
                   muteTimes = mkOption {
                     description = lib.mdDoc "List of mute time intervals to import or update.";
-                    default = [ ];
+                    default = [];
                     type = types.listOf (
                       types.submodule {
                         freeformType = provisioningSettingsFormat.type;
@@ -1868,7 +1868,7 @@ in
 
                   deleteMuteTimes = mkOption {
                     description = lib.mdDoc "List of mute time intervals that should be deleted.";
-                    default = [ ];
+                    default = [];
                     type = types.listOf (
                       types.submodule {
                         options.orgId = mkOption {
@@ -1958,7 +1958,7 @@ in
         ''
       )
       # Warn about deprecated notifiers.
-      ++ (optional (cfg.provision.notifiers != [ ]) ''
+      ++ (optional (cfg.provision.notifiers != []) ''
         Notifiers are deprecated upstream and will be removed in Grafana 10.
         Use `services.grafana.provision.alerting.contactPoints` instead.
       '')
@@ -1971,7 +1971,7 @@ in
               optionals (cfg.provision.datasources.settings != null)
                 cfg.provision.datasources.settings.datasources;
             declarationUnsafe =
-              { secureJsonData, ... }:
+              {secureJsonData, ...}:
               secureJsonData != null && any (flip doesntUseFileProvider null) (attrValues secureJsonData);
           in
           any declarationUnsafe datasourcesToCheck
@@ -1985,7 +1985,7 @@ in
         "Notifier secure settings will be stored as plaintext in the Nix store! Use file provider instead."
       );
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     assertions = [
       {
@@ -1996,7 +1996,7 @@ in
         assertion =
           let
             prometheusIsNotDirect =
-              opt: all ({ type, access, ... }: type == "prometheus" -> access != "direct") opt;
+              opt: all ({type, access, ...}: type == "prometheus" -> access != "direct") opt;
           in
           cfg.provision.datasources.settings == null
           || prometheusIsNotDirect cfg.provision.datasources.settings.datasources;
@@ -2037,7 +2037,7 @@ in
 
     systemd.services.grafana = {
       description = "Grafana Service Daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "networking.target"
       ] ++ lib.optional usePostgresql "postgresql.service" ++ lib.optional useMysql "mysql.service";
@@ -2053,10 +2053,10 @@ in
         RuntimeDirectory = "grafana";
         RuntimeDirectoryMode = "0755";
         # Hardening
-        AmbientCapabilities = lib.mkIf (cfg.settings.server.http_port < 1024) [ "CAP_NET_BIND_SERVICE" ];
+        AmbientCapabilities = lib.mkIf (cfg.settings.server.http_port < 1024) ["CAP_NET_BIND_SERVICE"];
         CapabilityBoundingSet =
-          if (cfg.settings.server.http_port < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
-        DeviceAllow = [ "" ];
+          if (cfg.settings.server.http_port < 1024) then ["CAP_NET_BIND_SERVICE"] else [""];
+        DeviceAllow = [""];
         LockPersonality = true;
         NoNewPrivileges = true;
         PrivateDevices = true;
@@ -2085,7 +2085,7 @@ in
         SystemCallFilter = [
           "@system-service"
           "~@privileged"
-        ] ++ lib.optionals (cfg.settings.server.protocol == "socket") [ "@chown" ];
+        ] ++ lib.optionals (cfg.settings.server.protocol == "socket") ["@chown"];
         UMask = "0027";
       };
       preStart = ''
@@ -2101,6 +2101,6 @@ in
       createHome = true;
       group = "grafana";
     };
-    users.groups.grafana = { };
+    users.groups.grafana = {};
   };
 }

@@ -60,13 +60,13 @@ buildPythonPackage rec {
   # Tests require ward which is not ready to be used
   doCheck = false;
 
-  pythonImportsCheck = [ "audio_metadata" ];
+  pythonImportsCheck = ["audio_metadata"];
 
   meta = with lib; {
     homepage = "https://github.com/thebigmunch/audio-metadata";
     description = "A library for reading and, in the future, writing metadata from audio files";
     changelog = "https://github.com/thebigmunch/audio-metadata/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ jakewaksbaum ];
+    maintainers = with maintainers; [jakewaksbaum];
   };
 }

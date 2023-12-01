@@ -56,19 +56,19 @@ buildPythonPackage rec {
   ];
 
   buildInputs =
-    [ protobuf ]
+    [protobuf]
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       Security
     ];
 
-  propagatedBuildInputs = [ pyarrow ];
+  propagatedBuildInputs = [pyarrow];
 
   nativeCheckInputs = [
     pytestCheckHook
     numpy
   ];
-  pythonImportsCheck = [ "datafusion" ];
+  pythonImportsCheck = ["datafusion"];
   pytestFlagsArray = [
     "--pyargs"
     pname
@@ -92,7 +92,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://arrow.apache.org/datafusion/";
     changelog = "https://github.com/apache/arrow-datafusion-python/blob/${version}/CHANGELOG.md";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ cpcloud ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [cpcloud];
   };
 }

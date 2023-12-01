@@ -21,7 +21,7 @@ let
     icon = "portfolio";
     comment = "Calculate Investment Portfolio Performance";
     desktopName = "Portfolio Performance";
-    categories = [ "Office" ];
+    categories = ["Office"];
   };
 
   runtimeLibs = lib.makeLibraryPath [
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A simple tool to calculate the overall performance of an investment portfolio";
     homepage = "https://www.portfolio-performance.info/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.epl10;
     maintainers = with maintainers; [
       elohmeier
@@ -83,6 +83,6 @@ stdenv.mkDerivation rec {
       shawn8901
     ];
     mainProgram = "portfolio";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

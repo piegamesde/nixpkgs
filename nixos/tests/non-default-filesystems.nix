@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
   {
     name = "non-default-filesystems";
 
@@ -17,8 +17,8 @@ import ./make-test-python.nix (
         virtualisation.rootDevice = "/dev/vda";
         virtualisation.useDefaultFilesystems = false;
 
-        boot.initrd.availableKernelModules = [ "btrfs" ];
-        boot.supportedFilesystems = [ "btrfs" ];
+        boot.initrd.availableKernelModules = ["btrfs"];
+        boot.supportedFilesystems = ["btrfs"];
 
         boot.initrd.postDeviceCommands = ''
           FSTYPE=$(blkid -o value -s TYPE ${disk} || true)
@@ -40,13 +40,13 @@ import ./make-test-python.nix (
           "/" = {
             device = disk;
             fsType = "btrfs";
-            options = [ "subvol=/root" ];
+            options = ["subvol=/root"];
           };
 
           "/home" = {
             device = disk;
             fsType = "btrfs";
-            options = [ "subvol=/home" ];
+            options = ["subvol=/home"];
           };
         };
       };

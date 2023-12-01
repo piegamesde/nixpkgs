@@ -30,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-GboOp0lsJ5nsZ6PIUqqCVLmroppKFR/xBnd9DqNw030=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     colorful
@@ -41,7 +41,7 @@ buildPythonPackage rec {
     rich
     typing-extensions
     tomlkit
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ] ++ httpx.optional-dependencies.http2;
+  ] ++ lib.optionals (pythonOlder "3.8") [typing-extensions] ++ httpx.optional-dependencies.http2;
 
   nativeCheckInputs = [
     git
@@ -62,13 +62,13 @@ buildPythonPackage rec {
     "test_successfully_sign"
   ];
 
-  pythonImportsCheck = [ "pontos" ];
+  pythonImportsCheck = ["pontos"];
 
   meta = with lib; {
     description = "Collection of Python utilities, tools, classes and functions";
     homepage = "https://github.com/greenbone/pontos";
     changelog = "https://github.com/greenbone/pontos/releases/tag/v${version}";
-    license = with licenses; [ gpl3Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Plus];
+    maintainers = with maintainers; [fab];
   };
 }

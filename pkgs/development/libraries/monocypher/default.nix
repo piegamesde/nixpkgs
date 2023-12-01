@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     "CC:=$(CC)"
   ];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   doCheck = true;
 
@@ -40,6 +40,6 @@ stdenv.mkDerivation rec {
       cc0
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

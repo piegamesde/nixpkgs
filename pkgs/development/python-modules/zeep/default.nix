@@ -80,12 +80,12 @@ buildPythonPackage rec {
     "test_post"
   ];
 
-  pythonImportsCheck = [ "zeep" ];
+  pythonImportsCheck = ["zeep"];
 
   meta = with lib; {
     description = "Python SOAP client";
     homepage = "http://docs.python-zeep.org";
     license = licenses.mit;
-    maintainers = with maintainers; [ rvl ];
+    maintainers = with maintainers; [rvl];
   };
 }

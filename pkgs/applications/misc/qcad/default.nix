@@ -59,7 +59,7 @@ mkDerivation rec {
     qtscript
     qtsvg
     qtxmlpatterns
-  ] ++ lib.optionals stdenv.isDarwin [ qtmacextras ];
+  ] ++ lib.optionals stdenv.isDarwin [qtmacextras];
 
   qmakeFlags = [
     "MUPARSER_DIR=${muparser}"
@@ -68,8 +68,8 @@ mkDerivation rec {
   ];
 
   qtWrapperArgs =
-    lib.optionals stdenv.isLinux [ "--prefix LD_LIBRARY_PATH : ${placeholder "out"}/lib" ]
-    ++ lib.optionals stdenv.isDarwin [ "--prefix DYLD_LIBRARY_PATH : ${placeholder "out"}/lib" ];
+    lib.optionals stdenv.isLinux ["--prefix LD_LIBRARY_PATH : ${placeholder "out"}/lib"]
+    ++ lib.optionals stdenv.isDarwin ["--prefix DYLD_LIBRARY_PATH : ${placeholder "out"}/lib"];
 
   installPhase =
     ''
@@ -127,7 +127,7 @@ mkDerivation rec {
     description = "2D CAD package based on Qt";
     homepage = "https://qcad.org";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ yvesf ];
+    maintainers = with maintainers; [yvesf];
     platforms = qtbase.meta.platforms;
   };
 }

@@ -1,16 +1,16 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
     testUser = "alice";
   in
   {
     name = "opentabletdriver";
     meta = {
-      maintainers = with pkgs.lib.maintainers; [ thiagokokada ];
+      maintainers = with pkgs.lib.maintainers; [thiagokokada];
     };
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         imports = [
           ./common/user-account.nix

@@ -10,9 +10,9 @@
 with pkgs.javaPackages;
 
 let
-  poms = import (../poms.nix) { inherit fetchMaven; };
-  collections = import (../collections.nix) { inherit pkgs; };
-  mavenbuild-jdk8 = mavenbuild.override { maven = maven.override { jdk = jdk8; }; };
+  poms = import (../poms.nix) {inherit fetchMaven;};
+  collections = import (../collections.nix) {inherit pkgs;};
+  mavenbuild-jdk8 = mavenbuild.override {maven = maven.override {jdk = jdk8;};};
 in
 rec {
   junitGen =
@@ -38,7 +38,7 @@ rec {
         description = "Simple framework to write repeatable tests. It is an instance of the xUnit architecture for unit testing frameworks";
         license = lib.licenses.epl10;
         platforms = lib.platforms.all;
-        maintainers = with lib.maintainers; [ nequissimus ];
+        maintainers = with lib.maintainers; [nequissimus];
       };
     };
 

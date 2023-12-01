@@ -18,12 +18,12 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://www.syntevo.com/downloads/smartgit/smartgit-linux-${
-      builtins.replaceStrings [ "." ] [ "_" ] version
+      builtins.replaceStrings ["."] ["_"] version
     }.tar.gz";
     sha256 = "sha256-s31sYEC1g7eLMhT9UkmjbBnHePY9wnQPmgGQXgVX4j4=";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook ];
+  nativeBuildInputs = [wrapGAppsHook];
 
   buildInputs = [
     jre
@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
       ];
       startupNotify = true;
       startupWMClass = name;
-      keywords = [ "git" ];
+      keywords = ["git"];
     };
 
   meta = with lib; {
@@ -106,6 +106,6 @@ stdenv.mkDerivation rec {
     changelog = "https://www.syntevo.com/smartgit/changelog.txt";
     license = licenses.unfree;
     platforms = platforms.linux;
-    maintainers = with lib.maintainers; [ jraygauthier ];
+    maintainers = with lib.maintainers; [jraygauthier];
   };
 }

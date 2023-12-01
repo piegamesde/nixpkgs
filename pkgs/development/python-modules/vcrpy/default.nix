@@ -36,17 +36,17 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [ "tests/integration" ];
+  disabledTestPaths = ["tests/integration"];
 
-  disabledTests = [ "TestVCRConnection" ];
+  disabledTests = ["TestVCRConnection"];
 
-  pythonImportsCheck = [ "vcr" ];
+  pythonImportsCheck = ["vcr"];
 
   meta = with lib; {
     description = "Automatically mock your HTTP interactions to simplify and speed up testing";
     homepage = "https://github.com/kevin1024/vcrpy";
     changelog = "https://github.com/kevin1024/vcrpy/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

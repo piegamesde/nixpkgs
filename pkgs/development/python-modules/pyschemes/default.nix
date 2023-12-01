@@ -27,14 +27,14 @@ buildPythonPackage rec {
         hash = "sha256-vDaWxMrn2aC2wmd035EWRZ3cd/XME81z/BWG0f2T9jc=";
       })
     ];
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyschemes" ];
+  pythonImportsCheck = ["pyschemes"];
 
   meta = with lib; {
     description = "A library for validating data structures in Python";
     homepage = "https://github.com/spy16/pyschemes";
     license = licenses.wtfpl;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

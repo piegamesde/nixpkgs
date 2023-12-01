@@ -102,7 +102,7 @@ in
       description = "UniFi controller daemon user";
       home = "${stateDir}";
     };
-    users.groups.unifi = { };
+    users.groups.unifi = {};
 
     networking.firewall = mkIf cfg.openFirewall {
       # https://help.ubnt.com/hc/en-us/articles/218506997
@@ -120,8 +120,8 @@ in
 
     systemd.services.unifi = {
       description = "UniFi controller daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       # This a HACK to fix missing dependencies of dynamic libs extracted from jars
       environment.LD_LIBRARY_PATH = with pkgs.stdenv; "${cc.cc.lib}/lib";
@@ -171,7 +171,7 @@ in
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallErrorNumber = "EPERM";
-        SystemCallFilter = [ "@system-service" ];
+        SystemCallFilter = ["@system-service"];
 
         StateDirectory = "unifi";
         RuntimeDirectory = "unifi";
@@ -226,5 +226,5 @@ in
     )
   ];
 
-  meta.maintainers = with lib.maintainers; [ pennae ];
+  meta.maintainers = with lib.maintainers; [pennae];
 }

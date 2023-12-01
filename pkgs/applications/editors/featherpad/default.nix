@@ -38,7 +38,7 @@ mkDerivation rec {
     description = "Lightweight Qt5 Plain-Text Editor for Linux";
     homepage = "https://github.com/tsujan/FeatherPad";
     platforms = platforms.linux;
-    maintainers = [ maintainers.flosse ];
+    maintainers = [maintainers.flosse];
     license = licenses.gpl3Plus;
   };
 }

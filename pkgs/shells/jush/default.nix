@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ editline ];
+  buildInputs = [editline];
 
   passthru.shellPath = "/bin/jush";
 
@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/troglobit/jush";
     license = licenses.isc;
     platforms = platforms.all;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
   };
 }

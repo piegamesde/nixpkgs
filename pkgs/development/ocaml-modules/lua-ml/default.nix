@@ -33,7 +33,7 @@ else
 
     strictDeps = true;
 
-    buildFlags = [ "lib" ];
+    buildFlags = ["lib"];
 
     installPhase = ''
       opaline -prefix $out -libdir $OCAMLFIND_DESTDIR
@@ -44,6 +44,6 @@ else
       inherit (src.meta) homepage;
       inherit (ocaml.meta) platforms;
       license = lib.licenses.bsd2;
-      maintainers = [ lib.maintainers.vbgl ];
+      maintainers = [lib.maintainers.vbgl];
     };
   }

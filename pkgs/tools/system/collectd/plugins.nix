@@ -57,19 +57,19 @@ let
   # Plugins that have dependencies.
   # Please help to extend these!
   plugins = {
-    amqp.buildInputs = [ yajl ] ++ lib.optionals stdenv.isLinux [ rabbitmq-c ];
-    apache.buildInputs = [ curl ];
+    amqp.buildInputs = [yajl] ++ lib.optionals stdenv.isLinux [rabbitmq-c];
+    apache.buildInputs = [curl];
     ascent.buildInputs = [
       curl
       libxml2
     ];
-    battery.buildInputs = lib.optionals stdenv.isDarwin [ IOKit ];
+    battery.buildInputs = lib.optionals stdenv.isDarwin [IOKit];
     bind.buildInputs = [
       curl
       libxml2
     ];
-    ceph.buildInputs = [ yajl ];
-    curl.buildInputs = [ curl ];
+    ceph.buildInputs = [yajl];
+    curl.buildInputs = [curl];
     curl_json.buildInputs = [
       curl
       yajl
@@ -78,12 +78,12 @@ let
       curl
       libxml2
     ];
-    dbi.buildInputs = [ libdbi ];
-    disk.buildInputs = lib.optionals stdenv.isLinux [ udev ] ++ lib.optionals stdenv.isDarwin [ IOKit ];
-    dns.buildInputs = [ libpcap ];
-    ipmi.buildInputs = [ openipmi ];
+    dbi.buildInputs = [libdbi];
+    disk.buildInputs = lib.optionals stdenv.isLinux [udev] ++ lib.optionals stdenv.isDarwin [IOKit];
+    dns.buildInputs = [libpcap];
+    ipmi.buildInputs = [openipmi];
     iptables.buildInputs =
-      [ libpcap ]
+      [libpcap]
       ++ lib.optionals stdenv.isLinux [
         iptables
         libmnl
@@ -93,32 +93,32 @@ let
       libgcrypt
       libxml2
     ];
-    log_logstash.buildInputs = [ yajl ];
-    lua.buildInputs = [ lua ];
+    log_logstash.buildInputs = [yajl];
+    lua.buildInputs = [lua];
     memcachec.buildInputs = [
       libmemcached
       cyrus_sasl
     ];
-    modbus.buildInputs = lib.optionals stdenv.isLinux [ libmodbus ];
-    mqtt.buildInputs = [ mosquitto ];
-    mysql.buildInputs = lib.optionals (libmysqlclient != null) [ libmysqlclient ];
-    netlink.buildInputs = [ libpcap ] ++ lib.optionals stdenv.isLinux [ libmnl ];
-    network.buildInputs = [ libgcrypt ];
-    nginx.buildInputs = [ curl ];
+    modbus.buildInputs = lib.optionals stdenv.isLinux [libmodbus];
+    mqtt.buildInputs = [mosquitto];
+    mysql.buildInputs = lib.optionals (libmysqlclient != null) [libmysqlclient];
+    netlink.buildInputs = [libpcap] ++ lib.optionals stdenv.isLinux [libmnl];
+    network.buildInputs = [libgcrypt];
+    nginx.buildInputs = [curl];
     notify_desktop.buildInputs = [
       libnotify
       gdk-pixbuf
     ];
-    notify_email.buildInputs = [ libesmtp ];
-    openldap.buildInputs = [ openldap ];
-    ovs_events.buildInputs = [ yajl ];
-    ovs_stats.buildInputs = [ yajl ];
-    perl.buildInputs = [ perl ];
-    pinba.buildInputs = [ protobufc ];
-    ping.buildInputs = [ liboping ];
-    postgresql.buildInputs = [ postgresql ];
-    python.buildInputs = [ python3 ];
-    redis.buildInputs = [ hiredis ];
+    notify_email.buildInputs = [libesmtp];
+    openldap.buildInputs = [openldap];
+    ovs_events.buildInputs = [yajl];
+    ovs_stats.buildInputs = [yajl];
+    perl.buildInputs = [perl];
+    pinba.buildInputs = [protobufc];
+    ping.buildInputs = [liboping];
+    postgresql.buildInputs = [postgresql];
+    python.buildInputs = [python3];
+    redis.buildInputs = [hiredis];
     rrdcached.buildInputs = [
       rrdtool
       libxml2
@@ -127,7 +127,7 @@ let
       rrdtool
       libxml2
     ];
-    sensors.buildInputs = lib.optionals stdenv.isLinux [ lm_sensors ];
+    sensors.buildInputs = lib.optionals stdenv.isLinux [lm_sensors];
     sigrok.buildInputs = lib.optionals stdenv.isLinux [
       libsigrok
       udev
@@ -136,8 +136,8 @@ let
       libatasmart
       udev
     ];
-    snmp.buildInputs = lib.optionals stdenv.isLinux [ net-snmp ];
-    snmp_agent.buildInputs = lib.optionals stdenv.isLinux [ net-snmp ];
+    snmp.buildInputs = lib.optionals stdenv.isLinux [net-snmp];
+    snmp_agent.buildInputs = lib.optionals stdenv.isLinux [net-snmp];
     varnish.buildInputs = [
       curl
       varnish
@@ -160,22 +160,22 @@ let
       yajl
       rdkafka
     ];
-    write_log.buildInputs = [ yajl ];
-    write_mongodb.buildInputs = [ mongoc ];
+    write_log.buildInputs = [yajl];
+    write_mongodb.buildInputs = [mongoc];
     write_prometheus.buildInputs = [
       protobufc
       libmicrohttpd
     ];
-    write_redis.buildInputs = [ hiredis ];
+    write_redis.buildInputs = [hiredis];
     write_riemann.buildInputs = [
       protobufc
       riemann_c_client
     ];
-    xencpu.buildInputs = [ xen ];
+    xencpu.buildInputs = [xen];
   };
 
   configureFlags = lib.optionals (enabledPlugins != null) (
-    [ "--disable-all-plugins" ] ++ (map (plugin: "--enable-${plugin}") enabledPlugins)
+    ["--disable-all-plugins"] ++ (map (plugin: "--enable-${plugin}") enabledPlugins)
   );
 
   pluginBuildInputs =
@@ -185,9 +185,7 @@ let
 
   buildInputs =
     if enabledPlugins == null then
-      builtins.concatMap pluginBuildInputs (
-        builtins.attrNames (builtins.removeAttrs plugins [ "xencpu" ])
-      )
+      builtins.concatMap pluginBuildInputs (builtins.attrNames (builtins.removeAttrs plugins ["xencpu"]))
     else
       builtins.concatMap pluginBuildInputs enabledPlugins;
 in

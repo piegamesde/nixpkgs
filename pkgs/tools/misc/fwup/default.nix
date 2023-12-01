@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     libsodium
     xz
     zlib
-  ] ++ lib.optionals stdenv.isDarwin [ DiskArbitration ];
+  ] ++ lib.optionals stdenv.isDarwin [DiskArbitration];
 
   propagatedBuildInputs =
     [
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     description = "Configurable embedded Linux firmware update creator and runner";
     homepage = "https://github.com/fhunleth/fwup";
     license = licenses.asl20;
-    maintainers = [ maintainers.georgewhewell ];
+    maintainers = [maintainers.georgewhewell];
     platforms = platforms.all;
   };
 }

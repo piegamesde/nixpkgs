@@ -37,7 +37,7 @@ buildGoModule rec {
     $out/bin/hubble version | grep ${version} > /dev/null
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   postInstall = ''
     installShellCompletion --cmd hubble \
       --bash <($out/bin/hubble completion bash) \

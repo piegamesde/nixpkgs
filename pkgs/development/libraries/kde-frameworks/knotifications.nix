@@ -28,5 +28,5 @@ mkDerivation {
     libdbusmenu
     phonon
     qtx11extras
-  ] ++ lib.optionals stdenv.isDarwin [ qtmacextras ];
+  ] ++ lib.optionals stdenv.isDarwin [qtmacextras];
 }

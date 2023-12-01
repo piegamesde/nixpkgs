@@ -26,7 +26,7 @@ buildPythonPackage rec {
     which
   ];
 
-  pythonImportsCheck = [ "pycflow2dot" ];
+  pythonImportsCheck = ["pycflow2dot"];
   checkPhase = ''
     cd tests
     export PATH=$out/bin:$PATH
@@ -37,6 +37,6 @@ buildPythonPackage rec {
     description = "Layout C call graphs from cflow using GraphViz dot";
     homepage = "https://github.com/johnyf/pycflow2dot";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ evils ];
+    maintainers = with maintainers; [evils];
   };
 }

@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "circular-streams";
   version = "20161204-git";
@@ -25,7 +25,7 @@ rec {
 
   packageName = "circular-streams";
 
-  asdFilesToKeep = [ "circular-streams.asd" ];
+  asdFilesToKeep = ["circular-streams.asd"];
   overrides = x: x;
 }
 /* (SYSTEM circular-streams DESCRIPTION

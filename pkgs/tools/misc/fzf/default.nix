@@ -44,9 +44,9 @@ buildGoModule rec {
     "man"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   ldflags = [
     "-s"
@@ -93,7 +93,7 @@ buildGoModule rec {
     chmod +x $out/bin/fzf-share
   '';
 
-  passthru.tests.version = testers.testVersion { package = fzf; };
+  passthru.tests.version = testers.testVersion {package = fzf;};
 
   meta = with lib; {
     homepage = "https://github.com/junegunn/fzf";

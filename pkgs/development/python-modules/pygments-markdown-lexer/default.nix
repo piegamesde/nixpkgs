@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "1pzb5wy23q3fhs0rqzasjnw6hdzwjngpakb73i98cn0b8lk8q4jc";
   };
 
-  propagatedBuildInputs = [ pygments ];
+  propagatedBuildInputs = [pygments];
 
   doCheck = false;
 

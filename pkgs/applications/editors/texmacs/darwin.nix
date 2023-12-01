@@ -42,7 +42,7 @@ stdenv.mkDerivation {
     sha256 = "1z8sj0xd1ncbl7ipzfsib6lmc7ahgvmiw61ln5zxm2l88jf7qc1a";
   };
 
-  patches = [ ./darwin.patch ];
+  patches = [./darwin.patch];
 
   buildInputs = [
     guile_1_8.dev

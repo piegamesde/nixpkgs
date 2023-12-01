@@ -24,9 +24,9 @@ buildGoModule rec {
 
   CGO_ENABLED = 0;
 
-  subPackages = [ "cmd/ferretdb" ];
+  subPackages = ["cmd/ferretdb"];
 
-  tags = [ "ferretdb_tigris" ];
+  tags = ["ferretdb_tigris"];
 
   # tests in cmd/ferretdb are not production relevant
   doCheck = false;

@@ -19,8 +19,8 @@ buildDunePackage (
       description = "Shims for forward-compatibility between versions of the OCaml standard library";
       homepage = "https://github.com/ocaml/stdlib-shims";
       inherit (ocaml.meta) license;
-      maintainers = [ lib.maintainers.vbgl ];
+      maintainers = [lib.maintainers.vbgl];
     };
   }
-  // lib.optionalAttrs (!lib.versionAtLeast ocaml.version "4.08") { duneVersion = "1"; }
+  // lib.optionalAttrs (!lib.versionAtLeast ocaml.version "4.08") {duneVersion = "1";}
 )

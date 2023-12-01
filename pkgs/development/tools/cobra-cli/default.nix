@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-vrtGPQzY+NImOGaSxV+Dvch+GNPfL9XfY4lfCHTGXwY=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   allowGoReference = true;
 
@@ -40,6 +40,6 @@ buildGoModule rec {
     homepage = "https://github.com/spf13/cobra-cli/";
     changelog = "https://github.com/spf13/cobra-cli/releases/tag/${version}";
     license = licenses.afl20;
-    maintainers = [ maintainers.ivankovnatsky ];
+    maintainers = [maintainers.ivankovnatsky];
   };
 }

@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-jC/hgGSi2qy+ToZgdxl1PhASLYbUL0O8trX0th2v5H0=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     openssl
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}$PWD
   '';
 
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
 
   meta = with lib; {
     homepage = "https://github.com/jesec/libtorrent";

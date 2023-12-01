@@ -7,12 +7,12 @@ let
         enable = true;
         adminAddr = "foo@example.org";
       };
-      networking.firewall.allowedTCPPorts = [ 80 ];
+      networking.firewall.allowedTCPPorts = [80];
     };
   };
 in
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "containers-ipv4-ipv6";
     meta = {
@@ -25,20 +25,20 @@ import ./make-test-python.nix (
     };
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        imports = [ ../modules/installer/cd-dvd/channel.nix ];
+        imports = [../modules/installer/cd-dvd/channel.nix];
         virtualisation = {
           writableStore = true;
         };
 
         containers.webserver4 = webserverFor "10.231.136.1" "10.231.136.2";
         containers.webserver6 = webserverFor "fc00::2" "fc00::1";
-        virtualisation.additionalPaths = [ pkgs.stdenv ];
+        virtualisation.additionalPaths = [pkgs.stdenv];
       };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       ''
         import time
 

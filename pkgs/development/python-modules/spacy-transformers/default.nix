@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-oNdH0oZNo8XWx+bbzwZs7iXD0Af6zx1k6wBYksgtp4w=";
   };
 
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  nativeBuildInputs = [pythonRelaxDepsHook];
 
   propagatedBuildInputs = [
     torch
@@ -34,20 +34,20 @@ buildPythonPackage rec {
     transformers
   ];
 
-  pythonRelaxDeps = [ "transformers" ];
+  pythonRelaxDeps = ["transformers"];
 
   # Test fails due to missing arguments for trfs2arrays().
   doCheck = false;
 
-  pythonImportsCheck = [ "spacy_transformers" ];
+  pythonImportsCheck = ["spacy_transformers"];
 
-  passthru.tests.annotation = callPackage ./annotation-test { };
+  passthru.tests.annotation = callPackage ./annotation-test {};
 
   meta = with lib; {
     description = "spaCy pipelines for pretrained BERT, XLNet and GPT-2";
     homepage = "https://github.com/explosion/spacy-transformers";
     changelog = "https://github.com/explosion/spacy-transformers/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

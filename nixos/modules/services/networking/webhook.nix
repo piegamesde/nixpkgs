@@ -11,10 +11,10 @@ let
   cfg = config.services.webhook;
   defaultUser = "webhook";
 
-  hookFormat = pkgs.formats.json { };
+  hookFormat = pkgs.formats.json {};
 
   hookType = types.submodule (
-    { name, ... }:
+    {name, ...}:
     {
       freeformType = hookFormat.type;
       options = {
@@ -34,7 +34,7 @@ let
   );
 
   hookFiles =
-    mapAttrsToList (name: hook: hookFormat.generate "webhook-${name}.json" [ hook ]) cfg.hooks
+    mapAttrsToList (name: hook: hookFormat.generate "webhook-${name}.json" [hook]) cfg.hooks
     ++ mapAttrsToList (name: hook: pkgs.writeText "webhook-${name}.json.tmpl" "[${hook}]")
       cfg.hooksTemplated;
 in
@@ -48,7 +48,7 @@ in
         ''
       );
 
-      package = mkPackageOptionMD pkgs "webhook" { };
+      package = mkPackageOptionMD pkgs "webhook" {};
       user = mkOption {
         type = types.str;
         default = defaultUser;
@@ -91,7 +91,7 @@ in
       };
       enableTemplates = mkOption {
         type = types.bool;
-        default = cfg.hooksTemplated != { };
+        default = cfg.hooksTemplated != {};
         defaultText = literalExpression "hooksTemplated != {}";
         description = mdDoc ''
           Enable the generated hooks file to be parsed as a Go template.
@@ -107,7 +107,7 @@ in
       };
       hooks = mkOption {
         type = types.attrsOf hookType;
-        default = { };
+        default = {};
         example = {
           echo = {
             execute-command = "echo";
@@ -130,7 +130,7 @@ in
       };
       hooksTemplated = mkOption {
         type = types.attrsOf types.str;
-        default = { };
+        default = {};
         example = {
           echo-template = ''
             {
@@ -156,8 +156,8 @@ in
       };
       extraArgs = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "-secure" ];
+        default = [];
+        example = ["-secure"];
         description = mdDoc ''
           These are arguments passed to the webhook command in the systemd service.
           You can find the available arguments and options in the [documentation][parameters].
@@ -167,7 +167,7 @@ in
       };
       environment = mkOption {
         type = types.attrsOf types.str;
-        default = { };
+        default = {};
         description = mdDoc "Extra environment variables passed to webhook.";
       };
     };
@@ -180,11 +180,11 @@ in
       in
       [
         {
-          assertion = hookFiles != [ ];
+          assertion = hookFiles != [];
           message = "At least one hook needs to be configured for webhook to run.";
         }
         {
-          assertion = overlappingHooks == { };
+          assertion = overlappingHooks == {};
           message = "`services.webhook.hooks` and `services.webhook.hooksTemplated` have overlapping attribute(s): ${
             concatStringsSep ", " (builtins.attrNames overlappingHooks)
           }";
@@ -199,14 +199,14 @@ in
       };
     };
 
-    users.groups = mkIf (cfg.user == defaultUser && cfg.group == defaultUser) { ${defaultUser} = { }; };
+    users.groups = mkIf (cfg.user == defaultUser && cfg.group == defaultUser) {${defaultUser} = {};};
 
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.port];
 
     systemd.services.webhook = {
       description = "Webhook service";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       environment = config.networking.proxy.envVars // cfg.environment;
       script =
         let

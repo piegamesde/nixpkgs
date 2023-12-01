@@ -28,6 +28,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://brailleinstitute.org/freefont";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ zhaofengli ];
+    maintainers = with maintainers; [zhaofengli];
   };
 }

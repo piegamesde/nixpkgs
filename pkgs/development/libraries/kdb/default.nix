@@ -35,7 +35,7 @@ mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
 
   buildInputs = [
     qttranslations
@@ -46,12 +46,12 @@ mkDerivation rec {
     libmysqlclient
   ];
 
-  propagatedBuildInputs = [ qtbase ];
+  propagatedBuildInputs = [qtbase];
 
   meta = with lib; {
     description = "A database connectivity and creation framework for various database vendors";
     license = licenses.lgpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zraexy ];
+    maintainers = with maintainers; [zraexy];
   };
 }

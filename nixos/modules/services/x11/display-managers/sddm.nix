@@ -14,7 +14,7 @@ let
 
   sddm = pkgs.libsForQt5.sddm;
 
-  iniFmt = pkgs.formats.ini { };
+  iniFmt = pkgs.formats.ini {};
 
   xserverWrapper = pkgs.writeShellScript "xserver-wrapper" ''
     ${concatMapStrings
@@ -165,7 +165,7 @@ in
 
       settings = mkOption {
         type = iniFmt.type;
-        default = { };
+        default = {};
         example = {
           Autologin = {
             User = "john";
@@ -309,12 +309,12 @@ in
     };
 
     environment.etc."sddm.conf".source = cfgFile;
-    environment.pathsToLink = [ "/share/sddm" ];
+    environment.pathsToLink = ["/share/sddm"];
 
     users.groups.sddm.gid = config.ids.gids.sddm;
 
-    environment.systemPackages = [ sddm ];
-    services.dbus.packages = [ sddm ];
+    environment.systemPackages = [sddm];
+    services.dbus.packages = [sddm];
 
     # To enable user switching, allow sddm to allocate TTYs/displays dynamically.
     services.xserver.tty = null;

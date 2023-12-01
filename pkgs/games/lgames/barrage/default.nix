@@ -20,13 +20,13 @@ stdenv.mkDerivation rec {
     SDL_mixer
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     homepage = "https://lgames.sourceforge.io/Barrage/";
     description = "A destructive action game";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     inherit (SDL.meta) platforms;
   };
 }

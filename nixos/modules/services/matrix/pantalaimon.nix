@@ -9,7 +9,7 @@ with lib;
 let
   cfg = config.services.pantalaimon-headless;
 
-  iniFmt = pkgs.formats.ini { };
+  iniFmt = pkgs.formats.ini {};
 
   mkConfigFile =
     name: instanceConfig:
@@ -39,9 +39,9 @@ let
     name: instanceConfig:
     nameValuePair "pantalaimon-${name}" {
       description = "pantalaimon instance ${name} - E2EE aware proxy daemon for matrix clients";
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = "${pkgs.pantalaimon-headless}/bin/pantalaimon --config ${mkConfigFile name instanceConfig} --data-path ${instanceConfig.dataPath}";
@@ -58,7 +58,7 @@ let
 in
 {
   options.services.pantalaimon-headless.instances = mkOption {
-    default = { };
+    default = {};
     type = types.attrsOf (types.submodule (import ./pantalaimon-options.nix));
     description = lib.mdDoc ''
       Declarative instance config.
@@ -68,11 +68,11 @@ in
     '';
   };
 
-  config = mkIf (config.services.pantalaimon-headless.instances != { }) {
+  config = mkIf (config.services.pantalaimon-headless.instances != {}) {
     systemd.services = mapAttrs' mkPantalaimonService config.services.pantalaimon-headless.instances;
   };
 
   meta = {
-    maintainers = with maintainers; [ jojosch ];
+    maintainers = with maintainers; [jojosch];
   };
 }

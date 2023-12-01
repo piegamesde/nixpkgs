@@ -33,6 +33,6 @@ buildGoModule rec {
     homepage = "https://github.com/nanovms/ops";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

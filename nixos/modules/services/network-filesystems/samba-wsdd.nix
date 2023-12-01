@@ -67,7 +67,7 @@ in
       };
       extraOptions = mkOption {
         type = types.listOf types.str;
-        default = [ "--shortlog" ];
+        default = ["--shortlog"];
         example = [
           "--verbose"
           "--no-http"
@@ -81,12 +81,12 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ pkgs.wsdd ];
+    environment.systemPackages = [pkgs.wsdd];
 
     systemd.services.samba-wsdd = {
       description = "Web Services Dynamic Discovery host daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         DynamicUser = true;
         Type = "simple";

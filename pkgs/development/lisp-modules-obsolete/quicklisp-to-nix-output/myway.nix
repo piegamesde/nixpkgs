@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "myway";
   version = "20200325-git";
@@ -24,7 +24,7 @@ rec {
 
   packageName = "myway";
 
-  asdFilesToKeep = [ "myway.asd" ];
+  asdFilesToKeep = ["myway.asd"];
   overrides = x: x;
 }
 /* (SYSTEM myway DESCRIPTION Sinatra-compatible routing library. SHA256

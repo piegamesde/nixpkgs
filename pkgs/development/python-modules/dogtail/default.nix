@@ -35,7 +35,7 @@ buildPythonPackage {
     sha256 = "EGyxYopupfXPYtTL9mm9ujZorvh8AGaNXVKBPWsGy3c=";
   };
 
-  patches = [ ./nix-support.patch ];
+  patches = [./nix-support.patch];
 
   nativeBuildInputs = [
     gobject-introspection
@@ -75,6 +75,6 @@ buildPythonPackage {
     description = "GUI test tool and automation framework that uses Accessibility technologies to communicate with desktop applications";
     homepage = "https://gitlab.com/dogtail/dogtail";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ jtojnar ];
+    maintainers = with lib.maintainers; [jtojnar];
   };
 }

@@ -13,14 +13,14 @@
 
 {
   pubGetScript ? "flutter pub get",
-  flutterBuildFlags ? [ ],
-  runtimeDependencies ? [ ],
-  customPackageOverrides ? { },
+  flutterBuildFlags ? [],
+  runtimeDependencies ? [],
+  customPackageOverrides ? {},
   autoDepsList ? false,
   depsListFile ? null,
   vendorHash,
   pubspecLockFile ? null,
-  nativeBuildInputs ? [ ],
+  nativeBuildInputs ? [],
   preUnpack ? "",
   postFixup ? "",
   ...
@@ -32,7 +32,7 @@ let
     flutter config --enable-linux-desktop >/dev/null
   '';
 
-  deps = callPackage ../dart/fetch-dart-deps { dart = flutter; } {
+  deps = callPackage ../dart/fetch-dart-deps {dart = flutter;} {
     sdkSetupScript = flutterSetupScript;
     inherit pubGetScript vendorHash pubspecLockFile;
     buildDrvArgs = args;
@@ -147,12 +147,12 @@ let
   );
 
   packageOverrideRepository =
-    (callPackage ../../development/compilers/flutter/package-overrides { }) // customPackageOverrides;
+    (callPackage ../../development/compilers/flutter/package-overrides {}) // customPackageOverrides;
   productPackages = builtins.filter (package: package.kind != "dev") (
     if autoDepsList then
       builtins.fromJSON (builtins.readFile deps.depsListFile)
     else if depsListFile == null then
-      [ ]
+      []
     else
       builtins.fromJSON (builtins.readFile depsListFile)
   );

@@ -1,4 +1,4 @@
-{ lib, python3Packages }:
+{lib, python3Packages}:
 
 with python3Packages;
 
@@ -21,7 +21,7 @@ buildPythonApplication rec {
     description = "A command line interface for The Pirate Bay";
     homepage = "https://github.com/vikstrous/pirate-get";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
     platforms = platforms.unix;
   };
 }

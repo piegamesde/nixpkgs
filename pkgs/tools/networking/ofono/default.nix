@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-T8rfReruvHGQCN9IDGIrFCoNjFKKMnUGPKzxo2HTZFQ=";
   };
 
-  patches = [ ./0001-Search-connectors-in-OFONO_PLUGIN_PATH.patch ];
+  patches = [./0001-Search-connectors-in-OFONO_PLUGIN_PATH.patch];
 
   nativeBuildInputs = [
     autoreconfHook
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     "--sysconfdir=/etc"
   ];
 
-  installFlags = [ "sysconfdir=${placeholder "out"}/etc" ];
+  installFlags = ["sysconfdir=${placeholder "out"}/etc"];
 
   enableParallelBuilding = true;
   enableParallelChecking = false;
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     homepage = "https://git.kernel.org/pub/scm/network/ofono/ofono.git";
     changelog = "https://git.kernel.org/pub/scm/network/ofono/ofono.git/plain/ChangeLog?h=${version}";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.linux;
   };
 }

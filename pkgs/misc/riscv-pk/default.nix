@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "1cc0rz4q3a1zw8756b8yysw8lb5g4xbjajh5lvqbjix41hbdx6xz";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   preConfigure = ''
     mkdir build
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = lib.optional (payload != null) "--with-payload=${payload}";
 
-  hardeningDisable = [ "all" ];
+  hardeningDisable = ["all"];
 
   postInstall = ''
     mv $out/* $out/.cleanup
@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/riscv/riscv-pk";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.riscv;
-    maintainers = [ lib.maintainers.shlevy ];
+    maintainers = [lib.maintainers.shlevy];
   };
 }

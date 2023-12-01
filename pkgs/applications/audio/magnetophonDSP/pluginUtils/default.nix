@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     description = "Some simple utility lv2 plugins";
     homepage = "https://github.com/magnetophon/pluginUtils";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.magnetophon ];
+    maintainers = [lib.maintainers.magnetophon];
   };
 }

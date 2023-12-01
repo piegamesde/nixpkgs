@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-yaVQpzcFHrrywQL2ZcfsL4XnIyhwmAqgBnmYRZtBQoM=";
   };
 
-  buildInputs = [ libsepol ];
+  buildInputs = [libsepol];
 
   makeFlags = [
     "PREFIX=$(out)"
@@ -27,6 +27,6 @@ stdenv.mkDerivation rec {
     description = "SELinux policy core utilities (packaging additions)";
     license = licenses.gpl2;
     inherit (libsepol.meta) homepage platforms;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

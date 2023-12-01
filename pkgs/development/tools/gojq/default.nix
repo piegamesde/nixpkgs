@@ -24,13 +24,13 @@ buildGoModule rec {
     "-w"
   ];
 
-  passthru.tests.version = testers.testVersion { package = gojq; };
+  passthru.tests.version = testers.testVersion {package = gojq;};
 
   meta = with lib; {
     description = "Pure Go implementation of jq";
     homepage = "https://github.com/itchyny/gojq";
     changelog = "https://github.com/itchyny/gojq/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ aaronjheng ];
+    maintainers = with maintainers; [aaronjheng];
   };
 }

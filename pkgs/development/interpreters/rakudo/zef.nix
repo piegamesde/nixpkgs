@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0EWajziWoxWLGaj54FfvEMNPPTc2Wb6O050o2qWGJ9c=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ rakudo ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [rakudo];
 
   installPhase = ''
     mkdir -p "$out"
@@ -36,6 +36,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ugexe/zef";
     license = licenses.artistic2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sgo ];
+    maintainers = with maintainers; [sgo];
   };
 }

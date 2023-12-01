@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     ./gcc6-fixes.patch
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = {
     description = "Graphical editor for finite state machines";

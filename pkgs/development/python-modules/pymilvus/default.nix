@@ -32,7 +32,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  pythonRelaxDeps = [ "grpcio" ];
+  pythonRelaxDeps = ["grpcio"];
 
   nativeBuildInputs = [
     pythonRelaxDepsHook
@@ -53,15 +53,15 @@ buildPythonPackage rec {
     scikit-learn
   ];
 
-  pythonImportsCheck = [ "pymilvus" ];
+  pythonImportsCheck = ["pymilvus"];
 
-  disabledTests = [ "test_get_commit" ];
+  disabledTests = ["test_get_commit"];
 
   meta = with lib; {
     description = "Python SDK for Milvus";
     homepage = "https://github.com/milvus-io/pymilvus";
     changelog = "https://github.com/milvus-io/pymilvus/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
   };
 }

@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     xapp
   ];
 
-  mesonFlags = [ "-Dbundle-zeroconf=false" ];
+  mesonFlags = ["-Dbundle-zeroconf=false"];
 
   postPatch = ''
     chmod +x install-scripts/*
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
       --replace "receiver.remaining_count" "op.remaining_count"
   '';
 
-  passthru.updateScript = gitUpdater { ignoredVersions = "^master.*"; };
+  passthru.updateScript = gitUpdater {ignoredVersions = "^master.*";};
 
   meta = with lib; {
     homepage = "https://github.com/linuxmint/warpinator";

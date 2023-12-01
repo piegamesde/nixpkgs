@@ -19,17 +19,17 @@ buildPythonPackage rec {
     sha256 = "1hxwk5alalvmhc31y917dxsnbiwq1xci2krma3235581319xr3w7";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "uEagle" ];
+  pythonImportsCheck = ["uEagle"];
 
   meta = with lib; {
     description = "Python library Rainforest EAGLE devices";
     homepage = "https://github.com/jcalbert/uEagle";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -20,6 +20,6 @@ buildPythonPackage rec {
     description = "A Python module to make simple GUIs with Rofi";
     homepage = "https://github.com/alejandrogallo/python-rofi";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.nico202 ];
+    maintainers = [lib.maintainers.nico202];
   };
 }

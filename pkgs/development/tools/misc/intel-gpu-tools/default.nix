@@ -94,13 +94,13 @@ stdenv.mkDerivation rec {
     liboping
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=array-bounds" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-error=array-bounds"];
 
   preConfigure = ''
     patchShebangs tests man
   '';
 
-  hardeningDisable = [ "bindnow" ];
+  hardeningDisable = ["bindnow"];
 
   meta = with lib; {
     homepage = "https://01.org/linuxgraphics/";
@@ -110,6 +110,6 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "i686-linux"
     ];
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

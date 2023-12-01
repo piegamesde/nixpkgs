@@ -43,25 +43,23 @@ in
       environment.etc."lvm/lvm.conf".text = "config {}";
     })
     (mkIf cfg.enable {
-      systemd.tmpfiles.packages = [ cfg.package.out ];
-      environment.systemPackages = [ cfg.package ];
-      systemd.packages = [ cfg.package ];
+      systemd.tmpfiles.packages = [cfg.package.out];
+      environment.systemPackages = [cfg.package];
+      systemd.packages = [cfg.package];
 
-      services.udev.packages = [ cfg.package.out ];
+      services.udev.packages = [cfg.package.out];
 
       # We need lvm2 for the device-mapper rules
-      boot.initrd.services.udev.packages = lib.mkIf config.boot.initrd.services.lvm.enable [
-        cfg.package
-      ];
+      boot.initrd.services.udev.packages = lib.mkIf config.boot.initrd.services.lvm.enable [cfg.package];
       # The device-mapper rules want to call tools from lvm2
-      boot.initrd.systemd.initrdBin = lib.mkIf config.boot.initrd.services.lvm.enable [ cfg.package ];
+      boot.initrd.systemd.initrdBin = lib.mkIf config.boot.initrd.services.lvm.enable [cfg.package];
       boot.initrd.services.udev.binPackages = lib.mkIf config.boot.initrd.services.lvm.enable [
         cfg.package
       ];
     })
     (mkIf cfg.dmeventd.enable {
-      systemd.sockets."dm-event".wantedBy = [ "sockets.target" ];
-      systemd.services."lvm2-monitor".wantedBy = [ "sysinit.target" ];
+      systemd.sockets."dm-event".wantedBy = ["sockets.target"];
+      systemd.services."lvm2-monitor".wantedBy = ["sysinit.target"];
 
       environment.etc."lvm/lvm.conf".text = ''
         dmeventd/executable = "${cfg.package}/bin/dmeventd"
@@ -75,9 +73,7 @@ in
           "dm-thin-pool"
         ];
 
-        systemd.initrdBin = lib.mkIf config.boot.initrd.services.lvm.enable [
-          pkgs.thin-provisioning-tools
-        ];
+        systemd.initrdBin = lib.mkIf config.boot.initrd.services.lvm.enable [pkgs.thin-provisioning-tools];
 
         extraUtilsCommands = mkIf (!config.boot.initrd.systemd.enable) ''
           for BIN in ${pkgs.thin-provisioning-tools}/bin/*; do
@@ -104,14 +100,14 @@ in
             "cache_repair"
           ];
 
-      environment.systemPackages = [ pkgs.thin-provisioning-tools ];
+      environment.systemPackages = [pkgs.thin-provisioning-tools];
     })
     (mkIf cfg.boot.vdo.enable {
       boot = {
         initrd = {
-          kernelModules = [ "kvdo" ];
+          kernelModules = ["kvdo"];
 
-          systemd.initrdBin = lib.mkIf config.boot.initrd.services.lvm.enable [ pkgs.vdo ];
+          systemd.initrdBin = lib.mkIf config.boot.initrd.services.lvm.enable [pkgs.vdo];
 
           extraUtilsCommands = mkIf (!config.boot.initrd.systemd.enable) ''
             ls ${pkgs.vdo}/bin/ | while read BIN; do
@@ -127,12 +123,12 @@ in
             done
           '';
         };
-        extraModulePackages = [ config.boot.kernelPackages.kvdo ];
+        extraModulePackages = [config.boot.kernelPackages.kvdo];
       };
 
       services.lvm.package = mkOverride 999 pkgs.lvm2_vdo; # this overrides mkDefault
 
-      environment.systemPackages = [ pkgs.vdo ];
+      environment.systemPackages = [pkgs.vdo];
     })
     (mkIf (cfg.dmeventd.enable || cfg.boot.thin.enable) {
       boot.initrd.systemd.contents."/etc/lvm/lvm.conf".text =

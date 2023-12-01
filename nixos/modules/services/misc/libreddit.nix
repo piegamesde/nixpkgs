@@ -52,17 +52,17 @@ in
   config = mkIf cfg.enable {
     systemd.services.libreddit = {
       description = "Private front-end for Reddit";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         DynamicUser = true;
         ExecStart = "${cfg.package}/bin/libreddit ${args}";
-        AmbientCapabilities = lib.mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
+        AmbientCapabilities = lib.mkIf (cfg.port < 1024) ["CAP_NET_BIND_SERVICE"];
         Restart = "on-failure";
         RestartSec = "2s";
         # Hardening
-        CapabilityBoundingSet = if (cfg.port < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
-        DeviceAllow = [ "" ];
+        CapabilityBoundingSet = if (cfg.port < 1024) then ["CAP_NET_BIND_SERVICE"] else [""];
+        DeviceAllow = [""];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         PrivateDevices = true;
@@ -95,6 +95,6 @@ in
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {allowedTCPPorts = [cfg.port];};
   };
 }

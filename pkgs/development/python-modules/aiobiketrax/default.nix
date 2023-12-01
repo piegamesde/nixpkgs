@@ -33,7 +33,7 @@ buildPythonPackage rec {
       --replace "auth0.v3" "auth0"
   '';
 
-  pythonRelaxDeps = [ "auth0-python" ];
+  pythonRelaxDeps = ["auth0-python"];
 
   nativeBuildInputs = [
     poetry-core
@@ -47,15 +47,15 @@ buildPythonPackage rec {
     pyjwt
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "aiobiketrax" ];
+  pythonImportsCheck = ["aiobiketrax"];
 
   meta = with lib; {
     description = "Library for interacting with the PowUnity BikeTrax GPS tracker";
     homepage = "https://github.com/basilfx/aiobiketrax";
     changelog = "https://github.com/basilfx/aiobiketrax/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

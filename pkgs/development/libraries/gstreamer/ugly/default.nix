@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     gettext
     pkg-config
     python3
-  ] ++ lib.optionals enableDocumentation [ hotdoc ];
+  ] ++ lib.optionals enableDocumentation [hotdoc];
 
   buildInputs =
     [
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
     ]
     ++ (
       if enableGplPlugins then
-        [ "-Dgpl=enabled" ]
+        ["-Dgpl=enabled"]
       else
         [
           "-Da52dec=disabled"
@@ -104,6 +104,6 @@ stdenv.mkDerivation rec {
     '';
     license = if enableGplPlugins then licenses.gpl2Plus else licenses.lgpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
   };
 }

@@ -15,10 +15,10 @@ stdenv.mkDerivation rec {
   };
 
   # SDL_gfx.pc refers to sdl.pc and some SDL_gfx headers import SDL.h
-  propagatedBuildInputs = [ SDL ];
-  buildInputs = [ SDL ];
+  propagatedBuildInputs = [SDL];
+  buildInputs = [SDL];
 
-  configureFlags = [ "--disable-mmx" ] ++ lib.optional stdenv.isDarwin "--disable-sdltest";
+  configureFlags = ["--disable-mmx"] ++ lib.optional stdenv.isDarwin "--disable-sdltest";
 
   meta = with lib; {
     description = "SDL graphics drawing primitives and support functions";
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/sdlgfx/";
     license = licenses.zlib;
 
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

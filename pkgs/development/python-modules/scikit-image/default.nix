@@ -33,7 +33,7 @@ let
       hash = "sha256-zvXgZdvYycFbbMsBFSqMDzLanEtF9+JuVSQ3AM8/LQk=";
     };
 
-    patches = [ ./add-testing-data.patch ];
+    patches = [./add-testing-data.patch];
 
     nativeBuildInputs = [
       cython
@@ -56,7 +56,7 @@ let
 
     # test suite is very cpu intensive, move to passthru.tests
     doCheck = false;
-    nativeCheckInputs = [ pytestCheckHook ];
+    nativeCheckInputs = [pytestCheckHook];
 
     # (1) The package has cythonized modules, whose .so libs will appear only in the wheel, i.e. in nix store;
     # (2) To stop Python from importing the wrong directory, i.e. the one in the build dir, not the one in nix store, `skimage` dir should be removed or renamed;
@@ -113,14 +113,14 @@ let
     ];
 
     passthru.tests = {
-      all-tests = self.override { doCheck = true; };
+      all-tests = self.override {doCheck = true;};
     };
 
     meta = {
       description = "Image processing routines for SciPy";
       homepage = "https://scikit-image.org";
       license = lib.licenses.bsd3;
-      maintainers = with lib.maintainers; [ yl3dy ];
+      maintainers = with lib.maintainers; [yl3dy];
     };
   };
 in

@@ -29,13 +29,13 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "lupupy" ];
+  pythonImportsCheck = ["lupupy"];
 
   meta = with lib; {
     description = "Python module to control Lupusec alarm control panels";
     homepage = "https://github.com/majuss/lupupy";
     changelog = "https://github.com/majuss/lupupy/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

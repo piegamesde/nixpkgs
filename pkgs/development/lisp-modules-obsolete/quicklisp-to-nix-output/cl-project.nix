@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-project";
   version = "20200715-git";
@@ -27,7 +27,7 @@ rec {
 
   packageName = "cl-project";
 
-  asdFilesToKeep = [ "cl-project.asd" ];
+  asdFilesToKeep = ["cl-project.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-project DESCRIPTION Generate a skeleton for modern project SHA256

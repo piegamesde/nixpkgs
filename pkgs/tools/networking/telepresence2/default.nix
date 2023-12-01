@@ -34,13 +34,13 @@ buildGoModule rec {
     "-X=github.com/telepresenceio/telepresence/v2/pkg/version.Version=${src.rev}"
   ];
 
-  subPackages = [ "cmd/telepresence" ];
+  subPackages = ["cmd/telepresence"];
 
   meta = with lib; {
     description = "Local development against a remote Kubernetes or OpenShift cluster";
     homepage = "https://telepresence.io";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mausch ];
+    maintainers = with maintainers; [mausch];
     mainProgram = "telepresence";
   };
 }

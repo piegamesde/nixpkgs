@@ -20,7 +20,7 @@ import ./make-test-python.nix (
       pleroma_ctl user new jamy jamy@nixos.test --password '${userPassword}' --moderator --admin -y
     '';
 
-    tlsCert = pkgs.runCommand "selfSignedCerts" { nativeBuildInputs = with pkgs; [ openssl ]; } ''
+    tlsCert = pkgs.runCommand "selfSignedCerts" {nativeBuildInputs = with pkgs; [openssl];} ''
       mkdir -p $out
       openssl req -x509 \
         -subj '/CN=akkoma.nixos.test/' -days 49710 \
@@ -71,7 +71,7 @@ import ./make-test-python.nix (
           ...
         }:
         {
-          security.pki.certificateFiles = [ "${tlsCert}/cert.pem" ];
+          security.pki.certificateFiles = ["${tlsCert}/cert.pem"];
           networking.extraHosts = hosts nodes;
         };
 
@@ -84,8 +84,8 @@ import ./make-test-python.nix (
         }:
         {
           networking.extraHosts = hosts nodes;
-          networking.firewall.allowedTCPPorts = [ 443 ];
-          environment.systemPackages = with pkgs; [ provisionUser ];
+          networking.firewall.allowedTCPPorts = [443];
+          environment.systemPackages = with pkgs; [provisionUser];
           systemd.services.akkoma.confinement.enable = confined;
 
           services.akkoma = {
@@ -124,7 +124,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       ''
         start_all()
         akkoma.wait_for_unit('akkoma-initdb.service')

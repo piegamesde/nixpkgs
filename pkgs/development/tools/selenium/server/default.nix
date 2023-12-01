@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jre];
 
   installPhase = ''
     mkdir -p $out/share/lib/${pname}-${version}
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://www.seleniumhq.org/";
     description = "Selenium Server for remote WebDriver";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
     maintainers = with maintainers; [
       coconnor

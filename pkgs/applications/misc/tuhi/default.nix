@@ -70,6 +70,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/tuhiproject/tuhi";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ lammermann ];
+    maintainers = with maintainers; [lammermann];
   };
 }

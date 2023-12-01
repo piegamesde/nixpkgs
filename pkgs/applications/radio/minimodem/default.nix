@@ -57,6 +57,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.whence.com/minimodem/";
     license = lib.licenses.gpl3Plus;
     platforms = with lib.platforms; linux;
-    maintainers = with lib.maintainers; [ relrod ];
+    maintainers = with lib.maintainers; [relrod];
   };
 }

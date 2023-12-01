@@ -25,7 +25,7 @@ buildPythonApplication {
     sha256 = "06jav6j0bsxhawrq31cnls8zpf80fpwk0cak5s82js6wl4vw2582";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook ];
+  nativeBuildInputs = [wrapGAppsHook];
 
   buildInputs = [
     gobject-introspection
@@ -67,6 +67,6 @@ buildPythonApplication {
     license = licenses.mit;
     description = "Mute your microphone while typing";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ sersorrel ];
+    maintainers = with maintainers; [sersorrel];
   };
 }

@@ -15,14 +15,14 @@ buildPythonPackage rec {
     sha256 = "1qvi79kfb8x9kxkm5lw2mp42hm82cpps1xknmsb5ghkwx1lpc8kc";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
-  nativeCheckInputs = [ mock ];
+  nativeCheckInputs = [mock];
 
   meta = with lib; {
     description = "Python library for the BrowserID Protocol";
     homepage = "https://github.com/mozilla/PyBrowserID";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

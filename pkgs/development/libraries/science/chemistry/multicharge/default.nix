@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
     license = licenses.asl20;
     homepage = "https://github.com/grimme-lab/multicharge";
     platforms = platforms.linux;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

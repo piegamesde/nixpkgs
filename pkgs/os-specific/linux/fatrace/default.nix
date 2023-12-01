@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
       --replace "'which'" "'${which}/bin/which'"
   '';
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Report system-wide file access events";

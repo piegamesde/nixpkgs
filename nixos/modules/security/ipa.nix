@@ -17,7 +17,7 @@ let
     BASE ${cfg.basedn}
     TLS_CACERT /etc/ipa/ca.crt
   '';
-  nssDb = pkgs.runCommand "ipa-nssdb" { nativeBuildInputs = [ pkgs.nss.tools ]; } ''
+  nssDb = pkgs.runCommand "ipa-nssdb" {nativeBuildInputs = [pkgs.nss.tools];} ''
     mkdir -p $out
     certutil -d $out -N --empty-password
     certutil -d $out -A --empty-password -n "${cfg.realm} IPA CA" -t CT,C,C -i ${cfg.certificate}
@@ -82,7 +82,7 @@ in
 
       ifpAllowedUids = mkOption {
         type = types.listOf types.string;
-        default = [ "root" ];
+        default = ["root"];
         description = lib.mdDoc "A list of users allowed to access the ifp dbus interface.";
       };
 
@@ -179,7 +179,7 @@ in
       '';
     };
 
-    system.activationScripts.ipa = stringAfter [ "etc" ] ''
+    system.activationScripts.ipa = stringAfter ["etc"] ''
       # libcurl requires a hard copy of the certificate
       if ! ${pkgs.diffutils}/bin/diff ${cfg.certificate} /etc/ipa/ca.crt > /dev/null 2>&1; then
         rm -f /etc/ipa/ca.crt

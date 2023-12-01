@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qXrypwv/I+5npvGHGsHveijoui0ZnoGYhskCfLkewVE=";
   };
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   prePatch =
     ''
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     description = "Snowball Stemming Algorithms";
     homepage = "https://snowballstem.org/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
     platforms = platforms.all;
   };
 }

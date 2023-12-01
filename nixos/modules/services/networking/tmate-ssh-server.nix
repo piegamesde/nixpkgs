@@ -60,7 +60,7 @@ in
 
   config = mkIf cfg.enable {
 
-    networking.firewall.allowedTCPPorts = optionals cfg.openFirewall [ cfg.port ];
+    networking.firewall.allowedTCPPorts = optionals cfg.openFirewall [cfg.port];
 
     services.tmate-ssh-server = {
       advertisedPort = mkDefault cfg.port;
@@ -94,8 +94,8 @@ in
 
     systemd.services.tmate-ssh-server = {
       description = "tmate SSH Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/tmate-ssh-server -h ${cfg.host} -p ${toString cfg.port} -q ${toString cfg.advertisedPort} -k ${keysDir}";
       };
@@ -117,6 +117,6 @@ in
   };
 
   meta = {
-    maintainers = with maintainers; [ jlesquembre ];
+    maintainers = with maintainers; [jlesquembre];
   };
 }

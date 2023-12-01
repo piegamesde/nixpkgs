@@ -17,12 +17,12 @@ buildGoModule rec {
 
   vendorHash = "sha256-qZTqqSANg0FpupWXTrHuYmnaTE387FhC40ZrZ9tlfew=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "A TUI playground to experiment with jq";
     homepage = "https://github.com/noahgorstein/jqp";
     license = licenses.mit;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

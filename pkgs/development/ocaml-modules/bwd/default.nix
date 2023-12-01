@@ -20,12 +20,12 @@ buildDunePackage rec {
   };
 
   doCheck = true;
-  checkInputs = [ qcheck-core ];
+  checkInputs = [qcheck-core];
 
   meta = {
     description = "Backward Lists";
     inherit (src.meta) homepage;
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

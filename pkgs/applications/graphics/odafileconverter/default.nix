@@ -22,7 +22,7 @@ in
 mkDerivation {
   pname = "oda-file-converter";
   inherit version;
-  nativeBuildInputs = [ dpkg ];
+  nativeBuildInputs = [dpkg];
 
   src = fetchurl {
     # NB: this URL is not stable (i.e. the underlying file and the corresponding version will change over time)
@@ -58,9 +58,9 @@ mkDerivation {
   meta = with lib; {
     description = "For converting between different versions of .dwg and .dxf";
     homepage = "https://www.opendesign.com/guestfiles/oda_file_converter";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ nagisa ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [nagisa];
+    platforms = ["x86_64-linux"];
   };
 }

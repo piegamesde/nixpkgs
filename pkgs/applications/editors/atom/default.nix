@@ -104,7 +104,7 @@ let
       meta = with lib; {
         description = "A hackable text editor for the 21st Century";
         homepage = "https://atom.io/";
-        sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+        sourceProvenance = with sourceTypes; [binaryNativeCode];
         license = licenses.mit;
         maintainers = with maintainers; [
           offline

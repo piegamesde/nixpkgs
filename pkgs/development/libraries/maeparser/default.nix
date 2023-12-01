@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+eCTOU0rqFQC87wcxgINGLsULfbIr/wKxQTkRR59JVc=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     boost
     zlib
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/schrodinger/maeparser";
     description = "Maestro file parser";
-    maintainers = [ maintainers.rmcgibbo ];
+    maintainers = [maintainers.rmcgibbo];
     license = licenses.mit;
     platforms = platforms.unix;
   };

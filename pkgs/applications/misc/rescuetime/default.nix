@@ -37,7 +37,7 @@ mkDerivation rec {
   inherit version;
   pname = "rescuetime";
   inherit src;
-  nativeBuildInputs = [ dpkg ];
+  nativeBuildInputs = [dpkg];
   # avoid https://github.com/NixOS/patchelf/issues/99
   dontStrip = true;
   unpackPhase = ''
@@ -86,8 +86,8 @@ mkDerivation rec {
   meta = with lib; {
     description = "Helps you understand your daily habits so you can focus and be more productive";
     homepage = "https://www.rescuetime.com";
-    maintainers = with maintainers; [ cstrahan ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    maintainers = with maintainers; [cstrahan];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     platforms = [
       "i686-linux"

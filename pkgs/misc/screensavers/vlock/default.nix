@@ -20,19 +20,19 @@ stdenv.mkDerivation rec {
     }' Makefile modules/Makefile
   '';
 
-  patches = [ ./eintr.patch ];
+  patches = [./eintr.patch];
 
   configureFlags = [
     "VLOCK_GROUP=root"
     "ROOT_GROUP=root"
   ];
 
-  buildInputs = [ pam ];
+  buildInputs = [pam];
 
   meta = with lib; {
     description = "Virtual console locking program";
     license = licenses.gpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

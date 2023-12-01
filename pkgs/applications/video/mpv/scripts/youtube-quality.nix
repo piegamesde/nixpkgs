@@ -38,6 +38,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/jgreco/mpv-youtube-quality";
     license = licenses.unfree;
     platforms = platforms.all;
-    maintainers = with maintainers; [ lunik1 ];
+    maintainers = with maintainers; [lunik1];
   };
 }

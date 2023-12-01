@@ -39,14 +39,14 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ zstd ]
+    [zstd]
     ++ lib.optionals stdenv.isDarwin [
       CoreFoundation
       libresolv
       Security
     ];
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   preCheck = ''
     git init

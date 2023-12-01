@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "07w6ipyiy8hi88d6yxbbf3vkv26mj7dcz9yr8141hb2ig03v0h0p";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     jdk
     ant
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.vuze.com";
     license = licenses.unfree;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

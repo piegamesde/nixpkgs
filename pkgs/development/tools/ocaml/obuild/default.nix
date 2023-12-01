@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ ocaml ];
+  nativeBuildInputs = [ocaml];
 
   buildPhase = ''
     patchShebangs ./bootstrap
@@ -32,9 +32,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://github.com/ocaml-obuild/obuild";
-    platforms = ocaml.meta.platforms or [ ];
+    platforms = ocaml.meta.platforms or [];
     description = "Simple package build system for OCaml";
     license = lib.licenses.lgpl21;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

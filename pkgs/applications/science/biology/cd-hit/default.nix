@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     description = "Clustering and comparing protein or nucleotide sequences";
     homepage = "http://weizhongli-lab.org/cd-hit/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.bzizou ];
+    maintainers = [maintainers.bzizou];
     platforms = platforms.unix;
   };
 }

@@ -27,7 +27,7 @@ let
         ".debugger/arm64/vsdbg-ui"
         ".debugger/arm64/vsdbg"
       ];
-      omniSharpBins = [ ".omnisharp/1.39.4-net6.0/OmniSharp" ];
+      omniSharpBins = [".omnisharp/1.39.4-net6.0/OmniSharp"];
       razorBins = [
         ".razor/createdump"
         ".razor/rzls"
@@ -69,7 +69,7 @@ vscode-utils.buildVscodeMarketplaceExtension rec {
     inherit (vsixInfo) url sha256;
   };
 
-  nativeBuildInputs = [ patchelf ];
+  nativeBuildInputs = [patchelf];
 
   postPatch =
     ''
@@ -140,7 +140,7 @@ vscode-utils.buildVscodeMarketplaceExtension rec {
     description = "C# for Visual Studio Code (powered by OmniSharp)";
     homepage = "https://github.com/OmniSharp/omnisharp-vscode";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.jraygauthier ];
+    maintainers = [lib.maintainers.jraygauthier];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

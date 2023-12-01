@@ -65,7 +65,7 @@ pythonPackages.buildPythonApplication rec {
     homepage = "https://picard.musicbrainz.org/";
     changelog = "https://picard.musicbrainz.org/changelog/";
     description = "The official MusicBrainz tagger";
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
     license = licenses.gpl2Plus;
     platforms = platforms.all;
   };

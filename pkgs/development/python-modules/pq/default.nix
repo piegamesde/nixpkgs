@@ -17,12 +17,12 @@ buildPythonPackage rec {
 
   # tests require running postgresql cluster
   doCheck = false;
-  pythonImportsCheck = [ "pq" ];
+  pythonImportsCheck = ["pq"];
 
   meta = with lib; {
     description = "PQ is a transactional queue for PostgreSQL";
     homepage = "https://github.com/malthe/pq/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

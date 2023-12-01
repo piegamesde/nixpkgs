@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ libxml2 ];
+  buildInputs = [libxml2];
 
   postPatch = ''
     sed -i '/# --enable-new-dtags:/,/--enable-new-dtags is required/ d' configure.ac

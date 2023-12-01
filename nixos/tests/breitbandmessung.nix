@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
   {
     name = "breitbandmessung";
-    meta.maintainers = with lib.maintainers; [ b4dm4n ];
+    meta.maintainers = with lib.maintainers; [b4dm4n];
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         imports = [
           ./common/user-account.nix
@@ -20,11 +20,11 @@ import ./make-test-python.nix (
 
         test-support.displayManager.auto.user = "alice";
 
-        environment.systemPackages = with pkgs; [ breitbandmessung ];
+        environment.systemPackages = with pkgs; [breitbandmessung];
         environment.variables.XAUTHORITY = "/home/alice/.Xauthority";
 
         # breitbandmessung is unfree
-        nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "breitbandmessung" ];
+        nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) ["breitbandmessung"];
       };
 
     enableOCR = true;

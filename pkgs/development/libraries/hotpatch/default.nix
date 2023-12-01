@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   preConfigure = ''
     substituteInPlace test/loader.c \
@@ -32,13 +32,13 @@ stdenv.mkDerivation rec {
     LD_LIBRARY_PATH=$(pwd)/src make test
   '';
 
-  patches = [ ./no-loader-test.patch ];
+  patches = [./no-loader-test.patch];
 
   meta = with lib; {
     description = "Hot patching executables on Linux using .so file injection";
     homepage = src.meta.homepage;
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = [
       "i686-linux"
       "x86_64-linux"

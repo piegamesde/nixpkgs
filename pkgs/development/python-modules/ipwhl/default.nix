@@ -21,18 +21,18 @@ buildPythonPackage rec {
     hash = "sha256-YaIYcoUnbiv9wUOFIzGj2sWGbh7NsqRQcqOR2X6+QZA=";
   };
 
-  buildInputs = [ kubo ];
+  buildInputs = [kubo];
   propagatedBuildInputs = [
     packaging
     tomli
   ];
   doCheck = false; # there's no test
-  pythonImportsCheck = [ "ipwhl" ];
+  pythonImportsCheck = ["ipwhl"];
 
   meta = with lib; {
     description = "Utilities for the InterPlanetary Wheels";
     homepage = "https://git.sr.ht/~cnx/ipwhl-utils";
     license = licenses.agpl3Plus;
-    maintainers = [ maintainers.McSinyx ];
+    maintainers = [maintainers.McSinyx];
   };
 }

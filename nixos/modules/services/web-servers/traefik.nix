@@ -25,7 +25,7 @@ let
         )
         // {
           description = "JSON value";
-          emptyValue.value = { };
+          emptyValue.value = {};
         };
     in
     valueType;
@@ -33,7 +33,7 @@ let
     if cfg.dynamicConfigFile == null then
       pkgs.runCommand "config.toml"
         {
-          buildInputs = [ pkgs.remarshal ];
+          buildInputs = [pkgs.remarshal];
           preferLocalBuild = true;
         }
         ''
@@ -47,7 +47,7 @@ let
     if cfg.staticConfigFile == null then
       pkgs.runCommand "config.toml"
         {
-          buildInputs = [ pkgs.yj ];
+          buildInputs = [pkgs.yj];
           preferLocalBuild = true;
         }
         ''
@@ -55,7 +55,7 @@ let
             < ${
               pkgs.writeText "static_config.json" (
                 builtins.toJSON (
-                  recursiveUpdate cfg.staticConfigOptions { providers.file.filename = "${dynamicConfigFile}"; }
+                  recursiveUpdate cfg.staticConfigOptions {providers.file.filename = "${dynamicConfigFile}";}
                 )
               )
             } \
@@ -90,7 +90,7 @@ in
         entryPoints.web.address = ":8080";
         entryPoints.http.address = ":80";
 
-        api = { };
+        api = {};
       };
     };
 
@@ -109,14 +109,14 @@ in
         Dynamic configuration for Traefik.
       '';
       type = jsonValue;
-      default = { };
+      default = {};
       example = {
         http.routers.router1 = {
           rule = "Host(`localhost`)";
           service = "service1";
         };
 
-        http.services.service1.loadBalancer.servers = [ { url = "http://localhost:8080"; } ];
+        http.services.service1.loadBalancer.servers = [{url = "http://localhost:8080";}];
       };
     };
 
@@ -147,12 +147,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0700 traefik traefik - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.dataDir}' 0700 traefik traefik - -"];
 
     systemd.services.traefik = {
       description = "Traefik web server";
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
       startLimitIntervalSec = 86400;
       startLimitBurst = 5;
       serviceConfig = {
@@ -181,6 +181,6 @@ in
       isSystemUser = true;
     };
 
-    users.groups.traefik = { };
+    users.groups.traefik = {};
   };
 }

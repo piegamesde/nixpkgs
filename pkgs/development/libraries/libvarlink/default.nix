@@ -41,7 +41,7 @@ stdenv.mkDerivation (
     doCheck = true;
 
     passthru = {
-      updateScript = nix-update-script { };
+      updateScript = nix-update-script {};
       tests = {
         version = testers.testVersion {
           package = finalAttrs.finalPackage;
@@ -54,7 +54,7 @@ stdenv.mkDerivation (
       description = "C implementation of the Varlink protocol and command line tool";
       homepage = "https://github.com/varlink/libvarlink";
       license = licenses.asl20;
-      maintainers = with maintainers; [ artturin ];
+      maintainers = with maintainers; [artturin];
       platforms = platforms.linux;
     };
   }

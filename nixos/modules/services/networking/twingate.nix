@@ -21,13 +21,13 @@ in
     networking.firewall.checkReversePath = lib.mkDefault false;
     networking.networkmanager.enable = true;
 
-    environment.systemPackages = [ pkgs.twingate ]; # for the CLI
-    systemd.packages = [ pkgs.twingate ];
+    environment.systemPackages = [pkgs.twingate]; # for the CLI
+    systemd.packages = [pkgs.twingate];
 
     systemd.services.twingate.preStart = ''
       cp -r -n ${pkgs.twingate}/etc/twingate/. /etc/twingate/
     '';
 
-    systemd.services.twingate.wantedBy = [ "multi-user.target" ];
+    systemd.services.twingate.wantedBy = ["multi-user.target"];
   };
 }

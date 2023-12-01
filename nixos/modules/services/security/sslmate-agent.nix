@@ -11,7 +11,7 @@ let
   cfg = config.services.sslmate-agent;
 in
 {
-  meta.maintainers = with maintainers; [ wolfangaukang ];
+  meta.maintainers = with maintainers; [wolfangaukang];
 
   options = {
     services.sslmate-agent = {
@@ -22,12 +22,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ sslmate-agent ];
+    environment.systemPackages = with pkgs; [sslmate-agent];
 
     systemd = {
-      packages = [ pkgs.sslmate-agent ];
+      packages = [pkgs.sslmate-agent];
       services.sslmate-agent = {
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         serviceConfig = {
           ConfigurationDirectory = "sslmate-agent";
           LogsDirectory = "sslmate-agent";

@@ -48,6 +48,6 @@ stdenv.mkDerivation rec {
     homepage = "https://alsamodular.sourceforge.net";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ sjfloat ];
+    maintainers = with maintainers; [sjfloat];
   };
 }

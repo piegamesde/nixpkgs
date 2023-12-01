@@ -29,9 +29,9 @@ mkDerivation rec {
     qmake
   ];
 
-  buildInputs = [ qtdeclarative ];
+  buildInputs = [qtdeclarative];
 
-  qmakeFlags = [ "CONFIG+=git_build" ];
+  qmakeFlags = ["CONFIG+=git_build"];
 
   doCheck = true;
 

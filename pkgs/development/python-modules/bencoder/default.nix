@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-rENvM/3X51stkFdJHSq+77VjHvsTyBNAPbCtsRq1L8I=";
   };
 
-  pythonImportsCheck = [ "bencoder" ];
+  pythonImportsCheck = ["bencoder"];
 
   # There are no tests.
   doCheck = false;
@@ -23,6 +23,6 @@ buildPythonPackage rec {
     description = "A simple bencode decoder/encoder library in pure Python";
     homepage = "https://github.com/utdemir/bencoder";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ somasis ];
+    maintainers = with maintainers; [somasis];
   };
 }

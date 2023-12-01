@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
       --replace "/bin/mv" "${coreutils}/bin/mv"
   '';
 
-  makeFlags = lib.optionals stdenv.isDarwin [ "LIBTOOL=${libtool}/bin/libtool" ];
+  makeFlags = lib.optionals stdenv.isDarwin ["LIBTOOL=${libtool}/bin/libtool"];
 
   enableParallelBuilding = true;
 
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     longDescription = "The NCO (netCDF Operator) toolkit manipulates and analyzes data stored in netCDF-accessible formats, including DAP, HDF4, and HDF5";
     homepage = "https://nco.sourceforge.net/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bzizou ];
+    maintainers = with maintainers; [bzizou];
     platforms = platforms.unix;
   };
 }

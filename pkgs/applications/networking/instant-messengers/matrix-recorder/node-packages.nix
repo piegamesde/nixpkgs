@@ -4,7 +4,7 @@
   nodeEnv,
   fetchurl,
   fetchgit,
-  globalBuildInputs ? [ ],
+  globalBuildInputs ? [],
 }:
 
 let
@@ -1227,7 +1227,7 @@ let
       sources."osenv-0.1.5"
       sources."path-is-absolute-1.0.1"
       sources."process-nextick-args-2.0.1"
-      (sources."rc-1.2.8" // { dependencies = [ sources."minimist-1.2.0" ]; })
+      (sources."rc-1.2.8" // {dependencies = [sources."minimist-1.2.0"];})
       sources."readable-stream-2.3.6"
       sources."rimraf-2.7.1"
       sources."safe-buffer-5.1.2"
@@ -1246,7 +1246,7 @@ let
       sources."wrappy-1.0.2"
       sources."yallist-3.1.1"
     ];
-    buildInputs = [ ];
+    buildInputs = [];
     meta = {
       description = "Node.js native addon binary install tool";
       homepage = "https://github.com/mapbox/node-pre-gyp#readme";
@@ -1363,8 +1363,8 @@ let
       sources."punycode-2.1.1"
       sources."q-1.5.1"
       sources."qs-6.5.2"
-      (sources."rc-1.2.8" // { dependencies = [ sources."minimist-1.2.0" ]; })
-      (sources."readable-stream-2.3.6" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
+      (sources."rc-1.2.8" // {dependencies = [sources."minimist-1.2.0"];})
+      (sources."readable-stream-2.3.6" // {dependencies = [sources."safe-buffer-5.1.2"];})
       sources."request-2.88.0"
       sources."rimraf-2.7.1"
       sources."safe-buffer-5.2.0"
@@ -1377,11 +1377,11 @@ let
       sources."sqlite3-4.1.0"
       sources."sshpk-1.16.1"
       sources."string-width-1.0.2"
-      (sources."string_decoder-1.1.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
+      (sources."string_decoder-1.1.1" // {dependencies = [sources."safe-buffer-5.1.2"];})
       sources."strip-ansi-3.0.1"
       sources."strip-json-comments-2.0.1"
       sources."tar-4.4.13"
-      (sources."tough-cookie-2.4.3" // { dependencies = [ sources."punycode-1.4.1" ]; })
+      (sources."tough-cookie-2.4.3" // {dependencies = [sources."punycode-1.4.1"];})
       sources."tunnel-agent-0.6.0"
       sources."tweetnacl-0.14.5"
       sources."uri-js-4.2.2"

@@ -32,7 +32,7 @@ buildPythonPackage rec {
     pythonRelaxDepsHook
   ];
 
-  pythonRelaxDeps = [ "packaging" ];
+  pythonRelaxDeps = ["packaging"];
 
   propagatedBuildInputs = [
     packaging
@@ -41,7 +41,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # require network connection
@@ -49,13 +49,13 @@ buildPythonPackage rec {
     "test_sigma_plugin_installation"
   ];
 
-  pythonImportsCheck = [ "sigma" ];
+  pythonImportsCheck = ["sigma"];
 
   meta = with lib; {
     description = "Library to parse and convert Sigma rules into queries";
     homepage = "https://github.com/SigmaHQ/pySigma";
     changelog = "https://github.com/SigmaHQ/pySigma/releases/tag/v${version}";
-    license = with licenses; [ lgpl21Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [lgpl21Only];
+    maintainers = with maintainers; [fab];
   };
 }

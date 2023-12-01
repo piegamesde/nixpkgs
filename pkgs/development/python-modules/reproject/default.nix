@@ -52,12 +52,12 @@ buildPythonPackage rec {
     "--ignore build/lib*/reproject/interpolation/"
   ];
 
-  pythonImportsCheck = [ "reproject" ];
+  pythonImportsCheck = ["reproject"];
 
   meta = with lib; {
     description = "Reproject astronomical images";
     homepage = "https://reproject.readthedocs.io";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ smaret ];
+    maintainers = with maintainers; [smaret];
   };
 }

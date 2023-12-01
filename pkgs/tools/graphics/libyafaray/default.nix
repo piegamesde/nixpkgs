@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     description = "A free, open source raytracer";
     downloadPage = "https://github.com/YafaRay/libYafaRay";
     homepage = "http://www.yafaray.org";
-    maintainers = with maintainers; [ hodapp ];
+    maintainers = with maintainers; [hodapp];
     license = licenses.lgpl21;
     platforms = [
       "aarch64-linux"

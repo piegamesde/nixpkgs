@@ -21,9 +21,9 @@ buildPythonPackage rec {
     sha256 = "04cg1cfrr55dbi8nljkpcsc103i5c6p0nr46vjr0bnxgkxx03x36";
   };
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  propagatedBuildInputs = [ tornado ];
+  propagatedBuildInputs = [tornado];
 
   nativeCheckInputs = [
     pytest
@@ -38,6 +38,6 @@ buildPythonPackage rec {
     description = "py.test plugin for testing Python 3.5+ Tornado code";
     homepage = "https://github.com/eukaryote/pytest-tornasync";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

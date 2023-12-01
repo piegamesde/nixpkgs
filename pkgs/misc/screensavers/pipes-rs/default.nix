@@ -32,6 +32,6 @@ rustPlatform.buildRustPackage rec {
     description = "An over-engineered rewrite of pipes.sh in Rust";
     homepage = "https://github.com/lhvy/pipes-rs";
     license = licenses.blueOak100;
-    maintainers = [ maintainers.vanilla ];
+    maintainers = [maintainers.vanilla];
   };
 }

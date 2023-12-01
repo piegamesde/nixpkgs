@@ -51,8 +51,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A modern text editor inspired by Vim";
     homepage = "https://amp.rs";
-    license = [ licenses.gpl3 ];
-    maintainers = [ maintainers.sb0 ];
+    license = [licenses.gpl3];
+    maintainers = [maintainers.sb0];
     platforms = platforms.unix;
   };
 }

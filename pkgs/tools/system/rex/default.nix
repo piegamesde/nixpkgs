@@ -55,12 +55,12 @@ perlPackages.buildPerlPackage rec {
 
   doCheck = false;
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   fixupPhase = ''
     for sh in bash zsh; do
       substituteInPlace ./share/rex-tab-completion.$sh \
-        --replace 'perl' "${pkgs.perl.withPackages (ps: [ ps.YAML ])}/bin/perl"
+        --replace 'perl' "${pkgs.perl.withPackages (ps: [ps.YAML])}/bin/perl"
     done
     installShellCompletion --name _rex --zsh ./share/rex-tab-completion.zsh
     installShellCompletion --name rex --bash ./share/rex-tab-completion.bash
@@ -70,6 +70,6 @@ perlPackages.buildPerlPackage rec {
     homepage = "https://www.rexify.org";
     description = "The friendly automation framework";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ qbit ];
+    maintainers = with lib.maintainers; [qbit];
   };
 }

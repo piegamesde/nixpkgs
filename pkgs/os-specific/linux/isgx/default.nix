@@ -17,11 +17,11 @@ stdenv.mkDerivation rec {
     sha256 = "0kbbf2inaywp44lm8ig26mkb36jq3smsln0yp6kmrirdwc3c53mi";
   };
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  makeFlags = [ "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
+  makeFlags = ["KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"];
 
   installPhase = ''
     runHook preInstall
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       bsd3 # OR
       gpl2Only
     ];
-    maintainers = with maintainers; [ oxalica ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [oxalica];
+    platforms = ["x86_64-linux"];
   };
 }

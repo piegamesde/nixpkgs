@@ -1,4 +1,4 @@
-{ udis86, fetchFromGitHub }:
+{udis86, fetchFromGitHub}:
 udis86.overrideAttrs (
   old: {
     version = "unstable-2022-10-13";
@@ -10,6 +10,6 @@ udis86.overrideAttrs (
       hash = "sha256-HifdUQPGsKQKQprByeIznvRLONdOXeolOsU5nkwIv3g=";
     };
 
-    patches = [ ];
+    patches = [];
   }
 )

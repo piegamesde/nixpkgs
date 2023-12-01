@@ -22,7 +22,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace 'bidict = "^' 'bidict = ">='
   '';
 
-  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
+  nativeBuildInputs = with python3.pkgs; [poetry-core];
 
   propagatedBuildInputs = with python3.pkgs; [
     bidict
@@ -43,6 +43,6 @@ python3.pkgs.buildPythonApplication rec {
       in the reMarkable Cloud using the same tools you use on your local
       system.
     '';
-    maintainers = with lib.maintainers; [ adisbladis ];
+    maintainers = with lib.maintainers; [adisbladis];
   };
 }

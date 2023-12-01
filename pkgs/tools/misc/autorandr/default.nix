@@ -18,7 +18,7 @@ python3.pkgs.buildPythonApplication rec {
     installShellFiles
     desktop-file-utils
   ];
-  propagatedBuildInputs = [ python3Packages.packaging ];
+  propagatedBuildInputs = [python3Packages.packaging];
 
   buildPhase = ''
     substituteInPlace autorandr.py \
@@ -26,7 +26,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace '["xrandr"]' '["${xrandr}/bin/xrandr"]'
   '';
 
-  patches = [ ./0001-don-t-use-sys.executable.patch ];
+  patches = [./0001-don-t-use-sys.executable.patch];
 
   outputs = [
     "out"

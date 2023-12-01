@@ -48,7 +48,7 @@ in
 
       allow = mkOption {
         type = types.listOf types.str;
-        default = [ "all" ];
+        default = ["all"];
         description = lib.mdDoc ''
           Users allowed to use fcrontab and fcrondyn (one name per
           line, `all` for everyone).
@@ -57,7 +57,7 @@ in
 
       deny = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "Users forbidden from using fcron.";
       };
 
@@ -121,7 +121,7 @@ in
         ]
     );
 
-    environment.systemPackages = [ pkgs.fcron ];
+    environment.systemPackages = [pkgs.fcron];
     users.users.fcron = {
       uid = config.ids.uids.fcron;
       home = "/var/spool/fcron";
@@ -153,9 +153,9 @@ in
     };
     systemd.services.fcron = {
       description = "fcron daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
-      path = [ pkgs.fcron ];
+      path = [pkgs.fcron];
 
       preStart = ''
         install \

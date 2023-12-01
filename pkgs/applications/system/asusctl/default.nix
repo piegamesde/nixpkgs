@@ -82,7 +82,7 @@ rustPlatform.buildRustPackage rec {
     description = "A control daemon, CLI tools, and a collection of crates for interacting with ASUS ROG laptops";
     homepage = "https://gitlab.com/asus-linux/asusctl";
     license = licenses.mpl20;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     maintainers = with maintainers; [
       k900
       aacebedo

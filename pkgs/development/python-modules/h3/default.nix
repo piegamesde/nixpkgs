@@ -26,7 +26,7 @@ buildPythonPackage rec {
 
   dontConfigure = true;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   nativeBuildInputs =
     [
@@ -44,9 +44,9 @@ buildPythonPackage rec {
 
   # This is not needed per-se, it's only added for autoPatchelfHook to work
   # correctly. See the note above ^^
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ h3 ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [h3];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   # The following prePatch replaces the h3lib compilation with using the h3 packaged in nixpkgs.
   #
@@ -65,12 +65,12 @@ buildPythonPackage rec {
     '';
 
   # Extra check to make sure we can import it from Python
-  pythonImportsCheck = [ "h3" ];
+  pythonImportsCheck = ["h3"];
 
   meta = with lib; {
     homepage = "https://github.com/uber/h3-py";
     description = "Hierarchical hexagonal geospatial indexing system";
     license = licenses.asl20;
-    maintainers = [ maintainers.kalbasit ];
+    maintainers = [maintainers.kalbasit];
   };
 }

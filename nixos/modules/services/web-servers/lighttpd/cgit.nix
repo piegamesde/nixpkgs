@@ -65,7 +65,7 @@ in
   config = mkIf cfg.enable {
 
     # make the cgitrc manpage available
-    environment.systemPackages = [ pkgs.cgit ];
+    environment.systemPackages = [pkgs.cgit];
 
     # declare module dependencies
     services.lighttpd.enableModules = [

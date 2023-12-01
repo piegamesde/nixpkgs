@@ -17,15 +17,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-cW0GxyvC9url2QAAWD0M2pR4gBiPA3eeAaw77TwMV/0=";
   };
 
-  nativeBuildInputs = [ help2man ];
-  buildInputs = [ python3 ];
+  nativeBuildInputs = [help2man];
+  buildInputs = [python3];
 
   # Needed for man page generation in build phase
   postPatch = ''
     patchShebangs src/fead.py
   '';
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   # Already done in postPatch phase
   dontPatchShebangs = true;
@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     homepage = "https://git.sr.ht/~cnx/fead";
     license = licenses.agpl3Plus;
     changelog = "https://git.sr.ht/~cnx/fead/refs/${version}";
-    maintainers = with maintainers; [ McSinyx ];
+    maintainers = with maintainers; [McSinyx];
   };
 }

@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "11sx96zshaciqrm8rqmhz1sf6nd4lczqwiha031xyyifvmpp2hsa";
 
-  excludedPackages = [ "bench" ];
+  excludedPackages = ["bench"];
 
   ldflags = [
     "-s"

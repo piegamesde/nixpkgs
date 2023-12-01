@@ -19,7 +19,7 @@ assert pname == null || pname == crateName;
     name = "${crateName}-${version}.tar.gz";
     url = "https://crates.io/api/v1/crates/${crateName}/${version}/download";
   }
-  // lib.optionalAttrs unpack { extension = "tar.gz"; }
+  // lib.optionalAttrs unpack {extension = "tar.gz";}
   // removeAttrs args [
     "crateName"
     "pname"

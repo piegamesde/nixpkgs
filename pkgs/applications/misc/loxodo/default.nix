@@ -15,7 +15,7 @@ python3.pkgs.buildPythonApplication {
     sha256 = "1cips4pvrqga8q1ibs23vjrf8dwan860x8jvjmc52h6qvvvv60yl";
   };
 
-  patches = [ ./wxpython.patch ];
+  patches = [./wxpython.patch];
 
   propagatedBuildInputs = with python3.pkgs; [
     six
@@ -43,6 +43,6 @@ python3.pkgs.buildPythonApplication {
     homepage = "https://www.christoph-sommer.de/loxodo/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

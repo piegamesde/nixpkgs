@@ -15,14 +15,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fuFakbkxDwDp6Z9VITPIB8NiYRSp98Ub1y5SC6W5S1E=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ libtool ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [libtool];
 
   meta = with lib; {
     description = "Reference implementation of the Dirfile Standards";
     license = licenses.lgpl21Plus;
     platforms = platforms.all;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
     homepage = "https://getdata.sourceforge.net/";
   };
 }

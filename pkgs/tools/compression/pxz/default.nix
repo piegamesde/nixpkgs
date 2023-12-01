@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-NYhPujm5A0j810IKUZEHru/oLXCW7xZf5FjjKAbatZY=";
   };
 
-  patches = [ ./flush-stdout-help-version.patch ];
+  patches = [./flush-stdout-help-version.patch];
 
   postPatch = ''
     substituteInPlace Makefile \
@@ -28,19 +28,19 @@ stdenv.mkDerivation rec {
       --replace 'XZ_BINARY "xz"' 'XZ_BINARY "${lib.getBin xz}/bin/xz"'
   '';
 
-  buildInputs = [ xz ];
+  buildInputs = [xz];
 
   makeFlags = [
     "BINDIR=${placeholder "out"}/bin"
     "MANDIR=${placeholder "out"}/share/man"
   ];
 
-  passthru.tests.version = testers.testVersion { package = pxz; };
+  passthru.tests.version = testers.testVersion {package = pxz;};
 
   meta = with lib; {
     homepage = "https://jnovy.fedorapeople.org/pxz/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ pashev ];
+    maintainers = with maintainers; [pashev];
     description = "compression utility that runs LZMA compression of different parts on multiple cores simultaneously";
     longDescription = ''
       Parallel XZ is a compression utility that takes advantage of

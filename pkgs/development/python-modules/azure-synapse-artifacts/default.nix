@@ -26,12 +26,12 @@ buildPythonPackage rec {
   # zero tests run
   doCheck = false;
 
-  pythonImportsCheck = [ "azure.synapse.artifacts" ];
+  pythonImportsCheck = ["azure.synapse.artifacts"];
 
   meta = with lib; {
     description = "Microsoft Azure Synapse Artifacts Client Library for Python";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

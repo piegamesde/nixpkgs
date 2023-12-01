@@ -104,8 +104,8 @@ rustPlatform.buildRustPackage rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libappindicator-gtk3 ]}"
-      --prefix PATH : "${lib.makeBinPath [ rclone ]}"
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [libappindicator-gtk3]}"
+      --prefix PATH : "${lib.makeBinPath [rclone]}"
     )
   '';
 
@@ -114,6 +114,6 @@ rustPlatform.buildRustPackage rec {
     description = "GUI file synchronization client that can sync with any cloud provider";
     homepage = "https://github.com/hwittenborn/celeste";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

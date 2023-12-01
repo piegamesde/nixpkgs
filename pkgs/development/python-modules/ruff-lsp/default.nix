@@ -30,7 +30,7 @@ buildPythonPackage rec {
     sed -i '/"ruff>=/d' pyproject.toml
   '';
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     pygls
@@ -49,7 +49,7 @@ buildPythonPackage rec {
   makeWrapperArgs =
     [
       # prefer ruff from user's PATH, that's usually desired behavior
-      "--suffix PATH : ${lib.makeBinPath [ ruff ]}"
+      "--suffix PATH : ${lib.makeBinPath [ruff]}"
     ];
 
   meta = with lib; {
@@ -57,6 +57,6 @@ buildPythonPackage rec {
     description = "A Language Server Protocol implementation for Ruff";
     changelog = "https://github.com/charliermarsh/ruff-lsp/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ kalekseev ];
+    maintainers = with maintainers; [kalekseev];
   };
 }

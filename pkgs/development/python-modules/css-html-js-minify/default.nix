@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   doCheck = false; # Tests are useless and broken
 
-  pythonImportsCheck = [ "css_html_js_minify" ];
+  pythonImportsCheck = ["css_html_js_minify"];
 
   meta = with lib; {
     description = "StandAlone Async cross-platform Minifier for the Web";
@@ -26,6 +26,6 @@ buildPythonPackage rec {
       lgpl3Plus
       mit
     ];
-    maintainers = with maintainers; [ FlorianFranzen ];
+    maintainers = with maintainers; [FlorianFranzen];
   };
 }

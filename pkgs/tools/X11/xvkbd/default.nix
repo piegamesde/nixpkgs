@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "1x5yldv9y99cw5hzzs73ygdn1z80zns9hz0baa355r711zghfbcm";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libXt
     libXaw
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://t-sato.in.coocan.jp/xvkbd";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.bennofs ];
+    maintainers = [maintainers.bennofs];
     platforms = platforms.linux;
   };
 }

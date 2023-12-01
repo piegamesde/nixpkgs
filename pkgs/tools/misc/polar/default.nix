@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/cmaion/polar";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
     platforms = platforms.linux;
   };
 }

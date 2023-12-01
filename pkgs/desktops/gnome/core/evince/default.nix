@@ -93,8 +93,8 @@ stdenv.mkDerivation rec {
       poppler
       texlive.bin.core # kpathsea for DVI support
     ]
-    ++ lib.optionals withLibsecret [ libsecret ]
-    ++ lib.optionals supportXPS [ libgxps ]
+    ++ lib.optionals withLibsecret [libsecret]
+    ++ lib.optionals supportXPS [libgxps]
     ++ lib.optionals supportMultimedia (
       with gst_all_1; [
         gstreamer
@@ -111,8 +111,8 @@ stdenv.mkDerivation rec {
       "-Dnautilus=false"
       "-Dps=enabled"
     ]
-    ++ lib.optionals (!withLibsecret) [ "-Dkeyring=disabled" ]
-    ++ lib.optionals (!supportMultimedia) [ "-Dmultimedia=disabled" ];
+    ++ lib.optionals (!withLibsecret) ["-Dkeyring=disabled"]
+    ++ lib.optionals (!supportMultimedia) ["-Dmultimedia=disabled"];
 
   env.NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
 
@@ -126,7 +126,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = pname; };
+    updateScript = gnome.updateScript {packageName = pname;};
   };
 
   meta = with lib; {

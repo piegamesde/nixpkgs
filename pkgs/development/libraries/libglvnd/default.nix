@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
   );
 
   configureFlags =
-    [ ]
+    []
     # Indirectly: https://bugs.freedesktop.org/show_bug.cgi?id=35268
     ++ lib.optional stdenv.hostPlatform.isMusl "--disable-tls"
     # Remove when aarch64-darwin asm support is upstream: https://gitlab.freedesktop.org/glvnd/libglvnd/-/issues/216
@@ -98,6 +98,6 @@ stdenv.mkDerivation rec {
       asl20
     ];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
   };
 }

@@ -17,16 +17,16 @@ buildPythonPackage rec {
     sha256 = "0wmv62l3r8r4428gdzyj80lhgadfqvj220khz1wnm9alyzg60wkh";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
-  nativeCheckInputs = [ timecop ];
+  nativeCheckInputs = [timecop];
 
-  pythonImportsCheck = [ "onetimepass" ];
+  pythonImportsCheck = ["onetimepass"];
 
   meta = with lib; {
     description = "One-time password library for HMAC-based (HOTP) and time-based (TOTP) passwords";
     homepage = "https://github.com/tadeck/onetimepass";
     license = licenses.mit;
-    maintainers = with maintainers; [ zakame ];
+    maintainers = with maintainers; [zakame];
   };
 }

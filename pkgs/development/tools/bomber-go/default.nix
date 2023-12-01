@@ -28,6 +28,6 @@ buildGoModule rec {
     changelog = "https://github.com/devops-kung-fu/bomber/releases/tag/v${version}";
     license = licenses.mpl20;
     mainProgram = "bomber";
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

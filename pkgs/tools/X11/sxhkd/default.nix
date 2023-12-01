@@ -21,7 +21,7 @@ stdenv.mkDerivation (
       hash = "sha256-OelMqenk0tiWMLraekS/ggGf6IsXP7Sz7bv75NvnNvI=";
     };
 
-    nativeBuildInputs = [ asciidoc ];
+    nativeBuildInputs = [asciidoc];
 
     buildInputs = [
       libxcb
@@ -30,7 +30,7 @@ stdenv.mkDerivation (
       xcbutilwm
     ];
 
-    makeFlags = [ "PREFIX=$(out)" ];
+    makeFlags = ["PREFIX=$(out)"];
 
     meta = with lib; {
       description = "Simple X hotkey daemon";

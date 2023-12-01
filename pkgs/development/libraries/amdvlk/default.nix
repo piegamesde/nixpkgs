@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.impureTests = {
-    amdvlk = callPackage ./test.nix { };
+    amdvlk = callPackage ./test.nix {};
   };
 
   meta = with lib; {
@@ -118,6 +118,6 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "i686-linux"
     ];
-    maintainers = with maintainers; [ Flakebi ];
+    maintainers = with maintainers; [Flakebi];
   };
 }

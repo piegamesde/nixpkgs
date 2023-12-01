@@ -40,7 +40,7 @@ mkDerivation rec {
     knewstuff
     kpackage
   ];
-  propagatedBuildInputs = [ mpir ];
+  propagatedBuildInputs = [mpir];
 
   meta = {
     description = "Library used by KDE finance applications";

@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
     wrapQtAppsHook
   ];
-  qmakeFlags = [ "CONFIG+=release" ];
+  qmakeFlags = ["CONFIG+=release"];
 
   meta = with lib; {
     description = "Simple RSS/Atom feed reader with online synchronization";
@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/martinrotter/rssguard";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

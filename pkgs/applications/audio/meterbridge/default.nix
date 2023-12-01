@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     ./fix_build_with_gcc-5.patch
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     SDL
     SDL_image
@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
     homepage = "http://plugin.org.uk/meterbridge/";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.nico202 ];
+    maintainers = [maintainers.nico202];
   };
 }

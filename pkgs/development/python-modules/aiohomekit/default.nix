@@ -31,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-bVvz5ruc1OpRnSKso3XHAnppnN/4ySfRHodE787eLFw=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiocoap
@@ -58,7 +58,7 @@ buildPythonPackage rec {
       "tests/test_ip_pairing.py"
     ];
 
-  pythonImportsCheck = [ "aiohomekit" ];
+  pythonImportsCheck = ["aiohomekit"];
 
   meta = with lib; {
     description = "Python module that implements the HomeKit protocol";
@@ -68,7 +68,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/Jc2k/aiohomekit";
     changelog = "https://github.com/Jc2k/aiohomekit/releases/tag/${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

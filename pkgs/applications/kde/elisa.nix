@@ -25,7 +25,7 @@ mkDerivation {
     "dev"
   ];
 
-  buildInputs = [ libvlc ];
+  buildInputs = [libvlc];
 
   nativeBuildInputs = [
     extra-cmake-modules
@@ -50,6 +50,6 @@ mkDerivation {
     homepage = "https://apps.kde.org/elisa/";
     description = "A simple media player for KDE";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

@@ -45,7 +45,7 @@ stdenv.mkDerivation (
           "-Wp,-D_FORTIFY_SOURCE=0"
         ];
 
-    installFlags = [ "PREFIX=${placeholder "out"}" ];
+    installFlags = ["PREFIX=${placeholder "out"}"];
 
     postInstall = ''
       install -Dm644 linux/zsnes.desktop $out/share/applications/zsnes.desktop
@@ -59,7 +59,7 @@ stdenv.mkDerivation (
       homepage = "https://github.com/xyproto/zsnes";
       description = "A maintained fork of zsnes";
       license = lib.licenses.gpl2Plus;
-      maintainers = [ lib.maintainers.AndersonTorres ];
+      maintainers = [lib.maintainers.AndersonTorres];
       platforms = lib.intersectLists lib.platforms.linux lib.platforms.x86;
     };
   }

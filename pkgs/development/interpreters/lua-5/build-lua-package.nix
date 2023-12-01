@@ -19,15 +19,15 @@
   namePrefix ? "${lua.pname}${lib.versions.majorMinor lua.version}-",
 
   # Dependencies for building the package
-  buildInputs ? [ ],
+  buildInputs ? [],
 
   # Dependencies needed for running the checkPhase.
   # These are added to nativeBuildInputs when doCheck = true.
-  nativeCheckInputs ? [ ],
+  nativeCheckInputs ? [],
 
   # propagate build dependencies so in case we have A -> B -> C,
   # C can import package A propagated by B
-  propagatedBuildInputs ? [ ],
+  propagatedBuildInputs ? [],
 
   # used to disable derivation, useful for specific lua versions
   # TODO move from this setting meta.broken to a 'disabled' attribute on the
@@ -36,7 +36,7 @@
 
   # Additional arguments to pass to the makeWrapper function, which wraps
   # generated binaries.
-  makeWrapperArgs ? [ ],
+  makeWrapperArgs ? [],
 
   # Skip wrapping of lua programs altogether
   dontWrapLuaPrograms ? false,
@@ -47,12 +47,12 @@
   # The latter is used to work-around luarocks having a problem with
   # multiple-output derivations as external deps:
   # https://github.com/luarocks/luarocks/issues/766<Paste>
-  externalDeps ? [ ],
+  externalDeps ? [],
 
   # Appended to the generated luarocks config
   extraConfig ? "",
   # Inserted into the generated luarocks config in the "variables" table
-  extraVariables ? { },
+  extraVariables ? {},
   # The two above arguments have access to builder variables -- e.g. to $out
 
   # relative to srcRoot, path to the rockspec to use when using rocks
@@ -89,7 +89,7 @@ let
         __structuredAttrs = true;
         env = {
           LUAROCKS_CONFIG = "$PWD/${luarocks_config}";
-        } // attrs.env or { };
+        } // attrs.env or {};
 
         generatedRockspecFilename = "${rockspecDir}/${pname}-${rockspecVersion}.rockspec";
 
@@ -112,13 +112,13 @@ let
             # example externalDeps': [ { name = "CRYPTO"; dep = pkgs.openssl; } ]
             externalDeps' = lib.filter (dep: !lib.isDerivation dep) self.externalDeps;
           in
-          [ lua.pkgs.luarocks ]
+          [lua.pkgs.luarocks]
           ++ buildInputs
-          ++ lib.optionals self.doCheck ([ luarocksCheckHook ] ++ self.nativeCheckInputs)
+          ++ lib.optionals self.doCheck ([luarocksCheckHook] ++ self.nativeCheckInputs)
           ++ (map (d: d.dep) externalDeps');
 
         # propagate lua to active setup-hook in nix-shell
-        propagatedBuildInputs = propagatedBuildInputs ++ [ lua ];
+        propagatedBuildInputs = propagatedBuildInputs ++ [lua];
 
         # @-patterns do not capture formal argument default values, so we need to
         # explicitly inherit this for it to be available as a shell variable in the
@@ -221,14 +221,14 @@ let
 
         passthru = {
           inherit lua;
-        } // attrs.passthru or { };
+        } // attrs.passthru or {};
 
         meta = {
           platforms = lua.meta.platforms;
           # add extra maintainer(s) to every package
-          maintainers = (attrs.meta.maintainers or [ ]) ++ [ ];
+          maintainers = (attrs.meta.maintainers or []) ++ [];
           broken = disabled;
-        } // attrs.meta or { };
+        } // attrs.meta or {};
       }
     )
   );

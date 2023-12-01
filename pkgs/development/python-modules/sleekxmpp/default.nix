@@ -19,7 +19,7 @@ buildPythonPackage rec {
     pyasn1
   ];
 
-  patches = [ ./dnspython-ip6.patch ];
+  patches = [./dnspython-ip6.patch];
 
   src = fetchPypi {
     inherit pname version;

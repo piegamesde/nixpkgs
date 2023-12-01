@@ -11,7 +11,7 @@ let
     let
       modules = filter hasLuaModule drvs;
     in
-    unique ([ lua ] ++ modules ++ concatLists (catAttrs "requiredLuaModules" modules));
+    unique ([lua] ++ modules ++ concatLists (catAttrs "requiredLuaModules" modules));
   # Check whether a derivation provides a lua module.
   hasLuaModule = drv: drv ? luaModule;
 
@@ -19,7 +19,7 @@ let
   overrideLuarocks =
     drv: f:
     (drv.override (
-      args: args // { buildLuarocksPackage = drv: (args.buildLuarocksPackage drv).override f; }
+      args: args // {buildLuarocksPackage = drv: (args.buildLuarocksPackage drv).override f;}
     ))
     // {
       overrideScope = scope: overrideLuarocks (drv.overrideScope scope) f;
@@ -33,7 +33,7 @@ rec {
     "share/lua/${lua.luaversion}/?.lua"
     "share/lua/${lua.luaversion}/?/init.lua"
   ];
-  luaCPathList = [ "lib/lua/${lua.luaversion}/?.so" ];
+  luaCPathList = ["lib/lua/${lua.luaversion}/?.so"];
 
   # generate paths without a prefix
   luaPathRelStr = lib.concatStringsSep ";" luaPathList;
@@ -71,7 +71,7 @@ rec {
     drv.overrideAttrs (
       oldAttrs: {
         # Use passthru in order to prevent rebuilds when possible.
-        passthru = (oldAttrs.passthru or { }) // {
+        passthru = (oldAttrs.passthru or {}) // {
           luaModule = lua;
           requiredLuaModules = requiredLuaModules drv.propagatedBuildInputs;
         };
@@ -90,7 +90,7 @@ rec {
       externalDeps,
       # a list of lua derivations
       requiredLuaRocks,
-      extraVariables ? { },
+      extraVariables ? {},
       rocksSubdir,
     }:
     let
@@ -109,7 +109,7 @@ rec {
       depVariables = zipAttrsWithLast (
         lib.lists.map
           (
-            { name, dep }:
+            {name, dep}:
             {
               "${name}_INCDIR" = "${lib.getDev dep}/include";
               "${name}_LIBDIR" = "${lib.getLib dep}/lib";
@@ -125,7 +125,7 @@ rec {
 
       externalDepsDirs = map (x: builtins.toString x) (lib.filter (lib.isDerivation) externalDeps);
     in
-    toLua { asBindings = true; } (
+    toLua {asBindings = true;} (
       {
         local_cache = "";
         # To prevent collisions when creating environments, we install the rock

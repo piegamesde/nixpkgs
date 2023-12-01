@@ -18,19 +18,19 @@ buildPythonPackage rec {
     hash = "sha256-RFfS0xzRXoM6ETXmviiMPxffPzspjTqpkvHOlTJXN9g=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   doCheck = false; # no tests
 
-  pythonImportsCheck = [ "esphome_dashboard_api" ];
+  pythonImportsCheck = ["esphome_dashboard_api"];
 
   meta = with lib; {
     description = "API to interact with ESPHome Dashboard";
     homepage = "https://github.com/esphome/dashboard-api";
     changelog = "https://github.com/esphome/dashboard-api/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

@@ -14,7 +14,7 @@
 let
   downloadPageUrl = "https://download.electrum.org";
 
-  signingKeys = [ "6694 D8DE 7BE8 EE56 31BE D950 2BD5 824B 7F94 70E6" ];
+  signingKeys = ["6694 D8DE 7BE8 EE56 31BE D950 2BD5 824B 7F94 70E6"];
 in
 
 writeScript "update-electrum" ''

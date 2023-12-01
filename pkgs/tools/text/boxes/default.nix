@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
                 "GLOBALCONF=${placeholder "out"}/share/boxes/boxes-config"
   '';
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     install -Dm755 -t $out/bin src/boxes
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://boxes.thomasjensen.com";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ waiting-for-dev ];
+    maintainers = with maintainers; [waiting-for-dev];
     platforms = platforms.unix;
   };
 }

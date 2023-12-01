@@ -9,9 +9,9 @@ buildDunePackage {
 
   inherit (mirage-clock) version useDune2 src;
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
 
-  propagatedBuildInputs = [ mirage-clock ];
+  propagatedBuildInputs = [mirage-clock];
 
   meta = mirage-clock.meta // {
     description = "Unix-based implementation for the MirageOS Clock interface";

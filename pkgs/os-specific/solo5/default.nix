@@ -40,7 +40,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-t80VOZ8Tr1Dq+mJfRPVLGqYprCaqegcQtDqdoHaSXW0=";
   };
 
-  hardeningEnable = [ "pie" ];
+  hardeningEnable = ["pie"];
 
   configurePhase = ''
     runHook preConfigure
@@ -93,8 +93,8 @@ stdenv.mkDerivation {
     description = "Sandboxed execution environment";
     homepage = "https://github.com/solo5/solo5";
     license = licenses.isc;
-    maintainers = [ maintainers.ehmry ];
-    platforms = builtins.map ({ arch, os }: "${arch}-${os}") (
+    maintainers = [maintainers.ehmry];
+    platforms = builtins.map ({arch, os}: "${arch}-${os}") (
       cartesianProductOfSets {
         arch = [
           "aarch64"

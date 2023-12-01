@@ -20,6 +20,6 @@ buildPythonPackage rec {
     description = "Simple, generic API for escaping strings";
     homepage = "https://github.com/minrk/escapism";
     license = licenses.mit;
-    maintainers = with maintainers; [ bzizou ];
+    maintainers = with maintainers; [bzizou];
   };
 }

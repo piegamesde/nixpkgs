@@ -1,18 +1,18 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "minidlna";
 
     nodes = {
       server =
-        { ... }:
+        {...}:
         {
-          imports = [ ../modules/profiles/minimal.nix ];
+          imports = [../modules/profiles/minimal.nix];
           services.minidlna.enable = true;
           services.minidlna.openFirewall = true;
           services.minidlna.settings = {
             log_level = "error";
-            media_dir = [ "PV,/tmp/stuff" ];
+            media_dir = ["PV,/tmp/stuff"];
             friendly_name = "rpi3";
             root_container = "B";
             notify_interval = 60;
@@ -23,7 +23,7 @@ import ./make-test-python.nix (
             ];
           };
         };
-      client = { ... }: { };
+      client = {...}: {};
     };
 
     testScript = ''

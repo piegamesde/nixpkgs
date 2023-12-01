@@ -68,6 +68,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/buserror/simavr";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ goodrone ];
+    maintainers = with maintainers; [goodrone];
   };
 }

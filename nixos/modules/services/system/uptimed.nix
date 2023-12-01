@@ -27,7 +27,7 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ pkgs.uptimed ];
+    environment.systemPackages = [pkgs.uptimed];
 
     users.users.uptimed = {
       description = "Uptimed daemon user";
@@ -35,12 +35,12 @@ in
       uid = config.ids.uids.uptimed;
       group = "uptimed";
     };
-    users.groups.uptimed = { };
+    users.groups.uptimed = {};
 
     systemd.services.uptimed = {
       unitConfig.Documentation = "man:uptimed(8) man:uprecords(1)";
       description = "uptimed service";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Restart = "on-failure";
@@ -50,7 +50,7 @@ in
         PrivateTmp = "yes";
         PrivateNetwork = "yes";
         NoNewPrivileges = "yes";
-        StateDirectory = [ "uptimed" ];
+        StateDirectory = ["uptimed"];
         InaccessibleDirectories = "/home";
         ExecStart = "${pkgs.uptimed}/sbin/uptimed -f -p ${stateDir}/pid";
       };

@@ -18,7 +18,7 @@ buildDunePackage rec {
     hash = "sha256-FoCBvvPwa/dUCrgDEd0clEKAO7EcpedjaO4v+yUO874=";
   };
 
-  propagatedBuildInputs = [ seq ];
+  propagatedBuildInputs = [seq];
 
   duneVersion = "3";
 
@@ -32,6 +32,6 @@ buildDunePackage rec {
     homepage = "https://c-cube.github.io/oseq/";
     description = "Purely functional iterators compatible with standard `seq`";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

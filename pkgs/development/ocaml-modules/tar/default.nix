@@ -25,7 +25,7 @@ buildDunePackage rec {
     decompress
   ];
 
-  buildInputs = [ ppx_cstruct ];
+  buildInputs = [ppx_cstruct];
 
   doCheck = true;
 
@@ -33,6 +33,6 @@ buildDunePackage rec {
     description = "Decode and encode tar format files in pure OCaml";
     homepage = "https://github.com/mirage/ocaml-tar";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

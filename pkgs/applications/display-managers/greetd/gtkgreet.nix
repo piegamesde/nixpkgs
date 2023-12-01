@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     scdoc
   ];
 
-  mesonFlags = [ "-Dlayershell=enabled" ];
+  mesonFlags = ["-Dlayershell=enabled"];
 
   # G_APPLICATION_FLAGS_NONE is deprecated in GLib 2.73.3+.
   env.NIX_CFLAGS_COMPILE = "-Wno-error=deprecated-declarations";
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     description = "GTK based greeter for greetd, to be run under cage or similar";
     homepage = "https://git.sr.ht/~kennylevinsen/gtkgreet";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ luc65r ];
+    maintainers = with maintainers; [luc65r];
     platforms = platforms.linux;
   };
 }

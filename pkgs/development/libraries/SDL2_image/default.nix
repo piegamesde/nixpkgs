@@ -28,7 +28,7 @@ stdenv.mkDerivation {
     inherit hash;
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     SDL2
@@ -63,6 +63,6 @@ stdenv.mkDerivation {
     homepage = "http://www.libsdl.org/projects/SDL_image/";
     platforms = platforms.unix;
     license = licenses.zlib;
-    maintainers = with maintainers; [ cpages ];
+    maintainers = with maintainers; [cpages];
   };
 }

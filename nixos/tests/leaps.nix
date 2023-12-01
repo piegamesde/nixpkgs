@@ -1,12 +1,12 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   {
     name = "leaps";
-    meta = with pkgs.lib.maintainers; { maintainers = [ qknight ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [qknight];};
 
     nodes = {
-      client = { };
+      client = {};
 
       server = {
         services.leaps = {

@@ -48,6 +48,6 @@ stdenv.mkDerivation rec {
     homepage = "https://greatscottgadgets.com/hackrf/";
     license = licenses.gpl2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ sjmackenzie ];
+    maintainers = with maintainers; [sjmackenzie];
   };
 }

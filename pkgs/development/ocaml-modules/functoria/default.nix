@@ -43,6 +43,6 @@ buildDunePackage rec {
     description = "A DSL to organize functor applications";
     homepage = "https://github.com/mirage/functoria";
     license = licenses.isc;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
   };
 }

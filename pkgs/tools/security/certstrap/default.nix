@@ -17,9 +17,9 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-r7iYhTmFKTjfv11fEerC72M7JBp64rWfbkoTKzObNqM=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  ldflags = [ "-X main.release=${version}" ];
+  ldflags = ["-X main.release=${version}"];
 
   meta = with lib; {
     description = "Tools to bootstrap CAs, certificate requests, and signed certificates";
@@ -30,6 +30,6 @@ buildGoModule rec {
     homepage = "https://github.com/square/certstrap";
     changelog = "https://github.com/square/certstrap/releases/tag/${src.rev}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

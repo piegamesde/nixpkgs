@@ -25,7 +25,7 @@ python3Packages.buildPythonApplication rec {
     unicurses
     send2trash
   ];
-  pythonImportsCheck = [ "TUIFIManager" ];
+  pythonImportsCheck = ["TUIFIManager"];
 
   # Tests currently cause build to fail
   doCheck = false;
@@ -39,7 +39,7 @@ python3Packages.buildPythonApplication rec {
     '';
     homepage = "https://github.com/GiorgosXou/TUIFIManager";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ michaelBelsanti ];
+    maintainers = with maintainers; [michaelBelsanti];
     mainProgram = "tuifi";
   };
 }

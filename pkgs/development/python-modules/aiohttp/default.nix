@@ -75,7 +75,7 @@ buildPythonPackage rec {
       asynctest
       typing-extensions
     ]
-    ++ lib.optionals (pythonOlder "3.7") [ idna-ssl ];
+    ++ lib.optionals (pythonOlder "3.7") [idna-ssl];
 
   nativeCheckInputs =
     [
@@ -105,7 +105,7 @@ buildPythonPackage rec {
       "test_session_close_awaitable"
       "test_close_run_until_complete_not_deprecated"
     ]
-    ++ lib.optionals stdenv.is32bit [ "test_cookiejar" ]
+    ++ lib.optionals stdenv.is32bit ["test_cookiejar"]
     ++ lib.optionals stdenv.isDarwin [
       "test_addresses" # https://github.com/aio-libs/aiohttp/issues/3572, remove >= v4.0.0
       "test_close"
@@ -133,6 +133,6 @@ buildPythonPackage rec {
     description = "Asynchronous HTTP Client/Server for Python and asyncio";
     license = licenses.asl20;
     homepage = "https://github.com/aio-libs/aiohttp";
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

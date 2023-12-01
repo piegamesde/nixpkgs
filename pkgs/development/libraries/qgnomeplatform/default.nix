@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     gtk3
     qtbase
     qtwayland
-  ] ++ lib.optionals (!useQt6) [ adwaita-qt ] ++ lib.optionals useQt6 [ adwaita-qt6 ];
+  ] ++ lib.optionals (!useQt6) [adwaita-qt] ++ lib.optionals useQt6 [adwaita-qt6];
 
   # Qt setup hook complains about missing `wrapQtAppsHook` otherwise.
   dontWrapQtApps = true;
@@ -55,17 +55,17 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DGLIB_SCHEMAS_DIR=${glib.getSchemaPath gsettings-desktop-schemas}"
     "-DQT_PLUGINS_DIR=${placeholder "out"}/${qtbase.qtPluginPrefix}"
-  ] ++ lib.optionals useQt6 [ "-DUSE_QT6=true" ];
+  ] ++ lib.optionals useQt6 ["-DUSE_QT6=true"];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "QPlatformTheme for a better Qt application inclusion in GNOME";
     homepage = "https://github.com/FedoraQt/QGnomePlatform";
     license = licenses.lgpl21Plus;
-    maintainers = teams.gnome.members ++ (with maintainers; [ ]);
+    maintainers = teams.gnome.members ++ (with maintainers; []);
     platforms = platforms.linux;
   };
 }

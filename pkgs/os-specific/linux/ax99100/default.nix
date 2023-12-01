@@ -33,16 +33,14 @@ stdenv.mkDerivation {
   # We included them here instead of fetching them, because of line
   # ending issues that are easier to fix manually. Also the
   # set_termios patch needs to be applied for 6.1 not for 6.0.
-  patches =
-    [
-      ./kernel-5.18-pci_free_consistent-pci_alloc_consistent.patch
-      ./kernel-6.1-set_termios-const-ktermios.patch
-    ]
-    ++ (lib.optional (lib.versionAtLeast kernel.version "6.2") [ ./kernel-6.2-fix-pointer-type.patch ]);
+  patches = [
+    ./kernel-5.18-pci_free_consistent-pci_alloc_consistent.patch
+    ./kernel-6.1-set_termios-const-ktermios.patch
+  ] ++ (lib.optional (lib.versionAtLeast kernel.version "6.2") [./kernel-6.2-fix-pointer-type.patch]);
 
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
 
-  makeFlags = [ "KDIR='${kernel.dev}/lib/modules/${kernel.modDirVersion}/build'" ];
+  makeFlags = ["KDIR='${kernel.dev}/lib/modules/${kernel.modDirVersion}/build'"];
 
   installPhase = ''
     mkdir -p $out/lib/modules/${kernel.modDirVersion}/kernel/drivers/tty/serial

@@ -41,9 +41,9 @@ in
 
   config = mkIf cfg.enable {
     systemd.services.roon-server = {
-      after = [ "network.target" ];
+      after = ["network.target"];
       description = "Roon Server";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       environment.ROON_DATAROOT = "/var/lib/${name}";
       environment.ROON_ID_DIR = "/var/lib/${name}";
@@ -72,7 +72,7 @@ in
           to = 30010;
         }
       ];
-      allowedUDPPorts = [ 9003 ];
+      allowedUDPPorts = [9003];
       extraCommands = optionalString (!config.networking.nftables.enable) ''
         ## IGMP / Broadcast ##
         iptables -A INPUT -s 224.0.0.0/4 -j ACCEPT
@@ -88,16 +88,16 @@ in
       '';
     };
 
-    users.groups.${cfg.group} = { };
+    users.groups.${cfg.group} = {};
     users.users.${cfg.user} =
       if cfg.user == "roon-server" then
         {
           isSystemUser = true;
           description = "Roon Server user";
           group = cfg.group;
-          extraGroups = [ "audio" ];
+          extraGroups = ["audio"];
         }
       else
-        { };
+        {};
   };
 }

@@ -49,7 +49,7 @@ let
 
       sourceRoot = ".";
 
-      nativeBuildInputs = [ unzip ];
+      nativeBuildInputs = [unzip];
 
       postPatch = ''
         # Use Nix's NodeJS instead of the bundled one.
@@ -77,13 +77,13 @@ let
         inherit filename;
         browsers =
           {
-            x86_64-linux = browsers-linux { };
-            aarch64-linux = browsers-linux { };
+            x86_64-linux = browsers-linux {};
+            aarch64-linux = browsers-linux {};
             x86_64-darwin = browsers-mac;
             aarch64-darwin = browsers-mac;
           }
           .${system} or throwSystem;
-        browsers-chromium = browsers-linux { };
+        browsers-chromium = browsers-linux {};
       };
     }
   );
@@ -112,7 +112,7 @@ let
       withChromium ? true,
     }:
     let
-      fontconfig = makeFontsConf { fontDirectories = [ ]; };
+      fontconfig = makeFontsConf {fontDirectories = [];};
     in
     runCommand ("playwright-browsers" + lib.optionalString withChromium "-chromium")
       {

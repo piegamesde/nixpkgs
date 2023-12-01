@@ -48,7 +48,7 @@ buildPythonPackage rec {
       --replace radicale ""
   '';
 
-  pythonImportsCheck = [ "caldav" ];
+  pythonImportsCheck = ["caldav"];
 
   meta = with lib; {
     description = "CalDAV (RFC4791) client library";

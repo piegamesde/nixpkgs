@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       serial interface, such as embedded computers, microcontrollers,
       modems, GPS receivers, CNC machines and more.
     '';
-    maintainers = with maintainers; [ wentasah ];
+    maintainers = with maintainers; [wentasah];
     platforms = platforms.linux;
     mainProgram = "gtkterm";
   };

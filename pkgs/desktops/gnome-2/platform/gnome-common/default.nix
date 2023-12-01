@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "1pz13mpp09q5s3bikm8ml92s1g0scihsm4iipqv1ql3mp6d4z73s";
   };
 
-  propagatedBuildInputs = [ which ]; # autogen.sh which is using gnome-common tends to require which
+  propagatedBuildInputs = [which]; # autogen.sh which is using gnome-common tends to require which
 
   patches = [
     (fetchurl {

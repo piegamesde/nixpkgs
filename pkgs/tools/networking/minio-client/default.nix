@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-d8cC/exdM7OMGE24bN00BVE3jqE1tj6727JiON/aJkc=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   patchPhase = ''
     sed -i "s/Version.*/Version = \"${version}\"/g" cmd/build-constants.go

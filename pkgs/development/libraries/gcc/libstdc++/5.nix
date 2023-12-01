@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
       )
   '';
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   nativeBuildInputs = [
     flex
@@ -113,9 +113,9 @@ stdenv.mkDerivation rec {
     "--enable-clocale=gnu"
   ];
 
-  buildFLags = [ "all-target-libstdc++-v3" ];
+  buildFLags = ["all-target-libstdc++-v3"];
 
-  installFlags = [ "install-target-libstdc++-v3" ];
+  installFlags = ["install-target-libstdc++-v3"];
 
   postInstall = ''
     # Remove includefiles and libs provided by gcc
@@ -130,7 +130,7 @@ stdenv.mkDerivation rec {
     license = licenses.lgpl3Plus;
     description = "GNU Compiler Collection, version ${version} -- C++ standard library";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     # never built on aarch64-linux since first introduction in nixpkgs
     broken = stdenv.isLinux && stdenv.isAarch64;
   };

@@ -15,9 +15,9 @@ stdenv.mkDerivation rec {
     sha256 = "0mw48fgm9lyh9d3pw997fccmglzsjccf2y347gxjas74wx6aira2";
   };
 
-  buildInputs = [ (python3.withPackages (p: [ p.distro ])) ];
+  buildInputs = [(python3.withPackages (p: [p.distro]))];
 
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
 
   patches = [
     # Required to allow pastebinit 1.5 to run on Python 3.8
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://launchpad.net/pastebinit";
     description = "A software that lets you send anything you want directly to a pastebin from the command line";
-    maintainers = with maintainers; [ raboof ];
+    maintainers = with maintainers; [raboof];
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

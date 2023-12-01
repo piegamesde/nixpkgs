@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-I${libXpm.dev}/include/X11";
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   prePatch = ''
     substituteInPlace Makefile.in --replace 4755 0755
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "X sokoban";
     license = licenses.publicDomain;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux;
   };
 }

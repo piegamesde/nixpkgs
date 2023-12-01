@@ -37,9 +37,9 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dinghy.cli" ];
+  pythonImportsCheck = ["dinghy.cli"];
 
   meta = with lib; {
     description = "A GitHub activity digest tool";

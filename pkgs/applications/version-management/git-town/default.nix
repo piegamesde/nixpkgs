@@ -38,7 +38,7 @@ buildGoModule rec {
     makeWrapper
   ];
 
-  buildInputs = [ git ];
+  buildInputs = [git];
 
   ldflags =
     let
@@ -51,7 +51,7 @@ buildGoModule rec {
       "-X ${modulePath}/src/cmd.buildDate=nix"
     ];
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
   preCheck =
     let
       skippedTests = [
@@ -74,7 +74,7 @@ buildGoModule rec {
       --fish <($out/bin/git-town completion fish) \
       --zsh <($out/bin/git-town completion zsh)
 
-    wrapProgram $out/bin/git-town --prefix PATH : ${lib.makeBinPath [ git ]}
+    wrapProgram $out/bin/git-town --prefix PATH : ${lib.makeBinPath [git]}
   '';
 
   passthru.tests.version = testers.testVersion {

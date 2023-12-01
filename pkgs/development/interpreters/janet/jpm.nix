@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  buildInputs = [ janet ];
+  buildInputs = [janet];
 
   dontBuild = true;
 

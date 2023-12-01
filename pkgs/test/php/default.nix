@@ -7,7 +7,7 @@
 let
   runTest =
     name: body:
-    runCommand name { } ''
+    runCommand name {} ''
       testFailed=
       checking() {
         echo -n "Checking $1... " > /dev/stderr
@@ -38,14 +38,14 @@ in
     checking "that imagick is not present by default"
     $php/bin/php -r 'exit(extension_loaded("imagick") ? 1 : 0);' && ok || nok
 
-    phpWithImagick="${php.withExtensions ({ all, ... }: [ all.imagick ])}"
+    phpWithImagick="${php.withExtensions ({all, ...}: [all.imagick])}"
     checking "that imagick extension is present when enabled"
     $phpWithImagick/bin/php -r 'exit(extension_loaded("imagick") ? 0 : 1);' && ok || nok
   '';
 
   overrideAttrs-preserves-enabled-extensions =
     let
-      customPhp = (php.withExtensions ({ all, ... }: [ all.imagick ])).overrideAttrs (
+      customPhp = (php.withExtensions ({all, ...}: [all.imagick])).overrideAttrs (
         attrs: {
           postInstall =
             attrs.postInstall or ""

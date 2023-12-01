@@ -22,9 +22,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-9HQLSbzHNJRHhGffE0JC9e+CLuUV/xreiv5qc8dH+rU=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = [ nix-eval-jobs ];
+  buildInputs = [nix-eval-jobs];
 
   NIX_EVAL_JOBS = "${nix-eval-jobs}/bin/nix-eval-jobs";
 
@@ -42,14 +42,14 @@ rustPlatform.buildRustPackage rec {
     # We guarantee CLI and Nix API stability for the same minor version
     apiVersion = builtins.concatStringsSep "." (lib.take 2 (lib.splitString "." version));
 
-    tests.version = testers.testVersion { package = colmena; };
+    tests.version = testers.testVersion {package = colmena;};
   };
 
   meta = with lib; {
     description = "A simple, stateless NixOS deployment tool";
     homepage = "https://zhaofengli.github.io/colmena/${passthru.apiVersion}";
     license = licenses.mit;
-    maintainers = with maintainers; [ zhaofengli ];
+    maintainers = with maintainers; [zhaofengli];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

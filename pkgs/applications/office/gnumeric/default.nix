@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     sha256 = "xpoJzRkLYirMpHa7w9TAPWjXzPWbumG/A2zmCIX5+2U=";
   };
 
-  configureFlags = [ "--disable-component" ];
+  configureFlags = ["--disable-component"];
 
   nativeBuildInputs = [
     pkg-config
@@ -67,6 +67,6 @@ stdenv.mkDerivation rec {
     homepage = "http://projects.gnome.org/gnumeric/";
     platforms = platforms.unix;
     broken = with stdenv; isDarwin && isAarch64;
-    maintainers = [ maintainers.vcunat ];
+    maintainers = [maintainers.vcunat];
   };
 }

@@ -31,7 +31,7 @@ buildPythonPackage rec {
     "pyOpenSSL"
   ];
 
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  nativeBuildInputs = [pythonRelaxDepsHook];
 
   propagatedBuildInputs = [
     certifi
@@ -45,7 +45,7 @@ buildPythonPackage rec {
   # Tests fail: https://github.com/oracle/oci-python-sdk/issues/164
   doCheck = false;
 
-  pythonImportsCheck = [ "oci" ];
+  pythonImportsCheck = ["oci"];
 
   meta = with lib; {
     description = "Oracle Cloud Infrastructure Python SDK";
@@ -55,6 +55,6 @@ buildPythonPackage rec {
       asl20 # or
       upl
     ];
-    maintainers = with maintainers; [ ilian ];
+    maintainers = with maintainers; [ilian];
   };
 }

@@ -9,7 +9,7 @@ with lib;
 
 {
   meta = {
-    maintainers = [ maintainers.joachifm ];
+    maintainers = [maintainers.joachifm];
   };
 
   options = {
@@ -38,17 +38,17 @@ with lib;
                 "nls-iso8859-1"
               ]
             else
-              [ x.fsType ]
+              [x.fsType]
           else
-            [ ]
+            []
         )
         config.system.build.fileSystems;
 
     systemd.services.disable-kernel-module-loading = {
       description = "Disable kernel module loading";
 
-      wants = [ "systemd-udevd.service" ];
-      wantedBy = [ config.systemd.defaultUnit ];
+      wants = ["systemd-udevd.service"];
+      wantedBy = [config.systemd.defaultUnit];
 
       after = [
         "firewall.service"

@@ -20,12 +20,12 @@ buildPythonPackage rec {
     hash = "sha256-NqlCu0W/BQkLiaLYs9DB1RrEya6KGPfNtpAzKXxoRD0=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Tests bind to localhost
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "boltons" ];
+  pythonImportsCheck = ["boltons"];
 
   meta = with lib; {
     description = "Constructs, recipes, and snippets extending the Python standard library";
@@ -47,6 +47,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mahmoud/boltons";
     changelog = "https://github.com/mahmoud/boltons/blob/${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ twey ];
+    maintainers = with maintainers; [twey];
   };
 }

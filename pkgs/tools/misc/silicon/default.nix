@@ -46,7 +46,7 @@ rustPlatform.buildRustPackage rec {
       fontconfig
       harfbuzz
     ]
-    ++ lib.optionals stdenv.isLinux [ libxcb ]
+    ++ lib.optionals stdenv.isLinux [libxcb]
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       AppKit
@@ -57,7 +57,7 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [
     cmake
     pkg-config
-  ] ++ lib.optionals stdenv.isLinux [ python3 ];
+  ] ++ lib.optionals stdenv.isLinux [python3];
 
   LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
 

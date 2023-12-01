@@ -19,7 +19,7 @@ in
     command = "cloudflared help";
   };
   refuses-to-autoupdate =
-    runCommand "cloudflared-${version}-refuses-to-autoupdate" { nativeBuildInputs = [ cloudflared ]; }
+    runCommand "cloudflared-${version}-refuses-to-autoupdate" {nativeBuildInputs = [cloudflared];}
       ''
         set -e
         cloudflared update 2>&1 | tee output.txt
@@ -35,7 +35,7 @@ in
   runs-through-wine =
     runCommand "cloudflared-${version}-runs-through-wine"
       {
-        nativeBuildInputs = [ wine ];
+        nativeBuildInputs = [wine];
         exe = "${pkgsCross.mingw32.cloudflared}/bin/cloudflared.exe";
       }
       ''
@@ -48,7 +48,7 @@ in
   runs-through-wine64 =
     runCommand "cloudflared-${version}-runs-through-wine64"
       {
-        nativeBuildInputs = [ wine64 ];
+        nativeBuildInputs = [wine64];
         exe = "${pkgsCross.mingwW64.cloudflared}/bin/cloudflared.exe";
       }
       ''

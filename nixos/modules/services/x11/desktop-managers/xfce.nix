@@ -229,7 +229,7 @@ in
     services.xserver.desktopManager.session = [
       {
         name = "xfce";
-        desktopNames = [ "XFCE" ];
+        desktopNames = ["XFCE"];
         bgSupport = true;
         start = ''
           ${pkgs.runtimeShell} ${pkgs.xfce.xfce4-session.xinitrc} &
@@ -239,7 +239,7 @@ in
     ];
 
     services.xserver.updateDbusEnvironment = true;
-    services.xserver.gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
+    services.xserver.gdk-pixbuf.modulePackages = [pkgs.librsvg];
 
     # Enable helpful DBus services.
     services.udisks2.enable = true;
@@ -260,7 +260,7 @@ in
     programs.zsh.vteIntegration = mkDefault true;
 
     # Systemd services
-    systemd.packages = with pkgs.xfce; [ xfce4-notifyd ];
+    systemd.packages = with pkgs.xfce; [xfce4-notifyd];
 
     security.pam.services.xfce4-screensaver.unixAuth = cfg.enableScreensaver;
   };

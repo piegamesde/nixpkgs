@@ -1,12 +1,12 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../../.. {inherit system config;},
   php ? pkgs.php,
 }:
 
 let
-  php' = php.buildEnv { extensions = { enabled, all }: with all; enabled ++ [ apcu ]; };
+  php' = php.buildEnv {extensions = {enabled, all}: with all; enabled ++ [apcu];};
 in
 {
   fpm = import ./fpm.nix {

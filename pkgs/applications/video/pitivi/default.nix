@@ -63,7 +63,7 @@ python3.pkgs.buildPythonApplication rec {
         gstreamer
         gst-editing-services
         gst-plugins-base
-        (gst-plugins-good.override { gtkSupport = true; })
+        (gst-plugins-good.override {gtkSupport = true;})
         gst-plugins-bad
         gst-plugins-ugly
         gst-libav
@@ -100,7 +100,7 @@ python3.pkgs.buildPythonApplication rec {
       that can appeal to newbies and professionals alike.
     '';
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

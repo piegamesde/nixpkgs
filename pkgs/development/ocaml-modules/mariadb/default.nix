@@ -32,7 +32,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.07")
       mariadb
       libmysqlclient
     ];
-    propagatedBuildInputs = [ ctypes ];
+    propagatedBuildInputs = [ctypes];
 
     strictDeps = true;
 
@@ -41,7 +41,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.07")
     meta = {
       description = "OCaml bindings for MariaDB";
       license = lib.licenses.mit;
-      maintainers = with lib.maintainers; [ bcc32 ];
+      maintainers = with lib.maintainers; [bcc32];
       homepage = "https://github.com/andrenth/ocaml-mariadb";
       inherit (ocaml.meta) platforms;
     };

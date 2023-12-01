@@ -21,14 +21,14 @@ buildGoModule rec {
   };
   vendorHash = null;
 
-  subPackages = [ "cmd/tilt" ];
+  subPackages = ["cmd/tilt"];
 
-  ldflags = [ "-X main.version=${version}" ];
+  ldflags = ["-X main.version=${version}"];
 
   meta = with lib; {
     description = "Local development tool to manage your developer instance when your team deploys to Kubernetes in production";
     homepage = "https://tilt.dev/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ anton-dessiatov ];
+    maintainers = with maintainers; [anton-dessiatov];
   };
 }

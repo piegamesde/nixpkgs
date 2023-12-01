@@ -1,4 +1,4 @@
-{ lib, ... }:
+{lib, ...}:
 
 with lib;
 
@@ -9,7 +9,7 @@ with lib;
     assertions = mkOption {
       type = types.listOf types.unspecified;
       internal = true;
-      default = [ ];
+      default = [];
       example = [
         {
           assertion = false;
@@ -25,9 +25,9 @@ with lib;
 
     warnings = mkOption {
       internal = true;
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
-      example = [ "The `foo' service is deprecated and will go away soon!" ];
+      example = ["The `foo' service is deprecated and will go away soon!"];
       description = lib.mdDoc ''
         This option allows modules to show warnings to users during
         the evaluation of the system configuration.

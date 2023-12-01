@@ -1,6 +1,6 @@
 # DO NOT EDIT! This file is generated automatically.
 # Command: ./maintainers/scripts/fetch-kde-qt.sh pkgs/applications/plasma-mobile
-{ fetchurl, mirror }:
+{fetchurl, mirror}:
 
 {
   alligator = {

@@ -36,7 +36,7 @@ mkDerivation rec {
     zlib
   ];
 
-  qmakeFlags = [ "NO_APPDATA=True" ];
+  qmakeFlags = ["NO_APPDATA=True"];
 
   meta = with lib; {
     description = "TeX and LaTeX editor";

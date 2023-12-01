@@ -1,4 +1,4 @@
-{ lib, ... }:
+{lib, ...}:
 {
   options.services.nghttpx = {
     enable = lib.mkEnableOption (lib.mdDoc "nghttpx");
@@ -33,7 +33,7 @@
             host = "172.16.0.22";
             port = 8443;
           };
-          patterns = [ "/" ];
+          patterns = ["/"];
           params = {
             proto = "http/1.1";
             redirect-if-not-tls = true;

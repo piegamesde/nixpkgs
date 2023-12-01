@@ -41,7 +41,7 @@ buildPythonPackage rec {
       numpy
       scipy
     ]
-    ++ lib.optionals enableGPU [ cupy ]
+    ++ lib.optionals enableGPU [cupy]
     ++ lib.optionals enableDimensionalityReduction [
       autograd
       pymanopt
@@ -110,7 +110,7 @@ buildPythonPackage rec {
     "test/test_gromov.py"
     "test/test_helpers.py"
     "test/test_unbalanced.py"
-  ] ++ lib.optionals (!enableDimensionalityReduction) [ "test/test_dr.py" ];
+  ] ++ lib.optionals (!enableDimensionalityReduction) ["test/test_dr.py"];
 
   pythonImportsCheck = [
     "ot"
@@ -121,6 +121,6 @@ buildPythonPackage rec {
     description = "Python Optimal Transport Library";
     homepage = "https://pythonot.github.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ yl3dy ];
+    maintainers = with maintainers; [yl3dy];
   };
 }

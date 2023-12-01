@@ -28,7 +28,7 @@ let
         size = 2048;
       };
       CN = top.masterAddress;
-      hosts = [ top.masterAddress ] ++ cfg.cfsslAPIExtraSANs;
+      hosts = [top.masterAddress] ++ cfg.cfsslAPIExtraSANs;
     }
   );
 
@@ -55,7 +55,7 @@ in
 
     certs = mkOption {
       description = lib.mdDoc "List of certificate specs to feed to cert generator.";
-      default = { };
+      default = {};
       type = attrs;
     };
 
@@ -81,8 +81,8 @@ in
       description = lib.mdDoc ''
         Extra x509 Subject Alternative Names to be added to the cfssl API webserver TLS cert.
       '';
-      default = [ ];
-      example = [ "subdomain.example.com" ];
+      default = [];
+      example = ["subdomain.example.com"];
       type = listOf str;
     };
 
@@ -153,7 +153,7 @@ in
               signing = {
                 profiles = {
                   default = {
-                    usages = [ "digital signature" ];
+                    usages = ["digital signature"];
                     auth_key = "default";
                     expiry = "720h";
                   };
@@ -201,8 +201,8 @@ in
 
       systemd.services.kube-certmgr-bootstrap = {
         description = "Kubernetes certmgr bootstrapper";
-        wantedBy = [ "certmgr.service" ];
-        after = [ "cfssl.target" ];
+        wantedBy = ["certmgr.service"];
+        after = ["cfssl.target"];
         script = concatStringsSep "\n" [
           ''
             set -e
@@ -251,13 +251,13 @@ in
               };
               private_key = cert.privateKeyOptions;
               request = {
-                hosts = [ cert.CN ] ++ cert.hosts;
+                hosts = [cert.CN] ++ cert.hosts;
                 inherit (cert) CN;
                 key = {
                   algo = "rsa";
                   size = 2048;
                 };
-                names = [ cert.fields ];
+                names = [cert.fields];
               };
             };
           in
@@ -281,7 +281,7 @@ in
               };
           }
 
-          (optionalAttrs (top.addonManager.bootstrapAddons != { }) {
+          (optionalAttrs (top.addonManager.bootstrapAddons != {}) {
             serviceConfig.PermissionsStartOnly = true;
             preStart =
               with pkgs;
@@ -359,11 +359,11 @@ in
       # isolate etcd on loopback at the master node
       # easyCerts doesn't support multimaster clusters anyway atm.
       services.etcd = with cfg.certs.etcd; {
-        listenClientUrls = [ "https://127.0.0.1:2379" ];
-        listenPeerUrls = [ "https://127.0.0.1:2380" ];
-        advertiseClientUrls = [ "https://etcd.local:2379" ];
-        initialCluster = [ "${top.masterAddress}=https://etcd.local:2380" ];
-        initialAdvertisePeerUrls = [ "https://etcd.local:2380" ];
+        listenClientUrls = ["https://127.0.0.1:2379"];
+        listenPeerUrls = ["https://127.0.0.1:2380"];
+        advertiseClientUrls = ["https://etcd.local:2379"];
+        initialCluster = ["${top.masterAddress}=https://etcd.local:2380"];
+        initialAdvertisePeerUrls = ["https://etcd.local:2380"];
         certFile = mkDefault cert;
         keyFile = mkDefault key;
         trustedCaFile = mkDefault caCert;
@@ -385,7 +385,7 @@ in
         apiserver = mkIf top.apiserver.enable (
           with cfg.certs.apiServer; {
             etcd = with cfg.certs.apiserverEtcdClient; {
-              servers = [ "https://etcd.local:2379" ];
+              servers = ["https://etcd.local:2379"];
               certFile = mkDefault cert;
               keyFile = mkDefault key;
               caFile = mkDefault caCert;

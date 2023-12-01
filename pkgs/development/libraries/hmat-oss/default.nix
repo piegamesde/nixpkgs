@@ -18,9 +18,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-N6VSQeq2BS/PLcMbyIn/OQfd45zyJJHuOD5bho2nue8=";
   };
 
-  cmakeFlags = [ "-DHMAT_GIT_VERSION=OFF" ];
+  cmakeFlags = ["-DHMAT_GIT_VERSION=OFF"];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     blas
     lapack
@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jeromerobert/hmat-oss";
     license = licenses.gpl2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ gdinh ];
+    maintainers = with maintainers; [gdinh];
   };
 }

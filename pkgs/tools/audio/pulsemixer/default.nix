@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   inherit libpulseaudio;
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Cli and curses mixer for pulseaudio";
     homepage = "https://github.com/GeorgeFilipkin/pulsemixer";
     license = licenses.mit;
-    maintainers = [ maintainers.woffs ];
+    maintainers = [maintainers.woffs];
     platforms = platforms.all;
   };
 }

@@ -75,7 +75,7 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     homepage = "https://github.com/arunsivaramanneo/GPU-Viewer";
     description = "A front-end to glxinfo, vulkaninfo, clinfo and es2_info";
-    maintainers = with maintainers; [ GaetanLepage ];
+    maintainers = with maintainers; [GaetanLepage];
     license = licenses.gpl3;
     platforms = platforms.linux;
   };

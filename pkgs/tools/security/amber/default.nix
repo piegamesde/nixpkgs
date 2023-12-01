@@ -20,13 +20,13 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-u0vceIurenYnKfF3gWNw304hX4vVFoszZD7AMwffOmc=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [Security];
 
   meta = with lib; {
     description = "Manage secret values in-repo via public key cryptography";
     homepage = "https://github.com/fpco/amber";
     license = licenses.mit;
-    maintainers = with maintainers; [ psibi ];
+    maintainers = with maintainers; [psibi];
     mainProgram = "amber";
   };
 }

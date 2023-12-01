@@ -20,7 +20,7 @@ stdenvNoCC.mkDerivation (
 
     nativeBuildInputs = [
       dart
-      (callPackage ../../../../build-support/dart/fetch-dart-deps { } {
+      (callPackage ../../../../build-support/dart/fetch-dart-deps {} {
         buildDrvArgs = finalAttrs;
         pubspecLockFile = ./pubspec.lock;
         vendorHash = "sha256-Atm7zfnDambN/BmmUf4BG0yUz/y6xWzf0reDw3Ad41s=";
@@ -51,7 +51,7 @@ stdenvNoCC.mkDerivation (
       description = "The reference implementation of Sass, written in Dart";
       mainProgram = "sass";
       license = licenses.mit;
-      maintainers = with maintainers; [ lelgenio ];
+      maintainers = with maintainers; [lelgenio];
     };
   }
 )

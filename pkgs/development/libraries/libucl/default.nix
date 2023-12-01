@@ -20,9 +20,9 @@
 
 let
   featureDeps = {
-    urls = [ curl ];
-    signatures = [ openssl ];
-    lua = [ lua ];
+    urls = [curl];
+    signatures = [openssl];
+    lua = [lua];
   };
 in
 stdenv.mkDerivation rec {
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
   buildInputs =
     with lib;
     concatLists (
-      mapAttrsToList (feat: enabled: optionals enabled (featureDeps."${feat}" or [ ])) features
+      mapAttrsToList (feat: enabled: optionals enabled (featureDeps."${feat}" or [])) features
     );
 
   enableParallelBuilding = true;
@@ -57,6 +57,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/vstakhov/libucl";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ jpotier ];
+    maintainers = with maintainers; [jpotier];
   };
 }

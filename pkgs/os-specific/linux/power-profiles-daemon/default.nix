@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
         python-dbusmock
       ]
     ))
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [mesonEmulatorHook];
 
   buildInputs = [
     libgudev
@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   # for cli tool
-  pythonPath = [ python3.pkgs.pygobject3 ];
+  pythonPath = [python3.pkgs.pygobject3];
 
   nativeCheckInputs = [
     umockdev

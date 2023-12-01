@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "16kanzp5i353x972zjkwgi3m8z90wc58613mlfzb0n01djdnm6k5";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ perlPackages.perl ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [perlPackages.perl];
 
   dontBuild = true;
 
@@ -45,14 +45,14 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/realTimeConfigQuickScan \
       --set PERL5LIB "$out/share/$pname"
     wrapProgram $out/bin/QuickScan \
-      --set PERL5LIB "$out/share/$pname:${with perlPackages; makePerlPath [ Tk ]}"
+      --set PERL5LIB "$out/share/$pname:${with perlPackages; makePerlPath [Tk]}"
   '';
 
   meta = with lib; {
     description = "Linux configuration checker for systems to be used for real-time audio";
     homepage = "https://github.com/raboof/realtimeconfigquickscan";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ magnetophon ];
+    maintainers = with maintainers; [magnetophon];
     platforms = platforms.linux;
   };
 }

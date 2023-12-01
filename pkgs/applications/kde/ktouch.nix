@@ -31,7 +31,7 @@ mkDerivation {
   meta = {
     homepage = "https://apps.kde.org/ktouch/";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.schmittlauch ];
+    maintainers = [lib.maintainers.schmittlauch];
     description = "A touch typing tutor from the KDE software collection";
   };
   nativeBuildInputs = [

@@ -59,7 +59,7 @@ buildNpmPackage rec {
     # Add xdg-utils to path via suffix, per PR #181171
     makeWrapper '${electron_24}/bin/electron' $out/bin/webcord \
       --prefix LD_LIBRARY_PATH : ${libPath}:$out/opt/webcord \
-      --suffix PATH : "${lib.makeBinPath [ xdg-utils ]}" \
+      --suffix PATH : "${lib.makeBinPath [xdg-utils]}" \
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform=wayland}}" \
       --add-flags $out/lib/node_modules/webcord/
 
@@ -86,7 +86,7 @@ buildNpmPackage rec {
     downloadPage = "https://github.com/SpacingBat3/WebCord/releases";
     changelog = "https://github.com/SpacingBat3/WebCord/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ huantian ];
+    maintainers = with maintainers; [huantian];
     platforms = electron_24.meta.platforms;
   };
 }

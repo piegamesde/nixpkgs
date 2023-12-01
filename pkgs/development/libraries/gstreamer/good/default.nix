@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs =
     [
@@ -88,15 +88,15 @@ stdenv.mkDerivation rec {
       libshout
       glib
     ]
-    ++ lib.optionals enableDocumentation [ hotdoc ]
-    ++ lib.optionals qt5Support (with qt5; [ qtbase ])
+    ++ lib.optionals enableDocumentation [hotdoc]
+    ++ lib.optionals qt5Support (with qt5; [qtbase])
     ++ lib.optionals qt6Support (
       with qt6; [
         qtbase
         qttools
       ]
     )
-    ++ lib.optionals stdenv.isLinux [ wayland-protocols ];
+    ++ lib.optionals stdenv.isLinux [wayland-protocols];
 
   buildInputs =
     [
@@ -126,7 +126,7 @@ stdenv.mkDerivation rec {
       xorg.libXdamage
       wavpack
     ]
-    ++ lib.optionals raspiCameraSupport [ libraspberrypi ]
+    ++ lib.optionals raspiCameraSupport [libraspberrypi]
     ++
       lib.optionals gtkSupport
         [
@@ -148,7 +148,7 @@ stdenv.mkDerivation rec {
         qtwayland
       ]
     )
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ++ lib.optionals stdenv.isDarwin [Cocoa]
     ++ lib.optionals stdenv.isLinux [
       libv4l
       libpulseaudio
@@ -157,7 +157,7 @@ stdenv.mkDerivation rec {
       libgudev
       wayland
     ]
-    ++ lib.optionals enableJack [ libjack2 ];
+    ++ lib.optionals enableJack [libjack2];
 
   mesonFlags =
     [
@@ -165,10 +165,10 @@ stdenv.mkDerivation rec {
       "-Dglib-asserts=disabled" # asserts should be disabled on stable releases
       (lib.mesonEnable "doc" enableDocumentation)
     ]
-    ++ lib.optionals (!qt5Support) [ "-Dqt5=disabled" ]
-    ++ lib.optionals (!qt6Support) [ "-Dqt6=disabled" ]
-    ++ lib.optionals (!gtkSupport) [ "-Dgtk3=disabled" ]
-    ++ lib.optionals (!enableJack) [ "-Djack=disabled" ]
+    ++ lib.optionals (!qt5Support) ["-Dqt5=disabled"]
+    ++ lib.optionals (!qt6Support) ["-Dqt6=disabled"]
+    ++ lib.optionals (!gtkSupport) ["-Dgtk3=disabled"]
+    ++ lib.optionals (!enableJack) ["-Djack=disabled"]
     ++ lib.optionals (!stdenv.isLinux) [
       "-Ddv1394=disabled" # Linux only
       "-Doss4=disabled" # Linux only
@@ -178,7 +178,7 @@ stdenv.mkDerivation rec {
       "-Dv4l2=disabled" # Linux-only
       "-Dximagesrc=disabled" # Linux-only
     ]
-    ++ lib.optionals (!raspiCameraSupport) [ "-Drpicamsrc=disabled" ];
+    ++ lib.optionals (!raspiCameraSupport) ["-Drpicamsrc=disabled"];
 
   postPatch = ''
     patchShebangs \
@@ -208,6 +208,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.lgpl2Plus;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
   };
 }

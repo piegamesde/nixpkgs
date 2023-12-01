@@ -30,36 +30,34 @@ args@{
   # file and will take precedence over the `repos` parameter. Only one of `url`
   # and `urls` can be specified, not both.
   url ? "",
-  urls ? [ ],
+  urls ? [],
   # The rest of the arguments are just forwarded to `fetchurl`.
   ...
 }:
 
 # only one of url and urls can be specified at a time.
-assert (url == "") || (urls == [ ]);
+assert (url == "") || (urls == []);
 # if repos is empty, then url or urls must be specified.
-assert (repos != [ ]) || (url != "") || (urls != [ ]);
+assert (repos != []) || (url != "") || (urls != []);
 
 let
   pname =
-    (lib.replaceStrings [ "." ] [ "_" ] groupId)
-    + "_"
-    + (lib.replaceStrings [ "." ] [ "_" ] artifactId);
+    (lib.replaceStrings ["."] ["_"] groupId) + "_" + (lib.replaceStrings ["."] ["_"] artifactId);
   suffix = lib.optionalString (classifier != null) "-${classifier}";
   filename = "${artifactId}-${version}${suffix}.jar";
   mkJarUrl =
     repoUrl:
     lib.concatStringsSep "/" [
       (lib.removeSuffix "/" repoUrl)
-      (lib.replaceStrings [ "." ] [ "/" ] groupId)
+      (lib.replaceStrings ["."] ["/"] groupId)
       artifactId
       version
       filename
     ];
   urls_ =
     if url != "" then
-      [ url ]
-    else if urls != [ ] then
+      [url]
+    else if urls != [] then
       urls
     else
       map mkJarUrl repos;

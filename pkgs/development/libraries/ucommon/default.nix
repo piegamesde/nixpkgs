@@ -15,10 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "6ac9f76c2af010f97e916e4bae1cece341dc64ca28e3881ff4ddc3bc334060d7";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   # use C++14 Standard until error handling code gets updated upstream
-  CXXFLAGS = [ "-std=c++14" ];
+  CXXFLAGS = ["-std=c++14"];
 
   # disable flaky networking test
   postPatch = ''
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   '';
 
   # ucommon.pc has link time depdendencies on -lusecure -lucommon -lgnutls
-  propagatedBuildInputs = [ gnutls ];
+  propagatedBuildInputs = [gnutls];
 
   doCheck = true;
 
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "C++ library to facilitate using C++ design patterns";
     homepage = "https://www.gnu.org/software/commoncpp/";
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 }

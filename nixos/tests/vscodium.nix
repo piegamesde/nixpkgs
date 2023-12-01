@@ -1,19 +1,19 @@
 let
   tests = {
     wayland =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        imports = [ ./common/wayland-cage.nix ];
+        imports = [./common/wayland-cage.nix];
 
         services.cage.program = "${pkgs.vscodium}/bin/codium";
 
         environment.variables.NIXOS_OZONE_WL = "1";
         environment.variables.DISPLAY = "do not use";
 
-        fonts.fonts = with pkgs; [ dejavu_fonts ];
+        fonts.fonts = with pkgs; [dejavu_fonts];
       };
     xorg =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         imports = [
           ./common/user-account.nix
@@ -32,7 +32,7 @@ let
   mkTest =
     name: machine:
     import ./make-test-python.nix (
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         inherit name;
 
@@ -91,4 +91,4 @@ let
       }
     );
 in
-builtins.mapAttrs (k: v: mkTest k v { }) tests
+builtins.mapAttrs (k: v: mkTest k v {}) tests

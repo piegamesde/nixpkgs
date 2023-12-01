@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ boost ];
+  buildInputs = [boost];
 
   propagatedBuildInputs = [
     eigen
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/stack-of-tasks/eigenpy";
     changelog = "https://github.com/stack-of-tasks/eigenpy/releases/tag/v${version}";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.unix;
   };
 }

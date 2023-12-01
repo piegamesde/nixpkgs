@@ -51,7 +51,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://hledger.org/";
     changelog = "https://github.com/simonmichael/hledger/blob/master/CHANGES.md";
     license = licenses.gpl3;
-    maintainers = [ maintainers.DamienCassou ];
+    maintainers = [maintainers.DamienCassou];
     platforms = lib.platforms.all; # GHC can cross-compile
   };
 }

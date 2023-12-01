@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoHash = "sha256-5Gs1sAzjuUO3IkwMX1NeA/Sbax0qtwvulyT66AQaNjs=";
-  cargoPatches = [ ./0001-make-near-test-contracts-optional.patch ];
+  cargoPatches = [./0001-make-near-test-contracts-optional.patch];
 
   postPatch = ''
     substituteInPlace neard/build.rs \
@@ -52,7 +52,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   # fat LTO requires ~3.4GB RAM
-  requiredSystemFeatures = [ "big-parallel" ];
+  requiredSystemFeatures = ["big-parallel"];
 
   meta = with lib; {
     description = "Reference client for NEAR Protocol";
@@ -64,6 +64,6 @@ rustPlatform.buildRustPackage rec {
     ];
     # only x86_64 is supported in nearcore because of sse4+ support, macOS might
     # be also possible
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

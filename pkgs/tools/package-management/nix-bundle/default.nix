@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "0js8spwjvw6kjxz1i072scd035fhiyazixvn84ibdnw8dx087gjv";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   # coreutils, gnutar are needed by nix for bootstrap
   buildInputs = [
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     nix
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   postInstall = ''
     mkdir -p $out/bin
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       - No installation
     '';
     license = licenses.mit;
-    maintainers = [ maintainers.matthewbauer ];
+    maintainers = [maintainers.matthewbauer];
     platforms = platforms.all;
   };
 }

@@ -15,7 +15,7 @@ in
 {
   config = mkIf (any (fs: fs == "xfs") config.boot.supportedFilesystems) {
 
-    system.fsPackages = [ pkgs.xfsprogs.bin ];
+    system.fsPackages = [pkgs.xfsprogs.bin];
 
     boot.initrd.availableKernelModules = mkIf inInitrd [
       "xfs"

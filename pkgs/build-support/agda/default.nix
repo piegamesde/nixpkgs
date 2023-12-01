@@ -18,7 +18,7 @@ let
   withPackages' =
     {
       pkgs,
-      ghc ? ghcWithPackages (p: with p; [ ieee754 ]),
+      ghc ? ghcWithPackages (p: with p; [ieee754]),
     }:
     let
       pkgs' = if builtins.isList pkgs then pkgs else pkgs self;
@@ -31,7 +31,7 @@ let
     runCommand "${pname}-${version}"
       {
         inherit pname version;
-        nativeBuildInputs = [ makeWrapper ];
+        nativeBuildInputs = [makeWrapper];
         passthru = {
           unwrapped = Agda;
           inherit withPackages;
@@ -51,8 +51,7 @@ let
         ln -s ${Agda}/bin/agda-mode $out/bin/agda-mode
       ''; # Local interfaces has been added for now: See https://github.com/agda/agda/issues/4526
 
-  withPackages =
-    arg: if builtins.isAttrs arg then withPackages' arg else withPackages' { pkgs = arg; };
+  withPackages = arg: if builtins.isAttrs arg then withPackages' arg else withPackages' {pkgs = arg;};
 
   extensions = [
     "agda"
@@ -69,20 +68,20 @@ let
     {
       pname,
       meta,
-      buildInputs ? [ ],
+      buildInputs ? [],
       everythingFile ? "./Everything.agda",
-      includePaths ? [ ],
+      includePaths ? [],
       libraryName ? pname,
       libraryFile ? "${libraryName}.agda-lib",
       buildPhase ? null,
       installPhase ? null,
-      extraExtensions ? [ ],
+      extraExtensions ? [],
       ...
     }:
     let
       agdaWithArgs = withPackages (builtins.filter (p: p ? isAgdaDerivation) buildInputs);
       includePathArgs = concatMapStrings (path: "-i" + path + " ") (
-        includePaths ++ [ (dirOf everythingFile) ]
+        includePaths ++ [(dirOf everythingFile)]
       );
     in
     {
@@ -90,7 +89,7 @@ let
 
       isAgdaDerivation = true;
 
-      buildInputs = buildInputs ++ [ agdaWithArgs ];
+      buildInputs = buildInputs ++ [agdaWithArgs];
 
       buildPhase =
         if buildPhase != null then
@@ -122,7 +121,7 @@ let
       # set this only on non-darwin.
       LC_ALL = lib.optionalString (!stdenv.isDarwin) "C.UTF-8";
 
-      meta = if meta.broken or false then meta // { hydraPlatforms = lib.platforms.none; } else meta;
+      meta = if meta.broken or false then meta // {hydraPlatforms = lib.platforms.none;} else meta;
 
       # Retrieve all packages from the finished package set that have the current package as a dependency and build them
       passthru.tests =

@@ -40,7 +40,7 @@ let
       "$@"
   '';
 
-  gerrit-plugins = pkgs.runCommand "gerrit-plugins" { buildInputs = [ gerrit-cli ]; } ''
+  gerrit-plugins = pkgs.runCommand "gerrit-plugins" {buildInputs = [gerrit-cli];} ''
     shopt -s nullglob
     mkdir $out
 
@@ -104,7 +104,7 @@ in
 
       settings = mkOption {
         type = gitIniType;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Gerrit configuration. This will be generated to the
           `etc/gerrit.config` file.
@@ -113,7 +113,7 @@ in
 
       replicationSettings = mkOption {
         type = gitIniType;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Replication configuration. This will be generated to the
           `etc/replication.config` file.
@@ -122,7 +122,7 @@ in
 
       plugins = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           List of plugins to add to Gerrit. Each derivation is a jar file
           itself where the name of the derivation is the name of plugin.
@@ -131,7 +131,7 @@ in
 
       builtinPlugins = mkOption {
         type = types.listOf (types.enum cfg.package.passthru.plugins);
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           List of builtins plugins to install. Those are shipped in the
           `gerrit.war` file.
@@ -154,7 +154,7 @@ in
 
     assertions = [
       {
-        assertion = cfg.replicationSettings != { } -> elem "replication" cfg.builtinPlugins;
+        assertion = cfg.replicationSettings != {} -> elem "replication" cfg.builtinPlugins;
         message = "Gerrit replicationSettings require enabling the replication plugin";
       }
     ];
@@ -170,19 +170,19 @@ in
     };
 
     # Add the gerrit CLI to the system to run `gerrit init` and friends.
-    environment.systemPackages = [ gerrit-cli ];
+    environment.systemPackages = [gerrit-cli];
 
     systemd.sockets.gerrit = {
       unitConfig.Description = "Gerrit HTTP socket";
-      wantedBy = [ "sockets.target" ];
-      listenStreams = [ cfg.listenAddress ];
+      wantedBy = ["sockets.target"];
+      listenStreams = [cfg.listenAddress];
     };
 
     systemd.services.gerrit = {
       description = "Gerrit";
 
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "gerrit.socket" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["gerrit.socket"];
       after = [
         "gerrit.socket"
         "network.target"

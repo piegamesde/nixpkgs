@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     libpulseaudio
   ];
 
-  buildFlags = [ "ENABLE_PULSE=1" ];
+  buildFlags = ["ENABLE_PULSE=1"];
 
   postInstall = ''
     # See https://github.com/dpayne/cli-visualizer/issues/62#issuecomment-330738075
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/dpayne/cli-visualizer";
     description = "CLI based audio visualizer";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.matthiasbeyer ];
+    maintainers = [lib.maintainers.matthiasbeyer];
     platforms = with lib.platforms; linux;
   };
 }

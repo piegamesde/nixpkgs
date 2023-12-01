@@ -24,19 +24,19 @@ stdenv.mkDerivation rec {
     zip
   ];
 
-  buildInputs = [ himitsu ];
+  buildInputs = [himitsu];
 
   preConfigure = ''
     export HARECACHE=$(mktemp -d)
   '';
 
-  buildFlags = [ "LIBEXECDIR=$(out)/libexec" ];
+  buildFlags = ["LIBEXECDIR=$(out)/libexec"];
 
   # Only install the native component; per the docs:
   # > To install the add-on for Firefox ESR, run make install-xpi. Be advised
   # > that this will probably not work. The recommended installation procedure
   # > for the native extension is to install it from addons.mozilla.org instead.
-  installTargets = [ "install-native" ];
+  installTargets = ["install-native"];
   installFlags = [
     "PREFIX="
     "DESTDIR=$(out)"
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     homepage = "https://git.sr.ht/~sircmpwn/himitsu-firefox";
     description = "Himitsu integration for Firefox";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ auchter ];
+    maintainers = with maintainers; [auchter];
     inherit (hare.meta) platforms badPlatforms;
   };
 }

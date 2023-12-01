@@ -31,8 +31,8 @@ stdenv.mkDerivation rec {
     ln -s Make.inc/Makefile.inc.x86-64_pc_linux2 Makefile.inc
   '';
 
-  buildFlags = [ "scotch ptscotch" ];
-  installFlags = [ "prefix=\${out}" ];
+  buildFlags = ["scotch ptscotch"];
+  installFlags = ["prefix=\${out}"];
 
   meta = {
     description = "Graph and mesh/hypergraph partitioning, graph clustering, and sparse matrix ordering";
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.labri.fr/perso/pelegrin/scotch";
     license = lib.licenses.cecill-c;
-    maintainers = [ lib.maintainers.bzizou ];
+    maintainers = [lib.maintainers.bzizou];
     platforms = lib.platforms.linux;
   };
 }

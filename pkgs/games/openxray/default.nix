@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     license = licenses.unfree // {
       url = "https://github.com/OpenXRay/xray-16/blob/${version}/License.txt";
     };
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = [
       "x86_64-linux"
       "i686-linux"

@@ -13,18 +13,18 @@ in
 {
   options.programs.waybar = {
     enable = mkEnableOption (lib.mdDoc "waybar");
-    package = mkPackageOptionMD pkgs "waybar" { };
+    package = mkPackageOptionMD pkgs "waybar" {};
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     systemd.user.services.waybar = {
       description = "Waybar as systemd service";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      partOf = ["graphical-session.target"];
       script = "${cfg.package}/bin/waybar";
     };
   };
 
-  meta.maintainers = [ maintainers.FlorianFranzen ];
+  meta.maintainers = [maintainers.FlorianFranzen];
 }

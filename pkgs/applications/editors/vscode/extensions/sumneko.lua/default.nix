@@ -14,7 +14,7 @@ vscode-utils.buildVscodeMarketplaceExtension {
 
   # Running chmod in runtime will lock up extension
   # indefinitely if the binary is in nix store.
-  patches = [ ./remove-chmod.patch ];
+  patches = [./remove-chmod.patch];
 
   postInstall = ''
     ln -sf ${lua-language-server}/bin/lua-language-server \
@@ -25,6 +25,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     description = "The Lua language server provides various language features for Lua to make development easier and faster.";
     homepage = "https://marketplace.visualstudio.com/items?itemName=sumneko.lua";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.lblasc ];
+    maintainers = [lib.maintainers.lblasc];
   };
 }

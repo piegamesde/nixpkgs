@@ -20,17 +20,17 @@ buildPythonPackage rec {
     hash = "sha256-JvGDnMh42CbdsbE8jM3jD/4JMl6XlmkJfojvlBhFWA0=";
   };
 
-  propagatedBuildInputs = [ capstone ];
+  propagatedBuildInputs = [capstone];
 
   # Test suite is working with binaries
   doCheck = false;
 
-  pythonImportsCheck = [ "ropgadget" ];
+  pythonImportsCheck = ["ropgadget"];
 
   meta = with lib; {
     description = "Tool to search for gadgets in binaries to facilitate ROP exploitation";
     homepage = "http://shell-storm.org/project/ROPgadget/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bennofs ];
+    maintainers = with maintainers; [bennofs];
   };
 }

@@ -32,7 +32,7 @@ buildGoModule rec {
   # literally cding into this folder.
   preBuild = "cd edition";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   passthru.tests = {
     inherit (nixosTests) documize;
@@ -45,7 +45,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Open source Confluence alternative for internal & external docs built with Golang + EmberJS";
     license = licenses.agpl3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     mainProgram = "documize";
     homepage = "https://www.documize.com/";
   };

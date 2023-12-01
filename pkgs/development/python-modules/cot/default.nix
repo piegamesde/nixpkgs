@@ -71,9 +71,9 @@ buildPythonPackage rec {
     "test_serial_fixup_stubbed"
     "test_serial_fixup_stubbed_create"
     "test_serial_fixup_stubbed_vm_not_found"
-  ] ++ lib.optionals stdenv.isDarwin [ "test_serial_fixup_invalid_host" ];
+  ] ++ lib.optionals stdenv.isDarwin ["test_serial_fixup_invalid_host"];
 
-  pythonImportsCheck = [ "COT" ];
+  pythonImportsCheck = ["COT"];
 
   meta = with lib; {
     description = "Common OVF Tool";
@@ -83,6 +83,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/glennmatthews/cot";
     license = licenses.mit;
-    maintainers = with maintainers; [ evanjs ];
+    maintainers = with maintainers; [evanjs];
   };
 }

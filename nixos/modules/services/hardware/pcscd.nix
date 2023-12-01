@@ -26,7 +26,7 @@ in
 
     plugins = mkOption {
       type = types.listOf types.package;
-      default = [ pkgs.ccid ];
+      default = [pkgs.ccid];
       defaultText = literalExpression "[ pkgs.ccid ]";
       example = literalExpression "[ pkgs.pcsc-cyberjack ]";
       description = lib.mdDoc "Plugin packages to be used for PCSC-Lite.";
@@ -55,14 +55,14 @@ in
 
     environment.etc."reader.conf".source = cfgFile;
 
-    environment.systemPackages = [ package ];
-    systemd.packages = [ (getBin package) ];
+    environment.systemPackages = [package];
+    systemd.packages = [(getBin package)];
 
-    systemd.sockets.pcscd.wantedBy = [ "sockets.target" ];
+    systemd.sockets.pcscd.wantedBy = ["sockets.target"];
 
     systemd.services.pcscd = {
       environment.PCSCLITE_HP_DROPDIR = pluginEnv;
-      restartTriggers = [ "/etc/reader.conf" ];
+      restartTriggers = ["/etc/reader.conf"];
 
       # If the cfgFile is empty and not specified (in which case the default
       # /etc/reader.conf is assumed), pcscd will happily start going through the

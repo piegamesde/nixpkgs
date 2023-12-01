@@ -53,7 +53,7 @@ let
   cfg = config.services.hylafax;
 
   modemConfigOptions =
-    { name, config, ... }:
+    {name, config, ...}:
     {
       options = {
         name = mkOption {
@@ -90,7 +90,7 @@ let
         };
       };
       config.name = mkDefault name;
-      config.config.Include = [ "config/${config.type}" ];
+      config.config.Include = ["config/${config.type}"];
     };
 
   defaultConfig =
@@ -108,7 +108,7 @@ let
         (mkIfDefault (!noWrapper) "${wrapperDir}/${program}")
       ];
       importDefaultConfig =
-        file: lib.attrsets.mapAttrs (lib.trivial.const mkDefault) (import file { inherit pkgs; });
+        file: lib.attrsets.mapAttrs (lib.trivial.const mkDefault) (import file {inherit pkgs;});
       c.commonModemConfig = importDefaultConfig ./modem-default.nix;
       c.faxqConfig = importDefaultConfig ./faxq-default.nix;
       c.hfaxdConfig = importDefaultConfig ./hfaxd-default.nix;
@@ -260,8 +260,8 @@ in
     };
 
     modems = mkOption {
-      type = attrsOf (submodule [ modemConfigOptions ]);
-      default = { };
+      type = attrsOf (submodule [modemConfigOptions]);
+      default = {};
       example.ttyS1 = {
         type = "cirrus";
         config = {

@@ -23,6 +23,6 @@ buildDunePackage rec {
     homepage = "https://github.com/ocaml-ppx/ocaml-syntax-shims";
     description = "Backport new syntax to older OCaml versions";
     license = licenses.mit;
-    maintainers = with maintainers; [ sternenseemann ];
+    maintainers = with maintainers; [sternenseemann];
   };
 }

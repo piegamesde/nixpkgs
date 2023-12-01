@@ -26,7 +26,7 @@ buildDunePackage rec {
     sha256 = "sha256-qIw69OE7wYyZYKnIc9QrmF8MzY5Fg5pBFyIpexmaYxA=";
   };
 
-  nativeBuildInputs = [ menhir ];
+  nativeBuildInputs = [menhir];
   propagatedBuildInputs = [
     ppxlib
     ppx_deriving
@@ -34,13 +34,13 @@ buildDunePackage rec {
     uutf
     uucp
   ];
-  checkInputs = [ ounit2 ];
+  checkInputs = [ounit2];
   doCheck = true;
 
   meta = with lib; {
     homepage = "https://github.com/tategakibunko/jingoo";
     description = "OCaml template engine almost compatible with jinja2";
     license = licenses.mit;
-    maintainers = [ maintainers.ericbmerritt ];
+    maintainers = [maintainers.ericbmerritt];
   };
 }

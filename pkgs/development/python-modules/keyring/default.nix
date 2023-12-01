@@ -24,24 +24,24 @@ buildPythonPackage rec {
     hash = "sha256-ui4VqbNeIZCNCq9OCkesxS1q4zRE3w2itJ1BpG721ng=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs =
-    [ jaraco_classes ]
+    [jaraco_classes]
     ++ lib.optionals stdenv.isLinux [
       jeepney
       secretstorage
     ]
-    ++ lib.optionals (pythonOlder "3.12") [ importlib-metadata ];
+    ++ lib.optionals (pythonOlder "3.12") [importlib-metadata];
 
   pythonImportsCheck = [
     "keyring"
     "keyring.backend"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  disabledTestPaths = [ "tests/backends/test_macOS.py" ];
+  disabledTestPaths = ["tests/backends/test_macOS.py"];
 
   meta = with lib; {
     description = "Store and access your passwords safely";

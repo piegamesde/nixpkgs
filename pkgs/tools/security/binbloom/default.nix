@@ -16,13 +16,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-UiKiDey/pHtJDr4UYqt+T/TneKig5tT8YU2u98Ttjmo=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     description = "Raw binary firmware analysis software";
     homepage = "https://github.com/quarkslab/binbloom";
     license = licenses.asl20;
-    maintainers = with maintainers; [ erdnaxe ];
+    maintainers = with maintainers; [erdnaxe];
     platforms = platforms.linux;
   };
 }

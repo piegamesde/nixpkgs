@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "A CLI tool to manage todo lists in todo.txt format";
     homepage = "https://github.com/VladimirMarkelov/ttdl";
     changelog = "https://github.com/VladimirMarkelov/ttdl/blob/v${version}/changelog";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ _3JlOy-PYCCKUi ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [_3JlOy-PYCCKUi];
   };
 }

@@ -1,4 +1,4 @@
-{ lib, stdenv }:
+{lib, stdenv}:
 
 let
   foo = stdenv.mkDerivation {
@@ -42,7 +42,7 @@ in
 
 stdenv.mkDerivation {
   name = "stdenv-inputs-test";
-  phases = [ "buildPhase" ];
+  phases = ["buildPhase"];
 
   buildInputs = [
     foo

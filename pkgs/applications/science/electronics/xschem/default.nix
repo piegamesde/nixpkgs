@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     tk
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     broken = stdenv.isDarwin;
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://xschem.sourceforge.io/stefan/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ fbeffa ];
+    maintainers = with maintainers; [fbeffa];
     platforms = platforms.all;
   };
 }

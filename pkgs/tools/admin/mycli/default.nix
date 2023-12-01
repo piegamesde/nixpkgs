@@ -41,7 +41,7 @@ buildPythonApplication rec {
     export LC_ALL="en_US.UTF-8"
   '';
 
-  disabledTestPaths = [ "mycli/packages/paramiko_stub/__init__.py" ];
+  disabledTestPaths = ["mycli/packages/paramiko_stub/__init__.py"];
 
   disabledTests =
     [
@@ -65,6 +65,6 @@ buildPythonApplication rec {
     '';
     homepage = "http://mycli.net";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jojosch ];
+    maintainers = with maintainers; [jojosch];
   };
 }

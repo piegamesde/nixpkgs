@@ -42,7 +42,7 @@ buildGoModule rec {
     description = "umoci modifies Open Container images";
     homepage = "https://umo.ci";
     license = licenses.asl20;
-    maintainers = with maintainers; [ zokrezyl ];
+    maintainers = with maintainers; [zokrezyl];
     platforms = platforms.unix;
   };
 }

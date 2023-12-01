@@ -20,8 +20,8 @@ stdenv.mkDerivation rec {
     sha256 = "1arkyizn5wbgvbh53aziv3s6lmd3wm9lqzkhxb3hijlp1y124hjg";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ libpng ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [libpng];
   patches = map fetchurl (import ./debian-patches.nix);
 
   preBuild = ''
@@ -29,9 +29,9 @@ stdenv.mkDerivation rec {
     make -C libplot xmi.h
   '';
 
-  configureFlags = [ "--enable-libplotter" ]; # required for pstoedit
+  configureFlags = ["--enable-libplotter"]; # required for pstoedit
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   doCheck = true;
 
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/plotutils/";
 
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.marcweber ];
+    maintainers = [lib.maintainers.marcweber];
     platforms = lib.platforms.unix;
   };
 }

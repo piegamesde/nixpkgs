@@ -34,7 +34,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/sibson/vncdotool";
     description = "A command line VNC client and python library";
     license = licenses.mit;
-    maintainers = with maintainers; [ elitak ];
+    maintainers = with maintainers; [elitak];
     platforms = with platforms; linux ++ darwin;
   };
 }

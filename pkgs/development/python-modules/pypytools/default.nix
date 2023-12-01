@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-oUDAU+TRwLroNfQGYusAQKdRkHcazysqiDLfp77v5Sk=";
   };
 
-  propagatedBuildInputs = [ py ];
+  propagatedBuildInputs = [py];
 
   nativeCheckInputs = [
     freezegun
@@ -42,7 +42,7 @@ buildPythonPackage rec {
       })
     ];
 
-  pythonImportsCheck = [ "pypytools" ];
+  pythonImportsCheck = ["pypytools"];
 
   disabledTests =
     lib.optionals (pythonAtLeast "3.11")
@@ -55,6 +55,6 @@ buildPythonPackage rec {
     description = "Collection of tools to use PyPy-specific features";
     homepage = "https://github.com/antocuni/pypytools";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "fJmGiHLwhgd3Ac7ggCbkMu6llob3qN87EpHpCO4K29I=";
   };
 
-  nativeBuildInputs = [ nodejs ];
+  nativeBuildInputs = [nodejs];
 
   buildPhase =
     let

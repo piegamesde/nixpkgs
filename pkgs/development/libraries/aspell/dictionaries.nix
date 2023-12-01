@@ -41,7 +41,7 @@ let
      build in the exact same way.
   */
   buildDict =
-    { shortName, fullName, ... }@args:
+    {shortName, fullName, ...}@args:
 
     stdenv.mkDerivation (
       {
@@ -56,16 +56,16 @@ let
 
         dontAddPrefix = true;
 
-        configurePlatforms = [ ];
+        configurePlatforms = [];
 
         preBuild = "makeFlagsArray=(dictdir=$out/lib/aspell datadir=$out/lib/aspell)";
 
         meta = {
           description = "Aspell dictionary for ${fullName}";
           platforms = lib.platforms.all;
-        } // (args.meta or { });
+        } // (args.meta or {});
       }
-      // removeAttrs args [ "meta" ]
+      // removeAttrs args ["meta"]
     );
 
   buildOfficialDict =
@@ -123,7 +123,7 @@ let
 
           meta = {
             homepage = "http://ftp.gnu.org/gnu/aspell/dict/0index.html";
-          } // (args.meta or { });
+          } // (args.meta or {});
         }
         // lib.optionalAttrs
           (
@@ -166,7 +166,7 @@ let
   # Function to compile txt dict files into Aspell dictionaries.
   buildTxtDict =
     {
-      langInputs ? [ ],
+      langInputs ? [],
       ...
     }@args:
     buildDict (
@@ -180,7 +180,7 @@ let
             (p: ''
               cp -a ${p}/lib/aspell/* .
             '')
-            ([ aspell ] ++ langInputs)}
+            ([aspell] ++ langInputs)}
           export ASPELL_CONF="data-dir $(pwd)"
 
           aspell-create() {
@@ -970,7 +970,7 @@ rec {
       sha256 = "1vzk7cdvcm9r1c6mgxpabrdcpvghdv9mjmnf6iq5wllcif5nsw2b";
     };
 
-    langInputs = [ en ];
+    langInputs = [en];
 
     buildPhase = ''
       runHook preBuild
@@ -998,7 +998,7 @@ rec {
       sha256 = "0f88il1ds6qazy1ghxviqcwsywrbf6pzl2lmzf4f3qvhdfb6f1y0";
     };
 
-    langInputs = [ en ];
+    langInputs = [en];
 
     buildPhase = ''
       runHook preBuild

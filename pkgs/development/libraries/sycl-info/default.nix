@@ -53,6 +53,6 @@ stdenv.mkDerivation rec {
     description = "Tool to show information about available SYCL implementations";
     platforms = platforms.linux;
     license = licenses.asl20;
-    maintainers = with maintainers; [ davidtwco ];
+    maintainers = with maintainers; [davidtwco];
   };
 }

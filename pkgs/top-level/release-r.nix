@@ -10,6 +10,6 @@
   ],
 }:
 
-with import ./release-lib.nix { inherit supportedSystems; };
+with import ./release-lib.nix {inherit supportedSystems;};
 
-mapTestOn { rPackages = packagePlatforms pkgs.rPackages; }
+mapTestOn {rPackages = packagePlatforms pkgs.rPackages;}

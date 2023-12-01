@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     ];
 
   buildInputs =
-    [ opencv3 ]
+    [opencv3]
     ++ lib.optional cudaSupport cudatoolkit
     ++ lib.optional stdenv.isDarwin OpenCL
     ++ lib.optionals stdenv.isLinux [
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     description = "Improved fork of Waifu2X C++ using OpenCL and OpenCV";
     homepage = "https://github.com/DeadSix27/waifu2x-converter-cpp";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.xzfc ];
+    maintainers = [lib.maintainers.xzfc];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }

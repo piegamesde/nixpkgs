@@ -22,7 +22,7 @@ let
     name = "${pname}-${version}-deps";
     inherit src;
 
-    nativeBuildInputs = [ maven ];
+    nativeBuildInputs = [maven];
     buildPhase = ''
       mvn package -Dmaven.repo.local=$out
     '';
@@ -67,6 +67,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/intoolswetrust/jd-cli";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ majiir ];
+    maintainers = with maintainers; [majiir];
   };
 }

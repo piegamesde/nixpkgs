@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-45sxnVyyYIw9i3sbFZ1naBMoUzkpP21WarzR5crg4X8=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   propagatedBuildInputs = [
     openssl
     zlib
@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ cstrahan ];
+    maintainers = with maintainers; [cstrahan];
   };
 }

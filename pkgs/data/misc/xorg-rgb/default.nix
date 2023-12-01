@@ -15,13 +15,13 @@ stdenv.mkDerivation rec {
     sha256 = "1c76zcjs39ljil6f6jpx1x17c8fnvwazz7zvl3vbjfcrlmm7rjmv";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ xorgproto ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [xorgproto];
 
   meta = with lib; {
     description = "X11 colorname to RGB mapping database";
     license = licenses.mit;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux;
     homepage = "https://xorg.freedesktop.org/";
   };

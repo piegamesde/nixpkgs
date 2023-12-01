@@ -15,13 +15,13 @@
 let
   env = buildEnv {
     name = "${name}-env";
-    paths = [ yquake2 ] ++ games;
+    paths = [yquake2] ++ games;
   };
 in
 stdenv.mkDerivation {
   name = "${name}-${lib.getVersion yquake2}";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildCommand =
     ''

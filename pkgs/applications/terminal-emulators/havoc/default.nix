@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-jvGm2gFdMS61otETF7gOEpYn6IuLfqI95IpEVfIv+C4=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     wayland-protocols
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  installFlags = [ "PREFIX=$$out" ];
+  installFlags = ["PREFIX=$$out"];
 
   postInstall = ''
     install -D -m 644 havoc.cfg -t $out/etc/${pname}/
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
       publicDomain
     ];
     platforms = with platforms; unix;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     # fatal error: 'sys/epoll.h' file not found
     broken = stdenv.isDarwin;
   };

@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/3cky/mbusd";
     changelog = "https://github.com/3cky/mbusd/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.unix;
   };
 }

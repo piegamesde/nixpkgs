@@ -16,16 +16,16 @@ buildPythonPackage rec {
   };
 
   # importlib-metadata could be added here if it wouldn't cause an infinite recursion
-  propagatedBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [setuptools];
 
   # check in passthru.tests.pytest to escape infinite recursion with fixtures
   doCheck = false;
 
   passthru.tests = {
-    tests = callPackage ./tests.nix { };
+    tests = callPackage ./tests.nix {};
   };
 
-  pythonImportsCheck = [ "pbr" ];
+  pythonImportsCheck = ["pbr"];
 
   meta = with lib; {
     description = "Python Build Reasonableness";

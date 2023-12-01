@@ -24,7 +24,7 @@ mkDerivation {
   meta = {
     description = "Mahjongg solitaire";
     homepage = "https://apps.kde.org/kmahjongg/";
-    license = with lib.licenses; [ gpl2 ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [gpl2];
+    maintainers = with lib.maintainers; [];
   };
 }

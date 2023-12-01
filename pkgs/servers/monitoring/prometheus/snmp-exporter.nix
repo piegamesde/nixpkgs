@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-nbJXiZ+vHN/EnvAPTJUKotCE+nwdrXtWHhGfugm+CQQ=";
 
-  buildInputs = [ net-snmp ];
+  buildInputs = [net-snmp];
 
   doCheck = true;
 

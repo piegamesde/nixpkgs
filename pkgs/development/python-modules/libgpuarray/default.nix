@@ -40,7 +40,7 @@ buildPythonPackage rec {
         cudatoolkit.out
       ]
     )
-    ++ lib.optionals openclSupport ([ clblas ] ++ lib.optional (!stdenv.isDarwin) ocl-icd)
+    ++ lib.optionals openclSupport ([clblas] ++ lib.optional (!stdenv.isDarwin) ocl-icd)
   );
 
   preBuild = ''
@@ -74,7 +74,7 @@ buildPythonPackage rec {
     mako
   ];
 
-  nativeBuildInputs = [ cmake ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
+  nativeBuildInputs = [cmake] ++ lib.optionals cudaSupport [addOpenGLRunpath];
 
   buildInputs = [
     cython
@@ -85,7 +85,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/Theano/libgpuarray";
     description = "Library to manipulate tensors on GPU.";
     license = licenses.free;
-    maintainers = with maintainers; [ artuuge ];
+    maintainers = with maintainers; [artuuge];
     platforms = platforms.unix;
   };
 }

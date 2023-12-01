@@ -34,13 +34,13 @@ rustPlatform.buildRustPackage rec {
     sqlite
   ];
 
-  nativeCheckInputs = [ file ];
+  nativeCheckInputs = [file];
 
   meta = with lib; {
     description = "A CLI helper to manage, package and publish Nextcloud apps";
     homepage = "https://github.com/ChristophWurst/krankerl";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

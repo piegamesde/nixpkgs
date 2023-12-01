@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-mYbyu3IIF6pQz1oEqEWLe7jdR99M3LxiMiRR9x7qFh8=";
   };
 
-  patches = [ ./fix-paths.patch ];
+  patches = [./fix-paths.patch];
 
   # TODO: switch to substituteAll with placeholder
   # https://github.com/NixOS/nix/issues/1846

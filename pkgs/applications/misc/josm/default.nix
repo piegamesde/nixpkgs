@@ -33,8 +33,8 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = lib.optionals (!stdenv.isDarwin) [ jre ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = lib.optionals (!stdenv.isDarwin) [jre];
 
   installPhase =
     if stdenv.isDarwin then
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     description = "An extensible editor for OpenStreetMap";
     homepage = "https://josm.openstreetmap.de/";
     changelog = "https://josm.openstreetmap.de/wiki/Changelog";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [
       rycee

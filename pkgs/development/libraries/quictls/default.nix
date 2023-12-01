@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
   buildInputs = lib.optional withCryptodev cryptodev;
 
   # TODO(@Ericson2314): Improve with mass rebuild
-  configurePlatforms = [ ];
+  configurePlatforms = [];
   configureScript =
     {
       armv5tel-linux = "./Configure linux-armv4 -march=armv5te";
@@ -201,6 +201,6 @@ stdenv.mkDerivation rec {
     description = "TLS/SSL and crypto library with QUIC APIs";
     license = licenses.openssl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ izorkin ];
+    maintainers = with maintainers; [izorkin];
   };
 }

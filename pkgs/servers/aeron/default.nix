@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
 
   inherit pname src version;
 
-  buildInputs = [ jdk11 ];
+  buildInputs = [jdk11];
 
   nativeBuildInputs = [
     gradle
@@ -172,6 +172,6 @@ stdenv.mkDerivation rec {
     description = "Low-latency messaging library";
     homepage = "https://aeron.io/";
     license = licenses.asl20;
-    maintainers = [ maintainers.vaci ];
+    maintainers = [maintainers.vaci];
   };
 }

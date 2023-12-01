@@ -25,7 +25,7 @@ buildDunePackage rec {
     (fetchpatch {
       url = "https://github.com/thierry-martinez/pyml/commit/a0bc5aca8632bea273f869d622cad2f55e754a7c.patch";
       sha256 = "bOqAokm5DE5rlvkBMQZtwMppRmoK9cvjJeGeP6BusnE=";
-      excludes = [ "CHANGES.md" ];
+      excludes = ["CHANGES.md"];
     })
     (fetchpatch {
       url = "https://github.com/thierry-martinez/pyml/commit/97407473800b3f6215190643c1e6b9bd25d5caeb.patch";
@@ -33,7 +33,7 @@ buildDunePackage rec {
     })
   ];
 
-  buildInputs = [ utop ];
+  buildInputs = [utop];
 
   propagatedBuildInputs = [
     python3

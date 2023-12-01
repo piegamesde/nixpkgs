@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     libX11
   ];
 
-  mesonFlags = [ "-Dgtk_doc=true" ];
+  mesonFlags = ["-Dgtk_doc=true"];
 
   meta = with lib; {
     description = "Deprecated API for integrating GdkPixbuf with Xlib data types";

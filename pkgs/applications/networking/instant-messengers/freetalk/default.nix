@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Console XMPP client";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
     downloadPage = "https://www.gnu.org/software/freetalk/";
   };

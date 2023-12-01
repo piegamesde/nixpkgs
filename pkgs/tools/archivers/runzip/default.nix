@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
   version = "1.4";
   pname = "runzip";
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     libiconv
     libzip
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "A tool to convert filename encoding inside a ZIP archive";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.unix;
   };
 }

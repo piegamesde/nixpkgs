@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-FtVJE9alEl56Uik+nCpJMV5DMVVmRCnE1xMAiWdK39Y=";
   };
 
-  nativeBuildInputs = [ jekyll ];
+  nativeBuildInputs = [jekyll];
 
   enableParallelBuilding = true;
 

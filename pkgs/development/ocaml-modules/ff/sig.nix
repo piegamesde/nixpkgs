@@ -17,7 +17,7 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ zarith ];
+  propagatedBuildInputs = [zarith];
 
   doCheck = true;
 
@@ -25,6 +25,6 @@ buildDunePackage rec {
     inherit (src.meta) homepage;
     description = "Minimal finite field signatures";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

@@ -30,7 +30,7 @@ buildPythonPackage rec {
     boto
   ];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   checkPhase = ''
     ${python.interpreter} -m pytest
@@ -40,6 +40,6 @@ buildPythonPackage rec {
     description = "Amazon Kinesis Client Library for Python";
     homepage = "https://github.com/awslabs/amazon-kinesis-client-python";
     license = licenses.amazonsl;
-    maintainers = with maintainers; [ psyanticy ];
+    maintainers = with maintainers; [psyanticy];
   };
 }

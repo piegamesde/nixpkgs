@@ -1,8 +1,8 @@
-{ callPackage, timeshift-unwrapped }:
+{callPackage, timeshift-unwrapped}:
 let
-  timeshift-wrapper = callPackage ./wrapper.nix { };
+  timeshift-wrapper = callPackage ./wrapper.nix {};
 in
-(timeshift-wrapper timeshift-unwrapped [ ]).overrideAttrs (
+(timeshift-wrapper timeshift-unwrapped []).overrideAttrs (
   oldAttrs: {
     meta = oldAttrs.meta // {
       description = oldAttrs.meta.description + " (without runtime dependencies)";

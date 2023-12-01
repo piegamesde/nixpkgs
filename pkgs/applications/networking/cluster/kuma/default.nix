@@ -18,7 +18,7 @@
 buildGoModule rec {
   inherit pname;
   version = "1.8.1";
-  tags = lib.optionals enableGateway [ "gateway" ];
+  tags = lib.optionals enableGateway ["gateway"];
   vendorSha256 = "sha256-69uXHvpQMeFwQbejMpfQPS8DDXJyVsnn59WUEJpSeng=";
 
   src = fetchFromGitHub {
@@ -30,7 +30,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [ installShellFiles ] ++ lib.optionals isFull [ coredns ];
+  nativeBuildInputs = [installShellFiles] ++ lib.optionals isFull [coredns];
 
   preBuild = ''
     export HOME=$TMPDIR
@@ -68,6 +68,6 @@ buildGoModule rec {
     description = "Service mesh controller";
     homepage = "https://kuma.io/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ zbioe ];
+    maintainers = with maintainers; [zbioe];
   };
 }

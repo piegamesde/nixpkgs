@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     description = "X11 keyboard indicator and switcher";
     homepage = "https://zen-tools.github.io/gxkb/";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.omgbebebe ];
+    maintainers = [maintainers.omgbebebe];
     platforms = platforms.linux;
   };
 }

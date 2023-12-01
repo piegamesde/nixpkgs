@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256:0aa9bij4g08ilsk6cgrbgi03vyhqr9fn6j2164sjin93m63212wl";
   };
 
-  buildInputs = [ bobcat ];
+  buildInputs = [bobcat];
 
   nativeBuildInputs = [
     yodl
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A parser generator like bison, but it generates C++ code";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
     homepage = "https://fbb-git.gitlab.io/bisoncpp/";
   };

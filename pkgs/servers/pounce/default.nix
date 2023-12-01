@@ -21,17 +21,17 @@ stdenv.mkDerivation rec {
     libxcrypt
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildFlags = [ "all" ];
+  buildFlags = ["all"];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     homepage = "https://code.causal.agency/june/pounce";
     description = "Simple multi-client TLS-only IRC bouncer";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ edef ];
+    maintainers = with maintainers; [edef];
   };
 }

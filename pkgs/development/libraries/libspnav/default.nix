@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = lib.optional stdenv.isDarwin fixDarwinDylibNames;
-  buildInputs = [ libX11 ];
+  buildInputs = [libX11];
 
   patches =
     [
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
       ./configure-socket-path.patch
     ];
 
-  configureFlags = [ "--disable-debug" ];
+  configureFlags = ["--disable-debug"];
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
     "AR=${stdenv.cc.targetPrefix}ar"
@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     longDescription = "A free, compatible alternative, to the proprietary 3Dconnexion device driver and SDK, for their 3D input devices (called 'space navigator', 'space pilot', 'space traveller', etc)";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sohalt ];
+    maintainers = with maintainers; [sohalt];
   };
 }

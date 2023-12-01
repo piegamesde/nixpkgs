@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "1b3akkcmr3brbf93akr8xi20w8zqf2g0qfq928500wy04qi6jqpi";
   };
 
-  buildInputs = [ libjpeg ];
+  buildInputs = [libjpeg];
 
   patchPhase = ''
     tar xvf "${debianPatches}"
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  makeFlagsArray = [ "PREFIX=$(out)/bin/" ];
+  makeFlagsArray = ["PREFIX=$(out)/bin/"];
 
   preInstall = ''
     mkdir -p "$out/bin"
@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
     description = "Capture image from USB webcam at a specified interval";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

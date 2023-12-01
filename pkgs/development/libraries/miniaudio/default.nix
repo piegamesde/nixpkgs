@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
       unlicense # or
       mit0
     ];
-    maintainers = [ maintainers.jansol ];
+    maintainers = [maintainers.jansol];
     platforms = platforms.all;
   };
 }

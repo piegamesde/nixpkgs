@@ -18,19 +18,19 @@ buildPythonPackage rec {
   };
 
   preCheck = "cd test"; # Tests require the `test/resources` folder to be accessible
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
   disabledTests = [
     # asserts related to file deletions fail
     "test_docx2python.py"
     "test_docx_context.py"
     "test_google_docs.py"
   ];
-  pythonImportsCheck = [ "docx2python" ];
+  pythonImportsCheck = ["docx2python"];
 
   meta = with lib; {
     homepage = "https://github.com/ShayHill/docx2python";
     description = "Extract docx headers, footers, (formatted) text, footnotes, endnotes, properties, and images";
-    maintainers = [ maintainers.ivar ];
+    maintainers = [maintainers.ivar];
     license = licenses.mit;
   };
 }

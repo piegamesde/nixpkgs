@@ -12,7 +12,7 @@ stdenv.mkDerivation {
   pname = "p2pvc";
   version = "unstable-2015-02-12";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     opencv2
     ncurses
@@ -34,7 +34,7 @@ stdenv.mkDerivation {
     description = "A point to point color terminal video chat";
     homepage = "https://github.com/mofarrell/p2pvc";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ trino ];
+    maintainers = with lib.maintainers; [trino];
     platforms = with lib.platforms; linux;
   };
 }

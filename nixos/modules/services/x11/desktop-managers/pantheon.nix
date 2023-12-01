@@ -45,7 +45,7 @@ in
       };
 
       sessionPath = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.package;
         example = literalExpression "[ pkgs.gnome.gpaste ]";
         description = lib.mdDoc ''
@@ -75,7 +75,7 @@ in
       };
 
       extraGSettingsOverridePackages = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.path;
         description = lib.mdDoc "List of packages for which gsettings are overridden.";
       };
@@ -84,7 +84,7 @@ in
     };
 
     environment.pantheon.excludePackages = mkOption {
-      default = [ ];
+      default = [];
       example = literalExpression "[ pkgs.pantheon.elementary-camera ]";
       type = types.listOf types.package;
       description = lib.mdDoc "Which packages pantheon should exclude from the default environment";
@@ -94,10 +94,10 @@ in
   config = mkMerge [
     (mkIf cfg.enable {
       services.xserver.desktopManager.pantheon.sessionPath =
-        utils.removePackagesByName [ pkgs.pantheon.pantheon-agent-geoclue2 ]
+        utils.removePackagesByName [pkgs.pantheon.pantheon-agent-geoclue2]
           config.environment.pantheon.excludePackages;
 
-      services.xserver.displayManager.sessionPackages = [ pkgs.pantheon.elementary-session-settings ];
+      services.xserver.displayManager.sessionPackages = [pkgs.pantheon.elementary-session-settings];
 
       # Ensure lightdm is used when Pantheon is enabled
       # Without it screen locking will be nonfunctional because of the use of lightlocker
@@ -181,7 +181,7 @@ in
         # https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/1443
         pkgs.pantheon.mutter
       ];
-      systemd.packages = [ pkgs.pantheon.gnome-settings-daemon ];
+      systemd.packages = [pkgs.pantheon.gnome-settings-daemon];
       programs.dconf.enable = true;
       networking.networkmanager.enable = mkDefault true;
 
@@ -193,8 +193,8 @@ in
             elementary-settings-daemon
             gala
             gnome-settings-daemon
-            (switchboard-with-plugs.override { plugs = cfg.extraSwitchboardPlugs; })
-            (wingpanel-with-indicators.override { indicators = cfg.extraWingpanelIndicators; })
+            (switchboard-with-plugs.override {plugs = cfg.extraSwitchboardPlugs;})
+            (wingpanel-with-indicators.override {indicators = cfg.extraWingpanelIndicators;})
           ]
         )
         ++ utils.removePackagesByName
@@ -283,8 +283,8 @@ in
       ];
 
       fonts.fontconfig.defaultFonts = {
-        monospace = [ "Roboto Mono" ];
-        sansSerif = [ "Inter" ];
+        monospace = ["Roboto Mono"];
+        sansSerif = ["Inter"];
       };
     })
 
@@ -295,7 +295,7 @@ in
       environment.systemPackages =
         utils.removePackagesByName
           (
-            [ pkgs.gnome.gnome-font-viewer ]
+            [pkgs.gnome.gnome-font-viewer]
             ++ (
               with pkgs.pantheon;
               [
@@ -324,7 +324,7 @@ in
           config.environment.pantheon.excludePackages;
 
       # needed by screenshot
-      fonts.fonts = [ pkgs.pantheon.elementary-redacted-script ];
+      fonts.fonts = [pkgs.pantheon.elementary-redacted-script];
     })
 
     (mkIf serviceCfg.contractor.enable {
@@ -334,7 +334,7 @@ in
         gnome-bluetooth-contract
       ];
 
-      environment.pathsToLink = [ "/share/contractor" ];
+      environment.pathsToLink = ["/share/contractor"];
     })
   ];
 }

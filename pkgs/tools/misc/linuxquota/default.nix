@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     e2fsprogs
     openldap
@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/linuxquota/";
     license = licenses.gpl2; # With some files being BSD as an exception
     platforms = platforms.linux;
-    maintainers = [ maintainers.dezgeg ];
+    maintainers = [maintainers.dezgeg];
   };
 }

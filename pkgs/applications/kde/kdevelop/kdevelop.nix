@@ -127,7 +127,7 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    maintainers = [ maintainers.ambrop72 ];
+    maintainers = [maintainers.ambrop72];
     platforms = platforms.linux;
     description = "KDE official IDE";
     longDescription = ''

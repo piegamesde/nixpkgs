@@ -34,7 +34,7 @@ buildPythonPackage rec {
       --replace 'orjson = ">=3.8.7"' 'orjson = "*"'
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     orjson
@@ -59,13 +59,13 @@ buildPythonPackage rec {
       "test_roomba_connect"
     ];
 
-  pythonImportsCheck = [ "roombapy" ];
+  pythonImportsCheck = ["roombapy"];
 
   meta = with lib; {
     description = "Python program and library to control Wi-Fi enabled iRobot Roombas";
     homepage = "https://github.com/pschmitt/roombapy";
     changelog = "https://github.com/pschmitt/roombapy/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
     inherit src version meta;
     sourceRoot = "source/daemon";
 
-    patches = [ ./0001-fix-annotations-in-bin-dbus-cx.ring.Ring.CallManager.patch ];
+    patches = [./0001-fix-annotations-in-bin-dbus-cx.ring.Ring.CallManager.patch];
 
     nativeBuildInputs = [
       autoreconfHook
@@ -178,12 +178,12 @@ stdenv.mkDerivation rec {
     qtpositioning
     qtsvg
     qtwebchannel
-  ] ++ lib.optionals withWebengine [ qtwebengine ];
+  ] ++ lib.optionals withWebengine [qtwebengine];
 
   cmakeFlags = [
     "-DLIBJAMI_INCLUDE_DIR=${daemon}/include/jami"
     "-DLIBJAMI_XML_INTERFACES_DIR=${daemon}/share/dbus-1/interfaces"
-  ] ++ lib.optionals (!withWebengine) [ "-DWITH_WEBENGINE=false" ];
+  ] ++ lib.optionals (!withWebengine) ["-DWITH_WEBENGINE=false"];
 
   qtWrapperArgs =
     [
@@ -196,13 +196,13 @@ stdenv.mkDerivation rec {
     ln -s ${daemon}/share/dbus-1 $out/share
   '';
 
-  passthru.updateScript = gitUpdater { rev-prefix = "stable/"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "stable/";};
 
   meta = with lib; {
     homepage = "https://jami.net/";
     description = "The free and universal communication platform that respects the privacy and freedoms of its users";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.linsui ];
+    maintainers = [maintainers.linsui];
   };
 }

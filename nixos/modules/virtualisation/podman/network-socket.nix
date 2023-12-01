@@ -10,7 +10,7 @@ let
   cfg = config.virtualisation.podman.networkSocket;
 in
 {
-  imports = [ ./network-socket-ghostunnel.nix ];
+  imports = [./network-socket-ghostunnel.nix];
 
   options.virtualisation.podman.networkSocket = {
     enable = mkOption {
@@ -30,7 +30,7 @@ in
     };
 
     server = mkOption {
-      type = types.enum [ ];
+      type = types.enum [];
       description = lib.mdDoc ''
         Choice of TLS proxy server.
       '';
@@ -89,5 +89,5 @@ in
     networking.firewall.allowedTCPPorts = lib.optional (cfg.enable && cfg.openFirewall) cfg.port;
   };
 
-  meta.maintainers = lib.teams.podman.members ++ [ lib.maintainers.roberth ];
+  meta.maintainers = lib.teams.podman.members ++ [lib.maintainers.roberth];
 }

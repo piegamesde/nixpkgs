@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "1dqpdk8zl0smdg4fganp3hxb943q40619qmxjlga9jhjc01s7fq5";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   nativeBuildInputs = [
     cmake
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://posterazor.sourceforge.net/";
     description = "Cuts a raster image into pieces which can afterwards be printed out and assembled to a poster";
-    maintainers = [ maintainers.madjar ];
+    maintainers = [maintainers.madjar];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

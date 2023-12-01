@@ -1,10 +1,10 @@
-{ lib, config, ... }:
+{lib, config, ...}:
 let
   inherit (lib) types;
 in
 {
   options = {
-    fun = lib.mkOption { type = types.functionTo types.str; };
+    fun = lib.mkOption {type = types.functionTo types.str;};
 
     result = lib.mkOption {
       type = types.str;

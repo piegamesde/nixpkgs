@@ -7,7 +7,7 @@
   callPackage,
   makeWrapper,
   self,
-  packageOverrides ? (final: prev: { }),
+  packageOverrides ? (final: prev: {}),
   pkgsBuildBuild,
   pkgsBuildHost,
   pkgsBuildTarget,
@@ -16,7 +16,7 @@
   version,
   hash,
   passthruFun,
-  patches ? [ ],
+  patches ? [],
   postConfigure ? null,
   postBuild ? null,
   staticOnly ? stdenv.hostPlatform.isStatic,
@@ -69,8 +69,8 @@ stdenv.mkDerivation rec {
   LuaCPathSearchPaths = luaPackages.luaLib.luaCPathList;
   setupHook = luaPackages.lua-setup-hook LuaPathSearchPaths LuaCPathSearchPaths;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ readline ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [readline];
 
   inherit patches;
 
@@ -163,7 +163,7 @@ stdenv.mkDerivation rec {
     ln -s "$out/lib/pkgconfig/lua.pc" "$out/lib/pkgconfig/lua-${luaversion}.pc"
     ln -s "$out/lib/pkgconfig/lua.pc" "$out/lib/pkgconfig/lua${luaversion}.pc"
     ln -s "$out/lib/pkgconfig/lua.pc" "$out/lib/pkgconfig/lua${
-      lib.replaceStrings [ "." ] [ "" ] luaversion
+      lib.replaceStrings ["."] [""] luaversion
     }.pc"
   '';
 
@@ -175,7 +175,7 @@ stdenv.mkDerivation rec {
       override =
         attr:
         let
-          lua = attr.override (inputs' // { self = lua; });
+          lua = attr.override (inputs' // {self = lua;});
         in
         lua;
     in
@@ -192,7 +192,7 @@ stdenv.mkDerivation rec {
       luaOnBuildForTarget = override pkgsBuildTarget.${luaAttr};
       luaOnHostForHost = override pkgsHostHost.${luaAttr};
       luaOnTargetForTarget =
-        if lib.hasAttr luaAttr pkgsTargetTarget then (override pkgsTargetTarget.${luaAttr}) else { };
+        if lib.hasAttr luaAttr pkgsTargetTarget then (override pkgsTargetTarget.${luaAttr}) else {};
     };
 
   meta = {

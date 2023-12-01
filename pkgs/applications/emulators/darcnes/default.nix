@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "05a7mh51rg7ydb414m3p5mm05p4nz2bgvspqzwm3bhbj7zz543k3";
   };
 
-  patches = [ ./label.patch ];
+  patches = [./label.patch];
 
   buildInputs = [
     libX11
@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
     description = "Sega Master System, Game Gear, SG-1000, NES, ColecoVision and Apple II emulator";
     # Prohibited commercial use, credit required.
     license = lib.licenses.free;
-    platforms = [ "i686-linux" ];
+    platforms = ["i686-linux"];
   };
 }

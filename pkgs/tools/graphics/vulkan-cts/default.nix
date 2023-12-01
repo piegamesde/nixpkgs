@@ -163,7 +163,7 @@ stdenv.mkDerivation (
       homepage = "https://github.com/KhronosGroup/VK-GL-CTS/blob/main/external/vulkancts/README.md";
       changelog = "https://github.com/KhronosGroup/VK-GL-CTS/releases/tag/${finalAttrs.pname}-${finalAttrs.version}";
       license = licenses.asl20;
-      maintainers = with maintainers; [ Flakebi ];
+      maintainers = with maintainers; [Flakebi];
     };
   }
 )

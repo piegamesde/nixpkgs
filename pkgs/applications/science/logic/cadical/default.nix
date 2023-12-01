@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Simplified Satisfiability Solver";
-    maintainers = with maintainers; [ shnarazk ];
+    maintainers = with maintainers; [shnarazk];
     platforms = platforms.unix;
     license = licenses.mit;
     homepage = "http://fmv.jku.at/cadical";

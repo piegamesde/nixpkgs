@@ -46,7 +46,7 @@ stdenv.mkDerivation (
       description = "Opinionated C11 library for low-level functionality";
       homepage = "https://git.skyjake.fi/skyjake/the_Foundation";
       license = licenses.bsd2;
-      maintainers = with maintainers; [ sikmir ];
+      maintainers = with maintainers; [sikmir];
       platforms = platforms.unix;
     };
   }

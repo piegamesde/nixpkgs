@@ -9,7 +9,7 @@ let
     "deployment"
     "autoLuks"
   ];
-  hasAutoLuksConfig = lib.hasAttrByPath path config && (lib.attrByPath path { } config) != { };
+  hasAutoLuksConfig = lib.hasAttrByPath path config && (lib.attrByPath path {} config) != {};
 
   inherit (config.nixops) enableDeprecatedAutoLuks;
 in

@@ -31,7 +31,7 @@ stdenv.mkDerivation {
   # and for chroot builds all of the library files will have equal timestamps.  This
   # makes clm try to rebuild the library modules (and fail due to absence of write permission
   # on the Nix store) every time any file is compiled.
-  patches = [ ./chroot-build-support-do-not-rebuild-equal-timestamps.patch ];
+  patches = [./chroot-build-support-do-not-rebuild-equal-timestamps.patch];
 
   preBuild = ''
     substituteInPlace Makefile --replace 'INSTALL_DIR = $(CURRENTDIR)' 'INSTALL_DIR = '$out
@@ -57,7 +57,7 @@ stdenv.mkDerivation {
 
     homepage = "http://wiki.clean.cs.ru.nl/Clean";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.erin ];
+    maintainers = [lib.maintainers.erin];
     platforms = [
       "i686-linux"
       "x86_64-linux"

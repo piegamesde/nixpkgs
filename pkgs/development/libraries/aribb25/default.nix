@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ] ++ lib.optional stdenv.isDarwin xcbuild;
-  buildInputs = if stdenv.isDarwin then [ PCSC ] else [ pcsclite ];
+  buildInputs = if stdenv.isDarwin then [PCSC] else [pcsclite];
 
   patches =
     let
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     description = "Sample implementation of the ARIB STD-B25 standard";
     homepage = "https://code.videolan.org/videolan/aribb25";
     license = licenses.isc;
-    maintainers = with maintainers; [ midchildan ];
+    maintainers = with maintainers; [midchildan];
     mainProgram = "b25";
     platforms = platforms.all;
   };

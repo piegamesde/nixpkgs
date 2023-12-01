@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-yW+pmAryBp6bvjolN91ACDkk5zxvKfu4nRLQSy71kqs=";
   };
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [typing-extensions];
 
   nativeCheckInputs = [
     mypy
@@ -35,12 +35,12 @@ buildPythonPackage rec {
       "testMypyImmu"
     ];
 
-  pythonImportsCheck = [ "immutables" ];
+  pythonImportsCheck = ["immutables"];
 
   meta = with lib; {
     description = "An immutable mapping type";
     homepage = "https://github.com/MagicStack/immutables";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ catern ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [catern];
   };
 }

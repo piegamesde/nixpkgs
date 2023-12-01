@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fhstGxMMCvxlVCvjwuSDmc8sJdegStPEJ+AicVsJig8=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     gcc
     flex
@@ -76,6 +76,6 @@ stdenv.mkDerivation rec {
     homepage = "http://mercurylang.org";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -20,17 +20,17 @@ buildPythonPackage rec {
     hash = "sha256-RiRwebumidn0nijL/e9J74ZYx0DASi1up5BTNxYoGEA=";
   };
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "airtouch4pyapi" ];
+  pythonImportsCheck = ["airtouch4pyapi"];
 
   meta = with lib; {
     description = "Python API for Airtouch 4 controllers";
     homepage = "https://github.com/LonePurpleWolf/airtouch4pyapi";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

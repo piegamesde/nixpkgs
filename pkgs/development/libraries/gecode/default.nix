@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "0b1cq0c810j1xr2x9y9996p894571sdxng5h74py17c6nr8c6dmk";
   };
 
-  patches = [ (import ./fix-const-weights-clang-patch.nix fetchpatch) ];
+  patches = [(import ./fix-const-weights-clang-patch.nix fetchpatch)];
 
   enableParallelBuilding = true;
   dontWrapQtApps = true;
@@ -42,6 +42,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gecode.org";
     description = "Toolkit for developing constraint-based systems";
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

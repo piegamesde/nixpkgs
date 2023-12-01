@@ -23,7 +23,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     pango
@@ -35,6 +35,6 @@ buildGoModule rec {
     description = "Simple tray icon for detecting new email on IMAP servers";
     homepage = "https://github.com/jonhoo/hasmail";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

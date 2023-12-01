@@ -21,6 +21,6 @@ buildGoModule rec {
     homepage = "https://xcfile.dev/";
     description = "Markdown defined task runner";
     license = licenses.mit;
-    maintainers = with maintainers; [ joerdav ];
+    maintainers = with maintainers; [joerdav];
   };
 }

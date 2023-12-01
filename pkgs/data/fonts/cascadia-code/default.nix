@@ -28,7 +28,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/microsoft/cascadia-code";
     changelog = "https://github.com/microsoft/cascadia-code/raw/v${version}/FONTLOG.txt";
     license = licenses.ofl;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
     platforms = platforms.all;
   };
 }

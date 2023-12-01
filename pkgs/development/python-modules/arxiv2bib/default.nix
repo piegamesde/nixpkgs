@@ -31,6 +31,6 @@ buildPythonPackage rec {
     description = "Get a BibTeX entry from an arXiv id number, using the arxiv.org API";
     homepage = "http://nathangrigg.github.io/arxiv2bib/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.nico202 ];
+    maintainers = [maintainers.nico202];
   };
 }

@@ -29,8 +29,8 @@ stdenv.mkDerivation rec {
     pkg-config
     python3
   ];
-  buildInputs = [ pcre ];
-  propagatedBuildInputs = [ serd ];
+  buildInputs = [pcre];
+  propagatedBuildInputs = [serd];
 
   doCheck = true;
 
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       bsd0
       isc
     ];
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
     platforms = platforms.unix;
   };
 }

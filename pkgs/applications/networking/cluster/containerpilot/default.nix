@@ -23,6 +23,6 @@ buildGoPackage rec {
     description = "An application centric micro-orchestrator.";
     platforms = platforms.unix;
     license = licenses.mpl20;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

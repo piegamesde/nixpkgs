@@ -46,7 +46,7 @@ mkDerivation rec {
     qmake
   ];
 
-  patches = [ ./drone_ini.patch ];
+  patches = [./drone_ini.patch];
   prePatch = ''
     sed -i 's|/usr/include/libnl3|${libnl.dev}/include/libnl3|' server/drone.pro
   '';
@@ -57,7 +57,7 @@ mkDerivation rec {
       desktopName = "Ostinato";
       genericName = "Packet/Traffic Generator and Analyzer";
       comment = "Network packet and traffic generator and analyzer with a friendly GUI";
-      categories = [ "Network" ];
+      categories = ["Network"];
       startupNotify = true;
       exec = "@out@/bin/ostinato";
       icon = ostinatoIcon;
@@ -89,7 +89,7 @@ mkDerivation rec {
     description = "A packet traffic generator and analyzer";
     homepage = "https://ostinato.org/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ rick68 ];
+    maintainers = with maintainers; [rick68];
     platforms = with platforms; linux ++ darwin ++ cygwin;
   };
 }

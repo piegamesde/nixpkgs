@@ -8,7 +8,7 @@
 with lib;
 
 {
-  meta.maintainers = [ maintainers.oxalica ];
+  meta.maintainers = [maintainers.oxalica];
 
   ###### interface
   options = {
@@ -17,7 +17,7 @@ with lib;
 
   ###### implementation
   config = mkIf config.programs.partition-manager.enable {
-    services.dbus.packages = [ pkgs.libsForQt5.kpmcore ];
+    services.dbus.packages = [pkgs.libsForQt5.kpmcore];
     # `kpmcore` need to be installed to pull in polkit actions.
     environment.systemPackages = [
       pkgs.libsForQt5.kpmcore

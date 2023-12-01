@@ -17,12 +17,12 @@ buildGoPackage rec {
   };
 
   goPackagePath = "github.com/blynn/nex";
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Lexer for Go";
     homepage = "https://github.com/blynn/nex";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
   };
 }

@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-oeNwBmzlkE8JewSwuFG8OYigyispP4xdwO3s2CAcfW4=";
   };
 
-  nativeBuildInputs = [ incremental ];
+  nativeBuildInputs = [incremental];
 
   postPatch = ''
     substituteInPlace requirements.txt \
@@ -41,12 +41,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "ovoenergy" ];
+  pythonImportsCheck = ["ovoenergy"];
 
   meta = with lib; {
     description = "Python client for getting data from OVO's API";
     homepage = "https://github.com/timmo001/ovoenergy";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

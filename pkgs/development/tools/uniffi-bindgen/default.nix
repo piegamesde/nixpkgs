@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-k5uIR5rO4T1Xsu50vdLxCgSsVkNcxXHT4MitnMZkY6g=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   checkFlags =
     [
@@ -41,7 +41,7 @@ rustPlatform.buildRustPackage rec {
       }
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Toolkit for building cross-platform software components in Rust";

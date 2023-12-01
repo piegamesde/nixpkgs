@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
     xvfb-run
   ];
 
-  configureFlags = [ "--disable-builddir" ];
+  configureFlags = ["--disable-builddir"];
 
   postPatch = ''
     patchShebangs .

@@ -39,7 +39,7 @@ buildPythonPackage rec {
       --replace "assert_exc.traceback[-1].path.strpath" "str(assert_exc.traceback[-1].path)"
   '';
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   nativeCheckInputs = [
     mock
@@ -47,15 +47,15 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [ "tests/test_benchmark.py" ];
+  disabledTestPaths = ["tests/test_benchmark.py"];
 
-  pythonImportsCheck = [ "promise" ];
+  pythonImportsCheck = ["promise"];
 
   meta = with lib; {
     description = "Ultra-performant Promise implementation in Python";
     homepage = "https://github.com/syrusakbary/promise";
     changelog = "https://github.com/syrusakbary/promise/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

@@ -35,9 +35,9 @@ buildPythonPackage rec {
       --replace "geopy==" "geopy>="
   '';
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ django ];
+  propagatedBuildInputs = [django];
 
   nativeCheckInputs = [
     geopy
@@ -52,6 +52,6 @@ buildPythonPackage rec {
     description = "Pluggable search for Django";
     homepage = "http://haystacksearch.org/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

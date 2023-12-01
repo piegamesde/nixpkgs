@@ -39,7 +39,7 @@ let
       nasm
     ];
 
-    buildInputs = [ xorg.xorgserver ];
+    buildInputs = [xorg.xorgserver];
 
     postPatch = ''
       # patch from Debian, allows to run xrdp daemon under unprivileged user
@@ -53,7 +53,7 @@ let
 
     preConfigure = "./bootstrap";
 
-    configureFlags = [ "XRDP_CFLAGS=-I${xrdp.src}/common" ];
+    configureFlags = ["XRDP_CFLAGS=-I${xrdp.src}/common"];
 
     enableParallelBuilding = true;
   };
@@ -92,7 +92,7 @@ let
       xorg.libXrandr
     ];
 
-    patches = [ ./dynamic_config.patch ];
+    patches = [./dynamic_config.patch];
 
     postPatch = ''
       substituteInPlace sesman/xauth.c --replace "xauth -q" "${xorg.xauth}/bin/xauth -q"
@@ -154,7 +154,7 @@ let
       description = "An open source RDP server";
       homepage = "https://github.com/neutrinolabs/xrdp";
       license = licenses.asl20;
-      maintainers = with maintainers; [ chvp ];
+      maintainers = with maintainers; [chvp];
       platforms = platforms.linux;
     };
   };

@@ -138,7 +138,7 @@ let
   failedAssertions = map (x: x.message) (filter (x: !x.assertion) config.assertions);
 
   baseSystemAssertWarn =
-    if failedAssertions != [ ] then
+    if failedAssertions != [] then
       throw ''
 
         Failed assertions:
@@ -150,16 +150,16 @@ let
   system =
     foldr
       (
-        { oldDependency, newDependency }:
+        {oldDependency, newDependency}:
         drv:
-        pkgs.replaceDependency { inherit oldDependency newDependency drv; }
+        pkgs.replaceDependency {inherit oldDependency newDependency drv;}
       )
       baseSystemAssertWarn
       config.system.replaceRuntimeDependencies;
 
   systemWithBuildDeps = system.overrideAttrs (
     o: {
-      systemBuildClosure = pkgs.closureInfo { rootPaths = [ system.drvPath ]; };
+      systemBuildClosure = pkgs.closureInfo {rootPaths = [system.drvPath];};
       buildCommand =
         o.buildCommand
         + ''
@@ -276,7 +276,7 @@ in
     system.systemBuilderArgs = mkOption {
       type = types.attrsOf types.unspecified;
       internal = true;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         `lib.mkDerivation` attributes that will be passed to the top level system builder.
       '';
@@ -303,7 +303,7 @@ in
 
     system.extraDependencies = mkOption {
       type = types.listOf types.package;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         A list of packages that should be included in the system
         closure but not otherwise made available to users. This is
@@ -312,11 +312,11 @@ in
     };
 
     system.replaceRuntimeDependencies = mkOption {
-      default = [ ];
+      default = [];
       example = lib.literalExpression "[ ({ original = pkgs.openssl; replacement = pkgs.callPackage /path/to/openssl { }; }) ]";
       type = types.listOf (
         types.submodule (
-          { ... }:
+          {...}:
           {
             options.original = mkOption {
               type = types.package;
@@ -331,7 +331,7 @@ in
         )
       );
       apply = map (
-        { original, replacement, ... }:
+        {original, replacement, ...}:
         {
           oldDependency = original;
           newDependency = replacement;
@@ -412,7 +412,7 @@ in
             # override to avoid  infinite recursion (and to allow using extraDependencies to add forbidden dependencies)
             (config.system.build.toplevel.overrideAttrs (
               _: {
-                extraDependencies = [ ];
+                extraDependencies = [];
                 closureInfo = null;
               }
             ))

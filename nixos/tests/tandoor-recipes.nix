@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
   {
     name = "tandoor-recipes";
-    meta.maintainers = with lib.maintainers; [ ambroisie ];
+    meta.maintainers = with lib.maintainers; [ambroisie];
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         # Setup using Postgres
         services.tandoor-recipes = {
@@ -21,7 +21,7 @@ import ./make-test-python.nix (
 
         services.postgresql = {
           enable = true;
-          ensureDatabases = [ "tandoor_recipes" ];
+          ensureDatabases = ["tandoor_recipes"];
           ensureUsers = [
             {
               name = "tandoor_recipes";
@@ -32,7 +32,7 @@ import ./make-test-python.nix (
 
         systemd.services = {
           tandoor-recipes = {
-            after = [ "postgresql.service" ];
+            after = ["postgresql.service"];
           };
         };
       };

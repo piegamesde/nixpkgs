@@ -16,9 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-Ab4+5hu3FOkJD8xcEPTPVGw5YzHGIMauUKIyGyjtMZk=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  pythonImportsCheck = [ "autopage" ];
+  pythonImportsCheck = ["autopage"];
 
   meta = with lib; {
     description = "A library to provide automatic paging for console output";

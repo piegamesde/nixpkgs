@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     description = "Folding@home control";
     homepage = "https://foldingathome.org/";
     license = lib.licenses.unfree;
-    maintainers = [ lib.maintainers.zimbatm ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [lib.maintainers.zimbatm];
+    platforms = ["x86_64-linux"];
   };
 }

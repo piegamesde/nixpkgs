@@ -18,16 +18,16 @@ buildPythonPackage rec {
     hash = "sha256-pylZw45FUtLHzUV4cDyl/nT8tCZwNj4Jf41MMlyskoU=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  nativeCheckInputs = [ keyring ];
+  nativeCheckInputs = [keyring];
 
-  pythonImportsCheck = [ "keyrings.passwordstore.backend" ];
+  pythonImportsCheck = ["keyrings.passwordstore.backend"];
 
   meta = {
     license = lib.licenses.mit;
     description = "Keyring backend for password-store";
     homepage = "https://github.com/stv0g/keyrings.passwordstore";
-    maintainers = [ lib.maintainers.shlevy ];
+    maintainers = [lib.maintainers.shlevy];
   };
 }

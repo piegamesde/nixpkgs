@@ -15,8 +15,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-6CcjC0epbKsDXFxxeOUImSGh4cjR5INqawL/iOOkwqs=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jre];
 
   dontUnpack = true;
 
@@ -36,8 +36,8 @@ stdenv.mkDerivation rec {
     # University School of Medicine.
     license = licenses.unfree;
     homepage = "https://github.com/dkoboldt/varscan";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    maintainers = with maintainers; [ jbedo ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
+    maintainers = with maintainers; [jbedo];
     platforms = platforms.all;
   };
 }

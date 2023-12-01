@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
   pname = "ant";
   version = "1.10.11";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   src = fetchurl {
     url = "mirror://apache/ant/binaries/apache-ant-${version}-bin.tar.bz2";
@@ -108,9 +108,9 @@ stdenv.mkDerivation rec {
       by an object that implements a particular Task interface.
     '';
 
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.eelco ];
+    maintainers = [lib.maintainers.eelco];
     platforms = lib.platforms.all;
   };
 }

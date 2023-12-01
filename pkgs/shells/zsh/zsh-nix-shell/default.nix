@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  buildInputs = [ bash ];
+  buildInputs = [bash];
   installPhase = ''
     install -D nix-shell.plugin.zsh --target-directory=$out/share/zsh-nix-shell
     install -D scripts/* --target-directory=$out/share/zsh-nix-shell/scripts
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     homepage = src.meta.homepage;
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ aw ];
+    maintainers = with maintainers; [aw];
   };
 }

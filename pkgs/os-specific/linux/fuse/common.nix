@@ -1,4 +1,4 @@
-{ version, sha256Hash }:
+{version, sha256Hash}:
 
 {
   lib,
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
         gettext
       ];
 
-  outputs = [ "out" ] ++ lib.optional isFuse3 "common";
+  outputs = ["out"] ++ lib.optional isFuse3 "common";
 
   mesonFlags = lib.optionals isFuse3 [
     "-Dudevrulesdir=/udev/rules.d"
@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
     );
 
   nativeCheckInputs =
-    [ which ]
+    [which]
     ++ (
       with python3Packages; [
         python
@@ -154,6 +154,6 @@ stdenv.mkDerivation rec {
       gpl2Only
       lgpl21Only
     ];
-    maintainers = [ maintainers.primeos ];
+    maintainers = [maintainers.primeos];
   };
 }

@@ -27,12 +27,12 @@ stdenv.mkDerivation rec {
     attr
   ];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "An overlay FUSE filesystem that introduces non-determinism into filesystem metadata";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

@@ -50,5 +50,5 @@
       };
     };
 
-  meta.maintainers = with lib.maintainers; [ zendo ];
+  meta.maintainers = with lib.maintainers; [zendo];
 }

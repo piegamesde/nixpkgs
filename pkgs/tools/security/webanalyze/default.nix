@@ -22,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/rverton/webanalyze";
     changelog = "https://github.com/rverton/webanalyze/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

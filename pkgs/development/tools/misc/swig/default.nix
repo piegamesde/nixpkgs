@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     tcl
   ];
 
-  configureFlags = [ "--disable-ccache" ];
+  configureFlags = ["--disable-ccache"];
 
   meta = with lib; {
     description = "SWIG, an interface compiler that connects C/C++ code to higher-level languages";

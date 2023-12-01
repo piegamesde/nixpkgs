@@ -14,14 +14,14 @@ buildPythonPackage rec {
     hash = "sha256-LyB3jblW3H5LGop5ci1XpGUMRZl/tlwTUsv4XreqPOI=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pylsqpack" ];
+  pythonImportsCheck = ["pylsqpack"];
 
   meta = with lib; {
     description = "Python wrapper for the ls-qpack QPACK library";
     homepage = "https://github.com/aiortc/pylsqpack";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

@@ -26,7 +26,7 @@ with lib;
 
       auto_add_peers = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "toxid1"
           "toxid2"
@@ -40,15 +40,15 @@ with lib;
     systemd.services.toxvpn = {
       description = "toxvpn daemon";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       preStart = ''
         mkdir -p /run/toxvpn || true
         chown toxvpn /run/toxvpn
       '';
 
-      path = [ pkgs.toxvpn ];
+      path = [pkgs.toxvpn];
 
       script = ''
         exec toxvpn -i ${config.services.toxvpn.localip} -l /run/toxvpn/control -u toxvpn -p ${toString config.services.toxvpn.port} ${
@@ -65,7 +65,7 @@ with lib;
       restartIfChanged = false; # Likely to be used for remote admin
     };
 
-    environment.systemPackages = [ pkgs.toxvpn ];
+    environment.systemPackages = [pkgs.toxvpn];
 
     users.users = {
       toxvpn = {
@@ -75,6 +75,6 @@ with lib;
         createHome = true;
       };
     };
-    users.groups.toxvpn = { };
+    users.groups.toxvpn = {};
   };
 }

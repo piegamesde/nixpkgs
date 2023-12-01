@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     bison
     flex
   ];
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
   QT_PLUGIN_PATH = "${qtbase}/${qtbase.qtPluginPrefix}";
 
   qmakeFlags = [
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     description = "New user interface for spim, a MIPS simulator";
     homepage = "https://spimsimulator.sourceforge.net/";
     license = licenses.bsdOriginal;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.linux;
   };
 }

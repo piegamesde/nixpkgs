@@ -15,13 +15,13 @@ stdenv.mkDerivation rec {
     sha256 = "1q85678sff8is2kwvgd703ckcns42gdga2c1rqlp61gb6bqf09j8";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = {
     description = "A port of the Adapta theme for Plasma";
     homepage = "https://git.io/adapta-kde";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.tadfisher ];
+    maintainers = [lib.maintainers.tadfisher];
     platforms = lib.platforms.all;
   };
 }

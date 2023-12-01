@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
 
   XDG_CACHE_HOME = "Cache"; # FIXME This should be set in stdenv
 
-  nativeBuildInputs = [ zig ];
+  nativeBuildInputs = [zig];
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   PREFIX = placeholder "out";
 

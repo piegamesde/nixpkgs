@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://orgmode.org/";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.swflint ];
+    maintainers = [maintainers.swflint];
   };
 }

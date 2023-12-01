@@ -25,7 +25,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     python-dateutil
     pytz
-  ] ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
+  ] ++ lib.optionals (pythonOlder "3.9") [backports-zoneinfo];
 
   nativeCheckInputs = [
     hypothesis
@@ -37,6 +37,6 @@ buildPythonPackage rec {
     description = "A parser/generator of iCalendar files";
     homepage = "https://github.com/collective/icalendar";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ olcai ];
+    maintainers = with maintainers; [olcai];
   };
 }

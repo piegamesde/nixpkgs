@@ -28,10 +28,10 @@
 
 let
   cmake_args =
-    lib.optionals withGtk3 [ "-DENABLE_GTK3=ON" ]
-    ++ lib.optionals withGtk4 [ "-DENABLE_GTK4=ON" ]
-    ++ lib.optionals withQt5 [ "-DENABLE_QT5=ON" ]
-    ++ lib.optionals withQt6 [ "-DENABLE_QT6=ON" ];
+    lib.optionals withGtk3 ["-DENABLE_GTK3=ON"]
+    ++ lib.optionals withGtk4 ["-DENABLE_GTK4=ON"]
+    ++ lib.optionals withQt5 ["-DENABLE_QT5=ON"]
+    ++ lib.optionals withQt6 ["-DENABLE_QT6=ON"];
 
   optFlag = w: (if w then "1" else "0");
 in
@@ -113,10 +113,10 @@ stdenv.mkDerivation rec {
       xorg.libxcb
       cairo
     ]
-    ++ lib.optionals withGtk3 [ gtk3 ]
-    ++ lib.optionals withGtk4 [ gtk4 ]
-    ++ lib.optionals withQt5 [ qt5.qtbase ]
-    ++ lib.optionals withQt6 [ qt6.qtbase ];
+    ++ lib.optionals withGtk3 [gtk3]
+    ++ lib.optionals withGtk4 [gtk4]
+    ++ lib.optionals withQt5 [qt5.qtbase]
+    ++ lib.optionals withQt6 [qt6.qtbase];
 
   nativeBuildInputs = [
     pkg-config
@@ -137,7 +137,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Riey/kime";
     description = "Korean IME";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.riey ];
+    maintainers = [maintainers.riey];
     platforms = platforms.linux;
   };
 }

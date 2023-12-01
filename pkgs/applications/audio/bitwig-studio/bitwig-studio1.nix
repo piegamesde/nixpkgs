@@ -127,7 +127,7 @@ stdenv.mkDerivation rec {
             zenity
           ]
         }" \
-        --prefix PATH : "${lib.makeBinPath [ xdg-utils ]}" \
+        --prefix PATH : "${lib.makeBinPath [xdg-utils]}" \
         "''${gappsWrapperArgs[@]}" \
         --set LD_PRELOAD "${libxkbcommon.out}/lib/libxkbcommon.so" || true
     done
@@ -142,7 +142,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.bitwig.com/";
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     maintainers = with maintainers; [
       michalrus
       mrVanDalo

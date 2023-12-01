@@ -67,12 +67,12 @@ buildPythonPackage rec {
   # because of the missing dependencies for some of the engines.
   doCheck = false;
 
-  pythonImportsCheck = [ "dragonfly" ];
+  pythonImportsCheck = ["dragonfly"];
 
   meta = with lib; {
     description = "Speech recognition framework allowing powerful Python-based scripting";
     homepage = "https://github.com/dictation-toolbox/dragonfly";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ ckie ];
+    maintainers = with maintainers; [ckie];
   };
 }

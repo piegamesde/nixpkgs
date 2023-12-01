@@ -36,13 +36,13 @@ mkDerivation rec {
     qtimageformats
   ];
 
-  qtWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ aria2 ]}" ];
+  qtWrapperArgs = ["--prefix PATH : ${lib.makeBinPath [aria2]}"];
 
   meta = with lib; {
     description = "An offline reader for Web content";
     homepage = "https://kiwix.org";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ajs124 ];
+    maintainers = with maintainers; [ajs124];
   };
 }

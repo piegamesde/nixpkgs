@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "glsl-symbols";
   version = "glsl-spec-release-quicklisp-f04476f7-git";
 
   description = "Lispy versions of all glsl names as symbols";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/glsl-spec/2019-10-07/glsl-spec-release-quicklisp-f04476f7-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "glsl-symbols";
 
-  asdFilesToKeep = [ "glsl-symbols.asd" ];
+  asdFilesToKeep = ["glsl-symbols.asd"];
   overrides = x: x;
 }
 /* (SYSTEM glsl-symbols DESCRIPTION Lispy versions of all glsl names as symbols

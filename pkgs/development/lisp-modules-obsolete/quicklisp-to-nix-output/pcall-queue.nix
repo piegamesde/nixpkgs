@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "pcall-queue";
   version = "pcall-0.3";
@@ -18,7 +18,7 @@ rec {
 
   packageName = "pcall-queue";
 
-  asdFilesToKeep = [ "pcall-queue.asd" ];
+  asdFilesToKeep = ["pcall-queue.asd"];
   overrides = x: x;
 }
 /* (SYSTEM pcall-queue DESCRIPTION System lacks description SHA256

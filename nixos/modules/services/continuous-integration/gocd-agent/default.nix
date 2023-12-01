@@ -36,7 +36,7 @@ in
 
       extraGroups = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "wheel"
           "docker"
@@ -131,7 +131,7 @@ in
       };
 
       extraOptions = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         example = [
           "-X debug"
@@ -150,7 +150,7 @@ in
       };
 
       environment = mkOption {
-        default = { };
+        default = {};
         type = with types; attrsOf str;
         description = lib.mdDoc ''
           Additional environment variables to be passed to the Go.CD agent process.
@@ -181,13 +181,13 @@ in
 
     systemd.services.gocd-agent = {
       description = "GoCD Agent";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       environment =
         let
           selectedSessionVars =
-            lib.filterAttrs (n: v: builtins.elem n [ "NIX_PATH" ])
+            lib.filterAttrs (n: v: builtins.elem n ["NIX_PATH"])
               config.environment.sessionVariables;
         in
         selectedSessionVars

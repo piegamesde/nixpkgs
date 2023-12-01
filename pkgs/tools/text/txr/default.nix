@@ -16,7 +16,7 @@ stdenv.mkDerivation (
       hash = "sha256-cI1wjxKPivTXwCSuhl6sIuRk68ZBUsOWTjQktGmmP6M=";
     };
 
-    buildInputs = [ libffi ];
+    buildInputs = [libffi];
 
     enableParallelBuilding = true;
 

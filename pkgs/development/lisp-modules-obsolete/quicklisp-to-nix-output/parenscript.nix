@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "parenscript";
   version = "Parenscript-2.7.1";
@@ -19,7 +19,7 @@ rec {
 
   packageName = "parenscript";
 
-  asdFilesToKeep = [ "parenscript.asd" ];
+  asdFilesToKeep = ["parenscript.asd"];
   overrides = x: x;
 }
 /* (SYSTEM parenscript DESCRIPTION Lisp to JavaScript transpiler SHA256

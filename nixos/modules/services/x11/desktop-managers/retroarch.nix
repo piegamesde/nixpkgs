@@ -24,7 +24,7 @@ in
 
     extraArgs = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "--verbose"
         "--host"
@@ -44,8 +44,8 @@ in
       }
     ];
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 
-  meta.maintainers = with maintainers; [ j0hax ];
+  meta.maintainers = with maintainers; [j0hax];
 }

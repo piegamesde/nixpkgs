@@ -51,13 +51,13 @@ buildPythonPackage rec {
       pathspec
       platformdirs
     ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-    ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+    ++ lib.optionals (pythonOlder "3.11") [tomli]
+    ++ lib.optionals (pythonOlder "3.10") [typing-extensions];
 
   passthru.optional-dependencies = {
-    colorama = [ colorama ];
-    d = [ aiohttp ];
-    uvloop = [ uvloop ];
+    colorama = [colorama];
+    d = [aiohttp];
+    uvloop = [uvloop];
     jupyter = [
       ipython
       tokenize-rt

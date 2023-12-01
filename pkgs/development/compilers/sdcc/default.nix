@@ -9,7 +9,7 @@
   texinfo,
   zlib,
   gputils ? null,
-  excludePorts ? [ ],
+  excludePorts ? [],
 }:
 
 let

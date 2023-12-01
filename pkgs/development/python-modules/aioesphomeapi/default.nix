@@ -40,7 +40,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aioesphomeapi" ];
+  pythonImportsCheck = ["aioesphomeapi"];
 
   meta = with lib; {
     description = "Python Client for ESPHome native API";

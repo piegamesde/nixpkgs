@@ -82,7 +82,7 @@ stdenv.mkDerivation {
     ];
 
   # Avoid referencing -dev paths because of debug assertions.
-  env.NIX_CFLAGS_COMPILE = toString [ "-DQT_NO_DEBUG" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-DQT_NO_DEBUG"];
 
   nativeBuildInputs =
     [
@@ -101,7 +101,7 @@ stdenv.mkDerivation {
       wrapGAppsHook
     ];
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   buildInputs =
     [
@@ -138,7 +138,7 @@ stdenv.mkDerivation {
         qttools
       ]
     )
-    ++ lib.optionals (withQt && stdenv.isLinux) [ qt5.qtwayland ]
+    ++ lib.optionals (withQt && stdenv.isLinux) [qt5.qtwayland]
     ++ lib.optionals stdenv.isLinux [
       libcap
       libnl
@@ -149,11 +149,11 @@ stdenv.mkDerivation {
       ApplicationServices
       gmp
     ]
-    ++ lib.optionals (withQt && stdenv.isDarwin) (with qt5; [ qtmacextras ]);
+    ++ lib.optionals (withQt && stdenv.isDarwin) (with qt5; [qtmacextras]);
 
   strictDeps = true;
 
-  patches = [ ./wireshark-lookup-dumpcap-in-path.patch ];
+  patches = [./wireshark-lookup-dumpcap-in-path.patch];
 
   postPatch = ''
     sed -i -e '1i cmake_policy(SET CMP0025 NEW)' CMakeLists.txt

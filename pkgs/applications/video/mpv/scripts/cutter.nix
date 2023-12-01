@@ -19,7 +19,7 @@ stdenvNoCC.mkDerivation {
   dontBuild = true;
   dontCheck = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postPatch = ''
     substituteInPlace cutter.lua \
@@ -47,6 +47,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/rushmj/mpv-video-cutter";
     # repo doesn't have a license
     license = licenses.unfree;
-    maintainers = with maintainers; [ lom ];
+    maintainers = with maintainers; [lom];
   };
 }

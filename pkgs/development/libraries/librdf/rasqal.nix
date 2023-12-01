@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "0z6rrwn4jsagvarg8d5zf0j352kjgi33py39jqd29gbhcnncj939";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     gmp
@@ -27,11 +27,11 @@ stdenv.mkDerivation rec {
     libxml2
   ];
 
-  propagatedBuildInputs = [ librdf_raptor2 ];
+  propagatedBuildInputs = [librdf_raptor2];
 
   postInstall = "rm -rvf $out/share/gtk-doc";
 
-  nativeCheckInputs = [ perl ];
+  nativeCheckInputs = [perl];
   doCheck = false; # fails with "No testsuite plan file sparql-query-plan.ttl could be created in build/..."
   doInstallCheck = false; # fails with "rasqal-config does not support (--help|--version)"
 
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       lgpl21
       asl20
     ];
-    maintainers = with lib.maintainers; [ marcweber ];
+    maintainers = with lib.maintainers; [marcweber];
     platforms = lib.platforms.unix;
   };
 }

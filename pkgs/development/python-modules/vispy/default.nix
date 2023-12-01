@@ -42,7 +42,7 @@ buildPythonPackage rec {
     setuptools-scm-git-archive
   ];
 
-  buildInputs = [ libGL ];
+  buildInputs = [libGL];
 
   propagatedBuildInputs = [
     fontconfig
@@ -72,6 +72,6 @@ buildPythonPackage rec {
     homepage = "https://vispy.org/index.html";
     changelog = "https://github.com/vispy/vispy/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ goertzenator ];
+    maintainers = with maintainers; [goertzenator];
   };
 }

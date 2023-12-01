@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-HcIvHuuzQj4HsRJyn1A9nXiGDGAcz1nqTsC7sROt7OI=";
   };
 
-  buildFeatures = [ "cli" ];
+  buildFeatures = ["cli"];
 
   cargoSha256 = "sha256-BCwpiBPvnLgbpOaXgUK2EDXnT8d4jo7aqgM6uwl80eg=";
 
@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/numToStr/lemmy-help";
     changelog = "https://github.com/numToStr/lemmy-help/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ figsoda ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [figsoda];
   };
 }

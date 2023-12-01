@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
 
     GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
-    makeFlags = [ "deps" ];
+    makeFlags = ["deps"];
 
     installPhase = ''
       for i in deps/*; do

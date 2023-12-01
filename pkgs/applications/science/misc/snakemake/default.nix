@@ -66,7 +66,7 @@ python3.pkgs.buildPythonApplication rec {
     "test_github_issue1460"
   ];
 
-  pythonImportsCheck = [ "snakemake" ];
+  pythonImportsCheck = ["snakemake"];
 
   meta = with lib; {
     homepage = "https://snakemake.github.io";

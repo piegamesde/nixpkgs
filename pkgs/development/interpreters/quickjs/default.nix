@@ -20,10 +20,10 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace "CONFIG_LTO=y" ""
   '';
 
-  makeFlags = [ "prefix=${placeholder "out"}" ];
+  makeFlags = ["prefix=${placeholder "out"}"];
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ texinfo ];
+  nativeBuildInputs = [texinfo];
 
   postBuild = ''
     (cd doc

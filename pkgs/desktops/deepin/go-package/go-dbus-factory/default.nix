@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-6u9Bpoa80j/K1MipncfM378/qmSSMZAlx88jE4hHYBk=";
   };
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     description = "Generate go binding of D-Bus interfaces";

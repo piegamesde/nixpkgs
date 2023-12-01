@@ -70,7 +70,7 @@ let
     let
       metacoq-deps =
         if package == "single" then
-          [ ]
+          []
         else
           map metacoq_ (head (splitList (lib.pred.equal package) packages));
       pkgpath = if package == "single" then "./" else "./${package}";
@@ -135,10 +135,10 @@ let
             meta = {
               homepage = "https://metacoq.github.io/";
               license = licenses.mit;
-              maintainers = with maintainers; [ cohencyril ];
+              maintainers = with maintainers; [cohencyril];
             };
           }
-          // optionalAttrs (package != "single") { passthru = genAttrs packages metacoq_; }
+          // optionalAttrs (package != "single") {passthru = genAttrs packages metacoq_;}
         )).overrideAttrs
           (
             o:

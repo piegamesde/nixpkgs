@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     tcl
     tk
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  ] ++ lib.optionals stdenv.isDarwin [Cocoa];
 
   configureFlags = [
     "--use-findlib"
@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
   ];
   dontAddPrefix = true;
   dontAddStaticConfigureFlags = true;
-  configurePlatforms = [ ];
+  configurePlatforms = [];
 
   buildFlags = [
     "all"
@@ -120,6 +120,6 @@ stdenv.mkDerivation rec {
     homepage = "http://labltk.forge.ocamlcore.org/";
     license = lib.licenses.lgpl21;
     inherit (ocaml.meta) platforms;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

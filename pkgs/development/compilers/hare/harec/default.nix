@@ -17,12 +17,12 @@ stdenv.mkDerivation (
       hash = "sha256-616mPMdy4yHHuwGcq+aDdEOteEiWgufRzreXHGhmHr0=";
     };
 
-    nativeBuildInputs = [ qbe ];
+    nativeBuildInputs = [qbe];
 
-    buildInputs = [ qbe ];
+    buildInputs = [qbe];
 
     # TODO: report upstream
-    hardeningDisable = [ "fortify" ];
+    hardeningDisable = ["fortify"];
 
     strictDeps = true;
 
@@ -32,7 +32,7 @@ stdenv.mkDerivation (
       homepage = "http://harelang.org/";
       description = "Bootstrapping Hare compiler written in C for POSIX systems";
       license = lib.licenses.gpl3Only;
-      maintainers = [ lib.maintainers.AndersonTorres ];
+      maintainers = [lib.maintainers.AndersonTorres];
       # The upstream developers do not like proprietary operating systems; see
       # https://harelang.org/platforms/
       platforms =

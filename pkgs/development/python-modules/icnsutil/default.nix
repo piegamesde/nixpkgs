@@ -27,6 +27,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/relikd/icnsutil";
     description = "Create and extract .icns files.";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.reckenrode ];
+    maintainers = [lib.maintainers.reckenrode];
   };
 }

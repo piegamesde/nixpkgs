@@ -30,7 +30,7 @@ buildPythonPackage rec {
     hypothesis
     docutils
   ];
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   checkPhase = ''
     py.test

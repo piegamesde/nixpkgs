@@ -42,9 +42,9 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  cmakeFlags = [ "-DENABLE_OPENMP=ON" ];
+  cmakeFlags = ["-DENABLE_OPENMP=ON"];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   # Requires files, that are not installed.
   doCheck = false;
@@ -54,6 +54,6 @@ stdenv.mkDerivation rec {
     homepage = "https://pcmsolver.readthedocs.io/en/stable/";
     license = licenses.lgpl3Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

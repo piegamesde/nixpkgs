@@ -16,11 +16,11 @@ stdenv.mkDerivation rec {
     sha256 = "0wffxjlc8svilwmrcg3crddpfrpv35mzzjgchf8ygqsvwbrbb3b7";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  buildInputs = [ popt ];
+  buildInputs = [popt];
 
-  propagatedBuildInputs = [ libiconv ];
+  propagatedBuildInputs = [libiconv];
 
   meta = with lib; {
     homepage = "https://natspec.sourceforge.net/";

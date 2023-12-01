@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     "info"
   ];
 
-  patches = [ ./heimdal-make-missing-headers.patch ];
+  patches = [./heimdal-make-missing-headers.patch];
 
   nativeBuildInputs = [
     autoreconfHook
@@ -50,9 +50,9 @@ stdenv.mkDerivation rec {
     bison
     flex
     texinfo
-  ] ++ (with perlPackages; [ JSON ]);
+  ] ++ (with perlPackages; [JSON]);
   buildInputs =
-    lib.optionals (stdenv.isLinux) [ libcap_ng ]
+    lib.optionals (stdenv.isLinux) [libcap_ng]
     ++ [
       db
       sqlite
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
     "--with-berkeley-db"
     "--with-berkeley-db-include=${db.dev}/include"
     "--with-openldap=${openldap.dev}"
-  ] ++ lib.optionals (stdenv.isLinux) [ "--with-capng" ];
+  ] ++ lib.optionals (stdenv.isLinux) ["--with-capng"];
 
   postUnpack = ''
     sed -i '/^DEFAULT_INCLUDES/ s,$, -I..,' source/cf/Makefile.am.common

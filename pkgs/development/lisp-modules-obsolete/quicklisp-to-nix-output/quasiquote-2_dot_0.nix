@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "quasiquote-2_dot_0";
   version = "20150505-git";
 
-  parasites = [ "quasiquote-2.0-tests" ];
+  parasites = ["quasiquote-2.0-tests"];
 
   description = "Writing macros that write macros. Effortless.";
 
@@ -20,7 +20,7 @@ rec {
 
   packageName = "quasiquote-2.0";
 
-  asdFilesToKeep = [ "quasiquote-2.0.asd" ];
+  asdFilesToKeep = ["quasiquote-2.0.asd"];
   overrides = x: x;
 }
 /* (SYSTEM quasiquote-2.0 DESCRIPTION

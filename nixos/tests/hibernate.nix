@@ -2,12 +2,12 @@
 
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
   systemdStage1 ? false,
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 
 let
   # System configuration of the installed system, which is used for the actual
@@ -23,7 +23,7 @@ let
     documentation.nixos.enable = false;
     boot.loader.grub.device = "/dev/vda";
 
-    systemd.services.backdoor.conflicts = [ "sleep.target" ];
+    systemd.services.backdoor.conflicts = ["sleep.target"];
 
     powerManagement.resumeCommands = "systemctl --no-block restart backdoor.service";
 
@@ -31,7 +31,7 @@ let
       device = "/dev/vda2";
       fsType = "ext3";
     };
-    swapDevices = mkOverride 0 [ { device = "/dev/vda1"; } ];
+    swapDevices = mkOverride 0 [{device = "/dev/vda1";}];
     boot.resumeDevice = mkIf systemdStage1 "/dev/vda1";
     boot.initrd.systemd = mkIf systemdStage1 {
       enable = true;
@@ -41,7 +41,7 @@ let
   installedSystem =
     (import ../lib/eval-config.nix {
       inherit system;
-      modules = [ installedConfig ];
+      modules = [installedConfig];
     }).config.system.build.toplevel;
 in
 makeTest {
@@ -63,7 +63,7 @@ makeTest {
         ];
 
         nix.settings = {
-          substituters = mkForce [ ];
+          substituters = mkForce [];
           hashed-mirrors = null;
           connect-timeout = 1;
         };
@@ -111,7 +111,7 @@ makeTest {
         "mount LABEL=nixos /mnt",
         "mkswap /dev/vda1 -L swap",
         # Install onto /mnt
-        "nix-store --load-db < ${pkgs.closureInfo { rootPaths = [ installedSystem ]; }}/registration",
+        "nix-store --load-db < ${pkgs.closureInfo {rootPaths = [installedSystem];}}/registration",
         "nixos-install --root /mnt --system ${installedSystem} --no-root-passwd --no-channel-copy >&2",
     )
     machine.shutdown()

@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/bpeel/prevodb";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.das-g ];
+    maintainers = [maintainers.das-g];
     platforms = platforms.linux;
   };
 }

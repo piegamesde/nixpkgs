@@ -28,8 +28,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-BabRY9iu5ccEXo5POrWkWaIWAeQU4MVlMK8I+Iju6aQ=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
-  installFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
+  installFlags = ["PREFIX=$(out)"];
 
   buildInputs =
     [
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     // {
       description = "Reference CLI for Tox";
       license = licenses.gpl3Plus;
-      maintainers = with maintainers; [ ehmry ];
+      maintainers = with maintainers; [ehmry];
       platforms = platforms.linux;
     };
 }

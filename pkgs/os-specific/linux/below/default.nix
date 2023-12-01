@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-EoRCmEe9SAySZCm+QhaR4ngik4Arnm4SZjgDM5fSRmk=";
 
   # bpf code compilation
-  hardeningDisable = [ "stackprotector" ];
+  hardeningDisable = ["stackprotector"];
 
   nativeBuildInputs = [
     clang
@@ -41,7 +41,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     platforms = platforms.linux;
-    maintainers = with maintainers; [ globin ];
+    maintainers = with maintainers; [globin];
     description = "A time traveling resource monitor for modern Linux systems";
     license = licenses.asl20;
     homepage = "https://github.com/facebookincubator/below";

@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "1ga7rqmppa8ady665736cx443icscqlgflkqmxd4xbkzypmdj9bk";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   propagatedBuildInputs = [
     cmake
     perl
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.shlomifish.org/open-source/projects/libtap/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     platforms = platforms.unix;
   };
 }

@@ -61,6 +61,6 @@ mkDerivation rec {
       lihop
       maxxk
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Z/brrDrT2J4RAS+pm1xaBqWO7PG6cAVgRpH3G6Nn39E=";
   };
 
-  nativeBuildInputs = [ flex ];
+  nativeBuildInputs = [flex];
 
   buildInputs = [
     libuuid
@@ -38,15 +38,15 @@ stdenv.mkDerivation rec {
     substituteInPlace hwinfo.pc.in --replace "prefix=/usr" "prefix=$out"
   '';
 
-  makeFlags = [ "LIBDIR=/lib" ];
+  makeFlags = ["LIBDIR=/lib"];
 
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   meta = with lib; {
     description = "Hardware detection tool from openSUSE";
     license = licenses.gpl2Only;
     homepage = "https://github.com/openSUSE/hwinfo";
-    maintainers = with maintainers; [ bobvanderlinden ];
+    maintainers = with maintainers; [bobvanderlinden];
     platforms = platforms.linux;
   };
 }

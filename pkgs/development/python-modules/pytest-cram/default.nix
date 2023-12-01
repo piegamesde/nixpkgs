@@ -11,8 +11,8 @@ buildPythonPackage rec {
   version = "0.2.2";
   pname = "pytest-cram";
 
-  nativeCheckInputs = [ pytest ];
-  propagatedBuildInputs = [ cram ];
+  nativeCheckInputs = [pytest];
+  propagatedBuildInputs = [cram];
 
   src = fetchPypi {
     inherit pname version;
@@ -36,6 +36,6 @@ buildPythonPackage rec {
     description = "Test command-line applications with pytest and cram";
     homepage = "https://github.com/tbekolay/pytest-cram";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jluttine ];
+    maintainers = with lib.maintainers; [jluttine];
   };
 }

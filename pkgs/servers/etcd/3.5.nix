@@ -51,7 +51,7 @@ let
     # git is unavailable. This is to avoid doing a full Git Checkout of etcd.
     # User facing version numbers are still available in the binary, just not
     # the sha it was built from.
-    ldflags = [ "-X go.etcd.io/etcd/api/v3/version.GitSHA=GitNotFound" ];
+    ldflags = ["-X go.etcd.io/etcd/api/v3/version.GitSHA=GitNotFound"];
   };
 
   etcdutl = buildGoModule rec {

@@ -14,12 +14,12 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-AqE3lAcqWq5CGsgwm8jLa1wX93deFC4mKn+oaVhO508=";
   };
 
-  pythonImportsCheck = [ "pypi_mirror" ];
+  pythonImportsCheck = ["pypi_mirror"];
 
   meta = with lib; {
     description = "A script to create a partial PyPI mirror";
     homepage = "https://github.com/montag451/pypi-mirror";
     license = licenses.mit;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

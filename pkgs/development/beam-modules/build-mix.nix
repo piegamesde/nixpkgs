@@ -11,13 +11,13 @@
   name,
   version,
   src,
-  buildInputs ? [ ],
-  nativeBuildInputs ? [ ],
-  beamDeps ? [ ],
-  propagatedBuildInputs ? [ ],
+  buildInputs ? [],
+  nativeBuildInputs ? [],
+  beamDeps ? [],
+  propagatedBuildInputs ? [],
   postPatch ? "",
   compilePorts ? false,
-  meta ? { },
+  meta ? {},
   enableDebugInfo ? false,
   mixEnv ? "prod",
   ...
@@ -28,7 +28,7 @@ let
     drv:
     stdenv.mkDerivation {
       name = "interactive-shell-${drv.name}";
-      buildInputs = [ drv ];
+      buildInputs = [drv];
     };
 
   pkg =
@@ -50,7 +50,7 @@ let
           addToSearchPath ERL_LIBS "$1/lib/erlang/lib"
         '';
 
-        buildInputs = buildInputs ++ [ ];
+        buildInputs = buildInputs ++ [];
         nativeBuildInputs = nativeBuildInputs ++ [
           elixir
           hex

@@ -21,7 +21,7 @@ buildGoModule rec {
   vendorHash = "sha256-jvl4dAP0EOl9p/3LPNLUqzg8H/mP7AKaI+lJ6ROo/1k=";
 
   # Do not build testing suit
-  excludedPackages = [ "./test" ];
+  excludedPackages = ["./test"];
 
   ldflags = [
     "-s"
@@ -29,7 +29,7 @@ buildGoModule rec {
     "-X github.com/Dreamacro/clash/constant.Version=${version}"
   ];
 
-  tags = [ "with_gvisor" ];
+  tags = ["with_gvisor"];
 
   # network required
   doCheck = false;
@@ -42,6 +42,6 @@ buildGoModule rec {
     description = "Another Clash Kernel";
     homepage = "https://github.com/MetaCubeX/Clash.Meta";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ oluceps ];
+    maintainers = with maintainers; [oluceps];
   };
 }

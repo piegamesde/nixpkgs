@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     "DATA_ROOT_DIR_PURPLE=${placeholder "out"}/share"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     pidgin
     glib
@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     description = "Plugin for Pidgin 2.x which implements Steam Friends/Steam IM compatibility";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ arobyn ];
+    maintainers = with maintainers; [arobyn];
   };
 }

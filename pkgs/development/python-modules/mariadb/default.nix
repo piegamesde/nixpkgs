@@ -18,17 +18,17 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  nativeBuildInputs = [ libmysqlclient ];
+  nativeBuildInputs = [libmysqlclient];
 
   # Requires a running MariaDB instance
   doCheck = false;
 
-  pythonImportsCheck = [ "mariadb" ];
+  pythonImportsCheck = ["mariadb"];
 
   meta = with lib; {
     description = "MariaDB Connector/Python";
     homepage = "https://github.com/mariadb-corporation/mariadb-connector-python";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ vanilla ];
+    maintainers = with maintainers; [vanilla];
   };
 }

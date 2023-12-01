@@ -56,23 +56,23 @@ lib.makeScope pkgs.newScope (
             gimp
             gimp.gtk
             glib
-          ] ++ (attrs.buildInputs or [ ]);
+          ] ++ (attrs.buildInputs or []);
 
           nativeBuildInputs = [
             pkg-config
             intltool
-          ] ++ (attrs.nativeBuildInputs or [ ]);
+          ] ++ (attrs.nativeBuildInputs or []);
 
           # Override installation paths.
           env = {
             PKG_CONFIG_GIMP_2_0_GIMPLIBDIR = "${placeholder "out"}/${gimp.targetLibDir}";
             PKG_CONFIG_GIMP_2_0_GIMPDATADIR = "${placeholder "out"}/${gimp.targetDataDir}";
-          } // attrs.env or { };
+          } // attrs.env or {};
         }
       );
 
     scriptDerivation =
-      { src, ... }@attrs:
+      {src, ...}@attrs:
       pluginDerivation (
         {
           prePhases = "extraLib";
@@ -114,17 +114,17 @@ lib.makeScope pkgs.newScope (
           })
         ];
 
-      nativeBuildInputs = with pkgs; [ which ];
+      nativeBuildInputs = with pkgs; [which];
 
-      installFlags = [ "SYSTEM_INSTALL_DIR=${placeholder "out"}/${gimp.targetPluginDir}/bimp" ];
+      installFlags = ["SYSTEM_INSTALL_DIR=${placeholder "out"}/${gimp.targetPluginDir}/bimp"];
 
-      installTargets = [ "install-admin" ];
+      installTargets = ["install-admin"];
 
       meta = with lib; {
         description = "Batch Image Manipulation Plugin for GIMP";
         homepage = "https://github.com/alessandrofrancesconi/gimp-plugin-bimp";
         license = licenses.gpl2Plus;
-        maintainers = with maintainers; [ ];
+        maintainers = with maintainers; [];
       };
     };
 
@@ -140,7 +140,7 @@ lib.makeScope pkgs.newScope (
         sha256 = "1jic7ixcmsn4kx2cn32nc5087rk6g8xsrz022xy11yfmgvhzb0ql";
       };
 
-      hardeningDisable = [ "format" ];
+      hardeningDisable = ["format"];
 
       env = {
         NIX_LDFLAGS = "-lm";
@@ -177,7 +177,7 @@ lib.makeScope pkgs.newScope (
         description = "Gimp plug-in for the farbfeld image format";
         homepage = "https://github.com/ids1024/gimp-farbfeld";
         license = lib.licenses.mit;
-        maintainers = with lib.maintainers; [ sikmir ];
+        maintainers = with lib.maintainers; [sikmir];
       };
     };
 
@@ -194,7 +194,7 @@ lib.makeScope pkgs.newScope (
         sha256 = "0mf7f8vaqs2madx832x3kcxw3hv3w3wampvzvaps1mkf2kvrjbsn";
       };
 
-      buildInputs = with pkgs; [ fftw ];
+      buildInputs = with pkgs; [fftw];
 
       postPatch = ''
         substituteInPlace Makefile --replace '$(GCC)' '$(CC)'
@@ -214,7 +214,7 @@ lib.makeScope pkgs.newScope (
       meta = with lib; {
         description = "GIMP plug-in to do the fourier transform";
         homepage = "https://people.via.ecp.fr/~remi/soft/gimp/gimp_plugin_en.php3#fourier";
-        license = with licenses; [ gpl3Plus ];
+        license = with licenses; [gpl3Plus];
       };
     };
 
@@ -230,9 +230,9 @@ lib.makeScope pkgs.newScope (
       */
       pname = "resynthesizer";
       version = "2.0.3";
-      buildInputs = with pkgs; [ fftw ];
-      nativeBuildInputs = with pkgs; [ autoreconfHook ];
-      makeFlags = [ "GIMP_LIBDIR=${placeholder "out"}/${gimp.targetLibDir}" ];
+      buildInputs = with pkgs; [fftw];
+      nativeBuildInputs = with pkgs; [autoreconfHook];
+      makeFlags = ["GIMP_LIBDIR=${placeholder "out"}/${gimp.targetLibDir}"];
       src = fetchFromGitHub {
         owner = "bootchk";
         repo = "resynthesizer";
@@ -290,7 +290,7 @@ lib.makeScope pkgs.newScope (
       */
       pname = "lqr-plugin";
       version = "0.7.2";
-      buildInputs = with pkgs; [ liblqr1 ];
+      buildInputs = with pkgs; [liblqr1];
       src = fetchFromGitHub {
         owner = "carlobaldassi";
         repo = "gimp-lqr-plugin";
@@ -309,7 +309,7 @@ lib.makeScope pkgs.newScope (
         ];
     };
 
-    gmic = pkgs.gmic-qt.override { variant = "gimp"; };
+    gmic = pkgs.gmic-qt.override {variant = "gimp";};
 
     gimplensfun = pluginDerivation rec {
       version = "unstable-2018-10-21";
@@ -335,7 +335,7 @@ lib.makeScope pkgs.newScope (
         homepage = "http://lensfun.sebastiankraft.net/";
 
         license = lib.licenses.gpl3Plus;
-        maintainers = [ ];
+        maintainers = [];
         platforms = lib.platforms.gnu ++ lib.platforms.linux;
       };
     };

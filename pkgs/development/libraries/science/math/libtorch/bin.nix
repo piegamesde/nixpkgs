@@ -33,9 +33,9 @@ stdenv.mkDerivation {
 
   nativeBuildInputs =
     if stdenv.isDarwin then
-      [ fixDarwinDylibNames ]
+      [fixDarwinDylibNames]
     else
-      [ patchelf ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
+      [patchelf] ++ lib.optionals cudaSupport [addOpenGLRunpath];
 
   dontBuild = true;
   dontConfigure = true;
@@ -63,7 +63,7 @@ stdenv.mkDerivation {
 
   postFixup =
     let
-      rpath = lib.makeLibraryPath [ stdenv.cc.cc.lib ];
+      rpath = lib.makeLibraryPath [stdenv.cc.cc.lib];
     in
     lib.optionalString stdenv.isLinux ''
       find $out/lib -type f \( -name '*.so' -or -name '*.so.*' \) | while read lib; do
@@ -97,17 +97,17 @@ stdenv.mkDerivation {
     "dev"
   ];
 
-  passthru.tests.cmake = callPackage ./test { inherit cudaSupport; };
+  passthru.tests.cmake = callPackage ./test {inherit cudaSupport;};
 
   meta = with lib; {
     description = "C++ API of the PyTorch machine learning framework";
     homepage = "https://pytorch.org/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     # Includes CUDA and Intel MKL, but redistributions of the binary are not limited.
     # https://docs.nvidia.com/cuda/eula/index.html
     # https://www.intel.com/content/www/us/en/developer/articles/license/onemkl-license-faq.html
     license = licenses.bsd3;
-    maintainers = with maintainers; [ junjihashimoto ];
+    maintainers = with maintainers; [junjihashimoto];
     platforms = platforms.unix;
   };
 }

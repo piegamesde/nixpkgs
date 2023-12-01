@@ -20,7 +20,7 @@ buildPythonApplication rec {
     hash = "sha256-ZnRDGgJu78KoSHvznYhBNEDJihUm9rUdlb5tXmcpuTc=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -31,17 +31,17 @@ buildPythonApplication rec {
   ];
 
   preFixup = ''
-    makeWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ ffmpeg ]})
+    makeWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ffmpeg]})
   '';
 
-  pythonImportsCheck = [ "yutto" ];
+  pythonImportsCheck = ["yutto"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "A Bilibili downloader";
     homepage = "https://github.com/yutto-dev/yutto";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ linsui ];
+    maintainers = with maintainers; [linsui];
   };
 }

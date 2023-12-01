@@ -1,4 +1,4 @@
-{ callPackage }:
+{callPackage}:
 
 let
   common = opts: callPackage (import ./common.nix opts);
@@ -11,7 +11,7 @@ in
         x64sha256 = "fehiw40ZNnQUEXEQMo3e11SscJ/tVMjMXLBzfIlMBzw=";
         aarch64sha256 = "4zpNHVEHO98vHcWTbqmwlrB4+HIwoQojeQvq7nAqSpM=";
       }
-      { };
+      {};
 
   sublime4-dev =
     common
@@ -21,5 +21,5 @@ in
         x64sha256 = "heP37UBUNula8RV82tSXwKAYwi2DNubHASD2FcLRkjs=";
         aarch64sha256 = "u1KUI+st/+T9tNVh+u9+5ZSQIj26YyXGtQRrjB+paOQ=";
       }
-      { };
+      {};
 }

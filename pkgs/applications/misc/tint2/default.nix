@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     libstartup_notification
   ];
 
-  cmakeFlags = [ "-Ddocdir=share/doc/${pname}" ];
+  cmakeFlags = ["-Ddocdir=share/doc/${pname}"];
 
   postPatch = ''
     for f in ./src/launcher/apps-common.c \
@@ -76,6 +76,6 @@ stdenv.mkDerivation rec {
     description = "Simple panel/taskbar unintrusive and light (memory, cpu, aestetic)";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

@@ -19,12 +19,12 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = {
     homepage = "https://decred.org";
     description = "A secure Decred wallet daemon written in Go (golang)";
-    license = with lib.licenses; [ isc ];
-    maintainers = with lib.maintainers; [ juaningan ];
+    license = with lib.licenses; [isc];
+    maintainers = with lib.maintainers; [juaningan];
   };
 }

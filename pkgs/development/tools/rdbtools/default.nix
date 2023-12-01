@@ -1,4 +1,4 @@
-{ lib, python }:
+{lib, python}:
 
 with python.pkgs;
 
@@ -23,6 +23,6 @@ buildPythonApplication rec {
     description = "Parse Redis dump.rdb files, Analyze Memory, and Export Data to JSON";
     homepage = "https://github.com/sripathikrishnan/redis-rdb-tools";
     license = licenses.mit;
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
   };
 }

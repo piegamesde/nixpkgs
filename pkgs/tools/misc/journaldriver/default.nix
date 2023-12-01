@@ -25,13 +25,13 @@ rustPlatform.buildRustPackage rec {
     openssl
     systemd
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     description = "Log forwarder from journald to Stackdriver Logging";
     homepage = "https://code.tvl.fyi/about/ops/journaldriver";
     license = licenses.gpl3;
-    maintainers = [ maintainers.tazjin ];
+    maintainers = [maintainers.tazjin];
     platforms = platforms.linux;
   };
 }

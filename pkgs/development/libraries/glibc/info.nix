@@ -4,12 +4,12 @@
   perl,
 }:
 
-callPackage ./common.nix { } {
+callPackage ./common.nix {} {
   pname = "glibc-info";
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
-  configureFlags = [ "--enable-add-ons" ];
+  configureFlags = ["--enable-add-ons"];
 
   extraNativeBuildInputs = [
     texinfo

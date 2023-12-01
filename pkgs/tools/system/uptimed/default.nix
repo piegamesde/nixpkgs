@@ -16,8 +16,8 @@ stdenv.mkDerivation rec {
     owner = "rpodgorny";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  patches = [ ./no-var-spool-install.patch ];
+  nativeBuildInputs = [autoreconfHook];
+  patches = [./no-var-spool-install.patch];
 
   postPatch = ''
     substituteInPlace libuptimed/urec.h \
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
       gpl2Only
       lgpl21Plus
     ];
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

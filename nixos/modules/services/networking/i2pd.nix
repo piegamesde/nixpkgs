@@ -20,9 +20,9 @@ let
   optionalNullString = o: s: optional (s != null) (strOpt o s);
   optionalNullBool = o: b: optional (b != null) (boolOpt o b);
   optionalNullInt = o: i: optional (i != null) (intOpt o i);
-  optionalEmptyList = o: l: optional ([ ] != l) (lstOpt o l);
+  optionalEmptyList = o: l: optional ([] != l) (lstOpt o l);
 
-  mkEnableTrueOption = name: mkEnableOption (lib.mdDoc name) // { default = true; };
+  mkEnableTrueOption = name: mkEnableOption (lib.mdDoc name) // {default = true;};
 
   mkEndpointOpt = name: addr: port: {
     enable = mkEnableOption (lib.mdDoc name);
@@ -195,16 +195,16 @@ let
                 (strOpt "address" proto.address)
                 (intOpt "port" proto.port)
               ]
-              ++ (if proto ? keys then optionalNullString "keys" proto.keys else [ ])
-              ++ (if proto ? auth then optionalNullBool "auth" proto.auth else [ ])
-              ++ (if proto ? user then optionalNullString "user" proto.user else [ ])
-              ++ (if proto ? pass then optionalNullString "pass" proto.pass else [ ])
-              ++ (if proto ? strictHeaders then optionalNullBool "strictheaders" proto.strictHeaders else [ ])
-              ++ (if proto ? hostname then optionalNullString "hostname" proto.hostname else [ ])
-              ++ (if proto ? outproxy then optionalNullString "outproxy" proto.outproxy else [ ])
-              ++ (if proto ? outproxyPort then optionalNullInt "outproxyport" proto.outproxyPort else [ ])
+              ++ (if proto ? keys then optionalNullString "keys" proto.keys else [])
+              ++ (if proto ? auth then optionalNullBool "auth" proto.auth else [])
+              ++ (if proto ? user then optionalNullString "user" proto.user else [])
+              ++ (if proto ? pass then optionalNullString "pass" proto.pass else [])
+              ++ (if proto ? strictHeaders then optionalNullBool "strictheaders" proto.strictHeaders else [])
+              ++ (if proto ? hostname then optionalNullString "hostname" proto.hostname else [])
+              ++ (if proto ? outproxy then optionalNullString "outproxy" proto.outproxy else [])
+              ++ (if proto ? outproxyPort then optionalNullInt "outproxyport" proto.outproxyPort else [])
               ++ (
-                if proto ? outproxyEnable then optionalNullBool "outproxy.enabled" proto.outproxyEnable else [ ]
+                if proto ? outproxyEnable then optionalNullBool "outproxy.enabled" proto.outproxyEnable else []
               );
           in
           (concatStringsSep "\n" protoOpts)
@@ -226,17 +226,17 @@ let
                 (intOpt "port" tun.port)
                 (strOpt "destination" tun.destination)
               ]
-              ++ (if tun ? destinationPort then optionalNullInt "destinationport" tun.destinationPort else [ ])
-              ++ (if tun ? keys then optionalNullString "keys" tun.keys else [ ])
-              ++ (if tun ? address then optionalNullString "address" tun.address else [ ])
-              ++ (if tun ? inbound.length then optionalNullInt "inbound.length" tun.inbound.length else [ ])
-              ++ (if tun ? inbound.quantity then optionalNullInt "inbound.quantity" tun.inbound.quantity else [ ])
-              ++ (if tun ? outbound.length then optionalNullInt "outbound.length" tun.outbound.length else [ ])
+              ++ (if tun ? destinationPort then optionalNullInt "destinationport" tun.destinationPort else [])
+              ++ (if tun ? keys then optionalNullString "keys" tun.keys else [])
+              ++ (if tun ? address then optionalNullString "address" tun.address else [])
+              ++ (if tun ? inbound.length then optionalNullInt "inbound.length" tun.inbound.length else [])
+              ++ (if tun ? inbound.quantity then optionalNullInt "inbound.quantity" tun.inbound.quantity else [])
+              ++ (if tun ? outbound.length then optionalNullInt "outbound.length" tun.outbound.length else [])
               ++ (
-                if tun ? outbound.quantity then optionalNullInt "outbound.quantity" tun.outbound.quantity else [ ]
+                if tun ? outbound.quantity then optionalNullInt "outbound.quantity" tun.outbound.quantity else []
               )
               ++ (
-                if tun ? crypto.tagsToSend then optionalNullInt "crypto.tagstosend" tun.crypto.tagsToSend else [ ]
+                if tun ? crypto.tagsToSend then optionalNullInt "crypto.tagstosend" tun.crypto.tagsToSend else []
               );
           in
           concatStringsSep "\n" outTunOpts
@@ -251,10 +251,10 @@ let
                 (intOpt "port" tun.port)
                 (strOpt "host" tun.address)
               ]
-              ++ (if tun ? destination then optionalNullString "destination" tun.destination else [ ])
-              ++ (if tun ? keys then optionalNullString "keys" tun.keys else [ ])
-              ++ (if tun ? inPort then optionalNullInt "inport" tun.inPort else [ ])
-              ++ (if tun ? accessList then optionalEmptyList "accesslist" tun.accessList else [ ]);
+              ++ (if tun ? destination then optionalNullString "destination" tun.destination else [])
+              ++ (if tun ? keys then optionalNullString "keys" tun.keys else [])
+              ++ (if tun ? inPort then optionalNullInt "inport" tun.inPort else [])
+              ++ (if tun ? accessList then optionalEmptyList "accesslist" tun.accessList else []);
           in
           concatStringsSep "\n" inTunOpts
         ))
@@ -471,7 +471,7 @@ in
 
       reseed.urls = mkOption {
         type = with types; listOf str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Reseed URLs.
         '';
@@ -532,7 +532,7 @@ in
 
       trust.routers = mkOption {
         type = with types; listOf str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Only connect to the listed routers.
         '';
@@ -678,12 +678,12 @@ in
       proto.i2pControl = mkEndpointOpt "i2pcontrol" "127.0.0.1" 7650;
 
       outTunnels = mkOption {
-        default = { };
+        default = {};
         type =
           with types;
           attrsOf (
             submodule (
-              { name, ... }:
+              {name, ...}:
               {
                 options = {
                   destinationPort = mkOption {
@@ -704,12 +704,12 @@ in
       };
 
       inTunnels = mkOption {
-        default = { };
+        default = {};
         type =
           with types;
           attrsOf (
             submodule (
-              { name, ... }:
+              {name, ...}:
               {
                 options = {
                   inPort = mkOption {
@@ -719,7 +719,7 @@ in
                   };
                   accessList = mkOption {
                     type = with types; listOf str;
-                    default = [ ];
+                    default = [];
                     description = lib.mdDoc "I2P nodes that are allowed to connect to this service.";
                   };
                 } // commonTunOpts name;
@@ -752,8 +752,8 @@ in
 
     systemd.services.i2pd = {
       description = "Minimal I2P router";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         User = "i2pd";
         WorkingDirectory = homeDir;

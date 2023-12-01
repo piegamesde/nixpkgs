@@ -28,16 +28,16 @@ buildPythonPackage rec {
     scikit-build-core
   ] ++ scikit-build-core.optional-dependencies.pyproject;
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   dontUseCmakeConfigure = true;
 
-  pythonImportsCheck = [ "awkward_cpp" ];
+  pythonImportsCheck = ["awkward_cpp"];
 
   meta = with lib; {
     description = "CPU kernels and compiled extensions for Awkward Array";
     homepage = "https://github.com/scikit-hep/awkward";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

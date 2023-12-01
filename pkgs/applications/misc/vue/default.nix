@@ -26,9 +26,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Visual Understanding Environment - mind mapping software";
-    maintainers = with lib.maintainers; [ raskin ];
+    maintainers = with lib.maintainers; [raskin];
     platforms = with lib.platforms; linux;
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.free; # Apache License fork, actually
   };
 }

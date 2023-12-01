@@ -53,13 +53,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "locationsharinglib" ];
+  pythonImportsCheck = ["locationsharinglib"];
 
   meta = with lib; {
     description = "Python package to retrieve coordinates from a Google account";
     homepage = "https://locationsharinglib.readthedocs.io/";
     changelog = "https://github.com/costastf/locationsharinglib/blob/${version}/HISTORY.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

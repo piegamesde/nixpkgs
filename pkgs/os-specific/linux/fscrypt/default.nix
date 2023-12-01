@@ -30,8 +30,8 @@ buildGoModule rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [ gnum4 ];
-  buildInputs = [ pam ];
+  nativeBuildInputs = [gnum4];
+  buildInputs = [pam];
 
   buildPhase = ''
     runHook preBuild
@@ -56,6 +56,6 @@ buildGoModule rec {
     changelog = "https://github.com/google/fscrypt/releases/tag/v${version}";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
   };
 }

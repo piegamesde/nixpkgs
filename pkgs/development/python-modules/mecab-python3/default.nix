@@ -26,11 +26,11 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [ mecab ];
+  buildInputs = [mecab];
 
   doCheck = false;
 
-  pythonImportsCheck = [ "MeCab" ];
+  pythonImportsCheck = ["MeCab"];
 
   meta = with lib; {
     description = "A python wrapper for mecab: Morphological Analysis engine";
@@ -41,6 +41,6 @@ buildPythonPackage rec {
       lgpl21
       bsd3
     ]; # any of the three
-    maintainers = with maintainers; [ ixxie ];
+    maintainers = with maintainers; [ixxie];
   };
 }

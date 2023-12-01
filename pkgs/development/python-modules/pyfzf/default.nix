@@ -20,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-w+ZjQGFd/lR2TiTHc2uQSJXORmzJJZXsr9BO4PIw/Co=";
   };
 
-  propagatedBuildInputs = [ fzf ];
+  propagatedBuildInputs = [fzf];
 
-  pythonImportsCheck = [ "pyfzf" ];
+  pythonImportsCheck = ["pyfzf"];
 
   # Module has no tests
   doCheck = false;
@@ -31,6 +31,6 @@ buildPythonPackage rec {
     description = "Wrapper for fzf";
     homepage = "https://github.com/nk412/pyfzf";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

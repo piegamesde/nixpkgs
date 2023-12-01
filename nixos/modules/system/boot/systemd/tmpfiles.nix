@@ -16,8 +16,8 @@ in
   options = {
     systemd.tmpfiles.rules = mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "d /tmp 1777 root root 10d" ];
+      default = [];
+      example = ["d /tmp 1777 root root 10d"];
       description = lib.mdDoc ''
         Rules for creation, deletion and cleaning of volatile and temporary files
         automatically. See
@@ -28,7 +28,7 @@ in
 
     systemd.tmpfiles.packages = mkOption {
       type = types.listOf types.package;
-      default = [ ];
+      default = [];
       example = literalExpression "[ pkgs.lvm2 ]";
       apply = map getLib;
       description = lib.mdDoc ''
@@ -89,7 +89,7 @@ in
 
     systemd.tmpfiles.packages = [
       # Default tmpfiles rules provided by systemd
-      (pkgs.runCommand "systemd-default-tmpfiles" { } ''
+      (pkgs.runCommand "systemd-default-tmpfiles" {} ''
         mkdir -p $out/lib/tmpfiles.d
         cd $out/lib/tmpfiles.d
 

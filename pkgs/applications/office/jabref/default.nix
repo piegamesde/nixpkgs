@@ -42,11 +42,11 @@ stdenv.mkDerivation rec {
       name = "JabRef %U";
       desktopName = "JabRef";
       genericName = "Bibliography manager";
-      categories = [ "Office" ];
+      categories = ["Office"];
       icon = "jabref";
       exec = "JabRef";
       startupWMClass = "org.jabref.gui.JabRefMain";
-      mimeTypes = [ "text/x-bibtex" ];
+      mimeTypes = ["text/x-bibtex"];
     })
   ];
 
@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
         $out/com/tobiasdiez/easybind/${versionReplace.easybind.snapshot}
     '';
     # Don't move info to share/
-    forceShare = [ "dummy" ];
+    forceShare = ["dummy"];
     outputHashMode = "recursive";
     outputHash = "sha256-s6GA8iT3UEVuELBgpBvzPJlVX+9DpfOQrEd3KIth8eA=";
   };
@@ -105,7 +105,7 @@ stdenv.mkDerivation rec {
     unzip
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   buildPhase = ''
     runHook preBuild
@@ -152,7 +152,7 @@ stdenv.mkDerivation rec {
 
     makeWrapper ${jdk}/bin/java $out/bin/JabRef \
       "''${gappsWrapperArgs[@]}" \
-      --suffix PATH : ${lib.makeBinPath [ xdg-utils ]} \
+      --suffix PATH : ${lib.makeBinPath [xdg-utils]} \
       --add-flags "-Djava.library.path=$out/lib/ --patch-module org.jabref=$out/share/java/jabref/resources/main" \
       --add-flags "$DEFAULT_JVM_OPTS"
 

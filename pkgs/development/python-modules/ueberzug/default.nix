@@ -38,12 +38,12 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [ "ueberzug" ];
+  pythonImportsCheck = ["ueberzug"];
 
   meta = with lib; {
     homepage = "https://github.com/seebye/ueberzug";
     description = "An alternative for w3mimgdisplay";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ Br1ght0ne ];
+    maintainers = with maintainers; [Br1ght0ne];
   };
 }

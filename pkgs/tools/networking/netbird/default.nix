@@ -22,7 +22,7 @@
 let
   modules =
     if ui then
-      { "client/ui" = "netbird-ui"; }
+      {"client/ui" = "netbird-ui";}
     else
       {
         client = "netbird";
@@ -43,7 +43,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-lag/usfAvpZhWeVe1wB3SJJsTCLcBeh04RvkE803OqQ=";
 
-  nativeBuildInputs = [ installShellFiles ] ++ lib.optional ui pkg-config;
+  nativeBuildInputs = [installShellFiles] ++ lib.optional ui pkg-config;
 
   buildInputs =
     lib.optionals (stdenv.isLinux && ui) [
@@ -111,7 +111,7 @@ buildGoModule rec {
 
   passthru = {
     tests.netbird = nixosTests.netbird;
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -119,6 +119,6 @@ buildGoModule rec {
     changelog = "https://github.com/netbirdio/netbird/releases/tag/v${version}";
     description = "Connect your devices into a single secure private WireGuard®-based mesh network with SSO/MFA and simple access controls";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ misuzu ];
+    maintainers = with maintainers; [misuzu];
   };
 }

@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-I${libxml2.dev}/include/libxml2 -std=c++98 -Wno-error";
 
   # The breakpad fails to build on x86_64, and it's only to report bugs upstream
-  cmakeFlags = [ "-DBREAKPAD=0" ];
+  cmakeFlags = ["-DBREAKPAD=0"];
 
   preConfigure = ''
     cmakeFlags="$cmakeFlags -DSYSTEM_DATA_DIR=$out/share"

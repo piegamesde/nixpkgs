@@ -53,7 +53,7 @@ let
         hash = "sha256-A4KR11brfQbR56dGt371MRwMN/H6HFAU8TlFC97/bRs=";
         fetchSubmodules = true; # Needed for the DirectX headers and libdisplay-info
       };
-      patches = [ ];
+      patches = [];
     };
   };
 
@@ -70,7 +70,7 @@ stdenv.mkDerivation {
     ninja
   ];
   buildInputs =
-    lib.optionals isWindows [ windows.pthreads ]
+    lib.optionals isWindows [windows.pthreads]
     ++ lib.optionals isDxvk2 (
       [
         spirv-headers
@@ -113,7 +113,7 @@ stdenv.mkDerivation {
     description = "A Vulkan-based translation layer for Direct3D 9/10/11";
     homepage = "https://github.com/doitsujin/dxvk";
     changelog = "https://github.com/doitsujin/dxvk/releases";
-    maintainers = [ lib.maintainers.reckenrode ];
+    maintainers = [lib.maintainers.reckenrode];
     license = lib.licenses.zlib;
     platforms = lib.platforms.windows ++ lib.optionals isDxvk2 lib.platforms.linux;
   };

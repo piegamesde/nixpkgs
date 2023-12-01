@@ -37,7 +37,7 @@ python3.pkgs.buildPythonApplication rec {
     bitstring
   ];
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [pytestCheckHook];
 
   disabledTests = [
     "test_process"
@@ -45,7 +45,7 @@ python3.pkgs.buildPythonApplication rec {
     "test_server"
   ];
 
-  pythonImportsCheck = [ "cantoolz" ];
+  pythonImportsCheck = ["cantoolz"];
 
   meta = with lib; {
     description = "Black-box CAN network analysis framework";
@@ -60,7 +60,7 @@ python3.pkgs.buildPythonApplication rec {
       implemented with a new module.
     '';
     homepage = "https://github.com/CANToolz/CANToolz";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

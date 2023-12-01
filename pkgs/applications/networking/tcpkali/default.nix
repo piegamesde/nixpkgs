@@ -22,13 +22,13 @@ stdenv.mkDerivation rec {
   postPatch = ''
     sed -ie '/sys\/sysctl\.h/d' src/tcpkali_syslimits.c
   '';
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ bison ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [bison];
   meta = {
     description = "High performance TCP and WebSocket load generator and sink";
     license = lib.licenses.bsd2;
     inherit (src.meta) homepage;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ ethercrow ];
+    maintainers = with lib.maintainers; [ethercrow];
   };
 }

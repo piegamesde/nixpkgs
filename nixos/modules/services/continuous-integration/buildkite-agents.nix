@@ -24,7 +24,7 @@ let
           description = lib.mdDoc description;
           type = types.nullOr types.lines;
         }
-        // (if example == null then { } else { inherit example; });
+        // (if example == null then {} else {inherit example;});
     };
   mkHookOptions = hooks: listToAttrs (map mkHookOption hooks);
 
@@ -40,7 +40,7 @@ let
         chmod 755 $out/${name}
       '';
     in
-    pkgs.runCommand "buildkite-agent-hooks" { preferLocalBuild = true; } ''
+    pkgs.runCommand "buildkite-agent-hooks" {preferLocalBuild = true;} ''
       mkdir $out
       ${concatStringsSep "\n" (mapAttrsToList mkHookEntry (filterAttrs (n: v: v != null) cfg.hooks))}
     '';
@@ -105,7 +105,7 @@ let
 
         tags = mkOption {
           type = types.attrsOf (types.either types.str (types.listOf types.str));
-          default = { };
+          default = {};
           example = {
             queue = "default";
             docker = "true";
@@ -244,7 +244,7 @@ in
 {
   options.services.buildkite-agents = mkOption {
     type = types.attrsOf (types.submodule buildkiteOptions);
-    default = { };
+    default = {};
     description = lib.mdDoc ''
       Attribute set of buildkite agents.
       The attribute key is combined with the hostname and a unique integer to
@@ -260,20 +260,20 @@ in
         home = cfg.dataDir;
         createHome = true;
         description = "Buildkite agent user";
-        extraGroups = [ "keys" ];
+        extraGroups = ["keys"];
         isSystemUser = true;
         group = "buildkite-agent-${name}";
       };
     }
   );
-  config.users.groups = mapAgents (name: cfg: { "buildkite-agent-${name}" = { }; });
+  config.users.groups = mapAgents (name: cfg: {"buildkite-agent-${name}" = {};});
 
   config.systemd.services = mapAgents (
     name: cfg: {
       "buildkite-agent-${name}" = {
         description = "Buildkite Agent";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
         path = cfg.runtimePackages ++ [
           cfg.package
           pkgs.coreutils

@@ -29,9 +29,9 @@ stdenv.mkDerivation {
     echo 'INSTALL(DIRECTORY include DESTINATION .)' >> CMakeLists.txt
   '';
 
-  cmakeFlags = [ "-DLIBTCOD_SAMPLES=OFF" ];
+  cmakeFlags = ["-DLIBTCOD_SAMPLES=OFF"];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     SDL
     libGLU
@@ -45,6 +45,6 @@ stdenv.mkDerivation {
     homepage = "http://roguecentral.org/doryen/libtcod/";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.skeidel ];
+    maintainers = [lib.maintainers.skeidel];
   };
 }

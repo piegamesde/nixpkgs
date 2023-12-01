@@ -17,13 +17,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gPFElAixiDTTwcl2XKM7MbTkpRrg8ToO5K7H8kz3DHk=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     homepage = "https://gitlab.com/interception/linux/plugins/caps2esc";
     description = "Transforming the most useless key ever into the most useful one";
     license = licenses.mit;
-    maintainers = [ maintainers.vyp ];
+    maintainers = [maintainers.vyp];
     platforms = platforms.linux;
   };
 }

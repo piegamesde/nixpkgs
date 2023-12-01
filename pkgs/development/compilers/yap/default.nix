@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  configureFlags = [ "--enable-tabling=yes" ];
+  configureFlags = ["--enable-tabling=yes"];
 
   # -fcommon: workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:

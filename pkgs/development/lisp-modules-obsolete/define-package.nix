@@ -4,16 +4,16 @@ args@{
   clwrapper,
   baseName,
   packageName ? baseName,
-  parasites ? [ ],
-  buildSystems ? ([ packageName ] ++ parasites),
+  parasites ? [],
+  buildSystems ? ([packageName] ++ parasites),
   version ? "latest",
   src,
   description,
   deps,
-  buildInputs ? [ ],
-  meta ? { },
-  overrides ? (x: { }),
-  propagatedBuildInputs ? [ ],
+  buildInputs ? [],
+  meta ? {},
+  overrides ? (x: {}),
+  propagatedBuildInputs ? [],
   asdFilesToKeep ? [
     (builtins.concatStringsSep "" [
       packageName
@@ -123,13 +123,13 @@ let
       eval "$postInstall"
     '';
     propagatedBuildInputs =
-      (args.deps or [ ])
+      (args.deps or [])
       ++ [
         clwrapper
         clwrapper.lisp
         clwrapper.asdf
       ]
-      ++ (args.propagatedBuildInputs or [ ]);
+      ++ (args.propagatedBuildInputs or []);
     buildInputs = buildInputs;
     dontStrip = true;
 

@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://jstest-gtk.gitlab.io/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ wucke13 ];
+    maintainers = with maintainers; [wucke13];
     platforms = platforms.linux;
   };
 }

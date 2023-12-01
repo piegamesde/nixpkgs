@@ -36,7 +36,7 @@ buildPythonPackage rec {
     oslo-utils
     pbr
     python-dateutil
-  ] ++ lib.optionals stdenv.isLinux [ pyinotify ];
+  ] ++ lib.optionals stdenv.isLinux [pyinotify];
 
   nativeCheckInputs = [
     eventlet
@@ -50,7 +50,7 @@ buildPythonPackage rec {
       "test_logging_handle_error"
     ];
 
-  pythonImportsCheck = [ "oslo_log" ];
+  pythonImportsCheck = ["oslo_log"];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

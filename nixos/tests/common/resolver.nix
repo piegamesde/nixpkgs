@@ -33,8 +33,8 @@
   config = lib.mkIf config.test-support.resolver.enable {
     networking.firewall.enable = false;
     services.bind.enable = true;
-    services.bind.cacheNetworks = lib.mkForce [ "any" ];
-    services.bind.forwarders = lib.mkForce [ ];
+    services.bind.cacheNetworks = lib.mkForce ["any"];
+    services.bind.forwarders = lib.mkForce [];
     services.bind.zones = lib.singleton {
       name = ".";
       file =
@@ -72,7 +72,7 @@
                   matched = builtins.match "[ 	]+(${reHost})(.*)" str;
                   continue = lib.singleton (lib.head matched) ++ matchAliases (lib.last matched);
                 in
-                if matched == null then [ ] else continue;
+                if matched == null then [] else continue;
 
               matchLine =
                 str:
@@ -128,7 +128,7 @@
                       })
                       entry.hosts
                   )
-                  (filterLoopback (getEntries (allHosts + "\n") [ ]));
+                  (filterLoopback (getEntries (allHosts + "\n") []));
 
               mkRecords =
                 entry:
@@ -163,7 +163,7 @@
 
           # All the zones without 'subZones'.
           filteredZoneInfo =
-            map (zi: zi // { zones = lib.filter (x: !lib.elem x subZones) zi.zones; })
+            map (zi: zi // {zones = lib.filter (x: !lib.elem x subZones) zi.zones;})
               zoneInfo;
         in
         pkgs.writeText "fake-root.zone" ''
@@ -174,7 +174,7 @@
           ${lib.concatImapStrings
             (
               num:
-              { ip, zones }:
+              {ip, zones}:
               ''
                 ns${toString num}.fakedns. IN A ${ip}
                 ${lib.concatMapStrings
@@ -184,7 +184,7 @@
                   zones}
               ''
             )
-            (lib.filter (zi: zi.zones != [ ]) filteredZoneInfo)}
+            (lib.filter (zi: zi.zones != []) filteredZoneInfo)}
           ${recordsFromExtraHosts}
         '';
     };

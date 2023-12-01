@@ -23,14 +23,14 @@ buildPythonPackage rec {
     hash = "sha256-Pyyhm0th0cNEkM0sd6maCnf4qELsSO82c9CQuqQdn0w=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   nativeCheckInputs = [
     django
     ua-parser
   ];
 
-  pythonImportsCheck = [ "sesame" ];
+  pythonImportsCheck = ["sesame"];
 
   checkPhase = ''
     runHook preCheck
@@ -44,6 +44,6 @@ buildPythonPackage rec {
     description = "URLs with authentication tokens for automatic login";
     homepage = "https://github.com/aaugustin/django-sesame";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ elohmeier ];
+    maintainers = with maintainers; [elohmeier];
   };
 }

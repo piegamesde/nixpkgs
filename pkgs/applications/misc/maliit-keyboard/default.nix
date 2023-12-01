@@ -74,6 +74,6 @@ mkDerivation rec {
       bsd3
       cc-by-30
     ];
-    maintainers = with maintainers; [ samueldr ];
+    maintainers = with maintainers; [samueldr];
   };
 }

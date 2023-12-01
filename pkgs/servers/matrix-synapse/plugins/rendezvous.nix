@@ -30,7 +30,7 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs =
-    [ setuptools-rust ]
+    [setuptools-rust]
     ++ (
       with rustPlatform; [
         cargoSetupHook
@@ -46,12 +46,12 @@ buildPythonPackage rec {
     cd ..
   '';
 
-  pythonImportsCheck = [ "matrix_http_rendezvous_synapse" ];
+  pythonImportsCheck = ["matrix_http_rendezvous_synapse"];
 
   meta = with lib; {
     description = "Implementation of MSC3886: Simple rendezvous capability";
     homepage = "https://github.com/matrix-org/rust-http-rendezvous-server";
     license = licenses.asl20;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

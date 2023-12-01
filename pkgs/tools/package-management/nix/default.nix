@@ -14,12 +14,12 @@
   confDir ? "/etc",
 }:
 let
-  boehmgc-nix_2_3 = boehmgc.override { enableLargeConfig = true; };
+  boehmgc-nix_2_3 = boehmgc.override {enableLargeConfig = true;};
 
   boehmgc-nix = boehmgc-nix_2_3.overrideAttrs (
     drv: {
       # Part of the GC solution in https://github.com/NixOS/nix/pull/4944
-      patches = (drv.patches or [ ]) ++ [ ./patches/boehmgc-coroutine-sp-fallback.patch ];
+      patches = (drv.patches or []) ++ [./patches/boehmgc-coroutine-sp-fallback.patch];
     }
   );
 
@@ -77,10 +77,10 @@ let
               rm aws-cpp-sdk-core-tests/aws/client/AdaptiveRetryStrategyTest.cpp
             '';
 
-          patches = (args.patches or [ ]) ++ [ ./patches/aws-sdk-cpp-TransferManager-ContentEncoding.patch ];
+          patches = (args.patches or []) ++ [./patches/aws-sdk-cpp-TransferManager-ContentEncoding.patch];
 
           # only a stripped down version is build which takes a lot less resources to build
-          requiredSystemFeatures = [ ];
+          requiredSystemFeatures = [];
         }
       );
 
@@ -95,13 +95,13 @@ let
       (
         args: {
           # only a stripped down version is build which takes a lot less resources to build
-          requiredSystemFeatures = [ ];
+          requiredSystemFeatures = [];
         }
       );
 
   common =
     args:
-    callPackage (import ./common.nix ({ inherit lib fetchFromGitHub; } // args)) {
+    callPackage (import ./common.nix ({inherit lib fetchFromGitHub;} // args)) {
       inherit
         Security
         storeDir
@@ -143,9 +143,9 @@ lib.makeExtensible (
           url = "https://nixos.org/releases/nix/nix-${version}/nix-${version}.tar.xz";
           sha256 = "sha256-fuaBtp8FtSVJLSAsO+3Nne4ZYLuBj2JpD2xEk7fCqrw=";
         };
-        patches = [ patch-monitorfdhup ];
+        patches = [patch-monitorfdhup];
       }).override
-        { boehmgc = boehmgc-nix_2_3; };
+        {boehmgc = boehmgc-nix_2_3;};
 
     nix_2_4 = throw "nixVersions.nix_2_4 has been removed";
 

@@ -5,7 +5,7 @@
 
   # The root directory of the squashfs filesystem is filled with the
   # closures of the Nix store paths listed here.
-  storeContents ? [ ],
+  storeContents ? [],
   # Compression parameters.
   # For zstd compression you can use "zstd -Xcompression-level 6".
   comp ? "xz -Xdict-size 100%",
@@ -14,10 +14,10 @@
 stdenv.mkDerivation {
   name = "squashfs.img";
 
-  nativeBuildInputs = [ squashfsTools ];
+  nativeBuildInputs = [squashfsTools];
 
   buildCommand = ''
-    closureInfo=${closureInfo { rootPaths = storeContents; }}
+    closureInfo=${closureInfo {rootPaths = storeContents;}}
 
     # Also include a manifest of the closures in a format suitable
     # for nix-store --load-db.

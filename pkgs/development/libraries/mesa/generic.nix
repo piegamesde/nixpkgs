@@ -1,4 +1,4 @@
-{ version, hash }:
+{version, hash}:
 
 {
   stdenv,
@@ -58,7 +58,7 @@
       "crocus" # Intel legacy, x86 only
     ]
   else
-    [ "auto" ],
+    ["auto"],
   vulkanDrivers ? if stdenv.isLinux then
     [
       "amd" # AMD (aka RADV)
@@ -84,8 +84,8 @@
       "intel_hasvk" # Intel Haswell/Broadwell, "legacy" Vulkan driver (https://www.phoronix.com/news/Intel-HasVK-Drop-Dead-Code)
     ]
   else
-    [ "auto" ],
-  eglPlatforms ? [ "x11" ] ++ lib.optionals stdenv.isLinux [ "wayland" ],
+    ["auto"],
+  eglPlatforms ? ["x11"] ++ lib.optionals stdenv.isLinux ["wayland"],
   vulkanLayers ? lib.optionals (!stdenv.isDarwin) [
     "device-select"
     "overlay"
@@ -133,9 +133,9 @@ let
   # two different LLVMs are loaded in the same process.
   # FIXME: these should really go into some sort of versioned LLVM package set
   rust-bindgen' = rust-bindgen.override {
-    rust-bindgen-unwrapped = rust-bindgen.unwrapped.override { clang = llvmPackages.clang; };
+    rust-bindgen-unwrapped = rust-bindgen.unwrapped.override {clang = llvmPackages.clang;};
   };
-  spirv-llvm-translator' = spirv-llvm-translator.override { inherit (llvmPackages) llvm; };
+  spirv-llvm-translator' = spirv-llvm-translator.override {inherit (llvmPackages) llvm;};
 
   haveWayland = lib.elem "wayland" eglPlatforms;
   haveZink = lib.elem "zink" galliumDrivers;
@@ -254,7 +254,7 @@ let
       ]
       ++ lib.optional enablePatentEncumberedCodecs "-Dvideo-codecs=h264dec,h264enc,h265dec,h265enc,vc1dec"
       ++
-        lib.optional (vulkanLayers != [ ])
+        lib.optional (vulkanLayers != [])
           "-D vulkan-layers=${builtins.concatStringsSep "," vulkanLayers}";
 
     buildInputs =
@@ -288,7 +288,7 @@ let
         libva-minimal
         udev
       ]
-      ++ lib.optionals stdenv.isDarwin [ libunwind ]
+      ++ lib.optionals stdenv.isDarwin [libunwind]
       ++ lib.optionals enableOpenCL [
         libclc
         llvmPackages.clang
@@ -301,7 +301,7 @@ let
       ++ lib.optional haveZink vulkan-loader
       ++ lib.optional haveDozen directx-headers;
 
-    depsBuildBuild = [ pkg-config ];
+    depsBuildBuild = [pkg-config];
 
     nativeBuildInputs = [
       meson
@@ -380,7 +380,7 @@ let
         mkdir -p $osmesa/lib
         mv -t $osmesa/lib/ $out/lib/libOSMesa*
       ''
-      + lib.optionalString (vulkanLayers != [ ]) ''
+      + lib.optionalString (vulkanLayers != []) ''
         mv -t $drivers/lib $out/lib/libVkLayer*
         for js in $drivers/share/vulkan/{im,ex}plicit_layer.d/*.json; do
           substituteInPlace "$js" --replace '"libVkLayer_' '"'"$drivers/lib/libVkLayer_"
@@ -428,7 +428,7 @@ let
     '';
 
     env.NIX_CFLAGS_COMPILE = toString (
-      lib.optionals stdenv.isDarwin [ "-fno-common" ]
+      lib.optionals stdenv.isDarwin ["-fno-common"]
       ++ lib.optionals enableOpenCL [
         "-UPIPE_SEARCH_DIR"
         ''-DPIPE_SEARCH_DIR="${placeholder "opencl"}/lib/gallium-pipe"''

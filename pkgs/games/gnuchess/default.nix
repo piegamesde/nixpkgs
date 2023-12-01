@@ -15,8 +15,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3fzCC911aQCpq2xCx9r5CiiTv38ZzjR0IM42uuvEGJA=";
   };
 
-  buildInputs = [ flex ];
-  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [flex];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/gnuchessx --set PATH "$out/bin"
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "GNU Chess engine";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.unix;
     license = licenses.gpl3Plus;
   };

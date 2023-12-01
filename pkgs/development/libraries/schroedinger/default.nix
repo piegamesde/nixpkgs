@@ -27,11 +27,11 @@ stdenv.mkDerivation rec {
     pkg-config
     autoreconfHook
   ];
-  buildInputs = [ orc ];
+  buildInputs = [orc];
 
   doCheck = (!stdenv.isDarwin);
 
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
   patches = [
     (fetchpatch {
       url = "https://raw.githubusercontent.com/macports/macports-ports/master/multimedia/schroedinger/files/patch-testsuite-Makefile.am.diff";
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "An implementation of the Dirac video codec in ANSI C";
     homepage = "https://sourceforge.net/projects/schrodinger/";
-    maintainers = [ maintainers.spwhitt ];
+    maintainers = [maintainers.spwhitt];
     license = [
       licenses.mpl11
       licenses.lgpl2

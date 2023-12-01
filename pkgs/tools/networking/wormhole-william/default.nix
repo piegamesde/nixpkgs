@@ -29,6 +29,6 @@ buildGoModule rec {
     description = "End-to-end encrypted file transfers";
     changelog = "https://github.com/psanford/wormhole-william/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ psanford ];
+    maintainers = with maintainers; [psanford];
   };
 }

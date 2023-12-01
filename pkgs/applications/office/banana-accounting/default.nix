@@ -56,7 +56,7 @@ stdenv.mkDerivation {
     description = "Accounting Software for small companies, associations and individuals";
     homepage = "https://www.banana.ch/";
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ jacg ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [jacg];
   };
 }

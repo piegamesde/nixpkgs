@@ -24,6 +24,6 @@ buildGoModule rec {
     homepage = "https://github.com/firecracker-microvm/firectl";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ xrelkd ];
+    maintainers = with maintainers; [xrelkd];
   };
 }

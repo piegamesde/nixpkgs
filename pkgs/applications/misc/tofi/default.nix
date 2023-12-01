@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-lokp6Zmdt7WuAyuRnHBkKD4ydbNiQY7pEVY97Z62U90=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     meson
     ninja
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "Tiny dynamic menu for Wayland";
     homepage = "https://github.com/philj56/tofi";
     license = licenses.mit;
-    maintainers = with maintainers; [ fbergroth ];
+    maintainers = with maintainers; [fbergroth];
     platforms = platforms.linux;
   };
 }

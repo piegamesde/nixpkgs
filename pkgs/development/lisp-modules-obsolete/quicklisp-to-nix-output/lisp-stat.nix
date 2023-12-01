@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "lisp-stat";
   version = "20210411-git";
 
-  parasites = [ "lisp-stat/rdata" ];
+  parasites = ["lisp-stat/rdata"];
 
   description = "A statistical computing environment for Common Lisp";
 
@@ -40,7 +40,7 @@ rec {
 
   packageName = "lisp-stat";
 
-  asdFilesToKeep = [ "lisp-stat.asd" ];
+  asdFilesToKeep = ["lisp-stat.asd"];
   overrides = x: x;
 }
 /* (SYSTEM lisp-stat DESCRIPTION

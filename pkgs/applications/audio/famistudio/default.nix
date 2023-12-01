@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
 
     makeWrapper ${mono}/bin/mono $out/bin/famistudio \
       --add-flags $out/lib/famistudio/FamiStudio.exe \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libGL ]}
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [libGL]}
 
     # Bundled openal lib freezes the application
     rm $out/lib/famistudio/libopenal32.so
@@ -61,8 +61,8 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.mit;
     # Maybe possible to build from source but I'm not too familiar with C# packaging
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ OPNA2608 ];
-    platforms = [ "x86_64-linux" ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    maintainers = with maintainers; [OPNA2608];
+    platforms = ["x86_64-linux"];
   };
 }

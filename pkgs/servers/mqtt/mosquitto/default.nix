@@ -18,7 +18,7 @@
 
 let
   # Mosquitto needs external poll enabled in libwebsockets.
-  libwebsockets' = libwebsockets.override { withExternalPoll = true; };
+  libwebsockets' = libwebsockets.override {withExternalPoll = true;};
 in
 stdenv.mkDerivation rec {
   pname = "mosquitto";
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
     description = "An open source MQTT v3.1/3.1.1/5.0 broker";
     homepage = "https://mosquitto.org/";
     license = licenses.epl10;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.unix;
   };
 }

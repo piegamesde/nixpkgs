@@ -13,12 +13,12 @@ let
     hash = "sha256-5sIlLPfcoX5I4TBGKR8+WAo/xC6b9RP6ljhyTil1xJM=";
   };
 
-  appimageContents = appimageTools.extract { inherit name src; };
+  appimageContents = appimageTools.extract {inherit name src;};
 in
 appimageTools.wrapType2 {
   inherit name src;
 
-  extraPkgs = pkgs: with pkgs; [ libsecret ];
+  extraPkgs = pkgs: with pkgs; [libsecret];
 
   extraInstallCommands = ''
     mv $out/bin/${name} $out/bin/${pname}
@@ -32,7 +32,7 @@ appimageTools.wrapType2 {
     description = "A GUI front-end for Neo4j";
     homepage = "https://neo4j.com/";
     license = licenses.unfree;
-    maintainers = [ maintainers.bobvanderlinden ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.bobvanderlinden];
+    platforms = ["x86_64-linux"];
   };
 }

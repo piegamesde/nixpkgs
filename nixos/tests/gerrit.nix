@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   let
     lfs = pkgs.fetchurl {
@@ -19,7 +19,7 @@ import ./make-test-python.nix (
 
     nodes = {
       server =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         {
           networking.firewall.allowedTCPPorts = [
             80
@@ -32,7 +32,7 @@ import ./make-test-python.nix (
             listenAddress = "[::]:80";
             jvmHeapLimit = "1g";
 
-            plugins = [ lfs ];
+            plugins = [lfs];
             builtinPlugins = [
               "hooks"
               "webhooks"
@@ -47,7 +47,7 @@ import ./make-test-python.nix (
           };
         };
 
-      client = { ... }: { };
+      client = {...}: {};
     };
 
     testScript = ''

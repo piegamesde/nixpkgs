@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       social organization, and economics.
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ davidak ];
+    maintainers = with maintainers; [davidak];
     platforms = with platforms; all;
   };
 }

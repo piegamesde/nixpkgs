@@ -18,9 +18,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-hC0skrEDXn6SXjH75ur77I0pHnGSURErAy97lmVvqro=";
 
-  buildInputs = [ sqlite ];
+  buildInputs = [sqlite];
 
-  subPackages = [ "go/cmd/..." ];
+  subPackages = ["go/cmd/..."];
 
   # integration tests require access to syslog and root
   doCheck = false;
@@ -30,6 +30,6 @@ buildGoModule rec {
     changelog = "https://github.com/vitessio/vitess/releases/tag/v${version}";
     description = "A database clustering system for horizontal scaling of MySQL";
     license = licenses.asl20;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
   };
 }

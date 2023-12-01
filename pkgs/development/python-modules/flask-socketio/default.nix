@@ -33,14 +33,14 @@ buildPythonPackage rec {
     redis
   ];
 
-  pytestFlagsArray = [ "test_socketio.py" ];
+  pytestFlagsArray = ["test_socketio.py"];
 
-  pythonImportsCheck = [ "flask_socketio" ];
+  pythonImportsCheck = ["flask_socketio"];
 
   meta = with lib; {
     description = "Socket.IO integration for Flask applications";
     homepage = "https://github.com/miguelgrinberg/Flask-SocketIO/";
     license = licenses.mit;
-    maintainers = [ maintainers.mic92 ];
+    maintainers = [maintainers.mic92];
   };
 }

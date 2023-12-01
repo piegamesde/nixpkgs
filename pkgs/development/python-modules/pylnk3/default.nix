@@ -27,12 +27,12 @@ buildPythonPackage rec {
   # There are no tests in pylnk3.
   doCheck = false;
 
-  pythonImportsCheck = [ "pylnk3" ];
+  pythonImportsCheck = ["pylnk3"];
 
   meta = with lib; {
     description = "Python library for reading and writing Windows shortcut files (.lnk)";
     homepage = "https://github.com/strayge/pylnk";
-    license = with licenses; [ lgpl3Only ];
-    maintainers = with maintainers; [ fedx-sudo ];
+    license = with licenses; [lgpl3Only];
+    maintainers = with maintainers; [fedx-sudo];
   };
 }

@@ -14,11 +14,11 @@ mkDerivation {
       lgpl21
       bsd3
     ];
-    maintainers = [ lib.maintainers.ttuegel ];
+    maintainers = [lib.maintainers.ttuegel];
   };
-  nativeBuildInputs = [ extra-cmake-modules ];
-  buildInputs = [ qtbase ];
-  propagatedBuildInputs = [ exiv2 ];
+  nativeBuildInputs = [extra-cmake-modules];
+  buildInputs = [qtbase];
+  propagatedBuildInputs = [exiv2];
   outputs = [
     "out"
     "dev"

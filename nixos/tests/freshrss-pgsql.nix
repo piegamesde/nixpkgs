@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
   {
     name = "freshrss";
     meta.maintainers = with lib.maintainers; [
@@ -8,7 +8,7 @@ import ./make-test-python.nix (
     ];
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         services.freshrss = {
           enable = true;
@@ -25,7 +25,7 @@ import ./make-test-python.nix (
 
         services.postgresql = {
           enable = true;
-          ensureDatabases = [ "freshrss" ];
+          ensureDatabases = ["freshrss"];
           ensureUsers = [
             {
               name = "freshrss";
@@ -40,8 +40,8 @@ import ./make-test-python.nix (
         };
 
         systemd.services."freshrss-config" = {
-          requires = [ "postgresql.service" ];
-          after = [ "postgresql.service" ];
+          requires = ["postgresql.service"];
+          after = ["postgresql.service"];
         };
       };
 

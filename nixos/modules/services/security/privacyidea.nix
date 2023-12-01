@@ -13,11 +13,11 @@ let
   opt = options.services.privacyidea;
 
   uwsgi = pkgs.uwsgi.override {
-    plugins = [ "python3" ];
+    plugins = ["python3"];
     python3 = pkgs.python310;
   };
   python = uwsgi.python3;
-  penv = python.withPackages (const [ pkgs.privacyidea ]);
+  penv = python.withPackages (const [pkgs.privacyidea]);
   logCfg = pkgs.writeText "privacyidea-log.cfg" ''
     [formatters]
     keys=detail
@@ -70,7 +70,7 @@ let
       x;
 
   ldapProxyConfig = pkgs.writeText "ldap-proxy.ini" (
-    generators.toINI { } (flip mapAttrs cfg.ldap-proxy.settings (const (mapAttrs (const renderValue))))
+    generators.toINI {} (flip mapAttrs cfg.ldap-proxy.settings (const (mapAttrs (const renderValue))))
   );
 
   privacyidea-token-janitor = pkgs.writeShellScriptBin "privacyidea-token-janitor" ''
@@ -276,7 +276,7 @@ in
                 ]
               )
             );
-          default = { };
+          default = {};
           description = lib.mdDoc ''
             Attribute-set containing the settings for `privacyidea-ldap-proxy`.
             It's possible to pass secrets using env-vars as substitutes and
@@ -320,9 +320,9 @@ in
 
       systemd.services.privacyidea-tokenjanitor = mkIf cfg.tokenjanitor.enable {
         environment.PRIVACYIDEA_CONFIGFILE = "${cfg.stateDir}/privacyidea.cfg";
-        path = [ penv ];
+        path = [penv];
         serviceConfig = {
-          CapabilityBoundingSet = [ "" ];
+          CapabilityBoundingSet = [""];
           ExecStart = "${pkgs.writeShellScript "pi-token-janitor" ''
             ${optionalString cfg.tokenjanitor.orphaned ''
               echo >&2 "Removing orphaned tokens..."
@@ -353,7 +353,7 @@ in
         };
       };
       systemd.timers.privacyidea-tokenjanitor = mkIf cfg.tokenjanitor.enable {
-        wantedBy = [ "timers.target" ];
+        wantedBy = ["timers.target"];
         timerConfig.OnCalendar = cfg.tokenjanitor.interval;
         timerConfig.Persistent = true;
       };
@@ -364,7 +364,7 @@ in
             builtins.toJSON {
               uwsgi = {
                 buffer-size = 8192;
-                plugins = [ "python3" ];
+                plugins = ["python3"];
                 pythonpath = "${penv}/${uwsgi.python3.sitePackages}";
                 socket = "/run/privacyidea/socket";
                 uid = cfg.user;
@@ -388,9 +388,9 @@ in
           );
         in
         {
-          wantedBy = [ "multi-user.target" ];
-          after = [ "postgresql.service" ];
-          path = with pkgs; [ openssl ];
+          wantedBy = ["multi-user.target"];
+          after = ["postgresql.service"];
+          path = with pkgs; [openssl];
           environment.PRIVACYIDEA_CONFIGFILE = "${cfg.stateDir}/privacyidea.cfg";
           preStart =
             let
@@ -434,7 +434,7 @@ in
         isSystemUser = true;
       };
 
-      users.groups.privacyidea = mkIf (cfg.group == "privacyidea") { };
+      users.groups.privacyidea = mkIf (cfg.group == "privacyidea") {};
     })
 
     (mkIf cfg.ldap-proxy.enable {
@@ -445,7 +445,7 @@ in
             let
               xor = a: b: a && !b || !a && b;
             in
-            xor (cfg.ldap-proxy.settings == { }) (cfg.ldap-proxy.configFile == null);
+            xor (cfg.ldap-proxy.settings == {}) (cfg.ldap-proxy.configFile == null);
           message = "configFile & settings are mutually exclusive for services.privacyidea.ldap-proxy!";
         }
       ];
@@ -456,16 +456,16 @@ in
 
       systemd.services.privacyidea-ldap-proxy =
         let
-          ldap-proxy-env = pkgs.python3.withPackages (ps: [ ps.privacyidea-ldap-proxy ]);
+          ldap-proxy-env = pkgs.python3.withPackages (ps: [ps.privacyidea-ldap-proxy]);
         in
         {
           description = "privacyIDEA LDAP proxy";
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
           serviceConfig = {
             User = cfg.ldap-proxy.user;
             Group = cfg.ldap-proxy.group;
             StateDirectory = "privacyidea-ldap-proxy";
-            EnvironmentFile = mkIf (cfg.ldap-proxy.environmentFile != null) [ cfg.ldap-proxy.environmentFile ];
+            EnvironmentFile = mkIf (cfg.ldap-proxy.environmentFile != null) [cfg.ldap-proxy.environmentFile];
             ExecStartPre = "${pkgs.writeShellScript "substitute-secrets-ldap-proxy" ''
               umask 0077
               ${pkgs.envsubst}/bin/envsubst \
@@ -475,7 +475,7 @@ in
             ExecStart =
               let
                 configPath =
-                  if cfg.ldap-proxy.settings != { } then
+                  if cfg.ldap-proxy.settings != {} then
                     "%S/privacyidea-ldap-proxy/ldap-proxy.ini"
                   else
                     cfg.ldap-proxy.configFile;
@@ -498,7 +498,7 @@ in
         isSystemUser = true;
       };
 
-      users.groups.pi-ldap-proxy = mkIf (cfg.ldap-proxy.group == "pi-ldap-proxy") { };
+      users.groups.pi-ldap-proxy = mkIf (cfg.ldap-proxy.group == "pi-ldap-proxy") {};
     })
   ];
 }

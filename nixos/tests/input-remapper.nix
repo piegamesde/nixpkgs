@@ -1,14 +1,14 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   {
     name = "input-remapper";
     meta = {
-      maintainers = with pkgs.lib.maintainers; [ LunNova ];
+      maintainers = with pkgs.lib.maintainers; [LunNova];
     };
 
     nodes.machine =
-      { config, ... }:
+      {config, ...}:
       let
         user = config.users.users.sybil;
       in
@@ -48,7 +48,7 @@ import ./make-test-python.nix (
     enableOCR = true;
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       ''
         start_all()
         machine.wait_for_x()

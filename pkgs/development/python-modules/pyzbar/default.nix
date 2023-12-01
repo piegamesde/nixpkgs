@@ -26,7 +26,7 @@ buildPythonPackage rec {
     numpy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # find_library doesn't return an absolute path
   # https://github.com/NixOS/nixpkgs/issues/7307
@@ -44,12 +44,12 @@ buildPythonPackage rec {
     "test_not_found_non_windows"
   ];
 
-  pythonImportsCheck = [ "pyzbar" ];
+  pythonImportsCheck = ["pyzbar"];
 
   meta = with lib; {
     description = "Read one-dimensional barcodes and QR codes from Python using the zbar library.";
     homepage = "https://github.com/NaturalHistoryMuseum/pyzbar";
     license = licenses.mit;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

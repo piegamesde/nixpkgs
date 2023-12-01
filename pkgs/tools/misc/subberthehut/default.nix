@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "19prdqbk19h0wak318g2jn1mnfm7l7f83a633bh0rhskysmqrsj1";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     xmlrpc_c
     glib
@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     description = "An OpenSubtitles.org downloader";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jqueiroz ];
+    maintainers = with maintainers; [jqueiroz];
   };
 }

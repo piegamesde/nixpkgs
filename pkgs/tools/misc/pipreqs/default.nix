@@ -1,4 +1,4 @@
-{ lib, python3 }:
+{lib, python3}:
 
 with python3.pkgs;
 
@@ -23,6 +23,6 @@ buildPythonApplication rec {
     description = "Generate requirements.txt file for any project based on imports";
     homepage = "https://github.com/bndr/pipreqs";
     license = licenses.asl20;
-    maintainers = with maintainers; [ psyanticy ];
+    maintainers = with maintainers; [psyanticy];
   };
 }

@@ -38,7 +38,7 @@ buildPythonPackage rec {
   ];
 
   doCheck = false;
-  pythonImportsCheck = [ "PySpice" ];
+  pythonImportsCheck = ["PySpice"];
 
   postPatch = ''
     substituteInPlace PySpice/Spice/NgSpice/Shared.py --replace \
@@ -50,6 +50,6 @@ buildPythonPackage rec {
     description = "Simulate electronic circuit using Python and the Ngspice / Xyce simulators";
     homepage = "https://github.com/FabriceSalvaire/PySpice";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ matthuszagh ];
+    maintainers = with maintainers; [matthuszagh];
   };
 }

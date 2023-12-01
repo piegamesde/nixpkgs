@@ -21,7 +21,7 @@ let
       pname = "clang";
       inherit version;
 
-      src = runCommand "${pname}-src-${version}" { } ''
+      src = runCommand "${pname}-src-${version}" {} ''
         mkdir -p "$out"
         cp -r ${monorepoSrc}/cmake "$out"
         cp -r ${monorepoSrc}/${pname} "$out"
@@ -112,7 +112,7 @@ let
       passthru = {
         inherit libllvm;
         isClang = true;
-        hardeningUnsupportedFlags = [ "fortify3" ];
+        hardeningUnsupportedFlags = ["fortify3"];
       };
 
       meta = llvm_meta // {
@@ -145,7 +145,7 @@ let
         cp docs/man/*.1 $out/share/man/man1/
       '';
 
-      outputs = [ "out" ];
+      outputs = ["out"];
 
       doCheck = false;
 

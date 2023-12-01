@@ -30,6 +30,6 @@ eggDerivation {
     homepage = "https://github.com/the-kenny/egg2nix";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ corngood ];
+    maintainers = with lib.maintainers; [corngood];
   };
 }

@@ -22,7 +22,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://recursive.design/";
     description = "A variable font family for code & UI";
     license = licenses.ofl;
-    maintainers = [ maintainers.eadwu ];
+    maintainers = [maintainers.eadwu];
     platforms = platforms.all;
   };
 }

@@ -49,12 +49,12 @@ buildPythonPackage rec {
     pytz
   ];
 
-  pythonImportsCheck = [ "kombu" ];
+  pythonImportsCheck = ["kombu"];
 
   meta = with lib; {
     description = "Messaging library for Python";
     homepage = "https://github.com/celery/kombu";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

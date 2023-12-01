@@ -20,12 +20,12 @@ buildPythonPackage rec {
   # `pytestCheckHook` or the standard setuptools testing situation.
   doCheck = false;
 
-  pythonImportsCheck = [ "plotext" ];
+  pythonImportsCheck = ["plotext"];
 
   meta = with lib; {
     description = "Plotting directly in the terminal";
     homepage = "https://github.com/piccolomo/plotext";
     license = licenses.mit;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

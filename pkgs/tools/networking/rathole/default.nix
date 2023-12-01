@@ -21,9 +21,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-OcPmHqjW79SKMET6J5HIwmR5vESh+PJcQjSMsqmnIb8=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
+  buildInputs = [openssl] ++ lib.optionals stdenv.isDarwin [CoreServices];
 
   __darwinAllowLocalNetworking = true;
 
@@ -34,6 +34,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/rapiz1/rathole";
     changelog = "https://github.com/rapiz1/rathole/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

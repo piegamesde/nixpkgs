@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "chanl";
   version = "20210411-git";
@@ -24,7 +24,7 @@ rec {
 
   packageName = "chanl";
 
-  asdFilesToKeep = [ "chanl.asd" ];
+  asdFilesToKeep = ["chanl.asd"];
   overrides = x: x;
 }
 /* (SYSTEM chanl DESCRIPTION

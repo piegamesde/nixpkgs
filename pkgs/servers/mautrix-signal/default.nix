@@ -21,9 +21,9 @@ python3.pkgs.buildPythonPackage rec {
       --replace 'version=version' 'version="${version}"'
   '';
 
-  nativeBuildInputs = with python3.pkgs; [ pythonRelaxDepsHook ];
+  nativeBuildInputs = with python3.pkgs; [pythonRelaxDepsHook];
 
-  pythonRelaxDeps = [ "mautrix" ];
+  pythonRelaxDeps = ["mautrix"];
 
   propagatedBuildInputs = with python3.pkgs; [
     commonmark
@@ -65,6 +65,6 @@ python3.pkgs.buildPythonPackage rec {
     description = "A Matrix-Signal puppeting bridge";
     license = licenses.agpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ expipiplus1 ];
+    maintainers = with maintainers; [expipiplus1];
   };
 }

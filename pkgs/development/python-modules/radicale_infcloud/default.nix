@@ -16,12 +16,12 @@ buildPythonPackage {
     hash = "sha256-xzBWIx2OOkCtBjlff1Z0VqgMhxWtgiOKutXUadT3tIo=";
   };
 
-  propagatedBuildInputs = [ radicale ];
+  propagatedBuildInputs = [radicale];
 
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "radicale" ];
+  pythonImportsCheck = ["radicale"];
 
   meta = with lib; {
     homepage = "https://github.com/Unrud/RadicaleInfCloud/";
@@ -30,6 +30,6 @@ buildPythonPackage {
       agpl3
       gpl3
     ];
-    maintainers = with maintainers; [ erictapen ];
+    maintainers = with maintainers; [erictapen];
   };
 }

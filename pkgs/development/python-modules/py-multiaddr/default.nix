@@ -37,9 +37,9 @@ buildPythonPackage rec {
     py-multicodec
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "multiaddr" ];
+  pythonImportsCheck = ["multiaddr"];
 
   meta = with lib; {
     description = "Composable and future-proof network addresses";
@@ -48,6 +48,6 @@ buildPythonPackage rec {
       mit
       asl20
     ];
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
   };
 }

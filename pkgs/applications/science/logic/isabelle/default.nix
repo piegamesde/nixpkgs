@@ -77,7 +77,7 @@ stdenv.mkDerivation (
           hash = "sha256-qI/BR/KZwLjnkO5q/yYeW4lN4xyUe78VOM2INC/Z/io=";
         };
 
-    nativeBuildInputs = [ java ];
+    nativeBuildInputs = [java];
 
     buildInputs = [
       polyml
@@ -85,7 +85,7 @@ stdenv.mkDerivation (
       vampire
       eprover-ho
       nettools
-    ] ++ lib.optionals (!stdenv.isDarwin) [ java ];
+    ] ++ lib.optionals (!stdenv.isDarwin) [java];
 
     sourceRoot = "${dirname}${lib.optionalString stdenv.isDarwin ".app"}";
 
@@ -267,7 +267,7 @@ stdenv.mkDerivation (
       in
       symlinkJoin {
         name = "isabelle-with-components-${isabelle.version}";
-        paths = [ isabelle ] ++ (builtins.map (c: c.override { inherit isabelle; }) components);
+        paths = [isabelle] ++ (builtins.map (c: c.override {inherit isabelle;}) components);
 
         postBuild =
           ''

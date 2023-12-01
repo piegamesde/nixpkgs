@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "array-operations";
   version = "20210411-git";
 
-  parasites = [ "array-operations/tests" ];
+  parasites = ["array-operations/tests"];
 
   description = "Simple array operations library for Common Lisp.";
 
@@ -22,7 +22,7 @@ rec {
 
   packageName = "array-operations";
 
-  asdFilesToKeep = [ "array-operations.asd" ];
+  asdFilesToKeep = ["array-operations.asd"];
   overrides = x: x;
 }
 /* (SYSTEM array-operations DESCRIPTION

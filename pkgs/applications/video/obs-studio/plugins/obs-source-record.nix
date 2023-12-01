@@ -17,10 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LoMgrWZ7r6lu2fisNvqrAiFvxWQQDE6lSxUHkMB/ZPY=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ obs-studio ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [obs-studio];
 
-  cmakeFlags = [ "-DBUILD_OUT_OF_TREE=On" ];
+  cmakeFlags = ["-DBUILD_OUT_OF_TREE=On"];
 
   postInstall = ''
     rm -rf $out/{data,obs-plugins}
@@ -29,8 +29,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "OBS Studio plugin to make sources available to record via a filter";
     homepage = "https://github.com/exeldro/obs-source-record";
-    maintainers = with maintainers; [ robbins ];
+    maintainers = with maintainers; [robbins];
     license = licenses.gpl2Only;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -33,11 +33,11 @@ mkCoqDerivation {
   mlPlugin = true;
   preBuild = "cd src";
 
-  extraInstallFlags = [ "COQLIB=$(out)/lib/coq/${coq.coq-version}/" ];
+  extraInstallFlags = ["COQLIB=$(out)/lib/coq/${coq.coq-version}/"];
 
   meta = {
     homepage = "https://ropas.snu.ac.kr/~gil.hur/Heq/";
     description = "Heq : a Coq library for Heterogeneous Equality";
-    maintainers = with lib.maintainers; [ jwiegley ];
+    maintainers = with lib.maintainers; [jwiegley];
   };
 }

@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-Qs3+NWMKiAFlKTTosdyHOxWRPKFlYQD20+MKiKR371U=";
   };
 
-  propagatedBuildInputs = [ httpx ];
+  propagatedBuildInputs = [httpx];
 
   nativeCheckInputs = [
     httpcore
@@ -38,15 +38,15 @@ buildPythonPackage rec {
     sed -i "/--cov/d" setup.cfg
   '';
 
-  disabledTests = [ "test_pass_through" ];
+  disabledTests = ["test_pass_through"];
 
-  pythonImportsCheck = [ "respx" ];
+  pythonImportsCheck = ["respx"];
 
   meta = with lib; {
     description = "Python library for mocking HTTPX";
     homepage = "https://lundberg.github.io/respx/";
     changelog = "https://github.com/lundberg/respx/blob/${src.rev}/CHANGELOG.md";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
   };
 }

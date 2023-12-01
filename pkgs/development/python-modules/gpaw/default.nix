@@ -82,7 +82,7 @@ buildPythonPackage rec {
     hash = "sha256-Kgf8yuGua7mcGP+jVVmbE8JCsbrfzewRTRt3ihq9YX4=";
   };
 
-  nativeBuildInputs = [ which ];
+  nativeBuildInputs = [which];
 
   buildInputs = [
     blas
@@ -99,7 +99,7 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  patches = [ ./SetupPath.patch ];
+  patches = [./SetupPath.patch];
 
   postPatch = ''
     substituteInPlace gpaw/__init__.py \
@@ -121,7 +121,7 @@ buildPythonPackage rec {
   '';
 
   doCheck = false; # Requires MPI runtime to work in the sandbox
-  pythonImportsCheckHook = [ "gpaw" ];
+  pythonImportsCheckHook = ["gpaw"];
 
   passthru = {
     inherit mpi;
@@ -132,6 +132,6 @@ buildPythonPackage rec {
     homepage = "https://wiki.fysik.dtu.dk/gpaw/index.html";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

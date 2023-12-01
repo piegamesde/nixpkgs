@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [
-    (python3.withPackages (pp: [ pp.psutil ]))
+    (python3.withPackages (pp: [pp.psutil]))
     smartmontools
   ];
 
@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     description = "A Nagios-Plugin that uses smartmontools to check disk health status and temperature";
     homepage = "https://github.com/driehuis/Nagios_check_smartmon";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ mariaa144 ];
+    maintainers = with maintainers; [mariaa144];
   };
 }

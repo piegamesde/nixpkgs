@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-i/Fvuy9wzXot114BI0rIbLWDW70VEaDKGThTcTZLx1M=";
 
-  subPackages = [ "cmd/httpx" ];
+  subPackages = ["cmd/httpx"];
 
   ldflags = [
     "-s"
@@ -37,6 +37,6 @@ buildGoModule rec {
     homepage = "https://github.com/projectdiscovery/httpx";
     changelog = "https://github.com/projectdiscovery/httpx/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

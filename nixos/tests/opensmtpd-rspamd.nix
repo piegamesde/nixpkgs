@@ -3,9 +3,9 @@ import ./make-test-python.nix {
 
   nodes = {
     smtp1 =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        imports = [ common/user-account.nix ];
+        imports = [common/user-account.nix];
         networking = {
           firewall.allowedTCPPorts = [
             25
@@ -19,10 +19,10 @@ import ./make-test-python.nix {
             }
           ];
         };
-        environment.systemPackages = [ pkgs.opensmtpd ];
+        environment.systemPackages = [pkgs.opensmtpd];
         services.opensmtpd = {
           enable = true;
-          extraServerArgs = [ "-v" ];
+          extraServerArgs = ["-v"];
           serverConfiguration = ''
             listen on 0.0.0.0
             action dovecot_deliver mda \
@@ -41,14 +41,14 @@ import ./make-test-python.nix {
           enable = true;
           enableImap = true;
           mailLocation = "maildir:~/mail";
-          protocols = [ "imap" ];
+          protocols = ["imap"];
         };
       };
 
     smtp2 =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        imports = [ common/user-account.nix ];
+        imports = [common/user-account.nix];
         networking = {
           firewall.allowedTCPPorts = [
             25
@@ -62,7 +62,7 @@ import ./make-test-python.nix {
             }
           ];
         };
-        environment.systemPackages = [ pkgs.opensmtpd ];
+        environment.systemPackages = [pkgs.opensmtpd];
         services.rspamd = {
           enable = true;
           locals."worker-normal.inc".text = ''
@@ -71,7 +71,7 @@ import ./make-test-python.nix {
         };
         services.opensmtpd = {
           enable = true;
-          extraServerArgs = [ "-v" ];
+          extraServerArgs = ["-v"];
           serverConfiguration = ''
             filter rspamd proc-exec "${pkgs.opensmtpd-filter-rspamd}/bin/filter-rspamd"
             listen on 0.0.0.0 filter rspamd
@@ -84,12 +84,12 @@ import ./make-test-python.nix {
           enable = true;
           enableImap = true;
           mailLocation = "maildir:~/mail";
-          protocols = [ "imap" ];
+          protocols = ["imap"];
         };
       };
 
     client =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         networking = {
           useDHCP = false;

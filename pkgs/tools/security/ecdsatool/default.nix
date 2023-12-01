@@ -25,12 +25,12 @@ stdenv.mkDerivation {
     autoconf
     automake
   ];
-  buildInputs = with pkgs; [ libuecc ];
+  buildInputs = with pkgs; [libuecc];
 
   meta = with lib; {
     description = "Create and manipulate ECC NISTP256 keypairs";
     homepage = "https://github.com/kaniini/ecdsatool/";
-    license = with licenses; [ free ];
+    license = with licenses; [free];
     platforms = platforms.unix;
   };
 }

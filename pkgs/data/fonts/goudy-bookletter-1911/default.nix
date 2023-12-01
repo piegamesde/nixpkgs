@@ -28,7 +28,7 @@ stdenvNoCC.mkDerivation (
       description = "A public domain font based on Frederic Goudy’s Kennerley Oldstyle";
       homepage = "https://www.theleagueofmoveabletype.com/goudy-bookletter-1911";
       license = lib.licenses.ofl;
-      maintainers = with lib.maintainers; [ minijackson ];
+      maintainers = with lib.maintainers; [minijackson];
     };
   }
 )

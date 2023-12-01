@@ -22,7 +22,7 @@
 let
   phocWlroots = wlroots.overrideAttrs (
     old: {
-      patches = (old.patches or [ ]) ++ [
+      patches = (old.patches or []) ++ [
         # Revert "layer-shell: error on 0 dimension without anchors"
         # https://source.puri.sm/Librem5/phosh/-/issues/422
         (fetchpatch {
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
     phocWlroots
   ];
 
-  mesonFlags = [ "-Dembed-wlroots=disabled" ];
+  mesonFlags = ["-Dembed-wlroots=disabled"];
 
   postPatch = ''
     chmod +x build-aux/post_install.py

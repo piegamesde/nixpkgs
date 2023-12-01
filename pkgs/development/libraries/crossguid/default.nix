@@ -18,16 +18,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-37tKPDo4lukl/aaDWWSQYfsBNEnDjE7t6OnEZjBhcvQ=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = lib.optional stdenv.isLinux libuuid;
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Lightweight cross platform C++ GUID/UUID library";
     license = licenses.mit;
     homepage = "https://github.com/graeme-hill/crossguid";
-    maintainers = with maintainers; [ lilyinstarlight ];
+    maintainers = with maintainers; [lilyinstarlight];
     platforms = platforms.unix;
   };
 }

@@ -24,7 +24,7 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/DarthSim/";
     description = "Process manager for Procfile-based applications";
-    license = with licenses; [ mit ];
-    maintainers = [ maintainers.sveitser ];
+    license = with licenses; [mit];
+    maintainers = [maintainers.sveitser];
   };
 }

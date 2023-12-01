@@ -17,11 +17,11 @@ buildGoModule rec {
     sha256 = "sha256-U7/PJzjIKIKKC3Ao7HtiSDaRK1L7ZGUz/KP2SIoZXfo=";
   };
 
-  subPackages = [ "./" ];
+  subPackages = ["./"];
 
   vendorHash = null;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   doInstallCheck = true;
   installCheckPhase = ''

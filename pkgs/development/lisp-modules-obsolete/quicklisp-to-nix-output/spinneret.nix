@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "spinneret";
   version = "20211020-git";
@@ -52,7 +52,7 @@ rec {
 
   packageName = "spinneret";
 
-  asdFilesToKeep = [ "spinneret.asd" ];
+  asdFilesToKeep = ["spinneret.asd"];
   overrides = x: x;
 }
 /* (SYSTEM spinneret DESCRIPTION Common Lisp HTML5 generator. SHA256

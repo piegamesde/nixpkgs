@@ -35,6 +35,6 @@ rustPlatform.buildRustPackage rec {
     description = "A uniform formatter for simple languages, as part of the Tree-sitter ecosystem";
     homepage = "https://github.com/tweag/topiary";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

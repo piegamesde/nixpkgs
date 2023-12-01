@@ -107,7 +107,7 @@ pkgs.recurseIntoAttrs rec {
     (
       {
         version,
-        mods ? [ ],
+        mods ? [],
         src,
       }@engine:
       let
@@ -130,6 +130,6 @@ pkgs.recurseIntoAttrs rec {
       engine;
 
   # See `buildOpenRASet`.
-  engines = buildOpenRASet (import ./engines.nix) { inherit buildOpenRAEngine; };
-  mods = buildOpenRASet (import ./mods.nix) { inherit buildOpenRAMod; };
+  engines = buildOpenRASet (import ./engines.nix) {inherit buildOpenRAEngine;};
+  mods = buildOpenRASet (import ./mods.nix) {inherit buildOpenRAMod;};
 }

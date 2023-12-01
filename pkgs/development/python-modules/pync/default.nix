@@ -17,8 +17,8 @@ buildPythonPackage rec {
     sha256 = "38b9e61735a3161f9211a5773c5f5ea698f36af4ff7f77fa03e8d1ff0caa117f";
   };
 
-  nativeCheckInputs = [ which ];
-  propagatedBuildInputs = [ python-dateutil ];
+  nativeCheckInputs = [which];
+  propagatedBuildInputs = [python-dateutil];
 
   preInstall = lib.optionalString stdenv.isDarwin ''
     sed -i 's|^\([ ]*\)self.bin_path.*$|\1self.bin_path = "${pkgs.terminal-notifier}/bin/terminal-notifier"|' build/lib/pync/TerminalNotifier.py
@@ -29,6 +29,6 @@ buildPythonPackage rec {
     homepage = "https://pypi.python.org/pypi/pync";
     license = licenses.mit;
     platforms = platforms.darwin;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
   };
 }

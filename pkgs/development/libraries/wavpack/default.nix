@@ -13,8 +13,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ libiconv ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [libiconv];
 
   # autogen.sh:9
   preAutoreconf = "cp ${gettext}/share/gettext/config.rpath .";
@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/dbry/WavPack/releases/tag/${version}";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ codyopel ];
+    maintainers = with maintainers; [codyopel];
   };
 }

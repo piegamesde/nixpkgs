@@ -28,11 +28,11 @@ buildPythonPackage rec {
     hash = "sha256-hbc7Hb6ZCLpPhLgBGKk+EEnALdWTIJJg2MHJUM8ob2w=";
   };
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  pythonImportsCheck = [ "allure_pytest" ];
+  pythonImportsCheck = ["allure_pytest"];
 
   propagatedBuildInputs = [
     allure-python-commons
@@ -72,6 +72,6 @@ buildPythonPackage rec {
     description = "Allure pytest integration. It's developed as pytest plugin and distributed via pypi";
     homepage = "https://github.com/allure-framework/allure-python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ evanjs ];
+    maintainers = with maintainers; [evanjs];
   };
 }

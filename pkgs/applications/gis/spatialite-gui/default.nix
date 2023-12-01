@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-ukjZbfGM68P/I/aXlyB64VgszmL0WWtpuuMAyjwj2zM=";
   };
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
+  nativeBuildInputs = [pkg-config] ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
 
   buildInputs =
     [
@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gaia-gis.it/fossil/spatialite_gui";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     mainProgram = "spatialite_gui";
   };
 }

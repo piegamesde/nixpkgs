@@ -75,9 +75,9 @@ stdenv.mkDerivation {
   meta = {
     homepage = "https://spideroak.com";
     description = "Secure online backup and sychronization";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ amorsillo ];
+    maintainers = with lib.maintainers; [amorsillo];
     platforms = lib.platforms.linux;
   };
 }

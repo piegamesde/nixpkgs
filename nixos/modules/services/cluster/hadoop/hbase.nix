@@ -8,7 +8,7 @@
 with lib;
 let
   cfg = config.services.hadoop;
-  hadoopConf = "${import ./conf.nix { inherit cfg pkgs lib; }}/";
+  hadoopConf = "${import ./conf.nix {inherit cfg pkgs lib;}}/";
   mkIfNotNull = x: mkIf (x != null) x;
   # generic hbase role options
   hbaseRoleOption =
@@ -30,14 +30,14 @@ let
 
       extraFlags = mkOption {
         type = with types; listOf str;
-        default = [ ];
+        default = [];
         example = literalExpression ''[ "--backup" ]'';
         description = mdDoc "Extra flags for the ${name} service.";
       };
 
       environment = mkOption {
         type = with types; attrsOf str;
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             HBASE_MASTER_OPTS = "-Dcom.sun.management.jmxremote.ssl=true";
@@ -58,8 +58,8 @@ let
 
       systemd.services."hbase-${toLower name}" = {
         description = "HBase ${name}";
-        wantedBy = [ "multi-user.target" ];
-        path = with cfg; [ hbase.package ] ++ optional (with cfg.hbase.master; enable && initHDFS) package;
+        wantedBy = ["multi-user.target"];
+        path = with cfg; [hbase.package] ++ optional (with cfg.hbase.master; enable && initHDFS) package;
         preStart = mkIf (with cfg.hbase.master; enable && initHDFS) (
           concatStringsSep "\n" (
             map (x: "HADOOP_USER_NAME=hdfs hdfs --config /etc/hadoop-conf ${x}") [
@@ -97,8 +97,8 @@ let
       networking = {
         firewall.allowedTCPPorts = mkIf cfg.hbase."${name}".openFirewall ports;
         hosts = mkIf (with cfg.hbase.regionServer; enable && overrideHosts) {
-          "127.0.0.2" = mkForce [ ];
-          "::1" = mkForce [ ];
+          "127.0.0.2" = mkForce [];
+          "::1" = mkForce [];
         };
       };
     });
@@ -123,7 +123,7 @@ in
       '';
     };
     hbaseSite = mkOption {
-      default = { };
+      default = {};
       type = with types; attrsOf anything;
       example = literalExpression ''
         {
@@ -137,7 +137,7 @@ in
       '';
     };
     hbaseSiteInternal = mkOption {
-      default = { };
+      default = {};
       type = with types; attrsOf anything;
       internal = true;
       description = mdDoc ''
@@ -216,10 +216,10 @@ in
 
       (mkIf cfg.gatewayRole.enable {
 
-        environment.systemPackages = mkIf cfg.gatewayRole.enableHbaseCli [ cfg.hbase.package ];
+        environment.systemPackages = mkIf cfg.gatewayRole.enableHbaseCli [cfg.hbase.package];
 
         services.hadoop.hbaseSiteInternal =
-          with cfg.hbase; { "hbase.zookeeper.quorum" = mkIfNotNull zookeeperQuorum; };
+          with cfg.hbase; {"hbase.zookeeper.quorum" = mkIfNotNull zookeeperQuorum;};
 
         users.users.hbase = {
           description = "Hadoop HBase user";

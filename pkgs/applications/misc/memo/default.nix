@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     homepage = "http://palovandalo.com/memo/";
     downloadPage = "https://github.com/mrVanDalo/memo/releases";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.mrVanDalo ];
+    maintainers = [lib.maintainers.mrVanDalo];
     platforms = lib.platforms.all;
   };
 }

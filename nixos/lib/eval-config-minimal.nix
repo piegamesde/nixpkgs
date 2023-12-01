@@ -1,5 +1,5 @@
 # DO NOT IMPORT. Use nixpkgsFlake.lib.nixos, or import (nixpkgs + "/nixos/lib")
-{ lib }: # read -^
+{lib}: # read -^
 
 let
 
@@ -26,9 +26,9 @@ let
   */
   evalModules =
     {
-      prefix ? [ ],
-      modules ? [ ],
-      specialArgs ? { },
+      prefix ? [],
+      modules ? [],
+      specialArgs ? {},
     }:
     # NOTE: Regular NixOS currently does use this function! Don't break it!
     #       Ideally we don't diverge, unless we learn that we should.

@@ -56,13 +56,13 @@ mkDerivation rec {
     pcre
     qrencode
     sqlcipher
-  ] ++ lib.optionals stdenv.isDarwin [ AVFoundation ];
+  ] ++ lib.optionals stdenv.isDarwin [AVFoundation];
 
   nativeBuildInputs = [
     cmake
     pkg-config
     qttools
-  ] ++ lib.optionals stdenv.isDarwin [ perl ];
+  ] ++ lib.optionals stdenv.isDarwin [perl];
 
   cmakeFlags = [
     "-DGIT_DESCRIBE=v${version}"

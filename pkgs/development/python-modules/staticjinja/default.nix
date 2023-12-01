@@ -31,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-w6ge5MQXNRHCM43jKnagTlbquJJys7mprgBOS2uuwHQ=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     jinja2
@@ -52,14 +52,14 @@ buildPythonPackage rec {
   '';
 
   passthru.tests = {
-    version = testers.testVersion { package = staticjinja; };
-    minimal-template = callPackage ./test-minimal-template { };
+    version = testers.testVersion {package = staticjinja;};
+    minimal-template = callPackage ./test-minimal-template {};
   };
 
   meta = with lib; {
     description = "A library and cli tool that makes it easy to build static sites using Jinja2";
     homepage = "https://staticjinja.readthedocs.io/en/latest/";
     license = licenses.mit;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

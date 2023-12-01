@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
   postInstall = ''
     rm -r $out/include
     # make xdg-open overrideable at runtime
-    wrapProgram $out/bin/enigma --suffix PATH : "${lib.makeBinPath [ xdg-utils ]}"
+    wrapProgram $out/bin/enigma --suffix PATH : "${lib.makeBinPath [xdg-utils]}"
   '';
 
   meta = with lib; {
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
     ]; # source + bundles libs + art
     platforms = platforms.unix;
     broken = stdenv.targetPlatform.isDarwin;
-    maintainers = with maintainers; [ iblech ];
+    maintainers = with maintainers; [iblech];
     homepage = "https://www.nongnu.org/enigma/";
   };
 }

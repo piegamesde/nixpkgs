@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   pname = basename + lib.optionalString headersOnly "-headers";
   inherit version;
 
-  src = runCommand "${pname}-src-${version}" { } ''
+  src = runCommand "${pname}-src-${version}" {} ''
     mkdir -p "$out"
     cp -r ${monorepoSrc}/cmake "$out"
     cp -r ${monorepoSrc}/${basename} "$out"
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${src.name}/runtimes";
 
-  outputs = [ "out" ] ++ lib.optional (!headersOnly) "dev";
+  outputs = ["out"] ++ lib.optional (!headersOnly) "dev";
 
   prePatch = ''
     cd ../${basename}
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./gnu-install-dirs.patch
-  ] ++ lib.optionals stdenv.hostPlatform.isMusl [ ../../libcxx-0001-musl-hacks.patch ];
+  ] ++ lib.optionals stdenv.hostPlatform.isMusl [../../libcxx-0001-musl-hacks.patch];
 
   postPatch = ''
     cd ../runtimes
@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
     python3
   ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
-  buildInputs = lib.optionals (!headersOnly) [ cxxabi ];
+  buildInputs = lib.optionals (!headersOnly) [cxxabi];
 
   cmakeFlags =
     let

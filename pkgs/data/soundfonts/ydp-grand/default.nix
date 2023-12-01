@@ -22,6 +22,6 @@ stdenv.mkDerivation {
     homepage = "https://freepats.zenvoid.org/Piano/acoustic-grand-piano.html";
     license = licenses.cc-by-30;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ckie ];
+    maintainers = with maintainers; [ckie];
   };
 }

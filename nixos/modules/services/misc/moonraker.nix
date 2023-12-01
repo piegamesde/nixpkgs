@@ -15,10 +15,10 @@ let
     listToValue =
       l:
       if builtins.length l == 1 then
-        generators.mkValueStringDefault { } (head l)
+        generators.mkValueStringDefault {} (head l)
       else
-        lib.concatMapStrings (s: "\n  ${generators.mkValueStringDefault { } s}") l;
-    mkKeyValue = generators.mkKeyValueDefault { } ":";
+        lib.concatMapStrings (s: "\n  ${generators.mkValueStringDefault {} s}") l;
+    mkKeyValue = generators.mkKeyValueDefault {} ":";
   };
 
   unifiedConfigDir = cfg.stateDir + "/config";
@@ -78,11 +78,11 @@ in
 
       settings = mkOption {
         type = format.type;
-        default = { };
+        default = {};
         example = {
           authorization = {
-            trusted_clients = [ "10.0.0.0/24" ];
-            cors_domains = [ "https://app.fluidd.xyz" ];
+            trusted_clients = ["10.0.0.0/24"];
+            cors_domains = ["https://app.fluidd.xyz"];
           };
         };
         description = lib.mdDoc ''
@@ -108,7 +108,7 @@ in
 
   config = mkIf cfg.enable {
     warnings =
-      [ ]
+      []
       ++
         optional (cfg.settings ? update_manager)
           "Enabling update_manager is not supported on NixOS and will lead to non-removable warnings in some clients."
@@ -169,8 +169,8 @@ in
 
     systemd.services.moonraker = {
       description = "Moonraker, an API web server for Klipper";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ] ++ optional config.services.klipper.enable "klipper.service";
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"] ++ optional config.services.klipper.enable "klipper.service";
 
       # Moonraker really wants its own config to be writable...
       script = ''
@@ -189,7 +189,7 @@ in
       '';
 
       # Needs `ip` command
-      path = [ pkgs.iproute2 ];
+      path = [pkgs.iproute2];
 
       serviceConfig = {
         WorkingDirectory = cfg.stateDir;

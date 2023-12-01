@@ -51,9 +51,9 @@ buildPythonPackage rec {
     PATH="${pkgs.parted}/sbin:$PATH"
   '';
 
-  nativeBuildInputs = [ pkgs.pkg-config ];
-  nativeCheckInputs = [ six ];
-  propagatedBuildInputs = [ pkgs.parted ];
+  nativeBuildInputs = [pkgs.pkg-config];
+  nativeCheckInputs = [six];
+  propagatedBuildInputs = [pkgs.parted];
 
   checkPhase = ''
     patchShebangs Makefile
@@ -65,6 +65,6 @@ buildPythonPackage rec {
     description = "Python interface for libparted";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ lsix ];
+    maintainers = with maintainers; [lsix];
   };
 }

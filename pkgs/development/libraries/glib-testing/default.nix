@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     docbook_xml_dtd_43
   ];
 
-  propagatedBuildInputs = [ glib ];
+  propagatedBuildInputs = [glib];
 
   mesonFlags = [
     "-Dinstalled_tests=true"
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     description = "Test library providing test harnesses and mock classes complementing the classes provided by GLib";
     homepage = "https://gitlab.gnome.org/pwithnall/libglib-testing";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.unix;
   };
 }

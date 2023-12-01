@@ -39,13 +39,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pyduke_energy" ];
+  pythonImportsCheck = ["pyduke_energy"];
 
   meta = with lib; {
     description = "Python module for the Duke Energy API";
     homepage = "https://github.com/mjmeli/pyduke-energy";
     changelog = "https://github.com/mjmeli/pyduke-energy/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

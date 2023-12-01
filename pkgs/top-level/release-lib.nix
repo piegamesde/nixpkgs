@@ -37,20 +37,20 @@ rec {
   mkPkgsFor =
     crossSystem:
     let
-      packageSet' = args: packageSet (args // { inherit crossSystem; } // nixpkgsArgs);
+      packageSet' = args: packageSet (args // {inherit crossSystem;} // nixpkgsArgs);
 
-      pkgs_x86_64_linux = packageSet' { system = "x86_64-linux"; };
-      pkgs_i686_linux = packageSet' { system = "i686-linux"; };
-      pkgs_aarch64_linux = packageSet' { system = "aarch64-linux"; };
-      pkgs_riscv64_linux = packageSet' { system = "riscv64-linux"; };
-      pkgs_aarch64_darwin = packageSet' { system = "aarch64-darwin"; };
-      pkgs_armv6l_linux = packageSet' { system = "armv6l-linux"; };
-      pkgs_armv7l_linux = packageSet' { system = "armv7l-linux"; };
-      pkgs_x86_64_darwin = packageSet' { system = "x86_64-darwin"; };
-      pkgs_x86_64_freebsd = packageSet' { system = "x86_64-freebsd"; };
-      pkgs_i686_freebsd = packageSet' { system = "i686-freebsd"; };
-      pkgs_i686_cygwin = packageSet' { system = "i686-cygwin"; };
-      pkgs_x86_64_cygwin = packageSet' { system = "x86_64-cygwin"; };
+      pkgs_x86_64_linux = packageSet' {system = "x86_64-linux";};
+      pkgs_i686_linux = packageSet' {system = "i686-linux";};
+      pkgs_aarch64_linux = packageSet' {system = "aarch64-linux";};
+      pkgs_riscv64_linux = packageSet' {system = "riscv64-linux";};
+      pkgs_aarch64_darwin = packageSet' {system = "aarch64-darwin";};
+      pkgs_armv6l_linux = packageSet' {system = "armv6l-linux";};
+      pkgs_armv7l_linux = packageSet' {system = "armv7l-linux";};
+      pkgs_x86_64_darwin = packageSet' {system = "x86_64-darwin";};
+      pkgs_x86_64_freebsd = packageSet' {system = "x86_64-freebsd";};
+      pkgs_i686_freebsd = packageSet' {system = "i686-freebsd";};
+      pkgs_i686_cygwin = packageSet' {system = "i686-cygwin";};
+      pkgs_x86_64_cygwin = packageSet' {system = "x86_64-cygwin";};
     in
     system:
     if system == "x86_64-linux" then
@@ -112,27 +112,27 @@ rec {
   # This is written in a funny way so that we only elaborate the systems once.
   supportedMatches =
     let
-      supportedPlatforms = map (system: lib.systems.elaborate { inherit system; }) supportedSystems;
+      supportedPlatforms = map (system: lib.systems.elaborate {inherit system;}) supportedSystems;
     in
     metaPatterns:
     let
       anyMatch = platform: lib.any (lib.meta.platformMatch platform) metaPatterns;
       matchingPlatforms = lib.filter anyMatch supportedPlatforms;
     in
-    map ({ system, ... }: system) matchingPlatforms;
+    map ({system, ...}: system) matchingPlatforms;
 
   assertTrue =
     bool:
     if bool then
-      pkgs.runCommand "evaluated-to-true" { } "touch $out"
+      pkgs.runCommand "evaluated-to-true" {} "touch $out"
     else
-      pkgs.runCommand "evaluated-to-false" { } "false";
+      pkgs.runCommand "evaluated-to-false" {} "false";
 
   /* The working or failing mails for cross builds will be sent only to
      the following maintainers, as most package maintainers will not be
      interested in the result of cross building a package.
   */
-  crossMaintainers = [ maintainers.viric ];
+  crossMaintainers = [maintainers.viric];
 
   # Generate attributes for all supported systems.
   forAllSystems = genAttrs supportedSystems;
@@ -172,7 +172,7 @@ rec {
   # Similar to the testOn function, but with an additional 'crossSystem'
   # parameter for packageSet', defining the target platform for cross builds,
   # and triggering the build of the host derivation.
-  mapTestOnCross = _mapTestOnHelper (addMetaAttrs { maintainers = crossMaintainers; });
+  mapTestOnCross = _mapTestOnHelper (addMetaAttrs {maintainers = crossMaintainers;});
 
   /* Recursively map a (nested) set of derivations to an isomorphic
      set of meta.platforms values.
@@ -180,13 +180,13 @@ rec {
   packagePlatforms = mapAttrs (
     name: value:
     if isDerivation value then
-      value.meta.hydraPlatforms or (lib.subtractLists (value.meta.badPlatforms or [ ]) (
-        value.meta.platforms or [ "x86_64-linux" ]
+      value.meta.hydraPlatforms or (lib.subtractLists (value.meta.badPlatforms or []) (
+        value.meta.platforms or ["x86_64-linux"]
       ))
     else if value.recurseForDerivations or false || value.recurseForRelease or false then
       packagePlatforms value
     else
-      [ ]
+      []
   );
 
   # Common platform groups on which to test packages.

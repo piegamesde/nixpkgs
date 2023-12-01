@@ -58,7 +58,7 @@ buildPythonPackage rec {
       --replace "elasticsearch<7.14.0" "elasticsearch"
   '';
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     dnspython
@@ -89,7 +89,7 @@ buildPythonPackage rec {
   # no tests on PyPI, no tags on GitHub
   doCheck = false;
 
-  pythonImportsCheck = [ "parsedmarc" ];
+  pythonImportsCheck = ["parsedmarc"];
 
   passthru = {
     inherit dashboard;
@@ -98,11 +98,11 @@ buildPythonPackage rec {
 
   meta = {
     changelog = "https://github.com/domainaware/parsedmarc/blob/master/CHANGELOG.md#${
-      lib.replaceStrings [ "." ] [ "" ] version
+      lib.replaceStrings ["."] [""] version
     }";
     description = "Python module and CLI utility for parsing DMARC reports";
     homepage = "https://domainaware.github.io/parsedmarc/";
-    maintainers = with lib.maintainers; [ talyz ];
+    maintainers = with lib.maintainers; [talyz];
     license = lib.licenses.asl20;
   };
 }

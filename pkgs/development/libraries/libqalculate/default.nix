@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     libiconv
     readline
   ];
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   propagatedBuildInputs = [
     libxml2
     mpfr

@@ -16,12 +16,12 @@ buildNimPackage rec {
     sha256 = "1js64jqd854yjladxvnylij4rsz7212k31ks541pqrdzm6hpblbz";
   };
 
-  propagatedBuildInputs = [ astpatternmatching ];
+  propagatedBuildInputs = [astpatternmatching];
 
   meta = with lib; {
     homepage = "https://github.com/PMunch/jsonschema";
     description = "Schema validation of JSON for Nim";
     license = licenses.mit;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

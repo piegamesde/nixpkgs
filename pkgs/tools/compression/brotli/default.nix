@@ -22,7 +22,7 @@ stdenv.mkDerivation (
       sha256 = "z6Dhrabav1MDQ4rAcXaDv0aN+qOoh9cvoXZqEWBB13c=";
     };
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
     patches = lib.optional staticOnly (
       fetchpatch {
@@ -82,7 +82,7 @@ stdenv.mkDerivation (
                 http://www.ietf.org/id/draft-alakuijala-brotli
       '';
       license = licenses.mit;
-      maintainers = with maintainers; [ freezeboy ];
+      maintainers = with maintainers; [freezeboy];
       pkgConfigModules = [
         "libbrotlidec"
         "libbrotlienc"

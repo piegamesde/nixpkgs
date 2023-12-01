@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     SDL2_ttf
     zlib
   ];
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-error"];
 
   makeFlags = [
     "PREFIX=$(out)"
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       gpl2Plus
       free
     ];
-    maintainers = with maintainers; [ iblech ];
+    maintainers = with maintainers; [iblech];
     platforms = platforms.unix;
   };
 }

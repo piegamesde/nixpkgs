@@ -50,13 +50,13 @@ stdenv.mkDerivation rec {
     which
   ];
 
-  buildInputs = [ systemd ];
+  buildInputs = [systemd];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   enableParallelBuilding = true;
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   FONTCONFIG_FILE = "${fontconfig.out}/etc/fonts/fonts.conf";
   FONTCONFIG_PATH = "${fontconfig.out}/etc/fonts/";
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     description = "C++ library to control Z-Wave Networks via a USB Z-Wave Controller";
     homepage = "http://www.openzwave.net/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

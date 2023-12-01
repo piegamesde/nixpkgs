@@ -8,10 +8,10 @@
   nodePackages,
   rWrapper,
   rPackages,
-  extraRPackages ? [ ],
+  extraRPackages ? [],
   makeWrapper,
   python3,
-  extraPythonPackages ? ps: with ps; [ ],
+  extraPythonPackages ? ps: with ps; [],
 }:
 
 stdenv.mkDerivation rec {
@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-oyKjDlTKt2fIzirOqgNRrpuM7buNCG5mmgIztPa28rY=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  patches = [ ./fix-deno-path.patch ];
+  patches = [./fix-deno-path.patch];
 
   postPatch = ''
     # Compat for Deno >=1.26
@@ -37,12 +37,12 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     wrapProgram $out/bin/quarto \
-      --prefix PATH : ${lib.makeBinPath [ deno ]} \
+      --prefix PATH : ${lib.makeBinPath [deno]} \
       --prefix QUARTO_PANDOC : ${pandoc}/bin/pandoc \
       --prefix QUARTO_ESBUILD : ${esbuild}/bin/esbuild \
       --prefix QUARTO_DART_SASS : ${nodePackages.sass}/bin/sass \
       --prefix QUARTO_R : ${
-        rWrapper.override { packages = [ rPackages.rmarkdown ] ++ extraRPackages; }
+        rWrapper.override {packages = [rPackages.rmarkdown] ++ extraRPackages;}
       }/bin/R \
       --prefix QUARTO_PYTHON : ${
         python3.withPackages (
@@ -79,8 +79,8 @@ stdenv.mkDerivation rec {
     homepage = "https://quarto.org/";
     changelog = "https://github.com/quarto-dev/quarto-cli/releases/tag/v${version}";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ mrtarantoga ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [mrtarantoga];
+    platforms = ["x86_64-linux"];
     sourceProvenance = with sourceTypes; [
       binaryNativeCode
       binaryBytecode

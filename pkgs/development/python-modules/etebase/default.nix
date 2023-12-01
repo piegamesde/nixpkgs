@@ -45,9 +45,9 @@ buildPythonPackage rec {
       ]
     );
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = [openssl] ++ lib.optionals stdenv.isDarwin [Security];
 
-  propagatedBuildInputs = [ msgpack ];
+  propagatedBuildInputs = [msgpack];
 
   postPatch = ''
     # Use system OpenSSL, which gets security updates.
@@ -55,13 +55,13 @@ buildPythonPackage rec {
       --replace ', features = ["vendored"]' ""
   '';
 
-  pythonImportsCheck = [ "etebase" ];
+  pythonImportsCheck = ["etebase"];
 
   meta = with lib; {
     broken = stdenv.isDarwin;
     homepage = "https://www.etebase.com/";
     description = "A Python client library for Etebase";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ _3699n ];
+    maintainers = with maintainers; [_3699n];
   };
 }

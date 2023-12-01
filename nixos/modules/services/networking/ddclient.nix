@@ -85,7 +85,7 @@ with lib;
               ]
               config;
         in
-        if value != "" then [ value ] else [ ]
+        if value != "" then [value] else []
       )
     )
     (mkRemovedOptionModule
@@ -130,7 +130,7 @@ with lib;
       };
 
       domains = mkOption {
-        default = [ "" ];
+        default = [""];
         type = listOf str;
         description = lib.mdDoc ''
           Domain name(s) to synchronize.
@@ -267,8 +267,8 @@ with lib;
   config = mkIf config.services.ddclient.enable {
     systemd.services.ddclient = {
       description = "Dynamic DNS Client";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       restartTriggers = optional (cfg.configFile != null) cfg.configFile;
       path = lib.optional (lib.hasPrefix "if," cfg.use) pkgs.iproute2;
 
@@ -285,7 +285,7 @@ with lib;
 
     systemd.timers.ddclient = {
       description = "Run ddclient";
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig = {
         OnBootSec = cfg.interval;
         OnUnitInactiveSec = cfg.interval;

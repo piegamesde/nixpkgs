@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{config, lib, ...}:
 
 let
 
@@ -119,5 +119,5 @@ in
     };
   };
 
-  meta.maintainers = [ lib.maintainers.yarny ];
+  meta.maintainers = [lib.maintainers.yarny];
 }

@@ -208,18 +208,18 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ pkgs.hostapd ];
+    environment.systemPackages = [pkgs.hostapd];
 
-    services.udev.packages = optionals (cfg.countryCode != null) [ pkgs.crda ];
+    services.udev.packages = optionals (cfg.countryCode != null) [pkgs.crda];
 
     systemd.services.hostapd = {
       description = "hostapd wireless AP";
 
-      path = [ pkgs.hostapd ];
-      after = [ "sys-subsystem-net-devices-${escapedInterface}.device" ];
-      bindsTo = [ "sys-subsystem-net-devices-${escapedInterface}.device" ];
-      requiredBy = [ "network-link-${cfg.interface}.service" ];
-      wantedBy = [ "multi-user.target" ];
+      path = [pkgs.hostapd];
+      after = ["sys-subsystem-net-devices-${escapedInterface}.device"];
+      bindsTo = ["sys-subsystem-net-devices-${escapedInterface}.device"];
+      requiredBy = ["network-link-${cfg.interface}.service"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = "${pkgs.hostapd}/bin/hostapd ${configFile}";

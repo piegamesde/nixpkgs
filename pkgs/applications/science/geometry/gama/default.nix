@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-AIRqBSO71c26TeQwxjfAGIy8YQddF4tq+ZnWztroyRM=";
   };
 
-  buildInputs = [ expat ];
+  buildInputs = [expat];
 
   nativeBuildInputs = [
     texinfo

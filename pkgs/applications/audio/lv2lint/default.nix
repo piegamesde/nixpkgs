@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Check whether a given LV2 plugin is up to the specification";
     homepage = "https://open-music-kontrollers.ch/lv2/${pname}:";
     license = licenses.artistic2;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.all;
   };
 }

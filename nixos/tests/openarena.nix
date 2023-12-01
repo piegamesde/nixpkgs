@@ -1,19 +1,19 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   let
     client =
-      { pkgs, ... }:
+      {pkgs, ...}:
 
       {
-        imports = [ ./common/x11.nix ];
+        imports = [./common/x11.nix];
         hardware.opengl.driSupport = true;
-        environment.systemPackages = [ pkgs.openarena ];
+        environment.systemPackages = [pkgs.openarena];
       };
   in
   {
     name = "openarena";
-    meta = with pkgs.lib.maintainers; { maintainers = [ fpletz ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [fpletz];};
 
     nodes = {
       server = {

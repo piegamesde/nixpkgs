@@ -22,6 +22,6 @@ buildGoModule rec {
     homepage = "https://codeberg.org/lafriks/woodpecker-pipeline-transform";
     license = licenses.mit;
     mainProgram = "pipeline-convert";
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

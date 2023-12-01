@@ -22,6 +22,6 @@ buildGoModule rec {
     description = "An RTMP stream recaster/splitter";
     homepage = "https://github.com/muesli/prism";
     license = licenses.mit;
-    maintainers = with maintainers; [ paperdigits ];
+    maintainers = with maintainers; [paperdigits];
   };
 }

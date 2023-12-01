@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "0vmjwarsxr5540rafhmdcc62yarf0w2l05bjjl9s28zzr5m39z3n";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     qt4
     alsa-lib
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     '';
 
     license = licenses.gpl2;
-    maintainers = [ maintainers.lebastr ];
+    maintainers = [maintainers.lebastr];
     platforms = lib.platforms.linux;
   };
 }

@@ -36,7 +36,7 @@ buildPythonPackage rec {
     docutils
   ];
 
-  nativeCheckInputs = [ pygments ];
+  nativeCheckInputs = [pygments];
 
   meta = with lib; {
     homepage = "https://github.com/miyakogi/m2r";

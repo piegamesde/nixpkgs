@@ -14,9 +14,9 @@ stdenv.mkDerivation rec {
     sha256 = "02cfkf3yhw64xg8mksln8w24gdwgm2x9g3vps7gn6jbjbfd8mh45";
   };
 
-  buildInputs = [ flex ];
+  buildInputs = [flex];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   postInstall = ''
     install -m644 safe.tbl $out/share/detox/
@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

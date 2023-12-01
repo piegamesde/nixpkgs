@@ -24,14 +24,14 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ efl ];
+  buildInputs = [efl];
 
-  passthru.updateScript = directoryListingUpdater { };
+  passthru.updateScript = directoryListingUpdater {};
 
   meta = with lib; {
     description = "System and process monitor written with EFL";
     homepage = "https://www.enlightenment.org";
-    license = with licenses; [ isc ];
+    license = with licenses; [isc];
     platforms = platforms.linux;
     maintainers = teams.enlightenment.members;
   };

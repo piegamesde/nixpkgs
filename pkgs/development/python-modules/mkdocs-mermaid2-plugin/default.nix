@@ -35,12 +35,12 @@ buildPythonPackage rec {
   # non-traditional python tests (e.g. nodejs based tests)
   doCheck = false;
 
-  pythonImportsCheck = [ "mermaid2" ];
+  pythonImportsCheck = ["mermaid2"];
 
   meta = with lib; {
     description = "A MkDocs plugin for including mermaid graphs in markdown sources";
     homepage = "https://github.com/fralau/mkdocs-mermaid2-plugin";
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

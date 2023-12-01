@@ -23,7 +23,7 @@ let
       homepage = "https://keepass.info/plugins.html#otpkeyprov";
       platforms = with lib.platforms; linux;
       license = lib.licenses.gpl2;
-      maintainers = [ lib.maintainers.Enteee ];
+      maintainers = [lib.maintainers.Enteee];
     };
 
     pluginFilename = "OtpKeyProv.plgx";

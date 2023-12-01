@@ -25,7 +25,7 @@ buildGoModule rec {
       ./fix-test-dir.patch
     ];
 
-  buildInputs = [ alsa-lib ];
+  buildInputs = [alsa-lib];
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);
@@ -36,6 +36,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/tryffel/jellycli";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
   };
 }

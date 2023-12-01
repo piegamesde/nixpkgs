@@ -36,7 +36,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   propagatedBuildInputs =
-    [ prometheus-alertmanager ]
+    [prometheus-alertmanager]
     ++ (
       with python3Packages; [
         aiohttp
@@ -54,10 +54,10 @@ python3Packages.buildPythonApplication rec {
     pytz
   ];
 
-  pythonImportsCheck = [ "prometheus_xmpp" ];
+  pythonImportsCheck = ["prometheus_xmpp"];
 
   passthru.tests = {
-    binaryWorks = runCommand "${pname}-binary-test" { } ''
+    binaryWorks = runCommand "${pname}-binary-test" {} ''
       # Running with --help to avoid it erroring due to a missing config file
       ${prometheus-xmpp-alerts}/bin/prometheus-xmpp-alerts --help | tee $out
       grep "usage: prometheus-xmpp-alerts" $out
@@ -67,7 +67,7 @@ python3Packages.buildPythonApplication rec {
   meta = {
     description = "XMPP Web hook for Prometheus";
     homepage = "https://github.com/jelmer/prometheus-xmpp-alerts";
-    maintainers = with lib.maintainers; [ fpletz ];
-    license = with lib.licenses; [ asl20 ];
+    maintainers = with lib.maintainers; [fpletz];
+    license = with lib.licenses; [asl20];
   };
 }

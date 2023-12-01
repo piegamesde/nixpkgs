@@ -59,7 +59,7 @@ stdenv.mkDerivation {
   meta = {
     description = "A flexible emulator front-end supporting keyboardless navigation and custom system themes";
     homepage = "https://emulationstation.org";
-    maintainers = [ lib.maintainers.edwtjo ];
+    maintainers = [lib.maintainers.edwtjo];
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
   };

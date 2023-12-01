@@ -46,6 +46,6 @@ mkDerivation rec {
     description = "Client for proxmark3, powerful general purpose RFID tool";
     homepage = "https://rfidresearchgroup.com/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ nyanotech ];
+    maintainers = with maintainers; [nyanotech];
   };
 }

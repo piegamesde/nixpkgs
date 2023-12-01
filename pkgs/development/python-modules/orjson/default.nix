@@ -36,7 +36,7 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs =
-    [ cffi ]
+    [cffi]
     ++ (
       with rustPlatform; [
         cargoSetupHook
@@ -44,7 +44,7 @@ buildPythonPackage rec {
       ]
     );
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.isDarwin [libiconv];
 
   nativeCheckInputs = [
     numpy
@@ -55,7 +55,7 @@ buildPythonPackage rec {
     xxhash
   ];
 
-  pythonImportsCheck = [ "orjson" ];
+  pythonImportsCheck = ["orjson"];
 
   meta = with lib; {
     description = "Fast, correct Python JSON library supporting dataclasses, datetimes, and numpy";
@@ -66,6 +66,6 @@ buildPythonPackage rec {
       mit
     ];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ misuzu ];
+    maintainers = with maintainers; [misuzu];
   };
 }

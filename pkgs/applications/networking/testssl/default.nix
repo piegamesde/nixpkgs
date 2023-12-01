@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gkDtJlAC7woM2HyYDXntD1+bEuqHTEipqrn2EZjxnH8=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     coreutils # for printf
     dnsutils # for dig
@@ -53,6 +53,6 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://testssl.sh/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ etu ];
+    maintainers = with maintainers; [etu];
   };
 }

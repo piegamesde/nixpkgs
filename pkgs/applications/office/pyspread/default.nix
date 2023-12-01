@@ -21,7 +21,7 @@ python3.pkgs.buildPythonApplication rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [ qtsvg ];
+  buildInputs = [qtsvg];
 
   propagatedBuildInputs = with python3.pkgs; [
     python-dateutil
@@ -35,7 +35,7 @@ python3.pkgs.buildPythonApplication rec {
 
   doCheck = false; # it fails miserably with a core dump
 
-  pythonImportsCheck = [ "pyspread" ];
+  pythonImportsCheck = ["pyspread"];
 
   desktopItems = [
     (makeDesktopItem rec {
@@ -71,7 +71,7 @@ python3.pkgs.buildPythonApplication rec {
       anything including lists or matrices.
     '';
     license = with licenses; gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = with platforms; all;
   };
 }

@@ -316,7 +316,7 @@ in
       };
 
       sessionPath = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.package;
         example = literalExpression "[ pkgs.gnome.gpaste ]";
         description = lib.mdDoc ''
@@ -347,7 +347,7 @@ in
       };
 
       extraGSettingsOverridePackages = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.path;
         description = lib.mdDoc "List of packages for which gsettings are overridden.";
       };
@@ -388,12 +388,12 @@ in
               };
             }
           );
-          default = [ ];
+          default = [];
           description = lib.mdDoc "Other GNOME Flashback sessions to enable.";
         };
 
         panelModulePackages = mkOption {
-          default = [ pkgs.gnome.gnome-applets ];
+          default = [pkgs.gnome.gnome-applets];
           defaultText = literalExpression "[ pkgs.gnome.gnome-applets ]";
           type = types.listOf types.path;
           description = lib.mdDoc ''
@@ -406,7 +406,7 @@ in
     };
 
     environment.gnome.excludePackages = mkOption {
-      default = [ ];
+      default = [];
       example = literalExpression "[ pkgs.gnome.totem ]";
       type = types.listOf types.package;
       description = lib.mdDoc "Which packages gnome should exclude from the default environment";
@@ -428,7 +428,7 @@ in
       services.gnome.core-shell.enable = true;
       services.gnome.core-utilities.enable = mkDefault true;
 
-      services.xserver.displayManager.sessionPackages = [ pkgs.gnome.gnome-session.sessions ];
+      services.xserver.displayManager.sessionPackages = [pkgs.gnome.gnome-session.sessions];
 
       environment.extraInit = ''
         ${concatMapStrings
@@ -483,12 +483,12 @@ in
       };
 
       systemd.packages =
-        with pkgs.gnome; [ gnome-flashback ] ++ map gnome-flashback.mkSystemdTargetForWm flashbackWms;
+        with pkgs.gnome; [gnome-flashback] ++ map gnome-flashback.mkSystemdTargetForWm flashbackWms;
 
       # gnome-panel needs these for menu applet
-      environment.sessionVariables.XDG_DATA_DIRS = [ "${pkgs.gnome.gnome-flashback}/share" ];
+      environment.sessionVariables.XDG_DATA_DIRS = ["${pkgs.gnome.gnome-flashback}/share"];
       # TODO: switch to sessionVariables (resolve conflict)
-      environment.variables.XDG_CONFIG_DIRS = [ "${pkgs.gnome.gnome-flashback}/etc/xdg" ];
+      environment.variables.XDG_CONFIG_DIRS = ["${pkgs.gnome.gnome-flashback}/etc/xdg"];
     })
 
     (mkIf serviceCfg.core-os-services.enable {
@@ -540,7 +540,7 @@ in
 
       # gnome has a custom alert theme but it still
       # inherits from the freedesktop theme.
-      environment.systemPackages = with pkgs; [ sound-theme-freedesktop ];
+      environment.systemPackages = with pkgs; [sound-theme-freedesktop];
 
       # Needed for themes and backgrounds
       environment.pathsToLink = [
@@ -551,8 +551,8 @@ in
     (mkIf serviceCfg.core-shell.enable {
       services.xserver.desktopManager.gnome.sessionPath =
         let
-          mandatoryPackages = [ pkgs.gnome.gnome-shell ];
-          optionalPackages = [ pkgs.gnome.gnome-shell-extensions ];
+          mandatoryPackages = [pkgs.gnome.gnome-shell];
+          optionalPackages = [pkgs.gnome.gnome-shell-extensions];
         in
         mandatoryPackages
         ++ utils.removePackagesByName optionalPackages config.environment.gnome.excludePackages;
@@ -583,7 +583,7 @@ in
 
       services.avahi.enable = mkDefault true;
 
-      xdg.portal.extraPortals = [ pkgs.gnome.gnome-shell ];
+      xdg.portal.extraPortals = [pkgs.gnome.gnome-shell];
 
       services.geoclue2.enable = mkDefault true;
       services.geoclue2.enableDemoAgent = false; # GNOME has its own geoclue agent
@@ -611,7 +611,7 @@ in
       # Adapt from https://gitlab.gnome.org/GNOME/gnome-build-meta/blob/gnome-3-38/elements/core/meta-gnome-core-shell.bst
       environment.systemPackages =
         let
-          mandatoryPackages = with pkgs.gnome; [ gnome-shell ];
+          mandatoryPackages = with pkgs.gnome; [gnome-shell];
           optionalPackages = with pkgs.gnome; [
             adwaita-icon-theme
             nixos-background-info
@@ -695,9 +695,9 @@ in
       environment.sessionVariables.NAUTILUS_4_EXTENSION_DIR = "${config.system.path}/lib/nautilus/extensions-4";
 
       # Override default mimeapps for nautilus
-      environment.sessionVariables.XDG_DATA_DIRS = [ "${mimeAppsList}/share" ];
+      environment.sessionVariables.XDG_DATA_DIRS = ["${mimeAppsList}/share"];
 
-      environment.pathsToLink = [ "/share/nautilus-python/extensions" ];
+      environment.pathsToLink = ["/share/nautilus-python/extensions"];
     })
 
     (mkIf serviceCfg.games.enable {

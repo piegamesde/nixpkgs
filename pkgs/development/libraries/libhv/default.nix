@@ -20,7 +20,7 @@ stdenv.mkDerivation (
       hash = "sha256-LMk8B/1EofcQcIF3kGmtPdM2s+/gN9ctcsybwTpf4Po=";
     };
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
     buildInputs = [
       curl
@@ -40,7 +40,7 @@ stdenv.mkDerivation (
       description = "A c/c++ network library for developing TCP/UDP/SSL/HTTP/WebSocket/MQTT client/server";
       homepage = "https://github.com/ithewei/libhv";
       license = licenses.bsd3;
-      maintainers = with maintainers; [ sikmir ];
+      maintainers = with maintainers; [sikmir];
       platforms = platforms.unix;
     };
   }

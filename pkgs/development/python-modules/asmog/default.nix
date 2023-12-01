@@ -28,12 +28,12 @@ buildPythonPackage rec {
   # https://github.com/kstaniek/python-ampio-smog-api/issues/2
   doCheck = false;
 
-  pythonImportsCheck = [ "asmog" ];
+  pythonImportsCheck = ["asmog"];
 
   meta = with lib; {
     description = "Python module for Ampio Smog Sensors";
     homepage = "https://github.com/kstaniek/python-ampio-smog-api";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

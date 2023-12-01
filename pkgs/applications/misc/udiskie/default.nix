@@ -26,7 +26,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-lQMJVSY3JeZYYOFDyV29Ye2j8r+ngE/ta2wQYipy4hU=";
   };
 
-  patches = [ ./locale-path.patch ];
+  patches = [./locale-path.patch];
 
   postPatch = ''
     substituteInPlace udiskie/locale.py --subst-var out
@@ -68,7 +68,7 @@ python3.pkgs.buildPythonApplication rec {
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [pytestCheckHook];
 
   meta = with lib; {
     homepage = "https://github.com/coldfix/udiskie";

@@ -12,7 +12,7 @@ let
 
   cfg = config.services.activemq;
 
-  activemqBroker = runCommand "activemq-broker" { nativeBuildInputs = [ jdk ]; } ''
+  activemqBroker = runCommand "activemq-broker" {nativeBuildInputs = [jdk];} ''
     mkdir -p $out/lib
     source ${activemq}/lib/classpath.env
     export CLASSPATH
@@ -64,7 +64,7 @@ in
       };
       javaProperties = mkOption {
         type = types.attrs;
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             "java.net.preferIPv4Stack" = "true";
@@ -109,9 +109,9 @@ in
     users.groups.activemq.gid = config.ids.gids.activemq;
 
     systemd.services.activemq_init = {
-      wantedBy = [ "activemq.service" ];
-      partOf = [ "activemq.service" ];
-      before = [ "activemq.service" ];
+      wantedBy = ["activemq.service"];
+      partOf = ["activemq.service"];
+      before = ["activemq.service"];
       serviceConfig.Type = "oneshot";
       script = ''
         mkdir -p "${cfg.javaProperties."activemq.data"}"
@@ -120,9 +120,9 @@ in
     };
 
     systemd.services.activemq = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      path = [ jre ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      path = [jre];
       serviceConfig.User = "activemq";
       script = ''
         source ${activemq}/lib/classpath.env

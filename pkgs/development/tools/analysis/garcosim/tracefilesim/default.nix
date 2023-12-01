@@ -16,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "156m92k38ap4bzidbr8dzl065rni8lrib71ih88myk9z5y1x5nxm";
   };
 
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   installPhase = ''
     mkdir --parents "$out/bin"
@@ -26,7 +26,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Ease the analysis of existing memory management techniques, as well as the prototyping of new memory management techniques";
     homepage = "https://github.com/GarCoSim";
-    maintainers = [ maintainers.cmcdragonkai ];
+    maintainers = [maintainers.cmcdragonkai];
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

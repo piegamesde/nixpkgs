@@ -24,7 +24,7 @@ let
     {
       version,
       hash,
-      extraNativeBuildInputs ? [ ],
+      extraNativeBuildInputs ? [],
     }:
     stdenv.mkDerivation rec {
       pname = "varnish";
@@ -55,14 +55,14 @@ let
         ++ lib.optional stdenv.hostPlatform.isDarwin libunwind
         ++ lib.optional stdenv.hostPlatform.isLinux jemalloc;
 
-      buildFlags = [ "localstatedir=/var/spool" ];
+      buildFlags = ["localstatedir=/var/spool"];
 
       postPatch = ''
         substituteInPlace bin/varnishtest/vtc_main.c --replace /bin/rm "${coreutils}/bin/rm"
       '';
 
       postInstall = ''
-        wrapProgram "$out/sbin/varnishd" --prefix PATH : "${lib.makeBinPath [ stdenv.cc ]}"
+        wrapProgram "$out/sbin/varnishd" --prefix PATH : "${lib.makeBinPath [stdenv.cc]}"
       '';
 
       # https://github.com/varnishcache/varnish-cache/issues/1875
@@ -76,15 +76,14 @@ let
 
       passthru = {
         python = python3;
-        tests =
-          nixosTests."varnish${builtins.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor version)}";
+        tests = nixosTests."varnish${builtins.replaceStrings ["."] [""] (lib.versions.majorMinor version)}";
       };
 
       meta = with lib; {
         description = "Web application accelerator also known as a caching HTTP reverse proxy";
         homepage = "https://www.varnish-cache.org";
         license = licenses.bsd2;
-        maintainers = with maintainers; [ ajs124 ];
+        maintainers = with maintainers; [ajs124];
         platforms = platforms.unix;
       };
     };

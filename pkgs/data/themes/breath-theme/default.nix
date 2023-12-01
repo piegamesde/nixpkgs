@@ -42,7 +42,7 @@ stdenv.mkDerivation {
     description = "Manjaro KDE default theme";
     homepage = "https://gitlab.manjaro.org/artwork/themes/breath";
     license = licenses.cc-by-sa-40;
-    maintainers = with maintainers; [ huantian ];
+    maintainers = with maintainers; [huantian];
     platforms = platforms.linux;
   };
 }

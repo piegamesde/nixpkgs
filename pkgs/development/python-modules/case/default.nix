@@ -28,12 +28,12 @@ buildPythonPackage rec {
   # No real unittests, only coverage
   doCheck = false;
 
-  pythonImportsCheck = [ "case" ];
+  pythonImportsCheck = ["case"];
 
   meta = with lib; {
     homepage = "https://github.com/celery/case";
     description = "Utilities for unittests handling";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

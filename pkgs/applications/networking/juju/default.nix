@@ -20,12 +20,12 @@ buildGoModule rec {
   # Disable tests because it attempts to use a mongodb instance
   doCheck = false;
 
-  subPackages = [ "cmd/juju" ];
+  subPackages = ["cmd/juju"];
 
   meta = with lib; {
     description = "Open source modelling tool for operating software in the cloud";
     homepage = "https://juju.is";
     license = licenses.mit;
-    maintainers = with maintainers; [ citadelcore ];
+    maintainers = with maintainers; [citadelcore];
   };
 }

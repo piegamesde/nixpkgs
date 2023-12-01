@@ -14,8 +14,8 @@ makeOverridable (
     version,
     hash ? lib.fakeHash,
 
-    meta ? { },
-    passthru ? { },
+    meta ? {},
+    passthru ? {},
     preferLocalBuild ? true,
   }:
   stdenv.mkDerivation {

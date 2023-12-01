@@ -28,7 +28,7 @@ buildPythonPackage rec {
     six
     glibcLocales
   ];
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   disabled = pythonOlder "3.4";
 
@@ -36,7 +36,7 @@ buildPythonPackage rec {
     description = "Library collecting some useful snippets";
     homepage = "https://pypi.python.org/pypi/hcs_utils/1.3";
     license = licenses.isc;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     platforms = platforms.unix;
   };
 }

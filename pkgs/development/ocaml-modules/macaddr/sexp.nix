@@ -14,7 +14,7 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ ppx_sexp_conv ];
+  propagatedBuildInputs = [ppx_sexp_conv];
 
   checkInputs = [
     macaddr-cstruct

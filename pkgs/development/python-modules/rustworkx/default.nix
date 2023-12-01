@@ -28,7 +28,7 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs =
-    [ setuptools-rust ]
+    [setuptools-rust]
     ++ (
       with rustPlatform; [
         cargoSetupHook
@@ -37,19 +37,19 @@ buildPythonPackage rec {
       ]
     );
 
-  buildInputs = [ numpy ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs = [numpy] ++ lib.optionals stdenv.isDarwin [libiconv];
 
   checkInputs = [
     fixtures
     networkx
   ];
 
-  pythonImportsCheck = [ "rustworkx" ];
+  pythonImportsCheck = ["rustworkx"];
 
   meta = with lib; {
     description = "A high performance Python graph library implemented in Rust.";
     homepage = "https://github.com/Qiskit/rustworkx";
     license = licenses.asl20;
-    maintainers = with maintainers; [ raitobezarius ];
+    maintainers = with maintainers; [raitobezarius];
   };
 }

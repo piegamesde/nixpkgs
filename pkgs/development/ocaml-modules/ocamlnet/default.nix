@@ -46,7 +46,7 @@ lib.throwIf (lib.versionOlder ocaml.version "4.02" || lib.versionAtLeast ocaml.v
 
     dontAddPrefix = true;
     dontAddStaticConfigureFlags = true;
-    configurePlatforms = [ ];
+    configurePlatforms = [];
 
     preConfigure = ''
       configureFlagsArray=(
@@ -70,6 +70,6 @@ lib.throwIf (lib.versionOlder ocaml.version "4.02" || lib.versionAtLeast ocaml.v
       description = "A library implementing Internet protocols (http, cgi, email, etc.) for OCaml";
       license = "Most Ocamlnet modules are released under the zlib/png license. The HTTP server module Nethttpd is, however, under the GPL.";
       inherit (ocaml.meta) platforms;
-      maintainers = [ lib.maintainers.maggesi ];
+      maintainers = [lib.maintainers.maggesi];
     };
   }

@@ -23,10 +23,10 @@ rustPlatform.buildRustPackage {
 
   cargoHash = "sha256-h+QPbwYTJk6dieta/Q+VAhYe8/YH/Nik6gslzUn0YxI=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
-    lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ]
+    lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.AppKit]
     ++ lib.optionals stdenv.isLinux [
       libxkbcommon
       wayland
@@ -39,6 +39,6 @@ rustPlatform.buildRustPackage {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

@@ -19,6 +19,6 @@ rustPlatform.buildRustPackage rec {
     description = "Converts cargo's json output (from stdin) to JUnit XML (to stdout).";
     homepage = "https://github.com/johnterickson/cargo2junit";
     license = licenses.mit;
-    maintainers = with maintainers; [ alekseysidorov ];
+    maintainers = with maintainers; [alekseysidorov];
   };
 }

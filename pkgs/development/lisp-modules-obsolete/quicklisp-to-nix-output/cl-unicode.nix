@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-unicode";
   version = "20210228-git";
@@ -24,7 +24,7 @@ rec {
 
   packageName = "cl-unicode";
 
-  asdFilesToKeep = [ "cl-unicode.asd" ];
+  asdFilesToKeep = ["cl-unicode.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-unicode DESCRIPTION Portable Unicode Library SHA256

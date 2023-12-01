@@ -39,6 +39,6 @@ buildPythonApplication rec {
     description = "Provides a command line tool to invoke vcs commands on multiple repositories";
     homepage = "https://github.com/dirk-thomas/vcstool";
     license = licenses.asl20;
-    maintainers = with maintainers; [ sivteck ];
+    maintainers = with maintainers; [sivteck];
   };
 }

@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5OxxMakdpEUSV0Jo9JPG2MoQXIcJFpG46bVspoXU+U0=";
   };
 
-  patches = [ ./suid-wrapper-path.patch ];
+  patches = [./suid-wrapper-path.patch];
 
   outputs = [
     "out"
@@ -29,8 +29,8 @@ stdenv.mkDerivation rec {
     "man" # "modules"
   ];
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ flex ] ++ lib.optional stdenv.buildPlatform.isDarwin gettext;
+  depsBuildBuild = [buildPackages.stdenv.cc];
+  nativeBuildInputs = [flex] ++ lib.optional stdenv.buildPlatform.isDarwin gettext;
 
   buildInputs = [
     cracklib
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     "--enable-sconfigdir=/etc/security"
   ];
 
-  installFlags = [ "SCONFIGDIR=${placeholder "out"}/etc/security" ];
+  installFlags = ["SCONFIGDIR=${placeholder "out"}/etc/security"];
 
   doCheck = false; # fails
 

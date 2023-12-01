@@ -1,15 +1,15 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   {
     name = "xandikos";
 
-    meta.maintainers = with lib.maintainers; [ _0x4A6F ];
+    meta.maintainers = with lib.maintainers; [_0x4A6F];
 
     nodes = {
-      xandikos_client = { };
+      xandikos_client = {};
       xandikos_default = {
-        networking.firewall.allowedTCPPorts = [ 8080 ];
+        networking.firewall.allowedTCPPorts = [8080];
         services.xandikos.enable = true;
       };
       xandikos_proxy = {
@@ -21,7 +21,7 @@ import ./make-test-python.nix (
         services.xandikos.address = "localhost";
         services.xandikos.port = 8080;
         services.xandikos.routePrefix = "/xandikos-prefix/";
-        services.xandikos.extraOptions = [ "--defaults" ];
+        services.xandikos.extraOptions = ["--defaults"];
         services.nginx = {
           enable = true;
           recommendedProxySettings = true;

@@ -26,11 +26,11 @@ mkDerivation rec {
     qtlocation
   ];
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
 
   meta = with lib; {
-    license = [ licenses.cc0 ];
-    maintainers = [ maintainers.samueldr ];
+    license = [licenses.cc0];
+    maintainers = [maintainers.samueldr];
     description = ''
       Library to facilitate retrieval of weather information including forecasts and alerts
     '';

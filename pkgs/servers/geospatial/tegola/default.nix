@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  subPackages = [ "cmd/tegola" ];
+  subPackages = ["cmd/tegola"];
 
   ldflags = [
     "-s"
@@ -28,7 +28,7 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://www.tegola.io/";
     description = "Mapbox Vector Tile server";
-    maintainers = with maintainers; [ ingenieroariel ];
+    maintainers = with maintainers; [ingenieroariel];
     platforms = platforms.unix;
     license = licenses.mit;
   };

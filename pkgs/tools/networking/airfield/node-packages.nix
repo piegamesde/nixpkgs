@@ -7,7 +7,7 @@
   nix-gitignore,
   stdenv,
   lib,
-  globalBuildInputs ? [ ],
+  globalBuildInputs ? [],
 }:
 
 let
@@ -680,7 +680,7 @@ in
       url = "https://registry.npmjs.org/swig/-/swig-0.14.0.tgz";
       sha1 = "544bfb3bd837608873eed6a72c672a28cb1f1b3f";
     };
-    dependencies = [ sources."underscore-1.12.0" ];
+    dependencies = [sources."underscore-1.12.0"];
     buildInputs = globalBuildInputs;
     meta = {
       description = "A fast django-like templating engine for node.js and browsers.";

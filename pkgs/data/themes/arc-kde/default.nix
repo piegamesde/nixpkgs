@@ -15,13 +15,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dxk8YpJB4XaZHD/O+WvQUFKJD2TE38VZyC5orn4N7BA=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = {
     description = "A port of the arc theme for Plasma";
     homepage = "https://git.io/arc-kde";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.nixy ];
+    maintainers = [lib.maintainers.nixy];
     platforms = lib.platforms.all;
   };
 }

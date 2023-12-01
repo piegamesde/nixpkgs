@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-VCdXkUdSFX7ARVtgcbsRgh9Kcy490PA+HrT0Eaj8KvI=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     bluetooth-data-tools
@@ -34,20 +34,20 @@ buildPythonPackage rec {
     pycryptodomex
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace " --cov=bthome_ble --cov-report=term-missing:skip-covered" ""
   '';
 
-  pythonImportsCheck = [ "bthome_ble" ];
+  pythonImportsCheck = ["bthome_ble"];
 
   meta = with lib; {
     description = "Library for BThome BLE devices";
     homepage = "https://github.com/Bluetooth-Devices/bthome-ble";
     changelog = "https://github.com/bluetooth-devices/bthome-ble/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

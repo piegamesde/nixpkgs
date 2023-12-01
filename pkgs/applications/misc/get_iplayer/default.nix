@@ -21,8 +21,8 @@ perlPackages.buildPerlPackage rec {
     sha256 = "077y31gg020wjpx5pcivqgkqawcjxh5kjnvq97x2gd7i3wwc30qi";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ perl ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [perl];
   propagatedBuildInputs = with perlPackages; [
     HTMLParser
     HTTPCookies
@@ -58,6 +58,6 @@ perlPackages.buildPerlPackage rec {
     license = licenses.gpl3Plus;
     homepage = "https://squarepenguin.co.uk/";
     platforms = platforms.all;
-    maintainers = with maintainers; [ rika ];
+    maintainers = with maintainers; [rika];
   };
 }

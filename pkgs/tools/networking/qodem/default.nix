@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       terminal screen features of Qmodem over both modem and Internet
       connections.
     '';
-    maintainers = with maintainers; [ embr ];
+    maintainers = with maintainers; [embr];
     license = licenses.publicDomain;
   };
 }

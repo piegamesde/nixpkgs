@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
     description = "A brand-new language server for Typst";
     homepage = "https://github.com/nvarner/typst-lsp";
     changelog = "https://github.com/nvarner/typst-lsp/releases/tag/${src.rev}";
-    license = with licenses; [ mit ];
+    license = with licenses; [mit];
     maintainers = with maintainers; [
       figsoda
       GaetanLepage

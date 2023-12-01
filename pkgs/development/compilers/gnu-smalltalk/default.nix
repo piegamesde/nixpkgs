@@ -29,7 +29,7 @@ let
   # does not help, the error still occurs. The only solution is to build a
   # shared version of libsigsegv.
   libsigsegv-shared = lib.overrideDerivation libsigsegv (
-    oldAttrs: { configureFlags = [ "--enable-shared" ]; }
+    oldAttrs: {configureFlags = ["--enable-shared"];}
   );
 in
 stdenv.mkDerivation rec {
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
 
   # The dependencies and their justification are explained at
   # http://smalltalk.gnu.org/download
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libtool
     zip
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = lib.optional (!emacsSupport) "--without-emacs";
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   installFlags = lib.optional emacsSupport "lispdir=$(out)/share/emacs/site-lisp";
 
@@ -83,6 +83,6 @@ stdenv.mkDerivation rec {
       lgpl2
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ skeidel ];
+    maintainers = with maintainers; [skeidel];
   };
 }

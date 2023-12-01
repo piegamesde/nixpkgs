@@ -25,7 +25,7 @@ let
   # /etc/passwd: "nixbld:x:1000:100:Nix build user:/build:/noshell"
   # sshd: "User nixbld not allowed because shell /noshell does not exist"
   opensshUnsafe = openssh.overrideAttrs (
-    oldAttrs: { patches = oldAttrs.patches ++ [ ./openssh-nixos-sandbox.patch ]; }
+    oldAttrs: {patches = oldAttrs.patches ++ [./openssh-nixos-sandbox.patch];}
   );
 in
 stdenv.mkDerivation rec {
@@ -33,20 +33,20 @@ stdenv.mkDerivation rec {
   version = "0.44";
 
   # The patched OpenSSH binary MUST NOT be used (except in the check phase):
-  disallowedRequisites = [ opensshUnsafe ];
+  disallowedRequisites = [opensshUnsafe];
 
   src = fetchurl {
     url = "http://archive.monkeysphere.info/debian/pool/monkeysphere/m/monkeysphere/monkeysphere_${version}.orig.tar.gz";
     sha256 = "1ah7hy8r9gj96pni8azzjb85454qky5l17m3pqn37854l6grgika";
   };
 
-  patches = [ ./monkeysphere.patch ];
+  patches = [./monkeysphere.patch];
 
   postPatch = ''
     sed -i "s,/usr/bin/env,${coreutils}/bin/env," src/share/ma/update_users
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs =
     [
       perl
@@ -114,7 +114,7 @@ stdenv.mkDerivation rec {
       '';
       wrapPrograms = runtimeDeps: programs: lib.concatMapStrings (wrapMonkeysphere runtimeDeps) programs;
     in
-    wrapPrograms [ gnupg ] [
+    wrapPrograms [gnupg] [
       "monkeysphere-authentication"
       "monkeysphere-host"
     ]
@@ -124,14 +124,14 @@ stdenv.mkDerivation rec {
           gnupg
           lockfileProgs
         ]
-        [ "monkeysphere" ]
+        ["monkeysphere"]
     + ''
       # These 4 programs depend on the program name ($0):
       for program in openpgp2pem openpgp2spki openpgp2ssh pem2openpgp; do
         rm $out/bin/$program
         ln -sf keytrans $out/share/monkeysphere/$program
         makeWrapper $out/share/monkeysphere/$program $out/bin/$program \
-          ${wrapperArgs [ ]}
+          ${wrapperArgs []}
       done
     '';
 
@@ -149,6 +149,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
   };
 }

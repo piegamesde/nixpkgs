@@ -12,7 +12,7 @@ buildDunePackage {
   minimalOCamlVersion = "4.03";
   duneVersion = "3";
 
-  propagatedBuildInputs = [ posix-base ];
+  propagatedBuildInputs = [posix-base];
 
   meta = posix-base.meta // {
     description = "Bindings for the types defined in <sys/types.h>";

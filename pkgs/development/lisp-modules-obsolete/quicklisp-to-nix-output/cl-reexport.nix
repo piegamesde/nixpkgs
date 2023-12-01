@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-reexport";
   version = "20210228-git";
 
   description = "Reexport external symbols in other packages.";
 
-  deps = [ args."alexandria" ];
+  deps = [args."alexandria"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-reexport/2021-02-28/cl-reexport-20210228-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "cl-reexport";
 
-  asdFilesToKeep = [ "cl-reexport.asd" ];
+  asdFilesToKeep = ["cl-reexport.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-reexport DESCRIPTION Reexport external symbols in other packages.

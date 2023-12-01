@@ -16,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "0z3vdr3c8nvdrrxkjv9b4xg47mdb2hsknxpimw6shgwbigihapyr";
   };
   dontBuild = true;
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   installPhase = ''
     mkdir -p $out/bin
     cp $src/jsawk $out/bin/
@@ -28,7 +28,7 @@ stdenv.mkDerivation {
     description = "Like awk, but for JSON";
     homepage = "https://github.com/micha/jsawk";
     license = lib.licenses.publicDomain;
-    maintainers = with lib.maintainers; [ puffnfresh ];
+    maintainers = with lib.maintainers; [puffnfresh];
     platforms = lib.platforms.unix;
   };
 }

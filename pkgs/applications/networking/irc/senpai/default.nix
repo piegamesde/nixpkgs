@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-PkoEHQEGKCiNbJsm7ieL65MtEult/wubLreJKA1gGpg=";
 
-  subPackages = [ "cmd/senpai" ];
+  subPackages = ["cmd/senpai"];
 
   nativeBuildInputs = [
     scdoc
@@ -36,6 +36,6 @@ buildGoModule rec {
     description = "Your everyday IRC student";
     homepage = "https://sr.ht/~taiite/senpai/";
     license = licenses.isc;
-    maintainers = with maintainers; [ malte-v ];
+    maintainers = with maintainers; [malte-v];
   };
 }

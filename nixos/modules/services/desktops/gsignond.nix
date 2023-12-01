@@ -10,7 +10,7 @@
 with lib;
 
 let
-  package = pkgs.gsignond.override { plugins = config.services.gsignond.plugins; };
+  package = pkgs.gsignond.override {plugins = config.services.gsignond.plugins;};
 in
 {
 
@@ -33,7 +33,7 @@ in
 
       plugins = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           What plugins to use with the gSignOn daemon.
         '';
@@ -44,6 +44,6 @@ in
   ###### implementation
   config = mkIf config.services.gsignond.enable {
     environment.etc."gsignond.conf".source = "${package}/etc/gsignond.conf";
-    services.dbus.packages = [ package ];
+    services.dbus.packages = [package];
   };
 }

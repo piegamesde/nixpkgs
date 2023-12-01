@@ -30,6 +30,6 @@ buildDunePackage rec {
     description = "MirageOS signatures for filesystem devices";
     homepage = "https://github.com/mirage/mirage-fs";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

@@ -17,7 +17,7 @@ buildKodiAddon rec {
 
   passthru = {
     pythonPath = "lib";
-    updateScript = addonUpdateScript { attrPath = "kodi.packages.defusedxml"; };
+    updateScript = addonUpdateScript {attrPath = "kodi.packages.defusedxml";};
   };
 
   meta = with lib; {

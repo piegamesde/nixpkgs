@@ -30,11 +30,11 @@ stdenv.mkDerivation rec {
     xdotool
   ]);
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ bashInteractive ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [bashInteractive];
   dontBuild = true;
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   postInstall = ''
     wrapProgram "$out/bin/fff" --prefix PATH : $pathAdd
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     description = "Fucking Fast File-Manager";
     homepage = "https://github.com/dylanaraps/fff";
     license = licenses.mit;
-    maintainers = [ maintainers.tadeokondrak ];
+    maintainers = [maintainers.tadeokondrak];
     platforms = platforms.all;
   };
 }

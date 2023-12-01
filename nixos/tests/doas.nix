@@ -1,16 +1,16 @@
 # Some tests to ensure doas is working properly.
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
   {
     name = "doas";
-    meta = with lib.maintainers; { maintainers = [ cole-h ]; };
+    meta = with lib.maintainers; {maintainers = [cole-h];};
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
         users.groups = {
-          foobar = { };
-          barfoo = { };
+          foobar = {};
+          barfoo = {};
           baz = {
             gid = 1337;
           };
@@ -18,22 +18,22 @@ import ./make-test-python.nix (
         users.users = {
           test0 = {
             isNormalUser = true;
-            extraGroups = [ "wheel" ];
+            extraGroups = ["wheel"];
           };
           test1 = {
             isNormalUser = true;
           };
           test2 = {
             isNormalUser = true;
-            extraGroups = [ "foobar" ];
+            extraGroups = ["foobar"];
           };
           test3 = {
             isNormalUser = true;
-            extraGroups = [ "barfoo" ];
+            extraGroups = ["barfoo"];
           };
           test4 = {
             isNormalUser = true;
-            extraGroups = [ "baz" ];
+            extraGroups = ["baz"];
           };
           test5 = {
             isNormalUser = true;
@@ -52,11 +52,11 @@ import ./make-test-python.nix (
 
           extraRules = [
             {
-              users = [ "test1" ];
-              groups = [ "foobar" ];
+              users = ["test1"];
+              groups = ["foobar"];
             }
             {
-              users = [ "test2" ];
+              users = ["test2"];
               noPass = true;
               setEnv = [
                 "CORRECT"
@@ -71,21 +71,21 @@ import ./make-test-python.nix (
               noPass = true;
             }
             {
-              users = [ "test5" ];
+              users = ["test5"];
               noPass = true;
               keepEnv = true;
               runAs = "test1";
             }
             {
-              users = [ "test6" ];
+              users = ["test6"];
               noPass = true;
               keepEnv = true;
-              setEnv = [ "-STAPLE" ];
+              setEnv = ["-STAPLE"];
             }
             {
-              users = [ "test7" ];
+              users = ["test7"];
               noPass = true;
-              setEnv = [ "-SSH_AUTH_SOCK" ];
+              setEnv = ["-SSH_AUTH_SOCK"];
             }
           ];
         };

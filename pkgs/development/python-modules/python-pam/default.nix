@@ -26,16 +26,16 @@ buildPythonPackage rec {
       --replace 'find_library("pam_misc")' '"${pam}/lib/libpam_misc.so"'
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  buildInputs = [ pam ];
+  buildInputs = [pam];
 
   propagatedBuildInputs = [
     six
     toml
   ];
 
-  pythonImportsCheck = [ "pam" ];
+  pythonImportsCheck = ["pam"];
 
   meta = with lib; {
     description = "Python pam module";

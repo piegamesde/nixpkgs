@@ -14,7 +14,7 @@ in
   options.programs.kbdlight.enable = mkEnableOption (lib.mdDoc "kbdlight");
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.kbdlight ];
+    environment.systemPackages = [pkgs.kbdlight];
     security.wrappers.kbdlight = {
       setuid = true;
       owner = "root";

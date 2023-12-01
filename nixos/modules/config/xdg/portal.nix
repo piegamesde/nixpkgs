@@ -69,7 +69,7 @@ in
 
     extraPortals = mkOption {
       type = types.listOf types.package;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         List of additional portals to add to path. Portals allow interaction
         with system, like choosing files or taking screenshots. At minimum,
@@ -107,7 +107,7 @@ in
   config =
     let
       cfg = config.xdg.portal;
-      packages = [ pkgs.xdg-desktop-portal ] ++ cfg.extraPortals;
+      packages = [pkgs.xdg-desktop-portal] ++ cfg.extraPortals;
       joinedPortals = pkgs.buildEnv {
         name = "xdg-portals";
         paths = packages;
@@ -121,7 +121,7 @@ in
 
       assertions = [
         {
-          assertion = cfg.extraPortals != [ ];
+          assertion = cfg.extraPortals != [];
           message = "Setting xdg.portal.enable to true requires a portal implementation in xdg.portal.extraPortals such as xdg-desktop-portal-gtk or xdg-desktop-portal-kde.";
         }
       ];
@@ -133,8 +133,8 @@ in
         # fixes screen sharing on plasmawayland on non-chromium apps by linking
         # share/applications/*.desktop files
         # see https://github.com/NixOS/nixpkgs/issues/145174
-        systemPackages = [ joinedPortals ];
-        pathsToLink = [ "/share/applications" ];
+        systemPackages = [joinedPortals];
+        pathsToLink = ["/share/applications"];
 
         sessionVariables = {
           GTK_USE_PORTAL = mkIf cfg.gtkUsePortal "1";

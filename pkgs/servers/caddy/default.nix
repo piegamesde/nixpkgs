@@ -29,7 +29,7 @@ buildGoModule {
 
   vendorHash = "sha256-toi6efYZobjDV3YPT9seE/WZAzNaxgb1ioVG4txcuXM=";
 
-  subPackages = [ "cmd/caddy" ];
+  subPackages = ["cmd/caddy"];
 
   ldflags = [
     "-s"
@@ -37,7 +37,7 @@ buildGoModule {
     "-X github.com/caddyserver/caddy/v2.CustomVersion=${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     install -Dm644 ${dist}/init/caddy.service ${dist}/init/caddy-api.service -t $out/lib/systemd/system

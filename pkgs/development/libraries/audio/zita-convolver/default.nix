@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "0prji66p86z2bzminywkwchr5bfgxcg2i8y803pydd1hzf2198cs";
   };
 
-  buildInputs = [ fftwFloat ];
+  buildInputs = [fftwFloat];
 
   patchPhase = ''
     cd source
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     version = version;
     homepage = "http://kokkinizita.linuxaudio.org/linuxaudio/downloads/index.html";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.magnetophon ];
+    maintainers = [lib.maintainers.magnetophon];
     platforms = lib.platforms.linux;
   };
 }

@@ -1,4 +1,4 @@
-{ lib, python3Packages }:
+{lib, python3Packages}:
 
 with python3Packages;
 
@@ -36,7 +36,7 @@ buildPythonApplication rec {
     homepage = "https://github.com/Kuniwak/vint";
     license = licenses.mit;
     mainProgram = "vint";
-    maintainers = with maintainers; [ andsild ];
+    maintainers = with maintainers; [andsild];
     platforms = platforms.all;
   };
 }

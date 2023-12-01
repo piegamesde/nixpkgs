@@ -26,6 +26,6 @@ buildGoModule rec {
     description = "Distributed code review system for Git repos";
     homepage = "https://github.com/google/git-appraise";
     license = licenses.asl20;
-    maintainers = with maintainers; [ vdemeester ];
+    maintainers = with maintainers; [vdemeester];
   };
 }

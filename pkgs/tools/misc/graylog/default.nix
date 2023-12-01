@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   dontBuild = true;
   dontStrip = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   makeWrapperArgs = [
     "--set-default"
     "JAVA_HOME"
@@ -39,9 +39,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Open source log management solution";
     homepage = "https://www.graylog.org/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.gpl3;
-    maintainers = [ maintainers.fadenb ];
+    maintainers = [maintainers.fadenb];
     mainProgram = "graylogctl";
     platforms = platforms.unix;
   };

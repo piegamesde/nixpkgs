@@ -23,9 +23,9 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ gperf_3_0 ];
+  nativeBuildInputs = [gperf_3_0];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   patches = [
     ./debian-patches.patch
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     description = "ID3 tag manipulation library";
     homepage = "https://mad.sourceforge.net/";
     license = licenses.gpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

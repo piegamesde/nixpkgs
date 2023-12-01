@@ -27,6 +27,6 @@ buildGoModule rec {
     description = "An implementation of the BitTorrent protocol that is optimised for streaming media";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

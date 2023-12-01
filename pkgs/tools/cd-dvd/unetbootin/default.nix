@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     qmake
   ];
 
-  nativeBuildInputs = [ wrapQtAppsHook ];
+  nativeBuildInputs = [wrapQtAppsHook];
 
   # Lots of nice hard-coded paths...
   postPatch = ''
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
     description = "A tool to create bootable live USB drives from ISO images";
     homepage = "https://unetbootin.github.io/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ebzzry ];
+    maintainers = with maintainers; [ebzzry];
     platforms = platforms.linux;
   };
 }

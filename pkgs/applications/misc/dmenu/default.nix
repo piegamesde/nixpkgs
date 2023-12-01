@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     sed -i "s@PREFIX = /usr/local@PREFIX = $out@g" config.mk
   '';
 
-  makeFlags = [ "CC:=$(CC)" ];
+  makeFlags = ["CC:=$(CC)"];
 
   meta = with lib; {
     description = "A generic, highly customizable, and efficient menu for the X Window System";

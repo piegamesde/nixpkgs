@@ -49,7 +49,7 @@ buildPythonApplication rec {
   # chroot, it assumes that it has enough privileges to escape it.
   doCheck = false;
 
-  pythonImportsCheck = [ "cdist" ];
+  pythonImportsCheck = ["cdist"];
 
   postInstall = ''
     mkdir -p $out/share
@@ -63,7 +63,7 @@ buildPythonApplication rec {
 
     # Mostly. There are still couple types that are gpl3-only.
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
     platforms = platforms.unix;
   };
 }

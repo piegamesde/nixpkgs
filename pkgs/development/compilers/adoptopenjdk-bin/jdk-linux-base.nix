@@ -1,6 +1,6 @@
 {
   sourcePerArch,
-  knownVulnerabilities ? [ ],
+  knownVulnerabilities ? [],
 }:
 
 {
@@ -29,7 +29,7 @@
 let
   cpuName = stdenv.hostPlatform.parsed.cpu.name;
   runtimeDependencies =
-    [ cups ]
+    [cups]
     ++ lib.optionals gtkSupport [
       cairo
       glib
@@ -48,7 +48,7 @@ let
 
     version = sourcePerArch.${cpuName}.version or (throw "unsupported CPU ${cpuName}");
 
-    src = fetchurl { inherit (sourcePerArch.${cpuName}) url sha256; };
+    src = fetchurl {inherit (sourcePerArch.${cpuName}) url sha256;};
 
     buildInputs = [
       alsa-lib # libasound.so wanted by lib/libjsound.so
@@ -128,7 +128,7 @@ let
       ];
       description = "AdoptOpenJDK, prebuilt OpenJDK binary";
       platforms = lib.mapAttrsToList (arch: _: arch + "-linux") sourcePerArch; # some inherit jre.meta.platforms
-      maintainers = with lib.maintainers; [ taku0 ];
+      maintainers = with lib.maintainers; [taku0];
       inherit knownVulnerabilities;
       mainProgram = "java";
     };

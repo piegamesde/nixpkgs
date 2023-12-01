@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ bison ];
+  nativeBuildInputs = [bison];
 
   postUnpack = "find -type f -exec sed -i 's@/bin/cp@cp@' {} +";
 
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     broken = stdenv.isDarwin;
     homepage = "https://www.haskell.org/hugs";
     description = "Haskell interpreter";
-    maintainers = with maintainers; [ joachifm ];
+    maintainers = with maintainers; [joachifm];
     license = licenses.bsd3;
     platforms = platforms.all;
   };

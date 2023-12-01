@@ -77,7 +77,7 @@ mkDerivation rec {
     qttranslations
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     "-DMINIZIP_INCLUDE_DIRS=${minizip-ng}/include"
@@ -142,6 +142,6 @@ mkDerivation rec {
     description = "Open source SIP phone for voice/video calls and instant messaging";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

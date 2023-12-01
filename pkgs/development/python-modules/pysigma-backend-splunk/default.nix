@@ -23,21 +23,21 @@ buildPythonPackage rec {
     hash = "sha256-SWD3Jw1wehWLvWkLA7rotweExYCrabq7men22D0zN5w=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ pysigma ];
+  propagatedBuildInputs = [pysigma];
 
   nativeCheckInputs = [
     pysigma-pipeline-sysmon
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "sigma.backends.splunk" ];
+  pythonImportsCheck = ["sigma.backends.splunk"];
 
   meta = with lib; {
     description = "Library to support Splunk for pySigma";
     homepage = "https://github.com/SigmaHQ/pySigma-backend-splunk";
-    license = with licenses; [ lgpl21Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [lgpl21Only];
+    maintainers = with maintainers; [fab];
   };
 }

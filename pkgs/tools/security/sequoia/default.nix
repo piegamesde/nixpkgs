@@ -55,7 +55,7 @@ rustPlatform.buildRustPackage rec {
     llvmPackages_12.clang
     ensureNewerSourcesForZipFilesHook
     capnproto
-  ] ++ lib.optionals pythonSupport [ pythonPackages.setuptools ];
+  ] ++ lib.optionals pythonSupport [pythonPackages.setuptools];
 
   nativeCheckInputs = lib.optionals pythonSupport [
     pythonPackages.pytest
@@ -72,7 +72,7 @@ rustPlatform.buildRustPackage rec {
       pythonPackages.python
       pythonPackages.cffi
     ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+    ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.Security];
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"
@@ -80,7 +80,7 @@ rustPlatform.buildRustPackage rec {
     "INSTALL=install"
   ];
 
-  buildFlags = [ "build-release" ];
+  buildFlags = ["build-release"];
 
   LIBCLANG_PATH = "${llvmPackages_12.libclang.lib}/lib";
 
@@ -106,7 +106,7 @@ rustPlatform.buildRustPackage rec {
   checkPhase = null;
   installPhase = null;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "A cool new OpenPGP implementation";

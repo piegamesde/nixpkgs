@@ -90,6 +90,6 @@ stdenv.mkDerivation rec {
       mpl11
     ];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

@@ -18,8 +18,8 @@ mkDerivation {
     homepage = "https://apps.kde.org/kwalletmanager5/";
 
     description = "KDE wallet management tool";
-    license = with lib.licenses; [ gpl2 ];
-    maintainers = with lib.maintainers; [ fridh ];
+    license = with lib.licenses; [gpl2];
+    maintainers = with lib.maintainers; [fridh];
   };
   nativeBuildInputs = [
     extra-cmake-modules

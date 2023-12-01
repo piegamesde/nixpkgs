@@ -10,7 +10,7 @@ stdenv.mkDerivation {
 
   src = ./bin;
 
-  buildInputs = [ icoutils ];
+  buildInputs = [icoutils];
 
   patchPhase = ''
     substituteInPlace extractWinRscIconsToStdFreeDesktopDir.sh \
@@ -30,7 +30,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "Tools for icon conversion specific to nix package manager";
-    maintainers = with maintainers; [ jraygauthier ];
+    maintainers = with maintainers; [jraygauthier];
     platforms = platforms.linux;
   };
 }

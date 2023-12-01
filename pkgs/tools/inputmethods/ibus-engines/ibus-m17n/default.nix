@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     ))
   ];
 
-  configureFlags = [ "--with-gtk=3.0" ];
+  configureFlags = ["--with-gtk=3.0"];
 
   meta = with lib; {
     isIbusEngine = true;
@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ibus/ibus-m17n";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ericsagnes ];
+    maintainers = with maintainers; [ericsagnes];
   };
 }

@@ -34,7 +34,7 @@ buildDotnetModule rec {
     sha256 = "sha256-LJqH3+JckPF7S/1uBE2X81jxWg0MF9ff92Ei8WPEA2w=";
   };
 
-  dotnetInstallFlags = [ "--framework=net6.0" ];
+  dotnetInstallFlags = ["--framework=net6.0"];
 
   projectFile = [
     "OpenTabletDriver.Console"
@@ -108,7 +108,7 @@ buildDotnetModule rec {
       exec = "otd-gui";
       icon = "otd";
       comment = meta.description;
-      categories = [ "Utility" ];
+      categories = ["Utility"];
     })
   ];
 
@@ -123,7 +123,7 @@ buildDotnetModule rec {
     description = "Open source, cross-platform, user-mode tablet driver";
     homepage = "https://github.com/OpenTabletDriver/OpenTabletDriver";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ thiagokokada ];
+    maintainers = with maintainers; [thiagokokada];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

@@ -25,8 +25,8 @@ let
   # supply 2GB of dynamic space to avoid exhausting the heap while building the
   # ACL2 system itself; see
   # https://www.cs.utexas.edu/users/moore/acl2/current/HTML/installation/requirements.html#Obtaining-SBCL
-  sbcl' = args.sbcl.override { disableImmobileSpace = true; };
-  sbcl = runCommandLocal args.sbcl.name { nativeBuildInputs = [ makeWrapper ]; } ''
+  sbcl' = args.sbcl.override {disableImmobileSpace = true;};
+  sbcl = runCommandLocal args.sbcl.name {nativeBuildInputs = [makeWrapper];} ''
     makeWrapper ${sbcl'}/bin/sbcl $out/bin/sbcl \
       --add-flags "--dynamic-space-size 2000"
   '';
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
   # use has a "libname" attribute so we can plug it into the patch
   # below).  Or, you can override it at runtime by setting the
   # $IPASIR_SHARED_LIBRARY environment variable.
-  libipasir = callPackage ./libipasirglucose4 { };
+  libipasir = callPackage ./libipasirglucose4 {};
 
   patches = [
     (substituteAll {
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
       abc-verifier
       libipasir
       z3
-      (python3.withPackages (ps: [ ps.z3 ]))
+      (python3.withPackages (ps: [ps.z3]))
     ];
 
   # NOTE: Parallel building can be memory-intensive depending on the number of
@@ -123,7 +123,7 @@ stdenv.mkDerivation rec {
       ln -s $out/share/${pname}/books/build/clean.pl $out/bin/${pname}-clean
     '';
 
-  preDistPhases = [ (if certifyBooks then "certifyBooksPhase" else "removeBooksPhase") ];
+  preDistPhases = [(if certifyBooks then "certifyBooksPhase" else "removeBooksPhase")];
 
   certifyBooksPhase = ''
     # Certify the community books

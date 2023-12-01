@@ -14,7 +14,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-n2MzT2LHLHWMWhshWXJ/Q28w9EnLrW6t7hLNveltxLo=";
   };
 
-  nativeBuildInputs = [ rpmextract ];
+  nativeBuildInputs = [rpmextract];
 
   unpackPhase =
     let
@@ -47,9 +47,9 @@ stdenvNoCC.mkDerivation rec {
     # Then search manually for the latest version.
     homepage = "https://www.broadcom.com/site-search?q=storcli";
     description = "Storage Command Line Tool";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ panicgh ];
+    maintainers = with maintainers; [panicgh];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

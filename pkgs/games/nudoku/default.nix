@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     pkg-config
     gettext
   ];
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   configureFlags = lib.optional stdenv.hostPlatform.isMusl "--disable-nls";
 
@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "http://jubalh.github.io/nudoku/";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
   };
 }

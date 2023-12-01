@@ -40,7 +40,7 @@ in
       };
 
       interfaces = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           List of network interfaces where listening for connections.
@@ -142,9 +142,9 @@ in
     systemd.services.lshd = {
       description = "GNU lshd SSH2 daemon";
 
-      after = [ "network.target" ];
+      after = ["network.target"];
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       environment = {
         LD_LIBRARY_PATH = config.system.nssModules.path;
@@ -174,9 +174,7 @@ in
         ${lsh}/sbin/lshd --daemonic \
           --password-helper="${lsh}/sbin/lsh-pam-checkpw" \
           -p ${toString portNumber} \
-          ${
-            if interfaces == [ ] then "" else (concatStrings (map (i: ''--interface="${i}"'') interfaces))
-          } \
+          ${if interfaces == [] then "" else (concatStrings (map (i: ''--interface="${i}"'') interfaces))} \
           -h "${hostKey}" \
           ${optionalString (!syslog) "--no-syslog"} \
           ${if passwordAuthentication then "--password" else "--no-password"} \
@@ -192,6 +190,6 @@ in
       '';
     };
 
-    security.pam.services.lshd = { };
+    security.pam.services.lshd = {};
   };
 }

@@ -16,7 +16,7 @@ in
   options = {
     virtualbox = {
       baseImageSize = mkOption {
-        type = with types; either (enum [ "auto" ]) int;
+        type = with types; either (enum ["auto"]) int;
         default = "auto";
         example = 50 * 1024;
         description = lib.mdDoc ''
@@ -97,7 +97,7 @@ in
           "--vendor"
           "ACME Inc."
         ];
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Parameters passed to the Virtualbox export command.
 
@@ -204,7 +204,7 @@ in
         usbehci = "on";
         mouse = "usbtablet";
       })
-      (mkIf (pkgs.stdenv.hostPlatform.system == "i686-linux") { pae = "on"; })
+      (mkIf (pkgs.stdenv.hostPlatform.system == "i686-linux") {pae = "on";})
     ];
 
     system.build.virtualBoxOVA = import ../../lib/make-disk-image.nix {
@@ -242,8 +242,8 @@ in
           --ostype ${if pkgs.stdenv.hostPlatform.system == "x86_64-linux" then "Linux26_64" else "Linux26"}
         VBoxManage modifyvm "$vmName" \
           --memory ${toString cfg.memorySize} \
-          ${lib.cli.toGNUCommandLineShell { } cfg.params}
-        VBoxManage storagectl "$vmName" ${lib.cli.toGNUCommandLineShell { } cfg.storageController}
+          ${lib.cli.toGNUCommandLineShell {} cfg.params}
+        VBoxManage storagectl "$vmName" ${lib.cli.toGNUCommandLineShell {} cfg.storageController}
         VBoxManage storageattach "$vmName" --storagectl ${cfg.storageController.name} --port 0 --device 0 --type hdd \
           --medium disk.vdi
         ${optionalString (cfg.extraDisk != null) ''

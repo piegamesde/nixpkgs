@@ -76,10 +76,10 @@ mkDerivation {
     qtbase
     qttools
     solid
-  ] ++ lib.optionals stdenv.isLinux [ kded ];
+  ] ++ lib.optionals stdenv.isLinux [kded];
   outputs = [
     "out"
     "dev"
   ];
-  patches = [ ./0001-Remove-impure-smbd-search-path.patch ];
+  patches = [./0001-Remove-impure-smbd-search-path.patch];
 }

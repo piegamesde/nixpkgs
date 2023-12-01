@@ -67,14 +67,14 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : "${lib.makeBinPath [ ffmpeg-full ]}"
+      --prefix PATH : "${lib.makeBinPath [ffmpeg-full]}"
     )
   '';
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/YaLTeR/video-trimmer";
     description = "Trim videos quickly";
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

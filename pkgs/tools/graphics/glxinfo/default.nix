@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.mesa3d.org/";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

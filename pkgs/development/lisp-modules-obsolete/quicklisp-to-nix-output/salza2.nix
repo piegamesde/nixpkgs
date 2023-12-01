@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "salza2";
   version = "2.1";
 
-  parasites = [ "salza2/test" ];
+  parasites = ["salza2/test"];
 
   description = ''
     Create compressed data in the ZLIB, DEFLATE, or GZIP
@@ -24,7 +24,7 @@ rec {
 
   packageName = "salza2";
 
-  asdFilesToKeep = [ "salza2.asd" ];
+  asdFilesToKeep = ["salza2.asd"];
   overrides = x: x;
 }
 /* (SYSTEM salza2 DESCRIPTION

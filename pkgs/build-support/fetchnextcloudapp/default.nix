@@ -7,7 +7,7 @@
 {
   url,
   sha256,
-  patches ? [ ],
+  patches ? [],
   name ? null,
   version ? null,
 }:

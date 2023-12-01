@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     description = "A set C++ wrappers around the LV2 C API";
     homepage = "https://lvtk.org/";
     license = licenses.gpl3;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
     platforms = platforms.unix;
   };
 }

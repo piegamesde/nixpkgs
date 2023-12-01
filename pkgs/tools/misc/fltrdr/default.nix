@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "1vpci7vqzcpdd21zgigyz38k77r9fc81dmiwsvfr8w7gad5sg6sj";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     icu
@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
 
     platforms = platforms.linux; # can only test linux
     license = licenses.mit;
-    maintainers = [ maintainers.matthiasbeyer ];
+    maintainers = [maintainers.matthiasbeyer];
   };
 }

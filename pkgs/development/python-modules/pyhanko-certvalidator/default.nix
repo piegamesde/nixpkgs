@@ -66,12 +66,12 @@ buildPythonPackage rec {
     "test_revocation_mode_soft"
   ];
 
-  pythonImportsCheck = [ "pyhanko_certvalidator" ];
+  pythonImportsCheck = ["pyhanko_certvalidator"];
 
   meta = with lib; {
     description = "Python library for validating X.509 certificates and paths";
     homepage = "https://github.com/MatthiasValvekens/certvalidator";
     license = licenses.mit;
-    maintainers = with maintainers; [ wolfangaukang ];
+    maintainers = with maintainers; [wolfangaukang];
   };
 }

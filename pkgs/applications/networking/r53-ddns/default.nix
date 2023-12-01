@@ -21,6 +21,6 @@ buildGoModule rec {
     license = licenses.mit;
     homepage = "https://github.com/fleaz/r53-ddns";
     description = "A DIY DynDNS tool based on Route53";
-    maintainers = with maintainers; [ fleaz ];
+    maintainers = with maintainers; [fleaz];
   };
 }

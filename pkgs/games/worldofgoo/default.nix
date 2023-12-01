@@ -16,7 +16,7 @@ let
   desktopItem = makeDesktopItem {
     desktopName = "World of Goo";
     genericName = "World of Goo";
-    categories = [ "Game" ];
+    categories = ["Game"];
     exec = "WorldOfGoo.bin.${arch}";
     icon = "2dboy-worldofgoo";
     name = "worldofgoo";
@@ -40,9 +40,9 @@ stdenv.mkDerivation rec {
     sha256 = "175e4b0499a765f1564942da4bd65029f8aae1de8231749c56bec672187d53ee";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
   sourceRoot = pname;
-  phases = [ "unpackPhase installPhase" ];
+  phases = ["unpackPhase installPhase"];
 
   libPath = lib.makeLibraryPath [
     stdenv.cc.cc.lib

@@ -70,8 +70,8 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "Platform runtime for ROCm";
       homepage = "https://github.com/RadeonOpenCompute/ROCR-Runtime";
-      license = with licenses; [ ncsa ];
-      maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
+      license = with licenses; [ncsa];
+      maintainers = with maintainers; [lovesegfault] ++ teams.rocm.members;
       platforms = platforms.linux;
       broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
     };

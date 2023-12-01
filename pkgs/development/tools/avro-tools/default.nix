@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  buildInputs = [ jre ];
-  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [jre];
+  nativeBuildInputs = [makeWrapper];
   sourceRoot = ".";
 
   installPhase = ''
@@ -33,8 +33,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://avro.apache.org/";
     description = "Avro command-line tools and utilities";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

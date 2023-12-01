@@ -30,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-XyXdpo3Yo4aO1favMWC7i9utz4fNDbKbsnYXJW0b7Gc=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     grpclib
@@ -43,7 +43,7 @@ buildPythonPackage rec {
     isort
   ];
 
-  pythonImportsCheck = [ "betterproto" ];
+  pythonImportsCheck = ["betterproto"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -69,6 +69,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/danielgtaylor/python-betterproto";
     license = licenses.mit;
-    maintainers = with maintainers; [ nikstur ];
+    maintainers = with maintainers; [nikstur];
   };
 }

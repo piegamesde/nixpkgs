@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       licenses.asl20
       licenses.bsd3
     ];
-    maintainers = [ maintainers.benley ];
+    maintainers = [maintainers.benley];
     platforms = platforms.unix;
   };
 }

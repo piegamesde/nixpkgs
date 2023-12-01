@@ -30,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-se6s0sgIfMLW0sIMp/3vK4KdDPQ5ahg6OQCDAs4my4M=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     asgiref
@@ -54,6 +54,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/SmileyChris/django-countries";
     changelog = "https://github.com/SmileyChris/django-countries/blob/v${version}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

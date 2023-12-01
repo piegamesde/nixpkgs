@@ -26,6 +26,6 @@ buildGoModule rec {
     description = "Remove unnecessary type conversions from Go source";
     homepage = "https://github.com/mdempsky/unconvert";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
   };
 }

@@ -11,7 +11,7 @@ let
   libDir = "/var/lib/pykms";
 in
 {
-  meta.maintainers = with lib.maintainers; [ peterhoeg ];
+  meta.maintainers = with lib.maintainers; [peterhoeg];
 
   imports = [
     (mkRemovedOptionModule
@@ -71,19 +71,19 @@ in
 
       extraArgs = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "Additional arguments";
       };
     };
   };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewallPort [ cfg.port ];
+    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewallPort [cfg.port];
 
     systemd.services.pykms = {
       description = "Python KMS";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       # python programs with DynamicUser = true require HOME to be set
       environment.HOME = libDir;
       serviceConfig = with pkgs; {

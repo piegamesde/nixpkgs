@@ -18,6 +18,6 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://pypi.org/project/bech32/";
-    license = with licenses; [ mit ];
+    license = with licenses; [mit];
   };
 }

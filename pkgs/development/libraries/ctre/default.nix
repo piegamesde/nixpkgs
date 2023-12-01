@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-pO6PW4oZsCA2xaMCsaJz2Bu203zyMUkbjO3OOBEbSiw=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   postPatch = ''
     substituteInPlace packaging/pkgconfig.pc.in \
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.asl20;
     homepage = "https://compile-time.re";
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
     platforms = platforms.all;
   };
 }

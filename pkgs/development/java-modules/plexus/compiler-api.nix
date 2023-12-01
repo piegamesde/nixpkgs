@@ -1,4 +1,4 @@
-{ fetchMaven }:
+{fetchMaven}:
 
 {
   plexusCompilerApi_2_2 =

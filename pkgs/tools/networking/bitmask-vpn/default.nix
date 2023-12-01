@@ -42,7 +42,7 @@ let
     inherit src version;
     sourceRoot = "source/helpers";
     pname = "bitmask-root";
-    nativeBuildInputs = [ python3Packages.wrapPython ];
+    nativeBuildInputs = [python3Packages.wrapPython];
     postPatch = ''
       substituteInPlace bitmask-root \
         --replace 'swhich("ip")' '"${iproute2}/bin/ip"' \
@@ -177,7 +177,7 @@ buildGoModule rec {
     '';
     homepage = "https://bitmask.net";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ julm ];
+    maintainers = with lib.maintainers; [julm];
     # darwin requires apple_sdk >= 10.13
     platforms = lib.platforms.linux;
   };

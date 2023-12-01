@@ -8,7 +8,7 @@
   anki,
   undmg,
   zstd,
-  commandLineArgs ? [ ],
+  commandLineArgs ? [],
 }:
 
 let
@@ -36,7 +36,7 @@ let
   unpacked = stdenv.mkDerivation {
     inherit pname version;
 
-    nativeBuildInputs = [ zstd ];
+    nativeBuildInputs = [zstd];
     src = sources.linux;
 
     installPhase = ''
@@ -118,7 +118,7 @@ else
 
     src = if stdenv.isAarch64 then sources.darwin-aarch64 else sources.darwin-x86_64;
 
-    nativeBuildInputs = [ undmg ];
+    nativeBuildInputs = [undmg];
     sourceRoot = ".";
 
     installPhase = ''

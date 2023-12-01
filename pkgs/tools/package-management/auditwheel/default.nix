@@ -17,7 +17,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-PuWDABSTHqhK9c0GXGN7ZhTvoD2biL2Pv8kk5+0B1ro=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [ pbr ];
+  nativeBuildInputs = with python3.pkgs; [pbr];
 
   propagatedBuildInputs = with python3.pkgs; [
     pyelftools
@@ -30,7 +30,7 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   # Integration tests require docker and networking
-  disabledTestPaths = [ "tests/integration" ];
+  disabledTestPaths = ["tests/integration"];
 
   # Ensure that there are no undeclared deps
   postCheck = ''
@@ -57,7 +57,7 @@ python3.pkgs.buildPythonApplication rec {
       bsd2 # from https://github.com/matthew-brett/delocate
       bsd3 # from https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-projects/pax-utils/lddtree.py
     ];
-    maintainers = with maintainers; [ davhau ];
+    maintainers = with maintainers; [davhau];
     platforms = platforms.linux;
   };
 }

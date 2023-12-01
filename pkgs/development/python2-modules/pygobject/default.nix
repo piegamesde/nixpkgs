@@ -36,10 +36,10 @@ buildPythonPackage rec {
     })
   ];
 
-  configureFlags = [ "--disable-introspection" ];
+  configureFlags = ["--disable-introspection"];
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ glib ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [glib];
 
   # in a "normal" setup, pygobject and pygtk are installed into the
   # same site-packages: we need a pth file for both. pygtk.py would be
@@ -57,6 +57,6 @@ buildPythonPackage rec {
     homepage = "https://pygobject.readthedocs.io/";
     description = "Python bindings for GLib";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

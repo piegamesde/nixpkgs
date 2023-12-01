@@ -27,7 +27,7 @@ buildPythonApplication rec {
     pytest-cov
   ];
 
-  buildInputs = [ pytest-runner ];
+  buildInputs = [pytest-runner];
 
   propagatedBuildInputs = [
     click
@@ -44,6 +44,6 @@ buildPythonApplication rec {
     homepage = "https://github.com/alunduil/zfs-replicate";
     description = "ZFS Snapshot Replication";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ alunduil ];
+    maintainers = with maintainers; [alunduil];
   };
 }

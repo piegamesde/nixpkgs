@@ -180,7 +180,7 @@ in
 
       enableModules = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "mod_cgi"
           "mod_status"
@@ -253,16 +253,16 @@ in
     ];
 
     services.lighttpd.enableModules = mkMerge [
-      (mkIf cfg.mod_status [ "mod_status" ])
-      (mkIf cfg.mod_userdir [ "mod_userdir" ])
+      (mkIf cfg.mod_status ["mod_status"])
+      (mkIf cfg.mod_userdir ["mod_userdir"])
       # always load mod_accesslog so that we can log to the journal
-      [ "mod_accesslog" ]
+      ["mod_accesslog"]
     ];
 
     systemd.services.lighttpd = {
       description = "Lighttpd Web Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig.ExecStart = "${cfg.package}/sbin/lighttpd -D -f ${configFile}";
       # SIGINT => graceful shutdown
       serviceConfig.KillSignal = "SIGINT";

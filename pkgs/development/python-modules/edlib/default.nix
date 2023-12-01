@@ -23,8 +23,8 @@ buildPythonPackage {
   EDLIB_OMIT_README_RST = 1;
   EDLIB_USE_CYTHON = 1;
 
-  nativeBuildInputs = [ cython ];
-  buildInputs = [ edlib ];
+  nativeBuildInputs = [cython];
+  buildInputs = [edlib];
 
   checkPhase = ''
     runHook preCheck
@@ -32,5 +32,5 @@ buildPythonPackage {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "edlib" ];
+  pythonImportsCheck = ["edlib"];
 }

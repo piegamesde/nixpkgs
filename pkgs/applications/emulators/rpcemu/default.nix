@@ -19,7 +19,7 @@ stdenv.mkDerivation (
       sha256 = "sha256-UyjfTfUpSvJNFPkQWPKppxp/kO0hVGo5cE9RuCU8GJI=";
     };
 
-    nativeBuildInputs = [ wrapQtAppsHook ];
+    nativeBuildInputs = [wrapQtAppsHook];
 
     buildInputs = [
       qtbase
@@ -57,7 +57,7 @@ stdenv.mkDerivation (
         using them with RPCEmu.
       '';
       license = lib.licenses.gpl2Plus;
-      maintainers = builtins.attrValues { inherit (lib.maintainers) AndersonTorres; };
+      maintainers = builtins.attrValues {inherit (lib.maintainers) AndersonTorres;};
       platforms = lib.platforms.linux;
     };
   }

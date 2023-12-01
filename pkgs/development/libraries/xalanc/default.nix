@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256:0q1204qk97i9h14vxxq7phcfpyiin0i1zzk74ixvg4wqy87b62s8";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     xercesc
     getopt
@@ -29,6 +29,6 @@ stdenv.mkDerivation rec {
     description = "A XSLT processor for transforming XML documents";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    maintainers = [ lib.maintainers.jagajaga ];
+    maintainers = [lib.maintainers.jagajaga];
   };
 }

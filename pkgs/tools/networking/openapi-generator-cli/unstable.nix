@@ -14,7 +14,7 @@ let
 
     jarfilename = "${pname}-${version}.jar";
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     src = fetchurl {
       url = "https://oss.sonatype.org/content/repositories/snapshots/org/openapitools/openapi-generator-cli/6.0.0-SNAPSHOT/openapi-generator-cli-6.0.0-20220318.042704-93.jar";
@@ -38,10 +38,10 @@ let
       description = "Allows generation of API client libraries (SDK generation), server stubs and documentation automatically given an OpenAPI Spec";
       homepage = "https://github.com/OpenAPITools/openapi-generator";
       license = licenses.asl20;
-      maintainers = [ maintainers.shou ];
+      maintainers = [maintainers.shou];
     };
 
-    passthru.tests.example = callPackage ./example.nix { openapi-generator-cli = this; };
+    passthru.tests.example = callPackage ./example.nix {openapi-generator-cli = this;};
   };
 in
 this

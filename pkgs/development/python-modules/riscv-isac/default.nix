@@ -39,7 +39,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/riscv/riscv-isac";
     description = "An ISA coverage extraction tool";
-    maintainers = with maintainers; [ genericnerdyusername ];
+    maintainers = with maintainers; [genericnerdyusername];
     license = licenses.bsd3;
   };
 }

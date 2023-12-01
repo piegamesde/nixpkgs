@@ -125,6 +125,6 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     license = licenses.bsd3;
-    maintainers = with maintainers; [ oxalica ];
+    maintainers = with maintainers; [oxalica];
   };
 }

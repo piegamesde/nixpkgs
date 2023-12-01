@@ -6,7 +6,7 @@ let
 in
 
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "containers-bridge";
     meta = {
@@ -19,14 +19,14 @@ import ./make-test-python.nix (
     };
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        imports = [ ../modules/installer/cd-dvd/channel.nix ];
+        imports = [../modules/installer/cd-dvd/channel.nix];
         virtualisation.writableStore = true;
 
         networking.bridges = {
           br0 = {
-            interfaces = [ ];
+            interfaces = [];
           };
         };
         networking.interfaces = {
@@ -55,7 +55,7 @@ import ./make-test-python.nix (
           config = {
             services.httpd.enable = true;
             services.httpd.adminAddr = "foo@example.org";
-            networking.firewall.allowedTCPPorts = [ 80 ];
+            networking.firewall.allowedTCPPorts = [80];
           };
         };
 
@@ -66,11 +66,11 @@ import ./make-test-python.nix (
           config = {
             services.httpd.enable = true;
             services.httpd.adminAddr = "foo@example.org";
-            networking.firewall.allowedTCPPorts = [ 80 ];
+            networking.firewall.allowedTCPPorts = [80];
           };
         };
 
-        virtualisation.additionalPaths = [ pkgs.stdenv ];
+        virtualisation.additionalPaths = [pkgs.stdenv];
       };
 
     testScript = ''

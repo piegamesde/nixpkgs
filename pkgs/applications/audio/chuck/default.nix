@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     ];
 
   buildInputs =
-    [ libsndfile ]
+    [libsndfile]
     ++ lib.optional (!stdenv.isDarwin) alsa-lib
     ++ lib.optionals stdenv.isDarwin [
       AppKit
@@ -51,19 +51,19 @@ stdenv.mkDerivation rec {
       MultitouchSupport
     ];
 
-  patches = [ ./darwin-limits.patch ];
+  patches = [./darwin-limits.patch];
 
   makeFlags = [
     "-C src"
     "DESTDIR=$(out)/bin"
   ];
-  buildFlags = [ (if stdenv.isDarwin then "mac" else "linux-alsa") ];
+  buildFlags = [(if stdenv.isDarwin then "mac" else "linux-alsa")];
 
   meta = with lib; {
     description = "Programming language for real-time sound synthesis and music creation";
     homepage = "http://chuck.cs.princeton.edu";
     license = licenses.gpl2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ftrvxmtrx ];
+    maintainers = with maintainers; [ftrvxmtrx];
   };
 }

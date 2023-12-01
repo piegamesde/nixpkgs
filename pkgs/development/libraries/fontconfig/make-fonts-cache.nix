@@ -7,10 +7,10 @@
 
 runCommand "fc-cache"
   {
-    nativeBuildInputs = [ fontconfig.bin ];
+    nativeBuildInputs = [fontconfig.bin];
     preferLocalBuild = true;
     allowSubstitutes = false;
-    passAsFile = [ "fontDirs" ];
+    passAsFile = ["fontDirs"];
     fontDirs = ''
       <!-- Font directories -->
       ${lib.concatStringsSep "\n" (map (font: "<dir>${font}</dir>") fontDirectories)}

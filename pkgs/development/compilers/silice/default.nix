@@ -33,8 +33,8 @@ stdenv.mkDerivation rec {
     pkg-config
     openjdk
   ];
-  buildInputs = [ libuuid ];
-  propagatedBuildInputs = [ (python3.withPackages (p: with p; [ edalize ])) ];
+  buildInputs = [libuuid];
+  propagatedBuildInputs = [(python3.withPackages (p: with p; [edalize]))];
 
   postPatch = ''
     patchShebangs antlr/antlr.sh
@@ -92,6 +92,6 @@ stdenv.mkDerivation rec {
     description = "Open source language that simplifies prototyping and writing algorithms on FPGA architectures";
     homepage = "https://github.com/sylefeb/Silice";
     license = licenses.bsd2;
-    maintainers = [ maintainers.astro ];
+    maintainers = [maintainers.astro];
   };
 }

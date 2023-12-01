@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     homepage = "https://atheme.github.io/";
     license = licenses.isc;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ leo60228 ];
+    maintainers = with maintainers; [leo60228];
   };
 }

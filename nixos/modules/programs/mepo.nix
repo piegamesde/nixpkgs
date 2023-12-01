@@ -33,7 +33,7 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages =
       with pkgs;
-      [ mepo ]
+      [mepo]
       ++ lib.optional cfg.locationBackends.geoclue geoclue2-with-demo-agent
       ++ lib.optional cfg.locationBackends.gpsd gpsd;
 
@@ -48,5 +48,5 @@ in
     services.gpsd.enable = cfg.locationBackends.gpsd;
   };
 
-  meta.maintainers = with maintainers; [ laalsaas ];
+  meta.maintainers = with maintainers; [laalsaas];
 }

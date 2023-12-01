@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     ssh
   ] ++ (lib.optional slurmSupport slurm);
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   # Do not use git to derive a version.
   postPatch = ''

@@ -34,7 +34,7 @@ let
                       executable = value;
                       desktop = null;
                       profile = null;
-                      extraArgs = [ ];
+                      extraArgs = [];
                     };
                 args = lib.escapeShellArgs (
                   opts.extraArgs ++ (optional (opts.profile != null) "--profile=${toString opts.profile}")
@@ -85,15 +85,15 @@ in
               };
               extraArgs = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
+                default = [];
                 description = lib.mdDoc "Extra arguments to pass to firejail";
-                example = [ "--private=~/.firejail_home" ];
+                example = ["--private=~/.firejail_home"];
               };
             };
           }
         )
       );
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           firefox = {
@@ -120,8 +120,8 @@ in
       source = "${lib.getBin pkgs.firejail}/bin/firejail";
     };
 
-    environment.systemPackages = [ pkgs.firejail ] ++ [ wrappedBins ];
+    environment.systemPackages = [pkgs.firejail] ++ [wrappedBins];
   };
 
-  meta.maintainers = with maintainers; [ peterhoeg ];
+  meta.maintainers = with maintainers; [peterhoeg];
 }

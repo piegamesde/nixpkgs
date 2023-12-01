@@ -8,7 +8,7 @@
 }:
 
 {
-  applytransforms = callPackage ./extensions/applytransforms { };
+  applytransforms = callPackage ./extensions/applytransforms {};
 
   hexmap = stdenv.mkDerivation {
     pname = "hexmap";
@@ -37,12 +37,12 @@
       description = "This is an extension for creating hex grids in Inkscape. It can also be used to make brick patterns of staggered rectangles";
       homepage = "https://github.com/lifelike/hexmapextension";
       license = licenses.gpl2Plus;
-      maintainers = [ maintainers.raboof ];
+      maintainers = [maintainers.raboof];
       platforms = platforms.all;
     };
   };
   inkcut =
-    (runCommand "inkcut-inkscape-plugin" { } ''
+    (runCommand "inkcut-inkscape-plugin" {} ''
       mkdir -p $out/share/inkscape/extensions
       cp ${inkcut}/share/inkscape/extensions/* $out/share/inkscape/extensions
     '');

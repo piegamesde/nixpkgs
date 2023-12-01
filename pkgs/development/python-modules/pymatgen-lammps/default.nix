@@ -18,17 +18,17 @@ buildPythonPackage rec {
     sha256 = "0shldl8is3195jmji7dr3zsh1bzxlahaqrmpr28niks7nnfj80fx";
   };
 
-  buildInputs = [ pytest-runner ];
-  nativeCheckInputs = [ pytestCheckHook ];
-  propagatedBuildInputs = [ pymatgen ];
+  buildInputs = [pytest-runner];
+  nativeCheckInputs = [pytestCheckHook];
+  propagatedBuildInputs = [pymatgen];
 
-  pythonImportsCheck = [ "pmg_lammps" ];
+  pythonImportsCheck = ["pmg_lammps"];
 
   meta = {
     description = "A LAMMPS wrapper using pymatgen";
     homepage = "https://gitlab.com/costrouc/pymatgen-lammps";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ costrouc ];
+    maintainers = with lib.maintainers; [costrouc];
     # not compatible with recent versions of pymatgen
     broken = true;
   };

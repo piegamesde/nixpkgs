@@ -9,7 +9,7 @@ mkDerivation rec {
   version = "0.4";
   pname = "functional-linear-algebra";
 
-  buildInputs = [ standard-library ];
+  buildInputs = [standard-library];
 
   src = fetchFromGitHub {
     repo = "functional-linear-algebra";
@@ -30,6 +30,6 @@ mkDerivation rec {
     '';
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ryanorendorff ];
+    maintainers = with maintainers; [ryanorendorff];
   };
 }

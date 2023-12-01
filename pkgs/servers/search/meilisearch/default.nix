@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage {
     hash = "sha256-mwrWHrndcLwdXJo+UISJdPxZFDgtZh9jEquz7jIHGP0=";
   };
 
-  cargoBuildFlags = [ "--package=meilisearch" ];
+  cargoBuildFlags = ["--package=meilisearch"];
 
   cargoLock = {
     lockFile = ./Cargo.lock;
@@ -56,7 +56,7 @@ rustPlatform.buildRustPackage {
     homepage = "https://docs.meilisearch.com/";
     changelog = "https://github.com/meilisearch/meilisearch/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
     platforms = [
       "aarch64-darwin"
       "x86_64-linux"

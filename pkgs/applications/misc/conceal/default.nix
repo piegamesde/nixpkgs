@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion \
@@ -38,6 +38,6 @@ rustPlatform.buildRustPackage rec {
     description = "A trash collector written in Rust";
     homepage = "https://github.com/TD-Sky/conceal";
     license = licenses.mit;
-    maintainers = with maintainers; [ jedsek ];
+    maintainers = with maintainers; [jedsek];
   };
 }

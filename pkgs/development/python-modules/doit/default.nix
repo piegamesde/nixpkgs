@@ -49,10 +49,10 @@ let
 
     passthru.tests = {
       # hangs on darwin
-      check = doit.overridePythonAttrs (_: { doCheck = !stdenv.isDarwin; });
+      check = doit.overridePythonAttrs (_: {doCheck = !stdenv.isDarwin;});
     };
 
-    pythonImportsCheck = [ "doit" ];
+    pythonImportsCheck = ["doit"];
 
     meta = with lib; {
       homepage = "https://pydoit.org/";
@@ -65,7 +65,7 @@ let
         custom work-flows where there is no out-of-the-box solution
         available.
       '';
-      maintainers = with maintainers; [ pSub ];
+      maintainers = with maintainers; [pSub];
     };
   };
 in

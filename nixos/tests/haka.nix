@@ -1,13 +1,13 @@
 # This test runs haka and probes it with hakactl
 
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "haka";
-    meta = with pkgs.lib.maintainers; { maintainers = [ tvestelind ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [tvestelind];};
 
     nodes = {
-      haka = { ... }: { services.haka.enable = true; };
+      haka = {...}: {services.haka.enable = true;};
     };
 
     testScript = ''

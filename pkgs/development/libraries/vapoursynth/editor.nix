@@ -23,7 +23,7 @@ let
       sha256 = "sha256-+/9j9DJDGXbuTvE8ZXIu6wjcof39SyatS36Q6y9hLPg=";
     };
 
-    nativeBuildInputs = [ qmake ];
+    nativeBuildInputs = [qmake];
     buildInputs = [
       qtbase
       vapoursynth
@@ -51,7 +51,7 @@ let
       description = "Cross-platform editor for VapourSynth scripts";
       homepage = "https://github.com/YomikoR/VapourSynth-Editor";
       license = licenses.mit;
-      maintainers = with maintainers; [ tadeokondrak ];
+      maintainers = with maintainers; [tadeokondrak];
       platforms = platforms.all;
     };
   };
@@ -63,7 +63,7 @@ let
     in
     runCommand "${unwrapped.name}-with-plugins"
       {
-        nativeBuildInputs = [ makeWrapper ];
+        nativeBuildInputs = [makeWrapper];
         passthru = {
           withPlugins = plugins': withPlugins (plugins ++ plugins');
         };
@@ -77,4 +77,4 @@ let
         done
       '';
 in
-withPlugins [ ]
+withPlugins []

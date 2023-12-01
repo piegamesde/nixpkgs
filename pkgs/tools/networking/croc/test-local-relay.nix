@@ -1,9 +1,9 @@
-{ stdenv, croc }:
+{stdenv, croc}:
 
 stdenv.mkDerivation {
   name = "croc-test-local-relay";
 
-  nativeBuildInputs = [ croc ];
+  nativeBuildInputs = [croc];
 
   buildCommand = ''
     HOME=$(mktemp -d)

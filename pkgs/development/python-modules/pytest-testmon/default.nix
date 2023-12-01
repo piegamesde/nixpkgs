@@ -23,22 +23,22 @@ buildPythonPackage rec {
     hash = "sha256-hQJ52CuCBgxGcbbkbqsshh+lcevrgD8Xjde2ErghRKk=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  propagatedBuildInputs = [ coverage ];
+  propagatedBuildInputs = [coverage];
 
   # The project does not include tests since version 1.3.0
   doCheck = false;
 
-  pythonImportsCheck = [ "testmon" ];
+  pythonImportsCheck = ["testmon"];
 
   meta = with lib; {
     description = "Pytest plug-in which automatically selects and re-executes only tests affected by recent changes";
     homepage = "https://github.com/tarpas/pytest-testmon/";
     changelog = "https://github.com/tarpas/pytest-testmon/releases/tag/v${version}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ dmvianna ];
+    maintainers = with maintainers; [dmvianna];
   };
 }

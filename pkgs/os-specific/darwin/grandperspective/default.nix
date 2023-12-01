@@ -13,13 +13,13 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     inherit version;
     url = "mirror://sourceforge/grandperspectiv/GrandPerspective-${
-      builtins.replaceStrings [ "." ] [ "_" ] version
+      builtins.replaceStrings ["."] ["_"] version
     }.dmg";
     sha256 = "sha256-ZPqrlN9aw5q7656GmmxCnTRBw3lu9n952rIyun8MsiI=";
   };
 
   sourceRoot = "GrandPerspective.app";
-  buildInputs = [ undmg ];
+  buildInputs = [undmg];
   installPhase = ''
     mkdir -p "$out/Applications/GrandPerspective.app";
     cp -R . "$out/Applications/GrandPerspective.app";
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://grandperspectiv.sourceforge.net";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ eliandoran ];
-    platforms = [ "x86_64-darwin" ];
+    maintainers = with maintainers; [eliandoran];
+    platforms = ["x86_64-darwin"];
   };
 }

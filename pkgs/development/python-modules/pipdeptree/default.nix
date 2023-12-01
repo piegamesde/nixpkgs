@@ -34,10 +34,10 @@ buildPythonPackage rec {
     hatch-vcs
   ];
 
-  propagatedBuildInput = [ pip ];
+  propagatedBuildInput = [pip];
 
   passthru.optional-dependencies = {
-    graphviz = [ graphviz ];
+    graphviz = [graphviz];
   };
 
   nativeCheckInputs = [
@@ -47,13 +47,13 @@ buildPythonPackage rec {
     virtualenv
   ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
-  pythonImportsCheck = [ "pipdeptree" ];
+  pythonImportsCheck = ["pipdeptree"];
 
   meta = with lib; {
     description = "Command line utility to show dependency tree of packages";
     homepage = "https://github.com/tox-dev/pipdeptree";
     changelog = "https://github.com/tox-dev/pipdeptree/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ charlesbaynham ];
+    maintainers = with maintainers; [charlesbaynham];
   };
 }

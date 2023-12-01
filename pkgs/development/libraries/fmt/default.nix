@@ -12,7 +12,7 @@ let
     {
       version,
       sha256,
-      patches ? [ ],
+      patches ? [],
     }:
     stdenv.mkDerivation {
       pname = "fmt";
@@ -32,9 +32,9 @@ let
 
       inherit patches;
 
-      nativeBuildInputs = [ cmake ];
+      nativeBuildInputs = [cmake];
 
-      cmakeFlags = [ "-DBUILD_SHARED_LIBS=${if enableShared then "ON" else "OFF"}" ];
+      cmakeFlags = ["-DBUILD_SHARED_LIBS=${if enableShared then "ON" else "OFF"}"];
 
       doCheck = true;
 
@@ -46,7 +46,7 @@ let
         '';
         homepage = "https://fmt.dev/";
         downloadPage = "https://github.com/fmtlib/fmt/";
-        maintainers = [ maintainers.jdehaas ];
+        maintainers = [maintainers.jdehaas];
         license = licenses.mit;
         platforms = platforms.all;
       };

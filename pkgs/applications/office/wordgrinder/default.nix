@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     ncurses
     readline
     zlib
-  ] ++ lib.optionals stdenv.isLinux [ libXft ];
+  ] ++ lib.optionals stdenv.isLinux [libXft];
 
   # To be able to find <Xft.h>
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isLinux "-I${libXft.dev}/include/X11";
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     description = "Text-based word processor";
     homepage = "https://cowlark.com/wordgrinder";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
     platforms = with lib.platforms; linux ++ darwin;
   };
 }

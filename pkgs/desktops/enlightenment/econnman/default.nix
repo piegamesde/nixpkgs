@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     wrapPythonPrograms
   '';
 
-  passthru.updateScript = directoryListingUpdater { };
+  passthru.updateScript = directoryListingUpdater {};
 
   meta = with lib; {
     description = "A user interface for the connman network connection manager";

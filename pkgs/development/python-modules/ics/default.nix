@@ -45,7 +45,7 @@ buildPythonPackage rec {
     "test_many_lines"
   ];
 
-  pythonImportsCheck = [ "ics" ];
+  pythonImportsCheck = ["ics"];
 
   meta = with lib; {
     description = "Pythonic and easy iCalendar library (RFC 5545)";
@@ -56,6 +56,6 @@ buildPythonPackage rec {
     homepage = "http://icspy.readthedocs.org/en/stable/";
     changelog = "https://github.com/ics-py/ics-py/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

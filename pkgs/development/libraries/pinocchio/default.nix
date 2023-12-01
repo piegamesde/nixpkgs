@@ -30,10 +30,10 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   propagatedBuildInputs =
-    [ urdfdom ]
+    [urdfdom]
     ++ lib.optionals (!pythonSupport) [
       boost
       eigen
@@ -43,13 +43,13 @@ stdenv.mkDerivation rec {
       python3Packages.eigenpy
     ];
 
-  cmakeFlags = lib.optionals (!pythonSupport) [ "-DBUILD_PYTHON_INTERFACE=OFF" ];
+  cmakeFlags = lib.optionals (!pythonSupport) ["-DBUILD_PYTHON_INTERFACE=OFF"];
 
   meta = with lib; {
     description = "A fast and flexible implementation of Rigid Body Dynamics algorithms and their analytical derivatives";
     homepage = "https://github.com/stack-of-tasks/pinocchio";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.unix;
   };
 }

@@ -17,7 +17,7 @@ buildPythonPackage {
 
   src = pkgs.qscintilla-qt4.src;
 
-  nativeBuildInputs = [ pkgs.xorg.lndir ];
+  nativeBuildInputs = [pkgs.xorg.lndir];
 
   buildInputs = [
     pyqt4.qt
@@ -40,7 +40,7 @@ buildPythonPackage {
   meta = with lib; {
     description = "A Python binding to QScintilla, Qt based text editing control";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ danbst ];
+    maintainers = with maintainers; [danbst];
     platforms = platforms.linux;
   };
 }

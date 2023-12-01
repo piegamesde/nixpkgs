@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     assert (blas.isILP64 == lapack.isILP64); [
       "-DCMAKE_Fortran_FLAGS=${
         toString (
-          [ "-std=legacy" ]
+          ["-std=legacy"]
           ++
             lib.optionals blas.isILP64
               [
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     description = "Library for fast updating of qr and cholesky decompositions";
     homepage = "https://github.com/mpimd-csc/qrupdate-ng";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     platforms = platforms.unix;
   };
 }

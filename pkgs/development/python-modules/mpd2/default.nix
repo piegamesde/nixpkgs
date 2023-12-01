@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-bxv/2TuaMvwBipu/NIdQW1Lg11fsNAZpBcYKkS1JI4Q=";
   };
 
-  buildInputs = [ mock ];
+  buildInputs = [mock];
 
   checkPhase = ''
     ${python.interpreter} -m unittest mpd.tests

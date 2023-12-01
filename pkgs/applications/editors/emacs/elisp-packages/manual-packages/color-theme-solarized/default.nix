@@ -17,8 +17,8 @@ trivialBuild {
     hash = "sha256-oxX0lo6sxotEiR3nPrKPE9H01HKB3ohB/p8eEHFTp5k=";
   };
 
-  buildInputs = [ emacs ];
-  propagatedUserEnvPkgs = [ color-theme ];
+  buildInputs = [emacs];
+  propagatedUserEnvPkgs = [color-theme];
 
   buildPhase = ''
     runHook preBuild

@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "1069x49l7kh1mqcq1h3f0m5j0h832jp5x230bh4c613ymgg5kn00";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   enableParallelBuilding = true;
 
@@ -25,6 +25,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/sekrit-twc/zimg";
     license = licenses.wtfpl;
     platforms = with platforms; unix ++ windows;
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
   };
 }

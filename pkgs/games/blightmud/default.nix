@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [
     alsa-lib
     openssl
-  ] ++ lib.optionals withTTS [ speechd ];
+  ] ++ lib.optionals withTTS [speechd];
 
   checkFlags =
     let
@@ -68,7 +68,7 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/Blightmud/Blightmud";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ cpu ];
+    maintainers = with maintainers; [cpu];
     platforms = platforms.linux;
   };
 }

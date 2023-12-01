@@ -58,7 +58,7 @@ let
     BUG_REPORT_URL =
       lib.optionalString (cfg.distroId == "nixos")
         "https://github.com/NixOS/nixpkgs/issues";
-  } // lib.optionalAttrs (cfg.variant_id != null) { VARIANT_ID = cfg.variant_id; };
+  } // lib.optionalAttrs (cfg.variant_id != null) {VARIANT_ID = cfg.variant_id;};
 
   initrdReleaseContents = osReleaseContents // {
     PRETTY_NAME = "${osReleaseContents.PRETTY_NAME} (Initrd)";
@@ -183,7 +183,7 @@ in
       # Doing this also means fixing the comment in nixos/modules/testing/test-instrumentation.nix
       apply =
         v:
-        lib.warnIf (options.system.stateVersion.highestPrio == (lib.mkOptionDefault { }).priority)
+        lib.warnIf (options.system.stateVersion.highestPrio == (lib.mkOptionDefault {}).priority)
           "system.stateVersion is not set, defaulting to ${v}. Read why this matters on https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion."
           v;
       default = cfg.release;

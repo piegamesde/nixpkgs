@@ -8,13 +8,13 @@ let
   cfg = config.programs.nix-ld;
 
   # TODO make glibc here configureable?
-  nix-ld-so = pkgs.runCommand "ld.so" { } ''
+  nix-ld-so = pkgs.runCommand "ld.so" {} ''
     ln -s "$(cat '${pkgs.stdenv.cc}/nix-support/dynamic-linker')" $out
   '';
 
   nix-ld-libraries = pkgs.buildEnv {
     name = "lb-library-path";
-    pathsToLink = [ "/lib" ];
+    pathsToLink = ["/lib"];
     paths = map lib.getLib cfg.libraries;
     extraPrefix = "/share/nix-ld";
     ignoreCollisions = true;
@@ -40,7 +40,7 @@ let
   ];
 in
 {
-  meta.maintainers = [ lib.maintainers.mic92 ];
+  meta.maintainers = [lib.maintainers.mic92];
   options.programs.nix-ld = {
     enable = lib.mkEnableOption (lib.mdDoc "nix-ld, Documentation: <https://github.com/Mic92/nix-ld>");
     package = lib.mkOption {
@@ -58,11 +58,11 @@ in
   };
 
   config = lib.mkIf config.programs.nix-ld.enable {
-    systemd.tmpfiles.packages = [ cfg.package ];
+    systemd.tmpfiles.packages = [cfg.package];
 
-    environment.systemPackages = [ nix-ld-libraries ];
+    environment.systemPackages = [nix-ld-libraries];
 
-    environment.pathsToLink = [ "/share/nix-ld" ];
+    environment.pathsToLink = ["/share/nix-ld"];
 
     environment.variables = {
       NIX_LD = toString nix-ld-so;

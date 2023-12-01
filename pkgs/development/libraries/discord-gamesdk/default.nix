@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
   installPhase =
     let
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     homepage = "https://discord.com/developers/docs/game-sdk/sdk-starter-guide";
     description = "Library to allow other programs to interact with the Discord desktop application";
     license = licenses.unfree;
-    maintainers = with maintainers; [ tomodachi94 ];
+    maintainers = with maintainers; [tomodachi94];
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"

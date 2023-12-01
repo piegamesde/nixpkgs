@@ -17,7 +17,7 @@
   tk-8_6,
   zlib,
   # For the Python package set
-  packageOverrides ? (self: super: { }),
+  packageOverrides ? (self: super: {}),
   sourceVersion,
   pythonVersion,
   hash,
@@ -89,7 +89,7 @@ stdenv.mkDerivation {
       tk-8_6
     ];
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = lib.optionals stdenv.isLinux [autoPatchelfHook];
 
   installPhase = ''
     runHook preInstall
@@ -150,7 +150,7 @@ stdenv.mkDerivation {
         "ssl"
         "sys"
         "curses"
-      ] ++ lib.optionals (!isPy3k) [ "Tkinter" ] ++ lib.optionals isPy3k [ "tkinter" ];
+      ] ++ lib.optionals (!isPy3k) ["Tkinter"] ++ lib.optionals isPy3k ["tkinter"];
       imports = lib.concatMapStringsSep "; " (x: "import ${x}") modules;
     in
     ''

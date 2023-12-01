@@ -41,5 +41,5 @@ mkDerivation rec {
   description = "The most beautiful command line calculator";
   homepage = "https://kary.us/nota";
   license = lib.licenses.mpl20;
-  maintainers = with lib.maintainers; [ dtzWill ];
+  maintainers = with lib.maintainers; [dtzWill];
 }

@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-Uk+K7ym92JX4fC3PyTNxd0UvBzoNZmtbscBYjSWChuk=";
   };
 
-  nativeBuildInputs = [ sdcc ];
+  nativeBuildInputs = [sdcc];
 
   propagatedBuildInputs = [
     libusb1
@@ -44,6 +44,6 @@ buildPythonPackage rec {
     description = "Chip support package for Cypress EZ-USB FX2 series microcontrollers";
     homepage = "https://github.com/whitequark/libfx2";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ emily ];
+    maintainers = with maintainers; [emily];
   };
 }

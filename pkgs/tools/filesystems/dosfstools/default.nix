@@ -45,9 +45,9 @@ stdenv.mkDerivation rec {
     cp ${gettext}/share/gettext/config.rpath config.rpath
   '';
 
-  configureFlags = [ "--enable-compat-symlinks" ];
+  configureFlags = ["--enable-compat-symlinks"];
 
-  nativeCheckInputs = [ xxd ];
+  nativeCheckInputs = [xxd];
   doCheck = true;
 
   meta = {

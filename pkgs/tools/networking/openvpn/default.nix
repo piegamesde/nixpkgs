@@ -27,7 +27,7 @@ let
     {
       version,
       sha256,
-      extraBuildInputs ? [ ],
+      extraBuildInputs ? [],
     }:
     let
       withIpRoute = stdenv.isLinux && (versionOlder version "2.5.4");
@@ -41,10 +41,10 @@ let
         inherit sha256;
       };
 
-      nativeBuildInputs = [ pkg-config ];
+      nativeBuildInputs = [pkg-config];
 
       buildInputs =
-        [ lzo ]
+        [lzo]
         ++ optional stdenv.isLinux pam
         ++ optional withIpRoute iproute2
         ++ optional useSystemd systemd
@@ -92,6 +92,6 @@ in
   openvpn = generic {
     version = "2.5.8";
     sha256 = "1cixqm4gn2d1v8qkbww75j30fzvxz13gc7whcmz54i0x4fvibwx6";
-    extraBuildInputs = [ openssl ];
+    extraBuildInputs = [openssl];
   };
 }

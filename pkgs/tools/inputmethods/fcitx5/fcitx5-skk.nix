@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     description = "Input method engine for Fcitx5, which uses libskk as its backend";
     homepage = "https://github.com/fcitx/fcitx5-skk";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ milran ];
+    maintainers = with maintainers; [milran];
     platforms = platforms.linux;
   };
 }

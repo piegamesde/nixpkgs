@@ -26,13 +26,13 @@ stdenv.mkDerivation rec {
     libxslt.bin
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     homepage = "https://knightos.org/";
     description = "Makes TI calculator upgrade files from ROM dumps";
     license = licenses.mit;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.unix;
   };
 }

@@ -8,7 +8,7 @@
 }:
 
 let
-  buildFHSEnv = callPackage ./env.nix { };
+  buildFHSEnv = callPackage ./env.nix {};
 in
 
 args@{
@@ -16,8 +16,8 @@ args@{
   version ? null,
   runScript ? "bash",
   extraInstallCommands ? "",
-  meta ? { },
-  passthru ? { },
+  meta ? {},
+  passthru ? {},
   ...
 }:
 
@@ -32,7 +32,7 @@ let
     ]
   );
 
-  chrootenv = callPackage ./chrootenv { };
+  chrootenv = callPackage ./chrootenv {};
 
   init =
     run:

@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-XmIPifozTYd1rV2wm0dU0GPvg/+HFoSLGHB6DDrkzVc=";
 
-  subPackages = [ "src/server/cmd/pachctl" ];
+  subPackages = ["src/server/cmd/pachctl"];
 
   ldflags = [
     "-s"
@@ -29,7 +29,7 @@ buildGoModule rec {
     description = "Containerized Data Analytics";
     homepage = "https://www.pachyderm.com/";
     license = licenses.unfree;
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     mainProgram = "pachctl";
   };
 }

@@ -52,13 +52,13 @@ buildPythonPackage rec {
     ulimit -n 1024
   '';
 
-  pythonImportsCheck = [ "pygls" ];
+  pythonImportsCheck = ["pygls"];
 
   meta = with lib; {
     changelog = "https://github.com/openlawlibrary/pygls/blob/${src.rev}/CHANGELOG.md";
     description = "Pythonic generic implementation of the Language Server Protocol";
     homepage = "https://github.com/openlawlibrary/pygls";
     license = licenses.asl20;
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
   };
 }

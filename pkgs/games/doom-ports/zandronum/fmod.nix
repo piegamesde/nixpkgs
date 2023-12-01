@@ -18,7 +18,7 @@ in
 stdenv.mkDerivation rec {
   pname = "fmod";
   version = "4.44.64";
-  shortVersion = builtins.replaceStrings [ "." ] [ "" ] version;
+  shortVersion = builtins.replaceStrings ["."] [""] version;
 
   src = fetchurl (
     if stdenv.isLinux then
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       }
   );
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   dontStrip = true;
   dontPatchELF = true;
@@ -62,6 +62,6 @@ stdenv.mkDerivation rec {
       "i686-linux"
       "x86_64-darwin"
     ];
-    maintainers = [ maintainers.lassulus ];
+    maintainers = [maintainers.lassulus];
   };
 }

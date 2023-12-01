@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "1mzw68sn4yxbp8429jg2h23h8xw2qjid51z1f5pdsghcn3x0pgvw";
   };
 
-  buildInputs = [ SDL ];
+  buildInputs = [SDL];
 
   meta = with lib; {
     description = "Stretch Functions For SDL";

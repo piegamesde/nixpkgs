@@ -31,13 +31,13 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [ "pydrive2" ];
+  pythonImportsCheck = ["pydrive2"];
 
   meta = with lib; {
     description = "Google Drive API Python wrapper library";
     homepage = "https://github.com/iterative/PyDrive2";
     changelog = "https://github.com/iterative/PyDrive2/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ sei40kr ];
+    maintainers = with maintainers; [sei40kr];
   };
 }

@@ -27,6 +27,6 @@ mkDerivation {
       lgpl21Plus
       fdl12Plus
     ];
-    maintainers = with lib.maintainers; [ rnhmjoj ];
+    maintainers = with lib.maintainers; [rnhmjoj];
   };
 }

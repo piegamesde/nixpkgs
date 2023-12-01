@@ -29,7 +29,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = "v${version}";
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     sqlalchemy
@@ -43,13 +43,13 @@ buildPythonPackage rec {
     psycopg2
   ];
 
-  pythonImportsCheck = [ "sqlalchemy_jsonfield" ];
+  pythonImportsCheck = ["sqlalchemy_jsonfield"];
 
   meta = with lib; {
     description = "SQLALchemy JSONField implementation for storing dicts at SQL independently from JSON type support";
     homepage = "https://github.com/penguinolog/sqlalchemy_jsonfield";
     changelog = "https://github.com/penguinolog/sqlalchemy_jsonfield/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ivan-tkatchev ];
+    maintainers = with maintainers; [ivan-tkatchev];
   };
 }

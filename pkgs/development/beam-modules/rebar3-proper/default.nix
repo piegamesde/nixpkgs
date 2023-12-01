@@ -1,4 +1,4 @@
-{ lib, buildHex }:
+{lib, buildHex}:
 
 buildHex {
   name = "rebar3_proper";

@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ zig ];
+  nativeBuildInputs = [zig];
 
   dontConfigure = true;
 
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/zigtools/zls/releases/tag/${version}";
     homepage = "https://github.com/zigtools/zls";
     license = licenses.mit;
-    maintainers = with maintainers; [ fortuneteller2k ];
+    maintainers = with maintainers; [fortuneteller2k];
     platforms = platforms.unix;
   };
 }

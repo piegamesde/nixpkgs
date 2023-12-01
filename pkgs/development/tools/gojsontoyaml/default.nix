@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Simply tool to convert json to yaml written in Go";
     homepage = "https://github.com/brancz/gojsontoyaml";
     license = licenses.mit;
-    maintainers = [ maintainers.bryanasdev000 ];
+    maintainers = [maintainers.bryanasdev000];
   };
 }

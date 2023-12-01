@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-tINIwxyQn8eeJCHwRmAMo2TYRgrgJlGaUrnrgbmM3Jo=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "Fantasy action RPG using the FLARE engine";
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
       aanderse
       McSinyx
     ];
-    license = [ licenses.cc-by-sa-30 ];
+    license = [licenses.cc-by-sa-30];
     platforms = platforms.unix;
   };
 }

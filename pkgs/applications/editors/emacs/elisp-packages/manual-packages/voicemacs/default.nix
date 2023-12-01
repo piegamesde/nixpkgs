@@ -27,7 +27,7 @@ trivialBuild {
     sha256 = "sha256-/MBB2R9/V0aYZp15e0vx+67ijCPp2iPlgxe262ldmtc=";
   };
 
-  patches = [ ./add-missing-require.patch ];
+  patches = [./add-missing-require.patch];
 
   packageRequires = [
     avy

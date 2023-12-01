@@ -21,9 +21,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "0fwj782dbyj3ps16hxmq61drf8714863jb0d3mhivn3zlqawyyil";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
+  buildInputs = [openssl] ++ lib.optional stdenv.isDarwin Security;
 
   meta = with lib; {
     description = "A tool to analyze the third-party dependencies imported by a rust crate or rust workspace";
@@ -32,6 +32,6 @@ rustPlatform.buildRustPackage rec {
       mit # or
       asl20
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

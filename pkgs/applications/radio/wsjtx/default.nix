@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
   ];
 
   # Remove Git dependency from superbuild since sources are included
-  patches = [ ./super.patch ];
+  patches = [./super.patch];
 
   meta = with lib; {
     description = "Weak-signal digital communication modes for amateur radio";

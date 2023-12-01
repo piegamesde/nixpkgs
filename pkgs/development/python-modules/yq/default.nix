@@ -28,7 +28,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     pyyaml
@@ -37,11 +37,11 @@ buildPythonPackage rec {
     argcomplete
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "test/test.py" ];
+  pytestFlagsArray = ["test/test.py"];
 
-  pythonImportsCheck = [ "yq" ];
+  pythonImportsCheck = ["yq"];
 
   meta = with lib; {
     description = "Command-line YAML/XML/TOML processor - jq wrapper for YAML, XML, TOML documents";

@@ -5,8 +5,8 @@
 }:
 
 let
-  sp = callPackage ./sp.nix { };
-  mp = sp.overrideAttrs (oldAttrs: rec { sourceRoot = "source/MP"; });
+  sp = callPackage ./sp.nix {};
+  mp = sp.overrideAttrs (oldAttrs: rec {sourceRoot = "source/MP";});
 in
 buildEnv {
   name = "iortcw";
@@ -16,9 +16,9 @@ buildEnv {
     mp
   ];
 
-  pathsToLink = [ "/opt" ];
+  pathsToLink = ["/opt"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   # so we can launch sp from mp game and vice versa
   postBuild = ''

@@ -17,18 +17,18 @@ buildGoModule rec {
   };
   vendorHash = "sha256-0jXZpdiSHMn94MT3mPNtbfV7owluWhy1iAvQIBdebdE=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/aws-sso-creds \
-      --suffix PATH : ${lib.makeBinPath [ xdg-utils ]}
+      --suffix PATH : ${lib.makeBinPath [xdg-utils]}
   '';
 
   meta = with lib; {
     homepage = "https://github.com/jaxxstorm/aws-sso-creds";
     description = "Get AWS SSO temporary creds from an SSO profile";
     license = licenses.mit;
-    maintainers = with maintainers; [ lafrenierejm ];
+    maintainers = with maintainers; [lafrenierejm];
     mainProgram = "aws-sso-creds";
   };
 }

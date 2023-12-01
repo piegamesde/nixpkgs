@@ -32,7 +32,7 @@ buildPythonPackage rec {
     watchdog
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests =
     [
@@ -82,6 +82,6 @@ buildPythonPackage rec {
     homepage = "https://clickable-ut.dev";
     changelog = "https://clickable-ut.dev/en/latest/changelog.html";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ ilyakooo0 ];
+    maintainers = with lib.maintainers; [ilyakooo0];
   };
 }

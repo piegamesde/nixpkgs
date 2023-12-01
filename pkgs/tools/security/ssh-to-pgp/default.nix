@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-OMWiJ1n8ynvIGcmotjuGGsRuAidYgVo5Y5JjrAw8fpc=";
 
-  nativeCheckInputs = [ gnupg ];
+  nativeCheckInputs = [gnupg];
   checkPhase = ''
     HOME=$TMPDIR go test .
   '';
@@ -29,6 +29,6 @@ buildGoModule rec {
     description = "Convert ssh private keys to PGP";
     homepage = "https://github.com/Mic92/ssh-to-pgp";
     license = licenses.mit;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
   };
 }

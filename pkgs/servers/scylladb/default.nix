@@ -93,15 +93,15 @@ gcc8Stdenv.mkDerivation {
     cp -r * $out/
   '';
 
-  requiredSystemFeatures = [ "big-parallel" ];
+  requiredSystemFeatures = ["big-parallel"];
 
   meta = with lib; {
     description = "NoSQL data store using the seastar framework, compatible with Apache Cassandra";
     homepage = "https://scylladb.com";
     license = licenses.agpl3;
     platforms = lib.platforms.linux;
-    hydraPlatforms = [ ]; # It's huge ATM, about 18 GB.
-    maintainers = [ lib.maintainers.farlion ];
+    hydraPlatforms = []; # It's huge ATM, about 18 GB.
+    maintainers = [lib.maintainers.farlion];
     broken = true;
   };
 }

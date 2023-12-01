@@ -15,7 +15,7 @@
 
 let
 
-  pkgs = import ../../../../default.nix { };
+  pkgs = import ../../../../default.nix {};
 
   sbcl = "${pkgs.sbcl}/bin/sbcl --script";
 
@@ -37,7 +37,7 @@ let
       sha256 = "19i443fz3488v1pbbr9x24y8h8vlyhny9vj6c9jk5prm702awrp6";
     };
     lisp = sbcl;
-    lispLibs = [ alexandria ];
+    lispLibs = [alexandria];
   };
 in
 bordeaux-threads

@@ -3,7 +3,7 @@
   pkgs,
   lib,
   runtimeShell,
-  cores ? [ ],
+  cores ? [],
 }:
 
 let

@@ -18,7 +18,7 @@ let
       IOMultiplex
     ]
   );
-  policy-test-flags = mk-perl-flags (with perlPackages; [ ParseSyslog ]);
+  policy-test-flags = mk-perl-flags (with perlPackages; [ParseSyslog]);
   version = "1.37";
   name = "postgrey-${version}";
 in

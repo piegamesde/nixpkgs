@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "1jjc5f26hj7bk8nkjxsa8znfxcf8pgry2ipnwmj2fr6ky0dhm3rv";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   preBuild = ''
     # Ouch, the tarball contains pre-compiled binaries.

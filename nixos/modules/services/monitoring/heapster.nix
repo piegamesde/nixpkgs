@@ -42,7 +42,7 @@ in
 
   config = mkIf cfg.enable {
     systemd.services.heapster = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "cadvisor.service"
         "kube-apiserver.service"
@@ -59,6 +59,6 @@ in
       group = "heapster";
       description = "Heapster user";
     };
-    users.groups.heapster = { };
+    users.groups.heapster = {};
   };
 }

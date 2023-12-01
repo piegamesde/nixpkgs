@@ -24,12 +24,12 @@ buildPythonPackage rec {
     pyzbar
   ];
 
-  pythonImportsCheck = [ "segno" ];
+  pythonImportsCheck = ["segno"];
 
   meta = with lib; {
     description = "QR Code and Micro QR Code encoder";
     homepage = "https://github.com/heuer/segno/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ phaer ];
+    maintainers = with maintainers; [phaer];
   };
 }

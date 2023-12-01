@@ -19,11 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-EI+bWjtHEZPOSkWJx3gvS8y//gugMWl3TrBHKsKO9nk=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ovh" ];
+  pythonImportsCheck = ["ovh"];
 
   disabledTests = [
     # Tests require network access
@@ -39,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ovh/python-ovh";
     changelog = "https://github.com/ovh/python-ovh/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ makefu ];
+    maintainers = with maintainers; [makefu];
   };
 }

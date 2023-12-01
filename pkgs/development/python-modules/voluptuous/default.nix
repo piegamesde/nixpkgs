@@ -16,16 +16,16 @@ buildPythonPackage rec {
     hash = "sha256-cz3Bd+/yPh+VOHxzi/W+gbDh/H5Nl/n4jvxDOirmAVk=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "voluptuous" ];
+  pythonImportsCheck = ["voluptuous"];
 
-  pytestFlagsArray = [ "voluptuous/tests/" ];
+  pytestFlagsArray = ["voluptuous/tests/"];
 
   meta = with lib; {
     description = "Python data validation library";
     homepage = "http://alecthomas.github.io/voluptuous/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -18,9 +18,9 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  subPackages = [ "cmd/gator" ];
+  subPackages = ["cmd/gator"];
 
   postInstall = ''
     installShellCompletion --cmd gator \
@@ -33,6 +33,6 @@ buildGoModule rec {
     description = "Policy Controller for Kubernetes";
     homepage = "https://github.com/open-policy-agent/gatekeeper";
     license = licenses.asl20;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

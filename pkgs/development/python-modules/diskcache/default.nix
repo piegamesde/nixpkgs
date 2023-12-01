@@ -48,12 +48,12 @@ buildPythonPackage rec {
     "test_cache_write_unpicklable_object"
   ];
 
-  pythonImportsCheck = [ "diskcache" ];
+  pythonImportsCheck = ["diskcache"];
 
   meta = with lib; {
     description = "Disk and file backed persistent cache";
     homepage = "http://www.grantjenks.com/docs/diskcache/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

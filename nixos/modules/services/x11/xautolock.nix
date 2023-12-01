@@ -92,8 +92,8 @@ in
 
       extraOptions = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "-detectsleep" ];
+        default = [];
+        example = ["-detectsleep"];
         description = lib.mdDoc ''
           Additional command-line arguments to pass to
           {command}`xautolock`.
@@ -103,11 +103,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ xautolock ];
+    environment.systemPackages = with pkgs; [xautolock];
     systemd.user.services.xautolock = {
       description = "xautolock service";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      partOf = ["graphical-session.target"];
       serviceConfig = with lib; {
         ExecStart = strings.concatStringsSep " " (
           [
@@ -120,7 +120,7 @@ in
             "-notify ${toString cfg.notify}"
             "-notifier '${cfg.notifier}'"
           ]
-          ++ optionals (cfg.nowlocker != null) [ "-nowlocker '${cfg.nowlocker}'" ]
+          ++ optionals (cfg.nowlocker != null) ["-nowlocker '${cfg.nowlocker}'"]
           ++ optionals (cfg.killer != null) [
             "-killer '${cfg.killer}'"
             "-killtime ${toString cfg.killtime}"

@@ -22,6 +22,6 @@ buildGoModule {
   meta = with lib; {
     homepage = "https://github.com/libp2p/go-libp2p-daemon";
     license = licenses.mit;
-    maintainers = with maintainers; [ fare ];
+    maintainers = with maintainers; [fare];
   };
 }

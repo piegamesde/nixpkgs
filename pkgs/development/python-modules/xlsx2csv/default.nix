@@ -15,12 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-fs1tK8JCby5DL0/awSIR4ZdtPLtl+QM+Htpl7dogReM=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   meta = with lib; {
     homepage = "https://github.com/dilshod/xlsx2csv";
     description = "Convert xlsx to csv";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jb55 ];
+    maintainers = with maintainers; [jb55];
   };
 }

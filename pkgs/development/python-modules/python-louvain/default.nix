@@ -33,7 +33,7 @@ buildPythonPackage rec {
     numpy
   ];
 
-  pythonImportsCheck = [ "community" ];
+  pythonImportsCheck = ["community"];
 
   nativeCheckInputs = [
     pandas
@@ -44,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/taynaud/python-louvain";
     description = "Louvain Community Detection";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

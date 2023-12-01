@@ -85,6 +85,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/definite/ibus-table-chinese";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pneumaticat ];
+    maintainers = with maintainers; [pneumaticat];
   };
 }

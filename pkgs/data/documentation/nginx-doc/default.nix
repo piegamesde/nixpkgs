@@ -20,7 +20,7 @@ stdenv.mkDerivation {
     rev = "a3aee2697d4e";
     sha256 = "029n4mnmjw94h01qalmjgf1c2h3h7wm798xv5knk3padxiy4m28b";
   };
-  patches = [ ./exclude-google-analytics.patch ];
+  patches = [./exclude-google-analytics.patch];
   nativeBuildInputs = [
     libxslt
     libxml2
@@ -44,6 +44,6 @@ stdenv.mkDerivation {
     license = licenses.bsd2;
     platforms = platforms.all;
     priority = 6;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

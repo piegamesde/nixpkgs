@@ -137,7 +137,7 @@ stdenv.mkDerivation rec {
     sed -i 's|${builtins.storeDir}/\(.\{8\}\)[^-]*-|${builtins.storeDir}/\1...-|g' ./src/build-info.h
   '';
 
-  hardeningDisable = [ "stackprotector" ];
+  hardeningDisable = ["stackprotector"];
 
   installFlags = [
     "e_localstatedir=\${TMPDIR}"
@@ -169,6 +169,6 @@ stdenv.mkDerivation rec {
     homepage = "https://suricata.io";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ magenbluten ];
+    maintainers = with maintainers; [magenbluten];
   };
 }

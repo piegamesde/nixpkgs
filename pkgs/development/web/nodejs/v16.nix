@@ -12,7 +12,7 @@ let
     python = python3;
   };
 
-  npmPatches = callPackage ./npm-patches.nix { };
+  npmPatches = callPackage ./npm-patches.nix {};
 in
 buildNodejs {
   inherit enableNpm;

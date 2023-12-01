@@ -49,7 +49,7 @@ stdenv.mkDerivation {
     done
 
     # wrap python scripts
-    makeWrapperArgs+=( --prefix PATH : "${lib.makeBinPath [ nix ]}" )
+    makeWrapperArgs+=( --prefix PATH : "${lib.makeBinPath [nix]}" )
     wrapPythonPrograms
   '';
 }

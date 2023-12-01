@@ -70,7 +70,7 @@
 
   # ROCm dependencies
   rocmSupport ? false,
-  gpuTargets ? [ ],
+  gpuTargets ? [],
   openmp,
   rocm-core,
   hip,
@@ -151,7 +151,7 @@ let
   # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
   gpuArchWarner =
     supported: unsupported:
-    trivial.throwIf (supported == [ ])
+    trivial.throwIf (supported == [])
       (
         "No supported GPU targets specified. Requested GPU targets: "
         + strings.concatStringsSep ", " unsupported
@@ -160,7 +160,7 @@ let
 
   # Create the gpuTargetString.
   gpuTargetString = strings.concatStringsSep ";" (
-    if gpuTargets != [ ] then
+    if gpuTargets != [] then
       # If gpuTargets is specified, it always takes priority.
       gpuTargets
     else if cudaSupport then
@@ -368,7 +368,7 @@ buildPythonPackage rec {
   # https://github.com/pytorch/pytorch/blob/v1.11.0/setup.py#L17
   env.NIX_CFLAGS_COMPILE = toString (
     (
-      lib.optionals (blas.implementation == "mkl") [ "-Wno-error=array-bounds" ]
+      lib.optionals (blas.implementation == "mkl") ["-Wno-error=array-bounds"]
       # Suppress gcc regression: avx512 math function raises uninitialized variable warning
       # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105593
       # See also: Fails to compile with GCC 12.1.0 https://github.com/pytorch/pytorch/issues/77939
@@ -395,8 +395,7 @@ buildPythonPackage rec {
       pythonRelaxDepsHook
       removeReferencesTo
     ]
-    ++ lib.optionals cudaSupport [ cudatoolkit_joined ]
-    ++ lib.optionals rocmSupport [ rocmtoolkit_joined ];
+    ++ lib.optionals cudaSupport [cudatoolkit_joined] ++ lib.optionals rocmSupport [rocmtoolkit_joined];
 
   buildInputs =
     [
@@ -404,14 +403,14 @@ buildPythonPackage rec {
       blas.provider
       pybind11
     ]
-    ++ lib.optionals stdenv.isLinux [ linuxHeaders_5_19 ] # TMP: avoid "flexible array member" errors for now
+    ++ lib.optionals stdenv.isLinux [linuxHeaders_5_19] # TMP: avoid "flexible array member" errors for now
     ++ lib.optionals cudaSupport [
       cudnn
       nccl
     ]
-    ++ lib.optionals rocmSupport [ openmp ]
-    ++ lib.optionals (cudaSupport || rocmSupport) [ magma ]
-    ++ lib.optionals stdenv.isLinux [ numactl ]
+    ++ lib.optionals rocmSupport [openmp]
+    ++ lib.optionals (cudaSupport || rocmSupport) [magma]
+    ++ lib.optionals stdenv.isLinux [numactl]
     ++ lib.optionals stdenv.isDarwin [
       Accelerate
       CoreServices
@@ -439,19 +438,19 @@ buildPythonPackage rec {
       tensorboard
       protobuf
     ]
-    ++ lib.optionals MPISupport [ mpi ]
-    ++ lib.optionals rocmSupport [ rocmtoolkit_joined ]
+    ++ lib.optionals MPISupport [mpi]
+    ++ lib.optionals rocmSupport [rocmtoolkit_joined]
     # rocm build requires openai-triton;
     # openai-triton currently requires cuda_nvcc,
     # so not including it in the cpu-only build;
     # torch.compile relies on openai-triton,
     # so we include it for the cuda build as well
-    ++ lib.optionals (rocmSupport || cudaSupport) [ openai-triton ];
+    ++ lib.optionals (rocmSupport || cudaSupport) [openai-triton];
 
   # Tests take a long time and may be flaky, so just sanity-check imports
   doCheck = false;
 
-  pythonImportsCheck = [ "torch" ];
+  pythonImportsCheck = ["torch"];
 
   nativeCheckInputs = [
     hypothesis
@@ -530,7 +529,7 @@ buildPythonPackage rec {
   '';
 
   # Builds in 2+h with 2 cores, and ~15m with a big-parallel builder.
-  requiredSystemFeatures = [ "big-parallel" ];
+  requiredSystemFeatures = ["big-parallel"];
 
   passthru =
     {

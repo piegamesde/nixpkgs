@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     wrapPythonPrograms
-    wrapProgram $out/bin/networkd-dispatcher --prefix PATH : ${lib.makeBinPath [ iw ]}
+    wrapProgram $out/bin/networkd-dispatcher --prefix PATH : ${lib.makeBinPath [iw]}
   '';
 
   meta = with lib; {
@@ -77,6 +77,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/craftyguy/networkd-dispatcher";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

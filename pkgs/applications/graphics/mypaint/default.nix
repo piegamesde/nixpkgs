@@ -82,7 +82,7 @@ buildPythonApplication rec {
     pygobject3
   ];
 
-  nativeCheckInputs = [ gtk3 ];
+  nativeCheckInputs = [gtk3];
 
   buildPhase = ''
     runHook preBuild

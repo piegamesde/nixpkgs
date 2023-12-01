@@ -34,12 +34,12 @@ buildPythonPackage rec {
   # Module has not test
   doCheck = false;
 
-  pythonImportsCheck = [ "pyfume" ];
+  pythonImportsCheck = ["pyfume"];
 
   meta = with lib; {
     description = "A Python package for fuzzy model estimation";
     homepage = "https://github.com/CaroFuchs/pyFUME";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [fab];
   };
 }

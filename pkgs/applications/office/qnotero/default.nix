@@ -54,6 +54,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://www.cogsci.nl/software/qnotero";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.nico202 ];
+    maintainers = [lib.maintainers.nico202];
   };
 }

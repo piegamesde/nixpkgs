@@ -8,8 +8,8 @@
 stdenv.mkDerivation {
   name = "tarsum";
 
-  nativeBuildInputs = [ go ];
-  disallowedReferences = [ go ];
+  nativeBuildInputs = [go];
+  disallowedReferences = [go];
 
   dontUnpack = true;
 

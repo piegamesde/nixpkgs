@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
     installShellFiles
   ];
 
-  buildInputs = [ fuse ];
+  buildInputs = [fuse];
 
   postInstall = "installManPage man/sandboxfs.1";
 
@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
     broken = stdenv.isDarwin;
     description = "A virtual file system for sandboxing";
     homepage = "https://github.com/bazelbuild/sandboxfs";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ jeremyschlatter ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [jeremyschlatter];
   };
 }

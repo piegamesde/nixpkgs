@@ -31,6 +31,6 @@ build-idris-package {
     description = "Recursion schemes for Idris";
     homepage = "https://github.com/vmchale/recursion_schemes";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

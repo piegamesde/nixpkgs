@@ -57,13 +57,13 @@ stdenv.mkDerivation rec {
     t4kcommon
   ];
 
-  configureFlags = [ "--without-sdlpango" ];
+  configureFlags = ["--without-sdlpango"];
 
   meta = with lib; {
     description = "An Educational Typing Tutor Game Starring Tux, the Linux Penguin";
     homepage = "https://github.com/tux4kids/tuxtype";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.aanderse ];
+    maintainers = [maintainers.aanderse];
     platforms = platforms.linux;
   };
 }

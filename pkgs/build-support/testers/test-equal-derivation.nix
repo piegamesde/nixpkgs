@@ -21,7 +21,7 @@ else
   runCommand name
     {
       inherit assertion drvA drvB;
-      nativeBuildInputs = [ nix-diff ];
+      nativeBuildInputs = [nix-diff];
     }
     ''
       echo "$assertion"

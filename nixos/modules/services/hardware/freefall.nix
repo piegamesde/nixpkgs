@@ -35,7 +35,7 @@ in
 
     devices = mkOption {
       type = types.listOf types.str;
-      default = [ "/dev/sda" ];
+      default = ["/dev/sda"];
       description = lib.mdDoc ''
         Device paths to all internal spinning hard drives.
       '';
@@ -53,8 +53,8 @@ in
         in
         nameValuePair "freefall-${dev'}" {
           description = "Free-fall protection for ${dev}";
-          after = [ "${dev'}.device" ];
-          wantedBy = [ "${dev'}.device" ];
+          after = ["${dev'}.device"];
+          wantedBy = ["${dev'}.device"];
           serviceConfig = {
             ExecStart = "${cfg.package}/bin/freefall ${dev}";
             Restart = "on-failure";
@@ -64,7 +64,7 @@ in
     in
     mkIf cfg.enable {
 
-      environment.systemPackages = [ cfg.package ];
+      environment.systemPackages = [cfg.package];
 
       systemd.services = builtins.listToAttrs (map mkService cfg.devices);
     };

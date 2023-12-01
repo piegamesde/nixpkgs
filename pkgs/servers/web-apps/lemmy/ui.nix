@@ -15,7 +15,7 @@ let
 
   pkgConfig = {
     node-sass = {
-      nativeBuildInputs = [ pkg-config ];
+      nativeBuildInputs = [pkg-config];
       buildInputs = [
         libsass
         python3
@@ -47,7 +47,7 @@ mkYarnPackage {
     version
     ;
 
-  extraBuildInputs = [ libsass ];
+  extraBuildInputs = [libsass];
 
   packageJSON = ./package.json;
   offlineCache = fetchYarnDeps {

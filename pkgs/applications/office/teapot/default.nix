@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     ./002-remove-help.patch
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     libtirpc
@@ -38,10 +38,10 @@ stdenv.mkDerivation rec {
   ];
 
   # By no known reason libtirpc is not detected
-  env.NIX_CFLAGS_COMPILE = toString [ "-I${libtirpc.dev}/include/tirpc" ];
-  NIX_LDFLAGS = [ "-ltirpc" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-I${libtirpc.dev}/include/tirpc"];
+  NIX_LDFLAGS = ["-ltirpc"];
 
-  cmakeConfigureFlags = [ "-DENABLE_HELP=OFF" ];
+  cmakeConfigureFlags = ["-DENABLE_HELP=OFF"];
 
   meta = with lib; {
     inherit (src.meta) homepage;
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       systems.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.unix;
   };
 }

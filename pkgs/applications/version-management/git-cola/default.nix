@@ -19,7 +19,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-VAn4zXypOugPIVyXQ/8Yt0rCDM7hVdIY+jpmoTHqssU=";
   };
 
-  buildInputs = [ qt5.qtwayland ];
+  buildInputs = [qt5.qtwayland];
   propagatedBuildInputs = with python3Packages; [
     git
     pyqt5
@@ -38,7 +38,7 @@ python3Packages.buildPythonApplication rec {
   disabledTestPaths = [
     "qtpy/"
     "contrib/win32"
-  ] ++ lib.optionals stdenv.isDarwin [ "cola/inotify.py" ];
+  ] ++ lib.optionals stdenv.isDarwin ["cola/inotify.py"];
 
   preFixup = ''
     makeWrapperArgs+=("''${qtWrapperArgs[@]}")
@@ -48,6 +48,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/git-cola/git-cola";
     description = "A sleek and powerful Git GUI";
     license = licenses.gpl2;
-    maintainers = [ maintainers.bobvanderlinden ];
+    maintainers = [maintainers.bobvanderlinden];
   };
 }

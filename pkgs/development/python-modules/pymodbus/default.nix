@@ -58,7 +58,7 @@ buildPythonPackage rec {
     "3" # Racy socket tests
   ];
 
-  pythonImportsCheck = [ "pymodbus" ];
+  pythonImportsCheck = ["pymodbus"];
 
   meta = with lib; {
     description = "Python implementation of the Modbus protocol";
@@ -70,7 +70,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/pymodbus-dev/pymodbus";
     changelog = "https://github.com/pymodbus-dev/pymodbus/releases/tag/v${version}";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     description = "K-mer substring space decomposition";
     license = licenses.asl20;
     homepage = "https://github.com/yhg926/public_kssd";
-    maintainers = with maintainers; [ unode ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [unode];
+    platforms = ["x86_64-linux"];
   };
 }

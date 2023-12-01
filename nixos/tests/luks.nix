@@ -1,10 +1,10 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
   {
     name = "luks";
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         # Use systemd-boot
         virtualisation = {
@@ -17,9 +17,9 @@ import ./make-test-python.nix (
         };
         boot.loader.systemd-boot.enable = true;
 
-        boot.kernelParams = lib.mkOverride 5 [ "console=tty1" ];
+        boot.kernelParams = lib.mkOverride 5 ["console=tty1"];
 
-        environment.systemPackages = with pkgs; [ cryptsetup ];
+        environment.systemPackages = with pkgs; [cryptsetup];
 
         specialisation = rec {
           boot-luks.configuration = {
@@ -32,7 +32,7 @@ import ./make-test-python.nix (
           };
           boot-luks-custom-keymap.configuration = lib.mkMerge [
             boot-luks.configuration
-            { console.keyMap = "neo"; }
+            {console.keyMap = "neo";}
           ];
         };
       };

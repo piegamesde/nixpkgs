@@ -98,12 +98,12 @@ buildPythonPackage rec {
     "'not network and not natural_earth'"
   ];
 
-  disabledTests = [ "test_gridliner_labels_bbox_style" ];
+  disabledTests = ["test_gridliner_labels_bbox_style"];
 
   meta = with lib; {
     description = "Process geospatial data to create maps and perform analyses";
     license = licenses.lgpl3Plus;
     homepage = "https://scitools.org.uk/cartopy/docs/latest/";
-    maintainers = with maintainers; [ mredaelli ];
+    maintainers = with maintainers; [mredaelli];
   };
 }

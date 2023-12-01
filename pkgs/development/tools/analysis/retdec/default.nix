@@ -69,7 +69,7 @@ let
     rev = "v1.1.0";
     sha256 = "1jixgb8w97l9gdh3inihz7avz7i770gy2j2irvvlyrq3wi41f5ab";
   };
-  yaracpp = callPackage ./yaracpp.nix { }; # is its own package because it needs a patch
+  yaracpp = callPackage ./yaracpp.nix {}; # is its own package because it needs a patch
   yaramod = fetchFromGitHub {
     owner = "avast-tl";
     repo = "yaramod";
@@ -177,18 +177,18 @@ stdenv.mkDerivation rec {
   # all dependencies that are normally fetched during build time (the subdirectories of `deps`)
   # all of these need to be fetched through nix and the CMakeLists files need to be patched not to fetch them themselves
   external_deps = [
-    (capstone // { dep_name = "capstone"; })
-    (elfio // { dep_name = "elfio"; })
-    (googletest // { dep_name = "googletest"; })
-    (jsoncpp // { dep_name = "jsoncpp"; })
-    (keystone // { dep_name = "keystone"; })
-    (libdwarf // { dep_name = "libdwarf"; })
-    (llvm // { dep_name = "llvm"; })
-    (pelib // { dep_name = "pelib"; })
-    (rapidjson // { dep_name = "rapidjson"; })
-    (tinyxml2 // { dep_name = "tinyxml2"; })
-    (yaracpp // { dep_name = "yaracpp"; })
-    (yaramod // { dep_name = "yaramod"; })
+    (capstone // {dep_name = "capstone";})
+    (elfio // {dep_name = "elfio";})
+    (googletest // {dep_name = "googletest";})
+    (jsoncpp // {dep_name = "jsoncpp";})
+    (keystone // {dep_name = "keystone";})
+    (libdwarf // {dep_name = "libdwarf";})
+    (llvm // {dep_name = "llvm";})
+    (pelib // {dep_name = "pelib";})
+    (rapidjson // {dep_name = "rapidjson";})
+    (tinyxml2 // {dep_name = "tinyxml2";})
+    (yaracpp // {dep_name = "yaracpp";})
+    (yaramod // {dep_name = "yaramod";})
   ];
 
   # Use newer yaramod to fix w/bison 3.2+

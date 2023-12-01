@@ -20,6 +20,6 @@ stdenv.mkDerivation rec {
     description = "Generates CUE sheets from a CD TOC";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

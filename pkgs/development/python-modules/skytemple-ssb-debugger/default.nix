@@ -46,12 +46,12 @@ buildPythonPackage rec {
   ];
 
   doCheck = false; # requires Pokémon Mystery Dungeon ROM
-  pythonImportsCheck = [ "skytemple_ssb_debugger" ];
+  pythonImportsCheck = ["skytemple_ssb_debugger"];
 
   meta = with lib; {
     homepage = "https://github.com/SkyTemple/skytemple-ssb-debugger";
     description = "Script Engine Debugger for Pokémon Mystery Dungeon Explorers of Sky";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ xfix ];
+    maintainers = with maintainers; [xfix];
   };
 }

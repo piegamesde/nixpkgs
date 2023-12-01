@@ -28,7 +28,7 @@ buildGoModule rec {
     homepage = "https://github.com/kubemq-io/kubemqctl";
     description = "Kubemqctl is a command line interface (CLI) for Kubemq Kubernetes Message Broker.";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ brianmcgee ];
+    maintainers = with lib.maintainers; [brianmcgee];
     broken = true; # vendor isn't reproducible with go > 1.17: nix-build -A $name.go-modules --check
   };
 }

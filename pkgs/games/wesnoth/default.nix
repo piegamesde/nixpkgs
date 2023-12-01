@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://www.wesnoth.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     platforms = platforms.unix;
   };
 }

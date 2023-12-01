@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   let
     lxd-image = import ../release.nix {
@@ -8,7 +8,7 @@ import ./make-test-python.nix (
         documentation.enable = lib.mkForce false;
 
         # Our tests require `grep` & friends:
-        environment.systemPackages = with pkgs; [ busybox ];
+        environment.systemPackages = with pkgs; [busybox];
       };
     };
 
@@ -18,10 +18,10 @@ import ./make-test-python.nix (
   {
     name = "lxd";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ patryk27 ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [patryk27];};
 
     nodes.machine =
-      { lib, ... }:
+      {lib, ...}:
       {
         virtualisation = {
           diskSize = 4096;

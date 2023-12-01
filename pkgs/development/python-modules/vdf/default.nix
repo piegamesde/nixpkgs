@@ -21,12 +21,12 @@ buildPythonPackage rec {
     mock
     pytestCheckHook
   ];
-  pythonImportsCheck = [ "vdf" ];
+  pythonImportsCheck = ["vdf"];
 
   meta = with lib; {
     description = "Library for working with Valve's VDF text format";
     homepage = "https://github.com/ValvePython/vdf";
     license = licenses.mit;
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
   };
 }

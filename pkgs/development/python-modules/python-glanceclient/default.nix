@@ -59,7 +59,7 @@ buildPythonPackage rec {
     stestr run
   '';
 
-  pythonImportsCheck = [ "glanceclient" ];
+  pythonImportsCheck = ["glanceclient"];
 
   meta = with lib; {
     description = "Python bindings for the OpenStack Images API";

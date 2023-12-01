@@ -44,7 +44,7 @@ buildPythonPackage rec {
     hash = "sha256-drH1N1rKFu/zdLmLsD1jH5xUkzK37V/+nJqGQ38vsTI=";
   };
 
-  buildInputs = [ setuptools ];
+  buildInputs = [setuptools];
 
   propagatedBuildInputs = [
     numpy
@@ -53,10 +53,10 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    plot = [ matplotlib ];
-    xlsx = [ openpyxl ];
-    netw = [ networkx ];
-    visa = [ pyvisa ];
+    plot = [matplotlib];
+    xlsx = [openpyxl];
+    netw = [networkx];
+    visa = [pyvisa];
     docs = [
       ipython
       ipykernel
@@ -86,15 +86,15 @@ buildPythonPackage rec {
     networkx
   ];
 
-  checkInputs = [ pytestCheckHook ];
+  checkInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "skrf" ];
+  pythonImportsCheck = ["skrf"];
 
   meta = with lib; {
     description = "A Python library for RF/Microwave engineering";
     homepage = "https://scikit-rf.org/";
     changelog = "https://github.com/scikit-rf/scikit-rf/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ lugarun ];
+    maintainers = with maintainers; [lugarun];
   };
 }

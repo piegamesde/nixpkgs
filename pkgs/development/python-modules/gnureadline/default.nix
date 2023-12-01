@@ -16,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-QmKmqjVqsi72QvQ6f5TrQqctbwxTLttOjGuTP1cwVtI=";
   };
 
-  buildInputs = [ pkgs.ncurses ];
+  buildInputs = [pkgs.ncurses];
   patchPhase = ''
     substituteInPlace setup.py --replace "/bin/bash" "${pkgs.bash}/bin/bash"
   '';

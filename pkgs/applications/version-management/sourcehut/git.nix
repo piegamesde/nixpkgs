@@ -26,7 +26,7 @@ let
       modRoot = "api";
       vendorSha256 = "sha256-cCs9FUBusaAou9w4TDOg8GKxhRcsPbSNcQpxvFH/+so=";
     }
-    // import ./fix-gqlgen-trimpath.nix { inherit unzip; }
+    // import ./fix-gqlgen-trimpath.nix {inherit unzip;}
   );
 
   gitDispatch = buildGoModule {
@@ -86,12 +86,12 @@ buildPythonPackage rec {
     ln -s ${gitUpdateHook}/bin/gitsrht-update-hook $out/bin/gitsrht-update-hook
   '';
 
-  pythonImportsCheck = [ "gitsrht" ];
+  pythonImportsCheck = ["gitsrht"];
 
   meta = with lib; {
     homepage = "https://git.sr.ht/~sircmpwn/git.sr.ht";
     description = "Git repository hosting service for the sr.ht network";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ eadwu ];
+    maintainers = with maintainers; [eadwu];
   };
 }

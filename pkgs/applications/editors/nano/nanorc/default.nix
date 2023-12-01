@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     inherit owner repo;
-    rev = builtins.replaceStrings [ "-" ] [ "." ] version;
+    rev = builtins.replaceStrings ["-"] ["."] version;
     sha256 = "3B2nNFYkwYHCX6pQz/hMO/rnVqlCiw1BSNmGmJ6KCqE=";
   };
 
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     description = "Improved Nano Syntax Highlighting Files";
     homepage = "https://github.com/scopatz/nanorc";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ nequissimus ];
+    maintainers = with lib.maintainers; [nequissimus];
     platforms = lib.platforms.all;
   };
 }

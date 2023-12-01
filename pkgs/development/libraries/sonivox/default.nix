@@ -16,13 +16,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-kCMY9A16g+CNNPn4PZ80QdEP6f58zCI3fQ1BFiK1ZQg=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     homepage = "https://github.com/pedrolcl/sonivox";
     description = "MIDI synthesizer library";
     license = licenses.asl20;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = platforms.linux;
   };
 }

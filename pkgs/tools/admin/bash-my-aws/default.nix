@@ -83,6 +83,6 @@ stdenv.mkDerivation rec {
     homepage = "https://bash-my-aws.org";
     description = "CLI commands for AWS";
     license = licenses.mit;
-    maintainers = with maintainers; [ tomberek ];
+    maintainers = with maintainers; [tomberek];
   };
 }

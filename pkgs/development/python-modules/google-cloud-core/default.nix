@@ -28,7 +28,7 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    grpc = [ grpcio ];
+    grpc = [grpcio];
   };
 
   nativeCheckInputs = [
@@ -41,13 +41,13 @@ buildPythonPackage rec {
     rm -r google
   '';
 
-  pythonImportsCheck = [ "google.cloud" ];
+  pythonImportsCheck = ["google.cloud"];
 
   meta = with lib; {
     description = "API Client library for Google Cloud: Core Helpers";
     homepage = "https://github.com/googleapis/python-cloud-core";
     changelog = "https://github.com/googleapis/python-cloud-core/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

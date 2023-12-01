@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
 
   preConfigure = "rm configure";
   preBuild = "sed 's_/bin/__g' -i RULES/*";
-  makeFlags = [ "GMAKE_NOWARN=true" ];
+  makeFlags = ["GMAKE_NOWARN=true"];
   installFlags = [
     "DESTDIR=$(out)"
     "INS_BASE=/"
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://cdrtools.sourceforge.net/private/star.html";
     license = lib.licenses.cddl;
-    maintainers = [ lib.maintainers.wucke13 ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [lib.maintainers.wucke13];
+    platforms = ["x86_64-linux"];
   };
 }

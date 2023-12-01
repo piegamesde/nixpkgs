@@ -54,7 +54,7 @@ assert langGo -> langCC;
 assert langAda -> gnat-bootstrap != null;
 
 # threadsCross is just for MinGW
-assert threadsCross != { } -> stdenv.targetPlatform.isWindows;
+assert threadsCross != {} -> stdenv.targetPlatform.isWindows;
 
 # profiledCompiler builds inject non-determinism in one of the compilation stages.
 # If turned on, we can't provide reproducible builds anymore
@@ -110,7 +110,7 @@ let
         ./Added-mcf-thread-model-support-from-mcfgthread.patch
 
     # openjdk build fails without this on -march=opteron; is upstream in gcc12
-    ++ [ ./gcc-issue-103910.patch ];
+    ++ [./gcc-issue-103910.patch];
 
   # Cross-gcc settings (build == host != target)
   crossMingw = targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
@@ -272,7 +272,7 @@ lib.pipe
         crossMingw
         ;
 
-      inherit (callFile ../common/dependencies.nix { })
+      inherit (callFile ../common/dependencies.nix {})
         depsBuildBuild
         nativeBuildInputs
         depsBuildTarget
@@ -283,7 +283,7 @@ lib.pipe
       NIX_LDFLAGS = lib.optionalString hostPlatform.isSunOS "-lm";
 
       preConfigure =
-        (callFile ../common/pre-configure.nix { })
+        (callFile ../common/pre-configure.nix {})
         + ''
           ln -sf ${libxcrypt}/include/crypt.h libsanitizer/sanitizer_common/crypt.h
         '';
@@ -296,7 +296,7 @@ lib.pipe
         "target"
       ];
 
-      configureFlags = callFile ../common/configure-flags.nix { };
+      configureFlags = callFile ../common/configure-flags.nix {};
 
       targetConfig = if targetPlatform != hostPlatform then targetPlatform.config else null;
 
@@ -311,7 +311,7 @@ lib.pipe
         in
         lib.optional (target != "") target;
 
-      inherit (callFile ../common/strip-attributes.nix { }) stripDebugList stripDebugListTarget preFixup;
+      inherit (callFile ../common/strip-attributes.nix {}) stripDebugList stripDebugListTarget preFixup;
 
       # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
       ${if hostPlatform.system == "x86_64-solaris" then "CC" else null} = "gcc -m64";
@@ -326,14 +326,14 @@ lib.pipe
       # LIBRARY_PATH= makes gcc read the specs from ., and the build breaks.
 
       CPATH = optionals (targetPlatform == hostPlatform) (
-        makeSearchPathOutput "dev" "include" ([ ] ++ optional (zlib != null) zlib)
+        makeSearchPathOutput "dev" "include" ([] ++ optional (zlib != null) zlib)
       );
 
       LIBRARY_PATH = optionals (targetPlatform == hostPlatform) (
         makeLibraryPath (optional (zlib != null) zlib)
       );
 
-      inherit (callFile ../common/extra-target-flags.nix { })
+      inherit (callFile ../common/extra-target-flags.nix {})
         EXTRA_FLAGS_FOR_TARGET
         EXTRA_LDFLAGS_FOR_TARGET
         ;
@@ -351,14 +351,14 @@ lib.pipe
           version
           ;
         isGNU = true;
-        hardeningUnsupportedFlags = [ "fortify3" ];
+        hardeningUnsupportedFlags = ["fortify3"];
       };
 
       enableParallelBuilding = true;
       inherit enableShared enableMultilib;
 
       meta = {
-        inherit (callFile ../common/meta.nix { })
+        inherit (callFile ../common/meta.nix {})
           homepage
           license
           description
@@ -380,9 +380,9 @@ lib.pipe
           installTargets = "install-gcc install-target-libgcc";
         }
 
-    // optionalAttrs (enableMultilib) { dontMoveLib64 = true; }
+    // optionalAttrs (enableMultilib) {dontMoveLib64 = true;}
   ))
   [
-    (callPackage ../common/libgcc.nix { inherit langC langCC langJit; })
-    (callPackage ../common/checksum.nix { inherit langC langCC; })
+    (callPackage ../common/libgcc.nix {inherit langC langCC langJit;})
+    (callPackage ../common/checksum.nix {inherit langC langCC;})
   ]

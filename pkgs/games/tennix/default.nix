@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-U5+S1jEeg+7gdM1++dln6ePTqxZu2Zt0oUrH3DIlkgk=";
   };
 
-  nativeBuildInputs = [ which ];
+  nativeBuildInputs = [which];
 
   buildInputs = [
     python3
@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
     description = "Classic Championship Tour 2011";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

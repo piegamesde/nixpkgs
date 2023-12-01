@@ -46,7 +46,7 @@ let
   wrapSetVar = var: ''--set ${var} "''$${var}"'';
 
   # base pkg/lib
-  baseLib = python3Packages.callPackage ./lib.nix { };
+  baseLib = python3Packages.callPackage ./lib.nix {};
 in
 mkDerivation {
   pname =
@@ -59,7 +59,7 @@ mkDerivation {
     wrapGAppsHook
   ];
   buildInputs =
-    [ qtbase ]
+    [qtbase]
     ++ optionals gstreamerSupport (
       [
         qtmultimedia.bin
@@ -70,7 +70,7 @@ mkDerivation {
   propagatedBuildInputs =
     optional pdfSupport mupdf
     ++ optional presentationSupport libreoffice-unwrapped;
-  pythonPath = [ baseLib ] ++ optional vlcSupport python3Packages.python-vlc;
+  pythonPath = [baseLib] ++ optional vlcSupport python3Packages.python-vlc;
   # ++ optional enableMySql mysql-connector  # Untested. If interested, contact maintainer.
   # ++ optional enablePostgreSql psycopg2    # Untested. If interested, contact maintainer.
   # ++ optional enableJenkinsApi jenkinsapi  # Untested. If interested, contact maintainer.
@@ -96,7 +96,7 @@ mkDerivation {
       "\${qtWrapperArgs[@]}"
     ]
     ++ optionals presentationSupport (
-      [ "--prefix PATH : ${libreoffice-unwrapped}/bin" ]
+      ["--prefix PATH : ${libreoffice-unwrapped}/bin"]
       ++ map wrapSetVar [
         "URE_BOOTSTRAP"
         "UNO_PATH"
@@ -112,7 +112,7 @@ mkDerivation {
   '';
 
   meta = baseLib.meta // {
-    hydraPlatforms = [ ]; # this is only the wrapper; baseLib gets built
+    hydraPlatforms = []; # this is only the wrapper; baseLib gets built
   };
 
   passthru = {

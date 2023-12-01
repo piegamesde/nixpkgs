@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "524f2fae47db785234f166551520d9605b9a27551ca438bd807e3509ce246cf0";
   };
 
-  buildInputs = [ sndio ] ++ lib.optional (!stdenv.isDarwin && !stdenv.targetPlatform.isBSD) libbsd;
+  buildInputs = [sndio] ++ lib.optional (!stdenv.isDarwin && !stdenv.targetPlatform.isBSD) libbsd;
 
   outputs = [
     "out"
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "The aucatctl utility sends MIDI messages to control sndiod and/or aucat volumes";
     homepage = "http://www.sndio.org";
     license = licenses.isc;
-    maintainers = with maintainers; [ sna ];
+    maintainers = with maintainers; [sna];
     platforms = platforms.unix;
   };
 }

@@ -47,6 +47,6 @@ stdenv.mkDerivation rec {
     homepage = "http://dag.wieers.com/home-made/unoconv/";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

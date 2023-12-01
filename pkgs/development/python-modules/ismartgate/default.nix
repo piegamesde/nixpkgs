@@ -50,13 +50,13 @@ buildPythonPackage rec {
     respx
   ];
 
-  pythonImportsCheck = [ "ismartgate" ];
+  pythonImportsCheck = ["ismartgate"];
 
   meta = with lib; {
     description = "Python module to work with the ismartgate and gogogate2 API";
     homepage = "https://github.com/bdraco/ismartgate";
     changelog = "https://github.com/bdraco/ismartgate/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -6,20 +6,20 @@ let
   topic = "foo.bar";
 in
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "nats";
-    meta = with pkgs.lib; { maintainers = with maintainers; [ c0deaddict ]; };
+    meta = with pkgs.lib; {maintainers = with maintainers; [c0deaddict];};
 
     nodes =
       let
-        client = { pkgs, ... }: { environment.systemPackages = with pkgs; [ natscli ]; };
+        client = {pkgs, ...}: {environment.systemPackages = with pkgs; [natscli];};
       in
       {
         server =
-          { pkgs, ... }:
+          {pkgs, ...}:
           {
-            networking.firewall.allowedTCPPorts = [ port ];
+            networking.firewall.allowedTCPPorts = [port];
             services.nats = {
               inherit port;
               enable = true;

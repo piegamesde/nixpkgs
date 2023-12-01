@@ -10,7 +10,7 @@ let
   meta = with lib; {
     homepage = "https://www.spotify.com/";
     description = "Play music from the Spotify music service";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     platforms = [
       "x86_64-linux"
@@ -20,6 +20,6 @@ let
   };
 in
 if stdenv.isDarwin then
-  callPackage ./darwin.nix { inherit pname meta; }
+  callPackage ./darwin.nix {inherit pname meta;}
 else
-  callPackage ./linux.nix { inherit pname meta; }
+  callPackage ./linux.nix {inherit pname meta;}

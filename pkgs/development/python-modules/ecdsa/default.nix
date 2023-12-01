@@ -15,9 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-GQNIBBVZ4hsiodZc7khSgsoRpvgdUD/duE1QF+ntHkk=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
   # Only needed for tests
-  nativeCheckInputs = [ pkgs.openssl ];
+  nativeCheckInputs = [pkgs.openssl];
 
   meta = with lib; {
     description = "ECDSA cryptographic signature library";

@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-67UEIDycAf3TedKvp0dofct7HtG+H8DD9Tmy3oEnYgA=";
   };
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   # no upstream test
   doCheck = false;

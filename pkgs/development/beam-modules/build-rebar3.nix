@@ -13,14 +13,14 @@
   version,
   src,
   setupHook ? null,
-  buildInputs ? [ ],
-  beamDeps ? [ ],
-  buildPlugins ? [ ],
+  buildInputs ? [],
+  beamDeps ? [],
+  buildPlugins ? [],
   postPatch ? "",
   installPhase ? null,
   buildPhase ? null,
   configurePhase ? null,
-  meta ? { },
+  meta ? {},
   enableDebugInfo ? false,
   ...
 }@attrs:
@@ -28,13 +28,13 @@
 let
   debugInfoFlag = lib.optionalString (enableDebugInfo || erlang.debugInfo) "debug-info";
 
-  rebar3 = rebar3WithPlugins { plugins = buildPlugins; };
+  rebar3 = rebar3WithPlugins {plugins = buildPlugins;};
 
   shell =
     drv:
     stdenv.mkDerivation {
       name = "interactive-shell-${drv.name}";
-      buildInputs = [ drv ];
+      buildInputs = [drv];
     };
 
   customPhases = lib.filterAttrs (_: v: v != null) {

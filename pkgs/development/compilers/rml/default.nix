@@ -18,9 +18,9 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = with ocamlPackages; [ ocaml ];
+  nativeBuildInputs = with ocamlPackages; [ocaml];
 
-  buildInputs = with ocamlPackages; [ num ];
+  buildInputs = with ocamlPackages; [num];
 
   prefixKey = "-prefix ";
 
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
       qpl
       lgpl21Plus
     ];
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 }

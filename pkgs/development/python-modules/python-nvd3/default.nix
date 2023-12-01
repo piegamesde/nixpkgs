@@ -24,7 +24,7 @@ buildPythonPackage rec {
     jinja2
     setuptools
   ];
-  nativeCheckInputs = [ coverage ];
+  nativeCheckInputs = [coverage];
 
   checkPhase = ''
     coverage run --source=nvd3 setup.py test
@@ -34,6 +34,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/areski/python-nvd3";
     description = "Python Wrapper for NVD3 - It's time for beautiful charts";
     license = licenses.mit;
-    maintainers = [ maintainers.ivan-tkatchev ];
+    maintainers = [maintainers.ivan-tkatchev];
   };
 }

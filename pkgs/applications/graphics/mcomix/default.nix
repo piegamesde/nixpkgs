@@ -65,7 +65,7 @@ python3.pkgs.buildPythonApplication rec {
     )
   '';
 
-  passthru.tests.version = testers.testVersion { package = mcomix; };
+  passthru.tests.version = testers.testVersion {package = mcomix;};
 
   meta = with lib; {
     description = "Comic book reader and image viewer";
@@ -76,6 +76,6 @@ python3.pkgs.buildPythonApplication rec {
     '';
     homepage = "https://sourceforge.net/projects/mcomix/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ thiagokokada ];
+    maintainers = with maintainers; [thiagokokada];
   };
 }

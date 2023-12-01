@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gdvhqYGyrFuQhhrkF26wXb3TQLRCLm59/uSxTPmHdAE=";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   installPhase = ''
     mkdir -p "$out/bin"
@@ -54,9 +54,9 @@ stdenv.mkDerivation rec {
       Linux.
     '';
     homepage = "https://www.umlet.com";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.gpl3;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
     platforms = platforms.all;
   };
 }

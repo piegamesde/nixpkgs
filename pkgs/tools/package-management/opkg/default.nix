@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
     changelog = "https://git.yoctoproject.org/opkg/tree/NEWS?h=v${version}";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

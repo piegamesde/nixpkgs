@@ -42,6 +42,6 @@ buildPythonPackage rec {
     description = "Mock out responses from the requests package";
     homepage = "https://requests-mock.readthedocs.io";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

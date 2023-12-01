@@ -36,12 +36,12 @@ buildPythonPackage rec {
   # Tests require Internet access.
   doCheck = false;
 
-  pythonImportsCheck = [ "obspy" ];
+  pythonImportsCheck = ["obspy"];
 
   meta = with lib; {
     description = "Python framework for seismological observatories";
     homepage = "https://www.obspy.org";
     license = licenses.lgpl3;
-    maintainers = [ maintainers.ametrine ];
+    maintainers = [maintainers.ametrine];
   };
 }

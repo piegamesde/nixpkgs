@@ -14,14 +14,14 @@ buildPythonPackage rec {
     hash = "sha256-kj5eL2nBVfLMQtr7vXDhbj/eJNLUqiq3L744YjiJJGI=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "blinker" ];
+  pythonImportsCheck = ["blinker"];
 
   meta = with lib; {
     homepage = "https://pythonhosted.org/blinker/";
     description = "Fast, simple object-to-object and broadcast signaling";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

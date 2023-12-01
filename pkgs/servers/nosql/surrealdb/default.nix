@@ -40,7 +40,7 @@ rustPlatform.buildRustPackage rec {
     llvmPackages.clang
   ];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
+  buildInputs = [openssl] ++ lib.optionals stdenv.isDarwin [SystemConfiguration];
 
   passthru.tests.version = testers.testVersion {
     package = surrealdb;

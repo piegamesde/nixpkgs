@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "0xskcw36ci2ykra5gir5pkrawh2qkcv18p4fp2kxivssbd20d4jw";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
   meta = {
     description = "Dark Desktop Suite for Gtk, Xfce and Metacity";
@@ -29,6 +29,6 @@ stdenv.mkDerivation rec {
       cc-by-nc-sa-30
     ];
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.romildo ];
+    maintainers = [lib.maintainers.romildo];
   };
 }

@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
   # for the builder script
   inherit fontDirectories;
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   buildInputs = [
     zlib
@@ -107,10 +107,10 @@ stdenv.mkDerivation rec {
       GUI, many bugfixes, and more.
     '';
 
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
 
-    knownVulnerabilities = [ "CVE-2021-42785" ];
+    knownVulnerabilities = ["CVE-2021-42785"];
     # Unfortunately, upstream doesn't maintain the 1.3 branch anymore, and the
     # new 2.x branch is substantially different (requiring either Windows or Java)
   };

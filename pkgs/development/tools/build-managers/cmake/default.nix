@@ -20,8 +20,8 @@
   isBootstrap ? false,
   useOpenSSL ? !isBootstrap,
   useSharedLibraries ? (!isBootstrap && !stdenv.isCygwin),
-  uiToolkits ? [ ], # can contain "ncurses" and/or "qt5"
-  buildDocs ? !(isBootstrap || (uiToolkits == [ ])),
+  uiToolkits ? [], # can contain "ncurses" and/or "qt5"
+  buildDocs ? !(isBootstrap || (uiToolkits == [])),
   darwin,
   libsForQt5,
 }:
@@ -38,9 +38,9 @@ assert lib.subtractLists
       "ncurses"
       "qt5"
     ]
-    uiToolkits == [ ];
+    uiToolkits == [];
 # Minimal, bootstrap cmake does not have toolkits
-assert isBootstrap -> (uiToolkits == [ ]);
+assert isBootstrap -> (uiToolkits == []);
 stdenv.mkDerivation rec {
   pname =
     "cmake"
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isDarwin ./006-darwin-always-set-runtime-c-flag.diff;
 
   outputs =
-    [ "out" ]
+    ["out"]
     ++ lib.optionals buildDocs [
       "man"
       "info"
@@ -82,13 +82,13 @@ stdenv.mkDerivation rec {
     ./check-pc-files-hook.sh
   ];
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   nativeBuildInputs =
     setupHooks
-    ++ [ pkg-config ]
-    ++ lib.optionals buildDocs [ texinfo ]
-    ++ lib.optionals qt5UI [ wrapQtAppsHook ];
+    ++ [pkg-config]
+    ++ lib.optionals buildDocs [texinfo]
+    ++ lib.optionals qt5UI [wrapQtAppsHook];
 
   buildInputs =
     lib.optionals useSharedLibraries [
@@ -130,7 +130,7 @@ stdenv.mkDerivation rec {
           "--system-libs"
         ]
       else
-        [ "--no-system-libs" ]
+        ["--no-system-libs"]
     ) # FIXME: cleanup
     ++ lib.optional qt5UI "--qt-gui"
     ++ lib.optionals buildDocs [
@@ -172,7 +172,7 @@ stdenv.mkDerivation rec {
 
   # This isn't an autoconf configure script; triples are passed via
   # CMAKE_SYSTEM_NAME, etc.
-  configurePlatforms = [ ];
+  configurePlatforms = [];
 
   doCheck = false; # fails
 

@@ -23,7 +23,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ bash-my-aws ];
+    environment.systemPackages = with pkgs; [bash-my-aws];
 
     programs.bash.interactiveShellInit = initScript;
   };

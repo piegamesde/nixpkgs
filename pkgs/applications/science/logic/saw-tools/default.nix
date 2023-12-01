@@ -62,9 +62,9 @@ stdenv.mkDerivation {
   meta = {
     description = "Tools for software verification and analysis";
     homepage = "https://saw.galois.com";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.bsd3;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.thoughtpolice ];
+    maintainers = [lib.maintainers.thoughtpolice];
   };
 }

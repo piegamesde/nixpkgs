@@ -45,7 +45,7 @@ let
       url = "https://download3.vmware.com/software/CART24FQ1_LIN_2303_TARBALL/VMware-Horizon-Client-Linux-2303-8.9.0-21435420.tar.gz";
       sha256 = "a4dcc6afc0be7641e10e922ccbbab0a10adbf8f2a83e4b5372dfba095091fb78";
     };
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
     installPhase = ''
       mkdir ext $out
       find ${sysArch} -type f -print0 | xargs -0n1 tar -Cext --strip-components=1 -xf
@@ -124,7 +124,7 @@ let
     desktopName = "VMware Horizon Client";
     icon = "${vmwareHorizonClientFiles}/share/icons/vmware-view.png";
     exec = "${vmwareFHSUserEnv mainProgram}/bin/${mainProgram} %u";
-    mimeTypes = [ "x-scheme-handler/vmware-view" ];
+    mimeTypes = ["x-scheme-handler/vmware-view"];
   };
 
   binLinkCommands =
@@ -152,7 +152,7 @@ stdenv.mkDerivation {
     description = "Allows you to connect to your VMware Horizon virtual desktop";
     homepage = "https://www.vmware.com/go/viewclients";
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ buckley310 ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [buckley310];
   };
 }

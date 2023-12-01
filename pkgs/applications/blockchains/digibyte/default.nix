@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
     hexdump
-  ] ++ lib.optionals withGui [ wrapQtAppsHook ];
+  ] ++ lib.optionals withGui [wrapQtAppsHook];
 
   buildInputs =
     [
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   configureFlags =
-    [ "--with-boost-libdir=${boost.out}/lib" ]
+    ["--with-boost-libdir=${boost.out}/lib"]
     ++ lib.optionals withGui [
       "--with-gui=qt5"
       "--with-qt-bindir=${qtbase.dev}/bin:${qttools.dev}/bin"
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     description = "DigiByte (DGB) is a rapidly growing decentralized, global blockchain";
     homepage = "https://digibyte.io/";
     license = licenses.mit;
-    maintainers = [ maintainers.mmahut ];
+    maintainers = [maintainers.mmahut];
     platforms = platforms.linux;
   };
 }

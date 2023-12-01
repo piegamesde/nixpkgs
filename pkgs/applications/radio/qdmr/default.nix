@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       --replace /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook\.xsl ${docbook_xsl_ns}/xml/xsl/docbook/manpages/docbook.xsl
   '';
 
-  cmakeFlags = [ "-DBUILD_MAN=ON" ];
+  cmakeFlags = ["-DBUILD_MAN=ON"];
 
   postInstall = ''
     installManPage doc/dmrconf.1 doc/qdmr.1

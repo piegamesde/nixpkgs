@@ -1,6 +1,6 @@
 # This module provides configuration for the OATH PAM modules.
 
-{ lib, ... }:
+{lib, ...}:
 
 with lib;
 

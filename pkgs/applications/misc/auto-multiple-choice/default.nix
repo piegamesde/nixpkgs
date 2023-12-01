@@ -147,7 +147,7 @@ stdenv.mkDerivation (
 
     passthru = {
       tlType = "run";
-      pkgs = [ finalAttrs.finalPackage ];
+      pkgs = [finalAttrs.finalPackage];
     };
 
     meta = with lib; {
@@ -179,7 +179,7 @@ stdenv.mkDerivation (
       homepage = "https://www.auto-multiple-choice.net/";
       changelog = "https://gitlab.com/jojo_boulix/auto-multiple-choice/-/blob/master/ChangeLog";
       license = licenses.gpl2Plus;
-      maintainers = [ maintainers.thblt ];
+      maintainers = [maintainers.thblt];
       platforms = platforms.all;
     };
   }

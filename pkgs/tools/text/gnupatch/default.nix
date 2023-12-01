@@ -35,14 +35,14 @@ stdenv.mkDerivation rec {
     ./CVE-2019-13638-and-CVE-2018-20969.patch
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   configureFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     "ac_cv_func_strnlen_working=yes"
   ];
 
   doCheck = stdenv.hostPlatform.libc != "musl"; # not cross;
-  nativeCheckInputs = [ ed ];
+  nativeCheckInputs = [ed];
 
   meta = {
     description = "GNU Patch, a program to apply differences to files";
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.gpl3Plus;
 
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.all;
   };
 }

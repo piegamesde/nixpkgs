@@ -11,7 +11,7 @@ runCommand "${pname}-${version}"
   {
     inherit pname version;
     inherit (tubekit-unwrapped) src meta;
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
   }
   ''
     mkdir -p $out/bin

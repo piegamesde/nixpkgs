@@ -30,14 +30,14 @@ stdenv.mkDerivation (
         ./0001-build-Allow-using-V8-from-system.patch
       ];
 
-    nativeBuildInputs = [ perl ];
+    nativeBuildInputs = [perl];
 
     buildInputs = [
       v8
       postgresql
     ];
 
-    buildFlags = [ "all" ];
+    buildFlags = ["all"];
 
     makeFlags = [
       # Nixpkgs build a v8 monolith instead of separate v8_libplatform.
@@ -73,10 +73,10 @@ stdenv.mkDerivation (
     passthru = {
       tests =
         let
-          postgresqlWithSelf = postgresql.withPackages (_: [ finalAttrs.finalPackage ]);
+          postgresqlWithSelf = postgresql.withPackages (_: [finalAttrs.finalPackage]);
         in
         {
-          smoke = runCommand "plv8-smoke-test" { } ''
+          smoke = runCommand "plv8-smoke-test" {} ''
             export PATH=${
               lib.makeBinPath [
                 postgresqlWithSelf
@@ -144,8 +144,8 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "V8 Engine Javascript Procedural Language add-on for PostgreSQL";
       homepage = "https://plv8.github.io/";
-      maintainers = with maintainers; [ marsam ];
-      platforms = [ "x86_64-linux" ];
+      maintainers = with maintainers; [marsam];
+      platforms = ["x86_64-linux"];
       license = licenses.postgresql;
       broken = postgresql.jitSupport;
     };

@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     # fixes the "libgconfbackend-oldxml.so is not portable" error on darwin
-    lib.optionals stdenv.isDarwin [ "--enable-static" ];
+    lib.optionals stdenv.isDarwin ["--enable-static"];
 
   postPatch = ''
     2to3 --write --nobackup gsettings/gsettings-schema-convert

@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     libdbusmenu-gtk3
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Proxy StatusNotifierItems as XEmbedded systemtray-spec icons";
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     changelog = "https://git.sr.ht/~steef/snixembed/refs/${version}";
     license = licenses.isc;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

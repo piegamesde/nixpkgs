@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "http://www.playwitharena.de/downloads/arenalinux_64bit_${
-      lib.replaceStrings [ "-" ] [ "" ] version
+      lib.replaceStrings ["-"] [""] version
     }.tar.gz";
     sha256 = "1pzb9sg4lzbbi4gbldvlb85p8xyl9xnplxwyb9pkk2mwzvvxkf0d";
   };
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
       chess board & DGT clocks and much more.
     '';
     license = lib.licenses.unfree;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     hydraPlatforms = lib.platforms.none;
   };
 }

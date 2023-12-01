@@ -25,14 +25,14 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     linux-pam
     libxcrypt
   ];
 
-  patches = [ ./fix-makefiles.patch ];
+  patches = [./fix-makefiles.patch];
 
   postPatch = ''
     substituteInPlace Make.defs \
@@ -62,6 +62,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.openwall.com/tcb/";
     license = licenses.bsd3;
     platforms = systems.inspect.patterns.isGnu;
-    maintainers = with maintainers; [ izorkin ];
+    maintainers = with maintainers; [izorkin];
   };
 }

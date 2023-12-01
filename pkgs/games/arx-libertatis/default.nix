@@ -40,7 +40,7 @@ stdenv.mkDerivation {
     inkscape
     imagemagick
     optipng
-  ] ++ optionals withCrashReporter [ wrapQtAppsHook ];
+  ] ++ optionals withCrashReporter [wrapQtAppsHook];
 
   buildInputs =
     [
@@ -57,7 +57,7 @@ stdenv.mkDerivation {
       qtbase
       curl
     ]
-    ++ optionals stdenv.isLinux [ gdb ];
+    ++ optionals stdenv.isLinux [gdb];
 
   cmakeFlags = [
     "-DDATA_DIR_PREFIXES=$out/share"
@@ -85,7 +85,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://arx-libertatis.org/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
     platforms = platforms.linux;
   };
 }

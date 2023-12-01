@@ -27,15 +27,15 @@ buildPythonPackage rec {
       --replace " --cov=strenum --cov-report term-missing --black --pylint" ""
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "strenum" ];
+  pythonImportsCheck = ["strenum"];
 
   meta = with lib; {
     description = "MOdule for enum that inherits from str";
     homepage = "https://github.com/irgeek/StrEnum";
     changelog = "https://github.com/irgeek/StrEnum/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

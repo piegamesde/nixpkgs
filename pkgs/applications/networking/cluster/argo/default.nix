@@ -25,7 +25,7 @@ let
 
     vendorHash = null;
 
-    excludedPackages = [ "./example" ];
+    excludedPackages = ["./example"];
 
     preBuild = ''
       cp ${./staticfiles.go.mod} go.mod
@@ -52,9 +52,9 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/argo" ];
+  subPackages = ["cmd/argo"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   preBuild = ''
     mkdir -p ui/dist/app
@@ -90,7 +90,7 @@ buildGoModule rec {
     homepage = "https://github.com/argoproj/argo";
     changelog = "https://github.com/argoproj/argo-workflows/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ groodt ];
+    maintainers = with maintainers; [groodt];
     platforms = platforms.unix;
   };
 }

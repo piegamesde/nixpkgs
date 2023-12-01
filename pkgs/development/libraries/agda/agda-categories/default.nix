@@ -31,7 +31,7 @@ mkDerivation rec {
     find src -name '*.agda' | sed -e 's|^src/[/]*|import |' -e 's|/|.|g' -e 's/.agda//' -e '/import Everything/d' | LC_COLLATE='C' sort > Everything.agda
   '';
 
-  buildInputs = [ standard-library ];
+  buildInputs = [standard-library];
 
   meta = with lib; {
     inherit (src.meta) homepage;

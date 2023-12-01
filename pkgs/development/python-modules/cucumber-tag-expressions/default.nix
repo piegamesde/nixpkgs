@@ -26,6 +26,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/cucumber/tag-expressions";
     description = "Provides tag-expression parser for cucumber/behave";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxxk ];
+    maintainers = with maintainers; [maxxk];
   };
 }

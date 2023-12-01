@@ -20,7 +20,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-aidETIZaQYzC3liDGM915wyBWpMrn4OudxEcFS/Iucw=";
   };
 
-  patches = [ ./sunrpc.patch ];
+  patches = [./sunrpc.patch];
 
   buildInputs = [
     libnsl
@@ -45,7 +45,7 @@ stdenv.mkDerivation {
     license = licenses.bsd3;
     platforms = platforms.unix;
     homepage = "https://linux-nfs.org/";
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     longDescription = ''
       Universal addresses to RPC program number mapper.
     '';

@@ -44,6 +44,6 @@ mkDerivation {
     description = "Video player and video collection manager";
     homepage = "https://invent.kde.org/maui/clip";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

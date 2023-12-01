@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-VOq3r6ZcbDGGxjqC4IoPMGC5n1APUPUAs9xcRzxdyfk=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # https://github.com/KhronosGroup/SPIRV-Headers/issues/282
   postPatch = ''
@@ -28,6 +28,6 @@ stdenv.mkDerivation rec {
     description = "Machine-readable components of the Khronos SPIR-V Registry";
     homepage = "https://github.com/KhronosGroup/SPIRV-Headers";
     license = licenses.mit;
-    maintainers = [ maintainers.ralith ];
+    maintainers = [maintainers.ralith];
   };
 }

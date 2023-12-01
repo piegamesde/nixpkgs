@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
         hash = "sha256-8HdIwtpzR6O2WCbMYIJ6PHcM27Xmb+4Tc5Fmjl0dABQ=";
       };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
-  buildInputs = [ joker ];
+  buildInputs = [joker];
 
   sourceRoot = if stdenv.isAarch64 then "goku" else ".";
 
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "Karabiner configurator";
     homepage = "https://github.com/yqrashawn/GokuRakuJoudo";
     license = licenses.gpl3;
-    maintainers = [ maintainers.nikitavoloboev ];
+    maintainers = [maintainers.nikitavoloboev];
     platforms = platforms.darwin;
   };
 }

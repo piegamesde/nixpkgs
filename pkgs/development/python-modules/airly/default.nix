@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-weliT/FYnRX+pzVAyRWFly7lfj2z7P+hpq5SIhyIgmI=";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   nativeCheckInputs = [
     aioresponses
@@ -36,12 +36,12 @@ buildPythonPackage rec {
     "MeasurementsSessionTestCase"
   ];
 
-  pythonImportsCheck = [ "airly" ];
+  pythonImportsCheck = ["airly"];
 
   meta = with lib; {
     description = "Python module for getting air quality data from Airly sensors";
     homepage = "https://github.com/ak-ambi/python-airly";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

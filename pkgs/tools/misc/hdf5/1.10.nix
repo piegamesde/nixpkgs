@@ -29,13 +29,13 @@ stdenv.mkDerivation rec {
 
   buildInputs = optional javaSupport jdk;
 
-  nativeBuildInputs = [ removeReferencesTo ];
+  nativeBuildInputs = [removeReferencesTo];
 
   propagatedBuildInputs = optional zlibSupport zlib;
 
   configureFlags = optional enableShared "--enable-shared" ++ optional javaSupport "--enable-java";
 
-  patches = [ ];
+  patches = [];
 
   postInstall = ''
     find "$out" -type f -exec remove-references-to -t ${stdenv.cc} '{}' +

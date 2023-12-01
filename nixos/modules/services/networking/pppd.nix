@@ -12,7 +12,7 @@ let
 in
 {
   meta = {
-    maintainers = with maintainers; [ danderson ];
+    maintainers = with maintainers; [danderson];
   };
 
   options = {
@@ -27,11 +27,11 @@ in
       };
 
       peers = mkOption {
-        default = { };
+        default = {};
         description = lib.mdDoc "pppd peers.";
         type = types.attrsOf (
           types.submodule (
-            { name, ... }:
+            {name, ...}:
             {
               options = {
                 name = mkOption {
@@ -80,10 +80,10 @@ in
       mkSystemd = peerCfg: {
         name = "pppd-${peerCfg.name}";
         value = {
-          restartTriggers = [ config.environment.etc."ppp/peers/${peerCfg.name}".source ];
-          before = [ "network.target" ];
-          wants = [ "network.target" ];
-          after = [ "network-pre.target" ];
+          restartTriggers = [config.environment.etc."ppp/peers/${peerCfg.name}".source];
+          before = ["network.target"];
+          wants = ["network.target"];
+          after = ["network-pre.target"];
           environment = {
             # pppd likes to write directly into /var/run. This is rude
             # on a modern system, so we use libredirect to transparently
@@ -150,7 +150,7 @@ in
               RuntimeDirectory = "pppd";
               RuntimeDirectoryPreserve = true;
             };
-          wantedBy = mkIf peerCfg.autostart [ "multi-user.target" ];
+          wantedBy = mkIf peerCfg.autostart ["multi-user.target"];
         };
       };
 

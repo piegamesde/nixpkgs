@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "PostgreSQL extension and service for automated failover and high-availability";
     homepage = "https://github.com/citusdata/pg_auto_failover";
     changelog = "https://github.com/citusdata/pg_auto_failover/raw/v${version}/CHANGELOG.md";
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
     platforms = postgresql.meta.platforms;
     license = licenses.postgresql;
     broken = versionOlder postgresql.version "10";

@@ -26,7 +26,7 @@ let
   nodePkg = nodePackages.package.override {
     src = "${sourcePkg}/viewer";
     postInstall = "npm run build";
-    buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ];
+    buildInputs = lib.optionals stdenv.isDarwin [CoreServices];
   };
 in
 
@@ -38,7 +38,7 @@ stdenv.mkDerivation {
   version = nodePkg.version;
   src = nodePkg;
 
-  buildInputs = [ pandoc ];
+  buildInputs = [pandoc];
 
   installPhase = ''
     mkdir -p "$out/share/ldgallery"

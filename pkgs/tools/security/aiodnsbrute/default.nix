@@ -26,13 +26,13 @@ python3.pkgs.buildPythonApplication rec {
   # Project no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "aiodnsbrute.cli" ];
+  pythonImportsCheck = ["aiodnsbrute.cli"];
 
   meta = with lib; {
     description = "DNS brute force utility";
     homepage = "https://github.com/blark/aiodnsbrute";
     changelog = "https://github.com/blark/aiodnsbrute/releases/tag/v${version}";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [fab];
   };
 }

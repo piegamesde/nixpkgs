@@ -105,7 +105,7 @@ rustPlatform.buildRustPackage rec {
       gtk3
       openssl
     ]
-    ++ lib.optionals stdenv.isLinux [ fontconfig ]
+    ++ lib.optionals stdenv.isLinux [fontconfig]
     ++ lib.optionals stdenv.isDarwin [
       libobjc
       Security
@@ -135,12 +135,12 @@ rustPlatform.buildRustPackage rec {
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Lightning-fast and Powerful Code Editor written in Rust";
     homepage = "https://github.com/lapce/lapce";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ elliot ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [elliot];
   };
 }

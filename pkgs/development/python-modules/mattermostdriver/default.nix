@@ -23,7 +23,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [ "mattermostdriver" ];
+  pythonImportsCheck = ["mattermostdriver"];
 
   # no tests
   doCheck = false;
@@ -32,6 +32,6 @@ buildPythonPackage rec {
     description = "A Python Mattermost Driver";
     homepage = "https://github.com/Vaelor/python-mattermost-driver";
     license = licenses.mit;
-    maintainers = with maintainers; [ globin ];
+    maintainers = with maintainers; [globin];
   };
 }

@@ -1,6 +1,6 @@
 # Definitions related to run-time type checking.  Used in particular
 # to type-check NixOS configurations.
-{ lib }:
+{lib}:
 
 let
   inherit (lib)
@@ -62,7 +62,7 @@ let
   outer_types = rec {
     isType = type: x: (x._type or "") == type;
 
-    setType = typeName: value: value // { _type = typeName; };
+    setType = typeName: value: value // {_type = typeName;};
 
     # Default type merging function
     # takes two type functors and return the merged type
@@ -138,10 +138,10 @@ let
         # this should be a value of the form { value = <the nothing value>; }
         # If it doesn't, this should be {}
         # This may be used when a value is required for `mkIf false`. This allows the extra laziness in e.g. `lazyAttrsOf`.
-        emptyValue ? { },
+        emptyValue ? {},
         # Return a flat list of sub-options.  Used to generate
         # documentation.
-        getSubOptions ? prefix: { },
+        getSubOptions ? prefix: {},
         # List of modules if any, or null if none.
         getSubModules ? null,
         # Function for building the same option type with a different list of
@@ -166,7 +166,7 @@ let
         # The types that occur in the definition of this type. This is used to
         # issue deprecation warnings recursively. Can also be used to reuse
         # nested types
-        nestedTypes ? { },
+        nestedTypes ? {},
       }:
       {
         _type = "option-type";
@@ -263,7 +263,7 @@ let
                 stringCoercibleSet = mergeOneOption;
                 lambda =
                   loc: defs: arg:
-                  anything.merge (loc ++ [ "<function body>" ]) (
+                  anything.merge (loc ++ ["<function body>"]) (
                     map
                       (def: {
                         file = def.file;
@@ -495,9 +495,9 @@ let
         name = "attrs";
         description = "attribute set";
         check = isAttrs;
-        merge = loc: foldl' (res: def: res // def.value) { };
+        merge = loc: foldl' (res: def: res // def.value) {};
         emptyValue = {
-          value = { };
+          value = {};
         };
       };
 
@@ -554,7 +554,7 @@ let
                       imap1
                         (
                           m: def':
-                          (mergeDefinitions (loc ++ [ "[definition ${toString n}-entry ${toString m}]" ]) elemType [
+                          (mergeDefinitions (loc ++ ["[definition ${toString n}-entry ${toString m}]"]) elemType [
                             {
                               inherit (def) file;
                               value = def';
@@ -568,9 +568,9 @@ let
               )
             );
           emptyValue = {
-            value = [ ];
+            value = [];
           };
-          getSubOptions = prefix: elemType.getSubOptions (prefix ++ [ "*" ]);
+          getSubOptions = prefix: elemType.getSubOptions (prefix ++ ["*"]);
           getSubModules = elemType.getSubModules;
           substSubModules = m: listOf (elemType.substSubModules m);
           functor = (defaultFunctor name) // {
@@ -582,12 +582,12 @@ let
       nonEmptyListOf =
         elemType:
         let
-          list = addCheck (types.listOf elemType) (l: l != [ ]);
+          list = addCheck (types.listOf elemType) (l: l != []);
         in
         list
         // {
           description = "non-empty ${optionDescriptionPhrase (class: class == "noun") list}";
-          emptyValue = { }; # no .value attr, meaning unset
+          emptyValue = {}; # no .value attr, meaning unset
         };
 
       attrsOf =
@@ -603,7 +603,7 @@ let
             loc: defs:
             mapAttrs (n: v: v.value) (
               filterAttrs (n: v: v ? value) (
-                zipAttrsWith (name: defs: (mergeDefinitions (loc ++ [ name ]) elemType defs).optionalValue)
+                zipAttrsWith (name: defs: (mergeDefinitions (loc ++ [name]) elemType defs).optionalValue)
                   # Push down position info.
                   (
                     map
@@ -621,9 +621,9 @@ let
               )
             );
           emptyValue = {
-            value = { };
+            value = {};
           };
-          getSubOptions = prefix: elemType.getSubOptions (prefix ++ [ "<name>" ]);
+          getSubOptions = prefix: elemType.getSubOptions (prefix ++ ["<name>"]);
           getSubModules = elemType.getSubModules;
           substSubModules = m: attrsOf (elemType.substSubModules m);
           functor = (defaultFunctor name) // {
@@ -652,7 +652,7 @@ let
               (
                 name: defs:
                 let
-                  merged = mergeDefinitions (loc ++ [ name ]) elemType defs;
+                  merged = mergeDefinitions (loc ++ [name]) elemType defs;
                 in
                 # mergedValue will trigger an appropriate error when accessed
                 merged.optionalValue.value or elemType.emptyValue.value or merged.mergedValue
@@ -672,9 +672,9 @@ let
                   defs
               );
           emptyValue = {
-            value = { };
+            value = {};
           };
-          getSubOptions = prefix: elemType.getSubOptions (prefix ++ [ "<name>" ]);
+          getSubOptions = prefix: elemType.getSubOptions (prefix ++ ["<name>"]);
           getSubModules = elemType.getSubModules;
           substSubModules = m: lazyAttrsOf (elemType.substSubModules m);
           functor = (defaultFunctor name) // {
@@ -714,12 +714,12 @@ let
         };
 
       unique =
-        { message }:
+        {message}:
         type:
         mkOptionType rec {
           name = "unique";
           inherit (type) description descriptionClass check;
-          merge = mergeUniqueOption { inherit message; };
+          merge = mergeUniqueOption {inherit message;};
           emptyValue = type.emptyValue;
           getSubOptions = type.getSubOptions;
           getSubModules = type.getSubModules;
@@ -774,7 +774,7 @@ let
           check = isFunction;
           merge =
             loc: defs: fnArgs:
-            (mergeDefinitions (loc ++ [ "<function body>" ]) elemType (
+            (mergeDefinitions (loc ++ ["<function body>"]) elemType (
               map
                 (fn: {
                   inherit (fn) file;
@@ -782,7 +782,7 @@ let
                 })
                 defs
             )).mergedValue;
-          getSubOptions = prefix: elemType.getSubOptions (prefix ++ [ "<function body>" ]);
+          getSubOptions = prefix: elemType.getSubOptions (prefix ++ ["<function body>"]);
           getSubModules = elemType.getSubModules;
           substSubModules = m: functionTo (elemType.substSubModules m);
           functor = (defaultFunctor "functionTo") // {
@@ -800,14 +800,14 @@ let
         };
 
       # A module to be imported in some other part of the configuration.
-      deferredModule = deferredModuleWith { };
+      deferredModule = deferredModuleWith {};
 
       # A module to be imported in some other part of the configuration.
       # `staticModules`' options will be added to the documentation, unlike
       # options declared via `config`.
       deferredModuleWith =
         attrs@{
-          staticModules ? [ ],
+          staticModules ? [],
         }:
         mkOptionType {
           name = "deferredModule";
@@ -820,14 +820,14 @@ let
               ++ map (def: lib.setDefaultModuleLocation "${def.file}, via option ${showOption loc}" def.value)
                 defs;
           };
-          inherit (submoduleWith { modules = staticModules; }) getSubOptions getSubModules;
-          substSubModules = m: deferredModuleWith (attrs // { staticModules = m; });
+          inherit (submoduleWith {modules = staticModules;}) getSubOptions getSubModules;
+          substSubModules = m: deferredModuleWith (attrs // {staticModules = m;});
           functor = defaultFunctor "deferredModuleWith" // {
             type = types.deferredModuleWith;
             payload = {
               inherit staticModules;
             };
-            binOp = lhs: rhs: { staticModules = lhs.staticModules ++ rhs.staticModules; };
+            binOp = lhs: rhs: {staticModules = lhs.staticModules ++ rhs.staticModules;};
           };
         };
 
@@ -848,12 +848,12 @@ let
               optionModules =
                 map
                   (
-                    { value, file }:
+                    {value, file}:
                     {
                       _file = file;
                       # There's no way to merge types directly from the module system,
                       # but we can cheat a bit by just declaring an option with the type
-                      options = lib.mkOption { type = value; };
+                      options = lib.mkOption {type = value;};
                     }
                   )
                   defs;
@@ -867,7 +867,7 @@ let
       submoduleWith =
         {
           modules,
-          specialArgs ? { },
+          specialArgs ? {},
           shorthandOnlyDefinesConfig ? false,
           description ? null,
         }@attrs:
@@ -878,7 +878,7 @@ let
             defs:
             map
               (
-                { value, file }:
+                {value, file}:
                 if isAttrs value && shorthandOnlyDefinesConfig then
                   {
                     _file = file;
@@ -887,7 +887,7 @@ let
                 else
                   {
                     _file = file;
-                    imports = [ value ];
+                    imports = [value];
                   }
               )
               defs;
@@ -927,15 +927,15 @@ let
           merge =
             loc: defs:
             (base.extendModules {
-              modules = [ { _module.args.name = last loc; } ] ++ allModules defs;
+              modules = [{_module.args.name = last loc;}] ++ allModules defs;
               prefix = loc;
             }).config;
           emptyValue = {
-            value = { };
+            value = {};
           };
           getSubOptions =
             prefix:
-            (base.extendModules { inherit prefix; }).options
+            (base.extendModules {inherit prefix;}).options
             // optionalAttrs (freeformType != null) {
               # Expose the sub options of the freeform type. Note that the option
               # discovery doesn't care about the attribute name used here, so this
@@ -943,8 +943,8 @@ let
               _freeformOptions = freeformType.getSubOptions prefix;
             };
           getSubModules = modules;
-          substSubModules = m: submoduleWith (attrs // { modules = m; });
-          nestedTypes = lib.optionalAttrs (freeformType != null) { freeformType = freeformType; };
+          substSubModules = m: submoduleWith (attrs // {modules = m;});
+          nestedTypes = lib.optionalAttrs (freeformType != null) {freeformType = freeformType;};
           functor = defaultFunctor name // {
             type = types.submoduleWith;
             payload = {
@@ -961,7 +961,7 @@ let
                 let
                   intersecting = builtins.intersectAttrs lhs.specialArgs rhs.specialArgs;
                 in
-                if intersecting == { } then
+                if intersecting == {} then
                   lhs.specialArgs // rhs.specialArgs
                 else
                   throw ''A submoduleWith option is declared multiple times with the same specialArgs "${
@@ -1012,7 +1012,7 @@ let
             # where an "interface" module declares an empty enum and other modules
             # provide implementations, each extending the enum with their own
             # identifier.
-            if values == [ ] then
+            if values == [] then
               "impossible (empty enum)"
             else if builtins.length values == 1 then
               "value ${show (builtins.head values)} (singular enum)"
@@ -1073,7 +1073,7 @@ let
         ts:
         let
           head' =
-            if ts == [ ] then throw "types.oneOf needs to get at least one type in its argument" else head ts;
+            if ts == [] then throw "types.oneOf needs to get at least one type in its argument" else head ts;
           tail' = tail ts;
         in
         foldl' either head' tail';
@@ -1095,7 +1095,7 @@ let
             let
               coerceVal = val: if coercedType.check val then coerceFunc val else val;
             in
-            finalType.merge loc (map (def: def // { value = coerceVal def.value; }) defs);
+            finalType.merge loc (map (def: def // {value = coerceVal def.value;}) defs);
           emptyValue = finalType.emptyValue;
           getSubOptions = finalType.getSubOptions;
           getSubModules = finalType.getSubModules;
@@ -1109,7 +1109,7 @@ let
         };
 
       # Augment the given type with an additional type check function.
-      addCheck = elemType: check: elemType // { check = x: elemType.check x && check x; };
+      addCheck = elemType: check: elemType // {check = x: elemType.check x && check x;};
     };
   };
 in

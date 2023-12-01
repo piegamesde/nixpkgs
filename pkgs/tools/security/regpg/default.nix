@@ -8,7 +8,7 @@
 }:
 
 let
-  perlEnv = perl.withPackages (p: with p; [ TextMarkdown ]);
+  perlEnv = perl.withPackages (p: with p; [TextMarkdown]);
 in
 stdenv.mkDerivation rec {
   pname = "regpg";
@@ -38,12 +38,12 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
   postFixup = ''
     patchShebangs $out/bin/regpg
     wrapProgram $out/bin/regpg --prefix PATH ":" \
-      "${lib.makeBinPath [ gnupg ]}"
+      "${lib.makeBinPath [gnupg]}"
   '';
 
   meta = with lib; {
@@ -51,6 +51,6 @@ stdenv.mkDerivation rec {
     homepage = "https://dotat.at/prog/regpg";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ _0xC45 ];
+    maintainers = with maintainers; [_0xC45];
   };
 }

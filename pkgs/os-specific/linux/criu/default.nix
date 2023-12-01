@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
     libbsd
   ];
   propagatedBuildInputs =
-    [ protobufc ]
+    [protobufc]
     ++ (
       with python3.pkgs; [
         python
@@ -156,6 +156,6 @@ stdenv.mkDerivation rec {
       "aarch64-linux"
       "armv7l-linux"
     ];
-    maintainers = [ maintainers.thoughtpolice ];
+    maintainers = [maintainers.thoughtpolice];
   };
 }

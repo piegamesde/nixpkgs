@@ -129,20 +129,20 @@ in
 
     extraCmdLineOptions = mkOption {
       description = lib.mdDoc "Extra command line options for the elasticsearch launcher.";
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
     };
 
     extraJavaOptions = mkOption {
       description = lib.mdDoc "Extra command line options for Java.";
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
-      example = [ "-Djava.net.preferIPv4Stack=true" ];
+      example = ["-Djava.net.preferIPv4Stack=true"];
     };
 
     plugins = mkOption {
       description = lib.mdDoc "Extra elasticsearch plugins";
-      default = [ ];
+      default = [];
       type = types.listOf types.package;
       example = lib.literalExpression "[ pkgs.elasticsearchPlugins.discovery-ec2 ]";
     };
@@ -164,9 +164,9 @@ in
   config = mkIf cfg.enable {
     systemd.services.elasticsearch = {
       description = "Elasticsearch Daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      path = [ pkgs.inetutils ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      path = [pkgs.inetutils];
       inherit (cfg) restartIfChanged;
       environment = {
         ES_HOME = cfg.dataDir;
@@ -227,7 +227,7 @@ in
       '';
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     users = {
       groups.elasticsearch.gid = config.ids.gids.elasticsearch;

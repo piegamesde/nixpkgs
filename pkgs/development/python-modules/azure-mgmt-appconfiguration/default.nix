@@ -30,7 +30,7 @@ buildPythonPackage rec {
   # no tests included
   doCheck = false;
 
-  pythonNamespaces = [ "azure.mgmt" ];
+  pythonNamespaces = ["azure.mgmt"];
 
   pythonImportsCheck = [
     "azure.common"
@@ -41,6 +41,6 @@ buildPythonPackage rec {
     description = "Microsoft Azure App Configuration Management Client Library for Python";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

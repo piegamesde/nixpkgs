@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "1rf0jcy2lf8jbzpkhfgv289hc8zdy5zs6sn36k4vlqvilginxiid";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ libevent ];
+  buildInputs = [libevent];
 
   cmakeFlags = [
     "-DEVHTP_DISABLE_SSL=ON"

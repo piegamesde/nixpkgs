@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-9LhokpQrREmcyBqwb33BSMyG8z7IAsl9NtE3B631PnM=";
 
-  subPackage = [ "cmd/helm-cm-push" ];
+  subPackage = ["cmd/helm-cm-push"];
 
   # Remove hooks.
   postPatch = ''
@@ -43,6 +43,6 @@ buildGoModule rec {
     description = "Helm plugin to push chart package to ChartMuseum";
     homepage = "https://github.com/chartmuseum/helm-push";
     license = licenses.asl20;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
   };
 }

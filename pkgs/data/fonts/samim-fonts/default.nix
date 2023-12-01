@@ -28,6 +28,6 @@ stdenvNoCC.mkDerivation rec {
     description = "A Persian (Farsi) Font - فونت (قلم) فارسی صمیم";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

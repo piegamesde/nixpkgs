@@ -39,7 +39,7 @@
 }:
 
 let
-  testPython = (python3.withPackages (p: with p; [ pyyaml ]));
+  testPython = (python3.withPackages (p: with p; [pyyaml]));
 in
 stdenv.mkDerivation rec {
   pname = "ostree";
@@ -155,6 +155,6 @@ stdenv.mkDerivation rec {
     homepage = "https://ostree.readthedocs.io/en/latest/";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ copumpkin ];
+    maintainers = with maintainers; [copumpkin];
   };
 }

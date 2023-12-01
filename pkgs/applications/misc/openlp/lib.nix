@@ -44,7 +44,7 @@ buildPythonPackage rec {
   # See also https://discourse.nixos.org/t/qt-plugin-path-unset-in-test-phase/
 
   #nativeCheckInputs = [ mock nose ];
-  nativeBuildInputs = [ qt5.qttools ];
+  nativeBuildInputs = [qt5.qttools];
   propagatedBuildInputs = [
     alembic
     beautifulsoup4
@@ -87,7 +87,7 @@ buildPythonPackage rec {
     downloadPage = "https://openlp.org/#downloads";
     platforms = platforms.unix;
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.jorsn ];
+    maintainers = [maintainers.jorsn];
 
     longDescription = ''
       OpenLP is a free church presentation software.

@@ -18,7 +18,7 @@ bundlerEnv {
     description = "Find licenses for your project's dependencies";
     homepage = "https://github.com/pivotal/licensefinder";
     license = licenses.mit;
-    maintainers = with maintainers; [ wolfangaukang ];
+    maintainers = with maintainers; [wolfangaukang];
     platforms = platforms.unix;
   };
 }

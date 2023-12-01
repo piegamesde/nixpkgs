@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "0p1fvpgrsy44yvj44xp9k9nf6z1fh0sqcjvy75pcb9f5icgms815";
   };
 
-  buildInputs = [ libssh ];
+  buildInputs = [libssh];
 
   buildPhase = ''
     $CXX -Wall -I ext/ -o bin/sshping src/sshping.cxx -lssh
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     description = "Measure character-echo latency and bandwidth for an interactive ssh session";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ jqueiroz ];
+    maintainers = with maintainers; [jqueiroz];
   };
 }

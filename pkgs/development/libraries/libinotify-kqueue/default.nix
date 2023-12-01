@@ -16,16 +16,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9A5s8rPGlRv3KbxOukk0VB2IQrDxVjklO5RB+IA1cDY=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   doCheck = true;
-  checkFlags = [ "test" ];
+  checkFlags = ["test"];
 
   meta = with lib; {
     description = "Inotify shim for macOS and BSD";
     homepage = "https://github.com/libinotify-kqueue/libinotify-kqueue";
     license = licenses.mit;
-    maintainers = with maintainers; [ yana ];
+    maintainers = with maintainers; [yana];
     platforms = with platforms; darwin ++ freebsd ++ netbsd ++ openbsd;
   };
 }

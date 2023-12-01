@@ -40,7 +40,7 @@ buildPythonPackage rec {
       })
     ];
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs =
     [
@@ -60,7 +60,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "nox" ];
+  pythonImportsCheck = ["nox"];
 
   disabledTestPaths =
     [

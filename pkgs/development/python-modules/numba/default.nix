@@ -17,7 +17,7 @@
 
   # CUDA-only dependencies:
   addOpenGLRunpath ? null,
-  cudaPackages ? { },
+  cudaPackages ? {},
 
   # CUDA flags:
   cudaSupport ? false,
@@ -46,7 +46,7 @@ buildPythonPackage rec {
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-I${lib.getDev libcxx}/include/c++/v1";
 
-  nativeBuildInputs = [ numpy ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
+  nativeBuildInputs = [numpy] ++ lib.optionals cudaSupport [addOpenGLRunpath];
 
   propagatedBuildInputs =
     [
@@ -54,7 +54,7 @@ buildPythonPackage rec {
       llvmlite
       setuptools
     ]
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-metadata ]
+    ++ lib.optionals (pythonOlder "3.9") [importlib-metadata]
     ++ lib.optionals cudaSupport [
       cudatoolkit
       cudatoolkit.lib
@@ -101,7 +101,7 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "numba" ];
+  pythonImportsCheck = ["numba"];
 
   passthru.tests = {
     # CONTRIBUTOR NOTE: numba also contains CUDA tests, though these cannot be run in
@@ -109,7 +109,7 @@ buildPythonPackage rec {
     # sandbox manually if you have the appropriate hardware; support will be detected
     # and the corresponding tests enabled automatically.
     # Also, the full suite currently does not complete on anything but x86_64-linux.
-    fullSuite = runCommand "${pname}-test" { } ''
+    fullSuite = runCommand "${pname}-test" {} ''
       pushd $(mktemp -d)
       # pip and python in $PATH is needed for the test suite to pass fully
       PATH=${
@@ -130,6 +130,6 @@ buildPythonPackage rec {
     description = "Compiling Python code using LLVM";
     homepage = "https://numba.pydata.org/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ fridh ];
+    maintainers = with maintainers; [fridh];
   };
 }

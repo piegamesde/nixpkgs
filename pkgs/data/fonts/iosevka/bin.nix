@@ -16,7 +16,7 @@ let
 
   variantHashes = import ./variants.nix;
   validVariants = map (lib.removePrefix "iosevka-") (
-    builtins.attrNames (builtins.removeAttrs variantHashes [ "iosevka" ])
+    builtins.attrNames (builtins.removeAttrs variantHashes ["iosevka"])
   );
 in
 stdenv.mkDerivation rec {
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       '');
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   dontInstall = true;
 

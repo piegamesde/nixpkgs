@@ -21,8 +21,8 @@ with libs; {
       MediaToolbox
       ;
   };
-  AVKit = { };
-  Accounts = { };
+  AVKit = {};
+  Accounts = {};
   AddressBook = {
     inherit libobjc Carbon ContactsPersistence;
   };
@@ -36,9 +36,9 @@ with libs; {
       UIFoundation
       ;
   };
-  AppKitScripting = { };
-  AppleScriptKit = { };
-  AppleScriptObjC = { };
+  AppKitScripting = {};
+  AppleScriptKit = {};
+  AppleScriptObjC = {};
   AudioToolbox = {
     inherit CoreAudio CoreMIDI;
   };
@@ -48,23 +48,23 @@ with libs; {
   AudioVideoBridging = {
     inherit Foundation;
   };
-  Automator = { };
-  CFNetwork = { };
-  CalendarStore = { };
+  Automator = {};
+  CFNetwork = {};
+  CalendarStore = {};
   Cocoa = {
     inherit AppKit CoreData;
   };
-  Collaboration = { };
+  Collaboration = {};
   # Impure version of CoreFoundation, this should not be used unless another
   # framework includes headers that are not available in the pure version.
-  CoreFoundation = { };
+  CoreFoundation = {};
   CoreAudio = {
     inherit IOKit;
   };
   CoreAudioKit = {
     inherit AudioUnit;
   };
-  CoreData = { };
+  CoreData = {};
   CoreGraphics = {
     inherit
       Accelerate
@@ -73,9 +73,9 @@ with libs; {
       SystemConfiguration
       ;
   };
-  CoreImage = { };
-  CoreLocation = { };
-  CoreMIDI = { };
+  CoreImage = {};
+  CoreLocation = {};
+  CoreMIDI = {};
   CoreMIDIServer = {
     inherit CoreMIDI;
   };
@@ -106,18 +106,18 @@ with libs; {
   CoreWLAN = {
     inherit SecurityFoundation;
   };
-  DVDPlayback = { };
-  DirectoryService = { };
+  DVDPlayback = {};
+  DirectoryService = {};
   DiscRecording = {
     inherit libobjc CoreServices IOKit;
   };
-  DiscRecordingUI = { };
+  DiscRecordingUI = {};
   DiskArbitration = {
     inherit IOKit;
   };
-  EventKit = { };
-  ExceptionHandling = { };
-  FWAUserLib = { };
+  EventKit = {};
+  ExceptionHandling = {};
+  FWAUserLib = {};
   ForceFeedback = {
     inherit IOKit;
   };
@@ -130,13 +130,13 @@ with libs; {
       SystemConfiguration
       ;
   };
-  GLKit = { };
+  GLKit = {};
   GLUT = {
     inherit OpenGL;
   };
-  GSS = { };
-  GameCenter = { };
-  GameController = { };
+  GSS = {};
+  GameCenter = {};
+  GameController = {};
   GameKit = {
     inherit
       Cocoa
@@ -151,70 +151,70 @@ with libs; {
       SpriteKit
       ;
   };
-  GameplayKit = { };
-  Hypervisor = { };
+  GameplayKit = {};
+  Hypervisor = {};
   ICADevices = {
     inherit libobjc Carbon IOBluetooth;
   };
-  IMServicePlugIn = { };
+  IMServicePlugIn = {};
   IOBluetoothUI = {
     inherit IOBluetooth;
   };
-  IOKit = { };
+  IOKit = {};
   IOSurface = {
     inherit IOKit xpc;
   };
-  ImageCaptureCore = { };
+  ImageCaptureCore = {};
   ImageIO = {
     inherit CoreGraphics;
   };
   InputMethodKit = {
     inherit Carbon;
   };
-  InstallerPlugins = { };
-  InstantMessage = { };
-  JavaFrameEmbedding = { };
-  JavaNativeFoundation = { };
-  JavaRuntimeSupport = { };
+  InstallerPlugins = {};
+  InstantMessage = {};
+  JavaFrameEmbedding = {};
+  JavaNativeFoundation = {};
+  JavaRuntimeSupport = {};
   JavaScriptCore = {
     inherit libobjc;
   };
-  Kerberos = { };
+  Kerberos = {};
   Kernel = {
     inherit IOKit;
   };
-  LDAP = { };
+  LDAP = {};
   LatentSemanticMapping = {
     inherit Carbon;
   };
-  LocalAuthentication = { };
-  MapKit = { };
+  LocalAuthentication = {};
+  MapKit = {};
   MediaAccessibility = {
     inherit CoreGraphics CoreText QuartzCore;
   };
-  MediaPlayer = { };
+  MediaPlayer = {};
   MediaToolbox = {
     inherit AudioToolbox AudioUnit CoreMedia;
   };
-  Metal = { };
+  Metal = {};
   MetalKit = {
     inherit ModelIO Metal;
   };
-  ModelIO = { };
-  NetFS = { };
+  ModelIO = {};
+  NetFS = {};
   OSAKit = {
     inherit Carbon;
   };
-  OpenAL = { };
+  OpenAL = {};
   OpenCL = {
     inherit IOSurface OpenGL;
   };
-  OpenGL = { };
+  OpenGL = {};
   PCSC = {
     inherit CoreData;
   };
-  PreferencePanes = { };
-  PubSub = { };
+  PreferencePanes = {};
+  PubSub = {};
   QTKit = {
     inherit
       CoreMediaIO
@@ -227,31 +227,31 @@ with libs; {
   QuickLook = {
     inherit ApplicationServices;
   };
-  SceneKit = { };
-  ScreenSaver = { };
-  Scripting = { };
-  ScriptingBridge = { };
+  SceneKit = {};
+  ScreenSaver = {};
+  Scripting = {};
+  ScriptingBridge = {};
   Security = {
     inherit IOKit;
   };
-  SecurityFoundation = { };
+  SecurityFoundation = {};
   SecurityInterface = {
     inherit Security SecurityFoundation;
   };
   ServiceManagement = {
     inherit Security;
   };
-  Social = { };
-  SpriteKit = { };
-  StoreKit = { };
-  SyncServices = { };
+  Social = {};
+  SpriteKit = {};
+  StoreKit = {};
+  SyncServices = {};
   SystemConfiguration = {
     inherit Security;
   };
   TWAIN = {
     inherit Carbon;
   };
-  Tcl = { };
+  Tcl = {};
   VideoDecodeAcceleration = {
     inherit CoreVideo;
   };
@@ -291,7 +291,7 @@ with libs; {
       QuartzCore
       ;
   };
-  CoreBluetooth = { };
+  CoreBluetooth = {};
   # TODO: figure out which part of the umbrella depends on CoreFoundation and move it there.
   CoreServices = {
     inherit
@@ -309,8 +309,8 @@ with libs; {
   IOBluetooth = {
     inherit CoreBluetooth IOKit;
   };
-  JavaVM = { };
-  OpenDirectory = { };
+  JavaVM = {};
+  OpenDirectory = {};
   Quartz = {
     inherit QuartzCore QuickLook QTKit;
   };
@@ -336,5 +336,5 @@ with libs; {
       ;
   };
 
-  vmnet = { };
+  vmnet = {};
 }

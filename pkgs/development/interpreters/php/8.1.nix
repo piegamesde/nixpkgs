@@ -15,7 +15,7 @@ let
   );
 in
 base.withExtensions (
-  { all, ... }:
+  {all, ...}:
   with all; ([
     bcmath
     calendar

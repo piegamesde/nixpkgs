@@ -40,8 +40,8 @@ python3.pkgs.buildPythonApplication rec {
       pycryptodome
       unpaddedbase64
     ];
-    metrics = [ prometheus-client ];
-    sqlite = [ aiosqlite ];
+    metrics = [prometheus-client];
+    sqlite = [aiosqlite];
   };
 
   propagatedBuildInputs =
@@ -68,6 +68,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "A Matrix-Google Chat puppeting bridge";
     license = licenses.agpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ arcnmx ];
+    maintainers = with maintainers; [arcnmx];
   };
 }

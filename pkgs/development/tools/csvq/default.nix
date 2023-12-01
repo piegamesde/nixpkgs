@@ -22,6 +22,6 @@ buildGoModule rec {
     homepage = "https://mithrandie.github.io/csvq/";
     changelog = "https://github.com/mithrandie/csvq/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ tomodachi94 ];
+    maintainers = with maintainers; [tomodachi94];
   };
 }

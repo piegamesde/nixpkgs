@@ -27,14 +27,14 @@ buildPythonPackage rec {
     python-dateutil
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "tcxparser" ];
+  pythonImportsCheck = ["tcxparser"];
 
   meta = with lib; {
     description = "Simple parser for Garmin TCX files";
     homepage = "https://github.com/vkurup/python-tcxparser";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ firefly-cpp ];
+    maintainers = with maintainers; [firefly-cpp];
   };
 }

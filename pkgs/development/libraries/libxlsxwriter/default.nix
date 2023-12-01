@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-fC03LwZIUkEsAs9TN0n2z0iSOGPAtVCeuW5rxC7Ek7Q=";
   };
 
-  nativeBuildInputs = [ python3.pkgs.pytest ];
+  nativeBuildInputs = [python3.pkgs.pytest];
 
   buildInputs = [
     minizip
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     homepage = "https://libxlsxwriter.github.io/";
     changelog = "https://github.com/jmcnamara/libxlsxwriter/blob/${src.rev}/Changes.txt";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     platforms = platforms.unix;
   };
 }

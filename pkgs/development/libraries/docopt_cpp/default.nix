@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  cmakeFlags = [ "-DWITH_TESTS=ON" ];
+  cmakeFlags = ["-DWITH_TESTS=ON"];
 
   strictDeps = true;
 
@@ -53,6 +53,6 @@ stdenv.mkDerivation rec {
       boost
     ];
     platforms = platforms.all;
-    maintainers = with maintainers; [ knedlsepp ];
+    maintainers = with maintainers; [knedlsepp];
   };
 }

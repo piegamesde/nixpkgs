@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     make build-shared
   '';
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-std=c++11" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-std=c++11"];
 
   enableParallelBuilding = true;
 
@@ -27,6 +27,6 @@ stdenv.mkDerivation rec {
     homepage = "https://loki-lib.sourceforge.net";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

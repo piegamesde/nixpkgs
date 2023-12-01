@@ -6,7 +6,7 @@
   wrapGAppsHook,
 }:
 let
-  libPathNative = { packages }: lib.makeLibraryPath packages;
+  libPathNative = {packages}: lib.makeLibraryPath packages;
 in
 stdenv.mkDerivation rec {
   pname = "rocketchat-desktop";
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
 
   postFixup =
     let
-      libpath = libPathNative { packages = buildInputs; };
+      libpath = libPathNative {packages = buildInputs;};
     in
     ''
       app=$out/opt/Rocket.Chat
@@ -95,9 +95,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Official Desktop client for Rocket.Chat";
     homepage = "https://github.com/RocketChat/Rocket.Chat.Electron";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.mit;
-    maintainers = with maintainers; [ gbtb ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [gbtb];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -55,7 +55,7 @@ let
   };
 
   # when building a headless jdk, also bootstrap it with a headless jdk
-  openjdk-bootstrap = openjdk19-bootstrap.override { gtkSupport = !headless; };
+  openjdk-bootstrap = openjdk19-bootstrap.override {gtkSupport = !headless;};
 
   openjdk = stdenv.mkDerivation {
     pname = "openjdk" + lib.optionalString headless "-headless";
@@ -141,7 +141,7 @@ let
         url = "https://github.com/openjdk/jdk/commit/9341d135b855cc208d48e47d30cd90aafa354c36.patch";
         hash = "sha256-Qcm3ZmGCOYLZcskNjj7DYR85R4v07vYvvavrVOYL8vg=";
       })
-    ] ++ lib.optionals (!headless && enableGnome2) [ ./swing-use-gtk-jdk13.patch ];
+    ] ++ lib.optionals (!headless && enableGnome2) [./swing-use-gtk-jdk13.patch];
 
     postPatch = ''
       chmod +x configure
@@ -201,7 +201,7 @@ let
     # still runs in parallel.
     enableParallelBuilding = false;
 
-    buildFlags = [ "images" ];
+    buildFlags = ["images"];
 
     installPhase = ''
       mkdir -p $out/lib
@@ -264,7 +264,7 @@ let
       done
     '';
 
-    disallowedReferences = [ openjdk-bootstrap ];
+    disallowedReferences = [openjdk-bootstrap];
 
     pos = builtins.unsafeGetAttrPos "feature" version;
     meta = import ./meta.nix lib version.feature;

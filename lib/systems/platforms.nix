@@ -5,7 +5,7 @@
 # file takes an already-valid platform and further elaborates it with
 # optional fields; currently these are: linux-kernel, gcc, and rustc.
 
-{ lib }:
+{lib}:
 rec {
   pc = {
     linux-kernel = {
@@ -18,7 +18,7 @@ rec {
     };
   };
 
-  pc_simplekernel = lib.recursiveUpdate pc { linux-kernel.autoModules = false; };
+  pc_simplekernel = lib.recursiveUpdate pc {linux-kernel.autoModules = false;};
 
   powernv = {
     linux-kernel = {
@@ -60,7 +60,7 @@ rec {
         UBIFS_FS_ZLIB y
         UBIFS_FS_DEBUG n
       '';
-      makeFlags = [ "LOADADDR=0x8000" ];
+      makeFlags = ["LOADADDR=0x8000"];
       target = "uImage";
       # TODO reenable once manual-config's config actually builds a .dtb and this is checked to be working
       #DTB = true;
@@ -174,7 +174,7 @@ rec {
         KGDB_SERIAL_CONSOLE y
         KGDB_KDB y
       '';
-      makeFlags = [ "LOADADDR=0x0200000" ];
+      makeFlags = ["LOADADDR=0x0200000"];
       target = "uImage";
       DTB = true; # Beyond 3.10
     };
@@ -255,7 +255,7 @@ rec {
         UBIFS_FS_ZLIB y
         UBIFS_FS_DEBUG n
       '';
-      makeFlags = [ "LOADADDR=0x10800000" ];
+      makeFlags = ["LOADADDR=0x10800000"];
       target = "uImage";
       DTB = true;
     };
@@ -594,11 +594,11 @@ rec {
       riscv-multiplatform
 
     else if platform.parsed.cpu == lib.systems.parse.cpuTypes.mipsel then
-      (import ./examples.nix { inherit lib; }).mipsel-linux-gnu
+      (import ./examples.nix {inherit lib;}).mipsel-linux-gnu
 
     else if platform.parsed.cpu == lib.systems.parse.cpuTypes.powerpc64le then
       powernv
 
     else
-      { };
+      {};
 }

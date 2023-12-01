@@ -21,21 +21,21 @@ buildPythonPackage rec {
     hash = "sha256-klFSt3Od7xYgenpMP4DBFoZeQanGrmtJxDm5qeZ1Psc=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace tox.ini \
       --replace " --cov=entry_points_txt --no-cov-on-fail" ""
   '';
 
-  pythonImportsCheck = [ "entry_points_txt" ];
+  pythonImportsCheck = ["entry_points_txt"];
 
   meta = with lib; {
     description = "Read & write entry_points.txt files";
     homepage = "https://github.com/jwodder/entry-points-txt";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ ayazhafiz ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [ayazhafiz];
   };
 }

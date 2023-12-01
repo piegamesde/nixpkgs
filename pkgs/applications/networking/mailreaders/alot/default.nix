@@ -15,7 +15,7 @@ buildPythonApplication rec {
   pname = "alot";
   version = "0.10";
 
-  outputs = [ "out" ] ++ lib.optionals withManpage [ "man" ];
+  outputs = ["out"] ++ lib.optionals withManpage ["man"];
 
   disabled = !isPy3k;
 
@@ -54,7 +54,7 @@ buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  postBuild = lib.optionalString withManpage [ "make -C docs man" ];
+  postBuild = lib.optionalString withManpage ["make -C docs man"];
 
   disabledTests = [
     # Some twisted tests need internet access
@@ -66,7 +66,7 @@ buildPythonApplication rec {
 
   postInstall =
     let
-      completionPython = python.withPackages (ps: [ ps.configobj ]);
+      completionPython = python.withPackages (ps: [ps.configobj]);
     in
     lib.optionalString withManpage ''
       mkdir -p $out/man
@@ -88,6 +88,6 @@ buildPythonApplication rec {
     description = "Terminal MUA using notmuch mail";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ milibopp ];
+    maintainers = with maintainers; [milibopp];
   };
 }

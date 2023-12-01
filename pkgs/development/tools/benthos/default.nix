@@ -19,7 +19,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/benthos" ];
+  subPackages = ["cmd/benthos"];
 
   ldflags = [
     "-s"
@@ -32,6 +32,6 @@ buildGoModule rec {
     homepage = "https://www.benthos.dev";
     changelog = "https://github.com/benthosdev/benthos/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ sagikazarmark ];
+    maintainers = with maintainers; [sagikazarmark];
   };
 }

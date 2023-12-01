@@ -17,7 +17,7 @@ stdenv.mkDerivation {
 
   # Override linker with cc (symlink to either gcc or clang)
   # Library expects to use cc for linking
-  configureFlags = [ "LD=${stdenv.cc.targetPrefix}cc" ];
+  configureFlags = ["LD=${stdenv.cc.targetPrefix}cc"];
 
   doCheck = true;
 
@@ -25,6 +25,6 @@ stdenv.mkDerivation {
     description = "Dynamic types for data description and in-memory computations";
     homepage = "https://xnd.io/";
     license = licenses.bsdOriginal;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

@@ -60,6 +60,6 @@ buildGoModule rec {
     description = "MenuStart plugin for nwg-panel";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ berbiche ];
+    maintainers = with maintainers; [berbiche];
   };
 }

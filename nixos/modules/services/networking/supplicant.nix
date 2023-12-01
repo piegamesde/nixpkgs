@@ -26,7 +26,7 @@ let
           if (iface == "LAN") then
             "lan@"
           else
-            (if (iface == "DBUS") then "dbus" else (replaceStrings [ " " ] [ "-" ] iface))
+            (if (iface == "DBUS") then "dbus" else (replaceStrings [" "] ["-"] iface))
         )
     }";
 
@@ -37,9 +37,9 @@ let
       deps =
         (
           if (iface == "WLAN" || iface == "LAN") then
-            [ "sys-subsystem-net-devices-%i.device" ]
+            ["sys-subsystem-net-devices-%i.device"]
           else
-            (if (iface == "DBUS") then [ "dbus.service" ] else (map subsystemDevice (splitString " " iface)))
+            (if (iface == "DBUS") then ["dbus.service"] else (map subsystemDevice (splitString " " iface)))
         )
         ++ optional (suppl.bridge != "") (subsystemDevice suppl.bridge);
 
@@ -47,7 +47,7 @@ let
       driverArg = optionalString (suppl.driver != null) "-D${suppl.driver}";
       bridgeArg = optionalString (suppl.bridge != "") "-b${suppl.bridge}";
       confFileArg = optionalString (suppl.configFile.path != null) "-c${suppl.configFile.path}";
-      extraConfFile = pkgs.writeText "supplicant-extra-conf-${replaceStrings [ " " ] [ "-" ] iface}" ''
+      extraConfFile = pkgs.writeText "supplicant-extra-conf-${replaceStrings [" "] ["-"] iface}" ''
         ${optionalString suppl.userControlled.enable "ctrl_interface=DIR=${suppl.userControlled.socketDir} GROUP=${suppl.userControlled.group}"}
         ${optionalString suppl.configFile.writable "update_config=1"}
         ${suppl.extraConf}
@@ -55,13 +55,13 @@ let
     in
     {
       description = "Supplicant ${iface}${optionalString (iface == "WLAN" || iface == "LAN") " %I"}";
-      wantedBy = [ "multi-user.target" ] ++ deps;
-      wants = [ "network.target" ];
+      wantedBy = ["multi-user.target"] ++ deps;
+      wants = ["network.target"];
       bindsTo = deps;
       after = deps;
-      before = [ "network.target" ];
+      before = ["network.target"];
 
-      path = [ pkgs.coreutils ];
+      path = [pkgs.coreutils];
 
       preStart = ''
         ${optionalString (suppl.configFile.path != null && suppl.configFile.writable) ''
@@ -192,7 +192,7 @@ in
           }
         );
 
-      default = { };
+      default = {};
 
       example = literalExpression ''
         { "wlan0 wlan1" = {
@@ -229,11 +229,11 @@ in
 
   ###### implementation
 
-  config = mkIf (cfg != { }) {
+  config = mkIf (cfg != {}) {
 
-    environment.systemPackages = [ pkgs.wpa_supplicant ];
+    environment.systemPackages = [pkgs.wpa_supplicant];
 
-    services.dbus.packages = [ pkgs.wpa_supplicant ];
+    services.dbus.packages = [pkgs.wpa_supplicant];
 
     systemd.services = mapAttrs' (n: v: nameValuePair (serviceName n) (supplicantService n v)) cfg;
 
@@ -249,7 +249,7 @@ in
               flip (concatMapStringsSep "\n") (splitString " " iface) (
                 i:
                 ''ACTION=="add", SUBSYSTEM=="net", ENV{INTERFACE}=="${i}", TAG+="systemd", ENV{SYSTEMD_WANTS}+="supplicant-${
-                  replaceStrings [ " " ] [ "-" ] iface
+                  replaceStrings [" "] ["-"] iface
                 }.service", TAG+="SUPPLICANT_ASSIGNED"''
               )
             )}

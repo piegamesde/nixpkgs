@@ -35,14 +35,14 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dlms_cosem" ];
+  pythonImportsCheck = ["dlms_cosem"];
 
   meta = with lib; {
     description = "Python module to parse DLMS/COSEM";
     homepage = "https://github.com/pwitab/dlms-cosem";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

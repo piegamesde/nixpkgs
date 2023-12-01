@@ -16,9 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-OE4+wJbJbUZ+YB5J5OyvytLFCcrnXCeZEqmphHKKprQ=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
-  pythonImportsCheck = [ "nc_dnsapi" ];
+  pythonImportsCheck = ["nc_dnsapi"];
 
   # no tests
   doCheck = false;

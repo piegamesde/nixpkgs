@@ -25,13 +25,13 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-eQAizO26oQRosbMGJLwMmepBN3pocmnbc0qsHsAJysg=";
 
   # needed for librocksdb-sys
-  nativeBuildInputs = [ rustPlatform.bindgenHook ];
+  nativeBuildInputs = [rustPlatform.bindgenHook];
 
   # link rocksdb dynamically
   ROCKSDB_INCLUDE_DIR = "${rocksdb}/include";
   ROCKSDB_LIB_DIR = "${rocksdb}/lib";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [Security];
 
   passthru.updateScript = ./update.sh;
 
@@ -39,6 +39,6 @@ rustPlatform.buildRustPackage rec {
     description = "An efficient re-implementation of Electrum Server in Rust";
     homepage = "https://github.com/romanz/electrs";
     license = licenses.mit;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

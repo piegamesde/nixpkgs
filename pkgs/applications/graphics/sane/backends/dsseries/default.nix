@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "1wfdbfbf51cc7njzikdg48kwpnpc0pg5s6p0s0y3z0q7y59x2wbq";
   };
 
-  nativeBuildInputs = [ rpmextract ];
+  nativeBuildInputs = [rpmextract];
 
   unpackCmd = ''
     mkdir ${pname}-${version} && pushd ${pname}-${version}
@@ -52,8 +52,8 @@ stdenv.mkDerivation rec {
     description = "Brother DSSeries SANE backend driver";
     homepage = "http://www.brother.com";
     platforms = lib.platforms.linux;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ callahad ];
+    maintainers = with lib.maintainers; [callahad];
   };
 }

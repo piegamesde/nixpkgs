@@ -33,7 +33,7 @@ buildPythonPackage rec {
     hash = "sha256-e8E2FOsHvTzjnUnF6jNX0skl7szRuC3ByMPfsqtcVno=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     colorlog
@@ -55,21 +55,21 @@ buildPythonPackage rec {
     ++ passthru.optional-dependencies.uvloop;
 
   passthru.optional-dependencies = {
-    aiohttp = [ aiohttp ];
+    aiohttp = [aiohttp];
     #asgi = [
     #  aiohttp-asgi
     #];
-    cron = [ croniter ];
+    cron = [croniter];
     #carbon = [
     #  aiocarbon
     #];
     #raven = [
     #  raven-aiohttp
     #];
-    uvloop = [ uvloop ];
+    uvloop = [uvloop];
   };
 
-  pythonImportsCheck = [ "aiomisc" ];
+  pythonImportsCheck = ["aiomisc"];
 
   # Upstream stopped tagging with 16.2
   doCheck = false;
@@ -85,6 +85,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/aiokitchen/aiomisc";
     changelog = "https://github.com/aiokitchen/aiomisc/blob/master/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

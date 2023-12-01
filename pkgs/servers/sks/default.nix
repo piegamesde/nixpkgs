@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   };
 
   # pkgs.db provides db_stat, not db$major.$minor_stat
-  patches = [ ./adapt-to-nixos.patch ];
+  patches = [./adapt-to-nixos.patch];
 
   outputs = [
     "out"
@@ -79,6 +79,6 @@ stdenv.mkDerivation rec {
     inherit (src.meta) homepage;
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ globin ];
+    maintainers = with maintainers; [globin];
   };
 }

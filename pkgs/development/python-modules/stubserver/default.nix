@@ -20,12 +20,12 @@ buildPythonPackage rec {
   # Tests are not shipped and the source not tagged
   doCheck = false;
 
-  pythonImportsCheck = [ "stubserver" ];
+  pythonImportsCheck = ["stubserver"];
 
   meta = with lib; {
     description = "Web and FTP server for use in unit and7or acceptance tests";
     homepage = "https://github.com/tarttelin/Python-Stub-Server";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

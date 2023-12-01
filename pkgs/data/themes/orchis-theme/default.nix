@@ -7,7 +7,7 @@
   gtk-engine-murrine,
   sassc,
   border-radius ? null, # Suggested: 2 < value < 16
-  tweaks ? [ ], # can be "solid" "compact" "black" "primary" "macos" "submenu" "nord|dracula"
+  tweaks ? [], # can be "solid" "compact" "black" "primary" "macos" "submenu" "nord|dracula"
   withWallpapers ? false,
 }:
 
@@ -52,9 +52,9 @@ lib.checkListOfEnum "${pname}: theme tweaks" validTweaks tweaks
       sassc
     ];
 
-    buildInputs = [ gnome-themes-extra ];
+    buildInputs = [gnome-themes-extra];
 
-    propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+    propagatedUserEnvPkgs = [gtk-engine-murrine];
 
     preInstall = ''
       mkdir -p $out/share/themes
@@ -63,7 +63,7 @@ lib.checkListOfEnum "${pname}: theme tweaks" validTweaks tweaks
     installPhase = ''
       runHook preInstall
       bash install.sh -d $out/share/themes -t all \
-        ${lib.optionalString (tweaks != [ ]) "--tweaks " + builtins.toString tweaks} \
+        ${lib.optionalString (tweaks != []) "--tweaks " + builtins.toString tweaks} \
         ${
           lib.optionalString (border-radius != null) ("--round " + builtins.toString border-radius + "px")
         }
@@ -79,6 +79,6 @@ lib.checkListOfEnum "${pname}: theme tweaks" validTweaks tweaks
       homepage = "https://github.com/vinceliuice/Orchis-theme";
       license = licenses.gpl3Plus;
       platforms = platforms.linux;
-      maintainers = [ maintainers.fufexan ];
+      maintainers = [maintainers.fufexan];
     };
   }

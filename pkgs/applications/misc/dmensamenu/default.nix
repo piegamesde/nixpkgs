@@ -25,7 +25,7 @@ buildPythonApplication rec {
     })
   ];
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # No tests implemented
   doCheck = false;
@@ -34,6 +34,6 @@ buildPythonApplication rec {
     homepage = "https://github.com/dotlambda/dmensamenu";
     description = "Print German canteen menus using dmenu and OpenMensa";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

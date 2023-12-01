@@ -1,26 +1,26 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   {
     name = "samba";
 
-    meta.maintainers = [ pkgs.lib.maintainers.eelco ];
+    meta.maintainers = [pkgs.lib.maintainers.eelco];
 
     nodes = {
       client =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           virtualisation.fileSystems = {
             "/public" = {
               fsType = "cifs";
               device = "//server/public";
-              options = [ "guest" ];
+              options = ["guest"];
             };
           };
         };
 
       server =
-        { ... }:
+        {...}:
         {
           services.samba.enable = true;
           services.samba.openFirewall = true;

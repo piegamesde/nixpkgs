@@ -74,7 +74,7 @@ buildGoModule rec {
     "-s"
     "-w"
   ];
-  tags = [ "libsqlite3" ];
+  tags = ["libsqlite3"];
 
   preBuild = ''
     # required for go-dqlite. See: https://github.com/lxc/lxd/pull/8939
@@ -99,7 +99,7 @@ buildGoModule rec {
   postInstall = ''
     wrapProgram $out/bin/lxd --prefix PATH : ${
       lib.makeBinPath (
-        [ iptables ]
+        [iptables]
         ++ [
           acl
           rsync

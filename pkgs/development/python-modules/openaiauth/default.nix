@@ -15,16 +15,16 @@ buildPythonPackage rec {
     hash = "sha256-SaiTqs2HVv5ajUkrLJv24ed1+iJg5HqsCNe0IETkA00=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   doCheck = false;
 
-  pythonImportsCheck = [ "OpenAIAuth" ];
+  pythonImportsCheck = ["OpenAIAuth"];
 
   meta = with lib; {
     description = "A Python library for authenticating with the OpenAI API";
     license = licenses.mit;
-    maintainers = with maintainers; [ realsnick ];
+    maintainers = with maintainers; [realsnick];
     homepage = "https://github.com/acheong08/OpenAIAuth";
     changelog = "https://github.com/acheong08/OpenAIAuth/releases/tag/${version}";
   };

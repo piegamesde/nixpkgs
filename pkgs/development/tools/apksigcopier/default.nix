@@ -24,13 +24,13 @@ python3.pkgs.buildPythonApplication rec {
     pandoc
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [ click ];
+  propagatedBuildInputs = with python3.pkgs; [click];
 
   makeWrapperArgs = [
     "--prefix"
     "PATH"
     ":"
-    "${lib.makeBinPath [ apksigner ]}"
+    "${lib.makeBinPath [apksigner]}"
   ];
 
   postPatch = ''
@@ -68,7 +68,7 @@ python3.pkgs.buildPythonApplication rec {
       * compare two APKs with different signatures (requires apksigner)
     '';
     homepage = "https://github.com/obfusk/apksigcopier";
-    license = with licenses; [ gpl3Plus ];
-    maintainers = with maintainers; [ obfusk ];
+    license = with licenses; [gpl3Plus];
+    maintainers = with maintainers; [obfusk];
   };
 }

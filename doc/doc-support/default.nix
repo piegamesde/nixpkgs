@@ -1,6 +1,6 @@
 {
-  pkgs ? (import ../.. { }),
-  nixpkgs ? { },
+  pkgs ? (import ../.. {}),
+  nixpkgs ? {},
 }:
 let
   inherit (pkgs) lib;
@@ -57,8 +57,8 @@ let
     }
   ];
 
-  locationsXml = import ./lib-function-locations.nix { inherit pkgs nixpkgs libsets; };
-  functionDocs = import ./lib-function-docs.nix { inherit locationsXml pkgs libsets; };
+  locationsXml = import ./lib-function-locations.nix {inherit pkgs nixpkgs libsets;};
+  functionDocs = import ./lib-function-docs.nix {inherit locationsXml pkgs libsets;};
   version = pkgs.lib.version;
 
   epub-xsl = pkgs.writeText "epub.xsl" ''
@@ -84,7 +84,7 @@ let
   # NB: This file describes the Nixpkgs manual, which happens to use module
   #     docs infra originally developed for NixOS.
   optionsDoc = pkgs.nixosOptionsDoc {
-    inherit (pkgs.lib.evalModules { modules = [ ../../pkgs/top-level/config.nix ]; }) options;
+    inherit (pkgs.lib.evalModules {modules = [../../pkgs/top-level/config.nix];}) options;
     documentType = "none";
     transformOptions =
       opt:
@@ -109,7 +109,7 @@ let
       };
   };
 in
-pkgs.runCommand "doc-support" { } ''
+pkgs.runCommand "doc-support" {} ''
   mkdir result
   (
     cd result

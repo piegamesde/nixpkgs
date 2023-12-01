@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-4o26nKbHwAFz405LpXRI8GiLtoG3xei/SXHar8CT1po=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   # Circular dependency on beautifulsoup4
   doCheck = false;
@@ -29,6 +29,6 @@ buildPythonPackage rec {
     description = "A CSS4 selector implementation for Beautiful Soup";
     license = licenses.mit;
     homepage = "https://github.com/facelessuser/soupsieve";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

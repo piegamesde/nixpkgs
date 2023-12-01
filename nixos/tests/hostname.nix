@@ -1,10 +1,10 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
 
 let
@@ -29,16 +29,16 @@ let
       };
 
       nodes.machine =
-        { lib, ... }:
+        {lib, ...}:
         {
           networking.hostName = hostName;
           networking.domain = domain;
 
-          environment.systemPackages = with pkgs; [ inetutils ];
+          environment.systemPackages = with pkgs; [inetutils];
         };
 
       testScript =
-        { nodes, ... }:
+        {nodes, ...}:
         ''
           start_all()
 

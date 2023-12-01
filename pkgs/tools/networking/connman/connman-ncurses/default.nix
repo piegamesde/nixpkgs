@@ -56,6 +56,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/eurogiciel-oss/connman-json-client";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

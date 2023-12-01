@@ -29,12 +29,12 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     cryptography
     idna
-  ] ++ lib.optionals (!isPy3k) [ futures ];
+  ] ++ lib.optionals (!isPy3k) [futures];
 
   # Some of the tests use localhost networking.
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "trustme" ];
+  pythonImportsCheck = ["trustme"];
 
   meta = with lib; {
     description = "High quality TLS certs while you wait, for the discerning tester";
@@ -43,6 +43,6 @@ buildPythonPackage rec {
       mit
       asl20
     ];
-    maintainers = with maintainers; [ catern ];
+    maintainers = with maintainers; [catern];
   };
 }

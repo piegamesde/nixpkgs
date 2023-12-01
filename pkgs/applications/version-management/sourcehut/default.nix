@@ -10,23 +10,23 @@
 # Then we expose them through all-packages.nix as an application through `toPythonApplication`
 # https://github.com/NixOS/nixpkgs/pull/54425#discussion_r250688781
 let
-  fetchNodeModules = callPackage ./fetchNodeModules.nix { };
+  fetchNodeModules = callPackage ./fetchNodeModules.nix {};
 
   python = python3.override {
     packageOverrides = self: super: {
-      srht = self.callPackage ./core.nix { inherit fetchNodeModules; };
+      srht = self.callPackage ./core.nix {inherit fetchNodeModules;};
 
-      buildsrht = self.callPackage ./builds.nix { };
-      gitsrht = self.callPackage ./git.nix { };
-      hgsrht = self.callPackage ./hg.nix { };
-      hubsrht = self.callPackage ./hub.nix { };
-      listssrht = self.callPackage ./lists.nix { };
-      mansrht = self.callPackage ./man.nix { };
-      metasrht = self.callPackage ./meta.nix { };
-      pastesrht = self.callPackage ./paste.nix { };
-      todosrht = self.callPackage ./todo.nix { };
+      buildsrht = self.callPackage ./builds.nix {};
+      gitsrht = self.callPackage ./git.nix {};
+      hgsrht = self.callPackage ./hg.nix {};
+      hubsrht = self.callPackage ./hub.nix {};
+      listssrht = self.callPackage ./lists.nix {};
+      mansrht = self.callPackage ./man.nix {};
+      metasrht = self.callPackage ./meta.nix {};
+      pastesrht = self.callPackage ./paste.nix {};
+      todosrht = self.callPackage ./todo.nix {};
 
-      scmsrht = self.callPackage ./scm.nix { };
+      scmsrht = self.callPackage ./scm.nix {};
     };
   };
 in
@@ -42,7 +42,7 @@ recurseIntoAttrs (
     listssrht = toPythonApplication listssrht;
     mansrht = toPythonApplication mansrht;
     metasrht = toPythonApplication metasrht;
-    pagessrht = callPackage ./pages.nix { };
+    pagessrht = callPackage ./pages.nix {};
     pastesrht = toPythonApplication pastesrht;
     todosrht = toPythonApplication todosrht;
     passthru.tests = {

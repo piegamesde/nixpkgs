@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cxml";
   version = "20200610-git";
@@ -29,7 +29,7 @@ rec {
 
   packageName = "cxml";
 
-  asdFilesToKeep = [ "cxml.asd" ];
+  asdFilesToKeep = ["cxml.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cxml DESCRIPTION Closure XML - a Common Lisp XML parser SHA256

@@ -45,12 +45,12 @@ python3.pkgs.buildPythonApplication rec {
     "--set CHARSET en_us.UTF-8"
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [ pygobject3 ];
+  propagatedBuildInputs = with python3.pkgs; [pygobject3];
 
   meta = with lib; {
     description = "A Gui editor (gtk) to configure applications launching on a fluxbox session";
     homepage = "https://github.com/mothsART/fluxboxlauncher";
-    maintainers = with maintainers; [ mothsart ];
+    maintainers = with maintainers; [mothsart];
     license = licenses.bsdOriginal;
     platforms = platforms.linux;
   };

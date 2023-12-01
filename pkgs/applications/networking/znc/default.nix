@@ -29,10 +29,10 @@ stdenv.mkDerivation rec {
     sha256 = "03fyi0j44zcanj1rsdx93hkdskwfvhbywjiwd17f9q1a7yp8l8zz";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optional withPerl perl
     ++ lib.optional withPython python3
     ++ lib.optional withTcl tcl
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     (lib.enableFeature withTcl "tcl")
     (lib.withFeatureAs withTcl "tcl" "${tcl}/lib")
     (lib.enableFeature withCyrus "cyrus")
-  ] ++ lib.optionals (!withIPv6) [ "--disable-ipv6" ] ++ lib.optionals withDebug [ "--enable-debug" ];
+  ] ++ lib.optionals (!withIPv6) ["--disable-ipv6"] ++ lib.optionals withDebug ["--enable-debug"];
 
   enableParallelBuilding = true;
 

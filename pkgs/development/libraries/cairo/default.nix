@@ -72,7 +72,7 @@ stdenv.mkDerivation (
       # Upstream PR: https://gitlab.freedesktop.org/cairo/cairo/merge_requests/85
       (fetchpatch {
         name = "CVE-2020-35492.patch";
-        includes = [ "src/cairo-image-compositor.c" ];
+        includes = ["src/cairo-image-compositor.c"];
         url = "https://github.com/freedesktop/cairo/commit/78266cc8c0f7a595cfe8f3b694bfb9bcc3700b38.patch";
         sha256 = "048nzfz7rkgqb9xs0dfs56qdw7ckkxr87nbj3p0qziqdq4nb6wki";
       })
@@ -105,7 +105,7 @@ stdenv.mkDerivation (
     outputBin = "dev"; # very small
     separateDebugInfo = true;
 
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
 
     buildInputs =
       [
@@ -142,7 +142,7 @@ stdenv.mkDerivation (
       ++ optional glSupport libGL; # TODO: maybe liblzo but what would it be for here?
 
     configureFlags =
-      [ "--enable-tee" ]
+      ["--enable-tee"]
       ++ (
         if stdenv.isDarwin then
           [

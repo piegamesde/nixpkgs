@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-raODDA1EKtZThFg0NV6EfrWj5mSQNaiekywfOfAvYXI=";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
   installFlags = [
     "BINDIR=${placeholder "out"}/bin"
     "MANDIR=${placeholder "out"}/share/man/man8"
@@ -28,6 +28,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ColinIanKing/eventstat";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ cstrahan ];
+    maintainers = with maintainers; [cstrahan];
   };
 }

@@ -17,13 +17,13 @@ buildDunePackage rec {
     sha256 = "sha256-HhJdb4i9B4gz3emgDCDT4riQuAsY4uP/47biu7EZ+sk=";
   };
 
-  buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [ libao ];
+  buildInputs = [dune-configurator];
+  propagatedBuildInputs = [libao];
 
   meta = with lib; {
     homepage = "https://github.com/savonet/ocaml-ao";
     description = "OCaml bindings for libao";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

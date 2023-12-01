@@ -34,7 +34,7 @@ python3.pkgs.buildPythonApplication rec {
     (fetchpatch {
       url = "https://gitlab.gnome.org/GNOME/gnome-keysign/commit/ffc6f40584d7564951e1c8b6d18d4f8a6a3fa09d.patch";
       sha256 = "1hs6mmhi2f21kvy26llzvp37yf0i0dr69d18r641139nr6qg6kwy";
-      includes = [ "setup.py" ];
+      includes = ["setup.py"];
     })
   ];
 
@@ -56,8 +56,8 @@ python3.pkgs.buildPythonApplication rec {
     glib
     gst_all_1.gstreamer
     gst_all_1.gst-plugins-base
-    (gst_all_1.gst-plugins-good.override { gtkSupport = true; })
-    (gst_all_1.gst-plugins-bad.override { enableZbar = true; }) # for zbar plug-in
+    (gst_all_1.gst-plugins-good.override {gtkSupport = true;})
+    (gst_all_1.gst-plugins-bad.override {enableZbar = true;}) # for zbar plug-in
   ];
 
   propagatedBuildInputs = with python3.pkgs; [

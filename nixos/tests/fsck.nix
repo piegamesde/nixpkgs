@@ -1,7 +1,7 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
   systemdStage1 ? false,
 }:
 
@@ -9,9 +9,9 @@ import ./make-test-python.nix {
   name = "fsck";
 
   nodes.machine =
-    { lib, ... }:
+    {lib, ...}:
     {
-      virtualisation.emptyDiskImages = [ 1 ];
+      virtualisation.emptyDiskImages = [1];
 
       virtualisation.fileSystems = {
         "/mnt" = {

@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-LXBAWbm8fT/jYNbzB95YeBL9fEknMNJvkTRMbc+nf6c=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   postPatch = ''
     # Use upstream z3 implementation
@@ -47,12 +47,12 @@ buildPythonPackage rec {
     hypothesis
   ];
 
-  pythonImportsCheck = [ "deal_solver" ];
+  pythonImportsCheck = ["deal_solver"];
 
   meta = with lib; {
     description = "Z3-powered solver (theorem prover) for deal";
     homepage = "https://github.com/life4/deal-solver";
     license = licenses.mit;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

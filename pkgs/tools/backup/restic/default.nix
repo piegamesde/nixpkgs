@@ -28,7 +28,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-GWFaCfiE8Ph2uBTBI0E47pH+EJsMsMr1NDuaIGvyXRM=";
 
-  subPackages = [ "cmd/restic" ];
+  subPackages = ["cmd/restic"];
 
   nativeBuildInputs = [
     installShellFiles

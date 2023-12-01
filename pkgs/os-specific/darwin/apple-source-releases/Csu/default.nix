@@ -21,12 +21,12 @@ appleDerivation' stdenv {
       --replace -mmacosx-version-min=10.5 -mmacosx-version-min=10.6
   '';
 
-  installFlags = [ "DSTROOT=$(out)" ];
+  installFlags = ["DSTROOT=$(out)"];
   enableParallelInstalling = false; # cp: cannot create regular file '$out/lib/crt1.10.6.o'
 
   meta = with lib; {
     description = "Apple's common startup stubs for darwin";
-    maintainers = with maintainers; [ copumpkin ];
+    maintainers = with maintainers; [copumpkin];
     platforms = platforms.darwin;
     license = licenses.apsl20;
   };

@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   dontConfigure = true;
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -52,9 +52,9 @@ stdenv.mkDerivation rec {
     homepage = "https://revolt.chat/";
     changelog = "https://github.com/revoltchat/desktop/releases/tag/v${version}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ heyimnova ];
+    maintainers = with maintainers; [heyimnova];
     platforms = platforms.linux;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     mainProgram = "revolt-desktop";
   };
 }

@@ -9,10 +9,10 @@ with lib;
 
 let
   cfg = config.services.opensnitch;
-  format = pkgs.formats.json { };
+  format = pkgs.formats.json {};
 
   predefinedRules = flip mapAttrs cfg.rules (
-    name: cfg: { file = pkgs.writeText "rule" (builtins.toJSON cfg); }
+    name: cfg: {file = pkgs.writeText "rule" (builtins.toJSON cfg);}
   );
 in
 {
@@ -21,7 +21,7 @@ in
       enable = mkEnableOption (mdDoc "Opensnitch application firewall");
 
       rules = mkOption {
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             "tor" = {
@@ -46,7 +46,7 @@ in
           for available options.
         '';
 
-        type = types.submodule { freeformType = format.type; };
+        type = types.submodule {freeformType = format.type;};
       };
 
       settings = mkOption {
@@ -179,11 +179,11 @@ in
     );
 
     systemd = {
-      packages = [ pkgs.opensnitch ];
-      services.opensnitchd.wantedBy = [ "multi-user.target" ];
+      packages = [pkgs.opensnitch];
+      services.opensnitchd.wantedBy = ["multi-user.target"];
     };
 
-    systemd.services.opensnitchd.preStart = mkIf (cfg.rules != { }) (
+    systemd.services.opensnitchd.preStart = mkIf (cfg.rules != {}) (
       let
         rules = flip mapAttrsToList predefinedRules (
           file: content: {
@@ -197,13 +197,13 @@ in
         # but aren't declared in `cfg.rules` (i.e. all networks that were "removed" from
         # `cfg.rules`).
         find /var/lib/opensnitch/rules -type l -lname '${builtins.storeDir}/*' ${
-          optionalString (rules != { }) ''
-            -not \( ${concatMapStringsSep " -o " ({ local, ... }: "-name '${baseNameOf local}*'") rules} \) \
+          optionalString (rules != {}) ''
+            -not \( ${concatMapStringsSep " -o " ({local, ...}: "-name '${baseNameOf local}*'") rules} \) \
           ''
         } -delete
         ${concatMapStrings
           (
-            { file, local }:
+            {file, local}:
             ''
               ln -sf '${file}' "${local}"
             ''

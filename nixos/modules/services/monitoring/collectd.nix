@@ -15,11 +15,11 @@ let
 
   conf =
     if cfg.validateConfig then
-      pkgs.runCommand "collectd.conf" { } ''
+      pkgs.runCommand "collectd.conf" {} ''
         echo testing ${unvalidated_conf}
         cp ${unvalidated_conf} collectd.conf
         # collectd -t fails if BaseDir does not exist.
-        substituteInPlace collectd.conf --replace ${lib.escapeShellArgs [ baseDirLine ]} 'BaseDir "."'
+        substituteInPlace collectd.conf --replace ${lib.escapeShellArgs [baseDirLine]} 'BaseDir "."'
         ${package}/bin/collectd -t -C collectd.conf
         cp ${unvalidated_conf} $out
       ''
@@ -29,7 +29,7 @@ let
   package = if cfg.buildMinimalPackage then minimalPackage else cfg.package;
 
   minimalPackage = cfg.package.override {
-    enabledPlugins = [ "syslog" ] ++ builtins.attrNames cfg.plugins;
+    enabledPlugins = ["syslog"] ++ builtins.attrNames cfg.plugins;
   };
 in
 {
@@ -88,7 +88,7 @@ in
     };
 
     include = mkOption {
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Additional paths to load config from.
       '';
@@ -96,7 +96,7 @@ in
     };
 
     plugins = mkOption {
-      default = { };
+      default = {};
       example = {
         cpu = "";
         memory = "";
@@ -149,12 +149,12 @@ in
         cfg.include}
     '';
 
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' - ${cfg.user} - - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.dataDir}' - ${cfg.user} - - -"];
 
     systemd.services.collectd = {
       description = "Collectd Monitoring Agent";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = "${package}/sbin/collectd -C ${conf} -f";
@@ -171,6 +171,6 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.user == "collectd") { collectd = { }; };
+    users.groups = optionalAttrs (cfg.user == "collectd") {collectd = {};};
   };
 }

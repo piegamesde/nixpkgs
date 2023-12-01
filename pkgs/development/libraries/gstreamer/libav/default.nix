@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     gettext
     pkg-config
     python3
-  ] ++ lib.optionals enableDocumentation [ hotdoc ];
+  ] ++ lib.optionals enableDocumentation [hotdoc];
 
   buildInputs = [
     gstreamer
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     libav
   ];
 
-  mesonFlags = [ (lib.mesonEnable "doc" enableDocumentation) ];
+  mesonFlags = [(lib.mesonEnable "doc" enableDocumentation)];
 
   postPatch = ''
     patchShebangs \

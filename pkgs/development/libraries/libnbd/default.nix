@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     libxml2
   ];
 
-  installFlags = [ "bashcompdir=$(out)/share/bash-completion/completions" ];
+  installFlags = ["bashcompdir=$(out)/share/bash-completion/completions"];
 
   meta = with lib; {
     homepage = "https://gitlab.com/nbdkit/libnbd";

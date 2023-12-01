@@ -31,7 +31,7 @@ buildGoModule rec {
     IOKit
   ];
 
-  excludedPackages = [ "docs/node-mixin" ];
+  excludedPackages = ["docs/node-mixin"];
 
   ldflags = [
     "-s"

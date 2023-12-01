@@ -56,14 +56,14 @@ buildPythonPackage rec {
   '';
 
   doCheck = !isPy27; # google namespace clash
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  disabledTests = [ "TestSerialization" ];
+  disabledTests = ["TestSerialization"];
 
   meta = with lib; {
     homepage = "http://world-engine.org";
     description = "World generator using simulation of plates, rain shadow, erosion, etc";
     license = licenses.mit;
-    maintainers = with maintainers; [ rardiol ];
+    maintainers = with maintainers; [rardiol];
   };
 }

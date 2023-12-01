@@ -9,7 +9,7 @@ stdenv.mkDerivation {
 
   inherit (cedille) version src;
 
-  buildInputs = [ emacs ];
+  buildInputs = [emacs];
 
   dontBuild = true;
 

@@ -13,7 +13,7 @@ import ../make-test-python.nix (
     meta.maintainers = lib.teams.php.members;
 
     nodes.machine =
-      { lib, pkgs, ... }:
+      {lib, pkgs, ...}:
       {
         time.timeZone = "UTC";
         services.httpd = {

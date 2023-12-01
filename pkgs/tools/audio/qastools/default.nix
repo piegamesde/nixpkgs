@@ -21,7 +21,7 @@ mkDerivation rec {
     sha256 = "19hn64hnvryfmrkdg6rqyzahdbqf1s5y3dcca389jj6sdx93b3ip";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     alsa-lib
     udev
@@ -34,7 +34,7 @@ mkDerivation rec {
     description = "Collection of desktop applications for ALSA configuration";
     homepage = "https://gitlab.com/sebholt/qastools";
     license = licenses.mit;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = platforms.linux;
   };
 }

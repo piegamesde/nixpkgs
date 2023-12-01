@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "cmd/skaffold" ];
+  subPackages = ["cmd/skaffold"];
 
   ldflags =
     let
@@ -32,7 +32,7 @@ buildGoModule rec {
       "-X ${t}/version.buildDate=unknown"
     ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   doInstallCheck = true;
   installCheckPhase = ''

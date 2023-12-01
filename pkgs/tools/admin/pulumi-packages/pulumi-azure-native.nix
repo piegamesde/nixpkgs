@@ -1,4 +1,4 @@
-{ lib, mkPulumiPackage }:
+{lib, mkPulumiPackage}:
 mkPulumiPackage rec {
   owner = "pulumi";
   repo = "pulumi-azure-native";
@@ -8,7 +8,7 @@ mkPulumiPackage rec {
   vendorHash = "sha256-DI92fCe8HPwjERkBVlOebZpvCreq9850OeERDkiayz8=";
   cmdGen = "pulumi-gen-azure-native";
   cmdRes = "pulumi-resource-azure-native";
-  extraLdflags = [ "-X github.com/pulumi/${repo}/provider/pkg/version.Version=v${version}" ];
+  extraLdflags = ["-X github.com/pulumi/${repo}/provider/pkg/version.Version=v${version}"];
   fetchSubmodules = true;
   __darwinAllowLocalNetworking = true;
   meta = with lib; {

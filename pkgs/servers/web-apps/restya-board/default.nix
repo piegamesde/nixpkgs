@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     sha256 = "1js8c69qmga7bikp66fqhch3n2vw49918z32q88lz3havqzai8gd";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   buildCommand = ''
     mkdir $out
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     description = "Web-based kanban board";
     license = licenses.osl3;
     homepage = "https://restya.com";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

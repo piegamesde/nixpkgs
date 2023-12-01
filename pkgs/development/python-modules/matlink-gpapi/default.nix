@@ -23,7 +23,7 @@ buildPythonPackage rec {
   # scripts in ./test require networking
   doCheck = false;
 
-  pythonImportsCheck = [ "gpapi.googleplay" ];
+  pythonImportsCheck = ["gpapi.googleplay"];
 
   propagatedBuildInputs = [
     cryptography
@@ -36,6 +36,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/NoMore201/googleplay-api";
     license = licenses.gpl3Only;
     description = "Google Play Unofficial Python API";
-    maintainers = with maintainers; [ schnusch ];
+    maintainers = with maintainers; [schnusch];
   };
 }

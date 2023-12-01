@@ -59,7 +59,7 @@ buildPythonPackage rec {
     "test_conf_async_trio_requests"
   ];
 
-  pythonImportsCheck = [ "msrest" ];
+  pythonImportsCheck = ["msrest"];
 
   meta = with lib; {
     description = "The runtime library for AutoRest generated Python clients";

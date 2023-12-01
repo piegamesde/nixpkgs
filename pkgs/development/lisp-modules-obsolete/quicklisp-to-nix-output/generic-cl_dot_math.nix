@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "generic-cl_dot_math";
   version = "generic-cl-20211020-git";
@@ -42,7 +42,7 @@ rec {
 
   packageName = "generic-cl.math";
 
-  asdFilesToKeep = [ "generic-cl.math.asd" ];
+  asdFilesToKeep = ["generic-cl.math.asd"];
   overrides = x: x;
 }
 /* (SYSTEM generic-cl.math DESCRIPTION Generic math function interface SHA256

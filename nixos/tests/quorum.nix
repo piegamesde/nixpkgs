@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
     keystore = {
       address = "9377bc3936de934c497e22917b81aa8774ac3bb0";
@@ -26,11 +26,11 @@ import ./make-test-python.nix (
   in
   {
     name = "quorum";
-    meta = with pkgs.lib.maintainers; { maintainers = [ mmahut ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [mmahut];};
 
     nodes = {
       machine =
-        { ... }:
+        {...}:
         {
           services.quorum = {
             enable = true;

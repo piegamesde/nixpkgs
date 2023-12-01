@@ -42,7 +42,7 @@ stdenv.mkDerivation {
       "$out/bin/common-lisp.sh"
   '';
 
-  buildInputs = [ which ];
+  buildInputs = [which];
 
   inherit asdf lisp bash;
   stdenv_shell = stdenv.shell;
@@ -59,6 +59,6 @@ stdenv.mkDerivation {
 
   meta = {
     description = "Script used to wrap Common Lisp implementations";
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
   };
 }

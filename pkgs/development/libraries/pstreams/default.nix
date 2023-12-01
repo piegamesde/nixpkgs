@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "0r8aj0nh5mkf8cvnzl8bdy4nm7i74vs83axxfimcd74kjfn0irys";
   };
 
-  makeFlags = [ "prefix=${placeholder "out"}" ];
+  makeFlags = ["prefix=${placeholder "out"}"];
   dontBuild = true;
   doCheck = true;
 
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://pstreams.sourceforge.net/";
     downloadPage = "https://pstreams.sourceforge.net/download/";
-    maintainers = with maintainers; [ arthur ];
+    maintainers = with maintainers; [arthur];
     license = licenses.boost;
     platforms = platforms.all;
   };

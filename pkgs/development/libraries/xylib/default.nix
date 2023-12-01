@@ -29,6 +29,6 @@ stdenv.mkDerivation rec {
     license = licenses.lgpl21;
     homepage = "https://xylib.sourceforge.net/";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

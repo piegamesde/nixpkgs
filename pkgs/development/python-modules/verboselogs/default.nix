@@ -26,7 +26,7 @@ buildPythonPackage rec {
     mock
   ];
 
-  pythonImportsCheck = [ "verboselogs" ];
+  pythonImportsCheck = ["verboselogs"];
 
   disabledTests =
     [
@@ -38,6 +38,6 @@ buildPythonPackage rec {
     description = "Verbose logging for Python's logging module";
     homepage = "https://github.com/xolox/python-verboselogs";
     license = licenses.mit;
-    maintainers = with maintainers; [ eyjhb ];
+    maintainers = with maintainers; [eyjhb];
   };
 }

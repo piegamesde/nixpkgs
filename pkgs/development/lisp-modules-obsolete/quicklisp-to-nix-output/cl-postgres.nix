@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-postgres";
   version = "postmodern-20211209-git";
@@ -34,7 +34,7 @@ rec {
 
   packageName = "cl-postgres";
 
-  asdFilesToKeep = [ "cl-postgres.asd" ];
+  asdFilesToKeep = ["cl-postgres.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-postgres DESCRIPTION Low-level client library for PostgreSQL

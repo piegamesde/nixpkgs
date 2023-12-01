@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     sha256 = "fi1waoLAcnZB0lX+8+wQFoBYOSvVXYK3JKiu81GGF4U=";
   };
 
-  patches = [ ./nocontent.patch ];
+  patches = [./nocontent.patch];
 
   buildInputs = [
     libGL
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     xorg.libICE
     xorg.libXext
   ];
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     "-DNCINE_DOWNLOAD_DEPENDENCIES=OFF"
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     description = "Open-source Jazz Jackrabbit 2 reimplementation";
     homepage = "https://github.com/deathkiller/jazz2-native";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ surfaceflinger ];
+    maintainers = with maintainers; [surfaceflinger];
     platforms = platforms.linux;
   };
 }

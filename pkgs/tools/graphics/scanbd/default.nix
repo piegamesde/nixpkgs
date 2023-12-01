@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     url = "mirror://sourceforge/scanbd/${pname}-${version}.tgz";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     dbus
     libconfuse

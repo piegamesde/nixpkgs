@@ -67,7 +67,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == defaultUserGroup) { ${cfg.group} = { }; };
+    users.groups = optionalAttrs (cfg.group == defaultUserGroup) {${cfg.group} = {};};
 
     # Give usbmuxd permission for Apple devices
     services.udev.extraRules = ''
@@ -76,7 +76,7 @@ in
 
     systemd.services.usbmuxd = {
       description = "usbmuxd";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       unitConfig.Documentation = "man:usbmuxd(8)";
       serviceConfig = {
         # Trigger the udev rule manually. This doesn't require replugging the

@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     SDL2
     SDL2_image
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   patches = [
     (fetchpatch {
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     description = "A chiptune tracker";
     homepage = "https://kometbomb.github.io/klystrack";
     license = licenses.mit;
-    maintainers = with maintainers; [ suhr ];
+    maintainers = with maintainers; [suhr];
     platforms = platforms.linux;
   };
 }

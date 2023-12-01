@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/OSh5AG2GJwQPSsSAyYdC/v0WYXG8/pExRsYaxP+en0=";
   };
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   buildInputs = [
     libgcrypt
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.gpl3Plus;
 
-    maintainers = with lib.maintainers; [ raskin ];
+    maintainers = with lib.maintainers; [raskin];
     platforms = lib.platforms.gnu ++ lib.platforms.linux; # arbitrary choice
   };
 }

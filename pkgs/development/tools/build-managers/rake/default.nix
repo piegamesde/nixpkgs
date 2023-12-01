@@ -7,7 +7,7 @@
 bundlerApp {
   pname = "rake";
   gemdir = ./.;
-  exes = [ "rake" ];
+  exes = ["rake"];
 
   passthru.updateScript = bundlerUpdateScript "rake";
 

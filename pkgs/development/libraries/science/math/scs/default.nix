@@ -59,6 +59,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/cvxgrp/scs";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [ maintainers.bhipple ];
+    maintainers = [maintainers.bhipple];
   };
 }

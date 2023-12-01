@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.services.snipe-it;
-  snipe-it = pkgs.snipe-it.override { dataDir = cfg.dataDir; };
+  snipe-it = pkgs.snipe-it.override {dataDir = cfg.dataDir;};
   db = cfg.database;
   mail = cfg.mail;
 
@@ -234,9 +234,9 @@ in
 
     nginx = mkOption {
       type = types.submodule (
-        recursiveUpdate (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }) { }
+        recursiveUpdate (import ../web-servers/nginx/vhost-options.nix {inherit config lib;}) {}
       );
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           serverAliases = [
@@ -286,7 +286,7 @@ in
               )
           )
         );
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           ALLOWED_IFRAME_HOSTS = "https://example.com";
@@ -331,7 +331,7 @@ in
       }
     ];
 
-    environment.systemPackages = [ artisan ];
+    environment.systemPackages = [artisan];
 
     services.snipe-it.config = {
       APP_ENV = "production";
@@ -364,7 +364,7 @@ in
     services.mysql = mkIf db.createLocally {
       enable = true;
       package = mkDefault pkgs.mariadb;
-      ensureDatabases = [ db.name ];
+      ensureDatabases = [db.name];
       ensureUsers = [
         {
           name = db.user;
@@ -425,9 +425,9 @@ in
 
     systemd.services.snipe-it-setup = {
       description = "Preparation tasks for snipe-it";
-      before = [ "phpfpm-snipe-it.service" ];
+      before = ["phpfpm-snipe-it.service"];
       after = optional db.createLocally "mysql.service";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
@@ -436,7 +436,7 @@ in
         RuntimeDirectory = "snipe-it/cache";
         RuntimeDirectoryMode = "0700";
       };
-      path = [ pkgs.replace-secret ];
+      path = [pkgs.replace-secret];
       script =
         let
           isSecret = v: isAttrs v && v ? _secret && (isString v._secret || builtins.isPath v._secret);
@@ -459,7 +459,7 @@ in
                   else
                     hashString "sha256" (builtins.readFile v._secret)
                 else
-                  throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}";
+                  throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty {}) v}";
             };
           };
           secretPaths = lib.mapAttrsToList (_: v: v._secret) (lib.filterAttrs (_: isSecret) cfg.config);
@@ -483,7 +483,7 @@ in
               (lib.filterAttrsRecursive (
                 _: v:
                 !elem v [
-                  { }
+                  {}
                   null
                 ]
               ))
@@ -559,11 +559,11 @@ in
           inherit group;
           isSystemUser = true;
         };
-        "${config.services.nginx.user}".extraGroups = [ group ];
+        "${config.services.nginx.user}".extraGroups = [group];
       };
-      groups = mkIf (group == "snipeit") { snipeit = { }; };
+      groups = mkIf (group == "snipeit") {snipeit = {};};
     };
   };
 
-  meta.maintainers = with maintainers; [ yayayayaka ];
+  meta.maintainers = with maintainers; [yayayayaka];
 }

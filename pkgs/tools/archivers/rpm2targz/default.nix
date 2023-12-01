@@ -41,13 +41,13 @@ stdenv.mkDerivation rec {
       sed -i -e '2iexport PATH="${lib.makeBinPath shdeps}"' rpm2targz
     '';
 
-  installFlags = [ "prefix=$(out)" ];
+  installFlags = ["prefix=$(out)"];
 
   meta = with lib; {
     description = "Convert a .rpm file to a .tar.gz archive";
     homepage = "http://slackware.com/config/packages.php";
     license = licenses.bsd1;
-    maintainers = with maintainers; [ zseri ];
+    maintainers = with maintainers; [zseri];
     platforms = platforms.all;
   };
 }

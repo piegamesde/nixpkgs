@@ -76,7 +76,7 @@ in
       archives = mkOption {
         type = types.attrsOf (
           types.submodule (
-            { config, options, ... }:
+            {config, options, ...}:
             {
               options = {
                 keyfile = mkOption {
@@ -178,13 +178,13 @@ in
 
                 directories = mkOption {
                   type = types.listOf types.path;
-                  default = [ ];
+                  default = [];
                   description = lib.mdDoc "List of filesystem paths to archive.";
                 };
 
                 excludes = mkOption {
                   type = types.listOf types.str;
-                  default = [ ];
+                  default = [];
                   description = lib.mdDoc ''
                     Exclude files and directories matching these patterns.
                   '';
@@ -192,7 +192,7 @@ in
 
                 includes = mkOption {
                   type = types.listOf types.str;
-                  default = [ ];
+                  default = [];
                   description = lib.mdDoc ''
                     Include only files and directories matching these
                     patterns (the empty list includes everything).
@@ -275,7 +275,7 @@ in
           )
         );
 
-        default = { };
+        default = {};
 
         example = literalExpression ''
           {
@@ -311,7 +311,7 @@ in
     assertions =
       (mapAttrsToList
         (name: cfg: {
-          assertion = cfg.directories != [ ];
+          assertion = cfg.directories != [];
           message = "Must specify paths for tarsnap to back up";
         })
         gcfg.archives
@@ -330,8 +330,8 @@ in
           name: cfg:
           nameValuePair "tarsnap-${name}" {
             description = "Tarsnap archive '${name}'";
-            requires = [ "network-online.target" ];
-            after = [ "network-online.target" ];
+            requires = ["network-online.target"];
+            after = ["network-online.target"];
 
             path = with pkgs; [
               iputils
@@ -382,7 +382,7 @@ in
               Type = "oneshot";
               IOSchedulingClass = "idle";
               NoNewPrivileges = "true";
-              CapabilityBoundingSet = [ "CAP_DAC_READ_SEARCH" ];
+              CapabilityBoundingSet = ["CAP_DAC_READ_SEARCH"];
               PermissionsStartOnly = "true";
             };
           }
@@ -396,7 +396,7 @@ in
             name: cfg:
             nameValuePair "tarsnap-restore-${name}" {
               description = "Tarsnap restore '${name}'";
-              requires = [ "network-online.target" ];
+              requires = ["network-online.target"];
 
               path = with pkgs; [
                 iputils
@@ -435,7 +435,7 @@ in
                 Type = "oneshot";
                 IOSchedulingClass = "idle";
                 NoNewPrivileges = "true";
-                CapabilityBoundingSet = [ "CAP_DAC_READ_SEARCH" ];
+                CapabilityBoundingSet = ["CAP_DAC_READ_SEARCH"];
                 PermissionsStartOnly = "true";
               };
             }
@@ -452,15 +452,15 @@ in
           nameValuePair "tarsnap-${name}" {
             timerConfig.OnCalendar = cfg.period;
             timerConfig.Persistent = "true";
-            wantedBy = [ "timers.target" ];
+            wantedBy = ["timers.target"];
           }
         )
         gcfg.archives;
 
     environment.etc =
-      mapAttrs' (name: cfg: nameValuePair "tarsnap/${name}.conf" { text = configFile name cfg; })
+      mapAttrs' (name: cfg: nameValuePair "tarsnap/${name}.conf" {text = configFile name cfg;})
         gcfg.archives;
 
-    environment.systemPackages = [ pkgs.tarsnap ];
+    environment.systemPackages = [pkgs.tarsnap];
   };
 }

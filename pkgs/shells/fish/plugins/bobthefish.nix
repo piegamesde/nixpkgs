@@ -18,6 +18,6 @@ buildFishPlugin rec {
     description = "A Powerline-style, Git-aware fish theme optimized for awesome";
     homepage = "https://github.com/oh-my-fish/theme-bobthefish";
     license = licenses.mit;
-    maintainers = with maintainers; [ Scrumplex ];
+    maintainers = with maintainers; [Scrumplex];
   };
 }

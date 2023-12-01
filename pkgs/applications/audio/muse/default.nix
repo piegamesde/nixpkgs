@@ -33,13 +33,13 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "muse-sequencer";
     repo = "muse";
-    rev = "muse_${builtins.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "muse_${builtins.replaceStrings ["."] ["_"] version}";
     sha256 = "1rasp2v1ds2aw296lbf27rzw0l9fjl0cvbvw85d5ycvh6wkm301p";
   };
 
   sourceRoot = "source/muse3";
 
-  patches = [ ./fix-parallel-building.patch ];
+  patches = [./fix-parallel-building.patch];
 
   nativeBuildInputs = [
     cmake
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     sord
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-I${lib.getDev serd}/include/serd-0" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-I${lib.getDev serd}/include/serd-0"];
 
   meta = with lib; {
     homepage = "https://muse-sequencer.github.io/";
@@ -82,6 +82,6 @@ stdenv.mkDerivation rec {
       it is published under the GNU General Public License.
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

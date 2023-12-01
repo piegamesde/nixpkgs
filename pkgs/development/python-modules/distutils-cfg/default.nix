@@ -29,7 +29,7 @@ in
 stdenv.mkDerivation {
   name = "${python.libPrefix}-distutils.cfg";
 
-  buildInputs = [ python ];
+  buildInputs = [python];
 
   dontUnpack = true;
 

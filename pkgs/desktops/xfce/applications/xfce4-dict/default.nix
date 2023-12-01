@@ -16,9 +16,9 @@ mkXfceDerivation {
 
   sha256 = "sha256-sU9V2cQUFG5571c7xrVSDCxanAbbnCUg2YLZ2uzoPJ0=";
 
-  patches = [ ./configure-gio.patch ];
+  patches = [./configure-gio.patch];
 
-  nativeBuildInputs = [ automakeAddFlags ];
+  nativeBuildInputs = [automakeAddFlags];
 
   postPatch = ''
     automakeAddFlags lib/Makefile.am libdict_la_CFLAGS GIO_CFLAGS
@@ -34,6 +34,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "A Dictionary Client for the Xfce desktop environment";
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    maintainers = with maintainers; [] ++ teams.xfce.members;
   };
 }

@@ -17,7 +17,7 @@ stdenvNoCC.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -31,9 +31,9 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "RISC-V Assembler and Runtime Simulator";
     homepage = "https://github.com/TheThirdOne/rars";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.mit;
-    maintainers = with maintainers; [ athas ];
+    maintainers = with maintainers; [athas];
     platforms = platforms.all;
   };
 }

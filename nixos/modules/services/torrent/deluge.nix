@@ -65,7 +65,7 @@ in
 
         config = mkOption {
           type = types.attrs;
-          default = { };
+          default = {};
           example = literalExpression ''
             {
               download_location = "/srv/torrents/";
@@ -155,7 +155,7 @@ in
 
         extraPackages = mkOption {
           type = types.listOf types.package;
-          default = [ ];
+          default = [];
           description = lib.mdDoc ''
             Extra packages available at runtime to enable Deluge's plugins. For example,
             extraction utilities are required for the built-in "Extractor" plugin.
@@ -234,10 +234,10 @@ in
           "d '${cfg.config.move_completed_path}' 0770 ${cfg.user} ${cfg.group}";
 
     systemd.services.deluged = {
-      after = [ "network.target" ];
+      after = ["network.target"];
       description = "Deluge BitTorrent Daemon";
-      wantedBy = [ "multi-user.target" ];
-      path = [ cfg.package ] ++ cfg.extraPackages;
+      wantedBy = ["multi-user.target"];
+      path = [cfg.package] ++ cfg.extraPackages;
       serviceConfig = {
         ExecStart = ''
           ${cfg.package}/bin/deluged \
@@ -260,10 +260,10 @@ in
         "network.target"
         "deluged.service"
       ];
-      requires = [ "deluged.service" ];
+      requires = ["deluged.service"];
       description = "Deluge BitTorrent WebUI";
-      wantedBy = [ "multi-user.target" ];
-      path = [ cfg.package ];
+      wantedBy = ["multi-user.target"];
+      path = [cfg.package];
       serviceConfig = {
         ExecStart = ''
           ${cfg.package}/bin/deluge-web \
@@ -281,10 +281,10 @@ in
         allowedTCPPortRanges = singleton (listToRange (cfg.config.listen_ports or listenPortsDefault));
         allowedUDPPortRanges = singleton (listToRange (cfg.config.listen_ports or listenPortsDefault));
       })
-      (mkIf (cfg.web.openFirewall) { allowedTCPPorts = [ cfg.web.port ]; })
+      (mkIf (cfg.web.openFirewall) {allowedTCPPorts = [cfg.web.port];})
     ];
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     users.users = mkIf (cfg.user == "deluge") {
       deluge = {

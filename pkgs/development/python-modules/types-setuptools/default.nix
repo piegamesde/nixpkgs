@@ -17,12 +17,12 @@ buildPythonPackage rec {
   # Module doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [ "setuptools-stubs" ];
+  pythonImportsCheck = ["setuptools-stubs"];
 
   meta = with lib; {
     description = "Typing stubs for setuptools";
     homepage = "https://github.com/python/typeshed";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "0hc1fjfbfvggl72zqx27v4wy84f5m7bp4dnwd8g41aw8lgynbgaq";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gmp
     redland
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "An HTTP interface to Redland RDF store";
     homepage = "https://www.aelius.com/njh/redstore/";
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = with lib.platforms; linux ++ freebsd ++ gnu;
     license = lib.licenses.gpl3Plus;
   };

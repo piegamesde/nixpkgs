@@ -31,13 +31,13 @@ buildPythonPackage rec {
   # Project has no tests, only a test script which looks like anusage example
   doCheck = false;
 
-  pythonImportsCheck = [ "pyskyqremote" ];
+  pythonImportsCheck = ["pyskyqremote"];
 
   meta = with lib; {
     description = "Python module for accessing SkyQ boxes";
     homepage = "https://github.com/RogerSelwyn/skyq_remote";
     changelog = "https://github.com/RogerSelwyn/skyq_remote/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

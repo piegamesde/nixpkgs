@@ -65,7 +65,7 @@
 }:
 
 let
-  pythonEnv = python3.withPackages (ps: with ps; [ pygobject3 ]);
+  pythonEnv = python3.withPackages (ps: with ps; [pygobject3]);
 in
 stdenv.mkDerivation rec {
   pname = "gnome-shell";

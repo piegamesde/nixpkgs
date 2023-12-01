@@ -15,7 +15,7 @@ buildPythonPackage rec {
   };
 
   LC_ALL = "en_US.UTF-8";
-  buildInputs = [ glibcLocales ];
+  buildInputs = [glibcLocales];
 
   meta = with lib; {
     description = "A simple Python module for parsing human names into their individual components";

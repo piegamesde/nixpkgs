@@ -14,9 +14,9 @@ stdenv.mkDerivation rec {
     sha256 = "1hvamrgagz0xi89w8qafyd9mjrdpyika8zm22drddnjkp4sdj65n";
   };
 
-  buildInputs = [ gsl ];
+  buildInputs = [gsl];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/est-usfs";
     description = "Estimate the unfolded site frequency spectrum and ancestral states";
     license = licenses.gpl3;
-    maintainers = [ maintainers.bzizou ];
+    maintainers = [maintainers.bzizou];
     platforms = platforms.all;
   };
 }

@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
     sha256 = "11a1rdgb8wagikhxgm81g80g5qsl59mv4qgsval3isykqh8729bj";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
-  makeFlags = [ "CC:=$(CC)" ];
+  makeFlags = ["CC:=$(CC)"];
 
   installPhase = ''
     runHook preInstall
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
       fullName = shortName;
       url = "https://github.com/eyJhb/sl/blob/master/LICENSE";
     };
-    maintainers = with maintainers; [ eyjhb ];
+    maintainers = with maintainers; [eyjhb];
     platforms = platforms.unix;
   };
 }

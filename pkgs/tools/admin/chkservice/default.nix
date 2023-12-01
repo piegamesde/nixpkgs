@@ -46,12 +46,12 @@ stdenv.mkDerivation rec {
     ncurses
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = {
     description = "chkservice is a tool for managing systemd units in terminal.";
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ infinisil ];
+    maintainers = with lib.maintainers; [infinisil];
     license = lib.licenses.gpl3Plus;
     homepage = "https://github.com/linuxenko/chkservice";
   };

@@ -46,7 +46,7 @@ stdenv.mkDerivation {
     description = "An array language from Nial Systems";
     homepage = "https://github.com/vrthra/qnial";
     license = lib.licenses.artistic1;
-    maintainers = [ lib.maintainers.vrthra ];
+    maintainers = [lib.maintainers.vrthra];
     platforms = lib.platforms.linux;
   };
 }

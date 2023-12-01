@@ -14,7 +14,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-9HIs50ZGoTfGixD9c/DQs0KJMQtmfsDVB8qRMnQtXNw=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libwmf
@@ -28,6 +28,6 @@ stdenv.mkDerivation {
 
     license = lib.licenses.gpl2Only;
 
-    maintainers = [ lib.maintainers.shlevy ];
+    maintainers = [lib.maintainers.shlevy];
   };
 }

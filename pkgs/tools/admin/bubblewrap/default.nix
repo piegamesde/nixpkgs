@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     description = "Unprivileged sandboxing tool";
     homepage = "https://github.com/containers/bubblewrap";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     platforms = platforms.linux;
     mainProgram = "bwrap";
   };

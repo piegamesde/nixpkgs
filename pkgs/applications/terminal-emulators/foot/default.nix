@@ -46,14 +46,14 @@ let
 
     dontUnpack = true;
 
-    buildInputs = [ python3 ];
+    buildInputs = [python3];
 
     installPhase = ''
       install -Dm755 $src $out
     '';
   };
 
-  stimuliFile = runCommand "pgo-stimulus-file" { } ''
+  stimuliFile = runCommand "pgo-stimulus-file" {} ''
     ${stimulusGenerator} \
       --rows=67 --cols=135 \
       --scroll --scroll-region \
@@ -108,7 +108,7 @@ stdenv.mkDerivation rec {
     sha256 = "1187805pxygyl547w75i4cl37kaw8y8ng11r5qqldv6fm74k31mk";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     wayland-scanner
@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
     ncurses
     scdoc
     pkg-config
-  ] ++ lib.optionals (compilerName == "clang") [ stdenv.cc.cc.libllvm.out ];
+  ] ++ lib.optionals (compilerName == "clang") [stdenv.cc.cc.libllvm.out];
 
   buildInputs = [
     tllist
@@ -188,17 +188,17 @@ stdenv.mkDerivation rec {
   ];
 
   passthru.tests = {
-    clang-default-compilation = foot.override { inherit (llvmPackages) stdenv; };
+    clang-default-compilation = foot.override {inherit (llvmPackages) stdenv;};
 
-    clang-latest-compilation = foot.override { inherit (llvmPackages_latest) stdenv; };
+    clang-latest-compilation = foot.override {inherit (llvmPackages_latest) stdenv;};
 
-    noPgo = foot.override { allowPgo = false; };
+    noPgo = foot.override {allowPgo = false;};
 
     # By changing name, this will get rebuilt everytime we change version,
     # even if the hash stays the same. Consequently it'll fail if we introduce
     # a hash mismatch when updating.
     stimulus-script-is-current = stimulusGenerator.src.overrideAttrs (
-      _: { name = "generate-alt-random-writes-${version}.py"; }
+      _: {name = "generate-alt-random-writes-${version}.py";}
     );
   };
 
@@ -207,7 +207,7 @@ stdenv.mkDerivation rec {
     changelog = "https://codeberg.org/dnkl/foot/releases/tag/${version}";
     description = "A fast, lightweight and minimalistic Wayland terminal emulator";
     license = licenses.mit;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
     platforms = platforms.linux;
     # From (presumably) ncurses version 6.3, it will ship a foot
     # terminfo file. This however won't include some non-standard

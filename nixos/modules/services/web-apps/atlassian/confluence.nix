@@ -11,7 +11,7 @@ let
 
   cfg = config.services.confluence;
 
-  pkg = cfg.package.override (optionalAttrs cfg.sso.enable { enableSSO = cfg.sso.enable; });
+  pkg = cfg.package.override (optionalAttrs cfg.sso.enable {enableSSO = cfg.sso.enable;});
 
   crowdProperties = pkgs.writeText "crowd.properties" ''
     application.name                        ${cfg.sso.applicationName}
@@ -70,7 +70,7 @@ in
 
       catalinaOptions = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "-Xms1024m"
           "-Xmx2048m"
@@ -178,7 +178,7 @@ in
       "Using `services.confluence.sso.applicationPassword` is deprecated! Use `applicationPasswordFile` instead!"
     ];
 
-    users.groups.${cfg.group} = { };
+    users.groups.${cfg.group} = {};
 
     systemd.tmpfiles.rules = [
       "d '${cfg.home}' - ${cfg.user} - - -"
@@ -194,9 +194,9 @@ in
     systemd.services.confluence = {
       description = "Atlassian Confluence";
 
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "postgresql.service" ];
-      after = [ "postgresql.service" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["postgresql.service"];
+      after = ["postgresql.service"];
 
       path = [
         cfg.jrePackage

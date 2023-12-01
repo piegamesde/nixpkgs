@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     libglvnd
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
   makeFlags = [
     "SYSDEPS=true"
     "PREFIX=$(out)"
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/Cardinal \
-    --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libjack2 ]}
+    --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [libjack2]}
 
     # this doesn't work and is mainly just a test tool for the developers anyway.
     rm -f $out/bin/CardinalNative
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
     description = "Plugin wrapper around VCV Rack";
     homepage = "https://github.com/DISTRHO/cardinal";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.magnetophon ];
+    maintainers = [lib.maintainers.magnetophon];
     platforms = lib.platforms.all;
     # never built on aarch64-darwin, x86_64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin;

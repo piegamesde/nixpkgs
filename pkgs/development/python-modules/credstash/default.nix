@@ -33,7 +33,7 @@ buildPythonPackage rec {
   # file ensures that Python imports the module from site-packages library.
   postInstall = "rm $out/bin/credstash.py";
 
-  nativeBuildInputs = [ pytest ];
+  nativeBuildInputs = [pytest];
 
   propagatedBuildInputs = [
     cryptography

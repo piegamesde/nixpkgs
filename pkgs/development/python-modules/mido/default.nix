@@ -25,16 +25,16 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ python-rtmidi ];
+  propagatedBuildInputs = [python-rtmidi];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "mido" ];
+  pythonImportsCheck = ["mido"];
 
   meta = with lib; {
     description = "MIDI Objects for Python";
     homepage = "https://mido.readthedocs.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

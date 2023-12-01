@@ -27,12 +27,12 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "apkleaks" ];
+  pythonImportsCheck = ["apkleaks"];
 
   meta = with lib; {
     description = "Scanning APK file for URIs, endpoints and secrets";
     homepage = "https://github.com/dwisiswant0/apkleaks";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

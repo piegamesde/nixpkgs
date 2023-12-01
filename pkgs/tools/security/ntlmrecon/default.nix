@@ -25,12 +25,12 @@ python3.pkgs.buildPythonApplication rec {
 
   # Project has no tests
   doCheck = false;
-  pythonImportsCheck = [ "ntlmrecon" ];
+  pythonImportsCheck = ["ntlmrecon"];
 
   meta = with lib; {
     description = "Information enumerator for NTLM authentication enabled web endpoints";
     homepage = "https://github.com/pwnfoo/NTLMRecon";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -10,10 +10,10 @@ symlinkJoin {
   preferLocalBuild = true;
   allowSubstitutes = false;
 
-  buildInputs = [ R ] ++ recommendedPackages ++ packages;
-  paths = [ R ];
+  buildInputs = [R] ++ recommendedPackages ++ packages;
+  paths = [R];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     cd ${R}/bin
@@ -32,7 +32,7 @@ symlinkJoin {
 
   meta = R.meta // {
     # To prevent builds on hydra
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
     # prefer wrapper over the package
     priority = (R.meta.priority or 0) - 1;
   };

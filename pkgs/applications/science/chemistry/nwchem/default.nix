@@ -70,8 +70,8 @@ stdenv.mkDerivation rec {
     lapack
     python3
   ];
-  propagatedBuildInputs = [ mpi ];
-  propagatedUserEnvPkgs = [ mpi ];
+  propagatedBuildInputs = [mpi];
+  propagatedUserEnvPkgs = [mpi];
 
   postUnpack = ''
     cp -r ${ga_src}/ source/src/tools/ga-${versionGA}
@@ -189,7 +189,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Open Source High-Performance Computational Chemistry";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     maintainers = with maintainers; [
       sheepforce
       markuskowa

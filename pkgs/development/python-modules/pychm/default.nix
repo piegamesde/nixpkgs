@@ -15,14 +15,14 @@ buildPythonPackage rec {
     sha256 = "0wpn9ijlsmrpyiwg3drmgz4dms1i1i347adgqw37bkrh3vn6yq16";
   };
 
-  buildInputs = [ chmlib ];
+  buildInputs = [chmlib];
 
-  pythonImportsCheck = [ "chm" ];
+  pythonImportsCheck = ["chm"];
 
   meta = with lib; {
     description = "Library to manipulate Microsoft HTML Help (CHM) files";
     homepage = "https://github.com/dottedmag/pychm";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ alexshpilkin ];
+    maintainers = with maintainers; [alexshpilkin];
   };
 }

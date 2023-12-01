@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "esrap-peg";
   version = "20191007-git";
@@ -21,7 +21,7 @@ rec {
 
   packageName = "esrap-peg";
 
-  asdFilesToKeep = [ "esrap-peg.asd" ];
+  asdFilesToKeep = ["esrap-peg.asd"];
   overrides = x: x;
 }
 /* (SYSTEM esrap-peg DESCRIPTION

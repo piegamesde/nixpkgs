@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     cfitsio
     python3Env
     ncurses
-  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ CoreFoundation ]);
+  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [CoreFoundation]);
 
   patches = [
     ./wrapper.patch

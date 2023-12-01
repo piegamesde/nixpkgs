@@ -73,7 +73,7 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  pytestFlagsArray = [ "datashader" ];
+  pytestFlagsArray = ["datashader"];
 
   disabledTests = [
     # Not compatible with current version of bokeh
@@ -90,12 +90,12 @@ buildPythonPackage rec {
       "datashader/tests/test_datatypes.py"
     ];
 
-  pythonImportsCheck = [ "datashader" ];
+  pythonImportsCheck = ["datashader"];
 
   meta = with lib; {
     description = "Data visualization toolchain based on aggregating into a grid";
     homepage = "https://datashader.org";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

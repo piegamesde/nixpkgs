@@ -21,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-Ns5jrVfTAA7NuvUok3/13nIpXSSVZ6WRkgHyTuxkSKA=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   nativeCheckInputs = [
     pytest-mock
@@ -41,6 +41,6 @@ buildPythonPackage rec {
     description = "hatch plugin to help build Jupyter packages";
     homepage = "https://github.com/jupyterlab/hatch-jupyter-builder";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

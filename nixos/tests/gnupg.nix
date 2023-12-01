@@ -1,15 +1,15 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   {
     name = "gnupg";
-    meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };
+    meta = with lib.maintainers; {maintainers = [rnhmjoj];};
 
     # server for testing SSH
     nodes.server =
-      { ... }:
+      {...}:
       {
-        imports = [ ../modules/profiles/minimal.nix ];
+        imports = [../modules/profiles/minimal.nix];
 
         users.users.alice.isNormalUser = true;
         services.openssh.enable = true;
@@ -17,9 +17,9 @@ import ./make-test-python.nix (
 
     # machine for testing GnuPG
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        imports = [ ../modules/profiles/minimal.nix ];
+        imports = [../modules/profiles/minimal.nix];
 
         users.users.alice.isNormalUser = true;
         services.getty.autologinUser = "alice";

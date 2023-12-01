@@ -16,7 +16,7 @@ buildGoModule rec {
   };
 
   vendorHash = "sha256-s3HHoz9URACuVVhePQQFviTqlQU7vCLOjTJPBlus1Vo=";
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Daemon used to serve static websites for GitLab users";

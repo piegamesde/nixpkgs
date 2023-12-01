@@ -33,12 +33,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aiosasl" ];
+  pythonImportsCheck = ["aiosasl"];
 
   meta = {
     description = "Asyncio SASL library";
     homepage = "https://github.com/horazont/aiosasl";
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

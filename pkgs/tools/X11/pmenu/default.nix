@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/phillbush/pmenu";
     license = licenses.mit;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
     platforms = platforms.unix;
   };
 }

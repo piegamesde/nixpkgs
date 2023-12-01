@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "1p32hkghi6bkc3cf2dcqyaw5cjj7403mykcp0fy8f5bsnv0pszv7";
   };
 
-  patches = [ ./gcj-type-mismatch.patch ];
+  patches = [./gcj-type-mismatch.patch];
 
   hardeningDisable = [
     "fortify"
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     ln -sv "${xbeans}" "build/tmp-xbean/xbean.zip"
   '';
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
   buildInputs = [
     ant
     javac

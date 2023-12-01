@@ -20,7 +20,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Tool to analyse binaries for missing security features";
     homepage = "https://github.com/liamg/extrude";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

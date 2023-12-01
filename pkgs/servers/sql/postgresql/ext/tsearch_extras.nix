@@ -16,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "18j0saqblg3jhrz38splk173xjwdf32c67ymm18m8n5y94h8d2ba";
   };
 
-  buildInputs = [ postgresql ];
+  buildInputs = [postgresql];
 
   installPhase = ''
     install -D tsearch_extras.so -t $out/lib/
@@ -28,6 +28,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/zulip/tsearch_extras/";
     license = licenses.postgresql;
     platforms = postgresql.meta.platforms;
-    maintainers = with maintainers; [ DerTim1 ];
+    maintainers = with maintainers; [DerTim1];
   };
 }

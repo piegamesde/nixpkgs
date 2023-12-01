@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
 
   with lib;
   let
@@ -7,11 +7,11 @@ import ./make-test-python.nix (
   in
   {
     name = "convos";
-    meta = with pkgs.lib.maintainers; { maintainers = [ sgo ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [sgo];};
 
     nodes = {
       machine =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           services.convos = {
             enable = true;

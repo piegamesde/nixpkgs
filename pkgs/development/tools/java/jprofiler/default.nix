@@ -24,21 +24,21 @@ let
     '';
     homepage = "https://www.ej-technologies.com/products/jprofiler/overview.html";
     license = licenses.unfree;
-    maintainers = with maintainers; [ catap ];
+    maintainers = with maintainers; [catap];
   };
 
   src =
     if stdenv.isLinux then
       fetchurl {
         url = "https://download-gcdn.ej-technologies.com/jprofiler/jprofiler_linux_${
-          lib.replaceStrings [ "." ] [ "_" ] version
+          lib.replaceStrings ["."] ["_"] version
         }.tar.gz";
         hash = "sha256-orjBSaC7NvKcak+RSEa9V05oL3EZIBnp7TyaX/8XFyg=";
       }
     else
       fetchurl {
         url = "https://download-gcdn.ej-technologies.com/jprofiler/jprofiler_macos_${
-          lib.replaceStrings [ "." ] [ "_" ] version
+          lib.replaceStrings ["."] ["_"] version
         }.dmg";
         hash = "sha256-OI6NSPqYws5Rv25U5jIPzkyJtB8LF04qHB3NPR9XBWg=";
       };
@@ -55,7 +55,7 @@ let
     comment = meta.description;
     desktopName = nameApp;
     genericName = "Java Profiler Tool";
-    categories = [ "Development" ];
+    categories = ["Development"];
   };
 
   linux = stdenv.mkDerivation {

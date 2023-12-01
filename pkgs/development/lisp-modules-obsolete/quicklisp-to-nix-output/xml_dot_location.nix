@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "xml_dot_location";
   version = "20200325-git";
 
-  parasites = [ "xml.location/test" ];
+  parasites = ["xml.location/test"];
 
   description = ''
     This system provides a convenient interface for
@@ -39,7 +39,7 @@ rec {
 
   packageName = "xml.location";
 
-  asdFilesToKeep = [ "xml.location.asd" ];
+  asdFilesToKeep = ["xml.location.asd"];
   overrides = x: x;
 }
 /* (SYSTEM xml.location DESCRIPTION

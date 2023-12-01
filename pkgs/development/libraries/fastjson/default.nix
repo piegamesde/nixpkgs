@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     autoconf
     automake
   ];
-  buildInputs = [ libtool ];
+  buildInputs = [libtool];
 
   preConfigure = ''
     sh autogen.sh
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     description = "A fast json library for C";
     homepage = "https://github.com/rsyslog/libfastjson";
     license = licenses.mit;
-    maintainers = with maintainers; [ nequissimus ];
+    maintainers = with maintainers; [nequissimus];
     platforms = with platforms; unix;
   };
 }

@@ -29,12 +29,12 @@ buildPythonPackage rec {
   # Hardcoded mpirun path in tests
   doCheck = false;
 
-  pythonImportsCheck = [ "dask_mpi" ];
+  pythonImportsCheck = ["dask_mpi"];
 
   meta = with lib; {
     description = "Deploy Dask using mpi4py";
     homepage = "https://github.com/dask/dask-mpi";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

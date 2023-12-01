@@ -23,20 +23,20 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-AwixlCL5ZcLgj9wYeBvkSy2U6J8alXf488l8DMn73w4=";
 
-  buildInputs = if stdenv.isDarwin then [ Security ] else [ openssl ];
+  buildInputs = if stdenv.isDarwin then [Security] else [openssl];
 
-  nativeBuildInputs = lib.optionals (!stdenv.isDarwin) [ pkg-config ];
+  nativeBuildInputs = lib.optionals (!stdenv.isDarwin) [pkg-config];
 
   OPENSSL_NO_VENDOR = 1;
 
   doCheck = false; # tries to access network to test broken web link functionality
 
-  passthru.tests.version = testers.testVersion { package = mdbook-linkcheck; };
+  passthru.tests.version = testers.testVersion {package = mdbook-linkcheck;};
 
   meta = with lib; {
     description = "A backend for `mdbook` which will check your links for you.";
     homepage = "https://github.com/Michael-F-Bryan/mdbook-linkcheck";
     license = licenses.mit;
-    maintainers = with maintainers; [ zhaofengli ];
+    maintainers = with maintainers; [zhaofengli];
   };
 }

@@ -28,11 +28,11 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ fftw ];
+  buildInputs = [fftw];
 
-  nativeCheckInputs = [ catch2 ];
+  nativeCheckInputs = [catch2];
 
   doCheck = true;
 

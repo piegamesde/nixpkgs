@@ -18,16 +18,16 @@ buildPythonPackage rec {
     sha256 = "1cglkxph47pki4db4kjx5g4ikxp2milqdlcjgqwmx4p1gx6p1q3v";
   };
 
-  propagatedBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "sentinels" ];
+  pythonImportsCheck = ["sentinels"];
 
   meta = with lib; {
     homepage = "https://github.com/vmalloc/sentinels/";
     description = "Various objects to denote special meanings in python";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

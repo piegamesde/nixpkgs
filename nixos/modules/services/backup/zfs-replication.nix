@@ -62,7 +62,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.lz4 ];
+    environment.systemPackages = [pkgs.lz4];
 
     systemd.services.zfs-replication = {
       after = [
@@ -73,7 +73,7 @@ in
         "zfs-snapshot-weekly.service"
       ];
       description = "ZFS Snapshot Replication";
-      documentation = [ "https://github.com/alunduil/zfs-replicate" ];
+      documentation = ["https://github.com/alunduil/zfs-replicate"];
       restartIfChanged = false;
       serviceConfig.ExecStart = "${pkgs.zfs-replicate}/bin/zfs-replicate${recursive} -l ${escapeShellArg cfg.username} -i ${escapeShellArg cfg.identityFilePath}${followDelete} ${escapeShellArg cfg.host} ${escapeShellArg cfg.remoteFilesystem} ${escapeShellArg cfg.localFilesystem}";
       wantedBy = [
@@ -87,6 +87,6 @@ in
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ alunduil ];
+    maintainers = with lib.maintainers; [alunduil];
   };
 }

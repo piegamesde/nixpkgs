@@ -1,4 +1,4 @@
-{ fetchMaven }:
+{fetchMaven}:
 
 {
   mavenReportingApi_2_0_1 =

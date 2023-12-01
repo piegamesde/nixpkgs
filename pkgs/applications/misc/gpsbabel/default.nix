@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "gpsbabel";
     repo = "gpsbabel";
-    rev = "gpsbabel_${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "gpsbabel_${lib.replaceStrings ["."] ["_"] version}";
     sha256 = "sha256-0w8LsO+HwqZF8SQmwd8bCKma9PCM0hAzXhzWR4DgAHs=";
   };
 
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
         --replace /usr/share/doc $doc/share/doc
     '';
 
-  outputs = [ "out" ] ++ lib.optional withDoc "doc";
+  outputs = ["out"] ++ lib.optional withDoc "doc";
 
   nativeBuildInputs =
     [
@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
     "WITH_LIBUSB=pkgconfig"
     "WITH_SHAPELIB=pkgconfig"
     "WITH_ZLIB=pkgconfig"
-  ] ++ lib.optionals (withGUI && !withMapPreview) [ "CONFIG+=disable-mappreview" ];
+  ] ++ lib.optionals (withGUI && !withMapPreview) ["CONFIG+=disable-mappreview"];
 
   makeFlags =
     lib.optional withGUI "gui"
@@ -178,6 +178,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gpsbabel.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

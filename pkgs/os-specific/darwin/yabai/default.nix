@@ -56,7 +56,7 @@ in
       sha256 = "sha256-wL6N2+mfFISrOFn4zaCQI+oH6ixwUMRKRi1dAOigBro=";
     };
 
-    nativeBuildInputs = [ installShellFiles ];
+    nativeBuildInputs = [installShellFiles];
 
     dontConfigure = true;
     dontBuild = true;
@@ -74,7 +74,7 @@ in
     passthru.tests.version = test-version;
 
     meta = _meta // {
-      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     };
   };
 
@@ -134,7 +134,7 @@ in
     passthru.tests.version = test-version;
 
     meta = _meta // {
-      sourceProvenance = with lib.sourceTypes; [ fromSource ];
+      sourceProvenance = with lib.sourceTypes; [fromSource];
     };
   };
 }

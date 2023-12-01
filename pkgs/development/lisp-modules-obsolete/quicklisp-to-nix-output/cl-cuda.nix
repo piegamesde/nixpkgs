@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-cuda";
   version = "20210807-git";
@@ -33,7 +33,7 @@ rec {
 
   packageName = "cl-cuda";
 
-  asdFilesToKeep = [ "cl-cuda.asd" ];
+  asdFilesToKeep = ["cl-cuda.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-cuda DESCRIPTION

@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     libffi
     llvm
     zlib
-  ] ++ lib.optionals stdenv.isLinux [ elfutils ] ++ lib.optionals (!stdenv.isLinux) [ libelf ];
+  ] ++ lib.optionals stdenv.isLinux [elfutils] ++ lib.optionals (!stdenv.isLinux) [libelf];
 
   preConfigure = ''
     mkdir build
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     description = "VHDL compiler and simulator";
     homepage = "https://www.nickg.me.uk/nvc/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.unix;
   };
 }

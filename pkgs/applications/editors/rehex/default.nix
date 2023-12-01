@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     pkg-config
     which
     zip
-  ] ++ lib.optionals stdenv.isDarwin [ libicns ];
+  ] ++ lib.optionals stdenv.isDarwin [libicns];
 
   buildInputs =
     [
@@ -54,16 +54,14 @@ stdenv.mkDerivation rec {
         TemplateToolkit
       ]
     )
-    ++ lib.optionals stdenv.isLinux [ gtk3 ]
+    ++ lib.optionals stdenv.isLinux [gtk3]
     ++ lib.optionals stdenv.isDarwin [
       Carbon
       Cocoa
       IOKit
     ];
 
-  makeFlags = [
-    "prefix=${placeholder "out"}"
-  ] ++ lib.optionals stdenv.isDarwin [ "-f Makefile.osx" ];
+  makeFlags = ["prefix=${placeholder "out"}"] ++ lib.optionals stdenv.isDarwin ["-f Makefile.osx"];
 
   enableParallelBuilding = true;
 

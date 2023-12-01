@@ -25,6 +25,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ pkgs.motif ];
+    environment.systemPackages = [pkgs.motif];
   };
 }

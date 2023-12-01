@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "0hnyv3206r0rfprn3k7k6a0j959kagsfyrmyjm3gsf3vkhp5zmy1";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     glib
     libogg
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     libmad
   ];
 
-  makeFlags = [ "AR:=$(AR)" ];
+  makeFlags = ["AR:=$(AR)"];
 
   meta = with lib; {
     homepage = "https://streamripper.sourceforge.net/";

@@ -68,9 +68,9 @@ stdenv.mkDerivation (
       make -C pjsip-apps/src/swig/python
     '';
 
-    configureFlags = [ "--enable-shared" ];
+    configureFlags = ["--enable-shared"];
 
-    outputs = [ "out" ] ++ lib.optional pythonSupport "py";
+    outputs = ["out"] ++ lib.optional pythonSupport "py";
 
     postInstall =
       ''
@@ -132,15 +132,15 @@ stdenv.mkDerivation (
       moduleName = "libpjproject";
     };
 
-    passthru.tests.python-pjsua2 = runCommand "python-pjsua2" { } ''
-      ${(python3.withPackages (pkgs: [ pkgs.pjsua2 ])).interpreter} -c "import pjsua2" > $out
+    passthru.tests.python-pjsua2 = runCommand "python-pjsua2" {} ''
+      ${(python3.withPackages (pkgs: [pkgs.pjsua2])).interpreter} -c "import pjsua2" > $out
     '';
 
     meta = with lib; {
       description = "A multimedia communication library written in C, implementing standard based protocols such as SIP, SDP, RTP, STUN, TURN, and ICE";
       homepage = "https://pjsip.org/";
       license = licenses.gpl2Plus;
-      maintainers = with maintainers; [ olynch ];
+      maintainers = with maintainers; [olynch];
       mainProgram = "pjsua";
       platforms = platforms.linux ++ platforms.darwin;
     };

@@ -16,11 +16,11 @@ buildPythonPackage rec {
     hash = "sha256-OyfcXCcbvOOhBUkbAba3ayPzpH5z2nJWHbR6GcrCMy8=";
   };
 
-  propagatedBuildInputs = [ csdr ];
+  propagatedBuildInputs = [csdr];
 
   # has no tests
   doCheck = false;
-  pythonImportsCheck = [ "pycsdr" ];
+  pythonImportsCheck = ["pycsdr"];
 
   meta = {
     homepage = "https://github.com/jketterl/pycsdr";

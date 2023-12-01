@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
     homepage = "https://radare.org/n/iaito.html";
     changelog = "https://github.com/radareorg/iaito/releases/tag/${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
     platforms = platforms.linux;
   };
 }

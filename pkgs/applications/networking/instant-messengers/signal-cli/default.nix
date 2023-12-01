@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     dbus
     dbus_java
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase =
     ''
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       else
         ''
           wrapProgram $out/bin/signal-cli \
-            --prefix PATH : ${lib.makeBinPath [ openjdk17_headless ]} \
+            --prefix PATH : ${lib.makeBinPath [openjdk17_headless]} \
             --set JAVA_HOME ${openjdk17_headless}
         ''
     );
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/AsamK/signal-cli";
     description = "Command-line and dbus interface for communicating with the Signal messaging service";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ivan ];
+    maintainers = with maintainers; [ivan];
     platforms = platforms.all;
   };
 }

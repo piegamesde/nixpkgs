@@ -34,7 +34,7 @@ stdenvNoCC.mkDerivation (
       '';
       homepage = "https://www.theleagueofmoveabletype.com/prociono";
       license = lib.licenses.ofl;
-      maintainers = with lib.maintainers; [ minijackson ];
+      maintainers = with lib.maintainers; [minijackson];
     };
   }
 )

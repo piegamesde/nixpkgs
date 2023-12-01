@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Jy/Ac3NcqBkW0kHyypMAVUGAQ41qWM96BbLAym06ogM=";
   };
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   postInstall = ''
     install -dm755 "$out/share/licenses/extrace/"
@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
       bsd2
     ];
     platforms = platforms.linux;
-    maintainers = [ maintainers.leahneukirchen ];
+    maintainers = [maintainers.leahneukirchen];
   };
 }

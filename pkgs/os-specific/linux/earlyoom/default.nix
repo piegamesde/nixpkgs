@@ -24,9 +24,9 @@ stdenv.mkDerivation rec {
     installShellFiles
   ];
 
-  patches = [ ./fix-dbus-path.patch ];
+  patches = [./fix-dbus-path.patch];
 
-  makeFlags = [ "VERSION=${version}" ];
+  makeFlags = ["VERSION=${version}"];
 
   installPhase =
     ''
@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/rfjakob/earlyoom";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

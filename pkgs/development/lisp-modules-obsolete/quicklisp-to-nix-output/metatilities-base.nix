@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "metatilities-base";
   version = "20191227-git";
 
   description = "These are metabang.com's Common Lisp basic utilities.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/metatilities-base/2019-12-27/metatilities-base-20191227-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "metatilities-base";
 
-  asdFilesToKeep = [ "metatilities-base.asd" ];
+  asdFilesToKeep = ["metatilities-base.asd"];
   overrides = x: x;
 }
 /* (SYSTEM metatilities-base DESCRIPTION

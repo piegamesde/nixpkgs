@@ -20,7 +20,7 @@ in
 
       skipPackages = lib.mkOption {
         type = lib.types.listOf lib.types.package;
-        default = [ ];
+        default = [];
         internal = true;
         description = lib.mdDoc ''
           Packages to *not* include in the man-db.
@@ -33,8 +33,8 @@ in
         default = pkgs.buildEnv {
           name = "man-paths";
           paths = lib.subtractLists cfg.skipPackages config.environment.systemPackages;
-          pathsToLink = [ "/share/man" ];
-          extraOutputsToInstall = [ "man" ] ++ lib.optionals config.documentation.dev.enable [ "devman" ];
+          pathsToLink = ["/share/man"];
+          extraOutputsToInstall = ["man"] ++ lib.optionals config.documentation.dev.enable ["devman"];
           ignoreCollisions = true;
         };
         defaultText = lib.literalMD "all man pages in {option}`config.environment.systemPackages`";
@@ -75,10 +75,10 @@ in
   ];
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     environment.etc."man_db.conf".text =
       let
-        manualCache = pkgs.runCommand "man-cache" { nativeBuildInputs = [ cfg.package ]; } ''
+        manualCache = pkgs.runCommand "man-cache" {nativeBuildInputs = [cfg.package];} ''
           echo "MANDB_MAP ${cfg.manualPages}/share/man $out" > man.conf
           mandb -C man.conf -psc >/dev/null 2>&1
         '';

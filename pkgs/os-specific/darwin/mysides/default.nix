@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "Manage macOS Finder sidebar favorites";
     homepage = "https://github.com/mosen/mysides";
     license = licenses.mit;
-    maintainers = with maintainers; [ tboerger ];
+    maintainers = with maintainers; [tboerger];
     platforms = platforms.darwin;
   };
 }

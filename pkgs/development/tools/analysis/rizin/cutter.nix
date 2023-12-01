@@ -36,7 +36,7 @@ mkDerivation rec {
     python3
     wrapQtAppsHook
   ];
-  propagatedBuildInputs = [ python3.pkgs.pyside2 ];
+  propagatedBuildInputs = [python3.pkgs.pyside2];
   buildInputs = [
     qtbase
     qttools

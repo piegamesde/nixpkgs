@@ -23,14 +23,14 @@ buildPythonPackage rec {
     hash = "sha256-moWaOzyF/yhDQCLEp7bc0j8wNv7FM7cvvpCwon3j+gI=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   nativeCheckInputs = [
     pytestCheckHook
     six
   ];
 
-  pythonImportsCheck = [ "funcparserlib" ];
+  pythonImportsCheck = ["funcparserlib"];
 
   meta = with lib; {
     description = "Recursive descent parsing library based on functional combinators";

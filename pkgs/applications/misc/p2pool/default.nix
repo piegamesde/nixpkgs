@@ -42,9 +42,9 @@ stdenv.mkDerivation rec {
     hwloc
     openssl
     curl
-  ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
+  ] ++ lib.optionals stdenv.isDarwin [Foundation];
 
-  cmakeFlags = [ "-DWITH_LTO=OFF" ];
+  cmakeFlags = ["-DWITH_LTO=OFF"];
 
   installPhase = ''
     runHook preInstall
@@ -55,13 +55,13 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Decentralized pool for Monero mining";
     homepage = "https://github.com/SChernykh/p2pool";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ ratsclub ];
+    maintainers = with maintainers; [ratsclub];
   };
 }

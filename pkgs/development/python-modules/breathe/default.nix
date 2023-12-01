@@ -35,15 +35,15 @@ buildPythonPackage rec {
     sphinx
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "breathe" ];
+  pythonImportsCheck = ["breathe"];
 
   meta = with lib; {
     description = "Sphinx Doxygen renderer";
     homepage = "https://github.com/michaeljones/breathe";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     inherit (sphinx.meta) platforms;
   };
 }

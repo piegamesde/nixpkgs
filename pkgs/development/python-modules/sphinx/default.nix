@@ -56,7 +56,7 @@ buildPythonPackage rec {
     '';
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     babel
@@ -79,13 +79,13 @@ buildPythonPackage rec {
 
     # extra plugins which are otherwise not found by sphinx-build
     sphinxcontrib-apidoc
-  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  ] ++ lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
   nativeCheckInputs = [
     cython
     html5lib
     pytestCheckHook
-  ] ++ lib.optionals (pythonOlder "3.8") [ typed-ast ];
+  ] ++ lib.optionals (pythonOlder "3.8") [typed-ast];
 
   preCheck = ''
     export HOME=$(mktemp -d)

@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     '';
 
   buildInputs =
-    [ perl ]
+    [perl]
     ++ lib.optionals stdenv.isDarwin [
       CoreServices
       ApplicationServices

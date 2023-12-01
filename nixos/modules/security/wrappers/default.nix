@@ -10,7 +10,7 @@ let
 
   parentWrapperDir = dirOf wrapperDir;
 
-  securityWrapper = pkgs.callPackage ./wrapper.nix { inherit parentWrapperDir; };
+  securityWrapper = pkgs.callPackage ./wrapper.nix {inherit parentWrapperDir;};
 
   fileModeType =
     let
@@ -19,10 +19,10 @@ let
       numeric = "[-+=]?[0-7]{0,4}";
       mode = "((${symbolic})(,${symbolic})*)|(${numeric})";
     in
-    lib.types.strMatching mode // { description = "file mode string"; };
+    lib.types.strMatching mode // {description = "file mode string";};
 
   wrapperType = lib.types.submodule (
-    { name, config, ... }:
+    {name, config, ...}:
     {
       options.source = lib.mkOption {
         type = lib.types.path;
@@ -163,7 +163,7 @@ in
   options = {
     security.wrappers = lib.mkOption {
       type = lib.types.attrsOf wrapperType;
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         {
           # a setuid root program
@@ -269,7 +269,7 @@ in
     '';
 
     security.apparmor.includes."nixos/security.wrappers" = ''
-      include "${pkgs.apparmorRulesFromClosure { name = "security.wrappers"; } [ securityWrapper ]}"
+      include "${pkgs.apparmorRulesFromClosure {name = "security.wrappers";} [securityWrapper]}"
     '';
 
     ###### wrappers activation script
@@ -306,7 +306,7 @@ in
 
     ###### wrappers consistency checks
     system.extraDependencies = lib.singleton (
-      pkgs.runCommandLocal "ensure-all-wrappers-paths-exist" { } ''
+      pkgs.runCommandLocal "ensure-all-wrappers-paths-exist" {} ''
         # make sure we produce output
         mkdir -p $out
 

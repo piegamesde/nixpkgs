@@ -32,7 +32,7 @@ python3.pkgs.buildPythonApplication rec {
       This program works around the problem by temporarily disabling screen blankers when joystick activity is detected.
     '';
     homepage = "https://github.com/foresto/joystickwake";
-    maintainers = with maintainers; [ bertof ];
+    maintainers = with maintainers; [bertof];
     license = licenses.mit;
     platforms = platforms.linux;
   };

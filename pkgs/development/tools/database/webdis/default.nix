@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://webd.is/";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ wucke13 ];
+    maintainers = with maintainers; [wucke13];
   };
 }

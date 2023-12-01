@@ -1,10 +1,10 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 
 let
 
@@ -27,7 +27,7 @@ let
       };
 
       nodes.machine =
-        { pkgs, lib, ... }:
+        {pkgs, lib, ...}:
         let
           usersharePath = "/var/lib/samba/usershares";
         in
@@ -45,11 +45,11 @@ let
           boot.loader.efi.canTouchEfiVariables = true;
           networking.hostId = "deadbeef";
           boot.kernelPackages = kernelPackage;
-          boot.supportedFilesystems = [ "zfs" ];
+          boot.supportedFilesystems = ["zfs"];
           boot.zfs.enableUnstable = enableUnstable;
           boot.initrd.systemd.enable = enableSystemdStage1;
 
-          environment.systemPackages = [ pkgs.parted ];
+          environment.systemPackages = [pkgs.parted];
 
           # /dev/disk/by-id doesn't get populated in the NixOS test framework
           boot.zfs.devNodes = "/dev/disk/by-uuid";
@@ -75,7 +75,7 @@ let
           };
 
           specialisation.encryption.configuration = {
-            boot.zfs.requestEncryptionCredentials = [ "automatic" ];
+            boot.zfs.requestEncryptionCredentials = ["automatic"];
             virtualisation.fileSystems."/automatic" = {
               device = "automatic";
               fsType = "zfs";
@@ -87,23 +87,23 @@ let
             virtualisation.fileSystems."/manual/encrypted" = {
               device = "manual/encrypted";
               fsType = "zfs";
-              options = [ "noauto" ];
+              options = ["noauto"];
             };
             virtualisation.fileSystems."/manual/httpkey" = {
               device = "manual/httpkey";
               fsType = "zfs";
-              options = [ "noauto" ];
+              options = ["noauto"];
             };
           };
 
           specialisation.forcepool.configuration = {
-            systemd.services.zfs-import-forcepool.wantedBy = lib.mkVMOverride [ "forcepool.mount" ];
-            systemd.targets.zfs.wantedBy = lib.mkVMOverride [ ];
+            systemd.services.zfs-import-forcepool.wantedBy = lib.mkVMOverride ["forcepool.mount"];
+            systemd.targets.zfs.wantedBy = lib.mkVMOverride [];
             boot.zfs.forceImportAll = true;
             virtualisation.fileSystems."/forcepool" = {
               device = "forcepool";
               fsType = "zfs";
-              options = [ "noauto" ];
+              options = ["noauto"];
             };
           };
 
@@ -203,25 +203,25 @@ let
 in
 {
 
-  stable = makeZfsTest "stable" { };
+  stable = makeZfsTest "stable" {};
 
-  unstable = makeZfsTest "unstable" { enableUnstable = true; };
+  unstable = makeZfsTest "unstable" {enableUnstable = true;};
 
   unstableWithSystemdStage1 = makeZfsTest "unstable" {
     enableUnstable = true;
     enableSystemdStage1 = true;
   };
 
-  installer = (import ./installer.nix { }).zfsroot;
+  installer = (import ./installer.nix {}).zfsroot;
 
   expand-partitions = makeTest {
     name = "multi-disk-zfs";
     nodes = {
       machine =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
-          environment.systemPackages = [ pkgs.parted ];
-          boot.supportedFilesystems = [ "zfs" ];
+          environment.systemPackages = [pkgs.parted];
+          boot.supportedFilesystems = ["zfs"];
           networking.hostId = "00000000";
 
           virtualisation = {
@@ -236,13 +236,13 @@ in
           };
 
           specialisation.resize.configuration = {
-            services.zfs.expandOnBoot = [ "tank" ];
+            services.zfs.expandOnBoot = ["tank"];
           };
         };
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       ''
         start_all()
         machine.wait_for_unit("default.target")

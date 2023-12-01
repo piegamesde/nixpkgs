@@ -67,10 +67,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ]; # for the CLI
-    systemd.packages = [ cfg.package ];
+    environment.systemPackages = [cfg.package]; # for the CLI
+    systemd.packages = [cfg.package];
     systemd.services.tailscaled = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       path = [
         config.networking.resolvconf.package # for configuring DNS in some configs
         pkgs.procps # for collecting running services (opt-in feature)
@@ -79,7 +79,7 @@ in
       serviceConfig.Environment = [
         "PORT=${toString cfg.port}"
         ''"FLAGS=--tun ${lib.escapeShellArg cfg.interfaceName}"''
-      ] ++ (lib.optionals (cfg.permitCertUid != null) [ "TS_PERMIT_CERT_UID=${cfg.permitCertUid}" ]);
+      ] ++ (lib.optionals (cfg.permitCertUid != null) ["TS_PERMIT_CERT_UID=${cfg.permitCertUid}"]);
       # Restart tailscaled with a single `systemctl restart` at the
       # end of activation, rather than a `stop` followed by a later
       # `start`. Activation over Tailscale can hang for tens of
@@ -103,7 +103,7 @@ in
       mkIf (cfg.useRoutingFeatures == "client" || cfg.useRoutingFeatures == "both")
         "loose";
 
-    networking.dhcpcd.denyInterfaces = [ cfg.interfaceName ];
+    networking.dhcpcd.denyInterfaces = [cfg.interfaceName];
 
     systemd.network.networks."50-tailscale" = mkIf isNetworkd {
       matchConfig = {

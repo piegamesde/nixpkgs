@@ -64,7 +64,7 @@ let
       trfl
     ];
 
-    pythonImportsCheck = [ "bsuite" ];
+    pythonImportsCheck = ["bsuite"];
 
     disabledTests = [
       # Tests require network connection
@@ -89,7 +89,7 @@ let
     doCheck = false;
 
     passthru.tests = {
-      check = bsuite.overridePythonAttrs (_: { doCheck = true; });
+      check = bsuite.overridePythonAttrs (_: {doCheck = true;});
     };
 
     meta = with lib; {
@@ -99,7 +99,7 @@ let
       '';
       homepage = "https://github.com/deepmind/bsuite";
       license = licenses.asl20;
-      maintainers = with maintainers; [ onny ];
+      maintainers = with maintainers; [onny];
     };
   };
 in

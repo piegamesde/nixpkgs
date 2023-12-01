@@ -24,6 +24,6 @@ buildGoModule rec {
     description = "Static analysis tool for securing Go code";
     homepage = "https://github.com/praetorian-inc/gokart";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

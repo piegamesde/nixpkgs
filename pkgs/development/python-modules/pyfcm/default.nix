@@ -16,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "15q6p21wsjm75ccmzcsgad1w9fgk6189hbrp7pawpxl7l3qxn2p7";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # pyfcm's unit testing suite requires network access
   doCheck = false;
@@ -25,6 +25,6 @@ buildPythonPackage rec {
     description = "Python client for FCM - Firebase Cloud Messaging (Android, iOS and Web)";
     homepage = "https://github.com/olucurious/pyfcm";
     license = licenses.mit;
-    maintainers = with maintainers; [ ldelelis ];
+    maintainers = with maintainers; [ldelelis];
   };
 }

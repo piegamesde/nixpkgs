@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     which
     pychecker
   ];
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
   strictDeps = true;
   SKIP_PYCHECKER = pychecker == null;
   buildPhase = "make python";
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     inherit (src.meta) homepage;
     description = "A better make, inspired by djb's redo";
     license = lib.licenses.lgpl2Plus;
-    maintainers = [ lib.maintainers.timbertson ];
+    maintainers = [lib.maintainers.timbertson];
     platforms = lib.platforms.all;
   };
 }

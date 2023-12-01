@@ -12,7 +12,7 @@
   ocaml-version,
   version,
   src,
-  patches ? [ ],
+  patches ? [],
   ocaml ? (import ./ocaml.nix {
     version = ocaml-version;
     inherit lib stdenv;
@@ -20,11 +20,11 @@
   }),
   custom-ninja ? (ninja.overrideAttrs (
     attrs: {
-      src = runCommand "ninja-patched-source" { } ''
+      src = runCommand "ninja-patched-source" {} ''
         mkdir -p $out
         tar zxvf ${src}/vendor/ninja.tar.gz -C $out
       '';
-      patches = [ ];
+      patches = [];
     }
   )),
 }:

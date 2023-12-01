@@ -37,7 +37,7 @@ let
     pname = "${pname}-unwrapped";
     inherit version src meta;
 
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
     buildInputs = [
       cups
       dbus

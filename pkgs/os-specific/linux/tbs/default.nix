@@ -53,10 +53,10 @@ stdenv.mkDerivation {
       -e 's,^SRCDIR ?= /lib/modules,SRCDIR ?= ${kernel.dev}/lib/modules,'
   '';
 
-  buildFlags = [ "VER=${kernel.modDirVersion}" ];
-  installFlags = [ "DESTDIR=$(out)" ];
+  buildFlags = ["VER=${kernel.modDirVersion}"];
+  installFlags = ["DESTDIR=$(out)"];
 
-  hardeningDisable = [ "all" ];
+  hardeningDisable = ["all"];
 
   nativeBuildInputs = [
     patchutils
@@ -73,7 +73,7 @@ stdenv.mkDerivation {
     homepage = "https://www.tbsdtv.com/";
     description = "Linux driver for TBSDTV cards";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ck3d ];
+    maintainers = with maintainers; [ck3d];
     priority = -1;
     broken = true;
   };

@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
       --replace "/etc/g810-led/profile" "${profile}"
   '';
 
-  buildInputs = [ hidapi ];
+  buildInputs = [hidapi];
 
   installPhase = ''
     runHook preInstall
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     description = "Linux LED controller for some Logitech G Keyboards";
     homepage = "https://github.com/MatMoul/g810-led";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     platforms = platforms.linux;
   };
 }

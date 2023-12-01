@@ -133,8 +133,8 @@ stdenv.mkDerivation rec {
       "i686-linux"
       "x86_64-linux"
     ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ mattchrist ];
+    maintainers = with lib.maintainers; [mattchrist];
   };
 }

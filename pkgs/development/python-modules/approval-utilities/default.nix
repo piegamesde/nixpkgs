@@ -15,7 +15,7 @@ buildPythonPackage rec {
     mv setup.approval_utilities.py setup.py
   '';
 
-  pythonImportsCheck = [ "approval_utilities" ];
+  pythonImportsCheck = ["approval_utilities"];
 
   # upstream has no tests
   doCheck = false;
@@ -24,6 +24,6 @@ buildPythonPackage rec {
     description = "Utilities for your production code that work well with approvaltests";
     homepage = "https://github.com/approvals/ApprovalTests.Python";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

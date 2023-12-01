@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-WLhs6/BP5bnlgJLhxGfjLmDQHhG3H9xii6qp/G0a3uU=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     cloudpickle
@@ -42,7 +42,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "dask_glm" ];
+  pythonImportsCheck = ["dask_glm"];
 
   disabledTestPaths = [
     # Circular dependency with dask-ml
@@ -61,6 +61,6 @@ buildPythonPackage rec {
     description = "Generalized Linear Models with Dask";
     homepage = "https://github.com/dask/dask-glm/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

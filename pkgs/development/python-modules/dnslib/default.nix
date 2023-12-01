@@ -22,12 +22,12 @@ buildPythonPackage rec {
     VERSIONS=${python.interpreter} ./run_tests.sh
   '';
 
-  pythonImportsCheck = [ "dnslib" ];
+  pythonImportsCheck = ["dnslib"];
 
   meta = with lib; {
     description = "Simple library to encode/decode DNS wire-format packets";
     homepage = "https://github.com/paulc/dnslib";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ delroth ];
+    maintainers = with maintainers; [delroth];
   };
 }

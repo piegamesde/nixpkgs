@@ -14,7 +14,7 @@ python2Packages.buildPythonApplication rec {
     sha256 = "0zxwjjbklz87wkbhkmsvhc7xmv5php7m2a9vm6ydhmhlxsybf836";
   };
 
-  buildInputs = [ python2Packages.wrapPython ];
+  buildInputs = [python2Packages.wrapPython];
 
   dontConfigure = true;
   dontBuild = true;

@@ -32,7 +32,7 @@ buildPythonPackage rec {
       --replace 'pydantic = ">=1.10.2"' 'pydantic = "*"'
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     click
@@ -47,13 +47,13 @@ buildPythonPackage rec {
     respx
   ];
 
-  pythonImportsCheck = [ "sfrbox_api" ];
+  pythonImportsCheck = ["sfrbox_api"];
 
   meta = with lib; {
     description = "Module for the SFR Box API";
     homepage = "https://github.com/hacf-fr/sfrbox-api";
     changelog = "https://github.com/hacf-fr/sfrbox-api/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -23,12 +23,12 @@ buildDunePackage rec {
     hash = "sha256-iSg0QsTcU0MT/Cletl+hW6bKyH0jkp7Jixqu8H59UmQ=";
   };
 
-  patches = [ ./git_commit.patch ];
+  patches = [./git_commit.patch];
 
   strictDeps = true;
 
-  nativeBuildInputs = [ m4 ];
-  checkInputs = [ ounit ];
+  nativeBuildInputs = [m4];
+  checkInputs = [ounit];
   propagatedBuildInputs = [
     camlp-streams
     core_kernel
@@ -39,7 +39,7 @@ buildDunePackage rec {
   meta = with lib; {
     inherit (src.meta) homepage;
     description = "Simple Core-inspired wrapper for standard library Stream module";
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
     license = licenses.lgpl21;
   };
 }

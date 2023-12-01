@@ -28,6 +28,6 @@ buildGoModule rec {
     description = "Execute scripts on IMAP mailbox changes (new/deleted/updated messages) using IDLE";
     homepage = "https://gitlab.com/shackra/goimapnotify";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ wohanley ];
+    maintainers = with maintainers; [wohanley];
   };
 }

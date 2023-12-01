@@ -15,7 +15,7 @@
 deployAndroidPackage {
   name = "androidsdk";
   inherit package os;
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = [makeWrapper] ++ lib.optionals stdenv.isLinux [autoPatchelfHook];
 
   patchInstructions = ''
     ${lib.optionalString (os == "linux") ''
@@ -36,7 +36,7 @@ deployAndroidPackage {
 
     # Wrap sdkmanager script
     wrapProgram $ANDROID_SDK_ROOT/cmdline-tools/${cmdLineToolsVersion}/bin/sdkmanager \
-      --prefix PATH : ${lib.makeBinPath [ pkgs.jdk11 ]} \
+      --prefix PATH : ${lib.makeBinPath [pkgs.jdk11]} \
       --add-flags "--sdk_root=$ANDROID_SDK_ROOT"
 
     # Patch all script shebangs

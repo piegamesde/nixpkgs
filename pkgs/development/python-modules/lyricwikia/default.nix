@@ -16,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "0l5lkvr3299x79i7skdiggp67rzgax3s00psd1zqkxfysq27jvc8";
   };
 
-  buildInputs = [ pytest-runner ];
+  buildInputs = [pytest-runner];
   propagatedBuildInputs = [
     six
     beautifulsoup4
@@ -27,7 +27,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/enricobacis/lyricwikia";
-    maintainers = [ maintainers.kmein ];
+    maintainers = [maintainers.kmein];
     description = "LyricWikia API for song lyrics";
     license = licenses.mit;
     platforms = platforms.all;

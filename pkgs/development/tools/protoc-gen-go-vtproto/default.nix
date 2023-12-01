@@ -16,12 +16,12 @@ buildGoModule rec {
 
   vendorHash = "sha256-JpSVO8h7+StLG9/dJQkmrIlh9zIHABoqP1hq+X5ajVs=";
 
-  excludedPackages = [ "conformance" ];
+  excludedPackages = ["conformance"];
 
   meta = with lib; {
     description = "A Protocol Buffers compiler that generates optimized marshaling & unmarshaling Go code for ProtoBuf APIv2";
     homepage = "https://github.com/planetscale/vtprotobuf";
     license = licenses.bsd3;
-    maintainers = [ maintainers.zane ];
+    maintainers = [maintainers.zane];
   };
 }

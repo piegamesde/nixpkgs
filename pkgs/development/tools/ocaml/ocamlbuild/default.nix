@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     description = "A build system with builtin rules to easily build most OCaml projects";
     homepage = "https://github.com/ocaml/ocamlbuild/";
     license = licenses.lgpl2;
-    maintainers = with maintainers; [ vbgl ];
+    maintainers = with maintainers; [vbgl];
     mainProgram = "ocamlbuild";
     inherit (ocaml.meta) platforms;
   };

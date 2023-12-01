@@ -30,12 +30,12 @@ buildPythonPackage rec {
   # No tests in PyPI tarballs
   doCheck = false;
 
-  pythonImportsCheck = [ "pyatome" ];
+  pythonImportsCheck = ["pyatome"];
 
   meta = with lib; {
     description = "Python module to get energy consumption data from Atome";
     homepage = "https://github.com/baqs/pyAtome";
     license = licenses.asl20;
-    maintainers = with maintainers; [ uvnikita ];
+    maintainers = with maintainers; [uvnikita];
   };
 }

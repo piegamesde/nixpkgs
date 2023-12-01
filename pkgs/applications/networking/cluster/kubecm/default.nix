@@ -28,6 +28,6 @@ buildGoModule rec {
     description = "Manage your kubeconfig more easily";
     homepage = "https://github.com/sunny0826/kubecm/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ qjoly ];
+    maintainers = with maintainers; [qjoly];
   };
 }

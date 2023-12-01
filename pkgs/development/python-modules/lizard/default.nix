@@ -20,19 +20,19 @@ buildPythonPackage rec {
     hash = "sha256-4jq6gXpI1hFtX7ka2c/qQ+S6vZCThKOGhQwJ2FOYItY=";
   };
 
-  propagatedBuildInputs = [ jinja2 ];
+  propagatedBuildInputs = [jinja2];
 
   nativeCheckInputs = [
     pytestCheckHook
     mock
   ];
 
-  pythonImportsCheck = [ "lizard" ];
+  pythonImportsCheck = ["lizard"];
 
   meta = with lib; {
     description = "Code analyzer without caring the C/C++ header files";
     homepage = "http://www.lizard.ws";
     license = licenses.mit;
-    maintainers = with maintainers; [ jpetrucciani ];
+    maintainers = with maintainers; [jpetrucciani];
   };
 }

@@ -11,7 +11,7 @@ sgx-azure-dcap-client.overrideAttrs (
       gtest
     ];
 
-    buildFlags = [ "tests" ];
+    buildFlags = ["tests"];
 
     installPhase = ''
       runHook preInstall
@@ -23,7 +23,7 @@ sgx-azure-dcap-client.overrideAttrs (
 
     postFixup = ''
       wrapProgram "$out/bin/tests" --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [ sgx-azure-dcap-client ]
+        lib.makeLibraryPath [sgx-azure-dcap-client]
       }"
     '';
   }

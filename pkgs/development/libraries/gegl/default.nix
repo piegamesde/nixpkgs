@@ -85,8 +85,7 @@ stdenv.mkDerivation rec {
       openexr
       suitesparse
     ]
-    ++ lib.optionals stdenv.isDarwin [ OpenCL ]
-    ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
+    ++ lib.optionals stdenv.isDarwin [OpenCL] ++ lib.optionals stdenv.cc.isClang [llvmPackages.openmp];
 
   # for gegl-4.0.pc
   propagatedBuildInputs = [
@@ -124,7 +123,7 @@ stdenv.mkDerivation rec {
     description = "Graph-based image processing framework";
     homepage = "https://www.gegl.org";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.unix;
   };
 }

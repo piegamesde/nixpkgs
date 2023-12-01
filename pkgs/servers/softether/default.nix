@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     description = "An Open-Source Free Cross-platform Multi-protocol VPN Program";
     homepage = "https://www.softether.org/";
     license = licenses.asl20;
-    maintainers = [ maintainers.rick68 ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.rick68];
+    platforms = ["x86_64-linux"];
   };
 }

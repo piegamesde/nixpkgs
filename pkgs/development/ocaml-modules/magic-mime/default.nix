@@ -20,6 +20,6 @@ buildDunePackage rec {
     description = "Convert file extensions to MIME types";
     homepage = "https://github.com/mirage/ocaml-magic-mime";
     license = licenses.isc;
-    maintainers = with maintainers; [ vbgl ];
+    maintainers = with maintainers; [vbgl];
   };
 }

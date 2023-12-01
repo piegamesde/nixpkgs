@@ -35,7 +35,7 @@ buildPythonPackage rec {
   ] ++ google-api-core.optional-dependencies.grpc;
 
   passthru.optional-dependencies = {
-    libcst = [ libcst ];
+    libcst = [libcst];
   };
 
   nativeCheckInputs = [
@@ -49,7 +49,7 @@ buildPythonPackage rec {
     rm -r google
   '';
 
-  disabledTests = [ "policy" ];
+  disabledTests = ["policy"];
 
   pythonImportsCheck = [
     "google.cloud.bigtable_admin_v2"
@@ -62,6 +62,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/python-bigtable";
     changelog = "https://github.com/googleapis/python-bigtable/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

@@ -22,7 +22,7 @@ buildPecl {
     sha256 = "sha256-JpzLR4NcyShl2VTivj+15iAsTTsZmdMIdZYc3dLCbIA=";
   };
 
-  configureFlags = [ "--with-couchbase" ];
+  configureFlags = ["--with-couchbase"];
 
   buildInputs = [
     libcouchbase

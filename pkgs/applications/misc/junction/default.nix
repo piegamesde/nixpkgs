@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     description = "Choose the application to open files and links";
     homepage = "https://apps.gnome.org/en/app/re.sonny.Junction/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ hqurve ];
+    maintainers = with maintainers; [hqurve];
     platforms = platforms.linux;
   };
 }

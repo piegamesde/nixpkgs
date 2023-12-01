@@ -20,9 +20,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-ihCgaB+vP5YyqMIg8qrkCEvSQdc6Eq00D1r3PGc2WpA=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ darwin.apple_sdk.frameworks.Foundation ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [darwin.apple_sdk.frameworks.Foundation];
 
   doCheck = false;
 

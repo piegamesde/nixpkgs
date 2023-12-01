@@ -16,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xeBu20AeG035nB/jUsOsAvqDtwklM+9ZsZlJoAZ4iu4=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jdk11 ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jdk11];
 
   installPhase = ''
     mv ../$sourceRoot $out
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.asl20;
     homepage = "https://nifi.apache.org";
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ izorkin ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [izorkin];
   };
 }

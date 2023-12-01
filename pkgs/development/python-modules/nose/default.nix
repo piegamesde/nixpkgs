@@ -31,7 +31,7 @@ buildPythonPackage rec {
     ${python.pythonForBuild}/bin/2to3 -wn nose functional_tests unit_tests
   '';
 
-  propagatedBuildInputs = [ coverage ];
+  propagatedBuildInputs = [coverage];
 
   doCheck = false; # lot's of transient errors, too much hassle
   checkPhase =
@@ -51,6 +51,6 @@ buildPythonPackage rec {
     description = "A unittest-based testing framework for python that makes writing and running tests easier";
     homepage = "https://nose.readthedocs.io/";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

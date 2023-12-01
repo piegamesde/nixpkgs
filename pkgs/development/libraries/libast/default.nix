@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     inherit (src.meta) homepage;
     description = "Library of Assorted Spiffy Things";
     license = licenses.bsd2;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     platforms = platforms.unix;
   };
 }

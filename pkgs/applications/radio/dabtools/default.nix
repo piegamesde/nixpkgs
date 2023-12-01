@@ -35,6 +35,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/Opendigitalradio/dabtools";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
   };
 }

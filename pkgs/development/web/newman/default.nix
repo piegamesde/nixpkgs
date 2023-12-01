@@ -25,7 +25,7 @@ nodePackages.newman.override {
   meta = with lib; {
     homepage = "https://www.getpostman.com";
     description = "A command-line collection runner for Postman";
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
     license = licenses.asl20;
   };
 }

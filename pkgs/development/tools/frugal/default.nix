@@ -15,14 +15,14 @@ buildGoModule rec {
     sha256 = "sha256-fIEHv0xO/dXof6ED99uCC0y8dF9fBkK5FFtvpoIfbKk=";
   };
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   vendorHash = "sha256-vSUyxjVAmOKh4kcNoC25cDZEuparsJ7FDIslzOy8CNo=";
 
   meta = with lib; {
     description = "Thrift improved";
     homepage = "https://github.com/Workiva/frugal";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ diogox ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [diogox];
   };
 }

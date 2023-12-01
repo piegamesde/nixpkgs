@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     isa-l
   ];
 
-  makeFlags = [ "CC=cc" ];
+  makeFlags = ["CC=cc"];
 
   installPhase = ''
     runHook preInstall
@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     homepage = "https://github.com/lh3/seqtk";
     platforms = platforms.all;
-    maintainers = with maintainers; [ bwlang ];
+    maintainers = with maintainers; [bwlang];
   };
 }

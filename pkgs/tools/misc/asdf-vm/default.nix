@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
     description = "Extendable version manager with support for Ruby, Node.js, Erlang & more";
     homepage = "https://asdf-vm.com/";
     license = licenses.mit;
-    maintainers = [ maintainers.c4605 ];
+    maintainers = [maintainers.c4605];
     mainProgram = "asdf";
     platforms = platforms.unix;
   };

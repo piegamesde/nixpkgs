@@ -27,6 +27,6 @@ buildGoModule rec {
     homepage = "https://github.com/cespare/reflex";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ nicknovitski ];
+    maintainers = with maintainers; [nicknovitski];
   };
 }

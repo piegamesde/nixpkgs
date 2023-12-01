@@ -38,7 +38,7 @@ buildGoModule rec {
       --zsh <($out/bin/mani completion zsh)
 
     wrapProgram $out/bin/mani \
-      --prefix PATH : ${lib.makeBinPath [ git ]}
+      --prefix PATH : ${lib.makeBinPath [git]}
   '';
 
   # Skip tests

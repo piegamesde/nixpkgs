@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     homepage = "https://cxong.github.io/cdogs-sdl";
     description = "Open source classic overhead run-and-gun game";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ nixinator ];
+    maintainers = with maintainers; [nixinator];
     platforms = platforms.unix;
     broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/cdogs-sdl.x86_64-darwin
   };

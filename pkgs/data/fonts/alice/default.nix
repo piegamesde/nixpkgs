@@ -39,7 +39,7 @@ stdenv.mkDerivation (
       homepage = "https://github.com/cyrealtype/Alice";
       license = licenses.ofl;
       platforms = platforms.all;
-      maintainers = with maintainers; [ ncfavier ];
+      maintainers = with maintainers; [ncfavier];
     };
   }
 )

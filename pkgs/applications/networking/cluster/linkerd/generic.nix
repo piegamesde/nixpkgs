@@ -23,7 +23,7 @@ buildGoModule rec {
     inherit sha256;
   };
 
-  subPackages = [ "cli" ];
+  subPackages = ["cli"];
 
   preBuild = ''
     env GOFLAGS="" go generate ./pkg/charts/static
@@ -37,7 +37,7 @@ buildGoModule rec {
     fi
   '';
 
-  tags = [ "prod" ];
+  tags = ["prod"];
 
   ldflags = [
     "-s"
@@ -45,7 +45,7 @@ buildGoModule rec {
     "-X github.com/linkerd/linkerd2/pkg/version.Version=${src.rev}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     mv $out/bin/cli $out/bin/linkerd

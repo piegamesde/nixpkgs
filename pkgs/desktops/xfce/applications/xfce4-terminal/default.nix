@@ -39,6 +39,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "A modern terminal emulator";
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    maintainers = with maintainers; [] ++ teams.xfce.members;
   };
 }

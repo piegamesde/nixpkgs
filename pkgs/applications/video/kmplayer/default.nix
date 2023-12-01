@@ -40,7 +40,7 @@ mkDerivation rec {
   '';
 
   # required for kf5auth to work correctly
-  cmakeFlags = [ "-DCMAKE_POLICY_DEFAULT_CMP0012=NEW" ];
+  cmakeFlags = ["-DCMAKE_POLICY_DEFAULT_CMP0012=NEW"];
 
   nativeBuildInputs = [
     extra-cmake-modules

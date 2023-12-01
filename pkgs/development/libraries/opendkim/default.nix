@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "trusteddomainproject";
     repo = "OpenDKIM";
-    rev = "rel-opendkim-${lib.replaceStrings [ "." ] [ "-" ] version}";
+    rev = "rel-opendkim-${lib.replaceStrings ["."] ["-"] version}";
     sha256 = "0nx3in8sa6xna4vfacj8g60hfzk61jpj2ldag80xzxip9c3rd2pw";
   };
 
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "C library for producing DKIM-aware applications and an open source milter for providing DKIM service";
     homepage = "http://www.opendkim.org/";
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     license = licenses.bsd3;
     platforms = platforms.unix;
   };

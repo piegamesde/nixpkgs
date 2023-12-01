@@ -27,7 +27,7 @@ let
   llvmPkgs =
     llvmPackages_11
     // {
-      spirv-llvm-translator = spirv-llvm-translator.override { llvm = llvm; };
+      spirv-llvm-translator = spirv-llvm-translator.override {llvm = llvm;};
     }
     // lib.optionalAttrs buildWithPatches opencl-clang;
 
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
 
   # Handholding the braindead build script
   # cmake requires an absolute path
-  prebuilds = runCommandLocal "igc-cclang-prebuilds" { } ''
+  prebuilds = runCommandLocal "igc-cclang-prebuilds" {} ''
     mkdir $out
     ln -s ${clang}/bin/clang $out/
     ln -s clang $out/clang-${lib.versions.major (lib.getVersion clang)}
@@ -106,6 +106,6 @@ stdenv.mkDerivation rec {
     description = "LLVM-based compiler for OpenCL targeting Intel Gen graphics hardware";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

@@ -14,7 +14,7 @@
   librsvg,
   gdk-pixbuf,
   # Configuration options for the wrapper
-  extraMakeWrapperArgs ? [ ],
+  extraMakeWrapperArgs ? [],
   dbusVerify ? stdenv.isLinux,
   dbus,
 }:
@@ -100,14 +100,14 @@ let
         fi
       '')
     ]
-    ++ [ "--inherit-argv0" ]
+    ++ ["--inherit-argv0"]
     ++ extraMakeWrapperArgs
   );
 in
 runCommand "${unwrapped.name}-wrapped"
   {
     inherit (unwrapped) meta;
-    paths = [ unwrapped ];
+    paths = [unwrapped];
     nativeBuildInputs = [
       makeWrapper
       xorg.lndir

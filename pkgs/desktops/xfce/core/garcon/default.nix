@@ -14,7 +14,7 @@ mkXfceDerivation {
 
   sha256 = "sha256-0EcmI+C8B7oQl/cpbFeLjof1fnUi09nZAA5uJ0l15V4=";
 
-  nativeBuildInputs = [ gobject-introspection ];
+  nativeBuildInputs = [gobject-introspection];
 
   buildInputs = [
     gtk3
@@ -28,6 +28,6 @@ mkXfceDerivation {
       lgpl2Only
       fdl11Only
     ];
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    maintainers = with maintainers; [] ++ teams.xfce.members;
   };
 }

@@ -29,17 +29,17 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ cython ];
-  propagatedBuildInputs = [ alure2 ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [cython];
+  propagatedBuildInputs = [alure2] ++ lib.optionals (pythonOlder "3.8") [typing-extensions];
 
   doCheck = false; # FIXME: tests need an audio device
-  pythonImportsCheck = [ "palace" ];
+  pythonImportsCheck = ["palace"];
 
   meta = with lib; {
     description = "Pythonic Audio Library and Codecs Environment";
     homepage = "https://mcsinyx.gitlab.io/palace";
     license = licenses.lgpl3Plus;
-    maintainers = [ maintainers.McSinyx ];
+    maintainers = [maintainers.McSinyx];
   };
 }

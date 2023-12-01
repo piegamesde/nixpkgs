@@ -8,9 +8,9 @@
 ##User input
 {
   vscode ? vscodeDefault,
-  extensionsToIgnore ? [ ],
+  extensionsToIgnore ? [],
   # will use those extensions to get sha256 if still exists when executed.
-  extensions ? [ ],
+  extensions ? [],
 }:
 let
   mktplcExtRefToFetchArgs = import ./mktplcExtRefToFetchArgs.nix;
@@ -20,7 +20,7 @@ writeShellScriptBin "vscodeExts2nix" ''
 
   for line in $(${vscode}/bin/code --list-extensions --show-versions \
     ${
-      lib.optionalString (extensionsToIgnore != [ ]) ''
+      lib.optionalString (extensionsToIgnore != []) ''
         | grep -v -i '^\(${
           lib.concatMapStringsSep "\\|" (e: "${e.publisher}.${e.name}") extensionsToIgnore
         }\)'

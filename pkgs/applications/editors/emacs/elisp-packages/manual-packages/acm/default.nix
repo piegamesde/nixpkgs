@@ -13,7 +13,7 @@ melpaBuild {
   src = lsp-bridge.src;
   commit = lsp-bridge.src.rev;
 
-  packageRequires = [ yasnippet ];
+  packageRequires = [yasnippet];
 
   recipe = writeText "recipe" ''
     (acm

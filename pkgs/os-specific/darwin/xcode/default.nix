@@ -46,7 +46,7 @@ let
         platforms = platforms.darwin ++ platforms.linux;
       };
     in
-    app.overrideAttrs (oldAttrs: oldAttrs // { inherit meta; });
+    app.overrideAttrs (oldAttrs: oldAttrs // {inherit meta;});
 in
 lib.makeExtensible (
   self: {
@@ -90,7 +90,7 @@ lib.makeExtensible (
     xcode_14_1 = requireXcode "14.1" "sha256-QJGAUVIhuDYyzDNttBPv5lIGOfvkYqdOFSUAr5tlkfs=";
     xcode =
       self."xcode_${
-        lib.replaceStrings [ "." ] [ "_" ] (
+        lib.replaceStrings ["."] ["_"] (
           if (stdenv.targetPlatform ? xcodeVer) then stdenv.targetPlatform.xcodeVer else "12.3"
         )
       }";

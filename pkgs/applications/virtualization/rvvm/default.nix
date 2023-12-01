@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     if stdenv.isDarwin then
-      [ SDL_compat ]
+      [SDL_compat]
     else
       [
         libX11
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   ];
 
   makeFlags =
-    [ "PREFIX=$(out)" ]
+    ["PREFIX=$(out)"]
     # work around https://github.com/NixOS/nixpkgs/issues/19098
     ++ lib.optional (stdenv.cc.isClang && stdenv.isDarwin) "CFLAGS=-fno-lto";
 
@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
       mpl20
     ];
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ nebulka ];
+    maintainers = with maintainers; [nebulka];
   };
 }

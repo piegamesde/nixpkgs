@@ -5,19 +5,19 @@ let
 in
 
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "containers-macvlans";
     meta = {
-      maintainers = with lib.maintainers; [ montag451 ];
+      maintainers = with lib.maintainers; [montag451];
     };
 
     nodes = {
 
       machine1 =
-        { lib, ... }:
+        {lib, ...}:
         {
-          virtualisation.vlans = [ 1 ];
+          virtualisation.vlans = [1];
 
           # To be able to ping containers from the host, it is necessary
           # to create a macvlan on the host on the VLAN 1 network.
@@ -25,7 +25,7 @@ import ./make-test-python.nix (
             interface = "eth1";
             mode = "bridge";
           };
-          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ ];
+          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [];
           networking.interfaces.mv-eth1-host = {
             ipv4.addresses = [
               {
@@ -37,7 +37,7 @@ import ./make-test-python.nix (
 
           containers.test1 = {
             autoStart = true;
-            macvlans = [ "eth1" ];
+            macvlans = ["eth1"];
 
             config = {
               networking.interfaces.mv-eth1 = {
@@ -53,7 +53,7 @@ import ./make-test-python.nix (
 
           containers.test2 = {
             autoStart = true;
-            macvlans = [ "eth1" ];
+            macvlans = ["eth1"];
 
             config = {
               networking.interfaces.mv-eth1 = {
@@ -68,7 +68,7 @@ import ./make-test-python.nix (
           };
         };
 
-      machine2 = { ... }: { virtualisation.vlans = [ 1 ]; };
+      machine2 = {...}: {virtualisation.vlans = [1];};
     };
 
     testScript = ''

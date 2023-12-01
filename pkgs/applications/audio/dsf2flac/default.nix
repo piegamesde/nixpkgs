@@ -41,13 +41,13 @@ stdenv.mkDerivation rec {
     export LIBS="$LIBS -lz"
   '';
 
-  configureFlags = [ "--with-boost-libdir=${boost.out}/lib" ];
+  configureFlags = ["--with-boost-libdir=${boost.out}/lib"];
 
   meta = with lib; {
     description = "A DSD to FLAC transcoding tool";
     homepage = "https://github.com/hank/dsf2flac";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ artemist ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [artemist];
+    platforms = ["x86_64-linux"];
   };
 }

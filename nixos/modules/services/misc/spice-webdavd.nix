@@ -28,7 +28,7 @@ in
     services.davfs2.enable = true;
 
     # add the udev rule which starts the proxy when the spice socket is present
-    services.udev.packages = [ cfg.package ];
+    services.udev.packages = [cfg.package];
 
     systemd.services.spice-webdavd = {
       description = "spice-webdav proxy daemon";

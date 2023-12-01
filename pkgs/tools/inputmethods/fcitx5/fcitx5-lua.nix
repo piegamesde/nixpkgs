@@ -31,14 +31,14 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    extraLdLibraries = [ lua ];
+    extraLdLibraries = [lua];
   };
 
   meta = with lib; {
     description = "Lua support for Fcitx 5";
     homepage = "https://github.com/fcitx/fcitx5-lua";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ poscat ];
+    maintainers = with maintainers; [poscat];
     platforms = platforms.linux;
   };
 }

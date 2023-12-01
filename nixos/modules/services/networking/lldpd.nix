@@ -17,7 +17,7 @@ in
 
     extraArgs = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "-c"
         "-k"
@@ -34,13 +34,13 @@ in
       home = "/run/lldpd";
       isSystemUser = true;
     };
-    users.groups._lldpd = { };
+    users.groups._lldpd = {};
 
-    environment.systemPackages = [ pkgs.lldpd ];
-    systemd.packages = [ pkgs.lldpd ];
+    environment.systemPackages = [pkgs.lldpd];
+    systemd.packages = [pkgs.lldpd];
 
     systemd.services.lldpd = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       environment.LLDPD_OPTIONS = concatStringsSep " " cfg.extraArgs;
     };
   };

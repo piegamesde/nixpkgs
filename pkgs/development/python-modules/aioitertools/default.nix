@@ -27,18 +27,18 @@ buildPythonPackage rec {
     hash = "sha256-QsaLjdOmnCv38iM7999LtYtVe8pSUqwC7VGHu8Z9aDE=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [typing-extensions];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "aioitertools" ];
+  pythonImportsCheck = ["aioitertools"];
 
   meta = with lib; {
     description = "Implementation of itertools, builtins, and more for AsyncIO and mixed-type iterables";
     homepage = "https://aioitertools.omnilib.dev/";
     license = licenses.mit;
-    maintainers = with maintainers; [ teh ];
+    maintainers = with maintainers; [teh];
   };
 }

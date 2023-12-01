@@ -61,6 +61,6 @@ stdenv.mkDerivation rec {
     description = "An OpenXR example using Vulkan for rendering";
     platforms = platforms.linux;
     license = licenses.mit;
-    maintainers = with maintainers; [ expipiplus1 ];
+    maintainers = with maintainers; [expipiplus1];
   };
 }

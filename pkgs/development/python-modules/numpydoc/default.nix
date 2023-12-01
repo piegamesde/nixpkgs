@@ -47,7 +47,7 @@ buildPythonPackage rec {
     "test_reference"
   ];
 
-  pythonImportsCheck = [ "numpydoc" ];
+  pythonImportsCheck = ["numpydoc"];
 
   meta = {
     description = "Sphinx extension to support docstrings in Numpy format";

@@ -42,7 +42,7 @@ let
   pythonEnv = python3.withPackages (
     ps:
     with ps;
-    [ pillow ]
+    [pillow]
     ++ lib.optionals doCheck [
       pygobject3
       python-dbusmock
@@ -139,7 +139,7 @@ stdenv.mkDerivation rec {
       wlcs
     ];
 
-  nativeCheckInputs = [ dbus ];
+  nativeCheckInputs = [dbus];
 
   buildFlags = [
     "all"
@@ -152,7 +152,7 @@ stdenv.mkDerivation rec {
     # BadBufferTest.test_truncated_shm_file *doesn't* throw an error as the test expected, mark as such
     # https://github.com/MirServer/mir/pull/1947#issuecomment-811810872
     "-DMIR_SIGBUS_HANDLER_ENVIRONMENT_BROKEN=ON"
-    "-DMIR_EXCLUDE_TESTS=${lib.strings.concatStringsSep ";" [ ]}"
+    "-DMIR_EXCLUDE_TESTS=${lib.strings.concatStringsSep ";" []}"
     # These get built but don't get executed by default, yet they get installed when tests are enabled
     "-DMIR_BUILD_PERFORMANCE_TESTS=OFF"
     "-DMIR_BUILD_PLATFORM_TEST_HARNESS=OFF"
@@ -173,7 +173,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
     # More of an example than a fully functioning shell, some notes for the adventurous:
     # - ~/.config/miral-shell.config is one possible user config location,
     #   accepted options=value are according to `mir-shell --help`
@@ -181,7 +181,7 @@ stdenv.mkDerivation rec {
     #   or setting to be changed to an available theme
     # - terminal emulator setting may need to be changed if miral-terminal script
     #   does not know about preferred terminal
-    providedSessions = [ "mir-shell" ];
+    providedSessions = ["mir-shell"];
   };
 
   meta = with lib; {

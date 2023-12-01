@@ -26,12 +26,12 @@ buildPythonPackage rec {
 
   doCheck = false; # pypi tarball does not contain tests
 
-  pythonImportsCheck = [ "yoyo" ];
+  pythonImportsCheck = ["yoyo"];
 
   meta = with lib; {
     description = "Database schema migration tool";
     homepage = "https://ollycope.com/software/yoyo";
     license = licenses.asl20;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

@@ -31,10 +31,10 @@
 
   # A list of attribute sets {object, symlink}. Symlinks will be created
   # in the root filesystem of the image to objects in the nix store.
-  symlinks ? [ ],
+  symlinks ? [],
 
   # A list of additional derivations to be included in the image as-is.
-  contents ? [ ],
+  contents ? [],
 
   # mksquashfs options
   squashfsTools ? pkgs.squashfsTools,
@@ -44,7 +44,7 @@
 
 let
   filterNull = lib.filterAttrs (_: v: v != null);
-  envFileGenerator = lib.generators.toKeyValue { };
+  envFileGenerator = lib.generators.toKeyValue {};
 
   rootFsScaffold =
     let
@@ -78,7 +78,7 @@ let
         + (lib.concatMapStringsSep "\n" (u: "cp ${u} $out/etc/systemd/system/${u.name};") units)
         + (lib.concatMapStringsSep "\n"
           (
-            { object, symlink }:
+            {object, symlink}:
             ''
               mkdir -p $(dirname $out/${symlink});
               ln -s ${object} $out/${symlink};
@@ -96,8 +96,8 @@ stdenv.mkDerivation {
   pname = "${pname}-img";
   inherit version;
 
-  nativeBuildInputs = [ squashfsTools ];
-  closureInfo = pkgs.closureInfo { rootPaths = [ rootFsScaffold ] ++ contents; };
+  nativeBuildInputs = [squashfsTools];
+  closureInfo = pkgs.closureInfo {rootPaths = [rootFsScaffold] ++ contents;};
 
   buildCommand = ''
     mkdir -p nix/store

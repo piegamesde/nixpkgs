@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-PM6J21yT5paukDB8uJkcIyy+miYwN4+gk8Ej1xI8Q1A=";
   };
 
-  nativeBuildInputs = [ pdm-pep517 ];
+  nativeBuildInputs = [pdm-pep517];
 
   propagatedBuildInputs = [
     griffe
@@ -42,13 +42,13 @@ buildPythonPackage rec {
       --replace 'dynamic = ["version"]' 'version = "${version}"'
   '';
 
-  pythonImportsCheck = [ "mkdocstrings_handlers" ];
+  pythonImportsCheck = ["mkdocstrings_handlers"];
 
   meta = with lib; {
     description = "Python handler for mkdocstrings";
     homepage = "https://github.com/mkdocstrings/python";
     changelog = "https://github.com/mkdocstrings/python/blob/${version}/CHANGELOG.md";
     license = licenses.isc;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

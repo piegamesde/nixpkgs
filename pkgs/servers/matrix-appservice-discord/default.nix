@@ -43,7 +43,7 @@ mkYarnPackage rec {
     };
 
     better-sqlite3 = {
-      nativeBuildInputs = [ python3 ];
+      nativeBuildInputs = [python3];
       postInstall = ''
         # build native sqlite bindings
         npm run build-release --offline --nodedir="${nodeSources}"
@@ -54,7 +54,7 @@ mkYarnPackage rec {
     };
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildPhase = ''
     runHook preBuild
@@ -102,7 +102,7 @@ mkYarnPackage rec {
     description = "A bridge between Matrix and Discord";
     homepage = "https://github.com/Half-Shot/matrix-appservice-discord";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ pacien ];
+    maintainers = with lib.maintainers; [pacien];
     platforms = lib.platforms.linux;
   };
 }

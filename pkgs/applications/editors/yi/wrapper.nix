@@ -5,16 +5,16 @@
   stdenv,
   makeWrapper,
   haskellPackages,
-  extraPackages ? (s: [ ]),
+  extraPackages ? (s: []),
 }:
 let
-  yiEnv = haskellPackages.ghcWithPackages (self: [ self.yi ] ++ extraPackages self);
+  yiEnv = haskellPackages.ghcWithPackages (self: [self.yi] ++ extraPackages self);
 in
 stdenv.mkDerivation {
   pname = "yi-custom";
   version = "0.0.0.1";
   dontUnpack = true;
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildCommand = ''
     mkdir -p $out/bin
@@ -29,7 +29,7 @@ stdenv.mkDerivation {
     description = "Allows Yi to find libraries and the compiler easily";
     # This wrapper and wrapper only is under PD
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
 
     # dependency yi-language no longer builds
     hydraPlatforms = lib.platforms.none;

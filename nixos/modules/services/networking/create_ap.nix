@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.services.create_ap;
-  configFile = pkgs.writeText "create_ap.conf" (generators.toKeyValue { } cfg.settings);
+  configFile = pkgs.writeText "create_ap.conf" (generators.toKeyValue {} cfg.settings);
 in
 {
   options = {
@@ -25,7 +25,7 @@ in
               str
             ]
           );
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Configuration for `create_ap`.
           See [upstream example configuration](https://raw.githubusercontent.com/lakinduakash/linux-wifi-hotspot/master/src/scripts/create_ap.conf)
@@ -45,10 +45,10 @@ in
 
     systemd = {
       services.create_ap = {
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         description = "Create AP Service";
-        after = [ "network.target" ];
-        restartTriggers = [ configFile ];
+        after = ["network.target"];
+        restartTriggers = [configFile];
         serviceConfig = {
           ExecStart = "${pkgs.linux-wifi-hotspot}/bin/create_ap --config ${configFile}";
           KillSignal = "SIGINT";
@@ -58,5 +58,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ onny ];
+  meta.maintainers = with lib.maintainers; [onny];
 }

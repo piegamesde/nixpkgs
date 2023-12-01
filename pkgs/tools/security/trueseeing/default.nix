@@ -16,7 +16,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-7iQOQ81k2bPBber4ewyvDy82s26j4P3Vv8MzSs04KAw=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [ flit-core ];
+  nativeBuildInputs = with python3.pkgs; [flit-core];
 
   propagatedBuildInputs = with python3.pkgs; [
     attrs
@@ -37,12 +37,12 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "trueseeing" ];
+  pythonImportsCheck = ["trueseeing"];
 
   meta = with lib; {
     description = "Non-decompiling Android vulnerability scanner";
     homepage = "https://github.com/alterakey/trueseeing";
-    license = with licenses; [ gpl3Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Plus];
+    maintainers = with maintainers; [fab];
   };
 }

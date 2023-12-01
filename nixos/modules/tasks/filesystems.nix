@@ -13,7 +13,7 @@ let
 
   addCheckDesc =
     desc: elemType: check:
-    types.addCheck elemType check // { description = "${elemType.description} (with check: ${desc})"; };
+    types.addCheck elemType check // {description = "${elemType.description} (with check: ${desc})";};
 
   isNonEmpty =
     s:
@@ -52,7 +52,7 @@ let
   );
 
   coreFileSystemOpts =
-    { name, config, ... }:
+    {name, config, ...}:
     {
 
       options = {
@@ -77,15 +77,15 @@ let
         };
 
         options = mkOption {
-          default = [ "defaults" ];
-          example = [ "data=journal" ];
+          default = ["defaults"];
+          example = ["data=journal"];
           description = lib.mdDoc "Options used to mount the file system.";
           type = types.nonEmptyListOf nonEmptyStr;
         };
 
         depends = mkOption {
-          default = [ ];
-          example = [ "/persist" ];
+          default = [];
+          example = ["/persist"];
           type = types.listOf nonEmptyWithoutTrailingSlash;
           description = lib.mdDoc ''
             List of paths that should be mounted before this one. This filesystem's
@@ -105,7 +105,7 @@ let
     };
 
   fileSystemOpts =
-    { config, ... }:
+    {config, ...}:
     {
 
       options = {
@@ -172,8 +172,8 @@ let
         in
         {
           options = mkMerge [
-            (mkIf config.autoResize [ "x-nixos.autoresize" ])
-            (mkIf (utils.fsNeededForBoot config) [ "x-initrd.mount" ])
+            (mkIf config.autoResize ["x-nixos.autoresize"])
+            (mkIf (utils.fsNeededForBoot config) ["x-initrd.mount"])
           ];
           formatOptions = mkIf (defaultFormatOptions != null) (mkDefault defaultFormatOptions);
         };
@@ -245,7 +245,7 @@ let
     fstabFileSystems:
     {
       rootPrefix ? "",
-      extraOpts ? (fs: [ ]),
+      extraOpts ? (fs: []),
     }:
     concatMapStrings
       (
@@ -294,7 +294,7 @@ in
   options = {
 
     fileSystems = mkOption {
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           "/".device = "/dev/hda1";
@@ -331,19 +331,19 @@ in
 
     system.fsPackages = mkOption {
       internal = true;
-      default = [ ];
+      default = [];
       description = lib.mdDoc "Packages supplying file system mounters and checkers.";
     };
 
     boot.supportedFilesystems = mkOption {
-      default = [ ];
-      example = [ "btrfs" ];
+      default = [];
+      example = ["btrfs"];
       type = types.listOf types.str;
       description = lib.mdDoc "Names of supported filesystem types.";
     };
 
     boot.specialFileSystems = mkOption {
-      default = { };
+      default = {};
       type = types.attrsOf (types.submodule coreFileSystemOpts);
       internal = true;
       description = lib.mdDoc ''
@@ -417,7 +417,7 @@ in
     boot.supportedFilesystems = map (fs: fs.fsType) fileSystems;
 
     # Add the mount helpers to the system path so that `mount' can find them.
-    system.fsPackages = [ pkgs.dosfstools ];
+    system.fsPackages = [pkgs.dosfstools];
 
     environment.systemPackages =
       with pkgs;
@@ -448,7 +448,7 @@ in
         # <file system> <mount point>   <type>  <options>       <dump>  <pass>
 
         # Filesystems.
-        ${makeFstabEntries fileSystems { }}
+        ${makeFstabEntries fileSystems {}}
 
         # Swap devices.
         ${flip concatMapStrings config.swapDevices (
@@ -458,7 +458,7 @@ in
         )}
       '';
 
-    boot.initrd.systemd.storePaths = [ initrdFstab ];
+    boot.initrd.systemd.storePaths = [initrdFstab];
     boot.initrd.systemd.managerEnvironment.SYSTEMD_SYSROOT_FSTAB = initrdFstab;
     boot.initrd.systemd.services.initrd-parse-etc.environment.SYSTEMD_SYSROOT_FSTAB = initrdFstab;
 
@@ -484,14 +484,14 @@ in
           in
           nameValuePair "mkfs-${device'}" {
             description = "Initialisation of Filesystem ${fs.device}";
-            wantedBy = [ mountPoint' ];
+            wantedBy = [mountPoint'];
             before = [
               mountPoint'
               "systemd-fsck@${device'}.service"
             ];
-            requires = [ device'' ];
-            after = [ device'' ];
-            path = [ pkgs.util-linux ] ++ config.system.fsPackages;
+            requires = [device''];
+            after = [device''];
+            path = [pkgs.util-linux] ++ config.system.fsPackages;
             script = ''
               if ! [ -e "${fs.device}" ]; then exit 1; fi
               # FIXME: this is scary.  The test could be more robust.
@@ -501,7 +501,7 @@ in
                 mkfs.${fs.fsType} ${fs.formatOptions} "${fs.device}"
               fi
             '';
-            unitConfig.RequiresMountsFor = [ "${dirOf fs.device}" ];
+            unitConfig.RequiresMountsFor = ["${dirOf fs.device}"];
             unitConfig.DefaultDependencies = false; # needed to prevent a cycle
             serviceConfig.Type = "oneshot";
           };
@@ -539,8 +539,8 @@ in
             ConditionVirtualization = "!container";
             DefaultDependencies = false; # needed to prevent a cycle
           };
-          before = [ "systemd-pstore.service" ];
-          wantedBy = [ "systemd-pstore.service" ];
+          before = ["systemd-pstore.service"];
+          wantedBy = ["systemd-pstore.service"];
         };
       };
 

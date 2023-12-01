@@ -22,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     description = "Command line tool to translate morse code input to text in real time";
     homepage = "https://github.com/SamLee514/morsel";
     license = licenses.mit;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
   };
 }

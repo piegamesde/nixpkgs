@@ -1,13 +1,13 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
   debug ? false,
   enableUnfree ? false,
   use64bitGuest ? true,
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
 
 let
@@ -115,7 +115,7 @@ let
     logfile: tag:
     let
       rotated = map (i: "${logfile}.${toString i}") (range 1 9);
-      all = concatMapStringsSep " " (f: ''"${f}"'') ([ logfile ] ++ rotated);
+      all = concatMapStringsSep " " (f: ''"${f}"'') ([logfile] ++ rotated);
       logcmd = ''tail -F ${all} 2> /dev/null | logger -t "${tag}"'';
     in
     if debug then "machine.execute(ru('${logcmd} & disown'))" else "pass";
@@ -193,7 +193,7 @@ let
           "--memory 768"
           "--audio none"
         ]
-        ++ (attrs.vmFlags or [ ])
+        ++ (attrs.vmFlags or [])
       );
 
       controllerFlags = mkFlags [
@@ -227,8 +227,8 @@ let
       machine = {
         systemd.sockets."vboxtestlog-${name}" = {
           description = "VirtualBox Test Machine Log Socket For ${name}";
-          wantedBy = [ "sockets.target" ];
-          before = [ "multi-user.target" ];
+          wantedBy = ["sockets.target"];
+          before = ["multi-user.target"];
           socketConfig.ListenStream = "/run/virtualbox-log-${name}.sock";
           socketConfig.Accept = true;
         };
@@ -349,7 +349,7 @@ let
   ];
 
   # The VirtualBox Oracle Extension Pack lets you use USB 3.0 (xHCI).
-  enableExtensionPackVMFlags = [ "--usbxhci on" ];
+  enableExtensionPackVMFlags = ["--usbxhci on"];
 
   dhcpScript = pkgs: ''
     ${pkgs.dhcpcd}/bin/dhcpcd eth0 eth1
@@ -364,7 +364,7 @@ let
   '';
 
   vboxVMs = mapAttrs createVM {
-    simple = { };
+    simple = {};
 
     detectvirt.vmScript = sysdDetectVirt;
 
@@ -378,7 +378,7 @@ let
     headless.services.xserver.enable = false;
   };
 
-  vboxVMsWithExtpack = mapAttrs createVM { testExtensionPack.vmFlags = enableExtensionPackVMFlags; };
+  vboxVMsWithExtpack = mapAttrs createVM {testExtensionPack.vmFlags = enableExtensionPackVMFlags;};
 
   mkVBoxTest =
     useExtensionPack: vms: name: testScript:
@@ -386,11 +386,11 @@ let
       name = "virtualbox-${name}";
 
       nodes.machine =
-        { lib, config, ... }:
+        {lib, config, ...}:
         {
           imports =
             let
-              mkVMConf = name: val: val.machine // { key = "${name}-config"; };
+              mkVMConf = name: val: val.machine // {key = "${name}-config";};
               vmConfigs = mapAttrsToList mkVMConf vms;
             in
             [
@@ -578,4 +578,4 @@ mapAttrs (mkVBoxTest false vboxVMs) {
     destroy_vm_test2()
   '';
 }
-// (if enableUnfree then unfreeTests else { })
+// (if enableUnfree then unfreeTests else {})

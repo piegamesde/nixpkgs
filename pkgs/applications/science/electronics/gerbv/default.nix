@@ -46,14 +46,14 @@ stdenv.mkDerivation rec {
     gtk2-x11
   ];
 
-  configureFlags = [ "--disable-update-desktop-database" ];
+  configureFlags = ["--disable-update-desktop-database"];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-format-security";
 
   meta = with lib; {
     description = "A Gerber (RS-274X) viewer";
     homepage = "http://gerbv.geda-project.org/";
-    maintainers = with maintainers; [ mog ];
+    maintainers = with maintainers; [mog];
     platforms = platforms.unix;
     license = licenses.gpl2;
   };

@@ -29,7 +29,7 @@ in
 
     extraArgs = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = literalExpression ''
         [ "-b" "127.0.0.1:8000" ]
       '';
@@ -77,8 +77,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.powerdns-admin = {
       description = "PowerDNS web interface";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "networking.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["networking.target"];
 
       environment.FLASK_CONF = builtins.toFile "powerdns-admin-config.py" configText;
       environment.PYTHONPATH = pkgs.powerdns-admin.pythonPath;
@@ -150,7 +150,7 @@ in
       };
     };
 
-    users.groups.powerdnsadmin = { };
+    users.groups.powerdnsadmin = {};
     users.users.powerdnsadmin = {
       description = "PowerDNS web interface user";
       isSystemUser = true;

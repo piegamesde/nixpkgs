@@ -32,8 +32,8 @@ let
 
   nodejs = nodejs_16;
   python = python3;
-  yarn' = yarn.override { inherit nodejs; };
-  defaultYarnOpts = [ ];
+  yarn' = yarn.override {inherit nodejs;};
+  defaultYarnOpts = [];
 
   esbuild' = esbuild.override {
     buildGoModule =
@@ -137,7 +137,7 @@ stdenv.mkDerivation rec {
     quilt
   ];
   buildInputs =
-    lib.optionals (!stdenv.isDarwin) [ libsecret ]
+    lib.optionals (!stdenv.isDarwin) [libsecret]
     ++ (
       with xorg; [
         libX11
@@ -299,7 +299,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    prefetchYarnCache = lib.overrideDerivation yarnCache (d: { outputHash = lib.fakeSha256; });
+    prefetchYarnCache = lib.overrideDerivation yarnCache (d: {outputHash = lib.fakeSha256;});
   };
 
   meta = with lib; {

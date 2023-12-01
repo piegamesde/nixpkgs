@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
       --replace 'add_subdirectory("imagelol")' 'add_subdirectory("src")'
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/MCredstoner2004/ImageLOL";
     description = "Simple program to store a file into a PNG image";
     license = licenses.mit;
-    maintainers = [ maintainers.ivar ];
+    maintainers = [maintainers.ivar];
     platforms = platforms.unix;
   };
 }

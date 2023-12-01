@@ -31,10 +31,10 @@ buildPythonPackage rec {
   doCheck = false;
 
   passthru.tests = {
-    tests = callPackage ./tests.nix { };
+    tests = callPackage ./tests.nix {};
   };
 
-  pythonImportsCheck = [ "os_service_types" ];
+  pythonImportsCheck = ["os_service_types"];
 
   meta = with lib; {
     description = "Python library for consuming OpenStack sevice-types-authority data";

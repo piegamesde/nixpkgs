@@ -23,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-S44TWpzU0uoA2mcMCTNy105nK6OruH9MmNjnPepURFw=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ attrs ];
+  propagatedBuildInputs = [attrs];
 
   nativeCheckInputs = [
     mock
@@ -34,12 +34,12 @@ buildPythonPackage rec {
     unittestCheckHook
   ];
 
-  pythonImportsCheck = [ "sigtools" ];
+  pythonImportsCheck = ["sigtools"];
 
   meta = with lib; {
     description = "Utilities for working with inspect.Signature objects";
     homepage = "https://sigtools.readthedocs.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -35,12 +35,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "deezer" ];
+  pythonImportsCheck = ["deezer"];
 
   meta = with lib; {
     description = "Deezer downloader built from the ashes of Deezloader Remix";
     homepage = "https://git.freezerapp.xyz/RemixDev/deemix-py";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ natto1784 ];
+    maintainers = with maintainers; [natto1784];
   };
 }

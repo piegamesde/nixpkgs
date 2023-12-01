@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
     python3
     yarn
   ];
-  buildInputs = [ sqlcipher ] ++ lib.optional stdenv.isDarwin CoreServices;
+  buildInputs = [sqlcipher] ++ lib.optional stdenv.isDarwin CoreServices;
 
   npm_config_nodedir = nodejs;
 
@@ -70,7 +70,7 @@ rustPlatform.buildRustPackage rec {
     runHook postInstall
   '';
 
-  disallowedReferences = [ stdenv.cc.cc ];
+  disallowedReferences = [stdenv.cc.cc];
 
   cargoSha256 = pinData.cargoHash;
 }

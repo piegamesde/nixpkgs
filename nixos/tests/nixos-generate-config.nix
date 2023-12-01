@@ -1,8 +1,8 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
   {
     name = "nixos-generate-config";
-    meta.maintainers = with lib.maintainers; [ basvandijk ];
+    meta.maintainers = with lib.maintainers; [basvandijk];
     nodes.machine = {
       system.nixos-generate-config.configuration = ''
         # OVERRIDDEN

@@ -8,7 +8,7 @@
 with lib;
 let
   cfg = config.services.webdav-server-rs;
-  format = pkgs.formats.toml { };
+  format = pkgs.formats.toml {};
   settings =
     recursiveUpdate
       {
@@ -36,7 +36,7 @@ in
 
       settings = mkOption {
         type = format.type;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Attrset that is converted and passed as config file. Available
           options can be found at
@@ -108,12 +108,12 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "webdav") { webdav.gid = config.ids.gids.webdav; };
+    users.groups = optionalAttrs (cfg.group == "webdav") {webdav.gid = config.ids.gids.webdav;};
 
     systemd.services.webdav-server-rs = {
       description = "WebDAV server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.webdav-server-rs}/bin/webdav-server -c ${cfg.configFile}";
 
@@ -122,8 +122,8 @@ in
           "CAP_SETGID"
         ];
 
-        NoExecPaths = [ "/" ];
-        ExecPaths = [ "/nix/store" ];
+        NoExecPaths = ["/"];
+        ExecPaths = ["/nix/store"];
 
         # This program actively detects if it is running in root user account
         # when it starts and uses root privilege to switch process uid to
@@ -144,5 +144,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ pmy ];
+  meta.maintainers = with maintainers; [pmy];
 }

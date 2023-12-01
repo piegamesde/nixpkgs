@@ -33,7 +33,7 @@ let
   extension = if stdenv.isDarwin then "zip" else "tar.gz";
 
   runtimeDependencies =
-    [ cups ]
+    [cups]
     ++ lib.optionals gtkSupport [
       cairo
       glib
@@ -71,7 +71,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [
     makeWrapper
-  ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ] ++ lib.optionals stdenv.isDarwin [ unzip ];
+  ] ++ lib.optionals stdenv.isLinux [autoPatchelfHook] ++ lib.optionals stdenv.isDarwin [unzip];
 
   installPhase =
     ''
@@ -122,7 +122,7 @@ stdenv.mkDerivation {
       Certified builds of OpenJDK that can be deployed across multiple
       operating systems, containers, hypervisors and Cloud platforms.
     '';
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"

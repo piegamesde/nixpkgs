@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     makeWrapper
     copyDesktopItems
   ];
-  buildInputs = [ electron ];
+  buildInputs = [electron];
 
   installPhase = ''
     install -d $out/bin $out/share/nix-tour

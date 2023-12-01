@@ -37,12 +37,12 @@ buildPythonPackage rec {
     traitlets
   ];
 
-  pythonImportsCheck = [ "testbook" ];
+  pythonImportsCheck = ["testbook"];
 
   meta = with lib; {
     description = "A unit testing framework extension for testing code in Jupyter Notebooks";
     homepage = "https://testbook.readthedocs.io/";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ djacu ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [djacu];
   };
 }

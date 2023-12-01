@@ -32,7 +32,7 @@ buildGoModule rec {
     python3.pkgs.wrapPython
   ];
 
-  patches = [ ./runtime-sharedir.patch ];
+  patches = [./runtime-sharedir.patch];
 
   postPatch = ''
     substituteAllInPlace config/aerc.conf
@@ -40,9 +40,9 @@ buildGoModule rec {
     substituteAllInPlace doc/aerc-config.5.scd
   '';
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
-  pythonPath = [ python3.pkgs.colorama ];
+  pythonPath = [python3.pkgs.colorama];
 
   buildInputs = [
     python3
@@ -60,7 +60,7 @@ buildGoModule rec {
 
   postFixup = ''
     wrapProgram $out/bin/aerc \
-      --prefix PATH ":" "${lib.makeBinPath [ ncurses ]}"
+      --prefix PATH ":" "${lib.makeBinPath [ncurses]}"
     wrapProgram $out/share/aerc/filters/html \
       --prefix PATH ":"  ${
         lib.makeBinPath [
@@ -81,7 +81,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "An email client for your terminal";
     homepage = "https://aerc-mail.org/";
-    maintainers = with maintainers; [ tadeokondrak ];
+    maintainers = with maintainers; [tadeokondrak];
     license = licenses.mit;
     platforms = platforms.unix;
   };

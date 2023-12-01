@@ -73,12 +73,12 @@ buildPythonPackage rec {
     "test_profile"
   ];
 
-  pythonImportsCheck = [ "nplusone" ];
+  pythonImportsCheck = ["nplusone"];
 
   meta = with lib; {
     description = "Detecting the n+1 queries problem in Python";
     homepage = "https://github.com/jmcarp/nplusone";
-    maintainers = with maintainers; [ cript0nauta ];
+    maintainers = with maintainers; [cript0nauta];
     license = licenses.mit;
   };
 }

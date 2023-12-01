@@ -37,8 +37,8 @@ in
 
   config = mkIf cfg.enable {
     systemd.services.jmusicbot = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
       description = "Discord music bot that's easy to set up and run yourself!";
       serviceConfig = mkMerge [
         {
@@ -48,10 +48,10 @@ in
           RestartSec = 20;
           DynamicUser = true;
         }
-        (mkIf (cfg.stateDir == "/var/lib/jmusicbot") { StateDirectory = "jmusicbot"; })
+        (mkIf (cfg.stateDir == "/var/lib/jmusicbot") {StateDirectory = "jmusicbot";})
       ];
     };
   };
 
-  meta.maintainers = with maintainers; [ SuperSandro2000 ];
+  meta.maintainers = with maintainers; [SuperSandro2000];
 }

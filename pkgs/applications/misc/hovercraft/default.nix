@@ -24,7 +24,7 @@ buildPythonApplication rec {
     sha256 = "0k0gjlqjz424rymcfdjpj6a71ppblfls5f8y2hd800d1as4im8az";
   };
 
-  nativeCheckInputs = [ manuel ];
+  nativeCheckInputs = [manuel];
   propagatedBuildInputs = [
     setuptools
     docutils

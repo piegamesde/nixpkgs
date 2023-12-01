@@ -24,7 +24,7 @@ mkDerivation rec {
     sha256 = "hXDZODHl14kimRlMQ1XjISQ2kk9NS78axVN3U21wkuM=";
     fetchSubmodules = true;
   };
-  patches = [ ./fix-cmake-hunspell-1.7.patch ];
+  patches = [./fix-cmake-hunspell-1.7.patch];
   nativeBuildInputs = [
     cmake
     qttools
@@ -43,7 +43,7 @@ mkDerivation rec {
   meta = with lib; {
     homepage = "https://psi-im.org";
     description = "An XMPP (Jabber) client";
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

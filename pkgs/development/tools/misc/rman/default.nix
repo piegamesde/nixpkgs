@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/share/man
   '';
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   doCheck = false; # "check" target is probably meant to do "installcheck" or something
 

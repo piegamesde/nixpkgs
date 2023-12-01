@@ -7,10 +7,10 @@
 {
   packages,
   os ? null,
-  nativeBuildInputs ? [ ],
-  buildInputs ? [ ],
-  patchesInstructions ? { },
-  meta ? { },
+  nativeBuildInputs ? [],
+  buildInputs ? [],
+  patchesInstructions ? {},
+  meta ? {},
   ...
 }@args:
 
@@ -44,7 +44,7 @@ let
     let
       tag = builtins.head (builtins.match "([^:]+).*" name);
       hasXmlAttrs = builtins.hasAttr "element-attributes" doc;
-      xmlValues = removeAttrs doc [ "element-attributes" ];
+      xmlValues = removeAttrs doc ["element-attributes"];
       hasXmlValues = builtins.length (builtins.attrNames xmlValues) > 0;
     in
     if hasXmlAttrs && hasXmlValues then
@@ -75,13 +75,13 @@ let
       <license id="${package.license}" type="text">${
         lib.concatStringsSep "---" (mkLicenses package.license)
       }</license>
-      <localPackage path="${builtins.replaceStrings [ "/" ] [ ";" ] package.path}" obsolete="${
-        if (lib.hasAttrByPath [ "obsolete" ] package) then package.obsolete else "false"
+      <localPackage path="${builtins.replaceStrings ["/"] [";"] package.path}" obsolete="${
+        if (lib.hasAttrByPath ["obsolete"] package) then package.obsolete else "false"
       }">
         ${mkXmlDoc "type-details" package.type-details}
         ${mkXmlDoc "revision" package.revision-details}
         ${
-          lib.optionalString (lib.hasAttrByPath [ "dependencies" ] package) (
+          lib.optionalString (lib.hasAttrByPath ["dependencies"] package) (
             mkXmlDoc "dependencies" package.dependencies
           )
         }
@@ -106,7 +106,7 @@ stdenv.mkDerivation (
             package.archives.all
         )
         packages;
-    nativeBuildInputs = [ unzip ] ++ nativeBuildInputs;
+    nativeBuildInputs = [unzip] ++ nativeBuildInputs;
     preferLocalBuild = true;
 
     unpackPhase = ''

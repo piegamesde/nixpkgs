@@ -70,7 +70,7 @@ rec {
       project-root, # The monorepo root
       haskellPackages, # The composed haskell packages set that contains all of the packages
     }:
-    { root }:
+    {root}:
     let
       # The haskell paths.
       haskell-paths = lib.filesystem.haskellPathsInDir project-root;
@@ -81,12 +81,12 @@ rec {
             builtins.filter (name: lib.hasPrefix (toString (project-root + "/${name}")) (toString root))
               (builtins.attrNames haskell-paths);
         in
-        if filtered == [ ] then null else builtins.head filtered;
+        if filtered == [] then null else builtins.head filtered;
       # We're in the directory of a haskell package
       is-haskell-package = haskell-path-parent != null;
       haskell-package = haskellPackages.${haskell-path-parent};
       # GHC environment with all needed deps for the haskell package
       haskell-package-env = builtins.head haskell-package.env.nativeBuildInputs;
     in
-    if is-haskell-package then withPackages [ haskell-package-env ] else { };
+    if is-haskell-package then withPackages [haskell-package-env] else {};
 }

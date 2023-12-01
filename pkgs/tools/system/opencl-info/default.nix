@@ -42,6 +42,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/marchv/opencl-info";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

@@ -33,7 +33,7 @@ buildGoPackage rec {
 
   goPackagePath = "github.com/aws/${pname}";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   src = fetchFromGitHub {
     rev = version;

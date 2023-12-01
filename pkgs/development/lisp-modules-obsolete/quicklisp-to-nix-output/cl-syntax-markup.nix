@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-syntax-markup";
   version = "cl-syntax-20150407-git";
@@ -20,7 +20,7 @@ rec {
 
   packageName = "cl-syntax-markup";
 
-  asdFilesToKeep = [ "cl-syntax-markup.asd" ];
+  asdFilesToKeep = ["cl-syntax-markup.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-syntax-markup DESCRIPTION CL-Syntax Reader Syntax for CL-Markup

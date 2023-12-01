@@ -32,7 +32,7 @@ buildPythonPackage rec {
                 "${libmediainfo}/lib/libmediainfo${stdenv.hostPlatform.extensions.sharedLibrary}.0"
   '';
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   nativeCheckInputs = [
     glibcLocales
@@ -44,13 +44,13 @@ buildPythonPackage rec {
     py.test -k 'not test_parse_url' tests
   '';
 
-  pythonImportsCheck = [ "pymediainfo" ];
+  pythonImportsCheck = ["pymediainfo"];
 
   meta = with lib; {
     description = "Python wrapper for the mediainfo library";
     homepage = "https://github.com/sbraz/pymediainfo";
     changelog = "https://github.com/sbraz/pymediainfo/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ jfrankenau ];
+    maintainers = with maintainers; [jfrankenau];
   };
 }

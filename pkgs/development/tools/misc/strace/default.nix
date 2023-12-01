@@ -17,14 +17,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DH04pElBYmjTAEApoiChWnfCIGoDzIgSDzf0bpSRd+g=";
   };
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ perl ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
+  nativeBuildInputs = [perl];
 
   # On RISC-V platforms, LLVM's libunwind implementation is unsupported by strace.
   # The build will silently fall back and -k will not work on RISC-V.
-  buildInputs = [ libunwind ]; # support -k
+  buildInputs = [libunwind]; # support -k
 
-  configureFlags = [ "--enable-mpers=check" ];
+  configureFlags = ["--enable-mpers=check"];
 
   passthru.updateScript = gitUpdater {
     # No nicer place to find latest release.

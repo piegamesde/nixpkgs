@@ -53,10 +53,10 @@ stdenv.mkDerivation rec {
         --replace '-lbsd' '-framework CoreFoundation -framework IOKit'
     '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   buildInputs =
-    lib.optionals (!stdenv.hostPlatform.isDarwin) [ libbsd ]
+    lib.optionals (!stdenv.hostPlatform.isDarwin) [libbsd]
     ++ lib.optionals (stdenv.hostPlatform.isDarwin) [
       CoreFoundation
       IOKit
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
       hpnd # original license statements seems to match this (in files that are shared with mac-fdisk)
       apsl10 # new files
     ];
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = platforms.unix;
   };
 }

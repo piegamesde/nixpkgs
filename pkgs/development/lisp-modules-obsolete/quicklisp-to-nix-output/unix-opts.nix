@@ -1,14 +1,14 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "unix-opts";
   version = "20210124-git";
 
-  parasites = [ "unix-opts/tests" ];
+  parasites = ["unix-opts/tests"];
 
   description = "minimalistic parser of command line arguments";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/unix-opts/2021-01-24/unix-opts-20210124-git.tgz";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "unix-opts";
 
-  asdFilesToKeep = [ "unix-opts.asd" ];
+  asdFilesToKeep = ["unix-opts.asd"];
   overrides = x: x;
 }
 /* (SYSTEM unix-opts DESCRIPTION minimalistic parser of command line arguments

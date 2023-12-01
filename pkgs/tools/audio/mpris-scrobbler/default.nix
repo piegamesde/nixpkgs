@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     libevent
   ];
 
-  mesonFlags = [ "-Dversion=${version}" ];
+  mesonFlags = ["-Dversion=${version}"];
 
   env.NIX_CFLAGS_COMPILE = toString (
     [
@@ -71,14 +71,14 @@ stdenv.mkDerivation rec {
   );
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Minimalistic scrobbler for libre.fm & last.fm";
     homepage = "https://github.com/mariusor/mpris-scrobbler";
     license = licenses.mit;
-    maintainers = with maintainers; [ emantor ];
+    maintainers = with maintainers; [emantor];
     platforms = platforms.unix;
   };
 }

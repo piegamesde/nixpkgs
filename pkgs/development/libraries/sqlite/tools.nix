@@ -30,10 +30,10 @@ let
           hash = "sha256-hxkfzsuLcH2aEO2xNgdoYxfXFpwIC5vcXTnQY1g3bMw=";
         };
 
-      nativeBuildInputs = [ unzip ];
-      buildInputs = [ tcl ] ++ lib.optional stdenv.isDarwin Foundation;
+      nativeBuildInputs = [unzip];
+      buildInputs = [tcl] ++ lib.optional stdenv.isDarwin Foundation;
 
-      makeFlags = [ makeTarget ];
+      makeFlags = [makeTarget];
 
       installPhase = "install -Dt $out/bin ${makeTarget}";
 
@@ -41,7 +41,7 @@ let
         inherit description homepage mainProgram;
         downloadPage = "http://sqlite.org/download.html";
         license = licenses.publicDomain;
-        maintainers = with maintainers; [ johnazoidberg ];
+        maintainers = with maintainers; [johnazoidberg];
         platforms = platforms.unix;
       };
     };

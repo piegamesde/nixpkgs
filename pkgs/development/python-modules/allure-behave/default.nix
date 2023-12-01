@@ -19,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-CxdB1gliajS6dUUhnD+yRMVj0zglGEwZC6RDmirH+pg=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  pythonImportsCheck = [ "allure_behave" ];
+  pythonImportsCheck = ["allure_behave"];
 
   propagatedBuildInputs = [
     allure-python-commons
@@ -32,6 +32,6 @@ buildPythonPackage rec {
     description = "Allure behave integration.";
     homepage = "https://github.com/allure-framework/allure-python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
   };
 }

@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     meson
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     scdoc
   ];
 
-  buildInputs = lib.optionals systemdSupport [ systemd ];
+  buildInputs = lib.optionals systemdSupport [systemd];
 
   mesonFlags = [
     "-Dlibseat-logind=${if systemdSupport then "systemd" else "disabled"}"
@@ -51,6 +51,6 @@ stdenv.mkDerivation rec {
     homepage = "https://sr.ht/~kennylevinsen/seatd/";
     license = licenses.mit;
     platforms = with platforms; freebsd ++ linux ++ netbsd;
-    maintainers = with maintainers; [ emantor ];
+    maintainers = with maintainers; [emantor];
   };
 }

@@ -20,7 +20,7 @@ stdenv.mkDerivation {
     sha256 = "15vixhwqcpbjdxlaznans9w63kwl29mdkds6spvbv2i7l33qnhq4";
   };
 
-  nativeBuildInputs = [ autoreconfHook ] ++ lib.optional withReadline readline;
+  nativeBuildInputs = [autoreconfHook] ++ lib.optional withReadline readline;
   enableParallelBuilding = true;
   configureFlags =
     with lib;
@@ -32,6 +32,6 @@ stdenv.mkDerivation {
     description = "Netgear switch (NSDP) administration tool";
     homepage = "https://www.netgeek.ovh/wiki/projets:ngadmin";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.astro ];
+    maintainers = [maintainers.astro];
   };
 }

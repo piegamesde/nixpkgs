@@ -80,7 +80,7 @@ buildPythonPackage rec {
     pycairo
   ];
 
-  configureFlags = [ "XMLPARSER=libxml2" ];
+  configureFlags = ["XMLPARSER=libxml2"];
 
   disabled = isPyPy;
 
@@ -132,11 +132,11 @@ buildPythonPackage rec {
     "test_wgs84_inverse_forward"
   ];
 
-  pythonImportsCheck = [ "mapnik" ];
+  pythonImportsCheck = ["mapnik"];
 
   meta = with lib; {
     description = "Python bindings for Mapnik";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     homepage = "https://mapnik.org";
     license = licenses.lgpl21Plus;
   };

@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = false;
 
   patches =
-    [ ./0001-Fix-cross-compilation-by-looking-for-ar.patch ]
+    [./0001-Fix-cross-compilation-by-looking-for-ar.patch]
     ++ lib.optionals (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "9")
       [
         # https://trac.macports.org/ticket/59783
@@ -108,21 +108,21 @@ stdenv.mkDerivation rec {
       psutils
       netpbm
     ]
-    ++ lib.optionals enableIconv [ iconv ]
-    ++ lib.optionals enableLibuchardet [ libuchardet ];
+    ++ lib.optionals enableIconv [iconv]
+    ++ lib.optionals enableLibuchardet [libuchardet];
 
   # Builds running without a chroot environment may detect the presence
   # of /usr/X11 in the host system, leading to an impure build of the
   # package. To avoid this issue, X11 support is explicitly disabled.
   configureFlags =
-    lib.optionals (!enableGhostscript) [ "--without-x" ]
-    ++ [ "ac_cv_path_PERL=${buildPackages.perl}/bin/perl" ]
+    lib.optionals (!enableGhostscript) ["--without-x"]
+    ++ ["ac_cv_path_PERL=${buildPackages.perl}/bin/perl"]
     ++ lib.optionals enableGhostscript [
       "--with-gs=${lib.getBin ghostscript}/bin/gs"
       "--with-awk=${lib.getBin gawk}/bin/gawk"
       "--with-appresdir=${placeholder "out"}/lib/X11/app-defaults"
     ]
-    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "gl_cv_func_signbit=yes" ];
+    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) ["gl_cv_func_signbit=yes"];
 
   makeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
     # Trick to get the build system find the proper 'native' groff
@@ -176,7 +176,7 @@ stdenv.mkDerivation rec {
     description = "GNU Troff, a typesetting package that reads plain text and produces formatted output";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
 
     longDescription = ''
       groff is the GNU implementation of troff, a document formatting

@@ -22,6 +22,6 @@ buildGoModule rec {
     description = "A BOSH template merge tool";
     homepage = "https://github.com/geofffranks/spruce";
     license = licenses.mit;
-    maintainers = with maintainers; [ risson ];
+    maintainers = with maintainers; [risson];
   };
 }

@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     perl # for `prove` (tests)
   ];
 
-  buildInputs = [ pam ];
+  buildInputs = [pam];
 
   preConfigure = ''
     export SENDMAIL=${sendmailPath}

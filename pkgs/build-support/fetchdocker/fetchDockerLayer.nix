@@ -9,7 +9,7 @@ let
   generic-fetcher = import ./generic-fetcher.nix pkgargs;
 in
 
-args@{ layerDigest, ... }:
+args@{layerDigest, ...}:
 
 generic-fetcher (
   {

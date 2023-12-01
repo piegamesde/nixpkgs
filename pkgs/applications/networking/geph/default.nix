@@ -20,7 +20,7 @@ let
     description = "A modular Internet censorship circumvention system designed specifically to deal with national filtering.";
     homepage = "https://geph.io";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ penalty1083 ];
+    maintainers = with maintainers; [penalty1083];
   };
 in
 {
@@ -37,10 +37,10 @@ in
 
     cargoHash = "sha256-uBq6rjUnKEscwhu60HEZffLvuXcArz+AiR52org+qKw=";
 
-    nativeBuildInputs = [ perl ];
+    nativeBuildInputs = [perl];
 
     meta = geph-meta // {
-      license = with lib.licenses; [ gpl3Only ];
+      license = with lib.licenses; [gpl3Only];
     };
   };
 
@@ -84,7 +84,7 @@ in
 
       cargoHash = "sha256-lidlUUfHXKPUlICdaVv/SFlyyWsZ7cYHyTJ3kkMn3L4=";
 
-      nativeBuildInputs = [ pkg-config ];
+      nativeBuildInputs = [pkg-config];
 
       buildInputs = [
         glib
@@ -117,7 +117,7 @@ in
     '';
 
     meta = geph-meta // {
-      license = with lib.licenses; [ unfree ];
+      license = with lib.licenses; [unfree];
     };
   };
 }

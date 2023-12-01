@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);
     description = "library and utilities for Linux hugepages";
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
   };

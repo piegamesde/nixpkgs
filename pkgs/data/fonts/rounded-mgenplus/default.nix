@@ -16,7 +16,7 @@ stdenvNoCC.mkDerivation rec {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ p7zip ];
+  nativeBuildInputs = [p7zip];
 
   installPhase = ''
     runHook preInstall
@@ -31,6 +31,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "http://jikasei.me/font/rounded-mgenplus/";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ mnacamura ];
+    maintainers = with maintainers; [mnacamura];
   };
 }

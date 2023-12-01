@@ -21,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-1tV3pVEC5sIjT0tjbujU7l41Jx7PQ1dCn4B1r94C9xE=";
   };
 
-  nativeBuildInputs = [ setuptools-git ];
+  nativeBuildInputs = [setuptools-git];
 
-  propagatedBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [setuptools];
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -49,7 +49,7 @@ buildPythonPackage rec {
       "docker/test_docker.py"
     ];
 
-  pythonImportsCheck = [ "pypiserver" ];
+  pythonImportsCheck = ["pypiserver"];
 
   meta = with lib; {
     homepage = "https://github.com/pypiserver/pypiserver";

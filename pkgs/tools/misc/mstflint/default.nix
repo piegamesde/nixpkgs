@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   dontDisableStatic = true; # the build fails without this. should probably be reported upstream
 

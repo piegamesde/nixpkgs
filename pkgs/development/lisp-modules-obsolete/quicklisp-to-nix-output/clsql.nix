@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "clsql";
   version = "20210228-git";
 
   description = "Common Lisp SQL Interface library";
 
-  deps = [ args."uffi" ];
+  deps = [args."uffi"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/clsql/2021-02-28/clsql-20210228-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "clsql";
 
-  asdFilesToKeep = [ "clsql.asd" ];
+  asdFilesToKeep = ["clsql.asd"];
   overrides = x: x;
 }
 /* (SYSTEM clsql DESCRIPTION Common Lisp SQL Interface library SHA256

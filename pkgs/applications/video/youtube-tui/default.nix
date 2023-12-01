@@ -47,6 +47,6 @@ rustPlatform.buildRustPackage rec {
     description = "An aesthetically pleasing YouTube TUI written in Rust";
     homepage = "https://siriusmart.github.io/youtube-tui";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ Ruixi-rebirth ];
+    maintainers = with maintainers; [Ruixi-rebirth];
   };
 }

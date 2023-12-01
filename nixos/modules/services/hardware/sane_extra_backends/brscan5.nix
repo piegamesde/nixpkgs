@@ -12,10 +12,10 @@ let
 
   netDeviceList = attrValues cfg.netDevices;
 
-  etcFiles = pkgs.callPackage ./brscan5_etc_files.nix { netDevices = netDeviceList; };
+  etcFiles = pkgs.callPackage ./brscan5_etc_files.nix {netDevices = netDeviceList;};
 
   netDeviceOpts =
-    { name, ... }:
+    {name, ...}:
     {
 
       options = {
@@ -74,7 +74,7 @@ in
     hardware.sane.brscan5.enable = mkEnableOption (lib.mdDoc "the Brother brscan5 sane backend");
 
     hardware.sane.brscan5.netDevices = mkOption {
-      default = { };
+      default = {};
       example = {
         office1 = {
           model = "MFC-7860DW";
@@ -95,7 +95,7 @@ in
 
   config = mkIf (config.hardware.sane.enable && cfg.enable) {
 
-    hardware.sane.extraBackends = [ pkgs.brscan5 ];
+    hardware.sane.extraBackends = [pkgs.brscan5];
 
     environment.etc."opt/brother/scanner/brscan5" = {
       source = "${etcFiles}/etc/opt/brother/scanner/brscan5";

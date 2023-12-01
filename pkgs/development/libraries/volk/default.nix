@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     ];
 
   cmakeFlags =
-    lib.optionals (!enableModTool) [ "-DENABLE_MODTOOL=OFF" ]
+    lib.optionals (!enableModTool) ["-DENABLE_MODTOOL=OFF"]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
       "-DVOLK_CPU_FEATURES=OFF"
       # offset 17912 in1: -0.0366274 in2: -0.0366173 tolerance was: 1e-05
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     homepage = "http://libvolk.org/";
     description = "The Vector Optimized Library of Kernels";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     platforms = platforms.all;
   };
 }

@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       cc-by-sa-40
       cc0
     ];
-    maintainers = with maintainers; [ vlinkz ];
+    maintainers = with maintainers; [vlinkz];
     platforms = platforms.linux;
   };
 }

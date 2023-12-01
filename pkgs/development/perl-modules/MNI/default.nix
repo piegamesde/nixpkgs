@@ -15,7 +15,7 @@ buildPerlPackage {
     sha256 = "0vk99pwgbard62k63386r7dpnm3h435jdqywr4xqfq7p04dz6kyb";
   };
 
-  patches = [ ./no-stdin.patch ];
+  patches = [./no-stdin.patch];
 
   doCheck = false; # TODO: almost all tests fail ... is this a real problem?
 
@@ -26,6 +26,6 @@ buildPerlPackage {
       artistic1
       gpl1Plus
     ];
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

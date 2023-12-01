@@ -85,7 +85,7 @@ stdenv.mkDerivation {
       "${tag}"
   '';
 
-  buildInputs = [ haskellPackages.hocker ];
+  buildInputs = [haskellPackages.hocker];
 
   outputHashAlgo = "sha256";
   outputHashMode = "flat";

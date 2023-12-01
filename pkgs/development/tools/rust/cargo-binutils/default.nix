@@ -26,6 +26,6 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ stupremee ];
+    maintainers = with maintainers; [stupremee];
   };
 }

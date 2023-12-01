@@ -29,11 +29,11 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreServices ];
+  buildInputs = lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.CoreServices];
 
-  cargoBuildFlags = [ "--package=ruff_cli" ];
+  cargoBuildFlags = ["--package=ruff_cli"];
   cargoTestFlags = cargoBuildFlags;
 
   preBuild = lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
@@ -54,6 +54,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/charliermarsh/ruff";
     changelog = "https://github.com/charliermarsh/ruff/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

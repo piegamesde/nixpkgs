@@ -23,10 +23,10 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # skip flaky tests
-  checkFlags = [ "--skip=tests::native_ext" ];
+  checkFlags = ["--skip=tests::native_ext"];
 
   postInstall = ''
     ln -s $out/bin/jrsonnet $out/bin/jsonnet

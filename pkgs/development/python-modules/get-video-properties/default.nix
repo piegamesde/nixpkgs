@@ -24,12 +24,12 @@ buildPythonPackage rec {
       --replace "which('ffprobe')" "'${ffmpeg}/bin/ffprobe'"
   '';
 
-  pythonImportsCheck = [ "videoprops" ];
+  pythonImportsCheck = ["videoprops"];
 
   meta = with lib; {
     description = "Get video properties";
     homepage = "https://github.com/mvasilkov/python-get-video-properties";
     license = licenses.mit;
-    maintainers = with maintainers; [ globin ];
+    maintainers = with maintainers; [globin];
   };
 }

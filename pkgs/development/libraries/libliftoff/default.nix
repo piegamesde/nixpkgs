@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     ninja
   ];
 
-  buildInputs = [ libdrm ];
+  buildInputs = [libdrm];
 
   meta = with lib; {
     description = "A lightweight KMS plane library";

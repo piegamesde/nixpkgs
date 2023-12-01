@@ -10,7 +10,7 @@
 stdenv.mkDerivation {
   name = "swiftpm2nix";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontUnpack = true;
 
@@ -27,7 +27,7 @@ stdenv.mkDerivation {
 
   preferLocalBuild = true;
 
-  passthru = callPackage ./support.nix { };
+  passthru = callPackage ./support.nix {};
 
   meta = {
     description = "Generate a Nix expression to fetch swiftpm dependencies";

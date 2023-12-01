@@ -20,6 +20,6 @@ buildPythonPackage rec {
     description = "Backport/clone of ChainMap";
     homepage = "https://bitbucket.org/jeunice/chainmap";
     license = licenses.psfl;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

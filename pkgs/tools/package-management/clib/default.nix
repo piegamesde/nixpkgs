@@ -16,15 +16,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Ld6u+F25SOyYr+JWXVmn5G8grQ39eN8EY7j77WNycEE=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
-  buildInputs = [ curl ];
+  buildInputs = [curl];
 
   meta = with lib; {
     description = "C micro-package manager";
     homepage = "https://github.com/clibs/clib";
     license = licenses.mit;
-    maintainers = with maintainers; [ jb55 ];
+    maintainers = with maintainers; [jb55];
     platforms = platforms.all;
   };
 }

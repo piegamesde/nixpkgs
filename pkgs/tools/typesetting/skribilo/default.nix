@@ -75,7 +75,7 @@ stdenv.mkDerivation (
         conventions used in emails, Usenet and text.
       '';
       license = lib.licenses.gpl3Plus;
-      maintainers = with lib.maintainers; [ AndersonTorres ];
+      maintainers = with lib.maintainers; [AndersonTorres];
       platforms = lib.platforms.unix;
     };
   }

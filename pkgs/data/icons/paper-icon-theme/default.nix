@@ -58,6 +58,6 @@ stdenvNoCC.mkDerivation rec {
     ];
     # darwin cannot deal with file names differing only in case
     platforms = platforms.linux;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

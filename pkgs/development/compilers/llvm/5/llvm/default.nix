@@ -179,7 +179,7 @@ stdenv.mkDerivation (
         flagsForLlvmConfig = [
           "-DLLVM_INSTALL_CMAKE_DIR=${placeholder "dev"}/lib/cmake/llvm/"
           "-DLLVM_ENABLE_RTTI=ON"
-        ] ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ];
+        ] ++ optionals enableSharedLibraries ["-DLLVM_LINK_LLVM_DYLIB=ON"];
       in
       flagsForLlvmConfig
       ++ [
@@ -199,7 +199,7 @@ stdenv.mkDerivation (
         "-DSPHINX_OUTPUT_HTML=OFF"
         "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
       ]
-      ++ lib.optionals (enableGoldPlugin) [ "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include" ]
+      ++ lib.optionals (enableGoldPlugin) ["-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include"]
       ++ lib.optionals (isDarwin) [
         "-DLLVM_ENABLE_LIBCXX=ON"
         "-DCAN_TARGET_i386=false"
@@ -275,7 +275,7 @@ stdenv.mkDerivation (
 
     checkTarget = "check-all";
 
-    requiredSystemFeatures = [ "big-parallel" ];
+    requiredSystemFeatures = ["big-parallel"];
     meta = llvm_meta // {
       homepage = "https://llvm.org/";
       description = "A collection of modular and reusable compiler and toolchain technologies";
@@ -302,13 +302,13 @@ stdenv.mkDerivation (
       make docs-llvm-man
     '';
 
-    propagatedBuildInputs = [ ];
+    propagatedBuildInputs = [];
 
     installPhase = ''
       make -C docs install
     '';
 
-    outputs = [ "out" ];
+    outputs = ["out"];
 
     doCheck = false;
 

@@ -25,6 +25,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/mgumz/mtr-exporter";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jakubgs ];
+    maintainers = with maintainers; [jakubgs];
   };
 }

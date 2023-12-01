@@ -23,6 +23,6 @@ stdenv.mkDerivation rec {
       Mac OS X.
     '';
     license = licenses.qpl;
-    maintainers = [ maintainers.anna328p ];
+    maintainers = [maintainers.anna328p];
   };
 }

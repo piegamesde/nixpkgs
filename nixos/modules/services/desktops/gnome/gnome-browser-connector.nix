@@ -71,9 +71,9 @@ in
       "opt/chrome/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source = "${pkgs.gnome-browser-connector}/etc/opt/chrome/native-messaging-hosts/org.gnome.chrome_gnome_shell.json";
     };
 
-    environment.systemPackages = [ pkgs.gnome-browser-connector ];
+    environment.systemPackages = [pkgs.gnome-browser-connector];
 
-    services.dbus.packages = [ pkgs.gnome-browser-connector ];
+    services.dbus.packages = [pkgs.gnome-browser-connector];
 
     nixpkgs.config.firefox.enableGnomeExtensions = true;
   };

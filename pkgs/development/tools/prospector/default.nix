@@ -5,7 +5,7 @@
 }:
 
 let
-  setoptconf-tmp = python3.pkgs.callPackage ./setoptconf.nix { };
+  setoptconf-tmp = python3.pkgs.callPackage ./setoptconf.nix {};
 in
 
 python3.pkgs.buildPythonApplication rec {
@@ -56,9 +56,9 @@ python3.pkgs.buildPythonApplication rec {
     vulture
   ];
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [pytestCheckHook];
 
-  pythonImportsCheck = [ "prospector" ];
+  pythonImportsCheck = ["prospector"];
 
   disabledTestPaths =
     [
@@ -71,6 +71,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/PyCQA/prospector";
     changelog = "https://github.com/PyCQA/prospector/blob/v${version}/CHANGELOG.rst";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

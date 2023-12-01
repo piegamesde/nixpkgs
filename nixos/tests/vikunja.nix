@@ -1,13 +1,13 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "vikunja";
 
-    meta.maintainers = with lib.maintainers; [ leona ];
+    meta.maintainers = with lib.maintainers; [leona];
 
     nodes = {
       vikunjaSqlite =
-        { ... }:
+        {...}:
         {
           services.vikunja = {
             enable = true;
@@ -20,7 +20,7 @@ import ./make-test-python.nix (
           services.nginx.enable = true;
         };
       vikunjaPostgresql =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           services.vikunja = {
             enable = true;
@@ -35,7 +35,7 @@ import ./make-test-python.nix (
           };
           services.postgresql = {
             enable = true;
-            ensureDatabases = [ "vikunja-api" ];
+            ensureDatabases = ["vikunja-api"];
             ensureUsers = [
               {
                 name = "vikunja-api";

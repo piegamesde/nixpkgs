@@ -120,7 +120,7 @@ stdenv.mkDerivation rec {
       lgpl21Plus
     ];
     description = "The RPM Package Manager";
-    maintainers = with maintainers; [ copumpkin ];
+    maintainers = with maintainers; [copumpkin];
     platforms = platforms.linux;
   };
 }

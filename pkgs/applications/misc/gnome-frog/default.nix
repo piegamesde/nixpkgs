@@ -34,7 +34,7 @@ python3Packages.buildPythonApplication rec {
 
   format = "other";
 
-  patches = [ ./update-compatible-with-non-flatpak-env.patch ];
+  patches = [./update-compatible-with-non-flatpak-env.patch];
   postPatch = ''
     chmod +x ./build-aux/meson/postinstall.py
     patchShebangs ./build-aux/meson/postinstall.py
@@ -83,7 +83,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://getfrog.app/";
     description = "Intuitive text extraction tool (OCR) for GNOME desktop";
     license = licenses.mit;
-    maintainers = with maintainers; [ foo-dogsquared ];
+    maintainers = with maintainers; [foo-dogsquared];
     platforms = platforms.linux;
   };
 }

@@ -25,7 +25,7 @@ stdenv.mkDerivation {
     sha256 = "07wd1cs3fdvzb1lv41b655z5zk34f47j8fgd9ljjimi5j9pj71f7";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     perl
     groff
@@ -58,7 +58,7 @@ stdenv.mkDerivation {
     description = "Collection of modular and reusable compiler and toolchain technologies - Mono build";
     homepage = "http://llvm.org/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ thoughtpolice ];
+    maintainers = with lib.maintainers; [thoughtpolice];
     platforms = lib.platforms.all;
   };
 }

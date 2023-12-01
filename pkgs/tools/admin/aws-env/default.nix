@@ -24,6 +24,6 @@ buildGoPackage rec {
     description = "Secure way to handle environment variables in Docker and envfile with AWS Parameter Store";
     homepage = "https://github.com/Droplr/aws-env";
     license = licenses.mit;
-    maintainers = with maintainers; [ srhb ];
+    maintainers = with maintainers; [srhb];
   };
 }

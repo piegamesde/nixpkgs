@@ -16,7 +16,7 @@ mkDerivation rec {
     sha256 = "05igsd2gaj6h9bkqwp8llhvn4qvc5gmi03x4fnz096ba8m6x8s3n";
   };
 
-  buildInputs = [ standard-library ];
+  buildInputs = [standard-library];
 
   preBuild = ''
     echo "module Everything where" > Everything.agda

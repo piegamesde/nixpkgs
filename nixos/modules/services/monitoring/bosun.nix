@@ -123,7 +123,7 @@ in
 
     systemd.services.bosun = {
       description = "bosun metrics collector (part of Bosun)";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         mkdir -p "$(dirname "${cfg.stateFile}")";

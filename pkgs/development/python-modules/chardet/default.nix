@@ -19,11 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-DWJxK5VrwVT4X7CiZuKjxZE8KWfgA0hwGzJBHW3vMeU=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   nativeCheckInputs = [
     # "hypothesis" indirectly depends on chardet to build its documentation.
-    (hypothesis.override { enableDocumentation = false; })
+    (hypothesis.override {enableDocumentation = false;})
     pytestCheckHook
   ];
 
@@ -33,13 +33,13 @@ buildPythonPackage rec {
       "test_detect_all_and_detect_one_should_agree"
     ];
 
-  pythonImportsCheck = [ "chardet" ];
+  pythonImportsCheck = ["chardet"];
 
   meta = with lib; {
     changelog = "https://github.com/chardet/chardet/releases/tag/${version}";
     description = "Universal encoding detector";
     homepage = "https://github.com/chardet/chardet";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ domenkozar ];
+    maintainers = with maintainers; [domenkozar];
   };
 }

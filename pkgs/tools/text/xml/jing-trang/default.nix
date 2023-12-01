@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
 
   CLASSPATH = "lib/saxon.jar";
 
-  patches = [ ./no-git-during-build.patch ];
+  patches = [./no-git-during-build.patch];
 
   preBuild = "ant";
 
@@ -60,6 +60,6 @@ stdenv.mkDerivation rec {
       fromSource
       binaryBytecode # source bundles dependencies as jars
     ];
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

@@ -57,7 +57,7 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  pythonRelaxDeps = [ "potentials" ];
+  pythonRelaxDeps = ["potentials"];
 
   preCheck = ''
     # By default, pytestCheckHook imports atomman from the current directory
@@ -79,12 +79,12 @@ buildPythonPackage rec {
     "test_unique_shifts_prototype" # needs network access to download database files
   ];
 
-  pythonImportsCheck = [ "atomman" ];
+  pythonImportsCheck = ["atomman"];
 
   meta = with lib; {
     description = "Atomistic Manipulation Toolkit";
     homepage = "https://github.com/usnistgov/atomman/";
     license = licenses.mit;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

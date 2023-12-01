@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-NWjR8qxWi2IrcP0cSF+lLxBJ/GrVpk1BfTjVH0ytinY=";
   };
 
-  makeFlags = [ "PREFIX=${placeholder "out"}/var" ];
+  makeFlags = ["PREFIX=${placeholder "out"}/var"];
 
   meta = with lib; {
     description = "Account faces of deepin desktop environment";

@@ -25,12 +25,12 @@ buildPythonPackage rec {
   # Tests have additional requirements
   doCheck = false;
 
-  pythonImportsCheck = [ "stickytape" ];
+  pythonImportsCheck = ["stickytape"];
 
   meta = with lib; {
     description = "Python module to convert Python packages into a single script";
     homepage = "https://github.com/mwilliamson/stickytape";
-    license = with licenses; [ bsd2 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd2];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -18,14 +18,14 @@ pythonPackages.buildPythonApplication rec {
     pythonPackages.pydbus
   ];
 
-  nativeBuildInputs = [ pythonPackages.pytestCheckHook ];
+  nativeBuildInputs = [pythonPackages.pytestCheckHook];
 
-  pythonImportsCheck = [ "mopidy_notify" ];
+  pythonImportsCheck = ["mopidy_notify"];
 
   meta = with lib; {
     homepage = "https://github.com/phijor/mopidy-notify";
     description = "Mopidy extension for showing desktop notifications on track change";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lilyinstarlight ];
+    maintainers = with maintainers; [lilyinstarlight];
   };
 }

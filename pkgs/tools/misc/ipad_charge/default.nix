@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     owner = "mkorenkov";
   };
 
-  buildInputs = [ libusb1 ];
+  buildInputs = [libusb1];
 
   postPatch = ''
     substituteInPlace Makefile \

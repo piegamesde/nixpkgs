@@ -42,7 +42,7 @@ let
     pkgs.runCommand "ncdns.conf"
       {
         json = builtins.toJSON cfg.settings;
-        passAsFile = [ "json" ];
+        passAsFile = ["json"];
       }
       "${pkgs.remarshal}/bin/json2toml < $jsonPath > $out";
 
@@ -185,7 +185,7 @@ in
 
       settings = mkOption {
         type = configType;
-        default = { };
+        default = {};
         example = literalExpression ''
           { # enable webserver
             ncdns.httplistenaddr = ":8202";
@@ -230,8 +230,8 @@ in
 
     # Avoid pdns-recursor not finding the DNSSEC keys
     systemd.services.pdns-recursor = mkIf cfgs.pdns-recursor.resolveNamecoin {
-      after = [ "ncdns.service" ];
-      wants = [ "ncdns.service" ];
+      after = ["ncdns.service"];
+      wants = ["ncdns.service"];
     };
 
     services.ncdns.settings = mkDefaultAttrs {
@@ -268,12 +268,12 @@ in
       group = "ncdns";
       description = "ncdns daemon user";
     };
-    users.groups.ncdns = { };
+    users.groups.ncdns = {};
 
     systemd.services.ncdns = {
       description = "ncdns daemon";
-      after = [ "namecoind.service" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["namecoind.service"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         User = "ncdns";
@@ -296,5 +296,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ rnhmjoj ];
+  meta.maintainers = with lib.maintainers; [rnhmjoj];
 }

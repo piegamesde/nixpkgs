@@ -52,17 +52,17 @@
     "configuration-ghc-8.10.x.nix"
   ],
   nixpkgsPath ? ../../..,
-  config ? { allowBroken = true; },
+  config ? {allowBroken = true;},
   skipEvalErrors ? true,
   skipBinaryGHCs ? true,
 }:
 
 let
-  pkgs = import nixpkgsPath { inherit config; };
+  pkgs = import nixpkgsPath {inherit config;};
   inherit (pkgs) lib;
 
   # see usage explanation for the input format `files` allows
-  files' = builtins.map builtins.baseNameOf (if !builtins.isList files then [ files ] else files);
+  files' = builtins.map builtins.baseNameOf (if !builtins.isList files then [files] else files);
 
   packageSetsWithVersionedHead =
     pkgs.haskell.packages
@@ -105,7 +105,7 @@ let
           (builtins.attrNames packageSetsWithVersionedHead)
       );
 
-      defaultSets = [ pkgs.haskellPackages ];
+      defaultSets = [pkgs.haskellPackages];
     in
     {
       # use plain haskellPackages for the version-agnostic files

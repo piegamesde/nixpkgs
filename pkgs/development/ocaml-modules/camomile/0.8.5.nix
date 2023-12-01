@@ -39,6 +39,6 @@ stdenv.mkDerivation {
     description = "A comprehensive Unicode library for OCaml";
     license = lib.licenses.lgpl21;
     inherit (ocaml.meta) platforms;
-    maintainers = [ lib.maintainers.maggesi ];
+    maintainers = [lib.maintainers.maggesi];
   };
 }

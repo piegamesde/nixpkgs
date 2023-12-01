@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-fd3B2DMZxCI4Gb9mwdACjIPydKghXx8IkhFpMS/Clps=";
   };
 
-  patches = [ ./plugins.patch ];
+  patches = [./plugins.patch];
 
   nativeBuildInputs = [
     docbook-xsl-nons
@@ -95,13 +95,13 @@ stdenv.mkDerivation rec {
       ]
     );
 
-  passthru.providedSessions = [ "budgie-desktop" ];
+  passthru.providedSessions = ["budgie-desktop"];
 
   meta = with lib; {
     description = "A feature-rich, modern desktop designed to keep out the way of the user";
     homepage = "https://github.com/BuddiesOfBudgie/budgie-desktop";
     platforms = platforms.linux;
-    maintainers = [ maintainers.federicoschonborn ];
+    maintainers = [maintainers.federicoschonborn];
     license = with licenses; [
       gpl2Plus
       lgpl21Plus

@@ -28,10 +28,10 @@ stdenv.mkDerivation rec {
     nlopt
     boost
   ];
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   CLIPPER_PATH = "${clipper.out}";
-  cmakeFlags = [ "-DLIBNEST2D_HEADER_ONLY=OFF" ];
+  cmakeFlags = ["-DLIBNEST2D_HEADER_ONLY=OFF"];
 
   meta = with lib; {
     description = "2D irregular bin packaging and nesting library written in modern C++";

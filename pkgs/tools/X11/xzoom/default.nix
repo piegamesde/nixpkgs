@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "An X11 screen zoom tool";
     license = lib.licenses.free;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.linux;
   };
 }

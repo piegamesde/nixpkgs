@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
     description = "Identify any songs in seconds";
     homepage = "https://github.com/SeaDve/Mousai";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     platforms = platforms.linux;
   };
 }

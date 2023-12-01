@@ -18,7 +18,7 @@ stdenv.mkDerivation {
     sha256 = "16pcyvyhwsx34i0cjkkx906lmrwdd9gvznvqdwlad4ha8l8f8z42";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     coreutils
     gawk
@@ -41,7 +41,7 @@ stdenv.mkDerivation {
   meta = {
     description = "Openvpn learn-address script to manage a hosts-like file";
     homepage = "https://gist.github.com/offlinehacker/4058733/";
-    maintainers = [ lib.maintainers.offline ];
+    maintainers = [lib.maintainers.offline];
     platforms = lib.platforms.unix;
   };
 }

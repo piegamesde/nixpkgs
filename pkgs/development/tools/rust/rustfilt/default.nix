@@ -20,8 +20,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Demangle Rust symbol names using rustc-demangle";
     homepage = "https://github.com/luser/rustfilt";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ wykurz ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [wykurz];
     mainProgram = "rustfilt";
   };
 }

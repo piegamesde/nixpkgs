@@ -24,9 +24,9 @@ buildPythonPackage rec {
     decorator
     numpy
     platformdirs
-  ] ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ];
+  ] ++ lib.optionals (pythonOlder "3.11") [typing-extensions];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "pytools"
@@ -38,6 +38,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/inducer/pytools/";
     description = "Miscellaneous Python lifesavers.";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ artuuge ];
+    maintainers = with lib.maintainers; [artuuge];
   };
 }

@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.freedesktop.org/spice/x11spice";
     platforms = platforms.linux;
     license = licenses.gpl3;
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
   };
 }

@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     libepoxy
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     SDL2
     fftw
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     description = "High-performance, high-quality video filters for the GPU";
     homepage = "https://movit.sesse.net";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
     platforms = platforms.linux;
   };
 }

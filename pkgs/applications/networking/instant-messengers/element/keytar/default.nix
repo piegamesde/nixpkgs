@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional stdenv.isDarwin xcbuild;
 
   buildInputs =
-    lib.optionals (!stdenv.isDarwin) [ libsecret ]
+    lib.optionals (!stdenv.isDarwin) [libsecret]
     ++ lib.optionals stdenv.isDarwin [
       Security
       AppKit
@@ -61,5 +61,5 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  disallowedReferences = [ stdenv.cc.cc ];
+  disallowedReferences = [stdenv.cc.cc];
 }

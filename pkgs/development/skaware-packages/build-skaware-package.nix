@@ -32,9 +32,9 @@
   # : lines
   postInstall,
   # : list Maintainer
-  maintainers ? [ ],
+  maintainers ? [],
   # : passthru arguments (e.g. tests)
-  passthru ? { },
+  passthru ? {},
 
 }:
 

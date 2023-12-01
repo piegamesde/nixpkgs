@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-gmdRxMJ0DoCyNcb/bYp746PBi4HktHAAYOcSQJ0Uheg=";
   };
 
-  propagatedBuildInputs = [ smbus-cffi ];
+  propagatedBuildInputs = [smbus-cffi];
 
   preBuild = ''
     cd library
@@ -34,13 +34,13 @@ buildPythonPackage rec {
       --replace "smbus" "smbus-cffi"
   '';
 
-  pythonImportsCheck = [ "bme680" ];
+  pythonImportsCheck = ["bme680"];
 
   meta = with lib; {
     description = "Python library for driving the Pimoroni BME680 Breakout";
     homepage = "https://github.com/pimoroni/bme680-python";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
   };
 }

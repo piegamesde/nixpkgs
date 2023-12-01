@@ -40,7 +40,7 @@ stdenv.mkDerivation (
       description = "A VTE-based, simple and froggy terminal emulator";
       changelog = "https://github.com/orhun/kermit/releases/tag/${finalAttrs.version}";
       license = licenses.gpl3Only;
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       platforms = with platforms; unix;
     };
   }

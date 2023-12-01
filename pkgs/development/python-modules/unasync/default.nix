@@ -19,9 +19,9 @@ buildPythonPackage rec {
     sha256 = "0h86i09v4909a8nk5lp36jlwz6rsln6vyg3d0i13ykxa6lrx1c2l";
   };
 
-  propagatedBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # mess with $PYTHONPATH
@@ -31,7 +31,7 @@ buildPythonPackage rec {
     "test_project_structure_after_customized_build_py_packages"
   ];
 
-  pythonImportsCheck = [ "unasync" ];
+  pythonImportsCheck = ["unasync"];
 
   meta = with lib; {
     description = "Project that can transform your asynchronous code into synchronous code";
@@ -40,6 +40,6 @@ buildPythonPackage rec {
       mit # or
       asl20
     ];
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

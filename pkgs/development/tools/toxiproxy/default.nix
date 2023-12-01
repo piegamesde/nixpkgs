@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-CmENxPAdjz0BAyvhLKIaJjSbK/mvRzHGCQOfGIiA3yI=";
 
-  excludedPackages = [ "test/e2e" ];
+  excludedPackages = ["test/e2e"];
 
   ldflags = [
     "-s"
@@ -28,7 +28,7 @@ buildGoModule rec {
   # Fixes tests on Darwin
   __darwinAllowLocalNetworking = true;
 
-  checkFlags = [ "-short" ];
+  checkFlags = ["-short"];
 
   postInstall = ''
     mv $out/bin/cli $out/bin/toxiproxy-cli
@@ -38,7 +38,7 @@ buildGoModule rec {
   meta = {
     description = "Proxy for for simulating network conditions";
     homepage = "https://github.com/Shopify/toxiproxy";
-    maintainers = with lib.maintainers; [ avnik ];
+    maintainers = with lib.maintainers; [avnik];
     license = lib.licenses.mit;
   };
 }

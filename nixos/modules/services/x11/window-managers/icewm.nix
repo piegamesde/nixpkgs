@@ -26,6 +26,6 @@ in
       '';
     };
 
-    environment.systemPackages = [ pkgs.icewm ];
+    environment.systemPackages = [pkgs.icewm];
   };
 }

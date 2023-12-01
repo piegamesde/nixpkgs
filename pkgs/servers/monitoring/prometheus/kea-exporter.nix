@@ -14,7 +14,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-rNGA5XEx9xVUP1SeDPgXcaqgDhgX6JFhRX9GM454P5A=";
   };
 
-  nativeBuildInputs = with python3Packages; [ pdm-pep517 ];
+  nativeBuildInputs = with python3Packages; [pdm-pep517];
 
   propagatedBuildInputs = with python3Packages; [
     click
@@ -34,6 +34,6 @@ python3Packages.buildPythonApplication rec {
     description = "Export Kea Metrics in the Prometheus Exposition Format";
     homepage = "https://github.com/mweinelt/kea-exporter";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

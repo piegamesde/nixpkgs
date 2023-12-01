@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "URDF (U-Robot Description Format) headers provides core data structure headers for URDF";
     homepage = "https://github.com/ros/urdfdom_headers";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ lopsided98 ];
+    maintainers = with maintainers; [lopsided98];
     platforms = platforms.all;
   };
 }

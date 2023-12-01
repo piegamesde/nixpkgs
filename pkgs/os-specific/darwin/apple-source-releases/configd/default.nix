@@ -15,7 +15,7 @@
 appleDerivation' stdenv {
   meta.broken = stdenv.cc.nativeLibc;
 
-  nativeBuildInputs = lib.optionals (!headersOnly) [ bootstrap_cmds ];
+  nativeBuildInputs = lib.optionals (!headersOnly) [bootstrap_cmds];
   buildInputs = lib.optionals (!headersOnly) [
     launchd
     ppp
@@ -23,7 +23,7 @@ appleDerivation' stdenv {
     eap8021x
   ];
 
-  propagatedBuildInputs = lib.optionals (!headersOnly) [ Security ];
+  propagatedBuildInputs = lib.optionals (!headersOnly) [Security];
 
   patchPhase = lib.optionalString (!headersOnly) ''
     HACK=$PWD/hack

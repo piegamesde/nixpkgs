@@ -23,14 +23,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-UM9sf4LMR7x6haDH7/DFjsZZCng+9E5EnLt6HtTLvCU=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libgit2
     openssl
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  ] ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.Security];
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   # disable vendored libgit2 and openssl
   buildNoDefaultFeatures = true;
@@ -46,7 +46,7 @@ rustPlatform.buildRustPackage rec {
   # - should_canonicalize: the test assumes that it will be called from the /Users/<project_dir>/ folder on darwin variant.
   checkFlags = [
     "--skip=favorites::favorites_default_to_git_if_not_defined"
-  ] ++ lib.optionals stdenv.isDarwin [ "--skip=git::utils::should_canonicalize" ];
+  ] ++ lib.optionals stdenv.isDarwin ["--skip=git::utils::should_canonicalize"];
 
   meta = with lib; {
     description = "A tool to generaet a new Rust project by leveraging a pre-existing git repository as a template";

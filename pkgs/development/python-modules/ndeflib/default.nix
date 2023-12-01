@@ -20,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-cpfztE+/AW7P0J7QeTDfVGYc2gEkr7gzA352hC9bdTM=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ndef" ];
+  pythonImportsCheck = ["ndef"];
 
   disabledTests =
     [
@@ -34,6 +34,6 @@ buildPythonPackage rec {
     description = "Python package for parsing and generating NFC Data Exchange Format messages";
     homepage = "https://github.com/nfcpy/ndeflib";
     license = licenses.isc;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

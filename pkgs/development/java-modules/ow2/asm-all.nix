@@ -1,4 +1,4 @@
-{ fetchMaven }:
+{fetchMaven}:
 
 {
   ow2AsmAll_4_0 =

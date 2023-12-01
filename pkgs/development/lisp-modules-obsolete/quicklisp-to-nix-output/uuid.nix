@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "uuid";
   version = "20200715-git";
@@ -20,7 +20,7 @@ rec {
 
   packageName = "uuid";
 
-  asdFilesToKeep = [ "uuid.asd" ];
+  asdFilesToKeep = ["uuid.asd"];
   overrides = x: x;
 }
 /* (SYSTEM uuid DESCRIPTION UUID Generation SHA256

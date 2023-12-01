@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-BY6qXHY+Gfv5PotO78ESgPgHBTXBOMmb4R8AzWhWE98=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     gnutls
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/gnutls/guile/";
     description = "Guile bindings for GnuTLS library";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ foo-dogsquared ];
+    maintainers = with maintainers; [foo-dogsquared];
     platforms = platforms.linux;
   };
 }

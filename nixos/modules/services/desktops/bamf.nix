@@ -10,7 +10,7 @@
 with lib;
 
 {
-  meta = with lib; { maintainers = with maintainers; [ ] ++ teams.pantheon.members; };
+  meta = with lib; {maintainers = with maintainers; [] ++ teams.pantheon.members;};
 
   ###### interface
 
@@ -23,8 +23,8 @@ with lib;
   ###### implementation
 
   config = mkIf config.services.bamf.enable {
-    services.dbus.packages = [ pkgs.bamf ];
+    services.dbus.packages = [pkgs.bamf];
 
-    systemd.packages = [ pkgs.bamf ];
+    systemd.packages = [pkgs.bamf];
   };
 }

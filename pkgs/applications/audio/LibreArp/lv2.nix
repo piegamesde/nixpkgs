@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     description = "A pattern-based arpeggio generator plugin.";
     homepage = "https://librearp.gitlab.io/";
     license = licenses.gpl3Plus;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ magnetophon ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [magnetophon];
   };
 }

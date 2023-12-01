@@ -1,18 +1,18 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
     port = 8000;
     baseUrl = "http://server:${toString port}";
   in
   {
     name = "pinnwand";
-    meta = with pkgs.lib.maintainers; { maintainers = [ hexa ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [hexa];};
 
     nodes = {
       server =
-        { config, ... }:
+        {config, ...}:
         {
-          networking.firewall.allowedTCPPorts = [ port ];
+          networking.firewall.allowedTCPPorts = [port];
 
           services.pinnwand = {
             enable = true;
@@ -21,7 +21,7 @@ import ./make-test-python.nix (
         };
 
       client =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           environment.systemPackages = [
             pkgs.steck
@@ -32,7 +32,7 @@ import ./make-test-python.nix (
                   appdirs
                   toml
                 ];
-                flakeIgnore = [ "E501" ];
+                flakeIgnore = ["E501"];
               }
               ''
                 import appdirs

@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     libical
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     homepage = "http://www.bluez.org/";

@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-Y2sBPikCAxumylP1LUy8XgjBRCWaNryn5XHSrRjJIIo=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -37,12 +37,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "enturclient" ];
+  pythonImportsCheck = ["enturclient"];
 
   meta = with lib; {
     description = "Python library for interacting with the Entur.org API";
     homepage = "https://github.com/hfurubotten/enturclient";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

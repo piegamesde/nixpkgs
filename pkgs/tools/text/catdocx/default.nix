@@ -18,7 +18,7 @@ stdenv.mkDerivation {
     sha256 = "1sxiqhkvdqn300ygfgxdry2dj2cqzjhkzw13c6349gg5vxfypcjh";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/libexec $out/bin
@@ -36,8 +36,8 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Extracts plain text from docx files";
     homepage = "https://github.com/jncraton/catdocx";
-    license = with licenses; [ bsd3 ];
-    maintainers = [ maintainers.michalrus ];
+    license = with licenses; [bsd3];
+    maintainers = [maintainers.michalrus];
     platforms = platforms.all;
   };
 }

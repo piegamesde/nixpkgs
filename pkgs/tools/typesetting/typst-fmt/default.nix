@@ -31,6 +31,6 @@ rustPlatform.buildRustPackage rec {
     description = "A formatter for the Typst language";
     homepage = "https://github.com/astrale-sharp/typst-fmt";
     license = licenses.mit;
-    maintainers = with maintainers; [ geri1701 ];
+    maintainers = with maintainers; [geri1701];
   };
 }

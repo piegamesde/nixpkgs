@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Go kernel for Jupyter notebooks";
     homepage = "https://github.com/gopherdata/gophernotes";
     license = licenses.mit;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

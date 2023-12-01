@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
         --replace '-static' ""
     '';
 
-  nativeBuildInputs = [ dosbox ] ++ lib.optionals withDocs [ ghostscript ];
+  nativeBuildInputs = [dosbox] ++ lib.optionals withDocs [ghostscript];
 
   configurePhase = ''
     runHook preConfigure
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
 
   passthru = {
     prettyName = "open-watcom-v2";
-    updateScript = unstableGitUpdater { url = "https://github.com/open-watcom/open-watcom-v2.git"; };
+    updateScript = unstableGitUpdater {url = "https://github.com/open-watcom/open-watcom-v2.git";};
   };
 
   meta = with lib; {
@@ -128,6 +128,6 @@ stdenv.mkDerivation rec {
       "powerpc64le-linux"
       "mips64el-linux"
     ];
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
   };
 }

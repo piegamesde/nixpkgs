@@ -24,7 +24,7 @@ mkDerivation rec {
     qttools
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   preConfigure = ''
     cd src

@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     glib
     fake-dconf
   ];
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   # make install will back up this file, it will fail if the file doesn't exist.
   # https://github.com/daniruiz/flat-remix-gnome/blob/20221107/Makefile#L56
@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     homepage = "https://drasite.com/flat-remix-gnome";
     license = licenses.cc-by-sa-40;
     platforms = platforms.linux;
-    maintainers = [ maintainers.vanilla ];
+    maintainers = [maintainers.vanilla];
   };
 }

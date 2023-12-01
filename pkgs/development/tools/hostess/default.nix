@@ -15,13 +15,13 @@ buildGoModule rec {
     sha256 = "1izszf60nsa6pyxx3kd8qdrz3h47ylm17r9hzh9wk37f61pmm42j";
   };
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   vendorSha256 = null;
 
   meta = with lib; {
     description = "An idempotent command-line utility for managing your /etc/hosts* file.";
     license = licenses.mit;
-    maintainers = with maintainers; [ edlimerkaj ];
+    maintainers = with maintainers; [edlimerkaj];
   };
 }

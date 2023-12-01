@@ -18,14 +18,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-LObxOh2lOtSTm4gITTbQ2S9rMlyUOAAvMJmtvZy5bJs=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   meta = with lib; {
     description = "Run migrations for the Refinery ORM for Rust via the CLI";
     homepage = "https://github.com/rust-db/refinery";
     license = licenses.mit;
-    maintainers = with maintainers; [ lucperkins ];
+    maintainers = with maintainers; [lucperkins];
   };
 }

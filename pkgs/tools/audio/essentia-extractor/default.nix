@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     homepage = "https://acousticbrainz.org/download";
     description = "AcousticBrainz audio feature extractor";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ lovesegfault ];
+    maintainers = with maintainers; [lovesegfault];
     platforms = [
       "x86_64-linux"
       "i686-linux"

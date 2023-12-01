@@ -52,7 +52,7 @@ let
   };
 
   # when building a headless jdk, also bootstrap it with a headless jdk
-  openjdk-bootstrap = openjdk18-bootstrap.override { gtkSupport = !headless; };
+  openjdk-bootstrap = openjdk18-bootstrap.override {gtkSupport = !headless;};
 
   openjdk = stdenv.mkDerivation {
     pname = "openjdk" + lib.optionalString headless "-headless";
@@ -130,7 +130,7 @@ let
         url = "https://git.alpinelinux.org/aports/plain/testing/openjdk18/FixNullPtrCast.patch?id=b93d1fc37fcf106144958d957bb97c7db67bd41f";
         hash = "sha256-nvO8RcmKwMcPdzq28mZ4If1XJ6FQ76CYWqRIozPCk5U=";
       })
-    ] ++ lib.optionals (!headless && enableGnome2) [ ./swing-use-gtk-jdk13.patch ];
+    ] ++ lib.optionals (!headless && enableGnome2) [./swing-use-gtk-jdk13.patch];
 
     postPatch = ''
       chmod +x configure
@@ -192,7 +192,7 @@ let
     # still runs in parallel.
     enableParallelBuilding = false;
 
-    buildFlags = [ "images" ];
+    buildFlags = ["images"];
 
     installPhase = ''
       mkdir -p $out/lib
@@ -255,7 +255,7 @@ let
       done
     '';
 
-    disallowedReferences = [ openjdk-bootstrap ];
+    disallowedReferences = [openjdk-bootstrap];
 
     pos = builtins.unsafeGetAttrPos "feature" version;
     meta = import ./meta.nix lib version.feature;

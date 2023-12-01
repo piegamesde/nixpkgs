@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     ];
 
   configureFlags =
-    [ "--with-boost-libdir=${boost.out}/lib" ]
+    ["--with-boost-libdir=${boost.out}/lib"]
     ++ lib.optionals withGui [
       "--with-gui=qt5"
       "--with-qt-bindir=${qtbase.dev}/bin:${qttools.dev}/bin"
@@ -103,7 +103,7 @@ stdenv.mkDerivation rec {
       consider running a Bitcoin Unlimited client.
     '';
     homepage = "https://www.bitcoinunlimited.info/";
-    maintainers = with maintainers; [ DmitryTsygankov ];
+    maintainers = with maintainers; [DmitryTsygankov];
     license = licenses.mit;
     broken = true;
     platforms = platforms.unix;

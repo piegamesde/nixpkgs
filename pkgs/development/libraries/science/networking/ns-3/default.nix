@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
     python
   ];
 
-  outputs = [ "out" ] ++ lib.optional pythonSupport "py";
+  outputs = ["out"] ++ lib.optional pythonSupport "py";
 
   # ncurses is a hidden dependency of waf when checking python
   buildInputs =
@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
       texlive.combined.scheme-medium
     ];
 
-  propagatedBuildInputs = [ pythonEnv ];
+  propagatedBuildInputs = [pythonEnv];
 
   postPatch = ''
     patchShebangs doc/ns3_html_theme/get_version.sh

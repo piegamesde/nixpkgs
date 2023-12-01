@@ -23,9 +23,9 @@ buildPythonPackage rec {
     beautifulsoup4
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "html_sanitizer/tests.py" ];
+  pytestFlagsArray = ["html_sanitizer/tests.py"];
 
   disabledTests = [
     # Tests are sensitive to output
@@ -33,12 +33,12 @@ buildPythonPackage rec {
     "test_10_broken_html"
   ];
 
-  pythonImportsCheck = [ "html_sanitizer" ];
+  pythonImportsCheck = ["html_sanitizer"];
 
   meta = with lib; {
     description = "Allowlist-based and very opinionated HTML sanitizer";
     homepage = "https://github.com/matthiask/html-sanitizer";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
   };
 }

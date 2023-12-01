@@ -15,7 +15,7 @@ import ./generic.nix (
       ./CVE-2017-10140-4.8-cwd-db_config.patch
     ];
 
-    drvArgs.hardeningDisable = [ "format" ];
+    drvArgs.hardeningDisable = ["format"];
     drvArgs.doCheck = false;
   }
 )

@@ -40,7 +40,7 @@ buildPythonPackage rec {
   # https://github.com/UAVCAN/nunavut/issues/182
   doCheck = false;
 
-  pythonImportsCheck = [ "nunavut" ];
+  pythonImportsCheck = ["nunavut"];
 
   meta = with lib; {
     description = "A UAVCAN DSDL template engine";
@@ -49,7 +49,7 @@ buildPythonPackage rec {
       authors to generate code, schemas, metadata, documentation, etc.
     '';
     homepage = "https://nunavut.readthedocs.io/";
-    maintainers = with maintainers; [ wucke13 ];
+    maintainers = with maintainers; [wucke13];
     license = with licenses; [
       bsd3
       mit

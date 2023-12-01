@@ -124,7 +124,7 @@ qtModule {
 
   # ninja builds some components with -Wno-format,
   # which cannot be set at the same time as -Wformat-security
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   postPatch =
     ''
@@ -198,7 +198,7 @@ qtModule {
           # TODO: investigate and fix properly
           "-march=westmere"
         ]
-    ++ lib.optionals stdenv.cc.isClang [ "-Wno-elaborated-enum-base" ]
+    ++ lib.optionals stdenv.cc.isClang ["-Wno-elaborated-enum-base"]
   );
 
   preConfigure = ''
@@ -348,16 +348,16 @@ qtModule {
       } /${qtCompatVersion} /' -i "$out"/lib/cmake/*/*Config.cmake
     '';
 
-  requiredSystemFeatures = [ "big-parallel" ];
+  requiredSystemFeatures = ["big-parallel"];
 
   meta = with lib; {
     description = "A web engine based on the Chromium web browser";
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
 
     # qtwebengine-5.15.8: "QtWebEngine can only be built for x86,
     # x86-64, ARM, Aarch64, and MIPSel architectures."
     platforms = lib.trivial.pipe lib.systems.doubles.all [
-      (map (double: lib.systems.elaborate { system = double; }))
+      (map (double: lib.systems.elaborate {system = double;}))
       (lib.lists.filter (
         parsedPlatform:
         with parsedPlatform;

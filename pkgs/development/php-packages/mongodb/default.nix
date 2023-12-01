@@ -18,7 +18,7 @@ buildPecl {
   version = "1.15.0";
   sha256 = "sha256-7rYmjTS9C0o9zGDd5OSE9c9PokOco9nwJMAADpnuckA=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     cyrus_sasl
     icu64

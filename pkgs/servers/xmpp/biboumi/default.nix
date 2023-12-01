@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     sha256 = "1jvygri165aknmvlinx3jb8cclny6cxdykjf8dp0a3l3228rmzqy";
   };
 
-  patches = [ ./catch.patch ];
+  patches = [./catch.patch];
 
   nativeBuildInputs = [
     cmake
@@ -67,6 +67,6 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
     homepage = "https://lab.louiz.org/louiz/biboumi";
     license = licenses.zlib;
-    maintainers = [ maintainers.woffs ];
+    maintainers = [maintainers.woffs];
   };
 }

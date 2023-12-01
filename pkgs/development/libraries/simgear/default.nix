@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-bMHPJVaxckB5KezyurJDLG+wXuFt0ZAm6QNp8lc2Nso=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     plib
     freeglut
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Simulation construction toolkit";
     homepage = "https://wiki.flightgear.org/SimGear";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
     license = licenses.lgpl2;
   };

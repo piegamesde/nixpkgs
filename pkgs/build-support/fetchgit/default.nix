@@ -30,7 +30,7 @@ in
   fetchSubmodules ? true,
   deepClone ? false,
   branchName ? null,
-  sparseCheckout ? [ ],
+  sparseCheckout ? [],
   nonConeMode ? false,
   name ? urlToName url rev,
   # Shell code executed after the file has been fetched
@@ -42,8 +42,8 @@ in
   netrcPhase ? null,
   # Impure env vars (https://nixos.org/nix/manual/#sec-advanced-attributes)
   # needed for netrcPhase
-  netrcImpureEnvVars ? [ ],
-  meta ? { },
+  netrcImpureEnvVars ? [],
+  meta ? {},
   allowedRequisites ? null,
 }:
 
@@ -70,7 +70,7 @@ in
 */
 
 assert deepClone -> leaveDotGit;
-assert nonConeMode -> !(sparseCheckout == "" || sparseCheckout == [ ]);
+assert nonConeMode -> !(sparseCheckout == "" || sparseCheckout == []);
 
 if md5 != "" then
   throw "fetchgit does not support md5 anymore, please use sha256"
@@ -86,7 +86,7 @@ else
       builder = ./builder.sh;
       fetcher = ./nix-prefetch-git;
 
-      nativeBuildInputs = [ git ] ++ lib.optionals fetchLFS [ git-lfs ];
+      nativeBuildInputs = [git] ++ lib.optionals fetchLFS [git-lfs];
 
       outputHashAlgo = if hash != "" then null else "sha256";
       outputHashMode = "recursive";

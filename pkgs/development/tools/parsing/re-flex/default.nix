@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     description = "The regex-centric, fast lexical analyzer generator for C++ with full Unicode support";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with lib.maintainers; [ prrlvr ];
+    maintainers = with lib.maintainers; [prrlvr];
   };
 }

@@ -27,13 +27,13 @@
   crossSystem ? localSystem,
 
   # Allow a configuration attribute set to be passed in as an argument.
-  config ? { },
+  config ? {},
 
   # List of overlays layers used to extend Nixpkgs.
-  overlays ? [ ],
+  overlays ? [],
 
   # List of overlays to apply to target packages only.
-  crossOverlays ? [ ],
+  crossOverlays ? [],
 
   # A function booting the final package set for a specific standard
   # environment. See below for the arguments given to that function, the type of
@@ -78,13 +78,13 @@ let
   # Allow both:
   # { /* the config */ } and
   # { pkgs, ... } : { /* the config */ }
-  config1 = if lib.isFunction config0 then config0 { inherit pkgs; } else config0;
+  config1 = if lib.isFunction config0 then config0 {inherit pkgs;} else config0;
 
   configEval = lib.evalModules {
     modules = [
       ./config.nix
       (
-        { options, ... }:
+        {options, ...}:
         {
           _file = "nixpkgs.config";
           config = config1;
@@ -125,9 +125,9 @@ let
 
   # Partially apply some arguments for building bootstraping stage pkgs
   # sets. Only apply arguments which no stdenv would want to override.
-  allPackages = newArgs: import ./stage.nix ({ inherit lib nixpkgsFun; } // newArgs);
+  allPackages = newArgs: import ./stage.nix ({inherit lib nixpkgsFun;} // newArgs);
 
-  boot = import ../stdenv/booter.nix { inherit lib allPackages; };
+  boot = import ../stdenv/booter.nix {inherit lib allPackages;};
 
   stages = stdenvStages {
     inherit

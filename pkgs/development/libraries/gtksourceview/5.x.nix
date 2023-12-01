@@ -83,7 +83,7 @@ stdenv.mkDerivation (
       dbus
     ];
 
-    mesonFlags = [ "-Dgtk_doc=true" ];
+    mesonFlags = ["-Dgtk_doc=true"];
 
     doCheck = stdenv.isLinux;
 
@@ -118,7 +118,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "Source code editing widget for GTK";
       homepage = "https://wiki.gnome.org/Projects/GtkSourceView";
-      pkgConfigModules = [ "gtksourceview-5" ];
+      pkgConfigModules = ["gtksourceview-5"];
       platforms = platforms.unix;
       license = licenses.lgpl21Plus;
       maintainers = teams.gnome.members;

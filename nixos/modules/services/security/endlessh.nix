@@ -28,7 +28,7 @@ in
 
     extraOptions = mkOption {
       type = with types; listOf str;
-      default = [ ];
+      default = [];
       example = [
         "-6"
         "-d 9000"
@@ -51,12 +51,12 @@ in
   config = mkIf cfg.enable {
     systemd.services.endlessh = {
       description = "SSH tarpit";
-      requires = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      requires = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig =
         let
           needsPrivileges = cfg.port < 1024;
-          capabilities = [ "" ] ++ optionals needsPrivileges [ "CAP_NET_BIND_SERVICE" ];
+          capabilities = [""] ++ optionals needsPrivileges ["CAP_NET_BIND_SERVICE"];
           rootDirectory = "/run/endlessh";
         in
         {
@@ -72,8 +72,8 @@ in
             );
           DynamicUser = true;
           RootDirectory = rootDirectory;
-          BindReadOnlyPaths = [ builtins.storeDir ];
-          InaccessiblePaths = [ "-+${rootDirectory}" ];
+          BindReadOnlyPaths = [builtins.storeDir];
+          InaccessiblePaths = ["-+${rootDirectory}"];
           RuntimeDirectory = baseNameOf rootDirectory;
           RuntimeDirectoryMode = "700";
           AmbientCapabilities = capabilities;
@@ -112,8 +112,8 @@ in
         };
     };
 
-    networking.firewall.allowedTCPPorts = with cfg; optionals openFirewall [ port ];
+    networking.firewall.allowedTCPPorts = with cfg; optionals openFirewall [port];
   };
 
-  meta.maintainers = with maintainers; [ azahi ];
+  meta.maintainers = with maintainers; [azahi];
 }

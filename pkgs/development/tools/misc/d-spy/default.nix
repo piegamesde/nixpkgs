@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "d-spy"; };
+    updateScript = gnome.updateScript {packageName = "d-spy";};
   };
 
   meta = with lib; {

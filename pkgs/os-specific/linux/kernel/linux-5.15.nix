@@ -26,5 +26,5 @@ buildLinux (
       sha256 = "0nqbhgafl513pdfn55j608829bsw8kn0v616gblxqy4rgg3zqacq";
     };
   }
-  // (args.argsOverride or { })
+  // (args.argsOverride or {})
 )

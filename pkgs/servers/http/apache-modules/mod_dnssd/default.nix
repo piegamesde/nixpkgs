@@ -18,9 +18,9 @@ stdenv.mkDerivation rec {
     sha256 = "2cd171d76eba398f03c1d5bcc468a1756f4801cd8ed5bd065086e4374997c5aa";
   };
 
-  configureFlags = [ "--disable-lynx" ];
+  configureFlags = ["--disable-lynx"];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     apacheHttpd
     avahi
@@ -54,6 +54,6 @@ stdenv.mkDerivation rec {
     description = "Provide Zeroconf support via DNS-SD using Avahi";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

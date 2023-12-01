@@ -12,10 +12,10 @@ stdenv.mkDerivation rec {
     url = "mirror://sourceforge/libjson/libjson_${version}.zip";
     sha256 = "0xkk5qc7kjcdwz9l04kmiz1nhmi7iszl3k165phf53h3a4wpl9h7";
   };
-  patches = [ ./install-fix.patch ];
-  nativeBuildInputs = [ unzip ];
-  makeFlags = [ "prefix=$(out)" ];
-  env.NIX_CFLAGS_COMPILE = toString [ "-std=c++11" ];
+  patches = [./install-fix.patch];
+  nativeBuildInputs = [unzip];
+  makeFlags = ["prefix=$(out)"];
+  env.NIX_CFLAGS_COMPILE = toString ["-std=c++11"];
   preInstall = "mkdir -p $out/lib";
 
   meta = with lib; {

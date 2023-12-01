@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-Gojayel/xQ5gRI0nbwsroeSMdRndjb+8EniX1Qs4nbg=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   dontUseSetuptoolsCheck = true;
 
@@ -37,12 +37,12 @@ buildPythonPackage rec {
       "test_compile_to_code_custom_format" # cannot import temporary module created during test
     ];
 
-  pythonImportsCheck = [ "fastjsonschema" ];
+  pythonImportsCheck = ["fastjsonschema"];
 
   meta = with lib; {
     description = "JSON schema validator for Python";
     homepage = "https://horejsek.github.io/python-fastjsonschema/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

@@ -32,7 +32,7 @@ buildPythonPackage rec {
   ] ++ tabulate.optional-dependencies.widechars;
 
   passthru.optional-dependencies = {
-    styles = [ pygments ];
+    styles = [pygments];
   };
 
   nativeCheckInputs = [
@@ -64,6 +64,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://cli-helpers.readthedocs.io/en/stable/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.kalbasit ];
+    maintainers = [maintainers.kalbasit];
   };
 }

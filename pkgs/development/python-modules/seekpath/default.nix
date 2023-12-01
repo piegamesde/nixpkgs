@@ -33,9 +33,9 @@ buildPythonPackage rec {
     scipy
   ];
 
-  nativeBuildInputs = [ glibcLocales ];
+  nativeBuildInputs = [glibcLocales];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   # I don't know enough about crystal structures to fix
   checkPhase = ''
@@ -46,6 +46,6 @@ buildPythonPackage rec {
     description = "A module to obtain and visualize band paths in the Brillouin zone of crystal structures.";
     homepage = "https://github.com/giovannipizzi/seekpath";
     license = licenses.mit;
-    maintainers = with maintainers; [ psyanticy ];
+    maintainers = with maintainers; [psyanticy];
   };
 }

@@ -24,7 +24,7 @@ buildPythonPackage rec {
     sha256 = "c8a85b28d377cc7737e46e2d9f2b4f44ee3c0e1deac6bf46ddefc7187d30797a";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
   propagatedBuildInputs = [
     attrs
     importlib-metadata
@@ -49,6 +49,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Julian/jsonschema";
     description = "An implementation of JSON Schema validation for Python";
     license = licenses.mit;
-    maintainers = with maintainers; [ domenkozar ];
+    maintainers = with maintainers; [domenkozar];
   };
 }

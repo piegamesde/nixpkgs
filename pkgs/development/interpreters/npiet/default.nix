@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     libpng
   ];
 
-  nativeBuildInputs = [ groff ];
+  nativeBuildInputs = [groff];
 
   postPatch = ''
     # malloc.h is not needed because stdlib.h is already included.
@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.bertnase.de/npiet/";
     license = licenses.gpl2Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
   };
 }

@@ -19,7 +19,7 @@ stdenv.mkDerivation {
   };
   sourceRoot = "source/aseq2json";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     alsa-lib
     glib
@@ -34,7 +34,7 @@ stdenv.mkDerivation {
     description = "Listens for MIDI events on the Alsa sequencer and outputs as JSON to stdout";
     homepage = "https://github.com/google/midi-dump-tools";
     license = licenses.asl20;
-    maintainers = [ maintainers.queezle ];
+    maintainers = [maintainers.queezle];
     platforms = platforms.linux;
   };
 }

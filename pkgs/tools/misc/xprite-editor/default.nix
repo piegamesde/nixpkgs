@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     '';
   };
 
-  buildInputs = lib.optionals stdenv.isLinux [ gtk3 ] ++ lib.optionals stdenv.isDarwin [ AppKit ];
+  buildInputs = lib.optionals stdenv.isLinux [gtk3] ++ lib.optionals stdenv.isDarwin [AppKit];
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [
     pkg-config
@@ -48,7 +48,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/rickyhan/xprite-editor";
     description = "Pixel art editor";
     license = licenses.gpl3;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

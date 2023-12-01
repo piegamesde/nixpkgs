@@ -1,14 +1,14 @@
 # This test runs a container through gvisor and checks if simple container starts
 
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "gvisor";
-    meta = with pkgs.lib.maintainers; { maintainers = [ andrew-d ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [andrew-d];};
 
     nodes = {
       gvisor =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           virtualisation.docker = {
             enable = true;

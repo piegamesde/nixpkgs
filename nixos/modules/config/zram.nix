@@ -122,17 +122,17 @@ in
       }
     ];
 
-    system.requiredKernelConfig = with config.lib.kernelConfig; [ (isModule "ZRAM") ];
+    system.requiredKernelConfig = with config.lib.kernelConfig; [(isModule "ZRAM")];
 
     # Disabling this for the moment, as it would create and mkswap devices twice,
     # once in stage 2 boot, and again when the zram-reloader service starts.
     # boot.kernelModules = [ "zram" ];
 
-    systemd.packages = [ pkgs.zram-generator ];
-    systemd.services."systemd-zram-setup@".path = [ pkgs.util-linux ]; # for mkswap
+    systemd.packages = [pkgs.zram-generator];
+    systemd.services."systemd-zram-setup@".path = [pkgs.util-linux]; # for mkswap
 
     environment.etc."systemd/zram-generator.conf".source =
-      (pkgs.formats.ini { }).generate "zram-generator.conf"
+      (pkgs.formats.ini {}).generate "zram-generator.conf"
         (
           lib.listToAttrs (
             builtins.map
@@ -148,7 +148,7 @@ in
                     compression-algorithm = cfg.algorithm;
                     swap-priority = cfg.priority;
                   }
-                  // lib.optionalAttrs (cfg.writebackDevice != null) { writeback-device = cfg.writebackDevice; };
+                  // lib.optionalAttrs (cfg.writebackDevice != null) {writeback-device = cfg.writebackDevice;};
               })
               devices
           )

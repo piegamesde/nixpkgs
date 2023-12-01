@@ -6,7 +6,7 @@
 
 let
   unsafeBuildOpenRAMod =
-    attrs: name: (buildOpenRAMod attrs name).overrideAttrs (_: { doCheck = false; });
+    attrs: name: (buildOpenRAMod attrs name).overrideAttrs (_: {doCheck = false;});
 in
 {
   ca = buildOpenRAMod {
@@ -244,7 +244,7 @@ in
     };
     engine = {
       version = "f3873ae";
-      mods = [ "as" ];
+      mods = ["as"];
       src = fetchFromGitHub {
         owner = "AttacqueSuperior";
         repo = "Engine";

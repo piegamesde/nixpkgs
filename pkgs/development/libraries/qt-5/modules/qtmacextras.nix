@@ -6,9 +6,9 @@
 
 qtModule {
   pname = "qtmacextras";
-  qtInputs = [ qtbase ];
+  qtInputs = [qtbase];
   meta = with lib; {
-    maintainers = with maintainers; [ periklis ];
+    maintainers = with maintainers; [periklis];
     platforms = platforms.darwin;
   };
 }

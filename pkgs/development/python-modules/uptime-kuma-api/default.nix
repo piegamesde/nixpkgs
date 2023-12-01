@@ -23,7 +23,7 @@ buildPythonPackage rec {
     python-socketio.optional-dependencies.client
   ];
 
-  pythonImportsCheck = [ "uptime_kuma_api" ];
+  pythonImportsCheck = ["uptime_kuma_api"];
 
   # Tests need an uptime-kuma instance to run
   doCheck = false;
@@ -31,7 +31,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A Python wrapper for the Uptime Kuma Socket.IO API";
     homepage = "https://github.com/lucasheld/uptime-kuma-api";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ julienmalka ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [julienmalka];
   };
 }

@@ -101,7 +101,7 @@ stdenvNoCC.mkDerivation {
     description = "CLI client for ExpressVPN";
     homepage = "https://www.expressvpn.com";
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ yureien ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [yureien];
   };
 }

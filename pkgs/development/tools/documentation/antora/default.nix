@@ -1,4 +1,4 @@
-{ lib, nodePackages }:
+{lib, nodePackages}:
 
 let
   linkNodeDeps =
@@ -31,5 +31,5 @@ in
 linkNodeDeps {
   pkg = "@antora/cli";
   name = "@antora/cli";
-  deps = [ "@antora/site-generator-default" ];
+  deps = ["@antora/site-generator-default"];
 }

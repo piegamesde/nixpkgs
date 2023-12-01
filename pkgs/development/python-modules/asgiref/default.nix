@@ -23,24 +23,24 @@ buildPythonPackage rec {
     hash = "sha256-Kl4483rfuFKbnD7pBSTND1QAtBsZP6jKsrDlpVCZLDs=";
   };
 
-  propagatedBuildInputs = [ typing-extensions ];
+  propagatedBuildInputs = [typing-extensions];
 
   nativeCheckInputs = [
     pytestCheckHook
     pytest-asyncio
   ];
 
-  disabledTests = lib.optionals stdenv.isDarwin [ "test_multiprocessing" ];
+  disabledTests = lib.optionals stdenv.isDarwin ["test_multiprocessing"];
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "asgiref" ];
+  pythonImportsCheck = ["asgiref"];
 
   meta = with lib; {
     changelog = "https://github.com/django/asgiref/blob/${src.rev}/CHANGELOG.txt";
     description = "Reference ASGI adapters and channel layers";
     homepage = "https://github.com/django/asgiref";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

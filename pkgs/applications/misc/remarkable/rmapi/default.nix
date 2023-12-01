@@ -24,6 +24,6 @@ buildGoModule rec {
     homepage = "https://github.com/juruen/rmapi";
     changelog = "https://github.com/juruen/rmapi/blob/v${version}/CHANGELOG.md";
     license = licenses.agpl3Only;
-    maintainers = [ maintainers.nickhu ];
+    maintainers = [maintainers.nickhu];
   };
 }

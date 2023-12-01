@@ -67,6 +67,6 @@ stdenv.mkDerivation {
     homepage = "http://spatialaudio.net/ssr/";
     description = "The SoundScape Renderer (SSR) is a tool for real-time spatial audio reproduction";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.fridh ];
+    maintainers = [lib.maintainers.fridh];
   };
 }

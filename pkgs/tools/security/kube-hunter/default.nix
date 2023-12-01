@@ -17,7 +17,7 @@ python3.pkgs.buildPythonApplication rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = with python3.pkgs; [ setuptools-scm ];
+  nativeBuildInputs = with python3.pkgs; [setuptools-scm];
 
   propagatedBuildInputs = with python3.pkgs; [
     netaddr
@@ -44,7 +44,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace "--cov=kube_hunter" ""
   '';
 
-  pythonImportsCheck = [ "kube_hunter" ];
+  pythonImportsCheck = ["kube_hunter"];
 
   disabledTests =
     [
@@ -55,7 +55,7 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Tool to search issues in Kubernetes clusters";
     homepage = "https://github.com/aquasecurity/kube-hunter";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

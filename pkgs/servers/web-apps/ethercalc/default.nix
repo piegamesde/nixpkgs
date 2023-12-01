@@ -27,7 +27,7 @@ let
         mpl20
       ];
       homepage = "https://github.com/audreyt/ethercalc";
-      maintainers = with maintainers; [ iblech ];
+      maintainers = with maintainers; [iblech];
       platforms = platforms.unix;
     };
   };

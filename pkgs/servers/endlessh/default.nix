@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-yHQzDrjZycDL/2oSQCJjxbZQJ30FoixVG1dnFyTKPH4=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   passthru.tests = {
     inherit (nixosTests) endlessh;

@@ -22,7 +22,7 @@ buildPythonApplication rec {
     urwid
   ];
 
-  nativeCheckInputs = [ glibcLocales ];
+  nativeCheckInputs = [glibcLocales];
 
   makeWrapperArgs = [
     "--suffix"

@@ -28,6 +28,6 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ bsima ];
+    maintainers = with maintainers; [bsima];
   };
 }

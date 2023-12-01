@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-Rs/y8+vTLNMoNoEspHvMdTU/wr51fwk9qIwN2PEP1fY=";
   };
 
-  configureFlags = [ "--with-ssl" ];
+  configureFlags = ["--with-ssl"];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     neon
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     description = "A command-line WebDAV client";
     homepage = "https://notroj.github.io/cadaver/";
     changelog = "https://github.com/notroj/cadaver/blob/${version}/NEWS";
-    maintainers = with maintainers; [ ianwookim ];
+    maintainers = with maintainers; [ianwookim];
     license = licenses.gpl2Plus;
     platforms = with platforms; linux ++ freebsd ++ openbsd;
   };

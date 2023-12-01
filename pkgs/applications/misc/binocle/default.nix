@@ -28,7 +28,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-9d0MNQ7jEJKpGbjVtl1XBoOBEVNKDgFouSMrcZ7tXNU=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = lib.optionals stdenv.isDarwin [
     AppKit
@@ -51,7 +51,7 @@ rustPlatform.buildRustPackage rec {
             libXi
             libXrandr
           ]
-          ++ [ vulkan-loader ]
+          ++ [vulkan-loader]
         )
       }
   '';
@@ -63,6 +63,6 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

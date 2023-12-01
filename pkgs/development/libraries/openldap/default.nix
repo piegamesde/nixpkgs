@@ -37,11 +37,11 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ groff ];
+  nativeBuildInputs = [groff];
 
   buildInputs =
     [
-      (cyrus_sasl.override { inherit openssl; })
+      (cyrus_sasl.override {inherit openssl;})
       db
       libsodium
       libtool
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional stdenv.isFreeBSD "--with-pic";
 
-  env.NIX_CFLAGS_COMPILE = toString [ ''-DLDAPI_SOCK="/run/openldap/ldapi"'' ];
+  env.NIX_CFLAGS_COMPILE = toString [''-DLDAPI_SOCK="/run/openldap/ldapi"''];
 
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"

@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-jDN4FJVLt8FnRWczpgRhQqKTHxLsy6PsKkrmGKNDJRE=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   # ToDo: a52, etc.?
   buildInputs = [
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     description = "Various plugins for ALSA";
     homepage = "http://alsa-project.org/";
     license = licenses.lgpl21;
-    maintainers = [ maintainers.marcweber ];
+    maintainers = [maintainers.marcweber];
     platforms = platforms.linux;
   };
 }

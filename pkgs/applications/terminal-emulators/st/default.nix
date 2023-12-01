@@ -10,8 +10,8 @@
   ncurses,
   writeText,
   conf ? null,
-  patches ? [ ],
-  extraLibs ? [ ],
+  patches ? [],
+  extraLibs ? [],
   nixosTests,
 }:
 
@@ -37,7 +37,7 @@ stdenv.mkDerivation (
 
     strictDeps = true;
 
-    makeFlags = [ "PKG_CONFIG=${stdenv.cc.targetPrefix}pkg-config" ];
+    makeFlags = ["PKG_CONFIG=${stdenv.cc.targetPrefix}pkg-config"];
 
     nativeBuildInputs = [
       pkg-config
@@ -54,7 +54,7 @@ stdenv.mkDerivation (
       export TERMINFO=$out/share/terminfo
     '';
 
-    installFlags = [ "PREFIX=$(out)" ];
+    installFlags = ["PREFIX=$(out)"];
 
     passthru.tests.test = nixosTests.terminal-emulators.st;
 
@@ -62,7 +62,7 @@ stdenv.mkDerivation (
       homepage = "https://st.suckless.org/";
       description = "Simple Terminal for X from Suckless.org Community";
       license = licenses.mit;
-      maintainers = with maintainers; [ andsild ];
+      maintainers = with maintainers; [andsild];
       platforms = platforms.unix;
     };
   }

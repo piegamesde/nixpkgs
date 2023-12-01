@@ -62,7 +62,7 @@ buildGoModule rec {
     description = "Debian repository management tool";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ montag451 ] ++ teams.bitnomial.members;
+    maintainers = with maintainers; [montag451] ++ teams.bitnomial.members;
     changelog = "https://github.com/aptly-dev/aptly/releases/tag/v${version}";
   };
 }

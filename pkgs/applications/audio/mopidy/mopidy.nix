@@ -20,7 +20,7 @@ pythonPackages.buildPythonApplication rec {
     sha256 = "sha256-IUQe5WH2vsrAOgokhTNVVM3lnJXphT2xNGu27hWBLSo=";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook ];
+  nativeBuildInputs = [wrapGAppsHook];
 
   buildInputs = with gst_all_1; [
     glib-networking
@@ -31,7 +31,7 @@ pythonPackages.buildPythonApplication rec {
   ];
 
   propagatedBuildInputs =
-    [ gobject-introspection ]
+    [gobject-introspection]
     ++ (
       with pythonPackages;
       [
@@ -45,7 +45,7 @@ pythonPackages.buildPythonApplication rec {
       ++ lib.optional (!stdenv.isDarwin) dbus-python
     );
 
-  propagatedNativeBuildInputs = [ gobject-introspection ];
+  propagatedNativeBuildInputs = [gobject-introspection];
 
   # There are no tests
   doCheck = false;
@@ -57,7 +57,7 @@ pythonPackages.buildPythonApplication rec {
       SoundCloud, and more
     '';
     license = licenses.asl20;
-    maintainers = [ maintainers.fpletz ];
-    hydraPlatforms = [ ];
+    maintainers = [maintainers.fpletz];
+    hydraPlatforms = [];
   };
 }

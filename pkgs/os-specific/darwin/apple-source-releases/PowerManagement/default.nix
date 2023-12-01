@@ -5,8 +5,8 @@
 }:
 
 appleDerivation {
-  nativeBuildInputs = [ xcbuildHook ];
-  buildInputs = [ IOKit ];
+  nativeBuildInputs = [xcbuildHook];
+  buildInputs = [IOKit];
   xcbuildFlags = [
     "-target"
     "caffeinate"

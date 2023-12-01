@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     librsvg
   ];
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
   dontBuild = true;
 
@@ -53,6 +53,6 @@ stdenv.mkDerivation rec {
     description = "A Material Design theme for GNOME/GTK based desktop environments";
     license = licenses.gpl2;
     platforms = platforms.all;
-    maintainers = [ maintainers.fpletz ];
+    maintainers = [maintainers.fpletz];
   };
 }

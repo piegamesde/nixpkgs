@@ -25,6 +25,6 @@ buildGoModule rec {
     description = "ssh config editor and bookmarks manager";
     homepage = "https://github.com/trntv/sshed";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ocfox ];
+    maintainers = with maintainers; [ocfox];
   };
 }

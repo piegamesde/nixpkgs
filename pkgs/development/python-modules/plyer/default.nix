@@ -44,14 +44,14 @@ buildPythonPackage rec {
       --replace "from plyer.facades.wifi import Wifi" ""
   '';
 
-  propagatedBuildInputs = [ keyring ];
+  propagatedBuildInputs = [keyring];
 
   nativeCheckInputs = [
     mock
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "plyer/tests" ];
+  pytestFlagsArray = ["plyer/tests"];
   disabledTests = [
     # assumes dbus is not installed, it fails and is not very robust.
     "test_notification_notifysend"
@@ -64,13 +64,13 @@ buildPythonPackage rec {
     mkdir -p $HOME/.config/ $HOME/Pictures
   '';
 
-  pythonImportsCheck = [ "plyer" ];
+  pythonImportsCheck = ["plyer"];
 
   meta = with lib; {
     broken = stdenv.isDarwin;
     description = "Plyer is a platform-independent api to use features commonly found on various platforms";
     homepage = "https://github.com/kivy/plyer";
     license = licenses.mit;
-    maintainers = with maintainers; [ rski ];
+    maintainers = with maintainers; [rski];
   };
 }

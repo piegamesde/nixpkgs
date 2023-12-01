@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-yy2xeDnk3fENN+En0st4mv60nZlqPafIzwf68jwJ5fE=";
   };
 
-  buildInputs = [ postgresql ];
+  buildInputs = [postgresql];
 
-  makeFlags = [ "USE_PGXS=1" ];
+  makeFlags = ["USE_PGXS=1"];
 
   installPhase = ''
     install -D -t $out/lib *.so
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/postgrespro/rum";
     license = licenses.postgresql;
     platforms = postgresql.meta.platforms;
-    maintainers = with maintainers; [ DeeUnderscore ];
+    maintainers = with maintainers; [DeeUnderscore];
   };
 }

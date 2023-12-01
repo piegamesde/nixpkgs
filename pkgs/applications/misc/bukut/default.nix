@@ -28,6 +28,6 @@ buildPythonApplication rec {
     description = "Text user interface for buku bookmark manager";
     homepage = "https://github.com/peterjschroeder/bukut";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ taha ];
+    maintainers = with maintainers; [taha];
   };
 }

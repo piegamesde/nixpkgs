@@ -37,7 +37,7 @@ nodePackages.package.override {
   meta = with lib; {
     broken = stdenv.isDarwin;
     description = "Version controlled multi-cluster deployment manager for kubernetes";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.mit;
   };
 }

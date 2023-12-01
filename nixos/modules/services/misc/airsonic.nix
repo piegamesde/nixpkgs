@@ -85,7 +85,7 @@ in
 
       transcoders = mkOption {
         type = types.listOf types.path;
-        default = [ "${pkgs.ffmpeg.bin}/bin/ffmpeg" ];
+        default = ["${pkgs.ffmpeg.bin}/bin/ffmpeg"];
         defaultText = literalExpression ''[ "''${pkgs.ffmpeg.bin}/bin/ffmpeg" ]'';
         description = lib.mdDoc ''
           List of paths to transcoder executables that should be accessible
@@ -119,7 +119,7 @@ in
           Useful for sending jukebox output to non-default alsa
           devices.
         '';
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         example = [
           "-Djavax.sound.sampled.Clip='#CODEC [plughw:1,0]'"
@@ -134,8 +134,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.airsonic = {
       description = "Airsonic Media Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         # Install transcoders.
@@ -180,6 +180,6 @@ in
       createHome = true;
       isSystemUser = true;
     };
-    users.groups.airsonic = { };
+    users.groups.airsonic = {};
   };
 }

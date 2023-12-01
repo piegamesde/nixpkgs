@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-ouBqqt0CJYxxQqbG9jn4p8zO+nKjqZgPjZpiZic67ss=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -40,12 +40,12 @@ buildPythonPackage rec {
     "test_slow_file"
   ];
 
-  pythonImportsCheck = [ "aiofiles" ];
+  pythonImportsCheck = ["aiofiles"];
 
   meta = with lib; {
     description = "File support for asyncio";
     homepage = "https://github.com/Tinche/aiofiles";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fridh ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fridh];
   };
 }

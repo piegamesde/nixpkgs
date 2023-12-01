@@ -77,17 +77,17 @@ let
 
   policies = {
     DisableAppUpdate = true;
-  } // config.firefox.policies or { };
+  } // config.firefox.policies or {};
 
-  policiesJson = writeText "firefox-policies.json" (builtins.toJSON { inherit policies; });
+  policiesJson = writeText "firefox-policies.json" (builtins.toJSON {inherit policies;});
 
-  defaultSource = lib.findFirst (sourceMatches "en-US") { } sources;
+  defaultSource = lib.findFirst (sourceMatches "en-US") {} sources;
 
   mozLocale =
     if systemLocale == "ca_ES@valencia" then
       "ca-valencia"
     else
-      lib.replaceStrings [ "_" ] [ "-" ] systemLocale;
+      lib.replaceStrings ["_"] ["-"] systemLocale;
 
   source = lib.findFirst (sourceMatches mozLocale) defaultSource sources;
 
@@ -97,7 +97,7 @@ in
 stdenv.mkDerivation {
   inherit pname version;
 
-  src = fetchurl { inherit (source) url sha256; };
+  src = fetchurl {inherit (source) url sha256;};
 
   libPath =
     lib.makeLibraryPath [
@@ -146,11 +146,11 @@ stdenv.mkDerivation {
       ffmpeg
     ]
     + ":"
-    + lib.makeSearchPathOutput "lib" "lib64" [ stdenv.cc.cc ];
+    + lib.makeSearchPathOutput "lib" "lib64" [stdenv.cc.cc];
 
   inherit gtk3;
 
-  nativeBuildInputs = [ wrapGAppsHook ];
+  nativeBuildInputs = [wrapGAppsHook];
   buildInputs = [
     gtk3
     adwaita-icon-theme
@@ -229,9 +229,9 @@ stdenv.mkDerivation {
     description = "Mozilla Firefox, free web browser (binary package)";
     homepage = "https://www.mozilla.org/firefox/";
     license = licenses.mpl20;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     platforms = builtins.attrNames mozillaPlatforms;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
     maintainers = with maintainers; [
       taku0
       lovesegfault

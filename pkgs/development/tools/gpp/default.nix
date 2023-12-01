@@ -16,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "0bvhnx3yfhbfiqqhhz6k2a596ls5rval7ykbp3jl5b6062xj861b";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   installCheckPhase = "$out/bin/gpp --help";
   doInstallCheck = true;
@@ -25,7 +25,7 @@ stdenv.mkDerivation {
     description = "General-purpose preprocessor with customizable syntax";
     homepage = "https://logological.org/gpp";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ nmattia ];
+    maintainers = with maintainers; [nmattia];
     platforms = with platforms; linux ++ darwin;
   };
 }

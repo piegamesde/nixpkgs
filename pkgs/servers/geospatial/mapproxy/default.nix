@@ -37,6 +37,6 @@ buildPythonApplication rec {
     description = "Open source proxy for geospatial data";
     homepage = "https://mapproxy.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ rakesh4g ];
+    maintainers = with maintainers; [rakesh4g];
   };
 }

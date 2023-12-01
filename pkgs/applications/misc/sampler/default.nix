@@ -33,17 +33,17 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   buildInputs =
     lib.optional stdenv.isLinux alsa-lib
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.OpenAL ];
+    ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.OpenAL];
 
   meta = with lib; {
     description = "Tool for shell commands execution, visualization and alerting";
     homepage = "https://sampler.dev";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ uvnikita ];
+    maintainers = with maintainers; [uvnikita];
     platforms = platforms.unix;
   };
 }

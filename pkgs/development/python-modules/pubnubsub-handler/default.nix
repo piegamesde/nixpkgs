@@ -24,12 +24,12 @@ buildPythonPackage rec {
 
   # Project has no tests
   doCheck = false;
-  pythonImportsCheck = [ "pubnubsubhandler" ];
+  pythonImportsCheck = ["pubnubsubhandler"];
 
   meta = with lib; {
     description = "PubNub subscription between PubNub and Home Assistant";
     homepage = "https://github.com/w1ll1am23/pubnubsub-handler";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

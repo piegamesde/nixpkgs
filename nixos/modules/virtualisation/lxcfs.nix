@@ -13,7 +13,7 @@ let
   cfg = config.virtualisation.lxc.lxcfs;
 in
 {
-  meta.maintainers = [ maintainers.mic92 ];
+  meta.maintainers = [maintainers.mic92];
 
   ###### interface
   options.virtualisation.lxc.lxcfs = {
@@ -35,8 +35,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.lxcfs = {
       description = "FUSE filesystem for LXC";
-      wantedBy = [ "multi-user.target" ];
-      before = [ "lxc.service" ];
+      wantedBy = ["multi-user.target"];
+      before = ["lxc.service"];
       restartIfChanged = false;
       serviceConfig = {
         ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p /var/lib/lxcfs";

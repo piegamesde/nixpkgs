@@ -26,13 +26,13 @@ python3Packages.buildPythonPackage rec {
     pycups
   ];
 
-  pythonImportsCheck = [ "qpageview" ];
+  pythonImportsCheck = ["qpageview"];
 
   meta = with lib; {
     description = "A page-based viewer widget for Qt5/PyQt5";
     homepage = "https://github.com/frescobaldi/qpageview";
     changelog = "https://github.com/frescobaldi/qpageview/blob/${src.rev}/ChangeLog";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ camillemndn ];
+    maintainers = with maintainers; [camillemndn];
   };
 }

@@ -17,8 +17,8 @@ buildPythonPackage rec {
     hash = "sha256-rc/mI8AqWVwQfDFAcvZ6Inj+TrQLcsDRoskDzHivNDk=";
   };
 
-  nativeCheckInputs = [ pytest ];
-  propagatedBuildInputs = [ click ] ++ lib.optional (!isPy3k) futures;
+  nativeCheckInputs = [pytest];
+  propagatedBuildInputs = [click] ++ lib.optional (!isPy3k) futures;
 
   checkPhase = ''
     py.test

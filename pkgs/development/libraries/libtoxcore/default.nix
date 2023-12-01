@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
   ];
 
   doCheck = true;
-  nativeCheckInputs = [ check ];
+  nativeCheckInputs = [check];
 
   postInstall = ''
     substituteInPlace $out/lib/pkgconfig/toxcore.pc \

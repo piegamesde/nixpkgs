@@ -17,9 +17,9 @@ let
     ];
   };
 
-  runtimeClosureInfo = closureInfo { rootPaths = [ tools ]; };
+  runtimeClosureInfo = closureInfo {rootPaths = [tools];};
 
-  closureToNix = runCommand "closure.nix" { } ''
+  closureToNix = runCommand "closure.nix" {} ''
     (
       echo '{ dep, ... }: ['
       sed -E 's/^(.*)$/    (dep \1)/' ${runtimeClosureInfo}/store-paths

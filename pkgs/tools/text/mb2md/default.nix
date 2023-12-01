@@ -7,7 +7,7 @@
 }:
 
 let
-  perlDeps = with perlPackages; [ TimeDate ];
+  perlDeps = with perlPackages; [TimeDate];
 in
 stdenv.mkDerivation rec {
   version = "3.20";
@@ -18,8 +18,8 @@ stdenv.mkDerivation rec {
     sha256 = "0bvkky3c90738h3skd2f1b2yy5xzhl25cbh9w2dy97rs86ssjidg";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ perlPackages.perl ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [perlPackages.perl];
 
   unpackPhase = ''
     sourceRoot=.
@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     description = "mbox to maildir tool";
     license = licenses.publicDomain;
     platforms = platforms.all;
-    maintainers = [ maintainers.jb55 ];
+    maintainers = [maintainers.jb55];
   };
 }

@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-5TkFrGaSkQOORhf5a7SjkzggFLPyqe9k3M0B4ljhWTQ=";
   };
 
-  propagatedBuildInputs = [ async-timeout ];
+  propagatedBuildInputs = [async-timeout];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -46,13 +46,13 @@ buildPythonPackage rec {
     "test_flow_control"
   ];
 
-  pythonImportsCheck = [ "pescea" ];
+  pythonImportsCheck = ["pescea"];
 
   meta = with lib; {
     broken = stdenv.isDarwin;
     description = "Python interface to Escea fireplaces";
     homepage = "https://github.com/lazdavila/pescea";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

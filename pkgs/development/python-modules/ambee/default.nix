@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-2wX2CLr6kdVw2AGPW6DmYI2OBfQFI/iWVorok2d3wx4=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -44,12 +44,12 @@ buildPythonPackage rec {
       --replace "--cov" ""
   '';
 
-  pythonImportsCheck = [ "ambee" ];
+  pythonImportsCheck = ["ambee"];
 
   meta = with lib; {
     description = "Python client for Ambee API";
     homepage = "https://github.com/frenck/python-ambee";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

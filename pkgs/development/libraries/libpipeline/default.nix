@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-uLRRlJiQIqeewTF/ZKKnWxVRsqVb6gb2dwTLKi5GkLA=";
   };
 
-  patches = lib.optionals stdenv.isDarwin [ ./fix-on-osx.patch ];
+  patches = lib.optionals stdenv.isDarwin [./fix-on-osx.patch];
 
   meta = with lib; {
     homepage = "http://libpipeline.nongnu.org";

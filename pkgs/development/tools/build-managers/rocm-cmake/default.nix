@@ -18,7 +18,7 @@ stdenv.mkDerivation (
       hash = "sha256-JarQqiiZ36WV1d6vyQD546GN1EtoKLcdvcZsG3QWD2Y=";
     };
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
     passthru.updateScript = rocmUpdateScript {
       name = finalAttrs.pname;

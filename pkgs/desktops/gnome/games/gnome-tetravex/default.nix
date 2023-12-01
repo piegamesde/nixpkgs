@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     desktop-file-utils
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   postPatch = ''
     chmod +x build-aux/meson_post_install.py

@@ -22,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/raviqqe/muffet";
     changelog = "https://github.com/raviqqe/muffet/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

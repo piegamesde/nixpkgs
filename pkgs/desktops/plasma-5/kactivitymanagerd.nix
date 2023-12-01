@@ -16,7 +16,7 @@
 
 mkDerivation {
   pname = "kactivitymanagerd";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     boost
     kconfig

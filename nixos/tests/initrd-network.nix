@@ -1,14 +1,14 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "initrd-network";
 
-    meta.maintainers = [ pkgs.lib.maintainers.eelco ];
+    meta.maintainers = [pkgs.lib.maintainers.eelco];
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
-        imports = [ ../modules/profiles/minimal.nix ];
+        imports = [../modules/profiles/minimal.nix];
         boot.initrd.network.enable = true;
         boot.initrd.network.postCommands = ''
           ip addr show

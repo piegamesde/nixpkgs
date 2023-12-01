@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     sha256 = hash;
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -69,8 +69,8 @@ stdenv.mkDerivation rec {
     description = "A Usenet/BitTorrent ebook downloader";
     homepage = "https://readarr.com";
     license = licenses.gpl3;
-    maintainers = [ maintainers.jocelynthode ];
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    maintainers = [maintainers.jocelynthode];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

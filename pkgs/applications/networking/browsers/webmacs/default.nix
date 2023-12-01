@@ -69,7 +69,7 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
     homepage = "https://webmacs.readthedocs.io/en/latest/";
     changelog = "https://github.com/parkouss/webmacs/blob/master/CHANGELOG.md";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ jacg ];
+    maintainers = with maintainers; [jacg];
     platforms = platforms.all;
   };
 }

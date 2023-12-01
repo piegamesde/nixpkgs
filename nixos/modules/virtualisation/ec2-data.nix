@@ -31,10 +31,10 @@ with lib;
         "multi-user.target"
         "sshd.service"
       ];
-      before = [ "sshd.service" ];
-      after = [ "fetch-ec2-metadata.service" ];
+      before = ["sshd.service"];
+      after = ["fetch-ec2-metadata.service"];
 
-      path = [ pkgs.iproute2 ];
+      path = [pkgs.iproute2];
 
       script = ''
         ${optionalString (config.networking.hostName == "") ''
@@ -84,8 +84,8 @@ with lib;
 
     systemd.services.print-host-key = {
       description = "Print SSH Host Key";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "sshd.service" ];
+      wantedBy = ["multi-user.target"];
+      after = ["sshd.service"];
       script = ''
         # Print the host public key on the console so that the user
         # can obtain it securely by parsing the output of

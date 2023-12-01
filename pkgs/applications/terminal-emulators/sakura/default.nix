@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "dabisu";
     repo = pname;
-    rev = "SAKURA_${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "SAKURA_${lib.replaceStrings ["."] ["_"] version}";
     hash = "sha256-eMGhPkfhpPHMg69J+XgK/ssJjwRSFgd/a64lAYi7hd0=";
   };
 

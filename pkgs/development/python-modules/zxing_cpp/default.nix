@@ -13,7 +13,7 @@ buildPythonPackage rec {
   inherit (zxing-cpp) src version;
 
   sourceRoot = "source/wrappers/python";
-  patches = [ ./use-nixpkgs-pybind11.patch ];
+  patches = [./use-nixpkgs-pybind11.patch];
   dontUseCmakeConfigure = true;
 
   propagatedBuildInputs = [
@@ -21,9 +21,9 @@ buildPythonPackage rec {
     numpy
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  nativeCheckInputs = [ pillow ];
+  nativeCheckInputs = [pillow];
 
   meta = with lib; {
     homepage = "https://github.com/zxing-cpp/zxing-cpp";
@@ -38,7 +38,7 @@ buildPythonPackage rec {
       formats.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ lukegb ];
+    maintainers = with maintainers; [lukegb];
     platforms = with platforms; unix;
   };
 }

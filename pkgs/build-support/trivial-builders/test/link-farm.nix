@@ -36,9 +36,9 @@ let
     }
   ];
 
-  linkFarmFromAttrs = linkFarm "linkFarmFromAttrs" { inherit foo hello; };
+  linkFarmFromAttrs = linkFarm "linkFarmFromAttrs" {inherit foo hello;};
 in
-runCommand "test-linkFarm" { } ''
+runCommand "test-linkFarm" {} ''
   function assertPathEquals() {
     local a b;
     a="$(realpath "$1")"

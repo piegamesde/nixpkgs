@@ -11,17 +11,17 @@
 {
   pname,
   version,
-  internalDeps ? [ ],
-  peclDeps ? [ ],
-  buildInputs ? [ ],
-  nativeBuildInputs ? [ ],
+  internalDeps ? [],
+  peclDeps ? [],
+  buildInputs ? [],
+  nativeBuildInputs ? [],
   postPhpize ? "",
-  makeFlags ? [ ],
+  makeFlags ? [],
   src ? fetchurl {
     url = "https://pecl.php.net/get/${pname}-${version}.tgz";
     inherit (args) sha256;
   },
-  passthru ? { },
+  passthru ? {},
   ...
 }@args:
 
@@ -37,9 +37,9 @@ stdenv.mkDerivation (
       autoreconfHook
       re2c
     ] ++ nativeBuildInputs;
-    buildInputs = [ php ] ++ peclDeps ++ buildInputs;
+    buildInputs = [php] ++ peclDeps ++ buildInputs;
 
-    makeFlags = [ "EXTENSION_DIR=$(out)/lib/php/extensions" ] ++ makeFlags;
+    makeFlags = ["EXTENSION_DIR=$(out)/lib/php/extensions"] ++ makeFlags;
 
     autoreconfPhase = ''
       phpize
@@ -55,7 +55,7 @@ stdenv.mkDerivation (
       # PHP extensions correctly.
       # See the corresponding PR: https://github.com/Mic92/nix-update/pull/123
       isPhpExtension = true;
-      updateScript = nix-update-script { };
+      updateScript = nix-update-script {};
     };
   }
 )

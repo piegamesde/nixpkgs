@@ -14,13 +14,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-HPqYxWSBS92s8cDn8RWCE311hmj2MH5us5LHIxeYTBQ=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "Library for Voronoi intergration of electron densities";
     homepage = "https://brehm-research.de/libvori.php";
-    license = with licenses; [ lgpl3Only ];
+    license = with licenses; [lgpl3Only];
     platforms = platforms.unix;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "1sfwql0kvnir8b9ggpqcyc0ar995gxgfbhqb1xpfzp6wl0g3g4zz";
   };
 
-  buildInputs = [ go-ethereum ];
+  buildInputs = [go-ethereum];
 
   clefBinary = "${go-ethereum}/bin/clef";
 
@@ -56,8 +56,8 @@ stdenv.mkDerivation rec {
 
       This package contains the files necessary to run the bee-clef service.
     '';
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ attila-lendvai ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [attila-lendvai];
     platforms = go-ethereum.meta.platforms;
   };
 }

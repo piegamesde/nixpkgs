@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     owner = "bdrewery";
   };
 
-  buildInputs = [ ruby ];
+  buildInputs = [ruby];
 
   installPhase = ''
     mkdir -p $out/bin

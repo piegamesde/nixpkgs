@@ -23,9 +23,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-9RfYDF31wFYylhZv53PJpZofyCdMiUiH/nhRB2Ni/Is=";
 
-  cargoPatches = [ ./Cargo.lock.patch ];
+  cargoPatches = [./Cargo.lock.patch];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     gtk3

@@ -1,6 +1,6 @@
 {
   maintainer,
-  localSystem ? { system = args.system or builtins.currentSystem; },
+  localSystem ? {system = args.system or builtins.currentSystem;},
   system ? localSystem.system,
   crossSystem ? localSystem,
   ...
@@ -13,7 +13,7 @@
 # nix-build build.nix --argstr maintainer <yourname> --argstr system aarch64-linux
 
 let
-  pkgs = import ./../../default.nix (removeAttrs args [ "maintainer" ]);
+  pkgs = import ./../../default.nix (removeAttrs args ["maintainer"]);
   maintainer_ = pkgs.lib.maintainers.${maintainer};
   packagesWith =
     cond: return: set:
@@ -27,14 +27,14 @@ let
                 # Skip packages whose closure fails on evaluation.
                 # This happens for pkgs like `python27Packages.djangoql`
                 # that have disabled Python pkgs as dependencies.
-                builtins.seq pkg.outPath [ (return name pkg) ]
+                builtins.seq pkg.outPath [(return name pkg)]
               else if pkg.recurseForDerivations or false || pkg.recurseForRelease or false then
                 packagesWith cond return pkg
               else
-                [ ]
+                []
             );
           in
-          if result.success then result.value else [ ]
+          if result.success then result.value else []
         )
         set
     ));

@@ -1,6 +1,6 @@
 # This test runs podman as a backend for the Docker CLI.
 import ../make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   let
     gen-ca = pkgs.writeScript "gen-ca" ''
@@ -38,12 +38,12 @@ import ../make-test-python.nix (
   {
     name = "podman-tls-ghostunnel";
     meta = {
-      maintainers = lib.teams.podman.members ++ [ lib.maintainers.roberth ];
+      maintainers = lib.teams.podman.members ++ [lib.maintainers.roberth];
     };
 
     nodes = {
       podman =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           virtualisation.podman.enable = true;
           virtualisation.podman.dockerSocket.enable = true;
@@ -56,18 +56,18 @@ import ../make-test-python.nix (
             tls.cacert = "/root/ca.pem";
           };
 
-          environment.systemPackages = [ pkgs.docker-client ];
+          environment.systemPackages = [pkgs.docker-client];
 
           users.users.alice = {
             isNormalUser = true;
             home = "/home/alice";
             description = "Alice Foobar";
-            extraGroups = [ "podman" ];
+            extraGroups = ["podman"];
           };
         };
 
       client =
-        { ... }:
+        {...}:
         {
           environment.systemPackages =
             [

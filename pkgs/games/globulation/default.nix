@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     sed -i -e "s@env = Environment()@env = Environment( ENV = os.environ )@" SConstruct
   '';
 
-  nativeBuildInputs = [ scons ];
+  nativeBuildInputs = [scons];
   buildInputs = [
     libGLU
     libGL
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "RTS without micromanagement";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
     license = licenses.gpl3;
   };

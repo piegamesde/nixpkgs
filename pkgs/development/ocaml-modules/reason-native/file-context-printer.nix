@@ -8,7 +8,7 @@
 {
   pname = "file-context-printer";
 
-  nativeBuildInputs = [ reason ];
+  nativeBuildInputs = [reason];
 
   propagatedBuildInputs = [
     re

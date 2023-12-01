@@ -29,7 +29,7 @@ buildGoModule rec {
     runHook postPatch
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -48,7 +48,7 @@ buildGoModule rec {
     homepage = "https://steampipe.io/";
     description = "select * from cloud;";
     license = licenses.agpl3;
-    maintainers = with maintainers; [ hardselius ];
+    maintainers = with maintainers; [hardselius];
     changelog = "https://github.com/turbot/steampipe/blob/v${version}/CHANGELOG.md";
   };
 }

@@ -52,9 +52,9 @@ buildPythonPackage rec {
   '';
 
   # somehow effective log level does not change?
-  disabledTests = [ "test_logger" ];
+  disabledTests = ["test_logger"];
 
-  pythonImportsCheck = [ "engineio" ];
+  pythonImportsCheck = ["engineio"];
 
   meta = with lib; {
     description = "Python based Engine.IO client and server";
@@ -64,7 +64,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/miguelgrinberg/python-engineio/";
     changelog = "https://github.com/miguelgrinberg/python-engineio/blob/v${version}/CHANGES.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ mic92 ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [mic92];
   };
 }

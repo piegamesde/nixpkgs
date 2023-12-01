@@ -15,128 +15,128 @@ lib.makeScope newScope (
   in
   {
     inherit nim;
-    nim_builder = callPackage ../development/nim-packages/nim_builder { };
+    nim_builder = callPackage ../development/nim-packages/nim_builder {};
     buildNimPackage = callPackage ../development/nim-packages/build-nim-package {
       inherit (buildPackages.buildPackages.nimPackages) nim_builder;
     };
-    fetchNimble = callPackage ../development/nim-packages/fetch-nimble { };
+    fetchNimble = callPackage ../development/nim-packages/fetch-nimble {};
 
-    asciigraph = callPackage ../development/nim-packages/asciigraph { };
+    asciigraph = callPackage ../development/nim-packages/asciigraph {};
 
-    astpatternmatching = callPackage ../development/nim-packages/astpatternmatching { };
+    astpatternmatching = callPackage ../development/nim-packages/astpatternmatching {};
 
-    asynctools = callPackage ../development/nim-packages/asynctools { };
+    asynctools = callPackage ../development/nim-packages/asynctools {};
 
-    base32 = callPackage ../development/nim-packages/base32 { };
+    base32 = callPackage ../development/nim-packages/base32 {};
 
-    base45 = callPackage ../development/nim-packages/base45 { };
+    base45 = callPackage ../development/nim-packages/base45 {};
 
-    bumpy = callPackage ../development/nim-packages/bumpy { };
+    bumpy = callPackage ../development/nim-packages/bumpy {};
 
-    c2nim = callPackage ../development/nim-packages/c2nim { };
+    c2nim = callPackage ../development/nim-packages/c2nim {};
 
-    cbor = callPackage ../development/nim-packages/cbor { };
+    cbor = callPackage ../development/nim-packages/cbor {};
 
-    chroma = callPackage ../development/nim-packages/chroma { };
+    chroma = callPackage ../development/nim-packages/chroma {};
 
-    coap = callPackage ../development/nim-packages/coap { };
+    coap = callPackage ../development/nim-packages/coap {};
 
-    docopt = callPackage ../development/nim-packages/docopt { };
+    docopt = callPackage ../development/nim-packages/docopt {};
 
-    eris = callPackage ../development/nim-packages/eris { };
+    eris = callPackage ../development/nim-packages/eris {};
 
-    flatty = callPackage ../development/nim-packages/flatty { };
+    flatty = callPackage ../development/nim-packages/flatty {};
 
-    freedesktop_org = callPackage ../development/nim-packages/freedesktop_org { };
+    freedesktop_org = callPackage ../development/nim-packages/freedesktop_org {};
 
-    frosty = callPackage ../development/nim-packages/frosty { };
+    frosty = callPackage ../development/nim-packages/frosty {};
 
-    getdns = callPackage ../development/nim-packages/getdns { inherit (pkgs) getdns; };
+    getdns = callPackage ../development/nim-packages/getdns {inherit (pkgs) getdns;};
 
-    hts-nim = callPackage ../development/nim-packages/hts-nim { };
+    hts-nim = callPackage ../development/nim-packages/hts-nim {};
 
-    illwill = callPackage ../development/nim-packages/illwill { };
+    illwill = callPackage ../development/nim-packages/illwill {};
 
-    illwillwidgets = callPackage ../development/nim-packages/illwillwidgets { };
+    illwillwidgets = callPackage ../development/nim-packages/illwillwidgets {};
 
-    jester = callPackage ../development/nim-packages/jester { };
+    jester = callPackage ../development/nim-packages/jester {};
 
-    jsonschema = callPackage ../development/nim-packages/jsonschema { };
+    jsonschema = callPackage ../development/nim-packages/jsonschema {};
 
-    jsony = callPackage ../development/nim-packages/jsony { };
+    jsony = callPackage ../development/nim-packages/jsony {};
 
-    karax = callPackage ../development/nim-packages/karax { };
+    karax = callPackage ../development/nim-packages/karax {};
 
-    lscolors = callPackage ../development/nim-packages/lscolors { };
+    lscolors = callPackage ../development/nim-packages/lscolors {};
 
-    markdown = callPackage ../development/nim-packages/markdown { };
+    markdown = callPackage ../development/nim-packages/markdown {};
 
-    nimcrypto = callPackage ../development/nim-packages/nimcrypto { };
+    nimcrypto = callPackage ../development/nim-packages/nimcrypto {};
 
-    nimbox = callPackage ../development/nim-packages/nimbox { };
+    nimbox = callPackage ../development/nim-packages/nimbox {};
 
-    nimSHA2 = callPackage ../development/nim-packages/nimSHA2 { };
+    nimSHA2 = callPackage ../development/nim-packages/nimSHA2 {};
 
-    nimsimd = callPackage ../development/nim-packages/nimsimd { };
+    nimsimd = callPackage ../development/nim-packages/nimsimd {};
 
-    noise = callPackage ../development/nim-packages/noise { };
+    noise = callPackage ../development/nim-packages/noise {};
 
-    npeg = callPackage ../development/nim-packages/npeg { };
+    npeg = callPackage ../development/nim-packages/npeg {};
 
-    packedjson = callPackage ../development/nim-packages/packedjson { };
+    packedjson = callPackage ../development/nim-packages/packedjson {};
 
-    parsetoml = callPackage ../development/nim-packages/parsetoml { };
+    parsetoml = callPackage ../development/nim-packages/parsetoml {};
 
-    pixie = callPackage ../development/nim-packages/pixie { };
+    pixie = callPackage ../development/nim-packages/pixie {};
 
-    preserves = callPackage ../development/nim-packages/preserves { };
+    preserves = callPackage ../development/nim-packages/preserves {};
 
-    redis = callPackage ../development/nim-packages/redis { };
+    redis = callPackage ../development/nim-packages/redis {};
 
-    redpool = callPackage ../development/nim-packages/redpool { };
+    redpool = callPackage ../development/nim-packages/redpool {};
 
-    regex = callPackage ../development/nim-packages/regex { };
+    regex = callPackage ../development/nim-packages/regex {};
 
-    rocksdb = callPackage ../development/nim-packages/rocksdb { inherit (pkgs) rocksdb; };
+    rocksdb = callPackage ../development/nim-packages/rocksdb {inherit (pkgs) rocksdb;};
 
-    safeset = callPackage ../development/nim-packages/safeset { };
+    safeset = callPackage ../development/nim-packages/safeset {};
 
-    sass = callPackage ../development/nim-packages/sass { };
+    sass = callPackage ../development/nim-packages/sass {};
 
-    sdl2 = callPackage ../development/nim-packages/sdl2 { };
+    sdl2 = callPackage ../development/nim-packages/sdl2 {};
 
-    segmentation = callPackage ../development/nim-packages/segmentation { };
+    segmentation = callPackage ../development/nim-packages/segmentation {};
 
-    snappy = callPackage ../development/nim-packages/snappy { inherit (pkgs) snappy; };
+    snappy = callPackage ../development/nim-packages/snappy {inherit (pkgs) snappy;};
 
-    nimraylib-now = callPackage ../development/nim-packages/nimraylib-now { };
+    nimraylib-now = callPackage ../development/nim-packages/nimraylib-now {};
 
-    spry = callPackage ../development/nim-packages/spry { };
+    spry = callPackage ../development/nim-packages/spry {};
 
-    spryvm = callPackage ../development/nim-packages/spryvm { };
+    spryvm = callPackage ../development/nim-packages/spryvm {};
 
-    stew = callPackage ../development/nim-packages/stew { };
+    stew = callPackage ../development/nim-packages/stew {};
 
-    supersnappy = callPackage ../development/nim-packages/supersnappy { };
+    supersnappy = callPackage ../development/nim-packages/supersnappy {};
 
-    syndicate = callPackage ../development/nim-packages/syndicate { };
+    syndicate = callPackage ../development/nim-packages/syndicate {};
 
-    taps = callPackage ../development/nim-packages/taps { };
+    taps = callPackage ../development/nim-packages/taps {};
 
-    tempfile = callPackage ../development/nim-packages/tempfile { };
+    tempfile = callPackage ../development/nim-packages/tempfile {};
 
-    tkrzw = callPackage ../development/nim-packages/tkrzw { inherit (pkgs) tkrzw; };
+    tkrzw = callPackage ../development/nim-packages/tkrzw {inherit (pkgs) tkrzw;};
 
-    ui = callPackage ../development/nim-packages/ui { inherit (pkgs) libui; };
+    ui = callPackage ../development/nim-packages/ui {inherit (pkgs) libui;};
 
-    unicodedb = callPackage ../development/nim-packages/unicodedb { };
+    unicodedb = callPackage ../development/nim-packages/unicodedb {};
 
-    unicodeplus = callPackage ../development/nim-packages/unicodeplus { };
+    unicodeplus = callPackage ../development/nim-packages/unicodeplus {};
 
-    vmath = callPackage ../development/nim-packages/vmath { };
+    vmath = callPackage ../development/nim-packages/vmath {};
 
-    x11 = callPackage ../development/nim-packages/x11 { };
+    x11 = callPackage ../development/nim-packages/x11 {};
 
-    zippy = callPackage ../development/nim-packages/zippy { };
+    zippy = callPackage ../development/nim-packages/zippy {};
   }
 )

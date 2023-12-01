@@ -23,7 +23,7 @@
 with linuxKernel;
 
 let
-  deblobKernel = kernel: callPackage ../os-specific/linux/kernel/linux-libre.nix { linux = kernel; };
+  deblobKernel = kernel: callPackage ../os-specific/linux/kernel/linux-libre.nix {linux = kernel;};
 
   # Hardened Linux
   hardenedKernelFor =
@@ -33,7 +33,7 @@ let
       version = kernelPatches.hardened.${kernel.meta.branch}.version;
       major = lib.versions.major version;
       sha256 = kernelPatches.hardened.${kernel.meta.branch}.sha256;
-      modDirVersion' = builtins.replaceStrings [ kernel.version ] [ version ] kernel.modDirVersion;
+      modDirVersion' = builtins.replaceStrings [kernel.version] [version] kernel.modDirVersion;
     in
     kernel.override {
       structuredExtraConfig = import ../os-specific/linux/kernel/hardened/config.nix {
@@ -53,12 +53,12 @@ let
             || (stdenv.isx86_64 && lib.versionAtLeast version "4.19" && lib.versionOlder version "5.5");
         };
       };
-      kernelPatches = kernel.kernelPatches ++ [ kernelPatches.hardened.${kernel.meta.branch} ];
+      kernelPatches = kernel.kernelPatches ++ [kernelPatches.hardened.${kernel.meta.branch}];
       isHardened = true;
     };
 in
 {
-  kernelPatches = callPackage ../os-specific/linux/kernel/patches.nix { };
+  kernelPatches = callPackage ../os-specific/linux/kernel/patches.nix {};
 
   kernels = recurseIntoAttrs (
     lib.makeExtensible (
@@ -273,14 +273,14 @@ in
 
         linux_latest_libre = deblobKernel packageAliases.linux_latest.kernel;
 
-        linux_hardened = hardenedKernelFor packageAliases.linux_default.kernel { };
+        linux_hardened = hardenedKernelFor packageAliases.linux_default.kernel {};
 
-        linux_4_14_hardened = hardenedKernelFor kernels.linux_4_14 { };
-        linux_4_19_hardened = hardenedKernelFor kernels.linux_4_19 { };
-        linux_5_4_hardened = hardenedKernelFor kernels.linux_5_4 { };
-        linux_5_10_hardened = hardenedKernelFor kernels.linux_5_10 { };
-        linux_5_15_hardened = hardenedKernelFor kernels.linux_5_15 { };
-        linux_6_1_hardened = hardenedKernelFor kernels.linux_6_1 { };
+        linux_4_14_hardened = hardenedKernelFor kernels.linux_4_14 {};
+        linux_4_19_hardened = hardenedKernelFor kernels.linux_4_19 {};
+        linux_5_4_hardened = hardenedKernelFor kernels.linux_5_4 {};
+        linux_5_10_hardened = hardenedKernelFor kernels.linux_5_10 {};
+        linux_5_15_hardened = hardenedKernelFor kernels.linux_5_15 {};
+        linux_6_1_hardened = hardenedKernelFor kernels.linux_6_1 {};
       }
       // lib.optionalAttrs config.allowAliases {
         linux_4_9 = throw "linux 4.9 was removed because it will reach its end of life within 22.11";
@@ -324,9 +324,9 @@ in
         inherit (pkgs) bcc bpftrace; # added 2021-12
         inherit (pkgs) oci-seccomp-bpf-hook; # added 2022-11
 
-        acpi_call = callPackage ../os-specific/linux/acpi-call { };
+        acpi_call = callPackage ../os-specific/linux/acpi-call {};
 
-        akvcam = callPackage ../os-specific/linux/akvcam { };
+        akvcam = callPackage ../os-specific/linux/akvcam {};
 
         amdgpu-pro = callPackage ../os-specific/linux/amdgpu-pro {
           libffi = pkgs.libffi.overrideAttrs (
@@ -340,95 +340,92 @@ in
           );
         };
 
-        apfs = callPackage ../os-specific/linux/apfs { };
+        apfs = callPackage ../os-specific/linux/apfs {};
 
-        ax99100 = callPackage ../os-specific/linux/ax99100 { };
+        ax99100 = callPackage ../os-specific/linux/ax99100 {};
 
-        batman_adv = callPackage ../os-specific/linux/batman-adv { };
+        batman_adv = callPackage ../os-specific/linux/batman-adv {};
 
-        bbswitch = callPackage ../os-specific/linux/bbswitch { };
+        bbswitch = callPackage ../os-specific/linux/bbswitch {};
 
-        ch9344 = callPackage ../os-specific/linux/ch9344 { };
+        ch9344 = callPackage ../os-specific/linux/ch9344 {};
 
         chipsec = callPackage ../tools/security/chipsec {
           inherit kernel;
           withDriver = true;
         };
 
-        cryptodev = callPackage ../os-specific/linux/cryptodev { };
+        cryptodev = callPackage ../os-specific/linux/cryptodev {};
 
-        cpupower = callPackage ../os-specific/linux/cpupower { };
+        cpupower = callPackage ../os-specific/linux/cpupower {};
 
-        ddcci-driver = callPackage ../os-specific/linux/ddcci { };
+        ddcci-driver = callPackage ../os-specific/linux/ddcci {};
 
-        dddvb = callPackage ../os-specific/linux/dddvb { };
+        dddvb = callPackage ../os-specific/linux/dddvb {};
 
-        digimend = callPackage ../os-specific/linux/digimend { };
+        digimend = callPackage ../os-specific/linux/digimend {};
 
-        dpdk-kmods = callPackage ../os-specific/linux/dpdk-kmods { };
+        dpdk-kmods = callPackage ../os-specific/linux/dpdk-kmods {};
 
-        dpdk = pkgs.dpdk.override { inherit kernel; };
+        dpdk = pkgs.dpdk.override {inherit kernel;};
 
         exfat-nofuse =
-          if lib.versionOlder kernel.version "5.8" then callPackage ../os-specific/linux/exfat { } else null;
+          if lib.versionOlder kernel.version "5.8" then callPackage ../os-specific/linux/exfat {} else null;
 
-        evdi = callPackage ../os-specific/linux/evdi { };
+        evdi = callPackage ../os-specific/linux/evdi {};
 
-        fwts-efi-runtime = callPackage ../os-specific/linux/fwts/module.nix { };
+        fwts-efi-runtime = callPackage ../os-specific/linux/fwts/module.nix {};
 
-        gcadapter-oc-kmod = callPackage ../os-specific/linux/gcadapter-oc-kmod { };
-        hid-nintendo = callPackage ../os-specific/linux/hid-nintendo { };
+        gcadapter-oc-kmod = callPackage ../os-specific/linux/gcadapter-oc-kmod {};
+        hid-nintendo = callPackage ../os-specific/linux/hid-nintendo {};
 
-        hyperv-daemons = callPackage ../os-specific/linux/hyperv-daemons { };
+        hyperv-daemons = callPackage ../os-specific/linux/hyperv-daemons {};
 
         e1000e =
-          if lib.versionOlder kernel.version "4.10" then
-            callPackage ../os-specific/linux/e1000e { }
-          else
-            null;
+          if lib.versionOlder kernel.version "4.10" then callPackage ../os-specific/linux/e1000e {} else null;
 
         intel-speed-select =
           if lib.versionAtLeast kernel.version "5.3" then
-            callPackage ../os-specific/linux/intel-speed-select { }
+            callPackage ../os-specific/linux/intel-speed-select {}
           else
             null;
 
-        ipu6-drivers = callPackage ../os-specific/linux/ipu6-drivers { };
+        ipu6-drivers = callPackage ../os-specific/linux/ipu6-drivers {};
 
-        ivsc-driver = callPackage ../os-specific/linux/ivsc-driver { };
+        ivsc-driver = callPackage ../os-specific/linux/ivsc-driver {};
 
-        ixgbevf = callPackage ../os-specific/linux/ixgbevf { };
+        ixgbevf = callPackage ../os-specific/linux/ixgbevf {};
 
-        it87 = callPackage ../os-specific/linux/it87 { };
+        it87 = callPackage ../os-specific/linux/it87 {};
 
-        asus-ec-sensors = callPackage ../os-specific/linux/asus-ec-sensors { };
+        asus-ec-sensors = callPackage ../os-specific/linux/asus-ec-sensors {};
 
-        asus-wmi-sensors = callPackage ../os-specific/linux/asus-wmi-sensors { };
+        asus-wmi-sensors = callPackage ../os-specific/linux/asus-wmi-sensors {};
 
-        ena = callPackage ../os-specific/linux/ena { };
+        ena = callPackage ../os-specific/linux/ena {};
 
-        kvdo = callPackage ../os-specific/linux/kvdo { };
+        kvdo = callPackage ../os-specific/linux/kvdo {};
 
-        liquidtux = callPackage ../os-specific/linux/liquidtux { };
+        liquidtux = callPackage ../os-specific/linux/liquidtux {};
 
-        lkrg = callPackage ../os-specific/linux/lkrg { };
+        lkrg = callPackage ../os-specific/linux/lkrg {};
 
-        v4l2loopback = callPackage ../os-specific/linux/v4l2loopback { };
+        v4l2loopback = callPackage ../os-specific/linux/v4l2loopback {};
 
-        lttng-modules = callPackage ../os-specific/linux/lttng-modules { };
+        lttng-modules = callPackage ../os-specific/linux/lttng-modules {};
 
-        broadcom_sta = callPackage ../os-specific/linux/broadcom-sta { };
+        broadcom_sta = callPackage ../os-specific/linux/broadcom-sta {};
 
-        tbs = callPackage ../os-specific/linux/tbs { };
+        tbs = callPackage ../os-specific/linux/tbs {};
 
-        mbp2018-bridge-drv = callPackage ../os-specific/linux/mbp-modules/mbp2018-bridge-drv { };
+        mbp2018-bridge-drv = callPackage ../os-specific/linux/mbp-modules/mbp2018-bridge-drv {};
 
-        new-lg4ff = callPackage ../os-specific/linux/new-lg4ff { };
+        new-lg4ff = callPackage ../os-specific/linux/new-lg4ff {};
 
-        nvidiabl = callPackage ../os-specific/linux/nvidiabl { };
+        nvidiabl = callPackage ../os-specific/linux/nvidiabl {};
 
         nvidiaPackages = dontRecurseIntoAttrs (
-          lib.makeExtensible (_: callPackage ../os-specific/linux/nvidia-x11 { })
+          lib.makeExtensible (_: callPackage ../os-specific/linux/nvidia-x11 {})
         );
 
         nvidia_x11 = nvidiaPackages.stable;
@@ -446,149 +443,149 @@ in
         nvidia_x11_stable_open = nvidiaPackages.stable.open;
         nvidia_x11_vulkan_beta_open = nvidiaPackages.vulkan_beta.open;
 
-        openrazer = callPackage ../os-specific/linux/openrazer/driver.nix { };
+        openrazer = callPackage ../os-specific/linux/openrazer/driver.nix {};
 
-        ply = callPackage ../os-specific/linux/ply { };
+        ply = callPackage ../os-specific/linux/ply {};
 
-        r8125 = callPackage ../os-specific/linux/r8125 { };
+        r8125 = callPackage ../os-specific/linux/r8125 {};
 
-        r8168 = callPackage ../os-specific/linux/r8168 { };
+        r8168 = callPackage ../os-specific/linux/r8168 {};
 
-        rtl8188eus-aircrack = callPackage ../os-specific/linux/rtl8188eus-aircrack { };
+        rtl8188eus-aircrack = callPackage ../os-specific/linux/rtl8188eus-aircrack {};
 
-        rtl8192eu = callPackage ../os-specific/linux/rtl8192eu { };
+        rtl8192eu = callPackage ../os-specific/linux/rtl8192eu {};
 
-        rtl8189es = callPackage ../os-specific/linux/rtl8189es { };
+        rtl8189es = callPackage ../os-specific/linux/rtl8189es {};
 
-        rtl8189fs = callPackage ../os-specific/linux/rtl8189fs { };
+        rtl8189fs = callPackage ../os-specific/linux/rtl8189fs {};
 
-        rtl8723bs = callPackage ../os-specific/linux/rtl8723bs { };
+        rtl8723bs = callPackage ../os-specific/linux/rtl8723bs {};
 
-        rtl8723ds = callPackage ../os-specific/linux/rtl8723ds { };
+        rtl8723ds = callPackage ../os-specific/linux/rtl8723ds {};
 
-        rtl8812au = callPackage ../os-specific/linux/rtl8812au { };
+        rtl8812au = callPackage ../os-specific/linux/rtl8812au {};
 
-        rtl8814au = callPackage ../os-specific/linux/rtl8814au { };
+        rtl8814au = callPackage ../os-specific/linux/rtl8814au {};
 
-        rtl88xxau-aircrack = callPackage ../os-specific/linux/rtl88xxau-aircrack { };
+        rtl88xxau-aircrack = callPackage ../os-specific/linux/rtl88xxau-aircrack {};
 
-        rtl8821au = callPackage ../os-specific/linux/rtl8821au { };
+        rtl8821au = callPackage ../os-specific/linux/rtl8821au {};
 
-        rtl8821ce = callPackage ../os-specific/linux/rtl8821ce { };
+        rtl8821ce = callPackage ../os-specific/linux/rtl8821ce {};
 
-        rtl88x2bu = callPackage ../os-specific/linux/rtl88x2bu { };
+        rtl88x2bu = callPackage ../os-specific/linux/rtl88x2bu {};
 
-        rtl8821cu = callPackage ../os-specific/linux/rtl8821cu { };
+        rtl8821cu = callPackage ../os-specific/linux/rtl8821cu {};
 
-        rtw88 = callPackage ../os-specific/linux/rtw88 { };
+        rtw88 = callPackage ../os-specific/linux/rtw88 {};
         rtlwifi_new = rtw88;
 
         rtw89 =
-          if lib.versionOlder kernel.version "5.16" then callPackage ../os-specific/linux/rtw89 { } else null;
+          if lib.versionOlder kernel.version "5.16" then callPackage ../os-specific/linux/rtw89 {} else null;
 
-        openafs_1_8 = callPackage ../servers/openafs/1.8/module.nix { };
+        openafs_1_8 = callPackage ../servers/openafs/1.8/module.nix {};
         # Current stable release; don't backport release updates!
         openafs = openafs_1_8;
 
-        facetimehd = callPackage ../os-specific/linux/facetimehd { };
+        facetimehd = callPackage ../os-specific/linux/facetimehd {};
 
         tuxedo-keyboard =
           if lib.versionAtLeast kernel.version "4.14" then
-            callPackage ../os-specific/linux/tuxedo-keyboard { }
+            callPackage ../os-specific/linux/tuxedo-keyboard {}
           else
             null;
 
-        jool = callPackage ../os-specific/linux/jool { };
+        jool = callPackage ../os-specific/linux/jool {};
 
-        kvmfr = callPackage ../os-specific/linux/kvmfr { };
+        kvmfr = callPackage ../os-specific/linux/kvmfr {};
 
-        mba6x_bl = callPackage ../os-specific/linux/mba6x_bl { };
+        mba6x_bl = callPackage ../os-specific/linux/mba6x_bl {};
 
-        mwprocapture = callPackage ../os-specific/linux/mwprocapture { };
+        mwprocapture = callPackage ../os-specific/linux/mwprocapture {};
 
-        mxu11x0 = callPackage ../os-specific/linux/mxu11x0 { };
+        mxu11x0 = callPackage ../os-specific/linux/mxu11x0 {};
 
         # compiles but has to be integrated into the kernel somehow
         # Let's have it uncommented and finish it..
-        ndiswrapper = callPackage ../os-specific/linux/ndiswrapper { };
+        ndiswrapper = callPackage ../os-specific/linux/ndiswrapper {};
 
-        netatop = callPackage ../os-specific/linux/netatop { };
+        netatop = callPackage ../os-specific/linux/netatop {};
 
-        perf = callPackage ../os-specific/linux/kernel/perf { };
+        perf = callPackage ../os-specific/linux/kernel/perf {};
 
         phc-intel =
           if lib.versionAtLeast kernel.version "4.10" then
-            callPackage ../os-specific/linux/phc-intel { }
+            callPackage ../os-specific/linux/phc-intel {}
           else
             null;
 
-        prl-tools = callPackage ../os-specific/linux/prl-tools { };
+        prl-tools = callPackage ../os-specific/linux/prl-tools {};
 
-        sch_cake = callPackage ../os-specific/linux/sch_cake { };
+        sch_cake = callPackage ../os-specific/linux/sch_cake {};
 
-        isgx = callPackage ../os-specific/linux/isgx { };
+        isgx = callPackage ../os-specific/linux/isgx {};
 
-        rr-zen_workaround = callPackage ../development/tools/analysis/rr/zen_workaround.nix { };
+        rr-zen_workaround = callPackage ../development/tools/analysis/rr/zen_workaround.nix {};
 
-        sysdig = callPackage ../os-specific/linux/sysdig { };
+        sysdig = callPackage ../os-specific/linux/sysdig {};
 
-        systemtap = callPackage ../development/tools/profiling/systemtap { };
+        systemtap = callPackage ../development/tools/profiling/systemtap {};
 
-        system76 = callPackage ../os-specific/linux/system76 { };
+        system76 = callPackage ../os-specific/linux/system76 {};
 
-        system76-acpi = callPackage ../os-specific/linux/system76-acpi { };
+        system76-acpi = callPackage ../os-specific/linux/system76-acpi {};
 
-        system76-power = callPackage ../os-specific/linux/system76-power { };
+        system76-power = callPackage ../os-specific/linux/system76-power {};
 
-        system76-io = callPackage ../os-specific/linux/system76-io { };
+        system76-io = callPackage ../os-specific/linux/system76-io {};
 
-        system76-scheduler = callPackage ../os-specific/linux/system76-scheduler { };
+        system76-scheduler = callPackage ../os-specific/linux/system76-scheduler {};
 
-        tmon = callPackage ../os-specific/linux/tmon { };
+        tmon = callPackage ../os-specific/linux/tmon {};
 
-        tp_smapi = callPackage ../os-specific/linux/tp_smapi { };
+        tp_smapi = callPackage ../os-specific/linux/tp_smapi {};
 
-        turbostat = callPackage ../os-specific/linux/turbostat { };
+        turbostat = callPackage ../os-specific/linux/turbostat {};
 
-        usbip = callPackage ../os-specific/linux/usbip { };
+        usbip = callPackage ../os-specific/linux/usbip {};
 
-        v86d = callPackage ../os-specific/linux/v86d { };
+        v86d = callPackage ../os-specific/linux/v86d {};
 
-        veikk-linux-driver = callPackage ../os-specific/linux/veikk-linux-driver { };
-        vendor-reset = callPackage ../os-specific/linux/vendor-reset { };
+        veikk-linux-driver = callPackage ../os-specific/linux/veikk-linux-driver {};
+        vendor-reset = callPackage ../os-specific/linux/vendor-reset {};
 
-        vhba = callPackage ../applications/emulators/cdemu/vhba.nix { };
+        vhba = callPackage ../applications/emulators/cdemu/vhba.nix {};
 
-        virtio_vmmci = callPackage ../os-specific/linux/virtio_vmmci { };
+        virtio_vmmci = callPackage ../os-specific/linux/virtio_vmmci {};
 
-        virtualbox = callPackage ../os-specific/linux/virtualbox { virtualbox = pkgs.virtualboxHardened; };
+        virtualbox = callPackage ../os-specific/linux/virtualbox {virtualbox = pkgs.virtualboxHardened;};
 
         virtualboxGuestAdditions = callPackage ../applications/virtualization/virtualbox/guest-additions {
           virtualbox = pkgs.virtualboxHardened;
         };
 
-        vm-tools = callPackage ../os-specific/linux/vm-tools { };
+        vm-tools = callPackage ../os-specific/linux/vm-tools {};
 
-        vmm_clock = callPackage ../os-specific/linux/vmm_clock { };
+        vmm_clock = callPackage ../os-specific/linux/vmm_clock {};
 
-        vmware = callPackage ../os-specific/linux/vmware { };
+        vmware = callPackage ../os-specific/linux/vmware {};
 
         wireguard =
           if lib.versionOlder kernel.version "5.6" then
-            callPackage ../os-specific/linux/wireguard { }
+            callPackage ../os-specific/linux/wireguard {}
           else
             null;
 
-        x86_energy_perf_policy = callPackage ../os-specific/linux/x86_energy_perf_policy { };
+        x86_energy_perf_policy = callPackage ../os-specific/linux/x86_energy_perf_policy {};
 
         xone =
-          if lib.versionAtLeast kernel.version "5.4" then callPackage ../os-specific/linux/xone { } else null;
+          if lib.versionAtLeast kernel.version "5.4" then callPackage ../os-specific/linux/xone {} else null;
 
-        xpadneo = callPackage ../os-specific/linux/xpadneo { };
+        xpadneo = callPackage ../os-specific/linux/xpadneo {};
 
-        ithc = callPackage ../os-specific/linux/ithc { };
+        ithc = callPackage ../os-specific/linux/ithc {};
 
-        zenpower = callPackage ../os-specific/linux/zenpower { };
+        zenpower = callPackage ../os-specific/linux/zenpower {};
 
         inherit
           (callPackage ../os-specific/linux/zfs {
@@ -600,11 +597,11 @@ in
           ;
         zfs = zfsStable;
 
-        can-isotp = callPackage ../os-specific/linux/can-isotp { };
+        can-isotp = callPackage ../os-specific/linux/can-isotp {};
 
-        qc71_laptop = callPackage ../os-specific/linux/qc71_laptop { };
+        qc71_laptop = callPackage ../os-specific/linux/qc71_laptop {};
 
-        hid-ite8291r3 = callPackage ../os-specific/linux/hid-ite8291r3 { };
+        hid-ite8291r3 = callPackage ../os-specific/linux/hid-ite8291r3 {};
       }
       // lib.optionalAttrs config.allowAliases {
         ati_drivers_x11 = throw "ati drivers are no longer supported by any kernel >=4.1"; # added 2021-05-18;
@@ -658,7 +655,7 @@ in
       linux_testing = packagesFor kernels.linux_testing;
       linux_testing_bcachefs = recurseIntoAttrs (packagesFor kernels.linux_testing_bcachefs);
 
-      linux_hardened = recurseIntoAttrs (hardenedPackagesFor packageAliases.linux_default.kernel { });
+      linux_hardened = recurseIntoAttrs (hardenedPackagesFor packageAliases.linux_default.kernel {});
 
       linux_4_14_hardened = recurseIntoAttrs (
         hardenedPackagesFor kernels.linux_4_14 {
@@ -684,9 +681,9 @@ in
           };
         }
       );
-      linux_5_10_hardened = recurseIntoAttrs (hardenedPackagesFor kernels.linux_5_10 { });
-      linux_5_15_hardened = recurseIntoAttrs (hardenedPackagesFor kernels.linux_5_15 { });
-      linux_6_1_hardened = recurseIntoAttrs (hardenedPackagesFor kernels.linux_6_1 { });
+      linux_5_10_hardened = recurseIntoAttrs (hardenedPackagesFor kernels.linux_5_10 {});
+      linux_5_15_hardened = recurseIntoAttrs (hardenedPackagesFor kernels.linux_5_15 {});
+      linux_6_1_hardened = recurseIntoAttrs (hardenedPackagesFor kernels.linux_6_1 {});
 
       linux_zen = recurseIntoAttrs (packagesFor kernels.linux_zen);
       linux_lqx = recurseIntoAttrs (packagesFor kernels.linux_lqx);
@@ -718,7 +715,7 @@ in
     linux_hardkernel_latest = packages.hardkernel_4_14;
   };
 
-  manualConfig = callPackage ../os-specific/linux/kernel/manual-config.nix { };
+  manualConfig = callPackage ../os-specific/linux/kernel/manual-config.nix {};
 
   customPackage =
     {
@@ -746,7 +743,7 @@ in
   linuxConfig =
     {
       src,
-      kernelPatches ? [ ],
+      kernelPatches ? [],
       version ? (builtins.parseDrvName src.name).version,
       makeTarget ? "defconfig",
       name ? "kernel.config",
@@ -754,7 +751,7 @@ in
     stdenvNoCC.mkDerivation {
       inherit name src;
       depsBuildBuild =
-        [ buildPackages.stdenv.cc ]
+        [buildPackages.stdenv.cc]
         ++ lib.optionals (lib.versionAtLeast version "4.16") [
           buildPackages.bison
           buildPackages.flex

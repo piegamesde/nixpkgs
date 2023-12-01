@@ -29,6 +29,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/ipython/xkcd-font";
     license = licenses.cc-by-nc-30;
     platforms = platforms.all;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

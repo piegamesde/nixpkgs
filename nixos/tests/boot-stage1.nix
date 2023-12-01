@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "boot-stage1";
 
@@ -21,7 +21,7 @@ import ./make-test-python.nix (
                   kdev = config.boot.kernelPackages.kernel.dev;
                   kver = config.boot.kernelPackages.kernel.modDirVersion;
                   ksrc = "${kdev}/lib/modules/${kver}/build";
-                  hardeningDisable = [ "pic" ];
+                  hardeningDisable = ["pic"];
                   nativeBuildInputs = kdev.moduleBuildDependencies;
                 }
                 ''
@@ -81,13 +81,13 @@ import ./make-test-python.nix (
           in
           lib.singleton kcanary;
 
-        boot.initrd.kernelModules = [ "kcanary" ];
+        boot.initrd.kernelModules = ["kcanary"];
 
         boot.initrd.extraUtilsCommands =
           let
             compile =
               name: source:
-              pkgs.runCommandCC name { inherit source; } ''
+              pkgs.runCommandCC name {inherit source;} ''
                 mkdir -p "$out/bin"
                 echo "$source" | gcc -Wall -o "$out/bin/$name" -xc -
               '';
@@ -190,6 +190,6 @@ import ./make-test-python.nix (
       machine.succeed('pgrep -a -f "^kcanary$"')
     '';
 
-    meta.maintainers = with pkgs.lib.maintainers; [ aszlig ];
+    meta.maintainers = with pkgs.lib.maintainers; [aszlig];
   }
 )

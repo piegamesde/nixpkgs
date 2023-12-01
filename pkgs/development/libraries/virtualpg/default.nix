@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
       lgpl21Plus
     ];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

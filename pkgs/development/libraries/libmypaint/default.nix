@@ -37,10 +37,10 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   # for libmypaint.pc
-  propagatedBuildInputs = [ json_c ];
+  propagatedBuildInputs = [json_c];
 
   doCheck = true;
 

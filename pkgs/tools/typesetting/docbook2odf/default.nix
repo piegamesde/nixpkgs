@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "10k44g0qqa37k30pfj8vz95j6zdzz0nmnqjq1lyahfs2h4glzgwb";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ perlPackages.perl ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [perlPackages.perl];
 
   installPhase = ''
     mkdir -p "$out/bin/"
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
           libxslt
         ]
       }" \
-      --prefix PERL5PATH : "${perlPackages.makePerlPath [ perlPackages.ImageMagick ]}"
+      --prefix PERL5PATH : "${perlPackages.makePerlPath [perlPackages.ImageMagick]}"
   '';
 
   meta = with lib; {
@@ -57,6 +57,6 @@ stdenv.mkDerivation rec {
     homepage = "http://open.comsultia.com/docbook2odf/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

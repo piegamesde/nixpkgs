@@ -196,7 +196,7 @@ stdenv.mkDerivation rec {
       "Network"
       "InstantMessaging"
     ];
-    mimeTypes = [ "x-scheme-handler/discord" ];
+    mimeTypes = ["x-scheme-handler/discord"];
   };
 
   passthru = {

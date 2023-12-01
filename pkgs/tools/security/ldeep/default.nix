@@ -28,12 +28,12 @@ buildPythonApplication rec {
 
   # no tests are present
   doCheck = false;
-  pythonImportsCheck = [ "ldeep" ];
+  pythonImportsCheck = ["ldeep"];
 
   meta = with lib; {
     description = "In-depth LDAP enumeration utility";
     homepage = "https://github.com/franc-pentest/ldeep";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

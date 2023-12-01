@@ -118,7 +118,7 @@ in
         type = types.listOf types.str;
         description = lib.mdDoc "Extra flags passed to the ntpd command.";
         example = literalExpression ''[ "--interface=eth0" ]'';
-        default = [ ];
+        default = [];
       };
     };
   };
@@ -126,10 +126,10 @@ in
   ###### implementation
 
   config = mkIf config.services.ntp.enable {
-    meta.maintainers = with lib.maintainers; [ thoughtpolice ];
+    meta.maintainers = with lib.maintainers; [thoughtpolice];
 
     # Make tools such as ntpq available in the system path.
-    environment.systemPackages = [ pkgs.ntp ];
+    environment.systemPackages = [pkgs.ntp];
     services.timesyncd.enable = mkForce false;
 
     systemd.services.systemd-timedated.environment = {
@@ -142,14 +142,14 @@ in
       description = "NTP daemon user";
       home = stateDir;
     };
-    users.groups.ntp = { };
+    users.groups.ntp = {};
 
     systemd.services.ntpd = {
       description = "NTP Daemon";
 
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "time-sync.target" ];
-      before = [ "time-sync.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["time-sync.target"];
+      before = ["time-sync.target"];
 
       preStart = ''
         mkdir -m 0755 -p ${stateDir}

@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
 
   # Some parts of the game don't compile with glibc 2.34. As soon as
   # this is fixed upstream we can switch to the default build flags.
-  buildFlags = [ "ia" ];
+  buildFlags = ["ia"];
 
   installPhase = ''
     runHook preInstall
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       ultimate goal is to unearth this artifact.
     '';
     platforms = platforms.linux;
-    maintainers = [ maintainers.kenran ];
+    maintainers = [maintainers.kenran];
     license = licenses.agpl3Plus;
   };
 }

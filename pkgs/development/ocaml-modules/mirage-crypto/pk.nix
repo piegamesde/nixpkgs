@@ -18,7 +18,7 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  buildInputs = [ gmp ];
+  buildInputs = [gmp];
   propagatedBuildInputs = [
     cstruct
     mirage-crypto

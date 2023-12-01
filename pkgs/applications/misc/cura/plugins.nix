@@ -22,7 +22,7 @@ let
         sha256 = "057b2f5f49p96lkh2wsr9w6yh2003x4a85irqsgbzp6igmk8imdn";
       };
 
-      propagatedBuildInputs = with python3Packages; [ netifaces ];
+      propagatedBuildInputs = with python3Packages; [netifaces];
 
       installPhase = ''
         mkdir -p $out/lib/cura/plugins/OctoPrintPlugin
@@ -33,7 +33,7 @@ let
         description = "Enables printing directly to OctoPrint and monitoring the process";
         homepage = "https://github.com/fieldOfView/Cura-OctoPrintPlugin";
         license = licenses.agpl3;
-        maintainers = with maintainers; [ gebner ];
+        maintainers = with maintainers; [gebner];
       };
     };
 
@@ -48,9 +48,9 @@ let
         sha256 = "0hvi7qwd4xfnqnhbj9dgfjmvv9df7s42asf3fdfxv43n6nx74scw";
       };
 
-      nativeBuildInputs = [ jq ];
+      nativeBuildInputs = [jq];
 
-      propagatedBuildInputs = with python3Packages; [ hidapi ];
+      propagatedBuildInputs = with python3Packages; [hidapi];
 
       buildPhase = ''
         jq 'del(.devices) | .libspnav="${libspnav}/lib/libspnav.so"' \
@@ -70,7 +70,7 @@ let
         description = "Cura plugin for HID mice such as 3Dconnexion spacemouse";
         homepage = "https://github.com/smartavionics/RawMouse";
         license = licenses.agpl3Plus;
-        maintainers = with maintainers; [ gebner ];
+        maintainers = with maintainers; [gebner];
       };
     };
   };

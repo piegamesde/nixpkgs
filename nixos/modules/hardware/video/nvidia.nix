@@ -411,7 +411,7 @@ in
         optional primeEnabled {
           name = igpuDriver;
           display = offloadCfg.enable;
-          modules = optionals (igpuDriver == "amdgpu") [ pkgs.xorg.xf86videoamdgpu ];
+          modules = optionals (igpuDriver == "amdgpu") [pkgs.xorg.xf86videoamdgpu];
           deviceSection = ''
             BusID "${igpuBusId}"
             ${optionalString (syncCfg.enable && igpuDriver != "amdgpu") ''Option "AccelMethod" "none"''}
@@ -419,7 +419,7 @@ in
         }
         ++ singleton {
           name = "nvidia";
-          modules = [ nvidia_x11.bin ];
+          modules = [nvidia_x11.bin];
           display = !offloadCfg.enable;
           deviceSection = optionalString primeEnabled ''
             BusID "${pCfg.nvidiaBusId}"
@@ -484,9 +484,9 @@ in
       ];
 
       environment.systemPackages =
-        [ nvidia_x11.bin ]
-        ++ optionals cfg.nvidiaSettings [ nvidia_x11.settings ]
-        ++ optionals nvidiaPersistencedEnabled [ nvidia_x11.persistenced ]
+        [nvidia_x11.bin]
+        ++ optionals cfg.nvidiaSettings [nvidia_x11.settings]
+        ++ optionals nvidiaPersistencedEnabled [nvidia_x11.persistenced]
         ++ optionals offloadCfg.enableOffloadCmd [
           (pkgs.writeShellScriptBin "nvidia-offload" ''
             export __NV_PRIME_RENDER_OFFLOAD=1
@@ -504,7 +504,7 @@ in
           baseNvidiaService = state: {
             description = "NVIDIA system ${state} actions";
 
-            path = with pkgs; [ kbd ];
+            path = with pkgs; [kbd];
             serviceConfig = {
               Type = "oneshot";
               ExecStart = "${nvidia_x11.out}/bin/nvidia-sleep.sh '${state}'";
@@ -515,8 +515,8 @@ in
             sleepState:
             (baseNvidiaService sleepState)
             // {
-              before = [ "systemd-${sleepState}.service" ];
-              requiredBy = [ "systemd-${sleepState}.service" ];
+              before = ["systemd-${sleepState}.service"];
+              requiredBy = ["systemd-${sleepState}.service"];
             };
 
           services =
@@ -543,7 +543,7 @@ in
         // optionalAttrs nvidiaPersistencedEnabled {
           "nvidia-persistenced" = mkIf nvidiaPersistencedEnabled {
             description = "NVIDIA Persistence Daemon";
-            wantedBy = [ "multi-user.target" ];
+            wantedBy = ["multi-user.target"];
             serviceConfig = {
               Type = "forking";
               Restart = "always";
@@ -559,12 +559,12 @@ in
         ++ optional (nvidia_x11.persistenced != null && config.virtualisation.docker.enableNvidia)
           "L+ /run/nvidia-docker/extras/bin/nvidia-persistenced - - - - ${nvidia_x11.persistenced}/origBin/nvidia-persistenced";
 
-      boot.extraModulePackages = if cfg.open then [ nvidia_x11.open ] else [ nvidia_x11.bin ];
+      boot.extraModulePackages = if cfg.open then [nvidia_x11.open] else [nvidia_x11.bin];
       hardware.firmware = lib.optional cfg.open nvidia_x11.firmware;
 
       # nvidia-uvm is required by CUDA applications.
       boot.kernelModules =
-        [ "nvidia-uvm" ]
+        ["nvidia-uvm"]
         ++ optionals config.services.xserver.enable [
           "nvidia"
           "nvidia_modeset"

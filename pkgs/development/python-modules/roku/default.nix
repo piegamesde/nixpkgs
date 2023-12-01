@@ -20,13 +20,13 @@ buildPythonPackage rec {
     sha256 = "09mq59kjll7gj1srw4qc921ncsm7cld95sbz5v3p2bwmgckpqza7";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   nativeCheckInputs = [
     pytest
     flask
   ];
-  pythonImportsCheck = [ "roku" ];
+  pythonImportsCheck = ["roku"];
 
   meta = with lib; {
     description = "Screw remotes. Control your Roku with Python.";

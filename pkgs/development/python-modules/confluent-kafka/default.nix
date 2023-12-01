@@ -27,7 +27,7 @@ buildPythonPackage rec {
     ]
     ++ (
       if isPy3k then
-        [ avro3k ]
+        [avro3k]
       else
         [
           enum34
@@ -43,6 +43,6 @@ buildPythonPackage rec {
     description = "Confluent's Apache Kafka client for Python";
     homepage = "https://github.com/confluentinc/confluent-kafka-python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mlieberman85 ];
+    maintainers = with maintainers; [mlieberman85];
   };
 }

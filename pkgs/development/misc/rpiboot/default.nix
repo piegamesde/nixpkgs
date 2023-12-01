@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-Y77IrDblXmnpZleJ3zTyiGDYLZ7gNxASXpqUzwS1NCU=";
   };
 
-  buildInputs = [ libusb1 ];
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [libusb1];
+  nativeBuildInputs = [pkg-config];
 
   patchPhase = ''
     sed -i "s@/usr/@$out/@g" main.c

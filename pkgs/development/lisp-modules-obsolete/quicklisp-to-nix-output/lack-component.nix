@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "lack-component";
   version = "lack-20211209-git";
 
   description = "System lacks description";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/lack/2021-12-09/lack-20211209-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "lack-component";
 
-  asdFilesToKeep = [ "lack-component.asd" ];
+  asdFilesToKeep = ["lack-component.asd"];
   overrides = x: x;
 }
 /* (SYSTEM lack-component DESCRIPTION System lacks description SHA256

@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
   pname = "temporal_tables";
   version = "unstable-2021-02-20";
 
-  buildInputs = [ postgresql ];
+  buildInputs = [postgresql];
 
   src = fetchFromGitHub {
     owner = "arkhipov";
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Temporal Tables PostgreSQL Extension ";
     homepage = "https://github.com/mlt/temporal_tables";
-    maintainers = with maintainers; [ ggpeti ];
+    maintainers = with maintainers; [ggpeti];
     platforms = postgresql.meta.platforms;
     license = licenses.bsd2;
   };

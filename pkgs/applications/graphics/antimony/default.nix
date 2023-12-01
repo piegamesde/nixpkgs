@@ -32,7 +32,7 @@ stdenv.mkDerivation {
     sha256 = "NmOuBewfHqtAim2cNP62LXgRjVWuVUGweV46sY1qjGk=";
   };
 
-  patches = [ ./paths-fix.patch ];
+  patches = [./paths-fix.patch];
 
   postPatch = ''
     sed -i "s,/usr/local,$out,g" \
@@ -94,7 +94,7 @@ stdenv.mkDerivation {
     description = "A computer-aided design (CAD) tool from a parallel universe";
     homepage = "https://github.com/mkeeter/antimony";
     license = licenses.mit;
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
     platforms = platforms.linux;
   };
 }

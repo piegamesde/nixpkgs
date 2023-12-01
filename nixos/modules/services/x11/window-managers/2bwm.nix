@@ -32,6 +32,6 @@ in
       '';
     };
 
-    environment.systemPackages = [ pkgs._2bwm ];
+    environment.systemPackages = [pkgs._2bwm];
   };
 }

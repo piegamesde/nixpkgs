@@ -13,7 +13,7 @@ substituteAll {
   dir = "bin";
   isExecutable = true;
   src = ./nixos-container.pl;
-  perl = perl.withPackages (p: [ p.FileSlurp ]);
+  perl = perl.withPackages (p: [p.FileSlurp]);
   su = "${shadow.su}/bin/su";
   utillinux = util-linux;
 

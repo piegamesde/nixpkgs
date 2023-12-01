@@ -20,9 +20,9 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ fonttools ];
+  propagatedBuildInputs = [fonttools];
   nativeCheckInputs = [
     pytest
     pytest-runner
@@ -32,6 +32,6 @@ buildPythonPackage rec {
     description = "A collection of objects that implement fast font, glyph, etc. math";
     homepage = "https://github.com/robotools/fontMath/";
     license = licenses.mit;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

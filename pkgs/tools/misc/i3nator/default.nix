@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Tmuxinator for the i3 window manager";
     homepage = "https://github.com/pitkley/i3nator";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ mpoquet ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [mpoquet];
   };
 }

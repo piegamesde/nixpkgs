@@ -65,14 +65,14 @@ buildPythonPackage rec {
     installManPage docs/_build/man/nvchecker.1
   '';
 
-  pythonImportsCheck = [ "nvchecker" ];
+  pythonImportsCheck = ["nvchecker"];
 
-  pytestFlagsArray = [ "-m 'not needs_net'" ];
+  pytestFlagsArray = ["-m 'not needs_net'"];
 
   meta = with lib; {
     homepage = "https://github.com/lilydjwg/nvchecker";
     description = "New version checker for software";
     license = licenses.mit;
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [marsam];
   };
 }

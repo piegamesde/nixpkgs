@@ -37,8 +37,8 @@ buildGoModule rec {
     generateMock =
       runCommand "${pname}-test"
         {
-          nativeBuildInputs = [ go-mockery ];
-          buildInputs = [ go ];
+          nativeBuildInputs = [go-mockery];
+          buildInputs = [go];
         }
         ''
           if [[ $(mockery --version) != *"${version}"* ]]; then
@@ -70,7 +70,7 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/vektra/mockery";
     description = "A mock code autogenerator for Golang";
-    maintainers = with maintainers; [ fbrs ];
+    maintainers = with maintainers; [fbrs];
     mainProgram = "mockery";
     license = licenses.bsd3;
   };

@@ -37,7 +37,7 @@ let
       args,
       wrapped ? wrappedBinaryVar,
     }:
-    runCommand name { nativeBuildInputs = [ makeWrapper ]; } ''
+    runCommand name {nativeBuildInputs = [makeWrapper];} ''
       mkdir -p $out/bin
       makeWrapper "${wrapped}" "$out/bin/${name}" ${lib.escapeShellArgs args}
     '';

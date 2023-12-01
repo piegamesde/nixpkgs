@@ -33,9 +33,9 @@ buildPythonPackage rec {
     pkg-config
   ];
 
-  buildInputs = [ cairo ] ++ lib.optionals (pythonOlder "3.9") [ libxcrypt ];
+  buildInputs = [cairo] ++ lib.optionals (pythonOlder "3.9") [libxcrypt];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   mesonFlags =
     [

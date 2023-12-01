@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "iolib_dot_asdf";
   version = "iolib-v0.8.4";
 
   description = "A few ASDF component classes.";
 
-  deps = [ args."alexandria" ];
+  deps = [args."alexandria"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/iolib/2021-06-30/iolib-v0.8.4.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "iolib.asdf";
 
-  asdFilesToKeep = [ "iolib.asdf.asd" ];
+  asdFilesToKeep = ["iolib.asdf.asd"];
   overrides = x: x;
 }
 /* (SYSTEM iolib.asdf DESCRIPTION A few ASDF component classes. SHA256

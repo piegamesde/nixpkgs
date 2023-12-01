@@ -54,7 +54,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Window manager from scratch";
     license = licenses.bsd2;
-    maintainers = [ maintainers.balsoft ];
+    maintainers = [maintainers.balsoft];
     platforms = platforms.linux;
   };
 }

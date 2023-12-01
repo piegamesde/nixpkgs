@@ -16,16 +16,16 @@ buildPythonApplication rec {
     sha256 = "1blcpa13zgyac3v8inc7fh9szxq2avdllx6w5ancfmyh5spc66ay";
   };
 
-  propagatedBuildInputs = [ boto3 ];
+  propagatedBuildInputs = [boto3];
 
   doCheck = false;
 
-  pythonImportsCheck = [ "awsmfa" ];
+  pythonImportsCheck = ["awsmfa"];
 
   meta = with lib; {
     description = "Manage AWS MFA Security Credentials";
     homepage = "https://github.com/broamski/aws-mfa";
-    license = [ licenses.mit ];
-    maintainers = [ maintainers.srapenne ];
+    license = [licenses.mit];
+    maintainers = [maintainers.srapenne];
   };
 }

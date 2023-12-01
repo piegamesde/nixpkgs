@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     export LIBSASS_VERSION=${version}
   '';
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     description = "A C/C++ implementation of a Sass compiler";

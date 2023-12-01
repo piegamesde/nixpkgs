@@ -34,13 +34,13 @@ in
       }
     ];
 
-    environment.systemPackages = [ pkgs.flatpak ];
+    environment.systemPackages = [pkgs.flatpak];
 
     security.polkit.enable = true;
 
-    services.dbus.packages = [ pkgs.flatpak ];
+    services.dbus.packages = [pkgs.flatpak];
 
-    systemd.packages = [ pkgs.flatpak ];
+    systemd.packages = [pkgs.flatpak];
 
     environment.profiles = [
       "$HOME/.local/share/flatpak/exports"
@@ -57,6 +57,6 @@ in
       isSystemUser = true;
     };
 
-    users.groups.flatpak = { };
+    users.groups.flatpak = {};
   };
 }

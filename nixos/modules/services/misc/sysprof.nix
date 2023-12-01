@@ -13,11 +13,11 @@
   };
 
   config = lib.mkIf config.services.sysprof.enable {
-    environment.systemPackages = [ pkgs.sysprof ];
+    environment.systemPackages = [pkgs.sysprof];
 
-    services.dbus.packages = [ pkgs.sysprof ];
+    services.dbus.packages = [pkgs.sysprof];
 
-    systemd.packages = [ pkgs.sysprof ];
+    systemd.packages = [pkgs.sysprof];
   };
 
   meta.maintainers = pkgs.sysprof.meta.maintainers;

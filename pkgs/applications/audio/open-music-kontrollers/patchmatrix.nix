@@ -1,4 +1,4 @@
-{ callPackage, libjack2, ... }@args:
+{callPackage, libjack2, ...}@args:
 
 callPackage ./generic.nix (
   args
@@ -9,7 +9,7 @@ callPackage ./generic.nix (
     url = "https://git.open-music-kontrollers.ch/lad/${pname}/snapshot/${pname}-${version}.tar.xz";
     sha256 = "sha256-cqPHCnrAhHB6a0xmPUYOAsZfLsqnGpXEuGR1W6i6W7I=";
 
-    additionalBuildInputs = [ libjack2 ];
+    additionalBuildInputs = [libjack2];
 
     description = "A JACK patchbay in flow matrix style";
   }

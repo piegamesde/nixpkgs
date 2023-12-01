@@ -24,7 +24,7 @@ python3Packages.buildPythonApplication rec {
         scipy
       ]
     )
-    ++ [ wrapQtAppsHook ];
+    ++ [wrapQtAppsHook];
 
   propagatedBuildInputs = with python3Packages; [
     sounddevice

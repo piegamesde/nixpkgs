@@ -37,12 +37,12 @@ buildPythonApplication rec {
 
   doCheck = false; # no tests
 
-  pythonImportsCheck = [ "tcd" ];
+  pythonImportsCheck = ["tcd"];
 
   meta = with lib; {
     description = "Twitch Chat Downloader";
     homepage = "https://github.com/PetterKraabol/Twitch-Chat-Downloader";
     license = licenses.mit;
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [marsam];
   };
 }

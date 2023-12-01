@@ -36,7 +36,7 @@ let
           label
           type
           ;
-        devices = map (device: { deviceId = cfg.devices.${device}.id; }) folder.devices;
+        devices = map (device: {deviceId = cfg.devices.${device}.id;}) folder.devices;
         rescanIntervalS = folder.rescanInterval;
         fsWatcherEnabled = folder.watch;
         fsWatcherDelayS = folder.watchDelay;
@@ -75,10 +75,10 @@ let
     # generate the new config by merging with the NixOS config options
     new_cfg=$(printf '%s\n' "$old_cfg" | ${pkgs.jq}/bin/jq -c '. * {
         "devices": (${builtins.toJSON devices}${
-          optionalString (cfg.devices == { } || !cfg.overrideDevices) " + .devices"
+          optionalString (cfg.devices == {} || !cfg.overrideDevices) " + .devices"
         }),
         "folders": (${builtins.toJSON folders}${
-          optionalString (cfg.folders == { } || !cfg.overrideFolders) " + .folders"
+          optionalString (cfg.folders == {} || !cfg.overrideFolders) " + .folders"
         })
     } * ${builtins.toJSON cfg.extraOptions}')
 
@@ -131,7 +131,7 @@ in
       };
 
       devices = mkOption {
-        default = { };
+        default = {};
         description = mdDoc ''
           Peers/devices which Syncthing should communicate with.
 
@@ -142,12 +142,12 @@ in
         example = {
           bigbox = {
             id = "7CFNTQM-IMTJBHJ-3UWRDIU-ZGQJFR6-VCXZ3NB-XUH3KZO-N52ITXR-LAIYUAU";
-            addresses = [ "tcp://192.168.0.10:51820" ];
+            addresses = ["tcp://192.168.0.10:51820"];
           };
         };
         type = types.attrsOf (
           types.submodule (
-            { name, ... }:
+            {name, ...}:
             {
               options = {
 
@@ -161,7 +161,7 @@ in
 
                 addresses = mkOption {
                   type = types.listOf types.str;
-                  default = [ ];
+                  default = [];
                   description = lib.mdDoc ''
                     The addresses used to connect to the device.
                     If this is left empty, dynamic configuration is attempted.
@@ -211,7 +211,7 @@ in
       };
 
       folders = mkOption {
-        default = { };
+        default = {};
         description = mdDoc ''
           Folders which should be shared by Syncthing.
 
@@ -229,7 +229,7 @@ in
         '';
         type = types.attrsOf (
           types.submodule (
-            { name, ... }:
+            {name, ...}:
             {
               options = {
 
@@ -277,7 +277,7 @@ in
 
                 devices = mkOption {
                   type = types.listOf types.str;
-                  default = [ ];
+                  default = [];
                   description = mdDoc ''
                     The devices this folder should be shared with. Each device must
                     be defined in the [devices](#opt-services.syncthing.devices) option.
@@ -427,8 +427,8 @@ in
       };
 
       extraOptions = mkOption {
-        type = types.addCheck (pkgs.formats.json { }).type isAttrs;
-        default = { };
+        type = types.addCheck (pkgs.formats.json {}).type isAttrs;
+        default = {};
         description = mdDoc ''
           Extra configuration options for Syncthing.
           See <https://docs.syncthing.net/users/config.html>.
@@ -542,8 +542,8 @@ in
 
       extraFlags = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "--reset-deltas" ];
+        default = [];
+        example = ["--reset-deltas"];
         description = lib.mdDoc ''
           Extra flags passed to the syncthing command in the service definition.
         '';
@@ -620,14 +620,14 @@ in
   config = mkIf cfg.enable {
 
     networking.firewall = mkIf cfg.openDefaultPorts {
-      allowedTCPPorts = [ 22000 ];
+      allowedTCPPorts = [22000];
       allowedUDPPorts = [
         21027
         22000
       ];
     };
 
-    systemd.packages = [ pkgs.syncthing ];
+    systemd.packages = [pkgs.syncthing];
 
     users.users = mkIf (cfg.systemService && cfg.user == defaultUser) {
       ${defaultUser} = {
@@ -648,13 +648,13 @@ in
       # https://github.com/syncthing/syncthing/blob/main/etc/linux-systemd/system/syncthing%40.service
       syncthing = mkIf cfg.systemService {
         description = "Syncthing service";
-        after = [ "network.target" ];
+        after = ["network.target"];
         environment = {
           STNORESTART = "yes";
           STNOUPGRADE = "yes";
           inherit (cfg) all_proxy;
         } // config.networking.proxy.envVars;
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         serviceConfig = {
           Restart = "on-failure";
           SuccessExitStatus = "3 4";
@@ -702,11 +702,11 @@ in
           ];
         };
       };
-      syncthing-init = mkIf (cfg.devices != { } || cfg.folders != { } || cfg.extraOptions != { }) {
+      syncthing-init = mkIf (cfg.devices != {} || cfg.folders != {} || cfg.extraOptions != {}) {
         description = "Syncthing configuration updater";
-        requisite = [ "syncthing.service" ];
-        after = [ "syncthing.service" ];
-        wantedBy = [ "multi-user.target" ];
+        requisite = ["syncthing.service"];
+        after = ["syncthing.service"];
+        wantedBy = ["multi-user.target"];
 
         serviceConfig = {
           User = cfg.user;
@@ -718,7 +718,7 @@ in
       };
 
       syncthing-resume = {
-        wantedBy = [ "suspend.target" ];
+        wantedBy = ["suspend.target"];
       };
     };
   };

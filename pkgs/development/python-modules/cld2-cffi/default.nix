@@ -21,7 +21,7 @@ buildPythonPackage rec {
     six
     cffi
   ];
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
   # gcc doesn't approve of this code, so disable -Werror
   env.NIX_CFLAGS_COMPILE = "-w" + lib.optionalString stdenv.cc.isClang " -Wno-error=c++11-narrowing";
@@ -32,6 +32,6 @@ buildPythonPackage rec {
     description = "CFFI bindings around Google Chromium's embedded compact language detection library (CLD2)";
     homepage = "https://github.com/GregBowyer/cld2-cffi";
     license = licenses.asl20;
-    maintainers = with maintainers; [ rvl ];
+    maintainers = with maintainers; [rvl];
   };
 }

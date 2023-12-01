@@ -26,10 +26,10 @@ rustPlatform.buildRustPackage rec {
   # The tests need a GitHub API token.
   doCheck = false;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       Security
       libiconv
@@ -43,6 +43,6 @@ rustPlatform.buildRustPackage rec {
       mit # or
       asl20
     ];
-    maintainers = with maintainers; [ johntitor ];
+    maintainers = with maintainers; [johntitor];
   };
 }

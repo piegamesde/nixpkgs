@@ -22,7 +22,7 @@ in
     services.flexget = {
       enable = mkEnableOption (lib.mdDoc "Run FlexGet Daemon");
 
-      package = mkPackageOptionMD pkgs "flexget" { };
+      package = mkPackageOptionMD pkgs "flexget" {};
 
       user = mkOption {
         default = "deluge";
@@ -62,12 +62,12 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ pkg ];
+    environment.systemPackages = [pkg];
 
     systemd.services = {
       flexget = {
         description = "FlexGet Daemon";
-        path = [ pkg ];
+        path = [pkg];
         serviceConfig = {
           User = cfg.user;
           Environment = "TZ=${config.time.timeZone}";
@@ -79,13 +79,13 @@ in
           PrivateTmp = true;
           WorkingDirectory = toString cfg.homeDir;
         };
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
       };
 
       flexget-runner = mkIf cfg.systemScheduler {
         description = "FlexGet Runner";
-        after = [ "flexget.service" ];
-        wants = [ "flexget.service" ];
+        after = ["flexget.service"];
+        wants = ["flexget.service"];
         serviceConfig = {
           User = cfg.user;
           ExecStart = "${pkg}/bin/flexget -c ${configFile} execute";
@@ -97,7 +97,7 @@ in
 
     systemd.timers.flexget-runner = mkIf cfg.systemScheduler {
       description = "Run FlexGet every ${cfg.interval}";
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig = {
         OnBootSec = "5m";
         OnUnitInactiveSec = cfg.interval;

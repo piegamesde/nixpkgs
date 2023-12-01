@@ -17,7 +17,7 @@ trivialBuild {
     description = "Specify use of `y-or-n-p' or `yes-or-no-p' on a case-by-case basis";
     homepage = "https://www.emacswiki.org/emacs/yes-no.el";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ jcs090218 ];
+    maintainers = with maintainers; [jcs090218];
     platforms = platforms.all;
   };
 }

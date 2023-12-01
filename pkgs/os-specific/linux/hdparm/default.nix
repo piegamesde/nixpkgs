@@ -22,6 +22,6 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/hdparm/";
     platforms = platforms.linux;
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

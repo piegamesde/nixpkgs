@@ -40,6 +40,6 @@ buildGoModule rec {
     description = "User-friendly pager for grep/git-grep/ripgrep";
     homepage = "https://github.com/vrothberg/vgrep";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

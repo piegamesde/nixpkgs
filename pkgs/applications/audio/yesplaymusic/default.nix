@@ -69,7 +69,7 @@ let
     description = "A good-looking third-party netease cloud music player";
     homepage = "https://github.com/qier222/YesPlayMusic/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ChaosAttractor ];
+    maintainers = with maintainers; [ChaosAttractor];
     platforms = builtins.attrNames srcs;
   };
 in
@@ -82,7 +82,7 @@ if stdenv.isDarwin then
       meta
       ;
 
-    nativeBuildInputs = [ undmg ];
+    nativeBuildInputs = [undmg];
 
     sourceRoot = ".";
 
@@ -108,7 +108,7 @@ else
 
     buildInputs = libraries;
 
-    runtimeDependencies = [ (lib.getLib systemd) ];
+    runtimeDependencies = [(lib.getLib systemd)];
 
     unpackPhase = ''
       ${dpkg}/bin/dpkg-deb -x $src .

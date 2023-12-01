@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     doxygen
   ];
 
-  buildInputs = [ pcre2 ];
+  buildInputs = [pcre2];
 
   # Multiple doxygen can not generate man pages in the same base directory in
   # parallel: https://github.com/doxygen/doxygen/issues/6293
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       bsd2
       bsd3
     ];
-    maintainers = with maintainers; [ dochang ];
+    maintainers = with maintainers; [dochang];
     platforms = platforms.unix;
     mainProgram = "editorconfig";
   };

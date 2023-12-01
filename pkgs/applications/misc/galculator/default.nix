@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://galculator.sourceforge.net/";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     platforms = platforms.linux;
   };
 }

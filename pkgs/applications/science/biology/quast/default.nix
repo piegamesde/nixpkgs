@@ -28,7 +28,7 @@ pythonPackages.buildPythonApplication rec {
     matplotlib
   ];
 
-  buildInputs = [ zlib ] ++ pythonPath;
+  buildInputs = [zlib] ++ pythonPath;
 
   dontConfigure = true;
 
@@ -66,7 +66,7 @@ pythonPackages.buildPythonApplication rec {
       binaryNativeCode # source bundles binary dependencies
     ];
     license = licenses.gpl2;
-    maintainers = [ maintainers.bzizou ];
+    maintainers = [maintainers.bzizou];
     platforms = platforms.all;
   };
 }

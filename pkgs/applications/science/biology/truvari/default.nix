@@ -56,12 +56,12 @@ python3Packages.buildPythonApplication rec {
     ])
   ];
 
-  pythonImportsCheck = [ "truvari" ];
+  pythonImportsCheck = ["truvari"];
 
   nativeCheckInputs = [
     bcftools
     htslib
-  ] ++ (with python3Packages; [ coverage ]);
+  ] ++ (with python3Packages; [coverage]);
 
   checkPhase = ''
     runHook preCheck

@@ -17,8 +17,8 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-+ovC4nZwHzf9hjfv2LcnTztM2m++tpC3mUSS/I0l6Ck=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl];
 
   cargoSha256 = "sha256-LYdQ0FLfCopY8kPTCmiW0Qyx6sHA4nlb+hK9hXezGLg=";
 
@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
       mit
       asl20
     ];
-    maintainers = with maintainers; [ rvarago ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [rvarago];
+    platforms = ["x86_64-linux"];
   };
 }

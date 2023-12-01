@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-mDXlsH+iu9CcqlMwtbrMicAwuRClK1WmPY2SYIF8USw=";
   };
 
-  buildInputs = [ jdk ];
+  buildInputs = [jdk];
   nativeBuildInputs = [
     ant
     cunit
@@ -57,6 +57,6 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "i686-linux"
     ];
-    maintainers = [ maintainers.suhr ];
+    maintainers = [maintainers.suhr];
   };
 }

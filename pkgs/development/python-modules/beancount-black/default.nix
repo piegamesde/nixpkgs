@@ -23,21 +23,21 @@ buildPythonPackage rec {
     hash = "sha256-1n+IADiGUsi69XoxO4Tjio2QdkJyoYZHgvYc646TuF4=";
   };
 
-  buildInputs = [ poetry-core ];
+  buildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     beancount-parser
     click
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "beancount_black" ];
+  pythonImportsCheck = ["beancount_black"];
 
   meta = with lib; {
     description = "Opinioned code formatter for Beancount";
     homepage = "https://github.com/LaunchPlatform/beancount-black/";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ ambroisie ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [ambroisie];
   };
 }

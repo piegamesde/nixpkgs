@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
     pkg-config
     libtool
   ];
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=format-security" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-error=format-security"];
 
   postPatch = ''
     patchShebangs ./MPC/prj_install.pl
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.dre.vanderbilt.edu/~schmidt/ACE.html";
     description = "ADAPTIVE Communication Environment";
     license = licenses.doc;
-    maintainers = with maintainers; [ nico202 ];
+    maintainers = with maintainers; [nico202];
     platforms = platforms.linux;
   };
 }

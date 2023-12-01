@@ -23,13 +23,13 @@ buildPythonPackage rec {
   # tests are not included in sdist and building from source is none trivial
   doCheck = false;
 
-  pythonImportsCheck = [ "l18n" ];
+  pythonImportsCheck = ["l18n"];
 
   meta = with lib; {
     description = "Locale internationalization package";
     homepage = "https://github.com/tkhyn/l18n";
     changelog = "https://github.com/tkhyn/l18n/blob/${version}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ sephi ];
+    maintainers = with maintainers; [sephi];
   };
 }

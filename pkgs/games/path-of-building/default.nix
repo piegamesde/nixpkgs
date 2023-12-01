@@ -37,7 +37,7 @@ stdenv.mkDerivation {
           hash = "sha256-uG+Qb50+oG5yd67w2WgnatKpq+/0UA8IfJeJXRKnQXU=";
         };
 
-        nativeBuildInputs = [ unzip ];
+        nativeBuildInputs = [unzip];
       }
       ''
         # I have absolutely no idea how this file is generated
@@ -87,7 +87,7 @@ stdenv.mkDerivation {
     description = "Offline build planner for Path of Exile";
     homepage = "https://pathofbuilding.community/";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.k900 ];
+    maintainers = [lib.maintainers.k900];
     mainProgram = "pobfrontend";
     broken = stdenv.isDarwin; # doesn't find uic6 for some reason
   };

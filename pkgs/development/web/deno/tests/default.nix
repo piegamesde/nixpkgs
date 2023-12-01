@@ -19,7 +19,7 @@ let
     in
     runCommand "deno-test-${name}"
       {
-        nativeBuildInputs = [ deno ];
+        nativeBuildInputs = [deno];
         meta.timeout = 60;
       }
       ''

@@ -29,7 +29,7 @@ python3.pkgs.buildPythonApplication rec {
     })
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd you-get \
@@ -38,13 +38,13 @@ python3.pkgs.buildPythonApplication rec {
       --bash contrib/completion/you-get-completion.bash
   '';
 
-  pythonImportsCheck = [ "you_get" ];
+  pythonImportsCheck = ["you_get"];
 
   meta = with lib; {
     description = "A tiny command line utility to download media contents from the web";
     homepage = "https://you-get.org";
     changelog = "https://github.com/soimort/you-get/raw/v${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ ryneeverett ];
+    maintainers = with maintainers; [ryneeverett];
   };
 }

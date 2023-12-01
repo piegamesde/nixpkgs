@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-LBsT/swIk+lGxly9XzZCeGHP+k6iIB2Pb8oi4qNzteI=";
   };
 
-  propagatedBuildInputs = [ vine ];
+  propagatedBuildInputs = [vine];
 
   nativeCheckInputs = [
     case
@@ -33,12 +33,12 @@ buildPythonPackage rec {
       "test_rmq.py"
     ];
 
-  pythonImportsCheck = [ "amqp" ];
+  pythonImportsCheck = ["amqp"];
 
   meta = with lib; {
     description = "Python client for the Advanced Message Queuing Procotol (AMQP). This is a fork of amqplib which is maintained by the Celery project";
     homepage = "https://github.com/celery/py-amqp";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

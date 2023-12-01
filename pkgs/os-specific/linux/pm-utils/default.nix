@@ -23,7 +23,7 @@ let
     dbus
   ];
 
-  sbinPath = lib.makeSearchPathOutput "bin" "sbin" [ procps ];
+  sbinPath = lib.makeSearchPathOutput "bin" "sbin" [procps];
 in
 
 stdenv.mkDerivation rec {
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     sha256 = "02qc6zaf7ams6qcc470fwb6jvr4abv3lrlx16clqpn36501rkn4f";
   };
 
-  configureFlags = [ "--sysconfdir=/etc" ];
+  configureFlags = ["--sysconfdir=/etc"];
 
   preConfigure = ''
     # Install the manpages (xmlto isn't really needed).

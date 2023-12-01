@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-PA+gz77XkwxQ3TtubaT0ov9dsT7s3ZlrQxrOkD5ku3g=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # https://github.com/minetest/minetest/pull/10729
   postPatch = lib.optionalString (!withTouchSupport) ''
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://github.com/minetest/irrlicht";
     license = lib.licenses.zlib;
-    maintainers = with lib.maintainers; [ DeeUnderscore ];
+    maintainers = with lib.maintainers; [DeeUnderscore];
     description = "Minetest project's fork of Irrlicht, a realtime 3D engine written in C++";
   };
 }

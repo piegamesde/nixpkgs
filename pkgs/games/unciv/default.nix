@@ -15,7 +15,7 @@ let
     exec = "unciv";
     comment = "An open-source Android/Desktop remake of Civ V";
     desktopName = "Unciv";
-    categories = [ "Game" ];
+    categories = ["Game"];
   };
 
   envLibPath = lib.makeLibraryPath [
@@ -44,19 +44,19 @@ stdenv.mkDerivation rec {
 
     makeWrapper ${jre}/bin/java $out/bin/unciv \
       --prefix LD_LIBRARY_PATH : ${envLibPath} \
-      --prefix PATH : ${lib.makeBinPath [ jre ]} \
+      --prefix PATH : ${lib.makeBinPath [jre]} \
       --add-flags "-jar ${src}"
 
     runHook postInstall
   '';
 
-  desktopItems = [ desktopItem ];
+  desktopItems = [desktopItem];
 
   meta = with lib; {
     description = "An open-source Android/Desktop remake of Civ V";
     homepage = "https://github.com/yairm210/Unciv";
-    maintainers = with maintainers; [ tex ];
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    maintainers = with maintainers; [tex];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.mpl20;
     platforms = platforms.all;
   };

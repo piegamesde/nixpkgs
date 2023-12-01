@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-X30PUiOMT/vXqmdSJKHTNNA8aLWavCUaKa7LzqkdLrk=";
   };
 
-  propagatedBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [setuptools];
 
   nativeCheckInputs = [
     mock
@@ -36,7 +36,7 @@ buildPythonPackage rec {
       --replace '["which", candidate]' '["${lib.getBin which}/bin/which", candidate]'
   '';
 
-  pythonImportsCheck = [ "nodeenv" ];
+  pythonImportsCheck = ["nodeenv"];
 
   disabledTests =
     [
@@ -48,6 +48,6 @@ buildPythonPackage rec {
     description = "Node.js virtual environment builder";
     homepage = "https://github.com/ekalinin/nodeenv";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

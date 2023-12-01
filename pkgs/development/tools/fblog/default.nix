@@ -21,6 +21,6 @@ rustPlatform.buildRustPackage rec {
     description = "A small command-line JSON log viewer";
     homepage = "https://github.com/brocode/fblog";
     license = licenses.wtfpl;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

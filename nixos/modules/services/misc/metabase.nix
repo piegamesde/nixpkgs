@@ -79,8 +79,8 @@ in
 
     systemd.services.metabase = {
       description = "Metabase server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
       environment =
         {
           MB_PLUGINS_DIR = "${dataDir}/plugins";
@@ -101,7 +101,7 @@ in
     };
 
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.listen.port ] ++ optional cfg.ssl.enable cfg.ssl.port;
+      allowedTCPPorts = [cfg.listen.port] ++ optional cfg.ssl.enable cfg.ssl.port;
     };
   };
 }

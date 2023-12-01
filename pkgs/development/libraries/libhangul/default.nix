@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     description = "Core algorithm library for Korean input routines";
     homepage = "https://github.com/choehwanjin/libhangul";
     license = licenses.lgpl21;
-    maintainers = [ maintainers.ianwookim ];
+    maintainers = [maintainers.ianwookim];
     platforms = platforms.linux;
   };
 }

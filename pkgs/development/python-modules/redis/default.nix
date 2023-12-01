@@ -37,10 +37,10 @@ buildPythonPackage rec {
     deprecated
     packaging
     typing-extensions
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  ] ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   passthru.optional-dependencies = {
-    hiredis = [ hiredis ];
+    hiredis = [hiredis];
     ocsp = [
       cryptography
       pyopenssl
@@ -65,6 +65,6 @@ buildPythonPackage rec {
     description = "Python client for Redis key-value store";
     homepage = "https://github.com/redis/redis-py";
     changelog = "https://github.com/redis/redis-py/releases/tag/v${version}";
-    license = with licenses; [ mit ];
+    license = with licenses; [mit];
   };
 }

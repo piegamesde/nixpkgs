@@ -141,7 +141,7 @@ stdenv.mkDerivation rec {
       "-Dkeyring=false"
       "-Dgoogle=false"
     ]
-    ++ lib.optionals (avahi == null) [ "-Ddnssd=false" ]
+    ++ lib.optionals (avahi == null) ["-Ddnssd=false"]
     ++
       lib.optionals (samba == null)
         [

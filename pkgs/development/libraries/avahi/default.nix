@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     pkg-config
@@ -74,9 +74,9 @@ stdenv.mkDerivation rec {
         XMLParser
       ]
     )
-    ++ lib.optionals stdenv.isFreeBSD [ libpcap ]
-    ++ lib.optionals gtk3Support [ gtk3 ]
-    ++ lib.optionals qt5Support [ qt5 ];
+    ++ lib.optionals stdenv.isFreeBSD [libpcap]
+    ++ lib.optionals gtk3Support [gtk3]
+    ++ lib.optionals qt5Support [qt5];
 
   propagatedBuildInputs = lib.optionals withPython (
     with python.pkgs; [
@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
       # A systemd unit is provided by the avahi-daemon NixOS module
       "--with-systemdsystemunitdir=no"
     ]
-    ++ lib.optionals withLibdnssdCompat [ "--enable-compat-libdns_sd" ]
+    ++ lib.optionals withLibdnssdCompat ["--enable-compat-libdns_sd"]
     ++
       lib.optionals stdenv.isDarwin
         [

@@ -70,7 +70,7 @@ let
         newArgs: origArgs // (if pkgs.lib.isFunction newArgs then newArgs origArgs else newArgs);
     in
     if builtins.isAttrs ff then
-      (ff // { overrideLispAttrs = newArgs: makeOverridableLispPackage f (overrideWith newArgs); })
+      (ff // {overrideLispAttrs = newArgs: makeOverridableLispPackage f (overrideWith newArgs);})
     else if builtins.isFunction ff then
       {
         overrideLispAttrs = newArgs: makeOverridableLispPackage f (overrideWith newArgs);
@@ -108,18 +108,18 @@ let
       pname,
       version,
       src ? null,
-      patches ? [ ],
+      patches ? [],
 
       # Native libraries, will be appended to the library path
-      nativeLibs ? [ ],
+      nativeLibs ? [],
 
       # Java libraries for ABCL, will be appended to the class path
-      javaLibs ? [ ],
+      javaLibs ? [],
 
       # Lisp dependencies
       # these should be packages built with `build-asdf-system`
       # TODO(kasper): use propagatedBuildInputs
-      lispLibs ? [ ],
+      lispLibs ? [],
 
       # Derivation containing the CL implementation package
       pkg,
@@ -128,7 +128,7 @@ let
       program ? pkg.meta.mainProgram or pkg.pname,
 
       # General flags to the Lisp executable
-      flags ? [ ],
+      flags ? [],
 
       # Extension for implementation-dependent FASL files
       faslExt,
@@ -147,7 +147,7 @@ let
       #
       # Also useful when the pname is different than the system name,
       # such as when using reverse domain naming.
-      systems ? [ pname ],
+      systems ? [pname],
 
       # The .asd files that this package provides
       # TODO(kasper): remove
@@ -261,13 +261,13 @@ let
         args
         // {
           src =
-            if builtins.length (args.patches or [ ]) > 0 then
-              pkgs.applyPatches { inherit (args) src patches; }
+            if builtins.length (args.patches or []) > 0 then
+              pkgs.applyPatches {inherit (args) src patches;}
             else
               args.src;
-          patches = [ ];
-          propagatedBuildInputs = args.propagatedBuildInputs or [ ] ++ lispLibs ++ javaLibs ++ nativeLibs;
-          meta = (args.meta or { }) // {
+          patches = [];
+          propagatedBuildInputs = args.propagatedBuildInputs or [] ++ lispLibs ++ javaLibs ++ nativeLibs;
+          meta = (args.meta or {}) // {
             maintainers = args.meta.maintainers or lib.teams.lisp.members;
           };
         }
@@ -302,7 +302,7 @@ let
     let
       build-asdf-system' = body: build-asdf-system (body // spec);
     in
-    pkgs.callPackage ./ql.nix { build-asdf-system = build-asdf-system'; };
+    pkgs.callPackage ./ql.nix {build-asdf-system = build-asdf-system';};
 
   # Creates a lisp wrapper with `packages` installed
   #
@@ -328,11 +328,11 @@ let
       pname = first.pkg.pname;
       version = "with-packages";
       lispLibs = packages clpkgs;
-      systems = [ ];
+      systems = [];
     }).overrideAttrs
       (
         o: {
-          nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
+          nativeBuildInputs = [pkgs.makeBinaryWrapper];
           installPhase = ''
             mkdir -pv $out/bin
             makeWrapper \
@@ -346,7 +346,7 @@ let
               --prefix DYLD_LIBRARY_PATH : "$DYLD_LIBRARY_PATH" \
               --prefix CLASSPATH : "$CLASSPATH" \
               --prefix GI_TYPELIB_PATH : "$GI_TYPELIB_PATH" \
-              --prefix PATH : "${makeBinPath (o.propagatedBuildInputs or [ ])}"
+              --prefix PATH : "${makeBinPath (o.propagatedBuildInputs or [])}"
           '';
         }
       );
@@ -356,9 +356,9 @@ let
       pkg,
       faslExt,
       program ? pkg.meta.mainProgram or pkg.pname,
-      flags ? [ ],
+      flags ? [],
       asdf ? pkgs.asdf_3_3,
-      packageOverrides ? (self: super: { }),
+      packageOverrides ? (self: super: {}),
     }:
     let
       spec = {

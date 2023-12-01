@@ -48,6 +48,6 @@ stdenv.mkDerivation {
     description = "A fast-import based converter for an svn repo to git repos";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = [ maintainers.flokli ];
+    maintainers = [maintainers.flokli];
   };
 }

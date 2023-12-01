@@ -76,9 +76,9 @@ buildNpmPackage rec {
     makeWrapper
     pkg-config
     python3
-  ] ++ lib.optionals stdenv.isLinux [ copyDesktopItems ];
+  ] ++ lib.optionals stdenv.isLinux [copyDesktopItems];
 
-  buildInputs = [ libdeltachat' ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
+  buildInputs = [libdeltachat'] ++ lib.optionals stdenv.isDarwin [CoreServices];
 
   env = {
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
@@ -150,6 +150,6 @@ buildNpmPackage rec {
     changelog = "https://github.com/deltachat/deltachat-desktop/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl3Plus;
     mainProgram = "deltachat";
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

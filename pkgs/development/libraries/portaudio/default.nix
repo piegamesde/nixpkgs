@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     pkg-config
     which
   ];
-  buildInputs = [ libjack2 ] ++ lib.optionals (!stdenv.isDarwin) [ alsa-lib ];
+  buildInputs = [libjack2] ++ lib.optionals (!stdenv.isDarwin) [alsa-lib];
 
   configureFlags = [
     "--disable-mac-universal"
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.portaudio.com/";
     # Not exactly a bsd license, but alike
     license = licenses.mit;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     platforms = platforms.unix;
   };
 

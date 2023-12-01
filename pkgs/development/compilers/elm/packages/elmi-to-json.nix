@@ -41,9 +41,9 @@ mkDerivation {
     unliftio
     unordered-containers
   ];
-  libraryToolDepends = [ hpack ];
-  executableHaskellDepends = [ base ];
-  testHaskellDepends = [ base ];
+  libraryToolDepends = [hpack];
+  executableHaskellDepends = [base];
+  testHaskellDepends = [base];
   prePatch = "hpack";
   homepage = "https://github.com/stoeffel/elmi-to-json#readme";
   license = lib.licenses.bsd3;

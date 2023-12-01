@@ -32,6 +32,6 @@ buildGoModule {
     description = "A tiny wrapper around wireguard-go";
     homepage = "https://github.com/mullvad/mullvadvpn-app/tree/master/wireguard/libwg";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ cole-h ];
+    maintainers = with maintainers; [cole-h];
   };
 }

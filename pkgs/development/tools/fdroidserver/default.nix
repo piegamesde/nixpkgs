@@ -30,7 +30,7 @@ python.pkgs.buildPythonApplication rec {
     install -m 0755 gradlew-fdroid $out/bin
   '';
 
-  buildInputs = with python.pkgs; [ babel ];
+  buildInputs = with python.pkgs; [babel];
 
   propagatedBuildInputs = with python.pkgs; [
     androguard
@@ -55,18 +55,18 @@ python.pkgs.buildPythonApplication rec {
     "--prefix"
     "PATH"
     ":"
-    "${lib.makeBinPath [ apksigner ]}"
+    "${lib.makeBinPath [apksigner]}"
   ];
 
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "fdroidserver" ];
+  pythonImportsCheck = ["fdroidserver"];
 
   meta = with lib; {
     homepage = "https://f-droid.org";
     description = "Server and tools for F-Droid, the Free Software repository system for Android";
     license = licenses.agpl3;
-    maintainers = with maintainers; [ obfusk ];
+    maintainers = with maintainers; [obfusk];
   };
 }

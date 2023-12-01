@@ -58,13 +58,13 @@ stdenv.mkDerivation rec {
     libselinux
     libsepol
   ];
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     description = "GTKv2 client for the Crossfire free MMORPG";
     homepage = "http://crossfire.real-time.com/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ToxicFrog ];
+    maintainers = with maintainers; [ToxicFrog];
   };
 }

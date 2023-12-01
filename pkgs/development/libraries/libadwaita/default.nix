@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-9Qha8xN3lC/t5dQNYPbgMX6HAKgEk80pyycrd5MGYLo=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     gi-docgen
@@ -50,18 +50,18 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  mesonFlags = [ "-Dgtk_doc=true" ] ++ lib.optionals (!doCheck) [ "-Dtests=false" ];
+  mesonFlags = ["-Dgtk_doc=true"] ++ lib.optionals (!doCheck) ["-Dtests=false"];
 
   buildInputs =
-    [ fribidi ]
+    [fribidi]
     ++ lib.optionals stdenv.isDarwin [
       AppKit
       Foundation
     ];
 
-  propagatedBuildInputs = [ gtk4 ];
+  propagatedBuildInputs = [gtk4];
 
-  nativeCheckInputs = [ gnome.adwaita-icon-theme ] ++ lib.optionals (!stdenv.isDarwin) [ xvfb-run ];
+  nativeCheckInputs = [gnome.adwaita-icon-theme] ++ lib.optionals (!stdenv.isDarwin) [xvfb-run];
 
   # Tests had to be disabled on Darwin because test-button-content fails
   #
@@ -96,7 +96,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = pname; };
+    updateScript = gnome.updateScript {packageName = pname;};
   };
 
   meta = with lib; {
@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
     description = "Library to help with developing UI for mobile devices using GTK/GNOME";
     homepage = "https://gitlab.gnome.org/GNOME/libadwaita";
     license = licenses.lgpl21Plus;
-    maintainers = teams.gnome.members ++ (with maintainers; [ dotlambda ]);
+    maintainers = teams.gnome.members ++ (with maintainers; [dotlambda]);
     platforms = platforms.unix;
   };
 }

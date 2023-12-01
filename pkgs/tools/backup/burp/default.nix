@@ -48,15 +48,15 @@ stdenv.mkDerivation rec {
     uthash
   ] ++ lib.optional (!stdenv.isDarwin) acl;
 
-  configureFlags = [ "--localstatedir=/var" ];
+  configureFlags = ["--localstatedir=/var"];
 
-  installFlags = [ "localstatedir=/tmp" ];
+  installFlags = ["localstatedir=/tmp"];
 
   meta = with lib; {
     description = "BURP - BackUp and Restore Program";
     homepage = "https://burp.grke.org";
     license = licenses.agpl3;
-    maintainers = with maintainers; [ arjan-s ];
+    maintainers = with maintainers; [arjan-s];
     platforms = platforms.all;
   };
 }

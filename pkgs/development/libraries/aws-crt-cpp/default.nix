@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     substituteInPlace CMakeLists.txt --replace '-Werror' ""
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   propagatedBuildInputs = [
     aws-c-auth
@@ -79,6 +79,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/awslabs/aws-crt-cpp";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
   };
 }

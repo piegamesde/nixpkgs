@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "more-conditions";
   version = "20180831-git";
 
-  parasites = [ "more-conditions/test" ];
+  parasites = ["more-conditions/test"];
 
   description = ''
     This system provides some generic condition classes in
@@ -24,7 +24,7 @@ rec {
 
   packageName = "more-conditions";
 
-  asdFilesToKeep = [ "more-conditions.asd" ];
+  asdFilesToKeep = ["more-conditions.asd"];
   overrides = x: x;
 }
 /* (SYSTEM more-conditions DESCRIPTION

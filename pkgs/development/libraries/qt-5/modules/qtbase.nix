@@ -172,7 +172,7 @@ stdenv.mkDerivation (
         python3
         at-spi2-core
       ]
-      ++ lib.optionals (!stdenv.isDarwin) ([ libinput ] ++ lib.optional withGtk3 gtk3)
+      ++ lib.optionals (!stdenv.isDarwin) ([libinput] ++ lib.optional withGtk3 gtk3)
       ++ lib.optional developerBuild gdb
       ++ lib.optional (cups != null) cups
       ++ lib.optional (mysqlSupport) libmysqlclient
@@ -186,9 +186,9 @@ stdenv.mkDerivation (
       perl
       pkg-config
       which
-    ] ++ lib.optionals stdenv.isDarwin [ xcbuild ];
+    ] ++ lib.optionals stdenv.isDarwin [xcbuild];
 
-    propagatedNativeBuildInputs = [ lndir ];
+    propagatedNativeBuildInputs = [lndir];
 
     enableParallelBuilding = true;
 
@@ -361,7 +361,7 @@ stdenv.mkDerivation (
       ]
       ++ (
         if (!stdenv.hostPlatform.isx86_64) then
-          [ "-no-sse2" ]
+          ["-no-sse2"]
         else
           [
             "-sse2"
@@ -417,7 +417,7 @@ stdenv.mkDerivation (
             "-no-framework"
           ]
         else
-          [ "-rpath" ]
+          ["-rpath"]
           ++ [
             "-xcb"
             "-qpa xcb"
@@ -440,9 +440,9 @@ stdenv.mkDerivation (
             "-dbus-linked"
             "-glib"
           ]
-          ++ [ "-system-libpng" ]
+          ++ ["-system-libpng"]
           ++ lib.optional withGtk3 "-gtk"
-          ++ [ "-inotify" ]
+          ++ ["-inotify"]
           ++ lib.optionals (cups != null) [
             "-L"
             "${cups.lib}/lib"

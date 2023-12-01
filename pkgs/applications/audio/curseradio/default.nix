@@ -37,6 +37,6 @@ python3Packages.buildPythonApplication rec {
     description = "Command line radio player";
     homepage = "https://github.com/chronitis/curseradio";
     license = licenses.mit;
-    maintainers = [ maintainers.eyjhb ];
+    maintainers = [maintainers.eyjhb];
   };
 }

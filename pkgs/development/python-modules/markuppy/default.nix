@@ -17,12 +17,12 @@ buildPythonPackage rec {
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "MarkupPy" ];
+  pythonImportsCheck = ["MarkupPy"];
 
   meta = with lib; {
     description = "An HTML/XML generator";
     homepage = "https://github.com/tylerbakke/MarkupPy";
     license = licenses.mit;
-    maintainers = with maintainers; [ sephi ];
+    maintainers = with maintainers; [sephi];
   };
 }

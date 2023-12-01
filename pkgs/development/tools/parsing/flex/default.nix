@@ -42,13 +42,13 @@ stdenv.mkDerivation rec {
       substituteInPlace doc/Makefile.am --replace 'flex.1: $(top_srcdir)/configure.ac' 'flex.1: '
     '';
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   nativeBuildInputs = [
     autoreconfHook
     help2man
   ];
-  buildInputs = [ bison ];
-  propagatedBuildInputs = [ m4 ];
+  buildInputs = [bison];
+  propagatedBuildInputs = [m4];
 
   preConfigure = lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
     export ac_cv_func_malloc_0_nonnull=yes

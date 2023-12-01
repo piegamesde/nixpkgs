@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "swank";
   version = "slime-v2.26.1";
 
   description = "System lacks description";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/slime/2020-12-20/slime-v2.26.1.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "swank";
 
-  asdFilesToKeep = [ "swank.asd" ];
+  asdFilesToKeep = ["swank.asd"];
   overrides = x: x;
 }
 /* (SYSTEM swank DESCRIPTION System lacks description SHA256

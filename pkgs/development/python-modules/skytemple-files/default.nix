@@ -44,7 +44,7 @@ buildPythonPackage rec {
       --replace "exec_name = os.getenv('SKYTEMPLE_ARMIPS_EXEC', f'{prefix}armips')" "exec_name = \"${armips}/bin/armips\""
   '';
 
-  buildInputs = [ armips ];
+  buildInputs = [armips];
 
   propagatedBuildInputs = [
     appdirs
@@ -57,7 +57,7 @@ buildPythonPackage rec {
     tilequant
     pyyaml
     pmdsky-debug-py
-  ] ++ lib.optionals (pythonOlder "3.9") [ typing-extensions ];
+  ] ++ lib.optionals (pythonOlder "3.9") [typing-extensions];
 
   passthru.optional-dependencies = {
     spritecollab = [
@@ -79,7 +79,7 @@ buildPythonPackage rec {
     "test/skytemple_files_test/compression_container/atupx/atupx_test.py" # Particularly long test
   ];
 
-  pythonImportsCheck = [ "skytemple_files" ];
+  pythonImportsCheck = ["skytemple_files"];
 
   meta = with lib; {
     homepage = "https://github.com/SkyTemple/skytemple-files";

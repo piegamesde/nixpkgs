@@ -17,15 +17,15 @@ stdenv.mkDerivation {
     sha256 = "0gm2vngdac17lzw9azkhzazmfq3byjddms14gqjk18vnynfqp5wp";
   };
 
-  configureFlags = [ "--enable-video-sixel" ];
+  configureFlags = ["--enable-video-sixel"];
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libsixel ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libsixel];
 
   meta = with lib; {
     description = "A cross-platform multimedia library, that supports sixel graphics on consoles";
     homepage = "https://github.com/saitoha/SDL1.2-SIXEL";
-    maintainers = with maintainers; [ vrthra ];
+    maintainers = with maintainers; [vrthra];
     platforms = platforms.linux;
     license = licenses.lgpl21;
   };

@@ -31,12 +31,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "sonarr" ];
+  pythonImportsCheck = ["sonarr"];
 
   meta = with lib; {
     description = "Asynchronous Python client for the Sonarr API";
     homepage = "https://github.com/ctalkington/python-sonarr";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

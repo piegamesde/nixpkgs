@@ -34,7 +34,7 @@ buildPythonPackage rec {
     pillow
   ];
 
-  pythonImportsCheck = [ "meshcat" ];
+  pythonImportsCheck = ["meshcat"];
 
   # requires a running MeshCat viewer
   doCheck = false;
@@ -43,6 +43,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/rdeits/meshcat-python";
     description = "WebGL-based 3D visualizer for Python";
     license = licenses.mit;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 }

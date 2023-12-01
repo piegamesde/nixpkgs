@@ -42,6 +42,6 @@ mkDerivation {
     homepage = "https://github.com/stwunsch/gr-nacl";
     license = licenses.gpl3Plus;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ mog ];
+    maintainers = with maintainers; [mog];
   };
 }

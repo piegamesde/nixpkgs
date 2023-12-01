@@ -24,7 +24,7 @@ in
 
 runCommand "${application.name}-wrapped"
   {
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     passthru = application.passthru // {
       unwrapped = application;

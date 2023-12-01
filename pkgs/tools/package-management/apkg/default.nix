@@ -59,7 +59,7 @@ python3Packages.buildPythonApplication rec {
     ])
   ];
 
-  nativeCheckInputs = with python3Packages; [ pytest ];
+  nativeCheckInputs = with python3Packages; [pytest];
   checkPhase = ''
     runHook preCheck
     py.test # inspiration: .gitlab-ci.yml

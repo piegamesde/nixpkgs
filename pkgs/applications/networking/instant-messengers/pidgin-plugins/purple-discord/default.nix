@@ -36,6 +36,6 @@ stdenv.mkDerivation {
     description = "Discord plugin for Pidgin";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ sna ];
+    maintainers = with maintainers; [sna];
   };
 }

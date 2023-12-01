@@ -32,7 +32,7 @@ stdenv.mkDerivation {
     ln -sv "${externals}" externals
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     qt4
     libGLU
@@ -52,7 +52,7 @@ stdenv.mkDerivation {
 
     homepage = "http://vite.gforge.inria.fr/";
     license = lib.licenses.cecill20;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 }

@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     autoconf
     perl
   ];
-  buildInputs = [ autoconf ];
+  buildInputs = [autoconf];
 
   setupHook = ./setup-hook.sh;
 

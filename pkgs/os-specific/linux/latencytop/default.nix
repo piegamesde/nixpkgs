@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     sha256 = "1vq3j9zdab6njly2wp900b3d5244mnxfm88j2bkiinbvxbxp4zwy";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     ncurses
     glib
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     homepage = "http://latencytop.org";
     description = "Tool to show kernel reports on latencies (LATENCYTOP option)";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.viric ];
+    maintainers = [lib.maintainers.viric];
     platforms = lib.platforms.linux;
   };
 }

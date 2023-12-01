@@ -60,6 +60,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/pop-os/launcher";
     platforms = platforms.linux;
     license = licenses.mpl20;
-    maintainers = with maintainers; [ samhug ];
+    maintainers = with maintainers; [samhug];
   };
 }

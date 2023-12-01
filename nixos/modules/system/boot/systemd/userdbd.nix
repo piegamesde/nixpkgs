@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{config, lib, ...}:
 
 let
   cfg = config.services.userdbd;
@@ -15,6 +15,6 @@ in
       "systemd-userdbd.service"
     ];
 
-    systemd.sockets.systemd-userdbd.wantedBy = [ "sockets.target" ];
+    systemd.sockets.systemd-userdbd.wantedBy = ["sockets.target"];
   };
 }

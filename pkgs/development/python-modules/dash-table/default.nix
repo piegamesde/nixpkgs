@@ -21,6 +21,6 @@ buildPythonPackage rec {
     description = "A First-Class Interactive DataTable for Dash";
     homepage = "https://dash.plot.ly/datatable";
     license = licenses.mit;
-    maintainers = [ maintainers.antoinerg ];
+    maintainers = [maintainers.antoinerg];
   };
 }

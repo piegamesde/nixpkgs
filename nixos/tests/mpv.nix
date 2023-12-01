@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
 
   with lib;
 
@@ -8,14 +8,14 @@ import ./make-test-python.nix (
   in
   {
     name = "mpv";
-    meta.maintainers = with maintainers; [ zopieux ];
+    meta.maintainers = with maintainers; [zopieux];
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         environment.systemPackages = [
           pkgs.curl
-          (pkgs.wrapMpv pkgs.mpv-unwrapped { scripts = [ pkgs.mpvScripts.simple-mpv-webui ]; })
+          (pkgs.wrapMpv pkgs.mpv-unwrapped {scripts = [pkgs.mpvScripts.simple-mpv-webui];})
         ];
       };
 

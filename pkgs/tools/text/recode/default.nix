@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     texinfo
     libiconv
   ];
-  buildInputs = [ libintl ];
+  buildInputs = [libintl];
 
   enableParallelBuilding = true;
 
@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
       lgpl3Plus
       gpl3Plus
     ];
-    maintainers = with lib.maintainers; [ jcumming ];
+    maintainers = with lib.maintainers; [jcumming];
   };
 }

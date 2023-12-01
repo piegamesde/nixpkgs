@@ -62,12 +62,12 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
   };
 
-  patches = [ ./use-default-values-for-libretro_info_path-assets_directory.patch ];
+  patches = [./use-default-values-for-libretro_info_path-assets_directory.patch];
 
   nativeBuildInputs = [
     pkg-config
     wrapQtAppsHook
-  ] ++ lib.optional withWayland wayland ++ lib.optional (runtimeLibs != [ ]) makeWrapper;
+  ] ++ lib.optional withWayland wayland ++ lib.optional (runtimeLibs != []) makeWrapper;
 
   buildInputs =
     [
@@ -127,13 +127,13 @@ stdenv.mkDerivation rec {
     ];
 
   postInstall =
-    lib.optionalString (runtimeLibs != [ ]) ''
+    lib.optionalString (runtimeLibs != []) ''
       wrapProgram $out/bin/retroarch \
         --prefix LD_LIBRARY_PATH ':' ${lib.makeLibraryPath runtimeLibs}
     ''
     + lib.optionalString enableNvidiaCgToolkit ''
       wrapProgram $out/bin/retroarch-cg2glsl \
-        --prefix PATH ':' ${lib.makeBinPath [ nvidia_cg_toolkit ]}
+        --prefix PATH ':' ${lib.makeBinPath [nvidia_cg_toolkit]}
     '';
 
   preFixup = lib.optionalString (!enableNvidiaCgToolkit) ''

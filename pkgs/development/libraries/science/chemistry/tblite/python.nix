@@ -54,7 +54,7 @@ buildPythonPackage {
   ];
 
   # Add multicharge to the meson deps; otherwise we get missing mod_multicharge errors
-  patches = [ ./0001-fix-multicharge-dep-needed-for-static-compilation.patch ];
+  patches = [./0001-fix-multicharge-dep-needed-for-static-compilation.patch];
 
   format = "other";
   pythonImportsCheck = [

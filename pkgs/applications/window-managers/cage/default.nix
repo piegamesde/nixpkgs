@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     sha256 = "0vm96gxinhy48m3x9p1sfldyd03w3gk6iflb7n9kn06j1vqyswr6";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     meson
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     libX11
   ];
 
-  mesonFlags = [ "-Dxwayland=${lib.boolToString (xwayland != null)}" ];
+  mesonFlags = ["-Dxwayland=${lib.boolToString (xwayland != null)}"];
 
   postFixup = lib.optionalString (xwayland != null) ''
     wrapProgram $out/bin/cage --prefix PATH : "${xwayland}/bin"
@@ -69,6 +69,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.hjdskes.nl/projects/cage/";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
   };
 }

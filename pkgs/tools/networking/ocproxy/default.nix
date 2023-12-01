@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     autoconf
     automake
   ];
-  buildInputs = [ libevent ];
+  buildInputs = [libevent];
 
   preConfigure = ''
     patchShebangs autogen.sh
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/cernekee/ocproxy";
     license = licenses.bsd3;
-    maintainers = [ maintainers.joko ];
+    maintainers = [maintainers.joko];
     platforms = platforms.unix;
   };
 }

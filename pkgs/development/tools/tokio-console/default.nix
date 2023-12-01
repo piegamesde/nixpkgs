@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-K/auhqlL/K6RYE0lHyvSUqK1cOwJBBZD3QTUevZzLXQ=";
 
-  nativeBuildInputs = [ protobuf ];
+  nativeBuildInputs = [protobuf];
 
   # uses currently unstable tokio features
   RUSTFLAGS = "--cfg tokio_unstable";
@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A debugger for asynchronous Rust code";
     homepage = "https://github.com/tokio-rs/console";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ max-niederman ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [max-niederman];
   };
 }

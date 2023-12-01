@@ -76,10 +76,10 @@ stdenv.mkDerivation rec {
     pcre
     openimageio_1.dev
     openimageio_1.out
-  ] ++ lib.optionals withOpenCL [ ocl-icd ] ++ lib.optionals withCuda [ cudatoolkit ];
+  ] ++ lib.optionals withOpenCL [ocl-icd] ++ lib.optionals withCuda [cudatoolkit];
 
   cmakeFlags =
-    [ "-DPYTHON_V=${pythonVersion}" ]
+    ["-DPYTHON_V=${pythonVersion}"]
     ++ lib.optional (!withOpenCL) "-DLUXRAYS_DISABLE_OPENCL=1"
     ++ lib.optional (!withCuda) "-DLUXRAYS_DISABLE_CUDA=1";
 
@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Open source, physically based, unbiased rendering engine";
     homepage = "https://luxcorerender.org/";
-    maintainers = with maintainers; [ hodapp ];
+    maintainers = with maintainers; [hodapp];
     license = licenses.asl20;
     platforms = platforms.linux;
   };

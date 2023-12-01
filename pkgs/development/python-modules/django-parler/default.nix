@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-tRGifFPCXF3aa3PQWKw3tl1H1TY+lgcChUP1VdwG1cE=";
   };
 
-  propagatedBuildInputs = [ django ];
+  propagatedBuildInputs = [django];
 
   checkPhase = ''
     runHook preCheck
@@ -36,6 +36,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/django-parler/django-parler";
     changelog = "https://github.com/django-parler/django-parler/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ derdennisop ];
+    maintainers = with maintainers; [derdennisop];
   };
 }

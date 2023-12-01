@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "remove-unneeded-pydebug-include.patch";
       url = "https://github.com/MeVisLab/pythonqt/commit/a93104dea4d9c79351276ec963e931ca617625ec.patch";
-      includes = [ "src/PythonQt.cpp" ];
+      includes = ["src/PythonQt.cpp"];
       hash = "sha256-Tc4+6dIdvrda/z3Nz1s9Xz+ZWJLV2BQh8i552UynSI0=";
     })
   ];
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
       --replace "unix:PYTHON_VERSION=2.7" "unix:PYTHON_VERSION=${python.pythonVersion}"
   '';
 
-  hardeningDisable = [ "all" ];
+  hardeningDisable = ["all"];
 
   nativeBuildInputs = [
     qmake
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     unzip
   ];
 
-  buildInputs = [ python ];
+  buildInputs = [python];
 
   qmakeFlags = [
     "PythonQt.pro"
@@ -71,6 +71,6 @@ stdenv.mkDerivation rec {
     homepage = "https://pythonqt.sourceforge.net/";
     license = licenses.lgpl21;
     platforms = platforms.all;
-    maintainers = with maintainers; [ hlolli ];
+    maintainers = with maintainers; [hlolli];
   };
 }

@@ -1,4 +1,4 @@
-{ buildGoPackage, fetchFromGitHub }:
+{buildGoPackage, fetchFromGitHub}:
 
 buildGoPackage rec {
   pname = "mesos-dns";
@@ -8,7 +8,7 @@ buildGoPackage rec {
   goPackagePath = "github.com/mesosphere/mesos-dns";
 
   # Avoid including the benchmarking test helper in the output:
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   src = fetchFromGitHub {
     inherit rev;

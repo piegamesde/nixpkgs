@@ -1,15 +1,15 @@
 # Test Traefik as a reverse proxy of a local web service
 # and a Docker container.
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "traefik";
-    meta = with pkgs.lib.maintainers; { maintainers = [ joko ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [joko];};
 
     nodes = {
-      client = { config, pkgs, ... }: { environment.systemPackages = [ pkgs.curl ]; };
+      client = {config, pkgs, ...}: {environment.systemPackages = [pkgs.curl];};
       traefik =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         {
           virtualisation.oci-containers = {
             backend = "docker";
@@ -27,7 +27,7 @@ import ./make-test-python.nix (
             };
           };
 
-          networking.firewall.allowedTCPPorts = [ 80 ];
+          networking.firewall.allowedTCPPorts = [80];
 
           services.traefik = {
             enable = true;
@@ -35,12 +35,12 @@ import ./make-test-python.nix (
             dynamicConfigOptions = {
               http.routers.simplehttp = {
                 rule = "Host(`simplehttp.traefik.test`)";
-                entryPoints = [ "web" ];
+                entryPoints = ["web"];
                 service = "simplehttp";
               };
 
               http.services.simplehttp = {
-                loadBalancer.servers = [ { url = "http://127.0.0.1:8000"; } ];
+                loadBalancer.servers = [{url = "http://127.0.0.1:8000";}];
               };
             };
 
@@ -59,10 +59,10 @@ import ./make-test-python.nix (
           systemd.services.simplehttp = {
             script = "${pkgs.python3}/bin/python -m http.server 8000";
             serviceConfig.Type = "simple";
-            wantedBy = [ "multi-user.target" ];
+            wantedBy = ["multi-user.target"];
           };
 
-          users.users.traefik.extraGroups = [ "docker" ];
+          users.users.traefik.extraGroups = ["docker"];
         };
     };
 

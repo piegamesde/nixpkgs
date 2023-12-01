@@ -30,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-Sa5pfvSzshgwHh9LGWPBVIC7pXouZbTmSMYncT46phU=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     asyncstdlib
@@ -38,7 +38,7 @@ buildPythonPackage rec {
     defusedxml
     httpx
     netifaces
-  ] ++ lib.optionals (pythonOlder "3.11") [ async-timeout ];
+  ] ++ lib.optionals (pythonOlder "3.11") [async-timeout];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -47,13 +47,13 @@ buildPythonPackage rec {
     pytest-timeout
   ];
 
-  pythonImportsCheck = [ "denonavr" ];
+  pythonImportsCheck = ["denonavr"];
 
   meta = with lib; {
     description = "Automation Library for Denon AVR receivers";
     homepage = "https://github.com/ol-iver/denonavr";
     changelog = "https://github.com/ol-iver/denonavr/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ colemickens ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [colemickens];
   };
 }

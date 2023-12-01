@@ -27,9 +27,9 @@ rustPlatform.buildRustPackage {
     ./remove-dependency-verification.patch
   ];
 
-  patchFlags = [ "-p3" ];
+  patchFlags = ["-p3"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postFixup = ''
     wrapProgram "$out/bin/yabridgectl" \
@@ -44,7 +44,7 @@ rustPlatform.buildRustPackage {
     description = "A small, optional utility to help set up and update yabridge for several directories at once";
     homepage = "${yabridge.src.meta.homepage}/tree/${yabridge.version}/tools/yabridgectl";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
     platforms = yabridge.meta.platforms;
   };
 }

@@ -7,7 +7,7 @@
 bundlerApp {
   pname = "compass";
   gemdir = ./.;
-  exes = [ "compass" ];
+  exes = ["compass"];
 
   passthru.updateScript = bundlerUpdateScript "compass";
 

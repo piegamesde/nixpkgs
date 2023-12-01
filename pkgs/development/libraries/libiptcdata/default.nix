@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "ianw";
     repo = pname;
-    rev = "release_${builtins.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "release_${builtins.replaceStrings ["."] ["_"] version}";
     sha256 = "sha256-ZjokepDAHiSEwXrkvM9qUAPcpIiRQoOsv7REle7roPU=";
   };
 
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     sed -i 's/docs//' Makefile.am
   '';
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = lib.optionals stdenv.isDarwin [
     libiconv
@@ -36,6 +36,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ianw/libiptcdata";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 }

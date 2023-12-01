@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-BE/v1CJAwKwxlK3Xg3ezD+IXyT7ZFGz3bQzGxFQfEnU=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     glib
     xorg.libX11
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Forward freedesktop.org Idle Inhibition Service calls to Xss";
     homepage = "https://github.com/vincentbernat/xssproxy";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ benley ];
+    maintainers = with lib.maintainers; [benley];
     platforms = lib.platforms.unix;
   };
 }

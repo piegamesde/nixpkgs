@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-WiQKWxJkINIwRBcdiuVLMDiupQ8gOsiXOEZvHDa5iFg=";
   };
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     mkdir -p $out/bin

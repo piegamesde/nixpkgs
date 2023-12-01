@@ -26,7 +26,7 @@ buildPythonPackage rec {
     prettytable
   ];
 
-  pythonImportsCheck = [ "aiosomecomfort" ];
+  pythonImportsCheck = ["aiosomecomfort"];
 
   doCheck = false; # tests only run on windows, due to WindowsSelectorEventLoopPolicy
 
@@ -35,6 +35,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mkmer/AIOSomecomfort";
     changelog = "https://github.com/mkmer/AIOSomecomfort/releases/tag/${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

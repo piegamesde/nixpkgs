@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3gsaXnflGiGOpIkqDQe5u6x8d18x67/dc4Hh1iU89+o=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     pkg-config
     meson
@@ -56,9 +56,9 @@ stdenv.mkDerivation rec {
       pixman
       tllist
     ]
-    ++ lib.optionals (withShapingTypes != [ ]) [ harfbuzz ]
-    ++ lib.optionals (builtins.elem "run" withShapingTypes) [ utf8proc ];
-  nativeCheckInputs = [ check ];
+    ++ lib.optionals (withShapingTypes != []) [harfbuzz]
+    ++ lib.optionals (builtins.elem "run" withShapingTypes) [utf8proc];
+  nativeCheckInputs = [check];
 
   mesonBuildType = "release";
   mesonFlags =
@@ -74,8 +74,8 @@ stdenv.mkDerivation rec {
   ];
 
   passthru.tests = {
-    noShaping = fcft.override { withShapingTypes = [ ]; };
-    onlyGraphemeShaping = fcft.override { withShapingTypes = [ "grapheme" ]; };
+    noShaping = fcft.override {withShapingTypes = [];};
+    onlyGraphemeShaping = fcft.override {withShapingTypes = ["grapheme"];};
   };
 
   meta = with lib; {

@@ -31,7 +31,7 @@ buildOctavePackage rec {
     dolfin
   ];
 
-  buildInputs = [ dolfin ];
+  buildInputs = [dolfin];
 
   propagatedBuildInputs = [
     gmsh
@@ -39,12 +39,12 @@ buildOctavePackage rec {
     dolfin
   ];
 
-  requiredOctavePackages = [ splines ];
+  requiredOctavePackages = [splines];
 
   meta = with lib; {
     homepage = "https://octave.sourceforge.io/msh/index.html";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ KarlJoad ];
+    maintainers = with maintainers; [KarlJoad];
     description = "Create and manage triangular and tetrahedral meshes for Finite Element or Finite Volume PDE solvers";
     longDescription = ''
       Create and manage triangular and tetrahedral meshes for Finite Element or

@@ -44,13 +44,13 @@ stdenv.mkDerivation rec {
       bzip2
       zlib
     ]
-    ++ optionals stdenv.isLinux [ gpm ]
+    ++ optionals stdenv.isLinux [gpm]
     ++ optionals enableX11 [
       libX11
       libXau
       libXt
     ]
-    ++ optionals enableDirectFB [ directfb ];
+    ++ optionals enableDirectFB [directfb];
 
   nativeBuildInputs = [
     pkg-config
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags =
-    [ "--with-ssl" ]
+    ["--with-ssl"]
     ++ lib.optional (enableX11 || enableFB || enableDirectFB) "--enable-graphics"
     ++ lib.optional enableX11 "--with-x"
     ++ lib.optional enableFB "--with-fb"
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://links.twibright.com/";
     description = "A small browser with some graphics support";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     mainProgram = "links";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

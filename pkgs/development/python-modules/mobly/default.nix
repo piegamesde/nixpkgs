@@ -47,6 +47,6 @@ buildPythonPackage rec {
     description = "Automation framework for special end-to-end test cases";
     homepage = "https://github.com/google/mobly";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

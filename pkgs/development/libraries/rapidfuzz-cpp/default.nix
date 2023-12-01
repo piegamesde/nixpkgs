@@ -18,9 +18,9 @@ stdenv.mkDerivation (
       hash = "sha256-Qqdw5dy+JUBSDpbWEh3Ap3+3h+CcNdfBL+rloRzWGEQ=";
     };
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
-    cmakeFlags = lib.optionals finalAttrs.finalPackage.doCheck [ "-DRAPIDFUZZ_BUILD_TESTING=ON" ];
+    cmakeFlags = lib.optionals finalAttrs.finalPackage.doCheck ["-DRAPIDFUZZ_BUILD_TESTING=ON"];
 
     CXXFLAGS =
       lib.optionals stdenv.cc.isClang
@@ -29,14 +29,14 @@ stdenv.mkDerivation (
           "-include algorithm"
         ];
 
-    nativeCheckInputs = [ catch2_3 ];
+    nativeCheckInputs = [catch2_3];
 
     meta = {
       description = "Rapid fuzzy string matching in C++ using the Levenshtein Distance";
       homepage = "https://github.com/maxbachmann/rapidfuzz-cpp";
       changelog = "https://github.com/maxbachmann/rapidfuzz-cpp/blob/${finalAttrs.src.rev}/CHANGELOG.md";
       license = lib.licenses.mit;
-      maintainers = with lib.maintainers; [ dotlambda ];
+      maintainers = with lib.maintainers; [dotlambda];
       platforms = lib.platforms.unix;
     };
   }

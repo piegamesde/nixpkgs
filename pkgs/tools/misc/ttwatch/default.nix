@@ -35,7 +35,7 @@ stdenv.mkDerivation {
     protobufc
   ];
 
-  cmakeFlags = lib.optionals enableUnsafe [ "-Dunsafe=on" ];
+  cmakeFlags = lib.optionals enableUnsafe ["-Dunsafe=on"];
 
   preFixup = ''
     chmod +x $out/bin/ttbin2mysports
@@ -44,7 +44,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://github.com/ryanbinns/ttwatch";
     description = "Linux TomTom GPS Watch Utilities";
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     license = licenses.mit;
     platforms = with platforms; linux;
   };

@@ -18,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-ZrVs1kdL9B2MVGYDR9N6/MP30ZcGSN42XBAu93VIqts=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "filetype" ];
+  pythonImportsCheck = ["filetype"];
 
   disabledTests = [
     # https://github.com/h2non/filetype.py/issues/119
@@ -41,6 +41,6 @@ buildPythonPackage rec {
     description = "Infer file type and MIME type of any file/buffer";
     homepage = "https://github.com/h2non/filetype.py";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -26,7 +26,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     dvc-objects
@@ -38,13 +38,13 @@ buildPythonPackage rec {
   # ModuleNotFoundError: No module named 'dvc.testing'
   doCheck = false;
 
-  pythonImportsCheck = [ "dvc_http" ];
+  pythonImportsCheck = ["dvc_http"];
 
   meta = with lib; {
     description = "HTTP plugin for dvc";
     homepage = "https://github.com/iterative/dvc-http";
     changelog = "https://github.com/iterative/dvc-http/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

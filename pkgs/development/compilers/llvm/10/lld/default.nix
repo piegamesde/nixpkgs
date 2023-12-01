@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
 
   src = fetch pname "0ynzi35r4fckvp6842alpd43qr810j3728yfslc66fk2mbh4j52r";
 
-  patches = [ ./gnu-install-dirs.patch ];
+  patches = [./gnu-install-dirs.patch];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libllvm
     libxml2

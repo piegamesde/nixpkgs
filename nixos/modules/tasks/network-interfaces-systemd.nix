@@ -48,8 +48,8 @@ let
         };
       };
     in
-    optionalAttrs (gateway != [ ]) { routes = override (map makeGateway gateway); }
-    // optionalAttrs (domains != [ ]) { domains = override domains; };
+    optionalAttrs (gateway != []) {routes = override (map makeGateway gateway);}
+    // optionalAttrs (domains != []) {domains = override domains;};
 
   genericDhcpNetworks =
     initrd:
@@ -107,7 +107,7 @@ let
               Name = i.name;
               Kind = i.virtualType;
             };
-            "${i.virtualType}Config" = optionalAttrs (i.virtualOwner != null) { User = i.virtualOwner; };
+            "${i.virtualType}Config" = optionalAttrs (i.virtualOwner != null) {User = i.virtualOwner;};
           };
         });
         networks."40-${i.name}" = mkMerge [
@@ -127,25 +127,23 @@ let
                   // optionalAttrs (route.options ? fastopen_no_cookie) {
                     FastOpenNoCookie = route.options.fastopen_no_cookie;
                   }
-                  // optionalAttrs (route.via != null) { Gateway = route.via; }
-                  // optionalAttrs (route.type != null) { Type = route.type; }
-                  // optionalAttrs (route.options ? onlink) { GatewayOnLink = true; }
+                  // optionalAttrs (route.via != null) {Gateway = route.via;}
+                  // optionalAttrs (route.type != null) {Type = route.type;}
+                  // optionalAttrs (route.options ? onlink) {GatewayOnLink = true;}
                   // optionalAttrs (route.options ? initrwnd) {
                     InitialAdvertisedReceiveWindow = route.options.initrwnd;
                   }
-                  // optionalAttrs (route.options ? initcwnd) { InitialCongestionWindow = route.options.initcwnd; }
-                  // optionalAttrs (route.options ? pref) { IPv6Preference = route.options.pref; }
-                  // optionalAttrs (route.options ? mtu) { MTUBytes = route.options.mtu; }
-                  // optionalAttrs (route.options ? metric) { Metric = route.options.metric; }
-                  // optionalAttrs (route.options ? src) { PreferredSource = route.options.src; }
-                  // optionalAttrs (route.options ? protocol) { Protocol = route.options.protocol; }
-                  // optionalAttrs (route.options ? quickack) { QuickAck = route.options.quickack; }
-                  // optionalAttrs (route.options ? scope) { Scope = route.options.scope; }
-                  // optionalAttrs (route.options ? from) { Source = route.options.from; }
-                  // optionalAttrs (route.options ? table) { Table = route.options.table; }
-                  // optionalAttrs (route.options ? advmss) {
-                    TCPAdvertisedMaximumSegmentSize = route.options.advmss;
-                  }
+                  // optionalAttrs (route.options ? initcwnd) {InitialCongestionWindow = route.options.initcwnd;}
+                  // optionalAttrs (route.options ? pref) {IPv6Preference = route.options.pref;}
+                  // optionalAttrs (route.options ? mtu) {MTUBytes = route.options.mtu;}
+                  // optionalAttrs (route.options ? metric) {Metric = route.options.metric;}
+                  // optionalAttrs (route.options ? src) {PreferredSource = route.options.src;}
+                  // optionalAttrs (route.options ? protocol) {Protocol = route.options.protocol;}
+                  // optionalAttrs (route.options ? quickack) {QuickAck = route.options.quickack;}
+                  // optionalAttrs (route.options ? scope) {Scope = route.options.scope;}
+                  // optionalAttrs (route.options ? from) {Source = route.options.from;}
+                  // optionalAttrs (route.options ? table) {Table = route.options.table;}
+                  // optionalAttrs (route.options ? advmss) {TCPAdvertisedMaximumSegmentSize = route.options.advmss;}
                   // optionalAttrs (route.options ? ttl-propagate) {
                     TTLPropagate = route.options.ttl-propagate == "enabled";
                   };
@@ -153,8 +151,8 @@ let
             );
             networkConfig.IPv6PrivacyExtensions = "kernel";
             linkConfig =
-              optionalAttrs (i.macAddress != null) { MACAddress = i.macAddress; }
-              // optionalAttrs (i.mtu != null) { MTUBytes = toString i.mtu; };
+              optionalAttrs (i.macAddress != null) {MACAddress = i.macAddress;}
+              // optionalAttrs (i.mtu != null) {MTUBytes = toString i.mtu;};
           }
         ];
       }
@@ -194,7 +192,7 @@ in
         ]
         ++ flip mapAttrsToList cfg.bridges (
           n:
-          { rstp, ... }:
+          {rstp, ...}:
           {
             assertion = !rstp;
             message = "networking.bridges.${n}.rstp is not supported by networkd.";
@@ -202,7 +200,7 @@ in
         )
         ++ flip mapAttrsToList cfg.fooOverUDP (
           n:
-          { local, ... }:
+          {local, ...}:
           {
             assertion = local == null;
             message = "networking.fooOverUDP.${n}.local is not supported by networkd.";
@@ -212,7 +210,7 @@ in
       networking.dhcpcd.enable = mkDefault false;
 
       systemd.network = mkMerge [
-        { enable = true; }
+        {enable = true;}
         (genericDhcpNetworks false)
         interfaceNetworks
         (mkMerge (
@@ -259,7 +257,7 @@ in
                       let
                         trans = f: optName: {
                           valTransform = f;
-                          optNames = [ optName ];
+                          optNames = [optName];
                         };
                         simp = trans id;
                         ms = trans (v: v + "ms");
@@ -298,7 +296,7 @@ in
                       let
                         knownOptions = flatten (mapAttrsToList (_: kOpts: kOpts.optNames) driverOptionMapping);
                         # options that apparently don’t exist in the networkd config
-                        unknownOptions = [ "primary" ];
+                        unknownOptions = ["primary"];
                         assertTrace = bool: msg: if bool then true else builtins.trace msg false;
                       in
                       assert all
@@ -354,12 +352,12 @@ in
                   Name = name;
                   Kind = "macvlan";
                 };
-                macvlanConfig = optionalAttrs (macvlan.mode != null) { Mode = macvlan.mode; };
+                macvlanConfig = optionalAttrs (macvlan.mode != null) {Mode = macvlan.mode;};
               };
               networks."40-${macvlan.interface}" =
                 (mkMerge [
                   (genericNetwork (mkOverride 999))
-                  { macvlan = [ name ]; }
+                  {macvlan = [name];}
                 ]);
             }
           )
@@ -378,7 +376,7 @@ in
                 fooOverUDPConfig = {
                   Port = fou.port;
                   Encapsulation = if fou.protocol != null then "FooOverUDP" else "GenericUDPEncapsulation";
-                } // (optionalAttrs (fou.protocol != null) { Protocol = fou.protocol; });
+                } // (optionalAttrs (fou.protocol != null) {Protocol = fou.protocol;});
               };
             }
           )
@@ -392,9 +390,9 @@ in
                   Kind = "sit";
                 };
                 tunnelConfig =
-                  (optionalAttrs (sit.remote != null) { Remote = sit.remote; })
-                  // (optionalAttrs (sit.local != null) { Local = sit.local; })
-                  // (optionalAttrs (sit.ttl != null) { TTL = sit.ttl; })
+                  (optionalAttrs (sit.remote != null) {Remote = sit.remote;})
+                  // (optionalAttrs (sit.local != null) {Local = sit.local;})
+                  // (optionalAttrs (sit.ttl != null) {TTL = sit.ttl;})
                   // (optionalAttrs (sit.encapsulation != null) (
                     {
                       FooOverUDP = true;
@@ -410,7 +408,7 @@ in
                 "40-${sit.dev}" =
                   (mkMerge [
                     (genericNetwork (mkOverride 999))
-                    { tunnel = [ name ]; }
+                    {tunnel = [name];}
                   ]);
               };
             }
@@ -425,15 +423,15 @@ in
                   Kind = gre.type;
                 };
                 tunnelConfig =
-                  (optionalAttrs (gre.remote != null) { Remote = gre.remote; })
-                  // (optionalAttrs (gre.local != null) { Local = gre.local; })
-                  // (optionalAttrs (gre.ttl != null) { TTL = gre.ttl; });
+                  (optionalAttrs (gre.remote != null) {Remote = gre.remote;})
+                  // (optionalAttrs (gre.local != null) {Local = gre.local;})
+                  // (optionalAttrs (gre.ttl != null) {TTL = gre.ttl;});
               };
               networks = mkIf (gre.dev != null) {
                 "40-${gre.dev}" =
                   (mkMerge [
                     (genericNetwork (mkOverride 999))
-                    { tunnel = [ name ]; }
+                    {tunnel = [name];}
                   ]);
               };
             }
@@ -452,7 +450,7 @@ in
               networks."40-${vlan.interface}" =
                 (mkMerge [
                   (genericNetwork (mkOverride 999))
-                  { vlan = [ name ]; }
+                  {vlan = [name];}
                 ]);
             }
           )
@@ -461,7 +459,7 @@ in
 
       # We need to prefill the slaved devices with networking options
       # This forces the network interface creator to initialize slaves.
-      networking.interfaces = listToAttrs (map (i: nameValuePair i { }) slaves);
+      networking.interfaces = listToAttrs (map (i: nameValuePair i {}) slaves);
 
       systemd.services =
         let
@@ -484,11 +482,11 @@ in
                   (subsystemDevice n)
                 ];
                 # and create bridge before systemd-networkd starts because it might create internal interfaces
-                before = [ "systemd-networkd.service" ];
+                before = ["systemd-networkd.service"];
                 # shutdown the bridge when network is shutdown
-                partOf = [ "network.target" ];
+                partOf = ["network.target"];
                 # requires ovs-vswitchd to be alive at all times
-                bindsTo = [ "ovs-vswitchd.service" ];
+                bindsTo = ["ovs-vswitchd.service"];
                 # start switch after physical interfaces and vswitch daemon
                 after = [
                   "network-pre.target"
@@ -547,8 +545,8 @@ in
         mapAttrs' createVswitchDevice cfg.vswitches
         // {
           "network-local-commands" = {
-            after = [ "systemd-networkd.service" ];
-            bindsTo = [ "systemd-networkd.service" ];
+            after = ["systemd-networkd.service"];
+            bindsTo = ["systemd-networkd.service"];
           };
         };
     })

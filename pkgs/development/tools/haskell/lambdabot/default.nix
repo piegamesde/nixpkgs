@@ -6,13 +6,13 @@
   mueval,
   withDjinn ? true,
   aspell ? null,
-  packages ? (pkgs: [ ]),
+  packages ? (pkgs: []),
   modules ? "oldDefaultModules",
   configuration ? "[]",
 }:
 
 let
-  allPkgs = pkgs: mueval.defaultPkgs pkgs ++ [ pkgs.lambdabot-trusted ] ++ packages pkgs;
+  allPkgs = pkgs: mueval.defaultPkgs pkgs ++ [pkgs.lambdabot-trusted] ++ packages pkgs;
   mueval' = mueval.override {
     inherit haskellPackages;
     packages = allPkgs;
@@ -27,12 +27,12 @@ let
     ++ lib.optional withDjinn haskellPackages.djinn
     ++ lib.optional (aspell != null) aspell
   );
-  modulesStr = lib.replaceStrings [ "\n" ] [ " " ] modules;
-  configStr = lib.replaceStrings [ "\n" ] [ " " ] configuration;
+  modulesStr = lib.replaceStrings ["\n"] [" "] modules;
+  configStr = lib.replaceStrings ["\n"] [" "] configuration;
 in
 haskellLib.overrideCabal
   (self: {
-    patches = (self.patches or [ ]) ++ [ ./custom-config.patch ];
+    patches = (self.patches or []) ++ [./custom-config.patch];
     postPatch =
       (self.postPatch or "")
       + ''
@@ -42,7 +42,7 @@ haskellLib.overrideCabal
           --replace '@modules@' '${modulesStr}'
       '';
 
-    buildTools = (self.buildTools or [ ]) ++ [ makeWrapper ];
+    buildTools = (self.buildTools or []) ++ [makeWrapper];
 
     postInstall =
       (self.postInstall or "")

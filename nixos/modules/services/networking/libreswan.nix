@@ -99,7 +99,7 @@ in
 
       connections = mkOption {
         type = types.attrsOf types.lines;
-        default = { };
+        default = {};
         example = literalExpression ''
           { myconnection = '''
               auto=add
@@ -118,7 +118,7 @@ in
 
       policies = mkOption {
         type = types.attrsOf types.lines;
-        default = { };
+        default = {};
         example = literalExpression ''
           { private-or-clear = '''
               # Attempt opportunistic IPsec for the entire Internet
@@ -157,8 +157,8 @@ in
       pkgs.libreswan
       pkgs.iproute2
     ];
-    systemd.packages = [ pkgs.libreswan ];
-    systemd.tmpfiles.packages = [ pkgs.libreswan ];
+    systemd.packages = [pkgs.libreswan];
+    systemd.tmpfiles.packages = [pkgs.libreswan];
 
     # Install configuration files
     environment.etc = {
@@ -168,12 +168,12 @@ in
     } // policyFiles;
 
     # Create NSS database directory
-    systemd.tmpfiles.rules = [ "d /var/lib/ipsec/nss 755 root root -" ];
+    systemd.tmpfiles.rules = ["d /var/lib/ipsec/nss 755 root root -"];
 
     systemd.services.ipsec = {
       description = "Internet Key Exchange (IKE) Protocol Daemon for IPsec";
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ configFile ] ++ mapAttrsToList (n: v: v.source) policyFiles;
+      wantedBy = ["multi-user.target"];
+      restartTriggers = [configFile] ++ mapAttrsToList (n: v: v.source) policyFiles;
       path = with pkgs; [
         libreswan
         iproute2

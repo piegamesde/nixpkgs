@@ -1,15 +1,15 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "overlayfs";
-    meta.maintainers = with pkgs.lib.maintainers; [ bachp ];
+    meta.maintainers = with pkgs.lib.maintainers; [bachp];
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        virtualisation.emptyDiskImages = [ 512 ];
+        virtualisation.emptyDiskImages = [512];
         networking.hostId = "deadbeef";
-        environment.systemPackages = with pkgs; [ parted ];
+        environment.systemPackages = with pkgs; [parted];
       };
 
     testScript = ''

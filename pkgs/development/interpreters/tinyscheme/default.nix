@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-F7Cxv/0i89SdWDPiKhILM5A50s/aC0bW/FHdLwG0B60=";
   };
 
-  nativeBuildInputs = [ dos2unix ];
+  nativeBuildInputs = [dos2unix];
 
   prePatch = "dos2unix makefile";
   patches =
@@ -50,11 +50,11 @@ stdenv.mkDerivation rec {
 
   passthru.tests = {
     # Checks that the program can run and exit:
-    simple = runCommand "${pname}-simple-test" { } ''
+    simple = runCommand "${pname}-simple-test" {} ''
       ${tinyscheme}/bin/tinyscheme <<<"(quit 0)"
       echo "success" > $out
     '';
-    fileIo = runCommand "${pname}-file-io-test" { } ''
+    fileIo = runCommand "${pname}-file-io-test" {} ''
       ${tinyscheme}/bin/tinyscheme <<EOF
         (call-with-output-file "$out"
           (lambda (p)
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
             )))
       EOF
     '';
-    helpText = runCommand "${pname}-help-text-test" { } ''
+    helpText = runCommand "${pname}-help-text-test" {} ''
       ${tinyscheme}/bin/tinyscheme '-?' | tee > $out || :
       [[ "$(cat $out)" =~ ^Usage: ]]
     '';
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
     changelog = "https://tinyscheme.sourceforge.net/CHANGES";
     license = licenses.bsdOriginal;
     mainProgram = pname;
-    maintainers = [ maintainers.ebzzry ];
+    maintainers = [maintainers.ebzzry];
     platforms = platforms.unix;
   };
 }

@@ -23,11 +23,11 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  nativeBuildInputs = [ texlive.combined.scheme-full ]; # scheme-full needed for ucs package
-  buildInputs = [ xercesc ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
+  nativeBuildInputs = [texlive.combined.scheme-full]; # scheme-full needed for ucs package
+  buildInputs = [xercesc] ++ lib.optionals stdenv.isDarwin [libiconv];
 
   buildFlags =
-    [ "doc" ]
+    ["doc"]
     ++ (
       if stdenv.isDarwin then
         [
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       convert all the formulas of the given XML file into MathML.
     '';
     license = licenses.bsd3;
-    maintainers = [ maintainers.xworld21 ];
+    maintainers = [maintainers.xworld21];
     platforms = platforms.all;
   };
 }

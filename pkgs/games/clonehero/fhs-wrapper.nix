@@ -14,7 +14,7 @@ let
     comment = clonehero-unwrapped.meta.description;
     exec = name;
     icon = name;
-    categories = [ "Game" ];
+    categories = ["Game"];
   };
 in
 buildFHSEnv {
@@ -36,5 +36,5 @@ buildFHSEnv {
     ln -s ${clonehero-unwrapped}/share/clonehero_Data/Resources/UnityPlayer.png "$out/share/pixmaps/${name}.png"
   '';
 
-  runScript = callPackage ./xdg-wrapper.nix { };
+  runScript = callPackage ./xdg-wrapper.nix {};
 }

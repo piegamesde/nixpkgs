@@ -40,7 +40,7 @@ buildPythonPackage rec {
     hash = "sha256-iT/pePUtH1hwNIOG8Y/YbqCVseNXVOKC0nrXfB2RTlQ=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -62,7 +62,7 @@ buildPythonPackage rec {
     werkzeug
   ];
 
-  pythonImportsCheck = [ "quart" ];
+  pythonImportsCheck = ["quart"];
 
   nativeCheckInputs = [
     hypothesis
@@ -77,6 +77,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pallets/quart/";
     changelog = "https://github.com/pallets/quart/blob/${src.rev}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

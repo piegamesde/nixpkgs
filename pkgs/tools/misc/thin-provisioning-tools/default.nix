@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "1iwg04rhmdhijmlk5hfl8wvv83115lzb65if6cc1glkkfva8jfjp";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = [
     expat
@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
     description = "A suite of tools for manipulating the metadata of the dm-thin device-mapper target";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

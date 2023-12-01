@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    maintainers = [ lib.maintainers.marcweber ];
+    maintainers = [lib.maintainers.marcweber];
     platforms = lib.platforms.linux;
     description = "Desktop Publishing (DTP) and Layout program for Linux";
     homepage = "https://www.scribus.net";

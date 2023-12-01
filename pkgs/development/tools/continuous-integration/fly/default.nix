@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-Oy1wP82ZhdpGHs/gpfdveOK/jI9yuo0D3JtxjLg+W/w=";
 
-  subPackages = [ "fly" ];
+  subPackages = ["fly"];
 
   ldflags = [
     "-s"
@@ -27,7 +27,7 @@ buildGoModule rec {
     "-X github.com/concourse/concourse.Version=${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   doCheck = false;
 

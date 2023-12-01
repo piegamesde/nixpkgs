@@ -1,6 +1,6 @@
 {
   pkgs,
-  nixpkgs ? { },
+  nixpkgs ? {},
   libsets,
 }:
 let
@@ -13,12 +13,12 @@ let
         name:
         [
           {
-            name = builtins.concatStringsSep "." (prefix ++ [ name ]);
+            name = builtins.concatStringsSep "." (prefix ++ [name]);
             location = builtins.unsafeGetAttrPos name set;
           }
         ]
         ++ nixpkgsLib.optionals (builtins.length prefix == 0 && builtins.isAttrs set.${name}) (
-          libDefPos (prefix ++ [ name ]) set.${name}
+          libDefPos (prefix ++ [name]) set.${name}
         )
       )
       (builtins.attrNames set);
@@ -28,14 +28,14 @@ let
     builtins.map
       (subsetname: {
         subsetname = subsetname;
-        functions = libDefPos [ ] toplib.${subsetname};
+        functions = libDefPos [] toplib.${subsetname};
       })
       (builtins.map (x: x.name) libsets);
 
   nixpkgsLib = pkgs.lib;
 
   flattenedLibSubset =
-    { subsetname, functions }:
+    {subsetname, functions}:
     builtins.map
       (fn: {
         name = "lib.${subsetname}.${fn.name}";
@@ -60,7 +60,7 @@ let
   );
 
   fnLocationRelative =
-    { name, value }:
+    {name, value}:
     {
       inherit name;
       value = value // {
@@ -69,13 +69,13 @@ let
     };
 
   relativeLocs = (builtins.map fnLocationRelative liblocations);
-  sanitizeId = builtins.replaceStrings [ "'" ] [ "-prime" ];
+  sanitizeId = builtins.replaceStrings ["'"] ["-prime"];
 
   urlPrefix = "https://github.com/NixOS/nixpkgs/blob/${revision}";
   xmlstrings =
     (nixpkgsLib.strings.concatMapStrings
       (
-        { name, value }:
+        {name, value}:
         ''
           <section><title>${name}</title>
             <para xml:id="${sanitizeId name}">

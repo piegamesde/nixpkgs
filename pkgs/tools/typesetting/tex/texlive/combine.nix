@@ -83,13 +83,13 @@ let
             -- "$out/texmf-dist/scripts/texlive/mktexlsr.pl" --sort "$out"/texmf-dist
         '';
     }).overrideAttrs
-      (_: { allowSubstitutes = true; });
+      (_: {allowSubstitutes = true;});
 
   # expose info and man pages in usual /share/{info,man} location
   doc = buildEnv {
     name = "${name}-doc";
 
-    paths = [ (texmfroot.outPath + "/texmf-dist/doc") ];
+    paths = [(texmfroot.outPath + "/texmf-dist/doc")];
     extraPrefix = "/share";
 
     pathsToLink = [
@@ -105,7 +105,7 @@ in
   ignoreCollisions = false;
 
   # remove fake derivations (without 'outPath') to avoid undesired build dependencies
-  paths = lib.catAttrs "outPath" pkgList.bin ++ [ doc ];
+  paths = lib.catAttrs "outPath" pkgList.bin ++ [doc];
   pathsToLink = [
     "/"
     "/bin" # ensure these are writeable directories
@@ -269,7 +269,7 @@ in
             --set-default TEXMFCNF "$TEXMFCNF" \
             --set-default FONTCONFIG_FILE "${
               # neccessary for XeTeX to find the fonts distributed with texlive
-              makeFontsConf { fontDirectories = [ "${texmfroot}/texmf-dist/fonts" ]; }
+              makeFontsConf {fontDirectories = ["${texmfroot}/texmf-dist/fonts"];}
             }"
 
           # avoid using non-nix shebang in $target by calling interpreter
@@ -392,4 +392,4 @@ in
         find "$TEXMFSYSVAR"/web2c -name '*.log' -delete
       '';
 }).overrideAttrs
-  (_: { allowSubstitutes = true; })
+  (_: {allowSubstitutes = true;})

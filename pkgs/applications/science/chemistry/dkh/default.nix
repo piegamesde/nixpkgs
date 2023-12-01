@@ -22,15 +22,15 @@ stdenv.mkDerivation rec {
     cmake
   ];
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
+  cmakeFlags = ["-DBUILD_SHARED_LIBS=ON"];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     description = "Arbitrary-order scalar-relativistic Douglas-Kroll-Hess module";
     license = licenses.lgpl3Only;
     homepage = "https://github.com/psi4/dkh";
     platforms = platforms.unix;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

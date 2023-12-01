@@ -18,6 +18,6 @@ build-idris-package {
     description = "Idris mapping library";
     homepage = "https://github.com/zaoqi/Mapping.idr";
     license = lib.licenses.agpl3;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

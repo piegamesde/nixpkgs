@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Pw99R6oGcLX6Z7s8ZnpbBBqcIvY9Rl/nw2PVGjpD3gY=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libpng
     zlib
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   ];
 
   # This is only needed until https://github.com/DCMTK/dcmtk/pull/75/files is merged
-  patches = [ ./0001-Fix-cmake.patch ];
+  patches = [./0001-Fix-cmake.patch];
 
   doCheck = true;
 
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://dicom.offis.de/dcmtk";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ iimog ];
+    maintainers = with maintainers; [iimog];
     platforms = with platforms; linux ++ darwin;
   };
 }

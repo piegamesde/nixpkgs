@@ -34,7 +34,7 @@ buildPythonPackage rec {
     ezyrb
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pytestFlagsArray =
     [
@@ -43,14 +43,14 @@ buildPythonPackage rec {
       "tests/test_dmdbase.py"
     ];
 
-  pythonImportsCheck = [ "pydmd" ];
+  pythonImportsCheck = ["pydmd"];
 
   meta = with lib; {
     description = "Python Dynamic Mode Decomposition";
     homepage = "https://mathlab.github.io/PyDMD/";
     changelog = "https://github.com/mathLab/PyDMD/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ yl3dy ];
+    maintainers = with maintainers; [yl3dy];
     broken = stdenv.hostPlatform.isAarch64;
   };
 }

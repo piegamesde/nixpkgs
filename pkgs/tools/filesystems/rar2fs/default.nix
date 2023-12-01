@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
       --replace "which echo" "echo"
   '';
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     fuse
     unrar
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "FUSE file system for reading RAR archives";
     homepage = "https://hasse69.github.io/rar2fs/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ kraem ];
+    maintainers = with maintainers; [kraem];
     platforms = with platforms; linux ++ freebsd;
   };
 }

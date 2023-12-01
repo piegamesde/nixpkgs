@@ -1,17 +1,17 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   let
     apikey = "testapikey";
   in
   {
     name = "octoprint";
-    meta.maintainers = with lib.maintainers; [ gador ];
+    meta.maintainers = with lib.maintainers; [gador];
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        environment.systemPackages = with pkgs; [ jq ];
+        environment.systemPackages = with pkgs; [jq];
         services.octoprint = {
           enable = true;
           extraConfig = {

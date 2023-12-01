@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     description = "A collection of optimised low-level functions targeting storage applications";
     license = licenses.bsd3;
     homepage = "https://github.com/intel/isa-l";
-    maintainers = with maintainers; [ jbedo ];
+    maintainers = with maintainers; [jbedo];
     platforms = platforms.all;
     broken = stdenv.isDarwin && stdenv.isAarch64; # does not build on M1 mac (asm/hwcap.h file not found) maybe needs gcc not clang?
   };

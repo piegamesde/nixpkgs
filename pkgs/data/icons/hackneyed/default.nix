@@ -33,7 +33,7 @@ stdenvNoCC.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
   buildFlags = [
     "theme"
     "theme.left"
@@ -44,6 +44,6 @@ stdenvNoCC.mkDerivation rec {
     description = "A scalable cursor theme that resembles Windows 3.x/NT 3.x cursors";
     platforms = platforms.all;
     license = licenses.mit;
-    maintainers = with maintainers; [ somasis ];
+    maintainers = with maintainers; [somasis];
   };
 }

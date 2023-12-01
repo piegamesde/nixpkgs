@@ -159,7 +159,7 @@ in
       enable = mkEnableOption (lib.mdDoc "vsftpd");
 
       userlist = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         description = lib.mdDoc "See {option}`userlistFile`.";
       };
@@ -317,12 +317,12 @@ in
         };
       };
 
-    users.groups.vsftpd = { };
+    users.groups.vsftpd = {};
     users.groups.ftp.gid = config.ids.gids.ftp;
 
     # If you really have to access root via FTP use mkOverride or userlistDeny
     # = false and whitelist root
-    services.vsftpd.userlist = if cfg.userlistDeny then [ "root" ] else [ ];
+    services.vsftpd.userlist = if cfg.userlistDeny then ["root"] else [];
 
     systemd = {
       tmpfiles.rules =
@@ -332,7 +332,7 @@ in
       services.vsftpd = {
         description = "Vsftpd Server";
 
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
 
         serviceConfig.ExecStart = "@${vsftpd}/sbin/vsftpd vsftpd ${configFile}";
         serviceConfig.Restart = "always";

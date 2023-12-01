@@ -35,7 +35,7 @@ buildPythonApplication rec {
     hash = "sha256-/m/B2yR/NxQnd2di6ERZHFTT4xOI5mH6xFQwp3p2bEo=";
   };
 
-  patches = [ ./flake8-compat-5.x.patch ];
+  patches = [./flake8-compat-5.x.patch];
 
   pythonRelaxDeps = [
     "dpath"
@@ -147,7 +147,7 @@ buildPythonApplication rec {
     "dogfood_tests/test_checkov_dogfood.py"
   ];
 
-  pythonImportsCheck = [ "checkov" ];
+  pythonImportsCheck = ["checkov"];
 
   postInstall = ''
     chmod +x $out/bin/checkov

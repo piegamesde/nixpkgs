@@ -32,7 +32,7 @@ flutter.buildFlutterApplication rec {
       "InstantMessaging"
     ];
   };
-  nativeBuildInputs = [ imagemagick ];
+  nativeBuildInputs = [imagemagick];
 
   postInstall = ''
     FAV=$out/app/data/flutter_assets/assets/favicon.png
@@ -62,6 +62,6 @@ flutter.buildFlutterApplication rec {
       "x86_64-linux"
       "aarch64-linux"
     ];
-    sourceProvenance = [ sourceTypes.fromSource ];
+    sourceProvenance = [sourceTypes.fromSource];
   };
 }

@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
   patches =
-    [ ./build-shared.patch ]
+    [./build-shared.patch]
     ++ lib.optionals stdenv.isAarch32
       [
         # https://github.com/nodejs/http-parser/pull/510
@@ -31,14 +31,14 @@ stdenv.mkDerivation rec {
     "DESTDIR="
     "PREFIX=$(out)"
   ];
-  buildFlags = [ "library" ];
+  buildFlags = ["library"];
   doCheck = true;
   checkTarget = "test";
 
   meta = with lib; {
     description = "An HTTP message parser written in C";
     homepage = "https://github.com/nodejs/http-parser";
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
     license = licenses.mit;
     platforms = platforms.unix;
   };

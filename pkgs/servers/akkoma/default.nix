@@ -121,7 +121,7 @@ beamPackages.mixRelease rec {
             hash = "sha256-sbo9Kcp2oT05o2GAF+IgziLPYmCkWgBfFMBCytmqg3Y=";
           };
 
-          beamDeps = with final; [ nimble_parsec ];
+          beamDeps = with final; [nimble_parsec];
         };
         temple = beamPackages.buildMix rec {
           name = "temple";
@@ -148,7 +148,7 @@ beamPackages.mixRelease rec {
 
         # Some additional build inputs and build fixes
         fast_html = prev.fast_html.override {
-          nativeBuildInputs = [ cmake ];
+          nativeBuildInputs = [cmake];
           dontUseCmakeConfigure = true;
         };
         http_signatures = prev.http_signatures.override {
@@ -156,8 +156,8 @@ beamPackages.mixRelease rec {
             substituteInPlace mix.exs --replace ":logger" ":logger, :public_key"
           '';
         };
-        majic = prev.majic.override { buildInputs = [ file ]; };
-        syslog = prev.syslog.override { buildPlugins = with beamPackages; [ pc ]; };
+        majic = prev.majic.override {buildInputs = [file];};
+        syslog = prev.syslog.override {buildPlugins = with beamPackages; [pc];};
 
         mime = prev.mime.override {
           patchPhase =
@@ -182,7 +182,7 @@ beamPackages.mixRelease rec {
   };
 
   passthru = {
-    tests = with nixosTests; { inherit akkoma akkoma-confined; };
+    tests = with nixosTests; {inherit akkoma akkoma-confined;};
     inherit mixNixDeps;
   };
 
@@ -190,7 +190,7 @@ beamPackages.mixRelease rec {
     description = "ActivityPub microblogging server";
     homepage = "https://akkoma.social";
     license = licenses.agpl3;
-    maintainers = with maintainers; [ mvs ];
+    maintainers = with maintainers; [mvs];
     platforms = platforms.unix;
   };
 }

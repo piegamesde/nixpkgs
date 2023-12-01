@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
   buildInputs =
-    [ libcdio ]
+    [libcdio]
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       IOKit
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = lib.optional stdenv.isDarwin DiskArbitration;
 
-  configureFlags = lib.optionals stdenv.isDarwin [ "--disable-ld-version-script" ];
+  configureFlags = lib.optionals stdenv.isDarwin ["--disable-ld-version-script"];
 
   meta = with lib; {
     description = "CD paranoia on top of libcdio";
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/rocky/libcdio-paranoia";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "cd-paranoia";
     platforms = platforms.unix;
   };

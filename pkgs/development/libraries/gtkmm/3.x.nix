@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     glib
     gdk-pixbuf # for gdk-pixbuf-pixdata
   ];
-  buildInputs = [ libepoxy ];
+  buildInputs = [libepoxy];
 
   propagatedBuildInputs = [
     glibmm
@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
 
     license = licenses.lgpl2Plus;
 
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.unix;
   };
 }

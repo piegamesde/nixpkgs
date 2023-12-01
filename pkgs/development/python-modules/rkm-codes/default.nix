@@ -18,8 +18,8 @@ buildPythonPackage rec {
   };
 
   format = "pyproject";
-  nativeBuildInputs = [ flitBuildHook ];
-  propagatedBuildInputs = [ setuptools ];
+  nativeBuildInputs = [flitBuildHook];
+  propagatedBuildInputs = [setuptools];
 
   # this has a circular dependency on quantiphy
   preBuild = ''
@@ -37,6 +37,6 @@ buildPythonPackage rec {
     description = "QuantiPhy support for RKM codes";
     homepage = "https://github.com/kenkundert/rkm_codes/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ jpetrucciani ];
+    maintainers = with maintainers; [jpetrucciani];
   };
 }

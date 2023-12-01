@@ -28,9 +28,9 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ libmnl ];
+  buildInputs = [libmnl];
 
   passthru = {
     updateScript = writeScript "update-ethtool" ''
@@ -53,6 +53,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.kernel.org/pub/software/network/ethtool/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
   };
 }

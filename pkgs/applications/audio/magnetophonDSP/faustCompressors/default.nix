@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     description = "A collection of bread and butter compressors";
     homepage = "https://github.com/magnetophon/faustCompressors";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.magnetophon ];
+    maintainers = [lib.maintainers.magnetophon];
   };
 }

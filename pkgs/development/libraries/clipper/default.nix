@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "cpp";
 
-  buildInputs = [ ];
+  buildInputs = [];
 
   nativeBuildInputs = [
     cmake
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://sourceforge.net/projects/polyclipping";
     license = licenses.boost;
-    maintainers = with maintainers; [ mpickering ];
+    maintainers = with maintainers; [mpickering];
     platforms = with platforms; unix;
   };
 }

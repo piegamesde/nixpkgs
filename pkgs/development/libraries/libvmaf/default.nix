@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     xxd
   ];
 
-  mesonFlags = [ "-Denable_avx512=true" ];
+  mesonFlags = ["-Denable_avx512=true"];
 
   outputs = [
     "out"

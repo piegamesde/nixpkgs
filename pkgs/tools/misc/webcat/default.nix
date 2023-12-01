@@ -34,6 +34,6 @@ buildGoModule rec {
     homepage = "https://rumpelsepp.org/blog/ssh-through-websocket/";
     description = "The lightweight swiss army knife for websockets";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ montag451 ];
+    maintainers = with maintainers; [montag451];
   };
 }

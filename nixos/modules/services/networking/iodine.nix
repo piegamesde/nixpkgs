@@ -87,7 +87,7 @@ in
 
     services.iodine = {
       clients = mkOption {
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Each attribute of this option defines a systemd service that
           runs iodine. Many or none may be defined.
@@ -178,16 +178,16 @@ in
 
   ### implementation
 
-  config = mkIf (cfg.server.enable || cfg.clients != { }) {
-    environment.systemPackages = [ pkgs.iodine ];
-    boot.kernelModules = [ "tun" ];
+  config = mkIf (cfg.server.enable || cfg.clients != {}) {
+    environment.systemPackages = [pkgs.iodine];
+    boot.kernelModules = ["tun"];
 
     systemd.services =
       let
         createIodineClientService = name: cfg: {
           description = "iodine client - ${name}";
-          after = [ "network.target" ];
-          wantedBy = [ "multi-user.target" ];
+          after = ["network.target"];
+          wantedBy = ["multi-user.target"];
           script = "exec ${pkgs.iodine}/bin/iodine -f -u ${iodinedUser} ${cfg.extraConfig} ${
             optionalString (cfg.passwordFile != "") ''< "${builtins.toString cfg.passwordFile}"''
           } ${cfg.relay} ${cfg.server}";
@@ -222,8 +222,8 @@ in
       // {
         iodined = mkIf (cfg.server.enable) {
           description = "iodine, ip over dns server daemon";
-          after = [ "network.target" ];
-          wantedBy = [ "multi-user.target" ];
+          after = ["network.target"];
+          wantedBy = ["multi-user.target"];
           script = "exec ${pkgs.iodine}/bin/iodined -f -u ${iodinedUser} ${cfg.server.extraConfig} ${
             optionalString (cfg.server.passwordFile != "") ''< "${builtins.toString cfg.server.passwordFile}"''
           } ${cfg.server.ip} ${cfg.server.domain}";

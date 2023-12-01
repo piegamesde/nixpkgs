@@ -42,7 +42,7 @@ let
 
   babelfishTranslate =
     path: name:
-    pkgs.runCommandLocal "${name}.fish" { nativeBuildInputs = [ pkgs.babelfish ]; }
+    pkgs.runCommandLocal "${name}.fish" {nativeBuildInputs = [pkgs.babelfish];}
       "${pkgs.babelfish}/bin/babelfish < ${path} > $out;";
 in
 
@@ -94,7 +94,7 @@ in
       };
 
       shellAbbrs = mkOption {
-        default = { };
+        default = {};
         example = {
           gco = "git checkout";
           npu = "nix-prefetch-url";
@@ -106,7 +106,7 @@ in
       };
 
       shellAliases = mkOption {
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Set of aliases for fish shell, which overrides {option}`environment.shellAliases`.
           See {option}`environment.shellAliases` for an option format description.
@@ -251,7 +251,7 @@ in
               ];
               unpackCmd = "cp $curSrc $(basename $curSrc)";
               sourceRoot = ".";
-              patches = [ ./fish_completion-generator.patch ]; # to prevent collisions of identical completion files
+              patches = [./fish_completion-generator.patch]; # to prevent collisions of identical completion files
               dontBuild = true;
               installPhase = ''
                 mkdir -p $out
@@ -269,7 +269,7 @@ in
                     preferLocalBuild = true;
                     allowSubstitutes = false;
                   }
-                  // optionalAttrs (package ? meta.priority) { meta.priority = package.meta.priority; }
+                  // optionalAttrs (package ? meta.priority) {meta.priority = package.meta.priority;}
                 )
                 ''
                   mkdir -p $out
@@ -288,13 +288,13 @@ in
       # include programs that bring their own completions
       {
         pathsToLink =
-          [ ]
+          []
           ++ optional cfg.vendor.config.enable "/share/fish/vendor_conf.d"
           ++ optional cfg.vendor.completions.enable "/share/fish/vendor_completions.d"
           ++ optional cfg.vendor.functions.enable "/share/fish/vendor_functions.d";
       }
 
-      { systemPackages = [ pkgs.fish ]; }
+      {systemPackages = [pkgs.fish];}
 
       {
         shells = [

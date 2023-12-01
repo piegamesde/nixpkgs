@@ -57,7 +57,7 @@ buildDunePackage rec {
     rm CHANGES.carton.md
   '';
 
-  buildInputs = [ base64 ];
+  buildInputs = [base64];
   propagatedBuildInputs = [
     angstrom
     astring
@@ -88,7 +88,7 @@ buildDunePackage rec {
     psq
     hxd
   ];
-  nativeCheckInputs = [ git-binary ];
+  nativeCheckInputs = [git-binary];
   checkInputs = [
     alcotest
     alcotest-lwt

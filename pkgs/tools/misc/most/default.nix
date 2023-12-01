@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  makeFlags = [ "DOC_DIR=${placeholder "doc"}/share/doc/most" ];
+  makeFlags = ["DOC_DIR=${placeholder "doc"}/share/doc/most"];
 
   preConfigure = ''
     sed -i -e "s|-ltermcap|-lncurses|" configure
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
       -e "s|/bin/rm|rm|"
   '';
 
-  configureFlags = [ "--with-slang=${slang.dev}" ];
+  configureFlags = ["--with-slang=${slang.dev}"];
 
   buildInputs = [
     slang

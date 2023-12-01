@@ -35,12 +35,12 @@ buildPythonPackage rec {
     ${python.interpreter} setup.py test
   '';
 
-  pythonImportsCheck = [ "asn1tools" ];
+  pythonImportsCheck = ["asn1tools"];
 
   meta = with lib; {
     description = "ASN.1 parsing, encoding and decoding";
     homepage = "https://github.com/eerimoq/asn1tools";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

@@ -6,7 +6,7 @@
     - the postgres integration works
 */
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "vault-postgresql";
     meta = with pkgs.lib.maintainers; {
@@ -16,15 +16,15 @@ import ./make-test-python.nix (
       ];
     };
     nodes.machine =
-      { lib, pkgs, ... }:
+      {lib, pkgs, ...}:
       {
-        environment.systemPackages = [ pkgs.vault ];
+        environment.systemPackages = [pkgs.vault];
         environment.variables.VAULT_ADDR = "http://127.0.0.1:8200";
         services.vault.enable = true;
-        services.vault.extraSettingsPaths = [ "/run/vault.hcl" ];
+        services.vault.extraSettingsPaths = ["/run/vault.hcl"];
 
         systemd.services.vault = {
-          after = [ "postgresql.service" ];
+          after = ["postgresql.service"];
           # Try for about 10 minutes rather than the default of 5 attempts.
           serviceConfig.RestartSec = 1;
           serviceConfig.StartLimitBurst = 600;

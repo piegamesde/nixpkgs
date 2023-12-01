@@ -24,12 +24,12 @@ stdenv.mkDerivation rec {
     sha256 = "10mrl5k3l2hxjhz4w93n50xwywp6y890rw2vsjcgai8627x5f1df";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = lib.optionals stdenv.isDarwin [
     Carbon
     AppKit
   ];
-  propagatedBuildInputs = [ glib ];
+  propagatedBuildInputs = [glib];
 
   meta = with lib; {
     homepage = "http://liblqr.wikidot.com";

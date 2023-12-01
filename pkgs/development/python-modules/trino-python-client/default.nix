@@ -29,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-Hl88Keavyp1QBw67AFbevy/btzNs7UlsKQ93K02YgLM=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     pytz
@@ -39,9 +39,9 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = lib.fix (
     self: {
-      kerberos = [ requests-kerberos ];
-      sqlalchemy = [ sqlalchemy ];
-      external-authentication-token-cache = [ keyring ];
+      kerberos = [requests-kerberos];
+      sqlalchemy = [sqlalchemy];
+      external-authentication-token-cache = [keyring];
       all = self.kerberos ++ self.sqlalchemy;
     }
   );
@@ -51,7 +51,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ passthru.optional-dependencies.all;
 
-  pythonImportsCheck = [ "trino" ];
+  pythonImportsCheck = ["trino"];
 
   disabledTestPaths = [
     # these all require a running trino instance
@@ -60,13 +60,13 @@ buildPythonPackage rec {
     "tests/integration/test_sqlalchemy_integration.py"
   ];
 
-  pytestFlagsArray = [ "-k 'not auth'" ];
+  pytestFlagsArray = ["-k 'not auth'"];
 
   meta = with lib; {
     changelog = "https://github.com/trinodb/trino-python-client/blob/${version}/CHANGES.md";
     description = "Client for the Trino distributed SQL Engine";
     homepage = "https://github.com/trinodb/trino-python-client";
     license = licenses.asl20;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

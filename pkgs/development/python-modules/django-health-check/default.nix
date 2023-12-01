@@ -52,12 +52,12 @@ buildPythonPackage rec {
       --replace "--cov-report=xml" ""
   '';
 
-  pythonImportsCheck = [ "health_check" ];
+  pythonImportsCheck = ["health_check"];
 
   meta = with lib; {
     description = "Pluggable app that runs a full check on the deployment";
     homepage = "https://github.com/KristianOellegaard/django-health-check";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

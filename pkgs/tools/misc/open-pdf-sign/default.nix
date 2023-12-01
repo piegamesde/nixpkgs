@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-tGpjVgG8UcOC0ZFhQ201HvPUyoWso58uM52Vsdwb2lM=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildCommand = ''
     install -Dm644 $src $out/lib/open-pdf-sign.jar
@@ -27,15 +27,15 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Digitally sign PDF files from your commandline";
     homepage = "https://github.com/open-pdf-sign/open-pdf-sign";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
-    maintainers = with maintainers; [ drupol ];
+    maintainers = with maintainers; [drupol];
     platforms = platforms.unix;
   };
 }

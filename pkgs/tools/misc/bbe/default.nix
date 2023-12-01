@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "1nyxdqi4425sffjrylh7gl57lrssyk4018afb7mvrnd6fmbszbms";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   outputs = [
     "out"
@@ -25,6 +25,6 @@ stdenv.mkDerivation rec {
     homepage = "https://bbe-.sourceforge.net/";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = [ maintainers.hhm ];
+    maintainers = [maintainers.hhm];
   };
 }

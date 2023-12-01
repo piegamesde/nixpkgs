@@ -63,6 +63,6 @@ python3.pkgs.buildPythonPackage rec {
     changelog = "https://github.com/mautrix/facebook/releases/tag/v${version}";
     description = "A Matrix-Facebook Messenger puppeting bridge";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ kevincox ];
+    maintainers = with maintainers; [kevincox];
   };
 }

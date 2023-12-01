@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "1pp89bs05nv60wjk1690ndwh4dsd5mk20bzsd4a2lklysdifvb6f";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     "-Dmomentum:STRING=GEV"
@@ -26,6 +26,6 @@ stdenv.mkDerivation rec {
     license = licenses.lgpl21;
     homepage = "http://hepmc.web.cern.ch/hepmc/";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

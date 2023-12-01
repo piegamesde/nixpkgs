@@ -127,7 +127,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   # What these replacings do?
   # - Disable the auto-updates (we'll run from a read-only directory);
@@ -169,7 +169,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/v1s1t0r1sh3r3/airgeddon";
     changelog = "https://github.com/v1s1t0r1sh3r3/airgeddon/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ pedrohlc ];
+    maintainers = with maintainers; [pedrohlc];
     platforms = platforms.linux;
   };
 }

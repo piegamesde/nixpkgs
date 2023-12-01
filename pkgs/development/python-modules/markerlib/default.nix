@@ -15,8 +15,8 @@ buildPythonPackage rec {
     sha256 = "2fdb3939441f5bf4f090b1979a34f84a11d33eed6c0e3995de88ae5c06b6e3ae";
   };
 
-  buildInputs = [ setuptools ];
-  nativeCheckInputs = [ nose ];
+  buildInputs = [setuptools];
+  nativeCheckInputs = [nose];
 
   checkPhase = ''
     nosetests
@@ -26,6 +26,6 @@ buildPythonPackage rec {
     homepage = "https://bitbucket.org/dholth/markerlib/";
     description = "A compiler for PEP 345 environment markers";
     license = licenses.mit;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

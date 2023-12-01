@@ -11,10 +11,10 @@ let
   gamescope =
     let
       wrapperArgs =
-        optional (cfg.args != [ ]) ''--add-flags "${toString cfg.args}"''
+        optional (cfg.args != []) ''--add-flags "${toString cfg.args}"''
         ++ builtins.attrValues (mapAttrs (var: val: "--set-default ${var} ${val}") cfg.env);
     in
-    pkgs.runCommand "gamescope" { nativeBuildInputs = [ pkgs.makeBinaryWrapper ]; } ''
+    pkgs.runCommand "gamescope" {nativeBuildInputs = [pkgs.makeBinaryWrapper];} ''
       mkdir -p $out/bin
       makeWrapper ${cfg.package}/bin/gamescope $out/bin/gamescope --inherit-argv0 \
         ${toString wrapperArgs}
@@ -44,7 +44,7 @@ in
 
     args = mkOption {
       type = types.listOf types.string;
-      default = [ ];
+      default = [];
       example = [
         "--rt"
         "--prefer-vk-device 8086:9bc4"
@@ -56,7 +56,7 @@ in
 
     env = mkOption {
       type = types.attrsOf types.string;
-      default = { };
+      default = {};
       example = literalExpression ''
         # for Prime render offload on Nvidia laptops.
         # Also requires `hardware.nvidia.prime.offload.enable`.
@@ -82,8 +82,8 @@ in
       };
     };
 
-    environment.systemPackages = mkIf (!cfg.capSysNice) [ gamescope ];
+    environment.systemPackages = mkIf (!cfg.capSysNice) [gamescope];
   };
 
-  meta.maintainers = with maintainers; [ nrdxp ];
+  meta.maintainers = with maintainers; [nrdxp];
 }

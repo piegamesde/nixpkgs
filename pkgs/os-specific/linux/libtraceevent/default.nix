@@ -53,6 +53,6 @@ stdenv.mkDerivation rec {
     homepage = "https://git.kernel.org/pub/scm/libs/libtrace/libtraceevent.git/";
     license = licenses.lgpl21Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ wentasah ];
+    maintainers = with maintainers; [wentasah];
   };
 }

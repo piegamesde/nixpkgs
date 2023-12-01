@@ -16,7 +16,7 @@ in
 {
 
   meta = {
-    maintainers = with maintainers; [ danbst ];
+    maintainers = with maintainers; [danbst];
   };
 
   ###### interface
@@ -59,28 +59,28 @@ in
       };
 
       logDirs = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.path;
         description = lib.mdDoc "Directories to create in baseDir/logs/";
       };
 
       extraConfigFiles = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.path;
         description = lib.mdDoc "Extra configuration files to pull into the tomcat conf directory";
       };
 
       extraEnvironment = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "ENVIRONMENT=production" ];
+        default = [];
+        example = ["ENVIRONMENT=production"];
         description = lib.mdDoc "Environment Variables to pass to the tomcat service";
       };
 
       extraGroups = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
-        example = [ "users" ];
+        example = ["users"];
         description = lib.mdDoc "Defines extra groups to which the tomcat user belongs.";
       };
 
@@ -110,7 +110,7 @@ in
 
       sharedLibs = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "List containing JAR files or directories with JAR files which are libraries shared by the web applications";
       };
 
@@ -125,13 +125,13 @@ in
 
       commonLibs = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "List containing JAR files or directories with JAR files which are libraries shared by the web applications and the servlet container";
       };
 
       webapps = mkOption {
         type = types.listOf types.path;
-        default = [ tomcat.webapps ];
+        default = [tomcat.webapps];
         defaultText = literalExpression "[ config.services.tomcat.package.webapps ]";
         description = lib.mdDoc "List containing WAR files or directories with WAR files which are web applications to be deployed on Tomcat";
       };
@@ -147,7 +147,7 @@ in
               aliases = mkOption {
                 type = types.listOf types.str;
                 description = lib.mdDoc "aliases of the virtualhost";
-                default = [ ];
+                default = [];
               };
               webapps = mkOption {
                 type = types.listOf types.path;
@@ -155,12 +155,12 @@ in
                   List containing web application WAR files and/or directories containing
                   web applications and configuration files for the virtual host.
                 '';
-                default = [ ];
+                default = [];
               };
             };
           }
         );
-        default = [ ];
+        default = [];
         description = lib.mdDoc "List consisting of a virtual host name and a list of web applications to deploy on each virtual host";
       };
 
@@ -186,7 +186,7 @@ in
         };
 
         services = mkOption {
-          default = [ ];
+          default = [];
           type = types.listOf types.str;
           description = lib.mdDoc "List containing AAR files or directories with AAR files which are web services to be deployed on Axis2";
         };
@@ -210,8 +210,8 @@ in
 
     systemd.services.tomcat = {
       description = "Apache Tomcat server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       preStart = ''
         ${lib.optionalString cfg.purifyOnStart ''
@@ -237,7 +237,7 @@ in
           ln -sfn ${tomcat}/conf/$i ${cfg.baseDir}/conf/`basename $i`
         done
 
-        ${optionalString (cfg.extraConfigFiles != [ ]) ''
+        ${optionalString (cfg.extraConfigFiles != []) ''
           for i in ${toString cfg.extraConfigFiles}; do
             ln -sfn $i ${cfg.baseDir}/conf/`basename $i`
           done
@@ -279,7 +279,7 @@ in
               '');
             hostElementsString = concatMapStringsSep "\n" hostElementForVirtualHost cfg.virtualHosts;
             hostElementsSedString =
-              replaceStrings [ "\n" ]
+              replaceStrings ["\n"]
                 [
                   ''
                     \
@@ -292,7 +292,7 @@ in
             sed -e "/<Engine name=\"Catalina\" defaultHost=\"localhost\">/a\\"${escapeShellArg hostElementsSedString} \
                   ${tomcat}/conf/server.xml > ${cfg.baseDir}/conf/server.xml
           ''}
-        ${optionalString (cfg.logDirs != [ ]) ''
+        ${optionalString (cfg.logDirs != []) ''
           for i in ${toString cfg.logDirs}; do
             mkdir -p ${cfg.baseDir}/logs/$i
             chown ${cfg.user}:${cfg.group} ${cfg.baseDir}/logs/$i

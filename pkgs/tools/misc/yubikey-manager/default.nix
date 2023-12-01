@@ -28,7 +28,7 @@ python3Packages.buildPythonPackage rec {
       --replace 'pkill' '${if stdenv.isLinux then "${procps}" else "/usr"}/bin/pkill'
   '';
 
-  nativeBuildInputs = with python3Packages; [ poetry-core ];
+  nativeBuildInputs = with python3Packages; [poetry-core];
 
   propagatedBuildInputs =
     with python3Packages;

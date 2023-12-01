@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-kIIR+cXLUtyLJ5YmhyCV88zhXahok/U7QXbezt3PyF0=";
   };
 
-  buildInputs = [ setuptools-scm ];
+  buildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     aioftp
@@ -49,12 +49,12 @@ buildPythonPackage rec {
     "test_ftp_http"
   ];
 
-  pythonImportsCheck = [ "parfive" ];
+  pythonImportsCheck = ["parfive"];
 
   meta = with lib; {
     description = "A HTTP and FTP parallel file downloader";
     homepage = "https://parfive.readthedocs.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

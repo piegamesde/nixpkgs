@@ -9,7 +9,7 @@
   config = lib.mkMerge [
 
     (lib.mkIf (lib.any (fs: fs == "unionfs-fuse") config.boot.initrd.supportedFilesystems) {
-      boot.initrd.kernelModules = [ "fuse" ];
+      boot.initrd.kernelModules = ["fuse"];
 
       boot.initrd.extraUtilsCommands = lib.mkIf (!config.boot.initrd.systemd.enable) ''
         copy_bin_and_libs ${pkgs.fuse}/sbin/mount.fuse
@@ -31,7 +31,7 @@
       boot.initrd.systemd.extraBin = {
         "mount.fuse" = "${pkgs.fuse}/bin/mount.fuse";
         "unionfs" = "${pkgs.unionfs-fuse}/bin/unionfs";
-        "mount.unionfs-fuse" = pkgs.runCommand "mount.unionfs-fuse" { } ''
+        "mount.unionfs-fuse" = pkgs.runCommand "mount.unionfs-fuse" {} ''
           substitute ${pkgs.unionfs-fuse}/sbin/mount.unionfs-fuse $out \
             --replace '${pkgs.bash}/bin/bash' /bin/sh \
             --replace '${pkgs.fuse}/sbin' /bin \
@@ -41,7 +41,7 @@
     })
 
     (lib.mkIf (lib.any (fs: fs == "unionfs-fuse") config.boot.supportedFilesystems) {
-      system.fsPackages = [ pkgs.unionfs-fuse ];
+      system.fsPackages = [pkgs.unionfs-fuse];
     })
   ];
 }

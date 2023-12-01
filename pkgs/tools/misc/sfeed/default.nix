@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-oosBwLCVZDy29RNxLXie0IPRUxAmT6qJlQGHypWScuk=";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   makeFlags =
     [
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     # use macOS's strlcat() and strlcpy() instead of vendored ones
     ++ lib.optional stdenv.isDarwin "COMPATOBJ:=";
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   # otherwise does not find SIGWINCH
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-D_DARWIN_C_SOURCE";
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       items.
     '';
     license = licenses.isc;
-    maintainers = [ maintainers.matthiasbeyer ];
+    maintainers = [maintainers.matthiasbeyer];
     platforms = platforms.all;
   };
 }

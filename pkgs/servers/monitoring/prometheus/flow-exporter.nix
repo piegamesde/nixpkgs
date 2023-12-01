@@ -21,7 +21,7 @@ buildGoModule rec {
     description = "Export network flows from kafka to Prometheus";
     homepage = "https://github.com/neptune-networks/flow-exporter";
     license = licenses.mit;
-    maintainers = with maintainers; [ kloenk ];
+    maintainers = with maintainers; [kloenk];
     platforms = platforms.linux;
   };
 }

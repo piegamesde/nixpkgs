@@ -26,7 +26,7 @@ buildPythonPackage rec {
     pathspec
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests =
     [
@@ -40,7 +40,7 @@ buildPythonPackage rec {
       "test_run_with_locale"
     ];
 
-  pythonImportsCheck = [ "yamllint" ];
+  pythonImportsCheck = ["yamllint"];
 
   meta = with lib; {
     description = "A linter for YAML files";

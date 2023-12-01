@@ -24,7 +24,7 @@ buildPythonPackage rec {
   ];
 
   doCheck = false;
-  pythonImportsCheck = [ "txredisapi" ];
+  pythonImportsCheck = ["txredisapi"];
 
   passthru.tests.unit-tests = nixosTests.txredisapi;
 
@@ -32,6 +32,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/IlyaSkriblovsky/txredisapi";
     description = "non-blocking redis client for python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

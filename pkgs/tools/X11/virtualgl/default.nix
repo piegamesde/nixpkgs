@@ -9,7 +9,7 @@ stdenv.mkDerivation {
   pname = "virtualgl";
   version = lib.getVersion virtualglLib;
 
-  paths = [ virtualglLib ];
+  paths = [virtualglLib];
 
   buildCommand =
     ''

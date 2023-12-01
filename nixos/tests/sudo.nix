@@ -4,17 +4,17 @@ let
   password = "helloworld";
 in
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "sudo";
-    meta = with pkgs.lib.maintainers; { maintainers = [ lschuermann ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [lschuermann];};
 
     nodes.machine =
-      { lib, ... }:
+      {lib, ...}:
       with lib; {
         users.groups = {
-          foobar = { };
-          barfoo = { };
+          foobar = {};
+          barfoo = {};
           baz = {
             gid = 1337;
           };
@@ -22,7 +22,7 @@ import ./make-test-python.nix (
         users.users = {
           test0 = {
             isNormalUser = true;
-            extraGroups = [ "wheel" ];
+            extraGroups = ["wheel"];
           };
           test1 = {
             isNormalUser = true;
@@ -30,16 +30,16 @@ import ./make-test-python.nix (
           };
           test2 = {
             isNormalUser = true;
-            extraGroups = [ "foobar" ];
+            extraGroups = ["foobar"];
             password = password;
           };
           test3 = {
             isNormalUser = true;
-            extraGroups = [ "barfoo" ];
+            extraGroups = ["barfoo"];
           };
           test4 = {
             isNormalUser = true;
-            extraGroups = [ "baz" ];
+            extraGroups = ["baz"];
           };
           test5 = {
             isNormalUser = true;
@@ -60,34 +60,34 @@ import ./make-test-python.nix (
 
             # These should not create any entries
             {
-              users = [ "notest1" ];
-              commands = [ ];
+              users = ["notest1"];
+              commands = [];
             }
             {
               commands = [
                 {
                   command = "ALL";
-                  options = [ ];
+                  options = [];
                 }
               ];
             }
 
             # Test defining commands with the options syntax, though not setting any options
             {
-              users = [ "notest2" ];
+              users = ["notest2"];
               commands = [
                 {
                   command = "ALL";
-                  options = [ ];
+                  options = [];
                 }
               ];
             }
 
             # CONFIGURATION FOR TEST CASES
             {
-              users = [ "test1" ];
-              groups = [ "foobar" ];
-              commands = [ "ALL" ];
+              users = ["test1"];
+              groups = ["foobar"];
+              commands = ["ALL"];
             }
             {
               groups = [
@@ -105,7 +105,7 @@ import ./make-test-python.nix (
               ];
             }
             {
-              users = [ "test5" ];
+              users = ["test5"];
               commands = [
                 {
                   command = "ALL";
@@ -122,12 +122,12 @@ import ./make-test-python.nix (
       };
 
     nodes.strict =
-      { ... }:
+      {...}:
       {
         users.users = {
           admin = {
             isNormalUser = true;
-            extraGroups = [ "wheel" ];
+            extraGroups = ["wheel"];
           };
           noadmin = {
             isNormalUser = true;

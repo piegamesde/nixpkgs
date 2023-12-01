@@ -32,8 +32,8 @@ stdenv.mkDerivation rec {
     copyDesktopItems
   ];
 
-  HDFLIBS = (hdf4.override { javaSupport = true; }).out;
-  HDF5LIBS = (hdf5.override { javaSupport = true; }).out;
+  HDFLIBS = (hdf4.override {javaSupport = true;}).out;
+  HDF5LIBS = (hdf5.override {javaSupport = true;}).out;
 
   buildPhase =
     let
@@ -86,6 +86,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.free; # BSD-like
     homepage = "https://portal.hdfgroup.org/display/HDFVIEW/HDFView";
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    maintainers = with lib.maintainers; [ jiegec ];
+    maintainers = with lib.maintainers; [jiegec];
   };
 }

@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     "ARCH=${arch}"
     "CXX=${stdenv.cc.targetPrefix}c++"
   ];
-  buildFlags = [ "build" ];
+  buildFlags = ["build"];
 
   enableParallelBuilding = true;
 

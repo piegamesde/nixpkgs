@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     patchShebangs --build scripts/dox_to_sphinx.py
   '';
 
-  mesonFlags = [ "-Ddocs=disabled" ];
+  mesonFlags = ["-Ddocs=disabled"];
 
   passthru = {
     updateScript = writeScript "update-sratom" ''
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     homepage = "https://drobilla.net/software/sratom";
     description = "A library for serialising LV2 atoms to/from RDF";
     license = licenses.mit;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
     platforms = platforms.unix;
   };
 }

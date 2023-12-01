@@ -27,6 +27,6 @@ lib.makePackageOverridable (
       dhall-to-nixpkgs directory --fixed-output-derivations --file "${file}" "${src}" ${lib.optionalString document "--document"} > $out
     '';
 
-    nativeBuildInputs = [ dhall-nixpkgs ];
+    nativeBuildInputs = [dhall-nixpkgs];
   }
 )

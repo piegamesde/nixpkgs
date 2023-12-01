@@ -30,6 +30,6 @@ mkCoqDerivation {
   mlPlugin = true;
   meta = with lib; {
     license = licenses.lgpl3Only;
-    maintainers = [ maintainers.siraben ];
+    maintainers = [maintainers.siraben];
   };
 }

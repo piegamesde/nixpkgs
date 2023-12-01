@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
   pname = "pg_cron";
   version = "1.5.2";
 
-  buildInputs = [ postgresql ];
+  buildInputs = [postgresql];
 
   src = fetchFromGitHub {
     owner = "citusdata";
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     description = "Run Cron jobs through PostgreSQL";
     homepage = "https://github.com/citusdata/pg_cron";
     changelog = "https://github.com/citusdata/pg_cron/raw/v${version}/CHANGELOG.md";
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
     platforms = postgresql.meta.platforms;
     license = licenses.postgresql;
   };

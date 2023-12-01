@@ -19,14 +19,14 @@ stdenv.mkDerivation rec {
     sha256 = "1gwamb64vr45iy2ry7jp1k3zc03q5sydmdflrbwr892f0ijh2wjl";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     dtc
     libusb1
     zlib
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   buildFlags = [
     "tools"
@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "http://linux-sunxi.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ elitak ];
+    maintainers = with maintainers; [elitak];
   };
 }

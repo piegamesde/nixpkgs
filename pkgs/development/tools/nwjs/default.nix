@@ -116,7 +116,7 @@ stdenv.mkDerivation rec {
 
   installPhase =
     let
-      ccPath = lib.makeLibraryPath [ stdenv.cc.cc ];
+      ccPath = lib.makeLibraryPath [stdenv.cc.cc];
     in
     ''
       mkdir -p $out/share/nwjs
@@ -150,7 +150,7 @@ stdenv.mkDerivation rec {
       ln -s $out/share/nwjs/lib/libnw.so $out/lib/libnw.so
     '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   meta = with lib; {
     description = "An app runtime based on Chromium and node.js";
@@ -159,7 +159,7 @@ stdenv.mkDerivation rec {
       "i686-linux"
       "x86_64-linux"
     ];
-    maintainers = [ maintainers.offline ];
+    maintainers = [maintainers.offline];
     license = licenses.bsd3;
   };
 }

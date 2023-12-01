@@ -30,7 +30,7 @@ buildDotnetModule rec {
   projectFile = "osu.Desktop/osu.Desktop.csproj";
   nugetDeps = ./deps.nix;
 
-  nativeBuildInputs = [ copyDesktopItems ];
+  nativeBuildInputs = [copyDesktopItems];
 
   runtimeDeps = [
     ffmpeg
@@ -52,7 +52,7 @@ buildDotnetModule rec {
     udev
   ];
 
-  executables = [ "osu!" ];
+  executables = ["osu!"];
 
   fixupPhase = ''
     runHook preFixup
@@ -75,7 +75,7 @@ buildDotnetModule rec {
       icon = "osu!";
       comment = meta.description;
       type = "Application";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -91,7 +91,7 @@ buildDotnetModule rec {
       oxalica
       thiagokokada
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     mainProgram = "osu!";
   };
   passthru.updateScript = ./update.sh;

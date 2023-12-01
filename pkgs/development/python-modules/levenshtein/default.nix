@@ -34,7 +34,7 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  buildInputs = [ rapidfuzz-cpp ];
+  buildInputs = [rapidfuzz-cpp];
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals (stdenv.cc.isClang && stdenv.isDarwin) [
@@ -42,17 +42,17 @@ buildPythonPackage rec {
     ]
   );
 
-  propagatedBuildInputs = [ rapidfuzz ];
+  propagatedBuildInputs = [rapidfuzz];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "Levenshtein" ];
+  pythonImportsCheck = ["Levenshtein"];
 
   meta = with lib; {
     description = "Functions for fast computation of Levenshtein distance and string similarity";
     homepage = "https://github.com/maxbachmann/Levenshtein";
     changelog = "https://github.com/maxbachmann/Levenshtein/blob/${src.rev}/HISTORY.md";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -28,7 +28,7 @@ buildPythonPackage rec {
   # Also, don't bother on PyPy: AssertionError: TypeError not raised
   doCheck = pythonOlder "3.6" && !isPyPy;
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   unittestFlagsArray = [
     "-s"

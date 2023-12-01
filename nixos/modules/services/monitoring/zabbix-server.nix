@@ -44,7 +44,7 @@ let
   };
 
   configFile = pkgs.writeText "zabbix_server.conf" (
-    toKeyValue { listsAsDuplicateKeys = true; } cfg.settings
+    toKeyValue {listsAsDuplicateKeys = true;} cfg.settings
   );
 
   mysqlLocal = cfg.database.createLocally && cfg.database.type == "mysql";
@@ -116,7 +116,7 @@ in
       modules = mkOption {
         type = types.attrsOf types.package;
         description = lib.mdDoc "A set of modules to load.";
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             "dummy.so" = pkgs.stdenv.mkDerivation {
@@ -234,7 +234,7 @@ in
               (listOf str)
             ]
           );
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Zabbix Server configuration. Refer to
           <https://www.zabbix.com/documentation/current/manual/appendix/config/zabbix_server>
@@ -278,13 +278,13 @@ in
         FpingLocation = "/run/wrappers/bin/fping";
         LoadModule = builtins.attrNames cfg.modules;
       }
-      (mkIf (cfg.database.createLocally != true) { DBPort = cfg.database.port; })
-      (mkIf (cfg.database.passwordFile != null) { Include = [ "${passwordFile}" ]; })
-      (mkIf (mysqlLocal && cfg.database.socket != null) { DBSocket = cfg.database.socket; })
-      (mkIf (cfg.modules != { }) { LoadModulePath = "${moduleEnv}/lib"; })
+      (mkIf (cfg.database.createLocally != true) {DBPort = cfg.database.port;})
+      (mkIf (cfg.database.passwordFile != null) {Include = ["${passwordFile}"];})
+      (mkIf (mysqlLocal && cfg.database.socket != null) {DBSocket = cfg.database.socket;})
+      (mkIf (cfg.modules != {}) {LoadModulePath = "${moduleEnv}/lib";})
     ];
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.listen.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {allowedTCPPorts = [cfg.listen.port];};
 
     services.mysql = optionalAttrs mysqlLocal {
       enable = true;
@@ -307,7 +307,7 @@ in
 
     services.postgresql = optionalAttrs pgsqlLocal {
       enable = true;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -340,10 +340,10 @@ in
     systemd.services.zabbix-server = {
       description = "Zabbix Server";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
 
-      path = [ "/run/wrappers" ] ++ cfg.extraPackages;
+      path = ["/run/wrappers"] ++ cfg.extraPackages;
       preStart =
         ''
           # pre 19.09 compatibility

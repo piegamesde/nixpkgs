@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${pname}-${version}";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   patches = [
     ./nexus-bin.patch
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/nexus \
       --set JAVA_HOME ${jre_headless} \
       --set ALTERNATIVE_NAME "nexus" \
-      --prefix PATH "${lib.makeBinPath [ gawk ]}"
+      --prefix PATH "${lib.makeBinPath [gawk]}"
 
     runHook postInstall
   '';
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Repository manager for binary software components";
     homepage = "http://www.sonatype.org/nexus";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.epl10;
     platforms = platforms.all;
     maintainers = with maintainers; [

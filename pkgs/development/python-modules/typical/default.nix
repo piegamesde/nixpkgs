@@ -33,7 +33,7 @@ buildPythonPackage rec {
     hash = "sha256-DRjQmoZzWw5vpwIx70wQg6EO/aHqyX7RWpWZ9uOxSTg=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     fastjsonschema
@@ -76,12 +76,12 @@ buildPythonPackage rec {
     "tests/mypy/test_mypy.py"
   ];
 
-  pythonImportsCheck = [ "typic" ];
+  pythonImportsCheck = ["typic"];
 
   meta = with lib; {
     description = "Python library for runtime analysis, inference and validation of Python types";
     homepage = "https://python-typical.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ kfollesdal ];
+    maintainers = with maintainers; [kfollesdal];
   };
 }

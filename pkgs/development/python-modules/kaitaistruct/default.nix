@@ -46,6 +46,6 @@ buildPythonPackage rec {
     description = "Kaitai Struct: runtime library for Python";
     homepage = "https://github.com/kaitai-io/kaitai_struct_python_runtime";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

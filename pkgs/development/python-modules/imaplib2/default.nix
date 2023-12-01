@@ -19,14 +19,14 @@ buildPythonPackage rec {
     sha256 = "14asi3xnvf4bb394k5j8c3by6svvmrr75pawzy6kaax5jx0h793m";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "imaplib2" ];
+  pythonImportsCheck = ["imaplib2"];
 
   meta = with lib; {
     description = "A threaded Python IMAP4 client";
     homepage = "https://github.com/jazzband/imaplib2";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

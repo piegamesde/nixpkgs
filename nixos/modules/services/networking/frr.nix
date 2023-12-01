@@ -30,7 +30,7 @@ let
     "fabric"
   ];
 
-  allServices = services ++ [ "zebra" ];
+  allServices = services ++ ["zebra"];
 
   isEnabled = service: cfg.${service}.enable;
 
@@ -115,7 +115,7 @@ let
 
     extraOptions = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Extra options for the daemon.
       '';
@@ -143,7 +143,7 @@ in
         };
       };
     }
-    { options.services.frr = (genAttrs services serviceOptions); }
+    {options.services.frr = (genAttrs services serviceOptions);}
   ];
 
   ###### implementation
@@ -161,10 +161,10 @@ in
     };
 
     users.groups = {
-      frr = { };
+      frr = {};
       # Members of the frrvty group can use vtysh to inspect the FRR daemons
       frrvty = {
-        members = [ "frr" ];
+        members = ["frr"];
       };
     };
 
@@ -180,7 +180,7 @@ in
         "frr/vtysh.conf".text = "";
       };
 
-    systemd.tmpfiles.rules = [ "d /run/frr 0750 frr frr -" ];
+    systemd.tmpfiles.rules = ["d /run/frr 0750 frr frr -"];
 
     systemd.services =
       let
@@ -191,13 +191,13 @@ in
             daemon = daemonName service;
           in
           nameValuePair daemon ({
-            wantedBy = [ "multi-user.target" ];
+            wantedBy = ["multi-user.target"];
             after = [
               "network-pre.target"
               "systemd-sysctl.service"
-            ] ++ lib.optionals (service != "zebra") [ "zebra.service" ];
-            bindsTo = lib.optionals (service != "zebra") [ "zebra.service" ];
-            wants = [ "network.target" ];
+            ] ++ lib.optionals (service != "zebra") ["zebra.service"];
+            bindsTo = lib.optionals (service != "zebra") ["zebra.service"];
+            wants = ["network.target"];
 
             description =
               if service == "zebra" then "FRR Zebra routing manager" else "FRR ${toUpper service} routing daemon";
@@ -205,7 +205,7 @@ in
             unitConfig.Documentation =
               if service == "zebra" then "man:zebra(8)" else "man:${daemon}(8) man:zebra(8)";
 
-            restartTriggers = [ (configFile service) ];
+            restartTriggers = [(configFile service)];
             reloadIfChanged = true;
 
             serviceConfig = {
@@ -224,5 +224,5 @@ in
       listToAttrs (map frrService (filter isEnabled allServices));
   };
 
-  meta.maintainers = with lib.maintainers; [ woffs ];
+  meta.maintainers = with lib.maintainers; [woffs];
 }

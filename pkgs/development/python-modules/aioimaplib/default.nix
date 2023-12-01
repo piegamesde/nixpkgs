@@ -48,12 +48,12 @@ buildPythonPackage rec {
     "test_idle"
   ];
 
-  pythonImportsCheck = [ "aioimaplib" ];
+  pythonImportsCheck = ["aioimaplib"];
 
   meta = with lib; {
     description = "Python asyncio IMAP4rev1 client library";
     homepage = "https://github.com/bamthomas/aioimaplib";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

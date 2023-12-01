@@ -23,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-/suv1KbG3HbiYqEiuCtB/ia3xbxAO5AMuWx1Svy0rMw=";
   };
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   preBuild = ''
     cython quadprog/quadprog.pyx
@@ -47,6 +47,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/quadprog/quadprog/releases/tag/v${version}";
     description = "Quadratic Programming Solver";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 }

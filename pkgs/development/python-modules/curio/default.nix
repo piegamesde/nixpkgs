@@ -35,13 +35,13 @@ buildPythonPackage rec {
     "test_unix_ssl_server" # socket bind error on hydra when built with other packages
   ];
 
-  pythonImportsCheck = [ "curio" ];
+  pythonImportsCheck = ["curio"];
 
   meta = with lib; {
     description = "Library for performing concurrent I/O with coroutines in Python";
     homepage = "https://github.com/dabeaz/curio";
     changelog = "https://github.com/dabeaz/curio/raw/${version}/CHANGES";
     license = licenses.bsd3;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

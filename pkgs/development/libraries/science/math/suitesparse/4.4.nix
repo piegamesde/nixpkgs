@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
     cp -r UMFPACK/Doc $outdoc/umfpack
   '';
 
-  nativeBuildInputs = [ gfortran ];
+  nativeBuildInputs = [gfortran];
   buildInputs = [
     blas
     lapack
@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
       gpl2Plus
       lgpl21Plus
     ];
-    maintainers = with maintainers; [ ttuegel ];
+    maintainers = with maintainers; [ttuegel];
     platforms = with platforms; unix;
   };
 }

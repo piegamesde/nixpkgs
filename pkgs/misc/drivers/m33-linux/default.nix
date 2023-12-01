@@ -25,6 +25,6 @@ stdenv.mkDerivation {
     description = "A Linux program that can communicate with the Micro 3D printer";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

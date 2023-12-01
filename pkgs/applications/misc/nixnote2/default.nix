@@ -30,7 +30,7 @@ mkDerivation rec {
     hunspell
   ];
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
   postPatch = ''
     # Fix location of poppler-qt5.h
@@ -53,7 +53,7 @@ mkDerivation rec {
     description = "An unofficial client of Evernote";
     homepage = "http://www.nixnote.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ htr ];
+    maintainers = with maintainers; [htr];
     platforms = platforms.linux;
   };
 }

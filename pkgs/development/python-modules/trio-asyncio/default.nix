@@ -52,7 +52,7 @@ buildPythonPackage rec {
     "tests/python" # tries to import internal API test.test_asyncio
   ];
 
-  pythonImportsCheck = [ "trio_asyncio" ];
+  pythonImportsCheck = ["trio_asyncio"];
 
   meta = with lib; {
     description = "Re-implementation of the asyncio mainloop on top of Trio";
@@ -61,6 +61,6 @@ buildPythonPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

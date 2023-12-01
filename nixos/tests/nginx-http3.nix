@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
   let
     hosts = ''
       192.168.2.101 acme.test
@@ -7,11 +7,11 @@ import ./make-test-python.nix (
   in
   {
     name = "nginx-http3";
-    meta.maintainers = with pkgs.lib.maintainers; [ izorkin ];
+    meta.maintainers = with pkgs.lib.maintainers; [izorkin];
 
     nodes = {
       server =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           networking = {
             interfaces.eth1 = {
@@ -23,11 +23,11 @@ import ./make-test-python.nix (
               ];
             };
             extraHosts = hosts;
-            firewall.allowedTCPPorts = [ 443 ];
-            firewall.allowedUDPPorts = [ 443 ];
+            firewall.allowedTCPPorts = [443];
+            firewall.allowedUDPPorts = [443];
           };
 
-          security.pki.certificates = [ (builtins.readFile ./common/acme/server/ca.cert.pem) ];
+          security.pki.certificates = [(builtins.readFile ./common/acme/server/ca.cert.pem)];
 
           services.nginx = {
             enable = true;
@@ -43,7 +43,7 @@ import ./make-test-python.nix (
               quic = true;
               reuseport = true;
               root = lib.mkForce (
-                pkgs.runCommandLocal "testdir" { } ''
+                pkgs.runCommandLocal "testdir" {} ''
                   mkdir "$out"
                   cat > "$out/index.html" <<EOF
                   <html><body>Hello World!</body></html>
@@ -58,9 +58,9 @@ import ./make-test-python.nix (
         };
 
       client =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
-          environment.systemPackages = [ pkgs.curlHTTP3 ];
+          environment.systemPackages = [pkgs.curlHTTP3];
           networking = {
             interfaces.eth1 = {
               ipv4.addresses = [
@@ -73,7 +73,7 @@ import ./make-test-python.nix (
             extraHosts = hosts;
           };
 
-          security.pki.certificates = [ (builtins.readFile ./common/acme/server/ca.cert.pem) ];
+          security.pki.certificates = [(builtins.readFile ./common/acme/server/ca.cert.pem)];
         };
     };
 

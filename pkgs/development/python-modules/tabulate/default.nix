@@ -29,7 +29,7 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    widechars = [ wcwidth ];
+    widechars = [wcwidth];
   };
 
   nativeCheckInputs = [
@@ -40,6 +40,6 @@ buildPythonPackage rec {
     description = "Pretty-print tabular data";
     homepage = "https://github.com/astanin/python-tabulate";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fridh ];
+    maintainers = with lib.maintainers; [fridh];
   };
 }

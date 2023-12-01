@@ -53,7 +53,7 @@ buildPythonPackage rec {
       --replace "--cov-report=xml --cov jira" ""
   '';
 
-  pythonImportsCheck = [ "jira" ];
+  pythonImportsCheck = ["jira"];
 
   # impure tests because of connectivity attempts to jira servers
   doCheck = false;
@@ -63,6 +63,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pycontribs/jira";
     changelog = "https://github.com/pycontribs/jira/releases/tag/${version}";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ globin ];
+    maintainers = with maintainers; [globin];
   };
 }

@@ -18,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-aTOpu6nb7cShBrtIjkuKH7hcvgRZ+0ZQT+YC1l2/0+k=";
   };
 
-  propagatedBuildInputs = [ django_4 ];
+  propagatedBuildInputs = [django_4];
 
-  pythonImportsCheck = [ "adminsortable2" ];
+  pythonImportsCheck = ["adminsortable2"];
 
   # Tests are very slow (end-to-end with playwright)
   doCheck = false;
@@ -30,6 +30,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jrief/django-admin-sortable2";
     changelog = "https://github.com/jrief/django-admin-sortable2/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ sephi ];
+    maintainers = with maintainers; [sephi];
   };
 }

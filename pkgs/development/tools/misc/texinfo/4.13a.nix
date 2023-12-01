@@ -15,8 +15,8 @@ stdenv.mkDerivation rec {
     sha256 = "1rf9ckpqwixj65bw469i634897xwlgkm5i9g2hv3avl6mv7b0a3d";
   };
 
-  buildInputs = [ ncurses ];
-  nativeBuildInputs = [ xz ];
+  buildInputs = [ncurses];
+  nativeBuildInputs = [xz];
 
   # Disabled because we don't have zdiff in the stdenv bootstrap.
   #doCheck = true;

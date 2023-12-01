@@ -85,7 +85,7 @@ let
           Non-key-value options like `deflate` can be used by
           declaring them as booleans, i. e. `deflate = true;`.
         '';
-        default = { };
+        default = {};
         example = {
           compression = "stateless";
 
@@ -117,7 +117,7 @@ let
     '';
   generateUnit = name: icfg: {
     description = "OpenConnect Interface - ${name}";
-    requires = [ "network-online.target" ];
+    requires = ["network-online.target"];
     after = [
       "network.target"
       "network-online.target"
@@ -135,11 +135,11 @@ let
 in
 {
   options.networking.openconnect = {
-    package = mkPackageOptionMD pkgs "openconnect" { };
+    package = mkPackageOptionMD pkgs "openconnect" {};
 
     interfaces = mkOption {
       description = lib.mdDoc "OpenConnect interfaces.";
-      default = { };
+      default = {};
       example = {
         openconnect0 = {
           gateway = "gateway.example.com";
@@ -162,5 +162,5 @@ in
         cfg.interfaces;
   };
 
-  meta.maintainers = with maintainers; [ alyaeanyx ];
+  meta.maintainers = with maintainers; [alyaeanyx];
 }

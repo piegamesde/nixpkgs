@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
   '';
 
   ac_cv_path_MONODOCER = "no";
-  installFlagsArray = [ "GAPIXMLDIR=/tmp/gapixml" ];
+  installFlagsArray = ["GAPIXMLDIR=/tmp/gapixml"];
 
   passthru = {
     inherit webkitgtk;
@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     description = "C# bindings for WebKit 2 with GTK+ 3";
     homepage = "https://github.com/hbons/webkit2-sharp";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ kevincox ];
+    maintainers = with lib.maintainers; [kevincox];
   };
 }

@@ -37,7 +37,7 @@ buildPythonPackage rec {
       --replace 'hypothesis = ">=4.36<6.0.0"' 'hypothesis = "*"'
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     pydantic
@@ -45,12 +45,12 @@ buildPythonPackage rec {
     pytest
   ];
 
-  pythonImportsCheck = [ "hypothesis_auto" ];
+  pythonImportsCheck = ["hypothesis_auto"];
 
   meta = with lib; {
     description = "Enables fully automatic tests for type annotated functions";
     homepage = "https://github.com/timothycrosley/hypothesis-auto/";
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

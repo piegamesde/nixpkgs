@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "s-sql";
   version = "postmodern-20211209-git";
 
-  parasites = [ "s-sql/tests" ];
+  parasites = ["s-sql/tests"];
 
   description = "Lispy DSL for SQL";
 
@@ -33,7 +33,7 @@ rec {
 
   packageName = "s-sql";
 
-  asdFilesToKeep = [ "s-sql.asd" ];
+  asdFilesToKeep = ["s-sql.asd"];
   overrides = x: x;
 }
 /* (SYSTEM s-sql DESCRIPTION Lispy DSL for SQL SHA256

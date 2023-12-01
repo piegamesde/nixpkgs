@@ -25,12 +25,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pypca" ];
+  pythonImportsCheck = ["pypca"];
 
   meta = with lib; {
     description = "Python library for interacting with the PCA 301 smart plugs";
     homepage = "https://github.com/majuss/pypca";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

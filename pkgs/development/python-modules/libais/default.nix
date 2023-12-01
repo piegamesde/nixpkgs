@@ -26,7 +26,7 @@ buildPythonPackage rec {
     pytest-cov
     coverage
   ];
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   meta = with lib; {
     homepage = "https://github.com/schwehr/libais";

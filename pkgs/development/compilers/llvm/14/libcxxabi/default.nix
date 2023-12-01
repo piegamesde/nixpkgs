@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   pname = "libcxxabi";
   inherit version;
 
-  src = runCommand "${pname}-src-${version}" { } ''
+  src = runCommand "${pname}-src-${version}" {} ''
     mkdir -p "$out"
     cp -r ${monorepoSrc}/cmake "$out"
     cp -r ${monorepoSrc}/${pname} "$out"
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       patch -p1 -d llvm -i ${./wasm.patch}
     '';
 
-  patches = [ ./gnu-install-dirs.patch ];
+  patches = [./gnu-install-dirs.patch];
 
   nativeBuildInputs = [
     cmake
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
   buildInputs = lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isWasm) libunwind;
 
   cmakeFlags =
-    [ "-DLIBCXXABI_LIBCXX_INCLUDES=${cxx-headers}/include/c++/v1" ]
+    ["-DLIBCXXABI_LIBCXX_INCLUDES=${cxx-headers}/include/c++/v1"]
     ++ lib.optionals (stdenv.hostPlatform.useLLVM or false) [
       "-DLLVM_ENABLE_LIBCXX=ON"
       "-DLIBCXXABI_USE_LLVM_UNWINDER=ON"
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       "-DLIBCXXABI_ENABLE_THREADS=OFF"
       "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
     ]
-    ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ];
+    ++ lib.optionals (!enableShared) ["-DLIBCXXABI_ENABLE_SHARED=OFF"];
 
   installPhase =
     if stdenv.isDarwin then
@@ -118,6 +118,6 @@ stdenv.mkDerivation rec {
       mit
       ncsa
     ];
-    maintainers = llvm_meta.maintainers ++ [ lib.maintainers.vlstill ];
+    maintainers = llvm_meta.maintainers ++ [lib.maintainers.vlstill];
   };
 }

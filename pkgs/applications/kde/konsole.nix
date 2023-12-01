@@ -74,5 +74,5 @@ mkDerivation {
 
   passthru.tests.test = nixosTests.terminal-emulators.konsole;
 
-  propagatedUserEnvPkgs = [ (lib.getBin kinit) ];
+  propagatedUserEnvPkgs = [(lib.getBin kinit)];
 }

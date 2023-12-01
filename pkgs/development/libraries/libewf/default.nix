@@ -28,18 +28,18 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     zlib
     openssl
     libuuid
-  ] ++ lib.optionals stdenv.isDarwin [ bzip2 ];
+  ] ++ lib.optionals stdenv.isDarwin [bzip2];
 
   meta = {
     description = "Library for support of the Expert Witness Compression Format";
     homepage = "https://sourceforge.net/projects/libewf/";
     license = lib.licenses.lgpl3;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.unix;
   };
 }

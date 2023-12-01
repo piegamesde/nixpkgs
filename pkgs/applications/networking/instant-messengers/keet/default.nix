@@ -13,7 +13,7 @@ let
     sha256 = "1f76ccfa16719a24f6d84b88e5ca49fab1c372de309ce74393461903c5c49d98";
   };
 
-  appimageContents = appimageTools.extract { inherit pname version src; };
+  appimageContents = appimageTools.extract {inherit pname version src;};
 in
 appimageTools.wrapType2 {
   inherit src pname version;
@@ -31,7 +31,7 @@ appimageTools.wrapType2 {
     description = "Peer-to-Peer Chat";
     homepage = "https://keet.io";
     license = licenses.unfree;
-    maintainers = with maintainers; [ extends ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [extends];
+    platforms = ["x86_64-linux"];
   };
 }

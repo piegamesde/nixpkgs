@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     gst_all_1.gst-plugins-base
   ];
 
-  mesonFlags = [ "-Dgtk_doc=true" ];
+  mesonFlags = ["-Dgtk_doc=true"];
 
   doCheck = true;
 

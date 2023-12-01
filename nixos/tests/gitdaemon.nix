@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   let
     hashes = pkgs.writeText "hashes" ''
@@ -9,15 +9,15 @@ import ./make-test-python.nix (
   {
     name = "gitdaemon";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ tilpner ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [tilpner];};
 
     nodes = {
       server =
-        { config, ... }:
+        {config, ...}:
         {
-          networking.firewall.allowedTCPPorts = [ config.services.gitDaemon.port ];
+          networking.firewall.allowedTCPPorts = [config.services.gitDaemon.port];
 
-          environment.systemPackages = [ pkgs.git ];
+          environment.systemPackages = [pkgs.git];
 
           systemd.tmpfiles.rules =
             [
@@ -31,7 +31,7 @@ import ./make-test-python.nix (
           };
         };
 
-      client = { pkgs, ... }: { environment.systemPackages = [ pkgs.git ]; };
+      client = {pkgs, ...}: {environment.systemPackages = [pkgs.git];};
     };
 
     testScript = ''

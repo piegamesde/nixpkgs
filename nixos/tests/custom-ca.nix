@@ -5,18 +5,18 @@
 
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 
 let
   inherit (pkgs) lib;
 
   makeCert =
-    { caName, domain }:
-    pkgs.runCommand "example-cert" { buildInputs = [ pkgs.gnutls ]; } ''
+    {caName, domain}:
+    pkgs.runCommand "example-cert" {buildInputs = [pkgs.gnutls];} ''
       mkdir $out
 
       # CA cert template
@@ -81,7 +81,7 @@ let
       "good.example.com"
       "bad.example.com"
     ];
-    security.pki.certificateFiles = [ "${example-good-cert}/ca.crt" ];
+    security.pki.certificateFiles = ["${example-good-cert}/ca.crt"];
 
     services.nginx.enable = true;
     services.nginx.virtualHosts."good.example.com" = {
@@ -106,8 +106,8 @@ let
 
   curlTest = makeTest {
     name = "custom-ca-curl";
-    meta.maintainers = with lib.maintainers; [ rnhmjoj ];
-    nodes.machine = { ... }: webserverConfig;
+    meta.maintainers = with lib.maintainers; [rnhmjoj];
+    nodes.machine = {...}: webserverConfig;
     testScript = ''
       with subtest("Good certificate is trusted in curl"):
           machine.wait_for_unit("nginx")
@@ -123,12 +123,12 @@ let
     browser: testParams:
     makeTest {
       name = "custom-ca-${browser}";
-      meta.maintainers = with lib.maintainers; [ rnhmjoj ];
+      meta.maintainers = with lib.maintainers; [rnhmjoj];
 
       enableOCR = true;
 
       nodes.machine =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           imports = [
             ./common/user-account.nix

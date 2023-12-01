@@ -39,14 +39,14 @@ stdenv.mkDerivation rec {
     "BINDIR="
   ];
 
-  nativeCheckInputs = [ bash ];
+  nativeCheckInputs = [bash];
   doCheck = true;
 
   meta = {
     description = "A general purpose fuzzer";
     longDescription = "Radamsa is a general purpose data fuzzer. It reads data from given sample files, or standard input if none are given, and outputs modified data. It is usually used to generate malformed data for testing programs.";
     homepage = "https://gitlab.com/akihe/radamsa";
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.all;
   };
 }

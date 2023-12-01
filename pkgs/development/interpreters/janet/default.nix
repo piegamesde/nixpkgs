@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     ninja
   ];
 
-  mesonFlags = [ "-Dgit_hash=release" ];
+  mesonFlags = ["-Dgit_hash=release"];
 
   doCheck = true;
 

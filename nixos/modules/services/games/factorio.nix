@@ -70,8 +70,8 @@ in
 
       admins = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "username" ];
+        default = [];
+        example = ["username"];
         description = lib.mdDoc ''
           List of player names which will be admin.
         '';
@@ -133,7 +133,7 @@ in
       };
       mods = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Mods the server should install and activate.
 
@@ -168,9 +168,9 @@ in
       };
       extraSettings = mkOption {
         type = types.attrs;
-        default = { };
+        default = {};
         example = {
-          admins = [ "username" ];
+          admins = ["username"];
         };
         description = lib.mdDoc ''
           Extra game configuration that will go into server-settings.json
@@ -257,8 +257,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.factorio = {
       description = "Factorio headless server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       preStart = toString [
         "test -e ${stateDir}/saves/${cfg.saveName}.zip"
@@ -266,7 +266,7 @@ in
         "${cfg.package}/bin/factorio"
         "--config=${cfg.configFile}"
         "--create=${mkSavePath cfg.saveName}"
-        (optionalString (cfg.mods != [ ]) "--mod-directory=${modDir}")
+        (optionalString (cfg.mods != []) "--mod-directory=${modDir}")
       ];
 
       serviceConfig = {
@@ -283,8 +283,8 @@ in
           (optionalString (!cfg.loadLatestSave) "--start-server=${mkSavePath cfg.saveName}")
           "--server-settings=${serverSettingsFile}"
           (optionalString cfg.loadLatestSave "--start-server-load-latest")
-          (optionalString (cfg.mods != [ ]) "--mod-directory=${modDir}")
-          (optionalString (cfg.admins != [ ]) "--server-adminlist=${serverAdminsFile}")
+          (optionalString (cfg.mods != []) "--mod-directory=${modDir}")
+          (optionalString (cfg.admins != []) "--server-adminlist=${serverAdminsFile}")
         ];
 
         # Sandboxing
@@ -308,6 +308,6 @@ in
       };
     };
 
-    networking.firewall.allowedUDPPorts = if cfg.openFirewall then [ cfg.port ] else [ ];
+    networking.firewall.allowedUDPPorts = if cfg.openFirewall then [cfg.port] else [];
   };
 }

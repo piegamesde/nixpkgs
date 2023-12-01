@@ -17,24 +17,24 @@ buildPythonPackage rec {
     hash = "sha256-sfBCqJnqTEWLcyHaG14zMePg7HgVg0NN4TAZRs6tuUM=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
-  propagatedBuildInputs = [ bracex ];
+  propagatedBuildInputs = [bracex];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export HOME=$(mktemp -d)
   '';
 
-  disabledTests = [ "TestTilde" ];
+  disabledTests = ["TestTilde"];
 
-  pythonImportsCheck = [ "wcmatch" ];
+  pythonImportsCheck = ["wcmatch"];
 
   meta = with lib; {
     description = "Wilcard File Name matching library";
     homepage = "https://github.com/facelessuser/wcmatch";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

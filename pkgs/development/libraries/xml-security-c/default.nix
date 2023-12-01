@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     "--with-xalan"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     xalanc
     xercesc
@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     description = "C++ Implementation of W3C security standards for XML";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.jagajaga ];
+    maintainers = [lib.maintainers.jagajaga];
   };
 }

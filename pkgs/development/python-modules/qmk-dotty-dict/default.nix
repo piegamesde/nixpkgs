@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-O2EeOTZgv6poNcaOlHhLroD+B7hJCXi17KsDoNL8fqI=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   doCheck = false;
 
@@ -27,6 +27,6 @@ buildPythonPackage rec {
       some non-UTF8 locale settings.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ babariviere ];
+    maintainers = with maintainers; [babariviere];
   };
 }

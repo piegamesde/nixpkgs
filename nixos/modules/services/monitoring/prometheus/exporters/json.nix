@@ -31,7 +31,7 @@ in
     };
   };
   imports = [
-    (mkRemovedOptionModule [ "url" ] ''
+    (mkRemovedOptionModule ["url"] ''
       This option was removed. The URL of the endpoint serving JSON
       must now be provided to the exporter by prometheus via the url
       parameter `target'.

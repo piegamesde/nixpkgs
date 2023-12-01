@@ -23,12 +23,12 @@ buildPythonPackage rec {
   # Project has not published tests yet
   doCheck = false;
 
-  pythonImportsCheck = [ "mutesync" ];
+  pythonImportsCheck = ["mutesync"];
 
   meta = with lib; {
     description = "Python module for interacting with mutesync buttons";
     homepage = "https://github.com/currentoor/pymutesync";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "nginx-globalredirect";
 
     nodes = {
       webserver =
-        { pkgs, lib, ... }:
+        {pkgs, lib, ...}:
         {
           services.nginx = {
             enable = true;

@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     docbook-xsl-nons
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
     "-Dman=true"
   ];
 
-  nativeCheckInputs = [ dbus ];
+  nativeCheckInputs = [dbus];
 
   doCheck = true;
 

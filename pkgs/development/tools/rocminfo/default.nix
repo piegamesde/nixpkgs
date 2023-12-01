@@ -15,7 +15,7 @@
   # we can specify the GPU targets for this system (e.g. "gfx803" for
   # Polaris) such that no system call is needed for downstream
   # compilers to determine the desired target.
-  defaultTargets ? [ ],
+  defaultTargets ? [],
 }:
 
 stdenv.mkDerivation (
@@ -35,16 +35,16 @@ stdenv.mkDerivation (
       rocm-cmake
     ];
 
-    buildInputs = [ rocm-runtime ];
-    propagatedBuildInputs = [ python3 ];
-    cmakeFlags = [ "-DROCRTST_BLD_TYPE=Release" ];
+    buildInputs = [rocm-runtime];
+    propagatedBuildInputs = [python3];
+    cmakeFlags = ["-DROCRTST_BLD_TYPE=Release"];
 
     prePatch = ''
       patchShebangs rocm_agent_enumerator
       sed 's,lsmod | grep ,${busybox}/bin/lsmod | ${gnugrep}/bin/grep ,' -i rocminfo.cc
     '';
 
-    postInstall = lib.optionalString (defaultTargets != [ ]) ''
+    postInstall = lib.optionalString (defaultTargets != []) ''
       echo '${lib.concatStringsSep "\n" defaultTargets}' > $out/bin/target.lst
     '';
 
@@ -58,7 +58,7 @@ stdenv.mkDerivation (
       description = "ROCm Application for Reporting System Info";
       homepage = "https://github.com/RadeonOpenCompute/rocminfo";
       license = licenses.ncsa;
-      maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
+      maintainers = with maintainers; [lovesegfault] ++ teams.rocm.members;
       platforms = platforms.linux;
       broken = stdenv.isAarch64 || versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
     };

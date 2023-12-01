@@ -30,12 +30,12 @@ buildPythonPackage rec {
   # Library tested with external tool
   # https://hitchdev.com/approach/contributing-to-hitch-libraries/
   doCheck = false;
-  pythonImportsCheck = [ "strictyaml" ];
+  pythonImportsCheck = ["strictyaml"];
 
   meta = with lib; {
     description = "Strict, typed YAML parser";
     homepage = "https://hitchdev.com/strictyaml/";
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

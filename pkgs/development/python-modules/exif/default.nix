@@ -20,19 +20,19 @@ buildPythonPackage rec {
     hash = "sha256-XSORawioXo8oPVZ3Jnxqa6GFIxnQZMT0vJitdmpBj0E=";
   };
 
-  propagatedBuildInputs = [ plum-py ];
+  propagatedBuildInputs = [plum-py];
 
   nativeCheckInputs = [
     pytestCheckHook
     baseline
   ];
 
-  pythonImportsCheck = [ "exif" ];
+  pythonImportsCheck = ["exif"];
 
   meta = with lib; {
     description = "Read and modify image EXIF metadata using Python";
     homepage = "https://gitlab.com/TNThieding/exif";
     license = licenses.mit;
-    maintainers = with maintainers; [ dnr ];
+    maintainers = with maintainers; [dnr];
   };
 }

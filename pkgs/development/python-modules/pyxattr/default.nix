@@ -17,7 +17,7 @@ buildPythonPackage rec {
   # IOError: [Errno 95] Operation not supported (expected)
   doCheck = false;
 
-  buildInputs = with pkgs; [ attr ];
+  buildInputs = with pkgs; [attr];
 
   meta = with lib; {
     description = "A Python extension module which gives access to the extended attributes for filesystem objects available in some operating systems";

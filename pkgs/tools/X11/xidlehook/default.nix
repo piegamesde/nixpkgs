@@ -50,7 +50,7 @@ rustPlatform.buildRustPackage rec {
     description = "xautolock rewrite in Rust, with a few extra features";
     homepage = "https://github.com/jD91mZM2/xidlehook";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
     badPlatforms = platforms.darwin;
   };

@@ -82,8 +82,8 @@ in
 
     systemd.services.chatgpt-retrieval-plugin = {
       description = "ChatGPT Retrieval Plugin";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         DynamicUser = true;

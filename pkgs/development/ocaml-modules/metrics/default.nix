@@ -18,9 +18,9 @@ buildDunePackage rec {
     sha256 = "sha256-kbh1WktQkDcXE8O1WRm+vtagVfSql8S5gr0bXn/jia8=";
   };
 
-  propagatedBuildInputs = [ fmt ];
+  propagatedBuildInputs = [fmt];
 
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   doCheck = true;
 
@@ -28,6 +28,6 @@ buildDunePackage rec {
     description = "Metrics infrastructure for OCaml";
     homepage = "https://github.com/mirage/metrics";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

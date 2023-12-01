@@ -12,7 +12,7 @@ let
     hash = "sha256-h4TZzExl1zThwzlKBtL0u3V1jFjjNM2Cscy4hGir9Ts=";
   };
 
-  appimageContents = appimageTools.extractType2 { inherit pname version src; };
+  appimageContents = appimageTools.extractType2 {inherit pname version src;};
 in
 appimageTools.wrapType2 {
   inherit pname version src;
@@ -31,8 +31,8 @@ appimageTools.wrapType2 {
     description = "A full-featured download manager";
     homepage = "https://motrix.app";
     license = licenses.mit;
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ dit7ya ];
+    platforms = ["x86_64-linux"];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    maintainers = with maintainers; [dit7ya];
   };
 }

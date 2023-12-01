@@ -23,7 +23,7 @@ let
       '';
       userJson = pkgs.writeText "user.json" (builtins.toJSON userCfg);
     in
-    (pkgs.runCommand "${varName}.js" { } ''
+    (pkgs.runCommand "${varName}.js" {} ''
       ${pkgs.nodejs}/bin/node ${extractor} ${source} ${varName} > default.json
       (
         echo "var ${varName} = "
@@ -64,7 +64,7 @@ in
 
     config = mkOption {
       type = attrs;
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           enableWelcomePage = false;
@@ -91,7 +91,7 @@ in
 
     interfaceConfig = mkOption {
       type = attrs;
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           SHOW_JITSI_WATERMARK = false;
@@ -217,7 +217,7 @@ in
         "pubsub"
         "smacks"
       ];
-      extraPluginPaths = [ "${pkgs.jitsi-meet-prosody}/share/prosody-plugins" ];
+      extraPluginPaths = ["${pkgs.jitsi-meet-prosody}/share/prosody-plugins"];
       extraConfig = lib.mkMerge [
         (mkAfter ''
           Component "focus.${cfg.hostName}" "client_proxy"
@@ -282,17 +282,17 @@ in
           ${config.services.prosody.package}/bin/prosodyctl register recorder recorder.${cfg.hostName} "$(cat /var/lib/jitsi-meet/jibri-recorder-secret)"
         '';
       serviceConfig = {
-        EnvironmentFile = [ "/var/lib/jitsi-meet/secrets-env" ];
-        SupplementaryGroups = [ "jitsi-meet" ];
+        EnvironmentFile = ["/var/lib/jitsi-meet/secrets-env"];
+        SupplementaryGroups = ["jitsi-meet"];
       };
       reloadIfChanged = true;
     };
 
-    users.groups.jitsi-meet = { };
-    systemd.tmpfiles.rules = [ "d '/var/lib/jitsi-meet' 0750 root jitsi-meet - -" ];
+    users.groups.jitsi-meet = {};
+    systemd.tmpfiles.rules = ["d '/var/lib/jitsi-meet' 0750 root jitsi-meet - -"];
 
     systemd.services.jitsi-meet-init-secrets = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       before = [
         "jicofo.service"
         "jitsi-videobridge2.service"
@@ -369,9 +369,7 @@ in
             proxy_set_header Host $host;
           '';
         };
-        locations."=/external_api.js" = mkDefault {
-          alias = "${pkgs.jitsi-meet}/libs/external_api.min.js";
-        };
+        locations."=/external_api.js" = mkDefault {alias = "${pkgs.jitsi-meet}/libs/external_api.min.js";};
         locations."=/config.js" = mkDefault {
           alias =
             overrideJs "${pkgs.jitsi-meet}/config.js" "config" (recursiveUpdate defaultCfg cfg.config)
@@ -390,7 +388,7 @@ in
       virtualHosts.${cfg.hostName} = {
         extraConfig =
           let
-            templatedJitsiMeet = pkgs.runCommand "templated-jitsi-meet" { } ''
+            templatedJitsiMeet = pkgs.runCommand "templated-jitsi-meet" {} ''
               cp -R ${pkgs.jitsi-meet}/* .
               for file in *.html **/*.html ; do
                 ${pkgs.sd}/bin/sd '<!--#include virtual="(.*)" -->' '{{ include "$1" }}' $file
@@ -466,7 +464,7 @@ in
       enable = true;
 
       xmppEnvironments."jitsi-meet" = {
-        xmppServerHosts = [ "localhost" ];
+        xmppServerHosts = ["localhost"];
         xmppDomain = cfg.hostName;
 
         control.muc = {

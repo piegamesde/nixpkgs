@@ -96,7 +96,7 @@ let
   # them afterwards in an attempt to get them to run on NixOS.
   internAndFixPlugins =
     name: intern-fn: paths:
-    pkgs.runCommand name { } ''
+    pkgs.runCommand name {} ''
       mkdir -p "$out"
       cd "$out"
       ${lib.concatStringsSep "\n" (lib.attrsets.mapAttrsToList intern-fn paths)}
@@ -122,7 +122,7 @@ let
     )
   );
 
-  customStaticDir = pkgs.runCommand "munin-custom-static-data" { } ''
+  customStaticDir = pkgs.runCommand "munin-custom-static-data" {} ''
     cp -a "${pkgs.munin}/etc/opt/munin/static" "$out"
     cd "$out"
     chmod -R u+w .
@@ -171,7 +171,7 @@ in
       };
 
       extraPlugins = mkOption {
-        default = { };
+        default = {};
         type = with types; attrsOf path;
         description = lib.mdDoc ''
           Additional Munin plugins to activate. Keys are the name of the plugin
@@ -201,7 +201,7 @@ in
       };
 
       extraAutoPlugins = mkOption {
-        default = [ ];
+        default = [];
         type = with types; listOf path;
         description = lib.mdDoc ''
           Additional Munin plugins to autoconfigure, using
@@ -234,7 +234,7 @@ in
         # TODO: figure out why Munin isn't writing the log file and fix it.
         # In the meantime this at least suppresses a useless graph full of
         # NaNs in the output.
-        default = [ "munin_stats" ];
+        default = ["munin_stats"];
         type = with types; listOf str;
         description = lib.mdDoc ''
           Munin plugins to disable, even if
@@ -321,7 +321,7 @@ in
   config = mkMerge [
     (mkIf (nodeCfg.enable || cronCfg.enable) {
 
-      environment.systemPackages = [ pkgs.munin ];
+      environment.systemPackages = [pkgs.munin];
 
       users.users.munin = {
         description = "Munin monitoring user";
@@ -338,8 +338,8 @@ in
 
       systemd.services.munin-node = {
         description = "Munin Node";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
         path = with pkgs; [
           munin
           smartmontools
@@ -361,12 +361,12 @@ in
           # Autoconfigure extra plugins
           ${pkgs.munin}/bin/munin-node-configure --suggest --shell --families contrib,auto,manual --config ${nodeConf} --libdir=${extraAutoPluginDir} --servicedir=/etc/munin/plugins --sconfdir=${pluginConfDir} 2>/dev/null | ${pkgs.bash}/bin/bash
 
-          ${lib.optionalString (nodeCfg.extraPlugins != { }) ''
+          ${lib.optionalString (nodeCfg.extraPlugins != {}) ''
             # Link in manually enabled plugins
             ln -f -s -t /etc/munin/plugins ${extraPluginDir}/*
           ''}
 
-          ${lib.optionalString (nodeCfg.disabledPlugins != [ ]) ''
+          ${lib.optionalString (nodeCfg.disabledPlugins != []) ''
             # Disable plugins
             cd /etc/munin/plugins
             rm -f ${toString nodeCfg.disabledPlugins}
@@ -378,17 +378,17 @@ in
       };
 
       # munin_stats plugin breaks as of 2.0.33 when this doesn't exist
-      systemd.tmpfiles.rules = [ "d /run/munin 0755 munin munin -" ];
+      systemd.tmpfiles.rules = ["d /run/munin 0755 munin munin -"];
     })
     (mkIf cronCfg.enable {
 
       # Munin is hardcoded to use DejaVu Mono and the graphs come out wrong if
       # it's not available.
-      fonts.fonts = [ pkgs.dejavu_fonts ];
+      fonts.fonts = [pkgs.dejavu_fonts];
 
       systemd.timers.munin-cron = {
         description = "batch Munin master programs";
-        wantedBy = [ "timers.target" ];
+        wantedBy = ["timers.target"];
         timerConfig.OnCalendar = "*:0/5";
       };
 

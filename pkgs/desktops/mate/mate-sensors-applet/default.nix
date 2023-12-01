@@ -47,12 +47,12 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     homepage = "https://github.com/mate-desktop/mate-sensors-applet";
     description = "MATE panel applet for hardware sensors";
-    license = with licenses; [ gpl2Plus ];
+    license = with licenses; [gpl2Plus];
     platforms = platforms.linux;
     maintainers = teams.mate.members;
   };

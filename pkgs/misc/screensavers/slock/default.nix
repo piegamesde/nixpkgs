@@ -31,7 +31,7 @@ stdenv.mkDerivation (
       libxcrypt
     ];
 
-    installFlags = [ "PREFIX=$(out)" ];
+    installFlags = ["PREFIX=$(out)"];
 
     postPatch = "sed -i '/chmod u+s/d' Makefile";
 
@@ -39,7 +39,7 @@ stdenv.mkDerivation (
       cp ${writeText "config.def.h" conf} config.def.h
     '';
 
-    makeFlags = [ "CC:=$(CC)" ];
+    makeFlags = ["CC:=$(CC)"];
 
     meta = with lib; {
       homepage = "https://tools.suckless.org/slock";
@@ -48,7 +48,7 @@ stdenv.mkDerivation (
         Simple X display locker. This is the simplest X screen locker.
       '';
       license = licenses.mit;
-      maintainers = with maintainers; [ astsmtl ];
+      maintainers = with maintainers; [astsmtl];
       platforms = platforms.linux;
     };
   }

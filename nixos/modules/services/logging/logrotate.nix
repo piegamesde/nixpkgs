@@ -22,7 +22,7 @@ let
       || v == null
     then
       null
-    else if builtins.elem n [ "frequency" ] then
+    else if builtins.elem n ["frequency"] then
       ''
         ${v}
       ''
@@ -76,7 +76,7 @@ let
   settings = sortProperties (
     attrValues (
       filterAttrs (_: settings: settings.enable) (
-        foldAttrs recursiveUpdate { } [
+        foldAttrs recursiveUpdate {} [
           {
             header = {
               enable = true;
@@ -176,7 +176,7 @@ in
       };
 
       settings = mkOption {
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           logrotate freeform settings: each attribute here will define its own section,
           ordered by priority, which can either define files to rotate with their settings
@@ -204,7 +204,7 @@ in
         '';
         type = types.attrsOf (
           types.submodule (
-            { name, ... }:
+            {name, ...}:
             {
               freeformType =
                 with types;
@@ -325,7 +325,7 @@ in
     };
     systemd.services.logrotate-checkconf = {
       description = "Logrotate configuration check";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;

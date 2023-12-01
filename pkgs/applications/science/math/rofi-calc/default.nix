@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     cairo
   ];
 
-  patches = [ ./0001-Patch-plugindir-to-output.patch ];
+  patches = [./0001-Patch-plugindir-to-output.patch];
 
   postPatch = ''
     sed "s|qalc_binary = \"qalc\"|qalc_binary = \"${libqalculate}/bin/qalc\"|" -i src/calc.c

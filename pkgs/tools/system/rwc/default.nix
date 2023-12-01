@@ -15,12 +15,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-axHBkrbLEcYygCDofhqfIeZ5pv1sR34I5UgFUwVb2rI=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Report when files are changed";
     license = licenses.publicDomain;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ somasis ];
+    maintainers = with maintainers; [somasis];
   };
 }

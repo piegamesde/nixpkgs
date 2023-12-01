@@ -45,7 +45,7 @@ buildPythonPackage rec {
   # No tests
   doCheck = false;
 
-  pythonImportsCheck = [ "spyder_kernels" ];
+  pythonImportsCheck = ["spyder_kernels"];
 
   meta = with lib; {
     description = "Jupyter kernels for Spyder's console";
@@ -53,6 +53,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/spyder-ide/spyder-kernels/releases";
     changelog = "https://github.com/spyder-ide/spyder-kernels/blob/master/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ gebner ];
+    maintainers = with maintainers; [gebner];
   };
 }

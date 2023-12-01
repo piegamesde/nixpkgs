@@ -59,13 +59,13 @@ buildPythonPackage rec {
       "--deselect=pecan/tests/test_jsonify.py::TestJsonifySQLAlchemyGenericEncoder::test_sa_object"
     ];
 
-  pythonImportsCheck = [ "pecan" ];
+  pythonImportsCheck = ["pecan"];
 
   meta = with lib; {
     changelog = "https://pecan.readthedocs.io/en/latest/changes.html";
     description = "WSGI object-dispatching web framework";
     homepage = "https://www.pecanpy.org/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ applePrincess ];
+    maintainers = with maintainers; [applePrincess];
   };
 }

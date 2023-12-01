@@ -37,9 +37,9 @@ rustPlatform.buildRustPackage rec {
     sqlite
   ] ++ lib.optional withNotmuch notmuch;
 
-  nativeCheckInputs = [ file ];
+  nativeCheckInputs = [file];
 
-  buildFeatures = lib.optionals withNotmuch [ "notmuch" ];
+  buildFeatures = lib.optionals withNotmuch ["notmuch"];
 
   postInstall =
     ''

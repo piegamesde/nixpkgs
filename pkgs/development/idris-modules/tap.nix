@@ -9,7 +9,7 @@ build-idris-package {
   version = "2017-04-08";
 
   ipkgName = "TAP";
-  idrisDeps = [ contrib ];
+  idrisDeps = [contrib];
 
   src = fetchFromGitHub {
     owner = "ostera";
@@ -22,6 +22,6 @@ build-idris-package {
     description = "A simple TAP producer and consumer/reporter for Idris";
     homepage = "https://github.com/ostera/tap-idris";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

@@ -19,7 +19,7 @@ let
   );
 in
 
-makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
+makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: {})
   (spliced: spliced.apple_sdk.frameworks)
   (
     self:
@@ -29,9 +29,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
       # Must use pkgs.callPackage to avoid infinite recursion.
 
       # Open source packages that are built from source
-      appleSourcePackages = pkgs.callPackage ../os-specific/darwin/apple-source-releases { } self;
+      appleSourcePackages = pkgs.callPackage ../os-specific/darwin/apple-source-releases {} self;
 
-      impure-cmds = pkgs.callPackage ../os-specific/darwin/impure-cmds { };
+      impure-cmds = pkgs.callPackage ../os-specific/darwin/impure-cmds {};
 
       # macOS 10.12 SDK
       apple_sdk_10_12 = pkgs.callPackage ../os-specific/darwin/apple-sdk {
@@ -40,7 +40,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
       };
 
       # macOS 11.0 SDK
-      apple_sdk_11_0 = pkgs.callPackage ../os-specific/darwin/apple-sdk-11.0 { };
+      apple_sdk_11_0 = pkgs.callPackage ../os-specific/darwin/apple-sdk-11.0 {};
 
       # Pick an SDK
       apple_sdk = if stdenv.hostPlatform.isAarch64 then apple_sdk_11_0 else apple_sdk_10_12;
@@ -52,7 +52,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
       selectAttrs =
         attrs: names:
         lib.listToAttrs (
-          lib.concatMap (n: lib.optionals (attrs ? "${n}") [ (lib.nameValuePair n attrs."${n}") ]) names
+          lib.concatMap (n: lib.optionals (attrs ? "${n}") [(lib.nameValuePair n attrs."${n}")]) names
         );
 
       chooseLibs =
@@ -81,7 +81,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
 
       inherit apple_sdk apple_sdk_10_12 apple_sdk_11_0;
 
-      stdenvNoCF = stdenv.override { extraBuildInputs = [ ]; };
+      stdenvNoCF = stdenv.override {extraBuildInputs = [];};
 
       binutils-unwrapped = callPackage ../os-specific/darwin/binutils {
         inherit (pkgs) binutils-unwrapped;
@@ -120,23 +120,23 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
       # TODO(@connorbaker): See https://github.com/NixOS/nixpkgs/issues/229389.
       cf-private = self.apple_sdk.frameworks.CoreFoundation;
 
-      DarwinTools = callPackage ../os-specific/darwin/DarwinTools { };
+      DarwinTools = callPackage ../os-specific/darwin/DarwinTools {};
 
-      darwin-stubs = callPackage ../os-specific/darwin/darwin-stubs { };
+      darwin-stubs = callPackage ../os-specific/darwin/darwin-stubs {};
 
-      print-reexports = callPackage ../os-specific/darwin/print-reexports { };
+      print-reexports = callPackage ../os-specific/darwin/print-reexports {};
 
-      rewrite-tbd = callPackage ../os-specific/darwin/rewrite-tbd { };
+      rewrite-tbd = callPackage ../os-specific/darwin/rewrite-tbd {};
 
       checkReexportsHook =
         pkgs.makeSetupHook
           {
             name = "darwin-check-reexports-hook";
-            propagatedBuildInputs = [ pkgs.darwin.print-reexports ];
+            propagatedBuildInputs = [pkgs.darwin.print-reexports];
           }
           ../os-specific/darwin/print-reexports/setup-hook.sh;
 
-      sigtool = callPackage ../os-specific/darwin/sigtool { };
+      sigtool = callPackage ../os-specific/darwin/sigtool {};
 
       postLinkSignHook = pkgs.writeTextFile {
         name = "post-link-sign-hook";
@@ -150,19 +150,19 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
         '';
       };
 
-      signingUtils = callPackage ../os-specific/darwin/signing-utils { };
+      signingUtils = callPackage ../os-specific/darwin/signing-utils {};
 
       autoSignDarwinBinariesHook =
         pkgs.makeSetupHook
           {
             name = "auto-sign-darwin-binaries-hook";
-            propagatedBuildInputs = [ self.signingUtils ];
+            propagatedBuildInputs = [self.signingUtils];
           }
           ../os-specific/darwin/signing-utils/auto-sign-hook.sh;
 
-      maloader = callPackage ../os-specific/darwin/maloader { };
+      maloader = callPackage ../os-specific/darwin/maloader {};
 
-      insert_dylib = callPackage ../os-specific/darwin/insert_dylib { };
+      insert_dylib = callPackage ../os-specific/darwin/insert_dylib {};
 
       iosSdkPkgs = callPackage ../os-specific/darwin/xcode/sdk-pkgs.nix {
         buildIosSdk = buildPackages.darwin.iosSdkPkgs.sdk;
@@ -170,11 +170,11 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
         inherit (pkgs.llvmPackages) clang-unwrapped;
       };
 
-      iproute2mac = callPackage ../os-specific/darwin/iproute2mac { };
+      iproute2mac = callPackage ../os-specific/darwin/iproute2mac {};
 
       libobjc = self.objc4;
 
-      lsusb = callPackage ../os-specific/darwin/lsusb { };
+      lsusb = callPackage ../os-specific/darwin/lsusb {};
 
       moltenvk = pkgs.darwin.apple_sdk_11_0.callPackage ../os-specific/darwin/moltenvk {
         inherit (apple_sdk_11_0.frameworks)
@@ -187,19 +187,19 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
         inherit (pkgs.darwin) cctools sigtool;
       };
 
-      opencflite = callPackage ../os-specific/darwin/opencflite { };
+      opencflite = callPackage ../os-specific/darwin/opencflite {};
 
       openwith = pkgs.darwin.apple_sdk_11_0.callPackage ../os-specific/darwin/openwith {
         inherit (apple_sdk_11_0.frameworks) AppKit Foundation UniformTypeIdentifiers;
       };
 
-      stubs = pkgs.callPackages ../os-specific/darwin/stubs { };
+      stubs = pkgs.callPackages ../os-specific/darwin/stubs {};
 
-      trash = callPackage ../os-specific/darwin/trash { };
+      trash = callPackage ../os-specific/darwin/trash {};
 
-      xattr = pkgs.python3Packages.callPackage ../os-specific/darwin/xattr { };
+      xattr = pkgs.python3Packages.callPackage ../os-specific/darwin/xattr {};
 
-      inherit (pkgs.callPackages ../os-specific/darwin/xcode { })
+      inherit (pkgs.callPackages ../os-specific/darwin/xcode {})
         xcode_8_1
         xcode_8_2
         xcode_9_1
@@ -239,7 +239,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
         xcode
         ;
 
-      CoreSymbolication = callPackage ../os-specific/darwin/CoreSymbolication { };
+      CoreSymbolication = callPackage ../os-specific/darwin/CoreSymbolication {};
 
       # TODO: make swift-corefoundation build with apple_sdk_11_0.Libsystem
       CF =
@@ -257,27 +257,27 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
           # This may seem unimportant, but without it packages (e.g., bacula) will
           # fail with linker errors referring ___CFConstantStringClassReference.
           # It's not clear to me why some packages need this extra setup.
-          lib.overrideDerivation apple_sdk.frameworks.CoreFoundation (drv: { setupHook = null; })
+          lib.overrideDerivation apple_sdk.frameworks.CoreFoundation (drv: {setupHook = null;})
         else
-          callPackage ../os-specific/darwin/swift-corelibs/corefoundation.nix { };
+          callPackage ../os-specific/darwin/swift-corelibs/corefoundation.nix {};
 
       # As the name says, this is broken, but I don't want to lose it since it's a direction we want to go in
       # libdispatch-broken = callPackage ../os-specific/darwin/swift-corelibs/libdispatch.nix { };
 
-      libtapi = callPackage ../os-specific/darwin/libtapi { };
+      libtapi = callPackage ../os-specific/darwin/libtapi {};
 
-      ios-deploy = callPackage ../os-specific/darwin/ios-deploy { };
+      ios-deploy = callPackage ../os-specific/darwin/ios-deploy {};
 
-      discrete-scroll = callPackage ../os-specific/darwin/discrete-scroll { };
+      discrete-scroll = callPackage ../os-specific/darwin/discrete-scroll {};
 
       # See doc/builders/special/darwin-builder.section.md
       builder =
         let
-          toGuest = builtins.replaceStrings [ "darwin" ] [ "linux" ];
+          toGuest = builtins.replaceStrings ["darwin"] ["linux"];
 
           nixos = import ../../nixos {
             configuration = {
-              imports = [ ../../nixos/modules/profiles/macos-builder.nix ];
+              imports = [../../nixos/modules/profiles/macos-builder.nix];
 
               virtualisation.host = {
                 inherit pkgs;

@@ -34,7 +34,7 @@ else
       findlib
     ];
 
-    propagatedBuildInputs = [ bzip2 ];
+    propagatedBuildInputs = [bzip2];
 
     strictDeps = true;
 
@@ -44,6 +44,6 @@ else
       description = "OCaml bindings for the libbz2 (AKA, bzip2) (de)compression library";
       downloadPage = "https://gitlab.com/irill/camlbz2";
       license = licenses.lgpl21;
-      maintainers = with maintainers; [ ];
+      maintainers = with maintainers; [];
     };
   }

@@ -7,7 +7,7 @@
   ...
 }:
 let
-  pkgs-with-overlay = pkgs.extend (final: prev: { proof-of-overlay-hello = prev.hello; });
+  pkgs-with-overlay = pkgs.extend (final: prev: {proof-of-overlay-hello = prev.hello;});
 
   dummyVersioning = {
     revision = "test";
@@ -16,7 +16,7 @@ let
   };
 in
 lib.recurseIntoAttrs {
-  hasPkgConfigModule = pkgs.callPackage ../hasPkgConfigModule/tests.nix { };
+  hasPkgConfigModule = pkgs.callPackage ../hasPkgConfigModule/tests.nix {};
 
   # Check that the wiring of nixosTest is correct.
   # Correct operation of the NixOS test driver should be asserted elsewhere.
@@ -30,7 +30,7 @@ lib.recurseIntoAttrs {
     {
       name = "nixosTest-test";
       nodes.machine =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           system.nixos = dummyVersioning;
           environment.systemPackages = [
@@ -49,7 +49,7 @@ lib.recurseIntoAttrs {
       runCommand "testBuildFailure-happy"
         {
           failed = testers.testBuildFailure (
-            runCommand "fail" { } ''
+            runCommand "fail" {} ''
               echo ok-ish >$out
 
               echo failing though
@@ -124,13 +124,13 @@ lib.recurseIntoAttrs {
   testEqualContents = lib.recurseIntoAttrs {
     happy = testers.testEqualContents {
       assertion = "The same directory contents at different paths are recognized as equal";
-      expected = runCommand "expected" { } ''
+      expected = runCommand "expected" {} ''
         mkdir -p $out/c
         echo a >$out/a
         echo b >$out/b
         echo d >$out/c/d
       '';
-      actual = runCommand "actual" { } ''
+      actual = runCommand "actual" {} ''
         mkdir -p $out/c
         echo a >$out/a
         echo b >$out/b
@@ -144,14 +144,14 @@ lib.recurseIntoAttrs {
           log = testers.testBuildFailure (
             testers.testEqualContents {
               assertion = "The same directory contents at different paths are recognized as equal";
-              expected = runCommand "expected" { } ''
+              expected = runCommand "expected" {} ''
                 mkdir -p $out/c
                 echo a >$out/a
                 chmod a+x $out/a
                 echo b >$out/b
                 echo d >$out/c/d
               '';
-              actual = runCommand "actual" { } ''
+              actual = runCommand "actual" {} ''
                 mkdir -p $out/c
                 echo a >$out/a
                 echo b >$out/b
@@ -183,13 +183,13 @@ lib.recurseIntoAttrs {
           log = testers.testBuildFailure (
             testers.testEqualContents {
               assertion = "The same directory contents at different paths are recognized as equal";
-              expected = runCommand "expected" { } ''
+              expected = runCommand "expected" {} ''
                 mkdir -p $out/c
                 echo a >$out/a
                 echo b >$out/b
                 echo d >$out/c/d
               '';
-              actual = runCommand "actual" { } ''
+              actual = runCommand "actual" {} ''
                 mkdir -p $out/c
                 echo a >$out/a
                 echo B >$out/b
@@ -220,13 +220,13 @@ lib.recurseIntoAttrs {
           log = testers.testBuildFailure (
             testers.testEqualContents {
               assertion = "The same directory contents at different paths are recognized as equal";
-              expected = runCommand "expected" { } ''
+              expected = runCommand "expected" {} ''
                 mkdir -p $out/c
                 echo a >$out/a
                 echo b >$out/b
                 echo d >$out/c/d
               '';
-              actual = runCommand "actual" { } ''
+              actual = runCommand "actual" {} ''
                 mkdir -p $out/c
                 echo a >$out/a
                 echo d >$out/c/d

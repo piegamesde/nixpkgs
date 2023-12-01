@@ -18,6 +18,6 @@ build-idris-package {
     description = "Composable algorithmic transformation";
     homepage = "https://github.com/QuentinDuval/IdrisReducers";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

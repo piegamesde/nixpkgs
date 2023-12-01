@@ -17,6 +17,6 @@ buildPythonPackage rec {
     homepage = "https://code.google.com/archive/p/pycrc16/";
     description = "Python library for calculating CRC16";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

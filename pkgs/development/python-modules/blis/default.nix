@@ -27,16 +27,16 @@ buildPythonPackage rec {
       --replace "numpy.__config__.blas_ilp64_opt_info" "numpy.__config__.blas_opt_info"
   '';
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   nativeCheckInputs = [
     hypothesis
     pytest
   ];
 
-  pythonImportsCheck = [ "blis" ];
+  pythonImportsCheck = ["blis"];
 
   passthru = {
     # Do not update to BLIS 0.9.x until the following issue is resolved:
@@ -48,6 +48,6 @@ buildPythonPackage rec {
     description = "BLAS-like linear algebra library";
     homepage = "https://github.com/explosion/cython-blis";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

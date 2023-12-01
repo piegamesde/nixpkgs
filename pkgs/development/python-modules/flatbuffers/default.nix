@@ -13,11 +13,11 @@ buildPythonPackage rec {
   # version, otherwise it uses the current date.
   VERSION = "${version}";
 
-  pythonImportsCheck = [ "flatbuffers" ];
+  pythonImportsCheck = ["flatbuffers"];
 
   meta = flatbuffers.meta // {
     description = "Python runtime library for use with the Flatbuffers serialization format";
-    maintainers = with lib.maintainers; [ wulfsta ];
+    maintainers = with lib.maintainers; [wulfsta];
     mainProgram = "flatc";
   };
 }

@@ -36,22 +36,22 @@ buildPythonPackage rec {
     hash = "sha256-BIGHaZhrEc7wcIesBIXdVRzozllCNOz67V+LmQfZ8oY=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     jsonschema
     jsonschema-spec
     lazy-object-proxy
     openapi-schema-validator
-  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  ] ++ lib.optionals (pythonOlder "3.9") [importlib-resources];
 
-  passthru.optional-dependencies.requests = [ requests ];
+  passthru.optional-dependencies.requests = [requests];
 
   preCheck = ''
     sed -i '/--cov/d' pyproject.toml
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # network access
@@ -70,6 +70,6 @@ buildPythonPackage rec {
     description = "Validates OpenAPI Specs against the OpenAPI 2.0 (aka Swagger) and OpenAPI 3.0.0 specification";
     homepage = "https://github.com/p1c2u/openapi-spec-validator";
     license = licenses.asl20;
-    maintainers = with maintainers; [ rvl ];
+    maintainers = with maintainers; [rvl];
   };
 }

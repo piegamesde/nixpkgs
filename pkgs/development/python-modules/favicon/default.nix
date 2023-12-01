@@ -18,7 +18,7 @@ buildPythonPackage rec {
     sha256 = "6d6b5a78de2a0d0084589f687f384b2ecd6a6527093fec564403b1a30605d7a8";
   };
 
-  buildInputs = [ pytest-runner ];
+  buildInputs = [pytest-runner];
   nativeCheckInputs = [
     pytest
     requests-mock
@@ -36,6 +36,6 @@ buildPythonPackage rec {
     description = "Find a website's favicon";
     homepage = "https://github.com/scottwernervt/favicon";
     license = licenses.mit;
-    maintainers = with maintainers; [ elohmeier ];
+    maintainers = with maintainers; [elohmeier];
   };
 }

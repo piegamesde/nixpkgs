@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/shadowsocks/shadowsocks-libev";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

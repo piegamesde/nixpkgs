@@ -4,7 +4,7 @@
   crossSystem,
   config,
   overlays,
-  crossOverlays ? [ ],
+  crossOverlays ? [],
 }:
 
 let
@@ -12,10 +12,10 @@ let
     inherit lib localSystem overlays;
 
     crossSystem = localSystem;
-    crossOverlays = [ ];
+    crossOverlays = [];
 
     # Ignore custom stdenvs when cross compiling for compatability
-    config = builtins.removeAttrs config [ "replaceStdenv" ];
+    config = builtins.removeAttrs config ["replaceStdenv"];
   };
 in
 lib.init bootStages
@@ -39,7 +39,7 @@ lib.init bootStages
       assert vanillaPackages.stdenv.buildPlatform == localSystem;
       assert vanillaPackages.stdenv.hostPlatform == localSystem;
       assert vanillaPackages.stdenv.targetPlatform == localSystem;
-      vanillaPackages.stdenv.override { targetPlatform = crossSystem; };
+      vanillaPackages.stdenv.override {targetPlatform = crossSystem;};
     # It's OK to change the built-time dependencies
     allowCustomOverrides = true;
   })
@@ -63,9 +63,9 @@ lib.init bootStages
 
             # Prior overrides are surely not valid as packages built with this run on
             # a different platform, and so are disabled.
-            overrides = _: _: { };
+            overrides = _: _: {};
             extraBuildInputs =
-              [ ] # Old ones run on wrong platform
+              [] # Old ones run on wrong platform
               ++ lib.optionals hostPlatform.isDarwin [
                 buildPackages.targetPackages.darwin.apple_sdk.frameworks.CoreFoundation
               ];
@@ -95,7 +95,7 @@ lib.init bootStages
 
             extraNativeBuildInputs =
               old.extraNativeBuildInputs
-              ++ lib.optionals (hostPlatform.isLinux && !buildPlatform.isLinux) [ buildPackages.patchelf ]
+              ++ lib.optionals (hostPlatform.isLinux && !buildPlatform.isLinux) [buildPackages.patchelf]
               ++
                 lib.optional
                   (

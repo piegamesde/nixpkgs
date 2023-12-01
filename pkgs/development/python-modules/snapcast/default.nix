@@ -27,9 +27,9 @@ buildPythonPackage rec {
     packaging
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "snapcast" ];
+  pythonImportsCheck = ["snapcast"];
 
   disabledTests = [
     # AssertionError and TypeError
@@ -41,6 +41,6 @@ buildPythonPackage rec {
     description = "Control Snapcast, a multi-room synchronous audio solution";
     homepage = "https://github.com/happyleavesaoc/python-snapcast/";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

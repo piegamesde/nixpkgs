@@ -71,7 +71,7 @@ let
       };
 
       patches =
-        [ ]
+        []
         ++ optional (vpxSupport && hasPrefix "0.8." version) ./vpxenc-0.8.17-libvpx-1.5.patch
         ++ optional (vpxSupport && hasPrefix "12." version) ./vpx-12.3-libvpx-1.8.patch;
 
@@ -81,7 +81,7 @@ let
         substituteInPlace ./configure --replace "#! /bin/sh" "#!${bash}/bin/sh"
       '';
 
-      configurePlatforms = [ ];
+      configurePlatforms = [];
       configureFlags =
         assert lib.all (x: x != null) buildInputs;
         [
@@ -127,7 +127,7 @@ let
           SDL
           bash
         ]
-        ++ [ perl ] # for install-man target
+        ++ [perl] # for install-man target
         ++ optional mp3Support lame
         ++ optional speexSupport speex
         ++ optional theoraSupport libtheora

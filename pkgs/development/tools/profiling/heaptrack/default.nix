@@ -54,7 +54,7 @@ mkDerivation rec {
     description = "Heap memory profiler for Linux";
     homepage = "https://github.com/KDE/heaptrack";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ gebner ];
+    maintainers = with maintainers; [gebner];
     platforms = platforms.linux;
   };
 }

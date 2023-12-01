@@ -19,7 +19,7 @@
   description,
   url ?
     "https://git.open-music-kontrollers.ch/lv2/${pname}.lv2/snapshot/${pname}.lv2-${version}.tar.xz",
-  additionalBuildInputs ? [ ],
+  additionalBuildInputs ? [],
   postPatch ? "",
   ...
 }:
@@ -54,7 +54,7 @@ stdenv.mkDerivation {
     description = description;
     homepage = "https://open-music-kontrollers.ch/lv2/${pname}:";
     license = licenses.artistic2;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.all;
   };
 }

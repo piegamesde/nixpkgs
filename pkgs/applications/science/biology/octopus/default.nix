@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     description = "Bayesian haplotype-based mutation calling";
     license = licenses.mit;
     homepage = "https://github.com/luntergroup/octopus";
-    maintainers = with maintainers; [ jbedo ];
+    maintainers = with maintainers; [jbedo];
     platforms = platforms.x86_64;
   };
 }

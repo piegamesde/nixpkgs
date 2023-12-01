@@ -29,7 +29,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  propagatedBuildInputs = [ async-timeout ];
+  propagatedBuildInputs = [async-timeout];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -92,6 +92,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/bluetooth-devices/dbus-fast";
     changelog = "https://github.com/Bluetooth-Devices/dbus-fast/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

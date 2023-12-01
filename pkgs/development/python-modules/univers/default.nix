@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-IJeM9Nzfqs1B0xP43i6u65XSEVPdiGhXWuORglbNARI=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     attrs
@@ -44,7 +44,7 @@ buildPythonPackage rec {
 
   dontConfigure = true; # ./configure tries to setup virtualenv and downloads dependencies
 
-  pythonImportsCheck = [ "univers" ];
+  pythonImportsCheck = ["univers"];
 
   disabledTests = [
     # No value for us

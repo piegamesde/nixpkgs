@@ -13,7 +13,7 @@ buildPythonPackage {
 
   setSourceRoot = "sourceRoot=$(echo gurobi*/*64)";
 
-  patches = [ ./no-clever-setup.patch ];
+  patches = [./no-clever-setup.patch];
 
   postInstall = ''
     mv lib/libgurobi*.so* $out/lib
@@ -27,8 +27,8 @@ buildPythonPackage {
   meta = with lib; {
     description = "The Gurobi Python interface";
     homepage = "https://www.gurobi.com";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

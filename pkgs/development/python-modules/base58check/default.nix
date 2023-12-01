@@ -20,14 +20,14 @@ buildPythonPackage rec {
     hash = "sha256-Tig6beLRDsXC//x4+t/z2BGaJQWzcP0J+QEKx3D0rhs=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "base58check" ];
+  pythonImportsCheck = ["base58check"];
 
   meta = with lib; {
     description = "Implementation of the Base58Check encoding scheme";
     homepage = "https://github.com/joeblackwaslike/base58check";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

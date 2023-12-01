@@ -35,7 +35,7 @@ in
         Set of iPXE scripts available for
         booting from the GRUB boot menu.
       '';
-      default = { };
+      default = {};
       example = literalExpression ''
         { demo = '''
             #!ipxe

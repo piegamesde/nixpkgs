@@ -12,19 +12,17 @@ let
   fixClient =
     client:
     if client ? secretFile then
-      ((builtins.removeAttrs client [ "secretFile" ]) // { secret = client.secretFile; })
+      ((builtins.removeAttrs client ["secretFile"]) // {secret = client.secretFile;})
     else
       client;
   filteredSettings =
     mapAttrs (n: v: if n == "staticClients" then (builtins.map fixClient v) else v)
       cfg.settings;
   secretFiles = flatten (
-    builtins.map (c: if c ? secretFile then [ c.secretFile ] else [ ]) (
-      cfg.settings.staticClients or [ ]
-    )
+    builtins.map (c: if c ? secretFile then [c.secretFile] else []) (cfg.settings.staticClients or [])
   );
 
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   configFile = settingsFormat.generate "config.yaml" filteredSettings;
 
   startPreScript = pkgs.writeShellScript "dex-start-pre" (
@@ -53,7 +51,7 @@ in
 
     settings = mkOption {
       type = settingsFormat.type;
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           # External url
@@ -89,11 +87,11 @@ in
   config = mkIf cfg.enable {
     systemd.services.dex = {
       description = "dex identity provider";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "networking.target"
       ] ++ (optional (cfg.settings.storage.type == "postgres") "postgresql.service");
-      path = with pkgs; [ replace-secret ];
+      path = with pkgs; [replace-secret];
       serviceConfig = {
         ExecStart = "${pkgs.dex-oidc}/bin/dex serve /run/dex/config.yaml";
         ExecStartPre = [
@@ -153,7 +151,7 @@ in
         TemporaryFileSystem = "/:ro";
         # Does not work well with the temporary root
         #UMask = "0066";
-      } // optionalAttrs (cfg.environmentFile != null) { EnvironmentFile = cfg.environmentFile; };
+      } // optionalAttrs (cfg.environmentFile != null) {EnvironmentFile = cfg.environmentFile;};
     };
   };
 

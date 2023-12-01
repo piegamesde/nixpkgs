@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-LSGg5gAQE2JpepBqhz6D6d3NlqYaU4bjvYf1F+oLphQ=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     dbus
@@ -36,6 +36,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Guldoman/mpv_inhibit_gnome";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ myaats ];
+    maintainers = with maintainers; [myaats];
   };
 }

@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     qttools
   ];
 
-  cmakeFlags = [ "-DZINT_QT6:BOOL=ON" ];
+  cmakeFlags = ["-DZINT_QT6:BOOL=ON"];
 
   postInstall = ''
     install -Dm644 -t $out/share/applications $src/zint-qt.desktop
@@ -63,6 +63,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.zint.org.uk";
     changelog = "https://github.com/zint/zint/blob/${version}/ChangeLog";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
   };
 }

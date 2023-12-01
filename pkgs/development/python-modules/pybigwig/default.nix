@@ -22,16 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-uYKxM0HOG4fus5geBFjbfbv6G1kDvMaAwhk0w/e1YII=";
   };
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   nativeCheckInputs = [
     numpy
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pyBigWig" ];
+  pythonImportsCheck = ["pyBigWig"];
 
-  pytestFlagsArray = [ "pyBigWigTest/test*.py" ];
+  pytestFlagsArray = ["pyBigWigTest/test*.py"];
 
   disabledTests = [
     # Test file is donwloaded from GitHub
@@ -51,6 +51,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/deeptools/pyBigWig";
     changelog = "https://github.com/deeptools/pyBigWig/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ scalavision ];
+    maintainers = with maintainers; [scalavision];
   };
 }

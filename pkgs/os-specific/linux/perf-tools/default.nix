@@ -16,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "09qnss9pd4kr6qadvp62m2g8sfrj86fksi1rr8m8w4314pzfb93c";
   };
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   patchPhase = ''
     for i in execsnoop iolatency iosnoop kernel/funcslower killsnoop opensnoop; do
@@ -42,7 +42,7 @@ stdenv.mkDerivation {
     platforms = platforms.linux;
     homepage = "https://github.com/brendangregg/perf-tools";
     description = "Performance analysis tools based on Linux perf_events (aka perf) and ftrace";
-    maintainers = [ maintainers.eelco ];
+    maintainers = [maintainers.eelco];
     license = licenses.gpl2Plus;
   };
 }

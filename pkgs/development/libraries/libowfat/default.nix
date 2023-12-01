@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     make headers
   '';
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
   enableParallelBuilding = true;
 
   meta = with lib; {

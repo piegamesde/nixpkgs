@@ -13,7 +13,7 @@ let
         mod
       ];
     };
-  withHost = eval { nixpkgs.hostPlatform = "aarch64-linux"; };
+  withHost = eval {nixpkgs.hostPlatform = "aarch64-linux";};
   withHostAndBuild = eval {
     nixpkgs.hostPlatform = "aarch64-linux";
     nixpkgs.buildPlatform = "aarch64-darwin";
@@ -45,8 +45,7 @@ let
     map (ass: ass.message) (lib.filter (ass: !ass.assertion) uncheckedEval.config.assertions);
 in
 lib.recurseIntoAttrs {
-  invokeNixpkgsSimple =
-    (eval { nixpkgs.system = stdenv.hostPlatform.system; })._module.args.pkgs.hello;
+  invokeNixpkgsSimple = (eval {nixpkgs.system = stdenv.hostPlatform.system;})._module.args.pkgs.hello;
   assertions =
     assert withHost._module.args.pkgs.stdenv.hostPlatform.system == "aarch64-linux";
     assert withHost._module.args.pkgs.stdenv.buildPlatform.system == "aarch64-linux";
@@ -77,7 +76,7 @@ lib.recurseIntoAttrs {
       nixpkgs.localSystem = pkgs.stdenv.hostPlatform;
       nixpkgs.hostPlatform = pkgs.stdenv.hostPlatform;
       nixpkgs.pkgs = pkgs;
-    } == [ ];
+    } == [];
 
     pkgs.emptyFile;
 }

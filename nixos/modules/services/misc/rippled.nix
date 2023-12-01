@@ -94,7 +94,7 @@ let
     + cfg.extraConfig;
 
   portOptions =
-    { name, ... }:
+    {name, ...}:
     {
       options = {
         name = mkOption {
@@ -141,7 +141,7 @@ let
         admin = mkOption {
           description = lib.mdDoc "A comma-separated list of admin IP addresses.";
           type = types.listOf types.str;
-          default = [ "127.0.0.1" ];
+          default = ["127.0.0.1"];
         };
 
         ssl = {
@@ -244,14 +244,14 @@ in
         default = {
           rpc = {
             port = 5005;
-            admin = [ "127.0.0.1" ];
-            protocol = [ "http" ];
+            admin = ["127.0.0.1"];
+            protocol = ["http"];
           };
 
           peer = {
             port = 51235;
             ip = "0.0.0.0";
-            protocol = [ "peer" ];
+            protocol = ["peer"];
           };
 
           ws_public = {
@@ -319,7 +319,7 @@ in
           to least trusted.
         '';
         type = types.listOf types.str;
-        default = [ "r.ripple.com 51235" ];
+        default = ["r.ripple.com 51235"];
       };
 
       ipsFixed = mkOption {
@@ -333,7 +333,7 @@ in
           A port may optionally be specified after adding a space to the address
         '';
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
       };
 
       validators = mkOption {
@@ -373,7 +373,7 @@ in
           The number of past ledgers to acquire on server startup and the minimum
           to maintain while running.
         '';
-        type = types.either types.int (types.enum [ "full" ]);
+        type = types.either types.int (types.enum ["full"]);
         default = 1296000; # 1 month
       };
 
@@ -382,7 +382,7 @@ in
           The number of past ledgers to serve to other peers that request historical
           ledger data (or "full" for no limit).
         '';
-        type = types.either types.int (types.enum [ "full" ]);
+        type = types.either types.int (types.enum ["full"]);
         default = "full";
       };
 
@@ -452,11 +452,11 @@ in
       home = cfg.databasePath;
       createHome = true;
     };
-    users.groups.rippled = { };
+    users.groups.rippled = {};
 
     systemd.services.rippled = {
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/rippled --fg --conf ${cfg.config}";
@@ -466,6 +466,6 @@ in
       };
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   configureScript = "./autogen.sh";
 
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     description = "Mail Framework for the C Language";
     homepage = "http://www.etpan.org/libetpan.html";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
     platforms = platforms.linux;
   };
 }

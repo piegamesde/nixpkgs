@@ -92,7 +92,7 @@ let
 
       extraArgs = mkOption {
         type = with types; listOf str;
-        default = [ ];
+        default = [];
         example = literalExpression ''
           [
             "--no-sync"
@@ -105,7 +105,7 @@ let
 
       environment = mkOption {
         type = with types; attrsOf str;
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             PGPASSFILE = "/private/passfile";
@@ -125,7 +125,7 @@ in
     services.postgresqlWalReceiver = {
       receivers = mkOption {
         type = with types; attrsOf (submodule receiverSubmodule);
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             main = {
@@ -149,7 +149,7 @@ in
     let
       receivers = config.services.postgresqlWalReceiver.receivers;
     in
-    mkIf (receivers != { }) {
+    mkIf (receivers != {}) {
       users = {
         users.postgres = {
           uid = config.ids.uids.postgres;
@@ -187,7 +187,7 @@ in
             name: config:
             nameValuePair "postgresql-wal-receiver-${name}" {
               description = "PostgreSQL WAL receiver (${name})";
-              wantedBy = [ "multi-user.target" ];
+              wantedBy = ["multi-user.target"];
               startLimitIntervalSec = 0; # retry forever, useful in case of network disruption
 
               serviceConfig = {
@@ -225,5 +225,5 @@ in
           receivers;
     };
 
-  meta.maintainers = with maintainers; [ pacien ];
+  meta.maintainers = with maintainers; [pacien];
 }

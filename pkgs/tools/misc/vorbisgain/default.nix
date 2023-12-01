@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "1v1h6mhnckmvvn7345hzi9abn5z282g4lyyl4nnbqwnrr98v0vfx";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   buildInputs = [
     libogg
@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
     description = "A utility that corrects the volume of an Ogg Vorbis file to a predefined standardized loudness";
     license = licenses.gpl2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

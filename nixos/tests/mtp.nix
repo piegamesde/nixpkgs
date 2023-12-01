@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "mtp";
     meta = with pkgs.lib.maintainers; {
@@ -11,7 +11,7 @@ import ./make-test-python.nix (
 
     nodes = {
       client =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         {
           # DBUS runs only once a user session is created, which means a user has to
           # login. Here, we log in as root. Once logged in, the gvfs-daemon service runs
@@ -41,7 +41,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         # Creates a list of QEMU MTP devices matching USB ID (46f4:0004). This
         # value can be sourced in a shell script. This is so we can loop over the

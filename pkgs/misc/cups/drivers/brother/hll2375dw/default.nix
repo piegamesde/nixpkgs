@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     makeWrapper
     autoPatchelfHook
   ];
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   src = fetchurl {
     url = "https://download.brother.com/welcome/dlf103535//hll2375dwpdrv-${version}.i386.deb";
@@ -113,6 +113,6 @@ stdenv.mkDerivation rec {
     description = "Brother HLL2375DW printer driver";
     license = licenses.unfree;
     platforms = builtins.map (arch: "${arch}-linux") arches;
-    maintainers = [ maintainers.gador ];
+    maintainers = [maintainers.gador];
   };
 }

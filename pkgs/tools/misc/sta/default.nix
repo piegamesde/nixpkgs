@@ -16,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-AiygCfBze7J1Emy6mc27Dim34eLR7VId9wodUZapIL4=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     description = "Simple statistics from the command line interface (CLI), fast";
@@ -29,7 +29,7 @@ stdenv.mkDerivation {
     '';
     license = licenses.mit;
     homepage = "https://github.com/simonccarter/sta";
-    maintainers = with maintainers; [ infinisil ];
+    maintainers = with maintainers; [infinisil];
     platforms = platforms.all;
     badPlatforms = platforms.darwin;
     mainProgram = "sta";

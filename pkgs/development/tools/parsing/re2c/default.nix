@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
       inherit ninja php spamassassin;
     };
@@ -47,6 +47,6 @@ stdenv.mkDerivation rec {
     homepage = "https://re2c.org";
     license = licenses.publicDomain;
     platforms = platforms.all;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

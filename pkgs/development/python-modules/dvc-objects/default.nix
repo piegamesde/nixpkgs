@@ -31,7 +31,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     flatten-dict
@@ -48,13 +48,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "dvc_objects" ];
+  pythonImportsCheck = ["dvc_objects"];
 
   meta = with lib; {
     description = "Library for DVC objects";
     homepage = "https://github.com/iterative/dvc-objects";
     changelog = "https://github.com/iterative/dvc-objects/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

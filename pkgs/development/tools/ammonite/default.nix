@@ -17,7 +17,7 @@ let
   repo = "git@github.com:lihaoyi/Ammonite.git";
 
   common =
-    { scalaVersion, sha256 }:
+    {scalaVersion, sha256}:
     stdenv.mkDerivation rec {
       pname = "ammonite";
       version = "2.5.3";
@@ -88,7 +88,7 @@ let
         '';
         homepage = "https://github.com/com-lihaoyi/Ammonite";
         license = licenses.mit;
-        maintainers = [ maintainers.nequissimus ];
+        maintainers = [maintainers.nequissimus];
         mainProgram = "amm";
         platforms = platforms.all;
       };

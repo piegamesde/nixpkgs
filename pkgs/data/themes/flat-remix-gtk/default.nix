@@ -18,15 +18,15 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
   meta = with lib; {
     description = "GTK application theme inspired by material design";
     homepage = "https://drasite.com/flat-remix-gtk";
     license = licenses.gpl3Only;
     platforms = platforms.all;
-    maintainers = [ maintainers.mkg20001 ];
+    maintainers = [maintainers.mkg20001];
   };
 }

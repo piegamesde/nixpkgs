@@ -57,13 +57,13 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  mesonFlags = [ "-Denable_valadoc=true" ];
+  mesonFlags = ["-Denable_valadoc=true"];
 
   doCheck = true;
 
   checkPhase = "(cd test && ./httpseverywhere_test)";
 
-  FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ ]; };
+  FONTCONFIG_FILE = makeFontsConf {fontDirectories = [];};
 
   outputs = [
     "out"
@@ -82,6 +82,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/libhttpseverywhere";
     license = licenses.lgpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ sternenseemann ] ++ teams.gnome.members;
+    maintainers = with maintainers; [sternenseemann] ++ teams.gnome.members;
   };
 }

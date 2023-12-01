@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-k0nJ5Z9viBVjVPT2ryfNsBSiNbAK4YTLqjdoi9DfVEw=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libevent
     openssl
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.pgbouncer.org/";
     description = "Lightweight connection pooler for PostgreSQL";
     license = licenses.isc;
-    maintainers = with maintainers; [ _1000101 ];
+    maintainers = with maintainers; [_1000101];
     platforms = platforms.all;
   };
 }

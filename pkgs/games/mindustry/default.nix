@@ -74,7 +74,7 @@ let
     hash = "sha256-OAlNgqhX1sYjUuXFzex0lIxbTSXFnL0pjW0jNWiXa9E=";
   };
 
-  patches = [ ./0001-fix-include-path-for-SDL2-on-linux.patch ];
+  patches = [./0001-fix-include-path-for-SDL2-on-linux.patch];
 
   unpackPhase = ''
     cp -r ${Mindustry} Mindustry

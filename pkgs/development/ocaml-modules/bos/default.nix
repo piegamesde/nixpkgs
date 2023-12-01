@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     ocamlbuild
     topkg
   ];
-  buildInputs = [ topkg ];
+  buildInputs = [topkg];
   propagatedBuildInputs = [
     astring
     fmt
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     description = "Basic OS interaction for OCaml";
     homepage = "https://erratique.ch/software/bos";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     inherit (ocaml.meta) platforms;
   };
 }

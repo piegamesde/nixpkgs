@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "1460d5lc780p3q38l3wc9jfr2a7zlyrcra0li65aynj738cam9yl";
   };
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   buildInputs = [
     ncurses
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "http://www.clifford.at/stfl/";
     description = "A library which implements a curses-based widget set for text terminals";
-    maintainers = with lib.maintainers; [ lovek323 ];
+    maintainers = with lib.maintainers; [lovek323];
     license = lib.licenses.lgpl3;
     platforms = lib.platforms.unix;
   };

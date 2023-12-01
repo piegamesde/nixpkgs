@@ -19,7 +19,7 @@ in
     '';
     type = types.attrsOf (
       types.submodule (
-        { config, name, ... }:
+        {config, name, ...}:
         {
           options = {
             passwordFile = mkOption {
@@ -155,7 +155,7 @@ in
 
             exclude = mkOption {
               type = types.listOf types.str;
-              default = [ ];
+              default = [];
               description = lib.mdDoc ''
                 Patterns to exclude when backing up. See
                 https://restic.readthedocs.io/en/latest/040_backup.html#excluding-files for
@@ -193,20 +193,20 @@ in
 
             extraBackupArgs = mkOption {
               type = types.listOf types.str;
-              default = [ ];
+              default = [];
               description = lib.mdDoc ''
                 Extra arguments passed to restic backup.
               '';
-              example = [ "--exclude-file=/etc/nixos/restic-ignore" ];
+              example = ["--exclude-file=/etc/nixos/restic-ignore"];
             };
 
             extraOptions = mkOption {
               type = types.listOf types.str;
-              default = [ ];
+              default = [];
               description = lib.mdDoc ''
                 Extra extended options to be passed to the restic --option flag.
               '';
-              example = [ "sftp.command='ssh backup@192.168.1.100 -i /home/user/.ssh/id_rsa -s sftp'" ];
+              example = ["sftp.command='ssh backup@192.168.1.100 -i /home/user/.ssh/id_rsa -s sftp'"];
             };
 
             initialize = mkOption {
@@ -219,7 +219,7 @@ in
 
             pruneOpts = mkOption {
               type = types.listOf types.str;
-              default = [ ];
+              default = [];
               description = lib.mdDoc ''
                 A list of options (--keep-\* et al.) for 'restic forget
                 --prune', to automatically prune old snapshots.  The
@@ -236,12 +236,12 @@ in
 
             checkOpts = mkOption {
               type = types.listOf types.str;
-              default = [ ];
+              default = [];
               description = lib.mdDoc ''
                 A list of options for 'restic check', which is run after
                 pruning.
               '';
-              example = [ "--with-cache" ];
+              example = ["--with-cache"];
             };
 
             dynamicFilesFrom = mkOption {
@@ -283,22 +283,20 @@ in
         }
       )
     );
-    default = { };
+    default = {};
     example = {
       localbackup = {
-        paths = [ "/home" ];
-        exclude = [ "/home/*/.cache" ];
+        paths = ["/home"];
+        exclude = ["/home/*/.cache"];
         repository = "/mnt/backup-hdd";
         passwordFile = "/etc/nixos/secrets/restic-password";
         initialize = true;
       };
       remotebackup = {
-        paths = [ "/home" ];
+        paths = ["/home"];
         repository = "sftp:backup@host:/backups/home";
         passwordFile = "/etc/nixos/secrets/restic-password";
-        extraOptions = [
-          "sftp.command='ssh backup@host -i /etc/nixos/secrets/backup-private-key -s sftp'"
-        ];
+        extraOptions = ["sftp.command='ssh backup@host -i /etc/nixos/secrets/backup-private-key -s sftp'"];
         timerConfig = {
           OnCalendar = "00:05";
           RandomizedDelaySec = "5h";
@@ -330,10 +328,10 @@ in
             extraOptions = concatMapStrings (arg: " -o ${arg}") backup.extraOptions;
             resticCmd = "${backup.package}/bin/restic${extraOptions}";
             excludeFlags =
-              if (backup.exclude != [ ]) then
-                [ "--exclude-file=${pkgs.writeText "exclude-patterns" (concatStringsSep "\n" backup.exclude)}" ]
+              if (backup.exclude != []) then
+                ["--exclude-file=${pkgs.writeText "exclude-patterns" (concatStringsSep "\n" backup.exclude)}"]
               else
-                [ ];
+                [];
             filesFromTmpFile = "/run/restic-backups-${name}/includes";
             backupPaths =
               if (backup.dynamicFilesFrom == null) then
@@ -346,7 +344,7 @@ in
             ];
             # Helper functions for rclone remotes
             rcloneRemoteName = builtins.elemAt (splitString ":" backup.repository) 1;
-            rcloneAttrToOpt = v: "RCLONE_" + toUpper (builtins.replaceStrings [ "-" ] [ "_" ] v);
+            rcloneAttrToOpt = v: "RCLONE_" + toUpper (builtins.replaceStrings ["-"] ["_"] v);
             rcloneAttrToConf = v: "RCLONE_CONFIG_" + toUpper (rcloneRemoteName + "_" + v);
             toRcloneVal = v: if lib.isBool v then lib.boolToString v else v;
           in
@@ -363,12 +361,12 @@ in
                   mapAttrs' (name: value: nameValuePair (rcloneAttrToOpt name) (toRcloneVal value))
                     backup.rcloneOptions
                 )
-                // optionalAttrs (backup.rcloneConfigFile != null) { RCLONE_CONFIG = backup.rcloneConfigFile; }
+                // optionalAttrs (backup.rcloneConfigFile != null) {RCLONE_CONFIG = backup.rcloneConfigFile;}
                 // optionalAttrs (backup.rcloneConfig != null) (
                   mapAttrs' (name: value: nameValuePair (rcloneAttrToConf name) (toRcloneVal value))
                     backup.rcloneConfig
                 );
-              path = [ pkgs.openssh ];
+              path = [pkgs.openssh];
               restartIfChanged = false;
               serviceConfig = {
                 Type = "oneshot";
@@ -384,7 +382,7 @@ in
                 CacheDirectory = "restic-backups-${name}";
                 CacheDirectoryMode = "0700";
                 PrivateTmp = true;
-              } // optionalAttrs (backup.environmentFile != null) { EnvironmentFile = backup.environmentFile; };
+              } // optionalAttrs (backup.environmentFile != null) {EnvironmentFile = backup.environmentFile;};
             }
             //
               optionalAttrs
@@ -420,7 +418,7 @@ in
         (
           name: backup:
           nameValuePair "restic-backups-${name}" {
-            wantedBy = [ "timers.target" ];
+            wantedBy = ["timers.target"];
             timerConfig = backup.timerConfig;
           }
         )

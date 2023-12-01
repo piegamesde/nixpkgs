@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-zsUQfPzkgsZ/i8lvGLvDIMmqDQaBgOFK0xe77loVP+4=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     hatchling
@@ -41,12 +41,12 @@ buildPythonPackage rec {
       "test_write"
     ];
 
-  pythonImportsCheck = [ "hatch_vcs" ];
+  pythonImportsCheck = ["hatch_vcs"];
 
   meta = with lib; {
     description = "A plugin for Hatch that uses your preferred version control system (like Git) to determine project versions";
     homepage = "https://github.com/ofek/hatch-vcs";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

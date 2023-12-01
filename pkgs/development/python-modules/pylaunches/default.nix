@@ -23,7 +23,7 @@ buildPythonPackage rec {
     sha256 = "sha256-bIcnYcbfAwjet3cg97y+ujFfY2916ANk4sw0sZoU59g=";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   nativeCheckInputs = [
     aresponses
@@ -38,12 +38,12 @@ buildPythonPackage rec {
       --replace ', "pytest-runner"' ""
   '';
 
-  pythonImportsCheck = [ "pylaunches" ];
+  pythonImportsCheck = ["pylaunches"];
 
   meta = with lib; {
     description = "Python module to get information about upcoming space launches";
     homepage = "https://github.com/ludeeus/pylaunches";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

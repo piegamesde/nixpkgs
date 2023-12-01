@@ -23,13 +23,13 @@ buildPythonPackage rec {
     typepy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     homepage = "https://github.com/thombashi/tabledata";
     description = "A library to represent tabular data";
     changelog = "https://github.com/thombashi/tabledata/releases/tag/v${version}";
-    maintainers = with maintainers; [ genericnerdyusername ];
+    maintainers = with maintainers; [genericnerdyusername];
     license = licenses.mit;
   };
 }

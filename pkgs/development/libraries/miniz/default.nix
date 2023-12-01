@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-7hc/yNJh4sD5zGQLeHjowbUtV/1mUDQre1tp9yKMSSY=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   postFixup = ''
     substituteInPlace "$out"/share/pkgconfig/miniz.pc \
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     description = "Single C source file zlib-replacement library";
     homepage = "https://github.com/richgel999/miniz";
     license = licenses.mit;
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
     platforms = platforms.unix;
   };
 }

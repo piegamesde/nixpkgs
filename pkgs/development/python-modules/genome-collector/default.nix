@@ -24,12 +24,12 @@ buildPythonPackage rec {
 
   # Project hasn't released the tests yet
   doCheck = false;
-  pythonImportsCheck = [ "genome_collector" ];
+  pythonImportsCheck = ["genome_collector"];
 
   meta = with lib; {
     description = "Genomes and build BLAST/Bowtie indexes in Python";
     homepage = "https://github.com/Edinburgh-Genome-Foundry/genome_collector";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -47,6 +47,6 @@ buildPythonPackage rec {
     description = "OAuth2 token management command line utility.";
     homepage = "https://github.com/zalando-stups/zign";
     license = licenses.asl20;
-    maintainers = [ maintainers.mschuwalow ];
+    maintainers = [maintainers.mschuwalow];
   };
 }

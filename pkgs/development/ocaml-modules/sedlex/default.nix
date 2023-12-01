@@ -65,7 +65,7 @@ buildDunePackage rec {
   propagatedBuildInputs = [
     gen
     ppxlib
-  ] ++ lib.optionals (!atLeast31) [ uchar ];
+  ] ++ lib.optionals (!atLeast31) [uchar];
 
   preBuild = ''
     rm src/generator/data/dune
@@ -74,7 +74,7 @@ buildDunePackage rec {
     ln -s ${PropList} src/generator/data/PropList.txt
   '';
 
-  checkInputs = lib.optionals atLeast31 [ ppx_expect ];
+  checkInputs = lib.optionals atLeast31 [ppx_expect];
 
   doCheck = true;
 
@@ -85,6 +85,6 @@ buildDunePackage rec {
     changelog = "https://github.com/ocaml-community/sedlex/raw/v${version}/CHANGES";
     description = "An OCaml lexer generator for Unicode";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.marsam ];
+    maintainers = [lib.maintainers.marsam];
   };
 }

@@ -126,7 +126,7 @@ let
   '';
 
   directorOptions =
-    { ... }:
+    {...}:
     {
       options = {
         password = mkOption {
@@ -171,7 +171,7 @@ let
     };
 
   autochangerOptions =
-    { ... }:
+    {...}:
     {
       options = {
         changerDevice = mkOption {
@@ -233,7 +233,7 @@ let
     };
 
   deviceOptions =
-    { ... }:
+    {...}:
     {
       options = {
         archiveDevice = mkOption {
@@ -343,7 +343,7 @@ in
       };
 
       director = mkOption {
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           This option defines director resources in Bacula File Daemon.
         '';
@@ -402,7 +402,7 @@ in
       };
 
       director = mkOption {
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           This option defines Director resources in Bacula Storage Daemon.
         '';
@@ -410,7 +410,7 @@ in
       };
 
       device = mkOption {
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           This option defines Device resources in Bacula Storage Daemon.
         '';
@@ -418,7 +418,7 @@ in
       };
 
       autochanger = mkOption {
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           This option defines Autochanger resources in Bacula Storage Daemon.
         '';
@@ -527,10 +527,10 @@ in
 
   config = mkIf (fd_cfg.enable || sd_cfg.enable || dir_cfg.enable) {
     systemd.services.bacula-fd = mkIf fd_cfg.enable {
-      after = [ "network.target" ];
+      after = ["network.target"];
       description = "Bacula File Daemon";
-      wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.bacula ];
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.bacula];
       serviceConfig = {
         ExecStart = "${pkgs.bacula}/sbin/bacula-fd -f -u root -g bacula -c ${fd_conf}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
@@ -540,10 +540,10 @@ in
     };
 
     systemd.services.bacula-sd = mkIf sd_cfg.enable {
-      after = [ "network.target" ];
+      after = ["network.target"];
       description = "Bacula Storage Daemon";
-      wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.bacula ];
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.bacula];
       serviceConfig = {
         ExecStart = "${pkgs.bacula}/sbin/bacula-sd -f -u bacula -g bacula -c ${sd_conf}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
@@ -560,8 +560,8 @@ in
         "postgresql.service"
       ];
       description = "Bacula Director Daemon";
-      wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.bacula ];
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.bacula];
       serviceConfig = {
         ExecStart = "${pkgs.bacula}/sbin/bacula-dir -f -u bacula -g bacula -c ${dir_conf}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
@@ -584,7 +584,7 @@ in
       '';
     };
 
-    environment.systemPackages = [ pkgs.bacula ];
+    environment.systemPackages = [pkgs.bacula];
 
     users.users.bacula = {
       group = "bacula";

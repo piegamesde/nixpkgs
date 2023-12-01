@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     libxml2
   ];
 
-  cmakeFlags = [ "-DPYTHON_DESIRED=${lib.substring 0 1 python.pythonVersion}" ];
+  cmakeFlags = ["-DPYTHON_DESIRED=${lib.substring 0 1 python.pythonVersion}"];
 
   postFixup = ''
     moveToOutput "lib/${python.libPrefix}" "$py"
@@ -65,6 +65,6 @@ stdenv.mkDerivation rec {
     homepage = "https://rpm-software-management.github.io/librepo/";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ copumpkin ];
+    maintainers = with maintainers; [copumpkin];
   };
 }

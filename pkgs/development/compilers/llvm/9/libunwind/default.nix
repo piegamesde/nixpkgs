@@ -15,14 +15,14 @@ stdenv.mkDerivation rec {
 
   src = fetch pname "1wb02ha3gl6p0a321hwpll74pz5qvjr11xmjqx62g288f1m10njk";
 
-  patches = [ ./gnu-install-dirs.patch ];
+  patches = [./gnu-install-dirs.patch];
 
   outputs = [
     "out"
     "dev"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = lib.optional (!enableShared) "-DLIBUNWIND_ENABLE_SHARED=OFF";
 

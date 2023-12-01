@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-8G1E4slzeBBovOXs+GCgm82xx/XOH6zV6aqCySyTrnI=";
   };
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
   propagatedBuildInputs = [
     jdcal
     et_xmlfile
@@ -40,6 +40,6 @@ buildPythonPackage rec {
     description = "A Python library to read/write Excel 2007 xlsx/xlsm files";
     homepage = "https://openpyxl.readthedocs.org";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ lihop ];
+    maintainers = with lib.maintainers; [lihop];
   };
 }

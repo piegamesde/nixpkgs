@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "A lightweight, platform independent C++-IDE with support for C++11, C++14, and experimental C++17 features depending on libclang version";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ xnwdd ];
+    maintainers = with maintainers; [xnwdd];
     # error: token ""1.1"" is not valid in preprocessor expression
     # TODO: fix pname being different from the attribute name
     broken = true;
@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
     sed -i 's|liblldb LIBLLDB_LIBRARIES|liblldb LIBNOTHING|g' CMakeLists.txt
     sed -i 's|> arguments;|> arguments; ${lintIncludes}|g' src/source_clang.cc
   '';
-  cmakeFlags = [ "-DLIBLLDB_LIBRARIES=${lib.makeLibraryPath [ llvmPackages.lldb ]}/liblldb.so" ];
+  cmakeFlags = ["-DLIBLLDB_LIBRARIES=${lib.makeLibraryPath [llvmPackages.lldb]}/liblldb.so"];
   postInstall = ''
     mv $out/bin/juci $out/bin/.juci
     makeWrapper "$out/bin/.juci" "$out/bin/juci" \

@@ -107,7 +107,7 @@ stdenv.mkDerivation rec {
       systemd
       upower
     ]
-    ++ lib.optionals stdenv.isDarwin [ e2fsprogs ];
+    ++ lib.optionals stdenv.isDarwin [e2fsprogs];
 
   mesonFlags =
     [
@@ -130,7 +130,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = pname; };
+    updateScript = gnome.updateScript {packageName = pname;};
   };
 
   meta = with lib; {

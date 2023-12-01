@@ -15,9 +15,9 @@ stdenv.mkDerivation rec {
     sha256 = "1czgj53gnfkq3ncwlsrwnr4y91wgz35sbicgkp4npfrajqizxqnd";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  buildInputs = [ pcre ];
+  buildInputs = [pcre];
 
   configureFlags = [
     "--enable-namespace"

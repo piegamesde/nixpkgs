@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = lib.optional stdenv.isDarwin darwin.cctools;
 
-  configureFlags = lib.optionals disablePosixThreads [ "--disable-posix-threads" ];
+  configureFlags = lib.optionals disablePosixThreads ["--disable-posix-threads"];
 
   meta = {
     description = "Replacement for the old crypt() package and crypt(1) command, with extensions";

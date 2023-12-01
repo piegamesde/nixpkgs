@@ -31,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-Ik4ysD60a+cOEu9tZOC+Ejpk5iGrTAgi/21FDVKlQLk=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   passthru.optional-dependencies = {
     DOH = [
@@ -40,19 +40,19 @@ buildPythonPackage rec {
       requests
       requests-toolbelt
     ];
-    IDNA = [ idna ];
-    DNSSEC = [ cryptography ];
-    trio = [ trio ];
+    IDNA = [idna];
+    DNSSEC = [cryptography];
+    trio = [trio];
     curio = [
       curio
       sniffio
     ];
-    DOQ = [ aioquic ];
+    DOQ = [aioquic];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  checkInputs = [ cacert ] ++ passthru.optional-dependencies.DNSSEC;
+  checkInputs = [cacert] ++ passthru.optional-dependencies.DNSSEC;
 
   disabledTests =
     [
@@ -70,13 +70,13 @@ buildPythonPackage rec {
       "testResolveTCP"
     ];
 
-  pythonImportsCheck = [ "dns" ];
+  pythonImportsCheck = ["dns"];
 
   meta = with lib; {
     description = "A DNS toolkit for Python";
     homepage = "https://www.dnspython.org";
     changelog = "https://github.com/rthalley/dnspython/blob/v${version}/doc/whatsnew.rst";
-    license = with licenses; [ isc ];
-    maintainers = with maintainers; [ gador ];
+    license = with licenses; [isc];
+    maintainers = with maintainers; [gador];
   };
 }

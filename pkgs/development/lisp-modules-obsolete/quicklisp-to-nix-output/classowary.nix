@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "classowary";
   version = "20191007-git";
@@ -18,7 +18,7 @@ rec {
 
   packageName = "classowary";
 
-  asdFilesToKeep = [ "classowary.asd" ];
+  asdFilesToKeep = ["classowary.asd"];
   overrides = x: x;
 }
 /* (SYSTEM classowary DESCRIPTION

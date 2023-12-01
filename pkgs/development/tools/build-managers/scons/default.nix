@@ -5,7 +5,7 @@
 }:
 
 let
-  mkScons = args: callPackage (import ./common.nix args) { python = python3; };
+  mkScons = args: callPackage (import ./common.nix args) {python = python3;};
 in
 {
   scons_3_1_2 =

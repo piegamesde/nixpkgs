@@ -23,7 +23,7 @@ buildDunePackage rec {
     hash = "sha256-w3k+cg8NqAVPYobFRcghp/6+iC5/TlSX7ImxWjU1EeE=";
   };
 
-  propagatedBuildInputs = [ eqaf ];
+  propagatedBuildInputs = [eqaf];
 
   checkInputs = [
     alcotest
@@ -41,6 +41,6 @@ buildDunePackage rec {
     description = "Simple hash algorithms in OCaml";
     homepage = "https://github.com/mirage/digestif";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

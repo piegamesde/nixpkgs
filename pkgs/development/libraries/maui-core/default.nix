@@ -39,7 +39,7 @@ mkDerivation rec {
     homepage = "https://github.com/Nitrux/maui-core";
     # Missing license information https://github.com/Nitrux/maui-core/issues/1
     license = licenses.unfree;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
     platforms = platforms.linux;
   };
 }

@@ -21,7 +21,7 @@
 */
 
 let
-  functions = import ../bundled-common/functions.nix { inherit lib gemConfig; };
+  functions = import ../bundled-common/functions.nix {inherit lib gemConfig;};
 
   buildGems =
     gemset:
@@ -65,7 +65,7 @@ let
 
       wrappedRuby = stdenv.mkDerivation {
         name = "wrapped-${ruby.name}";
-        nativeBuildInputs = [ makeBinaryWrapper ];
+        nativeBuildInputs = [makeBinaryWrapper];
         buildCommand = ''
           mkdir -p $out/bin
           for i in ${ruby}/bin/*; do
@@ -76,7 +76,7 @@ let
     in
     stdenv.mkDerivation {
       name = "${ruby.name}-with-packages";
-      nativeBuildInputs = [ makeBinaryWrapper ];
+      nativeBuildInputs = [makeBinaryWrapper];
       buildInputs = [
         selected
         ruby

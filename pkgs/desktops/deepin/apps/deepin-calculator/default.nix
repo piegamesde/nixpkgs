@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  cmakeFlags = [ "-DVERSION=${version}" ];
+  cmakeFlags = ["-DVERSION=${version}"];
 
   meta = with lib; {
     description = "An easy to use calculator for ordinary users";

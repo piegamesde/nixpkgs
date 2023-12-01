@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     sha256 = "0dqgqvsb6ggr8jb3ngf0jwfkn6xwj2knhmvqyzx3amc74yd3ckqx";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   cmakeFlags = [
     "-DENABLE_CYACAS_GUI=${if enableGui then "ON" else "OFF"}"
@@ -53,16 +53,16 @@ stdenv.mkDerivation rec {
   preCheck = ''
     patchShebangs ../tests/test-yacas
   '';
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
   doCheck = true;
 
   nativeBuildInputs = [
     cmake
     # Perl is only for the documentation
     perl
-  ] ++ lib.optionals enableJava [ openjdk ];
+  ] ++ lib.optionals enableJava [openjdk];
   buildInputs =
-    [ ]
+    []
     ++ lib.optionals enableGui [
       qtbase
       wrapQtAppsHook
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
     description = "Easy to use, general purpose Computer Algebra System${lib.optionalString enableGui ", built with GUI."}";
     homepage = "http://www.yacas.org/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ viric ];
+    maintainers = with lib.maintainers; [viric];
     platforms = with lib.platforms; linux;
   };
 }

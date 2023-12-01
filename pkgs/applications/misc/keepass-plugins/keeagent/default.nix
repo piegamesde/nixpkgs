@@ -23,7 +23,7 @@ let
       homepage = "http://lechnology.com/software/keeagent";
       platforms = with lib.platforms; linux;
       license = lib.licenses.gpl2;
-      maintainers = [ ];
+      maintainers = [];
     };
 
     pluginFilename = "KeeAgent.plgx";

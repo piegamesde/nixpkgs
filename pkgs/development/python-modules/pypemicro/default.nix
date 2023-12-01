@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-KE085u9yIPsuEr41GNWwHFm6KAHggvqGqP9ChGRoLE0=";
   };
 
-  pythonImportsCheck = [ "pypemicro" ];
+  pythonImportsCheck = ["pypemicro"];
 
   # tests are neither pytest nor unittest compatible and require a device
   # connected via USB

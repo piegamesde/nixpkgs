@@ -16,12 +16,12 @@ buildPythonPackage rec {
 
   # Upstream doesn't run tests from setup.py
   doCheck = false;
-  propagatedBuildInputs = [ tornado ];
+  propagatedBuildInputs = [tornado];
 
   meta = with lib; {
     description = "Browser based viewer for profiling data";
     homepage = "https://jiffyclub.github.io/snakeviz";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ nixy ];
+    maintainers = with maintainers; [nixy];
   };
 }

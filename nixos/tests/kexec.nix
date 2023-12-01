@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "kexec";
     meta = with lib.maintainers; {
@@ -11,9 +11,9 @@ import ./make-test-python.nix (
 
     nodes = {
       node1 =
-        { ... }:
+        {...}:
         {
-          virtualisation.vlans = [ ];
+          virtualisation.vlans = [];
           virtualisation.memorySize = 4 * 1024;
           virtualisation.useBootLoader = true;
           virtualisation.useEFIBoot = true;
@@ -22,16 +22,16 @@ import ./make-test-python.nix (
         };
 
       node2 =
-        { modulesPath, ... }:
+        {modulesPath, ...}:
         {
-          virtualisation.vlans = [ ];
-          environment.systemPackages = [ pkgs.hello ];
-          imports = [ "${modulesPath}/installer/netboot/netboot-minimal.nix" ];
+          virtualisation.vlans = [];
+          environment.systemPackages = [pkgs.hello];
+          imports = ["${modulesPath}/installer/netboot/netboot-minimal.nix"];
         };
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       ''
         # Test whether reboot via kexec works.
         node1.wait_for_unit("multi-user.target")

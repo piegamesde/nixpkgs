@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     liburing
   ];
 
-  mesonFlags = [ "-Ddocs=true" ];
+  mesonFlags = ["-Ddocs=true"];
 
   doCheck = true;
 
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     moveToOutput "share/doc" "$devdoc"
   '';
 
-  passthru.updateScript = gnome.updateScript { packageName = "libdex"; };
+  passthru.updateScript = gnome.updateScript {packageName = "libdex";};
 
   meta = with lib; {
     description = "Library supporting deferred execution for GNOME and GTK";

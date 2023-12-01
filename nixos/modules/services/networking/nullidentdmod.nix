@@ -23,9 +23,9 @@ in
   config = mkIf cfg.enable {
     systemd.sockets.nullidentdmod = {
       description = "Socket for identd (NullidentdMod)";
-      listenStreams = [ "113" ];
+      listenStreams = ["113"];
       socketConfig.Accept = true;
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
     };
 
     systemd.services."nullidentdmod@" = {

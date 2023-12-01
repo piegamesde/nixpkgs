@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     openssl
   ];
 
-  configureFlags = [ "--with-iodbc=${libiodbc}" ];
+  configureFlags = ["--with-iodbc=${libiodbc}"];
 
   meta = with lib; {
     homepage = "https://odbc.postgresql.org/";

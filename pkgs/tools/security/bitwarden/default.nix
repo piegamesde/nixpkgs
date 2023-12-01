@@ -23,7 +23,7 @@ let
   description = "A secure and free password manager for all of your devices";
   icon = "bitwarden";
 
-  buildNpmPackage' = buildNpmPackage.override { nodejs = nodejs_16; };
+  buildNpmPackage' = buildNpmPackage.override {nodejs = nodejs_16;};
 
   version = "2023.3.2";
   src = fetchFromGitHub {
@@ -39,7 +39,7 @@ let
     sourceRoot = "source/apps/desktop/desktop_native";
     cargoSha256 = "sha256-XsAmVYWPPnY0cgBzpO2aWx/fh85fKr8kMO98cDMzOKk=";
 
-    patchFlags = [ "-p4" ];
+    patchFlags = ["-p4"];
 
     nativeBuildInputs = [
       pkg-config
@@ -54,10 +54,10 @@ let
 
     nativeCheckInputs = [
       dbus
-      (gnome.gnome-keyring.override { useWrappedDaemon = false; })
+      (gnome.gnome-keyring.override {useWrappedDaemon = false;})
     ];
 
-    checkFlags = [ "--skip=password::password::tests::test" ];
+    checkFlags = ["--skip=password::password::tests::test"];
 
     checkPhase = ''
       runHook preCheck
@@ -77,7 +77,7 @@ let
     inherit icon;
     comment = description;
     desktopName = "Bitwarden";
-    categories = [ "Utility" ];
+    categories = ["Utility"];
   };
 in
 
@@ -86,7 +86,7 @@ buildNpmPackage' {
   inherit src version;
 
   makeCacheWritable = true;
-  npmBuildFlags = [ "--workspace apps/desktop" ];
+  npmBuildFlags = ["--workspace apps/desktop"];
   npmDepsHash = "sha256-RmkTWhakZstCCMLQ3iJ8KD5Yt5ZafXc8NDgncJMLaxs=";
 
   ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
@@ -149,6 +149,6 @@ buildNpmPackage' {
       amarshall
       kiwi
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

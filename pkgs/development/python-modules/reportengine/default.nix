@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-jrt+ml8o1PUidV1bY0hCyNgcPaVTBloW574/i5Pl7iE=";
   };
 
-  nativeBuildInputs = [ flit ];
+  nativeBuildInputs = [flit];
 
   propagatedBuildInputs = [
     jinja2
@@ -43,12 +43,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "reportengine" ];
+  pythonImportsCheck = ["reportengine"];
 
   meta = with lib; {
     description = "A framework for declarative data analysis";
     homepage = "https://github.com/NNPDF/reportengine/";
-    license = with licenses; [ gpl2Only ];
-    maintainers = with maintainers; [ veprbl ];
+    license = with licenses; [gpl2Only];
+    maintainers = with maintainers; [veprbl];
   };
 }

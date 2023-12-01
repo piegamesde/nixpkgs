@@ -85,13 +85,13 @@ let
     b: f: dep:
     if b then
       {
-        flags = [ f ];
-        deps = [ dep ];
+        flags = [f];
+        deps = [dep];
       }
     else
       {
-        flags = [ ];
-        deps = [ ];
+        flags = [];
+        deps = [];
       };
 
   opts = [
@@ -147,11 +147,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Ha0bIh3SYMhA28YXQ//Loaz9J1lTJAzjTx8eK3AqUjM=";
   };
 
-  patches = [ ./option-debugging.patch ];
+  patches = [./option-debugging.patch];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
-    [ ncurses ]
+    [ncurses]
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       CoreAudio
@@ -167,13 +167,13 @@ stdenv.mkDerivation rec {
     "HOSTCC=${stdenv.cc.targetPrefix}cc"
   ] ++ lib.concatMap (a: a.flags) opts;
 
-  makeFlags = [ "LD=$(CC)" ];
+  makeFlags = ["LD=$(CC)"];
 
   meta = with lib; {
     description = "Small, fast and powerful console music player for Linux and *BSD";
     homepage = "https://cmus.github.io/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.oxij ];
+    maintainers = [maintainers.oxij];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

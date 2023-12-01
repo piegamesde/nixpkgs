@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-aWkWufHZaAmebdDdrgrIbQrSSzj/RgymQ4hOkGtY2Zc=";
 
-  buildInputs = [ xorg.libxcb ];
+  buildInputs = [xorg.libxcb];
 
   # tries to access /sys/
   doCheck = false;
@@ -33,6 +33,6 @@ rustPlatform.buildRustPackage rec {
     description = "More powerful alternative to sysctl(8) with a terminal user interface";
     homepage = "https://github.com/orhun/systeroid";
     license = licenses.asl20;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

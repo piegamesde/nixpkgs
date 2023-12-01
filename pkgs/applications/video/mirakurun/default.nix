@@ -30,7 +30,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "1fmzi3jc3havvpc1kz5z16k52lnrsmc3b5yqyxc7i911gqyjsxzr";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   mirakurun = mkYarnPackage rec {
     name = "${pname}-${version}";
@@ -99,6 +99,6 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     inherit (mirakurun.meta) description platforms;
     license = licenses.asl20;
-    maintainers = with maintainers; [ midchildan ];
+    maintainers = with maintainers; [midchildan];
   };
 }

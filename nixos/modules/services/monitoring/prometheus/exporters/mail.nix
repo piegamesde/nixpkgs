@@ -118,7 +118,7 @@ let
     };
     servers = mkOption {
       type = types.listOf (types.submodule serverOptions);
-      default = [ ];
+      default = [];
       example = literalExpression ''
         [ {
           name = "testserver";
@@ -187,7 +187,7 @@ in
   serviceOpts = {
     serviceConfig = {
       DynamicUser = false;
-      EnvironmentFile = mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
+      EnvironmentFile = mkIf (cfg.environmentFile != null) [cfg.environmentFile];
       RuntimeDirectory = "prometheus-mail-exporter";
       ExecStartPre = [
         "${pkgs.writeShellScript "subst-secrets-mail-exporter" ''

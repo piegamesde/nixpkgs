@@ -21,7 +21,7 @@
 }:
 
 let
-  stratagus = callPackage ./stratagus.nix { };
+  stratagus = callPackage ./stratagus.nix {};
 
   dataDownload = fetchurl {
     url = "https://archive.org/download/warcraft-ii-tides-of-darkness_202105/Warcess.zip";
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
   ];
   postInstall = ''
     makeWrapper $out/games/wargus $out/bin/wargus \
-      --prefix PATH : ${lib.makeBinPath [ "$out" ]}
+      --prefix PATH : ${lib.makeBinPath ["$out"]}
     substituteInPlace $out/share/applications/wargus.desktop \
       --replace $out/games/wargus $out/bin/wargus
 
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
     description = "Importer and scripts for Warcraft II: Tides of Darkness, the expansion Beyond the Dark Portal, and Aleonas Tales";
     homepage = "https://wargus.github.io/";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.astro ];
+    maintainers = [maintainers.astro];
     platforms = platforms.linux;
   };
 }

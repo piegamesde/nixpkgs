@@ -18,7 +18,7 @@ buildPythonPackage rec {
     sha256 = "1nlf1mkqw856vi6782qcglqhaacb23khk9wkcgn55npnjxshhjz4";
   };
 
-  propagatedBuildInputs = [ flake8 ];
+  propagatedBuildInputs = [flake8];
 
   nativeCheckInputs = [
     mock
@@ -42,12 +42,12 @@ buildPythonPackage rec {
       --replace pytest 'tool:pytest'
   '';
 
-  pythonImportsCheck = [ "flake8_polyfill" ];
+  pythonImportsCheck = ["flake8_polyfill"];
 
   meta = with lib; {
     homepage = "https://gitlab.com/pycqa/flake8-polyfill";
     description = "Polyfill package for Flake8 plugins";
     license = licenses.mit;
-    maintainers = with maintainers; [ eadwu ];
+    maintainers = with maintainers; [eadwu];
   };
 }

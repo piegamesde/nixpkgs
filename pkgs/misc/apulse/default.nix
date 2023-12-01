@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/i-rinat/apulse";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ maintainers.jagajaga ];
+    maintainers = [maintainers.jagajaga];
   };
 }

@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       sed -i '/ln -sf libgif.so/ d' Makefile
     '';
 
-  nativeBuildInputs = lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+  nativeBuildInputs = lib.optionals stdenv.isDarwin [fixDarwinDylibNames];
 
   passthru.tests.static = pkgsStatic.giflib;
 
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     description = "A library for reading and writing gif images";
     platforms = lib.platforms.unix;
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     branch = "5.2";
   };
 }

@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
     tar xfvz data.tar.gz
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     cups
     perl
@@ -136,6 +136,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.brother.com";
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ jraygauthier ];
+    maintainers = with lib.maintainers; [jraygauthier];
   };
 }

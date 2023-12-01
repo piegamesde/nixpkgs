@@ -58,7 +58,7 @@ python3Packages.buildPythonApplication rec {
   # no tests included
   doCheck = false;
 
-  pythonImportsCheck = [ "volctl" ];
+  pythonImportsCheck = ["volctl"];
 
   preFixup = ''
     glib-compile-schemas ${glib.makeSchemaPath "$out" "${pname}-${version}"}
@@ -70,6 +70,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://buzz.github.io/volctl/";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

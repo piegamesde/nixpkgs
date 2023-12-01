@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   nativeBuildInputs =
-    [ wrapGAppsHook ]
+    [wrapGAppsHook]
     ++ (
       with ocamlPackages; [
         ocaml
@@ -112,7 +112,7 @@ stdenv.mkDerivation rec {
     runHook postBuild
   '';
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   preFixup = ''
     gappsWrapperArgs+=(--prefix OCAMLPATH ':' ${ocamlpath}:$out/lib/)

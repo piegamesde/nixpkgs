@@ -25,16 +25,16 @@ buildPythonPackage rec {
     azure-mgmt-core
     msrest
     msrestazure
-  ] ++ lib.optionals (!isPy3k) [ azure-mgmt-nspkg ];
+  ] ++ lib.optionals (!isPy3k) [azure-mgmt-nspkg];
 
   # has no tests
   doCheck = false;
-  pythonImportsCheck = [ "azure.mgmt.rdbms" ];
+  pythonImportsCheck = ["azure.mgmt.rdbms"];
 
   meta = with lib; {
     description = "This is the Microsoft Azure RDBMS Management Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxwilson ];
+    maintainers = with maintainers; [maxwilson];
   };
 }

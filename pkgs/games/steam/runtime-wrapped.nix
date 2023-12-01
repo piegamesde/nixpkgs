@@ -25,7 +25,7 @@ let
     ]
   );
 
-  allPkgs = overridePkgs ++ [ steam-runtime ];
+  allPkgs = overridePkgs ++ [steam-runtime];
 
   gnuArch =
     if steamArch == "amd64" then
@@ -49,7 +49,7 @@ in
 stdenv.mkDerivation {
   name = "steam-runtime-wrapped";
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   builder = ./build-wrapped.sh;
 

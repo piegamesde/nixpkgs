@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  subPackages = [ "cmd/main.go" ];
+  subPackages = ["cmd/main.go"];
 
   ldflags = [
     "-s"
@@ -28,7 +28,7 @@ buildGoModule rec {
     "-X github.com/danielfoehrkn/kubeswitch/cmd/switcher.buildDate=1970-01-01"
   ];
 
-  passthru.tests.version = testers.testVersion { package = kubeswitch; };
+  passthru.tests.version = testers.testVersion {package = kubeswitch;};
 
   postInstall = ''
     mv $out/bin/main $out/bin/switch
@@ -38,7 +38,7 @@ buildGoModule rec {
     description = "The kubectx for operators";
     license = licenses.asl20;
     homepage = "https://github.com/danielfoehrKn/kubeswitch";
-    maintainers = with maintainers; [ bryanasdev000 ];
+    maintainers = with maintainers; [bryanasdev000];
     mainProgram = "switch";
   };
 }

@@ -21,11 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-jH8iORpJqEUY9aKtBuOlseg50Q402nYxUZyKKPy6N2Q=";
   };
 
-  buildInputs = [ setuptools-scm ];
+  buildInputs = [setuptools-scm];
 
-  nativeCheckInputs = [ pygccxml ];
+  nativeCheckInputs = [pygccxml];
 
-  pythonImportsCheck = [ "pybindgen" ];
+  pythonImportsCheck = ["pybindgen"];
 
   # Fails to import module 'cxxfilt' from pygccxml on Py3k
   doCheck = (!isPy3k);
@@ -34,6 +34,6 @@ buildPythonPackage rec {
     description = "Python Bindings Generator";
     homepage = "https://github.com/gjcarneiro/pybindgen";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ teto ];
+    maintainers = with maintainers; [teto];
   };
 }

@@ -143,17 +143,17 @@ in
     (mkIf cfg.enable {
       environment.etc."lifecycled".source = configFile;
 
-      systemd.packages = [ pkgs.lifecycled ];
+      systemd.packages = [pkgs.lifecycled];
       systemd.services.lifecycled = {
-        wantedBy = [ "network-online.target" ];
-        restartTriggers = [ configFile ];
+        wantedBy = ["network-online.target"];
+        restartTriggers = [configFile];
       };
     })
 
     (mkIf cfg.queueCleaner.enable {
       systemd.services.lifecycled-queue-cleaner = {
         description = "Lifecycle Daemon Queue Cleaner";
-        environment = optionalAttrs (cfg.awsRegion != null) { AWS_REGION = cfg.awsRegion; };
+        environment = optionalAttrs (cfg.awsRegion != null) {AWS_REGION = cfg.awsRegion;};
         serviceConfig = {
           Type = "oneshot";
           ExecStart = "${pkgs.lifecycled}/bin/lifecycled-queue-cleaner -parallel ${toString cfg.queueCleaner.parallel}";
@@ -162,8 +162,8 @@ in
 
       systemd.timers.lifecycled-queue-cleaner = {
         description = "Lifecycle Daemon Queue Cleaner Timer";
-        wantedBy = [ "timers.target" ];
-        after = [ "network-online.target" ];
+        wantedBy = ["timers.target"];
+        after = ["network-online.target"];
         timerConfig = {
           Unit = "lifecycled-queue-cleaner.service";
           OnCalendar = "${cfg.queueCleaner.frequency}";

@@ -104,8 +104,8 @@ stdenv.mkDerivation rec {
       icon = pname;
       desktopName = "Aether";
       genericName = meta.description;
-      categories = [ "Network" ];
-      mimeTypes = [ "x-scheme-handler/aether" ];
+      categories = ["Network"];
+      mimeTypes = ["x-scheme-handler/aether"];
     })
   ];
 
@@ -177,10 +177,10 @@ stdenv.mkDerivation rec {
     description = "Peer-to-peer ephemeral public communities";
     homepage = "https://getaether.net/";
     downloadPage = "https://getaether.net/download/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ maxhille ];
+    maintainers = with maintainers; [maxhille];
     # other platforms could be supported by building from source
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

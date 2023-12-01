@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-4j0ypzszNWjHbb4RkMIoqvgz624zoKCKiIpidQUPIF4=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     curl
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Jellyfin Terminal User Interface ";
     homepage = "https://github.com/Aanok/jftui";
     license = licenses.unlicense;
-    maintainers = [ maintainers.nyanloutre ];
+    maintainers = [maintainers.nyanloutre];
     platforms = platforms.linux;
   };
 }

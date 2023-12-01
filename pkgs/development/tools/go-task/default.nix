@@ -20,9 +20,9 @@ buildGoModule rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  subPackages = [ "cmd/task" ];
+  subPackages = ["cmd/task"];
 
   ldflags = [
     "-s"
@@ -41,6 +41,6 @@ buildGoModule rec {
     description = "A task runner / simpler Make alternative written in Go";
     changelog = "https://github.com/go-task/task/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ parasrah ];
+    maintainers = with maintainers; [parasrah];
   };
 }

@@ -8,8 +8,8 @@
   octavePackages,
   wrapOctave,
   computeRequiredOctavePackages,
-  extraLibs ? [ ],
-  extraOutputsToInstall ? [ ],
+  extraLibs ? [],
+  extraOutputsToInstall ? [],
   postBuild ? "",
   ignoreCollisions ? false,
 }:
@@ -20,12 +20,12 @@ let
 in
 buildEnv {
   name = "${octave.name}-env";
-  paths = extraLibs ++ [ octave ];
+  paths = extraLibs ++ [octave];
 
   inherit ignoreCollisions;
-  extraOutputsToInstall = [ "out" ] ++ extraOutputsToInstall;
+  extraOutputsToInstall = ["out"] ++ extraOutputsToInstall;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     texinfo
     wrapOctave

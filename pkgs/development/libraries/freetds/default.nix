@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HYVh1XxxmRoo9GgTQ3hcI6aj61TVvNI4l9B+OCX/LVY=";
   };
 
-  buildInputs = [ openssl ] ++ lib.optional odbcSupport unixODBC;
+  buildInputs = [openssl] ++ lib.optional odbcSupport unixODBC;
 
   nativeBuildInputs = [
     autoreconfHook
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "Libraries to natively talk to Microsoft SQL Server and Sybase databases";
     homepage = "https://www.freetds.org";
     license = licenses.lgpl2;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.all;
   };
 }

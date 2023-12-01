@@ -34,7 +34,7 @@ buildPythonApplication rec {
     hash = "sha256-ns1Y0DqqnTAQMEt+oBJ/P2gqKqPsX9P3/Z4561qzuns";
   };
 
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  nativeBuildInputs = [pythonRelaxDepsHook];
 
   pythonRelaxDeps = true;
 
@@ -65,7 +65,7 @@ buildPythonApplication rec {
     description = "Self-hosted knowledge repository";
     homepage = "https://archivy.github.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.unix;
   };
 }

@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-3UM9w3o3qSlUvgg0k87aODJXqx1ryFvxHs6hlovBILY=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -40,6 +40,6 @@ buildGoModule rec {
     '';
     homepage = "https://guumaster.github.io/hostctl/";
     license = licenses.mit;
-    maintainers = with maintainers; [ blaggacao ];
+    maintainers = with maintainers; [blaggacao];
   };
 }

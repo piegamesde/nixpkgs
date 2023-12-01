@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       # remove extra libvisual prefix
       stripLen = 1;
       # pull in only useful configure.ac changes.
-      excludes = [ "Makefile.am" ];
+      excludes = ["Makefile.am"];
     })
     (fetchpatch {
       name = "sdl-cross-pc.patch";

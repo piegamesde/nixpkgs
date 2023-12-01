@@ -20,6 +20,6 @@ buildPythonPackage rec {
     homepage = "https://pygments.org";
     description = "pygments packaged static files for python";
     license = licenses.mit;
-    maintainers = with maintainers; [ makefu ];
+    maintainers = with maintainers; [makefu];
   };
 }

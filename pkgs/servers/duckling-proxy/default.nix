@@ -20,6 +20,6 @@ buildGoModule {
     description = "Gemini proxy to access the Small Web";
     homepage = "https://github.com/LukeEmmet/duckling-proxy";
     license = licenses.mit;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

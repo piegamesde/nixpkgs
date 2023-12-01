@@ -41,6 +41,6 @@ buildPythonPackage {
     description = "Work with Evernote from command line";
     homepage = "http://www.geeknote.me";
     license = licenses.gpl1Only;
-    maintainers = with maintainers; [ hbunke ];
+    maintainers = with maintainers; [hbunke];
   };
 }

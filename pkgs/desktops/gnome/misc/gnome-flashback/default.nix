@@ -36,7 +36,7 @@ let
 
   # From data/sessions/Makefile.am
   requiredComponentsCommon =
-    enableGnomePanel: [ "gnome-flashback" ] ++ lib.optional enableGnomePanel "gnome-panel";
+    enableGnomePanel: ["gnome-flashback"] ++ lib.optional enableGnomePanel "gnome-panel";
   requiredComponentsGsd = [
     "org.gnome.SettingsDaemon.A11ySettings"
     "org.gnome.SettingsDaemon.Color"
@@ -59,7 +59,7 @@ let
     wmName: enableGnomePanel:
     "RequiredComponents=${
       lib.concatStringsSep ";" (
-        [ wmName ] ++ requiredComponentsCommon enableGnomePanel ++ requiredComponentsGsd
+        [wmName] ++ requiredComponentsCommon enableGnomePanel ++ requiredComponentsGsd
       )
     };";
 
@@ -177,7 +177,7 @@ let
               gnome-panel
               gnome-flashback
             ] ++ panelModulePackages;
-            pathsToLink = [ "/lib/gnome-panel/modules" ];
+            pathsToLink = ["/lib/gnome-panel/modules"];
           };
 
           executable = stdenv.mkDerivation {
@@ -188,7 +188,7 @@ let
             ];
             buildInputs = [
               gnome-flashback
-            ] ++ lib.optionals enableGnomePanel ([ gnome-panel ] ++ panelModulePackages);
+            ] ++ lib.optionals enableGnomePanel ([gnome-panel] ++ panelModulePackages);
 
             # We want to use the wrapGAppsHook mechanism to wrap gnome-session
             # with the environment that gnome-flashback and gnome-panel need to
@@ -236,7 +236,7 @@ let
           '';
         }
         // {
-          providedSessions = [ "gnome-flashback-${wmName}" ];
+          providedSessions = ["gnome-flashback-${wmName}"];
         };
 
       mkSystemdTargetForWm =
@@ -246,7 +246,7 @@ let
           wmCommand,
           enableGnomePanel,
         }:
-        runCommand "gnome-flashback-${wmName}.target" { } ''
+        runCommand "gnome-flashback-${wmName}.target" {} ''
           mkdir -p $out/lib/systemd/user
           cp -r "${gnome-flashback}/lib/systemd/user/gnome-session@gnome-flashback-metacity.target.d" \
             "$out/lib/systemd/user/gnome-session@gnome-flashback-${wmName}.target.d"

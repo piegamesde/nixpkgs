@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
       puzzles and defeating powerful enemies to achieve his quest.
     '';
     license = licenses.gpl1Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.unix;
     broken = stdenv.isDarwin;
   };

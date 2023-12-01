@@ -26,13 +26,13 @@ mkDerivation (
   args
   // {
     inherit pname version src;
-    patches = (args.patches or [ ]) ++ (patches.${pname} or [ ]);
+    patches = (args.patches or []) ++ (patches.${pname} or []);
 
-    nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
+    nativeBuildInputs = (args.nativeBuildInputs or []) ++ [
       perl
       self.qmake
     ];
-    propagatedBuildInputs = args.qtInputs ++ (args.propagatedBuildInputs or [ ]);
+    propagatedBuildInputs = args.qtInputs ++ (args.propagatedBuildInputs or []);
 
     outputs =
       args.outputs or [
@@ -105,6 +105,6 @@ mkDerivation (
         bkchr
       ];
       platforms = platforms.unix;
-    } // (args.meta or { });
+    } // (args.meta or {});
   }
 )

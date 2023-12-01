@@ -1,17 +1,17 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "containers-hosts";
     meta = {
-      maintainers = with lib.maintainers; [ montag451 ];
+      maintainers = with lib.maintainers; [montag451];
     };
 
     nodes.machine =
-      { lib, ... }:
+      {lib, ...}:
       {
-        virtualisation.vlans = [ ];
+        virtualisation.vlans = [];
 
-        networking.bridges.br0.interfaces = [ ];
+        networking.bridges.br0.interfaces = [];
         networking.interfaces.br0.ipv4.addresses = [
           {
             address = "10.11.0.254";
@@ -30,7 +30,7 @@ import ./make-test-python.nix (
           localAddress = "10.10.0.1";
           hostAddress = "10.10.0.254";
 
-          config = { };
+          config = {};
         };
 
         containers.netmask = {
@@ -39,7 +39,7 @@ import ./make-test-python.nix (
           hostBridge = "br0";
           localAddress = "10.11.0.1/24";
 
-          config = { };
+          config = {};
         };
       };
 

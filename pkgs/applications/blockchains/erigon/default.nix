@@ -25,7 +25,7 @@ buildGoModule {
 
   # Build errors in mdbx when format hardening is enabled:
   #   cc1: error: '-Wformat-security' ignored without '-Wformat' [-Werror=format-security]
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   subPackages = [
     "cmd/erigon"
@@ -34,7 +34,7 @@ buildGoModule {
     "cmd/rlpdump"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://github.com/ledgerwatch/erigon/";

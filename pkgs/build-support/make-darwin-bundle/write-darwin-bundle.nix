@@ -1,11 +1,11 @@
-{ writeScriptBin, lib, ... }:
+{writeScriptBin, lib, ...}:
 
 let
-  pListText = lib.generators.toPlist { } {
+  pListText = lib.generators.toPlist {} {
     CFBundleDevelopmentRegion = "English";
     CFBundleExecutable = "$name";
     CFBundleIconFile = "$icon";
-    CFBundleIconFiles = [ "$icon" ];
+    CFBundleIconFiles = ["$icon"];
     CFBundleIdentifier = "org.nixos.$name";
     CFBundleInfoDictionaryVersion = "6.0";
     CFBundleName = "$name";

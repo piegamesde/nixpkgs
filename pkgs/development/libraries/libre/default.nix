@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     zlib
     openssl
   ];
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   makeFlags =
     [
       "USE_ZLIB=1"

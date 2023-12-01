@@ -18,7 +18,7 @@ buildGoModule rec {
     sha256 = "0scf7v83p40r9k7k5v41rwiy9yyanfv3jm6jxs9bspxpywgjrk77";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   vendorSha256 = null; # vendorSha256 = "";
 
@@ -38,7 +38,7 @@ buildGoModule rec {
     description = "A Fountain export tool with some extras";
     homepage = "https://github.com/Wraparound/wrap";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.austinbutler ];
+    maintainers = [maintainers.austinbutler];
     broken = true; # vendor isn't reproducible with go > 1.17: nix-build -A $name.go-modules --check
   };
 }

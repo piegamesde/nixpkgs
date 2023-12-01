@@ -140,7 +140,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/ptomato/gnome-inform7";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.fitzgibbon ];
+    maintainers = [maintainers.fitzgibbon];
     platforms = platforms.linux;
   };
 }

@@ -78,7 +78,7 @@ buildPythonPackage rec {
     "tests"
   ];
 
-  pythonImportsCheck = [ "httpie" ];
+  pythonImportsCheck = ["httpie"];
 
   disabledTestPaths =
     lib.optionals stdenv.isDarwin

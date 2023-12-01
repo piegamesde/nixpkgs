@@ -27,7 +27,7 @@ buildGoModule rec {
       })
     ];
 
-  subPackages = [ "cmd/devd" ];
+  subPackages = ["cmd/devd"];
 
   ldflags = [
     "-s"
@@ -38,6 +38,6 @@ buildGoModule rec {
     description = "A local webserver for developers";
     homepage = "https://github.com/cortesi/devd";
     license = licenses.mit;
-    maintainers = with maintainers; [ brianhicks ];
+    maintainers = with maintainers; [brianhicks];
   };
 }

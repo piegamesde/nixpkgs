@@ -24,7 +24,7 @@ stdenv.mkDerivation (
       hash = "sha256-SUdhIV7tjtacf5DkoWk9cnkfyMlrkg8ZU7XnPZd22Tw=";
     };
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
     cmakeFlags = [
       "-DJSON_BuildTests=${if finalAttrs.doCheck then "ON" else "OFF"}"

@@ -8,7 +8,7 @@
   sysfsutils,
   kmod,
   udev,
-  firmware ? config.pcmciaUtils.firmware or [ ], # Special pcmcia cards.
+  firmware ? config.pcmciaUtils.firmware or [], # Special pcmcia cards.
   configOpts ? config.pcmciaUtils.config or null, # Special hardware (map memory & port & irq)
 }: # used to generate postInstall script.
 
@@ -41,10 +41,10 @@ stdenv.mkDerivation rec {
         s,/etc/pcmcia,$out&,;
       " src/{startup.c,pcmcia-check-broken-cis.c} # fix-color */
     ''
-    + (lib.optionalString (firmware == [ ]) ''sed -i "s,STARTUP = true,STARTUP = false," Makefile'')
+    + (lib.optionalString (firmware == []) ''sed -i "s,STARTUP = true,STARTUP = false," Makefile'')
     + (lib.optionalString (configOpts != null) "ln -sf ${configOpts} ./config/config.opts");
 
-  makeFlags = [ "LEX=flex" ];
+  makeFlags = ["LEX=flex"];
   installFlags = [
     "INSTALL=install"
     "DESTDIR=${placeholder "out"}"

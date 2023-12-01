@@ -41,7 +41,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-cebRHOx2hg470jM1CoQAk13Whv+KN2qx97BTlpjxSZg=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out $out/bin $out/lib
@@ -52,7 +52,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = unstableGitUpdater { url = meta.homepage; };
+    updateScript = unstableGitUpdater {url = meta.homepage;};
     tests.moonraker = nixosTests.moonraker;
   };
 
@@ -60,6 +60,6 @@ stdenvNoCC.mkDerivation rec {
     description = "API web server for Klipper";
     homepage = "https://github.com/Arksine/moonraker";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ zhaofengli ];
+    maintainers = with maintainers; [zhaofengli];
   };
 }

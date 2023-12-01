@@ -1,14 +1,14 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "nibbles";
   version = "20211209-git";
 
-  parasites = [ "nibbles/tests" ];
+  parasites = ["nibbles/tests"];
 
   description = "A library for accessing octet-addressed blocks of data in big- and little-endian orders";
 
-  deps = [ args."rt" ];
+  deps = [args."rt"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/nibbles/2021-12-09/nibbles-20211209-git.tgz";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "nibbles";
 
-  asdFilesToKeep = [ "nibbles.asd" ];
+  asdFilesToKeep = ["nibbles.asd"];
   overrides = x: x;
 }
 /* (SYSTEM nibbles DESCRIPTION

@@ -1,13 +1,13 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "libresprite";
-    meta = with pkgs.lib.maintainers; { maintainers = [ fgaz ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [fgaz];};
 
     nodes.machine =
-      { config, pkgs, ... }:
+      {config, pkgs, ...}:
       {
-        imports = [ ./common/x11.nix ];
+        imports = [./common/x11.nix];
 
         services.xserver.enable = true;
         environment.systemPackages = [

@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  extraOutputsToLink = [ "doc" ];
+  extraOutputsToLink = ["doc"];
 
   postPatch = ''
     # the package.sh script provides some install helpers
@@ -95,6 +95,6 @@ stdenv.mkDerivation rec {
     description = "Very customizable imageboard/booru downloader with powerful filenaming features";
     license = licenses.asl20;
     homepage = "https://bionus.github.io/imgbrd-grabber/";
-    maintainers = [ maintainers.evanjs ];
+    maintainers = [maintainers.evanjs];
   };
 }

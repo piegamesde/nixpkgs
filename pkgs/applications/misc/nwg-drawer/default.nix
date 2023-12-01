@@ -55,6 +55,6 @@ buildGoModule rec {
     homepage = "https://github.com/nwg-piotr/nwg-drawer";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ plabadens ];
+    maintainers = with maintainers; [plabadens];
   };
 }

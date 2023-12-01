@@ -25,10 +25,10 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
       findlib
     ];
 
-    patches = [ ./Makefile.patch ];
+    patches = [./Makefile.patch];
 
-    buildFlags = [ "PREFIX=$(out)" ];
-    installFlags = [ "PREFIX=$(out)" ];
+    buildFlags = ["PREFIX=$(out)"];
+    installFlags = ["PREFIX=$(out)"];
 
     preInstall = "mkdir -p $out/bin";
     createFindlibDestdir = true;
@@ -38,7 +38,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
       license = licenses.boost;
       inherit (ocaml.meta) platforms;
       description = "Natively-compiled OCaml scripts";
-      maintainers = [ maintainers.vbgl ];
+      maintainers = [maintainers.vbgl];
       mainProgram = "ocamlscript";
     };
   }

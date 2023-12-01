@@ -32,6 +32,6 @@ buildGoModule rec {
     description = "Like `go get` but for Go tools! CI Automating versioning of Go binaries in a nested, isolated Go modules.";
     homepage = "https://github.com/bwplotka/bingo";
     license = licenses.asl20;
-    maintainers = with maintainers; [ aaronjheng ];
+    maintainers = with maintainers; [aaronjheng];
   };
 }

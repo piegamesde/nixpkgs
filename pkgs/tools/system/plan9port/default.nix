@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     EOF
   '';
 
-  nativeBuildInputs = [ ed ];
+  nativeBuildInputs = [ed];
   buildInputs =
     [
       perl

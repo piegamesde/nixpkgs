@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "High-performance Minecraft Server";
     homepage = "https://papermc.io/";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [

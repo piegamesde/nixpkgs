@@ -43,42 +43,42 @@ stdenv.mkDerivation rec {
     sha256 = "0v9307ij8xzwdaxay3r75sd2cp453s3qb6q7dy9fks2p6wwqpazi";
   };
 
-  makeFlags = [ "all" ];
+  makeFlags = ["all"];
   installFlags = [
     "PREFIX=\${out}"
     "VERSION=${version}"
   ];
 
   buildInputs = optional (contains_any scripts perlscripts) perl;
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postFixup =
     optionalString (elem "bandwidth" scripts) ''
       wrapProgram $out/libexec/i3blocks/bandwidth \
-        --prefix PATH : ${makeBinPath [ iproute2 ]}
+        --prefix PATH : ${makeBinPath [iproute2]}
     ''
     + optionalString (elem "battery" scripts) ''
       wrapProgram $out/libexec/i3blocks/battery \
-        --prefix PATH : ${makeBinPath [ acpi ]}
+        --prefix PATH : ${makeBinPath [acpi]}
     ''
     + optionalString (elem "cpu_usage" scripts) ''
       wrapProgram $out/libexec/i3blocks/cpu_usage \
-        --prefix PATH : ${makeBinPath [ sysstat ]}
+        --prefix PATH : ${makeBinPath [sysstat]}
     ''
     + optionalString (elem "iface" scripts) ''
       wrapProgram $out/libexec/i3blocks/iface \
-        --prefix PATH : ${makeBinPath [ iproute2 ]}
+        --prefix PATH : ${makeBinPath [iproute2]}
     ''
     + optionalString (elem "volume" scripts) ''
       wrapProgram $out/libexec/i3blocks/volume \
-        --prefix PATH : ${makeBinPath [ alsa-utils ]}
+        --prefix PATH : ${makeBinPath [alsa-utils]}
     '';
 
   meta = with lib; {
     description = "A flexible scheduler for your i3bar blocks -- this is a fork to use with i3-gaps";
     homepage = "https://github.com/Airblader/i3blocks-gaps";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ carlsverre ];
+    maintainers = with maintainers; [carlsverre];
     platforms = platforms.linux;
   };
 }

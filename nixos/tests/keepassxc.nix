@@ -1,15 +1,15 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   {
     name = "keepassxc";
     meta = with pkgs.lib.maintainers; {
-      maintainers = [ turion ];
+      maintainers = [turion];
       timeout = 1800;
     };
 
     nodes.machine =
-      { ... }:
+      {...}:
 
       {
         imports = [
@@ -36,7 +36,7 @@ import ./make-test-python.nix (
     enableOCR = true;
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         aliceDo = cmd: ''machine.succeed("su - alice -c '${cmd}' >&2 &");'';
       in

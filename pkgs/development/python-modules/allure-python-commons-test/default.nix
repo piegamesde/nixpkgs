@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-TaeQF9EZ5tLMmVSwnWgrxsRz5lh0O3BZLLEUawd8BeI=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     attrs
@@ -38,12 +38,12 @@ buildPythonPackage rec {
     ${python.interpreter} -m doctest ./src/result.py
   '';
 
-  pythonImportsCheck = [ "allure_commons_test" ];
+  pythonImportsCheck = ["allure_commons_test"];
 
   meta = with lib; {
     description = "Just pack of hamcrest matchers for validation result in allure2 json format";
     homepage = "https://github.com/allure-framework/allure-python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ evanjs ];
+    maintainers = with maintainers; [evanjs];
   };
 }

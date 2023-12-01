@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "xpath";
   version = "plexippus-20190521-git";
 
-  parasites = [ "xpath/test" ];
+  parasites = ["xpath/test"];
 
   description = "An implementation of the XML Path Language (XPath) Version 1.0";
 
@@ -28,7 +28,7 @@ rec {
 
   packageName = "xpath";
 
-  asdFilesToKeep = [ "xpath.asd" ];
+  asdFilesToKeep = ["xpath.asd"];
   overrides = x: x;
 }
 /* (SYSTEM xpath DESCRIPTION

@@ -37,7 +37,7 @@ in
       # TODO: find another name for it.
       fonts = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         example = literalExpression "[ pkgs.dejavu_fonts ]";
         description = lib.mdDoc "List of primary font paths.";
       };

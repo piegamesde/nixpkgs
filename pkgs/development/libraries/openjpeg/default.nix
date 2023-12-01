@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (jpipLibSupport) jdk;
 
   doCheck = (!stdenv.isAarch64 && !stdenv.hostPlatform.isPower64); # tests fail on aarch64-linux and powerpc64
-  nativeCheckInputs = [ jpylyzer ];
+  nativeCheckInputs = [jpylyzer];
   checkPhase = ''
     substituteInPlace ../tools/ctest_scripts/travis-ci.cmake \
       --replace "JPYLYZER_EXECUTABLE=" "JPYLYZER_EXECUTABLE=\"$(command -v jpylyzer)\" # "
@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
     description = "Open-source JPEG 2000 codec written in C language";
     homepage = "https://www.openjpeg.org/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ codyopel ];
+    maintainers = with maintainers; [codyopel];
     platforms = platforms.all;
     changelog = "https://github.com/uclouvain/openjpeg/blob/v${version}/CHANGELOG.md";
   };

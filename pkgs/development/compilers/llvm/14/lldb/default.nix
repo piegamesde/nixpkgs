@@ -33,7 +33,7 @@ stdenv.mkDerivation (
     pname = "lldb";
     inherit version;
 
-    src = runCommand "${pname}-src-${version}" { } ''
+    src = runCommand "${pname}-src-${version}" {} ''
       mkdir -p "$out"
       cp -r ${monorepoSrc}/cmake "$out"
       cp -r ${monorepoSrc}/${pname} "$out"
@@ -44,7 +44,7 @@ stdenv.mkDerivation (
     patches =
       [
         ./procfs.patch
-        (runCommand "resource-dir.patch" { clangLibDir = "${libclang.lib}/lib"; } ''
+        (runCommand "resource-dir.patch" {clangLibDir = "${libclang.lib}/lib";} ''
           substitute '${./resource-dir.patch}' "$out" --subst-var clangLibDir
         '')
         ./gnu-install-dirs.patch
@@ -105,7 +105,7 @@ stdenv.mkDerivation (
         Cocoa
       ];
 
-    hardeningDisable = [ "format" ];
+    hardeningDisable = ["format"];
 
     cmakeFlags =
       [
@@ -114,7 +114,7 @@ stdenv.mkDerivation (
         "-DClang_DIR=${libclang.dev}/lib/cmake"
         "-DLLVM_EXTERNAL_LIT=${lit}/bin/lit"
       ]
-      ++ lib.optionals stdenv.isDarwin [ "-DLLDB_USE_SYSTEM_DEBUGSERVER=ON" ]
+      ++ lib.optionals stdenv.isDarwin ["-DLLDB_USE_SYSTEM_DEBUGSERVER=ON"]
       ++ lib.optionals (!stdenv.isDarwin) [
         "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
       ]
@@ -171,7 +171,7 @@ stdenv.mkDerivation (
       make docs-lldb-man
     '';
 
-    propagatedBuildInputs = [ ];
+    propagatedBuildInputs = [];
 
     # manually install lldb man page
     installPhase = ''
@@ -182,7 +182,7 @@ stdenv.mkDerivation (
     postPatch = null;
     postInstall = null;
 
-    outputs = [ "out" ];
+    outputs = ["out"];
 
     doCheck = false;
 

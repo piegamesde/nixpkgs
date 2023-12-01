@@ -17,7 +17,7 @@ buildPythonPackage rec {
     fetchSubmodules = false;
   };
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
   # dunno what's wrong but the module works regardless
   doCheck = false;

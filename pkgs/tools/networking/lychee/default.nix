@@ -21,9 +21,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-r089P2VOeIIW0FjkO4oqVXbrxDND4loagVfVMm5EtaE=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = [openssl] ++ lib.optionals stdenv.isDarwin [Security];
 
   # Disabled because they currently fail
   doCheck = false;
@@ -35,6 +35,6 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ tuxinaut ];
+    maintainers = with maintainers; [tuxinaut];
   };
 }

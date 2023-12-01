@@ -57,7 +57,7 @@ mkDerivation rec {
   # searches the program's runtime path as well).
   # LD_LIBRARY_PATH takes precedence for all calling objects, see dlopen(3).
   # https://github.com/open-eid/cmake/pull/35 might be an alternative.
-  qtWrapperArgs = [ "--prefix LD_LIBRARY_PATH : ${opensc}/lib/pkcs11/" ];
+  qtWrapperArgs = ["--prefix LD_LIBRARY_PATH : ${opensc}/lib/pkcs11/"];
 
   meta = with lib; {
     description = "Qt-based UI for signing and verifying DigiDoc documents";

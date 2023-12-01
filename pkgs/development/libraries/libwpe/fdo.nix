@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "k8l2aumGTurq7isKdPIsvKCN9CwaG9tVsIbyUo44DTg=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     pkg-config
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     description = "Freedesktop.org backend for WPE WebKit";
     license = licenses.bsd2;
     homepage = "https://wpewebkit.org";
-    maintainers = webkitgtk.meta.maintainers ++ (with maintainers; [ matthewbauer ]);
+    maintainers = webkitgtk.meta.maintainers ++ (with maintainers; [matthewbauer]);
     platforms = platforms.linux;
   };
 }

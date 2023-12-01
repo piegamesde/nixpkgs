@@ -47,7 +47,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.mame ];
+    environment.systemPackages = [pkgs.mame];
 
     security.wrappers."${mame}" = {
       owner = "root";
@@ -58,9 +58,9 @@ in
 
     systemd.services.mame = {
       description = "MAME TUN/TAP Ethernet interface";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.iproute2 ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.iproute2];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
@@ -70,5 +70,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ ];
+  meta.maintainers = with lib.maintainers; [];
 }

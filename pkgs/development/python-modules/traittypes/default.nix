@@ -33,7 +33,7 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ traitlets ];
+  propagatedBuildInputs = [traitlets];
 
   nativeCheckInputs = [
     numpy
@@ -50,12 +50,12 @@ buildPythonPackage rec {
         "traittypes/tests/test_traittypes.py"
       ];
 
-  pythonImportsCheck = [ "traittypes" ];
+  pythonImportsCheck = ["traittypes"];
 
   meta = with lib; {
     description = "Trait types for NumPy, SciPy, XArray, and Pandas";
     homepage = "https://github.com/jupyter-widgets/traittypes";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

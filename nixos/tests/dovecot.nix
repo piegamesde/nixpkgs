@@ -2,9 +2,9 @@ import ./make-test-python.nix {
   name = "dovecot";
 
   nodes.machine =
-    { pkgs, ... }:
+    {pkgs, ...}:
     {
-      imports = [ common/user-account.nix ];
+      imports = [common/user-account.nix];
       services.postfix.enable = true;
       services.dovecot2 = {
         enable = true;
@@ -12,7 +12,7 @@ import ./make-test-python.nix {
           "imap"
           "pop3"
         ];
-        modules = [ pkgs.dovecot_pigeonhole ];
+        modules = [pkgs.dovecot_pigeonhole];
         mailUser = "vmail";
         mailGroup = "vmail";
       };

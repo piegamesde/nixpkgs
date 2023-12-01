@@ -20,9 +20,9 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-EJb9IVQClZwJrIorJ6FM6gDV5oSeXiwbwG9l6+4fMQ8=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       curl
       Security
@@ -39,6 +39,6 @@ rustPlatform.buildRustPackage rec {
       mit # or
       asl20
     ];
-    maintainers = with maintainers; [ hugoreeves ];
+    maintainers = with maintainers; [hugoreeves];
   };
 }

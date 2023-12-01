@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "05zcnnm4dfc6idihfi0fq5xka6x86zi89wip2ca19yz768sd33s9";
   };
 
-  nativeBuildInputs = [ intltool ];
+  nativeBuildInputs = [intltool];
   buildInputs = [
     libusb-compat-0_1
     libraw1394
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Universal video capture API";
     homepage = "http://www.unicap-imaging.org/";
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

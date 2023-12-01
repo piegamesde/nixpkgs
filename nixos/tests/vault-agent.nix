@@ -1,10 +1,10 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "vault-agent";
 
     nodes.machine =
-      { config, pkgs, ... }:
+      {config, pkgs, ...}:
       {
         services.vault-agent.instances.example.settings = {
           vault.address = config.environment.variables.VAULT_ADDR;
@@ -40,7 +40,7 @@ import ./make-test-python.nix (
         };
 
         environment = {
-          systemPackages = [ pkgs.vault ];
+          systemPackages = [pkgs.vault];
           variables = {
             VAULT_ADDR = "http://localhost:8200";
             VAULT_TOKEN = "root";

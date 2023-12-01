@@ -14,12 +14,12 @@ buildPythonPackage rec {
     hash = "sha256-I+fsAtNCN8WqHimgcBk6Tqh1g7tOf4/QbT3oJkxLLhw=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Json Formatter for the standard python logger";
     homepage = "https://github.com/madzak/python-json-logger";
     license = licenses.bsdOriginal;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

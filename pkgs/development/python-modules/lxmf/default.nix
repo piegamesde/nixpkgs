@@ -20,18 +20,18 @@ buildPythonPackage rec {
     hash = "sha256-uz3IUUL5rdYwUsBNdHB+K/ZaCCnUE5EThFConVl8YgM=";
   };
 
-  propagatedBuildInputs = [ rns ];
+  propagatedBuildInputs = [rns];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "LXMF" ];
+  pythonImportsCheck = ["LXMF"];
 
   meta = with lib; {
     description = "Lightweight Extensible Message Format for Reticulum";
     homepage = "https://github.com/markqvist/lxmf";
     changelog = "https://github.com/markqvist/LXMF/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

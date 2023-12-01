@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [ gnu-efi ];
+  buildInputs = [gnu-efi];
 
   postPatch = ''
     patchShebangs \
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://fwupd.org/";
-    maintainers = with maintainers; [ maxeaubrey ];
+    maintainers = with maintainers; [maxeaubrey];
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
   };

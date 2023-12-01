@@ -76,7 +76,7 @@ in
   atari800 = mkLibretroCore {
     core = "atari800";
     makefile = "Makefile";
-    makeFlags = [ "GIT_VERSION=" ];
+    makeFlags = ["GIT_VERSION="];
     meta = {
       description = "Port of Atari800 to libretro";
       license = lib.licenses.gpl2Only;
@@ -288,7 +288,7 @@ in
     core = "bsnes-mercury-accuracy";
     src = getCoreSrc "bsnes-mercury";
     makefile = "Makefile";
-    makeFlags = [ "PROFILE=accuracy" ];
+    makeFlags = ["PROFILE=accuracy"];
     meta = {
       description = "Fork of bsnes with HLE DSP emulation restored (accuracy profile)";
       license = lib.licenses.gpl3Only;
@@ -299,7 +299,7 @@ in
     core = "bsnes-mercury-balanced";
     src = getCoreSrc "bsnes-mercury";
     makefile = "Makefile";
-    makeFlags = [ "PROFILE=balanced" ];
+    makeFlags = ["PROFILE=balanced"];
     meta = {
       description = "Fork of bsnes with HLE DSP emulation restored (balanced profile)";
       license = lib.licenses.gpl3Only;
@@ -310,7 +310,7 @@ in
     core = "bsnes-mercury-performance";
     src = getCoreSrc "bsnes-mercury";
     makefile = "Makefile";
-    makeFlags = [ "PROFILE=performance" ];
+    makeFlags = ["PROFILE=performance"];
     meta = {
       description = "Fork of bsnes with HLE DSP emulation restored (performance profile)";
       license = lib.licenses.gpl3Only;
@@ -327,7 +327,7 @@ in
       nasm
     ];
     makefile = "Makefile";
-    makeFlags = [ "HAVE_FFMPEG_STATIC=0" ];
+    makeFlags = ["HAVE_FFMPEG_STATIC=0"];
     meta = {
       description = "Port of Citra to libretro";
       license = lib.licenses.gpl2Plus;
@@ -544,10 +544,10 @@ in
 
   hatari = mkLibretroCore {
     core = "hatari";
-    extraNativeBuildInputs = [ which ];
+    extraNativeBuildInputs = [which];
     dontConfigure = true;
     # zlib is already included in mkLibretroCore as buildInputs
-    makeFlags = [ "EXTERNAL_ZLIB=1" ];
+    makeFlags = ["EXTERNAL_ZLIB=1"];
     meta = {
       description = "Port of Hatari to libretro";
       license = lib.licenses.gpl2Only;
@@ -618,9 +618,9 @@ in
 
   mame2015 = mkLibretroCore {
     core = "mame2015";
-    makeFlags = [ "PYTHON=python3" ];
-    extraNativeBuildInputs = [ python3 ];
-    extraBuildInputs = [ alsa-lib ];
+    makeFlags = ["PYTHON=python3"];
+    extraNativeBuildInputs = [python3];
+    extraBuildInputs = [alsa-lib];
     makefile = "Makefile";
     enableParallelBuilding = false;
     meta = {
@@ -631,9 +631,9 @@ in
 
   mame2016 = mkLibretroCore {
     core = "mame2016";
-    extraNativeBuildInputs = [ python3 ];
-    extraBuildInputs = [ alsa-lib ];
-    makeFlags = [ "PYTHON_EXECUTABLE=python3" ];
+    extraNativeBuildInputs = [python3];
+    extraBuildInputs = [alsa-lib];
+    makeFlags = ["PYTHON_EXECUTABLE=python3"];
     enableParallelBuilding = false;
     meta = {
       description = "Port of MAME ~2016 to libretro, compatible with MAME 0.174 sets";
@@ -768,7 +768,7 @@ in
   opera = mkLibretroCore {
     core = "opera";
     makefile = "Makefile";
-    makeFlags = [ "CC_PREFIX=${stdenv.cc.targetPrefix}" ];
+    makeFlags = ["CC_PREFIX=${stdenv.cc.targetPrefix}"];
     meta = {
       description = "Opera is a port of 4DO/libfreedo to libretro";
       license = "Non-commercial";
@@ -811,7 +811,7 @@ in
       xxd
     ];
     makefile = "Makefile";
-    cmakeFlags = [ "-DLIBRETRO=ON" ];
+    cmakeFlags = ["-DLIBRETRO=ON"];
     postPatch = ''
       # remove ccache
       substituteInPlace CMakeLists.txt --replace "ccache" ""
@@ -854,7 +854,7 @@ in
       libGLU
       xorg.libX11
     ];
-    extraNativeBuildInputs = [ cmake ];
+    extraNativeBuildInputs = [cmake];
     makefile = "Makefile";
     cmakeFlags = [
       "-DBUILD_PLAY=OFF"
@@ -1016,7 +1016,7 @@ in
     core = "snes9x2005-plus";
     src = getCoreSrc "snes9x2005";
     makefile = "Makefile";
-    makeFlags = [ "USE_BLARGG_APU=1" ];
+    makeFlags = ["USE_BLARGG_APU=1"];
     meta = {
       description = "Optimized port/rewrite of SNES9x 1.43 to Libretro, with Blargg's APU";
       license = "Non-commercial";
@@ -1053,9 +1053,9 @@ in
 
   swanstation = mkLibretroCore {
     core = "swanstation";
-    extraNativeBuildInputs = [ cmake ];
+    extraNativeBuildInputs = [cmake];
     makefile = "Makefile";
-    cmakeFlags = [ "-DBUILD_LIBRETRO_CORE=ON" ];
+    cmakeFlags = ["-DBUILD_LIBRETRO_CORE=ON"];
     meta = {
       description = "Port of SwanStation (a fork of DuckStation) to libretro";
       license = lib.licenses.gpl3Only;
@@ -1073,7 +1073,7 @@ in
 
   thepowdertoy = mkLibretroCore {
     core = "thepowdertoy";
-    extraNativeBuildInputs = [ cmake ];
+    extraNativeBuildInputs = [cmake];
     makefile = "Makefile";
     postBuild = "cd src";
     meta = {

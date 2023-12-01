@@ -28,13 +28,13 @@ stdenv.mkDerivation rec {
     flex
   ];
 
-  buildInputs = [ boost ];
+  buildInputs = [boost];
 
   meta = with lib; {
     homepage = "https://knightos.org/";
     description = "KnightOS C compiler";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.unix;
   };
 }

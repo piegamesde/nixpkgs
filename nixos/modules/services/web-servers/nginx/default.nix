@@ -181,7 +181,7 @@ let
         ${commonHttpConfig}
 
         ${
-          optionalString (cfg.resolver.addresses != [ ]) ''
+          optionalString (cfg.resolver.addresses != []) ''
             resolver ${toString cfg.resolver.addresses} ${
               optionalString (cfg.resolver.valid != "") "valid=${cfg.resolver.valid}"
             } ${optionalString (!cfg.resolver.ipv6) "ipv6=off"};
@@ -347,11 +347,11 @@ let
           hasSSL = onlySSL || vhost.addSSL || vhost.forceSSL;
 
           defaultListen =
-            if vhost.listen != [ ] then
+            if vhost.listen != [] then
               vhost.listen
             else
               let
-                addrs = if vhost.listenAddresses != [ ] then vhost.listenAddresses else cfg.defaultListenAddresses;
+                addrs = if vhost.listenAddresses != [] then vhost.listenAddresses else cfg.defaultListenAddresses;
               in
               optionals (hasSSL || vhost.rejectSSL) (
                 map
@@ -379,7 +379,7 @@ let
               addr,
               port,
               ssl,
-              extraParameters ? [ ],
+              extraParameters ? [],
               ...
             }:
             # UDP listener for QUIC transport protocol.
@@ -387,7 +387,7 @@ let
               "\n            listen ${addr}:${toString port} quic "
               + optionalString vhost.default "default_server "
               + optionalString vhost.reuseport "reuseport "
-              + optionalString (extraParameters != [ ]) (
+              + optionalString (extraParameters != []) (
                 concatStringsSep " " (
                   let
                     inCompatibleParameters = [
@@ -407,7 +407,7 @@ let
             + optionalString ssl "ssl "
             + optionalString vhost.default "default_server "
             + optionalString vhost.reuseport "reuseport "
-            + optionalString (extraParameters != [ ]) (concatStringsSep " " extraParameters)
+            + optionalString (extraParameters != []) (concatStringsSep " " extraParameters)
             + ";";
 
           redirectListen = filter (x: !x.ssl) defaultListen;
@@ -520,7 +520,7 @@ let
             ${
               concatStringsSep "\n" (
                 mapAttrsToList (n: v: ''fastcgi_param ${n} "${v}";'') (
-                  optionalAttrs (config.fastcgiParams != { }) (defaultFastcgiParams // config.fastcgiParams)
+                  optionalAttrs (config.fastcgiParams != {}) (defaultFastcgiParams // config.fastcgiParams)
                 )
               )
             }
@@ -537,12 +537,12 @@ let
             ${mkBasicAuth "sublocation" config}
           }
         '')
-        (sortProperties (mapAttrsToList (k: v: v // { location = k; }) locations))
+        (sortProperties (mapAttrsToList (k: v: v // {location = k;}) locations))
     );
 
   mkBasicAuth =
     name: zone:
-    optionalString (zone.basicAuthFile != null || zone.basicAuth != { }) (
+    optionalString (zone.basicAuthFile != null || zone.basicAuth != {}) (
       let
         auth_file =
           if zone.basicAuthFile != null then zone.basicAuthFile else mkHtpasswd name zone.basicAuth;
@@ -646,7 +646,7 @@ in
 
       defaultListenAddresses = mkOption {
         type = types.listOf types.str;
-        default = [ "0.0.0.0" ] ++ optional enableIPv6 "[::0]";
+        default = ["0.0.0.0"] ++ optional enableIPv6 "[::0]";
         defaultText = literalExpression ''[ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]"'';
         example = literalExpression ''[ "10.0.0.12" "[2002:a00:1::]" ]'';
         description = lib.mdDoc ''
@@ -688,7 +688,7 @@ in
         default = pkgs.nginxStable;
         defaultText = literalExpression "pkgs.nginxStable";
         type = types.package;
-        apply = p: p.override { modules = lib.unique (p.modules ++ cfg.additionalModules); };
+        apply = p: p.override {modules = lib.unique (p.modules ++ cfg.additionalModules);};
         description = lib.mdDoc ''
           Nginx package to use. This defaults to the stable version. Note
           that the nginx team recommends to use the mainline version which
@@ -697,7 +697,7 @@ in
       };
 
       additionalModules = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf (types.attrsOf types.anything);
         example = literalExpression "[ pkgs.nginxModules.echo ]";
         description = lib.mdDoc ''
@@ -930,7 +930,7 @@ in
       proxyCachePath = mkOption {
         type = types.attrsOf (
           types.submodule (
-            { ... }:
+            {...}:
             {
               options = {
                 enable = mkEnableOption (lib.mdDoc "this proxy cache path entry");
@@ -994,7 +994,7 @@ in
             }
           )
         );
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Configure a proxy cache path entry.
           See <http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_cache_path> for documentation.
@@ -1006,7 +1006,7 @@ in
           options = {
             addresses = mkOption {
               type = types.listOf types.str;
-              default = [ ];
+              default = [];
               example = literalExpression ''[ "[::1]" "127.0.0.1:5353" ]'';
               description = lib.mdDoc "List of resolvers to use";
             };
@@ -1033,7 +1033,7 @@ in
         description = lib.mdDoc ''
           Configures name servers used to resolve names of upstream servers into addresses
         '';
-        default = { };
+        default = {};
       };
 
       upstreams = mkOption {
@@ -1058,9 +1058,9 @@ in
                 description = lib.mdDoc ''
                   Defines the address and other parameters of the upstream servers.
                 '';
-                default = { };
+                default = {};
                 example = {
-                  "127.0.0.1:8000" = { };
+                  "127.0.0.1:8000" = {};
                 };
               };
               extraConfig = mkOption {
@@ -1076,7 +1076,7 @@ in
         description = lib.mdDoc ''
           Defines a group of servers to use as proxy target.
         '';
-        default = { };
+        default = {};
         example = literalExpression ''
           "backend_server" = {
             servers = { "127.0.0.1:8000" = {}; };
@@ -1088,9 +1088,9 @@ in
       };
 
       virtualHosts = mkOption {
-        type = types.attrsOf (types.submodule (import ./vhost-options.nix { inherit config lib; }));
+        type = types.attrsOf (types.submodule (import ./vhost-options.nix {inherit config lib;}));
         default = {
-          localhost = { };
+          localhost = {};
         };
         example = literalExpression ''
           {
@@ -1308,8 +1308,8 @@ in
 
     systemd.services.nginx = {
       description = "Nginx Web Server";
-      wantedBy = [ "multi-user.target" ];
-      wants = concatLists (map (certName: [ "acme-finished-${certName}.target" ]) dependentCertNames);
+      wantedBy = ["multi-user.target"];
+      wants = concatLists (map (certName: ["acme-finished-${certName}.target"]) dependentCertNames);
       after = [
         "network.target"
       ] ++ map (certName: "acme-selfsigned-${certName}.service") dependentCertNames;
@@ -1390,18 +1390,18 @@ in
         # System Call Filtering
         SystemCallArchitectures = "native";
         SystemCallFilter =
-          [ "~@cpu-emulation @debug @keyring @mount @obsolete @privileged @setuid" ]
+          ["~@cpu-emulation @debug @keyring @mount @obsolete @privileged @setuid"]
           ++ optionals
             (
               (cfg.package != pkgs.tengine)
               && (cfg.package != pkgs.openresty)
               && (!lib.any (mod: (mod.disableIPC or false)) cfg.package.modules)
             )
-            [ "~@ipc" ];
+            ["~@ipc"];
       };
     };
 
-    environment.etc."nginx/nginx.conf" = mkIf cfg.enableReload { source = configFile; };
+    environment.etc."nginx/nginx.conf" = mkIf cfg.enableReload {source = configFile;};
 
     # This service waits for all certificates to be available
     # before reloading nginx configuration.
@@ -1413,18 +1413,18 @@ in
         sslServices = map (certName: "acme-${certName}.service") dependentCertNames;
         sslTargets = map (certName: "acme-finished-${certName}.target") dependentCertNames;
       in
-      mkIf (cfg.enableReload || sslServices != [ ]) {
-        wants = optionals cfg.enableReload [ "nginx.service" ];
-        wantedBy = sslServices ++ [ "multi-user.target" ];
+      mkIf (cfg.enableReload || sslServices != []) {
+        wants = optionals cfg.enableReload ["nginx.service"];
+        wantedBy = sslServices ++ ["multi-user.target"];
         # Before the finished targets, after the renew services.
         # This service might be needed for HTTP-01 challenges, but we only want to confirm
         # certs are updated _after_ config has been reloaded.
         before = sslTargets;
         after = sslServices;
-        restartTriggers = optionals cfg.enableReload [ configFile ];
+        restartTriggers = optionals cfg.enableReload [configFile];
         # Block reloading if not all certs exist yet.
         # Happens when config changes add new vhosts/certs.
-        unitConfig.ConditionPathExists = optionals (sslServices != [ ]) (
+        unitConfig.ConditionPathExists = optionals (sslServices != []) (
           map (certName: certs.${certName}.directory + "/fullchain.pem") dependentCertNames
         );
         serviceConfig = {
@@ -1468,7 +1468,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "nginx") { nginx.gid = config.ids.gids.nginx; };
+    users.groups = optionalAttrs (cfg.group == "nginx") {nginx.gid = config.ids.gids.nginx;};
 
     services.logrotate.settings.nginx = mapAttrs (_: mkDefault) {
       files = "/var/log/nginx/*.log";

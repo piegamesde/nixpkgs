@@ -1,4 +1,4 @@
-{ pycryptodome }:
+{pycryptodome}:
 
 (pycryptodome.overrideAttrs (
   oldAttrs: rec {
@@ -8,6 +8,6 @@
       touch .separate_namespace
     '';
 
-    pythonImportsCheck = [ "Cryptodome" ];
+    pythonImportsCheck = ["Cryptodome"];
   }
 ))

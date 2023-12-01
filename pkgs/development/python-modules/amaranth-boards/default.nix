@@ -20,7 +20,7 @@ buildPythonPackage rec {
     sha256 = "3EOG8SO5xBNevshXMRrxKWoJUbeaVi8ckbkmqd6Tw70=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
   propagatedBuildInputs = [
     setuptools
     amaranth

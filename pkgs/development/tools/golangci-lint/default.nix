@@ -18,9 +18,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-BhD3a0LNc3hpiH4QC8FpmNn3swx3to8+6gfcgZT8TLg=";
 
-  subPackages = [ "cmd/golangci-lint" ];
+  subPackages = ["cmd/golangci-lint"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"

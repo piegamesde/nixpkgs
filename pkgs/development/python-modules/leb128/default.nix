@@ -17,13 +17,13 @@ buildPythonPackage rec {
     hash = "sha256-zK14LPziBkvXAMzuPbcg/47caO/5GEYA9txAzCGfpS8=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pythonImportsCheck = [ "leb128" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pythonImportsCheck = ["leb128"];
 
   meta = with lib; {
     description = "A utility to encode and decode Little Endian Base 128";
     homepage = "https://github.com/mohanson/leb128";
     license = licenses.mit;
-    maintainers = with maintainers; [ urlordjames ];
+    maintainers = with maintainers; [urlordjames];
   };
 }

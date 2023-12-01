@@ -28,7 +28,7 @@
 
   enableEmulation ? true,
   withAllEmulators ? true,
-  emulators ? [ ],
+  emulators ? [],
 
   enableLibplayer ? true,
 
@@ -57,20 +57,20 @@ stdenv.mkDerivation rec {
     "dev"
   ] ++ optional enableTools "bin";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   propagatedBuildInputs =
     [
       libiconv
       zlib
     ]
-    ++ optionals withALSA [ alsa-lib ]
-    ++ optionals withPulseAudio [ libpulseaudio ]
+    ++ optionals withALSA [alsa-lib]
+    ++ optionals withPulseAudio [libpulseaudio]
     ++ optionals withCoreAudio [
       CoreAudio
       AudioToolbox
     ]
-    ++ optionals withLibao [ libao ];
+    ++ optionals withLibao [libao];
 
   cmakeFlags =
     [
@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
       "-DAUDIODRV_LIBAO=${onOff withLibao}"
     ]
     ++ optionals enableEmulation (
-      [ "-DSNDEMU__ALL=${onOff withAllEmulators}" ]
+      ["-DSNDEMU__ALL=${onOff withAllEmulators}"]
       ++ optionals (!withAllEmulators) (lib.lists.forEach emulators (x: "-DSNDEMU_${x}=ON"))
     )
     ++ optionals enableTools [
@@ -105,7 +105,7 @@ stdenv.mkDerivation rec {
       "-DUTIL_CHARCNV_WINAPI=${onOff stdenv.hostPlatform.isWindows}"
     ];
 
-  passthru.updateScript = unstableGitUpdater { url = "https://github.com/ValleyBell/libvgm.git"; };
+  passthru.updateScript = unstableGitUpdater {url = "https://github.com/ValleyBell/libvgm.git";};
 
   meta = with lib; {
     homepage = "https://github.com/ValleyBell/libvgm";
@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
         licenses.unfree # https://github.com/ValleyBell/libvgm/issues/43
       else
         licenses.gpl2Only;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = platforms.all;
   };
 }

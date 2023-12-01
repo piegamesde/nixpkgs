@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     openal
     libogg
     libXext
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ Cocoa ];
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [Cocoa];
 
   patches =
     [
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  cmakeFlags = [ "-DOPENSPADES_INSTALL_BINARY=bin" ];
+  cmakeFlags = ["-DOPENSPADES_INSTALL_BINARY=bin"];
 
   devPak = fetchurl {
     url = "https://github.com/yvt/openspades-paks/releases/download/r${devPakVersion}/OpenSpadesDevPackage-r${devPakVersion}.zip";

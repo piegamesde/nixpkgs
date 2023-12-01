@@ -15,13 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-qrMO9X0v5yYjeWa72mogegR+ii8tCi+o7qZ+Aff2wZQ=";
   };
 
-  propagatedBuildInputs = [ justbases ];
-  nativeCheckInputs = [ hypothesis ];
+  propagatedBuildInputs = [justbases];
+  nativeCheckInputs = [hypothesis];
 
   meta = with lib; {
     description = "computing with and displaying bytes";
     homepage = "https://pythonhosted.org/justbytes";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

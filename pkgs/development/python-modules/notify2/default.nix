@@ -26,6 +26,6 @@ buildPythonPackage rec {
     description = "Pure Python interface to DBus notifications";
     homepage = "https://bitbucket.org/takluyver/pynotify2";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ mog ];
+    maintainers = with lib.maintainers; [mog];
   };
 }

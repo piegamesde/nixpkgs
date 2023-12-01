@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     "basedb"
   ];
 
-  nativeBuildInputs = [ dpkg ];
+  nativeBuildInputs = [dpkg];
 
   unpackPhase = ''
     dpkg-deb -R $src .
@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://plex.tv/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     platforms = [
       "x86_64-linux"

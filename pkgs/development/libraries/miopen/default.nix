@@ -60,7 +60,7 @@ stdenv.mkDerivation (
     pname = "miopen";
     version = "5.4.2";
 
-    outputs = [ "out" ] ++ lib.optionals buildDocs [ "doc" ] ++ lib.optionals buildTests [ "test" ];
+    outputs = ["out"] ++ lib.optionals buildDocs ["doc"] ++ lib.optionals buildTests ["test"];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -99,7 +99,7 @@ stdenv.mkDerivation (
         python3Packages.breathe
         python3Packages.myst-parser
       ]
-      ++ lib.optionals buildTests [ zlib ];
+      ++ lib.optionals buildTests [zlib];
 
     cmakeFlags =
       [
@@ -115,7 +115,7 @@ stdenv.mkDerivation (
         "-DCMAKE_CXX_COMPILER=hipcc"
         "-DMIOPEN_BACKEND=HIP"
       ]
-      ++ lib.optionals useOpenCL [ "-DMIOPEN_BACKEND=OpenCL" ]
+      ++ lib.optionals useOpenCL ["-DMIOPEN_BACKEND=OpenCL"]
       ++ lib.optionals buildTests [
         "-DBUILD_TESTS=ON"
         "-DMIOPEN_TEST_ALL=ON"
@@ -199,7 +199,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "Machine intelligence library for ROCm";
       homepage = "https://github.com/ROCmSoftwarePlatform/MIOpen";
-      license = with licenses; [ mit ];
+      license = with licenses; [mit];
       maintainers = teams.rocm.members;
       platforms = platforms.linux;
       broken = versions.minor finalAttrs.version != versions.minor hip.version;

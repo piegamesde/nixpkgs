@@ -22,6 +22,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/libxmi/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

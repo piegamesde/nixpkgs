@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs =
-    [ cmake ]
+    [cmake]
     ++ lib.optionals stdenv.isDarwin [
       macdylibbundler
       makeWrapper
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
       hamlib_4
       wxGTK32
     ]
-    ++ (if pulseSupport then [ libpulseaudio ] else [ portaudio ])
+    ++ (if pulseSupport then [libpulseaudio] else [portaudio])
     ++ lib.optionals stdenv.isDarwin [
       AppKit
       AVFoundation
@@ -70,10 +70,10 @@ stdenv.mkDerivation rec {
     "-DUSE_INTERNAL_CODEC2:BOOL=FALSE"
     "-DUSE_STATIC_DEPS:BOOL=FALSE"
     "-DUNITTEST=ON"
-  ] ++ lib.optionals pulseSupport [ "-DUSE_PULSEAUDIO:BOOL=TRUE" ];
+  ] ++ lib.optionals pulseSupport ["-DUSE_PULSEAUDIO:BOOL=TRUE"];
 
   env.NIX_CFLAGS_COMPILE = toString (
-    lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [ "-DAPPLE_OLD_XCODE" ]
+    lib.optionals (stdenv.isDarwin && stdenv.isx86_64) ["-DAPPLE_OLD_XCODE"]
   );
 
   doCheck = true;

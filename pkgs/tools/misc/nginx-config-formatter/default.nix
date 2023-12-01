@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-EUoOfkoVsNpIAwDaQ4NH8MkRIJZI8qeuuHUDE6LuLiI=";
   };
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   doCheck = true;
   checkPhase = ''
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "nginx config file formatter";
-    maintainers = with maintainers; [ Baughn ];
+    maintainers = with maintainers; [Baughn];
     license = licenses.asl20;
     homepage = "https://github.com/slomkowski/nginx-config-formatter";
   };

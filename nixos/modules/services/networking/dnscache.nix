@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.services.dnscache;
 
-  dnscache-root = pkgs.runCommand "dnscache-root" { preferLocalBuild = true; } ''
+  dnscache-root = pkgs.runCommand "dnscache-root" {preferLocalBuild = true;} ''
     mkdir -p $out/{servers,ip}
 
     ${concatMapStrings
@@ -61,7 +61,7 @@ in
       };
 
       clientIps = mkOption {
-        default = [ "127.0.0.1" ];
+        default = ["127.0.0.1"];
         type = types.listOf types.str;
         description = lib.mdDoc "Client IP addresses (or prefixes) from which to accept connections.";
         example = [
@@ -71,7 +71,7 @@ in
       };
 
       domainServers = mkOption {
-        default = { };
+        default = {};
         type = types.attrsOf (types.listOf types.str);
         description = lib.mdDoc ''
           Table of {hostname: server} pairs to use as authoritative servers for hosts (and subhosts).
@@ -100,12 +100,12 @@ in
   ###### implementation
 
   config = mkIf config.services.dnscache.enable {
-    environment.systemPackages = [ pkgs.djbdns ];
+    environment.systemPackages = [pkgs.djbdns];
     users.users.dnscache.isSystemUser = true;
 
     systemd.services.dnscache = {
       description = "djbdns dnscache server";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       path = with pkgs; [
         bash
         daemontools

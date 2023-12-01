@@ -9,8 +9,8 @@
 }:
 
 let
-  swig = callPackage ./swig.nix { };
-  bootForth = callPackage ./boot-forth.nix { };
+  swig = callPackage ./swig.nix {};
+  bootForth = callPackage ./boot-forth.nix {};
   lispDir = "${placeholder "out"}/share/emacs/site-lisp";
 in
 stdenv.mkDerivation rec {
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     bootForth
     swig
   ];
-  buildInputs = [ libffi ];
+  buildInputs = [libffi];
 
   passthru = {
     inherit bootForth;
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = [
     "--with-lispdir=${lispDir}"
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [ "--build=x86_64-apple-darwin" ];
+  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) ["--build=x86_64-apple-darwin"];
 
   preConfigure = ''
     mkdir -p ${lispDir}

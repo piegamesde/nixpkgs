@@ -46,7 +46,7 @@ in
           "match_prev_cmd"
         ]
       );
-      default = [ "history" ];
+      default = ["history"];
       description = lib.mdDoc ''
         `ZSH_AUTOSUGGEST_STRATEGY` is an array that specifies how suggestions should be generated.
         The strategies in the array are tried successively until a suggestion is found.
@@ -69,7 +69,7 @@ in
 
     extraConfig = mkOption {
       type = with types; attrsOf str;
-      default = { };
+      default = {};
       description = lib.mdDoc "Attribute set with additional configuration values";
       example = literalExpression ''
         {

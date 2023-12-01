@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeCheckInputs = [ cacert ];
+  nativeCheckInputs = [cacert];
 
   nativeBuildInputs = [
     makeWrapper
@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       curl
       CoreServices
@@ -64,7 +64,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   postInstall = ''
-    wrapProgram $out/bin/cargo-lambda --prefix PATH : ${lib.makeBinPath [ zig ]}
+    wrapProgram $out/bin/cargo-lambda --prefix PATH : ${lib.makeBinPath [zig]}
   '';
 
   CARGO_LAMBDA_BUILD_INFO = "(nixpkgs)";

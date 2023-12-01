@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     description = "Some other tables for Fcitx";
     homepage = "https://github.com/fcitx/fcitx5-table-other";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ poscat ];
+    maintainers = with maintainers; [poscat];
     platforms = platforms.linux;
   };
 }

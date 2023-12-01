@@ -53,8 +53,8 @@ in
 stdenv.mkDerivation {
   inherit name version src;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ nodejs ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [nodejs];
 
   dontBuild = true;
 
@@ -76,7 +76,7 @@ stdenv.mkDerivation {
     description = "A web-interface for hipache-proxy";
     license = licenses.mit;
     homepage = "https://github.com/emblica/airfield";
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     platforms = platforms.linux;
   };
 }

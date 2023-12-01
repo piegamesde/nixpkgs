@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.services.rsyncd;
-  settingsFormat = pkgs.formats.ini { };
+  settingsFormat = pkgs.formats.ini {};
   configFile = settingsFormat.generate "rsyncd.conf" cfg.settings;
 in
 {
@@ -26,7 +26,7 @@ in
 
       settings = mkOption {
         inherit (settingsFormat) type;
-        default = { };
+        default = {};
         example = {
           global = {
             uid = "nobody";
@@ -98,10 +98,10 @@ in
       {
         services.rsync = {
           enable = !cfg.socketActivated;
-          aliases = [ "rsyncd.service" ];
+          aliases = ["rsyncd.service"];
 
           description = "fast remote file copy program daemon";
-          after = [ "network.target" ];
+          after = ["network.target"];
           documentation = [
             "man:rsync(1)"
             "man:rsyncd.conf(5)"
@@ -112,12 +112,12 @@ in
             RestartSec = 1;
           };
 
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
         };
 
         services."rsync@" = {
           description = "fast remote file copy program daemon";
-          after = [ "network.target" ];
+          after = ["network.target"];
 
           serviceConfig = serviceConfigSecurity // {
             ExecStart = "${pkgs.rsync}/bin/rsync --daemon --config=${configFile}";
@@ -131,17 +131,17 @@ in
           enable = cfg.socketActivated;
 
           description = "socket for fast remote file copy program daemon";
-          conflicts = [ "rsync.service" ];
+          conflicts = ["rsync.service"];
 
-          listenStreams = [ (toString cfg.port) ];
+          listenStreams = [(toString cfg.port)];
           socketConfig.Accept = true;
 
-          wantedBy = [ "sockets.target" ];
+          wantedBy = ["sockets.target"];
         };
       };
   };
 
-  meta.maintainers = with lib.maintainers; [ ehmry ];
+  meta.maintainers = with lib.maintainers; [ehmry];
 
   # TODO: socket activated rsyncd
 }

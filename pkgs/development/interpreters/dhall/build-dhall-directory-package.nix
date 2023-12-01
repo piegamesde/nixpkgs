@@ -1,4 +1,4 @@
-{ buildDhallPackage, lib }:
+{buildDhallPackage, lib}:
 
 # This is a minor variation on `buildDhallPackage` that splits the `code`
 # argument into `src` and `file` in such a way that you can easily override
@@ -9,7 +9,7 @@ lib.makePackageOverridable (
   {
     # Arguments passed through to `buildDhallPackage`
     name,
-    dependencies ? [ ],
+    dependencies ? [],
     source ? false,
 
     src,
@@ -25,6 +25,6 @@ lib.makePackageOverridable (
 
       code = "${src}/${file}";
     }
-    // lib.optionalAttrs document { documentationRoot = "${src}"; }
+    // lib.optionalAttrs document {documentationRoot = "${src}";}
   )
 )

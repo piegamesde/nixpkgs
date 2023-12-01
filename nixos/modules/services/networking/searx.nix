@@ -71,7 +71,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        relatedPackages = [ "searx" ];
+        relatedPackages = ["searx"];
         description = lib.mdDoc "Whether to enable Searx, the meta search engine.";
       };
 
@@ -88,7 +88,7 @@ in
 
       settings = mkOption {
         type = types.attrsOf settingType;
-        default = { };
+        default = {};
         example = literalExpression ''
           { server.port = 8080;
             server.bind_address = "0.0.0.0";
@@ -178,7 +178,7 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     users.users.searx = {
       description = "Searx daemon user";
@@ -186,7 +186,7 @@ in
       isSystemUser = true;
     };
 
-    users.groups.searx = { };
+    users.groups.searx = {};
 
     systemd.services.searx-init = {
       description = "Initialise Searx settings";
@@ -210,8 +210,8 @@ in
         "network.target"
         "multi-user.target"
       ];
-      requires = [ "searx-init.service" ];
-      after = [ "searx-init.service" ];
+      requires = ["searx-init.service"];
+      after = ["searx-init.service"];
       serviceConfig =
         {
           User = "searx";
@@ -228,8 +228,8 @@ in
     };
 
     systemd.services.uwsgi = mkIf (cfg.runInUwsgi) {
-      requires = [ "searx-init.service" ];
-      after = [ "searx-init.service" ];
+      requires = ["searx-init.service"];
+      after = ["searx-init.service"];
     };
 
     services.searx.settings = {
@@ -239,7 +239,7 @@ in
 
     services.uwsgi = mkIf (cfg.runInUwsgi) {
       enable = true;
-      plugins = [ "python3" ];
+      plugins = ["python3"];
 
       instance.type = "emperor";
       instance.vassals.searx = {
@@ -256,10 +256,10 @@ in
           "SEARXNG_SETTINGS_PATH=${cfg.settingsFile}"
         ];
         buffer-size = 32768;
-        pythonPackages = self: [ cfg.package ];
+        pythonPackages = self: [cfg.package];
       } // cfg.uwsgiConfig;
     };
   };
 
-  meta.maintainers = with maintainers; [ rnhmjoj ];
+  meta.maintainers = with maintainers; [rnhmjoj];
 }

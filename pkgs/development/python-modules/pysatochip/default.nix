@@ -36,14 +36,14 @@ buildPythonPackage rec {
     pyscard
   ];
 
-  nativeCheckInputs = [ certifi ];
+  nativeCheckInputs = [certifi];
 
-  pythonImportsCheck = [ "pysatochip" ];
+  pythonImportsCheck = ["pysatochip"];
 
   meta = with lib; {
     description = "Simple python library to communicate with a Satochip hardware wallet";
     homepage = "https://github.com/Toporin/pysatochip";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ oxalica ];
+    maintainers = with maintainers; [oxalica];
   };
 }

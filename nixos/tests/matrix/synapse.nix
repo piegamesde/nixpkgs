@@ -1,8 +1,8 @@
 import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
 
-    runWithOpenSSL = file: cmd: pkgs.runCommand file { buildInputs = [ pkgs.openssl ]; } cmd;
+    runWithOpenSSL = file: cmd: pkgs.runCommand file {buildInputs = [pkgs.openssl];} cmd;
 
     ca_key = runWithOpenSSL "ca-key.pem" "openssl genrsa -out $out 2048";
     ca_pem = runWithOpenSSL "ca.pem" ''
@@ -43,11 +43,11 @@ import ../make-test-python.nix (
         x_forwarded = false;
         resources = [
           {
-            names = [ "client" ];
+            names = ["client"];
             compress = true;
           }
           {
-            names = [ "federation" ];
+            names = ["federation"];
             compress = false;
           }
         ];
@@ -57,12 +57,12 @@ import ../make-test-python.nix (
   {
 
     name = "matrix-synapse";
-    meta = with pkgs.lib; { maintainers = teams.matrix.members; };
+    meta = with pkgs.lib; {maintainers = teams.matrix.members;};
 
     nodes = {
       # Since 0.33.0, matrix-synapse doesn't allow underscores in server names
       serverpostgres =
-        { pkgs, nodes, ... }:
+        {pkgs, nodes, ...}:
         let
           mailserverIP = nodes.mailserver.config.networking.primaryIPAddress;
         in
@@ -161,7 +161,7 @@ import ../make-test-python.nix (
         let
         in
         {
-          security.pki.certificateFiles = [ mailerCerts.ca.cert ];
+          security.pki.certificateFiles = [mailerCerts.ca.cert];
 
           networking.firewall.enable = false;
 

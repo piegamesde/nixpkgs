@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "dbus";
   version = "20211020-git";
@@ -42,7 +42,7 @@ rec {
 
   packageName = "dbus";
 
-  asdFilesToKeep = [ "dbus.asd" ];
+  asdFilesToKeep = ["dbus.asd"];
   overrides = x: x;
 }
 /* (SYSTEM dbus DESCRIPTION A D-BUS client library for Common Lisp SHA256

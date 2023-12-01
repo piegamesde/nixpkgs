@@ -23,11 +23,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HjEFfNDXduHOexNm82S+vqKRQM3SwgEYiDBZcPXsr/w=";
   };
 
-  nativeBuildInputs = [ build2 ];
-  buildInputs = [ libodb ];
-  propagatedBuildInputs = [ sqlite ];
+  nativeBuildInputs = [build2];
+  buildInputs = [libodb];
+  propagatedBuildInputs = [sqlite];
 
-  build2ConfigureFlags = [ "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}" ];
+  build2ConfigureFlags = ["config.bin.lib=${build2.configSharedStatic enableShared enableStatic}"];
 
   doCheck = true;
 
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.codesynthesis.com/products/odb/";
     changelog = "https://git.codesynthesis.com/cgit/odb/libodb-sqlite/tree/NEWS";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
     platforms = platforms.all;
   };
 }

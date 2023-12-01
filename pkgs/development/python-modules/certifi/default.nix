@@ -38,9 +38,9 @@ buildPythonPackage rec {
       cacert
     ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "certifi" ];
+  pythonImportsCheck = ["certifi"];
 
   meta = with lib; {
     homepage = "https://github.com/certifi/python-certifi";

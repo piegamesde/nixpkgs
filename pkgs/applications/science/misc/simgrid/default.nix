@@ -47,29 +47,29 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-o25wOROkUm07JPdNTJQcJw6apeoysnjd+YBMHlPpAYI=";
   };
 
-  propagatedBuildInputs = [ boost ];
+  propagatedBuildInputs = [boost];
   nativeBuildInputs =
     [
       cmake
       perl
       python3
     ]
-    ++ optionals fortranSupport [ gfortran ]
-    ++ optionals buildJavaBindings [ openjdk ]
-    ++ optionals buildPythonBindings [ python3Packages.pybind11 ]
+    ++ optionals fortranSupport [gfortran]
+    ++ optionals buildJavaBindings [openjdk]
+    ++ optionals buildPythonBindings [python3Packages.pybind11]
     ++ optionals buildDocumentation [
       fig2dev
       ghostscript
       doxygen
     ]
-    ++ optionals bmfSupport [ eigen ]
+    ++ optionals bmfSupport [eigen]
     ++ optionals modelCheckingSupport [
       libunwind
       libevent
       elfutils
     ];
 
-  outputs = [ "out" ] ++ optionals buildPythonBindings [ "python" ];
+  outputs = ["out"] ++ optionals buildPythonBindings ["python"];
 
   # "Release" does not work. non-debug mode is Debug compiled with optimization
   cmakeBuildType = "Debug";
@@ -134,7 +134,7 @@ stdenv.mkDerivation rec {
     '';
 
   # improve debuggability if requested
-  hardeningDisable = lib.optionals debug [ "fortify" ];
+  hardeningDisable = lib.optionals debug ["fortify"];
   dontStrip = debug;
 
   meta = {

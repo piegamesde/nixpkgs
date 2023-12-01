@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     "dev"
   ] ++ lib.optional sslSupport "openssl";
   outputBin = "dev";
-  propagatedBuildOutputs = [ "out" ] ++ lib.optional sslSupport "openssl";
+  propagatedBuildOutputs = ["out"] ++ lib.optional sslSupport "openssl";
 
   nativeBuildInputs = lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 

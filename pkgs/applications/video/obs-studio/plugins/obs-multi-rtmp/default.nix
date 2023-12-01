@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1W+c8Y0AmtKQmCIg8IDAaYYStQzDpZRuqw3vZEY5ncU=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     obs-studio
     qtbase
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/sorayuki/obs-multi-rtmp/releases/tag/${version}";
     description = "Multi-site simultaneous broadcast plugin for OBS Studio";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ jk ];
+    maintainers = with maintainers; [jk];
     platforms = [
       "x86_64-linux"
       "i686-linux"

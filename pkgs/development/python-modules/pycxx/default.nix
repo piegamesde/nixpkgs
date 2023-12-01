@@ -29,7 +29,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "set of classes to help create extensions of Python in the C++ language";
     homepage = "https://sourceforge.net/projects/cxx/";
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
     platforms = platforms.all;
   };
 }

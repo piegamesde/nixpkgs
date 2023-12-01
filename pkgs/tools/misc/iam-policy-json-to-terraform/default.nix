@@ -22,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/flosell/iam-policy-json-to-terraform";
     changelog = "https://github.com/flosell/iam-policy-json-to-terraform/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = [ maintainers.ivankovnatsky ];
+    maintainers = [maintainers.ivankovnatsky];
   };
 }

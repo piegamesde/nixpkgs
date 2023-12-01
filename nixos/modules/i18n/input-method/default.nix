@@ -91,7 +91,7 @@ in
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ ericsagnes ];
+    maintainers = with lib.maintainers; [ericsagnes];
     doc = ./default.md;
   };
 }

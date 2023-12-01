@@ -25,7 +25,7 @@ buildPythonApplication rec {
     setuptools
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postUnpack = ''
     for case in "\n" ""; do
@@ -53,6 +53,6 @@ buildPythonApplication rec {
     description = "A command-line tool to manage multiple git repos";
     homepage = "https://github.com/nosarthur/gita";
     license = licenses.mit;
-    maintainers = with maintainers; [ seqizz ];
+    maintainers = with maintainers; [seqizz];
   };
 }

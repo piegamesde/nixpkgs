@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     libdmtx
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = {
     description = "Qt4 library for QR-codes";

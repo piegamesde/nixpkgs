@@ -27,7 +27,7 @@ let
     '';
 in
 {
-  meta.maintainers = with lib.maintainers; [ stunkymonkey ];
+  meta.maintainers = with lib.maintainers; [stunkymonkey];
 
   options.services.photoprism = {
 
@@ -82,11 +82,11 @@ in
       '';
     };
 
-    package = lib.mkPackageOptionMD pkgs "photoprism" { };
+    package = lib.mkPackageOptionMD pkgs "photoprism" {};
 
     settings = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         See [the getting-started guide](https://docs.photoprism.app/getting-started/config-options/) for available options.
       '';
@@ -141,11 +141,11 @@ in
           UMask = "0066";
         }
         // lib.optionalAttrs (cfg.port < 1024) {
-          AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-          CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+          AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
+          CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
         };
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       environment = env;
 
       # reminder: easier password configuration will come in https://github.com/photoprism/photoprism/pull/2302

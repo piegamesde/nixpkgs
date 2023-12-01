@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  propagatedBuildInputs = [ icu ];
+  propagatedBuildInputs = [icu];
 
   outputs = [
     "out"
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "Free and open source C++ spell checking library";
     homepage = "https://nuspell.github.io/";
     platforms = platforms.all;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
     license = licenses.lgpl3Plus;
     changelog = "https://github.com/nuspell/nuspell/blob/v${version}/CHANGELOG.md";
   };

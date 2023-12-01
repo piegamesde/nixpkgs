@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "02afbgmi195ibichjkpni2wjgjkszv7i6qkmmprwrmb4jd2wdvd5";
   };
 
-  nativeBuildInputs = [ isabelle ];
+  nativeBuildInputs = [isabelle];
 
   buildPhase = ''
     export HOME=$TMP
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Linter component for Isabelle.";
     homepage = "https://github.com/isabelle-prover/isabelle-linter";
-    maintainers = with maintainers; [ jvanbruegge ];
+    maintainers = with maintainers; [jvanbruegge];
     license = licenses.mit;
   };
 }

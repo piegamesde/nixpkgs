@@ -49,10 +49,10 @@ buildPythonPackage rec {
   doCheck = false;
 
   passthru.tests = {
-    tests = callPackage ./tests.nix { };
+    tests = callPackage ./tests.nix {};
   };
 
-  pythonImportsCheck = [ "openstack" ];
+  pythonImportsCheck = ["openstack"];
 
   meta = with lib; {
     description = "An SDK for building applications to work with OpenStack";

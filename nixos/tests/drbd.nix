@@ -1,13 +1,13 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   let
     drbdPort = 7789;
 
     drbdConfig =
-      { nodes, ... }:
+      {nodes, ...}:
       {
-        virtualisation.emptyDiskImages = [ 1 ];
-        networking.firewall.allowedTCPPorts = [ drbdPort ];
+        virtualisation.emptyDiskImages = [1];
+        networking.firewall.allowedTCPPorts = [drbdPort];
 
         services.drbd = {
           enable = true;
@@ -55,7 +55,7 @@ import ./make-test-python.nix (
     nodes.drbd2 = drbdConfig;
 
     testScript =
-      { nodes }:
+      {nodes}:
       ''
         drbd1.start()
         drbd2.start()

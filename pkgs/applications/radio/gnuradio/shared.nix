@@ -26,7 +26,7 @@ rec {
       versionAttr
   );
   src =
-    if overrideSrc != { } then
+    if overrideSrc != {} then
       overrideSrc
     else
       fetchFromGitHub {
@@ -84,16 +84,16 @@ rec {
       stdenv.cc.cc
     ]
     # If python-support is disabled, we probably don't want it referenced
-    ++ lib.optionals (!hasFeature "python-support") [ python ];
+    ++ lib.optionals (!hasFeature "python-support") [python];
   # Gcc references from examples
   stripDebugList =
     [
       "lib"
       "bin"
     ]
-    ++ lib.optionals (hasFeature "gr-audio") [ "share/gnuradio/examples/audio" ]
-    ++ lib.optionals (hasFeature "gr-uhd") [ "share/gnuradio/examples/uhd" ]
-    ++ lib.optionals (hasFeature "gr-qtgui") [ "share/gnuradio/examples/qt-gui" ];
+    ++ lib.optionals (hasFeature "gr-audio") ["share/gnuradio/examples/audio"]
+    ++ lib.optionals (hasFeature "gr-uhd") ["share/gnuradio/examples/uhd"]
+    ++ lib.optionals (hasFeature "gr-qtgui") ["share/gnuradio/examples/qt-gui"];
   postInstall =
     ""
     # Gcc references
@@ -118,8 +118,8 @@ rec {
         python
         ;
     }
-    // lib.optionalAttrs (hasFeature "gr-qtgui") { inherit qt; }
-    // lib.optionalAttrs (hasFeature "gnuradio-companion") { inherit gtk; };
+    // lib.optionalAttrs (hasFeature "gr-qtgui") {inherit qt;}
+    // lib.optionalAttrs (hasFeature "gnuradio-companion") {inherit gtk;};
   # Wrapping is done with an external wrapper
   dontWrapPythonPrograms = true;
   dontWrapQtApps = true;

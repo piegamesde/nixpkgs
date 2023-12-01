@@ -17,7 +17,7 @@ let
       pname,
       version,
       hash,
-      buildInputs ? [ ],
+      buildInputs ? [],
     }:
     stdenv.mkDerivation {
       inherit pname version;
@@ -68,13 +68,13 @@ let
     pname = "c-rbtree";
     version = "v3";
     hash = "sha256-ExSPgNqhTjSwRgYfZOAyoaehOpFNHKFqPYkcCfptkrs=";
-    buildInputs = [ c-stdaux ];
+    buildInputs = [c-stdaux];
   };
   c-shquote = dep {
     pname = "c-shquote";
     version = "v1";
     hash = "sha256-Ze1enX0VJ6Xi5e4EhWzaiHc7PnuaifrUP+JuJnauv5c=";
-    buildInputs = [ c-stdaux ];
+    buildInputs = [c-stdaux];
   };
   c-stdaux = dep {
     pname = "c-stdaux";
@@ -85,7 +85,7 @@ let
     pname = "c-utf8";
     version = "v1";
     hash = "sha256-QEnjmfQ6kxJdsHfyRgXAlP+oGrKLYQ0m9r+D2L+pizI=";
-    buildInputs = [ c-stdaux ];
+    buildInputs = [c-stdaux];
   };
 in
 stdenv.mkDerivation rec {
@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-PVdRyg/t6D3HjSHeap5L8AiEm39iSO5qXohLw2UAUYY=";
   };
 
-  patches = [ ./paths.patch ];
+  patches = [./paths.patch];
 
   nativeBuildInputs = [
     docutils
@@ -145,7 +145,7 @@ stdenv.mkDerivation rec {
     description = "Linux D-Bus Message Broker";
     homepage = "https://github.com/bus1/dbus-broker/wiki";
     license = licenses.asl20;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.linux;
   };
 }

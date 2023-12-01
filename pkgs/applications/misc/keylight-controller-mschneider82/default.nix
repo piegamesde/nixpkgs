@@ -21,7 +21,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-nFttVJbEAAGsrAglMphuw0wJ2Kf8sWB4HrpVqfHO76o=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     [
@@ -51,7 +51,7 @@ buildGoModule rec {
     '';
     license = licenses.mit;
     homepage = "https://github.com/mschneider82/keylight-control";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }
 

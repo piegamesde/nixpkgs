@@ -48,7 +48,7 @@ mkCoqDerivation rec {
       ]
       null;
 
-  propagatedBuildInputs = [ zorns-lemma ];
+  propagatedBuildInputs = [zorns-lemma];
 
   useDuneifVersion = lib.versions.isGe "9.0";
 
@@ -58,7 +58,7 @@ mkCoqDerivation rec {
       This library develops some of the basic concepts and results of
       general topology in Coq.
     '';
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     license = licenses.lgpl21Plus;
   };
 }

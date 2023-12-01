@@ -23,16 +23,16 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     autoreconfHook
     libtool
-  ] ++ lib.optionals guiSupport [ pkg-config ];
+  ] ++ lib.optionals guiSupport [pkg-config];
 
-  buildInputs = lib.optionals guiSupport [ gtk3 ];
+  buildInputs = lib.optionals guiSupport [gtk3];
 
   configureFlags = lib.optional guiSupport "--enable-gui";
 
   meta = with lib; {
     description = "ZBC device manipulation library";
     homepage = "https://github.com/westerndigitalcorporation/libzbc";
-    maintainers = with maintainers; [ zseri ];
+    maintainers = with maintainers; [zseri];
     license = with licenses; [
       bsd2
       lgpl3Plus

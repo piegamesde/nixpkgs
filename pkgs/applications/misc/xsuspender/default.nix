@@ -39,14 +39,14 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/xsuspender \
-      --prefix PATH : "${lib.makeBinPath [ procps ]}"
+      --prefix PATH : "${lib.makeBinPath [procps]}"
   '';
 
   meta = with lib; {
     description = "Auto-suspend inactive X11 applications";
     homepage = "https://kernc.github.io/xsuspender/";
     license = licenses.wtfpl;
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     platforms = platforms.linux;
   };
 }

@@ -42,7 +42,7 @@ buildPythonPackage rec {
     changelog = "https://docs.wand-py.org/en/${version}/changes.html";
     description = "Ctypes-based simple MagickWand API binding for Python";
     homepage = "http://wand-py.org/";
-    license = [ licenses.mit ];
+    license = [licenses.mit];
     maintainers = with maintainers; [
       infinisil
       dotlambda

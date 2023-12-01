@@ -81,7 +81,7 @@ let
     python3
   ];
   # Some of the headers reference acl
-  propagatedBuildInputs = [ acl ];
+  propagatedBuildInputs = [acl];
   # Packages from which GlusterFS calls binaries at run-time from PATH,
   # with comments on which commands are known to be called by it.
   runtimePATHdeps = [
@@ -153,7 +153,7 @@ stdenv.mkDerivation rec {
     export PYTHON=${python3}/bin/python
   '';
 
-  configureFlags = [ "--localstatedir=/var" ];
+  configureFlags = ["--localstatedir=/var"];
 
   nativeBuildInputs = [
     autoconf
@@ -166,7 +166,7 @@ stdenv.mkDerivation rec {
     rpcsvc-proto
   ];
 
-  makeFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = ["DESTDIR=$(out)"];
 
   enableParallelBuilding = true;
 
@@ -259,7 +259,7 @@ stdenv.mkDerivation rec {
     description = "Distributed storage system";
     homepage = "https://www.gluster.org";
     license = licenses.lgpl3Plus; # dual licese: choice of lgpl3Plus or gpl2
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = with platforms; linux ++ freebsd;
   };
 }

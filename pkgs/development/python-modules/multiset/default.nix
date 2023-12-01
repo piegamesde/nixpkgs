@@ -27,14 +27,14 @@ buildPythonPackage rec {
     sed -i '/python_requires/d' setup.cfg
   '';
 
-  pythonImportsCheck = [ "multiset" ];
+  pythonImportsCheck = ["multiset"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "An implementation of a multiset";
     homepage = "https://github.com/wheerd/multiset";
     license = licenses.mit;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

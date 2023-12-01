@@ -5,7 +5,7 @@
   fetchurl,
   lib,
   # This is only relevant for Linux, so we need to pass it through
-  polkitPolicyOwners ? [ ],
+  polkitPolicyOwners ? [],
 }:
 
 let
@@ -52,12 +52,12 @@ let
     };
   };
 
-  src = fetchurl { inherit (sources.${channel}.${stdenv.system}) url sha256; };
+  src = fetchurl {inherit (sources.${channel}.${stdenv.system}) url sha256;};
 
   meta = with lib; {
     description = "Multi-platform password manager";
     homepage = "https://1password.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     maintainers = with maintainers; [
       timstott

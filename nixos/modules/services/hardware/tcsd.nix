@@ -125,7 +125,7 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ pkgs.trousers ];
+    environment.systemPackages = [pkgs.trousers];
 
     services.udev.extraRules = ''
       # Give tcsd ownership of all TPM devices
@@ -142,11 +142,11 @@ in
 
     systemd.services.tcsd = {
       description = "Manager for Trusted Computing resources";
-      documentation = [ "man:tcsd(8)" ];
+      documentation = ["man:tcsd(8)"];
 
-      requires = [ "dev-tpm0.device" ];
-      after = [ "dev-tpm0.device" ];
-      wantedBy = [ "multi-user.target" ];
+      requires = ["dev-tpm0.device"];
+      after = ["dev-tpm0.device"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         User = cfg.user;
@@ -162,6 +162,6 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "tss") { tss = { }; };
+    users.groups = optionalAttrs (cfg.group == "tss") {tss = {};};
   };
 }

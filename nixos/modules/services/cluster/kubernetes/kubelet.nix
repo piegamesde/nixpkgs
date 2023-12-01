@@ -14,7 +14,7 @@ let
   cfg = top.kubelet;
 
   cniConfig =
-    if cfg.cni.config != [ ] && cfg.cni.configDir != null then
+    if cfg.cni.config != [] && cfg.cni.configDir != null then
       throw "Verbatim CNI-config and CNI configDir cannot both be set."
     else if cfg.cni.configDir != null then
       cfg.cni.configDir
@@ -31,10 +31,10 @@ let
     tag = "latest";
     copyToRoot = pkgs.buildEnv {
       name = "image-root";
-      pathsToLink = [ "/bin" ];
-      paths = [ top.package.pause ];
+      pathsToLink = ["/bin"];
+      paths = [top.package.pause];
     };
-    config.Cmd = [ "/bin/pause" ];
+    config.Cmd = ["/bin/pause"];
   };
 
   kubeconfig = top.lib.mkKubeConfig "kubelet" cfg.kubeconfig;
@@ -43,7 +43,7 @@ let
 
   taintOptions =
     with lib.types;
-    { name, ... }:
+    {name, ...}:
     {
       options = {
         key = mkOption {
@@ -154,13 +154,13 @@ in
       packages = mkOption {
         description = lib.mdDoc "List of network plugin packages to install.";
         type = listOf package;
-        default = [ ];
+        default = [];
       };
 
       config = mkOption {
         description = lib.mdDoc "Kubernetes CNI configuration.";
         type = listOf attrs;
-        default = [ ];
+        default = [];
         example = literalExpression ''
           [{
             "cniVersion": "0.3.1",
@@ -236,7 +236,7 @@ in
     manifests = mkOption {
       description = lib.mdDoc "List of manifests to bootstrap with kubelet (only pods can be created as manifest entry)";
       type = attrsOf attrs;
-      default = { };
+      default = {};
     };
 
     nodeIp = mkOption {
@@ -259,14 +259,14 @@ in
 
     seedDockerImages = mkOption {
       description = lib.mdDoc "List of docker images to preload on system";
-      default = [ ];
+      default = [];
       type = listOf package;
     };
 
     taints = mkOption {
       description = lib.mdDoc "Node taints (https://kubernetes.io/docs/concepts/configuration/assign-pod-node/).";
-      default = { };
-      type = attrsOf (submodule [ taintOptions ]);
+      default = {};
+      type = attrsOf (submodule [taintOptions]);
     };
 
     tlsCertFile = mkOption {
@@ -303,7 +303,7 @@ in
 
       environment.etc."cni/net.d".source = cniConfig;
 
-      services.kubernetes.kubelet.seedDockerImages = [ infraContainer ];
+      services.kubernetes.kubelet.seedDockerImages = [infraContainer];
 
       boot.kernel.sysctl = {
         "net.bridge.bridge-nf-call-iptables" = 1;
@@ -313,7 +313,7 @@ in
 
       systemd.services.kubelet = {
         description = "Kubernetes Kubelet Service";
-        wantedBy = [ "kubernetes.target" ];
+        wantedBy = ["kubernetes.target"];
         after = [
           "containerd.service"
           "network.target"
@@ -368,7 +368,7 @@ in
                         ${optionalString (cfg.clusterDns != "") "--cluster-dns=${cfg.clusterDns}"} \
                         ${optionalString (cfg.clusterDomain != "") "--cluster-domain=${cfg.clusterDomain}"} \
                         ${
-                          optionalString (cfg.featureGates != [ ])
+                          optionalString (cfg.featureGates != [])
                             "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"
                         } \
                         --hairpin-mode=hairpin-veth \
@@ -378,7 +378,7 @@ in
                         --kubeconfig=${kubeconfig} \
                         ${optionalString (cfg.nodeIp != null) "--node-ip=${cfg.nodeIp}"} \
                         --pod-infra-container-image=pause \
-                        ${optionalString (cfg.manifests != { }) "--pod-manifest-path=/etc/${manifestPath}"} \
+                        ${optionalString (cfg.manifests != {}) "--pod-manifest-path=/etc/${manifestPath}"} \
                         --port=${toString cfg.port} \
                         --register-node=${boolToString cfg.registerNode} \
                         ${optionalString (taints != "") "--register-with-taints=${taints}"} \
@@ -429,7 +429,7 @@ in
       services.kubernetes.kubelet.kubeconfig.server = mkDefault top.apiserverAddress;
     })
 
-    (mkIf (cfg.enable && cfg.manifests != { }) {
+    (mkIf (cfg.enable && cfg.manifests != {}) {
       environment.etc =
         mapAttrs'
           (

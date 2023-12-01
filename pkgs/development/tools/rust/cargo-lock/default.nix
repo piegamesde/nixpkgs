@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-wUp4zBY64MvD4anGlVsJrI3pyfwVSQGnn6YuweTeYNk=";
 
-  buildFeatures = [ "cli" ];
+  buildFeatures = ["cli"];
 
   meta = with lib; {
     description = "Self-contained Cargo.lock parser with graph analysis";
@@ -25,6 +25,6 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

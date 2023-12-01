@@ -46,7 +46,7 @@ let
       pkg-config
       autoreconfHook
     ];
-    buildInputs = [ glibmm ];
+    buildInputs = [glibmm];
   };
 
   synfig = stdenv.mkDerivation {
@@ -134,7 +134,7 @@ stdenv.mkDerivation {
     description = "A 2D animation program";
     homepage = "http://www.synfig.org";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
     platforms = platforms.linux;
   };
 }

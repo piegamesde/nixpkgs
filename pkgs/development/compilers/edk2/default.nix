@@ -12,7 +12,7 @@
 }:
 
 let
-  pythonEnv = buildPackages.python3.withPackages (ps: [ ps.tkinter ]);
+  pythonEnv = buildPackages.python3.withPackages (ps: [ps.tkinter]);
 
   targetArch =
     if stdenv.isi686 then
@@ -52,7 +52,7 @@ let
       sha256 = "sha256-0jE73xPyenAcgJ1mS35oTc5cYw7jJvVYxhPdhTWpKA0=";
     };
 
-    nativeBuildInputs = [ pythonEnv ];
+    nativeBuildInputs = [pythonEnv];
     depsBuildBuild = [
       buildPackages.stdenv.cc
       buildPackages.util-linux
@@ -64,7 +64,7 @@ let
     ${"GCC5_${targetArch}_PREFIX"} = stdenv.cc.targetPrefix;
 
     makeFlags =
-      [ "-C BaseTools" ]
+      ["-C BaseTools"]
       ++ lib.optionals (stdenv.cc.isClang) [
         "CXX=llvm BUILD_AR=ar BUILD_CC=clang BUILD_CXX=clang++ BUILD_AS=clang BUILD_LD=ld"
       ];
@@ -107,11 +107,11 @@ let
           {
             inherit (edk2) src;
 
-            depsBuildBuild = [ buildPackages.stdenv.cc ] ++ attrs.depsBuildBuild or [ ];
+            depsBuildBuild = [buildPackages.stdenv.cc] ++ attrs.depsBuildBuild or [];
             nativeBuildInputs = [
               bc
               pythonEnv
-            ] ++ attrs.nativeBuildInputs or [ ];
+            ] ++ attrs.nativeBuildInputs or [];
             strictDeps = true;
 
             ${"GCC5_${targetArch}_PREFIX"} = stdenv.cc.targetPrefix;

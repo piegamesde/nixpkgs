@@ -32,14 +32,14 @@ stdenv.mkDerivation rec {
   ];
 
   doCheck = true;
-  makeFlags = [ "GUILE_AUTO_COMPILE=0" ];
+  makeFlags = ["GUILE_AUTO_COMPILE=0"];
   enableParallelBuilding = true;
 
   meta = with lib; {
     description = "Guile bindings for the SQLite3 database engine";
     homepage = "https://notabug.org/guile-sqlite3/guile-sqlite3";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ miangraham ];
+    maintainers = with maintainers; [miangraham];
     platforms = guile.meta.platforms;
   };
 }

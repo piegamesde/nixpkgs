@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-KN7jlB6PzRGpHBk5UvqPLhxRG7QAzOXLmEuFYNhdZJU=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     [
@@ -50,7 +50,7 @@ rustPlatform.buildRustPackage rec {
     ];
 
   # requires internet access
-  checkFlags = [ "--skip=secondary_threads::check_updates::tests::fetch_latest_release_from_github" ];
+  checkFlags = ["--skip=secondary_threads::check_updates::tests::fetch_latest_release_from_github"];
 
   postFixup = lib.optionalString stdenv.isLinux ''
     patchelf $out/bin/sniffnet \
@@ -70,6 +70,6 @@ rustPlatform.buildRustPackage rec {
       mit # or
       asl20
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

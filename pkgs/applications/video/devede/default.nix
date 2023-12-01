@@ -41,7 +41,7 @@ buildPythonApplication rec {
     gobject-introspection
   ];
 
-  buildInputs = [ ffmpeg ];
+  buildInputs = [ffmpeg];
 
   propagatedBuildInputs = [
     gtk3
@@ -68,6 +68,6 @@ buildPythonApplication rec {
     description = "DVD Creator for Linux";
     homepage = "http://www.rastersoft.com/programas/devede.html";
     license = licenses.gpl3;
-    maintainers = [ maintainers.bdimcheff ];
+    maintainers = [maintainers.bdimcheff];
   };
 }

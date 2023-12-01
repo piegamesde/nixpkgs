@@ -31,12 +31,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pyfamilyhublocal" ];
+  pythonImportsCheck = ["pyfamilyhublocal"];
 
   meta = with lib; {
     description = "Module to accesse information from Samsung FamilyHub fridges locally";
     homepage = "https://github.com/Klathmon/python-family-hub-local";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

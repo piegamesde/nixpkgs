@@ -8,7 +8,7 @@
 }:
 
 let
-  python = python3.override { packageOverrides = self: super: { }; };
+  python = python3.override {packageOverrides = self: super: {};};
 in
 python.pkgs.buildPythonApplication rec {
   pname = "tts";
@@ -27,7 +27,7 @@ python.pkgs.buildPythonApplication rec {
       # upgrade librosa to 0.10.0
       url = "https://github.com/coqui-ai/TTS/commit/4c829e74a1399ab083b566a70c1b7e879eda6e1e.patch";
       hash = "sha256-QP9AnMbdEpGJywiZBreojHUjq29ihqy6HxvUtS5OKvQ=";
-      excludes = [ "requirements.txt" ];
+      excludes = ["requirements.txt"];
     })
   ];
 
@@ -104,7 +104,7 @@ python.pkgs.buildPythonApplication rec {
 
   # tests get stuck when run in nixpkgs-review, tested in passthru
   doCheck = false;
-  passthru.tests.pytest = tts.overridePythonAttrs (_: { doCheck = true; });
+  passthru.tests.pytest = tts.overridePythonAttrs (_: {doCheck = true;});
 
   nativeCheckInputs = with python.pkgs; [
     espeak-ng

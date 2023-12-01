@@ -49,7 +49,7 @@ buildPythonPackage rec {
     tabulate
   ];
 
-  pythonImportsCheck = [ "localstack_ext" ];
+  pythonImportsCheck = ["localstack_ext"];
 
   # No tests in repo
   doCheck = false;
@@ -62,6 +62,6 @@ buildPythonPackage rec {
     description = "Extensions for LocalStack";
     homepage = "https://github.com/localstack/localstack";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

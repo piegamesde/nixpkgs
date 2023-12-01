@@ -17,7 +17,7 @@ let
   # Aliases added 2023-03-21
   versionLoop =
     f:
-    lib.lists.foldr (version: acc: (f version) // acc) { } [
+    lib.lists.foldr (version: acc: (f version) // acc) {} [
       "25"
       "24"
       "23"
@@ -32,13 +32,11 @@ let
     }
   );
 
-  packagesAliases = versionLoop (
-    version: { "erlangR${version}" = self.packages."erlang_${version}"; }
-  );
+  packagesAliases = versionLoop (version: {"erlangR${version}" = self.packages."erlang_${version}";});
 in
 
 {
-  beamLib = callPackage ../development/beam-modules/lib.nix { };
+  beamLib = callPackage ../development/beam-modules/lib.nix {};
 
   latestVersion = "erlang_25";
 
@@ -58,8 +56,8 @@ in
       autoconf = buildPackages.autoconf269;
       inherit wxSupport systemdSupport;
     };
-    erlang_25_odbc = self.interpreters.erlang_25.override { odbcSupport = true; };
-    erlang_25_javac = self.interpreters.erlang_25.override { javacSupport = true; };
+    erlang_25_odbc = self.interpreters.erlang_25.override {odbcSupport = true;};
+    erlang_25_javac = self.interpreters.erlang_25.override {javacSupport = true;};
     erlang_25_odbc_javac = self.interpreters.erlang_25.override {
       javacSupport = true;
       odbcSupport = true;
@@ -72,8 +70,8 @@ in
       autoconf = buildPackages.autoconf269;
       inherit wxSupport systemdSupport;
     };
-    erlang_24_odbc = self.interpreters.erlang_24.override { odbcSupport = true; };
-    erlang_24_javac = self.interpreters.erlang_24.override { javacSupport = true; };
+    erlang_24_odbc = self.interpreters.erlang_24.override {odbcSupport = true;};
+    erlang_24_javac = self.interpreters.erlang_24.override {javacSupport = true;};
     erlang_24_odbc_javac = self.interpreters.erlang_24.override {
       javacSupport = true;
       odbcSupport = true;
@@ -87,8 +85,8 @@ in
       autoconf = buildPackages.autoconf269;
       inherit wxSupport systemdSupport;
     };
-    erlang_23_odbc = self.interpreters.erlang_23.override { odbcSupport = true; };
-    erlang_23_javac = self.interpreters.erlang_23.override { javacSupport = true; };
+    erlang_23_odbc = self.interpreters.erlang_23.override {odbcSupport = true;};
+    erlang_23_javac = self.interpreters.erlang_23.override {javacSupport = true;};
     erlang_23_odbc_javac = self.interpreters.erlang_23.override {
       javacSupport = true;
       odbcSupport = true;
@@ -111,7 +109,7 @@ in
   } // interpretersAliases;
 
   # Helper function to generate package set with a specific Erlang version.
-  packagesWith = erlang: callPackage ../development/beam-modules { inherit erlang; };
+  packagesWith = erlang: callPackage ../development/beam-modules {inherit erlang;};
 
   # Each field in this tuple represents all Beam packages in nixpkgs built with
   # appropriate Erlang/OTP version.

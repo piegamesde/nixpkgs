@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ libusb1 ];
+  buildInputs = [libusb1];
 
   postPatch = ''
     patchShebangs autogen.sh
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.zapb.de/libjaylink/libjaylink";
     description = "libjaylink is a shared library written in C to access SEGGER J-Link and compatible devices.";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ felixsinger ];
+    maintainers = with maintainers; [felixsinger];
     platforms = platforms.linux;
   };
 }

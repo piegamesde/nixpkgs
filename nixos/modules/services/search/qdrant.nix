@@ -10,7 +10,7 @@ let
 
   cfg = config.services.qdrant;
 
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   configFile = settingsFormat.generate "config.yaml" cfg.settings;
 in
 {
@@ -104,8 +104,8 @@ in
 
     systemd.services.qdrant = {
       description = "Vector Search Engine for the next generation of AI applications";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         LimitNOFILE = 65536;

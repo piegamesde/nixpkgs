@@ -18,7 +18,7 @@ buildOasisPackage rec {
     sha256 = "16skrn8qql9djpray25xv66rjgfl20js5wqnxyq1763nmyizyj8a";
   };
 
-  buildInputs = [ ounit ];
+  buildInputs = [ounit];
   propagatedBuildInputs = [
     tcslib
     ocaml-sat-solvers
@@ -28,7 +28,7 @@ buildOasisPackage rec {
     description = "A collection of tools for generating, manipulating and - most of all - solving parity games";
     homepage = "https://github.com/tcsprojects/pgsolver";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ mgttlinger ];
+    maintainers = with lib.maintainers; [mgttlinger];
     mainProgram = "pgsolver-bin";
   };
 }

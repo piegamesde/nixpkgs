@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://cpptest.sourceforge.net/";
     description = "Simple C++ unit testing framework";
-    maintainers = with maintainers; [ bosu ];
+    maintainers = with maintainers; [bosu];
     license = lib.licenses.lgpl3;
     platforms = platforms.all;
   };

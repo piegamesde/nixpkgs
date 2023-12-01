@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   ];
   outputBin = "dev";
 
-  propagatedBuildInputs = [ zlib ];
+  propagatedBuildInputs = [zlib];
 
   doCheck = true;
 
@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/glennrp/libpng/blob/v1.6.39/CHANGES";
     license = licenses.libpng2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ vcunat ];
+    maintainers = with maintainers; [vcunat];
   };
 }

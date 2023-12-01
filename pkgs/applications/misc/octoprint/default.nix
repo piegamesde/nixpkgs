@@ -9,13 +9,13 @@
   nix-update-script,
   nixosTests,
   # To include additional plugins, pass them here as an overlay.
-  packageOverrides ? self: super: { },
+  packageOverrides ? self: super: {},
 }:
 let
 
   py = python3.override {
     self = py;
-    packageOverrides = lib.foldr lib.composeExtensions (self: super: { }) ([
+    packageOverrides = lib.foldr lib.composeExtensions (self: super: {}) ([
       (
         # with version 3 of flask-limiter octoprint 1.8.7 fails to start with
         #  TypeError: Limiter.__init__() got multiple values for argument 'key_func'
@@ -39,10 +39,10 @@ let
                 inherit version;
                 sha256 = "sha256-+fr0XNsuGjLqLsFEA1h9QpUQjzUBenghorGsuM/ZJX0=";
               };
-              nativeBuildInputs = [ ];
+              nativeBuildInputs = [];
               format = "setuptools";
-              outputs = [ "out" ];
-              patches = [ ];
+              outputs = ["out"];
+              patches = [];
             }
           );
           # downgrade needed for flask-babel 2.0.0
@@ -54,7 +54,7 @@ let
                 inherit version;
                 hash = "sha256-XvSzImsBgN7d7UIpZRyLDho6aig31FoHMnLzE+TPl/Y=";
               };
-              propagatedBuildInputs = [ self.pytz ];
+              propagatedBuildInputs = [self.pytz];
             }
           );
         })
@@ -176,7 +176,7 @@ let
               zeroconf
               zipstream-ng
             ]
-            ++ lib.optionals stdenv.isDarwin [ py.pkgs.appdirs ];
+            ++ lib.optionals stdenv.isDarwin [py.pkgs.appdirs];
 
           nativeCheckInputs = with self; [
             ddt
@@ -234,13 +234,13 @@ let
 
           disabledTests = [
             "test_check_setup" # Why should it be able to call pip?
-          ] ++ lib.optionals stdenv.isDarwin [ "test_set_external_modification" ];
+          ] ++ lib.optionals stdenv.isDarwin ["test_set_external_modification"];
 
           passthru = {
             inherit (self) python;
-            updateScript = nix-update-script { };
+            updateScript = nix-update-script {};
             tests = {
-              plugins = (callPackage ./plugins.nix { }) super self;
+              plugins = (callPackage ./plugins.nix {}) super self;
               inherit (nixosTests) octoprint;
             };
           };
@@ -258,7 +258,7 @@ let
           };
         };
       })
-      (callPackage ./plugins.nix { })
+      (callPackage ./plugins.nix {})
       packageOverrides
     ]);
   };

@@ -15,19 +15,19 @@ buildPythonPackage rec {
     hash = "sha256-BP9NTdUUJ0/juZohu1L7lvJojAHpP7p77zciHny1bOA=";
   };
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
   checkPhase = ''
     nosetests
   '';
 
-  pythonImportsCheck = [ "colored" ];
+  pythonImportsCheck = ["colored"];
 
   meta = with lib; {
     description = "Simple library for color and formatting to terminal";
     homepage = "https://gitlab.com/dslackw/colored";
     changelog = "https://gitlab.com/dslackw/colored/-/raw/${version}/CHANGES.md";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.mit;
   };
 }

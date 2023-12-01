@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "stumpwm";
   version = "20211209-git";
@@ -19,7 +19,7 @@ rec {
 
   packageName = "stumpwm";
 
-  asdFilesToKeep = [ "stumpwm.asd" ];
+  asdFilesToKeep = ["stumpwm.asd"];
   overrides = x: x;
 }
 /* (SYSTEM stumpwm DESCRIPTION A tiling, keyboard driven window manager SHA256

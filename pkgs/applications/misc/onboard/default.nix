@@ -31,7 +31,7 @@
 
 let
 
-  customHunspell = hunspellWithDicts [ hunspellDicts.en-us ];
+  customHunspell = hunspellWithDicts [hunspellDicts.en-us];
 
   majorVersion = "1.4";
 in
@@ -87,11 +87,11 @@ python3.pkgs.buildPythonApplication rec {
     systemd
   ];
 
-  propagatedUserEnvPkgs = [ dconf ];
+  propagatedUserEnvPkgs = [dconf];
 
   nativeCheckInputs = [
     # for Onboard.SpellChecker.aspell_cmd doctests
-    (aspellWithDicts (dicts: with dicts; [ en ]))
+    (aspellWithDicts (dicts: with dicts; [en]))
 
     # for Onboard.SpellChecker.hunspell_cmd doctests
     customHunspell
@@ -168,7 +168,7 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     homepage = "https://launchpad.net/onboard";
     description = "Onscreen keyboard useful for tablet PC users and for mobility impaired users";
-    maintainers = with maintainers; [ johnramsden ];
+    maintainers = with maintainers; [johnramsden];
     license = licenses.gpl3;
   };
 }

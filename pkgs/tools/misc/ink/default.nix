@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "1fk0b8vic04a3i3vmq73hbk7mzbi57s8ks6ighn3mvr6m2v8yc9d";
   };
 
-  buildInputs = [ libinklevel ];
+  buildInputs = [libinklevel];
 
   outputs = [
     "out"
@@ -29,6 +29,6 @@ stdenv.mkDerivation rec {
     homepage = "https://ink.sourceforge.net/";
     license = licenses.gpl2;
     platforms = platforms.linux ++ platforms.freebsd;
-    maintainers = with maintainers; [ samb96 ];
+    maintainers = with maintainers; [samb96];
   };
 }

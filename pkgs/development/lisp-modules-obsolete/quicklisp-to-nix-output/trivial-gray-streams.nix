@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "trivial-gray-streams";
   version = "20210124-git";
 
   description = "Compatibility layer for Gray Streams (see http://www.cliki.net/Gray%20streams).";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/trivial-gray-streams/2021-01-24/trivial-gray-streams-20210124-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "trivial-gray-streams";
 
-  asdFilesToKeep = [ "trivial-gray-streams.asd" ];
+  asdFilesToKeep = ["trivial-gray-streams.asd"];
   overrides = x: x;
 }
 /* (SYSTEM trivial-gray-streams DESCRIPTION

@@ -16,7 +16,7 @@ buildKodiAddon rec {
     sha256 = "0hbkyk59xxfjv6vzfjplahmqxi5564qjlwyq6k8ijy6jjcwnd3p7";
   };
 
-  propagatedBuildInputs = [ vfs-libarchive ];
+  propagatedBuildInputs = [vfs-libarchive];
 
   passthru = {
     pythonPath = "lib";

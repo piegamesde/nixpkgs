@@ -50,13 +50,13 @@ in
   ### implementation
 
   config = mkIf cfg.enable {
-    services.udev.packages = [ pkgs.trezor-udev-rules ];
+    services.udev.packages = [pkgs.trezor-udev-rules];
 
     systemd.services.trezord = {
       description = "Trezor Bridge";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      path = [];
       serviceConfig = {
         Type = "simple";
         ExecStart = "${pkgs.trezord}/bin/trezord-go ${optionalString cfg.emulator.enable "-e ${builtins.toString cfg.emulator.port}"}";
@@ -70,6 +70,6 @@ in
       isSystemUser = true;
     };
 
-    users.groups.trezord = { };
+    users.groups.trezord = {};
   };
 }

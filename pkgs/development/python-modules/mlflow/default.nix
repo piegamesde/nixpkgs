@@ -52,8 +52,8 @@ buildPythonPackage rec {
   # Remove currently broken dependency `shap`, a model explainability package.
   # This seems quite unprincipled especially with tests not being enabled,
   # but not mlflow has a 'skinny' install option which does not require `shap`.
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
-  pythonRemoveDeps = [ "shap" ];
+  nativeBuildInputs = [pythonRelaxDepsHook];
+  pythonRemoveDeps = ["shap"];
   pythonRelaxDeps = [
     "pytz"
     "pyarrow"
@@ -92,7 +92,7 @@ buildPythonPackage rec {
     sqlparse
   ];
 
-  pythonImportsCheck = [ "mlflow" ];
+  pythonImportsCheck = ["mlflow"];
 
   # no tests in PyPI dist
   # run into https://stackoverflow.com/questions/51203641/attributeerror-module-alembic-context-has-no-attribute-config
@@ -104,6 +104,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mlflow/mlflow";
     changelog = "https://github.com/mlflow/mlflow/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ tbenst ];
+    maintainers = with maintainers; [tbenst];
   };
 }

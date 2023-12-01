@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "quri";
   version = "20210630-git";
@@ -21,7 +21,7 @@ rec {
 
   packageName = "quri";
 
-  asdFilesToKeep = [ "quri.asd" ];
+  asdFilesToKeep = ["quri.asd"];
   overrides = x: x;
 }
 /* (SYSTEM quri DESCRIPTION Yet another URI library for Common Lisp SHA256

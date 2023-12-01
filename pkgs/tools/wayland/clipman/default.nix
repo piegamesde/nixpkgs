@@ -34,7 +34,7 @@ buildGoModule rec {
 
   postInstall = ''
     wrapProgram $out/bin/clipman \
-      --prefix PATH : ${lib.makeBinPath [ wl-clipboard ]}
+      --prefix PATH : ${lib.makeBinPath [wl-clipboard]}
     installManPage docs/*.1
   '';
 
@@ -42,7 +42,7 @@ buildGoModule rec {
     homepage = "https://github.com/yory8/clipman";
     description = "A simple clipboard manager for Wayland";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ ma27 ];
+    maintainers = with maintainers; [ma27];
     platforms = platforms.linux;
   };
 }

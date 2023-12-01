@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "serapeum";
   version = "20211209-git";
@@ -48,7 +48,7 @@ rec {
 
   packageName = "serapeum";
 
-  asdFilesToKeep = [ "serapeum.asd" ];
+  asdFilesToKeep = ["serapeum.asd"];
   overrides = x: x;
 }
 /* (SYSTEM serapeum DESCRIPTION Utilities beyond Alexandria. SHA256

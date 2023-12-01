@@ -54,7 +54,7 @@ mkDerivation {
     "-DWANT_LV2=0"
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     description = "Cross-platform multitrack audio recording and audio editing suite";
@@ -64,6 +64,6 @@ mkDerivation {
       lgpl21Plus
     ];
     platforms = platforms.all;
-    maintainers = with maintainers; [ coconnor ];
+    maintainers = with maintainers; [coconnor];
   };
 }

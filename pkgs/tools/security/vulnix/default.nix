@@ -24,7 +24,7 @@ python3Packages.buildPythonApplication rec {
     "doc"
     "man"
   ];
-  nativeBuildInputs = [ ronn ];
+  nativeBuildInputs = [ronn];
 
   nativeCheckInputs = with python3Packages; [
     freezegun
@@ -33,7 +33,7 @@ python3Packages.buildPythonApplication rec {
   ];
 
   propagatedBuildInputs =
-    [ nix ]
+    [nix]
     ++ (
       with python3Packages; [
         click
@@ -63,6 +63,6 @@ python3Packages.buildPythonApplication rec {
     description = "NixOS vulnerability scanner";
     homepage = "https://github.com/flyingcircusio/vulnix";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ckauhaus ];
+    maintainers = with maintainers; [ckauhaus];
   };
 }

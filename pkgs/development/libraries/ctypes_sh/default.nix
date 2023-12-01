@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "A foreign function interface for bash";
     homepage = "https://github.com/taviso/ctypes.sh";
     license = licenses.mit;
-    maintainers = with maintainers; [ tadeokondrak ];
+    maintainers = with maintainers; [tadeokondrak];
     platforms = platforms.unix;
   };
 }

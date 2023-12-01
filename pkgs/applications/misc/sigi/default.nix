@@ -17,21 +17,21 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoSha256 = "sha256-R1U0ZYQMA1VFd5zEjFzl5QhwqqEMaCFb/5H509IBj60=";
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # In case anything goes wrong.
-  checkFlags = [ "RUST_BACKTRACE=1" ];
+  checkFlags = ["RUST_BACKTRACE=1"];
 
   postInstall = ''
     installManPage sigi.1
   '';
 
-  passthru.tests.version = testers.testVersion { package = sigi; };
+  passthru.tests.version = testers.testVersion {package = sigi;};
 
   meta = with lib; {
     description = "Organizing CLI for people who don't love organizing.";
     homepage = "https://github.com/sigi-cli/sigi";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ hiljusti ];
+    maintainers = with maintainers; [hiljusti];
   };
 }

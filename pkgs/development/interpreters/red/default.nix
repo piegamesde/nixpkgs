@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
       programming to high-level scripting, while providing modern support for
       concurrency and multi-core CPUs
     '';
-    maintainers = with maintainers; [ uralbash ];
+    maintainers = with maintainers; [uralbash];
     platforms = [
       "i686-linux"
       "x86_64-linux"

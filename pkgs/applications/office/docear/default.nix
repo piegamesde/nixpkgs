@@ -17,8 +17,8 @@ stdenv.mkDerivation {
     sha256 = "1g5n7r2x4gas6dl2fbyh7v9yxdcb6bzml8n3ldmpzv1rncgjcdp4";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ oraclejre ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [oraclejre];
 
   buildPhase = "";
   installPhase = ''
@@ -44,7 +44,7 @@ stdenv.mkDerivation {
       gpl2 # for the main software and some dependencies
       bsd3 # for one of its dependencies
     ];
-    maintainers = with maintainers; [ unode ];
+    maintainers = with maintainers; [unode];
     platforms = platforms.all;
   };
 }

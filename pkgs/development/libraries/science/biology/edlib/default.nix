@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-P/tFbvPBtA0MYCNDabW+Ypo3ltwP4S+6lRDxwAZ1JFo=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   doCheck = true;
   checkPhase = ''
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://martinsos.github.io/edlib";
     description = "Lightweight, fast C/C++ library for sequence alignment using edit distance";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     license = licenses.mit;
     platforms = platforms.unix;
   };

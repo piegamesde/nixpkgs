@@ -30,12 +30,12 @@ let
     );
 
   passthru = rec {
-    spirv-llvm-translator = llvmPkgs.spirv-llvm-translator.override { llvm = llvmPackages_11.llvm; };
+    spirv-llvm-translator = llvmPkgs.spirv-llvm-translator.override {llvm = llvmPackages_11.llvm;};
     llvm = addPatches "llvm" llvmPkgs.llvm;
     libclang = addPatches "clang" llvmPkgs.libclang;
 
     clang-unwrapped = libclang.out;
-    clang = llvmPkgs.clang.override { cc = clang-unwrapped; };
+    clang = llvmPkgs.clang.override {cc = clang-unwrapped;};
 
     patchesOut = stdenv.mkDerivation {
       pname = "opencl-clang-patches";
@@ -114,7 +114,7 @@ let
         description = "A clang wrapper library with an OpenCL-oriented API and the ability to compile OpenCL C kernels to SPIR-V modules";
         license = licenses.ncsa;
         platforms = platforms.all;
-        maintainers = with maintainers; [ SuperSandro2000 ];
+        maintainers = with maintainers; [SuperSandro2000];
       };
     };
 in

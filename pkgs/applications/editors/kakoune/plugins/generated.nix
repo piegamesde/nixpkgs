@@ -3,7 +3,7 @@
   lib,
   buildKakounePluginFrom2Nix,
   fetchFromGitHub,
-  overrides ? (self: super: { }),
+  overrides ? (self: super: {}),
 }:
 let
   packages =

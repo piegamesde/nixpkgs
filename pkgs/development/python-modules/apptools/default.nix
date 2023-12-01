@@ -48,7 +48,7 @@ buildPythonPackage rec {
     configobj
     traits
     traitsui
-  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  ] ++ lib.optionals (pythonOlder "3.9") [importlib-resources];
 
   nativeCheckInputs = [
     tables
@@ -60,12 +60,12 @@ buildPythonPackage rec {
     export HOME=$TMP
   '';
 
-  pythonImportsCheck = [ "apptools" ];
+  pythonImportsCheck = ["apptools"];
 
   meta = with lib; {
     description = "Set of packages that Enthought has found useful in creating a number of applications";
     homepage = "https://github.com/enthought/apptools";
     license = licenses.bsdOriginal;
-    maintainers = with maintainers; [ knedlsepp ];
+    maintainers = with maintainers; [knedlsepp];
   };
 }

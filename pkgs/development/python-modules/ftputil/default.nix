@@ -33,12 +33,12 @@ buildPythonPackage rec {
     "test_upload"
   ];
 
-  pythonImportsCheck = [ "ftputil" ];
+  pythonImportsCheck = ["ftputil"];
 
   meta = with lib; {
     description = "High-level FTP client library (virtual file system and more)";
     homepage = "https://ftputil.sschwarzer.net/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

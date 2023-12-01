@@ -1,4 +1,4 @@
-{ lib, python3Packages }:
+{lib, python3Packages}:
 
 python3Packages.buildPythonApplication rec {
   pname = "scdl";
@@ -23,12 +23,12 @@ python3Packages.buildPythonApplication rec {
   # No tests in repository
   doCheck = false;
 
-  pythonImportsCheck = [ "scdl" ];
+  pythonImportsCheck = ["scdl"];
 
   meta = with lib; {
     description = "Download Music from Souncloud";
     homepage = "https://github.com/flyingrub/scdl";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [marsam];
   };
 }

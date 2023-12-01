@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-MlPnJMuz35Zd+VQwvsadRRPULebR7GWN1vGV+cJ7s4c=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontUnpack = true;
   dontConfigure = true;
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       SBT, but can also be extended to support any other language or platform via
       modules (written in Java or Scala) or through an external subprocesses.
     '';
-    maintainers = with maintainers; [ scalavision ];
+    maintainers = with maintainers; [scalavision];
     platforms = lib.platforms.all;
   };
 }

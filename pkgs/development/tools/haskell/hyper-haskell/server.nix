@@ -7,13 +7,13 @@
 }:
 
 let
-  hyperHaskellEnv = ghcWithPackages (self: [ self.hyper-haskell-server ] ++ packages self);
+  hyperHaskellEnv = ghcWithPackages (self: [self.hyper-haskell-server] ++ packages self);
 in
 stdenv.mkDerivation {
   pname = "hyper-haskell-server-with-packages";
   version = hyperHaskellEnv.version;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildCommand = ''
     mkdir -p $out/bin

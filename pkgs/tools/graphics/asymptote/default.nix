@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     );
 
   propagatedBuildInputs =
-    [ glm ]
+    [glm]
     ++ lib.optionals stdenv.isLinux [
       freeglut
       libGLU
@@ -116,7 +116,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A tool for programming graphics intended to replace Metapost";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

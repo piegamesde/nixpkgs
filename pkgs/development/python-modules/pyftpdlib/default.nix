@@ -21,10 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-fqPOQTfbggmvH2ueoCBZD0YsY+18ehJAvVluTTp7ZW4=";
   };
 
-  propagatedBuildInputs = [ pysendfile ];
+  propagatedBuildInputs = [pysendfile];
 
   passthru.optional-dependencies = {
-    ssl = [ pyopenssl ];
+    ssl = [pyopenssl];
   };
 
   nativeCheckInputs = [
@@ -36,12 +36,12 @@ buildPythonPackage rec {
   # on Hydra: https://hydra.nixos.org/build/84374861
   doCheck = false;
 
-  pythonImportsCheck = [ "pyftpdlib" ];
+  pythonImportsCheck = ["pyftpdlib"];
 
   meta = with lib; {
     description = "Asynchronous FTP server library";
     homepage = "https://github.com/giampaolo/pyftpdlib/";
     license = licenses.mit;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

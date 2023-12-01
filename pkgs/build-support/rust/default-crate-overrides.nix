@@ -49,18 +49,18 @@ let
 in
 {
   alsa-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ alsa-lib ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [alsa-lib];
   };
 
-  cairo-rs = attrs: { buildInputs = [ cairo ]; };
+  cairo-rs = attrs: {buildInputs = [cairo];};
 
   cairo-sys-rs = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ cairo ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [cairo];
   };
 
-  capnp-rpc = attrs: { nativeBuildInputs = [ capnproto ]; };
+  capnp-rpc = attrs: {nativeBuildInputs = [capnproto];};
 
   cargo = attrs: {
     buildInputs =
@@ -76,13 +76,13 @@ in
   };
 
   libz-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ zlib ];
-    extraLinkFlags = [ "-L${zlib.out}/lib" ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [zlib];
+    extraLinkFlags = ["-L${zlib.out}/lib"];
   };
 
   curl-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
     buildInputs = [
       zlib
       curl
@@ -91,24 +91,24 @@ in
       curl
       zlib
     ];
-    extraLinkFlags = [ "-L${zlib.out}/lib" ];
+    extraLinkFlags = ["-L${zlib.out}/lib"];
   };
 
   dbus = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ dbus ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [dbus];
   };
 
   evdev-sys = attrs: {
     nativeBuildInputs =
-      [ pkg-config ]
+      [pkg-config]
       ++ lib.optionals (stdenv.buildPlatform.config != stdenv.hostPlatform.config) [
         python3
         autoconf
         automake
         libtool
       ];
-    buildInputs = [ libevdev ];
+    buildInputs = [libevdev];
 
     # This prevents libevdev's build.rs from trying to `git fetch` when HOST!=TARGET
     prePatch = ''
@@ -116,10 +116,10 @@ in
     '';
   };
 
-  expat-sys = attrs: { nativeBuildInputs = [ cmake ]; };
+  expat-sys = attrs: {nativeBuildInputs = [cmake];};
 
   foundationdb-sys = attrs: {
-    buildInputs = [ foundationdb ];
+    buildInputs = [foundationdb];
     # needed for 0.4+ release, when the FFI bindings are auto-generated
     #
     # patchPhase = ''
@@ -128,49 +128,49 @@ in
     # '';
   };
 
-  foundationdb = attrs: { buildInputs = [ foundationdb ]; };
+  foundationdb = attrs: {buildInputs = [foundationdb];};
 
   freetype-sys = attrs: {
-    nativeBuildInputs = [ cmake ];
-    buildInputs = [ freetype ];
+    nativeBuildInputs = [cmake];
+    buildInputs = [freetype];
   };
 
   glib-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ glib ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [glib];
   };
 
-  gobject-sys = attrs: { buildInputs = [ dbus-glib ]; };
+  gobject-sys = attrs: {buildInputs = [dbus-glib];};
 
-  gio-sys = attrs: { buildInputs = [ dbus-glib ]; };
+  gio-sys = attrs: {buildInputs = [dbus-glib];};
 
-  gdk-pixbuf-sys = attrs: { buildInputs = [ dbus-glib ]; };
+  gdk-pixbuf-sys = attrs: {buildInputs = [dbus-glib];};
 
-  gdk-pixbuf = attrs: { buildInputs = [ gdk-pixbuf ]; };
+  gdk-pixbuf = attrs: {buildInputs = [gdk-pixbuf];};
 
   gtk-sys = attrs: {
-    buildInputs = [ gtk3 ];
-    nativeBuildInputs = [ pkg-config ];
+    buildInputs = [gtk3];
+    nativeBuildInputs = [pkg-config];
   };
 
   gtk4-sys = attrs: {
-    buildInputs = [ gtk4 ];
-    nativeBuildInputs = [ pkg-config ];
+    buildInputs = [gtk4];
+    nativeBuildInputs = [pkg-config];
   };
 
   gdk4-sys = attrs: {
-    buildInputs = [ gtk4 ];
-    nativeBuildInputs = [ pkg-config ];
+    buildInputs = [gtk4];
+    nativeBuildInputs = [pkg-config];
   };
 
   gsk4-sys = attrs: {
-    buildInputs = [ gtk4 ];
-    nativeBuildInputs = [ pkg-config ];
+    buildInputs = [gtk4];
+    nativeBuildInputs = [pkg-config];
   };
 
   libgit2-sys = attrs: {
     LIBGIT2_SYS_USE_PKG_CONFIG = true;
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
     buildInputs = [
       openssl
       zlib
@@ -179,12 +179,12 @@ in
   };
 
   libsqlite3-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ sqlite ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [sqlite];
   };
 
   libssh2-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
     buildInputs = [
       openssl
       zlib
@@ -193,17 +193,17 @@ in
   };
 
   libdbus-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ dbus ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [dbus];
   };
 
   libudev-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ udev ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [udev];
   };
 
   graphene-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
     buildInputs = [
       graphene
       gobject-introspection
@@ -211,7 +211,7 @@ in
   };
 
   nettle-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
     buildInputs = [
       nettle
       clang
@@ -219,34 +219,34 @@ in
     LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
   };
 
-  openssl = attrs: { buildInputs = [ openssl ]; };
+  openssl = attrs: {buildInputs = [openssl];};
 
   openssl-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ openssl ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [openssl];
   };
 
-  pam-sys = attr: { buildInputs = [ linux-pam ]; };
+  pam-sys = attr: {buildInputs = [linux-pam];};
 
   pango-sys = attr: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ pango ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [pango];
   };
 
   pq-sys = attr: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ postgresql ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [postgresql];
   };
 
-  prost-build = attr: { nativeBuildInputs = [ protobuf ]; };
+  prost-build = attr: {nativeBuildInputs = [protobuf];};
 
   rdkafka-sys = attr: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ rdkafka ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [rdkafka];
   };
 
   rink = attrs: {
-    buildInputs = [ gmp ];
+    buildInputs = [gmp];
     crateBin = [
       {
         name = "rink";
@@ -255,23 +255,23 @@ in
     ];
   };
 
-  security-framework-sys = attr: { propagatedBuildInputs = lib.optional stdenv.isDarwin Security; };
+  security-framework-sys = attr: {propagatedBuildInputs = lib.optional stdenv.isDarwin Security;};
 
-  sequoia-openpgp = attrs: { buildInputs = [ gmp ]; };
+  sequoia-openpgp = attrs: {buildInputs = [gmp];};
 
-  sequoia-openpgp-ffi = attrs: { buildInputs = [ gmp ]; };
+  sequoia-openpgp-ffi = attrs: {buildInputs = [gmp];};
 
-  sequoia-ipc = attrs: { buildInputs = [ gmp ]; };
+  sequoia-ipc = attrs: {buildInputs = [gmp];};
 
-  sequoia-guide = attrs: { buildInputs = [ gmp ]; };
+  sequoia-guide = attrs: {buildInputs = [gmp];};
 
   pangocairo-sys = attr: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ pango ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [pango];
   };
 
   sequoia-store = attrs: {
-    nativeBuildInputs = [ capnproto ];
+    nativeBuildInputs = [capnproto];
     buildInputs = [
       sqlite
       gmp
@@ -286,17 +286,17 @@ in
   };
 
   sequoia-tool = attrs: {
-    nativeBuildInputs = [ capnproto ];
+    nativeBuildInputs = [capnproto];
     buildInputs = [
       sqlite
       gmp
     ];
   };
 
-  serde_derive = attrs: { buildInputs = lib.optional stdenv.isDarwin Security; };
+  serde_derive = attrs: {buildInputs = lib.optional stdenv.isDarwin Security;};
 
   servo-fontconfig-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
     buildInputs = [
       freetype
       fontconfig
@@ -304,14 +304,14 @@ in
   };
 
   thrussh-libsodium = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ libsodium ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [libsodium];
   };
 
-  xcb = attrs: { buildInputs = [ python3 ]; };
+  xcb = attrs: {buildInputs = [python3];};
 
   atk-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ atk ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [atk];
   };
 }

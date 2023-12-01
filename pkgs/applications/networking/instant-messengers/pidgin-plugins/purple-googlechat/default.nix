@@ -20,7 +20,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-iTYVgYI9+6rqqBl5goeEAXpK8FgHDv0MmPsV/82reWA=";
   };
 
-  nativeBuildInputs = [ protobufc ];
+  nativeBuildInputs = [protobufc];
   buildInputs = [
     pidgin
     glib
@@ -36,6 +36,6 @@ stdenv.mkDerivation {
     description = "Native Google Chat support for pidgin";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
   };
 }

@@ -47,8 +47,8 @@ buildPythonPackage rec {
       hijri-converter
       convertdate
     ];
-    fasttext = [ fasttext ];
-    langdetect = [ langdetect ];
+    fasttext = [fasttext];
+    langdetect = [langdetect];
   };
 
   nativeCheckInputs = [
@@ -65,7 +65,7 @@ buildPythonPackage rec {
   '';
 
   # Upstream only runs the tests in tests/ in CI, others use git clone
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
   disabledTests = [
     # access network
@@ -73,13 +73,13 @@ buildPythonPackage rec {
     "test_custom_language_detect_fast_text_1"
   ];
 
-  pythonImportsCheck = [ "dateparser" ];
+  pythonImportsCheck = ["dateparser"];
 
   meta = with lib; {
     changelog = "https://github.com/scrapinghub/dateparser/blob/${src.rev}/HISTORY.rst";
     description = "Date parsing library designed to parse dates from HTML pages";
     homepage = "https://github.com/scrapinghub/dateparser";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

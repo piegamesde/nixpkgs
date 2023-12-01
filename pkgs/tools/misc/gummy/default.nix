@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dw2yOXTS61OIe+NOq8MPydhkZvTit13eC7cbL5nFseg=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     libX11
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     udev
   ];
 
-  cmakeFlags = [ "-DUDEV_DIR=${placeholder "out"}/lib/udev" ];
+  cmakeFlags = ["-DUDEV_DIR=${placeholder "out"}/lib/udev"];
 
   # Fixes the "gummy start" command, without this it cannot find the binary.
   # Setting this through cmake does not seem to work.
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     ln -s $out/libexec/gummyd $out/bin/gummyd
   '';
 
-  passthru.tests.version = testers.testVersion { package = gummy; };
+  passthru.tests.version = testers.testVersion {package = gummy;};
 
   meta = with lib; {
     homepage = "https://github.com/Fushko/gummy";
@@ -58,6 +58,6 @@ stdenv.mkDerivation rec {
       via backlight (currently only for embedded displays) and gamma. Multiple monitors are supported.
     '';
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.ivar ];
+    maintainers = [maintainers.ivar];
   };
 }

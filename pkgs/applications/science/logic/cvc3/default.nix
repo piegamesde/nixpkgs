@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     perl
   ];
 
-  patches = [ ./cvc3-2.4.1-gccv6-fix.patch ];
+  patches = [./cvc3-2.4.1-gccv6-fix.patch];
 
   # fails to configure on darwin due to gmp not found
   configureFlags = [
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A prover for satisfiability modulo theory (SMT)";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.unix;
     license = licenses.free;
     homepage = "http://www.cs.nyu.edu/acsys/cvc3/index.html";

@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   # extract debian package from larger zip file
   src =
     let
-      versionWithUnderscores = builtins.replaceStrings [ "." ] [ "_" ] version;
+      versionWithUnderscores = builtins.replaceStrings ["."] ["_"] version;
     in
     fetchzip {
       url = "https://www.digicert.com/StaticFiles/SAC_${versionWithUnderscores}_GA_Build.zip";
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     pcsclite
   ];
 
-  runtimeDependencies = [ openssl_1_1 ];
+  runtimeDependencies = [openssl_1_1];
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -97,9 +97,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://safenet.gemalto.com/multi-factor-authentication/security-applications/authentication-client-token-management";
     description = "Safenet Authentication Client";
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    platforms = ["x86_64-linux"];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ wldhx ];
+    maintainers = with maintainers; [wldhx];
   };
 }

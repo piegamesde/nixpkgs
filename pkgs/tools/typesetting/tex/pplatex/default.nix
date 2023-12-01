@@ -23,7 +23,7 @@ stdenv.mkDerivation {
     pkg-config
   ];
 
-  buildInputs = [ pcre ];
+  buildInputs = [pcre];
 
   installPhase = ''
     runHook preInstall
@@ -35,7 +35,7 @@ stdenv.mkDerivation {
     description = "A tool to reformat the output of latex and friends into readable messages";
     homepage = "https://github.com/stefanhepp/pplatex";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.srgom ];
+    maintainers = [maintainers.srgom];
     platforms = platforms.unix;
   };
 }

@@ -28,9 +28,9 @@ stdenv.mkDerivation rec {
     libXext
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  buildFlags = [ "x2x" ];
+  buildFlags = ["x2x"];
 
   installPhase = ''
     install -D x2x $out/bin/x2x

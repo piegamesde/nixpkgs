@@ -1,4 +1,4 @@
-{ callPackage, ... }:
+{callPackage, ...}:
 
 rec {
   crossfire-client = callPackage ./crossfire-client.nix {

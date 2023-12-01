@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "asdf-package-system";
   version = "20150608-git";
 
   description = "System lacks description";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/asdf-package-system/2015-06-08/asdf-package-system-20150608-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "asdf-package-system";
 
-  asdFilesToKeep = [ "asdf-package-system.asd" ];
+  asdFilesToKeep = ["asdf-package-system.asd"];
   overrides = x: x;
 }
 /* (SYSTEM asdf-package-system DESCRIPTION System lacks description SHA256

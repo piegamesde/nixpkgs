@@ -16,16 +16,16 @@ buildPythonPackage rec {
     hash = "sha256-YwOKSBlN4lNyS+hfdbQDUq1gc14FBof463ofxtUVLC4=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # Project has no tests
   doCheck = false;
-  pythonImportsCheck = [ "tahoma_api" ];
+  pythonImportsCheck = ["tahoma_api"];
 
   meta = with lib; {
     description = "Python module to interface with Tahoma REST API";
     homepage = "https://github.com/philklei/tahoma-api/";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

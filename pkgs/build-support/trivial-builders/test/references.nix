@@ -25,17 +25,17 @@
 # -------------------------------------------------------------------------- #
 
 let
-  invokeSamples = file: lib.concatStringsSep " " (lib.attrValues (import file { inherit pkgs; }));
+  invokeSamples = file: lib.concatStringsSep " " (lib.attrValues (import file {inherit pkgs;}));
 in
 testers.nixosTest {
   name = "nixpkgs-trivial-builders";
   nodes.machine =
-    { ... }:
+    {...}:
     {
       virtualisation.writableStore = true;
 
       # Test runs without network, so we don't substitute and prepare our deps
-      nix.settings.substituters = lib.mkForce [ ];
+      nix.settings.substituters = lib.mkForce [];
       environment.etc."pre-built-paths".source = writeText "pre-built-paths" (
         builtins.toJSON [
           hello
@@ -55,6 +55,6 @@ testers.nixosTest {
     """)
   '';
   meta = {
-    maintainers = with lib.maintainers; [ roberth ];
+    maintainers = with lib.maintainers; [roberth];
   };
 }

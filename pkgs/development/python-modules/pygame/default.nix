@@ -85,7 +85,7 @@ buildPythonPackage rec {
     portmidi
     libX11
     freetype
-  ] ++ lib.optionals stdenv.isDarwin [ AppKit ];
+  ] ++ lib.optionals stdenv.isDarwin [AppKit];
 
   preConfigure = ''
     ${python.pythonForBuild.interpreter} buildconfig/config.py
@@ -103,13 +103,13 @@ buildPythonPackage rec {
 
     runHook postCheck
   '';
-  pythonImportsCheck = [ "pygame" ];
+  pythonImportsCheck = ["pygame"];
 
   meta = with lib; {
     description = "Python library for games";
     homepage = "https://www.pygame.org/";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.unix;
   };
 }

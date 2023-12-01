@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     "out"
     "dev"
     "devdoc"
-  ] ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ "installedTests" ];
+  ] ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) ["installedTests"];
 
   src = fetchFromGitHub {
     owner = "ebassi";
@@ -45,12 +45,12 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       url = "https://github.com/ebassi/graphene/commit/4fbdd07ea3bcd0964cca3966010bf71cb6fa8209.patch";
       sha256 = "uFkkH0u4HuQ/ua1mfO7sJZ7MPrQdV/JON7mTYB4DW80=";
-      includes = [ "tests/simd.c" ];
+      includes = ["tests/simd.c"];
       revert = true;
     })
   ];
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     docbook_xml_dtd_43
@@ -62,11 +62,11 @@ stdenv.mkDerivation rec {
     gobject-introspection
     python3
     makeWrapper
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [mesonEmulatorHook];
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
-  nativeCheckInputs = [ mutest ];
+  nativeCheckInputs = [mutest];
 
   mesonFlags = [
     "-Dgtk_doc=true"
@@ -105,14 +105,14 @@ stdenv.mkDerivation rec {
       installedTests = nixosTests.installed-tests.graphene;
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "A thin layer of graphic data types";
     homepage = "https://github.com/ebassi/graphene";
     license = licenses.mit;
-    maintainers = teams.gnome.members ++ (with maintainers; [ ]);
+    maintainers = teams.gnome.members ++ (with maintainers; []);
     platforms = platforms.unix;
   };
 }

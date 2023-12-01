@@ -29,7 +29,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/${pname}";
 
-  nativeBuildInputs = [ go ];
+  nativeBuildInputs = [go];
 
   propagatedBuildInputs = [
     aiohttp
@@ -39,9 +39,9 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    kerberos = [ pykerberos ];
-    jobqueue = [ sqlalchemy ];
-    local = [ sqlalchemy ];
+    kerberos = [pykerberos];
+    jobqueue = [sqlalchemy];
+    local = [sqlalchemy];
     yarn = [
       skein
       sqlalchemy
@@ -55,12 +55,12 @@ buildPythonPackage rec {
   # Tests requires cluster for testing
   doCheck = false;
 
-  pythonImportsCheck = [ "dask_gateway_server" ];
+  pythonImportsCheck = ["dask_gateway_server"];
 
   meta = with lib; {
     description = "A multi-tenant server for securely deploying and managing multiple Dask clusters";
     homepage = "https://gateway.dask.org/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

@@ -65,15 +65,15 @@ let
     .${flavour};
 in
 import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "lvm2-${flavour}-systemd-stage-1";
-    meta.maintainers = with pkgs.lib.maintainers; [ das_j ];
+    meta.maintainers = with pkgs.lib.maintainers; [das_j];
 
     nodes.machine =
-      { pkgs, lib, ... }:
+      {pkgs, lib, ...}:
       {
-        imports = [ extraConfig ];
+        imports = [extraConfig];
         # Use systemd-boot
         virtualisation = {
           emptyDiskImages = [
@@ -86,7 +86,7 @@ import ../make-test-python.nix (
         boot.loader.systemd-boot.enable = true;
         boot.loader.efi.canTouchEfiVariables = true;
 
-        environment.systemPackages = with pkgs; [ e2fsprogs ]; # for mkfs.ext4
+        environment.systemPackages = with pkgs; [e2fsprogs]; # for mkfs.ext4
         boot = {
           initrd.systemd = {
             enable = true;

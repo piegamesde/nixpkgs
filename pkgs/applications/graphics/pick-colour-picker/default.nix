@@ -48,7 +48,7 @@ buildPythonPackage rec {
     license = licenses.mit;
     platforms = platforms.linux;
     description = "A colour picker that remembers where you picked colours from";
-    maintainers = [ maintainers.mkg20001 ];
+    maintainers = [maintainers.mkg20001];
 
     longDescription = ''
       Pick lets you pick colours from anywhere on your screen. Choose the colour you want and Pick remembers it, names it, and shows you a screenshot so you can remember where you got it from.

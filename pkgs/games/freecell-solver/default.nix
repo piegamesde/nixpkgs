@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://fc-solve.shlomifish.org/";
     license = licenses.mit;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     platforms = platforms.unix;
   };
 }

@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
     sha256 = "0q0p2d53p8qw2592yknzgy2y1p5a9k7ppjx0cfrbvk6242c4mdpq";
   };
 
-  patches = [ ./catalog-in-library-vicinity.patch ];
+  patches = [./catalog-in-library-vicinity.patch];
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
   buildInputs = [
     scheme
     texinfo
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
 
     homepage = "http://people.csail.mit.edu/jaffer/SLIB";
 
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 }

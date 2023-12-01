@@ -20,7 +20,7 @@ with lib; {
   };
 
   config = mkIf cfg.enable {
-    boot.kernelModules = [ "tun" ];
+    boot.kernelModules = ["tun"];
 
     environment.systemPackages = with pkgs; [
       ivpn
@@ -33,8 +33,8 @@ with lib; {
 
     systemd.services.ivpn-service = {
       description = "iVPN daemon";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network.target"];
       after = [
         "network-online.target"
         "NetworkManager.service"
@@ -55,5 +55,5 @@ with lib; {
     };
   };
 
-  meta.maintainers = with maintainers; [ ataraxiasjel ];
+  meta.maintainers = with maintainers; [ataraxiasjel];
 }

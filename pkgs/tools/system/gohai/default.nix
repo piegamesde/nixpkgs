@@ -28,7 +28,7 @@ buildGoModule rec {
     description = "System information collector";
     homepage = "https://github.com/DataDog/gohai";
     license = licenses.mit;
-    maintainers = with maintainers; [ tazjin ];
+    maintainers = with maintainers; [tazjin];
     platforms = platforms.unix;
 
     longDescription = ''

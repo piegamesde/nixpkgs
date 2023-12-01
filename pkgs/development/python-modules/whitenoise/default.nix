@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-HcWWWMIuU8kfcOnntgXUnHD3pFogq8OEAd3wRtCnXjQ=";
   };
 
-  propagatedBuildInputs = [ brotli ];
+  propagatedBuildInputs = [brotli];
 
   nativeCheckInputs = [
     django
@@ -46,12 +46,12 @@ buildPythonPackage rec {
       "test_modified"
     ];
 
-  pythonImportsCheck = [ "whitenoise" ];
+  pythonImportsCheck = ["whitenoise"];
 
   meta = with lib; {
     description = "Radically simplified static file serving for WSGI applications";
     homepage = "https://whitenoise.evans.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

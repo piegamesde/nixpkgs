@@ -38,13 +38,13 @@ buildPythonPackage rec {
   # dissect.fat.exceptions.InvalidBPB: Invalid BS_jmpBoot
   doCheck = false;
 
-  pythonImportsCheck = [ "dissect.fat" ];
+  pythonImportsCheck = ["dissect.fat"];
 
   meta = with lib; {
     description = "Dissect module implementing a parser for the FAT file system";
     homepage = "https://github.com/fox-it/dissect.fat";
     changelog = "https://github.com/fox-it/dissect.fat/releases/tag/${version}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

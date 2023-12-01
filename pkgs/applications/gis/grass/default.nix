@@ -79,13 +79,13 @@ stdenv.mkDerivation rec {
     wxGTK32
     proj-datumgrid
     zstd
-  ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
+  ] ++ lib.optionals stdenv.isDarwin [libiconv];
 
   strictDeps = true;
 
   # On Darwin the installer tries to symlink the help files into a system
   # directory
-  patches = [ ./no_symbolic_links.patch ];
+  patches = [./no_symbolic_links.patch];
 
   # Correct mysql_config query
   patchPhase = ''
@@ -113,7 +113,7 @@ stdenv.mkDerivation rec {
       "--with-fftw"
       "--with-pthread"
     ]
-    ++ lib.optionals stdenv.isLinux [ "--with-pdal" ]
+    ++ lib.optionals stdenv.isLinux ["--with-pdal"]
     ++ lib.optionals stdenv.isDarwin [
       "--without-cairo"
       "--without-freetype"

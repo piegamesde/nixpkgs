@@ -26,6 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.catb.org/~esr/ascii/";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

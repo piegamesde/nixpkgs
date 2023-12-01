@@ -57,6 +57,6 @@ buildGoModule rec {
     description = "The Vanilla OS package manager";
     homepage = "https://github.com/Vanilla-OS/apx";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

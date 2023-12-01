@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       "--with-pgsql_libdir=${postgresql.lib}/lib"
     ];
 
-  installFlags = [ "DESTDIR=\${out}" ];
+  installFlags = ["DESTDIR=\${out}"];
 
   postInstall = ''
     mv $out/$out/* $out
@@ -71,6 +71,6 @@ stdenv.mkDerivation rec {
     description = "Database drivers for libdbi";
     platforms = platforms.all;
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

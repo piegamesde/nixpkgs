@@ -17,12 +17,12 @@ buildDunePackage rec {
   minimumOCamlVersion = "4.03";
   useDune2 = true;
 
-  propagatedBuildInputs = [ result ];
+  propagatedBuildInputs = [result];
 
   meta = with lib; {
     homepage = "https://github.com/ocaml-dune/csexp/";
     description = "Minimal support for Canonical S-expressions";
     license = licenses.mit;
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [marsam];
   };
 }

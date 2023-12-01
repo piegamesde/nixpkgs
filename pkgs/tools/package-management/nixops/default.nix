@@ -5,7 +5,7 @@
   docbook_xsl_ns,
   openssh,
   cacert,
-  nixopsAzurePackages ? [ ],
+  nixopsAzurePackages ? [],
   fetchurl,
   fetchpatch,
 }:
@@ -21,14 +21,14 @@ let
           certifi = super.certifi.overridePythonAttrs (
             old: {
               meta = old.meta // {
-                knownVulnerabilities = [ "CVE-2022-23491" ];
+                knownVulnerabilities = ["CVE-2022-23491"];
               };
             }
           );
           pyjwt = super.pyjwt.overridePythonAttrs (
             old: {
               meta = old.meta // {
-                knownVulnerabilities = lib.optionals (lib.versionOlder old.version "2.4.0") [ "CVE-2022-29217" ];
+                knownVulnerabilities = lib.optionals (lib.versionOlder old.version "2.4.0") ["CVE-2022-29217"];
               };
             }
           );
@@ -56,7 +56,7 @@ pythonPackages.buildPythonApplication rec {
     ./optional-virtd.patch
   ];
 
-  buildInputs = [ pythonPackages.libxslt ];
+  buildInputs = [pythonPackages.libxslt];
 
   pythonPath =
     (

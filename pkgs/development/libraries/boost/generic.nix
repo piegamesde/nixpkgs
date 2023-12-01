@@ -34,11 +34,11 @@
     || (enableSingleThreaded && enableMultiThreaded)
     || (enableShared && enableStatic)
   ),
-  patches ? [ ],
-  boostBuildPatches ? [ ],
+  patches ? [],
+  boostBuildPatches ? [],
   useMpi ? false,
   mpi,
-  extraB2Args ? [ ],
+  extraB2Args ? [],
 
   # Attributes inherit from specific versions
   version,
@@ -148,7 +148,7 @@ let
     ++ lib.optional (!enablePython) "--without-python"
     ++ lib.optional needUserConfig "--user-config=user-config.jam"
     ++ lib.optional (stdenv.buildPlatform.isDarwin && stdenv.hostPlatform.isLinux) "pch=off"
-    ++ lib.optionals (stdenv.hostPlatform.libc == "msvcrt") [ "threadapi=win32" ]
+    ++ lib.optionals (stdenv.hostPlatform.libc == "msvcrt") ["threadapi=win32"]
     ++ extraB2Args
   );
 in
@@ -158,7 +158,7 @@ stdenv.mkDerivation {
 
   inherit src version;
 
-  patchFlags = [ ];
+  patchFlags = [];
 
   patches =
     patches
@@ -210,7 +210,7 @@ stdenv.mkDerivation {
       optional (versionOlder version "1.59") "aarch64-linux"
       ++ optional ((versionOlder version "1.57") || version == "1.58") "x86_64-darwin"
       ++ optionals (versionOlder version "1.73") platforms.riscv;
-    maintainers = with maintainers; [ hjones2199 ];
+    maintainers = with maintainers; [hjones2199];
 
     broken =
       # boost-context lacks support for the N32 ABI on mips64.  The build
@@ -296,7 +296,7 @@ stdenv.mkDerivation {
     ++ lib.optional enableNumpy python.pkgs.numpy;
 
   configureScript = "./bootstrap.sh";
-  configurePlatforms = [ ];
+  configurePlatforms = [];
   dontDisableStatic = true;
   dontAddStaticConfigureFlags = true;
   configureFlags =
@@ -306,7 +306,7 @@ stdenv.mkDerivation {
       "--with-bjam=b2" # prevent bootstrapping b2 in configurePhase
     ]
     ++ lib.optional (toolset != null) "--with-toolset=${toolset}"
-    ++ [ (if enableIcu then "--with-icu=${icu.dev}" else "--without-icu") ];
+    ++ [(if enableIcu then "--with-icu=${icu.dev}" else "--without-icu")];
 
   buildPhase = ''
     runHook preBuild

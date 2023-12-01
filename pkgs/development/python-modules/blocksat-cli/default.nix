@@ -31,7 +31,7 @@ buildPythonPackage rec {
     zfec
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # disable tests which require being connected to the satellite
@@ -43,12 +43,12 @@ buildPythonPackage rec {
     "blocksatcli/api/test_order.py"
   ];
 
-  pythonImportsCheck = [ "blocksatcli" ];
+  pythonImportsCheck = ["blocksatcli"];
 
   meta = with lib; {
     description = "Blockstream Satellite CLI";
     homepage = "https://github.com/Blockstream/satellite";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

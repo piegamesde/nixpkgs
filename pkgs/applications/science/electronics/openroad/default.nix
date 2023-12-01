@@ -100,9 +100,9 @@ mkDerivation rec {
   ];
 
   # Resynthesis needs access to the Yosys binaries.
-  qtWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ yosys ]}" ];
+  qtWrapperArgs = ["--prefix PATH : ${lib.makeBinPath [yosys]}"];
 
-  checkInputs = [ gtest ];
+  checkInputs = [gtest];
 
   # Upstream uses vendored package versions for some dependencies, so regression testing is prudent
   # to see if there are any breaking changes in unstable that should be vendored as well.
@@ -121,7 +121,7 @@ mkDerivation rec {
     description = "OpenROAD's unified application implementing an RTL-to-GDS flow";
     homepage = "https://theopenroadproject.org";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ trepetti ];
+    maintainers = with maintainers; [trepetti];
     platforms = platforms.linux;
   };
 }

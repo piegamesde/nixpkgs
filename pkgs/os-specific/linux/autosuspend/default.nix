@@ -55,7 +55,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "A daemon to automatically suspend and wake up a system";
     homepage = "https://autosuspend.readthedocs.io";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.bzizou ];
+    maintainers = [maintainers.bzizou];
     platforms = platforms.linux;
   };
 }

@@ -1,10 +1,10 @@
-{ pkgs }:
+{pkgs}:
 
 with pkgs;
 with pkgs.javaPackages;
 
 let
-  fetchMaven = pkgs.callPackage ./m2install.nix { };
+  fetchMaven = pkgs.callPackage ./m2install.nix {};
 in
 {
   inherit fetchMaven;

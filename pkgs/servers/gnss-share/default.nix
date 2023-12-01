@@ -25,6 +25,6 @@ buildGoModule rec {
       sockets.
     '';
     license = licenses.gpl3;
-    maintainers = with maintainers; [ balsoft ];
+    maintainers = with maintainers; [balsoft];
   };
 }

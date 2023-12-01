@@ -34,7 +34,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-mr07woy6QXRz8iM4Yzl1Wv5+jlG7ws/fDAnuHjNiUPc=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   doCheck = false;
 
@@ -43,7 +43,7 @@ buildGoModule rec {
     "-w"
     "-buildid="
   ];
-  subPackages = [ "main" ];
+  subPackages = ["main"];
 
   installPhase = ''
     runHook preInstall
@@ -63,13 +63,13 @@ buildGoModule rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "A platform for building proxies to bypass network restrictions. A replacement for v2ray-core, with XTLS support and fully compatible configuration";
     homepage = "https://github.com/XTLS/Xray-core";
-    license = with lib.licenses; [ mpl20 ];
-    maintainers = with lib.maintainers; [ iopq ];
+    license = with lib.licenses; [mpl20];
+    maintainers = with lib.maintainers; [iopq];
   };
 }

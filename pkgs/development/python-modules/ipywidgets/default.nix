@@ -32,12 +32,12 @@ buildPythonPackage rec {
     widgetsnbextension
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "IPython HTML widgets for Jupyter";
     homepage = "https://ipython.org/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ fridh ];
+    maintainers = with lib.maintainers; [fridh];
   };
 }

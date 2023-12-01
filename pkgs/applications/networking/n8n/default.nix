@@ -13,9 +13,9 @@ let
   };
 in
 nodePackages.n8n.override {
-  nativeBuildInputs = [ pkgs.nodePackages.node-pre-gyp ];
+  nativeBuildInputs = [pkgs.nodePackages.node-pre-gyp];
 
-  buildInputs = [ pkgs.postgresql ];
+  buildInputs = [pkgs.postgresql];
 
   # Oracle's official package on npm is binary only (WHY?!) and doesn't provide binaries for aarch64.
   # This can supposedly be fixed by building a custom copy of the module from source, but that's way

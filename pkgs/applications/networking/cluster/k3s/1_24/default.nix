@@ -120,7 +120,7 @@ let
     version = k3sCNIVersion;
     vendorSha256 = null;
 
-    subPackages = [ "." ];
+    subPackages = ["."];
 
     src = fetchFromGitHub {
       owner = "rancher";
@@ -173,13 +173,13 @@ let
     src = k3sRepo;
     vendorSha256 = k3sVendorSha256;
 
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
     buildInputs = [
       libseccomp
       sqlite.dev
     ];
 
-    subPackages = [ "cmd/server" ];
+    subPackages = ["cmd/server"];
     ldflags = versionldflags;
 
     tags = [
@@ -218,7 +218,7 @@ let
       sha256 = containerdSha256;
     };
     vendorSha256 = null;
-    buildInputs = [ btrfs-progs ];
+    buildInputs = [btrfs-progs];
     subPackages = [
       "cmd/containerd"
       "cmd/containerd-shim-runc-v2"

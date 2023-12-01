@@ -36,7 +36,7 @@ let
     openal
     SDL2
   ];
-  mkdirp = makeSetupHook { name = "openra-mkdirp-hook"; } ./mkdirp.sh;
+  mkdirp = makeSetupHook {name = "openra-mkdirp-hook";} ./mkdirp.sh;
 in
 {
   patchEngine = dir: version: ''
@@ -80,7 +80,7 @@ in
         StyleCopMSBuild
         StyleCopPlusMSBuild
       ]
-      ++ [ libGL ];
+      ++ [libGL];
 
     # TODO: Test if this is correct.
     nativeBuildInputs = [
@@ -94,7 +94,7 @@ in
       python3
     ];
 
-    makeFlags = [ "prefix=$(out)" ];
+    makeFlags = ["prefix=$(out)"];
 
     doCheck = true;
 

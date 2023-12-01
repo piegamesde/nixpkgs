@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage rec {
       })
     ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [darwin.Security];
 
   cargoLock = {
     lockFile = ./Cargo.lock;
@@ -40,8 +40,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Generate documentation for Nix functions";
     homepage = "https://github.com/tazjin/nixdoc";
-    license = [ licenses.gpl3 ];
-    maintainers = [ maintainers.tazjin ];
+    license = [licenses.gpl3];
+    maintainers = [maintainers.tazjin];
     platforms = platforms.unix;
   };
 }

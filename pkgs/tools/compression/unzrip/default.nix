@@ -19,14 +19,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-9CjKSdd+E2frI8VvdOawYQ3u+KF22xw9kBpnAufRUG0=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ zstd ];
+  buildInputs = [zstd];
 
   meta = with lib; {
     description = "Unzip implementation, support for parallel decompression, automatic detection encoding";
     homepage = "https://github.com/quininer/unzrip";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

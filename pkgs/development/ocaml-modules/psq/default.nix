@@ -19,15 +19,15 @@ buildDunePackage rec {
     hash = "sha256-QgBfUz6r50sXme4yuJBWVM1moivtSvK9Jmso2EYs00Q=";
   };
 
-  propagatedBuildInputs = [ seq ];
+  propagatedBuildInputs = [seq];
 
   doCheck = lib.versionAtLeast ocaml.version "4.08";
-  checkInputs = [ qcheck-alcotest ];
+  checkInputs = [qcheck-alcotest];
 
   meta = {
     description = "Functional Priority Search Queues for OCaml";
     homepage = "https://github.com/pqwy/psq";
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     license = lib.licenses.isc;
   };
 }

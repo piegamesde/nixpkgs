@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     url = "http://static.jonof.id.au/dl/kenutils/pngout-${version}-${download.extension}";
   };
 
-  nativeBuildInputs = lib.optionals stdenv.isDarwin [ unzip ];
+  nativeBuildInputs = lib.optionals stdenv.isDarwin [unzip];
 
   # pngout is code-signed on Darwin, so don’t alter the binary to avoid breaking the signature.
   dontFixup = stdenv.isDarwin;
@@ -67,10 +67,10 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A tool that aggressively optimizes the sizes of PNG images";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfreeRedistributable;
     homepage = "http://advsys.net/ken/utils.htm";
     platforms = lib.attrNames platforms;
-    maintainers = [ lib.maintainers.sander ];
+    maintainers = [lib.maintainers.sander];
   };
 }

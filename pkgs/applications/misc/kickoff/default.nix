@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     libxkbcommon
   ];
 
-  buildInputs = [ fontconfig ];
+  buildInputs = [fontconfig];
   nativeBuildInputs = [
     makeWrapper
     pkg-config
@@ -41,7 +41,7 @@ rustPlatform.buildRustPackage rec {
     description = "Minimalistic program launcher";
     homepage = "https://github.com/j0ru/kickoff";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ pyxels ];
+    maintainers = with maintainers; [pyxels];
     platforms = platforms.linux;
   };
 }

@@ -25,14 +25,14 @@ stdenv.mkDerivation rec {
         --replace 'g++' '$(CXX)'
   '';
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "High performance block-sorting data compression library";
     homepage = "http://libbsc.com/";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     # Later commits changed the licence to Apache2 (no release yet, though)
-    license = with licenses; [ lgpl3Plus ];
+    license = with licenses; [lgpl3Plus];
     platforms = platforms.unix;
   };
 }

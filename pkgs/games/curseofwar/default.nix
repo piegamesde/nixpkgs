@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     SDL
   ];
 
-  makeFlags = (lib.optionals (SDL != null) [ "SDL=yes" ]) ++ [
+  makeFlags = (lib.optionals (SDL != null) ["SDL=yes"]) ++ [
     "PREFIX=$(out)"
     # force platform's cc on darwin, otherwise gcc is used
     "CC=${stdenv.cc.targetPrefix}cc"
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     description = "A fast-paced action strategy game";
     homepage = "https://a-nikolaev.github.io/curseofwar/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
   };
 }

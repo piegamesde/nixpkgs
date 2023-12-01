@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "1k6b1hn8lc4rj9n036imsl7s9lqj6ny3acdhnbnamsdkkndmxrw7";
   };
 
-  buildInputs = [ dpkg ];
+  buildInputs = [dpkg];
 
   unpackCmd = ''
     dpkg-deb -x "$src" source
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     homepage = "https://salsa.debian.org/debian/molly-guard";
     license = licenses.artistic2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ DerTim1 ];
+    maintainers = with maintainers; [DerTim1];
     priority = -10;
   };
 }

@@ -25,17 +25,17 @@ buildPythonPackage rec {
       --replace "--benchmark-autosave --benchmark-json=benchmark.json" ""
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dacite" ];
+  pythonImportsCheck = ["dacite"];
 
-  disabledTestPaths = [ "tests/performance" ];
+  disabledTestPaths = ["tests/performance"];
 
   meta = with lib; {
     description = "Python helper to create data classes from dictionaries";
     homepage = "https://github.com/konradhalas/dacite";
     changelog = "https://github.com/konradhalas/dacite/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

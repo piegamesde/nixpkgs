@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  buildInputs = [ perlPackages.perl ];
+  buildInputs = [perlPackages.perl];
   propagatedBuildInputs = with perlPackages; [
     Error
     MailDKIM
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "SMTP-proxy that signs and/or verifies emails";
     homepage = "https://dkimproxy.sourceforge.net/";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.ekleog ];
+    maintainers = [maintainers.ekleog];
     platforms = platforms.all;
   };
 }

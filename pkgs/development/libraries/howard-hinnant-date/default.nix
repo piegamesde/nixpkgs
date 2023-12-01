@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       --replace '@PACKAGE_VERSION@' '${version}'
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     "-DBUILD_TZ_LIB=true"
@@ -70,6 +70,6 @@ stdenv.mkDerivation rec {
     description = "A date and time library based on the C++11/14/17 <chrono> header";
     homepage = "https://github.com/HowardHinnant/date";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
   };
 }

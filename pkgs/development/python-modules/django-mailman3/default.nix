@@ -35,7 +35,7 @@ buildPythonPackage rec {
     PYTHONPATH=.:$PYTHONPATH django-admin.py test --settings=django_mailman3.tests.settings_test
   '';
 
-  pythonImportsCheck = [ "django_mailman3" ];
+  pythonImportsCheck = ["django_mailman3"];
 
   meta = with lib; {
     description = "Django library for Mailman UIs";

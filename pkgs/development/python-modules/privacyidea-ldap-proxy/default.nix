@@ -34,12 +34,12 @@ buildPythonPackage rec {
     configobj
   ];
 
-  pythonImportsCheck = [ "pi_ldapproxy" ];
+  pythonImportsCheck = ["pi_ldapproxy"];
 
   meta = with lib; {
     description = "LDAP Proxy to intercept LDAP binds and authenticate against privacyIDEA";
     homepage = "https://github.com/privacyidea/privacyidea-ldap-proxy";
     license = licenses.agpl3Only;
-    maintainers = [ maintainers.globin ];
+    maintainers = [maintainers.globin];
   };
 }

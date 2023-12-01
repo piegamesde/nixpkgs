@@ -39,7 +39,7 @@ buildPythonPackage rec {
     hash = "sha256-P0pIjd/YS155dSDpY/ekMp8HnJcM35waV7aoTQiEWHo=";
   };
 
-  patches = [ ./fix-paths.patch ];
+  patches = [./fix-paths.patch];
   postPatch = ''
     substituteInPlace onlinejudge/service/library_checker.py \
       --subst-var-by git               ${git} \
@@ -68,6 +68,6 @@ buildPythonPackage rec {
     description = "API client to develop tools for competitive programming";
     homepage = "https://github.com/online-judge-tools/api-client";
     license = licenses.mit;
-    maintainers = with maintainers; [ sei40kr ];
+    maintainers = with maintainers; [sei40kr];
   };
 }

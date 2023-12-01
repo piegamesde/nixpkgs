@@ -32,7 +32,7 @@ buildGoModule rec {
     description = "CLI for interacting with Upbound Cloud, Upbound Enterprise, and Universal Crossplane (UXP)";
     homepage = "https://upbound.io";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lucperkins ];
+    maintainers = with maintainers; [lucperkins];
     mainProgram = "up";
   };
 }

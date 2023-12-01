@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-TQOj3DYmzFT4ClZ/sBAOs5XJWRgGTaVQjH+8JotSb1A=";
   };
 
-  nativeBuildInputs = [ which ];
+  nativeBuildInputs = [which];
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     description = "A functional Scheme for world domination";
     homepage = "https://gitlab.com/owl-lisp/owl";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.unix;
   };
 }

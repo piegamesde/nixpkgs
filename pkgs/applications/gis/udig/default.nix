@@ -27,12 +27,12 @@ let
   meta = with lib; {
     description = "User-friendly Desktop Internet GIS";
     homepage = "http://udig.refractions.net/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = with licenses; [
       epl10
       bsd3
     ];
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = builtins.attrNames srcs;
   };
 
@@ -91,7 +91,7 @@ let
       mkdir -p $out/Applications/udig
       cp -R . $out/Applications/udig
       wrapProgram $out/Applications/udig/udig.app/Contents/MacOS/udig_internal \
-        --prefix DYLD_LIBRARY_PATH : ${lib.makeLibraryPath ([ gdal ])}
+        --prefix DYLD_LIBRARY_PATH : ${lib.makeLibraryPath ([gdal])}
     '';
   };
 in

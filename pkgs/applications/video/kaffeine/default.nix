@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     description = "KDE media player";
     homepage = "https://apps.kde.org/kaffeine/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.pasqui23 ];
+    maintainers = [maintainers.pasqui23];
     platforms = platforms.all;
   };
 }

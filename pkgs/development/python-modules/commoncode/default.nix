@@ -37,7 +37,7 @@ buildPythonPackage rec {
 
   dontConfigure = true;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     attrs
@@ -47,7 +47,7 @@ buildPythonPackage rec {
     requests
     saneyaml
     text-unidecode
-  ] ++ lib.optionals (pythonOlder "3.7") [ typing ];
+  ] ++ lib.optionals (pythonOlder "3.7") [typing];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -78,12 +78,12 @@ buildPythonPackage rec {
         "src/commoncode/fetch.py"
       ];
 
-  pythonImportsCheck = [ "commoncode" ];
+  pythonImportsCheck = ["commoncode"];
 
   meta = with lib; {
     description = "A set of common utilities, originally split from ScanCode";
     homepage = "https://github.com/nexB/commoncode";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

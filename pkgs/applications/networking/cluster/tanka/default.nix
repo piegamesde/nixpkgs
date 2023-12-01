@@ -20,7 +20,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/tk" ];
+  subPackages = ["cmd/tk"];
 
   ldflags = [
     "-s"
@@ -29,7 +29,7 @@ buildGoModule rec {
     "-X github.com/grafana/tanka/pkg/tanka.CurrentVersion=v${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     echo "complete -C $out/bin/tk tk" > tk.bash
@@ -40,7 +40,7 @@ buildGoModule rec {
     description = "Flexible, reusable and concise configuration for Kubernetes";
     homepage = "https://tanka.dev";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mikefaille ];
+    maintainers = with maintainers; [mikefaille];
     mainProgram = "tk";
     platforms = platforms.unix;
   };

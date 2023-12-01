@@ -54,6 +54,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "A generator for YARA rules";
     homepage = "https://github.com/Neo23x0/yarGen";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

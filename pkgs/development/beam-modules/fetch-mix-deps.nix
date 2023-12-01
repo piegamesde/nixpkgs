@@ -16,10 +16,10 @@
   src,
   mixEnv ? "prod",
   debug ? false,
-  meta ? { },
-  patches ? [ ],
+  meta ? {},
+  patches ? [],
   elixir ? inputs.elixir,
-  hex ? inputs.hex.override { inherit elixir; },
+  hex ? inputs.hex.override {inherit elixir;},
   ...
 }@attrs:
 

@@ -13,7 +13,7 @@ let
         url = "https://github.com/ful1e5/apple_cursor/releases/download/v${version}/${variant}.${suffix}";
         hash = hash;
       }
-      // (if suffix == "zip" then { stripRoot = false; } else { })
+      // (if suffix == "zip" then {stripRoot = false;} else {})
     );
 
   version = "2.0.0";
@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ful1e5/apple_cursor";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ colemickens ];
+    maintainers = with maintainers; [colemickens];
   };
 }

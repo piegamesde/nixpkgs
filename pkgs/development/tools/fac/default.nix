@@ -21,7 +21,7 @@ buildGoPackage rec {
 
   goDeps = ./deps.nix;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/fac \
@@ -35,6 +35,6 @@ buildGoPackage rec {
     description = "CUI for fixing git conflicts";
     inherit (src.meta) homepage;
     license = licenses.mit;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
   };
 }

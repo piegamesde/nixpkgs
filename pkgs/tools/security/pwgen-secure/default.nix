@@ -30,7 +30,7 @@ buildPythonApplication rec {
       --replace "os.path.join(path, 'words.txt')" "os.path.join('$shareDir', 'words.txt')"
   '';
 
-  propagatedBuildInputs = with python3Packages; [ docopt ];
+  propagatedBuildInputs = with python3Packages; [docopt];
 
   postInstall = ''
     install -Dm555 spwgen.py $out/bin/spwgen
@@ -44,7 +44,7 @@ buildPythonApplication rec {
     description = "Secure password generation library to replace pwgen";
     homepage = "https://github.com/mjmunger/pwgen_secure/";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     mainProgram = "spwgen";
   };
 }

@@ -19,7 +19,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace "nc" "${lib.getExe netcat-openbsd}"
   '';
 
-  nativeBuildInputs = with python3.pkgs; [ pythonRelaxDepsHook ];
+  nativeBuildInputs = with python3.pkgs; [pythonRelaxDepsHook];
 
   pythonRelaxDeps = [
     "pyyaml"
@@ -39,15 +39,15 @@ python3.pkgs.buildPythonApplication rec {
   # Tests require access to a X session
   doCheck = false;
 
-  pythonImportsCheck = [ "flashfocus" ];
+  pythonImportsCheck = ["flashfocus"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://github.com/fennerm/flashfocus";
     description = "Simple focus animations for tiling window managers";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
   };
 }

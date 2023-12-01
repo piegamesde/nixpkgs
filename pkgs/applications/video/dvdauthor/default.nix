@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     flex
     bison
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   patches = [
     ./dvdauthor-0.7.1-automake-1.13.patch

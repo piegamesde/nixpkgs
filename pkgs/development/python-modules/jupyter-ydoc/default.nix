@@ -27,9 +27,9 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  propagatedBuildInputs = [ y-py ];
+  propagatedBuildInputs = [y-py];
 
-  pythonImportsCheck = [ "jupyter_ydoc" ];
+  pythonImportsCheck = ["jupyter_ydoc"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -45,6 +45,6 @@ buildPythonPackage rec {
     description = "Document structures for collaborative editing using Ypy";
     homepage = "https://github.com/jupyter-server/jupyter_ydoc";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

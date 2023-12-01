@@ -30,7 +30,7 @@ let
       .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
   };
 
-  appimageContents = appimageTools.extractType2 { inherit name src; };
+  appimageContents = appimageTools.extractType2 {inherit name src;};
 in
 
 appimageTools.wrapType2 rec {
@@ -60,7 +60,7 @@ appimageTools.wrapType2 rec {
     homepage = "https://suite.trezor.io";
     changelog = "https://github.com/trezor/trezor-suite/releases/tag/v${version}";
     license = licenses.unfree;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
     platforms = [
       "aarch64-linux"
       "x86_64-linux"

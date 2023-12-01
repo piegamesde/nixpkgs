@@ -22,7 +22,7 @@ buildGoModule rec {
 
   proxyVendor = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   ldflags = [
     "-s"
@@ -40,7 +40,7 @@ buildGoModule rec {
     homepage = "https://github.com/muesli/deckmaster";
     changelog = "https://github.com/muesli/deckmaster/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ ianmjones ];
+    maintainers = with maintainers; [ianmjones];
     platforms = platforms.linux;
   };
 }

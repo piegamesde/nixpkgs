@@ -42,7 +42,7 @@ pythonPackages.buildPythonApplication rec {
     wrapGAppsHook
   ];
 
-  propagatedNativeBuildInputs = [ gobject-introspection ];
+  propagatedNativeBuildInputs = [gobject-introspection];
 
   propagatedBuildInputs =
     [
@@ -73,6 +73,6 @@ pythonPackages.buildPythonApplication rec {
     description = "Pandora Internet Radio player for GNOME";
     homepage = "https://pithos.github.io/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ obadz ];
+    maintainers = with maintainers; [obadz];
   };
 }

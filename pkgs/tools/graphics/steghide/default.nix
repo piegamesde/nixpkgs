@@ -21,7 +21,7 @@ stdenv.mkDerivation (
       hash = "sha256-uUXEipIUfu9AbG7Ekz+25JkWSEGzqA7sJHZqezLzUto=";
     };
 
-    nativeBuildInputs = [ autoreconfHook ];
+    nativeBuildInputs = [autoreconfHook];
 
     buildInputs = [
       libjpeg
@@ -38,7 +38,7 @@ stdenv.mkDerivation (
       homepage = "https://github.com/museoa/steghide";
       description = "Open source steganography program";
       license = licenses.gpl3Plus;
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       platforms = with platforms; unix;
     };
   }

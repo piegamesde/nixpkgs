@@ -75,12 +75,12 @@ buildPythonPackage rec {
     ln -s ${buildsrht-worker}/bin/worker $out/bin/buildsrht-worker
   '';
 
-  pythonImportsCheck = [ "buildsrht" ];
+  pythonImportsCheck = ["buildsrht"];
 
   meta = with lib; {
     homepage = "https://git.sr.ht/~sircmpwn/builds.sr.ht";
     description = "Continuous integration service for the sr.ht network";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ eadwu ];
+    maintainers = with maintainers; [eadwu];
   };
 }

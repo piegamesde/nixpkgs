@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
 
   # This patch makes sure that `docbook2texi --to-stdout' actually
   # writes its output to stdout instead of creating a file.
-  patches = [ ./db2x_texixml-to-stdout.patch ];
+  patches = [./db2x_texixml-to-stdout.patch];
 
   nativeBuildInputs = [
     makeWrapper

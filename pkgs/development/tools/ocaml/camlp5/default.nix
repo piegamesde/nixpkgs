@@ -18,7 +18,7 @@ else
     src = fetchFromGitHub {
       owner = "camlp5";
       repo = "camlp5";
-      rev = "rel${builtins.replaceStrings [ "." ] [ "" ] version}";
+      rev = "rel${builtins.replaceStrings ["."] [""] version}";
       sha256 = "1dd68bisbpqn5lq2pslm582hxglcxnbkgfkwhdz67z4w9d5nvr7w";
     };
 
@@ -36,7 +36,7 @@ else
       patchShebangs ./config/find_stuffversion.pl
     '';
 
-    buildFlags = [ "world.opt" ];
+    buildFlags = ["world.opt"];
 
     dontStrip = true;
 
@@ -48,7 +48,7 @@ else
       '';
       homepage = "https://camlp5.github.io/";
       license = licenses.bsd3;
-      platforms = ocaml.meta.platforms or [ ];
+      platforms = ocaml.meta.platforms or [];
       maintainers = with maintainers; [
         maggesi
         vbgl

@@ -112,7 +112,7 @@ with lib;
             int
           ]
         );
-      default = { };
+      default = {};
       example = literalExpression ''
         {
                 cpu = "host";
@@ -236,7 +236,7 @@ with lib;
                       })
                     ];
 
-                    buildInputs = super.buildInputs ++ [ pkgs.libuuid ];
+                    buildInputs = super.buildInputs ++ [pkgs.libuuid];
                   }
                 );
           in
@@ -258,7 +258,7 @@ with lib;
 
       boot = {
         growPartition = true;
-        kernelParams = [ "console=ttyS0" ];
+        kernelParams = ["console=ttyS0"];
         loader.grub = {
           device = lib.mkDefault (
             if (hasNoFsPartition || supportBios) then

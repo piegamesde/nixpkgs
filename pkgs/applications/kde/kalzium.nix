@@ -17,11 +17,11 @@ mkDerivation {
   meta = with lib; {
     homepage = "https://edu.kde.org/kalzium/";
     description = "Program that shows you the Periodic Table of Elements";
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     qtscript
     #avogadro

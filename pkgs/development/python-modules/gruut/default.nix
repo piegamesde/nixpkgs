@@ -96,7 +96,7 @@ buildPythonPackage rec {
     export LC_ALL=en_US.utf-8
   '';
 
-  pythonImportsCheck = [ "gruut" ];
+  pythonImportsCheck = ["gruut"];
 
   meta = with lib; {
     description = "A tokenizer, text cleaner, and phonemizer for many human languages";

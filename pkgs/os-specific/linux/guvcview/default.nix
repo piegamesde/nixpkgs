@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     intltool
     pkg-config
-  ] ++ lib.optionals (useGtk) [ wrapGAppsHook ] ++ lib.optionals (useQt) [ wrapQtAppsHook ];
+  ] ++ lib.optionals (useGtk) [wrapGAppsHook] ++ lib.optionals (useQt) [wrapQtAppsHook];
 
   buildInputs =
     [
@@ -55,17 +55,17 @@ stdenv.mkDerivation rec {
       libpng
       sfml
     ]
-    ++ lib.optionals (pulseaudioSupport) [ libpulseaudio ]
-    ++ lib.optionals (useGtk) [ gtk3 ]
-    ++ lib.optionals (useQt) [ qtbase ];
+    ++ lib.optionals (pulseaudioSupport) [libpulseaudio]
+    ++ lib.optionals (useGtk) [gtk3]
+    ++ lib.optionals (useQt) [qtbase];
   configureFlags = [
     "--enable-sfml"
-  ] ++ lib.optionals (useGtk) [ "--enable-gtk3" ] ++ lib.optionals (useQt) [ "--enable-qt5" ];
+  ] ++ lib.optionals (useGtk) ["--enable-gtk3"] ++ lib.optionals (useQt) ["--enable-qt5"];
 
   meta = with lib; {
     description = "A simple interface for devices supported by the linux UVC driver";
     homepage = "https://guvcview.sourceforge.net";
-    maintainers = [ maintainers.coconnor ];
+    maintainers = [maintainers.coconnor];
     license = licenses.gpl3;
     platforms = platforms.linux;
   };

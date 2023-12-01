@@ -21,10 +21,10 @@ stdenv.mkDerivation rec {
     "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
     "M=$(PWD)"
   ];
-  buildFlags = [ "modules" ];
+  buildFlags = ["modules"];
 
-  installFlags = [ "INSTALL_MOD_PATH=${placeholder "out"}" ];
-  installTargets = [ "modules_install" ];
+  installFlags = ["INSTALL_MOD_PATH=${placeholder "out"}"];
+  installTargets = ["modules_install"];
 
   sourceRoot = "source/src";
   hardeningDisable = [
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "The Coral Gasket Driver allows usage of the Coral EdgeTPU on Linux systems.";
     homepage = "https://github.com/google/gasket-driver";
     license = licenses.gpl2;
-    maintainers = [ lib.maintainers.kylehendricks ];
+    maintainers = [lib.maintainers.kylehendricks];
     platforms = platforms.linux;
   };
 }

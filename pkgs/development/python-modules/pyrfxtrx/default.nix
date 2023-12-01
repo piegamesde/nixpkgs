@@ -17,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-sxxGu1ON5fhUCaONYJdsUFHraTh5NAdXzj7Cai9k5yc=";
   };
 
-  propagatedBuildInputs = [ pyserial ];
+  propagatedBuildInputs = [pyserial];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths =
     [
@@ -31,6 +31,6 @@ buildPythonPackage rec {
     description = "Library to communicate with the RFXtrx family of devices";
     homepage = "https://github.com/Danielhiversen/pyRFXtrx";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

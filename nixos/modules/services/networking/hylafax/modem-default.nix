@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{pkgs, ...}:
 
 # see man:hylafax-config(5)
 

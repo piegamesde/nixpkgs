@@ -21,14 +21,14 @@ buildGoPackage rec {
     sha256 = "0ch4zwb6h7hnr5l3skj1daypvpyms2i666lbnmakpw1fw3zvjmgy";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libvirt ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libvirt];
 
   meta = with lib; {
     homepage = "https://github.com/dhiltgen/docker-machine-kvm";
     description = "KVM driver for docker-machine";
     license = licenses.asl20;
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     platforms = platforms.unix;
   };
 }

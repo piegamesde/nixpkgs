@@ -22,7 +22,7 @@ stdenv.mkDerivation {
     fetchSubrepos = true;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     coin3d
     motif
@@ -36,7 +36,7 @@ stdenv.mkDerivation {
     homepage = "https://bitbucket.org/Coin3D/coin/wiki/Home";
     license = licenses.bsd3;
     description = "A GUI binding for using Open Inventor with Xt/Motif";
-    maintainers = with maintainers; [ tmplt ];
+    maintainers = with maintainers; [tmplt];
     platforms = platforms.linux;
   };
 }

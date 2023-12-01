@@ -25,9 +25,9 @@ stdenv.mkDerivation rec {
     ncurses # for tput
     procps # for nvim_get_proc() which uses ps(1)
   ];
-  nativeBuildInputs = [ scdoc ];
+  nativeBuildInputs = [scdoc];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
   buildFlags = [
     "nvimpager.configured"
     "nvimpager.1"
@@ -61,6 +61,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/lucc/nvimpager";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = [ maintainers.lucc ];
+    maintainers = [maintainers.lucc];
   };
 }

@@ -23,14 +23,14 @@ buildPythonPackage rec {
     hash = "sha256-Pi4hV3FatCXoXY3nNgqm5UfWYIrpP/v5PzzCi3gmIbE=";
   };
 
-  nativeBuildInputs = [ cython ];
-  buildInputs = [ zlib ];
+  nativeBuildInputs = [cython];
+  buildInputs = [zlib];
   propagatedBuildInputs = [
     numpy
     six
     python-lzo
   ];
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
   postInstall = ''
     cp -r scripts/* $out/bin
@@ -46,7 +46,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/bxlab/bx-python";
     description = "Tools for manipulating biological data, particularly multiple sequence alignments";
     license = licenses.mit;
-    maintainers = [ maintainers.jbedo ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.jbedo];
+    platforms = ["x86_64-linux"];
   };
 }

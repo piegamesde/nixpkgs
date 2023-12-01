@@ -29,15 +29,15 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pegen" ];
+  pythonImportsCheck = ["pegen"];
 
   meta = with lib; {
     description = "Library to generate PEG parsers";
     homepage = "https://github.com/we-like-parsers/pegen";
     changelog = "https://github.com/we-like-parsers/pegen/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

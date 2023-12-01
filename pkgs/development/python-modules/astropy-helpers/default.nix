@@ -22,6 +22,6 @@ buildPythonPackage rec {
     description = "Utilities for building and installing Astropy, Astropy affiliated packages, and their respective documentation";
     homepage = "https://github.com/astropy/astropy-helpers";
     license = licenses.bsd3;
-    maintainers = [ maintainers.smaret ];
+    maintainers = [maintainers.smaret];
   };
 }

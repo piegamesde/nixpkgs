@@ -38,12 +38,12 @@ buildPythonPackage rec {
   # The test suite is computationally intensive and test failures are not
   # indicative for package usability hence tests are disabled by default.
   doCheck = false;
-  pythonImportsCheck = [ "theano" ];
+  pythonImportsCheck = ["theano"];
 
   meta = {
     description = "PyMC theano fork";
     homepage = "https://github.com/majidaldo/Theano-PyMC";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ nidabdella ];
+    maintainers = with lib.maintainers; [nidabdella];
   };
 }

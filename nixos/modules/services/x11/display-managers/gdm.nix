@@ -11,7 +11,7 @@ let
 
   cfg = config.services.xserver.displayManager;
   gdm = pkgs.gnome.gdm;
-  settingsFormat = pkgs.formats.ini { };
+  settingsFormat = pkgs.formats.ini {};
   configFile = settingsFormat.generate "custom.conf" cfg.gdm.settings;
 
   xSessionWrapper =
@@ -42,7 +42,7 @@ let
 
   defaultSessionName = config.services.xserver.displayManager.defaultSession;
 
-  setSessionScript = pkgs.callPackage ./account-service-util.nix { };
+  setSessionScript = pkgs.callPackage ./account-service-util.nix {};
 in
 
 {
@@ -136,7 +136,7 @@ in
 
       settings = mkOption {
         type = settingsFormat.type;
-        default = { };
+        default = {};
         example = {
           debug.enable = true;
         };
@@ -195,7 +195,7 @@ in
     };
 
     systemd.tmpfiles.rules =
-      [ "d /run/gdm/.config 0711 gdm gdm" ]
+      ["d /run/gdm/.config 0711 gdm gdm"]
       ++ optionals config.hardware.pulseaudio.enable [
         "d /run/gdm/.config/pulse 0711 gdm gdm"
         "L+ /run/gdm/.config/pulse/${pulseConfig.name} - - - - ${pulseConfig}"
@@ -213,7 +213,7 @@ in
       gnome-session
       gnome-shell
     ];
-    environment.systemPackages = [ pkgs.gnome.adwaita-icon-theme ];
+    environment.systemPackages = [pkgs.gnome.adwaita-icon-theme];
 
     # We dont use the upstream gdm service
     # it has to be disabled since the gdm package has it
@@ -239,14 +239,14 @@ in
       "getty@tty${gdm.initialVT}.service"
       "plymouth-quit.service"
     ];
-    systemd.services.display-manager.onFailure = [ "plymouth-quit.service" ];
+    systemd.services.display-manager.onFailure = ["plymouth-quit.service"];
 
     # Prevent nixos-rebuild switch from bringing down the graphical
     # session. (If multi-user.target wants plymouth-quit.service which
     # conflicts display-manager.service, then when nixos-rebuild
     # switch starts multi-user.target, display-manager.service is
     # stopped so plymouth-quit.service can be started.)
-    systemd.services.plymouth-quit.wantedBy = lib.mkForce [ ];
+    systemd.services.plymouth-quit.wantedBy = lib.mkForce [];
 
     systemd.services.display-manager.serviceConfig = {
       # Restart = "always"; - already defined in xserver.nix
@@ -259,14 +259,14 @@ in
       EnvironmentFile = "-/etc/locale.conf";
     };
 
-    systemd.services.display-manager.path = [ pkgs.gnome.gnome-session ];
+    systemd.services.display-manager.path = [pkgs.gnome.gnome-session];
 
     # Allow choosing an user account
     services.accounts-daemon.enable = true;
 
-    services.dbus.packages = [ gdm ];
+    services.dbus.packages = [gdm];
 
-    systemd.user.services.dbus.wantedBy = [ "default.target" ];
+    systemd.user.services.dbus.wantedBy = ["default.target"];
 
     programs.dconf.profiles.gdm =
       let
@@ -309,7 +309,7 @@ in
     # presented and there's a little delay.
     services.xserver.displayManager.gdm.settings = {
       daemon = mkMerge [
-        { WaylandEnable = cfg.gdm.wayland; }
+        {WaylandEnable = cfg.gdm.wayland;}
         # nested if else didn't work
         (mkIf (cfg.autoLogin.enable && cfg.gdm.autoLogin.delay != 0) {
           TimedLoginEnable = true;
@@ -321,7 +321,7 @@ in
           AutomaticLogin = cfg.autoLogin.user;
         })
       ];
-      debug = mkIf cfg.gdm.debug { Enable = true; };
+      debug = mkIf cfg.gdm.debug {Enable = true;};
     };
 
     environment.etc."gdm/custom.conf".source = configFile;

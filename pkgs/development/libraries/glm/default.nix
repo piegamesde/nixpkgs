@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=102823
   env.NIX_CFLAGS_COMPILE =
@@ -84,6 +84,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/g-truc/glm";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ smancill ];
+    maintainers = with maintainers; [smancill];
   };
 }

@@ -49,10 +49,10 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.tests = {
-    simple-proto2 = callPackage ./test-simple-proto2 { };
-    simple-proto3 = callPackage ./test-simple-proto3 { };
-    message-with-annotations = callPackage ./test-message-with-annotations { };
-    message-with-options = callPackage ./test-message-with-options { };
+    simple-proto2 = callPackage ./test-simple-proto2 {};
+    simple-proto3 = callPackage ./test-simple-proto3 {};
+    message-with-annotations = callPackage ./test-message-with-annotations {};
+    message-with-options = callPackage ./test-message-with-options {};
   };
 
   meta = with lib; {
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     description = "Protocol Buffers with small code size";
     homepage = "https://jpa.kapsi.fi/nanopb/";
     license = licenses.zlib;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
 
     longDescription = ''
       Nanopb is a small code-size Protocol Buffers implementation in ansi C. It

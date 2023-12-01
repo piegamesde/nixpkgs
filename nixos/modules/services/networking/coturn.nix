@@ -100,7 +100,7 @@ in
       };
       listening-ips = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "203.0.113.42"
           "2001:DB8::42"
@@ -113,7 +113,7 @@ in
       };
       relay-ips = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "203.0.113.42"
           "2001:DB8::42"
@@ -337,7 +337,7 @@ in
         };
         users.groups.turnserver = {
           gid = config.ids.gids.turnserver;
-          members = [ "turnserver" ];
+          members = ["turnserver"];
         };
 
         systemd.services.coturn =
@@ -346,9 +346,9 @@ in
           in
           {
             description = "coturn TURN server";
-            after = [ "network-online.target" ];
-            wants = [ "network-online.target" ];
-            wantedBy = [ "multi-user.target" ];
+            after = ["network-online.target"];
+            wants = ["network-online.target"];
+            wantedBy = ["multi-user.target"];
 
             unitConfig = {
               Documentation = "man:coturn(1) man:turnadmin(1) man:turnserver(1)";
@@ -383,7 +383,7 @@ in
               Restart = "on-abort";
             };
           };
-        systemd.tmpfiles.rules = [ "d  /run/coturn 0700 turnserver turnserver - -" ];
+        systemd.tmpfiles.rules = ["d  /run/coturn 0700 turnserver turnserver - -"];
       }
     ])
   );

@@ -16,7 +16,7 @@ let
     ;
   cfg = config.services.metricbeat;
 
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
 in
 {
   options = {
@@ -48,10 +48,10 @@ in
 
           See <https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-modules.html>.
         '';
-        default = { };
+        default = {};
         type = types.attrsOf (
           types.submodule (
-            { name, ... }:
+            {name, ...}:
             {
               freeformType = settingsFormat.type;
               options = {
@@ -83,12 +83,12 @@ in
             ];
             enabled = true;
             period = "10s";
-            processes = [ ".*" ];
+            processes = [".*"];
             cpu.metrics = [
               "percentages"
               "normalized_percentages"
             ];
-            core.metrics = [ "percentages" ];
+            core.metrics = ["percentages"];
           };
         };
       };
@@ -109,7 +109,7 @@ in
 
             tags = mkOption {
               type = types.listOf types.str;
-              default = [ ];
+              default = [];
               description = lib.mdDoc ''
                 Tags to place on the shipped metrics.
                 See <https://www.elastic.co/guide/en/beats/metricbeat/current/configuration-general-options.html#_tags_2>.
@@ -118,7 +118,7 @@ in
 
             metricbeat.modules = mkOption {
               type = types.listOf settingsFormat.type;
-              default = [ ];
+              default = [];
               internal = true;
               description = lib.mdDoc ''
                 The metric collecting modules. Use [](#opt-services.metricbeat.modules) instead.
@@ -128,7 +128,7 @@ in
             };
           };
         };
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Configuration for metricbeat. See <https://www.elastic.co/guide/en/beats/metricbeat/current/configuring-howto-metricbeat.html> for supported values.
         '';
@@ -141,7 +141,7 @@ in
     assertions = [
       {
         # empty modules would cause a failure at runtime
-        assertion = cfg.settings.metricbeat.modules != [ ];
+        assertion = cfg.settings.metricbeat.modules != [];
         message = "services.metricbeat: You must configure one or more modules.";
       }
     ];
@@ -150,7 +150,7 @@ in
 
     systemd.services.metricbeat = {
       description = "metricbeat metrics shipper";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = ''
           ${cfg.package}/bin/metricbeat \

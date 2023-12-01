@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "environment";
-    meta = with pkgs.lib.maintainers; { maintainers = [ nequissimus ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [nequissimus];};
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         boot.kernelPackages = pkgs.linuxPackages;
         environment.etc.plainFile.text = ''

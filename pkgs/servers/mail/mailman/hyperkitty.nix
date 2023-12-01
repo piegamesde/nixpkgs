@@ -23,7 +23,7 @@ buildPythonPackage rec {
     (fetchpatch {
       url = "https://gitlab.com/mailman/hyperkitty/-/commit/551a44a76e46931fc5c1bcb341235d8f579820be.patch";
       sha256 = "sha256-5XCrvyrDEqH3JryPMoOXSlVVDLQ+PdYBqwGYxkExdvk=";
-      includes = [ "hyperkitty/*" ];
+      includes = ["hyperkitty/*"];
     })
 
     # Fix for Python >=3.9.13

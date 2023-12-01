@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   };
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   nativeBuildInputs =
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     description = "Code Intelligence for Vala & Genie";
     homepage = "https://github.com/vala-lang/vala-language-server";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ andreasfelix ];
+    maintainers = with maintainers; [andreasfelix];
     platforms = platforms.unix;
   };
 }

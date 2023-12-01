@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "sympa";
-    meta.maintainers = with lib.maintainers; [ mmilata ];
+    meta.maintainers = with lib.maintainers; [mmilata];
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
 
         services.sympa = {
@@ -15,7 +15,7 @@ import ./make-test-python.nix (
               webHost = "localhost";
             };
           };
-          listMasters = [ "bob@example.org" ];
+          listMasters = ["bob@example.org"];
           web.enable = true;
           web.https = false;
           database = {

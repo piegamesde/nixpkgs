@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     sha256 = metadata.sha256;
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -66,9 +66,9 @@ stdenv.mkDerivation rec {
       in Java-SWT. It can open GuitarPro, PowerTab and TablEdit files.
     '';
     homepage = "http://www.tuxguitar.com.ar/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.lgpl2;
-    maintainers = [ maintainers.ardumont ];
+    maintainers = [maintainers.ardumont];
     platforms = platforms.linux;
   };
 }

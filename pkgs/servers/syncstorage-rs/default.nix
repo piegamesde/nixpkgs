@@ -47,7 +47,7 @@ rustPlatform.buildRustPackage rec {
 
   preFixup = ''
     wrapProgram $out/bin/syncserver \
-      --prefix PATH : ${lib.makeBinPath [ pyFxADeps ]}
+      --prefix PATH : ${lib.makeBinPath [pyFxADeps]}
   '';
 
   cargoLock = {
@@ -57,7 +57,7 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  buildFeatures = [ "grpcio/openssl" ];
+  buildFeatures = ["grpcio/openssl"];
 
   # almost all tests need a DB to test against
   doCheck = false;
@@ -67,7 +67,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/mozilla-services/syncstorage-rs";
     changelog = "https://github.com/mozilla-services/syncstorage-rs/releases/tag/${version}";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ pennae ];
+    maintainers = with lib.maintainers; [pennae];
     platforms = lib.platforms.linux;
   };
 }

@@ -21,10 +21,10 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonNamespaces = [ "azure" ];
+  pythonNamespaces = ["azure"];
   # has no tests
   doCheck = false;
-  pythonImportsCheck = [ "azure.servicemanagement" ];
+  pythonImportsCheck = ["azure.servicemanagement"];
 
   meta = with lib; {
     description = "This is the Microsoft Azure Service Management Legacy Client Library";

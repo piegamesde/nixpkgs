@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-b4O48MQT3Neh8a1Z5wRgS701w6XrwpsbSMprlqTT+CE=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = with ocamlPackages; [
     ocaml
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     description = "Compiler for the Heptagon/BZR synchronous programming language";
     homepage = "https://gitlab.inria.fr/synchrone/heptagon";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     mainProgram = "heptc";
   };
 }

@@ -27,7 +27,7 @@ buildDunePackage {
   inherit (conduit-lwt) version src;
   duneVersion = "3";
 
-  nativeBuildInputs = [ ppx_sexp_conv ];
+  nativeBuildInputs = [ppx_sexp_conv];
 
   propagatedBuildInputs = [
     sexplib

@@ -140,7 +140,7 @@ stdenv.mkDerivation rec {
       gstreamer # for gst-tester-1.0
       gobject-introspection
     ]
-    ++ lib.optionals enableDocumentation [ hotdoc ]
+    ++ lib.optionals enableDocumentation [hotdoc]
     ++ lib.optionals stdenv.isLinux [
       wayland # for wayland-scanner
     ];
@@ -201,15 +201,15 @@ stdenv.mkDerivation rec {
       libfreeaptx
       zxing-cpp
     ]
-    ++ lib.optionals enableZbar [ zbar ]
-    ++ lib.optionals faacSupport [ faac ]
+    ++ lib.optionals enableZbar [zbar]
+    ++ lib.optionals faacSupport [faac]
     ++ lib.optionals enableGplPlugins [
       libmpeg2
       mjpegtools
       faad2
       x265
     ]
-    ++ lib.optionals bluezSupport [ bluez ]
+    ++ lib.optionals bluezSupport [bluez]
     ++ lib.optionals stdenv.isLinux [
       libva # vaapi requires libva -> libdrm -> libpciaccess, which is Linux-only in nixpkgs
       wayland
@@ -323,7 +323,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (!stdenv.isLinux || !stdenv.isx86_64) [
       "-Dqsv=disabled" # Linux (and Windows) x86 only
     ]
-    ++ lib.optionals (!gst-plugins-base.glEnabled) [ "-Dgl=disabled" ]
+    ++ lib.optionals (!gst-plugins-base.glEnabled) ["-Dgl=disabled"]
     ++ lib.optionals (!gst-plugins-base.waylandEnabled) [
       "-Dgtk3=disabled" # Wayland-based GTK sink
       "-Dwayland=disabled"
@@ -337,7 +337,7 @@ stdenv.mkDerivation rec {
         ]
     ++ (
       if enableGplPlugins then
-        [ "-Dgpl=enabled" ]
+        ["-Dgpl=enabled"]
       else
         [
           "-Ddts=disabled"
@@ -360,7 +360,7 @@ stdenv.mkDerivation rec {
 
   # This package has some `_("string literal")` string formats
   # that trip up clang with format security enabled.
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   doCheck = false; # fails 20 out of 58 tests, expensive
 
@@ -375,6 +375,6 @@ stdenv.mkDerivation rec {
     '';
     license = if enableGplPlugins then licenses.gpl2Plus else licenses.lgpl2Plus;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
   };
 }

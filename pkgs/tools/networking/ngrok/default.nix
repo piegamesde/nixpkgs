@@ -32,7 +32,7 @@ stdenv.mkDerivation {
   inherit version;
 
   # run ./update
-  src = fetchurl { inherit sha256 url; };
+  src = fetchurl {inherit sha256 url;};
 
   sourceRoot = ".";
 
@@ -52,7 +52,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Allows you to expose a web server running on your local machine to the internet";
     homepage = "https://ngrok.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     platforms = [
       "i686-linux"

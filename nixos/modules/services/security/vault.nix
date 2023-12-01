@@ -43,7 +43,7 @@ let
     ${cfg.extraConfig}
   '';
 
-  allConfigPaths = [ configFile ] ++ cfg.extraSettingsPaths;
+  allConfigPaths = [configFile] ++ cfg.extraSettingsPaths;
   configOptions = escapeShellArgs (
     lib.optional cfg.dev "-dev"
     ++ lib.optional (cfg.dev && cfg.devRootTokenID != null) "-dev-root-token-id=${cfg.devRootTokenID}"
@@ -173,7 +173,7 @@ in
 
       extraSettingsPaths = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Configuration files to load besides the immutable one defined by the NixOS module.
           This can be used to avoid putting credentials in the Nix store, which can be read by any user.
@@ -234,7 +234,7 @@ in
     systemd.services.vault = {
       description = "Vault server daemon";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network.target"
       ] ++ optional (config.services.consul.enable && cfg.storageBackend == "consul") "consul.service";

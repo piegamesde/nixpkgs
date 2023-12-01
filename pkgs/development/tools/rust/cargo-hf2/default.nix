@@ -19,14 +19,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-zBxvpQfB9xw8+Rc1H1EaK/gQZtQ+uSs4YJwhm2o0vhI=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ libusb1 ] ++ lib.optionals stdenv.isDarwin [ AppKit ];
+  buildInputs = [libusb1] ++ lib.optionals stdenv.isDarwin [AppKit];
 
   meta = with lib; {
     description = "Cargo Subcommand for Microsoft HID Flashing Library for UF2 Bootloaders ";
     homepage = "https://lib.rs/crates/cargo-hf2";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ astrobeastie ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [astrobeastie];
   };
 }

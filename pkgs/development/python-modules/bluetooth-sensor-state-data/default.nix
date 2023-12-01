@@ -23,26 +23,26 @@ buildPythonPackage rec {
     hash = "sha256-3qZlk6zV/AeFG4OSRONQ7EMw9Kk/yHjVHV2o64bxCGM=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     home-assistant-bluetooth
     sensor-state-data
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace " --cov=bluetooth_sensor_state_data --cov-report=term-missing:skip-covered" ""
   '';
 
-  pythonImportsCheck = [ "bluetooth_sensor_state_data" ];
+  pythonImportsCheck = ["bluetooth_sensor_state_data"];
 
   meta = with lib; {
     description = "Models for storing and converting Bluetooth Sensor State Data";
     homepage = "https://github.com/bluetooth-devices/bluetooth-sensor-state-data";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

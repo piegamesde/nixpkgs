@@ -23,21 +23,21 @@ buildPythonPackage rec {
     hash = "sha256-yYptO6NPhQRlF0T2eXliw2WBms9uqTZVzdYzGj9pCug=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     pytz
     typing-extensions
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dirty_equals" ];
+  pythonImportsCheck = ["dirty_equals"];
 
   meta = with lib; {
     description = "Module for doing dirty (but extremely useful) things with equals";
     homepage = "https://github.com/samuelcolvin/dirty-equals";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

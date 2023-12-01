@@ -28,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-K10zrQOM/khVcf+OT4s5UCY8zE2+nWtaAkRLy9/feU0=";
   };
 
-  propagatedBuildInputs = [ urllib3 ];
+  propagatedBuildInputs = [urllib3];
 
   passthru.optional-dependencies = {
     "zope.testbrowser" = [
@@ -46,7 +46,7 @@ buildPythonPackage rec {
       lxml
       cssselect
     ];
-    selenium = [ selenium ];
+    selenium = [selenium];
   };
 
   nativeCheckInputs = [
@@ -78,12 +78,12 @@ buildPythonPackage rec {
     "tests/test_webdriver_remote.py"
   ];
 
-  pythonImportsCheck = [ "splinter" ];
+  pythonImportsCheck = ["splinter"];
 
   meta = with lib; {
     description = "Browser abstraction for web acceptance testing";
     homepage = "https://github.com/cobrateam/splinter";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

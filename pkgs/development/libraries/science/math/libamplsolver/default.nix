@@ -45,8 +45,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A library of routines that help solvers work with AMPL";
     homepage = "https://ampl.com/netlib/ampl/";
-    license = [ licenses.mit ];
+    license = [licenses.mit];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ aanderse ];
+    maintainers = with maintainers; [aanderse];
   };
 }

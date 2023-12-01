@@ -48,11 +48,11 @@ stdenv.mkDerivation rec {
       scripts/{pon,poff,plog}
   '';
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   NIX_LDFLAGS = "-lcrypt";
 
-  installFlags = [ "sysconfdir=$(out)/etc" ];
+  installFlags = ["sysconfdir=$(out)/etc"];
 
   preInstall = ''
     mkdir -p $out/bin
@@ -79,6 +79,6 @@ stdenv.mkDerivation rec {
       lgpl2
     ];
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

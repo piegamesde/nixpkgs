@@ -85,7 +85,7 @@ let
     endif
   '';
 
-  common = callPackage ./common.nix { };
+  common = callPackage ./common.nix {};
 in
 stdenv.mkDerivation rec {
 
@@ -103,7 +103,7 @@ stdenv.mkDerivation rec {
     default = common.src; # latest release
   };
 
-  patches = [ ./cflags-prune.diff ] ++ lib.optional ftNixSupport ./ft-nix-support.patch;
+  patches = [./cflags-prune.diff] ++ lib.optional ftNixSupport ./ft-nix-support.patch;
 
   configureFlags =
     [
@@ -143,7 +143,7 @@ stdenv.mkDerivation rec {
       "--with-lua-prefix=${lua}"
       "--enable-luainterp"
     ]
-    ++ lib.optionals lua.pkgs.isLuaJIT [ "--with-luajit" ]
+    ++ lib.optionals lua.pkgs.isLuaJIT ["--with-luajit"]
     ++ lib.optionals pythonSupport [
       "--enable-python3interp=yes"
       "--with-python3-config-dir=${python3}/lib"
@@ -160,7 +160,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional ximSupport "--enable-xim";
 
   nativeBuildInputs =
-    [ pkg-config ]
+    [pkg-config]
     ++ lib.optional wrapPythonDrv makeWrapper
     ++ lib.optional nlsSupport gettext
     ++ lib.optional perlSupport perl

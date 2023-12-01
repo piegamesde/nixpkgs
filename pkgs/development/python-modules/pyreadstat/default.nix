@@ -26,16 +26,16 @@ buildPythonPackage rec {
     hash = "sha256-7DpmWIRzhB32YZCDpR+rEIAzn5OuZqt7wvS0GnxnT/g=";
   };
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
-  buildInputs = [ zlib ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs = [zlib] ++ lib.optionals stdenv.isDarwin [libiconv];
 
   propagatedBuildInputs = [
     readstat
     pandas
   ];
 
-  pythonImportsCheck = [ "pyreadstat" ];
+  pythonImportsCheck = ["pyreadstat"];
 
   preCheck = ''
     export HOME=$(mktemp -d);
@@ -54,6 +54,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Roche/pyreadstat";
     changelog = "https://github.com/Roche/pyreadstat/blob/v${version}/change_log.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ swflint ];
+    maintainers = with maintainers; [swflint];
   };
 }

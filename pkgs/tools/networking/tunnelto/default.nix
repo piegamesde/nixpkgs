@@ -27,14 +27,14 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ pkg-config ];
+  nativeBuildInputs = lib.optionals stdenv.isLinux [pkg-config];
   buildInputs =
-    [ ] ++ lib.optionals stdenv.isLinux [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
+    [] ++ lib.optionals stdenv.isLinux [openssl] ++ lib.optionals stdenv.isDarwin [Security];
 
   meta = with lib; {
     description = "Expose your local web server to the internet with a public URL";
     homepage = "https://tunnelto.dev";
     license = licenses.mit;
-    maintainers = with maintainers; [ Br1ght0ne ];
+    maintainers = with maintainers; [Br1ght0ne];
   };
 }

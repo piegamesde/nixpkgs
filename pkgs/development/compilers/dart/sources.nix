@@ -1,7 +1,7 @@
 let
   version = "2.19.6";
 in
-{ fetchurl }:
+{fetchurl}:
 {
   versionUsed = version;
   "${version}-x86_64-darwin" = fetchurl {

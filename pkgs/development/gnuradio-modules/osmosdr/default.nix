@@ -71,8 +71,8 @@ mkDerivation {
       rtl-sdr
       soapysdr-with-plugins
     ]
-    ++ lib.optionals (gnuradio.hasFeature "gr-blocks") [ libsndfile ]
-    ++ lib.optionals (gnuradio.hasFeature "gr-uhd") [ uhd ]
+    ++ lib.optionals (gnuradio.hasFeature "gr-blocks") [libsndfile]
+    ++ lib.optionals (gnuradio.hasFeature "gr-uhd") [uhd]
     ++ lib.optionals (gnuradio.hasFeature "gr-ctrlport") [
       thrift
       python.pkgs.thrift
@@ -103,7 +103,7 @@ mkDerivation {
     description = "Gnuradio block for OsmoSDR and rtl-sdr";
     homepage = "https://sdr.osmocom.org/trac/wiki/GrOsmoSDR";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
     platforms = platforms.unix;
   };
 }

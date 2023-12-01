@@ -90,15 +90,15 @@ in
           gid = config.ids.gids.ircd;
         };
 
-        systemd.tmpfiles.rules = [ "d ${cfg.statedir} - ${cfg.user} ${cfg.group} - -" ];
+        systemd.tmpfiles.rules = ["d ${cfg.statedir} - ${cfg.user} ${cfg.group} - -"];
 
         environment.etc."charybdis/ircd.conf".source = configFile;
 
         systemd.services.charybdis = {
           description = "Charybdis IRC daemon";
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
           reloadIfChanged = true;
-          restartTriggers = [ configFile ];
+          restartTriggers = [configFile];
           environment = {
             BANDB_DBPATH = "${cfg.statedir}/ban.db";
           };
@@ -111,7 +111,7 @@ in
         };
       }
 
-      (mkIf (cfg.motd != null) { environment.etc."charybdis/ircd.motd".text = cfg.motd; })
+      (mkIf (cfg.motd != null) {environment.etc."charybdis/ircd.motd".text = cfg.motd;})
     ]
   );
 }

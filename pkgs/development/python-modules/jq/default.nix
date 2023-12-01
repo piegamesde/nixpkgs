@@ -24,22 +24,22 @@ buildPythonPackage rec {
       ./jq-py-setup.patch
     ];
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
-  buildInputs = [ jq ];
+  buildInputs = [jq];
 
   preBuild = ''
     cython jq.pyx
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "jq" ];
+  pythonImportsCheck = ["jq"];
 
   meta = {
     description = "Python bindings for jq, the flexible JSON processor";
     homepage = "https://github.com/mwilliamson/jq.py";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ benley ];
+    maintainers = with lib.maintainers; [benley];
   };
 }

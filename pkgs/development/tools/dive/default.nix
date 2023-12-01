@@ -30,7 +30,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-YPkEei7d7mXP+5FhooNoMDARQLosH2fdSaLXGZ5C27o=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = lib.optionals stdenv.isLinux [
     btrfs-progs

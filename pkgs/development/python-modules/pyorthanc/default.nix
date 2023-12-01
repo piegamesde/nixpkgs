@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-RZJ7BuQRJ+yaHFv9iq4uFvMtH8NvGvmpjmgmyvw9rGk=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     httpx
@@ -32,13 +32,13 @@ buildPythonPackage rec {
 
   doCheck = false; # requires orthanc server (not in Nixpkgs)
 
-  pythonImportsCheck = [ "pyorthanc" ];
+  pythonImportsCheck = ["pyorthanc"];
 
   meta = with lib; {
     description = "Python library that wraps the Orthanc REST API";
     homepage = "https://github.com/gacou54/pyorthanc";
     changelog = "https://github.com/gacou54/pyorthanc/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

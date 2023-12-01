@@ -25,11 +25,11 @@ stdenv.mkDerivation rec {
     autoconf
     automake
   ];
-  buildInputs = [ libtool ];
-  propagatedBuildInputs = [ gmpxx ];
+  buildInputs = [libtool];
+  propagatedBuildInputs = [gmpxx];
 
   configureFlags =
-    [ "--disable-optimization" ]
+    ["--disable-optimization"]
     ++ lib.optionals stdenv.isx86_64 [
       # disable SIMD instructions (which are enabled *when available* by default)
       "--${if stdenv.hostPlatform.sse3Support then "enable" else "disable"}-sse3"
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "A C++ library for arithmetic and algebraic computations";
     license = lib.licenses.cecill-b;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.unix;
   };
 }

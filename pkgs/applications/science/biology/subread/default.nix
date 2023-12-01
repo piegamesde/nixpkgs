@@ -14,14 +14,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-frZzd+IV4IxfPK44PWOgV9yPRPoUB3smPbxoDchbaSc=";
   };
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   configurePhase = ''
     cd src
     cp Makefile.${if stdenv.isLinux then "Linux" else "MacOS"} Makefile
   '';
 
-  makeFlags = [ "CC_EXEC=cc" ];
+  makeFlags = ["CC_EXEC=cc"];
 
   installPhase = ''
     mkdir $out
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     broken = stdenv.isDarwin;
     description = "High-performance read alignment, quantification and mutation discovery";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ jbedo ];
+    maintainers = with maintainers; [jbedo];
     platforms = [
       "x86_64-darwin"
       "x86_64-linux"

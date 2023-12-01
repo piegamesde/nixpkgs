@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-UwuGexsWbLm8onUPHRXlGHMYtdlI77gdWJmvPXVhRQQ=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs =
     [
@@ -57,9 +57,9 @@ stdenv.mkDerivation rec {
     glib.out
     brotli
     libnghttp2
-  ] ++ lib.optionals stdenv.isLinux [ libsysprof-capture ];
+  ] ++ lib.optionals stdenv.isLinux [libsysprof-capture];
 
-  propagatedBuildInputs = [ glib ];
+  propagatedBuildInputs = [glib];
 
   mesonFlags = [
     "-Dtls_check=false" # glib-networking is a runtime dependency, not a compile-time dependency
@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    propagatedUserEnvPackages = [ glib-networking.out ];
+    propagatedUserEnvPackages = [glib-networking.out];
     updateScript = gnome.updateScript {
       attrPath = "libsoup_3";
       packageName = pname;

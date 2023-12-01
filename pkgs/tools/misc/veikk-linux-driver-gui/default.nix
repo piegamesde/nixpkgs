@@ -17,7 +17,7 @@ mkDerivation rec {
     sha256 = "02g1q79kwjlzg95w38a1d7nxvcry8xcsvhax2js4c7xqvzhkki5j";
   };
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
   postBuild = ''
     make all clean
@@ -33,6 +33,6 @@ mkDerivation rec {
     homepage = "https://github.com/jlam55555/veikk-linux-driver-gui/";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ nicbk ];
+    maintainers = with maintainers; [nicbk];
   };
 }

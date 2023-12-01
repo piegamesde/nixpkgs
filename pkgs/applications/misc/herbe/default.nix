@@ -5,8 +5,8 @@
   libX11,
   libXft,
   freetype,
-  patches ? [ ],
-  extraLibs ? [ ],
+  patches ? [],
+  extraLibs ? [],
 }:
 
 stdenv.mkDerivation rec {
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     freetype
   ] ++ extraLibs;
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Daemon-less notifications without D-Bus";
@@ -40,6 +40,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     # NOTE: Could also work on 'unix'.
     platforms = platforms.linux;
-    maintainers = with maintainers; [ wishfort36 ];
+    maintainers = with maintainers; [wishfort36];
   };
 }

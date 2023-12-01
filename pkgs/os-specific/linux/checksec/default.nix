@@ -23,9 +23,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-BWtchWXukIDSLJkFX8M/NZBvfi7vUE2j4yFfS0KEZDo=";
   };
 
-  patches = [ ./0001-attempt-to-modprobe-config-before-checking-kernel.patch ];
+  patches = [./0001-attempt-to-modprobe-config-before-checking-kernel.patch];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase =
     let

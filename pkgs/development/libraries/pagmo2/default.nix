@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "0rd8scs4hj6qd8ylmn5hafncml2vr4fvcgm3agz3jrvmnc7hadrj";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     eigen
     nlopt
@@ -55,6 +55,6 @@ stdenv.mkDerivation rec {
     description = "Scientific library for massively parallel optimization";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

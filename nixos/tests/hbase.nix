@@ -8,11 +8,11 @@ import ./make-test-python.nix (
   {
     name = "hbase-standalone";
 
-    meta = with lib.maintainers; { maintainers = [ illustris ]; };
+    meta = with lib.maintainers; {maintainers = [illustris];};
 
     nodes = {
       hbase =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           services.hbase-standalone = {
             enable = true;
@@ -21,7 +21,7 @@ import ./make-test-python.nix (
             # This setting and standalone mode are not suitable for production
             settings."hbase.unsafe.stream.capability.enforce" = "false";
           };
-          environment.systemPackages = with pkgs; [ package ];
+          environment.systemPackages = with pkgs; [package];
         };
     };
 

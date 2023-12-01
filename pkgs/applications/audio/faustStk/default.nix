@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     homepage = "https://ccrma.stanford.edu/~rmichon/faustSTK/";
     license = licenses.stk;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ magnetophon ];
+    maintainers = with maintainers; [magnetophon];
   };
 }

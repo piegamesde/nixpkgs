@@ -62,6 +62,6 @@ stdenv.mkDerivation {
     description = "A Qt GUI to visualize profiling data";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ periklis ];
+    maintainers = with maintainers; [periklis];
   };
 }

@@ -39,14 +39,14 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     numpy
     packaging
-  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  ] ++ lib.optionals (pythonOlder "3.9") [importlib-resources];
 
   passthru.optional-dependencies = rec {
     all = dicom ++ dicomfs ++ minc2 ++ spm ++ zstd;
-    dicom = [ pydicom ];
-    dicomfs = [ pillow ] ++ dicom;
-    minc2 = [ h5py ];
-    spm = [ scipy ];
+    dicom = [pydicom];
+    dicomfs = [pillow] ++ dicom;
+    minc2 = [h5py];
+    spm = [scipy];
     zstd =
       [
         # TODO: pyzstd
@@ -75,6 +75,6 @@ buildPythonPackage rec {
     homepage = "https://nipy.org/nibabel";
     description = "Access a multitude of neuroimaging data formats";
     license = licenses.mit;
-    maintainers = with maintainers; [ ashgillman ];
+    maintainers = with maintainers; [ashgillman];
   };
 }

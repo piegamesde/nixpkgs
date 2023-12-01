@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     vispy
@@ -40,6 +40,6 @@ buildPythonPackage rec {
     description = "A plugin for writing svg files from napari";
     homepage = "https://github.com/napari/napari-svg";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ SomeoneSerge ];
+    maintainers = with maintainers; [SomeoneSerge];
   };
 }

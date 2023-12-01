@@ -28,6 +28,6 @@ buildDunePackage rec {
     description = "An easy interface on top of the Jsonm library";
     homepage = "https://github.com/mirage/ezjsonm";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ vbgl ];
+    maintainers = with lib.maintainers; [vbgl];
   };
 }

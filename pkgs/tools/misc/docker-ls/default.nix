@@ -27,7 +27,7 @@ buildGoModule rec {
     '';
 
     homepage = "https://github.com/mayflower/docker-ls";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = docker.meta.platforms;
     license = licenses.mit;
   };

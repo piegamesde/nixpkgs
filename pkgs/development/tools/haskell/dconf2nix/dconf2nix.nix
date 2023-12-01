@@ -30,7 +30,7 @@ mkDerivation {
     parsec
     text
   ];
-  executableHaskellDepends = [ base ];
+  executableHaskellDepends = [base];
   testHaskellDepends = [
     base
     containers

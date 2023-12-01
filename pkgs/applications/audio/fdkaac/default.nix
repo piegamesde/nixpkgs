@@ -18,9 +18,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-GYvI9T5Bv2OcK0hMAQE7/tE6ajDyqkaak66b3Hc0Fls=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  buildInputs = [ fdk_aac ];
+  buildInputs = [fdk_aac];
 
   doCheck = true;
 
@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/nu774/fdkaac";
     license = licenses.zlib;
     platforms = platforms.all;
-    maintainers = [ maintainers.lunik1 ];
+    maintainers = [maintainers.lunik1];
   };
 }

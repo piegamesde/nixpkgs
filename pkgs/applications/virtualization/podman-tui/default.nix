@@ -34,7 +34,7 @@ buildGoModule rec {
 
   preCheck =
     let
-      skippedTests = [ "TestDialogs" ];
+      skippedTests = ["TestDialogs"];
     in
     ''
       export USER=$(whoami)
@@ -54,6 +54,6 @@ buildGoModule rec {
     homepage = "https://github.com/containers/podman-tui";
     description = "Podman Terminal UI";
     license = licenses.asl20;
-    maintainers = with maintainers; [ aaronjheng ];
+    maintainers = with maintainers; [aaronjheng];
   };
 }

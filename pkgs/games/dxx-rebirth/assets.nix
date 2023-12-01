@@ -30,7 +30,7 @@ let
         '';
       };
 
-      nativeBuildInputs = [ gogUnpackHook ];
+      nativeBuildInputs = [gogUnpackHook];
 
       dontBuild = true;
       dontFixup = true;
@@ -52,8 +52,8 @@ let
         description = "Descent ${toString ver} assets from GOG";
         homepage = "https://www.dxx-rebirth.com/";
         license = licenses.unfree;
-        maintainers = with maintainers; [ peterhoeg ];
-        hydraPlatforms = [ ];
+        maintainers = with maintainers; [peterhoeg];
+        hydraPlatforms = [];
       };
     };
 in

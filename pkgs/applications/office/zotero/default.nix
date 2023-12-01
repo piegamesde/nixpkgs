@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Btrzv9trUFjCrQ+OEc7MUOzq7x3XW7jtgUJMitmPK0A=";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook ];
+  nativeBuildInputs = [wrapGAppsHook];
   buildInputs = [
     gsettings-desktop-schemas
     glib
@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
       pango
     ]
     + ":"
-    + lib.makeSearchPathOutput "lib" "lib64" [ stdenv.cc.cc ];
+    + lib.makeSearchPathOutput "lib" "lib64" [stdenv.cc.cc];
 
   postPatch = ''
     sed -i '/pref("app.update.enabled", true);/c\pref("app.update.enabled", false);' defaults/preferences/prefs.js
@@ -156,16 +156,16 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : ${lib.makeBinPath [ coreutils ]}
+      --prefix PATH : ${lib.makeBinPath [coreutils]}
     )
   '';
 
   meta = with lib; {
     homepage = "https://www.zotero.org";
     description = "Collect, organize, cite, and share your research sources";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.agpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ i077 ];
+    maintainers = with maintainers; [i077];
   };
 }

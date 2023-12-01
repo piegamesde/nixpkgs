@@ -25,9 +25,9 @@ buildPythonPackage {
     hash = "sha256-rCSVKFIkfPg2aYFwuYVLMxMO8S11dV8f4eckpFbNB3k=";
   };
 
-  propagatedBuildInputs = [ pyyaml ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  propagatedBuildInputs = [pyyaml] ++ lib.optionals (pythonOlder "3.9") [importlib-resources];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     changelog = "https://github.com/home-assistant/hassil/releases/tag/v${version}";

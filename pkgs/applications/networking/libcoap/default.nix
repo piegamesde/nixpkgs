@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
     description = "A CoAP (RFC 7252) implementation in C";
     platforms = platforms.unix;
     license = licenses.bsd2;
-    maintainers = [ maintainers.kmein ];
+    maintainers = [maintainers.kmein];
   };
 }

@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ sdcc ];
+  nativeBuildInputs = [sdcc];
 
   meta = with lib; {
     description = "Firmware for FX2 logic analyzers";
@@ -29,8 +29,8 @@ stdenv.mkDerivation rec {
       lgpl21Plus # fx2lib, Hantek 6022BE, Sainsmart DDS120 firmwares
     ];
 
-    sourceProvenance = with sourceTypes; [ fromSource ];
+    sourceProvenance = with sourceTypes; [fromSource];
     platforms = platforms.all;
-    maintainers = with maintainers; [ panicgh ];
+    maintainers = with maintainers; [panicgh];
   };
 }

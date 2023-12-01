@@ -35,7 +35,7 @@ buildPythonApplication rec {
     hash = "sha256-aByzVPQADTNz5rVzmkNH/zk4u+RkWPcfk0sQhR3K2cQ=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     cachecontrol
@@ -53,7 +53,7 @@ buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pip_audit" ];
+  pythonImportsCheck = ["pip_audit"];
 
   preCheck = ''
     export HOME=$(mktemp -d);
@@ -78,7 +78,7 @@ buildPythonApplication rec {
     description = "Tool for scanning Python environments for known vulnerabilities";
     homepage = "https://github.com/trailofbits/pip-audit";
     changelog = "https://github.com/pypa/pip-audit/releases/tag/v${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

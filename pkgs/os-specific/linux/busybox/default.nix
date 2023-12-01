@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
   hardeningDisable = [
     "format"
     "pie"
-  ] ++ lib.optionals enableStatic [ "fortify" ];
+  ] ++ lib.optionals enableStatic ["fortify"];
 
   patches = [
     ./busybox-in-store.patch
@@ -146,7 +146,7 @@ stdenv.mkDerivation rec {
     makeFlagsArray+=("CC=${stdenv.cc.targetPrefix}cc -isystem ${musl.dev}/include -B${musl}/lib -L${musl}/lib")
   '';
 
-  makeFlags = [ "SKIP_STRIP=y" ];
+  makeFlags = ["SKIP_STRIP=y"];
 
   postInstall = ''
     sed -e '
@@ -159,7 +159,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   buildInputs = lib.optionals (enableStatic && !useMusl && stdenv.cc.libc ? static) [
     stdenv.cc.libc

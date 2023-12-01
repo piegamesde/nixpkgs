@@ -108,14 +108,14 @@ in
 
       extraArguments = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "Additional command line arguments to pass to Pixiecore";
       };
     };
   };
 
   config = mkIf cfg.enable {
-    users.groups.pixiecore = { };
+    users.groups.pixiecore = {};
     users.users.pixiecore = {
       description = "Pixiecore daemon user";
       group = "pixiecore";
@@ -136,13 +136,13 @@ in
 
     systemd.services.pixiecore = {
       description = "Pixiecore server";
-      after = [ "network.target" ];
-      wants = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wants = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         User = "pixiecore";
         Restart = "always";
-        AmbientCapabilities = [ "cap_net_bind_service" ] ++ optional cfg.dhcpNoBind "cap_net_raw";
+        AmbientCapabilities = ["cap_net_bind_service"] ++ optional cfg.dhcpNoBind "cap_net_raw";
         ExecStart =
           let
             argString =

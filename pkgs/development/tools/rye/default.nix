@@ -21,14 +21,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-eyJ6gXFVnSC1aEt5YLl5rFoa3+M73smu5wJdAN15HQM=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin SystemConfiguration;
+  buildInputs = [openssl] ++ lib.optional stdenv.isDarwin SystemConfiguration;
 
   meta = with lib; {
     description = "A tool to easily manage python dependencies and environments";
     homepage = "https://github.com/mitsuhiko/rye";
     license = licenses.mit;
-    maintainers = with maintainers; [ GaetanLepage ];
+    maintainers = with maintainers; [GaetanLepage];
   };
 }

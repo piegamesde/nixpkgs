@@ -11,7 +11,7 @@
 }:
 
 let
-  perlenv = perl.withPackages (p: with p; [ TextCharWidth ]);
+  perlenv = perl.withPackages (p: with p; [TextCharWidth]);
 in
 stdenv.mkDerivation rec {
   pname = "unscii";
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   preConfigure = ''
     patchShebangs .
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
     # Basically GPL2+ with font exception — because of the Unifont-augmented
     # version. The reduced version is public domain.
     license = "http://unifoundry.com/LICENSE.txt";
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     homepage = "http://pelulamu.net/unscii/";
   };
 }

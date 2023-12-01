@@ -43,6 +43,6 @@ buildDunePackage rec {
     description = "Polynomials over BLS12-381 finite field";
     license = lib.licenses.mit;
     homepage = "https://gitlab.com/nomadic-labs/privacy-team";
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

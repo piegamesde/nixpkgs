@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     SDL_mixer
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   passthru.updateScript = directoryListingUpdater {
     inherit pname version;

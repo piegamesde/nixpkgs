@@ -56,10 +56,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Jk/rzPJq1FWWTe31Fa2Ah+MoWP5mh6XNSmiYIY42vvk=";
   };
 
-  nativeBuildInputs = [ which ];
+  nativeBuildInputs = [which];
 
   buildInputs =
-    [ pcre2.dev ]
+    [pcre2.dev]
     ++ optionals withPython3 [
       python3
       ncurses
@@ -109,6 +109,6 @@ stdenv.mkDerivation rec {
     homepage = "https://unit.nginx.org/";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ izorkin ];
+    maintainers = with maintainers; [izorkin];
   };
 }

@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "af20120fefd2afede8b001fbef2ea9da70ad7d49fafdb6489025dae8745c3aee";
   };
 
-  buildInputs = [ d2to1 ];
+  buildInputs = [d2to1];
 
   meta = with lib; {
     description = "Converts and manipulates common color representation (RGB, HSV, web, ...)";

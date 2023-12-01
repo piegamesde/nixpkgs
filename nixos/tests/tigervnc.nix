@@ -1,32 +1,32 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 makeTest {
   name = "tigervnc";
-  meta = with pkgs.lib.maintainers; { maintainers = [ lheckemann ]; };
+  meta = with pkgs.lib.maintainers; {maintainers = [lheckemann];};
 
   nodes = {
     server =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         environment.systemPackages = with pkgs; [
           tigervnc # for Xvnc
           xorg.xwininfo
           imagemagickBig # for display with working label: support
         ];
-        networking.firewall.allowedTCPPorts = [ 5901 ];
+        networking.firewall.allowedTCPPorts = [5901];
       };
 
     client =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        imports = [ ./common/x11.nix ];
+        imports = [./common/x11.nix];
         # for vncviewer
-        environment.systemPackages = [ pkgs.tigervnc ];
+        environment.systemPackages = [pkgs.tigervnc];
       };
   };
 

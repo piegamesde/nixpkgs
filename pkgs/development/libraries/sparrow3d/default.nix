@@ -35,7 +35,7 @@ stdenv.mkDerivation (
         inherit (finalAttrs) version;
         inherit (finalAttrs.meta) description;
 
-        cflags = [ "-isystem${variables.includedir}" ];
+        cflags = ["-isystem${variables.includedir}"];
         libs = [
           "-L${variables.libdir}"
           "-lsparrow3d"
@@ -68,7 +68,7 @@ stdenv.mkDerivation (
       NIX_CFLAGS_COMPILE=$(pkg-config --cflags SDL_image SDL_ttf SDL_mixer SDL_net)
     '';
 
-    buildFlags = [ "dynamic" ];
+    buildFlags = ["dynamic"];
 
     installPhase = ''
       runHook preInstall
@@ -97,7 +97,7 @@ stdenv.mkDerivation (
       homepage = "https://github.com/theZiz/sparrow3d";
       description = "A software renderer for different open handhelds like the gp2x, wiz, caanoo and pandora";
       license = lib.licenses.lgpl21;
-      maintainers = with lib.maintainers; [ colinsane ];
+      maintainers = with lib.maintainers; [colinsane];
       platforms = lib.platforms.linux;
     };
   }

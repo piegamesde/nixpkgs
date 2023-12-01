@@ -16,7 +16,7 @@ stdenvNoCC.mkDerivation rec {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   installPhase = ''
     runHook preInstall
@@ -33,7 +33,7 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "Creative Commons symbol font";
     homepage = "https://www.ctrl.blog/entry/creative-commons-unicode-fallback-font.html";
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     license = licenses.publicDomain;
     platforms = platforms.all;
   };

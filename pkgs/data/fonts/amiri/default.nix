@@ -28,7 +28,7 @@ stdenvNoCC.mkDerivation rec {
     description = "A classical Arabic typeface in Naskh style";
     homepage = "https://www.amirifont.org/";
     license = licenses.ofl;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
     platforms = platforms.all;
   };
 }

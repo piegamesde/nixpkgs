@@ -8,7 +8,7 @@ buildGoModule rec {
   pname = "gopkgs";
   version = "2.1.2";
 
-  subPackages = [ "cmd/gopkgs" ];
+  subPackages = ["cmd/gopkgs"];
 
   src = fetchFromGitHub {
     rev = "v${version}";
@@ -24,7 +24,7 @@ buildGoModule rec {
   meta = {
     description = "Tool to get list available Go packages";
     homepage = "https://github.com/uudashr/gopkgs";
-    maintainers = with lib.maintainers; [ vdemeester ];
+    maintainers = with lib.maintainers; [vdemeester];
     license = lib.licenses.mit;
   };
 }

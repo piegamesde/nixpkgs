@@ -77,6 +77,6 @@ mkDerivation rec {
       gpl3Plus
       lgpl3Plus
     ];
-    maintainers = with maintainers; [ samueldr ];
+    maintainers = with maintainers; [samueldr];
   };
 }

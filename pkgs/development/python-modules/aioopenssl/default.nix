@@ -19,16 +19,16 @@ buildPythonPackage rec {
     hash = "sha256-7Q+4/DlP+kUnC3YNk7woJaxLEEiuVmolUOajepM003Q=";
   };
 
-  propagatedBuildInputs = [ pyopenssl ];
+  propagatedBuildInputs = [pyopenssl];
 
-  pythonImportsCheck = [ "aioopenssl" ];
+  pythonImportsCheck = ["aioopenssl"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "TLS-capable transport using OpenSSL for asyncio";
     homepage = "https://github.com/horazont/aioopenssl";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

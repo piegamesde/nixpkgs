@@ -6,7 +6,7 @@ with import ../../lib;
 let
   trace = if builtins.getEnv "VERBOSE" == "1" then builtins.trace else (x: y: y);
 
-  rel = removeAttrs (import ../../pkgs/top-level/release.nix { }) [
+  rel = removeAttrs (import ../../pkgs/top-level/release.nix {}) [
     "tarball"
     "unstable"
     "xbursttools"
@@ -19,11 +19,11 @@ let
     if (builtins.tryEval attrs).success then
       if isDerivation attrs then
         if (builtins.tryEval attrs.drvPath).success then
-          { inherit (attrs) name drvPath; }
+          {inherit (attrs) name drvPath;}
         else
-          { failed = true; }
+          {failed = true;}
       else if attrs == null then
-        { }
+        {}
       else
         {
           recurseForDerivations = true;
@@ -33,12 +33,12 @@ let
             (
               n: v:
               let
-                path' = path ++ [ n ];
+                path' = path ++ [n];
               in
               trace path' (recurse path' v)
             )
             attrs
     else
-      { };
+      {};
 in
-recurse [ ] rel
+recurse [] rel

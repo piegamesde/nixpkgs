@@ -32,7 +32,7 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    daphne = [ daphne ];
+    daphne = [daphne];
   };
 
   nativeCheckInputs = [
@@ -42,12 +42,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ passthru.optional-dependencies.daphne;
 
-  pythonImportsCheck = [ "channels" ];
+  pythonImportsCheck = ["channels"];
 
   meta = with lib; {
     description = "Brings event-driven capabilities to Django with a channel system";
     homepage = "https://github.com/django/channels";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

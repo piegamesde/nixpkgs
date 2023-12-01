@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Ping command implementation in Go but with colorful output and pingu ascii art";
     homepage = "https://github.com/sheepla/pingu/";
     license = licenses.mit;
-    maintainers = with maintainers; [ CactiChameleon9 ];
+    maintainers = with maintainers; [CactiChameleon9];
   };
 }

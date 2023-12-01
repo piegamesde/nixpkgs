@@ -102,7 +102,7 @@ buildPythonPackage rec {
       })
     ];
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs =
     [
@@ -120,7 +120,7 @@ buildPythonPackage rec {
       toolz
       typing-extensions
     ]
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
+    ++ lib.optionals (pythonOlder "3.9") [importlib-resources]
     ++ pooch.optional-dependencies.progress
     ++ pooch.optional-dependencies.xxhash;
 
@@ -171,7 +171,7 @@ buildPythonPackage rec {
     rm -r "$IBIS_TEST_DATA_DIRECTORY"
   '';
 
-  pythonImportsCheck = [ "ibis" ] ++ map (backend: "ibis.backends.${backend}") testBackends;
+  pythonImportsCheck = ["ibis"] ++ map (backend: "ibis.backends.${backend}") testBackends;
 
   passthru = {
     optional-dependencies = {
@@ -192,7 +192,7 @@ buildPythonPackage rec {
         pyarrow
         regex
       ];
-      datafusion = [ datafusion ];
+      datafusion = [datafusion];
       druid = [
         pydruid
         sqlalchemy
@@ -215,7 +215,7 @@ buildPythonPackage rec {
         pymysql
         sqlalchemy-views
       ];
-      pandas = [ regex ];
+      pandas = [regex];
       polars = [
         polars
         pyarrow
@@ -246,8 +246,8 @@ buildPythonPackage rec {
         sqlalchemy
         sqlalchemy-views
       ];
-      visualization = [ graphviz-nox ];
-      decompiler = [ black ];
+      visualization = [graphviz-nox];
+      decompiler = [black];
     };
   };
 

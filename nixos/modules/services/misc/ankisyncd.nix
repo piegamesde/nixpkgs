@@ -19,7 +19,7 @@ let
   sessionDbPath = "${stateDir}/session.db";
 
   configFile = pkgs.writeText "ankisyncd.conf" (
-    lib.generators.toINI { } {
+    lib.generators.toINI {} {
       sync_app = {
         host = cfg.host;
         port = cfg.port;
@@ -64,15 +64,15 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.port];
 
     environment.etc."ankisyncd/ankisyncd.conf".source = configFile;
 
     systemd.services.ankisyncd = {
       description = "ankisyncd - Anki sync server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ cfg.package ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      path = [cfg.package];
 
       serviceConfig = {
         Type = "simple";

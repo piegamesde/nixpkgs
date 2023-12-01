@@ -27,25 +27,25 @@
 
 let
   mirror = "mirror://kde";
-  srcs = import ./srcs.nix { inherit fetchurl mirror; };
+  srcs = import ./srcs.nix {inherit fetchurl mirror;};
 
   mkDerivation =
     args:
     let
       inherit (args) pname;
       inherit (srcs.${pname}) src version;
-      mkDerivation = libsForQt5.callPackage ({ mkDerivation }: mkDerivation) { };
+      mkDerivation = libsForQt5.callPackage ({mkDerivation}: mkDerivation) {};
     in
     mkDerivation (
       args
       // {
         inherit pname version src;
 
-        outputs = args.outputs or [ "out" ];
+        outputs = args.outputs or ["out"];
 
         meta =
           let
-            meta = args.meta or { };
+            meta = args.meta or {};
           in
           meta
           // {
@@ -58,13 +58,13 @@ let
   packages =
     self:
     let
-      callPackage = self.newScope { inherit mkDerivation; };
+      callPackage = self.newScope {inherit mkDerivation;};
     in
     {
-      plasma-dialer = callPackage ./plasma-dialer.nix { };
-      plasma-phonebook = callPackage ./plasma-phonebook.nix { };
-      plasma-settings = callPackage ./plasma-settings.nix { };
-      spacebar = callPackage ./spacebar.nix { };
+      plasma-dialer = callPackage ./plasma-dialer.nix {};
+      plasma-phonebook = callPackage ./plasma-phonebook.nix {};
+      plasma-settings = callPackage ./plasma-settings.nix {};
+      spacebar = callPackage ./spacebar.nix {};
     };
 in
 lib.makeScope libsForQt5.newScope packages

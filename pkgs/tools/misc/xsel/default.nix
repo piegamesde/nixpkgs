@@ -17,14 +17,14 @@ stdenv.mkDerivation {
     sha256 = "0fbf80zsc22vcqp59r9fdx4icxhrkv7l3lphw83326jrmkzy6kri";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ libX11 ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [libX11];
 
   meta = with lib; {
     description = "Command-line program for getting and setting the contents of the X selection";
     homepage = "http://www.kfish.org/software/xsel";
     license = licenses.mit;
-    maintainers = [ maintainers.cstrahan ];
+    maintainers = [maintainers.cstrahan];
     platforms = lib.platforms.unix;
   };
 }

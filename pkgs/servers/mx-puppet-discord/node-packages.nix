@@ -7,7 +7,7 @@
   nix-gitignore,
   stdenv,
   lib,
-  globalBuildInputs ? [ ],
+  globalBuildInputs ? [],
 }:
 
 let
@@ -3336,7 +3336,7 @@ let
       sources."asynckit-0.4.0"
       sources."balanced-match-1.0.2"
       sources."base64-js-1.5.1"
-      (sources."basic-auth-2.0.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
+      (sources."basic-auth-2.0.1" // {dependencies = [sources."safe-buffer-5.1.2"];})
       sources."better-sqlite3-7.6.2"
       sources."bindings-1.5.0"
       sources."bintrees-1.0.2"
@@ -3362,7 +3362,7 @@ let
       sources."canvas-2.10.1"
       sources."chalk-4.1.2"
       sources."chownr-2.0.0"
-      (sources."clone-response-1.0.3" // { dependencies = [ sources."mimic-response-1.0.1" ]; })
+      (sources."clone-response-1.0.3" // {dependencies = [sources."mimic-response-1.0.1"];})
       sources."color-3.2.1"
       sources."color-convert-1.9.3"
       sources."color-name-1.1.3"
@@ -3417,7 +3417,7 @@ let
       )
       sources."domelementtype-2.3.0"
       sources."domhandler-3.3.0"
-      (sources."domutils-2.8.0" // { dependencies = [ sources."domhandler-4.3.1" ]; })
+      (sources."domutils-2.8.0" // {dependencies = [sources."domhandler-4.3.1"];})
       sources."ee-first-1.1.1"
       sources."emoji-regex-8.0.0"
       sources."enabled-2.0.0"
@@ -3490,7 +3490,7 @@ let
       sources."highlight.js-10.7.3"
       sources."html-to-text-6.0.0"
       sources."htmlencode-0.0.4"
-      (sources."htmlparser2-4.1.0" // { dependencies = [ sources."entities-2.2.0" ]; })
+      (sources."htmlparser2-4.1.0" // {dependencies = [sources."entities-2.2.0"];})
       sources."http-cache-semantics-4.1.0"
       sources."http-errors-2.0.0"
       sources."http2-wrapper-1.0.3"
@@ -3521,7 +3521,7 @@ let
       sources."lowdb-1.0.0"
       sources."lowercase-keys-2.0.0"
       sources."lru-cache-6.0.0"
-      (sources."make-dir-3.1.0" // { dependencies = [ sources."semver-6.3.0" ]; })
+      (sources."make-dir-3.1.0" // {dependencies = [sources."semver-6.3.0"];})
       sources."markdown-it-9.1.0"
       sources."mdurl-1.0.1"
       sources."media-typer-0.3.0"
@@ -3634,12 +3634,12 @@ let
         }
       )
       sources."semver-7.3.7"
-      (sources."semver-closest-0.1.2" // { dependencies = [ sources."semver-5.7.1" ]; })
+      (sources."semver-closest-0.1.2" // {dependencies = [sources."semver-5.7.1"];})
       (
         sources."send-0.18.0"
         // {
           dependencies = [
-            (sources."debug-2.6.9" // { dependencies = [ sources."ms-2.0.0" ]; })
+            (sources."debug-2.6.9" // {dependencies = [sources."ms-2.0.0"];})
             sources."mime-1.6.0"
             sources."ms-2.1.3"
           ];
@@ -3678,7 +3678,7 @@ let
         }
       )
       sources."tar-6.1.11"
-      (sources."tar-fs-2.1.1" // { dependencies = [ sources."chownr-1.1.4" ]; })
+      (sources."tar-fs-2.1.1" // {dependencies = [sources."chownr-1.1.4"];})
       sources."tar-stream-2.2.0"
       sources."tdigest-0.1.2"
       sources."text-hex-1.0.0"
@@ -3714,10 +3714,10 @@ let
       (
         sources."useragent-generator-1.1.1-amkt-22079-finish.1"
         // {
-          dependencies = [ sources."semver-5.7.1" ];
+          dependencies = [sources."semver-5.7.1"];
         }
       )
-      (sources."util-0.10.4" // { dependencies = [ sources."inherits-2.0.3" ]; })
+      (sources."util-0.10.4" // {dependencies = [sources."inherits-2.0.3"];})
       sources."util-deprecate-1.0.2"
       sources."utils-merge-1.0.1"
       sources."uuid-3.4.0"
@@ -3735,9 +3735,9 @@ let
           ];
         }
       )
-      (sources."winston-daily-rotate-file-3.10.0" // { dependencies = [ sources."semver-6.3.0" ]; })
+      (sources."winston-daily-rotate-file-3.10.0" // {dependencies = [sources."semver-6.3.0"];})
       sources."winston-transport-4.5.0"
-      (sources."wordwrapjs-3.0.0" // { dependencies = [ sources."typical-2.6.1" ]; })
+      (sources."wordwrapjs-3.0.0" // {dependencies = [sources."typical-2.6.1"];})
       sources."wrappy-1.0.2"
       sources."ws-7.5.9"
       sources."xtend-4.0.2"

@@ -1,8 +1,8 @@
 {
   version,
   sha256,
-  patches ? [ ],
-  patchFlags ? [ ],
+  patches ? [],
+  patchFlags ? [],
 }:
 {
   stdenv,
@@ -21,8 +21,8 @@ let
   baseAttrs = {
     src = fetchurl {
       url = "https://github.com/unicode-org/icu/releases/download/release-${
-        lib.replaceStrings [ "." ] [ "-" ] version
-      }/icu4c-${lib.replaceStrings [ "." ] [ "_" ] version}-src.tgz";
+        lib.replaceStrings ["."] ["-"] version
+      }/icu4c-${lib.replaceStrings ["."] ["_"] version}-src.tgz";
       inherit sha256;
     };
 
@@ -56,7 +56,7 @@ let
       '';
 
     configureFlags =
-      [ "--disable-debug" ]
+      ["--disable-debug"]
       ++ lib.optional (stdenv.isFreeBSD || stdenv.isDarwin) "--enable-rpath"
       ++
         lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
@@ -67,7 +67,7 @@ let
     meta = with lib; {
       description = "Unicode and globalization support library";
       homepage = "https://icu.unicode.org/";
-      maintainers = with maintainers; [ raskin ];
+      maintainers = with maintainers; [raskin];
       pkgConfigModules = [
         "icu-i18n"
         "icu-io"
@@ -144,5 +144,5 @@ let
 in
 stdenv.mkDerivation (
   finalAttrs:
-  attrs // { passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage; }
+  attrs // {passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;}
 )

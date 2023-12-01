@@ -1,4 +1,4 @@
-{ lib, pkgs }:
+{lib, pkgs}:
 
 with pkgs;
 
@@ -20,11 +20,11 @@ rec {
 
   makeSourceTarball = sourceTarball; # compatibility
 
-  binaryTarball = args: import ./binary-tarball.nix ({ inherit lib stdenv; } // args);
+  binaryTarball = args: import ./binary-tarball.nix ({inherit lib stdenv;} // args);
 
-  mvnBuild = args: import ./maven-build.nix ({ inherit lib stdenv; } // args);
+  mvnBuild = args: import ./maven-build.nix ({inherit lib stdenv;} // args);
 
-  nixBuild = args: import ./nix-build.nix ({ inherit lib stdenv; } // args);
+  nixBuild = args: import ./nix-build.nix ({inherit lib stdenv;} // args);
 
   coverageAnalysis =
     args:
@@ -56,7 +56,7 @@ rec {
       // args
     );
 
-  rpmBuild = args: import ./rpm-build.nix ({ inherit lib vmTools; } // args);
+  rpmBuild = args: import ./rpm-build.nix ({inherit lib vmTools;} // args);
 
   debBuild =
     args:
@@ -76,7 +76,7 @@ rec {
     {
       name,
       constituents,
-      meta ? { },
+      meta ? {},
     }:
     pkgs.runCommand name
       {
@@ -117,8 +117,8 @@ rec {
     {
       name,
       src,
-      constituents ? [ ],
-      meta ? { },
+      constituents ? [],
+      meta ? {},
       isNixOS ? true,
       ...
     }@args:
@@ -159,6 +159,6 @@ rec {
           isHydraChannel = true;
         };
       }
-      // removeAttrs args [ "meta" ]
+      // removeAttrs args ["meta"]
     );
 }

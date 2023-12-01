@@ -32,6 +32,6 @@ buildPythonApplication rec {
       "x86_64-linux"
       "aarch64-linux"
     ];
-    maintainers = [ maintainers.samueldr ];
+    maintainers = [maintainers.samueldr];
   };
 }

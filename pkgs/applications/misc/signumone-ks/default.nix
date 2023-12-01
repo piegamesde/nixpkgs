@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
       binaryNativeCode
     ];
     license = licenses.unfree;
-    maintainers = with maintainers; [ wolfangaukang ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [wolfangaukang];
+    platforms = ["x86_64-linux"];
   };
 }

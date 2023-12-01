@@ -49,15 +49,15 @@ buildPythonPackage rec {
     pandas
   ];
 
-  pythonImportsCheck = [ "particle" ];
+  pythonImportsCheck = ["particle"];
 
-  disabledTestPaths = [ "tests/particle/test_performance.py" ];
+  disabledTestPaths = ["tests/particle/test_performance.py"];
 
   meta = with lib; {
     description = "Package to deal with particles, the PDG particle data table and others";
     homepage = "https://github.com/scikit-hep/particle";
     changelog = "https://github.com/scikit-hep/particle/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

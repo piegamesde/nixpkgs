@@ -54,13 +54,13 @@ buildPythonPackage rec {
     en_core_web_sm
   ];
 
-  pythonImportsCheck = [ "textnets" ];
+  pythonImportsCheck = ["textnets"];
 
   meta = with lib; {
     description = "Text analysis with networks";
     homepage = "https://textnets.readthedocs.io";
     changelog = "https://github.com/jboynyc/textnets/blob/v${version}/HISTORY.rst";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ jboy ];
+    maintainers = with maintainers; [jboy];
   };
 }

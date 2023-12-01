@@ -19,7 +19,7 @@ buildGoModule rec {
 
   # This package comes with its own version of goimports, gofmt and goreturns
   # but these binaries are outdated and are offered by other packages.
-  subPackages = [ "cmd/asmfmt" ];
+  subPackages = ["cmd/asmfmt"];
 
   ldflags = [
     "-s"
@@ -38,6 +38,6 @@ buildGoModule rec {
     homepage = "https://github.com/klauspost/asmfmt";
     changelog = "https://github.com/klauspost/asmfmt/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
   };
 }

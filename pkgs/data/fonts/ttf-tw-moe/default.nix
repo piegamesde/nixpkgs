@@ -31,7 +31,7 @@ stdenvNoCC.mkDerivation rec {
       closely follows the official recommendation, and can be used as for teaching purposes.
     '';
     license = licenses.cc-by-nd-30;
-    maintainers = [ maintainers.jiehong ];
+    maintainers = [maintainers.jiehong];
     platforms = platforms.all;
   };
 }

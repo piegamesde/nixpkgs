@@ -45,6 +45,6 @@ buildDunePackage rec {
     homepage = "https://gitlab.com/dannywillems/ocaml-bls12-381";
     description = "OCaml binding for bls12-381 from librustzcash";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

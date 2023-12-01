@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-HFsk91uJXQ0wpvAQxP4/yZwRQx9kLH7KgB3Y/+zcZC0=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
+  cmakeFlags = ["-DBUILD_SHARED_LIBS=ON"];
 
   postPatch = ''
     patchShebangs tools/build

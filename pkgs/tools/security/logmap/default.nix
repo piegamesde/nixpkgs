@@ -16,7 +16,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-LOGjK5l/gaKObWbC9vaLruE8DdDsabztnEW/TjvCdtE=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ requests ];
+  propagatedBuildInputs = with python3.pkgs; [requests];
 
   installPhase = ''
     runHook preInstall
@@ -28,6 +28,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Tools for fuzzing Log4j2 jndi injection";
     homepage = "https://github.com/zhzyker/logmap";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

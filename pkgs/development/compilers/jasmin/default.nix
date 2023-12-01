@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.tests = {
-    minimal-module = callPackage ./test-assemble-hello-world { };
+    minimal-module = callPackage ./test-assemble-hello-world {};
   };
 
   meta = with lib; {
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     homepage = "https://jasmin.sourceforge.net/";
     downloadPage = "https://sourceforge.net/projects/jasmin/files/latest/download";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
   };
 }

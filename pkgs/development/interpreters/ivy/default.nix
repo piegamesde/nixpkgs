@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -28,6 +28,6 @@ buildGoModule rec {
     homepage = "https://github.com/robpike/ivy";
     description = "ivy, an APL-like calculator";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ smasher164 ];
+    maintainers = with maintainers; [smasher164];
   };
 }

@@ -46,9 +46,9 @@ rustPlatform.buildRustPackage rec {
 
     installShellFiles
   ];
-  buildInputs = [ xorg.libxcb ];
+  buildInputs = [xorg.libxcb];
 
-  buildFeatures = [ "all" ];
+  buildFeatures = ["all"];
 
   postInstall = ''
     installShellCompletion --bash completions/bash-completion/completions/*
@@ -61,6 +61,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/xrelkd/clipcat";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ xrelkd ];
+    maintainers = with maintainers; [xrelkd];
   };
 }

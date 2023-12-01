@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     flex
     file
   ];
-  buildInputs = [ expat ];
+  buildInputs = [expat];
 
   meta = with lib; {
     homepage = "https://www.unidata.ucar.edu/software/udunits/";

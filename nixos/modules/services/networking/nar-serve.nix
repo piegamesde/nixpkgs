@@ -11,7 +11,7 @@ let
 in
 {
   meta = {
-    maintainers = [ maintainers.rizary ];
+    maintainers = [maintainers.rizary];
   };
   options = {
     services.nar-serve = {
@@ -43,8 +43,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.nar-serve = {
       description = "NAR server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       environment.PORT = toString cfg.port;
       environment.NAR_CACHE_URL = cfg.cacheURL;

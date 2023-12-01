@@ -51,6 +51,6 @@ buildGoModule rec {
     description = "A simple tunnel written in golang";
     homepage = "https://github.com/ginuerzh/gost";
     license = licenses.mit;
-    maintainers = with maintainers; [ pmy ];
+    maintainers = with maintainers; [pmy];
   };
 }

@@ -31,7 +31,7 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  propagatedBuildInputs = [ httpx ] ++ httpx.optional-dependencies.http2;
+  propagatedBuildInputs = [httpx] ++ httpx.optional-dependencies.http2;
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -43,12 +43,12 @@ buildPythonPackage rec {
       --replace "pytest --cov-config=pyproject.toml --cov-report=xml --cov-report=term --cov=src --cov=tests" ""
   '';
 
-  pythonImportsCheck = [ "iaqualink" ];
+  pythonImportsCheck = ["iaqualink"];
 
   meta = with lib; {
     description = "Python library for Jandy iAqualink";
     homepage = "https://github.com/flz/iaqualink-py";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -66,7 +66,7 @@ let
   destType =
     srcConfig:
     submodule (
-      { name, ... }:
+      {name, ...}:
       {
         options = {
 
@@ -130,7 +130,7 @@ let
     );
 
   srcType = submodule (
-    { name, config, ... }:
+    {name, config, ...}:
     {
       options = {
 
@@ -243,7 +243,7 @@ let
         destinations = mkOption {
           type = attrsOf (destType config);
           description = lib.mdDoc "Additional destinations.";
-          default = { };
+          default = {};
           example = literalExpression ''
             {
               local = {
@@ -272,7 +272,7 @@ let
 
   onOff = b: if b then "on" else "off";
   nullOff = b: if b == null then "off" else toString b;
-  stripSlashes = replaceStrings [ "/" ] [ "." ];
+  stripSlashes = replaceStrings ["/"] ["."];
 
   attrsToFile =
     config: concatStringsSep "\n" (builtins.attrValues (mapAttrs (n: v: "${n}=${v}") config));
@@ -285,8 +285,8 @@ let
         "" = optionalString (host != null) "${host}:" + dataset;
         _plan = plan;
       }
-      // optionalAttrs (presend != null) { _precmd = presend; }
-      // optionalAttrs (postsend != null) { _pstcmd = postsend; }
+      // optionalAttrs (presend != null) {_precmd = presend;}
+      // optionalAttrs (postsend != null) {_pstcmd = postsend;}
     );
 
   mkSrcAttrs =
@@ -307,7 +307,7 @@ let
       tsformat = timestampFormat;
       zend_delay = toString sendDelay;
     }
-    // foldr (a: b: a // b) { } (map mkDestAttrs (builtins.attrValues destinations));
+    // foldr (a: b: a // b) {} (map mkDestAttrs (builtins.attrValues destinations));
 
   files =
     mapAttrs'
@@ -368,7 +368,7 @@ in
       zetup = mkOption {
         type = attrsOf srcType;
         description = lib.mdDoc "Znapzend configuration.";
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             "tank/home" = {
@@ -470,13 +470,13 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.znapzend ];
+    environment.systemPackages = [pkgs.znapzend];
 
     systemd.services = {
       znapzend = {
         description = "ZnapZend - ZFS Backup System";
-        wantedBy = [ "zfs.target" ];
-        after = [ "zfs.target" ];
+        wantedBy = ["zfs.target"];
+        after = ["zfs.target"];
 
         path = with pkgs; [
           zfs
@@ -519,7 +519,7 @@ in
                 "--loglevel=${cfg.logLevel}"
                 (optionalString cfg.noDestroy "--nodestroy")
                 (optionalString cfg.autoCreation "--autoCreation")
-                (optionalString (enabledFeatures != [ ]) "--features=${concatStringsSep "," enabledFeatures}")
+                (optionalString (enabledFeatures != []) "--features=${concatStringsSep "," enabledFeatures}")
               ];
             in
             "${pkgs.znapzend}/bin/znapzend ${args}";

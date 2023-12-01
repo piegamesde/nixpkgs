@@ -40,7 +40,7 @@ buildPythonPackage rec {
     hash = "sha256-5Lhz4qI/x7yK9tqQg4CvYNug+fp9l6ErNGH1pVybZ6c=";
   };
 
-  nativeBuildInputs = [ setuptools ] ++ lib.optionals (!isPyPy) [ cython ];
+  nativeBuildInputs = [setuptools] ++ lib.optionals (!isPyPy) [cython];
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -72,9 +72,9 @@ buildPythonPackage rec {
     msgpack
     mujson
     ujson
-  ] ++ lib.optionals (pythonOlder "3.10") [ testtools ];
+  ] ++ lib.optionals (pythonOlder "3.10") [testtools];
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
   disabledTestPaths =
     [
@@ -86,6 +86,6 @@ buildPythonPackage rec {
     description = "An unladen web framework for building APIs and app backends";
     homepage = "https://falconframework.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ desiderius ];
+    maintainers = with maintainers; [desiderius];
   };
 }

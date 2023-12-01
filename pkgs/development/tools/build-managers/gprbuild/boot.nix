@@ -85,7 +85,7 @@ stdenv.mkDerivation {
     description = "Multi-language extensible build tool";
     homepage = "https://github.com/AdaCore/gprbuild";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
     platforms = platforms.all;
   };
 }

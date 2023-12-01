@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{config, lib, ...}:
 
 with lib;
 let
@@ -28,8 +28,8 @@ in
 
       keys = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "ssh-dss AAAAB3NzaC1k... alice@example.org" ];
+        default = [];
+        example = ["ssh-dss AAAAB3NzaC1k... alice@example.org"];
         description = lib.mdDoc "A list of SSH public keys allowed to access the binary cache via SSH.";
       };
 
@@ -52,7 +52,7 @@ in
       group = "nix-ssh";
       useDefaultShell = true;
     };
-    users.groups.nix-ssh = { };
+    users.groups.nix-ssh = {};
 
     services.openssh.enable = true;
 

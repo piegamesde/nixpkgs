@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "1604amhvp7dm8ych7gwzxwawqvb9hpjglk5ffd4qm0y3k6r89arn";
   };
 
-  patches = [ ./searchPath.patch ];
+  patches = [./searchPath.patch];
 
   buildInputs = [
     cgal_5
@@ -37,13 +37,13 @@ stdenv.mkDerivation rec {
     hdf5
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "A C++ library to describe geometrical objects";
     homepage = "https://github.com/thliebig/CSXCAD";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ matthuszagh ];
+    maintainers = with maintainers; [matthuszagh];
     platforms = platforms.linux;
   };
 }

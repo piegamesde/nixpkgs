@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     ilbc
     mediastreamer
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   configureFlags = [
     "ILBC_LIBS=ilbc"

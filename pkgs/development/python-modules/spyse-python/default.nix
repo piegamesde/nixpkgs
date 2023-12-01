@@ -52,12 +52,12 @@ buildPythonPackage rec {
       --replace "requests~=2.26.0" "requests>=2.26.0"
   '';
 
-  pythonImportsCheck = [ "spyse" ];
+  pythonImportsCheck = ["spyse"];
 
   meta = with lib; {
     description = "Python module for spyse.com API";
     homepage = "https://github.com/spyse-com/spyse-python";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -40,7 +40,7 @@ mkDerivation rec {
       --replace '$$[QT_INSTALL_QML]' $out'/${qtbase.qtQmlPrefix}'
   '';
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
   buildInputs = [
     qtbase
@@ -51,7 +51,7 @@ mkDerivation rec {
     description = "Library for accessing the ofono daemon, and declarative plugin for it";
     homepage = "https://git.sailfishos.org/mer-core/libqofono/";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ samueldr ];
+    maintainers = with maintainers; [samueldr];
     platforms = platforms.linux;
   };
 }

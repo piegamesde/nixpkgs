@@ -12,8 +12,8 @@ qtModule {
     qtbase
     qtquickcontrols
   ];
-  buildInputs = [ wayland ];
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [wayland];
+  nativeBuildInputs = [pkg-config];
   outputs = [
     "out"
     "dev"

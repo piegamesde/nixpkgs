@@ -36,15 +36,15 @@ stdenv.mkDerivation {
     rm cuneiform_src/Kern/hhh/tigerh/h/strings.h
   '';
 
-  buildInputs = [ imagemagick ];
+  buildInputs = [imagemagick];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "Multi-language OCR system";
     homepage = "https://launchpad.net/cuneiform-linux";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
   };
 }

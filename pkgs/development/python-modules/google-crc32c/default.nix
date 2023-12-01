@@ -18,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-Tx7UBIwKzSBbpuqdqGiXTbmBE+1MDRknVe3Zee0UHKQ=";
   };
 
-  buildInputs = [ crc32c ];
+  buildInputs = [crc32c];
 
-  propagatedBuildInputs = [ cffi ];
+  propagatedBuildInputs = [cffi];
 
   LDFLAGS = "-L${crc32c}/lib";
   CFLAGS = "-I${crc32c}/include";
@@ -30,12 +30,12 @@ buildPythonPackage rec {
     crc32c
   ];
 
-  pythonImportsCheck = [ "google_crc32c" ];
+  pythonImportsCheck = ["google_crc32c"];
 
   meta = with lib; {
     homepage = "https://github.com/googleapis/python-crc32c";
     description = "Wrapper the google/crc32c hardware-based implementation of the CRC32C hashing algorithm";
-    license = with licenses; [ asl20 ];
+    license = with licenses; [asl20];
     maintainers = with maintainers; [
       freezeboy
       SuperSandro2000

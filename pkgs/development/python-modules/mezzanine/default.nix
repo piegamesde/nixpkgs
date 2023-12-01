@@ -83,7 +83,7 @@ buildPythonPackage rec {
     homepage = "http://mezzanine.jupo.org/";
     downloadPage = "https://github.com/stephenmcd/mezzanine/releases";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ prikhi ];
+    maintainers = with maintainers; [prikhi];
     platforms = platforms.unix;
   };
 }

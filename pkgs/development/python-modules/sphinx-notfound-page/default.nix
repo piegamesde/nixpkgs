@@ -42,14 +42,14 @@ buildPythonPackage rec {
     sphinxemoji
   ];
 
-  propagatedBuildInputs = [ sphinx ];
+  propagatedBuildInputs = [sphinx];
 
-  pythonImportsCheck = [ "notfound" ];
+  pythonImportsCheck = ["notfound"];
 
   meta = with lib; {
     description = "A sphinx extension to create a custom 404 page with absolute URLs hardcoded";
     homepage = "https://github.com/readthedocs/sphinx-notfound-page";
     license = licenses.mit;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

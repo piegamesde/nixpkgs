@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
     description = "Tunnel TCP connections over the Tox protocol";
     homepage = "https://github.com/gjedeer/tuntox";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ willcohen ];
+    maintainers = with maintainers; [willcohen];
     platforms = platforms.unix;
   };
 }

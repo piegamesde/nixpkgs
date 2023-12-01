@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     hicolor-icon-theme
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   passthru.updateScript = gitUpdater {
     url = "https://gitlab.xfce.org/panel-plugins/${pname}";
@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     description = "Simple countdown and alarm plugin for the Xfce panel";
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    maintainers = with maintainers; [] ++ teams.xfce.members;
   };
 }

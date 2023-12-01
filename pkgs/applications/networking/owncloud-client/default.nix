@@ -17,7 +17,7 @@ mkDerivation rec {
   pname = "owncloud-client";
   version = "3.2.1";
 
-  libregraph = callPackage ./libre-graph-api-cpp-qt-client.nix { };
+  libregraph = callPackage ./libre-graph-api-cpp-qt-client.nix {};
 
   src = fetchFromGitHub {
     owner = "owncloud";
@@ -40,7 +40,7 @@ mkDerivation rec {
     libregraph
   ];
 
-  qtWrapperArgs = [ "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libsecret ]}" ];
+  qtWrapperArgs = ["--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [libsecret]}"];
 
   cmakeFlags = [
     "-UCMAKE_INSTALL_LIBDIR"

@@ -23,8 +23,8 @@ crystal.buildCrystalPackage rec {
     hash = "sha256-xFrxbnZl/49vGKdkESPa6LpK0ckq4Jv5GNLL/G0qA1w=";
   };
 
-  buildInputs = [ bash ];
-  propagatedUserEnvPkgs = [ jq ];
+  buildInputs = [bash];
+  propagatedUserEnvPkgs = [jq];
 
   format = "shards";
   shardsFile = ./shards.nix;
@@ -51,7 +51,7 @@ crystal.buildCrystalPackage rec {
     homepage = "https://github.com/alexherbo2/kakoune.cr";
     description = "A command-line tool for Kakoune";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ malte-v ];
+    maintainers = with maintainers; [malte-v];
     platforms = platforms.unix;
   };
 }

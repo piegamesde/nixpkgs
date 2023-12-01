@@ -7,7 +7,7 @@ let
 
   eval = import ./lib/eval-config.nix {
     inherit system;
-    modules = [ configuration ];
+    modules = [configuration];
   };
 in
 

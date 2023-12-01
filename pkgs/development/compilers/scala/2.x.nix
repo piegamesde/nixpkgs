@@ -56,9 +56,9 @@ stdenv.mkDerivation rec {
     url = "https://www.scala-lang.org/files/archive/scala-${version}.tgz";
   };
 
-  propagatedBuildInputs = [ jre ];
+  propagatedBuildInputs = [jre];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -128,6 +128,6 @@ stdenv.mkDerivation rec {
     license = licenses.bsd3;
     platforms = platforms.all;
     branch = versions.majorMinor version;
-    maintainers = [ maintainers.nequissimus ];
+    maintainers = [maintainers.nequissimus];
   };
 }

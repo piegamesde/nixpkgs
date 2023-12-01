@@ -12,7 +12,7 @@
      function as their first argument, which is applied
      to the traced value before it is printed.
 */
-{ lib }:
+{lib}:
 let
   inherit (lib)
     isInt
@@ -142,7 +142,7 @@ rec {
         else
           v;
     in
-    trace (generators.toPretty { allowPrettyValues = true; } (modify depth snip x)) y;
+    trace (generators.toPretty {allowPrettyValues = true;} (modify depth snip x)) y;
 
   /* A combination of `traceVal` and `traceSeq` that applies a
      provided function to the value to be traced after `deepSeq`ing
@@ -264,11 +264,11 @@ rec {
           (
             name: test:
             let
-              testsToRun = if tests ? tests then tests.tests else [ ];
+              testsToRun = if tests ? tests then tests.tests else [];
             in
             if
               (substring 0 4 name == "test" || elem name testsToRun)
-              && ((testsToRun == [ ]) || elem name tests.tests)
+              && ((testsToRun == []) || elem name tests.tests)
               && (test.expr != test.expected)
 
             then
@@ -280,7 +280,7 @@ rec {
                 }
               ]
             else
-              [ ]
+              []
           )
           tests
       )

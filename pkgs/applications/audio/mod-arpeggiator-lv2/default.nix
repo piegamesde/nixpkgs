@@ -18,16 +18,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1KiWMTVTTf1/iR4AzJ1Oe0mOrWN5edsZN0tQMidgnRA=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ lv2 ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [lv2];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "a LV2 arpeggiator";
     homepage = "https://github.com/moddevices/mod-arpeggiator-lv2";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.linux;
   };
 }

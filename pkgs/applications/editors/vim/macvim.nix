@@ -20,7 +20,7 @@ let
   # Some of these we could patch into the relevant source files (such as xcodebuild and
   # qlmanage) but some are used by Xcode itself and we have no choice but to put them in PATH.
   # Symlinking them in this way is better than just putting all of /usr/bin in there.
-  buildSymlinks = runCommand "macvim-build-symlinks" { } ''
+  buildSymlinks = runCommand "macvim-build-symlinks" {} ''
     mkdir -p $out/bin
     ln -s /usr/bin/xcrun /usr/bin/xcodebuild /usr/bin/tiffutil /usr/bin/qlmanage $out/bin
   '';
@@ -55,7 +55,7 @@ stdenv.mkDerivation {
     python3
   ];
 
-  patches = [ ./macvim.patch ];
+  patches = [./macvim.patch];
 
   configureFlags = [
     "--enable-cscope"
@@ -196,6 +196,6 @@ stdenv.mkDerivation {
       lilyball
     ];
     platforms = platforms.darwin;
-    hydraPlatforms = [ ]; # hydra can't build this as long as we rely on Xcode and sandboxProfile
+    hydraPlatforms = []; # hydra can't build this as long as we rely on Xcode and sandboxProfile
   };
 }

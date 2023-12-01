@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-FEv37X7fIcrL0HUdQWAI+s4VZwI7ODKxGm2wejsH2cA=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs =
     [
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
   # - we don't want _anybody_ to use a cert where the private key is on our public binary cache!
   # - we don't want the certs to change each time the package is rebuilt
   # So let's avoid anything getting into our output.
-  makeFlags = [ "LOCAL_CERT_FILES=" ];
+  makeFlags = ["LOCAL_CERT_FILES="];
 
   installFlags = [
     "sysconfdir=\${out}/etc"

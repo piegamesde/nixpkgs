@@ -41,7 +41,7 @@
 }:
 
 let
-  pythonWithGobject = python3Packages.python.withPackages (p: with p; [ pygobject3 ]);
+  pythonWithGobject = python3Packages.python.withPackages (p: with p; [pygobject3]);
 in
 
 stdenv.mkDerivation rec {
@@ -187,7 +187,7 @@ stdenv.mkDerivation rec {
       --run 'cd $(mktemp -d)'
 
     wrapProgram $out/share/cockpit/motd/update-motd \
-      --prefix PATH : ${lib.makeBinPath [ gnused ]}
+      --prefix PATH : ${lib.makeBinPath [gnused]}
 
     substituteInPlace $out/share/polkit-1/actions/org.cockpit-project.cockpit-bridge.policy \
       --replace /usr $out
@@ -230,6 +230,6 @@ stdenv.mkDerivation rec {
     description = "Web-based graphical interface for servers";
     homepage = "https://cockpit-project.org/";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ lucasew ];
+    maintainers = with maintainers; [lucasew];
   };
 }

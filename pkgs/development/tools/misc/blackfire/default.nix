@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     passthru.sources.${stdenv.hostPlatform.system}
       or (throw "Unsupported platform for blackfire: ${stdenv.hostPlatform.system}");
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ dpkg ];
+  nativeBuildInputs = lib.optionals stdenv.isLinux [dpkg];
 
   dontUnpack = true;
 
@@ -104,9 +104,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Blackfire Profiler agent and client";
     homepage = "https://blackfire.io/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ shyim ];
+    maintainers = with maintainers; [shyim];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

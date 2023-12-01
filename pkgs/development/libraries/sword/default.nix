@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "14syphc47g6svkbg018nrsgq4z6hid1zydax243g8dx747vsi6nf";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     icu
     clucene_core
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       texts in around 100 languages.
     '';
     license = licenses.gpl2;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.unix;
   };
 }

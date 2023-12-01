@@ -16,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "9124f067d3c06ef2613e2cc246b2fde2299802280a8b0e60dc504137085f0334";
   };
 
-  buildInputs = [ nose ];
+  buildInputs = [nose];
   propagatedBuildInputs = [
     six
     lxml

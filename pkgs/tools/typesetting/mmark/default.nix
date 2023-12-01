@@ -24,13 +24,13 @@ buildGoModule rec {
     "-w"
   ];
 
-  passthru.tests.version = testers.testVersion { package = mmark; };
+  passthru.tests.version = testers.testVersion {package = mmark;};
 
   meta = {
     description = "A powerful markdown processor in Go geared towards the IETF";
     homepage = "https://github.com/mmarkdown/mmark";
     license = with lib.licenses; bsd2;
-    maintainers = with lib.maintainers; [ yrashk ];
+    maintainers = with lib.maintainers; [yrashk];
     platforms = lib.platforms.unix;
   };
 }

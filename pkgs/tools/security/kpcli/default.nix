@@ -16,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-bIT4Y5JFeZv5stXOKXxBtdTsB4n39fqeh2dVaBbqRyw=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ perl ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [perl];
 
   dontUnpack = true;
 
@@ -56,6 +56,6 @@ stdenv.mkDerivation rec {
     license = licenses.artistic1;
     homepage = "http://kpcli.sourceforge.net";
     platforms = platforms.all;
-    maintainers = [ maintainers.j-keck ];
+    maintainers = [maintainers.j-keck];
   };
 }

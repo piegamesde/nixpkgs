@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "0s37xn9pr5p820hd40489xwra7kg3gzqrxhc2j9rnxnd489hl0pr";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   doCheck = true;
 
   outputs = [
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "Shamir's secret-sharing method in the Galois Field GF(2**8)";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [ maintainers.rraval ];
+    maintainers = [maintainers.rraval];
     broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/gfshare.x86_64-darwin
   };
 }

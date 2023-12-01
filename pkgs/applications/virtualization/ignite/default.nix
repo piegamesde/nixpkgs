@@ -49,7 +49,7 @@ buildGoModule rec {
     makeWrapper
   ];
 
-  buildInputs = [ firecracker ];
+  buildInputs = [firecracker];
 
   preBuild = ''
     patchShebangs ./hack/ldflags.sh
@@ -73,6 +73,6 @@ buildGoModule rec {
     description = "Ignite a Firecracker microVM";
     homepage = "https://github.com/weaveworks/ignite";
     license = licenses.asl20;
-    maintainers = with maintainers; [ tfmoraes ];
+    maintainers = with maintainers; [tfmoraes];
   };
 }

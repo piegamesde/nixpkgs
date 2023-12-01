@@ -25,7 +25,7 @@ let
   '';
 in
 {
-  meta.maintainers = with maintainers; [ aborsu ];
+  meta.maintainers = with maintainers; [aborsu];
 
   options.services.jupyter = {
     enable = mkEnableOption (lib.mdDoc "Jupyter development server");
@@ -123,7 +123,7 @@ in
 
     kernels = mkOption {
       type = types.nullOr (
-        types.attrsOf (types.submodule (import ./kernel-options.nix { inherit lib pkgs; }))
+        types.attrsOf (types.submodule (import ./kernel-options.nix {inherit lib pkgs;}))
       );
 
       default = null;
@@ -169,11 +169,11 @@ in
       systemd.services.jupyter = {
         description = "Jupyter development server";
 
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
 
         # TODO: Patch notebook so we can explicitly pass in a shell
-        path = [ pkgs.bash ]; # needed for sh in cell magic to work
+        path = [pkgs.bash]; # needed for sh in cell magic to work
 
         environment = {
           JUPYTER_PATH = toString kernels;
@@ -195,10 +195,10 @@ in
         };
       };
     })
-    (mkIf (cfg.enable && (cfg.group == "jupyter")) { users.groups.jupyter = { }; })
+    (mkIf (cfg.enable && (cfg.group == "jupyter")) {users.groups.jupyter = {};})
     (mkIf (cfg.enable && (cfg.user == "jupyter")) {
       users.extraUsers.jupyter = {
-        extraGroups = [ cfg.group ];
+        extraGroups = [cfg.group];
         home = "/var/lib/jupyter";
         createHome = true;
         isSystemUser = true;

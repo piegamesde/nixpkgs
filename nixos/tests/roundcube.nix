@@ -1,19 +1,19 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "roundcube";
-    meta = with pkgs.lib.maintainers; { maintainers = [ globin ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [globin];};
 
     nodes = {
       roundcube =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         {
           services.roundcube = {
             enable = true;
             hostName = "roundcube";
             database.password = "not production";
-            package = pkgs.roundcube.withPlugins (plugins: [ plugins.persistent_login ]);
-            plugins = [ "persistent_login" ];
+            package = pkgs.roundcube.withPlugins (plugins: [plugins.persistent_login]);
+            plugins = ["persistent_login"];
             dicts = with pkgs.aspellDicts; [
               en
               fr

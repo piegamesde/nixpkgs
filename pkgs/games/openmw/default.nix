@@ -22,7 +22,7 @@
 }:
 
 let
-  openscenegraph_openmw = (openscenegraph.override { colladaSupport = true; }).overrideDerivation (
+  openscenegraph_openmw = (openscenegraph.override {colladaSupport = true;}).overrideDerivation (
     self: {
       src = fetchFromGitHub {
         owner = "OpenMW";
@@ -51,8 +51,8 @@ let
         rev = version;
         sha256 = "sha256-uQ4X8F8nmagbcFh0KexrmnhHIXFSB3A1CCnjPVeHL3Q=";
       };
-      patches = [ ];
-      cmakeFlags = (old.cmakeFlags or [ ]) ++ [
+      patches = [];
+      cmakeFlags = (old.cmakeFlags or []) ++ [
         "-DUSE_DOUBLE_PRECISION=ON"
         "-DBULLET2_MULTITHREADING=ON"
       ];
@@ -107,13 +107,13 @@ mkDerivation rec {
     unshield
     lz4
     recastnavigation
-  ] ++ lib.optionals stdenv.isDarwin [ VideoDecodeAcceleration ];
+  ] ++ lib.optionals stdenv.isDarwin [VideoDecodeAcceleration];
 
   cmakeFlags = [
     # as of 0.46, openmw is broken with GLVND
     "-DOpenGL_GL_PREFERENCE=LEGACY"
     "-DOPENMW_USE_SYSTEM_RECASTNAVIGATION=1"
-  ] ++ lib.optionals stdenv.isDarwin [ "-DOPENMW_OSX_DEPLOYMENT=ON" ];
+  ] ++ lib.optionals stdenv.isDarwin ["-DOPENMW_OSX_DEPLOYMENT=ON"];
 
   meta = with lib; {
     description = "An unofficial open source engine reimplementation of the game Morrowind";

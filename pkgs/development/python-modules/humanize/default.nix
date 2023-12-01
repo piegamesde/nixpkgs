@@ -33,7 +33,7 @@ buildPythonPackage rec {
     gettext
   ];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   postBuild = ''
     scripts/generate-translation-binaries.sh
@@ -48,7 +48,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "humanize" ];
+  pythonImportsCheck = ["humanize"];
 
   meta = with lib; {
     description = "Python humanize utilities";

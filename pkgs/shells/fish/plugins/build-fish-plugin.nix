@@ -17,11 +17,11 @@ attrs@{
   preInstall ? "",
   postInstall ? "",
 
-  nativeCheckInputs ? [ ],
+  nativeCheckInputs ? [],
   # plugin packages to add to the vendor paths of the test fish shell
-  checkPlugins ? [ ],
+  checkPlugins ? [],
   # vendor directories to add to the function path of the test fish shell
-  checkFunctionDirs ? [ ],
+  checkFunctionDirs ? [],
   # test script to be executed in a fish shell
   checkPhase ? "",
   doCheck ? checkPhase != "",

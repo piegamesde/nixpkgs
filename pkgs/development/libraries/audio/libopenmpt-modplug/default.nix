@@ -28,15 +28,15 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ libopenmpt ];
+  buildInputs = [libopenmpt];
 
-  configureFlags = [ "--enable-libmodplug" ];
+  configureFlags = ["--enable-libmodplug"];
 
   meta = with lib; {
     description = "A libmodplug emulation layer based on libopenmpt";
     homepage = "https://lib.openmpt.org/libopenmpt/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = platforms.unix;
   };
 }

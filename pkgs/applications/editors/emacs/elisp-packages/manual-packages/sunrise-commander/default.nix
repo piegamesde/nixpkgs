@@ -16,13 +16,13 @@ trivialBuild rec {
     hash = "sha256-D36qiRi5OTZrBtJ/bD/javAWizZ8NLlC/YP4rdLCSsw=";
   };
 
-  buildInputs = [ emacs ];
+  buildInputs = [emacs];
 
   meta = with lib; {
     homepage = "https://github.com/sunrise-commander/sunrise-commander/";
     description = "Orthodox (two-pane) file manager for Emacs";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     platforms = platforms.all;
   };
 }

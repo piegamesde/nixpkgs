@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-KIPnz17a0CFfoPO2dZz90j+wG/dR4pv5d0iZMRf7Vkc=";
   };
 
-  patches = [ ./irssi-include-dir.patch ];
+  patches = [./irssi-include-dir.patch];
 
   nativeBuildInputs = [
     cmake
@@ -32,12 +32,12 @@ stdenv.mkDerivation rec {
     openssl
   ];
 
-  cmakeFlags = [ "-DIRSSI_INCLUDE_PATH:PATH=${irssi}/include" ];
+  cmakeFlags = ["-DIRSSI_INCLUDE_PATH:PATH=${irssi}/include"];
 
   meta = with lib; {
     homepage = "https://github.com/falsovsky/FiSH-irssi";
     license = licenses.mit;
-    maintainers = with maintainers; [ viric ];
+    maintainers = with maintainers; [viric];
     platforms = platforms.unix;
   };
 }

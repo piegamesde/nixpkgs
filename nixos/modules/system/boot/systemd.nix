@@ -150,7 +150,7 @@ let
       # Slices / containers.
       "slices.target"
     ]
-    ++ optionals cfg.package.withImportd [ "systemd-importd.service" ]
+    ++ optionals cfg.package.withImportd ["systemd-importd.service"]
     ++ optionals cfg.package.withMachined [
       "machine.slice"
       "machines.target"
@@ -209,49 +209,49 @@ in
 
     systemd.units = mkOption {
       description = lib.mdDoc "Definition of systemd units.";
-      default = { };
+      default = {};
       type = systemdUtils.types.units;
     };
 
     systemd.packages = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.package;
       example = literalExpression "[ pkgs.systemd-cryptsetup-generator ]";
       description = lib.mdDoc "Packages providing systemd units and hooks.";
     };
 
     systemd.targets = mkOption {
-      default = { };
+      default = {};
       type = systemdUtils.types.targets;
       description = lib.mdDoc "Definition of systemd target units.";
     };
 
     systemd.services = mkOption {
-      default = { };
+      default = {};
       type = systemdUtils.types.services;
       description = lib.mdDoc "Definition of systemd service units.";
     };
 
     systemd.sockets = mkOption {
-      default = { };
+      default = {};
       type = systemdUtils.types.sockets;
       description = lib.mdDoc "Definition of systemd socket units.";
     };
 
     systemd.timers = mkOption {
-      default = { };
+      default = {};
       type = systemdUtils.types.timers;
       description = lib.mdDoc "Definition of systemd timer units.";
     };
 
     systemd.paths = mkOption {
-      default = { };
+      default = {};
       type = systemdUtils.types.paths;
       description = lib.mdDoc "Definition of systemd path units.";
     };
 
     systemd.mounts = mkOption {
-      default = [ ];
+      default = [];
       type = systemdUtils.types.mounts;
       description = lib.mdDoc ''
         Definition of systemd mount units.
@@ -261,7 +261,7 @@ in
     };
 
     systemd.automounts = mkOption {
-      default = [ ];
+      default = [];
       type = systemdUtils.types.automounts;
       description = lib.mdDoc ''
         Definition of systemd automount units.
@@ -271,14 +271,14 @@ in
     };
 
     systemd.slices = mkOption {
-      default = { };
+      default = {};
       type = systemdUtils.types.slices;
       description = lib.mdDoc "Definition of slice configurations.";
     };
 
     systemd.generators = mkOption {
       type = types.attrsOf types.path;
-      default = { };
+      default = {};
       example = {
         systemd-gpt-auto-generator = "/dev/null";
       };
@@ -291,7 +291,7 @@ in
 
     systemd.shutdown = mkOption {
       type = types.attrsOf types.path;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Definition of systemd shutdown executables.
         For each `NAME = VALUE` pair of the attrSet, a link is generated from
@@ -326,7 +326,7 @@ in
             ]
           )
         );
-      default = { };
+      default = {};
       example = {
         TZ = "CET";
       };
@@ -347,7 +347,7 @@ in
             ]
           )
         );
-      default = { };
+      default = {};
       example = {
         SYSTEMD_LOG_LEVEL = "debug";
       };
@@ -394,7 +394,7 @@ in
     };
 
     systemd.additionalUpstreamSystemUnits = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
       example = [
         "debug-shell.service"
@@ -406,9 +406,9 @@ in
     };
 
     systemd.suppressedSystemUnits = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
-      example = [ "systemd-backlight@.service" ];
+      example = ["systemd-backlight@.service"];
       description = lib.mdDoc ''
         A list of units to skip when generating system systemd configuration directory. This has
         priority over upstream units, {option}`systemd.units`, and
@@ -482,7 +482,7 @@ in
             )
             (optional hasDeprecated "Service '${name}.service' uses the attribute 'StartLimitInterval' in the Service section, which is deprecated. See https://github.com/NixOS/nixpkgs/issues/45786."
             )
-            (optional (service.reloadIfChanged && service.reloadTriggers != [ ])
+            (optional (service.reloadIfChanged && service.reloadTriggers != [])
               "Service '${name}.service' has both 'reloadIfChanged' and 'reloadTriggers' set. This is probably not what you want, because 'reloadTriggers' behave the same whay as 'restartTriggers' if 'reloadIfChanged' is set."
             )
           ]
@@ -492,21 +492,21 @@ in
 
     system.build.units = cfg.units;
 
-    system.nssModules = [ cfg.package.out ];
+    system.nssModules = [cfg.package.out];
     system.nssDatabases = {
       hosts =
         (mkMerge [
-          (mkOrder 400 [ "mymachines" ]) # 400 to ensure it comes before resolve (which is mkBefore'd)
-          (mkOrder 999 [ "myhostname" ]) # after files (which is 998), but before regular nss modules
+          (mkOrder 400 ["mymachines"]) # 400 to ensure it comes before resolve (which is mkBefore'd)
+          (mkOrder 999 ["myhostname"]) # after files (which is 998), but before regular nss modules
         ]);
-      passwd = (mkMerge [ (mkAfter [ "systemd" ]) ]);
+      passwd = (mkMerge [(mkAfter ["systemd"])]);
       group =
         (mkMerge [
-          (mkAfter [ "[success=merge] systemd" ]) # need merge so that NSS won't stop at file-based groups
+          (mkAfter ["[success=merge] systemd"]) # need merge so that NSS won't stop at file-based groups
         ]);
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     environment.etc =
       let
@@ -646,12 +646,12 @@ in
     systemd.managerEnvironment = {
       # Doesn't contain systemd itself - everything works so it seems to use the compiled-in value for its tools
       # util-linux is needed for the main fsck utility wrapping the fs-specific ones
-      PATH = lib.makeBinPath (config.system.fsPackages ++ [ cfg.package.util-linux ]);
+      PATH = lib.makeBinPath (config.system.fsPackages ++ [cfg.package.util-linux]);
       LOCALE_ARCHIVE = "/run/current-system/sw/lib/locale/locale-archive";
       TZDIR = "/etc/zoneinfo";
       # If SYSTEMD_UNIT_PATH ends with an empty component (":"), the usual unit load path will be appended to the contents of the variable
       SYSTEMD_UNIT_PATH =
-        lib.mkIf (config.boot.extraSystemdUnitPaths != [ ])
+        lib.mkIf (config.boot.extraSystemdUnitPaths != [])
           "${builtins.concatStringsSep ":" config.boot.extraSystemdUnitPaths}:";
     };
 
@@ -680,24 +680,24 @@ in
     systemd.timers =
       mapAttrs
         (name: service: {
-          wantedBy = [ "timers.target" ];
+          wantedBy = ["timers.target"];
           timerConfig.OnCalendar = service.startAt;
         })
-        (filterAttrs (name: service: service.enable && service.startAt != [ ]) cfg.services);
+        (filterAttrs (name: service: service.enable && service.startAt != []) cfg.services);
 
     # Some overrides to upstream units.
     systemd.services."systemd-backlight@".restartIfChanged = false;
     systemd.services."systemd-fsck@".restartIfChanged = false;
-    systemd.services."systemd-fsck@".path = [ config.system.path ];
+    systemd.services."systemd-fsck@".path = [config.system.path];
     systemd.services.systemd-random-seed.restartIfChanged = false;
     systemd.services.systemd-remount-fs.restartIfChanged = false;
     systemd.services.systemd-update-utmp.restartIfChanged = false;
     systemd.services.systemd-udev-settle.restartIfChanged = false; # Causes long delays in nixos-rebuild
     systemd.targets.local-fs.unitConfig.X-StopOnReconfiguration = true;
     systemd.targets.remote-fs.unitConfig.X-StopOnReconfiguration = true;
-    systemd.targets.network-online.wantedBy = [ "multi-user.target" ];
+    systemd.targets.network-online.wantedBy = ["multi-user.target"];
     systemd.services.systemd-importd.environment = proxy_env;
-    systemd.services.systemd-pstore.wantedBy = [ "sysinit.target" ]; # see #81138
+    systemd.services.systemd-pstore.wantedBy = ["sysinit.target"]; # see #81138
 
     # NixOS has kernel modules in a different location, so override that here.
     systemd.services.kmod-static-nodes.unitConfig.ConditionFileNotEmpty = [
@@ -772,7 +772,7 @@ in
         "services"
       ]
     )
-    (mkRenamedOptionModule [ "jobs" ] [
+    (mkRenamedOptionModule ["jobs"] [
       "systemd"
       "services"
     ])

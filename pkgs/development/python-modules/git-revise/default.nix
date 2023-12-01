@@ -33,6 +33,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mystor/git-revise";
     changelog = "https://github.com/mystor/git-revise/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ emily ];
+    maintainers = with maintainers; [emily];
   };
 }

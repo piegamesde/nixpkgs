@@ -15,9 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-E4BcKuHAG3SJ+rXo6sk2FmK08sAkEuNlLuzkj/aVMWI=";
   };
 
-  propagatedBuildInputs = [ cython ];
+  propagatedBuildInputs = [cython];
 
-  pythonImportsCheck = [ "memory_allocator" ];
+  pythonImportsCheck = ["memory_allocator"];
 
   meta = with lib; {
     description = "An extension class to allocate memory easily with cython";

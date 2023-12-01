@@ -20,14 +20,14 @@ buildPythonPackage rec {
     hash = "sha256-b3Em2y8silQhKwXjp0DkX0KRxJfXXSB1Fyj2Nbt0qj0=";
   };
 
-  propagatedBuildInputs = [ levenshtein ];
+  propagatedBuildInputs = [levenshtein];
 
   # Skip linting
   postPatch = ''
     substituteInPlace test_thefuzz.py --replace "import pycodestyle" ""
   '';
 
-  pythonImportsCheck = [ "thefuzz" ];
+  pythonImportsCheck = ["thefuzz"];
 
   nativeCheckInputs = [
     hypothesis
@@ -45,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/seatgeek/thefuzz";
     changelog = "https://github.com/seatgeek/thefuzz/blob/${version}/CHANGES.rst";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ sumnerevans ];
+    maintainers = with maintainers; [sumnerevans];
   };
 }

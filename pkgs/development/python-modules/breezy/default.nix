@@ -36,7 +36,7 @@ buildPythonPackage rec {
     hash = "sha256-TqaUn8uwdrl4VFsJn6xoq6011voYmd7vT2uCo9uiV8E=";
   };
 
-  cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
+  cargoDeps = rustPlatform.importCargoLock {lockFile = ./Cargo.lock;};
 
   postPatch = ''
     ln -s ${./Cargo.lock} Cargo.lock
@@ -54,7 +54,7 @@ buildPythonPackage rec {
     setuptools-rust
   ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.isDarwin [libiconv];
 
   propagatedBuildInputs = [
     configobj
@@ -66,7 +66,7 @@ buildPythonPackage rec {
     urllib3
   ] ++ passthru.optional-dependencies.launchpad ++ passthru.optional-dependencies.fastimport;
 
-  nativeCheckInputs = [ testtools ];
+  nativeCheckInputs = [testtools];
 
   # multiple failures on sandbox
   doCheck = false;
@@ -99,8 +99,8 @@ buildPythonPackage rec {
       command = "HOME=$TMPDIR brz --version";
     };
     optional-dependencies = {
-      launchpad = [ launchpadlib ];
-      fastimport = [ fastimport ];
+      launchpad = [launchpadlib];
+      fastimport = [fastimport];
     };
   };
 
@@ -108,7 +108,7 @@ buildPythonPackage rec {
     description = "Friendly distributed version control system";
     homepage = "https://www.breezy-vcs.org/";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
     mainProgram = "brz";
   };
 }

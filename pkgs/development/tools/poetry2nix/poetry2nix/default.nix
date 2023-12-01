@@ -1,5 +1,5 @@
 {
-  pkgs ? import <nixpkgs> { },
+  pkgs ? import <nixpkgs> {},
   lib ? pkgs.lib,
   poetryLib ? import ./lib.nix {
     inherit lib pkgs;
@@ -32,7 +32,7 @@ let
   getLicenseBySpdxId = spdxId: spdxLicenses.${spdxId} or spdxId;
 
   # Experimental withPlugins functionality
-  toPluginAble = (import ./plugins.nix { inherit pkgs lib; }).toPluginAble;
+  toPluginAble = (import ./plugins.nix {inherit pkgs lib;}).toPluginAble;
 
   # List of known build systems that are passed through from nixpkgs unmodified
   knownBuildSystems = builtins.fromJSON (builtins.readFile ./known-build-systems.json);
@@ -50,12 +50,12 @@ let
       pyProject,
       attrs,
       includeBuildSystem ? true,
-      groups ? [ ],
-      checkGroups ? [ "dev" ],
-      extras ? [ "*" ], # * means all extras, otherwise include the dependencies for a given extra
+      groups ? [],
+      checkGroups ? ["dev"],
+      extras ? ["*"], # * means all extras, otherwise include the dependencies for a given extra
     }:
     let
-      getInputs = attr: attrs.${attr} or [ ];
+      getInputs = attr: attrs.${attr} or [];
 
       # Get dependencies and filter out depending on interpreter version
       getDeps =
@@ -84,7 +84,7 @@ let
 
       mkInput = attr: extraInputs: getInputs attr ++ extraInputs;
 
-      rawDeps = pyProject.tool.poetry."dependencies" or { };
+      rawDeps = pyProject.tool.poetry."dependencies" or {};
 
       rawRequiredDeps = lib.filterAttrs (_: v: !(v.optional or false)) rawDeps;
 
@@ -93,27 +93,25 @@ let
       );
 
       allRawDeps =
-        if extras == [ "*" ] then rawDeps else rawRequiredDeps // lib.getAttrs desiredExtrasDeps rawDeps;
+        if extras == ["*"] then rawDeps else rawRequiredDeps // lib.getAttrs desiredExtrasDeps rawDeps;
       checkInputs' =
-        getDeps (pyProject.tool.poetry."dev-dependencies" or { }) # <poetry-1.2.0
+        getDeps (pyProject.tool.poetry."dev-dependencies" or {}) # <poetry-1.2.0
         # >=poetry-1.2.0 dependency groups
-        ++ lib.flatten (
-          map (g: getDeps (pyProject.tool.poetry.group.${g}.dependencies or { })) checkGroups
-        );
+        ++ lib.flatten (map (g: getDeps (pyProject.tool.poetry.group.${g}.dependencies or {})) checkGroups);
     in
     {
-      buildInputs = mkInput "buildInputs" (if includeBuildSystem then buildSystemPkgs else [ ]);
+      buildInputs = mkInput "buildInputs" (if includeBuildSystem then buildSystemPkgs else []);
       propagatedBuildInputs = mkInput "propagatedBuildInputs" (
         getDeps allRawDeps
         ++ (
           # >=poetry-1.2.0 dependency groups
-          if pyProject.tool.poetry.group or { } != { } then
+          if pyProject.tool.poetry.group or {} != {} then
             lib.flatten (map (g: getDeps pyProject.tool.poetry.group.${g}.dependencies) groups)
           else
-            [ ]
+            []
         )
       );
-      nativeBuildInputs = mkInput "nativeBuildInputs" [ ];
+      nativeBuildInputs = mkInput "nativeBuildInputs" [];
       checkInputs = mkInput "checkInputs" checkInputs';
       nativeCheckInputs = mkInput "nativeCheckInputs" checkInputs';
     };
@@ -137,7 +135,7 @@ lib.makeScope pkgs.newScope (
         # Example: { my-app = ./src; }
         editablePackageSources,
       }:
-      assert editablePackageSources != { };
+      assert editablePackageSources != {};
       import ./editable.nix {
         inherit
           pyProject
@@ -158,8 +156,8 @@ lib.makeScope pkgs.newScope (
         pyProject ? readTOML pyproject,
         scripts ? pyProject.tool.poetry.scripts,
       }:
-      assert scripts != { };
-      import ./shell-scripts.nix { inherit lib python scripts; };
+      assert scripts != {};
+      import ./shell-scripts.nix {inherit lib python scripts;};
 
     # Returns an attrset { python, poetryPackages, pyProject, poetryLock } for the given pyproject/lockfile.
     mkPoetryPackages =
@@ -177,11 +175,11 @@ lib.makeScope pkgs.newScope (
         pwd ? projectDir,
         preferWheels ? false,
         # Example: { my-app = ./src; }
-        editablePackageSources ? { },
+        editablePackageSources ? {},
         pyProject ? readTOML pyproject,
-        groups ? [ ],
-        checkGroups ? [ "dev" ],
-        extras ? [ "*" ],
+        groups ? [],
+        checkGroups ? ["dev"],
+        extras ? ["*"],
       }:
       let
         # The default list of poetry2nix override overlays
@@ -196,12 +194,12 @@ lib.makeScope pkgs.newScope (
           poetry2nix = self;
         };
 
-        scripts = pyProject.tool.poetry.scripts or { };
-        hasScripts = scripts != { };
-        scriptsPackage = self.mkPoetryScriptsPackage { inherit python scripts; };
+        scripts = pyProject.tool.poetry.scripts or {};
+        hasScripts = scripts != {};
+        scriptsPackage = self.mkPoetryScriptsPackage {inherit python scripts;};
 
         editablePackageSources' = lib.filterAttrs (name: path: path != null) editablePackageSources;
-        hasEditable = editablePackageSources' != { };
+        hasEditable = editablePackageSources' != {};
         editablePackage = self.mkPoetryEditablePackage {
           inherit pyProject python;
           editablePackageSources = editablePackageSources';
@@ -272,10 +270,10 @@ lib.makeScope pkgs.newScope (
                         pythonPackages = self;
 
                         sourceSpec =
-                          ((normalizePackageSet pyProject.tool.poetry.dependencies or { }).${normalizedName}
-                            or (normalizePackageSet pyProject.tool.poetry.dev-dependencies or { }).${normalizedName}
-                              or (normalizePackageSet pyProject.tool.poetry.group.dev.dependencies or { }).${normalizedName} # Poetry 1.2.0+
-                                or { }
+                          ((normalizePackageSet pyProject.tool.poetry.dependencies or {}).${normalizedName}
+                            or (normalizePackageSet pyProject.tool.poetry.dev-dependencies or {}).${normalizedName}
+                              or (normalizePackageSet pyProject.tool.poetry.group.dev.dependencies or {}).${normalizedName} # Poetry 1.2.0+
+                                or {}
                           );
                       }
                     );
@@ -351,7 +349,7 @@ lib.makeScope pkgs.newScope (
                   name: value:
                   (
                     if lib.isDerivation value && lib.hasAttr "overridePythonAttrs" value then
-                      value.overridePythonAttrs (_: { doCheck = false; })
+                      value.overridePythonAttrs (_: {doCheck = false;})
                     else
                       value
                   )
@@ -375,9 +373,9 @@ lib.makeScope pkgs.newScope (
             baseOverlay
           ]
           # User provided overrides
-          ++ (if builtins.typeOf overrides == "list" then overrides else [ overrides ])
+          ++ (if builtins.typeOf overrides == "list" then overrides else [overrides])
         );
-        packageOverrides = lib.foldr lib.composeExtensions (self: super: { }) overlays;
+        packageOverrides = lib.foldr lib.composeExtensions (self: super: {}) overlays;
         py = python.override {
           inherit packageOverrides;
           self = py;
@@ -391,7 +389,7 @@ lib.makeScope pkgs.newScope (
             checkGroups
             extras
             ;
-          attrs = { };
+          attrs = {};
           includeBuildSystem = false;
         };
 
@@ -401,7 +399,7 @@ lib.makeScope pkgs.newScope (
            complete list of dependencies for the poetry project to be portable.
         */
         storePackages = requiredPythonModules (
-          builtins.foldl' (acc: v: acc ++ v) [ ] (lib.attrValues inputAttrs)
+          builtins.foldl' (acc: v: acc ++ v) [] (lib.attrValues inputAttrs)
         );
       in
       {
@@ -428,10 +426,10 @@ lib.makeScope pkgs.newScope (
         pwd ? projectDir,
         python ? pkgs.python3,
         preferWheels ? false,
-        editablePackageSources ? { },
-        extraPackages ? ps: [ ],
-        groups ? [ "dev" ],
-        extras ? [ "*" ],
+        editablePackageSources ? {},
+        extraPackages ? ps: [],
+        groups ? ["dev"],
+        extras ? ["*"],
       }:
       let
         inherit (lib) hasAttr;
@@ -451,15 +449,15 @@ lib.makeScope pkgs.newScope (
 
         allEditablePackageSources =
           (
-            (getEditableDeps (pyProject.tool.poetry."dependencies" or { }))
-            // (getEditableDeps (pyProject.tool.poetry."dev-dependencies" or { }))
+            (getEditableDeps (pyProject.tool.poetry."dependencies" or {}))
+            // (getEditableDeps (pyProject.tool.poetry."dev-dependencies" or {}))
             // (
               # Poetry>=1.2.0
-              if pyProject.tool.poetry.group or { } != { } then
-                builtins.foldl' (acc: g: acc // getEditableDeps pyProject.tool.poetry.group.${g}.dependencies) { }
+              if pyProject.tool.poetry.group or {} != {} then
+                builtins.foldl' (acc: g: acc // getEditableDeps pyProject.tool.poetry.group.${g}.dependencies) {}
                   groups
               else
-                { }
+                {}
             )
             // editablePackageSources
           );
@@ -503,18 +501,18 @@ lib.makeScope pkgs.newScope (
         projectDir ? null,
         src ? (
           # Assume that a project which is the result of a derivation is already adequately filtered
-          if lib.isDerivation projectDir then projectDir else self.cleanPythonSources { src = projectDir; }
+          if lib.isDerivation projectDir then projectDir else self.cleanPythonSources {src = projectDir;}
         ),
         pyproject ? projectDir + "/pyproject.toml",
         poetrylock ? projectDir + "/poetry.lock",
         overrides ? self.defaultPoetryOverrides,
-        meta ? { },
+        meta ? {},
         python ? pkgs.python3,
         pwd ? projectDir,
         preferWheels ? false,
-        groups ? [ ],
-        checkGroups ? [ "dev" ],
-        extras ? [ "*" ],
+        groups ? [],
+        checkGroups ? ["dev"],
+        extras ? ["*"],
         ...
       }@attrs:
       let
@@ -533,7 +531,7 @@ lib.makeScope pkgs.newScope (
         };
         py = poetryPython.python;
 
-        hooks = py.pkgs.callPackage ./hooks { };
+        hooks = py.pkgs.callPackage ./hooks {};
 
         inherit (poetryPython) pyProject;
         specialAttrs = [
@@ -582,15 +580,15 @@ lib.makeScope pkgs.newScope (
               python = py;
               dependencyEnv =
                 (lib.makeOverridable (
-                  { app, ... }@attrs:
+                  {app, ...}@attrs:
                   let
-                    args = builtins.removeAttrs attrs [ "app" ] // {
-                      extraLibs = [ app ];
+                    args = builtins.removeAttrs attrs ["app"] // {
+                      extraLibs = [app];
                     };
                   in
                   py.buildEnv.override args
                 ))
-                  { inherit app; };
+                  {inherit app;};
             };
 
             # Extract position from explicitly passed attrs so meta.position won't point to poetry2nix internals
@@ -630,7 +628,7 @@ lib.makeScope pkgs.newScope (
       extend =
         overlay:
         let
-          composed = lib.foldr lib.composeExtensions overlay [ defaults ];
+          composed = lib.foldr lib.composeExtensions overlay [defaults];
         in
         self.mkDefaultPoetryOverrides composed;
 
@@ -652,12 +650,12 @@ lib.makeScope pkgs.newScope (
 
        Can be overriden by calling defaultPoetryOverrides.overrideOverlay which takes an overlay function
     */
-    defaultPoetryOverrides = self.mkDefaultPoetryOverrides (import ./overrides { inherit pkgs lib; });
+    defaultPoetryOverrides = self.mkDefaultPoetryOverrides (import ./overrides {inherit pkgs lib;});
 
     # Convenience functions for specifying overlays with or without the poerty2nix default overrides
     overrides = {
       # Returns the specified overlay in a list
-      withoutDefaults = overlay: [ overlay ];
+      withoutDefaults = overlay: [overlay];
 
       /* Returns the specified overlay and returns a list
          combining it with poetry2nix default overrides

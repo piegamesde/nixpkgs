@@ -3,7 +3,7 @@
 # can run the majority of the test suite without the extra setup.
 
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
 
     remoteSystem =
@@ -26,8 +26,8 @@ import ./make-test-python.nix (
       tag = "latest";
       copyToRoot = remoteCrossPkgs.buildEnv {
         name = "image-root";
-        pathsToLink = [ "/bin" ];
-        paths = [ remoteCrossPkgs.hello ];
+        pathsToLink = ["/bin"];
+        paths = [remoteCrossPkgs.hello];
       };
     };
 
@@ -39,11 +39,11 @@ import ./make-test-python.nix (
   in
   {
     name = "docker-tools";
-    meta = with pkgs.lib.maintainers; { maintainers = [ roberth ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [roberth];};
 
     nodes = {
       docker =
-        { ... }:
+        {...}:
         {
           virtualisation = {
             diskSize = 2048;

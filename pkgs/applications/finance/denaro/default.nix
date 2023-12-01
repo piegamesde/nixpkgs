@@ -72,7 +72,7 @@ buildDotnetModule rec {
     mainProgram = "NickvisionMoney.GNOME";
     license = licenses.mit;
     changelog = "https://github.com/nlogozzo/NickvisionMoney/releases/tag/${version}";
-    maintainers = with maintainers; [ chuangzhu ];
+    maintainers = with maintainers; [chuangzhu];
     platforms = platforms.linux;
   };
 }

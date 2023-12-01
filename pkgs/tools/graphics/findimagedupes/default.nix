@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ perl ]
+    [perl]
     ++ (
       with perlPackages; [
         DBFile
@@ -79,6 +79,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.jhnc.org/findimagedupes/";
     description = "Finds visually similar or duplicate images";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ stunkymonkey ];
+    maintainers = with maintainers; [stunkymonkey];
   };
 }

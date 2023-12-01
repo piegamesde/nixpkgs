@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-e9rgTWu8cwuccpp/wAfas1ZeQPTpGcgE6YjLz7KRnhw=";
   };
 
-  configureFlags = [ "--disable-scrollkeeper" ];
+  configureFlags = ["--disable-scrollkeeper"];
 
   nativeBuildInputs = [
     pkg-config
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
       gpl2
       lgpl2
     ];
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
     inherit (src.meta) homepage;
   };

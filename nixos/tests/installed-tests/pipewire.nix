@@ -1,3 +1,3 @@
-{ pkgs, makeInstalledTest, ... }:
+{pkgs, makeInstalledTest, ...}:
 
-makeInstalledTest { tested = pkgs.pipewire; }
+makeInstalledTest {tested = pkgs.pipewire;}

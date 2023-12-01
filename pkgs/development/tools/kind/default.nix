@@ -25,7 +25,7 @@ buildGoModule rec {
   vendorSha256 = "sha256-J/sJd2LLMBr53Z3sGrWgnWA8Ry+XqqfCEObqFyUD96g=";
 
   CGO_ENABLED = 0;
-  GOFLAGS = [ "-trimpath" ];
+  GOFLAGS = ["-trimpath"];
   ldFlags = [
     "-buildid="
     "-w"
@@ -33,9 +33,9 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   postInstall = ''
     for shell in bash fish zsh; do
       $out/bin/kind completion $shell > kind.$shell

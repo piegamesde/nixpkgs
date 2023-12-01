@@ -1,17 +1,17 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "ft2-clone";
-    meta = with pkgs.lib.maintainers; { maintainers = [ fgaz ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [fgaz];};
 
     nodes.machine =
-      { config, pkgs, ... }:
+      {config, pkgs, ...}:
       {
-        imports = [ ./common/x11.nix ];
+        imports = [./common/x11.nix];
 
         services.xserver.enable = true;
         sound.enable = true;
-        environment.systemPackages = [ pkgs.ft2-clone ];
+        environment.systemPackages = [pkgs.ft2-clone];
       };
 
     enableOCR = true;

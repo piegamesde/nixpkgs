@@ -26,7 +26,7 @@ let
   update = ".0.1";
   build = "+1";
   repover = "${major}${update}${build}";
-  gradle_ = (gradle_6.override { java = openjdk11_headless; });
+  gradle_ = (gradle_6.override {java = openjdk11_headless;});
 
   makePackage =
     args:
@@ -137,7 +137,7 @@ makePackage {
   #     `_gst_disable_registry_cache'; gst.o:(.bss._gst_disable_registry_cache+0x0): first defined here
   env.NIX_CFLAGS_COMPILE = "-DGLIB_DISABLE_DEPRECATION_WARNINGS -fcommon";
 
-  stripDebugList = [ "." ];
+  stripDebugList = ["."];
 
   postFixup = ''
     # Remove references to bootstrap.
@@ -148,7 +148,7 @@ makePackage {
     done
   '';
 
-  disallowedReferences = [ openjdk11_headless ];
+  disallowedReferences = [openjdk11_headless];
 
   passthru.deps = deps;
 
@@ -156,8 +156,8 @@ makePackage {
     homepage = "http://openjdk.java.net/projects/openjfx/";
     license = licenses.gpl2;
     description = "The next-generation Java client toolkit";
-    maintainers = with maintainers; [ abbradar ];
-    knownVulnerabilities = [ "This OpenJFX version has reached its end of life." ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [abbradar];
+    knownVulnerabilities = ["This OpenJFX version has reached its end of life."];
+    platforms = ["x86_64-linux"];
   };
 }

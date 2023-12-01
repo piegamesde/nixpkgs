@@ -18,17 +18,17 @@ buildPythonPackage rec {
     hash = "sha256-NOlf+wpov/vDtDfy0fJfyRb+899c3u0JktpfQvrpuAc=";
   };
 
-  propagatedBuildInputs = [ dnspython ];
+  propagatedBuildInputs = [dnspython];
 
   # Tests call a running mongodb instance
   doCheck = false;
 
-  pythonImportsCheck = [ "pymongo" ];
+  pythonImportsCheck = ["pymongo"];
 
   meta = with lib; {
     description = "Python driver for MongoDB";
     homepage = "https://github.com/mongodb/mongo-python-driver";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

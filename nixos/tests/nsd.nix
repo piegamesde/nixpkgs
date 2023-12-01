@@ -1,24 +1,24 @@
 let
   common =
-    { pkgs, ... }:
+    {pkgs, ...}:
     {
       networking.firewall.enable = false;
       networking.useDHCP = false;
       # for a host utility with IPv6 support
-      environment.systemPackages = [ pkgs.bind ];
+      environment.systemPackages = [pkgs.bind];
     };
 in
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "nsd";
-    meta = with pkgs.lib.maintainers; { maintainers = [ aszlig ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [aszlig];};
 
     nodes = {
       clientv4 =
-        { lib, nodes, ... }:
+        {lib, nodes, ...}:
         {
-          imports = [ common ];
+          imports = [common];
           networking.nameservers = lib.mkForce [
             (lib.head nodes.server.config.networking.interfaces.eth1.ipv4.addresses).address
           ];
@@ -31,9 +31,9 @@ import ./make-test-python.nix (
         };
 
       clientv6 =
-        { lib, nodes, ... }:
+        {lib, nodes, ...}:
         {
-          imports = [ common ];
+          imports = [common];
           networking.nameservers = lib.mkForce [
             (lib.head nodes.server.config.networking.interfaces.eth1.ipv6.addresses).address
           ];
@@ -46,9 +46,9 @@ import ./make-test-python.nix (
         };
 
       server =
-        { lib, ... }:
+        {lib, ...}:
         {
-          imports = [ common ];
+          imports = [common];
           networking.interfaces.eth1.ipv4.addresses = [
             {
               address = "192.168.0.1";
@@ -63,7 +63,7 @@ import ./make-test-python.nix (
           ];
           services.nsd.enable = true;
           services.nsd.rootServer = true;
-          services.nsd.interfaces = lib.mkForce [ ];
+          services.nsd.interfaces = lib.mkForce [];
           services.nsd.keys."tsig.example.com." = {
             algorithm = "hmac-sha256";
             keyFile = pkgs.writeTextFile {
@@ -79,7 +79,7 @@ import ./make-test-python.nix (
             ns A 192.168.0.1
             ns AAAA dead:beef::1
           '';
-          services.nsd.zones."example.com.".provideXFR = [ "0.0.0.0 tsig.example.com." ];
+          services.nsd.zones."example.com.".provideXFR = ["0.0.0.0 tsig.example.com."];
           services.nsd.zones."deleg.example.com.".data = ''
             @ SOA ns.example.com noc.example.com 666 7200 3600 1209600 3600
             @ A 9.8.7.6

@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       gpl3Only
       lgpl3Only
     ];
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
     platforms = platforms.linux;
   };
 }

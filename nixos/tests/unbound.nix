@@ -16,15 +16,15 @@
    shouldn't be able to access the control socket at all. Not even root.
 */
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   let
     # common client configuration that we can just use for the multitude of
     # clients we are constructing
     common =
-      { lib, pkgs, ... }:
+      {lib, pkgs, ...}:
       {
         config = {
-          environment.systemPackages = [ pkgs.knot-dns ];
+          environment.systemPackages = [pkgs.knot-dns];
 
           # disable the root anchor update as we do not have internet access during
           # the test execution
@@ -35,7 +35,7 @@ import ./make-test-python.nix (
         };
       };
 
-    cert = pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
+    cert = pkgs.runCommand "selfSignedCerts" {buildInputs = [pkgs.openssl];} ''
       openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -subj '/CN=dns.example.local'
       mkdir -p $out
       cp key.pem cert.pem $out
@@ -43,7 +43,7 @@ import ./make-test-python.nix (
   in
   {
     name = "unbound";
-    meta = with pkgs.lib.maintainers; { maintainers = [ andir ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [andir];};
 
     nodes = {
 
@@ -56,7 +56,7 @@ import ./make-test-python.nix (
           ...
         }:
         {
-          imports = [ common ];
+          imports = [common];
           networking.interfaces.eth1.ipv4.addresses = lib.mkForce [
             {
               address = "192.168.0.1";
@@ -69,8 +69,8 @@ import ./make-test-python.nix (
               prefixLength = 64;
             }
           ];
-          networking.firewall.allowedTCPPorts = [ 53 ];
-          networking.firewall.allowedUDPPorts = [ 53 ];
+          networking.firewall.allowedTCPPorts = [53];
+          networking.firewall.allowedUDPPorts = [53];
 
           services.unbound = {
             enable = true;
@@ -100,9 +100,9 @@ import ./make-test-python.nix (
       # The resolver that knows that fowards (only) to the authoritative server
       # and listens on UDP/53, TCP/53 & TCP/853.
       resolver =
-        { lib, nodes, ... }:
+        {lib, nodes, ...}:
         {
-          imports = [ common ];
+          imports = [common];
           networking.interfaces.eth1.ipv4.addresses = lib.mkForce [
             {
               address = "192.168.0.2";
@@ -120,7 +120,7 @@ import ./make-test-python.nix (
             853 # DNS over TLS
             443 # DNS over HTTPS
           ];
-          networking.firewall.allowedUDPPorts = [ 53 ];
+          networking.firewall.allowedUDPPorts = [53];
 
           services.unbound = {
             enable = true;
@@ -171,7 +171,7 @@ import ./make-test-python.nix (
           ...
         }:
         {
-          imports = [ common ];
+          imports = [common];
           networking.interfaces.eth1.ipv4.addresses = lib.mkForce [
             {
               address = "192.168.0.3";
@@ -187,7 +187,7 @@ import ./make-test-python.nix (
           networking.firewall.allowedTCPPorts = [
             53 # regular DNS
           ];
-          networking.firewall.allowedUDPPorts = [ 53 ];
+          networking.firewall.allowedUDPPorts = [53];
 
           services.unbound = {
             enable = true;
@@ -212,7 +212,7 @@ import ./make-test-python.nix (
             someuser = {
               isSystemUser = true;
               group = "someuser";
-              extraGroups = [ config.users.users.unbound.group ];
+              extraGroups = [config.users.users.unbound.group];
             };
 
             # user that is not permitted to access the unix socket
@@ -222,8 +222,8 @@ import ./make-test-python.nix (
             };
           };
           users.groups = {
-            someuser = { };
-            unauthorizeduser = { };
+            someuser = {};
+            unauthorizeduser = {};
           };
 
           # Used for testing configuration reloading
@@ -247,9 +247,9 @@ import ./make-test-python.nix (
       # plain node that only has network access and doesn't run any part of the
       # resolver software locally
       client =
-        { lib, nodes, ... }:
+        {lib, nodes, ...}:
         {
-          imports = [ common ];
+          imports = [common];
           networking.nameservers = [
             (lib.head nodes.resolver.config.networking.interfaces.eth1.ipv6.addresses).address
             (lib.head nodes.resolver.config.networking.interfaces.eth1.ipv4.addresses).address
@@ -270,7 +270,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       ''
         import typing
 

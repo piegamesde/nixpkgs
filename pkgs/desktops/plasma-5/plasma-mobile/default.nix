@@ -77,5 +77,5 @@ mkDerivation {
     wrapQtApp "$out/bin/startplasmamobile"
   '';
 
-  passthru.providedSessions = [ "plasma-mobile" ];
+  passthru.providedSessions = ["plasma-mobile"];
 }

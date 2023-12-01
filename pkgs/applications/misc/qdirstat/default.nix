@@ -30,7 +30,7 @@ mkDerivation {
     makeWrapper
   ];
 
-  buildInputs = [ perlPackages.perl ];
+  buildInputs = [perlPackages.perl];
 
   postPatch = ''
     substituteInPlace scripts/scripts.pro \
@@ -51,18 +51,18 @@ mkDerivation {
       --replace /bin/bash ${bash}/bin/bash
   '';
 
-  qmakeFlags = [ "INSTALL_PREFIX=${placeholder "out"}" ];
+  qmakeFlags = ["INSTALL_PREFIX=${placeholder "out"}"];
 
   postInstall = ''
     wrapProgram $out/bin/qdirstat-cache-writer \
-      --set PERL5LIB "${perlPackages.makePerlPath [ perlPackages.URI ]}"
+      --set PERL5LIB "${perlPackages.makePerlPath [perlPackages.URI]}"
   '';
 
   meta = with lib; {
     description = "Graphical disk usage analyzer";
     homepage = src.meta.homepage;
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

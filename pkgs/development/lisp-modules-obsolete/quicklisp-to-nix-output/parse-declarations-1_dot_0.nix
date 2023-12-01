@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "parse-declarations-1_dot_0";
   version = "parse-declarations-20101006-darcs";
 
   description = "Library to parse and rebuild declarations.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/parse-declarations/2010-10-06/parse-declarations-20101006-darcs.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "parse-declarations-1.0";
 
-  asdFilesToKeep = [ "parse-declarations-1.0.asd" ];
+  asdFilesToKeep = ["parse-declarations-1.0.asd"];
   overrides = x: x;
 }
 /* (SYSTEM parse-declarations-1.0 DESCRIPTION

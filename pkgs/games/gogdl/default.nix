@@ -27,14 +27,14 @@ buildPythonApplication rec {
     requests
   ];
 
-  pythonImportsCheck = [ "gogdl" ];
+  pythonImportsCheck = ["gogdl"];
 
   meta = with lib; {
     description = "GOG Downloading module for Heroic Games Launcher";
     homepage = "https://github.com/Heroic-Games-Launcher/heroic-gogdl";
-    license = with licenses; [ gpl3 ];
-    maintainers = with maintainers; [ aidalgol ];
+    license = with licenses; [gpl3];
+    maintainers = with maintainers; [aidalgol];
   };
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 }

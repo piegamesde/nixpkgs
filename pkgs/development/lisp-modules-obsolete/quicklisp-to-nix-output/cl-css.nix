@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-css";
   version = "20140914-git";
 
   description = "Simple inline CSS generator";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-css/2014-09-14/cl-css-20140914-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "cl-css";
 
-  asdFilesToKeep = [ "cl-css.asd" ];
+  asdFilesToKeep = ["cl-css.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-css DESCRIPTION Simple inline CSS generator SHA256

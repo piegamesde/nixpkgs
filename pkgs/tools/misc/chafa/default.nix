@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     imagemagick
   ] ++ lib.optional stdenv.isDarwin Foundation;
 
-  patches = [ ./xmlcatalog_patch.patch ];
+  patches = [./xmlcatalog_patch.patch];
 
   preConfigure = ''
     substituteInPlace ./autogen.sh --replace pkg-config '$PKG_CONFIG'
@@ -61,6 +61,6 @@ stdenv.mkDerivation rec {
     homepage = "https://hpjansson.org/chafa/";
     license = licenses.lgpl3Plus;
     platforms = platforms.all;
-    maintainers = [ maintainers.mog ];
+    maintainers = [maintainers.mog];
   };
 }

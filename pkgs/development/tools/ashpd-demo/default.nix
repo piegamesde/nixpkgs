@@ -67,17 +67,17 @@ stdenv.mkDerivation rec {
 
   # FIXME: workaround for Pipewire 0.3.64 deprecated API change, remove when fixed upstream
   # https://gitlab.freedesktop.org/pipewire/pipewire-rs/-/issues/55
-  env.NIX_CFLAGS_COMPILE = toString [ "-DPW_ENABLE_DEPRECATED" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-DPW_ENABLE_DEPRECATED"];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Tool for playing with XDG desktop portals";
     homepage = "https://github.com/bilelmoussaoui/ashpd/tree/master/ashpd-demo";
     license = licenses.mit;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.linux;
   };
 }

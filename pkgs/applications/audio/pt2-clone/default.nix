@@ -19,8 +19,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-YUGTcL/k+MbAnB/kcWPEmrGxGF/kSHdIgdBVUqCsDWM=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ SDL2 ] ++ lib.optional stdenv.isLinux alsa-lib;
+  nativeBuildInputs = [cmake];
+  buildInputs = [SDL2] ++ lib.optional stdenv.isLinux alsa-lib;
 
   passthru.tests = {
     pt2-clone-opens = nixosTests.pt2-clone;
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     description = "A highly accurate clone of the classic ProTracker 2.3D software for Amiga";
     homepage = "https://16-bits.org/pt2.php";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     # From HOW-TO-COMPILE.txt:
     # > This code is NOT big-endian compatible
     platforms = platforms.littleEndian;

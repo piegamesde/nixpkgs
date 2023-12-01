@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{config, lib, ...}:
 
 with lib;
 
@@ -33,8 +33,8 @@ with lib;
     # environment.pathsToLink, and we can't have both.
     #environment.pathsToLink = [ "/lib/debug/.build-id" ];
 
-    environment.extraOutputsToInstall = [ "debug" ];
+    environment.extraOutputsToInstall = ["debug"];
 
-    environment.variables.NIX_DEBUG_INFO_DIRS = [ "/run/current-system/sw/lib/debug" ];
+    environment.variables.NIX_DEBUG_INFO_DIRS = ["/run/current-system/sw/lib/debug"];
   };
 }

@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/lastfm/liblastfm";
     description = "Official LastFM library";
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.gpl3;
   };
 }

@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       texi2html
     ];
 
-  cmakeFlags = lib.optionals docSupport [ "-DBUILD_DOC=ON" ];
+  cmakeFlags = lib.optionals docSupport ["-DBUILD_DOC=ON"];
 
   meta = with lib; {
     description = "Command-line tool for programming Atmel AVR microcontrollers";
@@ -60,6 +60,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.nongnu.org/avrdude/";
     license = licenses.gpl2Plus;
     platforms = with platforms; linux ++ darwin;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sourceRoot=$(echo */flexc++)
   '';
 
-  buildInputs = [ bobcat ];
+  buildInputs = [bobcat];
   nativeBuildInputs = [
     icmake
     yodl

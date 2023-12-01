@@ -50,9 +50,9 @@ let
         libGL
         libGLU
         libX11
-      ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+      ] ++ lib.optionals stdenv.isDarwin [Cocoa];
 
-      propagatedBuildInputs = [ six ];
+      propagatedBuildInputs = [six];
 
       cmakeFlags = [
         "-Wno-dev"
@@ -75,16 +75,16 @@ buildPythonPackage rec {
     sha256 = "1n63b6cjjrdwdfmwq0zx1xabjnhndk9mgfkm4w7z9ardcfpvg84l";
   };
 
-  buildInputs = [ opencascade ];
+  buildInputs = [opencascade];
 
   propagatedBuildInputs = [
     pyparsing
     pythonocc-core-cadquery
   ];
 
-  FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
+  FONTCONFIG_FILE = makeFontsConf {fontDirectories = [freefont_ttf];};
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   disabled = pythonOlder "3.6" || pythonAtLeast "3.8";
 

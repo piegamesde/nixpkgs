@@ -37,7 +37,7 @@ let
         sha256 = "sha256-DjwlS8rXE7srs7A8+tHqXyUsFGtucYSeq6X0T/pVOc8=";
       };
 
-      NIX_CFLAGS_COMPILE = toString [ "-Wno-error=sign-conversion" ];
+      NIX_CFLAGS_COMPILE = toString ["-Wno-error=sign-conversion"];
     }
   );
 in
@@ -63,7 +63,7 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
       + (if nvidiaPatches then "-nvidia" else "");
 
     patches =
-      (old.patches or [ ])
+      (old.patches or [])
       ++ (lib.optionals (enableXWayland && hidpiXWayland) [
         "${hyprland.src}/nix/wlroots-hidpi.patch"
         (fetchpatch {
@@ -101,7 +101,7 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
     xwayland = xwayland.overrideAttrs (
       old: {
         patches =
-          (old.patches or [ ])
+          (old.patches or [])
           ++ (lib.optionals hidpiXWayland [
             "${hyprland.src}/nix/xwayland-vsync.patch"
             "${hyprland.src}/nix/xwayland-hidpi.patch"

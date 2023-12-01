@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   version = "0.3";
 
   src = fetchurl {
-    url = "http://abagames.sakura.ne.jp/windows/ttn${lib.replaceStrings [ "." ] [ "_" ] version}.zip";
+    url = "http://abagames.sakura.ne.jp/windows/ttn${lib.replaceStrings ["."] ["_"] version}.zip";
     sha256 = "sha256-fR0cufi6dU898wP8KGl/vxbfQJzMmMxlYZ3QNGLajfM=";
   };
 
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.asahi-net.or.jp/~cs8k-cyu/windows/ttn_e.html";
     description = "Strike down super high-velocity swooping insects";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
   };
 }

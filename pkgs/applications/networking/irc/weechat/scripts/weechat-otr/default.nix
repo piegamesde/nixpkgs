@@ -31,7 +31,7 @@ let
       done
     '';
 
-    buildInputs = [ gmp ];
+    buildInputs = [gmp];
 
     # Tests are relying on old Python 2 modules.
     doCheck = false;
@@ -42,9 +42,7 @@ let
     '';
   };
 
-  potr = python3Packages.potr.overridePythonAttrs (
-    oldAttrs: { propagatedBuildInputs = [ pycrypto ]; }
-  );
+  potr = python3Packages.potr.overridePythonAttrs (oldAttrs: {propagatedBuildInputs = [pycrypto];});
 in
 stdenv.mkDerivation rec {
   pname = "weechat-otr";
@@ -72,7 +70,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  passthru.scripts = [ "weechat_otr.py" ];
+  passthru.scripts = ["weechat_otr.py"];
 
   installPhase = ''
     mkdir -p $out/share
@@ -82,7 +80,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/mmb/weechat-otr";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
     description = "WeeChat script for Off-the-Record messaging";
     knownVulnerabilities = [
       "There is no upstream release since 2018-03."

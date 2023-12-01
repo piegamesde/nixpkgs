@@ -56,14 +56,14 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Know the forecast of the next hours & days";
     homepage = "https://gitlab.com/bitseater/meteo";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ bobby285271 ];
+    maintainers = with maintainers; [bobby285271];
     platforms = platforms.linux;
     mainProgram = "com.gitlab.bitseater.meteo";
   };

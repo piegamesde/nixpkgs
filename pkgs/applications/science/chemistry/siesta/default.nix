@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     inherit mpi;
   };
 
-  nativeBuildInputs = [ gfortran ];
+  nativeBuildInputs = [gfortran];
 
   buildInputs =
     [
@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://siesta-project.org/siesta/";
     license = licenses.gpl2;
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ maintainers.costrouc ];
+    platforms = ["x86_64-linux"];
+    maintainers = [maintainers.costrouc];
   };
 }

@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     sha256 = "ramvZ6syGRa9frWePWGaSneWwIooxzLt/H8C/ICxo3o=";
   };
 
-  patches = [ ./remove-rt-on-darwin.patch ];
+  patches = [./remove-rt-on-darwin.patch];
 
   nativeBuildInputs = [
     glib
@@ -67,11 +67,11 @@ stdenv.mkDerivation rec {
     python3.pkgs.pyparsing
     spice-protocol
     zlib
-  ] ++ lib.optionals stdenv.isLinux [ alsa-lib ] ++ lib.optionals stdenv.isDarwin [ gdk-pixbuf ];
+  ] ++ lib.optionals stdenv.isLinux [alsa-lib] ++ lib.optionals stdenv.isDarwin [gdk-pixbuf];
 
   env.NIX_CFLAGS_COMPILE = "-fno-stack-protector";
 
-  mesonFlags = [ "-Dgstreamer=1.0" ];
+  mesonFlags = ["-Dgstreamer=1.0"];
 
   postPatch = ''
     patchShebangs build-aux

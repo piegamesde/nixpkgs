@@ -53,6 +53,6 @@ mkDerivation {
     description = "Contacts and dialer application";
     homepage = "https://invent.kde.org/maui/communicator";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

@@ -31,6 +31,6 @@ stdenvNoCC.mkDerivation rec {
     changelog = "https://github.com/vinniefalco/LuaBridge/blob/${version}/CHANGES.md";
     platforms = platforms.unix;
     license = licenses.mit;
-    maintainers = with maintainers; [ ivar ];
+    maintainers = with maintainers; [ivar];
   };
 }

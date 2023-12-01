@@ -31,7 +31,7 @@ buildPythonPackage rec {
 
   passthru.tests = {
     inherit flit;
-    pytest = callPackage ./tests.nix { };
+    pytest = callPackage ./tests.nix {};
   };
 
   meta = with lib; {

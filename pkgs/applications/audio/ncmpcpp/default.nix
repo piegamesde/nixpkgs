@@ -32,13 +32,13 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   configureFlags =
-    [ "BOOST_LIB_SUFFIX=" ]
+    ["BOOST_LIB_SUFFIX="]
     ++ lib.optional outputsSupport "--enable-outputs"
     ++ lib.optional visualizerSupport "--enable-visualizer --with-fftw"
     ++ lib.optional clockSupport "--enable-clock"
     ++ lib.optional taglibSupport "--with-taglib";
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optional taglibSupport taglib;
+  nativeBuildInputs = [pkg-config] ++ lib.optional taglibSupport taglib;
 
   buildInputs = [
     boost

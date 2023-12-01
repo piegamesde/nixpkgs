@@ -17,14 +17,14 @@ stdenv.mkDerivation rec {
     sha256 = "1g9cbhblll47l300zr999xr51x2g98y49l222f77fhswd12kjzhd";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     udev
     ncurses
     bluez
   ];
 
-  configureFlags = [ "--with-doxygen=no" ];
+  configureFlags = ["--with-doxygen=no"];
 
   meta = {
     homepage = "https://dvdhrm.github.io/xwiimote";

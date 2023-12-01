@@ -27,10 +27,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OrlNE1A71q4XAauYNfumV1Ev1wBpFIBxPiw7aF++yjM=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ] ++ lib.optional stdenv.isLinux pkg-config;
+  nativeBuildInputs = [autoreconfHook] ++ lib.optional stdenv.isLinux pkg-config;
 
   buildInputs =
-    [ ncurses ]
+    [ncurses]
     ++ lib.optional stdenv.isDarwin IOKit
     ++ lib.optionals stdenv.isLinux [
       libcap

@@ -54,9 +54,9 @@ buildPythonPackage rec {
       cryptography
       pyopenssl
     ];
-    pyopenssl = [ pyopenssl ];
-    reauth = [ pyu2f ];
-    requests = [ requests ];
+    pyopenssl = [pyopenssl];
+    reauth = [pyu2f];
+    requests = [requests];
   };
 
   nativeCheckInputs =
@@ -77,7 +77,7 @@ buildPythonPackage rec {
     # `cryptography` is still required on `aarch64-darwin` for `tests/crypt/*`
     ++ (
       if (stdenv.isDarwin && stdenv.isAarch64) then
-        [ cryptography ]
+        [cryptography]
       else
         passthru.optional-dependencies.enterprise_cert
     )
@@ -107,6 +107,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/google-auth-library-python";
     changelog = "https://github.com/googleapis/google-auth-library-python/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     install -Dm755 mlc $out/bin/mlc
   '';
 
-  nativeBuildInputs = [ patchelf ];
+  nativeBuildInputs = [patchelf];
 
   fixupPhase = ''
     patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/mlc
@@ -28,9 +28,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://software.intel.com/content/www/us/en/develop/articles/intelr-memory-latency-checker.html";
     description = "Intel Memory Latency Checker";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ basvandijk ];
+    maintainers = with maintainers; [basvandijk];
     platforms = with platforms; linux;
   };
 }

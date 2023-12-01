@@ -24,6 +24,6 @@ buildPythonPackage rec {
     description = "Twitter's common logging library";
     homepage = "https://twitter.github.io/commons/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ copumpkin ];
+    maintainers = with maintainers; [copumpkin];
   };
 }

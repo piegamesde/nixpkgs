@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     fftwFloat
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   dontWrapQtApps = true;
 
@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "i686-linux"
     ];
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
   };
 }

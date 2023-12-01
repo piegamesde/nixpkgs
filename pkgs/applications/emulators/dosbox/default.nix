@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     libpng
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   configureFlags = lib.optional stdenv.isDarwin "--disable-sdltest";
 
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
       understand some basic concepts about the MS-DOS environment.
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
     platforms = platforms.unix;
   };
 }

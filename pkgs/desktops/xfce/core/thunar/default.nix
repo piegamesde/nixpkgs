@@ -16,7 +16,7 @@
   gobject-introspection,
   makeWrapper,
   symlinkJoin,
-  thunarPlugins ? [ ],
+  thunarPlugins ? [],
 }:
 
 let
@@ -46,7 +46,7 @@ let
       xfconf
     ];
 
-    configureFlags = [ "--with-custom-thunarx-dirs-enabled" ];
+    configureFlags = ["--with-custom-thunarx-dirs-enabled"];
 
     # the desktop file … is in an insecure location»
     # which pops up when invoking desktop files that are
@@ -60,11 +60,11 @@ let
 
     meta = with lib; {
       description = "Xfce file manager";
-      maintainers = with maintainers; [ ] ++ teams.xfce.members;
+      maintainers = with maintainers; [] ++ teams.xfce.members;
     };
   };
 in
-if thunarPlugins == [ ] then
+if thunarPlugins == [] then
   unwrapped
 else
   import ./wrapper.nix {

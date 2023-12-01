@@ -45,7 +45,7 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  patches = [ ./static-frontend-path.patch ];
+  patches = [./static-frontend-path.patch];
 
   postPatch = ''
     ln -s --force ${./Cargo.lock} Cargo.lock
@@ -62,6 +62,6 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/lldap/lldap/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ indeednotjames ];
+    maintainers = with maintainers; [indeednotjames];
   };
 }

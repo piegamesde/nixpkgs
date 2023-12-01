@@ -21,7 +21,7 @@ buildDunePackage {
     uutf
   ];
 
-  nativeCheckInputs = [ mdx.bin ];
+  nativeCheckInputs = [mdx.bin];
 
   meta = printbox.meta // {
     description = "Text renderer for printbox, using unicode edges";

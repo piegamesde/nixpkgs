@@ -133,12 +133,12 @@ stdenv.mkDerivation rec {
     "--disable-daemon"
     "--with-distro=NixOS"
     "--with-guestfs-path=${placeholder "out"}/lib/guestfs"
-  ] ++ lib.optionals (!javaSupport) [ "--without-java" ];
-  patches = [ ./libguestfs-syms.patch ];
+  ] ++ lib.optionals (!javaSupport) ["--without-java"];
+  patches = [./libguestfs-syms.patch];
 
   createFindlibDestdir = true;
 
-  installFlags = [ "REALLY_INSTALL=yes" ];
+  installFlags = ["REALLY_INSTALL=yes"];
   enableParallelBuilding = true;
 
   postInstall = ''
@@ -183,7 +183,7 @@ stdenv.mkDerivation rec {
       lgpl21Plus
     ];
     homepage = "https://libguestfs.org/";
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     platforms = platforms.linux;
     # this is to avoid "output size exceeded"
     hydraPlatforms = if appliance != null then appliance.meta.hydraPlatforms else platforms.linux;

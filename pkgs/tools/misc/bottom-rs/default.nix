@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
     description = "Fantastic (maybe) CLI for translating between bottom and human-readable text";
     homepage = "https://github.com/bottom-software-foundation/bottom-rs";
     license = licenses.mit;
-    maintainers = with maintainers; [ winter ];
+    maintainers = with maintainers; [winter];
     mainProgram = "bottomify";
   };
 }

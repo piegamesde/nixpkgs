@@ -30,9 +30,9 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonNamespaces = [ "azure.mgmt" ];
+  pythonNamespaces = ["azure.mgmt"];
 
-  pythonImportsCheck = [ "azure.mgmt.resource" ];
+  pythonImportsCheck = ["azure.mgmt.resource"];
 
   meta = with lib; {
     description = "Microsoft Azure SDK for Python";

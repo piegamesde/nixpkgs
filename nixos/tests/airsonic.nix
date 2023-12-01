@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "airsonic";
-    meta = with pkgs.lib.maintainers; { maintainers = [ sumnerevans ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [sumnerevans];};
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         services.airsonic = {
           enable = true;

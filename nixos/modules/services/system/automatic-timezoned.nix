@@ -49,7 +49,7 @@ in
       appConfig.automatic-timezoned = {
         isAllowed = true;
         isSystem = true;
-        users = [ (toString config.ids.uids.automatic-timezoned) ];
+        users = [(toString config.ids.uids.automatic-timezoned)];
       };
     };
 
@@ -57,20 +57,20 @@ in
 
       automatic-timezoned = {
         description = "Automatically update system timezone based on location";
-        requires = [ "automatic-timezoned-geoclue-agent.service" ];
-        after = [ "automatic-timezoned-geoclue-agent.service" ];
+        requires = ["automatic-timezoned-geoclue-agent.service"];
+        after = ["automatic-timezoned-geoclue-agent.service"];
         serviceConfig = {
           Type = "exec";
           User = "automatic-timezoned";
           ExecStart = "${cfg.package}/bin/automatic-timezoned --zoneinfo-path=${pkgs.tzdata}/share/zoneinfo/zone1970.tab";
         };
-        wantedBy = [ "default.target" ];
+        wantedBy = ["default.target"];
       };
 
       automatic-timezoned-geoclue-agent = {
         description = "Geoclue agent for automatic-timezoned";
-        requires = [ "geoclue.service" ];
-        after = [ "geoclue.service" ];
+        requires = ["geoclue.service"];
+        after = ["geoclue.service"];
         serviceConfig = {
           Type = "exec";
           User = "automatic-timezoned";
@@ -78,7 +78,7 @@ in
           Restart = "on-failure";
           PrivateTmp = true;
         };
-        wantedBy = [ "default.target" ];
+        wantedBy = ["default.target"];
       };
     };
 

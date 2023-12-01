@@ -103,6 +103,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
     description = "Interactive fiction interpreter GUI";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

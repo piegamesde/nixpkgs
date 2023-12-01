@@ -31,13 +31,13 @@ stdenv.mkDerivation rec {
     chmod +x configure
   '';
 
-  nativeBuildInputs = [ bison ];
+  nativeBuildInputs = [bison];
 
   meta = with lib; {
     homepage = "http://wiki.erazor-zone.de/wiki:projects:linux:as31";
     description = "An 8031/8051 assembler";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.unix;
   };
 }

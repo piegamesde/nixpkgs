@@ -56,13 +56,13 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://nethack.org/download/${version}/nethack-${
-      lib.replaceStrings [ "." ] [ "" ] version
+      lib.replaceStrings ["."] [""] version
     }-src.tgz";
     sha256 = "sha256-mM9n323r+WaKYXRaqEwJvKs2Ll0z9blE7FFV1E0qrLI=";
   };
 
   buildInputs =
-    [ ncurses ]
+    [ncurses]
     ++ lib.optionals x11Mode [
       libXaw
       libXext
@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
       bdftopcf
     ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   postPatch = ''
     sed -e '/^ *cd /d' -i sys/unix/nethack.sh
@@ -200,6 +200,6 @@ stdenv.mkDerivation rec {
     homepage = "http://nethack.org/";
     license = "nethack";
     platforms = if x11Mode then platforms.linux else platforms.unix;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

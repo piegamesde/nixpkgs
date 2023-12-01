@@ -208,7 +208,7 @@ stdenv.mkDerivation rec {
       packaging (ppa:pharo/stable)' project.
     '';
     license = licenses.mit;
-    maintainers = [ maintainers.lukego ];
+    maintainers = [maintainers.lukego];
     platforms = [
       "i686-linux"
       "x86_64-linux"

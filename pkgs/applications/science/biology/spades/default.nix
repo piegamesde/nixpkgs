@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-FVw2QNVx8uexmgUDHR/Q0ZvYLfeF04hw+5O9JBsSu/o=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     zlib
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "x86_64-darwin"
     ];
-    maintainers = [ maintainers.bzizou ];
+    maintainers = [maintainers.bzizou];
   };
 }

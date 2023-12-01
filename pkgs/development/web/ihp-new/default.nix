@@ -20,19 +20,19 @@ stdenv.mkDerivation rec {
   dontConfigure = true;
   sourceRoot = "source/ProjectGenerator";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     install -Dm755 bin/ihp-new -t $out/bin
     wrapProgram $out/bin/ihp-new \
-      --suffix PATH ":" "${lib.makeBinPath [ git ]}";
+      --suffix PATH ":" "${lib.makeBinPath [git]}";
   '';
 
   meta = with lib; {
     description = "Project generator for the IHP (Integrated Haskell Platform) web framework";
     homepage = "https://ihp.digitallyinduced.com";
     license = licenses.mit;
-    maintainers = [ maintainers.mpscholten ];
+    maintainers = [maintainers.mpscholten];
     platforms = platforms.unix;
   };
 }

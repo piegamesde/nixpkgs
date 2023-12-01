@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-VI9xhr2LlsvAac9kmo6ON33OSax0SGcJhJ/mOpnK1oQ=";
   };
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   checkPhase = ''
     pytest .
@@ -24,6 +24,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/architest/pymeeus";
     description = "Library of astronomical algorithms";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

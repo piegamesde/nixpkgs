@@ -2,19 +2,19 @@
   lib,
   makeWrapper,
   symlinkJoin,
-  extraPythonPackages ? (ps: [ ]),
+  extraPythonPackages ? (ps: []),
   libsForQt5,
 }:
 with lib;
 let
-  qgis-unwrapped = libsForQt5.callPackage ./unwrapped.nix { };
+  qgis-unwrapped = libsForQt5.callPackage ./unwrapped.nix {};
 in
 symlinkJoin rec {
 
   inherit (qgis-unwrapped) version;
   name = "qgis-${version}";
 
-  paths = [ qgis-unwrapped ];
+  paths = [qgis-unwrapped];
 
   nativeBuildInputs = [
     makeWrapper

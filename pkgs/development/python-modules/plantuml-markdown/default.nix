@@ -36,7 +36,7 @@ buildPythonPackage rec {
   # The package uses a custom script that downloads a certain version of plantuml for testing.
   doCheck = false;
 
-  pythonImportsCheck = [ "plantuml_markdown" ];
+  pythonImportsCheck = ["plantuml_markdown"];
 
   passthru.tests.example-doc =
     let
@@ -46,7 +46,7 @@ buildPythonPackage rec {
         ```
       '';
     in
-    runCommand "plantuml-markdown-example-doc" { nativeBuildInputs = [ plantuml-markdown ]; } ''
+    runCommand "plantuml-markdown-example-doc" {nativeBuildInputs = [plantuml-markdown];} ''
       markdown_py -x plantuml_markdown ${exampleDoc} > $out
 
       ! grep -q "Error" $out
@@ -61,6 +61,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mikitex70/plantuml-markdown";
     changelog = "https://github.com/mikitex70/plantuml-markdown/releases/tag/${version}";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ nikstur ];
+    maintainers = with maintainers; [nikstur];
   };
 }

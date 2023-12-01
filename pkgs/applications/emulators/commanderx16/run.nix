@@ -4,7 +4,7 @@
   writeTextFile,
 }:
 
-{ emulator, rom }:
+{emulator, rom}:
 
 assert emulator.version == rom.version;
 

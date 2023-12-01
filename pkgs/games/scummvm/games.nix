@@ -44,7 +44,7 @@ let
       description,
       version,
       files,
-      docs ? [ "readme.txt" ],
+      docs ? ["readme.txt"],
       ...
     }@attrs:
     let
@@ -73,7 +73,7 @@ let
       {
         name = "${pname}-${version}";
 
-        nativeBuildInputs = [ unzip ];
+        nativeBuildInputs = [unzip];
 
         dontBuild = true;
         dontFixup = true;
@@ -101,7 +101,7 @@ let
         meta = with lib; {
           homepage = "https://www.scummvm.org";
           license = licenses.free; # refer to the readme for exact wording
-          maintainers = with maintainers; [ peterhoeg ];
+          maintainers = with maintainers; [peterhoeg];
           inherit description;
           inherit (scummvm.meta) platforms;
         };
@@ -120,7 +120,7 @@ in
       url = "mirror://sourceforge/scummvm/${pshort}-cd-${version}.zip";
       sha256 = "14s5jz67kavm8l15gfm5xb7pbpn8azrv460mlxzzvdpa02a9n82k";
     };
-    files = [ "sky.*" ];
+    files = ["sky.*"];
   };
 
   broken-sword-25 = generic rec {
@@ -138,7 +138,7 @@ in
       "README"
       "license-original.txt"
     ];
-    files = [ "data.b25c" ];
+    files = ["data.b25c"];
   };
 
   drascula-the-vampire-strikes-back = generic rec {
@@ -162,7 +162,7 @@ in
       "readme.txt"
       "drascula.doc"
     ];
-    files = [ "Packet.001" ];
+    files = ["Packet.001"];
   };
 
   dreamweb = generic rec {
@@ -176,7 +176,7 @@ in
       sha256 = "0hh1p3rd7s0ckvri14lc6wdry9vv0vn4h4744v2n4zg63j8i6vsa";
     };
     sourceRoot = ".";
-    docs = [ "license.txt" ];
+    docs = ["license.txt"];
     files = [
       "DREAMWEB.*"
       "SPEECH"
@@ -195,7 +195,7 @@ in
       sha256 = "1a6q71q1dl9vvw2qqsxk5h1sv0gaqy6236zr5905w2is01gdsp52";
     };
     sourceRoot = ".";
-    files = [ "*.1c" ];
+    files = ["*.1c"];
   };
 
   lure-of-the-temptress = generic rec {
@@ -214,6 +214,6 @@ in
       "*.pdf"
       "*.PDF"
     ];
-    files = [ "*.vga" ];
+    files = ["*.vga"];
   };
 }

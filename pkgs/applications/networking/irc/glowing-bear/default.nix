@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     description = "A web client for Weechat";
     homepage = "https://github.com/glowing-bear/glowing-bear";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ delroth ];
+    maintainers = with maintainers; [delroth];
     platforms = platforms.unix;
   };
 }

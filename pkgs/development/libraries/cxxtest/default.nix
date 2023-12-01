@@ -17,7 +17,7 @@ python3Packages.buildPythonApplication rec {
 
   sourceRoot = "source/python";
 
-  nativeCheckInputs = [ python3Packages.ply ];
+  nativeCheckInputs = [python3Packages.ply];
 
   preCheck = ''
     cd ../
@@ -46,6 +46,6 @@ python3Packages.buildPythonApplication rec {
     description = "Unit testing framework for C++";
     license = licenses.lgpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ juliendehos ];
+    maintainers = with maintainers; [juliendehos];
   };
 }

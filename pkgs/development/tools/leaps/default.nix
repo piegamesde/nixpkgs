@@ -26,13 +26,13 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-  passthru.tests.version = testers.testVersion { package = leaps; };
+  passthru.tests.version = testers.testVersion {package = leaps;};
 
   meta = with lib; {
     description = "A pair programming tool and library written in Golang";
     homepage = "https://github.com/jeffail/leaps/";
     license = licenses.mit;
-    maintainers = with lib.maintainers; [ qknight ];
+    maintainers = with lib.maintainers; [qknight];
     platforms = lib.platforms.unix;
   };
 }

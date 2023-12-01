@@ -16,13 +16,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9fIwouthv2GcmBe/UPvV7Xn9P2o0Kmn2hCI4jCh0hPM=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     homepage = "https://www.zaphoyd.com/websocketpp/";
     description = "C++/Boost Asio based websocket client/server library";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ revol-xut ];
+    maintainers = with maintainers; [revol-xut];
   };
 }

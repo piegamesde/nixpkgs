@@ -32,9 +32,9 @@ buildPythonPackage rec {
       --replace "scipy>=0.16,<=1.7.3" "scipy>=0.16"
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "numba_scipy" ];
+  pythonImportsCheck = ["numba_scipy"];
 
   meta = with lib; {
     broken = stdenv.isDarwin;
@@ -42,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/numba/numba-scipy";
     changelog = "https://github.com/numba/numba-scipy/blob/master/CHANGE_LOG";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ Etjean ];
+    maintainers = with maintainers; [Etjean];
   };
 }

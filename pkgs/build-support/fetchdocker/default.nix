@@ -48,7 +48,7 @@ let
       {
         Config = stripNixStore imageConfig;
         Layers = layers;
-        RepoTags = [ "${repoTag1}:${tag}" ];
+        RepoTags = ["${repoTag1}:${tag}"];
       }
     ]
   );
@@ -62,12 +62,12 @@ let
   );
 
   imageFileStorePaths = writeText "imageFileStorePaths.txt" (
-    lib.concatStringsSep "\n" ((lib.unique imageLayers) ++ [ imageConfig ])
+    lib.concatStringsSep "\n" ((lib.unique imageLayers) ++ [imageConfig])
   );
 in
 stdenv.mkDerivation {
   builder = ./fetchdocker-builder.sh;
-  buildInputs = [ coreutils ];
+  buildInputs = [coreutils];
   preferLocalBuild = true;
 
   inherit

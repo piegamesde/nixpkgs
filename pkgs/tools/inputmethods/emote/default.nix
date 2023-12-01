@@ -60,7 +60,7 @@ python3Packages.buildPythonApplication rec {
   preFixup = ''
     makeWrapperArgs+=(
       "''${gappsWrapperArgs[@]}"
-      --prefix PATH : ${lib.makeBinPath [ xdotool ]}
+      --prefix PATH : ${lib.makeBinPath [xdotool]}
     )
   '';
 

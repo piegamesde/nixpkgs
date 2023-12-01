@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "1yw9wrk3vjv84kd3j4s1scfhinirknwk6xq0hvj7x2srx3h93q9p";
   };
 
-  nativeBuildInputs = [ gfortran ];
+  nativeBuildInputs = [gfortran];
 
   # For some reason zlib was only needed after bump to gfortran8
   buildInputs = [
@@ -27,9 +27,9 @@ stdenv.mkDerivation rec {
     lhapdf
     root5
     zlib
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  ] ++ lib.optionals stdenv.isDarwin [Cocoa];
 
-  patches = [ ./bad_code.patch ];
+  patches = [./bad_code.patch];
 
   preConfigure =
     ''
@@ -55,6 +55,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3;
     homepage = "http://applgrid.hepforge.org";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

@@ -1,19 +1,19 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
 
 let
   redmineTest =
-    { name, type }:
+    {name, type}:
     makeTest {
       name = "redmine-${name}";
       nodes.machine =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         {
           services.redmine = {
             enable = true;
@@ -42,7 +42,7 @@ let
       '';
     }
     // {
-      meta.maintainers = [ maintainers.aanderse ];
+      meta.maintainers = [maintainers.aanderse];
     };
 in
 {

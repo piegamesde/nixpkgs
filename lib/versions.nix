@@ -1,5 +1,5 @@
 # Version string functions.
-{ lib }:
+{lib}:
 
 rec {
 

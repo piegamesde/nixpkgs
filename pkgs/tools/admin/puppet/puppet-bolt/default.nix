@@ -11,8 +11,8 @@ bundlerApp {
   pname = "bolt";
 
   gemdir = ./.;
-  exes = [ "bolt" ];
-  nativeBuildInputs = [ makeWrapper ];
+  exes = ["bolt"];
+  nativeBuildInputs = [makeWrapper];
 
   gemConfig.bolt = attrs: {
     # scripts in libexec will be executed by remote host,
@@ -37,7 +37,7 @@ bundlerApp {
     description = "Execute commands remotely over SSH and WinRM";
     homepage = "https://github.com/puppetlabs/bolt";
     license = licenses.asl20;
-    maintainers = with maintainers; [ uvnikita ];
+    maintainers = with maintainers; [uvnikita];
     platforms = platforms.unix;
   };
 }

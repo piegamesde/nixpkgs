@@ -8,7 +8,7 @@
 
 let
   inherit (stdenv.hostPlatform) system;
-  sources = import ./bins.nix { inherit fetchurl fetchzip; };
+  sources = import ./bins.nix {inherit fetchurl fetchzip;};
 in
 
 stdenv.mkDerivation rec {
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
       iagoq
       rhoriguchi
     ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.gpl3Only;
   };
 }

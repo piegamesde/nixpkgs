@@ -35,9 +35,9 @@ buildGoModule rec {
   # prevent `error: 'TARGET_OS_MAC' is not defined`
   env.CGO_CFLAGS = "-Wno-undef-prefix";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ IOKit ];
+  buildInputs = lib.optionals stdenv.isDarwin [IOKit];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -53,6 +53,6 @@ buildGoModule rec {
     homepage = "https://github.com/xxxserxxx/gotop";
     changelog = "https://github.com/xxxserxxx/gotop/raw/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
   };
 }

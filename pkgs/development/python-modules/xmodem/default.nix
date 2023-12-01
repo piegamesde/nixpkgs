@@ -30,7 +30,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Pure python implementation of the XMODEM protocol";
-    maintainers = with maintainers; [ emantor ];
+    maintainers = with maintainers; [emantor];
     homepage = "https://github.com/tehmaze/xmodem";
     license = licenses.mit;
   };

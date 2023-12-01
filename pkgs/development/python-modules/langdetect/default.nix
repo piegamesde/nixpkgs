@@ -15,16 +15,16 @@ buildPythonPackage rec {
     sha256 = "1805svvb7xjm4sf1j7b6nc3409x37pd1xmabfwwjf1ldkzwgxhfb";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "langdetect" ];
+  pythonImportsCheck = ["langdetect"];
 
   meta = with lib; {
     description = "Python port of Google's language-detection library";
     homepage = "https://github.com/Mimino666/langdetect";
     license = licenses.asl20;
-    maintainers = with maintainers; [ erikarvstedt ];
+    maintainers = with maintainers; [erikarvstedt];
   };
 }

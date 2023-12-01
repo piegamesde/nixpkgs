@@ -9,7 +9,7 @@ buildGoModule rec {
   pname = "smug";
   version = "0.3.3";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   src = fetchFromGitHub {
     owner = "ivaaaan";
@@ -20,7 +20,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-vaDUzVRmpmNn8/vUPeR1U5N6T4llFRIk9A1lum8uauU=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -37,6 +37,6 @@ buildGoModule rec {
     homepage = "https://github.com/ivaaaan/smug";
     description = "Smug - tmux session manager";
     license = licenses.mit;
-    maintainers = with maintainers; [ juboba ];
+    maintainers = with maintainers; [juboba];
   };
 }

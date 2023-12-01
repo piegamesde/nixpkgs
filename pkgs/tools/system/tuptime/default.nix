@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     installShellFiles
   ];
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   outputs = [
     "out"
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     wrapProgram $out/share/tuptime/db-tuptime-migrate-4.0-to-5.0.sh \
-      --prefix PATH : "${lib.makeBinPath [ sqlite ]}"
+      --prefix PATH : "${lib.makeBinPath [sqlite]}"
   '';
 
   passthru.tests = nixosTests.tuptime;
@@ -55,6 +55,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/rfrail3/tuptime/blob/master/CHANGELOG";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = [ maintainers.evils ];
+    maintainers = [maintainers.evils];
   };
 }

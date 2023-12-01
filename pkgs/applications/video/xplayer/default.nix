@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/xplayer \
-                --prefix PATH : ${lib.makeBinPath [ pythonenv ]}
+                --prefix PATH : ${lib.makeBinPath [pythonenv]}
   '';
 
   meta = with lib; {

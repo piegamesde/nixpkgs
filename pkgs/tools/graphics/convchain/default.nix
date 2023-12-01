@@ -34,11 +34,11 @@ stdenv.mkDerivation rec {
     echo "'${mono}/bin/mono' '$out/bin/convchainfast.exe' \"\$@\"" >>  "$out/bin/convchainfast"
     chmod a+x "$out/bin/convchainfast"
   '';
-  buildInputs = [ mono ];
+  buildInputs = [mono];
   meta = {
     description = "Bitmap generation from a single example with convolutions and MCMC";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.linux;
   };
 }

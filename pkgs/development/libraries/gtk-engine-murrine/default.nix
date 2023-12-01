@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     pkg-config
     intltool
   ];
-  buildInputs = [ gtk2 ];
+  buildInputs = [gtk2];
 
   meta = {
     description = "A very flexible theme engine";

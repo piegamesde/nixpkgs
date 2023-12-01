@@ -19,7 +19,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/gazelle" ];
+  subPackages = ["cmd/gazelle"];
 
   meta = with lib; {
     homepage = "https://github.com/bazelbuild/bazel-gazelle";
@@ -29,7 +29,7 @@ buildGoModule rec {
       and custom rule sets.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
     mainProgram = "gazelle";
   };
 }

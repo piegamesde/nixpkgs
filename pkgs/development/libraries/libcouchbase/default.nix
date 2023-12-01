@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-sq/sPEZO6/9WYukOQ1w47ZTW0G8uLCJqnBS6mTD6P+M=";
   };
 
-  cmakeFlags = [ "-DLCB_NO_MOCK=ON" ];
+  cmakeFlags = ["-DLCB_NO_MOCK=ON"];
 
   nativeBuildInputs = [
     cmake

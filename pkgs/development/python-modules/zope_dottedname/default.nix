@@ -17,6 +17,6 @@ buildPythonPackage rec {
     homepage = "http://pypi.python.org/pypi/zope.dottedname";
     description = "Resolver for Python dotted names";
     license = licenses.zpl20;
-    maintainers = with maintainers; [ goibhniu ];
+    maintainers = with maintainers; [goibhniu];
   };
 }

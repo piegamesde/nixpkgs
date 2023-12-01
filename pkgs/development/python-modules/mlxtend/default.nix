@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-7G4tIoQGS7/YPpAhUn0CRf8fl/DdjdqySPWgJEL0trA=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
   # image tests download files over the network
   pytestFlagsArray = [
     "-sv"
@@ -32,7 +32,7 @@ buildPythonPackage rec {
   ];
   # Fixed in master, but failing in release version
   # see: https://github.com/rasbt/mlxtend/pull/721
-  disabledTests = [ "test_variance_explained_ratio" ];
+  disabledTests = ["test_variance_explained_ratio"];
 
   propagatedBuildInputs = [
     scipy
@@ -47,7 +47,7 @@ buildPythonPackage rec {
     description = "A library of Python tools and extensions for data science";
     homepage = "https://github.com/rasbt/mlxtend";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ evax ];
+    maintainers = with maintainers; [evax];
     platforms = platforms.unix;
     # incompatible with nixpkgs scikit-learn version
     broken = true;

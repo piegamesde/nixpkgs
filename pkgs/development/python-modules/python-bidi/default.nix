@@ -14,12 +14,12 @@ buildPythonPackage rec {
     sha256 = "U0f3HoKz6Zdtxlfwne0r/jm6jWd3yoGlssVsMBIcSW4=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   meta = with lib; {
     homepage = "https://github.com/MeirKriheli/python-bidi";
     description = "Pure python implementation of the BiDi layout algorithm";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
   };
 }

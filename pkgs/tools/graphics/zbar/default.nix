@@ -70,8 +70,8 @@ stdenv.mkDerivation rec {
       libiconv
       Foundation
     ]
-    ++ lib.optionals enableDbus [ dbus ]
-    ++ lib.optionals withXorg [ libX11 ]
+    ++ lib.optionals enableDbus [dbus]
+    ++ lib.optionals withXorg [libX11]
     ++ lib.optionals enableVideo [
       libv4l
       gtk3
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  checkInputs = lib.optionals stdenv.isDarwin [ argp-standalone ];
+  checkInputs = lib.optionals stdenv.isDarwin [argp-standalone];
 
   # Note: postConfigure instead of postPatch in order to include some
   # autoconf-generated files. The template files for the autogen'd scripts are
@@ -97,13 +97,11 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-DQT_NO_DEBUG";
 
   configureFlags =
-    [ "--without-python" ]
-    ++ (
-      if enableDbus then [ "--with-dbusconfdir=${placeholder "out"}/share" ] else [ "--without-dbus" ]
-    )
+    ["--without-python"]
+    ++ (if enableDbus then ["--with-dbusconfdir=${placeholder "out"}/share"] else ["--without-dbus"])
     ++ (
       if enableVideo then
-        [ "--with-gtk=gtk3" ]
+        ["--with-gtk=gtk3"]
       else
         [
           "--disable-video"

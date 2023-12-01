@@ -20,8 +20,8 @@ stdenv.mkDerivation rec {
     sha256 = "1lhmskcyk7qqfikmasiw7wjry74gc8g5q6a3j1iya84yd7ll0cz6";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libsndfile ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libsndfile];
 
   enableParallelBuilding = true;
   makeFlags = [

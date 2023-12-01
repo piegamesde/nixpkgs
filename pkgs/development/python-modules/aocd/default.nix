@@ -64,14 +64,14 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [ "aocd" ];
+  pythonImportsCheck = ["aocd"];
 
   meta = with lib; {
     description = "Get your Advent of Code data with a single import statement";
     homepage = "https://github.com/wimglenn/advent-of-code-data";
     changelog = "https://github.com/wimglenn/advent-of-code-data/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ aadibajpai ];
+    maintainers = with maintainers; [aadibajpai];
     platforms = platforms.unix;
   };
 }

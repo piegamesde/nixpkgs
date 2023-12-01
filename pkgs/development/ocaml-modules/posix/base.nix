@@ -29,6 +29,6 @@ buildDunePackage rec {
     homepage = "https://www.liquidsoap.info/ocaml-posix/";
     description = "Base module for the posix bindings";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

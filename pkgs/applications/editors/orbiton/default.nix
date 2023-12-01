@@ -57,7 +57,7 @@ buildGoModule rec {
     description = "Config-free text editor and IDE limited to VT100";
     homepage = "https://github.com/xyproto/orbiton";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     mainProgram = "o";
   };
 }

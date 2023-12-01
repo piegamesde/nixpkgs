@@ -17,7 +17,7 @@ mkXfceDerivation {
 
   sha256 = "sha256-worHYB9qibRxMaCYQ0+nHA9CSTColewgahyrXiPOnQA=";
 
-  nativeBuildInputs = [ exo ];
+  nativeBuildInputs = [exo];
 
   buildInputs = [
     gtk3
@@ -29,6 +29,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "Easy to use task manager for Xfce";
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    maintainers = with maintainers; [] ++ teams.xfce.members;
   };
 }

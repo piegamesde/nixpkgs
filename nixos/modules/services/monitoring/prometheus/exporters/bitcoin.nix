@@ -65,7 +65,7 @@ in
 
     extraEnv = mkOption {
       type = types.attrsOf types.str;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Extra environment variables for the exporter.
       '';

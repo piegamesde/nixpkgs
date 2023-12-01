@@ -15,16 +15,16 @@ buildPythonPackage rec {
     hash = "sha256-b6gydIyQOB8ikdhQgJ4ySSUZ7l8lPWpay8Kdk37KAug=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "nested_lookup" ];
+  pythonImportsCheck = ["nested_lookup"];
 
   meta = with lib; {
     description = "Python functions for working with deeply nested documents (lists and dicts)";
     homepage = "https://github.com/russellballestrini/nested-lookup";
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ tboerger ];
+    maintainers = with maintainers; [tboerger];
   };
 }

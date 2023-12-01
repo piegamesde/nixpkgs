@@ -18,10 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-KJGcopGhCWSl+ElG3BPJjBf/kvYJowOHxto6Ci1IMco=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # disable network access
-  cmakeFlags = [ "-DCIFPP_DOWNLOAD_CCD=OFF" ];
+  cmakeFlags = ["-DCIFPP_DOWNLOAD_CCD=OFF"];
 
   buildInputs = [
     boost
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     description = "Manipulate mmCIF and PDB files";
     homepage = "https://github.com/PDB-REDO/libcifpp";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
     platforms = platforms.unix;
   };
 }

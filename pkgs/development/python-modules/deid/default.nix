@@ -17,8 +17,8 @@ let
     format = "pyproject";
     disabled = pythonOlder "3.7";
 
-    nativeBuildInputs = [ setuptools ];
-    propagatedBuildInputs = [ pydicom ];
+    nativeBuildInputs = [setuptools];
+    propagatedBuildInputs = [pydicom];
 
     src = fetchFromGitHub {
       owner = "pydicom";
@@ -31,7 +31,7 @@ let
       description = "Supplementary data for deid package";
       homepage = "https://github.com/pydicom/deid-data";
       license = lib.licenses.mit;
-      maintainers = [ lib.maintainers.bcdarwin ];
+      maintainers = [lib.maintainers.bcdarwin];
     };
   };
 in
@@ -62,12 +62,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "deid" ];
+  pythonImportsCheck = ["deid"];
 
   meta = with lib; {
     description = "Best-effort anonymization for medical images";
     homepage = "https://pydicom.github.io/deid";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

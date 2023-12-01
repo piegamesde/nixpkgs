@@ -17,13 +17,13 @@ stdenv.mkDerivation rec {
     sha256 = "0qq35cd747lll4s7bmnxb3pqvyp2hgcr9kyf758fax9lx76iwjhr";
   };
 
-  nativeBuildInputs = [ copyPkgconfigItems ];
+  nativeBuildInputs = [copyPkgconfigItems];
 
   pkgconfigItems = [
     (makePkgconfigItem rec {
       name = "stb";
       version = "1";
-      cflags = [ "-I${variables.includedir}/stb" ];
+      cflags = ["-I${variables.includedir}/stb"];
       variables = rec {
         prefix = "${placeholder "out"}";
         includedir = "${prefix}/include";
@@ -46,6 +46,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/nothings/stb";
     license = licenses.publicDomain;
     platforms = platforms.all;
-    maintainers = with maintainers; [ jfrankenau ];
+    maintainers = with maintainers; [jfrankenau];
   };
 }

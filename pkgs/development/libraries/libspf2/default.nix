@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
   '';
 
   # autoreconf necessary because we modified automake files
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   doCheck = true;
 

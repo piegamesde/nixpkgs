@@ -24,9 +24,9 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-Os -g -Wall";
 
-  NIX_LDFLAGS = [ "-lpthread" ];
+  NIX_LDFLAGS = ["-lpthread"];
 
-  makeFlags = [ "prefix=" ];
+  makeFlags = ["prefix="];
 
   enableParallelBuilding = true;
 
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/andikleen/mce-inject/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ arkivm ];
+    maintainers = with maintainers; [arkivm];
     platforms = platforms.linux;
   };
 }

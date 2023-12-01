@@ -6,7 +6,7 @@
 # All interfaces are in OSPF Area 0.
 
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
 
     ifAddr =
@@ -29,19 +29,19 @@ import ./make-test-python.nix (
   {
     name = "frr";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ hexa ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [hexa];};
 
     nodes = {
 
       client =
-        { nodes, ... }:
+        {nodes, ...}:
         {
-          virtualisation.vlans = [ 1 ];
+          virtualisation.vlans = [1];
           networking.defaultGateway = ifAddr nodes.router1 "eth1";
         };
 
       router1 =
-        { ... }:
+        {...}:
         {
           virtualisation.vlans = [
             1
@@ -60,7 +60,7 @@ import ./make-test-python.nix (
         };
 
       router2 =
-        { ... }:
+        {...}:
         {
           virtualisation.vlans = [
             3
@@ -75,15 +75,15 @@ import ./make-test-python.nix (
         };
 
       server =
-        { nodes, ... }:
+        {nodes, ...}:
         {
-          virtualisation.vlans = [ 3 ];
+          virtualisation.vlans = [3];
           networking.defaultGateway = ifAddr nodes.router2 "eth1";
         };
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       ''
         start_all()
 

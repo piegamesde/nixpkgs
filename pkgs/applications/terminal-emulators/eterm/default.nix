@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/mej/Eterm"; # http://www.eterm.org is gone
     description = "Terminal emulator";
     license = licenses.bsd2;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     platforms = platforms.linux;
     knownVulnerabilities = [
       ''

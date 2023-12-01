@@ -27,7 +27,7 @@ let
     );
 
   bindZoneOptions =
-    { name, config, ... }:
+    {name, config, ...}:
     {
       options = {
         name = mkOption {
@@ -50,7 +50,7 @@ let
         slaves = mkOption {
           type = types.listOf types.str;
           description = lib.mdDoc "Addresses who may request zone transfers.";
-          default = [ ];
+          default = [];
         };
         allowQuery = mkOption {
           type = types.listOf types.str;
@@ -61,7 +61,7 @@ let
             NOTE: This overrides the global-level `allow-query` setting, which is set to the contents
             of `cachenetworks`.
           '';
-          default = [ "any" ];
+          default = ["any"];
         };
         extraConfig = mkOption {
           type = types.str;
@@ -100,9 +100,9 @@ let
           name,
           file,
           master ? true,
-          slaves ? [ ],
-          masters ? [ ],
-          allowQuery ? [ ],
+          slaves ? [],
+          masters ? [],
+          allowQuery ? [],
           extraConfig ? "",
         }:
         ''
@@ -162,7 +162,7 @@ in
       };
 
       cacheNetworks = mkOption {
-        default = [ "127.0.0.0/24" ];
+        default = ["127.0.0.0/24"];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           What networks are allowed to use us as a resolver.  Note
@@ -176,7 +176,7 @@ in
       };
 
       blockedNetworks = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           What networks are just blocked.
@@ -212,7 +212,7 @@ in
       };
 
       listenOn = mkOption {
-        default = [ "any" ];
+        default = ["any"];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           Interfaces to listen on.
@@ -220,7 +220,7 @@ in
       };
 
       listenOnIpv6 = mkOption {
-        default = [ "any" ];
+        default = ["any"];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           Ipv6 interfaces to listen on.
@@ -234,7 +234,7 @@ in
       };
 
       zones = mkOption {
-        default = [ ];
+        default = [];
         type =
           with types; coercedTo (listOf attrs) bindZoneCoerce (attrsOf (types.submodule bindZoneOptions));
         description = lib.mdDoc ''
@@ -244,8 +244,8 @@ in
           "example.com" = {
             master = false;
             file = "/var/dns/example.com";
-            masters = [ "192.168.0.1" ];
-            slaves = [ ];
+            masters = ["192.168.0.1"];
+            slaves = [];
             extraConfig = "";
           };
         };
@@ -291,12 +291,12 @@ in
       description = "BIND daemon user";
       isSystemUser = true;
     };
-    users.groups.${bindUser} = { };
+    users.groups.${bindUser} = {};
 
     systemd.services.bind = {
       description = "BIND Domain Name Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         mkdir -m 0755 -p /etc/bind

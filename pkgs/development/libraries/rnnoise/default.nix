@@ -16,7 +16,7 @@ stdenv.mkDerivation (rec {
     sha256 = "1y0rzgmvy8bf9a431garpm2w177s6ajgf79y5ymw4yb0pik57rwb";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   postInstall = ''
     install -Dt $out/bin examples/.libs/rnnoise_demo
@@ -26,7 +26,7 @@ stdenv.mkDerivation (rec {
     description = "Recurrent neural network for audio noise reduction";
     homepage = "https://people.xiph.org/~jm/demo/rnnoise/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.nh2 ];
+    maintainers = [maintainers.nh2];
     mainProgram = "rnnoise_demo";
     platforms = platforms.all;
   };

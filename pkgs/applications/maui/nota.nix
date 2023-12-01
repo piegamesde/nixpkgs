@@ -42,6 +42,6 @@ mkDerivation {
     description = "Multi-platform text editor";
     homepage = "https://invent.kde.org/maui/nota";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

@@ -29,13 +29,13 @@ buildPythonPackage rec {
   # requires ldap server
   doCheck = false;
 
-  pythonImportsCheck = [ "ldapdomaindump" ];
+  pythonImportsCheck = ["ldapdomaindump"];
 
   meta = with lib; {
     description = "Active Directory information dumper via LDAP";
     homepage = "https://github.com/dirkjanm/ldapdomaindump/";
     changelog = "https://github.com/dirkjanm/ldapdomaindump/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

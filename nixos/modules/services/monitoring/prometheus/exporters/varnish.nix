@@ -72,7 +72,7 @@ in
     };
   };
   serviceOpts = {
-    path = [ config.services.varnish.package ];
+    path = [config.services.varnish.package];
     serviceConfig = {
       RestartSec = mkDefault 1;
       DynamicUser = false;

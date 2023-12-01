@@ -34,15 +34,15 @@ buildPythonPackage rec {
     psutil
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ospd" ];
+  pythonImportsCheck = ["ospd"];
 
   meta = with lib; {
     description = "Framework for vulnerability scanners which support OSP";
     homepage = "https://github.com/greenbone/ospd";
     changelog = "https://github.com/greenbone/ospd/releases/tag/v${version}";
-    license = with licenses; [ agpl3Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [agpl3Plus];
+    maintainers = with maintainers; [fab];
   };
 }

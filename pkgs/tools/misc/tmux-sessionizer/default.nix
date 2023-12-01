@@ -21,13 +21,13 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-Bg4C4r3h/kaMsAqzit9JVuAe7vYrRB9W5OLOWPgCJHc=";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl] ++ lib.optionals stdenv.isDarwin [Security];
 
   meta = with lib; {
     description = "The fastest way to manage projects as tmux sessions";
     homepage = "https://github.com/jrmoulton/tmux-sessionizer";
     license = licenses.mit;
-    maintainers = with maintainers; [ vinnymeller ];
+    maintainers = with maintainers; [vinnymeller];
   };
 }

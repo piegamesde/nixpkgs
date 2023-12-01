@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sed -e "s@/usr@$out@" -i Theme.h
   '';
 
-  patches = [ ./gcc.patch ];
+  patches = [./gcc.patch];
   buildInputs = [
     SDL
     SDL_image

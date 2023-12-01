@@ -16,7 +16,7 @@ in
   extraOpts = {
     settings.process_names = mkOption {
       type = types.listOf types.anything;
-      default = [ ];
+      default = [];
       example = literalExpression ''
         [
           # Remove nix store path from process name

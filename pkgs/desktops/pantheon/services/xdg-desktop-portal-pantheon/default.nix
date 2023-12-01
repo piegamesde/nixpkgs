@@ -42,10 +42,10 @@ stdenv.mkDerivation rec {
     xorg.libX11
   ];
 
-  mesonFlags = [ "-Dsystemduserunitdir=${placeholder "out"}/lib/systemd/user" ];
+  mesonFlags = ["-Dsystemduserunitdir=${placeholder "out"}/lib/systemd/user"];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

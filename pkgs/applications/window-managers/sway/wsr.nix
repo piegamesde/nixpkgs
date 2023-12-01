@@ -19,8 +19,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-j/9p28ezy8m5NXReOmG1oryWd+GcY/fNW6i7OrEvjSc=";
 
-  nativeBuildInputs = [ python3 ];
-  buildInputs = [ libxcb ];
+  nativeBuildInputs = [python3];
+  buildInputs = [libxcb];
 
   # has not tests
   doCheck = false;
@@ -34,6 +34,6 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/pedroscaff/swaywsr";
     license = licenses.mit;
-    maintainers = [ maintainers.sebbadk ];
+    maintainers = [maintainers.sebbadk];
   };
 }

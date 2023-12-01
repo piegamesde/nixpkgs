@@ -34,6 +34,6 @@ buildPythonPackage rec {
     description = "Assertion library for Python";
     homepage = "http://heynemann.github.io/preggy/";
     license = licenses.mit;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

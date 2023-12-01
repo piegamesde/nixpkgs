@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   preConfigure = ''
     patchShebangs examples/crfc2asn1.pl
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     description = "Open Source ASN.1 Compiler";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = [ maintainers.numinit ];
+    maintainers = [maintainers.numinit];
   };
 }

@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
   let
 
     v2rayUser = {
@@ -22,7 +22,7 @@ import ./make-test-python.nix (
           port = 1081;
           listen = "127.0.0.1";
           protocol = "vmess";
-          settings.clients = [ v2rayUser ];
+          settings.clients = [v2rayUser];
         }
       ];
       outbounds = [
@@ -33,7 +33,7 @@ import ./make-test-python.nix (
             {
               address = "127.0.0.1";
               port = 1081;
-              users = [ v2rayUser ];
+              users = [v2rayUser];
             }
           ];
         }
@@ -57,8 +57,8 @@ import ./make-test-python.nix (
         # Assert assets "geoip" and "geosite" are accessible.
         {
           type = "field";
-          ip = [ "geoip:private" ];
-          domain = [ "geosite:category-ads" ];
+          ip = ["geoip:private"];
+          domain = ["geosite:category-ads"];
           outboundTag = "direct";
         }
       ];
@@ -66,11 +66,11 @@ import ./make-test-python.nix (
   in
   {
     name = "v2ray";
-    meta = with lib.maintainers; { maintainers = [ servalcatty ]; };
+    meta = with lib.maintainers; {maintainers = [servalcatty];};
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        environment.systemPackages = [ pkgs.curl ];
+        environment.systemPackages = [pkgs.curl];
         services.v2ray = {
           enable = true;
           config = v2rayConfig;

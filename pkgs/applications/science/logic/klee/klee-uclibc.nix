@@ -11,7 +11,7 @@
   curl,
   debugRuntime ? true,
   runtimeAsserts ? false,
-  extraKleeuClibcConfig ? { },
+  extraKleeuClibcConfig ? {},
 }:
 
 let
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
   configurePhase = ''
     ./configure ${
       lib.escapeShellArgs (
-        [ "--make-llvm-lib" ]
+        ["--make-llvm-lib"]
         ++ lib.optional (!debugRuntime) "--enable-release"
         ++ lib.optional runtimeAsserts "--enable-assertions"
       )
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
     ln -sf ${localeSrc} extra/locale/${localeSrcBase}
   '';
 
-  makeFlags = [ "HAVE_DOT_CONFIG=y" ];
+  makeFlags = ["HAVE_DOT_CONFIG=y"];
 
   meta = with lib; {
     description = "A modified version of uClibc for KLEE.";
@@ -103,6 +103,6 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://klee.github.io/";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ numinit ];
+    maintainers = with maintainers; [numinit];
   };
 }

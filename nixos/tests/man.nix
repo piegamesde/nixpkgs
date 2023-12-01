@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   let
     manImplementations = [
       "mandoc"
@@ -40,11 +40,11 @@ import ./make-test-python.nix (
       };
     };
 
-    machineSafe = builtins.replaceStrings [ "-" ] [ "_" ];
+    machineSafe = builtins.replaceStrings ["-"] ["_"];
   in
   {
     name = "man";
-    meta.maintainers = [ lib.maintainers.sternenseemann ];
+    meta.maintainers = [lib.maintainers.sternenseemann];
 
     nodes = lib.listToAttrs (
       builtins.map

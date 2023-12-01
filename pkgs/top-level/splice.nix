@@ -43,12 +43,12 @@ let
           let
             defaultValue = mash.${name};
             # `or {}` is for the non-derivation attsert splicing case, where `{}` is the identity.
-            valueBuildBuild = pkgsBuildBuild.${name} or { };
-            valueBuildHost = pkgsBuildHost.${name} or { };
-            valueBuildTarget = pkgsBuildTarget.${name} or { };
-            valueHostHost = pkgsHostHost.${name} or { };
-            valueHostTarget = pkgsHostTarget.${name} or { };
-            valueTargetTarget = pkgsTargetTarget.${name} or { };
+            valueBuildBuild = pkgsBuildBuild.${name} or {};
+            valueBuildHost = pkgsBuildHost.${name} or {};
+            valueBuildTarget = pkgsBuildTarget.${name} or {};
+            valueHostHost = pkgsHostHost.${name} or {};
+            valueHostTarget = pkgsHostTarget.${name} or {};
+            valueTargetTarget = pkgsTargetTarget.${name} or {};
             augmentedValue =
               defaultValue
               # TODO(@Artturin): remove before release 23.05 and only have __spliced.
@@ -60,12 +60,12 @@ let
               })
               // {
                 __spliced =
-                  (lib.optionalAttrs (pkgsBuildBuild ? ${name}) { buildBuild = valueBuildBuild; })
-                  // (lib.optionalAttrs (pkgsBuildHost ? ${name}) { buildHost = valueBuildHost; })
-                  // (lib.optionalAttrs (pkgsBuildTarget ? ${name}) { buildTarget = valueBuildTarget; })
-                  // (lib.optionalAttrs (pkgsHostHost ? ${name}) { hostHost = valueHostHost; })
-                  // (lib.optionalAttrs (pkgsHostTarget ? ${name}) { hostTarget = valueHostTarget; })
-                  // (lib.optionalAttrs (pkgsTargetTarget ? ${name}) { targetTarget = valueTargetTarget; });
+                  (lib.optionalAttrs (pkgsBuildBuild ? ${name}) {buildBuild = valueBuildBuild;})
+                  // (lib.optionalAttrs (pkgsBuildHost ? ${name}) {buildHost = valueBuildHost;})
+                  // (lib.optionalAttrs (pkgsBuildTarget ? ${name}) {buildTarget = valueBuildTarget;})
+                  // (lib.optionalAttrs (pkgsHostHost ? ${name}) {hostHost = valueHostHost;})
+                  // (lib.optionalAttrs (pkgsHostTarget ? ${name}) {hostTarget = valueHostTarget;})
+                  // (lib.optionalAttrs (pkgsTargetTarget ? ${name}) {targetTarget = valueTargetTarget;});
               };
             # Get the set of outputs of a derivation. If one derivation fails to
             # evaluate we don't want to diverge the entire splice, so we fall back
@@ -163,7 +163,7 @@ in
   # We use `callPackage' to be able to omit function arguments that can be
   # obtained `pkgs` or `buildPackages` and their `xorg` package sets. Use
   # `newScope' for sets of packages in `pkgs' (see e.g. `gnome' below).
-  callPackage = pkgs.newScope { };
+  callPackage = pkgs.newScope {};
 
   callPackages = lib.callPackagesWith splicedPackagesWithXorg;
 
@@ -185,7 +185,7 @@ in
       selfBuildTarget = lib.attrByPath (split "pkgsBuildTarget") null pkgs;
       selfHostHost = lib.attrByPath (split "pkgsHostHost") null pkgs;
       selfHostTarget = lib.attrByPath (split "pkgsHostTarget") null pkgs;
-      selfTargetTarget = lib.attrByPath (split "pkgsTargetTarget") { } pkgs;
+      selfTargetTarget = lib.attrByPath (split "pkgsTargetTarget") {} pkgs;
     };
 
   # Haskell package sets need this because they reimplement their own

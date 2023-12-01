@@ -94,7 +94,7 @@ mkYarnPackage rec {
       bring support for Jellyfin & Emby media servers!
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ camillemndn ];
+    maintainers = with maintainers; [camillemndn];
     platforms = platforms.linux;
   };
 }

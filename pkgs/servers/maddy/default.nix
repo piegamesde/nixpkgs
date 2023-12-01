@@ -22,7 +22,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-10cLNl9jWYX8XIKQkCxJ+/ymZC1YJRHUJWZQhq7zeV4=";
 
-  tags = [ "libpam" ];
+  tags = ["libpam"];
 
   ldflags = [
     "-s"
@@ -30,9 +30,9 @@ buildGoModule rec {
     "-X github.com/foxcpp/maddy.Version=${version}"
   ];
 
-  subPackages = [ "cmd/maddy" ];
+  subPackages = ["cmd/maddy"];
 
-  buildInputs = [ pam ];
+  buildInputs = [pam];
 
   nativeBuildInputs = [
     installShellFiles
@@ -65,6 +65,6 @@ buildGoModule rec {
     description = "Composable all-in-one mail server";
     homepage = "https://maddy.email";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

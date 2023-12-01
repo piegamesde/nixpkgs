@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-uNTvi6zbrYHAivQMPkhlNCoqRW9GOkgKvCf3mInds80=";
   };
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-I${libtirpc.dev}/include/tirpc" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-I${libtirpc.dev}/include/tirpc"];
 
   postPatch = ''
     for file in ./examples/*/*.pl; do
@@ -31,9 +31,9 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  configureFlags = [ "--with-perl=${perl}/bin/perl" ];
+  configureFlags = ["--with-perl=${perl}/bin/perl"];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libpcap
     bison
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
           you will find Argus a useful tool. '';
     homepage = "http://qosient.com/argus";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
     platforms = platforms.linux;
   };
 }

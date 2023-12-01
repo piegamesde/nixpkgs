@@ -28,20 +28,20 @@ buildPythonPackage rec {
       iso3166
       pycountry
     ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-resources ]
-    ++ lib.optionals (pythonOlder "3.7") [ importlib-metadata ];
+    ++ lib.optionals (pythonOlder "3.8") [importlib-resources]
+    ++ lib.optionals (pythonOlder "3.7") [importlib-metadata];
 
   nativeCheckInputs = [
     pytest-cov
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "schwifty" ];
+  pythonImportsCheck = ["schwifty"];
 
   meta = with lib; {
     description = "Validate/generate IBANs and BICs";
     homepage = "https://github.com/mdomke/schwifty";
     license = licenses.mit;
-    maintainers = with maintainers; [ milibopp ];
+    maintainers = with maintainers; [milibopp];
   };
 }

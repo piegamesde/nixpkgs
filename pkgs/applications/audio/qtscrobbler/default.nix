@@ -20,12 +20,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    [ qmake4Hook ]
+    [qmake4Hook]
     ++ lib.optionals withMtp [
       pkg-config
       which
     ];
-  buildInputs = [ qt4 ] ++ lib.optional withMtp libmtp;
+  buildInputs = [qt4] ++ lib.optional withMtp libmtp;
 
   enableParallelBuilding = true;
 
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://qtscrob.sourceforge.net";
     license = licenses.gpl2;
-    maintainers = [ maintainers.vanzef ];
+    maintainers = [maintainers.vanzef];
     platforms = platforms.linux;
   };
 }

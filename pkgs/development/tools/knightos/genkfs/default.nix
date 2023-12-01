@@ -26,13 +26,13 @@ stdenv.mkDerivation rec {
     cmake
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     homepage = "https://knightos.org/";
     description = "Utility to write a KFS filesystem into a ROM file";
     license = licenses.mit;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.all;
   };
 }

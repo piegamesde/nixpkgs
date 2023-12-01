@@ -35,14 +35,14 @@ buildPythonApplication rec {
       --replace "import pycodestyle" ""
   '';
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   checkInputs = [
     pytestCheckHook
     pytest-mock
   ];
 
-  disabledTests = [ "pycodestyle" ];
+  disabledTests = ["pycodestyle"];
 
   preCheck = ''
     export HOME="$(mktemp -d)"
@@ -56,6 +56,6 @@ buildPythonApplication rec {
     '';
     homepage = "https://github.com/Kentzo/git-archive-all";
     license = licenses.mit;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

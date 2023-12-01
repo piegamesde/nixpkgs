@@ -14,6 +14,6 @@ qtModule {
     qtdeclarative
     qtsvg
   ];
-  propagatedBuildInputs = [ hunspell ];
-  nativeBuildInputs = [ pkg-config ];
+  propagatedBuildInputs = [hunspell];
+  nativeBuildInputs = [pkg-config];
 }

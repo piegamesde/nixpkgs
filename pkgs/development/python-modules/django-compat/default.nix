@@ -19,7 +19,7 @@ buildPythonPackage rec {
     sha256 = "1pr6v38ahrsvxlgmcx69s4b5q5082f44gzi4h3c32sccdc4pwqxp";
   };
 
-  patches = [ ./fix-tests.diff ];
+  patches = [./fix-tests.diff];
 
   checkPhase = ''
     runHook preCheck
@@ -43,6 +43,6 @@ buildPythonPackage rec {
     description = "Forward and backwards compatibility layer for Django 1.4, 1.7, 1.8, 1.9, 1.10 and 1.11";
     homepage = "https://github.com/arteria/django-compat";
     license = licenses.mit;
-    maintainers = with maintainers; [ ris ];
+    maintainers = with maintainers; [ris];
   };
 }

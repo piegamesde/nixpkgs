@@ -47,13 +47,13 @@ buildPythonPackage rec {
     zope_component
   ];
 
-  pythonImportsCheck = [ "pyramid" ];
+  pythonImportsCheck = ["pyramid"];
 
   meta = with lib; {
     description = "Python web framework";
     homepage = "https://trypyramid.com/";
     changelog = "https://github.com/Pylons/pyramid/blob/${version}/CHANGES.rst";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ domenkozar ];
+    maintainers = with maintainers; [domenkozar];
   };
 }

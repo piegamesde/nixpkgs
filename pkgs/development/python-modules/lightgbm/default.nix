@@ -28,12 +28,12 @@ buildPythonPackage rec {
     hash = "sha256-ELj73PhR5PaKHwLzjZm9xEx8f7mxpi3PkkoNKf9zOVw=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   dontUseCmakeConfigure = true;
 
   buildInputs =
-    (lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ])
+    (lib.optionals stdenv.cc.isClang [llvmPackages.openmp])
     ++ (lib.optionals gpuSupport [
       boost
       ocl-icd
@@ -59,7 +59,7 @@ buildPythonPackage rec {
   # `make check`.
   doCheck = false;
 
-  pythonImportsCheck = [ "lightgbm" ];
+  pythonImportsCheck = ["lightgbm"];
 
   meta = {
     description = "A fast, distributed, high performance gradient boosting (GBDT, GBRT, GBM or MART) framework";

@@ -39,13 +39,13 @@ stdenv.mkDerivation rec {
     cp ${mpack} $sourceRoot/contrib/mpack-df17e83f0fa8571b9cd0d8ccf38144fa90e244d1.tar.gz
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "Command-line tools for converting between MessagePack and JSON";
     homepage = "https://github.com/ludocode/msgpack-tools";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ alibabzo ];
+    maintainers = with maintainers; [alibabzo];
   };
 }

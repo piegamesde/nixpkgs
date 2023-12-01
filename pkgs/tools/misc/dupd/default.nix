@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     which
   ];
 
-  makeFlags = [ "INSTALL_PREFIX=$(out)" ];
+  makeFlags = ["INSTALL_PREFIX=$(out)"];
 
   enableParallelBuilding = true;
 
@@ -55,6 +55,6 @@ stdenv.mkDerivation rec {
     description = "CLI utility to find duplicate files";
     homepage = "http://www.virkki.com/dupd";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

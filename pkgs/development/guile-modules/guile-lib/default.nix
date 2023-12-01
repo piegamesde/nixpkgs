@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-5O87hF8SGILHwM8E+BocuP02DG9ktWuGjeVUYhT5BN4=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     guile
     texinfo
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       for Guile".
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ vyp ];
+    maintainers = with maintainers; [vyp];
     platforms = platforms.gnu ++ platforms.linux;
   };
 }

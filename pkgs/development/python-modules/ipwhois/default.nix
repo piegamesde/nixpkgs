@@ -25,15 +25,15 @@ buildPythonPackage rec {
     hash = "sha256-2CfRRHlIIaycUtzKeMBKi6pVPeBCb1nW3/1hoxQU1YM=";
   };
 
-  pythonRelaxDeps = [ "dnspython" ];
+  pythonRelaxDeps = ["dnspython"];
 
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  nativeBuildInputs = [pythonRelaxDepsHook];
 
-  propagatedBuildInputs = [ dnspython ];
+  propagatedBuildInputs = [dnspython];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ipwhois" ];
+  pythonImportsCheck = ["ipwhois"];
 
   preCheck = lib.optionalString stdenv.isLinux ''
     echo "nameserver 127.0.0.1" > resolv.conf
@@ -58,6 +58,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/secynic/ipwhois";
     changelog = "https://github.com/secynic/ipwhois/blob/v${version}/CHANGES.rst";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

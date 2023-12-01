@@ -9,10 +9,10 @@ with lib;
 
 let
   cfg = config.services.corerad;
-  settingsFormat = pkgs.formats.toml { };
+  settingsFormat = pkgs.formats.toml {};
 in
 {
-  meta.maintainers = with maintainers; [ mdlayher ];
+  meta.maintainers = with maintainers; [mdlayher];
 
   options.services.corerad = {
     enable = mkEnableOption (lib.mdDoc "CoreRAD IPv6 NDP RA daemon");
@@ -67,8 +67,8 @@ in
 
     systemd.services.corerad = {
       description = "CoreRAD IPv6 NDP RA daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         LimitNPROC = 512;
         LimitNOFILE = 1048576;

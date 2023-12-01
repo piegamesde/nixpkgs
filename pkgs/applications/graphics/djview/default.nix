@@ -51,7 +51,7 @@ mkDerivation rec {
     homepage = "https://djvu.sourceforge.net/djview4.html";
     license = licenses.gpl2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ Anton-Latukha ];
+    maintainers = with maintainers; [Anton-Latukha];
     longDescription = ''
       The portable DjVu viewer (Qt5) and browser (nsdejavu) plugin.
 

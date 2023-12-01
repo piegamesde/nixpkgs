@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
     cmake
   ];
 
-  buildInputs = [ bluez ];
+  buildInputs = [bluez];
 
-  propagatedBuildInputs = [ openobex ];
+  propagatedBuildInputs = [openobex];
 
   # https://sourceforge.net/p/openobex/bugs/66/
   postPatch = ''

@@ -37,7 +37,7 @@
     "bin"
     "libexec"
   ];
-  stripDebugListTarget = [ stdenv.targetPlatform.config ];
+  stripDebugListTarget = [stdenv.targetPlatform.config];
 
   preFixup =
     ''

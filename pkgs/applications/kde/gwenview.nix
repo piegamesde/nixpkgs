@@ -35,7 +35,7 @@ mkDerivation {
       gpl2Plus
       fdl12Plus
     ];
-    maintainers = [ lib.maintainers.ttuegel ];
+    maintainers = [lib.maintainers.ttuegel];
   };
   nativeBuildInputs = [
     extra-cmake-modules

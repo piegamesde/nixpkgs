@@ -24,10 +24,10 @@ let
       src;
 
   buildZipPackage =
-    { name, src }:
+    {name, src}:
     stdenv.mkDerivation {
       inherit name src;
-      nativeBuildInputs = [ unzip ];
+      nativeBuildInputs = [unzip];
       buildCommand = ''
         shopt -s dotglob
         unzip $src
@@ -42,9 +42,9 @@ let
     {
       name,
       src,
-      packages ? { },
-      devPackages ? { },
-      buildInputs ? [ ],
+      packages ? {},
+      devPackages ? {},
+      buildInputs ? [],
       symlinkDependencies ? false,
       executable ? false,
       removeComposerArtifacts ? false,

@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     export GNULIBHEADERS_OVERRIDE_WINT_T=0
   '';
 
-  configureFlags = [ "--${if withShishi then "enable" else "disable"}-kerberos5" ];
+  configureFlags = ["--${if withShishi then "enable" else "disable"}-kerberos5"];
 
   doCheck = true;
 
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/gss/";
     description = "Generic Security Service";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.all;
   };
 }

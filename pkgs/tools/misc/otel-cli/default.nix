@@ -27,10 +27,10 @@ buildGoModule rec {
     ''
     + lib.optionalString (!stdenv.isDarwin) ''
       substituteInPlace main_test.go \
-        --replace 'const minimumPath = `/bin:/usr/bin`' 'const minimumPath = `${lib.makeBinPath [ getent ]}`'
+        --replace 'const minimumPath = `/bin:/usr/bin`' 'const minimumPath = `${lib.makeBinPath [getent]}`'
     '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://github.com/equinix-labs/otel-cli";

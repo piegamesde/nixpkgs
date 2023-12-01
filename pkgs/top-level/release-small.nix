@@ -21,7 +21,7 @@
   },
 }:
 
-with import ./release-lib.nix { inherit supportedSystems nixpkgsArgs; };
+with import ./release-lib.nix {inherit supportedSystems nixpkgsArgs;};
 
 {
 
@@ -144,7 +144,7 @@ with import ./release-lib.nix { inherit supportedSystems nixpkgsArgs; };
   su = linux;
   sudo = linux;
   sysklogd = linux;
-  syslinux = [ "i686-linux" ];
+  syslinux = ["i686-linux"];
   tcl = linux;
   tcpdump = linux;
   texinfo = all;

@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     installShellFiles
   ];
   buildInputs =
-    [ sqlite ]
+    [sqlite]
     ++ lib.optionals stdenv.isDarwin [
       Security
       libiconv

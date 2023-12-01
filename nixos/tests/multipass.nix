@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   let
     multipass-image = import ../release.nix {
@@ -12,10 +12,10 @@ import ./make-test-python.nix (
   {
     name = "multipass";
 
-    meta.maintainers = [ lib.maintainers.jnsgruk ];
+    meta.maintainers = [lib.maintainers.jnsgruk];
 
     nodes.machine =
-      { lib, ... }:
+      {lib, ...}:
       {
         virtualisation = {
           cores = 1;

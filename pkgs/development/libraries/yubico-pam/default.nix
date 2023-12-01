@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
     description = "Yubico PAM module";
     homepage = "https://developers.yubico.com/yubico-pam";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
   };
 }

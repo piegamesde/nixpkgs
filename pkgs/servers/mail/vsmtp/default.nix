@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-RYHn9kZZApgXWTExAHl9ZnCsuvqnnb67unmvd4Pnwz0=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   buildFeatures = [
     "telemetry"
@@ -47,6 +47,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://viridit.com";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

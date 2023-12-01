@@ -23,9 +23,9 @@ buildPythonPackage rec {
 
   disabled = isPy27;
 
-  propagatedBuildInputs = [ jinja2 ];
+  propagatedBuildInputs = [jinja2];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   # for some reason tests only work if the module is properly installed
   checkPhase = ''
@@ -38,6 +38,6 @@ buildPythonPackage rec {
     inherit (src.meta) homepage;
     description = "A simple library and cli-tool to help you solve some debts settlement scenarios";
     license = licenses.beerware;
-    maintainers = [ maintainers.symphorien ];
+    maintainers = [maintainers.symphorien];
   };
 }

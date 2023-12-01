@@ -82,7 +82,7 @@ mkDerivation {
   inherit (common) postPatch;
 
   meta = common.meta // {
-    maintainers = [ lib.maintainers.roconnor ];
+    maintainers = [lib.maintainers.roconnor];
     platforms = lib.platforms.gnu ++ lib.platforms.linux; # arbitrary choice
   };
 }

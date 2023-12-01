@@ -20,10 +20,10 @@ let
       name = pname;
       exec = "rambox";
       icon = pname;
-      categories = [ "Network" ];
+      categories = ["Network"];
     });
 
-  appimageContents = appimageTools.extractType2 { inherit pname version src; };
+  appimageContents = appimageTools.extractType2 {inherit pname version src;};
 in
 appimageTools.wrapType2 {
   inherit pname version src;
@@ -39,7 +39,7 @@ appimageTools.wrapType2 {
     description = "Workspace Simplifier - a cross-platform application organizing web services into Workspaces similar to browser profiles";
     homepage = "https://rambox.app";
     license = licenses.unfree;
-    maintainers = with maintainers; [ nazarewk ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [nazarewk];
+    platforms = ["x86_64-linux"];
   };
 }

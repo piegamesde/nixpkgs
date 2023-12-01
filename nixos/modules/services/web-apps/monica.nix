@@ -7,7 +7,7 @@
 with lib;
 let
   cfg = config.services.monica;
-  monica = pkgs.monica.override { dataDir = cfg.dataDir; };
+  monica = pkgs.monica.override {dataDir = cfg.dataDir;};
   db = cfg.database;
   mail = cfg.mail;
 
@@ -168,7 +168,7 @@ in
         '';
       };
       encryption = mkOption {
-        type = with types; nullOr (enum [ "tls" ]);
+        type = with types; nullOr (enum ["tls"]);
         default = null;
         description = lib.mdDoc "SMTP encryption mechanism to use.";
       };
@@ -207,9 +207,9 @@ in
 
     nginx = mkOption {
       type = types.submodule (
-        recursiveUpdate (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }) { }
+        recursiveUpdate (import ../web-servers/nginx/vhost-options.nix {inherit config lib;}) {}
       );
-      default = { };
+      default = {};
       example = ''
         {
           serverAliases = [
@@ -254,7 +254,7 @@ in
               )
           )
         );
-      default = { };
+      default = {};
       example = ''
         {
           ALLOWED_IFRAME_HOSTS = "https://example.com";
@@ -324,12 +324,12 @@ in
       SESSION_SECURE_COOKIE = tlsEnabled;
     };
 
-    environment.systemPackages = [ artisan ];
+    environment.systemPackages = [artisan];
 
     services.mysql = mkIf db.createLocally {
       enable = true;
       package = mkDefault pkgs.mariadb;
-      ensureDatabases = [ db.name ];
+      ensureDatabases = [db.name];
       ensureUsers = [
         {
           name = db.user;
@@ -383,9 +383,9 @@ in
 
     systemd.services.monica-setup = {
       description = "Preperation tasks for monica";
-      before = [ "phpfpm-monica.service" ];
+      before = ["phpfpm-monica.service"];
       after = optional db.createLocally "mysql.service";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
@@ -395,7 +395,7 @@ in
         RuntimeDirectory = "monica/cache";
         RuntimeDirectoryMode = 700;
       };
-      path = [ pkgs.replace-secret ];
+      path = [pkgs.replace-secret];
       script =
         let
           isSecret = v: isAttrs v && v ? _secret && isString v._secret;
@@ -415,7 +415,7 @@ in
                 else if isSecret v then
                   hashString "sha256" v._secret
                 else
-                  throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}";
+                  throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty {}) v}";
             };
           };
           secretPaths = lib.mapAttrsToList (_: v: v._secret) (lib.filterAttrs (_: isSecret) cfg.config);
@@ -434,7 +434,7 @@ in
               (lib.filterAttrsRecursive (
                 _: v:
                 !elem v [
-                  { }
+                  {}
                   null
                 ]
               ))
@@ -461,7 +461,7 @@ in
     systemd.services.monica-scheduler = {
       description = "Background tasks for monica";
       startAt = "minutely";
-      after = [ "monica-setup.service" ];
+      after = ["monica-setup.service"];
       serviceConfig = {
         Type = "oneshot";
         User = user;
@@ -491,9 +491,9 @@ in
           inherit group;
           isSystemUser = true;
         };
-        "${config.services.nginx.user}".extraGroups = [ group ];
+        "${config.services.nginx.user}".extraGroups = [group];
       };
-      groups = mkIf (group == "monica") { monica = { }; };
+      groups = mkIf (group == "monica") {monica = {};};
     };
   };
 }

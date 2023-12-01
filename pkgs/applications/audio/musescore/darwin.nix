@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-tkIEV+tCS0SYh2TlC70/zEBUEOSg//EaSKDGA7kH/vo=";
   };
 
-  buildInputs = [ undmg ];
+  buildInputs = [undmg];
   installPhase = ''
     mkdir -p "$out/Applications/${appName}.app"
     cp -R . "$out/Applications/${appName}.app"
@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     homepage = "https://musescore.org/";
     license = licenses.gpl3Only;
     platforms = platforms.darwin;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

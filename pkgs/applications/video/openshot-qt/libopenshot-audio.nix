@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    lib.optionals stdenv.isLinux [ alsa-lib ]
+    lib.optionals stdenv.isLinux [alsa-lib]
     ++ (
       if stdenv.isDarwin then
         [
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
       JUCE library.
     '';
     license = with licenses; gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = with platforms; unix;
   };
 }

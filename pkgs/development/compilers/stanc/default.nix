@@ -24,7 +24,7 @@ ocamlPackages.buildDunePackage rec {
       --replace "if Sys.file_exists (to_windows path) then to_windows cmd else cmd" "cmd"
   '';
 
-  nativeBuildInputs = with ocamlPackages; [ menhir ];
+  nativeBuildInputs = with ocamlPackages; [menhir];
   buildInputs = with ocamlPackages; [
     core_unix
     menhirLib
@@ -37,7 +37,7 @@ ocamlPackages.buildDunePackage rec {
     homepage = "https://github.com/stan-dev/stanc3";
     description = "The Stan compiler and utilities";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.unix;
   };
 }

@@ -26,13 +26,13 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace "-Werror" "-Werror -Wno-stringop-truncation"
   '';
 
-  installFlags = [ "install-config" ];
+  installFlags = ["install-config"];
 
   meta = with lib; {
     description = "Proxifier for SOCKS proxies";
     homepage = "https://proxychains.sourceforge.net";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     platforms = platforms.linux;
   };
 }

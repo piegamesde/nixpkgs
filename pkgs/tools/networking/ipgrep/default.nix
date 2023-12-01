@@ -36,7 +36,7 @@ python3Packages.buildPythonApplication rec {
       from text, resolves host names, and prints them, sorted by ASN.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
     platforms = platforms.all;
   };
 }

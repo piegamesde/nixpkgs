@@ -107,7 +107,7 @@ stdenv.mkDerivation rec {
       #"MAKEINFO=${buildPackages.texinfo}/bin/makeinfo"
     ]
     # See: https://sourceforge.net/p/autogen/bugs/187/
-    ++ lib.optionals stdenv.isDarwin [ "ac_cv_func_utimensat=no" ];
+    ++ lib.optionals stdenv.isDarwin ["ac_cv_func_utimensat=no"];
 
   #doCheck = true; # not reliable
 
@@ -139,6 +139,6 @@ stdenv.mkDerivation rec {
     ];
     homepage = "https://www.gnu.org/software/autogen/";
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

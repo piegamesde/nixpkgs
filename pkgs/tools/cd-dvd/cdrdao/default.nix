@@ -23,14 +23,14 @@ stdenv.mkDerivation rec {
     "MV=mv"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libvorbis
     libmad
     libao
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   # we have glibc/include/linux as a symlink to the kernel headers,
   # and the magic '..' points to kernelheaders, and not back to the glibc/include

@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     sha256 = "0ccvr43yp26fnh5d82cw7jcfq2sbxzzmdx2cp15bmxr8ixr8knc3";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontBuild = true;
 
@@ -56,6 +56,6 @@ stdenv.mkDerivation rec {
     description = "Saving, loading and managing layouts for i3wm";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

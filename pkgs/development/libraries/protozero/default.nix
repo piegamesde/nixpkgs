@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-R8lGewsEOxPNbKlkIeiM4yIwUcTzi2Dm0+xJ2WrBTBQ=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "Minimalistic protocol buffer decoder and encoder in C++";
@@ -29,6 +29,6 @@ stdenv.mkDerivation rec {
       "https://github.com/mapbox/protozero/releases/tag/v${version}"
       "https://github.com/mapbox/protozero/blob/v${version}/CHANGELOG.md"
     ];
-    maintainers = with maintainers; [ das-g ];
+    maintainers = with maintainers; [das-g];
   };
 }

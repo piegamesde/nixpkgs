@@ -21,12 +21,12 @@ stdenv.mkDerivation rec {
     intltool
   ];
 
-  buildInputs = [ gtk2 ];
+  buildInputs = [gtk2];
 
   meta = {
     description = "Original Bluecurve engine from Red Hat's artwork package";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

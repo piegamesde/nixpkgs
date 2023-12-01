@@ -1,12 +1,12 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "libvirtd";
-    meta.maintainers = with pkgs.lib.maintainers; [ fpletz ];
+    meta.maintainers = with pkgs.lib.maintainers; [fpletz];
 
     nodes = {
       virthost =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           virtualisation = {
             cores = 2;
@@ -14,17 +14,17 @@ import ./make-test-python.nix (
 
             libvirtd.enable = true;
           };
-          boot.supportedFilesystems = [ "zfs" ];
+          boot.supportedFilesystems = ["zfs"];
           networking.hostId = "deadbeef"; # needed for zfs
-          networking.nameservers = [ "192.168.122.1" ];
+          networking.nameservers = ["192.168.122.1"];
           security.polkit.enable = true;
-          environment.systemPackages = with pkgs; [ virt-manager ];
+          environment.systemPackages = with pkgs; [virt-manager];
         };
     };
 
     testScript =
       let
-        nixosInstallISO = (import ../release.nix { }).iso_minimal.${pkgs.stdenv.hostPlatform.system};
+        nixosInstallISO = (import ../release.nix {}).iso_minimal.${pkgs.stdenv.hostPlatform.system};
         virshShutdownCmd = if pkgs.stdenv.isx86_64 then "shutdown" else "destroy";
       in
       ''

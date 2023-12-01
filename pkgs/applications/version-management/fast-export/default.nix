@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-re8iXM8s+TD35UGKalq2kVn8fx68fsnUC7Yo+/DQ9SM=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     mercurial.python
     mercurial
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     description = "Import mercurial into git";
     homepage = "https://repo.or.cz/w/fast-export.git";
     license = licenses.gpl2;
-    maintainers = [ maintainers.koral ];
+    maintainers = [maintainers.koral];
     platforms = platforms.unix;
   };
 }

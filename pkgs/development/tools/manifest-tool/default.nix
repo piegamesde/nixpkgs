@@ -28,7 +28,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  nativeBuildInputs = [ git ];
+  nativeBuildInputs = [git];
 
   preConfigure = ''
     ldflags="-X main.gitCommit=$(cat .git-revision)"
@@ -41,14 +41,14 @@ buildGoModule rec {
     "-extldflags"
     "-static"
   ];
-  tags = lib.optionals stdenv.hostPlatform.isStatic [ "netgo" ];
+  tags = lib.optionals stdenv.hostPlatform.isStatic ["netgo"];
 
-  passthru.tests.version = testers.testVersion { package = manifest-tool; };
+  passthru.tests.version = testers.testVersion {package = manifest-tool;};
 
   meta = with lib; {
     description = "Command line tool to create and query container image manifest list/indexes";
     homepage = "https://github.com/estesp/manifest-tool";
     license = licenses.asl20;
-    maintainers = with maintainers; [ tricktron ];
+    maintainers = with maintainers; [tricktron];
   };
 }

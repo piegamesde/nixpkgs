@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
   pname = "linux-manual";
   inherit (linuxPackages_latest.kernel) version src;
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   dontConfigure = true;
   dontBuild = true;
@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
     homepage = "https://kernel.org/";
     description = "Linux kernel API manual pages";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ mvs ];
+    maintainers = with maintainers; [mvs];
   };
 }

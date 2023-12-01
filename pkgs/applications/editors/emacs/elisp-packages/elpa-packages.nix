@@ -40,7 +40,7 @@ let
         self.elpaBuild (
           args
           // {
-            meta = (args.meta or { }) // {
+            meta = (args.meta or {}) // {
               broken = true;
             };
           }
@@ -59,7 +59,7 @@ let
   };
 
   # Use custom elpa url fetcher with fallback/uncompress
-  fetchurl = buildPackages.callPackage ./fetchelpa.nix { };
+  fetchurl = buildPackages.callPackage ./fetchelpa.nix {};
 
   generateElpa = lib.makeOverridable (
     {
@@ -68,10 +68,10 @@ let
     let
 
       imported = import generated {
-        callPackage = pkgs: args: self.callPackage pkgs (args // { inherit fetchurl; });
+        callPackage = pkgs: args: self.callPackage pkgs (args // {inherit fetchurl;});
       };
 
-      super = removeAttrs imported [ "dash" ];
+      super = removeAttrs imported ["dash"];
 
       overrides = {
         # upstream issue: Wrong type argument: arrayp, nil
@@ -108,7 +108,7 @@ let
               buildPackages.re2c
             ];
 
-            buildInputs = [ pkgs.gnatcoll-xref ];
+            buildInputs = [pkgs.gnatcoll-xref];
 
             buildPhase = ''
               runHook preBuild
@@ -124,7 +124,7 @@ let
               '';
 
             meta = old.meta // {
-              maintainers = [ lib.maintainers.sternenseemann ];
+              maintainers = [lib.maintainers.sternenseemann];
             };
           }
         );
@@ -137,9 +137,9 @@ let
           {
             dontUnpack = false;
 
-            nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ];
+            nativeBuildInputs = (old.nativeBuildInputs or []) ++ [pkgs.pkg-config];
 
-            buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.enchant2 ];
+            buildInputs = (old.buildInputs or []) ++ [pkgs.enchant2];
 
             postBuild = ''
               NIX_CFLAGS_COMPILE="$($PKG_CONFIG --cflags enchant-2) $NIX_CFLAGS_COMPILE"
@@ -156,7 +156,7 @@ let
               '';
 
             meta = old.meta // {
-              maintainers = [ lib.maintainers.DamienCassou ];
+              maintainers = [lib.maintainers.DamienCassou];
             };
           }
         );
@@ -180,7 +180,7 @@ let
 
       elpaPackages = super // overrides;
     in
-    elpaPackages // { inherit elpaBuild; }
+    elpaPackages // {inherit elpaBuild;}
   );
 in
-generateElpa { }
+generateElpa {}

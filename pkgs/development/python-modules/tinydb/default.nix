@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-nKsTMakCOBVHDDp8AX/xDkvHpCMBoIb0pa24F4VX/14=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   postPatch = ''
     substituteInPlace pytest.ini \
@@ -35,13 +35,13 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  pythonImportsCheck = [ "tinydb" ];
+  pythonImportsCheck = ["tinydb"];
 
   meta = with lib; {
     description = "Lightweight document oriented database written in Python";
     homepage = "https://tinydb.readthedocs.org/";
     changelog = "https://tinydb.readthedocs.io/en/latest/changelog.html";
     license = licenses.mit;
-    maintainers = with maintainers; [ marcus7070 ];
+    maintainers = with maintainers; [marcus7070];
   };
 }

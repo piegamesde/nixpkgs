@@ -30,7 +30,7 @@ buildPythonApplication rec {
       ./disable-test-timeouts.patch
     ];
 
-  nativeBuildInputs = [ pdm-pep517 ];
+  nativeBuildInputs = [pdm-pep517];
 
   propagatedBuildInputs = [
     cmake-format
@@ -46,12 +46,12 @@ buildPythonApplication rec {
 
   dontUseCmakeConfigure = true;
 
-  pythonImportsCheck = [ "cmake_language_server" ];
+  pythonImportsCheck = ["cmake_language_server"];
 
   meta = with lib; {
     description = "CMake LSP Implementation";
     homepage = "https://github.com/regen100/cmake-language-server";
     license = licenses.mit;
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
   };
 }

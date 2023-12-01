@@ -25,12 +25,12 @@ buildOctavePackage rec {
     hash = "sha256-6LmLzTwcBhvMDBE7u/lIkSUP97qFMPRHkxfbAyvas6M=";
   };
 
-  propagatedBuildInputs = [ pythonEnv ];
+  propagatedBuildInputs = [pythonEnv];
 
   meta = with lib; {
     homepage = "https://octave.sourceforge.io/symbolic/index.html";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ KarlJoad ];
+    maintainers = with maintainers; [KarlJoad];
     description = "Adds symbolic calculation features to GNU Octave";
   };
 }

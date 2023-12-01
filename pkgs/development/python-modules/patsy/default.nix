@@ -23,14 +23,14 @@ buildPythonPackage rec {
     scipy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "patsy" ];
+  pythonImportsCheck = ["patsy"];
 
   meta = {
     description = "A Python package for describing statistical models";
     homepage = "https://github.com/pydata/patsy";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ ilya-kolpakov ];
+    maintainers = with lib.maintainers; [ilya-kolpakov];
   };
 }

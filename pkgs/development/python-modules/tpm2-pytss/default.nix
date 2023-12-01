@@ -36,7 +36,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [ tpm2-tss ];
+  buildInputs = [tpm2-tss];
 
   propagatedBuildInputs = [
     cffi
@@ -53,13 +53,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "tpm2_pytss" ];
+  pythonImportsCheck = ["tpm2_pytss"];
 
   meta = with lib; {
     homepage = "https://github.com/tpm2-software/tpm2-pytss";
     changelog = "https://github.com/tpm2-software/tpm2-pytss/blob/${version}/CHANGELOG.md";
     description = "TPM2 TSS Python bindings for Enhanced System API (ESYS)";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ baloo ];
+    maintainers = with maintainers; [baloo];
   };
 }

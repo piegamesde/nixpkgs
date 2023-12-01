@@ -25,9 +25,9 @@ buildPythonPackage rec {
     hash = "sha256-2XqT6PWi78RxOggEZX3trYN0XMpM0diN6Rhvd/l3YAQ=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  buildInputs = [ pbr ];
+  buildInputs = [pbr];
 
   propagatedBuildInputs = [
     docutils
@@ -37,15 +37,15 @@ buildPythonPackage rec {
     pygments
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "doc8" ];
+  pythonImportsCheck = ["doc8"];
 
   meta = with lib; {
     description = "Style checker for Sphinx (or other) RST documentation";
     homepage = "https://github.com/pycqa/doc8";
     changelog = "https://github.com/PyCQA/doc8/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

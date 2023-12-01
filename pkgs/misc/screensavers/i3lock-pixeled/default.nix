@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     playerctl
   ];
 
-  makeFlags = [ "PREFIX=$(out)/bin" ];
+  makeFlags = ["PREFIX=$(out)/bin"];
 
   patchPhase = ''
     substituteInPlace i3lock-pixeled \
@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/Ma27/i3lock-pixeled";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ma27 ];
+    maintainers = with maintainers; [ma27];
   };
 }

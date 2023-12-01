@@ -43,7 +43,7 @@ let
         homepage = "https://web.archive.org/web/20140330233023/http://www.neillcorlett.com/cmdpack/";
         platforms = platforms.all;
         license = licenses.gpl3Plus;
-        maintainers = with maintainers; [ zane ];
+        maintainers = with maintainers; [zane];
       };
     };
 in

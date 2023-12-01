@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "sycamore";
   version = "20211020-git";
@@ -20,7 +20,7 @@ rec {
 
   packageName = "sycamore";
 
-  asdFilesToKeep = [ "sycamore.asd" ];
+  asdFilesToKeep = ["sycamore.asd"];
   overrides = x: x;
 }
 /* (SYSTEM sycamore DESCRIPTION

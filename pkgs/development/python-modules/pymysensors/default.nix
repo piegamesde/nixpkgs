@@ -43,7 +43,7 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    mqtt-client = [ paho-mqtt ];
+    mqtt-client = [paho-mqtt];
   };
 
   nativeCheckInputs = [
@@ -52,12 +52,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "mysensors" ];
+  pythonImportsCheck = ["mysensors"];
 
   meta = with lib; {
     description = "Python API for talking to a MySensors gateway";
     homepage = "https://github.com/theolind/pymysensors";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

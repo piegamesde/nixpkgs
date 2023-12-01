@@ -21,15 +21,15 @@ stdenv.mkDerivation rec {
 
   postPatch = lib.optionalString (conf != null) "cp ${configFile} config.def.h";
 
-  makeFlags = [ "CC:=$(CC)" ];
+  makeFlags = ["CC:=$(CC)"];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Simple file manager";
     homepage = "https://github.com/afify/sfm";
     license = licenses.isc;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

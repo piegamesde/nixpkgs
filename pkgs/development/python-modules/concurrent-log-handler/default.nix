@@ -14,9 +14,9 @@ buildPythonPackage rec {
     hash = "sha256-+PnlhCkrnzpLR3VwGP3xr8i/lynxiKW2dQrNih5+P8k=";
   };
 
-  propagatedBuildInputs = [ portalocker ];
+  propagatedBuildInputs = [portalocker];
 
-  pythonImportsCheck = [ "concurrent_log_handler" ];
+  pythonImportsCheck = ["concurrent_log_handler"];
 
   doCheck = false; # upstream has no tests
 

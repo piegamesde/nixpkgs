@@ -19,7 +19,7 @@ with lib; {
       cfg = config.programs.sharing;
     in
     mkIf cfg.enable {
-      environment.systemPackages = [ pkgs.sharing ];
-      networking.firewall.allowedTCPPorts = [ 7478 ];
+      environment.systemPackages = [pkgs.sharing];
+      networking.firewall.allowedTCPPorts = [7478];
     };
 }

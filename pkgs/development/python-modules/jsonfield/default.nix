@@ -23,12 +23,12 @@ buildPythonPackage rec {
 
   preCheck = "export DJANGO_SETTINGS_MODULE=tests.settings";
 
-  propagatedBuildInputs = [ django ];
+  propagatedBuildInputs = [django];
 
   meta = with lib; {
     description = "Reusable model field that allows you to store validated JSON, automatically handling serialization to and from the database";
     homepage = "https://github.com/rpkilby/jsonfield/";
     license = licenses.mit;
-    maintainers = with maintainers; [ mrmebelman ];
+    maintainers = with maintainers; [mrmebelman];
   };
 }

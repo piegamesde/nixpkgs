@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     docbook_xml_dtd_43
     libxml2
     vala
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [mesonEmulatorHook];
 
   buildInputs =
     [
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
       isocodes
       mobile-broadband-provider-info
     ]
-    ++ lib.optionals withGtk4 [ gtk4 ]
+    ++ lib.optionals withGtk4 [gtk4]
     ++
       lib.optionals withGnome
         [

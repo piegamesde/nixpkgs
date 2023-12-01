@@ -50,9 +50,9 @@ in
   config = mkIf cfg.enable {
     systemd.services.hail = {
       description = "Hail Auto Update Service";
-      wants = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
-      path = with pkgs; [ nix ];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
+      path = with pkgs; [nix];
       environment = {
         HOME = "/var/lib/empty";
       };

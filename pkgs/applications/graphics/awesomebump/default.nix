@@ -24,7 +24,7 @@ let
     name = "qtnproperty";
     inherit src;
     sourceRoot = "AwesomeBump/Sources/utils/QtnProperty";
-    patches = [ ./qtnproperty-parallel-building.patch ];
+    patches = [./qtnproperty-parallel-building.patch];
     buildInputs = [
       qtscript
       qtbase
@@ -52,7 +52,7 @@ mkDerivation {
     qtdeclarative
   ];
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
   preBuild = ''
     ln -sf ${qtnproperty}/bin/QtnPEG Sources/utils/QtnProperty/bin-linux/QtnPEG
@@ -79,7 +79,7 @@ mkDerivation {
     homepage = "https://github.com/kmkolasinski/AwesomeBump";
     description = "A program to generate normal, height, specular or ambient occlusion textures from a single image";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ lib.maintainers.eelco ];
+    maintainers = [lib.maintainers.eelco];
     platforms = lib.platforms.linux;
   };
 }

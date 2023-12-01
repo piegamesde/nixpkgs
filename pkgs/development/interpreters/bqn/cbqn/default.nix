@@ -16,11 +16,9 @@
 }:
 
 let
-  cbqn-bytecode-submodule = callPackage ./cbqn-bytecode.nix {
-    inherit lib fetchFromGitHub stdenvNoCC;
-  };
-  replxx-submodule = callPackage ./replxx.nix { inherit lib fetchFromGitHub stdenvNoCC; };
-  singeli-submodule = callPackage ./singeli.nix { inherit lib fetchFromGitHub stdenvNoCC; };
+  cbqn-bytecode-submodule = callPackage ./cbqn-bytecode.nix {inherit lib fetchFromGitHub stdenvNoCC;};
+  replxx-submodule = callPackage ./replxx.nix {inherit lib fetchFromGitHub stdenvNoCC;};
+  singeli-submodule = callPackage ./singeli.nix {inherit lib fetchFromGitHub stdenvNoCC;};
 in
 assert genBytecode -> ((bqn-path != null) && (mbqn-source != null));
 
@@ -35,9 +33,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-M9GTsm65DySLcMk9QDEhImHnUvWtYGPwiG657wHg3KA=";
   };
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [pkg-config] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
-  buildInputs = [ libffi ];
+  buildInputs = [libffi];
 
   dontConfigure = true;
 
@@ -46,7 +44,7 @@ stdenv.mkDerivation rec {
     patchShebangs build/build
   '';
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ] ++ lib.optional enableReplxx "REPLXX=1";
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"] ++ lib.optional enableReplxx "REPLXX=1";
 
   buildFlags =
     [
@@ -58,7 +56,7 @@ stdenv.mkDerivation rec {
             "f='-mavx2'"
           ]
         else
-          [ "o3" ]
+          ["o3"]
       ))
     ]
     ++ lib.optionals enableLibcbqn
@@ -90,7 +88,7 @@ stdenv.mkDerivation rec {
     '';
 
   outputs =
-    [ "out" ]
+    ["out"]
     ++ lib.optionals enableLibcbqn [
       "lib"
       "dev"

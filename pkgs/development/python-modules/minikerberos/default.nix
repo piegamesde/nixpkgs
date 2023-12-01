@@ -35,13 +35,13 @@ buildPythonPackage rec {
   # no tests are published: https://github.com/skelsec/minikerberos/pull/5
   doCheck = false;
 
-  pythonImportsCheck = [ "minikerberos" ];
+  pythonImportsCheck = ["minikerberos"];
 
   meta = with lib; {
     description = "Kerberos manipulation library in Python";
     homepage = "https://github.com/skelsec/minikerberos";
     changelog = "https://github.com/skelsec/minikerberos/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

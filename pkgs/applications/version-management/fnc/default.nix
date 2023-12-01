@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals stdenv.cc.isGNU
@@ -47,6 +47,6 @@ stdenv.mkDerivation rec {
     homepage = "https://fnc.bsdbox.org";
     license = licenses.isc;
     platforms = platforms.all;
-    maintainers = with maintainers; [ abbe ];
+    maintainers = with maintainers; [abbe];
   };
 }

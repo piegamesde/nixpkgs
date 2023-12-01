@@ -53,9 +53,9 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ gnu-efi ];
+  buildInputs = [gnu-efi];
 
-  hardeningDisable = [ "stackprotector" ];
+  hardeningDisable = ["stackprotector"];
 
   makeFlags = [
     "prefix="

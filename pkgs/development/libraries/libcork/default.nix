@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  buildInputs = [ check ];
+  buildInputs = [check];
 
   doCheck = false;
 
@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
     description = "A simple, easily embeddable cross-platform C library";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ lovesegfault ];
+    maintainers = with maintainers; [lovesegfault];
   };
 }

@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-M8KF9QdOMXy90zjRma+kanwBEy5cER02vUFVNOm5Fqg=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     cryptography
@@ -28,7 +28,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [ "requests_ntlm" ];
+  pythonImportsCheck = ["requests_ntlm"];
 
   # Tests require networking
   doCheck = false;
@@ -38,7 +38,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/requests/requests-ntlm";
     changelog = "https://github.com/requests/requests-ntlm/releases/tag/v${version}";
     license = licenses.isc;
-    maintainers = with maintainers; [ elasticdog ];
+    maintainers = with maintainers; [elasticdog];
     platforms = platforms.all;
   };
 }

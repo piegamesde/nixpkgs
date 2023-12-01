@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (variant != null) "--enable-${variant}";
 
   # https://bugs.exim.org/show_bug.cgi?id=2173
-  patches = [ ./stacksize-detection.patch ];
+  patches = [./stacksize-detection.patch];
 
   preCheck = ''
     patchShebangs RunGrepTest
@@ -77,6 +77,6 @@ stdenv.mkDerivation rec {
     '';
 
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

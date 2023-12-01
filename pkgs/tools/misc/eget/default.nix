@@ -39,7 +39,7 @@ buildGoModule rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       package = eget;
       command = "eget -v";
@@ -51,6 +51,6 @@ buildGoModule rec {
     description = "Easily install prebuilt binaries from GitHub";
     homepage = "https://github.com/zyedidia/eget";
     license = licenses.mit;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

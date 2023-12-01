@@ -28,14 +28,14 @@ let
   };
 in
 appleDerivation {
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   nativeBuildInputs = [
     bsdmake
     perl
     bison
     flex
   ];
-  buildInputs = [ flex ];
+  buildInputs = [flex];
 
   patchPhase = ''
     substituteInPlace BSDmakefile \
@@ -104,6 +104,6 @@ appleDerivation {
 
   meta = {
     platforms = lib.platforms.darwin;
-    maintainers = with lib.maintainers; [ gridaphobe ];
+    maintainers = with lib.maintainers; [gridaphobe];
   };
 }

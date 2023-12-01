@@ -23,9 +23,9 @@ stdenv.mkDerivation rec {
   ];
 
   strictDeps = true;
-  propagatedBuildInputs = [ ncurses ];
+  propagatedBuildInputs = [ncurses];
 
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
 
   upstreamPatches =
     (
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
 
     license = licenses.gpl3Plus;
 
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
 
     platforms = platforms.unix;
     branch = "8.2";

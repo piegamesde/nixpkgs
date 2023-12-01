@@ -32,8 +32,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Lightweight selection tool for usage in screenshot scripts etc";
     homepage = "https://github.com/neXromancers/hacksaw";
-    license = with licenses; [ mpl20 ];
-    maintainers = with maintainers; [ TethysSvensson ];
+    license = with licenses; [mpl20];
+    maintainers = with maintainers; [TethysSvensson];
     platforms = platforms.linux;
   };
 }

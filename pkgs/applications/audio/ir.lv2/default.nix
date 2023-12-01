@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     zita-convolver
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   postPatch = ''
     # Fix build with lv2 1.18: https://github.com/tomszilagyi/ir.lv2/pull/20
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     homepage = "http://factorial.hu/plugins/lv2/ir";
     description = "Zero-latency, realtime, high performance signal convolver especially for creating reverb effects";
     license = licenses.gpl2;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.linux;
   };
 }

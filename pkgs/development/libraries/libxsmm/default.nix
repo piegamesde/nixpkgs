@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     license = licenses.bsd3;
     homepage = "https://github.com/hfp/libxsmm";
     platforms = platforms.linux;
-    maintainers = with lib.maintainers; [ chessai ];
+    maintainers = with lib.maintainers; [chessai];
   };
 }

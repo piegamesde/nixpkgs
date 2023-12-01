@@ -11,9 +11,9 @@
 {
   pname = "rely-junit-reporter";
 
-  nativeBuildInputs = [ reason ];
+  nativeBuildInputs = [reason];
 
-  buildInputs = [ atdgen ];
+  buildInputs = [atdgen];
 
   propagatedBuildInputs = [
     junit

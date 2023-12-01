@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     libtiff
     libwebp
     zlib
-  ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
+  ] ++ lib.optionals stdenv.isDarwin [libiconv];
 
   preBuild = ''
     cd build
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     description = "Full color painting software for illustration drawing";
     homepage = "http://azsky2.html.xdomain.jp/soft/azpainter.html";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
     platforms = with platforms; linux ++ darwin;
   };
 }

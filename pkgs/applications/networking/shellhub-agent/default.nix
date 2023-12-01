@@ -44,11 +44,11 @@ buildGo120Module rec {
     };
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ libxcrypt ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [libxcrypt];
 
   postInstall = ''
-    wrapProgram $out/bin/agent --prefix PATH : ${lib.makeBinPath [ openssh ]}
+    wrapProgram $out/bin/agent --prefix PATH : ${lib.makeBinPath [openssh]}
   '';
 
   meta = with lib; {
@@ -61,7 +61,7 @@ buildGo120Module rec {
     '';
     homepage = "https://shellhub.io/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ otavio ];
+    maintainers = with maintainers; [otavio];
     platforms = platforms.linux;
   };
 }

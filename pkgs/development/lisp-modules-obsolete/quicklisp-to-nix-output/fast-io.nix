@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "fast-io";
   version = "20200925-git";
@@ -24,7 +24,7 @@ rec {
 
   packageName = "fast-io";
 
-  asdFilesToKeep = [ "fast-io.asd" ];
+  asdFilesToKeep = ["fast-io.asd"];
   overrides = x: x;
 }
 /* (SYSTEM fast-io DESCRIPTION Alternative I/O mechanism to a stream or vector

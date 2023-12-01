@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     humanity-icon-theme
     hicolor-icon-theme
   ];
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
   dontDropIconThemeCache = true;
 

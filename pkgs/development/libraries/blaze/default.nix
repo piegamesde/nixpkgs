@@ -20,7 +20,7 @@ stdenv.mkDerivation (
     };
 
     strictDeps = true;
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
     buildInputs = [
       blas
@@ -30,8 +30,8 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "high performance C++ math library";
       homepage = "https://bitbucket.org/blaze-lib/blaze";
-      license = with licenses; [ bsd3 ];
-      maintainers = with maintainers; [ Madouura ];
+      license = with licenses; [bsd3];
+      maintainers = with maintainers; [Madouura];
       platforms = platforms.linux;
     };
   }

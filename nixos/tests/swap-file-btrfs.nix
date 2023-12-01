@@ -1,12 +1,12 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
   {
     name = "swap-file-btrfs";
 
-    meta.maintainers = with lib.maintainers; [ oxalica ];
+    meta.maintainers = with lib.maintainers; [oxalica];
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         virtualisation.useDefaultFilesystems = false;
 

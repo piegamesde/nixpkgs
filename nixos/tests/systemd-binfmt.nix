@@ -3,11 +3,11 @@
 
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 
 let
   expectArgv0 =
@@ -65,7 +65,7 @@ in
   preserveArgvZero = makeTest {
     name = "systemd-binfmt-preserve-argv0";
     nodes.machine = {
-      boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+      boot.binfmt.emulatedSystems = ["aarch64-linux"];
     };
     testScript =
       let
@@ -80,7 +80,7 @@ in
   ldPreload = makeTest {
     name = "systemd-binfmt-ld-preload";
     nodes.machine = {
-      boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+      boot.binfmt.emulatedSystems = ["aarch64-linux"];
     };
     testScript =
       let

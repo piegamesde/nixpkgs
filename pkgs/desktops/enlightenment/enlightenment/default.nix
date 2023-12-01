@@ -73,11 +73,11 @@ stdenv.mkDerivation rec {
       --replace "ecore_exe_pipe_run(\"bc -l\"" "ecore_exe_pipe_run(\"${bc}/bin/bc -l\""
   '';
 
-  mesonFlags = [ "-D systemdunitdir=lib/systemd/user" ] ++ lib.optional waylandSupport "-Dwl=true";
+  mesonFlags = ["-D systemdunitdir=lib/systemd/user"] ++ lib.optional waylandSupport "-Dwl=true";
 
-  passthru.providedSessions = [ "enlightenment" ];
+  passthru.providedSessions = ["enlightenment"];
 
-  passthru.updateScript = directoryListingUpdater { };
+  passthru.updateScript = directoryListingUpdater {};
 
   meta = with lib; {
     description = "The Compositing Window Manager and Desktop Shell";

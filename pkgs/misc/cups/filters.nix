@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     poppler
     poppler_utils
     qpdf
-  ] ++ lib.optionals withAvahi [ avahi ];
+  ] ++ lib.optionals withAvahi [avahi];
 
   configureFlags = [
     "--with-mutool-path=${mupdf}/bin/mutool"
@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
     "--with-test-font-path=${dejavu_fonts}/share/fonts/truetype/DejaVuSans.ttf"
     "--localstatedir=/var"
     "--sysconfdir=/etc"
-  ] ++ lib.optionals (!withAvahi) [ "--disable-avahi" ];
+  ] ++ lib.optionals (!withAvahi) ["--disable-avahi"];
 
   makeFlags = [
     "CUPS_SERVERBIN=$(out)/lib/cups"

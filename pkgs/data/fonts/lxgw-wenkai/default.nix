@@ -27,6 +27,6 @@ stdenvNoCC.mkDerivation rec {
     description = "An open-source Chinese font derived from Fontworks' Klee One";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ elliot ];
+    maintainers = with maintainers; [elliot];
   };
 }

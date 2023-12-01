@@ -5,7 +5,7 @@
   makeWrapper,
   jdk8,
   python3Packages,
-  extraPythonPackages ? [ ],
+  extraPythonPackages ? [],
   coreutils,
   hadoopSupport ? true,
   hadoop,
@@ -19,7 +19,7 @@ let
       pname,
       version,
       sha256,
-      extraMeta ? { },
+      extraMeta ? {},
     }:
     stdenv.mkDerivation rec {
       inherit pname version;
@@ -28,7 +28,7 @@ let
         url = "mirror://apache/spark/${pname}-${version}/${pname}-${version}-bin-without-hadoop.tgz";
         sha256 = sha256;
       };
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
       buildInputs = [
         jdk
         python3Packages.python
@@ -73,7 +73,7 @@ let
       meta = {
         description = "Apache Spark is a fast and general engine for large-scale data processing";
         homepage = "https://spark.apache.org/";
-        sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+        sourceProvenance = with lib.sourceTypes; [binaryBytecode];
         license = lib.licenses.asl20;
         platforms = lib.platforms.all;
         maintainers = with lib.maintainers; [
@@ -100,6 +100,6 @@ in
     pname = "spark";
     version = "2.4.8";
     sha256 = "1mkyq0gz9fiav25vr0dba5ivp0wh0mh7kswwnx8pvsmb6wbwyfxv";
-    extraMeta.knownVulnerabilities = [ "CVE-2021-38296" ];
+    extraMeta.knownVulnerabilities = ["CVE-2021-38296"];
   };
 }

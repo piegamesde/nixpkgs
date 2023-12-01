@@ -37,8 +37,8 @@ stdenv.mkDerivation rec {
     cmake
     pkgconfig
   ];
-  buildInputs = lib.optionals withMPI [ mpi ];
-  propagatedBuildInputs = [ python.pkgs.numpy ] ++ lib.optionals withMPI [ python.pkgs.mpi4py ];
+  buildInputs = lib.optionals withMPI [mpi];
+  propagatedBuildInputs = [python.pkgs.numpy] ++ lib.optionals withMPI [python.pkgs.mpi4py];
 
   dontAddPrefix = true;
   cmakeFlags = [
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     homepage = "http://glotzerlab.engin.umich.edu/hoomd-blue/";
     description = "HOOMD-blue is a general-purpose particle simulation toolkit";
     license = licenses.bsdOriginal;
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ maintainers.costrouc ];
+    platforms = ["x86_64-linux"];
+    maintainers = [maintainers.costrouc];
   };
 }

@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     '';
 
     license = licenses.gpl3;
-    maintainers = with maintainers; [ smironov ];
+    maintainers = with maintainers; [smironov];
     platforms = with platforms; linux;
   };
 }

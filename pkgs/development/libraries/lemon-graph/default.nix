@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "1j6kp9axhgna47cfnmk1m7vnqn01hwh7pf1fp76aid60yhjwgdvi";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # error: no viable conversion from ...
   doCheck = !stdenv.isDarwin;
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     homepage = "https://lemon.cs.elte.hu/trac/lemon";
     description = "Efficient library for combinatorial optimization tasks on graphs and networks";
     license = licenses.boost;
-    maintainers = with maintainers; [ trepetti ];
+    maintainers = with maintainers; [trepetti];
     platforms = platforms.all;
   };
 }

@@ -18,7 +18,7 @@ stdenv.mkDerivation {
 
   # Upstream development has stopped and is no longer accepting patches
   # https://github.com/mischief/9pfs/pull/3
-  patches = [ ./fix-darwin-build.patch ];
+  patches = [./fix-darwin-build.patch];
 
   preConfigure = ''
     substituteInPlace Makefile --replace '-g bin' ""
@@ -26,7 +26,7 @@ stdenv.mkDerivation {
     mkdir -p $out/bin $out/share/man/man1
   '';
 
-  buildInputs = [ fuse ];
+  buildInputs = [fuse];
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:
@@ -39,7 +39,7 @@ stdenv.mkDerivation {
   meta = {
     homepage = "https://github.com/mischief/9pfs";
     description = "FUSE-based client of the 9P network filesystem protocol";
-    maintainers = [ lib.maintainers.eelco ];
+    maintainers = [lib.maintainers.eelco];
     platforms = lib.platforms.unix;
     license = with lib.licenses; [
       lpl-102

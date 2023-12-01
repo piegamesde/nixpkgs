@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  cmakeFlags = [ "-DVERSION=${version}" ];
+  cmakeFlags = ["-DVERSION=${version}"];
 
   meta = with lib; {
     description = "A fashion photo manager for viewing and organizing pictures";

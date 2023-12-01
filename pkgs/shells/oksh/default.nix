@@ -22,13 +22,13 @@ stdenv.mkDerivation rec {
     substituteInPlace configure --replace "./conftest" "echo"
   '';
 
-  configureFlags = [ "--no-strip" ];
+  configureFlags = ["--no-strip"];
 
   meta = with lib; {
     description = "Portable OpenBSD ksh, based on the Public Domain Korn Shell (pdksh)";
     homepage = "https://github.com/ibara/oksh";
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.all;
   };
 

@@ -3,10 +3,10 @@ import ./make-test-python.nix {
 
   nodes = {
     single =
-      { ... }:
+      {...}:
       {
         virtualisation = {
-          emptyDiskImages = [ 512 ];
+          emptyDiskImages = [512];
         };
         zramSwap = {
           enable = true;
@@ -19,7 +19,7 @@ import ./make-test-python.nix {
         };
       };
     machine =
-      { ... }:
+      {...}:
       {
         zramSwap = {
           enable = true;

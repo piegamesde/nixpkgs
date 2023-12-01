@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       This container format is derived from Apple's QuickTime format.
     '';
     homepage = "https://github.com/TechSmith/mp4v2";
-    maintainers = [ lib.maintainers.Anton-Latukha ];
+    maintainers = [lib.maintainers.Anton-Latukha];
     platforms = lib.platforms.unix;
     license = lib.licenses.mpl11;
   };

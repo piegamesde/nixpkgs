@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     "NO_DIST_INSTALL=1"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "An amateur radio companion to WSJT-X or JTDX";
@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gridtracker.org";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ melling ];
+    maintainers = with maintainers; [melling];
   };
 }

@@ -25,6 +25,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/pb-/gotypist";
     license = licenses.mit;
-    maintainers = with maintainers; [ pb- ];
+    maintainers = with maintainers; [pb-];
   };
 }

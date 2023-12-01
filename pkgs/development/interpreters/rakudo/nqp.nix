@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-417V7ZTsMqbXMO6BW/hcX8+IqGf6xlZjaMGtSf5jtT8=";
   };
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   configureScript = "${perl}/bin/perl ./Configure.pl";
 

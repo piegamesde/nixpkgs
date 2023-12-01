@@ -22,7 +22,7 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  nativeBuildInputs = [ menhir ];
+  nativeBuildInputs = [menhir];
 
   propagatedBuildInputs = [
     menhirLib
@@ -35,6 +35,6 @@ buildDunePackage rec {
     homepage = "https://github.com/colis-anr/${pname}";
     description = "A static parser for POSIX Shell";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ niols ];
+    maintainers = with maintainers; [niols];
   };
 }

@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  buildInputs = [ libxcrypt ];
+  buildInputs = [libxcrypt];
 
   preConfigure = ''
     sed -re 's/-[og] 0//g' -i Makefile*
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     downloadPage = "http://bftpd.sf.net/download.html";
     homepage = "http://bftpd.sf.net/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.all;
   };
 }

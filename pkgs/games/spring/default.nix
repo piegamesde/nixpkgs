@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram "$out/bin/spring" \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ stdenv.cc.cc ]}"
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [stdenv.cc.cc]}"
   '';
 
   meta = with lib; {
@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
       domenkozar
       sorki
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     broken = true;
   };
 }

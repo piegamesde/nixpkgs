@@ -1,4 +1,4 @@
-{ lib, python3Packages }:
+{lib, python3Packages}:
 
 with python3Packages;
 
@@ -28,6 +28,6 @@ buildPythonApplication rec {
     description = "A curses-based MPD client with basic functionality that can also display an album art";
     homepage = "https://github.com/GuardKenzie/miniplayer";
     license = licenses.mit;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
   };
 }

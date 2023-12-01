@@ -36,7 +36,7 @@ buildPythonApplication rec {
     sha256 = "sha256-SMAwji75AjW8CzXRKBDF+fR/a5++GhgIvkcuD+a/vp4=";
   };
 
-  patches = [ ./conftest.py.patch ];
+  patches = [./conftest.py.patch];
 
   postPatch = ''
     substituteInPlace ./tests/unit/conftest.py \
@@ -72,9 +72,9 @@ buildPythonApplication rec {
     xlsxwriter
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "strictdoc" ];
+  pythonImportsCheck = ["strictdoc"];
 
   disabledTests =
     [
@@ -87,6 +87,6 @@ buildPythonApplication rec {
     homepage = "https://github.com/strictdoc-project/strictdoc";
     changelog = "https://github.com/strictdoc-project/strictdoc/releases";
     license = licenses.asl20;
-    maintainers = with maintainers; [ yuu ];
+    maintainers = with maintainers; [yuu];
   };
 }

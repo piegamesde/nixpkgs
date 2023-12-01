@@ -1,14 +1,14 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
 
 let
-  qemu-common = import ../lib/qemu-common.nix { inherit (pkgs) lib pkgs; };
+  qemu-common = import ../lib/qemu-common.nix {inherit (pkgs) lib pkgs;};
 
   iso =
     (import ../lib/eval-config.nix {
@@ -25,7 +25,7 @@ let
       modules = [
         ../modules/installer/sd-card/sd-image-x86_64.nix
         ../modules/testing/test-instrumentation.nix
-        { sdImage.compressImage = false; }
+        {sdImage.compressImage = false;}
       ];
     }).config.system.build.sdImage;
 
@@ -48,7 +48,7 @@ let
     in
     makeTest {
       name = "boot-" + name;
-      nodes = { };
+      nodes = {};
       testScript = ''
         machine = create_machine(${machineConfig})
         machine.start()
@@ -72,7 +72,7 @@ let
           modules = [
             ../modules/installer/netboot/netboot.nix
             ../modules/testing/test-instrumentation.nix
-            { key = "serial"; }
+            {key = "serial";}
           ];
         }).config;
       ipxeBootDir = pkgs.symlinkJoin {
@@ -94,7 +94,7 @@ let
     in
     makeTest {
       name = "boot-netboot-" + name;
-      nodes = { };
+      nodes = {};
       testScript = ''
         machine = create_machine(${machineConfig})
         machine.start()
@@ -127,11 +127,11 @@ in
   };
 }
 // optionalAttrs (pkgs.stdenv.hostPlatform.system == "x86_64-linux") {
-  biosCdrom = makeBootTest "bios-cdrom" { cdrom = "${iso}/iso/${iso.isoName}"; };
+  biosCdrom = makeBootTest "bios-cdrom" {cdrom = "${iso}/iso/${iso.isoName}";};
 
-  biosUsb = makeBootTest "bios-usb" { usb = "${iso}/iso/${iso.isoName}"; };
+  biosUsb = makeBootTest "bios-usb" {usb = "${iso}/iso/${iso.isoName}";};
 
-  biosNetboot = makeNetbootTest "bios" { };
+  biosNetboot = makeNetbootTest "bios" {};
 
   ubootExtlinux =
     let
@@ -145,7 +145,7 @@ in
     in
     makeTest {
       name = "boot-uboot-extlinux";
-      nodes = { };
+      nodes = {};
       testScript = ''
         import os
 

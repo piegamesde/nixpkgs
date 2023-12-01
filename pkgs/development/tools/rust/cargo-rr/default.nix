@@ -22,19 +22,19 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-PdKqWMxTtBJbNqITs3IjNcpijXy6MHitEY4jDp4jZro=";
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
-    wrapProgram $out/bin/cargo-rr --prefix PATH : ${lib.makeBinPath [ rr ]}
+    wrapProgram $out/bin/cargo-rr --prefix PATH : ${lib.makeBinPath [rr]}
   '';
 
   meta = with lib; {
     description = ''Cargo subcommand "rr": a light wrapper around rr, the time-travelling debugger'';
     homepage = "https://github.com/danielzfranklin/cargo-rr";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ otavio ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [otavio];
   };
 }

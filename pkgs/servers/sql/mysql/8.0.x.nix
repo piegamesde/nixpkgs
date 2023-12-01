@@ -44,7 +44,7 @@ let
       bison
       cmake
       pkg-config
-    ] ++ lib.optionals (!stdenv.isDarwin) [ rpcsvc-proto ];
+    ] ++ lib.optionals (!stdenv.isDarwin) [rpcsvc-proto];
 
     patches = [
       ./no-force-outline-atomics.patch # Do not force compilers to turn on -moutline-atomics switch
@@ -59,7 +59,7 @@ let
     buildInputs =
       [
         boost
-        (curl.override { inherit openssl; })
+        (curl.override {inherit openssl;})
         icu
         libedit
         libevent
@@ -126,7 +126,7 @@ let
       homepage = "https://www.mysql.com/";
       description = "The world's most popular open source database";
       license = licenses.gpl2;
-      maintainers = with maintainers; [ orivej ];
+      maintainers = with maintainers; [orivej];
       platforms = platforms.unix;
     };
   };

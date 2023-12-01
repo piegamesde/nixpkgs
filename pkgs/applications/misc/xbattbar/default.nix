@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "10w7gs0l4hzhdn38yqyr3az7n4ncmfnd6hhhly6lk5dg7k441ck6";
   };
 
-  buildInputs = [ libX11 ];
+  buildInputs = [libX11];
 
   # The following patches are applied:
   # - sys-by-default: remove the APM checker binary, make the sys checker
@@ -48,6 +48,6 @@ stdenv.mkDerivation rec {
     homepage = "https://salsa.debian.org/debian/xbattbar";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.q3k ];
+    maintainers = [maintainers.q3k];
   };
 }

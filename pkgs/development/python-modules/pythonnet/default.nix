@@ -21,19 +21,19 @@ let
       pname = "UnmanagedExports";
       version = "1.2.7";
       sha256 = "0bfrhpmq556p0swd9ssapw4f2aafmgp930jgf00sy89hzg2bfijf";
-      outputFiles = [ "*" ];
+      outputFiles = ["*"];
     })
     (fetchNuGet {
       pname = "NUnit";
       version = "3.12.0";
       sha256 = "1880j2xwavi8f28vxan3hyvdnph4nlh5sbmh285s4lc9l0b7bdk2";
-      outputFiles = [ "*" ];
+      outputFiles = ["*"];
     })
     (fetchNuGet {
       pname = "System.ValueTuple";
       version = "4.5.0";
       sha256 = "00k8ja51d0f9wrq4vv5z2jhq8hy31kac2rg0rv06prylcybzl8cy";
-      outputFiles = [ "*" ];
+      outputFiles = ["*"];
     })
   ];
 in
@@ -94,7 +94,7 @@ buildPythonPackage rec {
     homepage = "https://pythonnet.github.io";
     license = licenses.mit;
     # <https://github.com/pythonnet/pythonnet/issues/898>
-    badPlatforms = [ "aarch64-linux" ];
-    maintainers = with maintainers; [ jraygauthier ];
+    badPlatforms = ["aarch64-linux"];
+    maintainers = with maintainers; [jraygauthier];
   };
 }

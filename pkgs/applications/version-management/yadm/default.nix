@@ -31,7 +31,7 @@ resholve.mkDerivation rec {
   pname = "yadm";
   version = "3.2.2";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   src = fetchFromGitHub {
     owner = "TheLocehiliosan";
@@ -58,7 +58,7 @@ resholve.mkDerivation rec {
 
   solutions = {
     yadm = {
-      scripts = [ "bin/yadm" ];
+      scripts = ["bin/yadm"];
       interpreter = "${bash}/bin/sh";
       inputs = [
         git
@@ -75,18 +75,18 @@ resholve.mkDerivation rec {
         gnutar
       ];
       fake = {
-        external = if stdenv.isCygwin then [ ] else [ "cygpath" ];
+        external = if stdenv.isCygwin then [] else ["cygpath"];
       };
       fix = {
-        "$GPG_PROGRAM" = [ "gpg" ];
-        "$OPENSSL_PROGRAM" = [ "openssl" ];
-        "$GIT_PROGRAM" = [ "git" ];
-        "$AWK_PROGRAM" = [ "awk" ];
+        "$GPG_PROGRAM" = ["gpg"];
+        "$OPENSSL_PROGRAM" = ["openssl"];
+        "$GIT_PROGRAM" = ["git"];
+        "$AWK_PROGRAM" = ["awk"];
         # see head comment
         # "$GIT_CRYPT_PROGRAM" = [ "git-crypt" ];
         # "$TRANSCRYPT_PROGRAM" = [ "transcrypt" ];
-        "$J2CLI_PROGRAM" = [ "j2" ];
-        "$ESH_PROGRAM" = [ "esh" ];
+        "$J2CLI_PROGRAM" = ["j2"];
+        "$ESH_PROGRAM" = ["esh"];
         # not in nixpkgs (yet)
         # "$ENVTPL_PROGRAM" = [ "envtpl" ];
         # "$LSB_RELEASE_PROGRAM" = [ "lsb_release" ];
@@ -96,7 +96,7 @@ resholve.mkDerivation rec {
         "$template_cmd" = true; # dynamic, template-engine
         "$SHELL" = true; # probably user env? unsure
         "$hook_command" = true; # ~git hooks?
-        "exec" = [ "$YADM_BOOTSTRAP" ]; # yadm bootstrap script
+        "exec" = ["$YADM_BOOTSTRAP"]; # yadm bootstrap script
 
         # not in nixpkgs
         "$ENVTPL_PROGRAM" = true;
@@ -115,7 +115,7 @@ resholve.mkDerivation rec {
   };
 
   passthru.tests = {
-    minimal = runCommand "${pname}-test" { } ''
+    minimal = runCommand "${pname}-test" {} ''
       export HOME=$out
       ${yadm}/bin/yadm init
     '';
@@ -132,7 +132,7 @@ resholve.mkDerivation rec {
     '';
     changelog = "https://github.com/TheLocehiliosan/yadm/blob/${version}/CHANGES";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ abathur ];
+    maintainers = with lib.maintainers; [abathur];
     platforms = lib.platforms.unix;
   };
 }

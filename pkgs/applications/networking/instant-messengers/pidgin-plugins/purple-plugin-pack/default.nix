@@ -29,13 +29,13 @@ stdenv.mkDerivation rec {
     ninja
   ];
 
-  buildInputs = [ pidgin ];
+  buildInputs = [pidgin];
 
   meta = with lib; {
     homepage = "https://keep.imfreedom.org/pidgin/purple-plugin-pack";
     description = "Collection of plugins for purple-based clients such as Pidgin";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ bdimcheff ];
+    maintainers = with maintainers; [bdimcheff];
   };
 }

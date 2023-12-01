@@ -55,7 +55,7 @@ in
       };
 
       cronIntervals = mkOption {
-        default = { };
+        default = {};
         example = {
           hourly = "0 * * * *";
           daily = "50 21 * * *";
@@ -79,7 +79,7 @@ in
             cfg.cronIntervals;
       }
       (mkIf cfg.enableManualRsnapshot {
-        environment.systemPackages = [ pkgs.rsnapshot ];
+        environment.systemPackages = [pkgs.rsnapshot];
         environment.etc."rsnapshot.conf".source = cfgfile;
       })
     ]

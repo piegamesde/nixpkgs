@@ -69,8 +69,8 @@ in
     ]
     ++ [
       (mkIf config.services.unbound.enable {
-        after = [ "unbound.service" ];
-        requires = [ "unbound.service" ];
+        after = ["unbound.service"];
+        requires = ["unbound.service"];
       })
     ]
   );

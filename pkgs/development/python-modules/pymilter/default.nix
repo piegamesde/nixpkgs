@@ -21,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-gZUWEDVZfDRiOOdG3lpiQldHxm/93l8qYVOHOEpHhzQ=";
   };
 
-  buildInputs = [ libmilter ];
+  buildInputs = [libmilter];
   propagatedBuildInputs = [
     bsddb3
     pydns
@@ -42,12 +42,12 @@ buildPythonPackage rec {
     rm testpolicy.py
   '';
 
-  pythonImportsCheck = [ "Milter" ];
+  pythonImportsCheck = ["Milter"];
 
   meta = with lib; {
     homepage = "http://bmsi.com/python/milter.html";
     description = "Python bindings for libmilter api";
-    maintainers = with maintainers; [ yorickvp ];
+    maintainers = with maintainers; [yorickvp];
     license = licenses.gpl2;
   };
 }

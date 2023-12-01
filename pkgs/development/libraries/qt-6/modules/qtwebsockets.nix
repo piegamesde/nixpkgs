@@ -11,5 +11,5 @@ qtModule {
     qtbase
     qtdeclarative
   ];
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 }

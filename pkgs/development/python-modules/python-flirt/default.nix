@@ -29,7 +29,7 @@ buildPythonPackage rec {
     maturinBuildHook
   ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.isDarwin [libiconv];
 
   buildAndTestSubdir = "pyflirt";
 
@@ -40,12 +40,12 @@ buildPythonPackage rec {
     };
   };
 
-  pythonImportsCheck = [ "flirt" ];
+  pythonImportsCheck = ["flirt"];
 
   meta = with lib; {
     description = "Python library for parsing, compiling, and matching Fast Library Identification and Recognition Technology (FLIRT) signatures";
     homepage = "https://github.com/williballenthin/lancelot/tree/master/pyflirt";
     license = licenses.asl20;
-    maintainers = with maintainers; [ sbruder ];
+    maintainers = with maintainers; [sbruder];
   };
 }

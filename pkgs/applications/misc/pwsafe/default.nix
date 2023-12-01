@@ -66,12 +66,12 @@ stdenv.mkDerivation rec {
       libyubikey
       yubikey-personalization
     ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+    ++ lib.optionals stdenv.isDarwin [Cocoa];
 
   cmakeFlags = [
     "-DNO_GTEST=ON"
     "-DCMAKE_CXX_FLAGS=-I${yubikey-personalization}/include/ykpers-1"
-  ] ++ lib.optionals stdenv.isDarwin [ "-DNO_YUBI=ON" ];
+  ] ++ lib.optionals stdenv.isDarwin ["-DNO_YUBI=ON"];
 
   postPatch =
     ''
@@ -96,7 +96,7 @@ stdenv.mkDerivation rec {
       substituteInPlace src/ui/cli/CMakeLists.txt --replace "uuid" ""
     '';
 
-  installFlags = [ "PREFIX=${placeholder "out"}" ];
+  installFlags = ["PREFIX=${placeholder "out"}"];
 
   passthru.updateScript = gitUpdater {
     ignoredVersions = "^([^1]|1[^.])"; # ignore anything other than 1.x

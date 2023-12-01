@@ -19,14 +19,14 @@ buildPythonPackage rec {
   # fails with: SyntaxError: invalid syntax
   doCheck = false;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "autocommand" ];
+  pythonImportsCheck = ["autocommand"];
 
   meta = with lib; {
     description = " Autocommand turns a python function into a CLI program ";
     homepage = "https://github.com/Lucretiel/autocommand";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

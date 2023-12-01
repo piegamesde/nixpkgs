@@ -22,11 +22,11 @@ buildPythonPackage rec {
       "'${libusb1}/lib/libusb-1.0${stdenv.hostPlatform.extensions.sharedLibrary}'"
   '';
 
-  buildInputs = [ libusb1 ];
+  buildInputs = [libusb1];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "usb1/testUSB1.py" ];
+  pytestFlagsArray = ["usb1/testUSB1.py"];
 
   meta = with lib; {
     homepage = "https://github.com/vpelletier/python-libusb1";

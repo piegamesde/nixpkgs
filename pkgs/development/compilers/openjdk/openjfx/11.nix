@@ -28,7 +28,7 @@ let
   update = ".0.18";
   build = "1";
   repover = "${major}${update}+${build}";
-  gradle_ = (gradle_7.override { java = openjdk11-bootstrap; });
+  gradle_ = (gradle_7.override {java = openjdk11-bootstrap;});
 
   makePackage =
     args:
@@ -130,7 +130,7 @@ makePackage {
     cp -r build/modular-sdk $out
   '';
 
-  stripDebugList = [ "." ];
+  stripDebugList = ["."];
 
   postFixup = ''
     # Remove references to bootstrap.
@@ -143,18 +143,18 @@ makePackage {
     rm -rf $out/modules_legal/*
   '';
 
-  disallowedReferences = [ openjdk11-bootstrap ];
+  disallowedReferences = [openjdk11-bootstrap];
 
   passthru.deps = deps;
 
   # Uses a lot of RAM, OOMs otherwise
-  requiredSystemFeatures = [ "big-parallel" ];
+  requiredSystemFeatures = ["big-parallel"];
 
   meta = with lib; {
     homepage = "http://openjdk.java.net/projects/openjfx/";
     license = licenses.gpl2;
     description = "The next-generation Java client toolkit";
-    maintainers = with maintainers; [ abbradar ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [abbradar];
+    platforms = ["x86_64-linux"];
   };
 }

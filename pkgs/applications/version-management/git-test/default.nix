@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "01h3f0andv1p7pwir3k6n01v92hgr5zbjadfwl144yjw9x37fm2f";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontBuild = true;
 
@@ -26,14 +26,14 @@ stdenv.mkDerivation rec {
     install -m444 -Dt $out/share/man/man1 git-test.1
 
     wrapProgram $out/bin/git-test \
-      --prefix PATH : "${lib.makeBinPath [ git ]}"
+      --prefix PATH : "${lib.makeBinPath [git]}"
   '';
 
   meta = with lib; {
     description = "Test your commits";
     homepage = "https://github.com/spotify/git-test";
     license = licenses.asl20;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
     platforms = platforms.all;
   };
 }

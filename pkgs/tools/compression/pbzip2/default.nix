@@ -18,11 +18,11 @@ stdenv.mkDerivation rec {
     sha256 = "1rnvgcdixjzbrmcr1nv9b6ccrjfrhryaj7jwz28yxxv6lam3xlcg";
   };
 
-  buildInputs = [ bzip2 ];
+  buildInputs = [bzip2];
 
   preBuild = "substituteInPlace Makefile --replace g++ c++";
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=reserved-user-defined-literal";
 
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     homepage = "http://compression.ca/pbzip2/";
     description = "A parallel implementation of bzip2 for multi-core machines";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ viric ];
+    maintainers = with maintainers; [viric];
     platforms = platforms.unix;
   };
 }

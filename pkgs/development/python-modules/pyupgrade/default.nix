@@ -21,16 +21,16 @@ buildPythonPackage rec {
     hash = "sha256-vg1eNxIkdHM1MMTkCof/ED6nqFhwSgEiKjYmqAyHMp0=";
   };
 
-  propagatedBuildInputs = [ tokenize-rt ];
+  propagatedBuildInputs = [tokenize-rt];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyupgrade" ];
+  pythonImportsCheck = ["pyupgrade"];
 
   meta = with lib; {
     description = "Tool to automatically upgrade syntax for newer versions of the language";
     homepage = "https://github.com/asottile/pyupgrade";
     license = licenses.mit;
-    maintainers = with maintainers; [ lovesegfault ];
+    maintainers = with maintainers; [lovesegfault];
   };
 }

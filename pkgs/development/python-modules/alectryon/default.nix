@@ -32,6 +32,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/cpitclaudel/alectryon";
     description = "A collection of tools for writing technical documents that mix Coq code and prose";
     license = licenses.mit;
-    maintainers = with maintainers; [ Zimmi48 ];
+    maintainers = with maintainers; [Zimmi48];
   };
 }

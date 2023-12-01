@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
   '';
 
   # a distinct dev output makes python-mapnik fail
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   patches = [
     # The lib/cmake/harfbuzz/harfbuzz-config.cmake file in harfbuzz.dev is faulty,
@@ -108,7 +108,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "An open source toolkit for developing mapping applications";
     homepage = "https://mapnik.org";
-    maintainers = with maintainers; [ hrdinka ];
+    maintainers = with maintainers; [hrdinka];
     license = licenses.lgpl21Plus;
     platforms = platforms.all;
   };

@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
     scdoc
     which
   ];
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = [openssl] ++ lib.optionals stdenv.isDarwin [Security];
 
   postInstall = ''
     make manual
@@ -60,6 +60,6 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/xvxx/phetch/releases/tag/v${version}";
     homepage = "https://github.com/xvxx/phetch";
     license = licenses.mit;
-    maintainers = with maintainers; [ felixalbrigtsen ];
+    maintainers = with maintainers; [felixalbrigtsen];
   };
 }

@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     homepage = "https://codesynthesis.com/projects/libcutl/";
     changelog = "https://git.codesynthesis.com/cgit/libcutl/libcutl/plain/NEWS?h=${version}";
     platforms = platforms.all;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.mit;
   };
 
@@ -32,8 +32,8 @@ stdenv.mkDerivation rec {
     sha256 = "070j2x02m4gm1fn7gnymrkbdxflgzxwl7m96aryv8wp3f3366l8j";
   };
 
-  buildInputs = [ xercesc ];
+  buildInputs = [xercesc];
   enableParallelBuilding = true;
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-std=c++14" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-std=c++14"];
 }

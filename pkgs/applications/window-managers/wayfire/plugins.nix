@@ -1,4 +1,4 @@
-{ newScope, wayfire }:
+{newScope, wayfire}:
 
 let
   self = with self; {
@@ -6,7 +6,7 @@ let
 
     callPackage = newScope self;
 
-    wf-shell = callPackage ./wf-shell.nix { };
+    wf-shell = callPackage ./wf-shell.nix {};
   };
 in
 self

@@ -29,7 +29,7 @@ let
           acc
           // {
             inherit startPos;
-            exprs = acc.exprs ++ [ (substr acc.exprPos (acc.pos - 1) acc.expr) ];
+            exprs = acc.exprs ++ [(substr acc.exprPos (acc.pos - 1) acc.expr)];
             pos = posNew;
             openP = acc.openP + 1;
           }
@@ -44,12 +44,12 @@ let
           // {
             inherit openP;
             pos = acc.pos + 1;
-            exprs = if openP == 0 then acc.exprs ++ [ exprs ] else acc.exprs;
+            exprs = if openP == 0 then acc.exprs ++ [exprs] else acc.exprs;
             exprPos = if openP == 0 then acc.pos + 1 else acc.exprPos;
           }
         )
       else
-        acc // { pos = acc.pos + 1; }
+        acc // {pos = acc.pos + 1;}
     );
 
   # Make a tree out of expression groups (parens)
@@ -60,7 +60,7 @@ let
       acc =
         builtins.foldl' findSubExpressionsFun
           {
-            exprs = [ ];
+            exprs = [];
             expr = expr;
             pos = 0;
             openP = 0;
@@ -69,7 +69,7 @@ let
           }
           (lib.stringToCharacters expr);
       tailExpr = (substr acc.exprPos acc.pos expr);
-      tailExprs = if tailExpr != "" then [ tailExpr ] else [ ];
+      tailExprs = if tailExpr != "" then [tailExpr] else [];
     in
     acc.exprs ++ tailExprs;
   parseExpressions =
@@ -106,8 +106,8 @@ let
       parse = expr: builtins.filter (x: x != null) (builtins.map mapfn (splitCond expr));
     in
     builtins.foldl'
-      (acc: v: acc ++ (if builtins.typeOf v == "string" then parse v else [ (parseExpressions v) ]))
-      [ ]
+      (acc: v: acc ++ (if builtins.typeOf v == "string" then parse v else [(parseExpressions v)]))
+      []
       exprs;
 
   # Transform individual expressions to structured expressions
@@ -281,9 +281,9 @@ let
           if builtins.typeOf v == "set" then
             (
               if v.type == "value" then
-                (acc // { value = cond."${acc.cond}" acc.value v.value; })
+                (acc // {value = cond."${acc.cond}" acc.value v.value;})
               else if v.type == "bool" then
-                (acc // { cond = v.value; })
+                (acc // {cond = v.value;})
               else
                 throw "Unsupported type"
             )
@@ -298,7 +298,7 @@ let
                     }
                     v;
               in
-              acc // { value = cond."${acc.cond}" acc.value ret.value; }
+              acc // {value = cond."${acc.cond}" acc.value ret.value;}
             )
           else
             throw "Unsupported type"

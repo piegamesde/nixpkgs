@@ -9,7 +9,7 @@
 
 let
   # The version number here is whatever is reported by the RUBY_VERSION string
-  rubyVersion = callPackage ../ruby/ruby-version.nix { } "2" "5" "7" "";
+  rubyVersion = callPackage ../ruby/ruby-version.nix {} "2" "5" "7" "";
   jruby = stdenv.mkDerivation rec {
     pname = "jruby";
 
@@ -20,7 +20,7 @@ let
       sha256 = "sha256-JR5t2NHS+CkiyMd414V+G++C/lyiz3e8CTVkIdCwWrg=";
     };
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     installPhase = ''
       mkdir -pv $out/docs
@@ -66,15 +66,15 @@ let
         lgpl21
       ];
       platforms = platforms.unix;
-      maintainers = [ maintainers.fzakaria ];
-      sourceProvenance = with sourceTypes; [ binaryBytecode ];
+      maintainers = [maintainers.fzakaria];
+      sourceProvenance = with sourceTypes; [binaryBytecode];
     };
   };
 in
 jruby.overrideAttrs (
   oldAttrs: {
     passthru = oldAttrs.passthru // {
-      devEnv = callPackage ../ruby/dev.nix { ruby = jruby; };
+      devEnv = callPackage ../ruby/dev.nix {ruby = jruby;};
     };
   }
 )

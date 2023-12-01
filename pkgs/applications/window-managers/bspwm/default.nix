@@ -28,12 +28,12 @@ stdenv.mkDerivation rec {
     xcbutilwm
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "A tiling window manager based on binary space partitioning";
     homepage = "https://github.com/baskerville/bspwm";
-    maintainers = with maintainers; [ meisternu ];
+    maintainers = with maintainers; [meisternu];
     license = licenses.bsd2;
     platforms = platforms.linux;
   };

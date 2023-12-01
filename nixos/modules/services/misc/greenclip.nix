@@ -27,11 +27,11 @@ in
     systemd.user.services.greenclip = {
       enable = true;
       description = "greenclip daemon";
-      wantedBy = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      after = ["graphical-session.target"];
       serviceConfig.ExecStart = "${cfg.package}/bin/greenclip daemon";
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

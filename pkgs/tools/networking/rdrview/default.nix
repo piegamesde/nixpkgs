@@ -24,7 +24,7 @@ stdenv.mkDerivation {
     curl
     libseccomp
   ];
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   installPhase = ''
     runHook preInstall
@@ -39,6 +39,6 @@ stdenv.mkDerivation {
     description = "Command line tool to extract main content from a webpage";
     homepage = "https://github.com/eafer/rdrview";
     license = licenses.asl20;
-    maintainers = with maintainers; [ djanatyn ];
+    maintainers = with maintainers; [djanatyn];
   };
 }

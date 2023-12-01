@@ -60,8 +60,8 @@
       purpose the author had in writing it was as support for the
       Topology library.
     '';
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     license = licenses.lgpl21Plus;
   };
 }).overrideAttrs
-  ({ version, ... }: if lib.versions.isGe "9.0" version then { repo = "topology"; } else { })
+  ({version, ...}: if lib.versions.isGe "9.0" version then {repo = "topology";} else {})

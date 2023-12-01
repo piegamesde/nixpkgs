@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     python3
     python3Packages.wrapPython
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     patchShebangs .

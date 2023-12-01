@@ -26,7 +26,7 @@ buildPythonApplication rec {
     description = "MicroPython development utility programs";
     homepage = "https://github.com/nickzoic/mpy-utils";
     license = licenses.mit;
-    maintainers = with maintainers; [ aciceri ];
+    maintainers = with maintainers; [aciceri];
     broken = stdenv.isDarwin;
   };
 }

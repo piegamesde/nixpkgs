@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "wookie";
   version = "20191130-git";
@@ -45,7 +45,7 @@ rec {
 
   packageName = "wookie";
 
-  asdFilesToKeep = [ "wookie.asd" ];
+  asdFilesToKeep = ["wookie.asd"];
   overrides = x: x;
 }
 /* (SYSTEM wookie DESCRIPTION An evented webserver for Common Lisp. SHA256

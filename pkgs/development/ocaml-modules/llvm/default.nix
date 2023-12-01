@@ -25,8 +25,8 @@ stdenv.mkDerivation {
     ocaml
     findlib
   ];
-  buildInputs = [ ctypes ];
-  propagatedBuildInputs = [ libllvm ];
+  buildInputs = [ctypes];
+  propagatedBuildInputs = [libllvm];
 
   strictDeps = true;
 
@@ -41,7 +41,7 @@ stdenv.mkDerivation {
     "-DLLVM_OCAML_EXTERNAL_LLVM_LIBDIR=${lib.getLib libllvm}/lib"
   ];
 
-  buildFlags = [ "ocaml_all" ];
+  buildFlags = ["ocaml_all"];
 
   installFlags = [
     "-C"
@@ -63,6 +63,6 @@ stdenv.mkDerivation {
     inherit (libllvm.meta) license homepage;
     inherit (ocaml.meta) platforms;
     description = "OCaml bindings distributed with LLVM";
-    maintainers = with lib.maintainers; [ vbgl ];
+    maintainers = with lib.maintainers; [vbgl];
   };
 }

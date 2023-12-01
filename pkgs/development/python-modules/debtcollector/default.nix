@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-3J0a0/dFxD9LvtvKMPn/6JBajAKMmSbmEHeEfV6iV6s=";
   };
 
-  nativeBuildInputs = [ pbr ];
+  nativeBuildInputs = [pbr];
 
   propagatedBuildInputs = [
     six
@@ -28,10 +28,10 @@ buildPythonPackage rec {
   doCheck = false;
 
   passthru.tests = {
-    tests = callPackage ./tests.nix { };
+    tests = callPackage ./tests.nix {};
   };
 
-  pythonImportsCheck = [ "debtcollector" ];
+  pythonImportsCheck = ["debtcollector"];
 
   meta = with lib; {
     description = "A collection of Python deprecation patterns and strategies that help you collect your technical debt in a non-destructive manner";

@@ -42,11 +42,11 @@ in
   config = mkIf cfg.enable (
     lib.mkMerge [
       {
-        environment.systemPackages = [ pkgs.corectrl ];
+        environment.systemPackages = [pkgs.corectrl];
 
-        services.dbus.packages = [ pkgs.corectrl ];
+        services.dbus.packages = [pkgs.corectrl];
 
-        users.groups.corectrl = { };
+        users.groups.corectrl = {};
 
         security.polkit.extraConfig = ''
           polkit.addRule(function(action, subject) {
@@ -64,10 +64,10 @@ in
       (lib.mkIf cfg.gpuOverclock.enable {
         # https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/gpu/drm/amd/include/amd_shared.h#n169
         # The overdrive bit
-        boot.kernelParams = [ "amdgpu.ppfeaturemask=${cfg.gpuOverclock.ppfeaturemask}" ];
+        boot.kernelParams = ["amdgpu.ppfeaturemask=${cfg.gpuOverclock.ppfeaturemask}"];
       })
     ]
   );
 
-  meta.maintainers = with lib.maintainers; [ artturin ];
+  meta.maintainers = with lib.maintainers; [artturin];
 }

@@ -39,7 +39,7 @@ let
       disable_existing_loggers = true;
       handlers.console.class = "logging.StreamHandler";
       loggers.django = {
-        handlers = [ "console" ];
+        handlers = ["console"];
         level = "INFO";
       };
     };
@@ -58,7 +58,7 @@ let
     transport_file_type: hash
   '';
 
-  mailmanCfg = lib.generators.toINI { } (
+  mailmanCfg = lib.generators.toINI {} (
     recursiveUpdate cfg.settings (
       (optionalAttrs (cfg.restApiPassFile != null) {
         webservice.admin_pass = "#NIXOS_MAILMAN_REST_API_PASS_SECRET#";
@@ -276,7 +276,7 @@ in
 
       webHosts = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           The list of hostnames and/or IP addresses from which the Mailman Web
           UI will accept requests. By default, "localhost" and "127.0.0.1" are
@@ -296,7 +296,7 @@ in
 
       webSettings = mkOption {
         type = types.attrs;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Overrides for the default mailman-web Django settings.
         '';
@@ -326,13 +326,13 @@ in
       extraPythonPackages = mkOption {
         description = lib.mdDoc "Packages to add to the python environment used by mailman and mailman-web";
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
       };
 
       settings = mkOption {
         description = lib.mdDoc "Settings for mailman.cfg";
         type = types.attrsOf (types.attrsOf types.str);
-        default = { };
+        default = {};
       };
 
       hyperkitty = {
@@ -403,7 +403,7 @@ in
           ];
           loggerSectionNames = map (n: "logging.${n}") loggerNames;
         in
-        lib.genAttrs loggerSectionNames (name: { handler = "stderr"; })
+        lib.genAttrs loggerSectionNames (name: {handler = "stderr";})
       );
 
     assertions =
@@ -415,7 +415,7 @@ in
           with lib;
           let
             expected = "hash:/var/lib/mailman/data/${dataFile}";
-            value = attrByPath optionPath [ ] postfix;
+            value = attrByPath optionPath [] postfix;
           in
           {
             assertion = postfix.enable -> isList value && elem expected value;
@@ -428,7 +428,7 @@ in
       in
       [
         {
-          assertion = cfg.webHosts != [ ];
+          assertion = cfg.webHosts != [];
           message = ''
             services.mailman.serve.enable requires there to be at least one entry
             in services.mailman.webHosts.
@@ -448,7 +448,7 @@ in
             for more info.
           '';
         }
-        (requirePostfixHash [ "relayDomains" ] "postfix_domains")
+        (requirePostfixHash ["relayDomains"] "postfix_domains")
         (requirePostfixHash
           [
             "config"
@@ -475,7 +475,7 @@ in
       isSystemUser = true;
       group = "mailman";
     };
-    users.groups.mailman = { };
+    users.groups.mailman = {};
 
     environment.etc."mailman3/settings.py".text = ''
       import os
@@ -535,7 +535,7 @@ in
       ''}
     '';
 
-    services.nginx = mkIf (cfg.serve.enable && cfg.webHosts != [ ]) {
+    services.nginx = mkIf (cfg.serve.enable && cfg.webHosts != []) {
       enable = mkDefault true;
       virtualHosts = lib.genAttrs cfg.webHosts (
         webHost: {
@@ -553,7 +553,7 @@ in
         # We don't want to pollute the system PATH with a python
         # interpreter etc. so let's pick only the stuff we actually
         # want from {web,mailman}Env
-        pathsToLink = [ "/bin" ];
+        pathsToLink = ["/bin"];
         paths = [
           mailmanEnv
           webEnv
@@ -575,8 +575,8 @@ in
     };
 
     systemd.sockets.mailman-uwsgi = lib.mkIf cfg.serve.enable {
-      wantedBy = [ "sockets.target" ];
-      before = [ "nginx.service" ];
+      wantedBy = ["sockets.target"];
+      before = ["nginx.service"];
       socketConfig.ListenStream = "/run/mailman-web.socket";
     };
     systemd.services =
@@ -585,12 +585,12 @@ in
           description = "GNU Mailman Master Process";
           before = lib.optional cfg.enablePostfix "postfix.service";
           after =
-            [ "network.target" ]
+            ["network.target"]
             ++ lib.optional cfg.enablePostfix "postfix-setup.service"
             ++ lib.optional withPostgresql "postgresql.service";
-          restartTriggers = [ mailmanCfgFile ];
+          restartTriggers = [mailmanCfgFile];
           requires = optional withPostgresql "postgresql.service";
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
           serviceConfig = {
             ExecStart = "${mailmanEnv}/bin/mailman start";
             ExecStop = "${mailmanEnv}/bin/mailman stop";
@@ -617,7 +617,7 @@ in
             "mailman-uwsgi.service"
             "hyperkitty.service"
           ];
-          path = with pkgs; [ jq ];
+          path = with pkgs; [jq];
           after = optional withPostgresql "postgresql.service";
           requires = optional withPostgresql "postgresql.service";
           serviceConfig.Type = "oneshot";
@@ -664,9 +664,9 @@ in
 
         mailman-web-setup = {
           description = "Prepare mailman-web files and database";
-          before = [ "mailman-uwsgi.service" ];
-          requiredBy = [ "mailman-uwsgi.service" ];
-          restartTriggers = [ config.environment.etc."mailman3/settings.py".source ];
+          before = ["mailman-uwsgi.service"];
+          requiredBy = ["mailman-uwsgi.service"];
+          restartTriggers = [config.environment.etc."mailman3/settings.py".source];
           script = ''
             [[ -e "${webSettings.STATIC_ROOT}" ]] && find "${webSettings.STATIC_ROOT}/" -mindepth 1 -delete
             ${webEnv}/bin/mailman-web migrate
@@ -686,13 +686,13 @@ in
             uwsgiConfig.uwsgi =
               {
                 type = "normal";
-                plugins = [ "python3" ];
+                plugins = ["python3"];
                 home = webEnv;
                 http = "127.0.0.1:18507";
               }
               // (
                 if cfg.serve.virtualRoot == "/" then
-                  { module = "mailman_web.wsgi:application"; }
+                  {module = "mailman_web.wsgi:application";}
                 else
                   {
                     mount = "${cfg.serve.virtualRoot}=mailman_web.wsgi:application";
@@ -702,19 +702,19 @@ in
             uwsgiConfigFile = pkgs.writeText "uwsgi-mailman.json" (builtins.toJSON uwsgiConfig);
           in
           {
-            wantedBy = [ "multi-user.target" ];
+            wantedBy = ["multi-user.target"];
             after = optional withPostgresql "postgresql.service";
             requires = [
               "mailman-uwsgi.socket"
               "mailman-web-setup.service"
             ] ++ optional withPostgresql "postgresql.service";
-            restartTriggers = [ config.environment.etc."mailman3/settings.py".source ];
+            restartTriggers = [config.environment.etc."mailman3/settings.py".source];
             serviceConfig = {
               # Since the mailman-web settings.py obstinately creates a logs
               # dir in the cwd, change to the (writable) runtime directory before
               # starting uwsgi.
               ExecStart = "${pkgs.coreutils}/bin/env -C $RUNTIME_DIRECTORY ${
-                pkgs.uwsgi.override { plugins = [ "python3" ]; }
+                pkgs.uwsgi.override {plugins = ["python3"];}
               }/bin/uwsgi --json ${uwsgiConfigFile}";
               User = cfg.webUser;
               Group = "mailman";
@@ -726,7 +726,7 @@ in
         mailman-daily = {
           description = "Trigger daily Mailman events";
           startAt = "daily";
-          restartTriggers = [ mailmanCfgFile ];
+          restartTriggers = [mailmanCfgFile];
           serviceConfig = {
             ExecStart = "${mailmanEnv}/bin/mailman digests --send";
             User = "mailman";
@@ -736,8 +736,8 @@ in
 
         hyperkitty = lib.mkIf cfg.hyperkitty.enable {
           description = "GNU Hyperkitty QCluster Process";
-          after = [ "network.target" ];
-          restartTriggers = [ config.environment.etc."mailman3/settings.py".source ];
+          after = ["network.target"];
+          restartTriggers = [config.environment.etc."mailman3/settings.py".source];
           wantedBy = [
             "mailman.service"
             "multi-user.target"
@@ -765,7 +765,7 @@ in
             lib.mkIf cfg.hyperkitty.enable {
               description = "Trigger ${name} Hyperkitty events";
               inherit startAt;
-              restartTriggers = [ config.environment.etc."mailman3/settings.py".source ];
+              restartTriggers = [config.environment.etc."mailman3/settings.py".source];
               serviceConfig = {
                 ExecStart = "${webEnv}/bin/mailman-web runjobs ${name}";
                 User = cfg.webUser;

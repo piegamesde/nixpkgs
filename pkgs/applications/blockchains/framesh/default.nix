@@ -12,7 +12,7 @@ let
     sha256 = "sha256-nN5+6SwfHcwhePlbsXjT3qNd/d6Xqnd85NVC8vw3ehk=";
   };
 
-  appimageContents = appimageTools.extractType2 { inherit pname version src; };
+  appimageContents = appimageTools.extractType2 {inherit pname version src;};
 in
 appimageTools.wrapType2 {
   inherit pname version src;
@@ -31,7 +31,7 @@ appimageTools.wrapType2 {
     homepage = "https://frame.sh/";
     downloadPage = "https://github.com/floating/frame/releases";
     license = lib.licenses.gpl3Only;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with lib.maintainers; [ nook ];
+    platforms = ["x86_64-linux"];
+    maintainers = with lib.maintainers; [nook];
   };
 }

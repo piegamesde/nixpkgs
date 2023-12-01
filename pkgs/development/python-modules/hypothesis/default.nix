@@ -23,7 +23,7 @@
 buildPythonPackage rec {
   pname = "hypothesis";
   version = "6.68.2";
-  outputs = [ "out" ] ++ lib.optional enableDocumentation "doc";
+  outputs = ["out"] ++ lib.optional enableDocumentation "doc";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -60,13 +60,13 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     attrs
     sortedcontainers
-  ] ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ];
+  ] ++ lib.optionals (pythonOlder "3.11") [exceptiongroup];
 
   nativeCheckInputs = [
     pexpect
     pytest-xdist
     pytestCheckHook
-  ] ++ lib.optionals (isPyPy) [ tzdata ];
+  ] ++ lib.optionals (isPyPy) [tzdata];
 
   inherit doCheck;
 
@@ -75,17 +75,17 @@ buildPythonPackage rec {
     rm tox.ini
   '';
 
-  pytestFlagsArray = [ "tests/cover" ];
+  pytestFlagsArray = ["tests/cover"];
 
-  pythonImportsCheck = [ "hypothesis" ];
+  pythonImportsCheck = ["hypothesis"];
 
   meta = with lib; {
     description = "Library for property based testing";
     homepage = "https://github.com/HypothesisWorks/hypothesis";
     changelog = "https://hypothesis.readthedocs.io/en/latest/changes.html#v${
-      lib.replaceStrings [ "." ] [ "-" ] version
+      lib.replaceStrings ["."] ["-"] version
     }";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

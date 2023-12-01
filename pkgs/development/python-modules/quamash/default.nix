@@ -32,9 +32,9 @@ buildPythonPackage rec {
       })
     ];
 
-  propagatedBuildInputs = [ pyqt ];
+  propagatedBuildInputs = [pyqt];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
   checkPhase = ''
     pytest -k 'test_qthreadexec.py' # the others cause the test execution to be aborted, I think because of asyncio
   '';
@@ -43,6 +43,6 @@ buildPythonPackage rec {
     description = "Implementation of the PEP 3156 event-loop (asyncio) api using the Qt Event-Loop";
     homepage = "https://github.com/harvimt/quamash";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ borisbabic ];
+    maintainers = with maintainers; [borisbabic];
   };
 }

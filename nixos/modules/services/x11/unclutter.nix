@@ -47,14 +47,14 @@ in
     excluded = mkOption {
       description = lib.mdDoc "Names of windows where unclutter should not apply";
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "" ];
+      default = [];
+      example = [""];
     };
 
     extraOptions = mkOption {
       description = lib.mdDoc "More arguments to pass to the unclutter command";
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "noevent"
         "grab"
@@ -65,8 +65,8 @@ in
   config = mkIf cfg.enable {
     systemd.user.services.unclutter = {
       description = "unclutter";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      partOf = ["graphical-session.target"];
       serviceConfig.ExecStart = ''
         ${cfg.package}/bin/unclutter \
           -idle ${toString cfg.timeout} \
@@ -96,5 +96,5 @@ in
     )
   ];
 
-  meta.maintainers = with lib.maintainers; [ rnhmjoj ];
+  meta.maintainers = with lib.maintainers; [rnhmjoj];
 }

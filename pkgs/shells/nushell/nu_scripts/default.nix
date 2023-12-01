@@ -30,6 +30,6 @@ stdenvNoCC.mkDerivation rec {
     license = lib.licenses.free;
 
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.CardboardTurkey ];
+    maintainers = [lib.maintainers.CardboardTurkey];
   };
 }

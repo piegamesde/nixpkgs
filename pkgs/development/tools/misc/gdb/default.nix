@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./debug-info-from-env.patch
-  ] ++ lib.optionals stdenv.isDarwin [ ./darwin-target-match.patch ];
+  ] ++ lib.optionals stdenv.isDarwin [./darwin-target-match.patch];
 
   nativeBuildInputs = [
     pkg-config
@@ -96,16 +96,16 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional pythonSupport python3
     ++ lib.optional doCheck dejagnu
-    ++ lib.optional enableDebuginfod (elfutils.override { enableDebuginfod = true; });
+    ++ lib.optional enableDebuginfod (elfutils.override {enableDebuginfod = true;});
 
-  propagatedNativeBuildInputs = [ setupDebugInfoDirs ];
+  propagatedNativeBuildInputs = [setupDebugInfoDirs];
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   enableParallelBuilding = true;
 
   # darwin build fails with format hardening since v7.12
-  hardeningDisable = lib.optionals stdenv.isDarwin [ "format" ];
+  hardeningDisable = lib.optionals stdenv.isDarwin ["format"];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-format-nonliteral";
 
@@ -200,7 +200,7 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3Plus;
 
     # GDB upstream does not support ARM darwin
-    platforms = with platforms; linux ++ cygwin ++ [ "x86_64-darwin" ];
+    platforms = with platforms; linux ++ cygwin ++ ["x86_64-darwin"];
     maintainers = with maintainers; [
       pierron
       globin

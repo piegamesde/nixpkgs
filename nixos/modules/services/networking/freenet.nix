@@ -43,8 +43,8 @@ in
 
     systemd.services.freenet = {
       description = "Freenet daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig.ExecStart = "${pkgs.freenet}/bin/freenet";
       serviceConfig.User = "freenet";
       serviceConfig.UMask = "0007";

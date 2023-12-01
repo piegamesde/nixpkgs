@@ -68,7 +68,7 @@ in
 
     wrapperFeatures = mkOption {
       type = wrapperOptions;
-      default = { };
+      default = {};
       example = {
         gtk = true;
       };
@@ -100,7 +100,7 @@ in
 
     extraOptions = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "--verbose"
         "--debug"
@@ -151,7 +151,7 @@ in
     environment = {
       systemPackages = optional (cfg.package != null) cfg.package ++ cfg.extraPackages;
       # Needed for the default wallpaper:
-      pathsToLink = optionals (cfg.package != null) [ "/share/backgrounds/sway" ];
+      pathsToLink = optionals (cfg.package != null) ["/share/backgrounds/sway"];
       etc =
         {
           "sway/config.d/nixos.conf".source = pkgs.writeText "nixos.conf" ''
@@ -165,15 +165,15 @@ in
         };
     };
     security.polkit.enable = true;
-    security.pam.services.swaylock = { };
+    security.pam.services.swaylock = {};
     hardware.opengl.enable = mkDefault true;
     fonts.enableDefaultFonts = mkDefault true;
     programs.dconf.enable = mkDefault true;
     # To make a Sway session available if a display manager like SDDM is enabled:
-    services.xserver.displayManager.sessionPackages = optionals (cfg.package != null) [ cfg.package ];
+    services.xserver.displayManager.sessionPackages = optionals (cfg.package != null) [cfg.package];
     programs.xwayland.enable = mkDefault true;
     # For screen sharing (this option only has an effect with xdg.portal.enable):
-    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
+    xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-wlr];
   };
 
   meta.maintainers = with lib.maintainers; [

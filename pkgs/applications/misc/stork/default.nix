@@ -27,14 +27,14 @@ rustPlatform.buildRustPackage rec {
       "--skip=pretty_print_search_results::tests::display_pretty_search_results_given_output"
     ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = [openssl] ++ lib.optionals stdenv.isDarwin [Security];
 
   meta = with lib; {
     description = "Impossibly fast web search, made for static sites";
     homepage = "https://github.com/jameslittle230/stork";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ chuahou ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [chuahou];
   };
 }

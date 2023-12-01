@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{config, lib, ...}:
 
 with lib;
 
@@ -45,8 +45,8 @@ in
 
     nixos.tags = mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "with-xen" ];
+      default = [];
+      example = ["with-xen"];
       description = lib.mdDoc ''
         Strings to prefix to the default
         {option}`system.nixos.label`.
@@ -70,7 +70,7 @@ in
     system.nixos.label = mkDefault (
       maybeEnv "NIXOS_LABEL" (
         concatStringsSep "-" (
-          (sort (x: y: x < y) cfg.tags) ++ [ (maybeEnv "NIXOS_LABEL_VERSION" cfg.version) ]
+          (sort (x: y: x < y) cfg.tags) ++ [(maybeEnv "NIXOS_LABEL_VERSION" cfg.version)]
         )
       )
     );

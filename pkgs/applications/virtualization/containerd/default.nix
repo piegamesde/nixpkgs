@@ -29,9 +29,9 @@ buildGoModule rec {
     util-linux
   ];
 
-  buildInputs = [ btrfs-progs ];
+  buildInputs = [btrfs-progs];
 
-  BUILDTAGS = lib.optionals (btrfs-progs == null) [ "no_btrfs" ];
+  BUILDTAGS = lib.optionals (btrfs-progs == null) ["no_btrfs"];
 
   buildPhase = ''
     runHook preBuild

@@ -34,7 +34,7 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests =
     [
@@ -42,7 +42,7 @@ buildPythonPackage rec {
       "test_roundtrips"
     ];
 
-  pythonImportsCheck = [ "amazon.ion" ];
+  pythonImportsCheck = ["amazon.ion"];
 
   meta = with lib; {
     description = "Python implementation of Amazon Ion";
@@ -52,6 +52,6 @@ buildPythonPackage rec {
       binaryNativeCode
     ];
     license = licenses.asl20;
-    maintainers = with maintainers; [ terlar ];
+    maintainers = with maintainers; [terlar];
   };
 }

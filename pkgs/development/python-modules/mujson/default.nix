@@ -22,12 +22,12 @@ buildPythonPackage rec {
 
   # No tests
   doCheck = false;
-  pythonImportsCheck = [ "mujson" ];
+  pythonImportsCheck = ["mujson"];
 
   meta = with lib; {
     description = "Use the fastest JSON functions available at import time";
     homepage = "https://github.com/mattgiles/mujson";
     license = licenses.mit;
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
   };
 }

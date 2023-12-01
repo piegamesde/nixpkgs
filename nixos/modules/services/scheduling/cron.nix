@@ -28,7 +28,7 @@ let
   };
 
   allFiles =
-    optional (config.services.cron.systemCronJobs != [ ]) systemCronJobsFile
+    optional (config.services.cron.systemCronJobs != []) systemCronJobsFile
     ++ config.services.cron.cronFiles;
 in
 
@@ -54,7 +54,7 @@ in
 
       systemCronJobs = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = literalExpression ''
           [ "* * * * *  test   ls -l / > /tmp/cronout 2>&1"
             "* * * * *  eelco  echo Hello World > /home/eelco/cronout"
@@ -78,7 +78,7 @@ in
 
       cronFiles = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           A list of extra crontab files that will be read and appended to the main
           crontab file when the cron service starts.
@@ -91,7 +91,7 @@ in
 
   config = mkMerge [
 
-    { services.cron.enable = mkDefault (allFiles != [ ]); }
+    {services.cron.enable = mkDefault (allFiles != []);}
     (mkIf (config.services.cron.enable) {
       security.wrappers.crontab = {
         setuid = true;
@@ -99,7 +99,7 @@ in
         group = "root";
         source = "${cronNixosPkg}/bin/crontab";
       };
-      environment.systemPackages = [ cronNixosPkg ];
+      environment.systemPackages = [cronNixosPkg];
       environment.etc.crontab = {
         source =
           pkgs.runCommand "crontabs"
@@ -119,7 +119,7 @@ in
       systemd.services.cron = {
         description = "Cron Daemon";
 
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
 
         preStart = ''
           mkdir -m 710 -p /var/cron
@@ -131,7 +131,7 @@ in
           fi
         '';
 
-        restartTriggers = [ config.time.timeZone ];
+        restartTriggers = [config.time.timeZone];
         serviceConfig.ExecStart = "${cronNixosPkg}/bin/cron -n";
       };
     })

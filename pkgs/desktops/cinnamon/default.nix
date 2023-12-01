@@ -34,33 +34,33 @@ lib.makeScope pkgs.newScope (
     ];
 
     # blueberry -> pkgs/tools/bluetooth/blueberry/default.nix
-    bulky = callPackage ./bulky { };
-    cinnamon-common = callPackage ./cinnamon-common { };
-    cinnamon-control-center = callPackage ./cinnamon-control-center { };
-    cinnamon-desktop = callPackage ./cinnamon-desktop { };
-    cinnamon-gsettings-overrides = callPackage ./cinnamon-gsettings-overrides { };
-    cinnamon-menus = callPackage ./cinnamon-menus { };
-    cinnamon-translations = callPackage ./cinnamon-translations { };
-    cinnamon-screensaver = callPackage ./cinnamon-screensaver { };
-    cinnamon-session = callPackage ./cinnamon-session { };
-    cinnamon-settings-daemon = callPackage ./cinnamon-settings-daemon { };
-    cjs = callPackage ./cjs { };
-    folder-color-switcher = callPackage ./folder-color-switcher { };
-    nemo = callPackage ./nemo { };
-    nemo-fileroller = callPackage ./nemo-extensions/nemo-fileroller { };
-    nemo-python = callPackage ./nemo-extensions/nemo-python { };
-    nemo-with-extensions = callPackage ./nemo/wrapper.nix { };
-    mint-artwork = callPackage ./mint-artwork { };
-    mint-cursor-themes = callPackage ./mint-cursor-themes { };
-    mint-themes = callPackage ./mint-themes { };
-    mint-x-icons = callPackage ./mint-x-icons { };
-    mint-y-icons = callPackage ./mint-y-icons { };
-    muffin = callPackage ./muffin { };
-    pix = callPackage ./pix { };
-    xapp = callPackage ./xapp { };
-    warpinator = callPackage ./warpinator { };
-    xreader = callPackage ./xreader { };
-    xviewer = callPackage ./xviewer { };
+    bulky = callPackage ./bulky {};
+    cinnamon-common = callPackage ./cinnamon-common {};
+    cinnamon-control-center = callPackage ./cinnamon-control-center {};
+    cinnamon-desktop = callPackage ./cinnamon-desktop {};
+    cinnamon-gsettings-overrides = callPackage ./cinnamon-gsettings-overrides {};
+    cinnamon-menus = callPackage ./cinnamon-menus {};
+    cinnamon-translations = callPackage ./cinnamon-translations {};
+    cinnamon-screensaver = callPackage ./cinnamon-screensaver {};
+    cinnamon-session = callPackage ./cinnamon-session {};
+    cinnamon-settings-daemon = callPackage ./cinnamon-settings-daemon {};
+    cjs = callPackage ./cjs {};
+    folder-color-switcher = callPackage ./folder-color-switcher {};
+    nemo = callPackage ./nemo {};
+    nemo-fileroller = callPackage ./nemo-extensions/nemo-fileroller {};
+    nemo-python = callPackage ./nemo-extensions/nemo-python {};
+    nemo-with-extensions = callPackage ./nemo/wrapper.nix {};
+    mint-artwork = callPackage ./mint-artwork {};
+    mint-cursor-themes = callPackage ./mint-cursor-themes {};
+    mint-themes = callPackage ./mint-themes {};
+    mint-x-icons = callPackage ./mint-x-icons {};
+    mint-y-icons = callPackage ./mint-y-icons {};
+    muffin = callPackage ./muffin {};
+    pix = callPackage ./pix {};
+    xapp = callPackage ./xapp {};
+    warpinator = callPackage ./warpinator {};
+    xreader = callPackage ./xreader {};
+    xviewer = callPackage ./xviewer {};
   }
 )
 // lib.optionalAttrs config.allowAliases {

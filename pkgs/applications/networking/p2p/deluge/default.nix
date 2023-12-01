@@ -17,7 +17,7 @@ let
   pypkgs = python3Packages;
 
   generic =
-    { pname, withGUI }:
+    {pname, withGUI}:
     pypkgs.buildPythonPackage rec {
       inherit pname;
       version = "2.1.1";

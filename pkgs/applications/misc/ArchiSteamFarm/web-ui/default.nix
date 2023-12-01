@@ -29,7 +29,7 @@ nodePackages.package.override {
   # upstream isn't tagged, but we are using the latest official commit for that specific asf version (assuming both get updated at the same time)
   version = ArchiSteamFarm.version;
 
-  nativeBuildInputs = [ pkgs.nodePackages.node-gyp-build ];
+  nativeBuildInputs = [pkgs.nodePackages.node-gyp-build];
 
   postInstall = ''
     patchShebangs node_modules/

@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2n89gpsUi8+oawWdyWTjqFVv7bAhCWyNsH4wxm+qubQ=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontUnpack = true;
 
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Python interpreter written in Java";
     homepage = "https://jython.org/";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.psfl;
     platforms = jre.meta.platforms;
   };

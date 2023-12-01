@@ -16,28 +16,28 @@ let
       hash = "sha256-kS/uteD34BiOb0IkHS9FAALhG7wJN8ZYZQRYVMJMC9A=";
     };
 
-    propagatedBuildInputs = [ click ];
+    propagatedBuildInputs = [click];
 
     # escape infinite recursion with twisted
     doCheck = false;
 
-    nativeCheckInputs = [ twisted ];
+    nativeCheckInputs = [twisted];
 
     checkPhase = ''
       trial incremental
     '';
 
     passthru.tests = {
-      check = incremental.overridePythonAttrs (_: { doCheck = true; });
+      check = incremental.overridePythonAttrs (_: {doCheck = true;});
     };
 
-    pythonImportsCheck = [ "incremental" ];
+    pythonImportsCheck = ["incremental"];
 
     meta = with lib; {
       homepage = "https://github.com/twisted/incremental";
       description = "Incremental is a small library that versions your Python projects";
       license = licenses.mit;
-      maintainers = with maintainers; [ SuperSandro2000 ];
+      maintainers = with maintainers; [SuperSandro2000];
     };
   };
 in

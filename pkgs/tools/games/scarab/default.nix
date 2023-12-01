@@ -29,7 +29,7 @@ buildDotnetModule rec {
 
   nugetDeps = ./deps.nix;
   projectFile = "Scarab.sln";
-  executables = [ "Scarab" ];
+  executables = ["Scarab"];
 
   runtimeDeps = [
     glibc
@@ -41,7 +41,7 @@ buildDotnetModule rec {
     gtk3
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   nativeBuildInputs = [
     copyDesktopItems
@@ -63,7 +63,7 @@ buildDotnetModule rec {
       icon = "scarab";
       comment = meta.description;
       type = "Application";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -73,7 +73,7 @@ buildDotnetModule rec {
     downloadPage = "https://github.com/fifty-six/Scarab/releases";
     changelog = "https://github.com/fifty-six/Scarab/releases/tag/v${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ huantian ];
+    maintainers = with maintainers; [huantian];
     mainProgram = "Scarab";
     platforms = platforms.linux;
   };

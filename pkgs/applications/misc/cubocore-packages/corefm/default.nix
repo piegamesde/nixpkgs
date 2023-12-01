@@ -35,7 +35,7 @@ mkDerivation rec {
     description = "A lightwight filemanager from the C Suite";
     homepage = "https://gitlab.com/cubocore/coreapps/corefm";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dan4ik605743 ];
+    maintainers = with maintainers; [dan4ik605743];
     platforms = platforms.linux;
   };
 }

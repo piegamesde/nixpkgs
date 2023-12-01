@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "access";
   version = "20210124-git";
 
-  parasites = [ "access-test" ];
+  parasites = ["access-test"];
 
   description = ''
     A library providing functions that unify data-structure access for Common Lisp:
@@ -30,7 +30,7 @@ rec {
 
   packageName = "access";
 
-  asdFilesToKeep = [ "access.asd" ];
+  asdFilesToKeep = ["access.asd"];
   overrides = x: x;
 }
 /* (SYSTEM access DESCRIPTION

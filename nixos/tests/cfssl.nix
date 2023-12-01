@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "cfssl";
 
@@ -11,14 +11,14 @@ import ./make-test-python.nix (
         ...
       }:
       {
-        networking.firewall.allowedTCPPorts = [ config.services.cfssl.port ];
+        networking.firewall.allowedTCPPorts = [config.services.cfssl.port];
 
         services.cfssl.enable = true;
-        systemd.services.cfssl.after = [ "cfssl-init.service" ];
+        systemd.services.cfssl.after = ["cfssl-init.service"];
 
         systemd.services.cfssl-init = {
           description = "Initialize the cfssl CA";
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
           serviceConfig = {
             User = "cfssl";
             Type = "oneshot";
@@ -28,7 +28,7 @@ import ./make-test-python.nix (
             ${cfssl}/bin/cfssl genkey -initca ${
               pkgs.writeText "ca.json" (
                 builtins.toJSON {
-                  hosts = [ "ca.example.com" ];
+                  hosts = ["ca.example.com"];
                   key = {
                     algo = "rsa";
                     size = 4096;

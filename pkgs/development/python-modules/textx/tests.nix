@@ -42,7 +42,7 @@ buildPythonPackage {
     textx-types-dsl
   ];
 
-  pytestFlagsArray = [ "tests/functional" ];
+  pytestFlagsArray = ["tests/functional"];
 
   meta = with lib; {
     inherit (textx.meta) license maintainers;

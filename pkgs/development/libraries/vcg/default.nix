@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XCjbVlgE0C9UagPj4fraA7BNsM6ONKo66aKQ87gQOfE=";
   };
 
-  propagatedBuildInputs = [ eigen ];
+  propagatedBuildInputs = [eigen];
 
   installPhase = ''
     mkdir -p $out/include
@@ -29,6 +29,6 @@ stdenv.mkDerivation rec {
     description = "C++ library for manipulation, processing and displaying with OpenGL of triangle and tetrahedral meshes";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

@@ -1,4 +1,4 @@
-{ lib, python3 }:
+{lib, python3}:
 
 let
   python = python3.override {
@@ -11,8 +11,8 @@ let
             inherit version;
             hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
           };
-          nativeCheckInputs = oldAttrs.nativeCheckInputs ++ (with super; [ pytest-xdist ]);
-          disabledTestPaths = (oldAttrs.disabledTestPaths or [ ]) ++ [
+          nativeCheckInputs = oldAttrs.nativeCheckInputs ++ (with super; [pytest-xdist]);
+          disabledTestPaths = (oldAttrs.disabledTestPaths or []) ++ [
             "test/aaa_profiling"
             "test/ext/mypy"
           ];
@@ -38,9 +38,9 @@ python.pkgs.buildPythonApplication rec {
     agate-sql
   ];
 
-  nativeCheckInputs = with python.pkgs; [ pytestCheckHook ];
+  nativeCheckInputs = with python.pkgs; [pytestCheckHook];
 
-  pythonImportsCheck = [ "csvkit" ];
+  pythonImportsCheck = ["csvkit"];
 
   disabledTests =
     [
@@ -53,6 +53,6 @@ python.pkgs.buildPythonApplication rec {
     description = "A suite of command-line tools for converting to and working with CSV";
     homepage = "https://github.com/wireservice/csvkit";
     license = licenses.mit;
-    maintainers = with maintainers; [ vrthra ];
+    maintainers = with maintainers; [vrthra];
   };
 }

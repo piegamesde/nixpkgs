@@ -144,6 +144,6 @@ buildPythonPackage rec {
     homepage = "https://riverbankcomputing.com/";
     license = licenses.gpl3Only;
     platforms = platforms.mesaPlatforms;
-    maintainers = with maintainers; [ sander ];
+    maintainers = with maintainers; [sander];
   };
 }

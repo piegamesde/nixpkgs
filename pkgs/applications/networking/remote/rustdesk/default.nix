@@ -62,7 +62,7 @@ rustPlatform.buildRustPackage rec {
 
   # Change magnus-opus version to upstream so that it does not use
   # vcpkg for libopus since it does not work.
-  cargoPatches = [ ./cargo.patch ];
+  cargoPatches = [./cargo.patch];
 
   # Manually simulate a vcpkg installation so that it can link the libaries
   # properly.
@@ -131,7 +131,7 @@ rustPlatform.buildRustPackage rec {
       desktopName = "RustDesk";
       comment = meta.description;
       genericName = "Remote Desktop";
-      categories = [ "Network" ];
+      categories = ["Network"];
     })
   ];
 
@@ -165,7 +165,7 @@ rustPlatform.buildRustPackage rec {
       ocfox
       leixb
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     mainProgram = "rustdesk";
   };
 }

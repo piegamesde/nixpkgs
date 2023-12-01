@@ -40,7 +40,7 @@ rustPlatform.buildRustPackage rec {
     ronn
   ];
 
-  buildInputs = [ systemd ];
+  buildInputs = [systemd];
 
   preBuild = ''
     # embedded into the binary at build time
@@ -68,6 +68,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/systemd/zram-generator";
     license = licenses.mit;
     description = "Systemd unit generator for zram devices";
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

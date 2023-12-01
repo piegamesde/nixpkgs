@@ -61,7 +61,7 @@ in
 
     extraOptions = mkOption {
       type = with types; listOf str;
-      default = [ ];
+      default = [];
       example = [
         "-conn_type=tcp4"
         "-max_clients=8192"
@@ -83,12 +83,12 @@ in
   config = mkIf cfg.enable {
     systemd.services.endlessh-go = {
       description = "SSH tarpit";
-      requires = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      requires = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig =
         let
           needsPrivileges = cfg.port < 1024 || cfg.prometheus.port < 1024;
-          capabilities = [ "" ] ++ optionals needsPrivileges [ "CAP_NET_BIND_SERVICE" ];
+          capabilities = [""] ++ optionals needsPrivileges ["CAP_NET_BIND_SERVICE"];
           rootDirectory = "/run/endlessh-go";
         in
         {
@@ -111,8 +111,8 @@ in
             );
           DynamicUser = true;
           RootDirectory = rootDirectory;
-          BindReadOnlyPaths = [ builtins.storeDir ];
-          InaccessiblePaths = [ "-+${rootDirectory}" ];
+          BindReadOnlyPaths = [builtins.storeDir];
+          InaccessiblePaths = ["-+${rootDirectory}"];
           RuntimeDirectory = baseNameOf rootDirectory;
           RuntimeDirectoryMode = "700";
           AmbientCapabilities = capabilities;
@@ -158,5 +158,5 @@ in
       ];
   };
 
-  meta.maintainers = with maintainers; [ azahi ];
+  meta.maintainers = with maintainers; [azahi];
 }

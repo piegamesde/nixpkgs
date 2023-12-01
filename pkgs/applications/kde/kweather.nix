@@ -47,6 +47,6 @@ mkDerivation rec {
       gpl2Plus
       cc-by-40
     ];
-    maintainers = with maintainers; [ samueldr ];
+    maintainers = with maintainers; [samueldr];
   };
 }

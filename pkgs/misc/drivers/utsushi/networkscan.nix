@@ -18,23 +18,23 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fxi63sV+YJOlv1aVTfCPIXOPfNAo+R7zNPvA11sFmMk=";
   };
 
-  nativeBuildInputs = [ rpmextract ];
+  nativeBuildInputs = [rpmextract];
 
   installPhase = ''
     rpmextract plugins/imagescan-plugin-networkscan-${version}-*.x86_64.rpm
     install -Dm755 usr/libexec/utsushi/networkscan $out/libexec/utsushi/networkscan
     patchelf \
       --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
-      --set-rpath ${lib.makeLibraryPath [ stdenv.cc.cc ]} \
+      --set-rpath ${lib.makeLibraryPath [stdenv.cc.cc]} \
       $out/libexec/utsushi/networkscan
   '';
 
   meta = with lib; {
     homepage = "https://support.epson.net/linux/en/imagescanv3.php";
     description = "Network scan plugin for ImageScan v3";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ abbradar ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [abbradar];
+    platforms = ["x86_64-linux"];
   };
 }

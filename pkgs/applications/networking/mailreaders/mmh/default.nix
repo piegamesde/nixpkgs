@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
       --replace "ar " "${stdenv.cc.targetPrefix}ar "
   '';
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
   nativeBuildInputs = [
     autoreconfHook
     flex
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     license = licenses.bsd3;
     platforms = platforms.unix;
     broken = stdenv.isDarwin;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

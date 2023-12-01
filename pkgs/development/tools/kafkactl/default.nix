@@ -32,7 +32,7 @@ buildGoModule rec {
       - directly access kafka clusters inside your kubernetes cluster
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ grburst ];
+    maintainers = with maintainers; [grburst];
     platforms = platforms.unix;
   };
 }

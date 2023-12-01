@@ -1,16 +1,16 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "connman";
-    meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };
+    meta = with lib.maintainers; {maintainers = [rnhmjoj];};
 
     # Router running radvd on VLAN 1
     nodes.router =
-      { ... }:
+      {...}:
       {
-        imports = [ ../modules/profiles/minimal.nix ];
+        imports = [../modules/profiles/minimal.nix];
 
-        virtualisation.vlans = [ 1 ];
+        virtualisation.vlans = [1];
 
         boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = true;
 
@@ -41,12 +41,12 @@ import ./make-test-python.nix (
 
     # Client running connman, connected to VLAN 1
     nodes.client =
-      { ... }:
+      {...}:
       {
-        virtualisation.vlans = [ 1 ];
+        virtualisation.vlans = [1];
 
         # add a virtual wlan interface
-        boot.kernelModules = [ "mac80211_hwsim" ];
+        boot.kernelModules = ["mac80211_hwsim"];
         boot.extraModprobeConfig = ''
           options mac80211_hwsim radios=1
         '';
@@ -54,9 +54,9 @@ import ./make-test-python.nix (
         # Note: the overrides are needed because the wifi is
         # disabled with mkVMOverride in qemu-vm.nix.
         services.connman.enable = lib.mkOverride 0 true;
-        services.connman.networkInterfaceBlacklist = [ "eth0" ];
+        services.connman.networkInterfaceBlacklist = ["eth0"];
         networking.wireless.enable = lib.mkOverride 0 true;
-        networking.wireless.interfaces = [ "wlan0" ];
+        networking.wireless.interfaces = ["wlan0"];
       };
 
     testScript = ''

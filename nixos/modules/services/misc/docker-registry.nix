@@ -18,10 +18,10 @@ let
     storage = {
       cache.blobdescriptor = blobCache;
       delete.enabled = cfg.enableDelete;
-    } // (if cfg.storagePath != null then { filesystem.rootdirectory = cfg.storagePath; } else { });
+    } // (if cfg.storagePath != null then {filesystem.rootdirectory = cfg.storagePath;} else {});
     http = {
       addr = "${cfg.listenAddress}:${builtins.toString cfg.port}";
-      headers.X-Content-Type-Options = [ "nosniff" ];
+      headers.X-Content-Type-Options = ["nosniff"];
     };
     health.storagedriver = {
       enabled = true;
@@ -97,7 +97,7 @@ in
       description = lib.mdDoc ''
         Docker extra registry configuration via environment variables.
       '';
-      default = { };
+      default = {};
       type = types.attrs;
     };
 
@@ -117,8 +117,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.docker-registry = {
       description = "Docker Container Registry";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       script = ''
         ${pkgs.docker-distribution}/bin/registry serve ${configFile}
       '';
@@ -154,12 +154,12 @@ in
             home = cfg.storagePath;
           }
         else
-          { }
+          {}
       )
       // {
         group = "docker-registry";
         isSystemUser = true;
       };
-    users.groups.docker-registry = { };
+    users.groups.docker-registry = {};
   };
 }

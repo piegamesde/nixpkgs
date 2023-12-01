@@ -23,7 +23,7 @@ python3Packages.buildPythonPackage rec {
     sha256 = "sha256-MwM/b1QP6pkyBjz/r6oC4sW1mKC0CKMay45a0wCktk0=";
   };
 
-  patches = lib.optionals (!pyOpenSSLSupport) [ ./remove-pyopenssl-tests.patch ];
+  patches = lib.optionals (!pyOpenSSLSupport) [./remove-pyopenssl-tests.patch];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -32,7 +32,7 @@ python3Packages.buildPythonPackage rec {
       --replace 'pkill' '${if stdenv.isLinux then "${procps}" else "/usr"}/bin/pkill'
   '';
 
-  nativeBuildInputs = [ installShellFiles ] ++ (with python3Packages; [ poetry-core ]);
+  nativeBuildInputs = [installShellFiles] ++ (with python3Packages; [poetry-core]);
 
   propagatedBuildInputs =
     with python3Packages;
@@ -45,7 +45,7 @@ python3Packages.buildPythonPackage rec {
         six
         fido2
       ]
-      ++ lib.optionals pyOpenSSLSupport [ pyopenssl ]
+      ++ lib.optionals pyOpenSSLSupport [pyopenssl]
     )
     ++ [
       libu2f-host

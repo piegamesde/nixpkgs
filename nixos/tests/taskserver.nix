@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
     snakeOil =
       pkgs.runCommand "snakeoil-certs"
@@ -11,7 +11,7 @@ import ./make-test-python.nix (
             "key"
             "crl"
           ];
-          buildInputs = [ pkgs.gnutls.bin ];
+          buildInputs = [pkgs.gnutls.bin];
           caTemplate = pkgs.writeText "snakeoil-ca.template" ''
             cn = server
             expiration_days = -1
@@ -81,15 +81,15 @@ import ./make-test-python.nix (
             "alice"
             "foo"
           ];
-          anotherOrganisation.users = [ "bob" ];
+          anotherOrganisation.users = ["bob"];
         };
       };
 
       # New generation of the server with manual config
       newServer =
-        { lib, nodes, ... }:
+        {lib, nodes, ...}:
         {
-          imports = [ server ];
+          imports = [server];
           services.taskserver.pki.manual = {
             ca.cert = snakeOil.cacert;
             server.cert = snakeOil.cert;
@@ -105,7 +105,7 @@ import ./make-test-python.nix (
         };
 
       client1 =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           environment.systemPackages = [
             pkgs.taskwarrior
@@ -121,7 +121,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         cfg = nodes.server.config.services.taskserver;
         portStr = toString cfg.listenPort;

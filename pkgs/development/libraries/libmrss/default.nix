@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "02r1bgj8qlkn63xqfi5yq8y7wrilxcnkycaag8qskhg5ranic507";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   propagatedBuildInputs = [
     curl
     libnxml
@@ -28,6 +28,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.lgpl2;
 
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.viric ];
+    maintainers = [lib.maintainers.viric];
   };
 }

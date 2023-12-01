@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     libxml2
   ];
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
 
   configureFlags = [
     "--enable-bash-completion=yes"
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     description = "ABI Generic Analysis and Instrumentation Library";
     homepage = "https://sourceware.org/libabigail/";
     license = licenses.asl20-llvm;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.linux;
   };
 }

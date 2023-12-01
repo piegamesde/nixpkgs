@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/Alecaddd/sequeler";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ] ++ teams.pantheon.members;
+    maintainers = with maintainers; [] ++ teams.pantheon.members;
     platforms = platforms.linux;
     mainProgram = "com.github.alecaddd.sequeler";
   };

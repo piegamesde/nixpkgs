@@ -20,8 +20,8 @@ in
       mkFlags =
         dep: langD:
         lib.optionals (targetPlatform != hostPlatform && dep != null && !langD) (
-          [ "-O2 -idirafter ${lib.getDev dep}${dep.incdir or "/include"}" ]
-          ++ lib.optionals (!crossStageStatic) [ "-B${lib.getLib dep}${dep.libdir or "/lib"}" ]
+          ["-O2 -idirafter ${lib.getDev dep}${dep.incdir or "/include"}"]
+          ++ lib.optionals (!crossStageStatic) ["-B${lib.getLib dep}${dep.libdir or "/lib"}"]
         );
     in
     mkFlags libcCross langD
@@ -32,10 +32,10 @@ in
       mkFlags =
         dep:
         lib.optionals (targetPlatform != hostPlatform && dep != null) (
-          [ "-Wl,-L${lib.getLib dep}${dep.libdir or "/lib"}" ]
+          ["-Wl,-L${lib.getLib dep}${dep.libdir or "/lib"}"]
           ++ (
             if crossStageStatic then
-              [ "-B${lib.getLib dep}${dep.libdir or "/lib"}" ]
+              ["-B${lib.getLib dep}${dep.libdir or "/lib"}"]
             else
               [
                 "-Wl,-rpath,${lib.getLib dep}${dep.libdir or "/lib"}"

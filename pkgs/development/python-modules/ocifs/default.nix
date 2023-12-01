@@ -29,12 +29,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "ocifs" ];
+  pythonImportsCheck = ["ocifs"];
 
   meta = with lib; {
     description = "Oracle Cloud Infrastructure Object Storage fsspec implementation";
     homepage = "https://ocifs.readthedocs.io";
-    license = with licenses; [ upl ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [upl];
+    maintainers = with maintainers; [fab];
   };
 }

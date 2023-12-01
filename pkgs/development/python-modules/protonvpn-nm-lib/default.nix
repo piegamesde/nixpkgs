@@ -69,13 +69,13 @@ buildPythonPackage rec {
   # "Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory"
   doCheck = false;
 
-  pythonImportsCheck = [ "protonvpn_nm_lib" ];
+  pythonImportsCheck = ["protonvpn_nm_lib"];
 
   meta = with lib; {
     description = "ProtonVPN NetworkManager Library intended for every ProtonVPN service user";
     homepage = "https://github.com/ProtonVPN/protonvpn-nm-lib";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ wolfangaukang ];
+    maintainers = with maintainers; [wolfangaukang];
     platforms = platforms.linux;
   };
 }

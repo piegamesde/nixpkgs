@@ -16,7 +16,7 @@ stdenvNoCC.mkDerivation rec {
   };
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -37,7 +37,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/karatelabs/karate";
     changelog = "https://github.com/karatelabs/karate/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ maintainers.kephasp ];
+    maintainers = [maintainers.kephasp];
     platforms = jre.meta.platforms;
   };
 }

@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     texinfo
   ];
 
-  configureFlags = [ "--enable-ansi" ];
+  configureFlags = ["--enable-ansi"];
 
   hardeningDisable = [
     "pic"

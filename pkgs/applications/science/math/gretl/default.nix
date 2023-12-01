@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     readline
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   enableParallelBuilding = true;
   # Missing install depends:
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://gretl.sourceforge.net";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ dmrauh ];
+    maintainers = with maintainers; [dmrauh];
     platforms = with platforms; all;
   };
 }

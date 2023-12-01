@@ -80,21 +80,21 @@ stdenv.mkDerivation rec {
       libcap
       libuuid
     ]
-    ++ lib.optionals withCups [ cups ]
-    ++ lib.optionals withDBengine [ lz4 ]
-    ++ lib.optionals withIpmi [ freeipmi ]
+    ++ lib.optionals withCups [cups]
+    ++ lib.optionals withDBengine [lz4]
+    ++ lib.optionals withIpmi [freeipmi]
     ++ lib.optionals withNetfilter [
       libmnl
       libnetfilter_acct
     ]
-    ++ lib.optionals withCloud [ json_c ]
+    ++ lib.optionals withCloud [json_c]
     ++ lib.optionals withConnPubSub [
       google-cloud-cpp
       grpc
     ]
-    ++ lib.optionals withConnPrometheus [ snappy ]
-    ++ lib.optionals (withCloud || withConnPrometheus) [ protobuf ]
-    ++ lib.optionals withSsl [ openssl ];
+    ++ lib.optionals withConnPrometheus [snappy]
+    ++ lib.optionals (withCloud || withConnPrometheus) [protobuf]
+    ++ lib.optionals withSsl [openssl];
 
   patches = [
     # required to prevent plugins from relying on /etc
@@ -116,7 +116,7 @@ stdenv.mkDerivation rec {
   # to bootstrap tools:
   #   https://github.com/NixOS/nixpkgs/pull/175719
   # We pick zlib.dev as a simple canary package with pkg-config input.
-  disallowedReferences = if withDebug then [ ] else [ zlib.dev ];
+  disallowedReferences = if withDebug then [] else [zlib.dev];
 
   donStrip = withDebug;
   env.NIX_CFLAGS_COMPILE = lib.optionalString withDebug "-O1 -ggdb -DNETDATA_INTERNAL_CHECKS=1";
@@ -154,12 +154,12 @@ stdenv.mkDerivation rec {
       "--disable-ebpf"
       "--with-jemalloc=${jemalloc}"
     ]
-    ++ lib.optionals (!withDBengine) [ "--disable-dbengine" ]
-    ++ lib.optionals (!withCloud) [ "--disable-cloud" ];
+    ++ lib.optionals (!withDBengine) ["--disable-dbengine"]
+    ++ lib.optionals (!withCloud) ["--disable-cloud"];
 
   postFixup = ''
-    wrapProgram $out/bin/netdata-claim.sh --prefix PATH : ${lib.makeBinPath [ openssl ]}
-    wrapProgram $out/libexec/netdata/plugins.d/cgroup-network-helper.sh --prefix PATH : ${lib.makeBinPath [ bash ]}
+    wrapProgram $out/bin/netdata-claim.sh --prefix PATH : ${lib.makeBinPath [openssl]}
+    wrapProgram $out/libexec/netdata/plugins.d/cgroup-network-helper.sh --prefix PATH : ${lib.makeBinPath [bash]}
   '';
 
   enableParallelBuild = true;
@@ -175,6 +175,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.netdata.cloud/";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ raitobezarius ];
+    maintainers = with maintainers; [raitobezarius];
   };
 }

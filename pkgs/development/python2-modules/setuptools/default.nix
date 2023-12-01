@@ -25,7 +25,7 @@ let
       name = "${pname}-${version}-source";
     };
 
-    patches = [ ./tag-date.patch ];
+    patches = [./tag-date.patch];
 
     buildPhase = ''
       ${python.pythonForBuild.interpreter} bootstrap.py
@@ -54,7 +54,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [
     bootstrapped-pip
-    (pipInstallHook.override { pip = null; })
+    (pipInstallHook.override {pip = null;})
     (setuptoolsBuildHook.override {
       setuptools = null;
       wheel = null;
@@ -65,7 +65,7 @@ buildPythonPackage rec {
     export SETUPTOOLS_INSTALL_WINDOWS_SPECIFIC_FILES=0
   '';
 
-  pipInstallFlags = [ "--ignore-installed" ];
+  pipInstallFlags = ["--ignore-installed"];
 
   # Adds setuptools to nativeBuildInputs causing infinite recursion.
   catchConflicts = false;

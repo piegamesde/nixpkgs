@@ -42,16 +42,16 @@ stdenv.mkDerivation rec {
     systemd
   ];
 
-  configureFlags = [ "--enable-systemd" ];
+  configureFlags = ["--enable-systemd"];
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "System monitor for the MATE desktop";
     homepage = "https://mate-desktop.org";
-    license = [ licenses.gpl2Plus ];
+    license = [licenses.gpl2Plus];
     platforms = platforms.unix;
     maintainers = teams.mate.members;
   };

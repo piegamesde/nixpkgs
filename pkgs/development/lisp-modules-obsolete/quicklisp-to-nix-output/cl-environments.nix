@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-environments";
   version = "20211020-git";
 
-  parasites = [ "cl-environments/test" ];
+  parasites = ["cl-environments/test"];
 
   description = ''
     Implements the CLTL2 environment access functionality
@@ -30,7 +30,7 @@ rec {
 
   packageName = "cl-environments";
 
-  asdFilesToKeep = [ "cl-environments.asd" ];
+  asdFilesToKeep = ["cl-environments.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-environments DESCRIPTION

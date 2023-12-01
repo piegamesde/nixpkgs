@@ -20,7 +20,7 @@ mkDerivation {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -36,6 +36,6 @@ mkDerivation {
     description = "A tool to automatically fix PHP coding standards issues";
     license = licenses.mit;
     homepage = "https://cs.symfony.com/";
-    maintainers = with maintainers; [ jtojnar ] ++ teams.php.members;
+    maintainers = with maintainers; [jtojnar] ++ teams.php.members;
   };
 }

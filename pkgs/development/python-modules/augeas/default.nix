@@ -25,7 +25,7 @@ buildPythonPackage rec {
     ''
       substituteInPlace augeas/ffi.py \
         --replace 'ffi.dlopen("augeas")' \
-                  'ffi.dlopen("${lib.makeLibraryPath [ augeas ]}/${libname}")'
+                  'ffi.dlopen("${lib.makeLibraryPath [augeas]}/${libname}")'
     '';
 
   propagatedBuildInputs = [

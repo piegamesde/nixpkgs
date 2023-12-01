@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     sphinx
   ];
 
-  buildInputs = [ ffmpeg_5-headless ];
+  buildInputs = [ffmpeg_5-headless];
 
   passthru.tests = {
     inherit (nixosTests) paperless;
@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     description = "Post-processing tool for scanned sheets of paper";
     license = licenses.gpl2;
     platforms = platforms.all;
-    maintainers = [ maintainers.rycee ];
+    maintainers = [maintainers.rycee];
   };
 }

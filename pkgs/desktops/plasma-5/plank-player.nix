@@ -8,7 +8,7 @@
 }:
 mkDerivation {
   pname = "plank-player";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     qtquickcontrols2
     qtmultimedia

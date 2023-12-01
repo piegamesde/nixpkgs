@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     url = "http://df.zweistein.cz/soundsense/soundSense_${version}.zip";
     sha256 = "1gkrs69l3xsh858yjp204ddp29m668j630akm7arssc9359wxqkk";
   };
-  nativeBuildInputs = [ dos2unix ];
+  nativeBuildInputs = [dos2unix];
   buildPhase = ''
     dos2unix soundSense.sh
     chmod +x soundSense.sh

@@ -30,8 +30,8 @@ buildPythonPackage rec {
     hash = "sha256-1VqDw+XyyhEydE4UCSM/th2a8MWpXet7KR5uNAcSuGs=";
   };
 
-  nativeBuildInputs = [ cython ];
-  nativeCheckInputs = [ coverage ];
+  nativeBuildInputs = [cython];
+  nativeCheckInputs = [coverage];
   propagatedBuildInputs = [
     lockfile
     cachecontrol
@@ -54,7 +54,7 @@ buildPythonPackage rec {
     ${python.interpreter} -m skbio.test
   '';
 
-  pythonImportsCheck = [ "skbio" ];
+  pythonImportsCheck = ["skbio"];
 
   meta = with lib; {
     homepage = "http://scikit-bio.org/";
@@ -64,6 +64,6 @@ buildPythonPackage rec {
       "x86_64-linux"
       "x86_64-darwin"
     ];
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

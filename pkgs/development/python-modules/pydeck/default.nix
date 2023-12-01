@@ -35,7 +35,7 @@ buildPythonPackage rec {
     sha256 = "907601c99f7510e16d27d7cb62bfa145216d166a2b5c9c50cfe2b65b032ebd2e";
   };
 
-  pythonImportsCheck = [ "pydeck" ];
+  pythonImportsCheck = ["pydeck"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -43,7 +43,7 @@ buildPythonPackage rec {
   ];
 
   # tries to start a jupyter server
-  disabledTests = [ "test_nbconvert" ];
+  disabledTests = ["test_nbconvert"];
 
   propagatedBuildInputs = [
     ipykernel
@@ -56,7 +56,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/visgl/deck.gl/tree/master/bindings/pydeck";
     description = "Large-scale interactive data visualization in Python";
-    maintainers = with maintainers; [ creator54 ];
+    maintainers = with maintainers; [creator54];
     license = licenses.asl20;
   };
 }

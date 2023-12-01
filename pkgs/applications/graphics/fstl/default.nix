@@ -41,6 +41,6 @@ mkDerivation rec {
     homepage = "https://github.com/mkeeter/fstl";
     license = licenses.mit;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ tweber ];
+    maintainers = with maintainers; [tweber];
   };
 }

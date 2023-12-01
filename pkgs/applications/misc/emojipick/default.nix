@@ -50,7 +50,7 @@ stdenvNoCC.mkDerivation {
     python3
     xclip
     libnotify
-  ] ++ (if emojipick-use-rofi then [ rofi ] else [ dmenu ]);
+  ] ++ (if emojipick-use-rofi then [rofi] else [dmenu]);
 
   installPhase = ''
     runHook preInstall
@@ -66,7 +66,7 @@ stdenvNoCC.mkDerivation {
     description = "Get a selection of emojis with dmenu or rofi";
     homepage = "https://github.com/thingsiplay/emojipick";
     license = licenses.mit;
-    maintainers = with maintainers; [ alexnortung ];
+    maintainers = with maintainers; [alexnortung];
     platforms = platforms.linux;
   };
 }

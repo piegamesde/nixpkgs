@@ -80,16 +80,16 @@ buildNpmPackage rec {
 
   buildPlan =
     if builtins.isAttrs privateBuildPlan then
-      builtins.toJSON { buildPlans.${pname} = privateBuildPlan; }
+      builtins.toJSON {buildPlans.${pname} = privateBuildPlan;}
     else
       privateBuildPlan;
 
   inherit extraParameters;
   passAsFile =
-    [ "extraParameters" ]
+    ["extraParameters"]
     ++ lib.optionals
       (!(builtins.isString privateBuildPlan && lib.hasPrefix builtins.storeDir privateBuildPlan))
-      [ "buildPlan" ];
+      ["buildPlan"];
 
   configurePhase = ''
     runHook preConfigure

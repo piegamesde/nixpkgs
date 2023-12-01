@@ -21,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-NckGmLVcaDlGCRF3F3qenAcToIYPDgSf69cmSczXe3A=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   nativeCheckInputs = [
     coverage
@@ -42,12 +42,12 @@ buildPythonPackage rec {
   # Tests are not shipped and source is not tagged
   doCheck = false;
 
-  pythonImportsCheck = [ "attrdict" ];
+  pythonImportsCheck = ["attrdict"];
 
   meta = with lib; {
     description = "A dict with attribute-style access";
     homepage = "https://github.com/bcj/AttrDict";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

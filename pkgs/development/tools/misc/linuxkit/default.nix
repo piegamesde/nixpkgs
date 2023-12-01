@@ -24,7 +24,7 @@ buildGoModule rec {
 
   modRoot = "./src/cmd/linuxkit";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Virtualization ];
+  buildInputs = lib.optionals stdenv.isDarwin [Virtualization];
 
   ldflags = [
     "-s"
@@ -32,7 +32,7 @@ buildGoModule rec {
     "-X github.com/linuxkit/linuxkit/src/cmd/linuxkit/version.Version=${version}"
   ];
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   passthru.tests.version = testers.testVersion {
     package = linuxkit;
@@ -43,7 +43,7 @@ buildGoModule rec {
     description = "A toolkit for building secure, portable and lean operating systems for containers";
     license = licenses.asl20;
     homepage = "https://github.com/linuxkit/linuxkit";
-    maintainers = with maintainers; [ nicknovitski ];
+    maintainers = with maintainers; [nicknovitski];
     platforms = platforms.unix;
   };
 }

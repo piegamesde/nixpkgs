@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-GpPgjRqzH4fcnaHs9SWfdaCZimwBleXnxQLjqy8SArs=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     getopt
     sops
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     description = "A Helm plugin that helps manage secrets";
     homepage = "https://github.com/jkroepke/helm-secrets";
     license = licenses.asl20;
-    maintainers = with maintainers; [ yurrriq ];
+    maintainers = with maintainers; [yurrriq];
     platforms = platforms.unix;
   };
 }

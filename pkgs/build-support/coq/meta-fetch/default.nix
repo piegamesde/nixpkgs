@@ -7,7 +7,7 @@ let
   lib' = lib;
 in
 let
-  lib = import ../extra-lib.nix { lib = lib'; };
+  lib = import ../extra-lib.nix {lib = lib';};
 in
 with builtins;
 with lib;
@@ -47,14 +47,14 @@ let
             }
           ]
           (throw "meta-fetch: no fetcher found for domain ${domain} on ${rev}");
-      fetch = x: if args ? sha256 then fetchzip (x // { inherit sha256; }) else fetchTarball x;
+      fetch = x: if args ? sha256 then fetchzip (x // {inherit sha256;}) else fetchTarball x;
     in
-    fetch { inherit url; };
+    fetch {inherit url;};
 in
 {
   fetcher ? default-fetcher,
   location,
-  release ? { },
+  release ? {},
   releaseRev ? (v: v),
 }:
 let
@@ -101,7 +101,7 @@ switch arg
         in
         {
           version = rv.version or v;
-          src = rv.src or fetcher (location // { rev = releaseRev v; } // rv);
+          src = rv.src or fetcher (location // {rev = releaseRev v;} // rv);
         };
     }
     {
@@ -115,16 +115,14 @@ switch arg
         in
         {
           inherit version;
-          src = fetcher (
-            location // { inherit rev; } // (optionalAttrs has-owner { owner = head splitted; })
-          );
+          src = fetcher (location // {inherit rev;} // (optionalAttrs has-owner {owner = head splitted;}));
         };
     }
     {
       case = isAttrs;
       out = {
         version = arg.version or "dev";
-        src = (arg.fetcher or fetcher) (location // (arg.location or { }));
+        src = (arg.fetcher or fetcher) (location // (arg.location or {}));
       };
     }
     {

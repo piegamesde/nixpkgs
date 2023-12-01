@@ -29,9 +29,9 @@ stdenv.mkDerivation (
         --replace "-lcurses" "-lncurses"
     '';
 
-    nativeBuildInputs = [ installShellFiles ];
+    nativeBuildInputs = [installShellFiles];
 
-    buildInputs = [ gettext ] ++ (lib.optional (ui == "curses") ncurses);
+    buildInputs = [gettext] ++ (lib.optional (ui == "curses") ncurses);
 
     dontConfigure = true;
 
@@ -55,7 +55,7 @@ stdenv.mkDerivation (
       homepage = "https://github.com/tiehuis/2048-cli";
       description = "The game 2048 for your Linux terminal";
       license = lib.licenses.mit;
-      maintainers = [ lib.maintainers.AndersonTorres ];
+      maintainers = [lib.maintainers.AndersonTorres];
       platforms = lib.platforms.unix;
     };
   }

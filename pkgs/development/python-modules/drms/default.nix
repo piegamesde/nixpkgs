@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-crPVo7ALErZWvNcsaJ/BuBa0VkfCsZ+C929x4kEZHKw=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     numpy
@@ -37,16 +37,16 @@ buildPythonPackage rec {
     pytest-doctestplus
   ];
 
-  disabledTests = [ "test_query_hexadecimal_strings" ];
+  disabledTests = ["test_query_hexadecimal_strings"];
 
-  disabledTestPaths = [ "docs/tutorial.rst" ];
+  disabledTestPaths = ["docs/tutorial.rst"];
 
-  pythonImportsCheck = [ "drms" ];
+  pythonImportsCheck = ["drms"];
 
   meta = with lib; {
     description = "Access HMI, AIA and MDI data with Python";
     homepage = "https://github.com/sunpy/drms";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

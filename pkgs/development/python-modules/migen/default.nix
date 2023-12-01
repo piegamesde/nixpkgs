@@ -17,14 +17,14 @@ buildPythonPackage rec {
     hash = "sha256-IPyhoFZLhY8d3jHB8jyvGdbey7V+X5eCzBZYSrJ18ec=";
   };
 
-  propagatedBuildInputs = [ colorama ];
+  propagatedBuildInputs = [colorama];
 
-  pythonImportsCheck = [ "migen" ];
+  pythonImportsCheck = ["migen"];
 
   meta = with lib; {
     description = " A Python toolbox for building complex digital hardware";
     homepage = "https://m-labs.hk/migen";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ l-as ];
+    maintainers = with maintainers; [l-as];
   };
 }

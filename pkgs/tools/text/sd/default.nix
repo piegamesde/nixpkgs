@@ -20,9 +20,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "1iwgy9zzdxay6hb9pz47jchy03jrsy5csxijlq4i228qhqnvq1lr";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [Security];
 
   preFixup = ''
     installManPage $releaseDir/build/sd-*/out/sd.1

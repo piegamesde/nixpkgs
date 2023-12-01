@@ -26,9 +26,9 @@ rustPlatform.buildRustPackage rec {
       ./update-ropey-for-rust-1.65.diff
     ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
+  buildInputs = [openssl] ++ lib.optional stdenv.isDarwin Security;
 
   # disable downloading and building the tree-sitter grammars at build time
   # grammars can be configured in a config file and installed with `zee --build`
@@ -41,6 +41,6 @@ rustPlatform.buildRustPackage rec {
     description = "A modern text editor for the terminal written in Rust";
     homepage = "https://github.com/zee-editor/zee";
     license = licenses.mit;
-    maintainers = with maintainers; [ booklearner ];
+    maintainers = with maintainers; [booklearner];
   };
 }

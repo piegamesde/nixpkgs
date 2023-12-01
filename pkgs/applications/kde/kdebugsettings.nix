@@ -19,8 +19,8 @@ mkDerivation {
   meta = {
     homepage = "https://apps.kde.org/kdebugsettings/";
     description = "KDE debug settings";
-    license = with lib.licenses; [ gpl2 ];
-    maintainers = [ ];
+    license = with lib.licenses; [gpl2];
+    maintainers = [];
   };
   nativeBuildInputs = [
     extra-cmake-modules
@@ -37,5 +37,5 @@ mkDerivation {
     kxmlgui
     python3
   ];
-  propagatedUserEnvPkgs = [ ];
+  propagatedUserEnvPkgs = [];
 }

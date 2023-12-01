@@ -18,14 +18,14 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "QScintilla-${version}/Qt4Qt5";
 
-  buildInputs = [ qt4 ];
+  buildInputs = [qt4];
 
   nativeBuildInputs = [
     unzip
     qmake4Hook
   ];
 
-  patches = [ ./fix-qt4-build.patch ];
+  patches = [./fix-qt4-build.patch];
 
   # Make sure that libqscintilla2.so is available in $out/lib since it is expected
   # by some packages such as sqlitebrowser
@@ -62,8 +62,8 @@ stdenv.mkDerivation rec {
       background colours and multiple fonts.
     '';
     homepage = "https://www.riverbankcomputing.com/software/qscintilla/intro";
-    license = with licenses; [ gpl3 ]; # and commercial
-    maintainers = with maintainers; [ peterhoeg ];
+    license = with licenses; [gpl3]; # and commercial
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.linux;
   };
 }

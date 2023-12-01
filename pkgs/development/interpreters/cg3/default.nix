@@ -21,7 +21,7 @@ let
       sha256 = "sha256-TiEhhk90w5GibGZ4yalIf+4qLA8NoU6+GIPN6QNTz2A=";
     };
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
     buildInputs = [
       icu
@@ -58,7 +58,7 @@ let
     meta = with lib; {
       homepage = "https://github.com/GrammarSoft/cg3";
       description = "Constraint Grammar interpreter, compiler and applicator vislcg3";
-      maintainers = with maintainers; [ unhammer ];
+      maintainers = with maintainers; [unhammer];
       license = licenses.gpl3Plus;
       platforms = platforms.all;
     };

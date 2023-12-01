@@ -37,6 +37,6 @@ stdenvNoCC.mkDerivation rec {
       hmenke
     ];
     platforms = with platforms; linux;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
   };
 }

@@ -30,6 +30,6 @@ buildPythonPackage rec {
     description = "A library for deferring decorator actions";
     homepage = "https://pylonsproject.org/";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ domenkozar ];
+    maintainers = with maintainers; [domenkozar];
   };
 }

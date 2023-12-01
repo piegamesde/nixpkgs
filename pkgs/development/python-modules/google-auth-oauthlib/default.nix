@@ -37,7 +37,7 @@ buildPythonPackage rec {
   # some tests require loopback networking
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "google_auth_oauthlib" ];
+  pythonImportsCheck = ["google_auth_oauthlib"];
 
   meta = with lib; {
     description = "Google Authentication Library: oauthlib integration";

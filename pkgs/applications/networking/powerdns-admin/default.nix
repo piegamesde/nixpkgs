@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
 
   inherit src version;
 
-  nativeBuildInputs = [ python.pkgs.wrapPython ];
+  nativeBuildInputs = [python.pkgs.wrapPython];
 
   pythonPath = pythonDeps;
 

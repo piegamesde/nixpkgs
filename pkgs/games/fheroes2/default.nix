@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-msFuBKG/uuXxOcPf0KT3TWOiQrQ4rYHFxOcJ56QBkEU=";
   };
 
-  nativeBuildInputs = [ imagemagick ];
+  nativeBuildInputs = [imagemagick];
 
   buildInputs = [
     gettext
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gitUpdater { url = "https://github.com/ihhub/fheroes2.git"; };
+    updateScript = gitUpdater {url = "https://github.com/ihhub/fheroes2.git";};
   };
 
   meta = with lib; {
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
       On linux, the data can be placed in ~/.local/share/fheroes2 folder.
     '';
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.karolchmist ];
+    maintainers = [maintainers.karolchmist];
     platforms = platforms.linux;
   };
 }

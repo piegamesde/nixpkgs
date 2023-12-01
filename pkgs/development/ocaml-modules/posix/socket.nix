@@ -11,7 +11,7 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ posix-base ];
+  propagatedBuildInputs = [posix-base];
 
   doCheck = true;
 

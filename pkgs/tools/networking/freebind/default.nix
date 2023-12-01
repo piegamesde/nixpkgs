@@ -36,6 +36,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/blechschmidt/freebind";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

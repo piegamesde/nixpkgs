@@ -35,12 +35,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pyqvrpro" ];
+  pythonImportsCheck = ["pyqvrpro"];
 
   meta = with lib; {
     description = "Module for interfacing with QVR Pro API";
     homepage = "https://github.com/oblogic7/pyqvrpro";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

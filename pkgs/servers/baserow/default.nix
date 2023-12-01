@@ -10,7 +10,7 @@ let
 
   python = python3.override {
     packageOverrides = self: super: {
-      antlr4-python3-runtime = super.antlr4-python3-runtime.override { antlr4 = antlr4_9; };
+      antlr4-python3-runtime = super.antlr4-python3-runtime.override {antlr4 = antlr4_9;};
 
       baserow_premium = self.buildPythonPackage rec {
         pname = "baserow_premium";
@@ -54,7 +54,7 @@ buildPythonApplication rec {
     sed 's/\[standard\]//' -i requirements/base.in requirements/base.txt
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   propagatedBuildInputs = [
     autobahn
@@ -145,6 +145,6 @@ buildPythonApplication rec {
     description = "No-code database and Airtable alternative";
     homepage = "https://baserow.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

@@ -23,13 +23,13 @@ buildPythonPackage rec {
     drawio-headless
   ];
 
-  pythonImportsCheck = [ "mkdocsdrawioexporter" ];
+  pythonImportsCheck = ["mkdocsdrawioexporter"];
 
   meta = with lib; {
     description = "Exports your Draw.io diagrams at build time for easier embedding into your documentation.";
     homepage = "https://github.com/LukeCarrier/mkdocs-drawio-exporter/";
     license = licenses.mit;
-    maintainers = with maintainers; [ snpschaaf ];
+    maintainers = with maintainers; [snpschaaf];
     longDescription = ''
       Exports your Draw.io diagrams at build time for easier embedding into your documentation.
     '';

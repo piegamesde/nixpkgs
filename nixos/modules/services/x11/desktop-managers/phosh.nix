@@ -19,7 +19,7 @@ let
       "GNOME"
       "Core"
     ];
-    onlyShowIn = [ "GNOME" ];
+    onlyShowIn = ["GNOME"];
     noDisplay = true;
     extraConfig = {
       X-GNOME-Autostart-Phase = "Panel";
@@ -72,7 +72,7 @@ let
           One or more modelines.
         '';
         type = types.either types.str (types.listOf types.str);
-        default = [ ];
+        default = [];
         example = [
           "87.25 720 776 848  976 1440 1443 1453 1493 -hsync +vsync"
           "65.13 768 816 896 1024 1024 1025 1028 1060 -HSync +VSync"
@@ -120,7 +120,7 @@ let
   renderPhocOutput =
     name: output:
     let
-      modelines = if builtins.isList output.modeline then output.modeline else [ output.modeline ];
+      modelines = if builtins.isList output.modeline then output.modeline else [output.modeline];
       renderModeline = l: "modeline = ${l}";
     in
     ''
@@ -185,7 +185,7 @@ in
           types.path
           phocConfigType
         ];
-        default = { };
+        default = {};
       };
     };
   };
@@ -194,7 +194,7 @@ in
     systemd.defaultUnit = "graphical.target";
     # Inspired by https://gitlab.gnome.org/World/Phosh/phosh/-/blob/main/data/phosh.service
     systemd.services.phosh = {
-      wantedBy = [ "graphical.target" ];
+      wantedBy = ["graphical.target"];
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/phosh-session";
         User = cfg.user;
@@ -226,17 +226,17 @@ in
       oskItem
     ];
 
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
 
     programs.feedbackd.enable = true;
 
-    security.pam.services.phosh = { };
+    security.pam.services.phosh = {};
 
     hardware.opengl.enable = mkDefault true;
 
     services.gnome.core-shell.enable = true;
     services.gnome.core-os-services.enable = true;
-    services.xserver.displayManager.sessionPackages = [ cfg.package ];
+    services.xserver.displayManager.sessionPackages = [cfg.package];
 
     environment.etc."phosh/phoc.ini".source =
       if builtins.isPath cfg.phocConfig then

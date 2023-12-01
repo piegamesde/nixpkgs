@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     description = "A clone of the classic game 'Paradroid' on Commodore 64";
     homepage = "https://github.com/ReinhardPrix/FreedroidClassic";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ iblech ];
+    maintainers = with maintainers; [iblech];
     platforms = platforms.unix;
     # Builds but fails to render to the screen at runtime.
     broken = stdenv.isDarwin;

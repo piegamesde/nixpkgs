@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A puzzle game";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
     homepage = "https://fillets.sourceforge.net/";
   };

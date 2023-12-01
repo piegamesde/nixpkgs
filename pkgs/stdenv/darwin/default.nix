@@ -4,7 +4,7 @@
   crossSystem,
   config,
   overlays,
-  crossOverlays ? [ ],
+  crossOverlays ? [],
   bootstrapLlvmVersion ? "11.1.0",
   # Allow passing in bootstrap files directly so we can test the stdenv bootstrap process when changing the bootstrap tools
   bootstrapFiles ? if localSystem.isAarch64 then
@@ -120,9 +120,9 @@ rec {
       builder = bootstrapFiles.sh; # Not a filename! Attribute 'sh' on bootstrapFiles
       args =
         if localSystem.isAarch64 then
-          [ ./unpack-bootstrap-tools-aarch64.sh ]
+          [./unpack-bootstrap-tools-aarch64.sh]
         else
-          [ ./unpack-bootstrap-tools.sh ];
+          [./unpack-bootstrap-tools.sh];
 
       inherit (bootstrapFiles)
         mkdir
@@ -144,7 +144,7 @@ rec {
     step: last:
     {
       shell ? "${bootstrapTools}/bin/bash",
-      overrides ? (self: super: { }),
+      overrides ? (self: super: {}),
       extraPreHook ? "",
       extraNativeBuildInputs,
       extraBuildInputs,
@@ -154,7 +154,7 @@ rec {
     let
       name = "bootstrap-stage${toString step}";
 
-      buildPackages = lib.optionalAttrs (last ? stdenv) { inherit (last) stdenv; };
+      buildPackages = lib.optionalAttrs (last ? stdenv) {inherit (last) stdenv;};
 
       doSign = localSystem.isAarch64 && last != null;
       doUpdateAutoTools = localSystem.isAarch64 && last != null;
@@ -193,7 +193,7 @@ rec {
           "/dev/null"
         else
           mkCC (
-            { cc, ... }:
+            {cc, ...}:
             {
               extraPackages = [
                 last.pkgs."${finalLlvmPackages}".libcxxabi
@@ -208,10 +208,10 @@ rec {
           "/dev/null"
         else
           mkCC (
-            { cc, ... }:
+            {cc, ...}:
             {
               libcxx = null;
-              extraPackages = [ last.pkgs."${finalLlvmPackages}".compiler-rt ];
+              extraPackages = [last.pkgs."${finalLlvmPackages}".compiler-rt];
               extraBuildCommands =
                 ''
                   echo "-rtlib=compiler-rt" >> $out/nix-support/cc-cflags
@@ -269,7 +269,7 @@ rec {
             ${commonPreHook}
             ${extraPreHook}
           '';
-        initialPath = [ bootstrapTools ];
+        initialPath = [bootstrapTools];
 
         fetchurlBoot = import ../../build-support/fetchurl {
           inherit lib;
@@ -315,12 +315,12 @@ rec {
           '';
         };
 
-        pbzx = self.runCommandLocal "bootstrap-stage0-pbzx" { } ''
+        pbzx = self.runCommandLocal "bootstrap-stage0-pbzx" {} ''
           mkdir -p $out/bin
           ln -s ${bootstrapTools}/bin/pbzx $out/bin
         '';
 
-        cpio = self.runCommandLocal "bootstrap-stage0-cpio" { } ''
+        cpio = self.runCommandLocal "bootstrap-stage0-cpio" {} ''
           mkdir -p $out/bin
           ln -s ${bootstrapFiles.cpio} $out/bin/cpio
         '';
@@ -328,7 +328,7 @@ rec {
         darwin = super.darwin.overrideScope (
           selfDarwin: superDarwin:
           {
-            darwin-stubs = superDarwin.darwin-stubs.override { inherit (self) stdenvNoCC fetchurl; };
+            darwin-stubs = superDarwin.darwin-stubs.override {inherit (self) stdenvNoCC fetchurl;};
 
             dyld = {
               name = "bootstrap-stage0-dyld";
@@ -339,18 +339,18 @@ rec {
               '';
             };
 
-            sigtool = self.runCommandLocal "bootstrap-stage0-sigtool" { } ''
+            sigtool = self.runCommandLocal "bootstrap-stage0-sigtool" {} ''
               mkdir -p $out/bin
               ln -s ${bootstrapTools}/bin/sigtool  $out/bin
               ln -s ${bootstrapTools}/bin/codesign $out/bin
             '';
 
-            print-reexports = self.runCommandLocal "bootstrap-stage0-print-reexports" { } ''
+            print-reexports = self.runCommandLocal "bootstrap-stage0-print-reexports" {} ''
               mkdir -p $out/bin
               ln -s ${bootstrapTools}/bin/print-reexports $out/bin
             '';
 
-            rewrite-tbd = self.runCommandLocal "bootstrap-stage0-rewrite-tbd" { } ''
+            rewrite-tbd = self.runCommandLocal "bootstrap-stage0-rewrite-tbd" {} ''
               mkdir -p $out/bin
               ln -s ${bootstrapTools}/bin/rewrite-tbd $out/bin
             '';
@@ -460,8 +460,8 @@ rec {
         };
       };
 
-    extraNativeBuildInputs = [ ];
-    extraBuildInputs = [ ];
+    extraNativeBuildInputs = [];
+    extraBuildInputs = [];
     libcxx = null;
   };
 
@@ -479,27 +479,27 @@ rec {
 
           python3 = super.python3Minimal;
 
-          ninja = super.ninja.override { buildDocs = false; };
+          ninja = super.ninja.override {buildDocs = false;};
 
           "${finalLlvmPackages}" =
             super."${finalLlvmPackages}"
             // (
               let
                 tools = super."${finalLlvmPackages}".tools.extend (
-                  _: _: { inherit (pkgs."${finalLlvmPackages}") clang-unwrapped; }
+                  _: _: {inherit (pkgs."${finalLlvmPackages}") clang-unwrapped;}
                 );
                 libraries = super."${finalLlvmPackages}".libraries.extend (
-                  _: _: { inherit (pkgs."${finalLlvmPackages}") compiler-rt libcxx libcxxabi; }
+                  _: _: {inherit (pkgs."${finalLlvmPackages}") compiler-rt libcxx libcxxabi;}
                 );
               in
-              { inherit tools libraries; } // tools // libraries
+              {inherit tools libraries;} // tools // libraries
             );
 
           darwin = super.darwin.overrideScope (
             selfDarwin: _: {
               inherit (darwin) rewrite-tbd binutils-unwrapped;
 
-              signingUtils = darwin.signingUtils.override { inherit (selfDarwin) sigtool; };
+              signingUtils = darwin.signingUtils.override {inherit (selfDarwin) sigtool;};
 
               binutils = darwin.binutils.override {
                 coreutils = self.coreutils;
@@ -513,12 +513,12 @@ rec {
     with prevStage;
     stageFun 1 prevStage {
       extraPreHook = ''export NIX_CFLAGS_COMPILE+=" -F${bootstrapTools}/Library/Frameworks"'';
-      extraNativeBuildInputs = [ ];
-      extraBuildInputs = [ pkgs.darwin.CF ];
+      extraNativeBuildInputs = [];
+      extraBuildInputs = [pkgs.darwin.CF];
       libcxx = pkgs."${finalLlvmPackages}".libcxx;
 
       allowedRequisites =
-        [ bootstrapTools ]
+        [bootstrapTools]
         ++ (
           with pkgs; [
             coreutils
@@ -606,12 +606,12 @@ rec {
             // (
               let
                 tools = super."${finalLlvmPackages}".tools.extend (
-                  _: _: { inherit (pkgs."${finalLlvmPackages}") clang-unwrapped; }
+                  _: _: {inherit (pkgs."${finalLlvmPackages}") clang-unwrapped;}
                 );
                 libraries = super."${finalLlvmPackages}".libraries.extend (
                   _: libSuper: {
                     inherit (pkgs."${finalLlvmPackages}") compiler-rt;
-                    libcxx = libSuper.libcxx.override { stdenv = overrideCC self.stdenv self.ccNoLibcxx; };
+                    libcxx = libSuper.libcxx.override {stdenv = overrideCC self.stdenv self.ccNoLibcxx;};
                     libcxxabi = libSuper.libcxxabi.override (
                       {
                         stdenv = overrideCC self.stdenv self.ccNoLibcxx;
@@ -634,7 +634,7 @@ rec {
                   }
                 );
               in
-              { inherit tools libraries; } // tools // libraries
+              {inherit tools libraries;} // tools // libraries
             );
 
           darwin = super.darwin.overrideScope (
@@ -666,12 +666,12 @@ rec {
         export PATH_LOCALE=${pkgs.darwin.locale}/share/locale
       '';
 
-      extraNativeBuildInputs = [ pkgs.xz ];
-      extraBuildInputs = [ pkgs.darwin.CF ];
+      extraNativeBuildInputs = [pkgs.xz];
+      extraBuildInputs = [pkgs.darwin.CF];
       libcxx = pkgs."${finalLlvmPackages}".libcxx;
 
       allowedRequisites =
-        [ bootstrapTools ]
+        [bootstrapTools]
         ++ (
           with pkgs;
           [
@@ -764,17 +764,17 @@ rec {
             ;
 
           # Avoid pulling in a full python and its extra dependencies for the llvm/clang builds.
-          libxml2 = super.libxml2.override { pythonSupport = false; };
+          libxml2 = super.libxml2.override {pythonSupport = false;};
 
           "${finalLlvmPackages}" =
             super."${finalLlvmPackages}"
             // (
               let
                 libraries = super."${finalLlvmPackages}".libraries.extend (
-                  _: _: { inherit (pkgs."${finalLlvmPackages}") libcxx libcxxabi; }
+                  _: _: {inherit (pkgs."${finalLlvmPackages}") libcxx libcxxabi;}
                 );
               in
-              { inherit libraries; } // libraries
+              {inherit libraries;} // libraries
             );
 
           darwin = super.darwin.overrideScope (
@@ -804,7 +804,7 @@ rec {
       # enables patchShebangs above. Unfortunately, patchShebangs ignores our $SHELL setting
       # and instead goes by $PATH, which happens to contain bootstrapTools. So it goes and
       # patches our shebangs back to point at bootstrapTools. This makes sure bash comes first.
-      extraNativeBuildInputs = with pkgs; [ xz ];
+      extraNativeBuildInputs = with pkgs; [xz];
       extraBuildInputs = [
         pkgs.darwin.CF
         pkgs.bash
@@ -817,7 +817,7 @@ rec {
       '';
 
       allowedRequisites =
-        [ bootstrapTools ]
+        [bootstrapTools]
         ++ (
           with pkgs;
           [
@@ -899,7 +899,7 @@ rec {
           # solution is to avoid passing -L/nix-store/...-bootstrap-tools/lib,
           # quite a sledgehammer just to get the C runtime.
           gettext = super.gettext.overrideAttrs (
-            drv: { configureFlags = drv.configureFlags ++ [ "--disable-curses" ]; }
+            drv: {configureFlags = drv.configureFlags ++ ["--disable-curses"];}
           );
 
           "${finalLlvmPackages}" =
@@ -911,14 +911,14 @@ rec {
                     clang-unwrapped-all-outputs = pkgs."${finalLlvmPackages}".clang-unwrapped-all-outputs.override {
                       llvm = llvmSelf.llvm;
                     };
-                    libllvm = pkgs."${finalLlvmPackages}".libllvm.override { inherit libxml2; };
+                    libllvm = pkgs."${finalLlvmPackages}".libllvm.override {inherit libxml2;};
                   }
                 );
                 libraries = super."${finalLlvmPackages}".libraries.extend (
-                  llvmSelf: _: { inherit (pkgs."${finalLlvmPackages}") libcxx libcxxabi compiler-rt; }
+                  llvmSelf: _: {inherit (pkgs."${finalLlvmPackages}") libcxx libcxxabi compiler-rt;}
                 );
               in
-              { inherit tools libraries; } // tools // libraries
+              {inherit tools libraries;} // tools // libraries
             );
 
           darwin = super.darwin.overrideScope (
@@ -947,7 +947,7 @@ rec {
     with prevStage;
     stageFun 4 prevStage {
       shell = "${pkgs.bash}/bin/bash";
-      extraNativeBuildInputs = with pkgs; [ xz ];
+      extraNativeBuildInputs = with pkgs; [xz];
       extraBuildInputs = [
         pkgs.darwin.CF
         pkgs.bash
@@ -1018,13 +1018,13 @@ rec {
             // (
               let
                 tools = super."${finalLlvmPackages}".tools.extend (
-                  _: super: { inherit (pkgs."${finalLlvmPackages}") llvm clang-unwrapped; }
+                  _: super: {inherit (pkgs."${finalLlvmPackages}") llvm clang-unwrapped;}
                 );
                 libraries = super."${finalLlvmPackages}".libraries.extend (
-                  _: _: { inherit (pkgs."${finalLlvmPackages}") compiler-rt libcxx libcxxabi; }
+                  _: _: {inherit (pkgs."${finalLlvmPackages}") compiler-rt libcxx libcxxabi;}
                 );
               in
-              { inherit tools libraries; } // tools // libraries
+              {inherit tools libraries;} // tools // libraries
             );
 
           inherit binutils binutils-unwrapped;
@@ -1050,7 +1050,7 @@ rec {
       __stdenvImpureHostDeps = commonImpureHostDeps;
       __extraImpureHostDeps = commonImpureHostDeps;
 
-      initialPath = import ../generic/common-path.nix { inherit pkgs; };
+      initialPath = import ../generic/common-path.nix {inherit pkgs;};
       shell = "${pkgs.bash}/bin/bash";
 
       cc = pkgs."${finalLlvmPackages}".libcxxClang;
@@ -1059,7 +1059,7 @@ rec {
         pkgs.updateAutotoolsGnuConfigScriptsHook
       ];
 
-      extraBuildInputs = [ pkgs.darwin.CF ];
+      extraBuildInputs = [pkgs.darwin.CF];
 
       extraAttrs =
         {
@@ -1166,7 +1166,7 @@ rec {
           darwin = super.darwin.overrideScope (
             _: superDarwin: {
               inherit (prevStage.darwin) CF darwin-stubs;
-              xnu = superDarwin.xnu.override { inherit (prevStage) python3; };
+              xnu = superDarwin.xnu.override {inherit (prevStage) python3;};
             }
           );
         }
@@ -1181,7 +1181,7 @@ rec {
     };
 
   stagesDarwin = [
-    ({ }: stage0)
+    ({}: stage0)
     stage1
     stage2
     stage3

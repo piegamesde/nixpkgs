@@ -26,7 +26,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths =
     [
@@ -34,12 +34,12 @@ buildPythonPackage rec {
       "tests/integration"
     ];
 
-  pythonImportsCheck = [ "cryptography" ];
+  pythonImportsCheck = ["cryptography"];
 
   meta = with lib; {
     description = "Pure python Tor client";
     homepage = "https://github.com/torpyorg/torpy";
     license = licenses.asl20;
-    maintainers = with maintainers; [ larsr ];
+    maintainers = with maintainers; [larsr];
   };
 }

@@ -1,13 +1,13 @@
 {
   pkgspath ? ../../..,
   test-pkgspath ? pkgspath,
-  localSystem ? { system = builtins.currentSystem; },
+  localSystem ? {system = builtins.currentSystem;},
   crossSystem ? null,
   bootstrapFiles ? null,
 }:
 
 let
-  cross = if crossSystem != null then { inherit crossSystem; } else { };
+  cross = if crossSystem != null then {inherit crossSystem;} else {};
   custom-bootstrap =
     if bootstrapFiles != null then
       {
@@ -21,9 +21,9 @@ let
           (import "${pkgspath}/pkgs/stdenv/darwin" args').stagesDarwin;
       }
     else
-      { };
+      {};
 in
-with import pkgspath ({ inherit localSystem; } // cross // custom-bootstrap);
+with import pkgspath ({inherit localSystem;} // cross // custom-bootstrap);
 
 let
   llvmPackages = llvmPackages_11;
@@ -42,7 +42,7 @@ rec {
   cctools_ = darwin.cctools;
 
   # Avoid debugging larger changes for now.
-  bzip2_ = bzip2.override (args: { linkStatic = true; });
+  bzip2_ = bzip2.override (args: {linkStatic = true;});
 
   # Avoid messing with libkrb5 and libnghttp2.
   curl_ = curlMinimal.override (
@@ -215,10 +215,10 @@ rec {
       dumpnar $out/pack | ${xz}/bin/xz > $out/on-server/bootstrap-tools.nar.xz
     '';
 
-    allowedReferences = [ ];
+    allowedReferences = [];
 
     meta = {
-      maintainers = [ lib.maintainers.copumpkin ];
+      maintainers = [lib.maintainers.copumpkin];
     };
   };
 
@@ -246,11 +246,11 @@ rec {
     # This is by necessity a near-duplicate of patch-bootstrap-tools.sh. If we refer to it directly,
     # we can't make any changes to it due to our testing stdenv depending on it. Think of this as the
     # patch-bootstrap-tools.sh for the next round of bootstrap tools.
-    args = [ ./patch-bootstrap-tools-next.sh ];
+    args = [./patch-bootstrap-tools-next.sh];
 
     inherit (bootstrapFiles) tools;
 
-    allowedReferences = [ "out" ];
+    allowedReferences = ["out"];
   };
 
   test = stdenv.mkDerivation {

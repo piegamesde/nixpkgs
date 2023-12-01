@@ -19,7 +19,7 @@ in
 mkDerivation {
   pname = "kimageformats";
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     karchive
     openexr
@@ -29,7 +29,7 @@ mkDerivation {
     libraw
     qtbase
   ];
-  outputs = [ "out" ]; # plugins only
+  outputs = ["out"]; # plugins only
   CXXFLAGS = "-I${getDev ilmbase}/include/OpenEXR";
-  cmakeFlags = [ "-DKIMAGEFORMATS_HEIF=ON" ];
+  cmakeFlags = ["-DKIMAGEFORMATS_HEIF=ON"];
 }

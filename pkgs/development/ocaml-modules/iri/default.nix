@@ -29,7 +29,7 @@ buildDunePackage rec {
   meta = {
     description = "IRI (RFC3987) native OCaml implementation";
     license = lib.licenses.lgpl3;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     inherit (src.meta) homepage;
   };
 }

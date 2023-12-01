@@ -24,14 +24,14 @@ buildDunePackage rec {
     autoheader
   '';
 
-  nativeBuildInputs = [ autoconf ];
+  nativeBuildInputs = [autoconf];
 
   hardeningDisable = lib.optional stdenv.isDarwin "strictoverflow";
 
   meta = with lib; {
     inherit (src.meta) homepage;
     description = "Core pinning library";
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
     license = licenses.lgpl2;
   };
 }

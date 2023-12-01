@@ -5,7 +5,7 @@
   testOption ? null,
 
   # provide a list of option names, as string literals.
-  testOptions ? [ ],
+  testOptions ? [],
 }:
 
 # This file is made to be used as follow:
@@ -49,14 +49,14 @@ let
 
   evalFun =
     {
-      specialArgs ? { },
+      specialArgs ? {},
     }:
     import ../lib/eval-config.nix {
-      modules = [ configuration ];
+      modules = [configuration];
       inherit specialArgs;
     };
 
-  eval = evalFun { };
+  eval = evalFun {};
   inherit (eval) pkgs;
 
   excludedTestOptions = [
@@ -87,10 +87,10 @@ let
   reportNewFailures =
     old: new:
     let
-      filterChanges = filter ({ fst, snd }: !(fst.success -> snd.success));
+      filterChanges = filter ({fst, snd}: !(fst.success -> snd.success));
 
       keepNames = map (
-        { fst, snd }:
+        {fst, snd}:
         # assert fst.name == snd.name;
         snd.name
       );
@@ -104,7 +104,7 @@ let
       tryCollectOptions =
         moduleResult:
         forEach (excludeOptions (collect isOption moduleResult)) (
-          opt: { name = showOption opt.loc; } // builtins.tryEval (strict opt.value)
+          opt: {name = showOption opt.loc;} // builtins.tryEval (strict opt.value)
         );
     in
     keepNames (filterChanges (zipLists (tryCollectOptions old) (tryCollectOptions new)));
@@ -148,17 +148,17 @@ let
 
   displayOptionsGraph =
     let
-      checkList = if testOption != null then [ testOption ] else testOptions;
-      checkAll = checkList == [ ];
+      checkList = if testOption != null then [testOption] else testOptions;
+      checkAll = checkList == [];
     in
     flip filter graph (
-      { option, ... }: (checkAll || elem option checkList) && !(elem option excludedTestOptions)
+      {option, ...}: (checkAll || elem option checkList) && !(elem option excludedTestOptions)
     );
 
   graphToDot = graph: ''
     digraph "Option Usages" {
       ${
-        concatMapStrings ({ option, usedBy }: concatMapStrings (user: ''"${option}" -> "${user}"'') usedBy)
+        concatMapStrings ({option, usedBy}: concatMapStrings (user: ''"${option}" -> "${user}"'') usedBy)
           displayOptionsGraph
       }
     }
@@ -168,7 +168,7 @@ let
     graph:
     concatMapStrings
       (
-        { usedBy, ... }:
+        {usedBy, ...}:
         concatMapStrings
           (user: ''
             ${user}
@@ -185,7 +185,7 @@ rec {
     text = dotContent;
   };
 
-  pdf = pkgs.texFunctions.dot2pdf { dotGraph = dot; };
+  pdf = pkgs.texFunctions.dot2pdf {dotGraph = dot;};
 
   txtContent = graphToText graph;
   txt = pkgs.writeTextFile {

@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-SiIRw2nWCoe3pfFp1xyzkuFK5fe++0ypSxblYViRgZY=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   installPhase = ''
     runHook preInstall
@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Only;
     homepage = "https://github.com/Dr-Noob/cpufetch";
     changelog = "https://github.com/Dr-Noob/cpufetch/releases/tag/v${version}";
-    maintainers = with maintainers; [ devhell ];
+    maintainers = with maintainers; [devhell];
   };
 }

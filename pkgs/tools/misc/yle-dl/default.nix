@@ -36,7 +36,7 @@ python3Packages.buildPythonApplication rec {
   ];
 
   doCheck = false; # tests require network access
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [pytestCheckHook];
 
   passthru.tests.version = testers.testVersion {
     package = yle-dl;
@@ -48,7 +48,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://aajanki.github.io/yle-dl/";
     changelog = "https://github.com/aajanki/yle-dl/blob/${version}/ChangeLog";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dezgeg ];
+    maintainers = with maintainers; [dezgeg];
     platforms = platforms.unix;
   };
 }

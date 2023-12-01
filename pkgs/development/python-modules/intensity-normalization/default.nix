@@ -38,7 +38,7 @@ buildPythonPackage rec {
     statsmodels
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -55,7 +55,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/jcreinhold/intensity-normalization";
     description = "MRI intensity normalization tools";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     license = licenses.asl20;
     # depends on simpleitk python wrapper which is not packaged yet
     broken = true;

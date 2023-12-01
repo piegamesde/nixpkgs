@@ -106,7 +106,7 @@ let
         url = "https://www.ffmpeg.org/releases/ffmpeg-${ffmpeg-version}.tar.bz2";
         hash = "sha256-zQ4W+QNCEmbVzN3t97g7nldUrvS596fwbOnkyALwVFs=";
       };
-      patches = old.patches or [ ] ++ [
+      patches = old.patches or [] ++ [
         "${src}/contrib/ffmpeg/A01-qsv-libavfilter-qsvvpp-change-the-output-frame-s-width-a.patch"
         "${src}/contrib/ffmpeg/A02-qsv-configure-ensure-enable-libmfx-uses-libmfx-1.x.patch"
         "${src}/contrib/ffmpeg/A03-qsv-configure-fix-the-check-for-MFX_CODEC_VP9.patch"
@@ -276,9 +276,9 @@ let
       ++ optional stdenv.hostPlatform.isx86 "--harden";
 
     # NOTE: 2018-12-27: Check NixOS HandBrake test if changing
-    NIX_LDFLAGS = [ "-lx265" ];
+    NIX_LDFLAGS = ["-lx265"];
 
-    makeFlags = [ "--directory=build" ];
+    makeFlags = ["--directory=build"];
 
     passthru.tests = {
       basic-conversion =
@@ -289,7 +289,7 @@ let
             sha256 = "1hfxbbgxwfkzv85pvpvx55a72qsd0hxjbm9hkl5r3590zw4s75h9";
           };
         in
-        runCommand "${pname}-${version}-basic-conversion" { nativeBuildInputs = [ self ]; } ''
+        runCommand "${pname}-${version}-basic-conversion" {nativeBuildInputs = [self];} ''
           mkdir -p $out
           cd $out
           HandBrakeCLI -i ${testMkv} -o test.mp4 -e x264 -q 20 -B 160

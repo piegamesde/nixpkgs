@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     cyrus_sasl
   ];
 
-  configureFlags = [ "--disable-debug" ];
+  configureFlags = ["--disable-debug"];
 
   postPatch = ''
     substituteInPlace tools/Makefile.am \

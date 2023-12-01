@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
         --replace "/usr/bin/" "$out/bin"
   '';
 
-  patches = [ ./cmake.patch ];
+  patches = [./cmake.patch];
 
   meta = with lib; {
     description = "Weak-signal keyboard messaging for amateur radio";
@@ -61,6 +61,6 @@ stdenv.mkDerivation rec {
     homepage = "http://js8call.com/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ melling ];
+    maintainers = with maintainers; [melling];
   };
 }

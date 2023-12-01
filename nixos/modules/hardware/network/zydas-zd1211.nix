@@ -1,5 +1,5 @@
-{ pkgs, ... }:
+{pkgs, ...}:
 
 {
-  hardware.firmware = [ pkgs.zd1211fw ];
+  hardware.firmware = [pkgs.zd1211fw];
 }

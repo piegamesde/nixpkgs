@@ -37,16 +37,16 @@ assert lib.asserts.assertOneOf "bottomColor" bottomColor validColors;
 mkDerivation {
   pname = "breeze-plymouth";
   nativeBuildInputs =
-    [ extra-cmake-modules ]
+    [extra-cmake-modules]
     ++ lib.optionals (logoFile != null) [
       imagemagick
       netpbm
       perl
     ];
-  buildInputs = [ plymouth ];
-  patches = [ ./install-paths.patch ];
+  buildInputs = [plymouth];
+  patches = [./install-paths.patch];
   cmakeFlags =
-    [ ]
+    []
     ++ lib.optional (osName != null) "-DDISTRO_NAME=${osName}"
     ++ lib.optional (osVersion != null) "-DDISTRO_VERSION=${osVersion}"
     ++ lib.optional (logoName != null) "-DDISTRO_LOGO=${logoName}"

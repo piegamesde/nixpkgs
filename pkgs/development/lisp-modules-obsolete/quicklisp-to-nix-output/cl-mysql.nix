@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-mysql";
   version = "20200610-git";
@@ -20,7 +20,7 @@ rec {
 
   packageName = "cl-mysql";
 
-  asdFilesToKeep = [ "cl-mysql.asd" ];
+  asdFilesToKeep = ["cl-mysql.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-mysql DESCRIPTION Common Lisp MySQL library bindings SHA256

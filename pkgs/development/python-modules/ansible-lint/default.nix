@@ -39,7 +39,7 @@ buildPythonPackage rec {
       --replace "sys.exit(1)" ""
   '';
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     ansible-compat
@@ -68,7 +68,7 @@ buildPythonPackage rec {
   preCheck = ''
     # ansible wants to write to $HOME and crashes if it can't
     export HOME=$(mktemp -d)
-    export PATH=$PATH:${lib.makeBinPath [ ansible-core ]}
+    export PATH=$PATH:${lib.makeBinPath [ansible-core]}
 
     # create a working ansible-lint executable
     export PATH=$PATH:$PWD/src/ansiblelint
@@ -94,13 +94,13 @@ buildPythonPackage rec {
     "test_discover_lintables_umlaut"
   ];
 
-  makeWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ ansible-core ]}" ];
+  makeWrapperArgs = ["--prefix PATH : ${lib.makeBinPath [ansible-core]}"];
 
   meta = with lib; {
     description = "Best practices checker for Ansible";
     homepage = "https://github.com/ansible/ansible-lint";
     changelog = "https://github.com/ansible/ansible-lint/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ sengaya ];
+    maintainers = with maintainers; [sengaya];
   };
 }

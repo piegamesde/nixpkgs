@@ -25,7 +25,7 @@ buildPythonPackage rec {
     sha256 = "bda993f1623b1197699716d68d983bb580043cf2b8a66a01274d9b8297b0aeaf";
   };
 
-  nativeBuildInputs = [ twine ];
+  nativeBuildInputs = [twine];
 
   propagatedBuildInputs = [
     docutils
@@ -88,6 +88,6 @@ buildPythonPackage rec {
       gpl3Plus
       asl20
     ];
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -23,14 +23,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-mNnStWxrSR455zGWkj4dLDFk/kdOXYgk8LKB0wy7K5M=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   nativeBuildInputs = [
     installShellFiles
     makeWrapper
   ];
 
-  tags = [ "vault" ];
+  tags = ["vault"];
 
   ldflags = [
     "-s"

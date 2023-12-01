@@ -21,7 +21,7 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/wp4nix \
@@ -37,7 +37,7 @@ buildGoModule rec {
     description = "Packaging helper for Wordpress themes and plugins";
     homepage = "https://git.helsinki.tools/helsinki-systems/wp4nix";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
     platforms = platforms.unix;
   };
 }

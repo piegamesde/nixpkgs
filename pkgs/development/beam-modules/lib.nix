@@ -1,4 +1,4 @@
-{ __splicedPackages, lib }:
+{__splicedPackages, lib}:
 
 let
   pkgs = __splicedPackages;
@@ -35,7 +35,7 @@ rec {
     let
       builder = callPackage ../../development/interpreters/erlang/generic-builder.nix args;
     in
-    callPackage drv { mkDerivation = pkgs.makeOverridable builder; };
+    callPackage drv {mkDerivation = pkgs.makeOverridable builder;};
 
   /* Uses generic-builder to evaluate provided drv containing Elixir version
      specific data.
@@ -55,7 +55,7 @@ rec {
     let
       builder = callPackage ../interpreters/elixir/generic-builder.nix args;
     in
-    callPackage drv { mkDerivation = pkgs.makeOverridable builder; };
+    callPackage drv {mkDerivation = pkgs.makeOverridable builder;};
 
   /* Uses generic-builder to evaluate provided drv containing Elixir version
      specific data.
@@ -75,5 +75,5 @@ rec {
     let
       builder = callPackage ../interpreters/lfe/generic-builder.nix args;
     in
-    callPackage drv { mkDerivation = pkgs.makeOverridable builder; };
+    callPackage drv {mkDerivation = pkgs.makeOverridable builder;};
 }

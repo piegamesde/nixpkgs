@@ -76,7 +76,7 @@ let
       "PrivateUsersOwnership"
     ])
     (assertValueOneOf "ReadOnly" boolValues)
-    (assertValueOneOf "Volatile" (boolValues ++ [ "state" ]))
+    (assertValueOneOf "Volatile" (boolValues ++ ["state"]))
     (assertValueOneOf "PrivateUsersChown" boolValues)
     (assertValueOneOf "PrivateUsersOwnership" [
       "off"
@@ -103,9 +103,9 @@ let
   ];
 
   instanceOptions = {
-    options = (getAttrs [ "enable" ] sharedOptions) // {
+    options = (getAttrs ["enable"] sharedOptions) // {
       execConfig = mkOption {
-        default = { };
+        default = {};
         example = {
           Parameters = "/bin/sh";
         };
@@ -118,9 +118,9 @@ let
       };
 
       filesConfig = mkOption {
-        default = { };
+        default = {};
         example = {
-          Bind = [ "/home/alice" ];
+          Bind = ["/home/alice"];
         };
         type = types.addCheck (types.attrsOf unitOption) checkFiles;
         description = lib.mdDoc ''
@@ -131,7 +131,7 @@ let
       };
 
       networkConfig = mkOption {
-        default = { };
+        default = {};
         example = {
           Private = false;
         };
@@ -161,14 +161,14 @@ let
         '';
       } // def;
     in
-    base // { unit = makeUnit name base; };
+    base // {unit = makeUnit name base;};
 in
 {
 
   options = {
 
     systemd.nspawn = mkOption {
-      default = { };
+      default = {};
       type = with types; attrsOf (submodule instanceOptions);
       description = lib.mdDoc "Definition of systemd-nspawn configurations.";
     };
@@ -188,17 +188,17 @@ in
           cfg;
     in
     mkMerge [
-      (mkIf (cfg != { }) {
-        environment.etc."systemd/nspawn".source = mkIf (cfg != { }) (
+      (mkIf (cfg != {}) {
+        environment.etc."systemd/nspawn".source = mkIf (cfg != {}) (
           generateUnits {
             allowCollisions = false;
             type = "nspawn";
             inherit units;
-            upstreamUnits = [ ];
-            upstreamWants = [ ];
+            upstreamUnits = [];
+            upstreamWants = [];
           }
         );
       })
-      { systemd.targets.multi-user.wants = [ "machines.target" ]; }
+      {systemd.targets.multi-user.wants = ["machines.target"];}
     ];
 }

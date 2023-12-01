@@ -40,7 +40,7 @@ buildDunePackage {
     mtime
     mirage-crypto-rng
   ];
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
   doCheck = true;
 
   meta = dns-client.meta;

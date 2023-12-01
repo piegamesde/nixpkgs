@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "trivial-macroexpand-all";
   version = "20171023-git";
 
   description = "Call each implementation's macroexpand-all equivalent";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/trivial-macroexpand-all/2017-10-23/trivial-macroexpand-all-20171023-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "trivial-macroexpand-all";
 
-  asdFilesToKeep = [ "trivial-macroexpand-all.asd" ];
+  asdFilesToKeep = ["trivial-macroexpand-all.asd"];
   overrides = x: x;
 }
 /* (SYSTEM trivial-macroexpand-all DESCRIPTION

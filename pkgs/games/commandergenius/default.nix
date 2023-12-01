@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
       are required to do so
     '';
     homepage = "https://github.com/gerstrong/Commander-Genius";
-    maintainers = with maintainers; [ hce ];
+    maintainers = with maintainers; [hce];
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

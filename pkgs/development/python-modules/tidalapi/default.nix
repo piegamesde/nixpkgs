@@ -24,13 +24,13 @@ buildPythonPackage rec {
 
   doCheck = false; # tests require internet access
 
-  pythonImportsCheck = [ "tidalapi" ];
+  pythonImportsCheck = ["tidalapi"];
 
   meta = with lib; {
     changelog = "https://github.com/tamland/python-tidal/releases/tag/v${version}";
     description = "Unofficial Python API for TIDAL music streaming service";
     homepage = "https://github.com/tamland/python-tidal";
     license = licenses.gpl3;
-    maintainers = [ maintainers.rodrgz ];
+    maintainers = [maintainers.rodrgz];
   };
 }

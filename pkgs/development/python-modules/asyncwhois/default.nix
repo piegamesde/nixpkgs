@@ -55,13 +55,13 @@ buildPythonPackage rec {
     "test_whois_query_send_and_recv"
   ];
 
-  pythonImportsCheck = [ "asyncwhois" ];
+  pythonImportsCheck = ["asyncwhois"];
 
   meta = with lib; {
     description = "Python module for retrieving WHOIS information";
     homepage = "https://github.com/pogzyb/asyncwhois";
     changelog = "https://github.com/pogzyb/asyncwhois/releases/tag/v${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

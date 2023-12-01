@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "0w9mbdgshr6sh6a5jr10lkdycjyvapbj7wxwz8hbp0a96y3biw63";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   installPhase = ''
     mkdir -p $out/include/${pname}
@@ -26,6 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "https://rapidxml.sourceforge.net/";
     license = licenses.boost;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ cpages ];
+    maintainers = with maintainers; [cpages];
   };
 }

@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "clsql-postgresql";
   version = "clsql-20210228-git";
@@ -19,7 +19,7 @@ rec {
 
   packageName = "clsql-postgresql";
 
-  asdFilesToKeep = [ "clsql-postgresql.asd" ];
+  asdFilesToKeep = ["clsql-postgresql.asd"];
   overrides = x: x;
 }
 /* (SYSTEM clsql-postgresql DESCRIPTION Common Lisp PostgreSQL API Driver

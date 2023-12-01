@@ -12,7 +12,7 @@ let
   desktopItem = makeDesktopItem {
     desktopName = "JDiskReport";
     genericName = "A graphical utility to visualize disk usage";
-    categories = [ "Utility" ];
+    categories = ["Utility"];
     exec = "jdiskreport";
     name = "jdiskreport";
   };
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://www.jgoodies.com/download/jdiskreport/jdiskreport-${
-      lib.replaceStrings [ "." ] [ "_" ] version
+      lib.replaceStrings ["."] ["_"] version
     }.zip";
     sha256 = "0d5mzkwsbh9s9b1vyvpaawqc09b0q41l2a7pmwf7386b1fsx6d58";
   };
@@ -54,17 +54,17 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [ desktopItem ];
+  desktopItems = [desktopItem];
 
   meta = with lib; {
     homepage = "http://www.jgoodies.com/freeware/jdiskreport/";
     description = "A graphical utility to visualize disk usage";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.unfreeRedistributable; # TODO freedist, libs under BSD-3
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"
     ];
-    maintainers = with maintainers; [ kylesferrazza ];
+    maintainers = with maintainers; [kylesferrazza];
   };
 }

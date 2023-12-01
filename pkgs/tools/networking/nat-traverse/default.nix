@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "0knwnqsjwv7sa5wjb863ghabs7s269a73qwkmxpsbngjw9s0j2ih";
   };
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   installPhase = ''
     mkdir -p $out/bin $out/share/man/man1
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.speicherleck.de/iblech/nat-traverse/";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = [ maintainers.iblech ];
+    maintainers = [maintainers.iblech];
   };
 }

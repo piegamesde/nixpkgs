@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     cmake
     pkg-config
-  ] ++ lib.optionals stdenv.isDarwin [ cctools ];
+  ] ++ lib.optionals stdenv.isDarwin [cctools];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ IOKit ];
+  buildInputs = lib.optionals stdenv.isDarwin [IOKit];
 
   cmakeFlags =
     lib.optionals (stdenv.isDarwin && stdenv.isAarch64)

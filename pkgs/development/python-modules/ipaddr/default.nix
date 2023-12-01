@@ -21,6 +21,6 @@ buildPythonPackage rec {
     description = "IP address manipulation library";
     homepage = "https://github.com/google/ipaddr-py";
     license = licenses.asl20;
-    maintainers = [ maintainers.astro ];
+    maintainers = [maintainers.astro];
   };
 }

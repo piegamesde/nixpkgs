@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     sha256 = "HWfyBb/DGMJ6Kc/ftoKFaN9WZ5XfDLUdIYnN5/LVgeg=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs =
     [
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     glib
     libintl
     harfbuzz
-  ] ++ lib.optionals x11Support [ libXft ];
+  ] ++ lib.optionals x11Support [libXft];
 
   mesonFlags = [
     (lib.mesonBool "gtk_doc" withIntrospection)
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
   ];
 
   # Fontconfig error: Cannot load default config file
-  FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
+  FONTCONFIG_FILE = makeFontsConf {fontDirectories = [freefont_ttf];};
 
   # Run-time dependency gi-docgen found: NO (tried pkgconfig and cmake)
   # it should be a build-time dep for build
@@ -125,7 +125,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.pango.org/";
     license = licenses.lgpl2Plus;
 
-    maintainers = with maintainers; [ raskin ] ++ teams.gnome.members;
+    maintainers = with maintainers; [raskin] ++ teams.gnome.members;
     platforms = platforms.unix;
   };
 }

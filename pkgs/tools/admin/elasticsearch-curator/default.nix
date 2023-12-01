@@ -89,6 +89,6 @@ python.pkgs.buildPythonApplication rec {
 
       * Perform various actions on the items which remain in the actionable list.
     '';
-    maintainers = with maintainers; [ basvandijk ];
+    maintainers = with maintainers; [basvandijk];
   };
 }

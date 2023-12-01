@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     sha256 = "sha256-DehAWrEvoE/zWbfjQmF5Z7HTaQL5WMA/279Ee1Xm47g=";
   };
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontBuild = true;
 
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "Run graphical applications with Docker";
     homepage = "https://github.com/mviereck/x11docker";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 }

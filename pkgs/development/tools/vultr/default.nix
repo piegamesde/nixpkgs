@@ -25,6 +25,6 @@ buildGoModule rec {
     homepage = "https://jamesclonk.github.io/vultr";
     changelog = "https://github.com/JamesClonk/vultr/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ zauberpony ];
+    maintainers = with maintainers; [zauberpony];
   };
 }

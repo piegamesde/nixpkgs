@@ -28,9 +28,9 @@ buildPythonPackage rec {
     hash = "sha256-g7xUB5RfjG4G7J9Upj3KXKSePa+VDit1Zf8pWHfui1o=";
   };
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   propagatedBuildInputs = [
     async-timeout
@@ -39,22 +39,22 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    snappy = [ python-snappy ];
-    lz4 = [ lz4 ];
-    zstd = [ zstandard ];
-    gssapi = [ gssapi ];
+    snappy = [python-snappy];
+    lz4 = [lz4];
+    zstd = [zstandard];
+    gssapi = [gssapi];
   };
 
   # Checks require running Kafka server
   doCheck = false;
 
-  pythonImportsCheck = [ "aiokafka" ];
+  pythonImportsCheck = ["aiokafka"];
 
   meta = with lib; {
     description = "Kafka integration with asyncio";
     homepage = "https://aiokafka.readthedocs.org";
     changelog = "https://github.com/aio-libs/aiokafka/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

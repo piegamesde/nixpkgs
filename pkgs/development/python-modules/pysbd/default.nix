@@ -27,7 +27,7 @@ buildPythonPackage rec {
 
   doCheck = false; # requires pyconll and blingfire
 
-  pythonImportsCheck = [ "pysbd" ];
+  pythonImportsCheck = ["pysbd"];
 
   meta = with lib; {
     description = "Pysbd (Python Sentence Boundary Disambiguation) is a rule-based sentence boundary detection that works out-of-the-box across many languages";

@@ -26,9 +26,9 @@ rustPlatform.buildRustPackage rec {
   # and might be failing to create the test repository it works in.
   doCheck = false;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = [ libgit2 ] ++ lib.optional stdenv.isDarwin Security;
+  buildInputs = [libgit2] ++ lib.optional stdenv.isDarwin Security;
 
   postInstall = ''
     installShellCompletion --cmd cog \
@@ -41,6 +41,6 @@ rustPlatform.buildRustPackage rec {
     description = "A set of cli tools for the conventional commit and semver specifications";
     homepage = "https://github.com/oknozor/cocogitto";
     license = licenses.mit;
-    maintainers = with maintainers; [ travisdavis-ops ];
+    maintainers = with maintainers; [travisdavis-ops];
   };
 }

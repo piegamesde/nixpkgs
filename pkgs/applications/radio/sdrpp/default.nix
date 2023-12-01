@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-g9tpWvVRMXRhPfgvOeJhX6IMouF9+tLUr9wo5r35i/c=";
   };
 
-  patches = [ ./runtime-prefix.patch ];
+  patches = [./runtime-prefix.patch];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
@@ -147,6 +147,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/AlexandreRouma/SDRPlusPlus";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

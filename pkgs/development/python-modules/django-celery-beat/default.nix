@@ -47,12 +47,12 @@ buildPythonPackage rec {
       "t/unit/test_schedulers.py"
     ];
 
-  pythonImportsCheck = [ "django_celery_beat" ];
+  pythonImportsCheck = ["django_celery_beat"];
 
   meta = with lib; {
     description = "Celery Periodic Tasks backed by the Django ORM";
     homepage = "https://github.com/celery/django-celery-beat";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

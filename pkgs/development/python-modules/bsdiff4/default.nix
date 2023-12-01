@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-G5XOk7nzBoRvbJHJ0OPrZZCkyFrCu+crX2DZ24KtKhw=";
   };
 
-  pythonImportsCheck = [ "bsdiff4" ];
+  pythonImportsCheck = ["bsdiff4"];
 
   checkPhase = ''
     mv bsdiff4 _bsdiff4
@@ -29,6 +29,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ilanschnell/bsdiff4";
     changelog = "https://github.com/ilanschnell/bsdiff4/blob/${version}/CHANGELOG.txt";
     license = licenses.bsdProtection;
-    maintainers = with maintainers; [ ris ];
+    maintainers = with maintainers; [ris];
   };
 }

@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-IWHj//ZZOdfOCBJHnPnKNoYNtWl/f8H6ARYe1AkqB0U=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontUnpack = true;
   dontBuild = true;
@@ -35,9 +35,9 @@ stdenv.mkDerivation rec {
       programmatically extract tables from PDFs.
     '';
     homepage = "https://tabula.technology/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.mit;
-    maintainers = [ maintainers.jakewaksbaum ];
+    maintainers = [maintainers.jakewaksbaum];
     platforms = platforms.all;
   };
 }

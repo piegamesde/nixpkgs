@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub }:
+{lib, fetchFromGitHub}:
 
 let
 
@@ -36,4 +36,4 @@ let
       )
       hashes;
 in
-sources // { inherit version; }
+sources // {inherit version;}

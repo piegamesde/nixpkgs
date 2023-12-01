@@ -21,7 +21,7 @@ let
     mapAttrs
       (
         name:
-        { acl, ... }:
+        {acl, ...}:
         pkgs.writeText "${name}.acl" (
           concatMapStrings
             (
@@ -63,32 +63,32 @@ in
   config = mkIf (cfg.enable && kerberos == pkgs.heimdal) {
     systemd.services.kadmind = {
       description = "Kerberos Administration Daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       preStart = ''
         mkdir -m 0755 -p ${stateDir}
       '';
       serviceConfig.ExecStart = "${kerberos}/libexec/heimdal/kadmind --config-file=/etc/heimdal-kdc/kdc.conf";
-      restartTriggers = [ kdcConfFile ];
+      restartTriggers = [kdcConfFile];
     };
 
     systemd.services.kdc = {
       description = "Key Distribution Center daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       preStart = ''
         mkdir -m 0755 -p ${stateDir}
       '';
       serviceConfig.ExecStart = "${kerberos}/libexec/heimdal/kdc --config-file=/etc/heimdal-kdc/kdc.conf";
-      restartTriggers = [ kdcConfFile ];
+      restartTriggers = [kdcConfFile];
     };
 
     systemd.services.kpasswdd = {
       description = "Kerberos Password Changing daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       preStart = ''
         mkdir -m 0755 -p ${stateDir}
       '';
       serviceConfig.ExecStart = "${kerberos}/libexec/heimdal/kpasswdd";
-      restartTriggers = [ kdcConfFile ];
+      restartTriggers = [kdcConfFile];
     };
 
     environment.etc = {

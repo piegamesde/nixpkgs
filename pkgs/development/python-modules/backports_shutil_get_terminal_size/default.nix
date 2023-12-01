@@ -26,12 +26,12 @@ else
       sha256 = "17sgv8vg0xxfdnca45l1mmwwvj29gich5c8kqznnj51kfccch7sg";
     };
 
-    nativeCheckInputs = [ pytest ];
+    nativeCheckInputs = [pytest];
 
     meta = with lib; {
       description = "A backport of the get_terminal_size function from Python 3.3’s shutil.";
       homepage = "https://github.com/chrippa/backports.shutil_get_terminal_size";
-      license = with licenses; [ mit ];
+      license = with licenses; [mit];
       maintainers = teams.sage.members;
     };
   }

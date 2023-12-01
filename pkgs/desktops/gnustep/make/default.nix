@@ -25,21 +25,21 @@ stdenv.mkDerivation rec {
     configureFlags="$configureFlags --with-config-file=$out/etc/GNUstep/GNUstep.conf"
   '';
 
-  makeFlags = [ "GNUSTEP_INSTALLATION_DOMAIN=SYSTEM" ];
+  makeFlags = ["GNUSTEP_INSTALLATION_DOMAIN=SYSTEM"];
 
   nativeBuildInputs = [
     clang
     which
   ];
-  buildInputs = [ libobjc ];
+  buildInputs = [libobjc];
 
-  patches = [ ./fixup-paths.patch ];
+  patches = [./fixup-paths.patch];
   setupHook = ./setup-hook.sh;
   meta = {
     description = "A build manager for GNUstep";
     homepage = "http://gnustep.org/";
     changelog = "https://github.com/gnustep/tools-make/releases/tag/make-${
-      builtins.replaceStrings [ "." ] [ "_" ] version
+      builtins.replaceStrings ["."] ["_"] version
     }";
     license = lib.licenses.lgpl2Plus;
     maintainers = with lib.maintainers; [

@@ -24,12 +24,12 @@ buildPythonPackage rec {
 
   # Project has no tests
   doCheck = false;
-  pythonImportsCheck = [ "pymediaroom" ];
+  pythonImportsCheck = ["pymediaroom"];
 
   meta = with lib; {
     description = "Python Remote Control for Mediaroom STB";
     homepage = "https://github.com/dgomes/pymediaroom";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

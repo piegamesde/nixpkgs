@@ -29,6 +29,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/videolabs/libmicrodns";
     license = licenses.lgpl21;
     platforms = platforms.unix;
-    maintainers = [ maintainers.shazow ];
+    maintainers = [maintainers.shazow];
   };
 }

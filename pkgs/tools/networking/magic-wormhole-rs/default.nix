@@ -22,13 +22,13 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-powJrbVVBWtIg0CV7ZdhaVIQA+VhEPtPCts7f8Sl1VY=";
 
   buildInputs =
-    [ libxcb ]
+    [libxcb]
     ++ lib.optionals stdenv.isDarwin [
       Security
       AppKit
     ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # all tests involve networking and are bound fail
   doCheck = false;

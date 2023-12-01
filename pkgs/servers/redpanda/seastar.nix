@@ -64,7 +64,7 @@ llvmPackages_14.stdenv.mkDerivation {
     valgrind
     yaml-cpp
   ];
-  patches = [ ./seastar-fixes.patch ];
+  patches = [./seastar-fixes.patch];
   postPatch = ''
     patchShebangs ./scripts/seastar-json2code.py
   '';
@@ -77,7 +77,7 @@ llvmPackages_14.stdenv.mkDerivation {
     description = "High performance server-side application framework.";
     license = licenses.asl20;
     homepage = "https://seastar.io/";
-    maintainers = with maintainers; [ avakhrenev ];
+    maintainers = with maintainers; [avakhrenev];
     platforms = platforms.unix;
   };
 }

@@ -22,7 +22,7 @@
 let
   libsolv' = libsolv.overrideAttrs (
     oldAttrs: {
-      cmakeFlags = oldAttrs.cmakeFlags ++ [ "-DENABLE_CONDA=true" ];
+      cmakeFlags = oldAttrs.cmakeFlags ++ ["-DENABLE_CONDA=true"];
 
       patches =
         [
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-KGlH5i/lI6c1Jj1ttAOrip8BKECaea5D202TJMcFDmM=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     bzip2
@@ -77,6 +77,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/mamba-org/mamba";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ mausch ];
+    maintainers = with maintainers; [mausch];
   };
 }

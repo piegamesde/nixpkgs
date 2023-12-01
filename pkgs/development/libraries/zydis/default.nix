@@ -8,7 +8,7 @@
 }:
 
 let
-  zycore = callPackage ./zycore.nix { inherit stdenv fetchFromGitHub cmake; };
+  zycore = callPackage ./zycore.nix {inherit stdenv fetchFromGitHub cmake;};
 in
 stdenv.mkDerivation rec {
   pname = "zydis";
@@ -21,8 +21,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-/no/8FNa5LlwhZMSMao4/cwZk6GlamLjqr+isbh6tEI=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ zycore ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [zycore];
   cmakeFlags = [
     "-DZYAN_SYSTEM_ZYCORE=ON"
     "-DCMAKE_INSTALL_LIBDIR=lib"
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   ];
 
   doCheck = true;
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
   checkPhase = ''
     pushd ../tests
     python3 ./regression.py test ../build/ZydisInfo

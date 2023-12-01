@@ -28,12 +28,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "json_tricks" ];
+  pythonImportsCheck = ["json_tricks"];
 
   meta = with lib; {
     description = "Extra features for Python JSON handling";
     homepage = "https://github.com/mverleg/pyjson_tricks";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

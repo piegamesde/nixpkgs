@@ -22,7 +22,7 @@ in
     packageNames = mkOption {
       type = types.listOf types.str;
       description = lib.mdDoc "Nix top-level packages to be compiled using CCache";
-      default = [ ];
+      default = [];
       example = [
         "wxGTK32"
         "ffmpeg"
@@ -34,7 +34,7 @@ in
   config = mkMerge [
     # host configuration
     (mkIf cfg.enable {
-      systemd.tmpfiles.rules = [ "d ${cfg.cacheDir} 0770 root nixbld -" ];
+      systemd.tmpfiles.rules = ["d ${cfg.cacheDir} 0770 root nixbld -"];
 
       # "nix-ccache --show-stats" and "nix-ccache --clear"
       security.wrappers.nix-ccache = {
@@ -60,12 +60,12 @@ in
     })
 
     # target configuration
-    (mkIf (cfg.packageNames != [ ]) {
+    (mkIf (cfg.packageNames != []) {
       nixpkgs.overlays = [
         (
           self: super:
           genAttrs cfg.packageNames (
-            pn: super.${pn}.override { stdenv = builtins.trace "with ccache: ${pn}" self.ccacheStdenv; }
+            pn: super.${pn}.override {stdenv = builtins.trace "with ccache: ${pn}" self.ccacheStdenv;}
           )
         )
 

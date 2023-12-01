@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-m4xdsEJGKxLgp/d5ipxQ+cKG3z7rlvpPL6hELnDu6Hk=";
   };
 
-  makeFlags = [ "DESTDIR= BINDIR=$(out)/bin" ];
+  makeFlags = ["DESTDIR= BINDIR=$(out)/bin"];
   nativeBuildInputs = [
     bison
     flex
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     homepage = "https://vapier.github.io/pcalc/";
     description = "Programmer's calculator";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ftrvxmtrx ];
+    maintainers = with maintainers; [ftrvxmtrx];
     platforms = platforms.unix;
   };
 }

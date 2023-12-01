@@ -20,12 +20,12 @@ buildPythonPackage rec {
     ${python.interpreter} -m unittest tests
   '';
 
-  pythonImportsCheck = [ "pylev" ];
+  pythonImportsCheck = ["pylev"];
 
   meta = with lib; {
     description = "Python Levenshtein implementation";
     homepage = "https://github.com/toastdriven/pylev";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jakewaksbaum ];
+    maintainers = with maintainers; [jakewaksbaum];
   };
 }

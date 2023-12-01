@@ -22,16 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-TLhjpJpUIoDAe3RZ/7sjTgdW+5s7OpMEd1/w0NyCQ3A=";
   };
 
-  propagatedBuildInputs = [ sphinx ];
+  propagatedBuildInputs = [sphinx];
 
-  nativeBuildInputs = [ sphinxHook ];
+  nativeBuildInputs = [sphinxHook];
 
-  pythonImportsCheck = [ "sphinxemoji" ];
+  pythonImportsCheck = ["sphinxemoji"];
 
   meta = with lib; {
     description = "Extension to use emoji codes in your Sphinx documentation";
     homepage = "https://github.com/sphinx-contrib/emojicodes";
     license = licenses.mit;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

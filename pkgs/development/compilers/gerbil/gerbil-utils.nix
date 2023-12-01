@@ -26,6 +26,6 @@ gerbil-support.gerbilPackage {
     homepage = "https://github.com/fare/gerbil-utils";
     license = lib.licenses.lgpl21;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ fare ];
+    maintainers = with lib.maintainers; [fare];
   };
 }

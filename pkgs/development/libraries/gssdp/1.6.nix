@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     meson
@@ -54,9 +54,9 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [ libsoup_3 ];
+  buildInputs = [libsoup_3];
 
-  propagatedBuildInputs = [ glib ];
+  propagatedBuildInputs = [glib];
 
   mesonFlags = [
     "-Dgtk_doc=true"

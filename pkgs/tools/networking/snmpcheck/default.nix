@@ -6,7 +6,7 @@
 }:
 
 let
-  rubyEnv = ruby.withPackages (ps: [ ps.snmp ]);
+  rubyEnv = ruby.withPackages (ps: [ps.snmp]);
 in
 stdenv.mkDerivation rec {
   pname = "snmpcheck";
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  buildInputs = [ rubyEnv.wrappedRuby ];
+  buildInputs = [rubyEnv.wrappedRuby];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     description = "SNMP enumerator";
     homepage = "http://www.nothink.org/codes/snmpcheck/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ elohmeier ];
+    maintainers = with maintainers; [elohmeier];
   };
 }

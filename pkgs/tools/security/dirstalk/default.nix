@@ -42,6 +42,6 @@ buildGoModule rec {
     description = "Tool to brute force paths on web servers";
     homepage = "https://github.com/stefanoj3/dirstalk";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

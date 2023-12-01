@@ -17,6 +17,6 @@ buildPythonPackage rec {
     description = "Twitter's optparse wrapper";
     homepage = "https://twitter.github.io/commons/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ copumpkin ];
+    maintainers = with maintainers; [copumpkin];
   };
 }

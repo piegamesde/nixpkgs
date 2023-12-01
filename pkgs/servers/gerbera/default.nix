@@ -42,7 +42,7 @@
 let
   libupnp' = libupnp.overrideAttrs (
     super: rec {
-      cmakeFlags = super.cmakeFlags or [ ] ++ [
+      cmakeFlags = super.cmakeFlags or [] ++ [
         "-Dblocking_tcp_connections=OFF"
         "-Dreuseaddr=ON"
       ];
@@ -53,42 +53,42 @@ let
     {
       name = "AVCODEC";
       enable = enableAvcodec;
-      packages = [ ffmpeg ];
+      packages = [ffmpeg];
     }
     {
       name = "CURL";
       enable = enableCurl;
-      packages = [ curl ];
+      packages = [curl];
     }
     {
       name = "EXIF";
       enable = enableLibexif;
-      packages = [ libexif ];
+      packages = [libexif];
     }
     {
       name = "EXIV2";
       enable = enableExiv2;
-      packages = [ exiv2 ];
+      packages = [exiv2];
     }
     {
       name = "FFMPEGTHUMBNAILER";
       enable = enableFFmpegThumbnailer;
-      packages = [ ffmpegthumbnailer ];
+      packages = [ffmpegthumbnailer];
     }
     {
       name = "INOTIFY";
       enable = enableInotifyTools;
-      packages = [ inotify-tools ];
+      packages = [inotify-tools];
     }
     {
       name = "JS";
       enable = enableDuktape;
-      packages = [ duktape ];
+      packages = [duktape];
     }
     {
       name = "MAGIC";
       enable = enableLibmagic;
-      packages = [ file ];
+      packages = [file];
     }
     {
       name = "MATROSKA";
@@ -101,12 +101,12 @@ let
     {
       name = "MYSQL";
       enable = enableMysql;
-      packages = [ libmysqlclient ];
+      packages = [libmysqlclient];
     }
     {
       name = "TAGLIB";
       enable = enableTaglib;
-      packages = [ taglib ];
+      packages = [taglib];
     }
   ];
 
@@ -164,7 +164,7 @@ stdenv.mkDerivation rec {
       of UPnP supporting devices.
     '';
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ ardumont ];
+    maintainers = with maintainers; [ardumont];
     platforms = platforms.linux;
   };
 }

@@ -29,12 +29,12 @@ buildPythonPackage rec {
   # pypi does not contain tests and GitHub archive not available
   doCheck = false;
 
-  pythonImportsCheck = [ "pysma" ];
+  pythonImportsCheck = ["pysma"];
 
   meta = with lib; {
     description = "Python library for interacting with SMA Solar's WebConnect";
     homepage = "https://github.com/kellerza/pysma";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

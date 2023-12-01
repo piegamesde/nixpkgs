@@ -27,7 +27,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/liamg/traitor";
     platforms = platforms.linux;
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

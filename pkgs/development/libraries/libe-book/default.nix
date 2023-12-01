@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     url = "https://kent.dl.sourceforge.net/project/libebook/libe-book-${version}/libe-book-${version}.tar.xz";
     sha256 = "sha256-fo2P808ngxrKO8b5zFMsL5DSBXx3iWO4hP89HjTf4fk=";
   };
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gperf
     librevenge
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Library for import of reflowable e-book formats";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.unix;
   };
 }

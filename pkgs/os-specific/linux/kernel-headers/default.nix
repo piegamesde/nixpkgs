@@ -41,7 +41,7 @@ let
     {
       src,
       version,
-      patches ? [ ],
+      patches ? [],
     }:
     stdenvNoCC.mkDerivation {
       inherit src;
@@ -56,7 +56,7 @@ let
 
       # It may look odd that we use `stdenvNoCC`, and yet explicit depend on a cc.
       # We do this so we have a build->build, not build->host, C compiler.
-      depsBuildBuild = [ buildPackages.stdenv.cc ];
+      depsBuildBuild = [buildPackages.stdenv.cc];
       # `elf-header` is null when libc provides `elf.h`.
       nativeBuildInputs =
         [

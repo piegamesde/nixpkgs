@@ -25,6 +25,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ pkgs.afterstep ];
+    environment.systemPackages = [pkgs.afterstep];
   };
 }

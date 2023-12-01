@@ -19,6 +19,6 @@ buildPythonPackage rec {
     homepage = "http://www.cheetahtemplate.org/";
     description = "A template engine and code generation tool";
     license = licenses.mit;
-    maintainers = with maintainers; [ pjjw ];
+    maintainers = with maintainers; [pjjw];
   };
 }

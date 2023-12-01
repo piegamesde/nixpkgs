@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "iolib";
   version = "v0.8.4";
@@ -43,7 +43,7 @@ rec {
 
   packageName = "iolib";
 
-  asdFilesToKeep = [ "iolib.asd" ];
+  asdFilesToKeep = ["iolib.asd"];
   overrides = x: x;
 }
 /* (SYSTEM iolib DESCRIPTION I/O library. SHA256

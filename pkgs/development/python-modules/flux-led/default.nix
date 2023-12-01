@@ -27,23 +27,23 @@ buildPythonPackage rec {
     webcolors
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace setup.py \
       --replace '"pytest-runner>=5.2",' ""
   '';
 
-  pytestFlagsArray = [ "tests.py" ];
+  pytestFlagsArray = ["tests.py"];
 
-  pythonImportsCheck = [ "flux_led" ];
+  pythonImportsCheck = ["flux_led"];
 
   meta = with lib; {
     description = "Python library to communicate with the flux_led smart bulbs";
     homepage = "https://github.com/Danielhiversen/flux_led";
     changelog = "https://github.com/Danielhiversen/flux_led/releases/tag/${version}";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ colemickens ];
+    maintainers = with maintainers; [colemickens];
     platforms = platforms.linux;
   };
 }

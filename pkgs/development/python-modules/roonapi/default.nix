@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-TXIKa5DB5+511fQuHAQwPWqw7vQPP+s1X3U7BgEfzzE=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     ifaddr
@@ -36,13 +36,13 @@ buildPythonPackage rec {
   # Tests require access to the Roon API
   doCheck = false;
 
-  pythonImportsCheck = [ "roonapi" ];
+  pythonImportsCheck = ["roonapi"];
 
   meta = with lib; {
     description = "Python library to interface with the Roon API";
     homepage = "https://github.com/pavoni/pyroon";
     changelog = "https://github.com/pavoni/pyroon/releases/tag/${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

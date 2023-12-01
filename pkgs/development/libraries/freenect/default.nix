@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       gpl2
       asl20
     ];
-    maintainers = with lib.maintainers; [ bennofs ];
+    maintainers = with lib.maintainers; [bennofs];
     platforms = with lib.platforms; linux ++ darwin;
   };
 }

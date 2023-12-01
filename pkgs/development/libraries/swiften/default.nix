@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ scons ];
+  nativeBuildInputs = [scons];
 
   buildInputs = [
     libidn
@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
 
   installTargets = "${placeholder "out"}";
 
-  installFlags = [ "SWIFTEN_INSTALLDIR=${placeholder "out"}" ];
+  installFlags = ["SWIFTEN_INSTALLDIR=${placeholder "out"}"];
 
   enableParallelBuilding = true;
 
@@ -81,6 +81,6 @@ stdenv.mkDerivation rec {
     homepage = "http://swift.im/swiften.html";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.twey ];
+    maintainers = [maintainers.twey];
   };
 }

@@ -19,14 +19,14 @@ buildPythonPackage rec {
     hash = "sha256-+IyCwwGlGuo1vmBdwGC8zrDctmguFigFRIhHAatLI7o=";
   };
 
-  propagatedBuildInputs = [ tkinter ];
+  propagatedBuildInputs = [tkinter];
 
-  pythonImportsCheck = [ "PySimpleGUI" ];
+  pythonImportsCheck = ["PySimpleGUI"];
 
   meta = with lib; {
     description = "Python GUIs for Humans";
     homepage = "https://github.com/PySimpleGUI/PySimpleGUI";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ lucasew ];
+    maintainers = with maintainers; [lucasew];
   };
 }

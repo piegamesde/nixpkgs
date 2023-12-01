@@ -22,9 +22,9 @@ buildGoModule rec {
   # package does not contain any tests as of v0.2.3
   doCheck = false;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = [ sqlite ];
+  buildInputs = [sqlite];
 
   ldflags = [
     "-s"
@@ -42,6 +42,6 @@ buildGoModule rec {
   meta = with lib; {
     description = "An interactive command line expense logger";
     license = licenses.mit;
-    maintainers = [ maintainers.manojkarthick ];
+    maintainers = [maintainers.manojkarthick];
   };
 }

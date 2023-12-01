@@ -21,7 +21,7 @@ let
   applicationSrc = stdenv.mkDerivation {
     name = "application-src";
     src = sweethome3dApp.src;
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [unzip];
     buildPhase = "";
     installPhase = "cp -r . $out";
   };
@@ -100,12 +100,12 @@ let
         homepage = "http://www.sweethome3d.com/index.jsp";
         inherit description;
         inherit license;
-        maintainers = [ lib.maintainers.edwtjo ];
+        maintainers = [lib.maintainers.edwtjo];
         platforms = lib.platforms.linux;
       };
     };
 
-  d2u = lib.replaceStrings [ "." ] [ "_" ];
+  d2u = lib.replaceStrings ["."] ["_"];
 in
 {
 

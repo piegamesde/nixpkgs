@@ -69,12 +69,12 @@ buildPythonPackage rec {
   checkPhase = ''
     export NUMBA_CACHE_DIR="$(mktemp -d)"
   '';
-  pythonImportsCheck = [ "piano_transcription_inference" ];
+  pythonImportsCheck = ["piano_transcription_inference"];
 
   meta = with lib; {
     description = "A piano transcription inference package";
     homepage = "https://github.com/qiuqiangkong/piano_transcription_inference";
     license = licenses.mit;
-    maintainers = with maintainers; [ azuwis ];
+    maintainers = with maintainers; [azuwis];
   };
 }

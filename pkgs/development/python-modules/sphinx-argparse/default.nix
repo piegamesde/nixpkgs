@@ -24,16 +24,16 @@ buildPythonPackage rec {
       --replace "if action_group.title == 'optional arguments':" "if action_group.title == 'optional arguments' or action_group.title == 'options':"
   '';
 
-  propagatedBuildInputs = [ sphinx ];
+  propagatedBuildInputs = [sphinx];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "sphinxarg" ];
+  pythonImportsCheck = ["sphinxarg"];
 
   meta = {
     description = "A sphinx extension that automatically documents argparse commands and options";
     homepage = "https://github.com/ashb/sphinx-argparse";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ clacke ];
+    maintainers = with lib.maintainers; [clacke];
   };
 }

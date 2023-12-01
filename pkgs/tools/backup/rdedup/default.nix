@@ -44,6 +44,6 @@ rustPlatform.buildRustPackage rec {
     description = "Data deduplication with compression and public key encryption";
     homepage = "https://github.com/dpc/rdedup";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ dywedir ];
+    maintainers = with maintainers; [dywedir];
   };
 }

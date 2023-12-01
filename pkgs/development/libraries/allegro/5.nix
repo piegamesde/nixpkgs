@@ -96,13 +96,13 @@ stdenv.mkDerivation rec {
     sed -e 's@OpenAL/@AL/@g' -i addons/audio/openal.c
   '';
 
-  cmakeFlags = [ "-DCMAKE_SKIP_RPATH=ON" ];
+  cmakeFlags = ["-DCMAKE_SKIP_RPATH=ON"];
 
   meta = with lib; {
     description = "A game programming library";
     homepage = "https://liballeg.org/";
     license = licenses.zlib;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

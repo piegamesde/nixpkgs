@@ -16,16 +16,16 @@ buildPythonPackage rec {
     hash = "sha256-ehfStDiJD4OMBI7vzjLE3tRxl+zI6gQs7MM9PeuAIvU=";
   };
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   # no real tests
   doCheck = false;
-  pythonImportsCheck = [ "fastprogress" ];
+  pythonImportsCheck = ["fastprogress"];
 
   meta = with lib; {
     homepage = "https://github.com/fastai/fastprogress";
     description = "Simple and flexible progress bar for Jupyter Notebook and console";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ris ];
+    maintainers = with maintainers; [ris];
   };
 }

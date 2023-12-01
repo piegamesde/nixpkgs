@@ -32,9 +32,9 @@ buildPythonPackage rec {
     vips
   ];
 
-  propagatedBuildInputs = [ cffi ];
+  propagatedBuildInputs = [cffi];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace pyvips/__init__.py \
@@ -44,7 +44,7 @@ buildPythonPackage rec {
       --replace 'libgobject-2.0.dylib' '${glib.out}/lib/libgobject-2.0${stdenv.hostPlatform.extensions.sharedLibrary}' \
   '';
 
-  pythonImportsCheck = [ "pyvips" ];
+  pythonImportsCheck = ["pyvips"];
 
   meta = with lib; {
     description = "A python wrapper for libvips";

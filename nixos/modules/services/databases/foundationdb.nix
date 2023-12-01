@@ -318,7 +318,7 @@ in
     };
 
     extraReadWritePaths = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.path;
       description = lib.mdDoc ''
         An extra set of filesystem paths that FoundationDB can read to
@@ -362,7 +362,7 @@ in
       }
     ];
 
-    environment.systemPackages = [ pkg ];
+    environment.systemPackages = [pkg];
 
     users.users = optionalAttrs (cfg.user == "foundationdb") {
       foundationdb = {
@@ -393,8 +393,8 @@ in
     systemd.services.foundationdb = {
       description = "FoundationDB Service";
 
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       unitConfig = {
         RequiresMountsFor = "${cfg.dataDir} ${cfg.logDir}";
       };
@@ -458,5 +458,5 @@ in
   };
 
   meta.doc = ./foundationdb.md;
-  meta.maintainers = with lib.maintainers; [ thoughtpolice ];
+  meta.maintainers = with lib.maintainers; [thoughtpolice];
 }

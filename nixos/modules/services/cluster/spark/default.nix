@@ -31,7 +31,7 @@ with lib; {
         extraEnvironment = mkOption {
           type = types.attrsOf types.str;
           description = lib.mdDoc "Extra environment variables to pass to spark master. See spark-standalone documentation.";
-          default = { };
+          default = {};
           example = {
             SPARK_MASTER_WEBUI_PORT = 8181;
             SPARK_MASTER_OPTS = "-Dspark.deploy.defaultCores=5";
@@ -63,7 +63,7 @@ with lib; {
         extraEnvironment = mkOption {
           type = types.attrsOf types.str;
           description = lib.mdDoc "Extra environment variables to pass to spark worker.";
-          default = { };
+          default = {};
           example = {
             SPARK_WORKER_CORES = 5;
             SPARK_WORKER_MEMORY = "2g";
@@ -100,7 +100,7 @@ with lib; {
     };
   };
   config = lib.mkIf (cfg.worker.enable || cfg.master.enable) {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     systemd = {
       services = {
         spark-master = lib.mkIf cfg.master.enable {
@@ -110,8 +110,8 @@ with lib; {
             nettools
           ];
           description = "spark master service.";
-          after = [ "network.target" ];
-          wantedBy = [ "multi-user.target" ];
+          after = ["network.target"];
+          wantedBy = ["multi-user.target"];
           restartIfChanged = cfg.master.restartIfChanged;
           environment = cfg.master.extraEnvironment // {
             SPARK_MASTER_HOST = cfg.master.bind;
@@ -138,8 +138,8 @@ with lib; {
             rsync
           ];
           description = "spark master service.";
-          after = [ "network.target" ];
-          wantedBy = [ "multi-user.target" ];
+          after = ["network.target"];
+          wantedBy = ["multi-user.target"];
           restartIfChanged = cfg.worker.restartIfChanged;
           environment = cfg.worker.extraEnvironment // {
             SPARK_MASTER = cfg.worker.master;
@@ -170,7 +170,7 @@ with lib; {
         group = "spark";
         isSystemUser = true;
       };
-      groups.spark = { };
+      groups.spark = {};
     };
   };
 }

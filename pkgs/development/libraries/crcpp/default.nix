@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OY8MF8fwr6k+ZSA/p1U+9GnTFoMSnUZxKVez+mda2tA=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   doCheck = true;
 
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/d-bahr/CRCpp/releases/tag/release-${version}";
     description = "Easy to use and fast C++ CRC library";
     platforms = platforms.all;
-    maintainers = [ maintainers.ivar ];
+    maintainers = [maintainers.ivar];
     license = licenses.bsd3;
   };
 }

@@ -1,8 +1,8 @@
 let
   nixpkgs = import ../../..;
-  inherit (nixpkgs { }) haskellPackages lib;
+  inherit (nixpkgs {}) haskellPackages lib;
   maintainedPkgs =
-    lib.filterAttrs (_: v: builtins.length (v.meta.maintainers or [ ]) > 0)
+    lib.filterAttrs (_: v: builtins.length (v.meta.maintainers or []) > 0)
       haskellPackages;
   brokenPkgs = lib.filterAttrs (_: v: v.meta.broken) maintainedPkgs;
   transitiveBrokenPkgs =

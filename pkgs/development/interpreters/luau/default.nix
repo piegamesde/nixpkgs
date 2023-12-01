@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-7pckVsxzEdy0YykyvaouNWmnETEi86Cs7kCxaoU5lHs=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   installPhase = ''
     runHook preInstall
@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     description = "A fast, small, safe, gradually typed embeddable scripting language derived from Lua";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

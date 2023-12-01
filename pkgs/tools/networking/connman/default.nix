@@ -1,11 +1,11 @@
-{ lib, pkgs }:
+{lib, pkgs}:
 
 lib.makeScope pkgs.newScope (
   self:
   with self; {
 
     # All the defaults
-    connman = callPackage ./connman { };
+    connman = callPackage ./connman {};
 
     connmanFull = connman.override {
       # TODO: Why is this in `connmanFull` and not the default build? See TODO in
@@ -41,12 +41,12 @@ lib.makeScope pkgs.newScope (
       # enableDatafiles = false; # If disabled, configuration and data files are not installed
     };
 
-    connman_dmenu = callPackage ./connman_dmenu { };
+    connman_dmenu = callPackage ./connman_dmenu {};
 
-    connman-gtk = callPackage ./connman-gtk { };
+    connman-gtk = callPackage ./connman-gtk {};
 
-    connman-ncurses = callPackage ./connman-ncurses { };
+    connman-ncurses = callPackage ./connman-ncurses {};
 
-    connman-notify = callPackage ./connman-notify { };
+    connman-notify = callPackage ./connman-notify {};
   }
 )

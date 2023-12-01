@@ -19,7 +19,7 @@
 
 let
 
-  releaseLib = import ./release-lib.nix { inherit supportedSystems; };
+  releaseLib = import ./release-lib.nix {inherit supportedSystems;};
 
   inherit (releaseLib)
     lib
@@ -44,7 +44,7 @@ let
       (
         attrs:
         if lib.isDerivation attrs then
-          [ attrs ]
+          [attrs]
         else
           lib.optionals (lib.isAttrs attrs) (accumulateDerivations (lib.attrValues attrs))
       )
@@ -169,7 +169,7 @@ let
             ghc: jobs:
             let
               configFilteredJobset =
-                lib.filterAttrs (jobName: platforms: lib.elem ghc (config."${jobName}" or [ ]))
+                lib.filterAttrs (jobName: platforms: lib.elem ghc (config."${jobName}" or []))
                   jobs;
 
               # Remove platforms from each job that are not supported by GHC.
@@ -190,9 +190,9 @@ let
   # names of packages in an attribute set that are maintained
   maintainedPkgNames =
     set:
-    builtins.attrNames (lib.filterAttrs (_: v: builtins.length (v.meta.maintainers or [ ]) > 0) set);
+    builtins.attrNames (lib.filterAttrs (_: v: builtins.length (v.meta.maintainers or []) > 0) set);
 
-  recursiveUpdateMany = builtins.foldl' lib.recursiveUpdate { };
+  recursiveUpdateMany = builtins.foldl' lib.recursiveUpdate {};
 
   # Remove multiple elements from a list at once.
   #
@@ -384,14 +384,14 @@ let
         # remove musl ghc865Binary since it is known to be broken and
         # causes an evaluation error on darwin.
         # TODO: remove ghc865Binary altogether and use ghc8102Binary
-        ghc865Binary = { };
+        ghc865Binary = {};
 
-        ghcjs = { };
-        ghcjs810 = { };
+        ghcjs = {};
+        ghcjs810 = {};
 
         # Can't be built with musl, see meta.broken comment in the drv
-        integer-simple.ghc884 = { };
-        integer-simple.ghc88 = { };
+        integer-simple.ghc884 = {};
+        integer-simple.ghc88 = {};
       };
 
       # Get some cache going for MUSL-enabled GHC.
@@ -408,7 +408,7 @@ let
             "x86_64-darwin"
             "aarch64-darwin"
           ]
-          { inherit (packagePlatforms pkgs.pkgsMusl.haskellPackages) hello lens random; };
+          {inherit (packagePlatforms pkgs.pkgsMusl.haskellPackages) hello lens random;};
 
       # Test some statically linked packages to catch regressions
       # and get some cache going for static compilation with GHC.
@@ -477,9 +477,9 @@ let
       Cabal-syntax_3_8_1_0 = released;
       Cabal_3_10_1_0 = released;
       Cabal-syntax_3_10_1_0 = released;
-      cabal2nix = lib.subtractLists [ compilerNames.ghc961 ] released;
-      cabal2nix-unstable = lib.subtractLists [ compilerNames.ghc961 ] released;
-      funcmp = lib.subtractLists [ compilerNames.ghc961 ] released;
+      cabal2nix = lib.subtractLists [compilerNames.ghc961] released;
+      cabal2nix-unstable = lib.subtractLists [compilerNames.ghc961] released;
+      funcmp = lib.subtractLists [compilerNames.ghc961] released;
       haskell-language-server =
         lib.subtractLists
           [
@@ -487,12 +487,12 @@ let
             compilerNames.ghc884
           ]
           released;
-      hoogle = lib.subtractLists [ compilerNames.ghc961 ] released;
-      hlint = lib.subtractLists [ compilerNames.ghc961 ] released;
-      hpack = lib.subtractLists [ compilerNames.ghc961 ] released;
+      hoogle = lib.subtractLists [compilerNames.ghc961] released;
+      hlint = lib.subtractLists [compilerNames.ghc961] released;
+      hpack = lib.subtractLists [compilerNames.ghc961] released;
       hsdns = released;
       jailbreak-cabal = released;
-      language-nix = lib.subtractLists [ compilerNames.ghc961 ] released;
+      language-nix = lib.subtractLists [compilerNames.ghc961] released;
       nix-paths = released;
       titlecase = released;
       ghc-api-compat = [
@@ -589,7 +589,7 @@ let
         name = "haskell-pkgsMusl-ghcs";
         meta = {
           description = "GHCs built with musl";
-          maintainers = with lib.maintainers; [ nh2 ];
+          maintainers = with lib.maintainers; [nh2];
         };
         constituents = accumulateDerivations [
           jobs.pkgsMusl.haskell.compiler.ghc8102Binary

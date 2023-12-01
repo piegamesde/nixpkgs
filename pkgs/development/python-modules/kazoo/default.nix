@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-gAMYx/PatkjN9hbfslvavu+rKmg3qmlR4Po/+A5laWk=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
   buildInputs = [
     eventlet
     gevent

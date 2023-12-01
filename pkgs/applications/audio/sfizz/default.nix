@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/sfztools/sfizz";
     description = "SFZ jack client and LV2 plugin";
     license = licenses.bsd2;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.all;
     badPlatforms = platforms.darwin;
   };

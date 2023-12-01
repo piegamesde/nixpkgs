@@ -17,14 +17,14 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-rY/+AwxO0+xcnRj0A8TRhCUJQ0ecosybI6It1mDOdQM=";
   };
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [Security];
 
   cargoSha256 = "sha256-qfJ0ROi0S0mmPl6kKrW3dp3VLjYqK+sBVj+iKDNTjyM=";
 
   meta = with lib; {
     description = "Rust adapter for Buildkite Test Analytics";
     homepage = "https://buildkite.com/test-analytics";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ jfroche ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [jfroche];
   };
 }

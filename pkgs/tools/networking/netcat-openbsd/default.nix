@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     pkg-config
     installShellFiles
   ];
-  buildInputs = [ libbsd ];
+  buildInputs = [libbsd];
 
   postPatch = ''
     for file in $(cat debian/patches/series); do
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "TCP/IP swiss army knife. OpenBSD variant";
     homepage = "https://salsa.debian.org/debian/netcat-openbsd";
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
     license = licenses.bsd3;
     platforms = platforms.unix;
     mainProgram = "nc";

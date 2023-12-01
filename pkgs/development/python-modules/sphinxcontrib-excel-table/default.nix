@@ -20,7 +20,7 @@ buildPythonPackage rec {
     openpyxl
   ];
 
-  pythonImportsCheck = [ "sphinxcontrib.excel_table" ];
+  pythonImportsCheck = ["sphinxcontrib.excel_table"];
 
   # No tests present upstream
   doCheck = false;
@@ -28,7 +28,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Sphinx excel-table extension";
     homepage = "https://github.com/hackerain/sphinxcontrib-excel-table";
-    maintainers = with maintainers; [ raboof ];
+    maintainers = with maintainers; [raboof];
     license = licenses.asl20;
   };
 }

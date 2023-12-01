@@ -1,5 +1,5 @@
 # String manipulation functions.
-{ lib }:
+{lib}:
 let
 
   inherit (builtins) length;
@@ -81,7 +81,7 @@ rec {
     separator:
     # Input list
     list:
-    if list == [ ] || length list == 1 then
+    if list == [] || length list == 1 then
       list
     else
       tail (
@@ -494,7 +494,7 @@ rec {
        escapeShellArg "esc'ape\nme"
        => "'esc'\\''ape\nme'"
   */
-  escapeShellArg = arg: "'${replaceStrings [ "'" ] [ "'\\''" ] (toString arg)}'";
+  escapeShellArg = arg: "'${replaceStrings ["'"] ["'\\''"] (toString arg)}'";
 
   /* Quote all arguments to be safely passed to the Bourne shell.
 
@@ -573,7 +573,7 @@ rec {
        escapeNixString "hello\${}\n"
        => "\"hello\\\${}\\n\""
   */
-  escapeNixString = s: escape [ "$" ] (toJSON s);
+  escapeNixString = s: escape ["$"] (toJSON s);
 
   /* Turn a string into an exact regular expression
 
@@ -1067,7 +1067,7 @@ rec {
       strippedInput = match "[[:space:]]*(-?[[:digit:]]+)[[:space:]]*" str;
 
       # RegEx: Match a leading '0' then one or more digits.
-      isLeadingZero = match "0[[:digit:]]+" (head strippedInput) == [ ];
+      isLeadingZero = match "0[[:digit:]]+" (head strippedInput) == [];
 
       # Attempt to parse input
       parsedInput = fromJSON (head strippedInput);
@@ -1120,7 +1120,7 @@ rec {
       strippedInput = match "[[:space:]]*0*(-?[[:digit:]]+)[[:space:]]*" str;
 
       # RegEx: Match at least one '0'.
-      isZero = match "0+" (head strippedInput) == [ ];
+      isZero = match "0+" (head strippedInput) == [];
 
       # Attempt to parse input
       parsedInput = fromJSON (head strippedInput);

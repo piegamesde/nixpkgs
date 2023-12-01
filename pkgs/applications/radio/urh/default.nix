@@ -24,7 +24,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-Hi0VqBtGeaXMsibxbHk+2FN8mzfpmkuDr37JRW4Fp+s=";
   };
 
-  nativeBuildInputs = [ qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [qt5.wrapQtAppsHook];
   buildInputs = [
     hackrf
     rtl-sdr
@@ -55,6 +55,6 @@ python3Packages.buildPythonApplication rec {
     description = "Universal Radio Hacker: investigate wireless protocols like a boss";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
   };
 }

@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
   ];
   strictDeps = true;
 
-  configureFlags = [ "--with-sdl-prefix=${lib.getDev SDL}" ];
+  configureFlags = ["--with-sdl-prefix=${lib.getDev SDL}"];
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-I${lib.getDev SDL_image}/include/SDL"
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     homepage = "https://purl.org/rzr/pinball";
     description = "Emilia Pinball simulator";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     platforms = platforms.linux;
   };
 }

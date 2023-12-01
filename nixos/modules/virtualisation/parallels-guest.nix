@@ -50,11 +50,11 @@ in
 
   config = mkIf config.hardware.parallels.enable {
 
-    services.udev.packages = [ prl-tools ];
+    services.udev.packages = [prl-tools];
 
-    environment.systemPackages = [ prl-tools ];
+    environment.systemPackages = [prl-tools];
 
-    boot.extraModulePackages = [ prl-tools ];
+    boot.extraModulePackages = [prl-tools];
 
     boot.kernelModules = [
       "prl_fs"
@@ -66,8 +66,8 @@ in
 
     systemd.services.prltoolsd = {
       description = "Parallels Tools Service";
-      wantedBy = [ "multi-user.target" ];
-      path = [ prl-tools ];
+      wantedBy = ["multi-user.target"];
+      path = [prl-tools];
       serviceConfig = {
         ExecStart = "${prl-tools}/bin/prltoolsd -f";
         PIDFile = "/var/run/prltoolsd.pid";
@@ -77,8 +77,8 @@ in
 
     systemd.services.prlfsmountd = mkIf config.hardware.parallels.autoMountShares {
       description = "Parallels Guest File System Sharing Tool";
-      wantedBy = [ "multi-user.target" ];
-      path = [ prl-tools ];
+      wantedBy = ["multi-user.target"];
+      path = [prl-tools];
       serviceConfig = rec {
         ExecStart = "${prl-tools}/sbin/prlfsmountd ${PIDFile}";
         ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p /media";
@@ -90,9 +90,9 @@ in
 
     systemd.services.prlshprint = {
       description = "Parallels Printing Tool";
-      wantedBy = [ "multi-user.target" ];
-      bindsTo = [ "cups.service" ];
-      path = [ prl-tools ];
+      wantedBy = ["multi-user.target"];
+      bindsTo = ["cups.service"];
+      path = [prl-tools];
       serviceConfig = {
         ExecStart = "${prl-tools}/bin/prlshprint";
         WorkingDirectory = "${prl-tools}/bin";
@@ -102,8 +102,8 @@ in
     systemd.user.services = {
       prlcc = {
         description = "Parallels Control Center";
-        wantedBy = [ "graphical-session.target" ];
-        path = [ prl-tools ];
+        wantedBy = ["graphical-session.target"];
+        path = [prl-tools];
         serviceConfig = {
           ExecStart = "${prl-tools}/bin/prlcc";
           WorkingDirectory = "${prl-tools}/bin";
@@ -111,8 +111,8 @@ in
       };
       prldnd = {
         description = "Parallels Drag And Drop Tool";
-        wantedBy = [ "graphical-session.target" ];
-        path = [ prl-tools ];
+        wantedBy = ["graphical-session.target"];
+        path = [prl-tools];
         serviceConfig = {
           ExecStart = "${prl-tools}/bin/prldnd";
           WorkingDirectory = "${prl-tools}/bin";
@@ -120,8 +120,8 @@ in
       };
       prlcp = {
         description = "Parallels Copy Paste Tool";
-        wantedBy = [ "graphical-session.target" ];
-        path = [ prl-tools ];
+        wantedBy = ["graphical-session.target"];
+        path = [prl-tools];
         serviceConfig = {
           ExecStart = "${prl-tools}/bin/prlcp";
           Restart = "always";
@@ -130,8 +130,8 @@ in
       };
       prlsga = {
         description = "Parallels Shared Guest Applications Tool";
-        wantedBy = [ "graphical-session.target" ];
-        path = [ prl-tools ];
+        wantedBy = ["graphical-session.target"];
+        path = [prl-tools];
         serviceConfig = {
           ExecStart = "${prl-tools}/bin/prlsga";
           WorkingDirectory = "${prl-tools}/bin";
@@ -139,8 +139,8 @@ in
       };
       prlshprof = {
         description = "Parallels Shared Profile Tool";
-        wantedBy = [ "graphical-session.target" ];
-        path = [ prl-tools ];
+        wantedBy = ["graphical-session.target"];
+        path = [prl-tools];
         serviceConfig = {
           ExecStart = "${prl-tools}/bin/prlshprof";
           WorkingDirectory = "${prl-tools}/bin";

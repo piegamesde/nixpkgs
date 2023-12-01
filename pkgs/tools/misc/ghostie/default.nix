@@ -27,12 +27,12 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     openssl
     sqlite
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Cocoa ];
+  ] ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.Cocoa];
 
   # 4 out of 5 tests are notification tests which do not work in nix builds
   doCheck = false;
@@ -46,7 +46,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/attriaayush/ghostie";
     changelog = "https://github.com/attriaayush/ghostie/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
     broken = stdenv.isx86_64 && stdenv.isDarwin;
   };
 }

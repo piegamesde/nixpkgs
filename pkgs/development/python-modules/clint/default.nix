@@ -41,12 +41,12 @@ buildPythonPackage rec {
     ${python.interpreter} test_clint.py
   '';
 
-  pythonImportsCheck = [ "clint" ];
+  pythonImportsCheck = ["clint"];
 
   meta = with lib; {
     homepage = "https://github.com/kennethreitz/clint";
     description = "Python Command Line Interface Tools";
     license = licenses.isc;
-    maintainers = with maintainers; [ domenkozar ];
+    maintainers = with maintainers; [domenkozar];
   };
 }

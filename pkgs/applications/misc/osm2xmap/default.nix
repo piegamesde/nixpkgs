@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/sembruk/osm2xmap";
     description = "Converter from OpenStreetMap data format to OpenOrienteering Mapper format";
     license = licenses.gpl3;
-    maintainers = [ maintainers.mpickering ];
+    maintainers = [maintainers.mpickering];
     platforms = with lib.platforms; linux;
   };
 }

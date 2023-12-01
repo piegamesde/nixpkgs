@@ -11,7 +11,7 @@ let
 
   cfg = config.security.pam.usb;
 
-  anyUsbAuth = any (attrByPath [ "usbAuth" ] false) (attrValues config.security.pam.services);
+  anyUsbAuth = any (attrByPath ["usbAuth"] false) (attrValues config.security.pam.services);
 in
 
 {
@@ -47,6 +47,6 @@ in
       };
     };
 
-    environment.systemPackages = [ pkgs.pmount ];
+    environment.systemPackages = [pkgs.pmount];
   };
 }

@@ -25,14 +25,14 @@ in
 
 stdenv.mkDerivation {
   name = "${patchPpdFilesHook.name}-test";
-  buildInputs = [ diffutils ];
+  buildInputs = [diffutils];
   nativeBuildInputs = [
     diffutils
     patchPpdFilesHook
   ];
   dontUnpack = true;
   dontInstall = true;
-  ppdFileCommands = [ "cmp" ];
+  ppdFileCommands = ["cmp"];
   preFixup = ''
     install -D "${input}" "${placeholder "out"}/share/cups/model/test.ppd"
     install -D "${input}" "${placeholder "out"}/share/ppds/test.ppd"

@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub }:
+{lib, fetchFromGitHub}:
 
 rec {
   version = "1.1.7";
@@ -16,6 +16,6 @@ rec {
     homepage = "https://github.com/savonet/ocaml-ffmpeg";
     description = "Bindings for the ffmpeg libraries";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

@@ -15,14 +15,14 @@ mkDerivation rec {
     sha256 = "sha256-MZSIZ8mgRhPm3g0jrfy8Ws7N3vCzn5hrNF7GwZcnNv4=";
   };
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   meta = {
     description = "Plasma Wayland Protocols";
     license = lib.licenses.lgpl21Plus;
     platforms = qtbase.meta.platforms;
-    maintainers = [ lib.maintainers.ttuegel ];
+    maintainers = [lib.maintainers.ttuegel];
   };
 }

@@ -28,12 +28,12 @@ let
 in
 bundlerApp {
   pname = "jekyll";
-  exes = [ "jekyll" ];
+  exes = ["jekyll"];
 
   inherit ruby;
   gemdir = if withOptionalDependencies then ./full else ./basic;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     wrapProgram $out/bin/jekyll --prefix PATH : ${rubyWrapper}/bin
@@ -54,7 +54,7 @@ bundlerApp {
     homepage = "https://jekyllrb.com/";
     #changelog   = "https://raw.githubusercontent.com/jekyll/jekyll/v${version}/History.markdown";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

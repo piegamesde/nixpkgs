@@ -5,7 +5,7 @@
   ...
 }:
 with lib; {
-  imports = [ ../profiles/qemu-guest.nix ];
+  imports = [../profiles/qemu-guest.nix];
 
   services.openssh = {
     enable = true;
@@ -39,7 +39,7 @@ with lib; {
     autoResize = true;
   };
 
-  swapDevices = mkDefault [ { device = "/dev/sdb"; } ];
+  swapDevices = mkDefault [{device = "/dev/sdb";}];
 
   # Enable LISH and Linode Booting w/ GRUB
   boot = {
@@ -53,8 +53,8 @@ with lib; {
     ];
 
     # Set Up LISH Serial Connection
-    kernelParams = [ "console=ttyS0,19200n8" ];
-    kernelModules = [ "virtio_net" ];
+    kernelParams = ["console=ttyS0,19200n8"];
+    kernelModules = ["virtio_net"];
 
     loader = {
       # Increase Timeout to Allow LISH Connection

@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # The existence of the "build" script causes `mkdir -p build` to fail:
   #   mkdir: cannot create directory 'build': File exists
@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Embedded C/C++ web server";
     homepage = "https://github.com/civetweb/civetweb";
-    license = [ lib.licenses.mit ];
+    license = [lib.licenses.mit];
   };
 }

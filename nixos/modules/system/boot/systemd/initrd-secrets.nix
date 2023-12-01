@@ -12,19 +12,19 @@
       lib.mapAttrs'
         (
           dest: source:
-          lib.nameValuePair "/.initrd-secrets/${dest}" { source = if source == null then dest else source; }
+          lib.nameValuePair "/.initrd-secrets/${dest}" {source = if source == null then dest else source;}
         )
         config.boot.initrd.secrets
     );
 
     # Copy secrets to their respective locations
     boot.initrd.systemd.services.initrd-nixos-copy-secrets =
-      lib.mkIf (config.boot.initrd.secrets != { })
+      lib.mkIf (config.boot.initrd.secrets != {})
         {
           description = "Copy secrets into place";
           # Run as early as possible
-          wantedBy = [ "sysinit.target" ];
-          before = [ "cryptsetup-pre.target" ];
+          wantedBy = ["sysinit.target"];
+          before = ["cryptsetup-pre.target"];
           unitConfig.DefaultDependencies = false;
 
           # We write the secrets to /.initrd-secrets and move them because this allows

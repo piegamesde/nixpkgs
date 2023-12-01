@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     substituteInPlace meson.build --replace "systemd.get_pkgconfig_variable('systemduserunitdir')" "'${placeholder "out"}/lib/systemd/user'"
   '';
 
-  buildInputs = [ systemd ];
+  buildInputs = [systemd];
 
   nativeBuildInputs = [
     meson
@@ -47,6 +47,6 @@ stdenv.mkDerivation rec {
     homepage = "https://git.sr.ht/~kennylevinsen/poweralertd";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ thibautmarty ];
+    maintainers = with maintainers; [thibautmarty];
   };
 }

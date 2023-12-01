@@ -28,9 +28,9 @@ stdenv.mkDerivation (
         })
       ];
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
-    cmakeFlags = [ "-DSIDX_BUILD_TESTS=${if finalAttrs.doCheck then "ON" else "OFF"}" ];
+    cmakeFlags = ["-DSIDX_BUILD_TESTS=${if finalAttrs.doCheck then "ON" else "OFF"}"];
 
     doCheck = true;
 

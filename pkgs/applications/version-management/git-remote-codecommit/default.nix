@@ -26,7 +26,7 @@ buildPythonApplication rec {
     sha256 = "1vvp7i8ghmq72v57f6smh441h35xnr5ar628q2mr40bzvcifwymw";
   };
 
-  propagatedBuildInputs = [ botocore ];
+  propagatedBuildInputs = [botocore];
 
   nativeCheckInputs = [
     pytest
@@ -42,7 +42,7 @@ buildPythonApplication rec {
 
   meta = {
     description = "Git remote prefix to simplify pushing to and pulling from CodeCommit";
-    maintainers = [ lib.maintainers.zaninime ];
+    maintainers = [lib.maintainers.zaninime];
     homepage = "https://github.com/awslabs/git-remote-codecommit";
     license = lib.licenses.asl20;
   };

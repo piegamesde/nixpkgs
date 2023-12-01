@@ -17,7 +17,7 @@ buildDunePackage rec {
 
   buildInputs =
     if lib.versionAtLeast version "4.7-414" then
-      [ merlin-lib ]
+      [merlin-lib]
     else
       [
         yojson
@@ -28,6 +28,6 @@ buildDunePackage rec {
     description = "Reads config files for merlin";
     homepage = "https://github.com/ocaml/merlin";
     license = licenses.mit;
-    maintainers = [ maintainers.hongchangwu ];
+    maintainers = [maintainers.hongchangwu];
   };
 }

@@ -23,9 +23,9 @@
 
 let
   suffix = lib.optionalString serverOnly "-server";
-  fmod = callPackage ./fmod.nix { };
-  sqlite = callPackage ./sqlite.nix { };
-  clientLibPath = lib.makeLibraryPath [ fluidsynth ];
+  fmod = callPackage ./fmod.nix {};
+  sqlite = callPackage ./sqlite.nix {};
+  clientLibPath = lib.makeLibraryPath [fluidsynth];
 in
 stdenv.mkDerivation rec {
   pname = "zandronum${suffix}";
@@ -91,9 +91,9 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DFORCE_INTERNAL_GME=OFF"
-  ] ++ (if serverOnly then [ "-DSERVERONLY=ON" ] else [ "-DFMOD_LIBRARY=${fmod}/lib/libfmodex.so" ]);
+  ] ++ (if serverOnly then ["-DSERVERONLY=ON"] else ["-DFMOD_LIBRARY=${fmod}/lib/libfmodex.so"]);
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   installPhase = ''
     mkdir -p $out/bin

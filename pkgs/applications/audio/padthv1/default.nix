@@ -32,13 +32,13 @@ mkDerivation rec {
     fftwFloat
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     description = "polyphonic additive synthesizer";
     homepage = "http://padthv1.sourceforge.net/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
   };
 }

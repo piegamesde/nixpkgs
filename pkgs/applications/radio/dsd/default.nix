@@ -23,12 +23,12 @@ stdenv.mkDerivation rec {
     sha256 = "128gvgkanvh4n5bjnzkfk419hf5fdbad94fb8d8lv67h94vfchyd";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     mbelib
     libsndfile
     itpp
-  ] ++ lib.optionals portaudioSupport [ portaudio ];
+  ] ++ lib.optionals portaudioSupport [portaudio];
 
   doCheck = true;
 
@@ -42,6 +42,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/szechyjs/dsd";
     license = licenses.gpl2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ andrew-d ];
+    maintainers = with maintainers; [andrew-d];
   };
 }

@@ -9,10 +9,10 @@
 {
   pname = "console";
 
-  nativeBuildInputs = [ reason ];
+  nativeBuildInputs = [reason];
 
   passthru.tests = {
-    console = callPackage ./tests/console { inherit buildDunePackage reason console; };
+    console = callPackage ./tests/console {inherit buildDunePackage reason console;};
   };
 
   meta = {

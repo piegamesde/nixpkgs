@@ -27,14 +27,14 @@ buildPythonPackage rec {
       })
     ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "oscpy" ];
+  pythonImportsCheck = ["oscpy"];
 
   meta = with lib; {
     description = "A modern implementation of OSC for python2/3";
     license = licenses.mit;
     homepage = "https://github.com/kivy/oscpy";
-    maintainers = [ maintainers.yurkobb ];
+    maintainers = [maintainers.yurkobb];
   };
 }

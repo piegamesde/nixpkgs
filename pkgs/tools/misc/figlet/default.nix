@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     description = "Program for making large letters out of ordinary text";
     homepage = "http://www.figlet.org/";
     license = lib.licenses.afl21;
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
     platforms = lib.platforms.unix;
   };
 }

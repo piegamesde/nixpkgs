@@ -28,6 +28,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/MaT1g3R/pnglatex";
     description = "a small program that converts LaTeX snippets to png";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ GaetanLepage ];
+    maintainers = with maintainers; [GaetanLepage];
   };
 }

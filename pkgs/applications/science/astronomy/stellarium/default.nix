@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     qxlsx
     indilib
     libnova
-  ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
+  ] ++ lib.optionals stdenv.isLinux [qtwayland];
 
   preConfigure = lib.optionalString stdenv.isDarwin ''
     export LC_ALL=en_US.UTF-8
@@ -82,6 +82,6 @@ stdenv.mkDerivation rec {
     homepage = "https://stellarium.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

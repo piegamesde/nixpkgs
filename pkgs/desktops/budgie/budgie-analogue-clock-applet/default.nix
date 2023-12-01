@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "Analogue Clock Applet for the Budgie desktop";
     homepage = "https://github.com/samlane-ma/analogue-clock-applet";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.federicoschonborn ];
+    maintainers = [maintainers.federicoschonborn];
     platforms = platforms.linux;
   };
 }

@@ -18,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-v8IBn4T82FFBkVIyCmN1YEoPFFnCgbWxmbLNDS5yf48=";
   };
 
-  propagatedBuildInputs = [ wcwidth ];
+  propagatedBuildInputs = [wcwidth];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export PATH=$out/bin:$PATH
@@ -36,6 +36,6 @@ buildPythonPackage rec {
     description = "Given Unicode text, make its representation consistent and possibly less broken";
     homepage = "https://github.com/LuminosoInsight/python-ftfy";
     license = licenses.mit;
-    maintainers = with maintainers; [ aborsu ];
+    maintainers = with maintainers; [aborsu];
   };
 }

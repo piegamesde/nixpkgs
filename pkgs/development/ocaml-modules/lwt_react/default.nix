@@ -20,7 +20,7 @@ buildDunePackage {
     sha256 = "sha256:1jbjz2rsz3j56k8vh5qlmm87hhkr250bs2m3dvpy9vsri8rkzj9z";
   };
 
-  nativeBuildInputs = [ cppo ];
+  nativeBuildInputs = [cppo];
 
   propagatedBuildInputs = [
     lwt

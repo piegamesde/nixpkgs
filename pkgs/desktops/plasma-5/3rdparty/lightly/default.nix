@@ -23,7 +23,7 @@ mkDerivation rec {
     sha256 = "k1fEZbhzluNlAmj5s/O9X20aCVQxlWQm/Iw/euX7cmI=";
   };
 
-  extraCmakeFlags = [ "-DBUILD_TESTING=OFF" ];
+  extraCmakeFlags = ["-DBUILD_TESTING=OFF"];
 
   nativeBuildInputs = [
     cmake
@@ -43,7 +43,7 @@ mkDerivation rec {
   meta = with lib; {
     description = "A modern style for qt applications";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ pasqui23 ];
+    maintainers = with maintainers; [pasqui23];
     homepage = "https://github.com/Luwx/Lightly/";
     inherit (kwindowsystem.meta) platforms;
   };

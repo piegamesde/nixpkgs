@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  patches = [ ./prefix-variable.patch ];
+  patches = [./prefix-variable.patch];
 
   preInstall = ''
     sed -i s,/usr/local,$out, Makefile
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       they are also hard to predict.
     '';
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.linus ];
+    maintainers = [lib.maintainers.linus];
     broken = stdenv.isi686; # https://github.com/imneme/pcg-c/issues/11
   };
 }

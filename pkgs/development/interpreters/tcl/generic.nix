@@ -54,7 +54,7 @@ let
       homepage = "https://www.tcl.tk/";
       license = licenses.tcltk;
       platforms = platforms.all;
-      maintainers = with maintainers; [ agbrooks ];
+      maintainers = with maintainers; [agbrooks];
     };
 
     passthru = rec {
@@ -64,19 +64,19 @@ let
       tclPackageHook =
         callPackage
           (
-            { buildPackages }:
+            {buildPackages}:
             makeSetupHook
               {
                 name = "tcl-package-hook";
-                propagatedBuildInputs = [ buildPackages.makeWrapper ];
+                propagatedBuildInputs = [buildPackages.makeWrapper];
               }
               ./tcl-package-hook.sh
           )
-          { };
+          {};
     };
   };
 
-  mkTclDerivation = callPackage ./mk-tcl-derivation.nix { tcl = baseInterp; };
+  mkTclDerivation = callPackage ./mk-tcl-derivation.nix {tcl = baseInterp;};
 in
 baseInterp.overrideAttrs (
   self: {

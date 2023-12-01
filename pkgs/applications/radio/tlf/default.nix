@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://tlf.github.io/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

@@ -17,7 +17,7 @@ buildGoModule {
 
   vendorHash = "sha256-DiAqFJ8E5V0/eHztm92WVrf1XGPXmmOaVXaWHfQMn2k=";
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   preCheck = ''
     export HOME=`mktemp -d`
@@ -28,6 +28,6 @@ buildGoModule {
     description = "Fast trigram based code search";
     homepage = "https://github.com/google/zoekt";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

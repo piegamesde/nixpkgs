@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "lparallel";
   version = "20160825-git";
@@ -18,7 +18,7 @@ rec {
 
   packageName = "lparallel";
 
-  asdFilesToKeep = [ "lparallel.asd" ];
+  asdFilesToKeep = ["lparallel.asd"];
   overrides = x: x;
 }
 /* (SYSTEM lparallel DESCRIPTION Parallelism for Common Lisp SHA256

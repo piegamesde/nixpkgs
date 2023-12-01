@@ -49,7 +49,7 @@ buildDunePackage rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ cppo ];
+  nativeBuildInputs = [cppo];
   buildInputs = [
     findlib
     ppxlib
@@ -61,11 +61,11 @@ buildDunePackage rec {
   ];
 
   doCheck = lib.versionOlder ocaml.version "5.0";
-  checkInputs = [ (if lib.versionAtLeast version "5.2" then ounit2 else ounit) ];
+  checkInputs = [(if lib.versionAtLeast version "5.2" then ounit2 else ounit)];
 
   meta = with lib; {
     description = "deriving is a library simplifying type-driven code generation on OCaml >=4.02.";
-    maintainers = [ maintainers.maurer ];
+    maintainers = [maintainers.maurer];
     license = licenses.mit;
   };
 }

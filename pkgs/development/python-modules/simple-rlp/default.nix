@@ -13,12 +13,12 @@ buildPythonPackage rec {
     hash = "sha256-LfHSt2nwoBd9JiMauL4W5l41RrF7sKmkkO/TUXwIKHY=";
   };
 
-  pythonImportsCheck = [ "rlp" ];
+  pythonImportsCheck = ["rlp"];
 
   meta = with lib; {
     description = "Simple RLP (Recursive Length Prefix)";
     homepage = "https://github.com/SamuelHaidu/simple-rlp";
     license = licenses.mit;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

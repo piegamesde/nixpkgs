@@ -6,7 +6,7 @@
 }:
 
 let
-  mecab-base = import ./base.nix { inherit fetchurl; };
+  mecab-base = import ./base.nix {inherit fetchurl;};
 in
 stdenv.mkDerivation (
   mecab-base
@@ -23,7 +23,7 @@ stdenv.mkDerivation (
       homepage = "http://taku910.github.io/mecab/";
       license = licenses.bsd3;
       platforms = platforms.unix;
-      maintainers = with maintainers; [ auntie ];
+      maintainers = with maintainers; [auntie];
     };
   }
 )

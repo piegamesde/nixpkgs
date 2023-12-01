@@ -15,14 +15,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+oKFnTPwj7iuudpmsPvZFxjtVzxTT1capSNyyd64kdo=";
   };
 
-  sourceRoot = "gurobi${builtins.replaceStrings [ "." ] [ "" ] version}/linux64";
+  sourceRoot = "gurobi${builtins.replaceStrings ["."] [""] version}/linux64";
 
-  nativeBuildInputs = [ autoPatchelfHook ];
-  buildInputs = [ (python3.withPackages (ps: [ ps.gurobipy ])) ];
+  nativeBuildInputs = [autoPatchelfHook];
+  buildInputs = [(python3.withPackages (ps: [ps.gurobipy]))];
 
   strictDeps = true;
 
-  makeFlags = [ "--directory=src/build" ];
+  makeFlags = ["--directory=src/build"];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     ln -s $out/lib/gurobi-javadoc.jar $out/share/java/
   '';
 
-  passthru.libSuffix = lib.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor version);
+  passthru.libSuffix = lib.replaceStrings ["."] [""] (lib.versions.majorMinor version);
 
   meta = with lib; {
     description = "Optimization solver for mathematical programming";
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       binaryNativeCode
     ];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ jfrankenau ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [jfrankenau];
   };
 }

@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     description = "Universal utility for programming FPGAs";
     homepage = "https://github.com/trabucayre/openFPGALoader";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ danderson ];
+    maintainers = with maintainers; [danderson];
   };
 }

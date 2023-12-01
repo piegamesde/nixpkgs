@@ -10,7 +10,7 @@
 }:
 
 let
-  ft = freetype.overrideAttrs (oldArgs: { dontDisableStatic = true; });
+  ft = freetype.overrideAttrs (oldArgs: {dontDisableStatic = true;});
 in
 buildPythonPackage rec {
   pname = "reportlab";
@@ -21,12 +21,12 @@ buildPythonPackage rec {
     hash = "sha256-sTzr9OOXu6FFQrzQIzOLb/LBUaOhKqvKie7L+XLLNho=";
   };
 
-  patches = [ ./darwin-m1-compat.patch ];
+  patches = [./darwin-m1-compat.patch];
 
-  nativeCheckInputs = [ glibcLocales ];
+  nativeCheckInputs = [glibcLocales];
 
-  buildInputs = [ ft ];
-  propagatedBuildInputs = [ pillow ];
+  buildInputs = [ft];
+  propagatedBuildInputs = [pillow];
 
   postPatch = ''
     substituteInPlace setup.py \

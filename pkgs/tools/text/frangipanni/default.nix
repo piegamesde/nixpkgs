@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Convert lines of text into a tree structure";
     homepage = "https://github.com/birchb1024/frangipanni";
     license = licenses.mit;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
   };
 }

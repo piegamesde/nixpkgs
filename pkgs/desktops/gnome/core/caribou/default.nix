@@ -25,7 +25,7 @@
 let
   pname = "caribou";
   version = "0.4.21";
-  pythonEnv = python3.withPackages (ps: with ps; [ pygobject3 ]);
+  pythonEnv = python3.withPackages (ps: with ps; [pygobject3]);
 in
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

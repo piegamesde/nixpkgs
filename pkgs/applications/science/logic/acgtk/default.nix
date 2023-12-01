@@ -55,6 +55,6 @@ stdenv.mkDerivation {
     description = "A toolkit for developing ACG signatures and lexicon";
     license = licenses.cecill20;
     inherit (ocamlPackages.ocaml.meta) platforms;
-    maintainers = [ maintainers.jirkamarsik ];
+    maintainers = [maintainers.jirkamarsik];
   };
 }

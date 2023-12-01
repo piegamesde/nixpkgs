@@ -40,9 +40,9 @@ buildPythonPackage rec {
     maturinBuildHook
   ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.isDarwin [libiconv];
 
-  pythonImportsCheck = [ "retworkx" ];
+  pythonImportsCheck = ["retworkx"];
   nativeCheckInputs = [
     pytestCheckHook
     fixtures
@@ -66,6 +66,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/Qiskit/retworkx/releases";
     changelog = "https://github.com/Qiskit/retworkx/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

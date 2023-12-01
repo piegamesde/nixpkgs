@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
         ExtUtilsMakeMaker
       ]
     )
-    ++ lib.optionals stdenv.isLinux [ linuxHeaders ];
+    ++ lib.optionals stdenv.isLinux [linuxHeaders];
 
   buildInputs =
     [
@@ -160,8 +160,8 @@ stdenv.mkDerivation rec {
     install -Dm644 rc/trafficserver.service $out/lib/systemd/system/trafficserver.service
 
     wrapProgram $out/bin/tspush \
-      --set PERL5LIB '${with perlPackages; makePerlPath [ URI ]}' \
-      --prefix PATH : "${lib.makeBinPath [ file ]}"
+      --set PERL5LIB '${with perlPackages; makePerlPath [URI]}' \
+      --prefix PATH : "${lib.makeBinPath [file]}"
 
     find "$out" -name '*.la' -delete
 
@@ -217,7 +217,7 @@ stdenv.mkDerivation rec {
       large intranets by maximizing existing and available bandwidth.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ midchildan ];
+    maintainers = with maintainers; [midchildan];
     platforms = platforms.unix;
   };
 }

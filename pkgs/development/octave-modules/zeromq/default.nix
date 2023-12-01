@@ -29,12 +29,12 @@ buildOctavePackage rec {
     autoreconfHook
   ];
 
-  propagatedBuildInputs = [ zeromq ];
+  propagatedBuildInputs = [zeromq];
 
   meta = with lib; {
     homepage = "https://octave.sourceforge.io/zeromq/index.html";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ KarlJoad ];
+    maintainers = with maintainers; [KarlJoad];
     description = "ZeroMQ bindings for GNU Octave";
   };
 }

@@ -17,7 +17,7 @@
 }:
 
 let
-  sources = callPackage ../sources.nix { };
+  sources = callPackage ../sources.nix {};
 in
 stdenv.mkDerivation {
   pname = "swift-corelibs-foundation";
@@ -40,7 +40,7 @@ stdenv.mkDerivation {
     libxml2
     curl
   ];
-  propagatedBuildInputs = [ Dispatch ];
+  propagatedBuildInputs = [Dispatch];
 
   preConfigure = ''
     # Fails to build with -D_FORTIFY_SOURCE.

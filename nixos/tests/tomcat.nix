@@ -1,10 +1,10 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   {
     name = "tomcat";
 
-    nodes.machine = { pkgs, ... }: { services.tomcat.enable = true; };
+    nodes.machine = {pkgs, ...}: {services.tomcat.enable = true;};
 
     testScript = ''
       machine.wait_for_unit("tomcat.service")

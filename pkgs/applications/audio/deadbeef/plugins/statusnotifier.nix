@@ -20,14 +20,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-6WEbY59vPNrL3W5GUwFQJimmSS+td8Ob+G46fPAxfV4=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     deadbeef
     gtk3
     libdbusmenu
   ];
 
-  buildFlags = [ "gtk3" ];
+  buildFlags = ["gtk3"];
 
   postPatch = ''
     substituteInPlace tools/glib-mkenums \
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     description = "DeaDBeeF StatusNotifier Plugin";
     homepage = "https://github.com/vovochka404/deadbeef-statusnotifier-plugin";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.kurnevsky ];
+    maintainers = [maintainers.kurnevsky];
     platforms = platforms.linux;
   };
 }

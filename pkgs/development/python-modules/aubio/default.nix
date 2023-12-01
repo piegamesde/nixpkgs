@@ -28,16 +28,16 @@ buildPythonPackage rec {
     ]
   );
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "aubio" ];
+  pythonImportsCheck = ["aubio"];
 
   meta = with lib; {
     description = "a library for audio and music analysis";
     homepage = "https://aubio.org";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

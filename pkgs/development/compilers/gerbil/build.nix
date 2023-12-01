@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
   # or give up and delete all tentative support for static libraries.
   #buildInputs_staticLibraries = map makeStaticLibraries buildInputs_libraries;
 
-  buildInputs = [ gambit ] ++ buildInputs_libraries; # ++ buildInputs_staticLibraries;
+  buildInputs = [gambit] ++ buildInputs_libraries; # ++ buildInputs_staticLibraries;
 
   env.NIX_CFLAGS_COMPILE = "-I${libmysqlclient}/include/mysql -L${libmysqlclient}/lib/mysql";
 
@@ -123,6 +123,6 @@ stdenv.mkDerivation rec {
     # NB regarding platforms: regularly tested on Linux, only occasionally on macOS.
     # Please report success and/or failure to fare.
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ fare ];
+    maintainers = with lib.maintainers; [fare];
   };
 }

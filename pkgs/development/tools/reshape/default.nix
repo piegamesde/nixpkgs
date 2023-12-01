@@ -46,6 +46,6 @@ rustPlatform.buildRustPackage rec {
     description = "An easy-to-use, zero-downtime schema migration tool for Postgres";
     homepage = "https://github.com/fabianlindfors/reshape";
     license = licenses.mit;
-    maintainers = with maintainers; [ ilyakooo0 ];
+    maintainers = with maintainers; [ilyakooo0];
   };
 }

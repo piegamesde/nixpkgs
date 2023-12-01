@@ -27,17 +27,17 @@ with lib;
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     boot.extraModulePackages =
       optional (versionOlder kernelPackages.kernel.version "5.16")
         kernelPackages.hid-nintendo;
 
-    services.udev.packages = [ cfg.package ];
+    services.udev.packages = [cfg.package];
 
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
 
     # Workaround for https://github.com/NixOS/nixpkgs/issues/81138
-    systemd.services.joycond.wantedBy = [ "multi-user.target" ];
+    systemd.services.joycond.wantedBy = ["multi-user.target"];
   };
 }

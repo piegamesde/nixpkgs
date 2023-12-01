@@ -27,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-Vv68BK83gTIKj0r9x+twdhqmRYziD0vxQCdHkYSeTak=";
   };
 
-  buildInputs = [ jaxlib ];
+  buildInputs = [jaxlib];
 
   propagatedBuildInputs = [
     jax
@@ -38,7 +38,7 @@ buildPythonPackage rec {
     rich
   ];
 
-  pythonImportsCheck = [ "flax" ];
+  pythonImportsCheck = ["flax"];
 
   nativeCheckInputs = [
     keras
@@ -85,6 +85,6 @@ buildPythonPackage rec {
     description = "Neural network library for JAX";
     homepage = "https://github.com/google/flax";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ndl ];
+    maintainers = with maintainers; [ndl];
   };
 }

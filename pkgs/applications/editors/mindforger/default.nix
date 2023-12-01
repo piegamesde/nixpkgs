@@ -72,6 +72,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.mindforger.com";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ cyplo ];
+    maintainers = with maintainers; [cyplo];
   };
 }

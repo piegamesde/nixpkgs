@@ -18,17 +18,17 @@ buildPythonPackage rec {
     hash = "sha256-uTUtDhL9VtWZE+Y6ZJY4prmlE+Yh2UrCg5+eSyAQzMk=";
   };
 
-  propagatedBuildInputs = [ cryptography ];
+  propagatedBuildInputs = [cryptography];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "aiobroadlink" ];
+  pythonImportsCheck = ["aiobroadlink"];
 
   meta = with lib; {
     description = "Python module to control various Broadlink devices";
     homepage = "https://github.com/frawau/aiobroadlink";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

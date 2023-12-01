@@ -40,7 +40,7 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace requirements.txt \
@@ -59,12 +59,12 @@ buildPythonPackage rec {
     popd
   '';
 
-  pythonImportsCheck = [ "sopel" ];
+  pythonImportsCheck = ["sopel"];
 
   meta = with lib; {
     description = "Simple and extensible IRC bot";
     homepage = "https://sopel.chat";
     license = licenses.efl20;
-    maintainers = with maintainers; [ mog ];
+    maintainers = with maintainers; [mog];
   };
 }

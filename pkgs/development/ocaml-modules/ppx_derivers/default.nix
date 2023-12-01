@@ -22,9 +22,9 @@ buildDunePackage (
     meta = {
       description = "Shared [@@deriving] plugin registry";
       license = lib.licenses.bsd3;
-      maintainers = [ lib.maintainers.vbgl ];
+      maintainers = [lib.maintainers.vbgl];
       inherit (src.meta) homepage;
     };
   }
-  // lib.optionalAttrs (!lib.versionAtLeast ocaml.version "4.08") { duneVersion = "1"; }
+  // lib.optionalAttrs (!lib.versionAtLeast ocaml.version "4.08") {duneVersion = "1";}
 )

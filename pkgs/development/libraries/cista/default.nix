@@ -16,15 +16,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dQOVmKRXfApN0QRx/PmLVzeCGppFJBnNWIOoLbDbrds=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  cmakeFlags = [ "-DCISTA_INSTALL=ON" ];
+  cmakeFlags = ["-DCISTA_INSTALL=ON"];
 
   meta = with lib; {
     homepage = "https://cista.rocks";
     description = "A simple, high-performance, zero-copy C++ serialization & reflection library";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

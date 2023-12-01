@@ -1,10 +1,10 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
 
 let
@@ -26,10 +26,10 @@ let
     postgresql-name: postgresql-package: backup-all:
     makeTest {
       name = postgresql-name;
-      meta = with pkgs.lib.maintainers; { maintainers = [ zagy ]; };
+      meta = with pkgs.lib.maintainers; {maintainers = [zagy];};
 
       nodes.machine =
-        { ... }:
+        {...}:
         {
           services.postgresql = {
             enable = true;
@@ -138,10 +138,10 @@ let
     postgresql-name: postgresql-package:
     makeTest {
       name = postgresql-name;
-      meta = with pkgs.lib.maintainers; { maintainers = [ zagy ]; };
+      meta = with pkgs.lib.maintainers; {maintainers = [zagy];};
 
       nodes.machine =
-        { ... }:
+        {...}:
         {
           services.postgresql = {
             enable = true;
@@ -159,7 +159,7 @@ let
                   bypassrls = true;
                 };
               }
-              { name = "default-clauses"; }
+              {name = "default-clauses";}
             ];
           };
         };

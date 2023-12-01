@@ -16,9 +16,9 @@ perlPackages.buildPerlPackage rec {
     sha256 = "sha256-zCOpp5iNrWwh2knBGWhiEyG9IPAnFRwH5jJLEVLBISM=";
   };
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   nativeCheckInputs = [
     perlPackages.TestPerlCritic
@@ -39,6 +39,6 @@ perlPackages.buildPerlPackage rec {
     description = "Perl script for waking up computers via Wake-On-LAN magic packets";
     homepage = "https://github.com/jpoliv/wakeonlan";
     license = licenses.artistic1;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

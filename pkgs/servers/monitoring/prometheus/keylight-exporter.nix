@@ -26,6 +26,6 @@ buildGoModule rec {
     homepage = "https://github.com/mdlayher/keylight_exporter";
     description = "Prometheus exporter for Elgato Key Light devices";
     license = licenses.mit;
-    maintainers = with maintainers; [ mdlayher ];
+    maintainers = with maintainers; [mdlayher];
   };
 }

@@ -76,7 +76,7 @@ let
           is provided, /128 is assumed. You may have several rule sections, and the
           addresses may or may not overlap.
         '';
-        default = { };
+        default = {};
       };
     };
   };
@@ -160,7 +160,7 @@ in
         This sets up a listener, that will listen for any Neighbor Solicitation
         messages, and respond to them according to a set of rules.
       '';
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           eth0.rules."1111::/64" = {};
@@ -178,7 +178,7 @@ in
     ];
 
     services.ndppd.proxies = mkIf (cfg.interface != null && cfg.network != null) {
-      ${cfg.interface}.rules.${cfg.network} = { };
+      ${cfg.interface}.rules.${cfg.network} = {};
     };
 
     systemd.services.ndppd = {
@@ -187,8 +187,8 @@ in
         "man:ndppd(1)"
         "man:ndppd.conf(5)"
       ];
-      after = [ "network-pre.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network-pre.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.ndppd}/bin/ndppd -c ${ndppdConf}";
 

@@ -55,7 +55,7 @@ stdenv.mkDerivation (
         "alsa-topology"
       ];
       platforms = platforms.linux;
-      maintainers = with maintainers; [ l-as ];
+      maintainers = with maintainers; [l-as];
     };
   }
 )

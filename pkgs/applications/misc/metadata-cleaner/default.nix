@@ -64,6 +64,6 @@ python3.pkgs.buildPythonApplication rec {
       gpl3Plus
       cc-by-sa-40
     ];
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

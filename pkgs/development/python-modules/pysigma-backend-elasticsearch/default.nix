@@ -28,16 +28,16 @@ buildPythonPackage rec {
       --replace " --cov=sigma --cov-report term --cov-report xml:cov.xml" ""
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ pysigma ];
+  propagatedBuildInputs = [pysigma];
 
   nativeCheckInputs = [
     pytestCheckHook
     requests
   ];
 
-  pythonImportsCheck = [ "sigma.backends.elasticsearch" ];
+  pythonImportsCheck = ["sigma.backends.elasticsearch"];
 
   disabledTests =
     [
@@ -49,7 +49,7 @@ buildPythonPackage rec {
     description = "Library to support Elasticsearch for pySigma";
     homepage = "https://github.com/SigmaHQ/pySigma-backend-elasticsearch";
     changelog = "https://github.com/SigmaHQ/pySigma-backend-elasticsearch/releases/tag/v${version}";
-    license = with licenses; [ lgpl21Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [lgpl21Only];
+    maintainers = with maintainers; [fab];
   };
 }

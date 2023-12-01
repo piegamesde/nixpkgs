@@ -51,6 +51,6 @@ stdenv.mkDerivation rec {
     description = "The Alan interactive fiction language";
     license = licenses.artistic2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ neilmayhew ];
+    maintainers = with maintainers; [neilmayhew];
   };
 }

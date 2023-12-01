@@ -14,5 +14,5 @@ in
     enable = mkEnableOption (mdDoc "non-root access to the firmware of QMK keyboards");
   };
 
-  config = mkIf cfg.enable { services.udev.packages = [ pkgs.qmk-udev-rules ]; };
+  config = mkIf cfg.enable {services.udev.packages = [pkgs.qmk-udev-rules];};
 }

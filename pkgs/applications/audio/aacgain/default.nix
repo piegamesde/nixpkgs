@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/dgilman/aacgain";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.robbinch ];
+    maintainers = [maintainers.robbinch];
   };
 }

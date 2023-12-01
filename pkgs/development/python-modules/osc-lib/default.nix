@@ -27,7 +27,7 @@ buildPythonPackage rec {
   # fake version to make pbr.packaging happy and not reject it...
   PBR_VERSION = "2.5.0";
 
-  nativeBuildInputs = [ pbr ];
+  nativeBuildInputs = [pbr];
 
   propagatedBuildInputs = [
     cliff
@@ -52,7 +52,7 @@ buildPythonPackage rec {
     ")
   '';
 
-  pythonImportsCheck = [ "osc_lib" ];
+  pythonImportsCheck = ["osc_lib"];
 
   meta = with lib; {
     description = "OpenStackClient Library";

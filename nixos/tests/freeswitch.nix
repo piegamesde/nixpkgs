@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "freeswitch";
-    meta = with pkgs.lib.maintainers; { maintainers = [ misuzu ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [misuzu];};
     nodes = {
       node0 =
-        { config, lib, ... }:
+        {config, lib, ...}:
         {
           networking.useDHCP = false;
           networking.interfaces.eth1 = {

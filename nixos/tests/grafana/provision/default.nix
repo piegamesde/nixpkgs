@@ -1,5 +1,5 @@
 import ../../make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
 
   let
     inherit (lib) mkMerge nameValuePair maintainers;
@@ -24,7 +24,7 @@ import ../../make-test-python.nix (
       };
 
       system.activationScripts.setup-grafana = {
-        deps = [ "users" ];
+        deps = ["users"];
         text = ''
           mkdir -p /var/lib/grafana/dashboards
           chown -R grafana:grafana /var/lib/grafana
@@ -116,11 +116,11 @@ import ../../make-test-python.nix (
                             conditions = [
                               {
                                 evaluator = {
-                                  params = [ 3 ];
+                                  params = [3];
                                   type = "git";
                                 };
                                 operator.type = "and";
-                                query.params = [ "A" ];
+                                query.params = ["A"];
                                 reducer.type = "last";
                                 type = "query";
                               }
@@ -160,7 +160,7 @@ import ../../make-test-python.nix (
             };
 
             policies.settings = {
-              policies = [ { receiver = "Test Contact Point"; } ];
+              policies = [{receiver = "Test Contact Point";}];
             };
 
             templates.settings = {
@@ -173,7 +173,7 @@ import ../../make-test-python.nix (
             };
 
             muteTimings.settings = {
-              muteTimes = [ { name = "Test Mute Timing"; } ];
+              muteTimes = [{name = "Test Mute Timing";}];
             };
           };
         };

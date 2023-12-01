@@ -20,12 +20,12 @@ buildPythonPackage rec {
     types-requests
   ];
 
-  pythonImportsCheck = [ "pyarr" ];
+  pythonImportsCheck = ["pyarr"];
 
   meta = with lib; {
     description = "Python client for Servarr API's (Sonarr, Radarr, Readarr, Lidarr)";
     homepage = "https://github.com/totaldebug/pyarr";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

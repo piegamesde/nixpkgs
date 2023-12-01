@@ -16,9 +16,9 @@ stdenv.mkDerivation {
     hash = "sha256-HyNYqhPCQVBJqEcAUUXfvycXE8tWIMIUJJMTIV48ne8=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
-  nativeCheckInputs = [ luaPackages.luacheck ];
+  nativeCheckInputs = [luaPackages.luacheck];
 
   doCheck = true;
 
@@ -27,6 +27,6 @@ stdenv.mkDerivation {
     homepage = "https://nelua.io/";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

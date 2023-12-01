@@ -22,7 +22,7 @@ stdenvNoCC.mkDerivation rec {
     ];
   };
 
-  nativeBuildInputs = [ rpmextract ];
+  nativeBuildInputs = [rpmextract];
 
   unpackPhase = ''
     rpmextract $src/perccli-00${version}00.0000-1.noarch.rpm
@@ -49,9 +49,9 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     description = "Perccli Support for PERC RAID controllers";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ panicgh ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [panicgh];
+    platforms = ["x86_64-linux"];
   };
 }

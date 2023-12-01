@@ -18,16 +18,16 @@ stdenv.mkDerivation rec {
     sha256 = "1ayrhyh9x33b87ic01b4jzxc8x27yxpxzya5x54ikazvz8p71n14";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   propagatedBuildInputs = [
     xtl
     xsimd
   ];
 
-  cmakeFlags = [ "-DBUILD_TESTS=ON" ];
+  cmakeFlags = ["-DBUILD_TESTS=ON"];
 
   doCheck = true;
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
   checkTarget = "xtest";
 
   # https://github.com/xtensor-stack/xtensor/issues/2542
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "Multi-dimensional arrays with broadcasting and lazy computing.";
     homepage = "https://github.com/xtensor-stack/xtensor";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
     platforms = platforms.all;
   };
 }

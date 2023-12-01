@@ -55,7 +55,7 @@ python3.pkgs.buildPythonApplication rec {
 
   preFixup = ''
     makeWrapperArgs+=(
-      --prefix PATH ":" "${lib.makeBinPath [ espeak-ng ]}"
+      --prefix PATH ":" "${lib.makeBinPath [espeak-ng]}"
       "''${gappsWrapperArgs[@]}"
     )
   '';
@@ -65,6 +65,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/fushinari/Wordbook";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

@@ -16,9 +16,9 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-NJ5URKYs4rVzddXxkwJK9ih40f8McVEbj3G1tPFAiMs";
   };
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     description = "Deepin GTK Theme";

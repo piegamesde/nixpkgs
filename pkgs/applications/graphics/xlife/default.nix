@@ -19,9 +19,9 @@ stdenv.mkDerivation {
     imake
     gccmakedep
   ];
-  buildInputs = [ xorg.libX11 ];
+  buildInputs = [xorg.libX11];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
   installPhase = ''
     install -Dm755 xlife -t $out/bin
     install -Dm755 lifeconv -t $out/bin
@@ -31,6 +31,6 @@ stdenv.mkDerivation {
     homepage = "http://litwr2.atspace.eu/xlife.php";
     description = "Conway's Game of Life and other cellular automata, for X";
     license = licenses.hpndSellVariant;
-    maintainers = with maintainers; [ djanatyn ];
+    maintainers = with maintainers; [djanatyn];
   };
 }

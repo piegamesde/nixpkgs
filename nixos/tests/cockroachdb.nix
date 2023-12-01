@@ -68,12 +68,12 @@ let
       # device to appear as a reference clock, synchronized to the host clock.
       # Because CockroachDB *requires* a time-synchronization mechanism for
       # the system time in a cluster scenario, this is necessary to work.
-      boot.kernelModules = [ "ptp_kvm" ];
+      boot.kernelModules = ["ptp_kvm"];
 
       # Enable and configure Chrony, using the given virtualized clock passed
       # through by KVM.
       services.chrony.enable = true;
-      services.chrony.servers = lib.mkForce [ ];
+      services.chrony.servers = lib.mkForce [];
       services.chrony.extraConfig = ''
         refclock PHC /dev/ptp0 poll 2 prefer require refid KVM
         makestep 0.1 3
@@ -105,10 +105,10 @@ let
     };
 in
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "cockroachdb";
-    meta.maintainers = with pkgs.lib.maintainers; [ thoughtpolice ];
+    meta.maintainers = with pkgs.lib.maintainers; [thoughtpolice];
 
     nodes = {
       node1 = makeNode "country=us,region=east,dc=1" "192.168.1.1" null;

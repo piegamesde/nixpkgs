@@ -38,9 +38,9 @@ stdenv.mkDerivation rec {
     "info"
   ];
 
-  nativeBuildInputs = [ xz.bin ];
+  nativeBuildInputs = [xz.bin];
   # If no explicit coreutils is given, use the one from stdenv.
-  buildInputs = [ coreutils ];
+  buildInputs = [coreutils];
 
   configureFlags =
     # "pr" need not be on the PATH as a run-time dep, so we need to tell

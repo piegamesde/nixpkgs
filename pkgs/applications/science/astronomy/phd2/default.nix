@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     libnova
   ];
 
-  cmakeFlags = [ "-DOPENSOURCE_ONLY=1" ];
+  cmakeFlags = ["-DOPENSOURCE_ONLY=1"];
 
   # Fix broken wrapped name scheme by moving wrapped binary to where wrapper expects it
   postFixup = ''
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     description = "Telescope auto-guidance application";
     changelog = "https://github.com/OpenPHDGuiding/phd2/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ hjones2199 ];
+    maintainers = with maintainers; [hjones2199];
     platforms = platforms.linux;
   };
 }

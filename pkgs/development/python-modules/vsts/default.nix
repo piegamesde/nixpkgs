@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "15sgwqa72ynpahj101r2kc15s3dnsafg5gqx0sz3hnqz29h925ys";
   };
 
-  propagatedBuildInputs = [ msrest ];
+  propagatedBuildInputs = [msrest];
 
   postPatch = ''
     substituteInPlace setup.py --replace "msrest>=0.6.0,<0.7.0" "msrest"
@@ -30,6 +30,6 @@ buildPythonPackage rec {
     description = "Python APIs for interacting with and managing Azure DevOps";
     homepage = "https://github.com/microsoft/azure-devops-python-api";
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

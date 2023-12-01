@@ -1,11 +1,11 @@
 # The test template is taken from the `./keymap.nix`
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 
 let
   readyFile = "/tmp/readerReady";
@@ -28,7 +28,7 @@ let
 
   mkKeyboardTest =
     name:
-    { settings, test }:
+    {settings, test}:
     with pkgs.lib;
     makeTest {
       inherit name;

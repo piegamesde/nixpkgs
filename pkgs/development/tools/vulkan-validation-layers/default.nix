@@ -19,7 +19,7 @@
 }:
 
 let
-  robin-hood-hashing = callPackage ./robin-hood-hashing.nix { };
+  robin-hood-hashing = callPackage ./robin-hood-hashing.nix {};
 
   # Current VVL version requires a newer spirv-headers than the latest release tag.
   # This should hopefully not be too common and the override should be removed after
@@ -105,6 +105,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/KhronosGroup/Vulkan-ValidationLayers";
     platforms = platforms.linux;
     license = licenses.asl20;
-    maintainers = [ maintainers.ralith ];
+    maintainers = [maintainers.ralith];
   };
 }

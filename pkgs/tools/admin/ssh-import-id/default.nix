@@ -6,7 +6,7 @@
   distro,
   makeWrapper,
   installShellFiles,
-  extraHandlers ? [ ],
+  extraHandlers ? [],
 }:
 
 buildPythonPackage rec {

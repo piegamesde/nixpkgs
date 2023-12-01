@@ -43,7 +43,7 @@ backendStdenv.mkDerivation {
 
   # Picked up by autoPatchelf
   # Needed e.g. for libnvrtc to locate (dlopen) libnvrtc-builtins
-  appendRunpaths = [ "$ORIGIN" ];
+  appendRunpaths = ["$ORIGIN"];
 
   dontBuild = true;
 
@@ -61,6 +61,6 @@ backendStdenv.mkDerivation {
   meta = {
     description = attrs.name;
     license = lib.licenses.unfree;
-    platforms = lib.optionals (lib.hasAttr arch attrs) [ "x86_64-linux" ];
+    platforms = lib.optionals (lib.hasAttr arch attrs) ["x86_64-linux"];
   };
 }

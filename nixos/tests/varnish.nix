@@ -1,20 +1,20 @@
 {
   system ? builtins.currentSystem,
-  pkgs ? import ../.. { inherit system; },
+  pkgs ? import ../.. {inherit system;},
   package,
 }:
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
     testPath = pkgs.hello;
   in
   {
     name = "varnish";
-    meta = with pkgs.lib.maintainers; { maintainers = [ ajs124 ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [ajs124];};
 
     nodes = {
       varnish =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         {
           services.nix-serve = {
             enable = true;
@@ -34,16 +34,16 @@ import ./make-test-python.nix (
             '';
           };
 
-          networking.firewall.allowedTCPPorts = [ 80 ];
-          system.extraDependencies = [ testPath ];
+          networking.firewall.allowedTCPPorts = [80];
+          system.extraDependencies = [testPath];
         };
 
       client =
-        { lib, ... }:
+        {lib, ...}:
         {
           nix.settings = {
             require-sigs = false;
-            substituters = lib.mkForce [ "http://varnish" ];
+            substituters = lib.mkForce ["http://varnish"];
           };
         };
     };

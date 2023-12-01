@@ -30,7 +30,7 @@ buildGoModule rec {
 
   vendorSha256 = "1w9c0qzah2f9rbjdxqajwrfkia25cwbn30gidviaid3b7ddpd7r8";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     bzip2
@@ -47,7 +47,7 @@ buildGoModule rec {
     "-X github.com/trezor/blockbook/common.buildDate=unknown"
   ];
 
-  tags = [ "rocksdb_6_16" ];
+  tags = ["rocksdb_6_16"];
 
   preBuild =
     lib.optionalString stdenv.isDarwin ''
@@ -59,7 +59,7 @@ buildGoModule rec {
       buildFlagsArray+=("-ldflags=${lib.concatStringsSep " " ldflags}")
     '';
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   postInstall = ''
     mkdir -p $out/share/

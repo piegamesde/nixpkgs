@@ -7,7 +7,7 @@
 buildGoModule rec {
   pname = "aiac";
   version = "2.2.0";
-  excludedPackages = [ ".ci" ];
+  excludedPackages = [".ci"];
 
   src = fetchFromGitHub {
     owner = "gofireflyio";
@@ -27,6 +27,6 @@ buildGoModule rec {
     description = "Artificial Intelligence Infrastructure-as-Code Generator.";
     homepage = "https://github.com/gofireflyio/aiac/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ qjoly ];
+    maintainers = with maintainers; [qjoly];
   };
 }

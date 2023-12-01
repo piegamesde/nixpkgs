@@ -34,7 +34,7 @@ let
 
   env = {
     SANE_CONFIG_DIR = "/etc/sane-config";
-    LD_LIBRARY_PATH = [ "/etc/sane-libs" ];
+    LD_LIBRARY_PATH = ["/etc/sane-libs"];
   };
 
   backends = [
@@ -75,7 +75,7 @@ in
 
     hardware.sane.extraBackends = mkOption {
       type = types.listOf types.path;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Packages providing extra SANE backends to enable.
 
@@ -90,8 +90,8 @@ in
 
     hardware.sane.disabledDefaultBackends = mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "v4l" ];
+      default = [];
+      example = ["v4l"];
       description = lib.mdDoc ''
         Names of backends which are enabled by default but should be disabled.
         See `$SANE_CONFIG_DIR/dll.conf` for the list of possible names.
@@ -180,11 +180,11 @@ in
       services.udev.packages = backends;
 
       users.groups.scanner.gid = config.ids.gids.scanner;
-      networking.firewall.allowedUDPPorts = mkIf config.hardware.sane.openFirewall [ 8612 ];
+      networking.firewall.allowedUDPPorts = mkIf config.hardware.sane.openFirewall [8612];
     })
 
     (mkIf config.services.saned.enable {
-      networking.firewall.connectionTrackingModules = [ "sane" ];
+      networking.firewall.connectionTrackingModules = ["sane"];
 
       systemd.services."saned@" = {
         description = "Scanner Service";
@@ -198,7 +198,7 @@ in
 
       systemd.sockets.saned = {
         description = "saned incoming socket";
-        wantedBy = [ "sockets.target" ];
+        wantedBy = ["sockets.target"];
         listenStreams = [
           "0.0.0.0:6566"
           "[::]:6566"
@@ -214,7 +214,7 @@ in
       users.users.scanner = {
         uid = config.ids.uids.scanner;
         group = "scanner";
-        extraGroups = [ "lp" ] ++ optionals config.services.avahi.enable [ "avahi" ];
+        extraGroups = ["lp"] ++ optionals config.services.avahi.enable ["avahi"];
       };
     })
   ];

@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-SU1pPmLLeTWZe5ybhmDplFw6O/vpEjFAKgfKDl0RS4U=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   # Just let the installPhase build stuff, because there's no
   # non-install target that builds everything anyway.

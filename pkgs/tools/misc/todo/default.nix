@@ -20,14 +20,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "B0tecuBx/FFQokhfI6+xpppyG5DD8WS2+MkmPaZfMhI=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
   meta = with lib; {
     description = "Simple todo cli program written in rust";
     homepage = "https://github.com/sioodmy/todo";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ sioodmy ];
+    maintainers = with maintainers; [sioodmy];
     mainProgram = "todo";
   };
 }

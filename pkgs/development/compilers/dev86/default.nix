@@ -16,7 +16,7 @@ stdenv.mkDerivation (
       hash = "sha256-CWeboFkJkpKHZ/wkuvMj5a+5qB2uzAtoYy8OdyYErMg=";
     };
 
-    makeFlags = [ "PREFIX=${placeholder "out"}" ];
+    makeFlags = ["PREFIX=${placeholder "out"}"];
 
     # Parallel builds are not supported due to build process structure: tools are
     # built sequentially in submakefiles and are reusing the same targets as
@@ -30,7 +30,7 @@ stdenv.mkDerivation (
       homepage = "https://github.com/jbruchon/dev86";
       description = "C compiler, assembler and linker environment for the production of 8086 executables";
       license = lib.licenses.gpl2Plus;
-      maintainers = [ lib.maintainers.AndersonTorres ];
+      maintainers = [lib.maintainers.AndersonTorres];
       platforms = lib.platforms.linux;
     };
   }

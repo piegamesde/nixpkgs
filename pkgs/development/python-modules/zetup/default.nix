@@ -31,7 +31,7 @@ buildPythonPackage rec {
     py.test test -k "not TestObject" --deselect=test/test_zetup_config.py::test_classifiers
   '';
 
-  propagatedBuildInputs = [ setuptools-scm ];
+  propagatedBuildInputs = [setuptools-scm];
 
   nativeCheckInputs = [
     path
@@ -39,7 +39,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "zetup" ];
+  pythonImportsCheck = ["zetup"];
 
   meta = with lib; {
     description = "Zimmermann's Extensible Tools for Unified Project setups";

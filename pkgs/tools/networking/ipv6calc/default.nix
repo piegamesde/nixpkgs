@@ -46,9 +46,9 @@ stdenv.mkDerivation rec {
       "--disable-dynamic-load"
       "--enable-shared"
     ]
-    ++ lib.optionals (libmaxminddb != null) [ "--enable-mmdb" ]
-    ++ lib.optionals (geolite-legacy != null) [ "--with-geoip-db=${geolite-legacy}/share/GeoIP" ]
-    ++ lib.optionals (ip2location-c != null) [ "--enable-ip2location" ];
+    ++ lib.optionals (libmaxminddb != null) ["--enable-mmdb"]
+    ++ lib.optionals (geolite-legacy != null) ["--with-geoip-db=${geolite-legacy}/share/GeoIP"]
+    ++ lib.optionals (ip2location-c != null) ["--enable-ip2location"];
 
   enableParallelBuilding = true;
 
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.deepspace6.net/projects/ipv6calc.html";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

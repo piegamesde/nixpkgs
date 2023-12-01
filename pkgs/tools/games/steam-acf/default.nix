@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
       mit # or
       asl20
     ];
-    maintainers = with maintainers; [ chisui ];
+    maintainers = with maintainers; [chisui];
     mainProgram = "acf";
   };
 }

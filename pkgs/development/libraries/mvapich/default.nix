@@ -114,7 +114,7 @@ stdenv.mkDerivation rec {
     description = "MPI-3.1 implementation optimized for Infiband transport";
     homepage = "https://mvapich.cse.ohio-state.edu";
     license = licenses.bsd3;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
     platforms = platforms.linux;
   };
 }

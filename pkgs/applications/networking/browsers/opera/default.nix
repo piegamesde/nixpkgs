@@ -119,7 +119,7 @@ stdenv.mkDerivation rec {
     # "Illegal instruction (core dumped)"
     gtk3
     gtk4
-  ] ++ lib.optionals proprietaryCodecs [ vivaldi-ffmpeg-codecs ];
+  ] ++ lib.optionals proprietaryCodecs [vivaldi-ffmpeg-codecs];
 
   dontWrapQtApps = true;
 
@@ -133,9 +133,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.opera.com";
     description = "Faster, safer and smarter web browser";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     license = licenses.unfree;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ kindrowboat ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    maintainers = with maintainers; [kindrowboat];
   };
 }

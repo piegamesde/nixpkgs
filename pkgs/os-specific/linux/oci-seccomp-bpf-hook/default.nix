@@ -58,7 +58,7 @@ buildGoModule rec {
       OCI hook to trace syscalls and generate a seccomp profile
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ saschagrunert ];
+    maintainers = with maintainers; [saschagrunert];
     platforms = platforms.linux;
   };
 }

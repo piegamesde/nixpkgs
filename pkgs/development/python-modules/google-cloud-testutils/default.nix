@@ -29,13 +29,13 @@ buildPythonPackage rec {
   # does not contain tests
   doCheck = false;
 
-  pythonImportsCheck = [ "test_utils" ];
+  pythonImportsCheck = ["test_utils"];
 
   meta = with lib; {
     description = "System test utilities for google-cloud-python";
     homepage = "https://github.com/googleapis/python-test-utils";
     changelog = "https://github.com/googleapis/python-test-utils/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

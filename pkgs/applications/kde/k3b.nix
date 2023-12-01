@@ -42,8 +42,8 @@ mkDerivation {
   meta = with lib; {
     homepage = "https://apps.kde.org/k3b/";
     description = "Disk burning application";
-    license = with licenses; [ gpl2Plus ];
-    maintainers = with maintainers; [ sander ];
+    license = with licenses; [gpl2Plus];
+    maintainers = with maintainers; [sander];
     platforms = platforms.linux;
   };
   nativeBuildInputs = [
@@ -80,7 +80,7 @@ mkDerivation {
     libmusicbrainz3
     shared-mime-info
   ];
-  propagatedUserEnvPkgs = [ (lib.getBin kinit) ];
+  propagatedUserEnvPkgs = [(lib.getBin kinit)];
   postFixup =
     let
       binPath = lib.makeBinPath [
@@ -94,7 +94,7 @@ mkDerivation {
         vcdimager
         flac
       ];
-      libraryPath = lib.makeLibraryPath [ cdparanoia ];
+      libraryPath = lib.makeLibraryPath [cdparanoia];
     in
     ''
       wrapProgram "$out/bin/k3b"     \

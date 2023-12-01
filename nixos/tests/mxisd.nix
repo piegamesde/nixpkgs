@@ -1,9 +1,9 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
 
     name = "mxisd";
-    meta = with pkgs.lib.maintainers; { maintainers = [ mguentner ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [mguentner];};
 
     nodes = {
       server = args: {

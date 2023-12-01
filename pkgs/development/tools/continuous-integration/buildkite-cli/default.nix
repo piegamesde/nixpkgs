@@ -23,7 +23,7 @@ buildGoModule rec {
     patchShebangs .buildkite/steps/{lint,run-local}.sh
   '';
 
-  subPackages = [ "cmd/bk" ];
+  subPackages = ["cmd/bk"];
 
   ldflags = [
     "-s"
@@ -35,7 +35,7 @@ buildGoModule rec {
     description = "A command line interface for Buildkite";
     homepage = "https://github.com/buildkite/cli";
     license = licenses.mit;
-    maintainers = with maintainers; [ groodt ];
+    maintainers = with maintainers; [groodt];
     mainProgram = "bk";
   };
 }

@@ -12,7 +12,7 @@
   pos ? __curPos,
   files,
   source,
-  dependencies ? { },
+  dependencies ? {},
   pythonPackages,
   python-versions,
   pwd,
@@ -95,9 +95,9 @@ pythonPackages.callPackage
           pyProject = poetryLib.readTOML pyProjectPath;
         in
         if builtins.pathExists pyProjectPath then
-          poetryLib.getBuildSystemPkgs { inherit pythonPackages pyProject; }
+          poetryLib.getBuildSystemPkgs {inherit pythonPackages pyProject;}
         else
-          [ ];
+          [];
 
       pname = normalizePackageName name;
       preferWheel' = preferWheel && pname != "wheel";
@@ -148,7 +148,7 @@ pythonPackages.callPackage
         else
           fileInfo.format;
 
-      hooks = python.pkgs.callPackage ./hooks { };
+      hooks = python.pkgs.callPackage ./hooks {};
     in
     buildPythonPackage {
       inherit pname version;
@@ -162,7 +162,7 @@ pythonPackages.callPackage
       dontStrip = format == "wheel";
 
       nativeBuildInputs =
-        [ hooks.poetry2nixFixupHook ]
+        [hooks.poetry2nixFixupHook]
         ++ lib.optional (!pythonPackages.isPy27) hooks.poetry2nixPythonRequiresPatchHook
         ++ lib.optional (isLocked && (getManyLinuxDeps fileInfo.name).str != null) autoPatchelfHook
         ++ lib.optionals (format == "wheel") [
@@ -206,7 +206,7 @@ pythonPackages.callPackage
 
       meta = {
         broken = !isCompatible (poetryLib.getPythonVersion python) python-versions;
-        license = [ ];
+        license = [];
         inherit (python.meta) platforms;
       };
 
@@ -242,7 +242,7 @@ pythonPackages.callPackage
             sha256 = fileInfo.hash;
           }
         else if isDirectory then
-          (poetryLib.cleanPythonSources { src = localDepPath; })
+          (poetryLib.cleanPythonSources {src = localDepPath;})
         else if isFile then
           localDepPath
         else if isLegacy then
@@ -260,4 +260,4 @@ pythonPackages.callPackage
           };
     }
   )
-  { }
+  {}

@@ -23,13 +23,13 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   meta = with lib; {
     description = "Graphical companion application for various bridges like LinVst, etc";
     homepage = "https://github.com/Goli4thus/linvstmanager";
-    license = with licenses; [ gpl3 ];
+    license = with licenses; [gpl3];
     platforms = platforms.linux;
-    maintainers = [ maintainers.GabrielDougherty ];
+    maintainers = [maintainers.GabrielDougherty];
   };
 }

@@ -47,9 +47,9 @@ stdenv.mkDerivation rec {
     dbus # for dbus-run-session
   ];
 
-  propagatedBuildInputs = [ glib ];
+  propagatedBuildInputs = [glib];
 
-  mesonFlags = [ "-Dprofiler=disabled" ];
+  mesonFlags = ["-Dprofiler=disabled"];
 
   meta = with lib; {
     homepage = "https://github.com/linuxmint/cjs";

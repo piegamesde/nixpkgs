@@ -24,7 +24,7 @@ buildPythonPackage rec {
     pyparsing
     pytest
   ];
-  propagatedBuildInputs = [ lxml ];
+  propagatedBuildInputs = [lxml];
 
   checkPhase = ''
     py.test tests
@@ -35,6 +35,6 @@ buildPythonPackage rec {
     description = "Create and update Microsoft Word .docx files";
     homepage = "https://python-docx.readthedocs.io/en/latest/";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.alexchapman ];
+    maintainers = [lib.maintainers.alexchapman];
   };
 }

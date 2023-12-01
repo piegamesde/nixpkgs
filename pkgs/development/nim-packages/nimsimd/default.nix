@@ -1,4 +1,4 @@
-{ fetchNimble }:
+{fetchNimble}:
 
 fetchNimble {
   pname = "nimsimd";

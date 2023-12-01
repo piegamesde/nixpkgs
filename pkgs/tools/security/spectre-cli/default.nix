@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     ncurses
   ];
 
-  cmakeFlags = [ "-DBUILD_SPECTRE_TESTS=ON" ];
+  cmakeFlags = ["-DBUILD_SPECTRE_TESTS=ON"];
 
   preConfigure = ''
     echo "${version}" > VERSION
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     description = "A stateless cryptographic identity algorithm";
     homepage = "https://spectre.app";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ emmabastas ];
+    maintainers = with maintainers; [emmabastas];
     mainProgram = "spectre";
     platforms = platforms.all;
   };

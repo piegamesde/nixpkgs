@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     viper4linux
   ];
 
-  qmakeFlags = [ "V4L_Frontend.pro" ];
+  qmakeFlags = ["V4L_Frontend.pro"];
 
   qtWrapperArgs = [
     "--prefix PATH : ${
@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
     description = "Official UI for Viper4Linux2";
     homepage = "https://github.com/Audio4Linux/Viper4Linux-GUI";
     license = licenses.gpl3Plus;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ rewine ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [rewine];
   };
 }

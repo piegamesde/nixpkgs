@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-JzyRlHwM8rmJ5OaKHz+6vHGfpSz+X4zkFAKn4Jmo+EE=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     boost
@@ -71,6 +71,6 @@ stdenv.mkDerivation rec {
     homepage = "https://wownero.org/";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

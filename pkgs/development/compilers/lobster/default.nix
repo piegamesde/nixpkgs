@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3jF5Ab8P8w1WxgsE8d0ByldzL/YVt/fvLVGKOEzBzPI=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs =
     if stdenv.isDarwin then
       [
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     cd dev
   '';
 
-  passthru.tests.can-run-hello-world = callPackage ./test-can-run-hello-world.nix { };
+  passthru.tests.can-run-hello-world = callPackage ./test-can-run-hello-world.nix {};
 
   meta = with lib; {
     broken = stdenv.isDarwin;
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
       friendly and terse syntax, by doing most of the heavy lifting for you.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
   };
 }

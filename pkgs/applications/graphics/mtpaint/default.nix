@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     sha256 = "04wqxz8i655gz5rnz90cksy8v6m2jhcn1j8rzhqpp5xhawlmq24y";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     freetype
     giflib
@@ -58,6 +58,6 @@ stdenv.mkDerivation rec {
     homepage = "https://mtpaint.sourceforge.net/";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.vklquevs ];
+    maintainers = [lib.maintainers.vklquevs];
   };
 }

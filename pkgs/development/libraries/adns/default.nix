@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "1pi0xl07pav4zm2jrbrfpv43s1r1q1y12awgak8k7q41m5jp4hpv";
   };
 
-  nativeBuildInputs = [ gnum4 ];
+  nativeBuildInputs = [gnum4];
 
   configureFlags = lib.optional stdenv.hostPlatform.isStatic "--disable-dynamic";
 

@@ -28,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-7yEZJ+iIw4qOxsanlKQlqt1bfi8MvyYjGJWiVDmXBrc=";
   };
 
-  nativeBuildInputs = [ samtools ];
+  nativeBuildInputs = [samtools];
   buildInputs = [
     bzip2
     curl
@@ -108,7 +108,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A python module for reading, manipulating and writing genome data sets";
     homepage = "https://pysam.readthedocs.io/";
-    maintainers = with maintainers; [ unode ];
+    maintainers = with maintainers; [unode];
     license = licenses.mit;
     platforms = platforms.unix;
   };

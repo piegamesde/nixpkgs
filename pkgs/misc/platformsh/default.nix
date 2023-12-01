@@ -24,7 +24,7 @@ stdenv.mkDerivation {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -60,7 +60,7 @@ stdenv.mkDerivation {
     description = "The unified tool for managing your Platform.sh services from the command line.";
     homepage = "https://github.com/platformsh/platformsh-cli";
     license = licenses.mit;
-    maintainers = with maintainers; [ shyim ];
+    maintainers = with maintainers; [shyim];
     mainProgram = "platform";
     platforms = platforms.all;
   };

@@ -22,13 +22,13 @@ stdenv.mkDerivation rec {
       --replace 'fbcat' "$out/bin/fbcat"
   '';
 
-  installFlags = [ "PREFIX=${placeholder "out"}" ];
+  installFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     homepage = "http://jwilk.net/software/fbcat";
     description = "Framebuffer screenshot tool";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.matthiasbeyer ];
+    maintainers = [maintainers.matthiasbeyer];
     platforms = platforms.linux;
   };
 }

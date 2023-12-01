@@ -20,7 +20,7 @@ let
     comment = "A SNES emulator";
     desktopName = "zsnes";
     genericName = "zsnes";
-    categories = [ "Game" ];
+    categories = ["Game"];
   };
 in
 stdenv.mkDerivation {
@@ -62,7 +62,7 @@ stdenv.mkDerivation {
     sed -i "/\$STRIP/d" configure
   '';
 
-  configureFlags = [ "--enable-release" ];
+  configureFlags = ["--enable-release"];
 
   postInstall = ''
     function installIcon () {
@@ -81,7 +81,7 @@ stdenv.mkDerivation {
   meta = {
     description = "A Super Nintendo Entertainment System Emulator";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.sander ];
+    maintainers = [lib.maintainers.sander];
     homepage = "https://www.zsnes.com";
     platforms = [
       "i686-linux"

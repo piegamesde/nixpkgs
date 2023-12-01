@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     gtk
   ];
 
-  nativeCheckInputs = [ xvfb-run ];
+  nativeCheckInputs = [xvfb-run];
 
   doCheck = !stdenv.isDarwin;
 
@@ -87,6 +87,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.zlib;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

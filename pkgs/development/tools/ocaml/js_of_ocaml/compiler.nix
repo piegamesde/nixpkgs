@@ -21,13 +21,13 @@ buildDunePackage rec {
     sha256 = "sha256-kXk/KaWvPeq6P301zqsR5znP4KXMMFVvYgFGGm1CNu8=";
   };
 
-  nativeBuildInputs = [ menhir ];
+  nativeBuildInputs = [menhir];
   buildInputs = [
     cmdliner
     ppxlib
   ];
 
-  configurePlatforms = [ ];
+  configurePlatforms = [];
   propagatedBuildInputs = [
     menhirLib
     yojson
@@ -38,7 +38,7 @@ buildDunePackage rec {
     description = "Compiler from OCaml bytecode to Javascript";
     homepage = "https://ocsigen.org/js_of_ocaml/";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     mainProgram = "js_of_ocaml";
   };
 }

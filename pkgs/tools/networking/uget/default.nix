@@ -73,6 +73,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.ugetdm.com";
     license = licenses.lgpl21;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-pattern";
   version = "20140713-git";
@@ -22,7 +22,7 @@ rec {
 
   packageName = "cl-pattern";
 
-  asdFilesToKeep = [ "cl-pattern.asd" ];
+  asdFilesToKeep = ["cl-pattern.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-pattern DESCRIPTION System lacks description SHA256

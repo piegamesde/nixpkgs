@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ ocaml ];
+  nativeBuildInputs = [ocaml];
 
   meta = {
     description = "A build system designed for scalability and portability";

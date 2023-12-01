@@ -27,6 +27,6 @@ buildGoModule rec {
     homepage = "https://github.com/gekware/minecraft-server-hibernation";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ squarepear ];
+    maintainers = with maintainers; [squarepear];
   };
 }

@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
   buildInputs =
-    [ freetype ]
+    [freetype]
     ++ (
       if stdenv.isDarwin then
         [
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
         ]
     );
 
-  configureFlags = [ "--with-ft-prefix=${lib.getDev freetype}" ];
+  configureFlags = ["--with-ft-prefix=${lib.getDev freetype}"];
 
   enableParallelBuilding = true;
 
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
       rendering modes.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.unix;
   };
 }

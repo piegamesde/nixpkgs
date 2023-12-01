@@ -67,7 +67,7 @@ buildPythonPackage rec {
       --replace " --emoji --mypy-ini-file=mypy.ini --benchmark-disable" "" \
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     graphql-core
@@ -114,13 +114,13 @@ buildPythonPackage rec {
     #   opentelemetry-api
     #   opentelemetry-sdk
     # ];
-    pydantic = [ pydantic ];
-    sanic = [ sanic ];
+    pydantic = [pydantic];
+    sanic = [sanic];
     fastapi = [
       fastapi
       python-multipart
     ];
-    chalice = [ chalice ];
+    chalice = [chalice];
     cli = [
       click
       pygments
@@ -130,7 +130,7 @@ buildPythonPackage rec {
     # starlite = [
     #   starlite
     # ];
-    pyinstrument = [ pyinstrument ];
+    pyinstrument = [pyinstrument];
   };
 
   nativeCheckInputs = [
@@ -145,7 +145,7 @@ buildPythonPackage rec {
     sanic-testing
   ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
-  pythonImportsCheck = [ "strawberry" ];
+  pythonImportsCheck = ["strawberry"];
 
   disabledTestPaths = [
     "tests/benchmarks/"
@@ -165,7 +165,7 @@ buildPythonPackage rec {
     description = "A GraphQL library for Python that leverages type annotations";
     homepage = "https://strawberry.rocks";
     changelog = "https://github.com/strawberry-graphql/strawberry/blob/${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ izorkin ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [izorkin];
   };
 }

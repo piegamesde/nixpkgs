@@ -16,12 +16,11 @@
 
 let
   # We override stdenv in case we need different ABI for libGL
-  primusLib_ = primusLib.override { inherit stdenv; };
-  primusLib_i686_ = primusLib_i686.override { stdenv = stdenv_i686; };
+  primusLib_ = primusLib.override {inherit stdenv;};
+  primusLib_i686_ = primusLib_i686.override {stdenv = stdenv_i686;};
 
-  primus = if useNvidia then primusLib_ else primusLib_.override { nvidia_x11 = null; };
-  primus_i686 =
-    if useNvidia then primusLib_i686_ else primusLib_i686_.override { nvidia_x11 = null; };
+  primus = if useNvidia then primusLib_ else primusLib_.override {nvidia_x11 = null;};
+  primus_i686 = if useNvidia then primusLib_i686_ else primusLib_i686_.override {nvidia_x11 = null;};
   ldPath = lib.makeLibraryPath (
     lib.filter (x: x != null) (
       [

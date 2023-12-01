@@ -27,7 +27,7 @@ buildDunePackage rec {
   meta = with lib; {
     description = "Structured concurrency library";
     homepage = "https://github.com/ocaml-dune/fiber";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     license = licenses.mit;
   };
 }

@@ -95,9 +95,9 @@ stdenv.mkDerivation rec {
     ++ lib.optional podcastSupport python3.pkgs.feedparser
     ++ lib.optional wikipediaSupport webkitgtk;
 
-  nativeCheckInputs = with python3.pkgs; [ pytest ];
+  nativeCheckInputs = with python3.pkgs; [pytest];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   doCheck = true;
   preCheck = ''
@@ -109,16 +109,14 @@ stdenv.mkDerivation rec {
   postInstall = ''
     wrapProgram $out/bin/exaile \
       --set PYTHONPATH $PYTHONPATH \
-      --prefix PATH : ${
-        lib.makeBinPath ([ python3 ] ++ lib.optionals streamripperSupport [ streamripper ])
-      }
+      --prefix PATH : ${lib.makeBinPath ([python3] ++ lib.optionals streamripperSupport [streamripper])}
   '';
 
   meta = with lib; {
     homepage = "https://www.exaile.org/";
     description = "A music player with a simple interface and powerful music management capabilities";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ ryneeverett ];
+    maintainers = with maintainers; [ryneeverett];
     platforms = platforms.all;
   };
 }

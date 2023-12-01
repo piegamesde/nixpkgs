@@ -20,14 +20,14 @@ buildPythonPackage rec {
       --replace "pytest-runner" ""
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "arpeggio" ];
+  pythonImportsCheck = ["arpeggio"];
 
   meta = with lib; {
     description = "Recursive descent parser with memoization based on PEG grammars (aka Packrat parser)";
     homepage = "https://github.com/textX/Arpeggio";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

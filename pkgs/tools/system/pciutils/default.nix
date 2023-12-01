@@ -21,14 +21,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-zep66XI53uIySaCcaKGaKHo/EJ++ssIy67YWyzhZkBI=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       which
       zlib
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ IOKit ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ kmod ];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [IOKit]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [kmod];
 
   preConfigure = lib.optionalString (!stdenv.cc.isGNU) ''
     substituteInPlace Makefile --replace 'CC=$(CROSS_COMPILE)gcc' ""
@@ -69,6 +69,6 @@ stdenv.mkDerivation rec {
     description = "A collection of programs for inspecting and manipulating configuration of PCI devices";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.vcunat ]; # not really, but someone should watch it
+    maintainers = [maintainers.vcunat]; # not really, but someone should watch it
   };
 }

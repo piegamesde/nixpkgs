@@ -74,7 +74,7 @@ stdenv.mkDerivation {
     perl
     makeWrapper
   ];
-  buildInputs = [ jre ];
+  buildInputs = [jre];
 
   postPatch = ''
     substituteInPlace build.gradle \
@@ -107,7 +107,7 @@ stdenv.mkDerivation {
       binaryBytecode # deps
     ];
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ mguentner ];
+    maintainers = with maintainers; [mguentner];
     platforms = platforms.all;
   };
 }

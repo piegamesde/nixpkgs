@@ -7,7 +7,7 @@
 with lib;
 
 let
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
 
   # gemstash uses a yaml config where the keys are ruby symbols,
   # which means they start with ':'. This would be annoying to use
@@ -41,7 +41,7 @@ in
     };
 
     settings = mkOption {
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Configuration for Gemstash. The details can be found at in
         [gemstash documentation](https://github.com/rubygems/gemstash/blob/master/man/gemstash-configuration.5.md).
@@ -88,14 +88,14 @@ in
         group = "gemstash";
         isSystemUser = true;
       };
-      groups.gemstash = { };
+      groups.gemstash = {};
     };
 
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ (parseBindPort cfg.settings.bind) ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [(parseBindPort cfg.settings.bind)];
 
     systemd.services.gemstash = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = mkMerge [
         {
           ExecStart = "${pkgs.gemstash}/bin/gemstash start --no-daemonize --config-file ${
@@ -108,7 +108,7 @@ in
           RestrictSUIDSGID = true;
           LockPersonality = true;
         }
-        (mkIf (cfg.settings.base_path == "/var/lib/gemstash") { StateDirectory = "gemstash"; })
+        (mkIf (cfg.settings.base_path == "/var/lib/gemstash") {StateDirectory = "gemstash";})
       ];
     };
   };

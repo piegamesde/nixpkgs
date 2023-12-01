@@ -44,7 +44,7 @@ in
 
       profiles = mkOption {
         type = types.listOf types.str;
-        default = [ "default" ];
+        default = ["default"];
         description = lib.mdDoc "Names of the Disnix profiles to expose in the system's PATH";
       };
     };
@@ -66,10 +66,10 @@ in
         "disnix-client";
 
     services.dbus.enable = true;
-    services.dbus.packages = [ pkgs.disnix ];
+    services.dbus.packages = [pkgs.disnix];
 
     services.tomcat.enable = cfg.useWebServiceInterface;
-    services.tomcat.extraGroups = [ "disnix" ];
+    services.tomcat.extraGroups = ["disnix"];
     services.tomcat.javaOpts = "${optionalString cfg.useWebServiceInterface "-Djava.library.path=${pkgs.libmatthew_java}/lib/jni"} ";
     services.tomcat.sharedLibs =
       optional cfg.useWebServiceInterface "${pkgs.DisnixWebService}/share/java/DisnixConnection.jar"
@@ -81,10 +81,10 @@ in
     systemd.services = {
       disnix = mkIf cfg.enableMultiUser {
         description = "Disnix server";
-        wants = [ "dysnomia.target" ];
-        wantedBy = [ "multi-user.target" ];
+        wants = ["dysnomia.target"];
+        wantedBy = ["multi-user.target"];
         after =
-          [ "dbus.service" ]
+          ["dbus.service"]
           ++ optional config.services.httpd.enable "httpd.service"
           ++ optional config.services.mysql.enable "mysql.service"
           ++ optional config.services.postgresql.enable "postgresql.service"
@@ -108,15 +108,15 @@ in
           }
           // (
             if config.environment.variables ? DYSNOMIA_CONTAINERS_PATH then
-              { inherit (config.environment.variables) DYSNOMIA_CONTAINERS_PATH; }
+              {inherit (config.environment.variables) DYSNOMIA_CONTAINERS_PATH;}
             else
-              { }
+              {}
           )
           // (
             if config.environment.variables ? DYSNOMIA_MODULES_PATH then
-              { inherit (config.environment.variables) DYSNOMIA_MODULES_PATH; }
+              {inherit (config.environment.variables) DYSNOMIA_MODULES_PATH;}
             else
-              { }
+              {}
           );
 
         serviceConfig.ExecStart = "${cfg.package}/bin/disnix-service";

@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "coder";
     meta = with pkgs.lib.maintainers; {
@@ -10,7 +10,7 @@ import ./make-test-python.nix (
     };
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         services.coder = {
           enable = true;

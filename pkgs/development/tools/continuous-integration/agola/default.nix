@@ -26,7 +26,7 @@ buildGoModule {
     "-X agola.io/agola/cmd.Version=${version}"
   ];
 
-  tags = [ "sqlite_unlock_notify" ];
+  tags = ["sqlite_unlock_notify"];
 
   # somehow the tests get stuck
   doCheck = false;
@@ -34,7 +34,7 @@ buildGoModule {
   meta = with lib; {
     description = "Agola: CI/CD Redefined ";
     homepage = "https://agola.io";
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
     license = licenses.mit;
   };
 }

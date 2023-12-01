@@ -31,7 +31,7 @@ let
           </configuration>
   '';
 
-  configDir = pkgs.runCommand "hbase-config-dir" { preferLocalBuild = true; } ''
+  configDir = pkgs.runCommand "hbase-config-dir" {preferLocalBuild = true;} ''
     mkdir -p $out
     cp ${cfg.package}/conf/* $out/
     rm $out/hbase-site.xml
@@ -146,7 +146,7 @@ in
 
     systemd.services.hbase = {
       description = "HBase Server";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       environment = {
         # JRE 15 removed option `UseConcMarkSweepGC` which is needed.

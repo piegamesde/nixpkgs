@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
     sha256 = "7c7879c6b9add3148baea697dfbfdcefffbc8ac74e8e6bcf46125ec1d21b373a";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  propagatedBuildInputs = [ libraw1394 ];
+  propagatedBuildInputs = [libraw1394];
 
   meta = with lib; {
     homepage = "https://www.linux1394.org";

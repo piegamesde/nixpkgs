@@ -13,7 +13,7 @@ let
 
   fhsEnv = pkgs.buildFHSEnv {
     name = "boinc-fhs-env";
-    targetPkgs = pkgs': [ cfg.package ] ++ cfg.extraEnvPackages;
+    targetPkgs = pkgs': [cfg.package] ++ cfg.extraEnvPackages;
     runScript = "/bin/boinc_client";
   };
   fhsEnvExecutable = "${fhsEnv}/bin/${fhsEnv.name}";
@@ -63,7 +63,7 @@ in
 
     extraEnvPackages = mkOption {
       type = types.listOf types.package;
-      default = [ ];
+      default = [];
       example = literalExpression "[ pkgs.virtualbox ]";
       description = lib.mdDoc ''
         Additional packages to make available in the environment in which
@@ -87,7 +87,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     users.users.boinc = {
       group = "boinc";
@@ -96,14 +96,14 @@ in
       home = cfg.dataDir;
       isSystemUser = true;
     };
-    users.groups.boinc = { };
+    users.groups.boinc = {};
 
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' - boinc boinc - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.dataDir}' - boinc boinc - -"];
 
     systemd.services.boinc = {
       description = "BOINC Client";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       script = ''
         ${fhsEnvExecutable} --dir ${cfg.dataDir} ${allowRemoteGuiRpcFlag}
       '';
@@ -115,6 +115,6 @@ in
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ kierdavis ];
+    maintainers = with lib.maintainers; [kierdavis];
   };
 }

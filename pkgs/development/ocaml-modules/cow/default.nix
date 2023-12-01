@@ -27,7 +27,7 @@ buildDunePackage rec {
     ezjsonm
     omd
   ];
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
   doCheck = true;
 
   meta = with lib; {
@@ -38,6 +38,6 @@ buildDunePackage rec {
       for these web formats.
     '';
     license = licenses.isc;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

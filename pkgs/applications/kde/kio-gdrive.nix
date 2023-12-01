@@ -17,7 +17,7 @@ mkDerivation {
   meta = with lib; {
     homepage = "https://github.com/KDE/kio-gdrive";
     description = "KIO slave for Google APIs";
-    maintainers = with maintainers; [ kennyballou ];
+    maintainers = with maintainers; [kennyballou];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

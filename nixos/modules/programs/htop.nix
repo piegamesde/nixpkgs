@@ -54,7 +54,7 @@ in
             ))
           ]
         );
-      default = { };
+      default = {};
       example = {
         hide_kernel_threads = true;
         hide_userland_threads = true;
@@ -69,7 +69,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     environment.etc."htoprc".text =
       ''

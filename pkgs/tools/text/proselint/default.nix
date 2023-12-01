@@ -28,6 +28,6 @@ buildPythonApplication rec {
     description = "A linter for prose";
     homepage = "http://proselint.com";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ alibabzo ];
+    maintainers = with maintainers; [alibabzo];
   };
 }

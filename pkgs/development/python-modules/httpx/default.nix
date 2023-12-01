@@ -55,9 +55,9 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    http2 = [ h2 ];
-    socks = [ socksio ];
-    brotli = if isPyPy then [ brotlicffi ] else [ brotli ];
+    http2 = [h2];
+    socks = [socksio];
+    brotli = if isPyPy then [brotlicffi] else [brotli];
     cli = [
       click
       rich
@@ -107,9 +107,9 @@ buildPythonPackage rec {
     "test_sync_proxy_close"
   ];
 
-  disabledTestPaths = [ "tests/test_main.py" ];
+  disabledTestPaths = ["tests/test_main.py"];
 
-  pythonImportsCheck = [ "httpx" ];
+  pythonImportsCheck = ["httpx"];
 
   __darwinAllowLocalNetworking = true;
 

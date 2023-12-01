@@ -24,7 +24,7 @@ stdenv.mkDerivation (
     '';
 
     nativeBuildInputs = kernel.moduleBuildDependencies;
-    buildInputs = [ bluez ];
+    buildInputs = [bluez];
 
     makeFlags = kernel.makeFlags ++ [
       "-C"
@@ -33,9 +33,9 @@ stdenv.mkDerivation (
       "VERSION=${finalAttrs.version}"
     ];
 
-    buildFlags = [ "modules" ];
-    installFlags = [ "INSTALL_MOD_PATH=${placeholder "out"}" ];
-    installTargets = [ "modules_install" ];
+    buildFlags = ["modules"];
+    installFlags = ["INSTALL_MOD_PATH=${placeholder "out"}"];
+    installTargets = ["modules_install"];
 
     passthru.tests = {
       xpadneo = nixosTests.xpadneo;
@@ -45,7 +45,7 @@ stdenv.mkDerivation (
       description = "Advanced Linux driver for Xbox One wireless controllers";
       homepage = "https://atar-axis.github.io/xpadneo";
       license = licenses.gpl3Only;
-      maintainers = with maintainers; [ kira-bruneau ];
+      maintainers = with maintainers; [kira-bruneau];
       platforms = platforms.linux;
     };
   }

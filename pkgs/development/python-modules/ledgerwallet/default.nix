@@ -33,11 +33,11 @@ buildPythonPackage rec {
       # Fix removed function in construct library
       url = "https://github.com/LedgerHQ/ledgerctl/commit/fd23d0e14721b93789071e80632e6bd9e47c1256.patch";
       hash = "sha256-YNlENguPQW5FNFT7mqED+ghF3TJiKao4H+56Eu+j+Eo=";
-      excludes = [ "setup.py" ];
+      excludes = ["setup.py"];
     })
   ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ AppKit ];
+  buildInputs = lib.optionals stdenv.isDarwin [AppKit];
   propagatedBuildInputs = [
     cryptography
     click
@@ -51,12 +51,12 @@ buildPythonPackage rec {
     tabulate
   ];
 
-  pythonImportsCheck = [ "ledgerwallet" ];
+  pythonImportsCheck = ["ledgerwallet"];
 
   meta = with lib; {
     homepage = "https://github.com/LedgerHQ/ledgerctl";
     description = "A library to control Ledger devices";
     license = licenses.mit;
-    maintainers = with maintainers; [ d-xo ];
+    maintainers = with maintainers; [d-xo];
   };
 }

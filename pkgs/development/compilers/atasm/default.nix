@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://atari.miribilist.com/${pname}/${pname}${
-      builtins.replaceStrings [ "." ] [ "" ] version
+      builtins.replaceStrings ["."] [""] version
     }.zip";
     hash = "sha256-26shhw2r30GZIPz6S1rf6dOLKRpgpLwrqCRZX3+8PvA=";
   };
@@ -26,9 +26,9 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   preBuild = ''
     makeFlagsArray+=(
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     homepage = "https://atari.miribilist.com/atasm/";
     description = "A commandline 6502 assembler compatible with Mac/65";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = with platforms; unix;
   };
 }

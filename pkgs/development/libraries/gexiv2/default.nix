@@ -41,12 +41,12 @@ stdenv.mkDerivation rec {
     gtk-doc
     docbook-xsl-nons
     docbook_xml_dtd_43
-    (python3.pythonForBuild.withPackages (ps: [ ps.pygobject3 ]))
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+    (python3.pythonForBuild.withPackages (ps: [ps.pygobject3]))
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [mesonEmulatorHook];
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
-  propagatedBuildInputs = [ exiv2 ];
+  propagatedBuildInputs = [exiv2];
 
   mesonFlags = [
     "-Dgtk_doc=true"

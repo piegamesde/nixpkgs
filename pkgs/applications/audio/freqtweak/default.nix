@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://essej.net/freqtweak/";
     description = "Realtime audio frequency spectral manipulation";
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
   };

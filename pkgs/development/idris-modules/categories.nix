@@ -17,6 +17,6 @@ build-idris-package {
   meta = {
     description = "Category Theory";
     homepage = "https://github.com/danilkolikov/categories";
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

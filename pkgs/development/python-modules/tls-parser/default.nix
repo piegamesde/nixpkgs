@@ -20,15 +20,15 @@ buildPythonPackage rec {
     hash = "sha256-2XHhUDiJ1EctnYdxYFbNSVLF8dmHP9cZXjziOE9+Dew=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "tls_parser" ];
+  pythonImportsCheck = ["tls_parser"];
 
   meta = with lib; {
     description = "Small library to parse TLS records";
     homepage = "https://github.com/nabla-c0d3/tls_parser";
     platforms = with platforms; linux ++ darwin;
     license = licenses.mit;
-    maintainers = with maintainers; [ veehaitch ];
+    maintainers = with maintainers; [veehaitch];
   };
 }

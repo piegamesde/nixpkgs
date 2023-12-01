@@ -36,7 +36,7 @@ stdenv.mkDerivation {
     scdoc
   ];
 
-  buildInputs = [ libusb1 ];
+  buildInputs = [libusb1];
 
   meta =
     let
@@ -46,6 +46,6 @@ stdenv.mkDerivation {
       homepage = "https://gitlab.com/pine64-org/quartz-bsp/rkdeveloptool/";
       description = "A tool from Rockchip to communicate with Rockusb devices (pine64 fork)";
       license = lib.licenses.gpl2;
-      maintainers = [ maintainers.adisbladis ];
+      maintainers = [maintainers.adisbladis];
     };
 }

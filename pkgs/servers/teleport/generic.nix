@@ -45,12 +45,12 @@ let
     buildAndTestSubdir = "lib/srv/desktop/rdp/rdpclient";
 
     buildInputs =
-      [ openssl ]
+      [openssl]
       ++ lib.optionals stdenv.isDarwin [
         CoreFoundation
         Security
       ];
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
 
     # https://github.com/NixOS/nixpkgs/issues/161570 ,
     # buildRustPackage sets strictDeps = true;
@@ -166,7 +166,7 @@ buildGoModule rec {
     mkdir -p $client/bin
     mv {$out,$client}/bin/tsh
     # make xdg-open overrideable at runtime
-    wrapProgram $client/bin/tsh --suffix PATH : ${lib.makeBinPath [ xdg-utils ]}
+    wrapProgram $client/bin/tsh --suffix PATH : ${lib.makeBinPath [xdg-utils]}
     ln -s {$client,$out}/bin/tsh
   '';
 

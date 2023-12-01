@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     flac
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     homepage = "https://xiph.org/fishsound/";

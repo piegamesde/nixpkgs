@@ -77,7 +77,7 @@ in
 
       extraNodes = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           List of additional peer IP addresses to connect to.
         '';
@@ -85,7 +85,7 @@ in
 
       trustedNodes = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           List of the only peer IP addresses to connect to. If specified
           no other connection will be made.
@@ -144,7 +144,7 @@ in
 
       rpc.allowFrom = mkOption {
         type = types.listOf types.str;
-        default = [ "127.0.0.1" ];
+        default = ["127.0.0.1"];
         description = lib.mdDoc ''
           List of IP address ranges allowed to use the RPC API.
           Wiledcards (*) can be user to specify a range.
@@ -170,8 +170,8 @@ in
 
     systemd.services.namecoind = {
       description = "Namecoind daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       startLimitIntervalSec = 120;
       startLimitBurst = 5;
@@ -200,5 +200,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ rnhmjoj ];
+  meta.maintainers = with lib.maintainers; [rnhmjoj];
 }

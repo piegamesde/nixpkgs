@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "1iz3hq1lqgnshvlz4j9gvh4jy1ml74qf90vqf2ikbq0h4i2xzybs";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   installPhase = ''
     dst=$out/share/xml/docbook-5.0
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Schemas for DocBook 5.0, a semantic markup language for technical documentation";
     homepage = "https://docbook.org/xml/5.0/";
-    maintainers = [ lib.maintainers.eelco ];
+    maintainers = [lib.maintainers.eelco];
     platforms = lib.platforms.all;
   };
 }

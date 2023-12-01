@@ -52,8 +52,8 @@ in
     systemd.services.ympd = {
       description = "Standalone MPD Web GUI written in C";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
 
       serviceConfig = {
         ExecStart = ''

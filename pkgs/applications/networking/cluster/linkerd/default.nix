@@ -1,6 +1,6 @@
-{ callPackage }:
+{callPackage}:
 
-(callPackage ./generic.nix { }) {
+(callPackage ./generic.nix {}) {
   channel = "stable";
   version = "2.13.2";
   sha256 = "0pcb4f8s8l156y0zd9g9f0pyydvp52n02krjy2giajp00gaqx3s3";

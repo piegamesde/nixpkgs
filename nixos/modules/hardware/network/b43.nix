@@ -28,7 +28,5 @@ in
 
   ###### implementation
 
-  config = mkIf config.networking.enableB43Firmware {
-    hardware.firmware = [ pkgs.b43Firmware_5_1_138 ];
-  };
+  config = mkIf config.networking.enableB43Firmware {hardware.firmware = [pkgs.b43Firmware_5_1_138];};
 }

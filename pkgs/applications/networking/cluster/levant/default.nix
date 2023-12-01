@@ -24,7 +24,7 @@ buildGoModule rec {
     description = "An open source templating and deployment tool for HashiCorp Nomad jobs";
     homepage = "https://github.com/hashicorp/levant";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ max-niederman ];
+    maintainers = with maintainers; [max-niederman];
     platforms = platforms.unix;
   };
 }

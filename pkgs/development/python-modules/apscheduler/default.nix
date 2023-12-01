@@ -30,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-pJ/CMmkhhBbw5BiQ7qenXtayhPEGMNz+hmq2WWIaNpY=";
   };
 
-  buildInputs = [ setuptools-scm ];
+  buildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     pytz
@@ -66,12 +66,12 @@ buildPythonPackage rec {
       "test_max_instances"
     ];
 
-  pythonImportsCheck = [ "apscheduler" ];
+  pythonImportsCheck = ["apscheduler"];
 
   meta = with lib; {
     description = "Library that lets you schedule your Python code to be executed";
     homepage = "https://github.com/agronholm/apscheduler";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

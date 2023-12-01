@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "source/prboom2";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     SDL2
@@ -56,6 +56,6 @@ stdenv.mkDerivation rec {
     description = "An advanced, Vanilla-compatible Doom engine based on PrBoom";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.ashley ];
+    maintainers = [maintainers.ashley];
   };
 }

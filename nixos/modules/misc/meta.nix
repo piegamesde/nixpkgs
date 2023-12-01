@@ -1,4 +1,4 @@
-{ lib, ... }:
+{lib, ...}:
 
 with lib;
 
@@ -25,7 +25,7 @@ let
               imap1
                 (
                   m: def':
-                  maintainer.merge (loc ++ [ "[${toString n}-${toString m}]" ]) [
+                  maintainer.merge (loc ++ ["[${toString n}-${toString m}]"]) [
                     {
                       inherit (def) file;
                       value = def';
@@ -53,7 +53,7 @@ in
       maintainers = mkOption {
         type = listOfMaintainers;
         internal = true;
-        default = [ ];
+        default = [];
         example = literalExpression "[ lib.maintainers.all ]";
         description = lib.mdDoc ''
           List of maintainers of each module.  This option should be defined at

@@ -19,10 +19,10 @@ buildPythonPackage rec {
   };
 
   passthru.optional-dependencies = {
-    ZiX = [ uncompyle6 ];
+    ZiX = [uncompyle6];
   };
 
-  pythonImportsCheck = [ "unrpa" ];
+  pythonImportsCheck = ["unrpa"];
 
   # upstream has no unit tests
   doCheck = false;
@@ -32,6 +32,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/Lattyware/unrpa/releases/tag/${version}";
     description = "A program to extract files from the RPA archive format";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ leo60228 ];
+    maintainers = with maintainers; [leo60228];
   };
 }

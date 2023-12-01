@@ -72,7 +72,7 @@ stdenv.mkDerivation {
     sha256 = "03pz8wskafn848yvciq29kwdvqcgjrk6sjnm8nk9acl89xf0sn96";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildCommand = ''
     ar x $src
@@ -106,9 +106,9 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Desktop client for HipChat services";
     homepage = "http://www.hipchat.com";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ puffnfresh ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [puffnfresh];
   };
 }

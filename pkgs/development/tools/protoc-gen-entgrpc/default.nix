@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-DgqCGXqEnLBxyLZJrTRZIeBIrHYA7TNMV4WTk/3IS8Y=";
 
-  subPackages = [ "entproto/cmd/protoc-gen-entgrpc" ];
+  subPackages = ["entproto/cmd/protoc-gen-entgrpc"];
 
   ldflags = [
     "-s"
@@ -29,6 +29,6 @@ buildGoModule rec {
     downloadPage = "https://github.com/ent/contrib/";
     license = licenses.asl20;
     homepage = "https://entgo.io/";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -1,4 +1,4 @@
-{ python3Packages, easycrypt }:
+{python3Packages, easycrypt}:
 
 python3Packages.buildPythonApplication rec {
   inherit (easycrypt) src version;
@@ -10,7 +10,7 @@ python3Packages.buildPythonApplication rec {
   dontBuild = true;
   doCheck = false;
 
-  pythonPath = with python3Packages; [ pyyaml ];
+  pythonPath = with python3Packages; [pyyaml];
 
   installPhase = ''
     runHook preInstall

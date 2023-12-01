@@ -55,13 +55,13 @@ buildPythonPackage rec {
     "console"
   ];
 
-  pythonImportsCheck = [ "diff_cover" ];
+  pythonImportsCheck = ["diff_cover"];
 
   meta = with lib; {
     description = "Automatically find diff lines that need test coverage";
     homepage = "https://github.com/Bachmann1234/diff-cover";
     changelog = "https://github.com/Bachmann1234/diff_cover/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dzabraev ];
+    maintainers = with maintainers; [dzabraev];
   };
 }

@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     ocaml
     camlp4
   ];
-  buildInputs = (with ocamlPackages; [ num ]) ++ [ zlib ];
+  buildInputs = (with ocamlPackages; [num]) ++ [zlib];
 
   meta = {
     broken = stdenv.isDarwin;

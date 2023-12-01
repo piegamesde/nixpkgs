@@ -24,9 +24,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-rB+Y4jPQ+srKrBBZ87gThKVZLib9TDCCrtAD9l4lLFo=";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  nativeBuildInputs = [ groff ];
+  nativeBuildInputs = [groff];
 
   buildInputs = [
     libtool
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "Flexible dictionary server and client implementing RFC 2229";
     homepage = "https://www.gnu.org/software/dico/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     platforms = platforms.unix;
 
     longDescription = ''

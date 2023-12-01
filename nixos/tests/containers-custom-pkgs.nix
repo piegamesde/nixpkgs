@@ -1,9 +1,9 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   let
 
     customPkgs = pkgs.appendOverlays [
-      (self: super: { hello = super.hello.overrideAttrs (old: { name = "custom-hello"; }); })
+      (self: super: {hello = super.hello.overrideAttrs (old: {name = "custom-hello";});})
     ];
   in
   {
@@ -16,7 +16,7 @@ import ./make-test-python.nix (
     };
 
     nodes.machine =
-      { config, ... }:
+      {config, ...}:
       {
         assertions =
           let
@@ -32,10 +32,10 @@ import ./make-test-python.nix (
         containers.test = {
           autoStart = true;
           config =
-            { pkgs, config, ... }:
+            {pkgs, config, ...}:
             {
               nixpkgs.pkgs = customPkgs;
-              system.extraDependencies = [ pkgs.hello ];
+              system.extraDependencies = [pkgs.hello];
             };
         };
       };

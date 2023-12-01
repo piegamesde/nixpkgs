@@ -60,12 +60,12 @@ buildPythonPackage {
     libpng
     ninja
     which
-  ] ++ lib.optionals cudaSupport [ cuda-native-redist ];
+  ] ++ lib.optionals cudaSupport [cuda-native-redist];
 
   buildInputs = [
     libjpeg_turbo
     libpng
-  ] ++ lib.optionals cudaSupport [ cuda-redist ];
+  ] ++ lib.optionals cudaSupport [cuda-redist];
 
   propagatedBuildInputs = [
     numpy
@@ -91,18 +91,18 @@ buildPythonPackage {
   # tries to download many datasets for tests
   doCheck = false;
 
-  pythonImportsCheck = [ "torchvision" ];
+  pythonImportsCheck = ["torchvision"];
   checkPhase = ''
     HOME=$TMPDIR py.test test --ignore=test/test_datasets_download.py
   '';
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   meta = with lib; {
     description = "PyTorch vision library";
     homepage = "https://pytorch.org/";
     license = licenses.bsd3;
     platforms = with platforms; linux ++ lib.optionals (!cudaSupport) darwin;
-    maintainers = with maintainers; [ ericsagnes ];
+    maintainers = with maintainers; [ericsagnes];
   };
 }

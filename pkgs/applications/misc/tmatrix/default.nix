@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     cmake
     installShellFiles
   ];
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   postInstall = ''
     installManPage ../tmatrix.6

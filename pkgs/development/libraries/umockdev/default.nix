@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
     vala
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [mesonEmulatorHook];
 
   buildInputs = [
     glib
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     usbutils
   ];
 
-  mesonFlags = [ "-Dgtk_doc=true" ];
+  mesonFlags = ["-Dgtk_doc=true"];
 
   doCheck = true;
 
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/martinpitt/umockdev/releases/tag/${version}";
     description = "Mock hardware devices for creating unit tests";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
     platforms = with platforms; linux;
   };
 }

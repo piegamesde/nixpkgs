@@ -51,12 +51,12 @@ buildPythonPackage rec {
     "test_is_base_tuple_has_expected_behavior_for_parsable_types"
   ];
 
-  pythonImportsCheck = [ "eth_abi" ];
+  pythonImportsCheck = ["eth_abi"];
 
   meta = with lib; {
     description = "Ethereum ABI utilities";
     homepage = "https://github.com/ethereum/eth-abi";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

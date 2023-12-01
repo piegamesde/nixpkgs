@@ -30,11 +30,11 @@ buildPythonPackage rec {
 
   # Required to suppress -Werror
   # https://github.com/NixOS/nixpkgs/issues/39687
-  hardeningDisable = lib.optionals stdenv.cc.isClang [ "strictoverflow" ];
+  hardeningDisable = lib.optionals stdenv.cc.isClang ["strictoverflow"];
 
   # gcc <10 is not supported, LLVM on darwin is just fine
   nativeBuildInputs =
-    [ cmake ]
+    [cmake]
     ++ lib.optionals (!stdenv.isDarwin && stdenv.isAarch64) [
       gcc10
       perl
@@ -42,7 +42,7 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  pythonImportsCheck = [ "awscrt" ];
+  pythonImportsCheck = ["awscrt"];
 
   # Unable to import test module
   # https://github.com/awslabs/aws-crt-python/issues/281
@@ -53,6 +53,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/awslabs/aws-crt-python/releases/tag/v${version}";
     description = "Python bindings for the AWS Common Runtime";
     license = licenses.asl20;
-    maintainers = with maintainers; [ davegallant ];
+    maintainers = with maintainers; [davegallant];
   };
 }

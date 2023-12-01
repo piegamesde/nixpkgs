@@ -19,7 +19,7 @@
   liberation_ttf,
   shell ? "${bashInteractive}/bin/bash",
   unfreeFonts ? false,
-  extraFontDirs ? [ ],
+  extraFontDirs ? [],
 }:
 
 # ------------
@@ -97,7 +97,7 @@ let
       "~/Library/Fonts"
     ];
   };
-  fonts = import ./system-fonts.nix { inherit stdenv xorg fontDirs; };
+  fonts = import ./system-fonts.nix {inherit stdenv xorg fontDirs;};
   # any X related programs expected to be available via $PATH
   pkgs = with xorg; [
     # non-xorg
@@ -160,7 +160,7 @@ stdenv.mkDerivation {
   pname = "xquartz";
   version = lib.getVersion xorg.xorgserver;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   unpackPhase = "sourceRoot=.";
 
@@ -240,7 +240,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     platforms = platforms.darwin;
-    maintainers = with maintainers; [ cstrahan ];
+    maintainers = with maintainers; [cstrahan];
     license = licenses.mit;
   };
 }

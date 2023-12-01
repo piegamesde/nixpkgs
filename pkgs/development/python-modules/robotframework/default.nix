@@ -16,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-c7pPcDgqyqWQtiMbLQbQd0nAgx4TIFUFHrlBVDNdr8M=";
   };
 
-  nativeCheckInputs = [ jsonschema ];
+  nativeCheckInputs = [jsonschema];
 
   checkPhase = ''
     python3 utest/run.py
@@ -26,6 +26,6 @@ buildPythonPackage rec {
     description = "Generic test automation framework";
     homepage = "https://robotframework.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
   };
 }

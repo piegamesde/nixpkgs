@@ -3,7 +3,7 @@
   chip,
   version,
   sha256,
-  extraPatches ? [ ],
+  extraPatches ? [],
 }:
 
 {
@@ -70,6 +70,6 @@ mkDerivation rec {
     homepage = src.meta.homepage;
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
   };
 }

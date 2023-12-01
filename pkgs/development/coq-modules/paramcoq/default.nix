@@ -45,6 +45,6 @@ mkCoqDerivation {
   meta = with lib; {
     description = "Coq plugin for parametricity";
     license = licenses.mit;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
   };
 }

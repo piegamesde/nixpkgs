@@ -64,7 +64,7 @@ let
   };
 
   linkMutableComponents =
-    { containerName }:
+    {containerName}:
     ''
       mkdir ${containerName}
 
@@ -78,7 +78,7 @@ let
             ln -s ${component} ${containerName}/${componentName}
           ''
         )
-        (builtins.attrNames (cfg.components.${containerName} or { }))}
+        (builtins.attrNames (cfg.components.${containerName} or {}))}
     '';
 
   componentsDir = pkgs.stdenv.mkDerivation {
@@ -87,7 +87,7 @@ let
       mkdir -p $out
       cd $out
 
-      ${concatMapStrings (containerName: linkMutableComponents { inherit containerName; }) (
+      ${concatMapStrings (containerName: linkMutableComponents {inherit containerName;}) (
         builtins.attrNames cfg.components
       )}
     '';
@@ -129,37 +129,37 @@ in
 
       properties = mkOption {
         description = lib.mdDoc "An attribute set in which each attribute represents a machine property. Optionally, these values can be shell substitutions.";
-        default = { };
+        default = {};
         type = types.attrs;
       };
 
       containers = mkOption {
         description = lib.mdDoc "An attribute set in which each key represents a container and each value an attribute set providing its configuration properties";
-        default = { };
+        default = {};
         type = types.attrsOf types.attrs;
       };
 
       components = mkOption {
         description = lib.mdDoc "An attribute set in which each key represents a container and each value an attribute set in which each key represents a component and each value a derivation constructing its initial state";
-        default = { };
+        default = {};
         type = types.attrsOf types.attrs;
       };
 
       extraContainerProperties = mkOption {
         description = lib.mdDoc "An attribute set providing additional container settings in addition to the default properties";
-        default = { };
+        default = {};
         type = types.attrs;
       };
 
       extraContainerPaths = mkOption {
         description = lib.mdDoc "A list of paths containing additional container configurations that are added to the search folders";
-        default = [ ];
+        default = [];
         type = types.listOf types.path;
       };
 
       extraModulePaths = mkOption {
         description = lib.mdDoc "A list of paths containing additional modules that are added to the search folders";
-        default = [ ];
+        default = [];
         type = types.listOf types.path;
       };
 
@@ -195,7 +195,7 @@ in
       }/etc/dysnomia/modules";
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     dysnomia.package = pkgs.dysnomia.override (
       origArgs:
@@ -253,15 +253,15 @@ in
       lib.recursiveUpdate
         (
           {
-            process = { };
-            wrapper = { };
+            process = {};
+            wrapper = {};
           }
           // lib.optionalAttrs (config.services.httpd.enable) {
             apache-webapplication = {
               documentRoot = config.services.httpd.virtualHosts.localhost.documentRoot;
             };
           }
-          // lib.optionalAttrs (config.services.tomcat.axis2.enable) { axis2-webservice = { }; }
+          // lib.optionalAttrs (config.services.tomcat.axis2.enable) {axis2-webservice = {};}
           // lib.optionalAttrs (config.services.ejabberd.enable) {
             ejabberd-dump = {
               ejabberdUser = config.services.ejabberd.user;
@@ -271,19 +271,19 @@ in
             mysql-database = {
               mysqlPort = config.services.mysql.port;
               mysqlSocket = "/run/mysqld/mysqld.sock";
-            } // lib.optionalAttrs cfg.enableAuthentication { mysqlUsername = "root"; };
+            } // lib.optionalAttrs cfg.enableAuthentication {mysqlUsername = "root";};
           }
           // lib.optionalAttrs (config.services.postgresql.enable) {
             postgresql-database =
-              { }
-              // lib.optionalAttrs (cfg.enableAuthentication) { postgresqlUsername = "postgres"; };
+              {}
+              // lib.optionalAttrs (cfg.enableAuthentication) {postgresqlUsername = "postgres";};
           }
           // lib.optionalAttrs (config.services.tomcat.enable) {
             tomcat-webapplication = {
               tomcatPort = 8080;
             };
           }
-          // lib.optionalAttrs (config.services.mongodb.enable) { mongo-database = { }; }
+          // lib.optionalAttrs (config.services.mongodb.enable) {mongo-database = {};}
           // lib.optionalAttrs (config.services.influxdb.enable) {
             influx-database = {
               influxdbUsername = config.services.influxdb.user;
@@ -299,7 +299,7 @@ in
         )
         cfg.extraContainerProperties;
 
-    boot.extraSystemdUnitPaths = [ "/etc/systemd-mutable/system" ];
+    boot.extraSystemdUnitPaths = ["/etc/systemd-mutable/system"];
 
     system.activationScripts.dysnomia = ''
       mkdir -p /etc/systemd-mutable/system

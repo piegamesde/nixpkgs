@@ -61,9 +61,9 @@ stdenv.mkDerivation rec {
     gtk3
     openssl
     libgee
-  ] ++ lib.optionals mysqlSupport [ libmysqlclient ] ++ lib.optionals postgresSupport [ postgresql ];
+  ] ++ lib.optionals mysqlSupport [libmysqlclient] ++ lib.optionals postgresSupport [postgresql];
 
-  propagatedBuildInputs = [ libxml2 ];
+  propagatedBuildInputs = [libxml2];
 
   configureFlags = [
     "--with-mysql=${if mysqlSupport then "yes" else "no"}"
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   passthru = {
     updateScript = gnome.updateScript {

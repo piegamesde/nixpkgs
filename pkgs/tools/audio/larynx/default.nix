@@ -60,6 +60,6 @@ stdenv.mkDerivation {
     description = "A fast, local neural text to speech system";
     homepage = "https://github.com/rhasspy/larynx2";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

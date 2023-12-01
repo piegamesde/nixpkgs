@@ -21,24 +21,24 @@ buildPythonPackage rec {
   };
 
   # Patch path to GLFW shared object
-  patches = [ ./search-path.patch ];
+  patches = [./search-path.patch];
 
   postPatch = ''
     substituteInPlace glfw/library.py --replace "@GLFW@" '${glfw3}/lib'
   '';
 
-  propagatedBuildInputs = [ glfw3 ];
+  propagatedBuildInputs = [glfw3];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "glfw" ];
+  pythonImportsCheck = ["glfw"];
 
   meta = with lib; {
     description = "Python bindings for GLFW";
     homepage = "https://github.com/FlorianRhiem/pyGLFW";
     changelog = "https://github.com/FlorianRhiem/pyGLFW/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ maintainers.McSinyx ];
+    maintainers = [maintainers.McSinyx];
   };
 }

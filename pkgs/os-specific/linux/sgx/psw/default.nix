@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     protobuf
   ];
 
-  hardeningDisable = lib.optionals debug [ "fortify" ];
+  hardeningDisable = lib.optionals debug ["fortify"];
 
   postPatch = ''
     patchShebangs \
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
   # Randomly fails if enabled
   enableParallelBuilding = false;
 
-  buildFlags = [ "psw_install_pkg" ] ++ lib.optionals debug [ "DEBUG=1" ];
+  buildFlags = ["psw_install_pkg"] ++ lib.optionals debug ["DEBUG=1"];
 
   installFlags = [
     "-C linux/installer/common/psw/output"
@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
 
     mkdir $out/bin
     makeWrapper $out/aesm/aesm_service $out/bin/aesm_service \
-      --suffix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ protobuf ]}:$out/aesm \
+      --suffix LD_LIBRARY_PATH : ${lib.makeLibraryPath [protobuf]}:$out/aesm \
       --chdir "$out/aesm"
 
     # Make sure we didn't forget to handle any files
@@ -162,7 +162,7 @@ stdenv.mkDerivation rec {
       veehaitch
       citadelcore
     ];
-    platforms = [ "x86_64-linux" ];
-    license = with licenses; [ bsd3 ];
+    platforms = ["x86_64-linux"];
+    license = with licenses; [bsd3];
   };
 }

@@ -91,19 +91,19 @@ buildPythonPackage rec {
       whatthepatch
       yapf
     ];
-    autopep8 = [ autopep8 ];
-    flake8 = [ flake8 ];
-    mccabe = [ mccabe ];
-    pycodestyle = [ pycodestyle ];
-    pydocstyle = [ pydocstyle ];
-    pyflakes = [ pyflakes ];
-    pylint = [ pylint ];
-    rope = [ rope ];
+    autopep8 = [autopep8];
+    flake8 = [flake8];
+    mccabe = [mccabe];
+    pycodestyle = [pycodestyle];
+    pydocstyle = [pydocstyle];
+    pyflakes = [pyflakes];
+    pylint = [pylint];
+    rope = [rope];
     yapf = [
       whatthepatch
       yapf
     ];
-    websockets = [ websockets ];
+    websockets = [websockets];
   };
 
   nativeCheckInputs =
@@ -116,7 +116,7 @@ buildPythonPackage rec {
     ]
     ++ passthru.optional-dependencies.all
     # pyqt5 is broken on aarch64-darwin
-    ++ lib.optionals (!stdenv.isDarwin || !stdenv.isAarch64) [ pyqt5 ];
+    ++ lib.optionals (!stdenv.isDarwin || !stdenv.isAarch64) [pyqt5];
 
   disabledTests =
     [
@@ -146,7 +146,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/python-lsp/python-lsp-server";
     changelog = "https://github.com/python-lsp/python-lsp-server/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "pylsp";
   };
 }

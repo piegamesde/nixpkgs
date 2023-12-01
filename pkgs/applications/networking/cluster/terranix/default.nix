@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5s9YFvbYMp8x0uoXM/jOCPPdjau6+4zeK/rGRkXBdx0=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/{bin,core,modules,lib}
@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     homepage = "https://terranix.org";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ mrVanDalo ];
+    maintainers = with maintainers; [mrVanDalo];
   };
 }

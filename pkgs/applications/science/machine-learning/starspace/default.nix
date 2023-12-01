@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
     homepage = "https://ai.facebook.com/tools/starspace/";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ maintainers.mausch ];
+    maintainers = [maintainers.mausch];
   };
 }

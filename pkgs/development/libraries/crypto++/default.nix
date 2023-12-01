@@ -13,7 +13,7 @@
 stdenv.mkDerivation rec {
   pname = "crypto++";
   version = "8.7.0";
-  underscoredVersion = lib.strings.replaceStrings [ "." ] [ "_" ] version;
+  underscoredVersion = lib.strings.replaceStrings ["."] ["_"] version;
 
   src = fetchFromGitHub {
     owner = "weidai11";
@@ -33,24 +33,24 @@ stdenv.mkDerivation rec {
       --replace "ARFLAGS = -static -o" "ARFLAGS = -cru"
   '';
 
-  buildInputs = lib.optionals (stdenv.cc.isClang && withOpenMP) [ llvmPackages.openmp ];
+  buildInputs = lib.optionals (stdenv.cc.isClang && withOpenMP) [llvmPackages.openmp];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   buildFlags =
-    lib.optional enableStatic "static" ++ lib.optional enableShared "shared" ++ [ "libcryptopp.pc" ];
+    lib.optional enableStatic "static" ++ lib.optional enableShared "shared" ++ ["libcryptopp.pc"];
 
   enableParallelBuilding = true;
-  hardeningDisable = [ "fortify" ];
-  CXXFLAGS = lib.optionals (withOpenMP) [ "-fopenmp" ];
+  hardeningDisable = ["fortify"];
+  CXXFLAGS = lib.optionals (withOpenMP) ["-fopenmp"];
 
   doCheck = true;
 
   # always built for checks but install static lib only when necessary
   preInstall = lib.optionalString (!enableStatic) "rm -f libcryptopp.a";
 
-  installTargets = [ "install-lib" ];
-  installFlags = [ "LDCONF=true" ];
+  installTargets = ["install-lib"];
+  installFlags = ["LDCONF=true"];
 
   meta = with lib; {
     description = "A free C++ class library of cryptographic schemes";
@@ -64,6 +64,6 @@ stdenv.mkDerivation rec {
       publicDomain
     ];
     platforms = platforms.all;
-    maintainers = with maintainers; [ c0bw3b ];
+    maintainers = with maintainers; [c0bw3b];
   };
 }

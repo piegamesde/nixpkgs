@@ -29,6 +29,6 @@ buildGoModule rec {
     description = "Relational database with version control and CLI a-la Git";
     homepage = "https://github.com/dolthub/dolt";
     license = licenses.asl20;
-    maintainers = with maintainers; [ danbst ];
+    maintainers = with maintainers; [danbst];
   };
 }

@@ -20,7 +20,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "CLI DNS lookup tool";
     homepage = "https://github.com/zmap/zdns";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

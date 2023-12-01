@@ -153,7 +153,7 @@ in
       nginx = mkOption {
         type = types.nullOr (
           types.submodule (
-            recursiveUpdate (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }) {
+            recursiveUpdate (import ../web-servers/nginx/vhost-options.nix {inherit config lib;}) {
               # enable encryption by default,
               # as sensitive login and Matomo data should not be transmitted in clear text.
               options.forceSSL.default = true;
@@ -202,16 +202,16 @@ in
       home = dataDir;
       group = user;
     };
-    users.groups.${user} = { };
+    users.groups.${user} = {};
 
     systemd.services.matomo-setup-update = {
       # everything needs to set up and up to date before Matomo php files are executed
-      requiredBy = [ "${phpExecutionUnit}.service" ];
-      before = [ "${phpExecutionUnit}.service" ];
+      requiredBy = ["${phpExecutionUnit}.service"];
+      before = ["${phpExecutionUnit}.service"];
       # the update part of the script can only work if the database is already up and running
-      requires = [ databaseService ];
-      after = [ databaseService ];
-      path = [ cfg.package ];
+      requires = [databaseService];
+      after = [databaseService];
+      path = [cfg.package];
       environment.PIWIK_USER_PATH = dataDir;
       serviceConfig = {
         Type = "oneshot";
@@ -269,8 +269,8 @@ in
     systemd.services.matomo-archive-processing = {
       description = "Archive Matomo reports";
       # the archiving can only work if the database is already up and running
-      requires = [ databaseService ];
-      after = [ databaseService ];
+      requires = [databaseService];
+      after = [databaseService];
 
       # TODO: might get renamed to MATOMO_USER_PATH in future versions
       environment.PIWIK_USER_PATH = dataDir;
@@ -287,7 +287,7 @@ in
     systemd.timers.matomo-archive-processing = mkIf cfg.periodicArchiveProcessing {
       description = "Automatically archive Matomo reports every hour";
 
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig = {
         OnCalendar = "hourly";
         Persistent = "yes";
@@ -297,7 +297,7 @@ in
 
     systemd.services.${phpExecutionUnit} = {
       # stop phpfpm on package upgrade, do database upgrade via matomo-setup-update, and then restart
-      restartTriggers = [ cfg.package ];
+      restartTriggers = [cfg.package];
       # stop config.ini.php from getting written with read permission for others
       serviceConfig.UMask = "0007";
     };
@@ -400,6 +400,6 @@ in
 
   meta = {
     doc = ./matomo.md;
-    maintainers = with lib.maintainers; [ florianjacob ];
+    maintainers = with lib.maintainers; [florianjacob];
   };
 }

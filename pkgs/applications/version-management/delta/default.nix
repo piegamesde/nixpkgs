@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-raT8a8K05ZpiGuZdM1hNikGxqY6w0g8G1DohfybXD9s=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   buildInputs = lib.optionals stdenv.isDarwin [
     DiskArbitration
@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     Security
   ];
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   postInstall = ''
     installShellCompletion --bash --name delta.bash etc/completion/completion.bash
@@ -41,7 +41,7 @@ rustPlatform.buildRustPackage rec {
     installShellCompletion --fish --name delta.fish etc/completion/completion.fish
   '';
 
-  checkFlags = lib.optionals stdenv.isDarwin [ "--skip=test_diff_same_non_empty_file" ];
+  checkFlags = lib.optionals stdenv.isDarwin ["--skip=test_diff_same_non_empty_file"];
 
   meta = with lib; {
     homepage = "https://github.com/dandavison/delta";

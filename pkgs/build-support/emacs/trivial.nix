@@ -1,6 +1,6 @@
 # trivial builder for Emacs packages
 
-{ callPackage, lib, ... }@envargs:
+{callPackage, lib, ...}@envargs:
 
 with lib;
 

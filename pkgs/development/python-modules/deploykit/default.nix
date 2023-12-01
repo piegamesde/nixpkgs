@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-I1vAefWQBBRNykDw38LTNwdiPFxpPkLzCcevYAXO+Zo=";
   };
 
-  buildInputs = [ setuptools ];
+  buildInputs = [setuptools];
 
   nativeCheckInputs = [
     bash
@@ -32,12 +32,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = lib.optionals stdenv.isDarwin [ "test_ssh" ];
+  disabledTests = lib.optionals stdenv.isDarwin ["test_ssh"];
 
   # don't swallow stdout/stderr
-  pytestFlagsArray = [ "-s" ];
+  pytestFlagsArray = ["-s"];
 
-  pythonImportsCheck = [ "deploykit" ];
+  pythonImportsCheck = ["deploykit"];
 
   meta = with lib; {
     description = "Execute commands remote via ssh and locally in parallel with python";

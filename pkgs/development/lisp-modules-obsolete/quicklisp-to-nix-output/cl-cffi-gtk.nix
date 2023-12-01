@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-cffi-gtk";
   version = "20201220-git";
@@ -31,7 +31,7 @@ rec {
 
   packageName = "cl-cffi-gtk";
 
-  asdFilesToKeep = [ "cl-cffi-gtk.asd" ];
+  asdFilesToKeep = ["cl-cffi-gtk.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-cffi-gtk DESCRIPTION A Lisp binding to GTK 3 SHA256

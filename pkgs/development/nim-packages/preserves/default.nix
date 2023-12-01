@@ -16,11 +16,11 @@ buildNimPackage rec {
     rev = version;
     hash = "sha256-oRsq1ugtrOvTn23596BXRy71TQZ4h/Vv6JGqBTZdoKY=";
   };
-  propagatedBuildInputs = [ npeg ];
+  propagatedBuildInputs = [npeg];
   doCheck = !stdenv.isDarwin;
   meta = src.meta // {
     description = "Nim implementation of the Preserves data language";
     license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
   };
 }

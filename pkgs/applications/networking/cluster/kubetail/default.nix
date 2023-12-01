@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     install -Dm755 kubetail "$out/bin/kubetail"
-    wrapProgram $out/bin/kubetail --prefix PATH : ${lib.makeBinPath [ kubectl ]}
+    wrapProgram $out/bin/kubetail --prefix PATH : ${lib.makeBinPath [kubectl]}
 
     installShellCompletion completion/kubetail.{bash,fish,zsh}
   '';
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/johanhaleby/kubetail";
     license = licenses.asl20;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
     platforms = platforms.all;
   };
 }

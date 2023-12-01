@@ -51,14 +51,14 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  pythonImportsCheck = [ "radish" ];
+  pythonImportsCheck = ["radish"];
 
-  disabledTests = [ "test_main_cli_calls" ];
+  disabledTests = ["test_main_cli_calls"];
 
   meta = with lib; {
     description = "Behaviour-Driven-Development tool for python";
     homepage = "http://radish-bdd.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
   };
 }

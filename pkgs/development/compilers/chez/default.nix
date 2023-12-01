@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
     description = "A powerful and incredibly fast R6RS Scheme compiler";
     homepage = "https://cisco.github.io/ChezScheme/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ thoughtpolice ];
+    maintainers = with lib.maintainers; [thoughtpolice];
     platforms = lib.platforms.unix;
     badPlatforms = [
       "aarch64-linux"

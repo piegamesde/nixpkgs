@@ -27,12 +27,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pywilight" ];
+  pythonImportsCheck = ["pywilight"];
 
   meta = with lib; {
     description = "Python API for WiLight device";
     homepage = "https://github.com/leofig-rj/pywilight";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

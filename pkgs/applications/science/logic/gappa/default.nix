@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       cecill20
       gpl2
     ];
-    maintainers = with lib.maintainers; [ vbgl ];
+    maintainers = with lib.maintainers; [vbgl];
     platforms = lib.platforms.all;
   };
 }

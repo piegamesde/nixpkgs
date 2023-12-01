@@ -21,7 +21,7 @@ buildFishPlugin rec {
     cp functions/__bass.py $out/share/fish/vendor_functions.d/
   '';
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
   checkPhase = ''
     make test
   '';
@@ -30,6 +30,6 @@ buildFishPlugin rec {
     description = "Fish function making it easy to use utilities written for Bash in Fish shell";
     homepage = "https://github.com/edc/bass";
     license = licenses.mit;
-    maintainers = with maintainers; [ beezow ];
+    maintainers = with maintainers; [beezow];
   };
 }

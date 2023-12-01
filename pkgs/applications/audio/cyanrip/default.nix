@@ -40,6 +40,6 @@ stdenv.mkDerivation rec {
     description = "Bule-ish CD ripper";
     license = licenses.lgpl21Plus;
     platforms = platforms.all;
-    maintainers = [ maintainers.zane ];
+    maintainers = [maintainers.zane];
   };
 }

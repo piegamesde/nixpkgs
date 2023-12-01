@@ -23,7 +23,7 @@ buildDunePackage rec {
     randomconv
   ];
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     cstruct
     mirage-crypto

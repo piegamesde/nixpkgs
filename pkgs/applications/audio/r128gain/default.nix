@@ -41,13 +41,13 @@ python3Packages.buildPythonApplication rec {
   # sandbox to be disabled.
   doCheck = false;
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Fast audio loudness scanner & tagger (ReplayGain v2 / R128)";
     homepage = "https://github.com/desbma/r128gain";
     license = licenses.lgpl2Plus;
-    maintainers = [ maintainers.AluisioASG ];
+    maintainers = [maintainers.AluisioASG];
     platforms = platforms.all;
   };
 }

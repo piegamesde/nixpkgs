@@ -49,6 +49,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/ichitenfont/I.Ming";
     license = licenses.ipa;
     platforms = platforms.all;
-    maintainers = [ maintainers.linsui ];
+    maintainers = [maintainers.linsui];
   };
 }

@@ -20,13 +20,13 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/hydroxide" ];
+  subPackages = ["cmd/hydroxide"];
 
   meta = with lib; {
     description = "A third-party, open-source ProtonMail bridge";
     homepage = "https://github.com/emersion/hydroxide";
     license = licenses.mit;
-    maintainers = with maintainers; [ Br1ght0ne ];
+    maintainers = with maintainers; [Br1ght0ne];
     platforms = platforms.unix;
   };
 }

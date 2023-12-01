@@ -29,7 +29,7 @@ buildPythonPackage rec {
     "testsout"
   ];
 
-  buildInputs = [ jaxlib ];
+  buildInputs = [jaxlib];
 
   propagatedBuildInputs = [
     absl-py
@@ -42,13 +42,13 @@ buildPythonPackage rec {
     cp -R examples $testsout/examples
   '';
 
-  pythonImportsCheck = [ "optax" ];
+  pythonImportsCheck = ["optax"];
 
   # check in passthru.tests.pytest to escape infinite recursion with flax
   doCheck = false;
 
   passthru.tests = {
-    pytest = callPackage ./tests.nix { };
+    pytest = callPackage ./tests.nix {};
   };
 
   meta = with lib; {
@@ -56,6 +56,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/deepmind/optax";
     changelog = "https://github.com/deepmind/optax/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ndl ];
+    maintainers = with maintainers; [ndl];
   };
 }

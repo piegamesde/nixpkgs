@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Intel Architecture Code Analyzer";
     homepage = "https://software.intel.com/en-us/articles/intel-architecture-code-analyzer/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ kazcw ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [kazcw];
   };
 }

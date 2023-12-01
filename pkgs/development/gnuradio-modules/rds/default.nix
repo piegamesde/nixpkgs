@@ -66,6 +66,6 @@ mkDerivation {
     homepage = "https://github.com/bastibl/gr-rds";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ mog ];
+    maintainers = with maintainers; [mog];
   };
 }

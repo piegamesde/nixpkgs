@@ -19,7 +19,7 @@ stdenv.mkDerivation {
     sha256 = "10jn6bvm9vn6492zix2pd724v5h4lccmkqg3lxfw8r0qg3av0yzv";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     boost
     NSPlist
@@ -27,7 +27,7 @@ stdenv.mkDerivation {
   ];
 
   meta = with lib; {
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
     description = "CPP bindings for Plist";
     license = licenses.mit;
     platforms = platforms.unix;

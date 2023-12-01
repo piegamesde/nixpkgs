@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "do-urlencode";
   version = "20181018-git";
@@ -19,7 +19,7 @@ rec {
 
   packageName = "do-urlencode";
 
-  asdFilesToKeep = [ "do-urlencode.asd" ];
+  asdFilesToKeep = ["do-urlencode.asd"];
   overrides = x: x;
 }
 /* (SYSTEM do-urlencode DESCRIPTION Percent Encoding (aka URL Encoding) library

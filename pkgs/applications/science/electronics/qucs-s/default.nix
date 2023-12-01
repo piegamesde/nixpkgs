@@ -11,7 +11,7 @@
   adms,
   ngspice,
   wrapGAppsHook,
-  kernels ? [ ngspice ],
+  kernels ? [ngspice],
 }:
 
 stdenv.mkDerivation rec {
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://ra3xdh.github.io/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ mazurel ];
+    maintainers = with maintainers; [mazurel];
     platforms = with platforms; linux;
   };
 }

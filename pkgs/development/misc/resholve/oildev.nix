@@ -28,7 +28,7 @@ rec {
       rev = version;
       sha256 = "0grx7nl9fwcn880v5ssjljhcb9c5p2a6xpwil7zxpmv0rwnr3yqi";
     };
-    nativeBuildInputs = [ autoreconfHook ];
+    nativeBuildInputs = [autoreconfHook];
     preCheck = ''
       patchShebangs run_tests.sh
     '';
@@ -45,7 +45,7 @@ rec {
       fetchSubmodules = true;
     };
     # just for submodule IIRC
-    nativeBuildInputs = [ git ];
+    nativeBuildInputs = [git];
   };
 
   /* Upstream isn't interested in packaging this as a library
@@ -94,7 +94,7 @@ rec {
       "${patchSrc}/0012-disable-doc-cmark.patch"
     ];
 
-    configureFlags = [ "--without-readline" ];
+    configureFlags = ["--without-readline"];
 
     nativeBuildInputs = [
       re2c

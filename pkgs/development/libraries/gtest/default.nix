@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-W+OxRTVtemt2esw4P7IyGWXOonUN5ZuscjvzqkYvZbM=";
   };
 
-  patches = [ ./fix-cmake-config-includedir.patch ];
+  patches = [./fix-cmake-config-includedir.patch];
 
   nativeBuildInputs = [
     cmake
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags =
-    [ "-DBUILD_SHARED_LIBS=${if static then "OFF" else "ON"}" ]
+    ["-DBUILD_SHARED_LIBS=${if static then "OFF" else "ON"}"]
     ++ lib.optionals
       (
         (stdenv.cc.isGNU && (lib.versionOlder stdenv.cc.version "11.0"))
@@ -48,6 +48,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/google/googletest";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ivan-tkatchev ];
+    maintainers = with maintainers; [ivan-tkatchev];
   };
 }

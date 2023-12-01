@@ -74,6 +74,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.thregr.org/~wavexx/software/fgallery/";
     license = licenses.gpl2;
     platforms = platforms.all;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

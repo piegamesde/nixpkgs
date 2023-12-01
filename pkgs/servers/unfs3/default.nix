@@ -27,9 +27,9 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ libtirpc ];
+  buildInputs = [libtirpc];
 
-  configureFlags = [ "--disable-shared" ];
+  configureFlags = ["--disable-shared"];
 
   doCheck = false; # no test suite
 
@@ -53,6 +53,6 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.bsd3;
     platforms = lib.platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

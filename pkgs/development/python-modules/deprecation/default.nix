@@ -22,13 +22,13 @@ buildPythonPackage rec {
       (fetchpatch {
         url = "https://github.com/briancurtin/deprecation/pull/57/commits/e13e23068cb8d653a02a434a159e8b0b7226ffd6.patch";
         hash = "sha256-/5zr2V1s5ULUZnbLXsgyHxZH4m7/a27QYuqQt2Savc8=";
-        includes = [ "tests/test_deprecation.py" ];
+        includes = ["tests/test_deprecation.py"];
       })
     ];
 
-  propagatedBuildInputs = [ packaging ];
+  propagatedBuildInputs = [packaging];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   meta = with lib; {
     description = "A library to handle automated deprecations";

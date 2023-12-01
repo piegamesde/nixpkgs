@@ -29,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-4isf3U4Wp5FCQ0zVfmDLK+zkq/IXLFZhiaL6AYRXaRY=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     aiohttp
@@ -47,13 +47,13 @@ buildPythonPackage rec {
   # Starting with 0.30 the tests are broken, check with the next major release
   doCheck = false;
 
-  pythonImportsCheck = [ "hahomematic" ];
+  pythonImportsCheck = ["hahomematic"];
 
   meta = with lib; {
     description = "Python module to interact with HomeMatic devices";
     homepage = "https://github.com/danielperna84/hahomematic";
     changelog = "https://github.com/danielperna84/hahomematic/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

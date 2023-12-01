@@ -1,10 +1,10 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
   {
     name = "systemd-initrd-swraid";
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         # Use systemd-boot
         virtualisation = {
@@ -33,7 +33,7 @@ import ./make-test-python.nix (
               ARRAY /dev/md0 devices=/dev/vdb,/dev/vdc
             '';
           };
-          kernelModules = [ "raid0" ];
+          kernelModules = ["raid0"];
         };
 
         specialisation.boot-swraid.configuration.virtualisation.rootDevice = "/dev/disk/by-label/testraid";

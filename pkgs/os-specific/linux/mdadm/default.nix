@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-RhwhVnCGS7dKTRo2IGhKorL4KW3/oGdD8m3aVVes8B0=";
   };
 
-  patches = [ ./no-self-references.patch ];
+  patches = [./no-self-references.patch];
 
   makeFlags =
     [
@@ -34,13 +34,13 @@ stdenv.mkDerivation rec {
       "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
     ];
 
-  installFlags = [ "install-systemd" ];
+  installFlags = ["install-systemd"];
 
   enableParallelBuilding = true;
 
-  buildInputs = [ udev ];
+  buildInputs = [udev];
 
-  nativeBuildInputs = [ groff ];
+  nativeBuildInputs = [groff];
 
   postPatch = ''
     sed -e 's@/lib/udev@''${out}/lib/udev@' \
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     description = "Programs for managing RAID arrays under Linux";
     homepage = "http://neil.brown.name/blog/mdadm";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ekleog ];
+    maintainers = with maintainers; [ekleog];
     platforms = platforms.linux;
   };
 }

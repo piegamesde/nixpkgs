@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "44930a3b48332d23b35a5305ae7ba47904d4485ed1b7a22208b7d5ad9d60427a";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "ManageSieve client library for remotely managing Sieve scripts";
@@ -24,6 +24,6 @@ buildPythonPackage rec {
       gpl3Only
       psfl
     ];
-    maintainers = with maintainers; [ dadada ];
+    maintainers = with maintainers; [dadada];
   };
 }

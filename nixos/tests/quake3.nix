@@ -1,12 +1,12 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   let
 
     # Build Quake with coverage instrumentation.
     overrides = pkgs: {
       quake3game = pkgs.quake3game.override (
-        args: { stdenv = pkgs.stdenvAdapters.addCoverageInstrumentation args.stdenv; }
+        args: {stdenv = pkgs.stdenvAdapters.addCoverageInstrumentation args.stdenv;}
       );
     };
 
@@ -19,17 +19,17 @@ import ./make-test-python.nix (
           "quake3-demodata"
           "quake3-pointrelease"
         ];
-        allowLicenses = [ lib.licenses.unfreeRedistributable ];
+        allowLicenses = [lib.licenses.unfreeRedistributable];
       in
       elem pkg.pname allowPackageNames && elem (pkg.meta.license or null) allowLicenses;
 
     client =
-      { pkgs, ... }:
+      {pkgs, ...}:
 
       {
-        imports = [ ./common/x11.nix ];
+        imports = [./common/x11.nix];
         hardware.opengl.driSupport = true;
-        environment.systemPackages = [ pkgs.quake3demo ];
+        environment.systemPackages = [pkgs.quake3demo];
         nixpkgs.config.packageOverrides = overrides;
         nixpkgs.config.allowUnfreePredicate = unfreePredicate;
       };
@@ -49,18 +49,18 @@ import ./make-test-python.nix (
 
     nodes = {
       server =
-        { pkgs, ... }:
+        {pkgs, ...}:
 
         {
           systemd.services.quake3-server = {
-            wantedBy = [ "multi-user.target" ];
+            wantedBy = ["multi-user.target"];
             script =
               "${pkgs.quake3demo}/bin/quake3-server +set g_gametype 0 "
               + "+map q3dm7 +addbot grunt +addbot daemia 2> /tmp/log";
           };
           nixpkgs.config.packageOverrides = overrides;
           nixpkgs.config.allowUnfreePredicate = unfreePredicate;
-          networking.firewall.allowedUDPPorts = [ 27960 ];
+          networking.firewall.allowedUDPPorts = [27960];
         };
 
       client1 = client;

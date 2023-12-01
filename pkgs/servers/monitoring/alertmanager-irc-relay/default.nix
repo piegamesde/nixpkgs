@@ -31,6 +31,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/google/alertmanager-irc-relay";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ymatsiuk ];
+    maintainers = with maintainers; [ymatsiuk];
   };
 }

@@ -26,7 +26,7 @@ stdenv.mkDerivation {
       sha256 = config.oilrush.sha256 or null;
     in
     assert url != null && sha256 != null;
-    fetchurl { inherit url sha256; };
+    fetchurl {inherit url sha256;};
   shell = stdenv.shell;
   arch =
     if stdenv.hostPlatform.system == "x86_64-linux" then
@@ -115,7 +115,7 @@ stdenv.mkDerivation {
     mkdir -p "$out/bin"
     cat << EOF > "$out/bin/oilrush"
     #!${runtimeShell}
-    LD_LIBRARY_PATH=.:${makeLibraryPath [ openal ]}:\$LD_LIBRARY_PATH
+    LD_LIBRARY_PATH=.:${makeLibraryPath [openal]}:\$LD_LIBRARY_PATH
     cd "$out/opt/oilrush"
     exec ./launcher_$arch.sh "\$@"
     EOF
@@ -132,6 +132,6 @@ stdenv.mkDerivation {
     license = lib.licenses.unfree;
     #maintainers = with lib.maintainers; [ astsmtl ];
     platforms = lib.platforms.linux;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

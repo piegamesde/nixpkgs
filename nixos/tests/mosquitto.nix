@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   let
     port = 1888;
@@ -13,7 +13,7 @@ import ./make-test-python.nix (
     snakeOil =
       pkgs.runCommand "snakeoil-certs"
         {
-          buildInputs = [ pkgs.gnutls.bin ];
+          buildInputs = [pkgs.gnutls.bin];
           caTemplate = pkgs.writeText "snakeoil-ca.template" ''
             cn = server
             expiration_days = -1
@@ -68,11 +68,11 @@ import ./make-test-python.nix (
 
     nodes =
       let
-        client = { pkgs, ... }: { environment.systemPackages = with pkgs; [ mosquitto ]; };
+        client = {pkgs, ...}: {environment.systemPackages = with pkgs; [mosquitto];};
       in
       {
         server =
-          { pkgs, ... }:
+          {pkgs, ...}:
           {
             networking.firewall.allowedTCPPorts = [
               port
@@ -110,14 +110,14 @@ import ./make-test-python.nix (
                     };
                     writer = {
                       inherit password;
-                      acl = [ "write ${topic}" ];
+                      acl = ["write ${topic}"];
                     };
                   };
                 }
                 {
                   port = tlsPort;
                   users.client1 = {
-                    acl = [ "read $SYS/#" ];
+                    acl = ["read $SYS/#"];
                   };
                   settings = {
                     cafile = "${snakeOil}/ca.crt";
@@ -131,11 +131,11 @@ import ./make-test-python.nix (
                   port = anonPort;
                   omitPasswordAuth = true;
                   settings.allow_anonymous = true;
-                  acl = [ "pattern read #" ];
+                  acl = ["pattern read #"];
                   users = {
                     anonWriter = {
                       password = "<ignored>" + password;
-                      acl = [ "write ${topic}" ];
+                      acl = ["write ${topic}"];
                     };
                   };
                 }

@@ -124,6 +124,6 @@ stdenv.mkDerivation rec {
     homepage = "https://elpa.mpcdf.mpg.de/";
     license = licenses.lgpl3Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
   };
 }

@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-u3YqXQZCfveSBjxdWb+GC0IA9bpruAYQdxX1zanT3fw=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     [
@@ -41,7 +41,7 @@ rustPlatform.buildRustPackage rec {
       xorg.libXrandr
       xorg.libxcb
     ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ];
+    ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.AppKit];
 
   postFixup = lib.optionalString stdenv.isLinux ''
     patchelf $out/bin/cargo-ui \
@@ -62,6 +62,6 @@ rustPlatform.buildRustPackage rec {
       asl20
       gpl3Only
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

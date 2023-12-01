@@ -156,7 +156,7 @@ stdenv.mkDerivation rec {
     jose
   ];
 
-  makeFlags = [ "SGML_CATALOG_FILES=${docbookFiles}" ];
+  makeFlags = ["SGML_CATALOG_FILES=${docbookFiles}"];
 
   installFlags = [
     "sysconfdir=$(out)/etc"
@@ -195,6 +195,6 @@ stdenv.mkDerivation rec {
     changelog = "https://sssd.io/release-notes/sssd-${version}.html";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ illustris ];
+    maintainers = with maintainers; [illustris];
   };
 }

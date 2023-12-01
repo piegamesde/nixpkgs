@@ -12,7 +12,7 @@ let
     pname = "kramdown-asciidoc";
     gemdir = ./.;
 
-    exes = [ "kramdoc" ];
+    exes = ["kramdoc"];
 
     # nativeBuildInputs = [ makeWrapper ];
 
@@ -29,7 +29,7 @@ let
       description = "A kramdown extension for converting Markdown documents to AsciiDoc";
       homepage = "https://asciidoctor.org/";
       license = licenses.mit;
-      maintainers = with maintainers; [ ];
+      maintainers = with maintainers; [];
       platforms = platforms.unix;
     };
   };

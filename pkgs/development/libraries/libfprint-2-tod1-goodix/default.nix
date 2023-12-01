@@ -17,7 +17,7 @@ stdenv.mkDerivation {
 
   buildPhase = ''
     patchelf \
-      --set-rpath ${lib.makeLibraryPath [ libfprint-tod ]} \
+      --set-rpath ${lib.makeLibraryPath [libfprint-tod]} \
       usr/lib/x86_64-linux-gnu/libfprint-2/tod-1/libfprint-tod-goodix-53xc-$version.so
   '';
 
@@ -34,9 +34,9 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Goodix driver module for libfprint-2-tod Touch OEM Driver";
     homepage = "https://git.launchpad.net/~oem-solutions-engineers/libfprint-2-tod1-goodix/+git/libfprint-2-tod1-goodix/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ grahamc ];
+    maintainers = with maintainers; [grahamc];
   };
 }

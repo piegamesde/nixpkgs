@@ -13,7 +13,7 @@
 mkDerivation rec {
   pname = "skanpage";
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
 
   buildInputs = [
     kirigami2
@@ -27,7 +27,7 @@ mkDerivation rec {
     description = "KDE utility to scan images and multi-page documents";
     homepage = "https://apps.kde.org/skanpage";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

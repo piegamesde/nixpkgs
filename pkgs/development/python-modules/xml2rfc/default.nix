@@ -80,7 +80,7 @@ buildPythonPackage rec {
     make tests-no-network
   '';
 
-  pythonImportsCheck = [ "xml2rfc" ];
+  pythonImportsCheck = ["xml2rfc"];
 
   meta = with lib; {
     description = "Tool generating IETF RFCs and drafts from XML sources";

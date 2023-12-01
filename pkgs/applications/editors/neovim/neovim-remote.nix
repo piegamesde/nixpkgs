@@ -48,7 +48,7 @@ buildPythonApplication rec {
     description = "A tool that helps controlling nvim processes from a terminal";
     homepage = "https://github.com/mhinz/neovim-remote/";
     license = licenses.mit;
-    maintainers = with maintainers; [ edanaher ];
+    maintainers = with maintainers; [edanaher];
     platforms = platforms.unix;
     mainProgram = "nvr";
   };

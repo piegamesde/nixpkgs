@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-X3pzTrNd0G6BouCDkr3dukQTFDzZ7qblIYxFQActKGE=";
   };
 
-  patches = [ ./0001-Remove-FetchContent-usage.patch ];
+  patches = [./0001-Remove-FetchContent-usage.patch];
 
   postPatch = ''
     # 1. Remove hardcoded LTO flags: needs extra setup on Linux,
@@ -119,6 +119,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jerryuhoo/Fire";
     license = licenses.agpl3Only; # Not clarified if Only or Plus
     platforms = platforms.unix;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
   };
 }

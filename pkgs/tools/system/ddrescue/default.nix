@@ -14,10 +14,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OMgMmMWkTxXlNmPkUQCX/WjW7CB1jv3zqSUDfBgyMus=";
   };
 
-  nativeBuildInputs = [ lzip ];
+  nativeBuildInputs = [lzip];
 
   doCheck = true; # not cross;
-  configureFlags = [ "CXX=${stdenv.cc.targetPrefix}c++" ];
+  configureFlags = ["CXX=${stdenv.cc.targetPrefix}c++"];
 
   meta = with lib; {
     description = "GNU ddrescue, a data recovery tool";

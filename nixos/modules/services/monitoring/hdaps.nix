@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.services.hdapsd;
-  hdapsd = [ pkgs.hdapsd ];
+  hdapsd = [pkgs.hdapsd];
 in
 {
   options = {
@@ -22,7 +22,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    boot.kernelModules = [ "hdapsd" ];
+    boot.kernelModules = ["hdapsd"];
     services.udev.packages = hdapsd;
     systemd.packages = hdapsd;
   };

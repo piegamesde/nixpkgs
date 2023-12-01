@@ -48,9 +48,9 @@ buildPythonPackage rec {
       --replace "--reruns 5 --reruns-delay 10" ""
   '';
 
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  nativeBuildInputs = [pythonRelaxDepsHook];
 
-  pythonRelaxDeps = [ "backoff" ];
+  pythonRelaxDeps = ["backoff"];
 
   propagatedBuildInputs = [
     backoff
@@ -97,13 +97,13 @@ buildPythonPackage rec {
       "-k 'not notebooks'"
     ];
 
-  pythonImportsCheck = [ "labelbox" ];
+  pythonImportsCheck = ["labelbox"];
 
   meta = with lib; {
     description = "Platform API for LabelBox";
     homepage = "https://github.com/Labelbox/labelbox-python";
     changelog = "https://github.com/Labelbox/labelbox-python/blob/v.${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ rakesh4g ];
+    maintainers = with maintainers; [rakesh4g];
   };
 }

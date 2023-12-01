@@ -19,7 +19,7 @@ mkDerivation rec {
     sha256 = "sha256-V24VlfXR1Efk5kzxHWh/OIZzx4L/jLoXyjoNjtDDyTY=";
   };
 
-  nativeBuildInputs = [ cmake ] ++ lib.optionals withGstreamer [ pkg-config ];
+  nativeBuildInputs = [cmake] ++ lib.optionals withGstreamer [pkg-config];
   buildInputs = lib.optionals withGstreamer (
     with gst_all_1; [
       gstreamer
@@ -31,13 +31,13 @@ mkDerivation rec {
   cmakeFlags = [
     "-DBUILD_EXAMPLES=false"
     "-DBUILD_TESTS=false"
-  ] ++ lib.optionals withGstreamer [ "-DWITH_GSTREAMER=ON" ];
+  ] ++ lib.optionals withGstreamer ["-DWITH_GSTREAMER=ON"];
 
   meta = with lib; {
     description = "Cross-platform C++ XMPP client and server library";
     homepage = "https://github.com/qxmpp-project/qxmpp";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
     platforms = with platforms; linux;
   };
 }

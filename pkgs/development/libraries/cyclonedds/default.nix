@@ -16,14 +16,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Ie2l2TwEXqhMZWL3CmQD+c8LdQlclP6egsP7jnsOAlM=";
   };
 
-  patches = [ ./0001-Use-full-path-in-pkgconfig.patch ];
+  patches = [./0001-Use-full-path-in-pkgconfig.patch];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "Eclipse Cyclone DDS project";
     homepage = "https://cyclonedds.io/";
-    license = with licenses; [ epl20 ];
-    maintainers = with maintainers; [ bachp ];
+    license = with licenses; [epl20];
+    maintainers = with maintainers; [bachp];
   };
 }

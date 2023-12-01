@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-YzKjG43biRbTZKtzSUHHhtzOfcZfzISHDFolqzrBjL8=";
   };
 
-  buildInputs = [ krb5 ];
+  buildInputs = [krb5];
 
   propagatedBuildInputs = [
     git
@@ -31,14 +31,14 @@ buildPythonPackage rec {
     mock
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "cccolutils" ];
+  pythonImportsCheck = ["cccolutils"];
 
   meta = with lib; {
     description = "Python Kerberos 5 Credential Cache Collection Utilities";
     homepage = "https://pagure.io/cccolutils";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ disassembler ];
+    maintainers = with maintainers; [disassembler];
   };
 }

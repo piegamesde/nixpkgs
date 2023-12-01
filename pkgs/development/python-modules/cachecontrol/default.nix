@@ -39,17 +39,17 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ passthru.optional-dependencies.filecache;
 
-  pythonImportsCheck = [ "cachecontrol" ];
+  pythonImportsCheck = ["cachecontrol"];
 
   passthru.optional-dependencies = {
-    filecache = [ lockfile ];
-    redis = [ redis ];
+    filecache = [lockfile];
+    redis = [redis];
   };
 
   meta = with lib; {
     description = "Httplib2 caching for requests";
     homepage = "https://github.com/ionrock/cachecontrol";
     license = licenses.asl20;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

@@ -18,7 +18,7 @@ buildGoModule rec {
     sha256 = "sha256-/GkusNhHprXwGMNDruEEuFC2ULVIHBN5F00GNex/uq4=";
   };
 
-  patches = [ ./fix-paths.patch ];
+  patches = [./fix-paths.patch];
   postPatch = ''
     substituteInPlace config/bar.json --subst-var out
     substituteInPlace tools.go --subst-var out
@@ -26,7 +26,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-mqcXhnja8ed7vXIqOKBsNrcbrcaycTQXG1jqdc6zcyI=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     gtk3
@@ -43,6 +43,6 @@ buildGoModule rec {
     homepage = "https://github.com/nwg-piotr/nwg-bar";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ sei40kr ];
+    maintainers = with maintainers; [sei40kr];
   };
 }

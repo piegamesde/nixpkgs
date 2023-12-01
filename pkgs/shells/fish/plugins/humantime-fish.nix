@@ -15,7 +15,7 @@ buildFishPlugin rec {
     sha256 = "sha256-792rPsf2WDIYcP8gn6TbHh9RZvskfOAL/oKfpilaLh0=";
   };
 
-  checkPlugins = [ fishtape ];
+  checkPlugins = [fishtape];
   checkPhase = ''
     fishtape tests/humantime.fish
   '';
@@ -24,6 +24,6 @@ buildFishPlugin rec {
     description = "Turn milliseconds into a human-readable string in Fish";
     homepage = "https://github.com/jorgebucaran/humantime.fish";
     license = licenses.mit;
-    maintainers = with maintainers; [ Scrumplex ];
+    maintainers = with maintainers; [Scrumplex];
   };
 }

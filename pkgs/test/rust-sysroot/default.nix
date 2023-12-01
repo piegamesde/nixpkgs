@@ -29,7 +29,7 @@ let
 
       meta = with lib; {
         description = "Test for using custom sysroots with buildRustPackage";
-        maintainers = with maintainers; [ aaronjanse ];
+        maintainers = with maintainers; [aaronjanse];
         platforms = lib.platforms.x86_64;
       };
     };
@@ -60,7 +60,7 @@ in
   );
   blogOS-targetByNix =
     let
-      plat = lib.systems.elaborate { config = "x86_64-none"; } // {
+      plat = lib.systems.elaborate {config = "x86_64-none";} // {
         rustc = {
           config = "x86_64-blog_os";
           platform = targetContents;

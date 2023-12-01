@@ -16,7 +16,7 @@ let
           mkValueString =
             v:
             # In merecat.conf, booleans are "true" and "false"
-            if builtins.isBool v then if v then "true" else "false" else generators.mkValueStringDefault { } v;
+            if builtins.isBool v then if v then "true" else "false" else generators.mkValueStringDefault {} v;
         }
         "=";
   };
@@ -30,7 +30,7 @@ in
 
     settings = mkOption {
       inherit (format) type;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Merecat configuration. Refer to merecat(8) for details on supported values.
       '';
@@ -47,12 +47,12 @@ in
 
     systemd.services.merecat = {
       description = "Merecat HTTP server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         DynamicUser = true;
         ExecStart = "${pkgs.merecat}/bin/merecat -n -f ${configFile}";
-        AmbientCapabilities = lib.mkIf ((cfg.settings.port or 80) < 1024) [ "CAP_NET_BIND_SERVICE" ];
+        AmbientCapabilities = lib.mkIf ((cfg.settings.port or 80) < 1024) ["CAP_NET_BIND_SERVICE"];
       };
     };
   };

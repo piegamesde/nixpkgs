@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     description = "VNC remote desktop client software by RealVNC";
     homepage = "https://www.realvnc.com/en/connect/download/viewer/";
     mainProgram = "vncviewer";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = {
       fullName = "VNC Connect End User License Agreement";
       url = "https://static.realvnc.com/media/documents/LICENSE-4.0a_en.pdf";
@@ -64,6 +64,6 @@ stdenv.mkDerivation rec {
       emilytrau
       onedragon
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

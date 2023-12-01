@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     ScriptingBridge
   ];
 
-  patches = [ ./trash.diff ];
+  patches = [./trash.diff];
 
   buildPhase = "make all docs";
 

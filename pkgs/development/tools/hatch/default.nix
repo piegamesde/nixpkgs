@@ -77,6 +77,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://hatch.pypa.io/latest/";
     changelog = "https://github.com/pypa/hatch/blob/hatch-v${version}/docs/history.md#hatch";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

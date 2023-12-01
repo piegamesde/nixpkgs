@@ -13,7 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-TbCpYsY0GCbJpprKq8L5I6WxJNU6M1voku8pFzvDHFs=";
   };
 
-  pythonImportsCheck = [ "isounidecode" ];
+  pythonImportsCheck = ["isounidecode"];
 
   # no real tests included, fails to run
   doCheck = false;
@@ -22,6 +22,6 @@ buildPythonPackage rec {
     description = "Python package for conversion and transliteration of unicode into ascii or iso-8859-1";
     homepage = "https://github.com/redvasily/isounidecode";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

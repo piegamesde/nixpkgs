@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     installShellFiles
   ];
 
-  buildInputs = [ git ];
+  buildInputs = [git];
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"
@@ -48,6 +48,6 @@ stdenv.mkDerivation rec {
     description = "Git submodule alternative";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ryantrinkle ];
+    maintainers = with maintainers; [ryantrinkle];
   };
 }

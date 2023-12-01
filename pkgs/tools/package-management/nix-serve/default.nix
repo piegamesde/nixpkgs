@@ -24,7 +24,7 @@ stdenv.mkDerivation {
     inherit rev sha256;
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontBuild = true;
 
@@ -58,7 +58,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://github.com/edolstra/nix-serve";
     description = "A utility for sharing a Nix store as a binary cache";
-    maintainers = [ maintainers.eelco ];
+    maintainers = [maintainers.eelco];
     license = licenses.lgpl21;
     platforms = nix.meta.platforms;
   };

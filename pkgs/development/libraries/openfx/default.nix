@@ -37,6 +37,6 @@ stdenv.mkDerivation {
     homepage = "http://openeffects.org/";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = [ maintainers.guibou ];
+    maintainers = [maintainers.guibou];
   };
 }

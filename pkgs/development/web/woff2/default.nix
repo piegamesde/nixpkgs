@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     "-DBUILD_SHARED_LIBS=${if static then "OFF" else "ON"}"
   ] ++ lib.optional static "-DCMAKE_SKIP_RPATH:BOOL=TRUE";
 
-  propagatedBuildInputs = [ brotli ];
+  propagatedBuildInputs = [brotli];
 
   postPatch = ''
     # without this binaries only get built if shared libs are disable
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "Webfont compression reference code";
     homepage = "https://github.com/google/woff2";
     license = licenses.mit;
-    maintainers = [ maintainers.hrdinka ];
+    maintainers = [maintainers.hrdinka];
     platforms = platforms.unix;
   };
 }

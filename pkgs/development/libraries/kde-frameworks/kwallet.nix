@@ -39,5 +39,5 @@ mkDerivation {
     qgpgme
     qca-qt5
   ];
-  propagatedBuildInputs = [ qtbase ];
+  propagatedBuildInputs = [qtbase];
 }

@@ -32,14 +32,14 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [ paho-mqtt ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  propagatedBuildInputs = [paho-mqtt] ++ lib.optionals (pythonOlder "3.10") [typing-extensions];
 
   nativeCheckInputs = [
     anyio
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "asyncio_mqtt" ];
+  pythonImportsCheck = ["asyncio_mqtt"];
 
   disabledTests = [
     # Tests require network access
@@ -63,6 +63,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/sbtinstruments/asyncio-mqtt";
     license = licenses.bsd3;
     changelog = "https://github.com/sbtinstruments/asyncio-mqtt/blob/v${version}/CHANGELOG.md";
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

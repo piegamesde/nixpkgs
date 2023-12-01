@@ -27,15 +27,15 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "marshmallow_oneofschema" ];
+  pythonImportsCheck = ["marshmallow_oneofschema"];
 
   meta = with lib; {
     changelog = "https://github.com/marshmallow-code/marshmallow-oneofschema/blob/${src.rev}/CHANGELOG.rst";
     description = "Marshmallow library extension that allows schema (de)multiplexing";
     homepage = "https://github.com/marshmallow-code/marshmallow-oneofschema";
     license = licenses.mit;
-    maintainers = with maintainers; [ ivan-tkatchev ];
+    maintainers = with maintainers; [ivan-tkatchev];
   };
 }

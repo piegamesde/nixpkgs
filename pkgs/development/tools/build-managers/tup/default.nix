@@ -28,14 +28,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-Q2Y5ErcfhLChi9Wezn8+7eNXYX2UXW1fBOqEclmgzOo=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     fuse
     pcre
     sqlite
   ];
 
-  patches = [ ./fusermount-setuid.patch ];
+  patches = [./fusermount-setuid.patch];
 
   configurePhase = ''
     substituteInPlace  src/tup/link.sh --replace '`git describe' '`echo ${version}'
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://gittup.org/tup/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
     platforms = platforms.unix;
 
     # TODO: Remove once nixpkgs uses newer SDKs that supports '*at' functions.

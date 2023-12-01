@@ -26,7 +26,7 @@ stdenv.mkDerivation {
     sha256 = "1lf66bsgv2w6nzg1iqf25zpjf4ckcr45adkpgdq9gvhkfnvlp8av";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     install -Dm555 update-resolv-conf.sh $out/libexec/openvpn/update-resolv-conf
@@ -40,7 +40,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Script to update your /etc/resolv.conf with DNS settings that come from the received push dhcp-options";
     homepage = "https://github.com/masterkorp/openvpn-update-resolv-conf/";
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     license = licenses.gpl2;
     platforms = platforms.unix;
   };

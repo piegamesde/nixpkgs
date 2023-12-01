@@ -36,9 +36,9 @@ buildDotnetModule rec {
 
   dotnet-runtime = dotnetCorePackages.runtime_7_0;
 
-  projectFile = [ "BeatSaberModManager/BeatSaberModManager.csproj" ];
+  projectFile = ["BeatSaberModManager/BeatSaberModManager.csproj"];
 
-  executables = [ "BeatSaberModManager" ];
+  executables = ["BeatSaberModManager"];
 
   nugetDeps = ./deps.nix;
 
@@ -66,7 +66,7 @@ buildDotnetModule rec {
       - OneClick™ support for BeatSaver, ModelSaber and Playlists
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ atemu ];
+    maintainers = with maintainers; [atemu];
     platforms = with platforms; linux;
   };
 }

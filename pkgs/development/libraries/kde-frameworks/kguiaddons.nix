@@ -10,13 +10,13 @@
 mkDerivation {
   pname = "kguiaddons";
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     qtx11extras
     wayland
     plasma-wayland-protocols
   ];
-  propagatedBuildInputs = [ qtbase ];
+  propagatedBuildInputs = [qtbase];
 
   outputs = [
     "out"

@@ -56,7 +56,7 @@ python3.pkgs.buildPythonApplication rec {
     pyqt6-webengine
   ];
 
-  patches = [ ./remove-wheel-check.patch ];
+  patches = [./remove-wheel-check.patch];
 
   preConfigure = ''
     lrelease ReText/locale/*.ts
@@ -85,13 +85,13 @@ python3.pkgs.buildPythonApplication rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [ "ReText" ];
+  pythonImportsCheck = ["ReText"];
 
   meta = with lib; {
     description = "Editor for Markdown and reStructuredText";
     homepage = "https://github.com/retext-project/retext/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ klntsky ];
+    maintainers = with maintainers; [klntsky];
     platforms = platforms.unix;
   };
 }

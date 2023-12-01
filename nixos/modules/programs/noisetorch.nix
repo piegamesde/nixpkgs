@@ -31,6 +31,6 @@ in
       capabilities = "cap_sys_resource=+ep";
       source = "${cfg.package}/bin/noisetorch";
     };
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

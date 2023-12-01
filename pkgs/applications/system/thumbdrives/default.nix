@@ -57,7 +57,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "USB mass storage emulator for Linux handhelds";
     homepage = "https://sr.ht/~martijnbraam/thumbdrives/";
     license = licenses.mit;
-    maintainers = with maintainers; [ chuangzhu ];
+    maintainers = with maintainers; [chuangzhu];
     platforms = platforms.linux;
   };
 }

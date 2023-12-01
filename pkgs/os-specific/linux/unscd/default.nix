@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     ./0001-adjust-socket-paths-for-nixos.patch
   ];
 
-  buildInputs = [ systemd ];
+  buildInputs = [systemd];
 
   buildPhase = ''
     runHook preBuild
@@ -77,6 +77,6 @@ stdenv.mkDerivation rec {
     description = "Less buggy replacement for the glibc name service cache daemon";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

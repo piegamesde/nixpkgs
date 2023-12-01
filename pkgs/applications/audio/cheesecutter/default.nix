@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   };
 
   patches =
-    [ ./0001-Drop-baked-in-build-date-for-r13y.patch ]
+    [./0001-Drop-baked-in-build-date-for-r13y.patch]
     ++ lib.optional stdenv.hostPlatform.isDarwin ./0002-Prepend-libSDL.dylib-to-macOS-SDL-loader.patch;
 
   nativeBuildInputs = [
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     ldc
   ] ++ lib.optional (!stdenv.hostPlatform.isDarwin) patchelf;
 
-  buildInputs = [ SDL ];
+  buildInputs = [SDL];
 
   makefile = "Makefile.ldc";
 
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
 
   postFixup =
     let
-      rpathSDL = lib.makeLibraryPath [ SDL ];
+      rpathSDL = lib.makeLibraryPath [SDL];
     in
     if stdenv.hostPlatform.isDarwin then
       ''
@@ -63,6 +63,6 @@ stdenv.mkDerivation rec {
       "i686-linux"
       "x86_64-darwin"
     ];
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
   };
 }

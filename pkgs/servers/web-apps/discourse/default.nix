@@ -41,7 +41,7 @@
   nodejs_16,
   dart-sass-embedded,
 
-  plugins ? [ ],
+  plugins ? [],
 }@args:
 
 let
@@ -96,7 +96,7 @@ let
       pname ? null,
       version ? null,
       meta ? null,
-      bundlerEnvArgs ? { },
+      bundlerEnvArgs ? {},
       preserveGemsDir ? false,
       src,
       ...
@@ -115,7 +115,7 @@ let
       );
     in
     stdenv.mkDerivation (
-      builtins.removeAttrs args [ "bundlerEnvArgs" ]
+      builtins.removeAttrs args ["bundlerEnvArgs"]
       // {
         pluginName = if name != null then name else "${pname}-${version}";
         dontConfigure = true;
@@ -126,7 +126,7 @@ let
             mkdir -p $out
             cp -r * $out/
           ''
-          + lib.optionalString (bundlerEnvArgs != { }) (
+          + lib.optionalString (bundlerEnvArgs != {}) (
             if preserveGemsDir then
               ''
                 cp -r ${rubyEnv}/lib/ruby/gems/* $out/gems/
@@ -147,7 +147,7 @@ let
       }
     );
 
-  rake = runCommand "discourse-rake" { nativeBuildInputs = [ makeWrapper ]; } ''
+  rake = runCommand "discourse-rake" {nativeBuildInputs = [makeWrapper];} ''
     mkdir -p $out/bin
     makeWrapper ${rubyEnv}/bin/rake $out/bin/discourse-rake \
         ${
@@ -169,7 +169,7 @@ let
       gems
       // {
         mini_racer = gems.mini_racer // {
-          buildInputs = [ icu ];
+          buildInputs = [icu];
           dontBuild = false;
           NIX_LDFLAGS = "-licui18n";
         };
@@ -200,7 +200,7 @@ let
             '';
           };
         mini_suffix = gems.mini_suffix // {
-          propagatedBuildInputs = [ libpsl ];
+          propagatedBuildInputs = [libpsl];
           dontBuild = false;
           # Use our libpsl instead of the vendored one, which isn't
           # available for aarch64. It has to be called
@@ -216,7 +216,7 @@ let
           # can also be specified via `SASS_EMBEDDED`. But instead of
           # compressing our `dart-sass-embedded` just to decompress it
           # again, we simply patch the Rakefile to symlink that path.
-          patches = [ ./rubyEnv/sass-embedded-static.patch ];
+          patches = [./rubyEnv/sass-embedded-static.patch];
           postPatch = ''
             export SASS_EMBEDDED=${dart-sass-embedded}/bin
           '';
@@ -424,7 +424,7 @@ let
     meta = with lib; {
       homepage = "https://www.discourse.org/";
       platforms = platforms.linux;
-      maintainers = with maintainers; [ talyz ];
+      maintainers = with maintainers; [talyz];
       license = licenses.gpl2Plus;
       description = "Discourse is an open source discussion platform";
     };
@@ -439,7 +439,7 @@ let
         assets
         ;
       enabledPlugins = plugins;
-      plugins = callPackage ./plugins/all-plugins.nix { inherit mkDiscoursePlugin; };
+      plugins = callPackage ./plugins/all-plugins.nix {inherit mkDiscoursePlugin;};
       ruby = rubyEnv.wrappedRuby;
       tests = import ../../../../nixos/tests/discourse.nix {
         inherit (stdenv) system;

@@ -48,7 +48,7 @@ let
     options =
       let
         scrubbedEval = evalModules {
-          modules = [ { _module.check = false; } ] ++ docModules.eager;
+          modules = [{_module.check = false;}] ++ docModules.eager;
           specialArgs = specialArgs // {
             pkgs = scrubDerivations "pkgs" pkgs;
             # allow access to arbitrary options for eager modules, eg for getting
@@ -153,7 +153,7 @@ let
         comment = "View NixOS documentation in a web browser";
         icon = "nix-snowflake";
         exec = "nixos-help";
-        categories = [ "System" ];
+        categories = ["System"];
       };
     in
     pkgs.symlinkJoin {
@@ -297,7 +297,7 @@ in
 
       nixos.extraModules = mkOption {
         type = types.listOf types.raw;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Modules for which to show options even when not imported.
         '';
@@ -352,7 +352,7 @@ in
 
       nixos.extraModuleSources = mkOption {
         type = types.listOf (types.either types.path types.str);
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Which extra NixOS module paths the generated NixOS's documentation should strip
           from options.
@@ -381,14 +381,14 @@ in
       # The actual implementation for this lives in man-db.nix or mandoc.nix,
       # depending on which backend is active.
       (mkIf cfg.man.enable {
-        environment.pathsToLink = [ "/share/man" ];
-        environment.extraOutputsToInstall = [ "man" ] ++ optional cfg.dev.enable "devman";
+        environment.pathsToLink = ["/share/man"];
+        environment.extraOutputsToInstall = ["man"] ++ optional cfg.dev.enable "devman";
       })
 
       (mkIf cfg.info.enable {
-        environment.systemPackages = [ pkgs.texinfoInteractive ];
-        environment.pathsToLink = [ "/share/info" ];
-        environment.extraOutputsToInstall = [ "info" ] ++ optional cfg.dev.enable "devinfo";
+        environment.systemPackages = [pkgs.texinfoInteractive];
+        environment.pathsToLink = ["/share/info"];
+        environment.extraOutputsToInstall = ["info"] ++ optional cfg.dev.enable "devinfo";
         environment.extraSetup = ''
           if [ -w $out/share/info ]; then
             shopt -s nullglob
@@ -400,8 +400,8 @@ in
       })
 
       (mkIf cfg.doc.enable {
-        environment.pathsToLink = [ "/share/doc" ];
-        environment.extraOutputsToInstall = [ "doc" ] ++ optional cfg.dev.enable "devdoc";
+        environment.pathsToLink = ["/share/doc"];
+        environment.extraOutputsToInstall = ["doc"] ++ optional cfg.dev.enable "devdoc";
       })
 
       (mkIf cfg.nixos.enable {
@@ -416,7 +416,7 @@ in
         '';
 
         environment.systemPackages =
-          [ ]
+          []
           ++ optional cfg.man.enable manual.manpages
           ++ optionals cfg.doc.enable [
             manual.manualHTML

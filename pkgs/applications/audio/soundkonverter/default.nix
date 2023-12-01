@@ -62,7 +62,7 @@ assert withUnfreeAac -> withAac;
 
 let
   runtimeDeps =
-    [ ]
+    []
     ++ lib.optional withCD cdparanoia
     ++ lib.optional withFlac flac
     ++ lib.optional withSpeex speex
@@ -131,9 +131,9 @@ mkDerivation rec {
     qtbase
     phonon
   ];
-  buildInputs = [ taglib ] ++ runtimeDeps;
+  buildInputs = [taglib] ++ runtimeDeps;
   # encoder plugins go to ${out}/lib so they're found by kbuildsycoca5
-  cmakeFlags = [ "-DCMAKE_INSTALL_PREFIX=$out" ];
+  cmakeFlags = ["-DCMAKE_INSTALL_PREFIX=$out"];
   sourceRoot = "source/src";
   # add runt-time deps to PATH
   postInstall = ''
@@ -141,7 +141,7 @@ mkDerivation rec {
   '';
   meta = {
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.schmittlauch ];
+    maintainers = [lib.maintainers.schmittlauch];
     description = "Audio file converter, CD ripper and Replay Gain tool";
     longDescription = ''
       soundKonverter is a frontend to various audio converters.

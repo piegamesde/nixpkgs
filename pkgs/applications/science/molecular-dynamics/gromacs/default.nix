@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-7vK7Smy2MUz52kfybfKg0nr0v3swmXI9Q2AQc6sKQvQ=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     fftw
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     ]
     ++ (
       if singlePrec then
-        [ "-DGMX_DOUBLE=OFF" ]
+        ["-DGMX_DOUBLE=OFF"]
       else
         [
           "-DGMX_DOUBLE=ON"
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
           "-DGMX_THREAD_MPI:BOOL=FALSE"
         ]
       else
-        [ "-DGMX_MPI:BOOL=FALSE" ]
+        ["-DGMX_MPI:BOOL=FALSE"]
     )
     ++ lib.optional enableCuda "-DGMX_GPU=CUDA";
 

@@ -26,7 +26,7 @@
   },
 }:
 
-with import ./release-lib.nix { inherit supportedSystems scrubJobs nixpkgsArgs; };
+with import ./release-lib.nix {inherit supportedSystems scrubJobs nixpkgsArgs;};
 
 let
   nativePlatforms = all;
@@ -133,7 +133,7 @@ in
             path: crossSystem: system:
             builtins.toString (lib.getAttrFromPath path (pkgsForCross crossSystem system));
         in
-        assertTrue (f path null system == f ([ "buildPackages" ] ++ path) crossSystem system);
+        assertTrue (f path null system == f (["buildPackages"] ++ path) crossSystem system);
 
       testEqual = path: systems: forMatchingSystems systems (testEqualOne path);
 
@@ -156,7 +156,7 @@ in
 
   # Test some cross builds to the Sheevaplug
   crossSheevaplugLinux = mapTestOnCross lib.systems.examples.sheevaplug (
-    linuxCommon // { ubootSheevaplug = nativePlatforms; }
+    linuxCommon // {ubootSheevaplug = nativePlatforms;}
   );
 
   # Test some cross builds on 32 bit mingw-w64
@@ -243,12 +243,12 @@ in
   # Cross-built bootstrap tools for every supported platform
   bootstrapTools =
     let
-      tools = import ../stdenv/linux/make-bootstrap-tools-cross.nix { system = "x86_64-linux"; };
-      maintainers = [ lib.maintainers.dezgeg ];
+      tools = import ../stdenv/linux/make-bootstrap-tools-cross.nix {system = "x86_64-linux";};
+      maintainers = [lib.maintainers.dezgeg];
       mkBootstrapToolsJob =
         drv:
         assert lib.elem drv.system supportedSystems;
-        hydraJob' (lib.addMetaAttrs { inherit maintainers; } drv);
+        hydraJob' (lib.addMetaAttrs {inherit maintainers;} drv);
     in
     lib.mapAttrsRecursiveCond (as: !lib.isDerivation as) (name: mkBootstrapToolsJob)
       # The `bootstrapTools.${platform}.bootstrapTools` derivation
@@ -258,7 +258,7 @@ in
       # attribute, so there is no way to detect this -- we must add it
       # as a special case.
       (
-        builtins.removeAttrs tools [ "bootstrapTools" ]
+        builtins.removeAttrs tools ["bootstrapTools"]
       );
 
   # Cross-built nixStatic for platforms for enabled-but-unsupported platforms

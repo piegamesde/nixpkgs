@@ -23,12 +23,12 @@ buildPythonPackage rec {
     msrest
   ];
 
-  pythonImportsCheck = [ "azure.mgmt.extendedlocation" ];
+  pythonImportsCheck = ["azure.mgmt.extendedlocation"];
 
   meta = with lib; {
     description = "Microsoft Azure Extendedlocation Management Client Library for Python";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

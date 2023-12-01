@@ -22,14 +22,14 @@ buildPythonPackage rec {
     hash = "sha256-IkuAYEg5nuUT6zxmuJe6afp4MVWf0+HAnEoAdOrdTvQ=";
   };
 
-  propagatedBuildInputs = [ click ];
+  propagatedBuildInputs = [click];
 
   nativeCheckInputs = [
     pytest-asyncio
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "--asyncio-mode=auto" ];
+  pytestFlagsArray = ["--asyncio-mode=auto"];
 
   disabledTests = [
     # Tests requires network features (e. g., discovery testing)
@@ -40,13 +40,13 @@ buildPythonPackage rec {
     "test_error_PilotBuilder_cold_white_lower"
   ];
 
-  pythonImportsCheck = [ "pywizlight" ];
+  pythonImportsCheck = ["pywizlight"];
 
   meta = with lib; {
     description = "Python connector for WiZ light bulbs";
     homepage = "https://github.com/sbidy/pywizlight";
     changelog = "https://github.com/sbidy/pywizlight/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

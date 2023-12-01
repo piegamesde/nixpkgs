@@ -34,14 +34,14 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "metar" ];
+  pythonImportsCheck = ["metar"];
 
   meta = with lib; {
     description = "Python parser for coded METAR weather reports";
     homepage = "https://github.com/python-metar/python-metar";
-    license = with licenses; [ bsd1 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd1];
+    maintainers = with maintainers; [fab];
   };
 }

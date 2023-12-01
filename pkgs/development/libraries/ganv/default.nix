@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "An interactive Gtk canvas widget for graph-based interfaces";
     homepage = "http://drobilla.net";
     license = licenses.gpl3;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
     platforms = platforms.linux;
   };
 }

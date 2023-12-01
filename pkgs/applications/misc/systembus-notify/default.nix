@@ -7,7 +7,7 @@
 }:
 
 let
-  ini = formats.ini { };
+  ini = formats.ini {};
 
   unit = ini.generate "systembus-notify.service" {
     Unit = {
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-WzuBw7LXW54CCMgFE9BSJ2skxaz4IA2BcBny63Ihtt0=";
   };
 
-  buildInputs = [ systemd ];
+  buildInputs = [systemd];
 
   installPhase = ''
     runHook preInstall
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     description = "System bus notification daemon";
     homepage = "https://github.com/rfjakob/systembus-notify";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.linux;
   };
 }

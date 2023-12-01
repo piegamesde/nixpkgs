@@ -1,10 +1,10 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
   {
     name = "karma";
     nodes = {
       server =
-        { ... }:
+        {...}:
         {
           services.prometheus.alertmanager = {
             enable = true;
@@ -18,7 +18,7 @@ import ./make-test-python.nix (
               route = {
                 # Root route node
                 receiver = "test";
-                group_by = [ "..." ];
+                group_by = ["..."];
                 continue = false;
                 group_wait = "1s";
                 group_interval = "15s";

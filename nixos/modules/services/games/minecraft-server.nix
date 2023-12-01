@@ -128,7 +128,7 @@ in
               };
           in
           types.attrsOf minecraftUUID;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Whitelisted players, only has an effect when
           {option}`services.minecraft-server.declarative` is
@@ -157,7 +157,7 @@ in
               str
             ]
           );
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             server-port = 43000;
@@ -209,10 +209,10 @@ in
       isSystemUser = true;
       group = "minecraft";
     };
-    users.groups.minecraft = { };
+    users.groups.minecraft = {};
 
     systemd.sockets.minecraft-server = {
-      bindsTo = [ "minecraft-server.service" ];
+      bindsTo = ["minecraft-server.service"];
       socketConfig = {
         ListenFIFO = "/run/minecraft-server.stdin";
         SocketMode = "0660";
@@ -225,8 +225,8 @@ in
 
     systemd.services.minecraft-server = {
       description = "Minecraft Server Service";
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "minecraft-server.socket" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["minecraft-server.socket"];
       after = [
         "network.target"
         "minecraft-server.socket"
@@ -244,8 +244,8 @@ in
         StandardError = "journal";
 
         # Hardening
-        CapabilityBoundingSet = [ "" ];
-        DeviceAllow = [ "" ];
+        CapabilityBoundingSet = [""];
+        DeviceAllow = [""];
         LockPersonality = true;
         PrivateDevices = true;
         PrivateTmp = true;
@@ -309,15 +309,15 @@ in
     networking.firewall = mkIf cfg.openFirewall (
       if cfg.declarative then
         {
-          allowedUDPPorts = [ serverPort ];
+          allowedUDPPorts = [serverPort];
           allowedTCPPorts = [
             serverPort
           ] ++ optional (queryPort != null) queryPort ++ optional (rconPort != null) rconPort;
         }
       else
         {
-          allowedUDPPorts = [ defaultServerPort ];
-          allowedTCPPorts = [ defaultServerPort ];
+          allowedUDPPorts = [defaultServerPort];
+          allowedTCPPorts = [defaultServerPort];
         }
     );
 

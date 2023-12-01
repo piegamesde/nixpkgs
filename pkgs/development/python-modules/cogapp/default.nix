@@ -20,6 +20,6 @@ buildPythonPackage rec {
     description = "A code generator for executing Python snippets in source files";
     homepage = "https://nedbatchelder.com/code/cog";
     license = licenses.mit;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
   };
 }

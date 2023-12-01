@@ -69,21 +69,21 @@ buildPythonPackage rec {
     tqdm
     typer
     wasabi
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  ] ++ lib.optionals (pythonOlder "3.8") [typing-extensions];
 
   postPatch = ''
     substituteInPlace setup.cfg \
       --replace "typer>=0.3.0,<0.5.0" "typer>=0.3.0"
   '';
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   doCheck = false;
   checkPhase = ''
     ${python.interpreter} -m pytest spacy/tests --vectors --models --slow
   '';
 
-  pythonImportsCheck = [ "spacy" ];
+  pythonImportsCheck = ["spacy"];
 
   passthru = {
     updateScript = writeScript "update-spacy" ''
@@ -102,7 +102,7 @@ buildPythonPackage rec {
       # update spacy models as well
       echo | nix-shell maintainers/scripts/update.nix --argstr package python3Packages.spacy_models.en_core_web_sm
     '';
-    tests.annotation = callPackage ./annotation-test { };
+    tests.annotation = callPackage ./annotation-test {};
   };
 
   meta = with lib; {
@@ -110,6 +110,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/explosion/spaCy";
     changelog = "https://github.com/explosion/spaCy/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

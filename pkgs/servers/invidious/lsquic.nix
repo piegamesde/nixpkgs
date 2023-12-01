@@ -30,7 +30,7 @@ let
 
   # lsquic requires a specific boringssl version (noted in its README)
   boringssl' = boringssl.overrideAttrs (
-    { preBuild, ... }:
+    {preBuild, ...}:
     {
       version = versions.boringssl.rev;
       src = fetchgit {

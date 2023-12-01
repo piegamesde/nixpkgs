@@ -33,7 +33,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.haskellPackages.FractalArt ];
+    environment.systemPackages = [pkgs.haskellPackages.FractalArt];
     services.xserver.displayManager.sessionCommands =
       "${pkgs.haskellPackages.FractalArt}/bin/FractalArt --no-bg -f .background-image"
       + optionalString (cfg.width != null) " -w ${toString cfg.width}"

@@ -20,9 +20,7 @@ buildPythonPackage rec {
     sha256 = "1y5ln09ji4dwpzhxr77cggk02kghq7lql60a6969a5n2lwpvqblk";
   };
 
-  propagatedBuildInputs = [
-    cryptography
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [cryptography] ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   nativeCheckInputs = [
     coverage
@@ -35,6 +33,6 @@ buildPythonPackage rec {
     description = "Encipher HTTP Messages";
     homepage = "https://github.com/martinthomson/encrypted-content-encoding";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

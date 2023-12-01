@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   let
     cfg = {
@@ -28,7 +28,7 @@ import ./make-test-python.nix (
       };
     };
     generateCephConfig =
-      { daemonConfig }:
+      {daemonConfig}:
       {
         enable = true;
         global = {
@@ -48,8 +48,8 @@ import ./make-test-python.nix (
       }:
       {
         virtualisation = {
-          emptyDiskImages = [ 20480 ];
-          vlans = [ 1 ];
+          emptyDiskImages = [20480];
+          vlans = [1];
         };
 
         networking = networkConfig;
@@ -62,7 +62,7 @@ import ./make-test-python.nix (
           libressl.nc
         ];
 
-        boot.kernelModules = [ "xfs" ];
+        boot.kernelModules = ["xfs"];
 
         services.ceph = cephConfig;
       };
@@ -92,11 +92,11 @@ import ./make-test-python.nix (
       daemonConfig = {
         mon = {
           enable = true;
-          daemons = [ cfg.monA.name ];
+          daemons = [cfg.monA.name];
         };
         mgr = {
           enable = true;
-          daemons = [ cfg.monA.name ];
+          daemons = [cfg.monA.name];
         };
       };
     };
@@ -125,7 +125,7 @@ import ./make-test-python.nix (
         daemonConfig = {
           osd = {
             enable = true;
-            daemons = [ osd.name ];
+            daemons = [osd.name];
           };
         };
       };
@@ -135,7 +135,7 @@ import ./make-test-python.nix (
     # For other ways to deploy a ceph cluster, look at the documentation at
     # https://docs.ceph.com/docs/master/
     testscript =
-      { ... }:
+      {...}:
       ''
         start_all()
 
@@ -257,7 +257,7 @@ import ./make-test-python.nix (
   in
   {
     name = "basic-multi-node-ceph-cluster";
-    meta = with pkgs.lib.maintainers; { maintainers = [ lejonet ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [lejonet];};
 
     nodes = {
       monA = generateHost {

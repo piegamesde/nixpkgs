@@ -214,15 +214,15 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
-    services.dbus.packages = [ cfg.package ];
+    services.dbus.packages = [cfg.package];
 
-    services.udev.packages = [ cfg.package ];
+    services.udev.packages = [cfg.package];
 
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
 
-    environment.etc."UPower/UPower.conf".text = generators.toINI { } {
+    environment.etc."UPower/UPower.conf".text = generators.toINI {} {
       UPower = {
         EnableWattsUpPro = cfg.enableWattsUpPro;
         NoPollBatteries = cfg.noPollBatteries;

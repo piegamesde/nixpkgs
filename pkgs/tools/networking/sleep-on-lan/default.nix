@@ -30,6 +30,6 @@ buildGoModule rec {
     description = "Multi-platform process allowing to sleep on LAN a linux or windows computer, through wake-on-lan (reversed) magic packets or through HTTP REST requests.";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ devusb ];
+    maintainers = with maintainers; [devusb];
   };
 }

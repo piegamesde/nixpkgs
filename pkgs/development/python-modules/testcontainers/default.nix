@@ -33,7 +33,7 @@ buildPythonPackage rec {
   # Tests require various container and database services running
   doCheck = false;
 
-  pythonImportsCheck = [ "testcontainers" ];
+  pythonImportsCheck = ["testcontainers"];
 
   meta = with lib; {
     description = ''
@@ -41,6 +41,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/testcontainers/testcontainers-python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

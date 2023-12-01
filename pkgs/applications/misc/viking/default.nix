@@ -82,13 +82,13 @@ stdenv.mkDerivation rec {
     (lib.enableFeature withRealtimeGPSTracking "realtime-gps-tracking")
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   doCheck = true;
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : ${lib.makeBinPath [ gpsbabel ]}
+      --prefix PATH : ${lib.makeBinPath [gpsbabel]}
     )
   '';
 

@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     libxcrypt-legacy
   ];
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
   dontConfigure = true;
   dontBuild = true;
@@ -49,9 +49,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "WMI client for Linux (binary)";
     homepage = "https://www.openvas.org";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [peterhoeg];
+    platforms = ["x86_64-linux"];
   };
 }

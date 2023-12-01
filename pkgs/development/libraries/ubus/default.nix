@@ -17,18 +17,18 @@ stdenv.mkDerivation {
     sha256 = "03ljxsn4w87bfrilccxhrkzqmd30hy6ihkvsinw0i3l7rpp5m4a7";
   };
 
-  cmakeFlags = [ "-DBUILD_LUA=OFF" ];
+  cmakeFlags = ["-DBUILD_LUA=OFF"];
   buildInputs = [
     libubox
     libjson
   ];
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "OpenWrt system message/RPC bus";
     homepage = "https://git.openwrt.org/?p=project/ubus.git;a=summary";
     license = licenses.lgpl21Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -30,7 +30,7 @@ let
     license = lib.licenses.gpl3;
     homepage = "https://tamarin-prover.github.io";
     description = "Security protocol verification in the symbolic model";
-    maintainers = [ lib.maintainers.thoughtpolice ];
+    maintainers = [lib.maintainers.thoughtpolice];
     hydraPlatforms = lib.platforms.linux; # maude is broken on darwin
   };
 
@@ -69,7 +69,7 @@ let
             HUnit
           ]
         )
-        ++ [ tamarin-prover-utils ];
+        ++ [tamarin-prover-utils];
     }
   );
 
@@ -99,7 +99,7 @@ let
     // {
       postPatch = "cp --remove-destination ${src}/LICENSE .";
       doHaddock = false; # broken
-      libraryHaskellDepends = (with haskellPackages; [ raw-strings-qq ]) ++ [ tamarin-prover-theory ];
+      libraryHaskellDepends = (with haskellPackages; [raw-strings-qq]) ++ [tamarin-prover-theory];
     }
   );
 in

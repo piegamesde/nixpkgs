@@ -41,15 +41,15 @@ stdenv.mkDerivation rec {
   prePatch = ''
     substituteInPlace Makefile --replace 'PKG_CONFIG =' 'PKG_CONFIG ?='
   '';
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Rewrite of unclutter using the X11 Xfixes extension";
     platforms = platforms.unix;
     license = lib.licenses.mit;
-    maintainers = [ maintainers.globin ];
+    maintainers = [maintainers.globin];
     mainProgram = "unclutter";
   };
 }

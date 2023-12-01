@@ -20,13 +20,13 @@ buildPythonPackage rec {
     hash = "sha256-ivRsweaIvkiBceTfAI457wN+tbntJ3t4HTynWf29vAI=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   dontUseCmakeConfigure = true;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     homepage = "https://github.com/scikit-hep/iminuit";
@@ -35,6 +35,6 @@ buildPythonPackage rec {
       mit
       lgpl2Only
     ];
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

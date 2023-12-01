@@ -11,7 +11,7 @@ let
 
   cfg = config.fonts.fontDir;
 
-  x11Fonts = pkgs.runCommand "X11-fonts" { preferLocalBuild = true; } ''
+  x11Fonts = pkgs.runCommand "X11-fonts" {preferLocalBuild = true;} ''
     mkdir -p "$out/share/X11/fonts"
     font_regexp='.*\.\(ttf\|ttc\|otf\|pcf\|pfa\|pfb\|bdf\)\(\.gz\)?'
     find ${toString config.fonts.fonts} -regex "$font_regexp" \
@@ -54,8 +54,8 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ x11Fonts ];
-    environment.pathsToLink = [ "/share/X11/fonts" ];
+    environment.systemPackages = [x11Fonts];
+    environment.pathsToLink = ["/share/X11/fonts"];
 
     services.xserver.filesSection = ''
       FontPath "${x11Fonts}/share/X11/fonts"

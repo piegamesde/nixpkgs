@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     fzf
     gawk
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     install -d $out/bin
@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/Biont/sway-launcher-desktop/releases/tag/v${version}";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.thehedgeh0g ];
+    maintainers = [maintainers.thehedgeh0g];
   };
 }

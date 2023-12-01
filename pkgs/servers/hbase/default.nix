@@ -25,7 +25,7 @@ let
         inherit hash;
       };
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
       installPhase = ''
         mkdir -p $out
         cp -R * $out
@@ -42,7 +42,7 @@ let
         description = "A distributed, scalable, big data store";
         homepage = "https://hbase.apache.org";
         license = licenses.asl20;
-        maintainers = with lib.maintainers; [ illustris ];
+        maintainers = with lib.maintainers; [illustris];
         platforms = lib.platforms.linux;
       };
     };

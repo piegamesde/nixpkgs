@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   dontStrip = true; # Don't strip, otherwise patching the rpaths breaks
   sourceRoot = ".";
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
   buildInputs = [
     stdenv.cc.libc
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Automatically sync files via secure, distributed technology";
     homepage = "https://www.resilio.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfreeRedistributable;
     platforms = platforms.linux;
     maintainers = with maintainers; [

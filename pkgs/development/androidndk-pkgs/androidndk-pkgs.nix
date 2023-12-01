@@ -22,7 +22,7 @@ let
   # FIXME:
   # There's some dragons here. Build host and target concepts are being mixed up.
   ndkInfoFun =
-    { config, ... }:
+    {config, ...}:
     {
       x86_64-apple-darwin = {
         double = "darwin-x86_64";
@@ -83,7 +83,7 @@ rec {
       makeWrapper
       autoPatchelfHook
     ];
-    propagatedBuildInputs = [ androidndk ];
+    propagatedBuildInputs = [androidndk];
     passthru = {
       inherit targetPrefix;
       isClang = true; # clang based cc, but bintools ld
@@ -173,7 +173,7 @@ rec {
   # We use androidndk from the previous stage, else we waste time or get cycles
   # cross-compiling packages to wrap incorrectly wrap binaries we don't include
   # anyways.
-  libraries = runCommand "bionic-prebuilt" { } ''
+  libraries = runCommand "bionic-prebuilt" {} ''
     lpath=${buildAndroidndk}/libexec/android-sdk/ndk-bundle/toolchains/llvm/prebuilt/${buildInfo.double}/sysroot/usr/lib/${targetInfo.triple}/${sdkVer}
     if [ ! -d $lpath ]; then
       echo "NDK does not contain libraries for SDK version ${sdkVer} <$lpath>"

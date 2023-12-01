@@ -18,17 +18,17 @@ buildPythonPackage rec {
     sha256 = "0i1dlswxc2bv1smc5d4r1adbxbl7sgr1swh2cjfajp73vs43xa0m";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "fordpass" ];
+  pythonImportsCheck = ["fordpass"];
 
   meta = with lib; {
     description = "Python module for the FordPass API";
     homepage = "https://github.com/clarkd/fordpass-python";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

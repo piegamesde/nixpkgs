@@ -6,8 +6,8 @@
 }:
 
 {
-  buildInputs ? [ ],
-  nativeBuildInputs ? [ ],
+  buildInputs ? [],
+  nativeBuildInputs ? [],
   outputs ? [
     "out"
     "devdoc"
@@ -33,7 +33,7 @@
   # https://metacpan.org/pod/release/XSAWYERX/perl-5.26.0/pod/perldelta.pod#Removal-of-the-current-directory-%28%22.%22%29-from-@INC
   PERL_USE_UNSAFE_INC ? "1",
 
-  env ? { },
+  env ? {},
 
   ...
 }@attrs:
@@ -55,10 +55,9 @@ lib.throwIf (attrs ? name)
 
           builder = ./builder.sh;
 
-          buildInputs = buildInputs ++ [ perl ];
+          buildInputs = buildInputs ++ [perl];
           nativeBuildInputs =
-            nativeBuildInputs
-            ++ (if stdenv.buildPlatform != stdenv.hostPlatform then [ perl.mini ] else [ perl ]);
+            nativeBuildInputs ++ (if stdenv.buildPlatform != stdenv.hostPlatform then [perl.mini] else [perl]);
 
           inherit
             outputs
@@ -72,7 +71,7 @@ lib.throwIf (attrs ? name)
             fullperl = perl.__spliced.buildHost or perl;
           } // env;
 
-          meta = defaultMeta // (attrs.meta or { });
+          meta = defaultMeta // (attrs.meta or {});
         }
       );
     in

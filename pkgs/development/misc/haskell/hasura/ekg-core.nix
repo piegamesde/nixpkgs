@@ -60,7 +60,7 @@ mkDerivation {
     text
     unordered-containers
   ];
-  testToolDepends = [ markdown-unlit ];
+  testToolDepends = [markdown-unlit];
   benchmarkHaskellDepends = [
     base
     criterion
@@ -69,5 +69,5 @@ mkDerivation {
   homepage = "https://github.com/tibbe/ekg-core";
   description = "Tracking of system metrics";
   license = lib.licenses.bsd3;
-  maintainers = with lib.maintainers; [ lassulus ];
+  maintainers = with lib.maintainers; [lassulus];
 }

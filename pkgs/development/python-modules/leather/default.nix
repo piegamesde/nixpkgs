@@ -17,7 +17,7 @@ buildPythonPackage rec {
     sha256 = "b43e21c8fa46b2679de8449f4d953c06418666dc058ce41055ee8a8d3bb40918";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   nativeCheckInputs = [
     cssselect
@@ -36,6 +36,6 @@ buildPythonPackage rec {
     description = "Python charting library";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ vrthra ];
+    maintainers = with maintainers; [vrthra];
   };
 }

@@ -58,15 +58,15 @@ buildPythonPackage rec {
     "gcsfs/tests/test_retry.py"
   ];
 
-  pytestFlagsArray = [ "-x" ];
+  pytestFlagsArray = ["-x"];
 
-  pythonImportsCheck = [ "gcsfs" ];
+  pythonImportsCheck = ["gcsfs"];
 
   meta = with lib; {
     description = "Convenient Filesystem interface over GCS";
     homepage = "https://github.com/fsspec/gcsfs";
     changelog = "https://github.com/fsspec/gcsfs/raw/${version}/docs/source/changelog.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ nbren12 ];
+    maintainers = with maintainers; [nbren12];
   };
 }

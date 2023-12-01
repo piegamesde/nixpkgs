@@ -10,7 +10,7 @@ buildGoPackage rec {
   rev = "v${version}";
 
   goPackagePath = "github.com/golang/dep";
-  subPackages = [ "cmd/dep" ];
+  subPackages = ["cmd/dep"];
 
   src = fetchFromGitHub {
     inherit rev;

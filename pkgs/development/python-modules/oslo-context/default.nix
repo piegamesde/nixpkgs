@@ -37,7 +37,7 @@ buildPythonPackage rec {
     stestr run
   '';
 
-  pythonImportsCheck = [ "oslo_context" ];
+  pythonImportsCheck = ["oslo_context"];
 
   meta = with lib; {
     description = "Oslo Context library";

@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   # Tests fail and there are none
   doCheck = false;
-  pythonImportsCheck = [ "pylpsd" ];
+  pythonImportsCheck = ["pylpsd"];
 
   propagatedBuildInputs = [
     numpy
@@ -27,6 +27,6 @@ buildPythonPackage rec {
     description = "Python implementation of the LPSD algorithm for computing power spectral density with logarithmically spaced points.";
     homepage = "https://github.com/bleykauf/py-lpsd";
     license = licenses.mit;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     description = "bgp filtering automation tool";
     homepage = "https://github.com/snar/bgpq3";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ b4dm4n ];
+    maintainers = with maintainers; [b4dm4n];
     platforms = with platforms; unix;
   };
 }

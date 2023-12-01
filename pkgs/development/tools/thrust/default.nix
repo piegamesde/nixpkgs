@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     makeWrapper
     unzip
   ];
-  buildInputs = [ thrustEnv ];
+  buildInputs = [thrustEnv];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -87,9 +87,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Chromium-based cross-platform / cross-language application framework";
     homepage = "https://github.com/breach/thrust";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.mit;
-    maintainers = [ maintainers.osener ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.osener];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -14,19 +14,19 @@ stdenv.mkDerivation rec {
     sha256 = "0w2xnw3z9ws9qrdpb80q55h6ynhh3aziixcfn45x91bzrbifix9i";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  patches = [ ./gcc7.patch ];
+  patches = [./gcc7.patch];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-narrowing" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-narrowing"];
 
   meta = with lib; {
     description = "File editor/viewer/analyzer for executables";
     homepage = "https://hte.sourceforge.net";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ cstrahan ];
+    maintainers = with maintainers; [cstrahan];
   };
 }

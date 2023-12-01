@@ -81,12 +81,12 @@ let
     "umount.target"
   ] ++ cfg.additionalUpstreamUnits;
 
-  upstreamWants = [ "sysinit.target.wants" ];
+  upstreamWants = ["sysinit.target.wants"];
 
   enabledUpstreamUnits = filter (n: !elem n cfg.suppressedUnits) upstreamUnits;
   enabledUnits = filterAttrs (n: v: !elem n cfg.suppressedUnits) cfg.units;
   jobScripts = concatLists (
-    mapAttrsToList (_: unit: unit.jobScripts or [ ]) (filterAttrs (_: v: v.enable) cfg.services)
+    mapAttrsToList (_: unit: unit.jobScripts or []) (filterAttrs (_: v: v.enable) cfg.services)
   );
 
   stage1Units = generateUnits {
@@ -103,7 +103,7 @@ let
   needGrowfs = lib.any (fs: fs.autoResize) fileSystems;
 
   kernel-name = config.boot.kernelPackages.kernel.name or "kernel";
-  modulesTree = config.system.modulesTree.override { name = kernel-name + "-modules"; };
+  modulesTree = config.system.modulesTree.override {name = kernel-name + "-modules";};
   firmware = config.hardware.firmware;
   # Determine the set of modules that we need to mount the root FS.
   modulesClosure = pkgs.makeModulesClosure {
@@ -161,7 +161,7 @@ in
       '';
     };
 
-    package = mkPackageOptionMD pkgs "systemd" { default = "systemdStage1"; };
+    package = mkPackageOptionMD pkgs "systemd" {default = "systemdStage1";};
 
     extraConfig = mkOption {
       default = "";
@@ -185,7 +185,7 @@ in
             ]
           )
         );
-      default = { };
+      default = {};
       example = {
         SYSTEMD_LOG_LEVEL = "debug";
       };
@@ -202,7 +202,7 @@ in
           "/etc/hostname".text = "mymachine";
         }
       '';
-      default = { };
+      default = {};
       type = utils.systemdUtils.types.initrdContents;
     };
 
@@ -218,7 +218,7 @@ in
             package
           ]
         );
-      default = [ ];
+      default = [];
     };
 
     strip = mkOption {
@@ -244,7 +244,7 @@ in
         }
       '';
       type = types.attrsOf types.path;
-      default = { };
+      default = {};
     };
 
     suppressedStorePaths = mkOption {
@@ -253,7 +253,7 @@ in
         should not be copied.
       '';
       type = types.listOf types.singleLineStr;
-      default = [ ];
+      default = [];
     };
 
     emergencyAccess = mkOption {
@@ -275,14 +275,14 @@ in
 
     initrdBin = mkOption {
       type = types.listOf types.package;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Packages to include in /bin for the stage 1 emergency shell.
       '';
     };
 
     additionalUpstreamUnits = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
       example = [
         "debug-shell.service"
@@ -294,9 +294,9 @@ in
     };
 
     suppressedUnits = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
-      example = [ "systemd-backlight@.service" ];
+      example = ["systemd-backlight@.service"];
       description = lib.mdDoc ''
         A list of units to skip when generating system systemd configuration directory. This has
         priority over upstream units, {option}`boot.initrd.systemd.units`, and
@@ -308,55 +308,55 @@ in
 
     units = mkOption {
       description = lib.mdDoc "Definition of systemd units.";
-      default = { };
+      default = {};
       visible = "shallow";
       type = systemdUtils.types.units;
     };
 
     packages = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.package;
       example = literalExpression "[ pkgs.systemd-cryptsetup-generator ]";
       description = lib.mdDoc "Packages providing systemd units and hooks.";
     };
 
     targets = mkOption {
-      default = { };
+      default = {};
       visible = "shallow";
       type = systemdUtils.types.initrdTargets;
       description = lib.mdDoc "Definition of systemd target units.";
     };
 
     services = mkOption {
-      default = { };
+      default = {};
       type = systemdUtils.types.initrdServices;
       visible = "shallow";
       description = lib.mdDoc "Definition of systemd service units.";
     };
 
     sockets = mkOption {
-      default = { };
+      default = {};
       type = systemdUtils.types.initrdSockets;
       visible = "shallow";
       description = lib.mdDoc "Definition of systemd socket units.";
     };
 
     timers = mkOption {
-      default = { };
+      default = {};
       type = systemdUtils.types.initrdTimers;
       visible = "shallow";
       description = lib.mdDoc "Definition of systemd timer units.";
     };
 
     paths = mkOption {
-      default = { };
+      default = {};
       type = systemdUtils.types.initrdPaths;
       visible = "shallow";
       description = lib.mdDoc "Definition of systemd path units.";
     };
 
     mounts = mkOption {
-      default = [ ];
+      default = [];
       type = systemdUtils.types.initrdMounts;
       visible = "shallow";
       description = lib.mdDoc ''
@@ -367,7 +367,7 @@ in
     };
 
     automounts = mkOption {
-      default = [ ];
+      default = [];
       type = systemdUtils.types.automounts;
       visible = "shallow";
       description = lib.mdDoc ''
@@ -378,7 +378,7 @@ in
     };
 
     slices = mkOption {
-      default = { };
+      default = {};
       type = systemdUtils.types.slices;
       visible = "shallow";
       description = lib.mdDoc "Definition of slice configurations.";
@@ -450,7 +450,7 @@ in
 
           "/etc/sysctl.d/nixos.conf".text = "kernel.modprobe = /sbin/modprobe";
           "/etc/modprobe.d/systemd.conf".source = "${cfg.package}/lib/modprobe.d/systemd.conf";
-          "/etc/modprobe.d/ubuntu.conf".source = pkgs.runCommand "initrd-kmod-blacklist-ubuntu" { } ''
+          "/etc/modprobe.d/ubuntu.conf".source = pkgs.runCommand "initrd-kmod-blacklist-ubuntu" {} ''
             ${pkgs.buildPackages.perl}/bin/perl -0pe 's/## file: iwlwifi.conf(.+?)##/##/s;' $src > $out
           '';
           "/etc/modprobe.d/debian.conf".source = pkgs.kmod-debian-aliases;
@@ -502,7 +502,7 @@ in
         ]
         ++ jobScripts;
 
-      targets.initrd.aliases = [ "default.target" ];
+      targets.initrd.aliases = ["default.target"];
       units =
         mapAttrs' (n: v: nameValuePair "${n}.path" (pathToUnit n v)) cfg.paths
         // mapAttrs' (n: v: nameValuePair "${n}.service" (serviceToUnit n v)) cfg.services
@@ -534,11 +534,11 @@ in
         );
 
       # make sure all the /dev nodes are set up
-      services.systemd-tmpfiles-setup-dev.wantedBy = [ "sysinit.target" ];
+      services.systemd-tmpfiles-setup-dev.wantedBy = ["sysinit.target"];
 
       services.initrd-nixos-activation = {
-        after = [ "initrd-fs.target" ];
-        requiredBy = [ "initrd.target" ];
+        after = ["initrd-fs.target"];
+        requiredBy = ["initrd.target"];
         unitConfig.AssertPathExists = "/etc/initrd-release";
         serviceConfig.Type = "oneshot";
         description = "NixOS Activation";
@@ -599,7 +599,7 @@ in
       };
 
       services.panic-on-fail = {
-        wantedBy = [ "emergency.target" ];
+        wantedBy = ["emergency.target"];
         unitConfig = {
           DefaultDependencies = false;
           ConditionKernelCommandLine = [

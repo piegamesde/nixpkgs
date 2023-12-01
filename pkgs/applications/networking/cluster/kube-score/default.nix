@@ -22,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/zegl/kube-score";
     changelog = "https://github.com/zegl/kube-score/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ j4m3s ];
+    maintainers = with maintainers; [j4m3s];
   };
 }

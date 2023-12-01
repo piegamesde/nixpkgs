@@ -14,11 +14,11 @@
 
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
 
 let
@@ -127,10 +127,10 @@ mapAttrs
     }:
     makeTest {
       name = "terminal-emulator-${name}";
-      meta = with pkgs.lib.maintainers; { maintainers = [ jjjollyjim ]; };
+      meta = with pkgs.lib.maintainers; {maintainers = [jjjollyjim];};
 
       machine =
-        { pkgsInner, ... }:
+        {pkgsInner, ...}:
 
         {
           imports = [
@@ -170,16 +170,16 @@ mapAttrs
           # Helpful reminder to add this test to passthru.tests
           warnings =
             if !((pkg pkgs) ? "passthru" && (pkg pkgs).passthru ? "tests") then
-              [ "The package for ${name} doesn't have a passthru.tests" ]
+              ["The package for ${name} doesn't have a passthru.tests"]
             else
-              [ ];
+              [];
         };
 
       # We need imagemagick, though not tesseract
       enableOCR = true;
 
       testScript =
-        { nodes, ... }:
+        {nodes, ...}:
         let
         in
         ''

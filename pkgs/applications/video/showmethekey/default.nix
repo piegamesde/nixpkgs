@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     description = "Show keys you typed on screen";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ocfox ];
+    maintainers = with maintainers; [ocfox];
   };
 }

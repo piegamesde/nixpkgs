@@ -20,7 +20,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-9n/782uKu7qNV/WEpbEV3aHcPXipyOhGdAhT/F4O2xc=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     btrfs-progs
     lvm2
@@ -55,6 +55,6 @@ buildGoModule rec {
       Easy to start.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ jk ];
+    maintainers = with maintainers; [jk];
   };
 }

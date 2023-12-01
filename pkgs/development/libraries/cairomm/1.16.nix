@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     boost # for tests
     fontconfig
-  ] ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
+  ] ++ lib.optionals stdenv.isDarwin [ApplicationServices];
 
   propagatedBuildInputs = [
     cairo

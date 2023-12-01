@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-06koJM7jNVFqVgqg6BmOZ74foqk6yjUIFnwULzPZ4go=";
   };
 
-  nativeBuildInputs = lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
+  nativeBuildInputs = lib.optionals stdenv.cc.isClang [llvmPackages.openmp];
 
   buildInputs = [
     jasper
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       one-by-one.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.unix;
   };
 }

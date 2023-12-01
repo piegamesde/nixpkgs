@@ -28,6 +28,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://cldr.unicode.org";
     license = licenses.unicode-dfs-2016;
     platforms = platforms.all;
-    maintainers = with maintainers; [ DeeUnderscore ];
+    maintainers = with maintainers; [DeeUnderscore];
   };
 }

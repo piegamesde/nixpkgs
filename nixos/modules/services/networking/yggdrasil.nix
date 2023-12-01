@@ -9,10 +9,10 @@ let
   keysPath = "/var/lib/yggdrasil/keys.json";
 
   cfg = config.services.yggdrasil;
-  settingsProvided = cfg.settings != { };
+  settingsProvided = cfg.settings != {};
   configFileProvided = cfg.configFile != null;
 
-  format = pkgs.formats.json { };
+  format = pkgs.formats.json {};
 in
 {
   imports = [
@@ -36,13 +36,13 @@ in
 
       settings = mkOption {
         type = format.type;
-        default = { };
+        default = {};
         example = {
           Peers = [
             "tcp://aa.bb.cc.dd:eeeee"
             "tcp://[aaaa:bbbb:cccc:dddd::eeee]:fffff"
           ];
-          Listen = [ "tcp://0.0.0.0:xxxxx" ];
+          Listen = ["tcp://0.0.0.0:xxxxx"];
         };
         description = lib.mdDoc ''
           Configuration for yggdrasil, as a Nix attribute set.
@@ -108,8 +108,8 @@ in
 
       denyDhcpcdInterfaces = mkOption {
         type = listOf str;
-        default = [ ];
-        example = [ "tap*" ];
+        default = [];
+        example = ["tap*"];
         description = lib.mdDoc ''
           Disable the DHCP client for any interface whose name matches
           any of the shell glob patterns in this list.  Use this
@@ -163,10 +163,10 @@ in
 
       systemd.services.yggdrasil = {
         description = "Yggdrasil Network Service";
-        after = [ "network-pre.target" ];
-        wants = [ "network.target" ];
-        before = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network-pre.target"];
+        wants = ["network.target"];
+        before = ["network.target"];
+        wantedBy = ["multi-user.target"];
 
         # This script first prepares the config file, then it starts Yggdrasil.
         # The preparation could also be done in ExecStartPre/preStart but only
@@ -227,14 +227,14 @@ in
             "@system-service"
             "~@privileged @keyring"
           ];
-        } // (if (cfg.group != null) then { Group = cfg.group; } else { });
+        } // (if (cfg.group != null) then {Group = cfg.group;} else {});
       };
 
       networking.dhcpcd.denyInterfaces = cfg.denyDhcpcdInterfaces;
-      networking.firewall.allowedUDPPorts = mkIf cfg.openMulticastPort [ 9001 ];
+      networking.firewall.allowedUDPPorts = mkIf cfg.openMulticastPort [9001];
 
       # Make yggdrasilctl available on the command line.
-      environment.systemPackages = [ cfg.package ];
+      environment.systemPackages = [cfg.package];
     }
   );
   meta = {

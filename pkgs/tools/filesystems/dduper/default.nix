@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     description = "Fast block-level out-of-band BTRFS deduplication tool.";
     homepage = "https://github.com/Lakshmipathi/dduper";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ thesola10 ];
+    maintainers = with maintainers; [thesola10];
     platforms = platforms.linux;
   };
 }

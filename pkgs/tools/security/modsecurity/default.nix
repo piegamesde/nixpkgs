@@ -62,10 +62,10 @@ stdenv.mkDerivation rec {
   ];
   # by default modsecurity's install script copies compiled output to httpd's modules folder
   # this patch removes those lines
-  patches = [ ./Makefile.am.patch ];
+  patches = [./Makefile.am.patch];
 
   doCheck = true;
-  nativeCheckInputs = [ perl ];
+  nativeCheckInputs = [perl];
 
   postInstall = ''
     mkdir -p $nginx
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
     description = "Open source, cross-platform web application firewall (WAF)";
     license = licenses.asl20;
     homepage = "https://www.modsecurity.org/";
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }

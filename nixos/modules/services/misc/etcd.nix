@@ -37,13 +37,13 @@ in
 
     listenClientUrls = mkOption {
       description = lib.mdDoc "Etcd list of URLs to listen on for client traffic.";
-      default = [ "http://127.0.0.1:2379" ];
+      default = ["http://127.0.0.1:2379"];
       type = types.listOf types.str;
     };
 
     listenPeerUrls = mkOption {
       description = lib.mdDoc "Etcd list of URLs to listen on for peer traffic.";
-      default = [ "http://127.0.0.1:2380" ];
+      default = ["http://127.0.0.1:2380"];
       type = types.listOf types.str;
     };
 
@@ -56,7 +56,7 @@ in
 
     initialCluster = mkOption {
       description = lib.mdDoc "Etcd initial cluster configuration for bootstrapping.";
-      default = [ "${cfg.name}=http://127.0.0.1:2380" ];
+      default = ["${cfg.name}=http://127.0.0.1:2380"];
       defaultText = literalExpression ''["''${config.${opt.name}}=http://127.0.0.1:2380"]'';
       type = types.listOf types.str;
     };
@@ -139,7 +139,7 @@ in
         <https://github.com/coreos/etcd/blob/master/Documentation/op-guide/configuration.md#configuration-flags>
       '';
       type = types.attrsOf types.str;
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           "CORS" = "*";
@@ -159,12 +159,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0700 etcd - - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.dataDir}' 0700 etcd - - -"];
 
     systemd.services.etcd = {
       description = "etcd key-value store";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       environment =
         (filterAttrs (n: v: v != null) {
@@ -202,7 +202,7 @@ in
       };
     };
 
-    environment.systemPackages = [ pkgs.etcd ];
+    environment.systemPackages = [pkgs.etcd];
 
     users.users.etcd = {
       isSystemUser = true;
@@ -210,6 +210,6 @@ in
       description = "Etcd daemon user";
       home = cfg.dataDir;
     };
-    users.groups.etcd = { };
+    users.groups.etcd = {};
   };
 }

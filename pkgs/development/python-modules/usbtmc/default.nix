@@ -16,12 +16,12 @@ buildPythonPackage rec {
     hash = "sha256-69kqBTqnVqdWC2mqlXylzb9VkdhwTGZI0Ykf6lqbypI=";
   };
 
-  propagatedBuildInputs = [ pyusb ];
+  propagatedBuildInputs = [pyusb];
 
   meta = with lib; {
     description = "Python implementation of the USBTMC instrument control protocol";
     homepage = "http://alexforencich.com/wiki/en/python-usbtmc/start";
     license = licenses.mit;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
   };
 }

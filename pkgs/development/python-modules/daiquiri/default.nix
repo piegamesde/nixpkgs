@@ -17,18 +17,18 @@ buildPythonPackage rec {
     hash = "sha256-QIxNKOyPDqI+llN0R5gpvSI2TQwI15HL63u6JFlj4P0=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ python-json-logger ];
+  propagatedBuildInputs = [python-json-logger];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "daiquiri" ];
+  pythonImportsCheck = ["daiquiri"];
 
   meta = with lib; {
     description = "Library to configure Python logging easily";
     homepage = "https://github.com/Mergifyio/daiquiri";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

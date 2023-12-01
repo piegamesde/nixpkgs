@@ -7,7 +7,7 @@
 }:
 
 let
-  python = python3.withPackages (p: with p; [ flask ]);
+  python = python3.withPackages (p: with p; [flask]);
 in
 stdenv.mkDerivation {
   pname = "mcy";
@@ -20,7 +20,7 @@ stdenv.mkDerivation {
     sha256 = "15xxgzx1zxzx5kshqyrxnfx33cz6cjzxcdcn6z98jhs9bwyvf96f";
   };
 
-  buildInputs = [ python ];
+  buildInputs = [python];
   patchPhase = ''
     chmod +x scripts/create_mutated.sh
     patchShebangs .
@@ -49,7 +49,7 @@ stdenv.mkDerivation {
     description = "Mutation-based coverage testing for hardware designs, with Yosys";
     homepage = "https://github.com/YosysHQ/mcy";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ thoughtpolice ];
+    maintainers = with lib.maintainers; [thoughtpolice];
     platforms = lib.platforms.all;
   };
 }

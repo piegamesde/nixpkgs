@@ -16,7 +16,7 @@ assert sensord -> rrdtool != null;
 stdenv.mkDerivation rec {
   pname = "lm-sensors";
   version = "3.6.0";
-  dashedVersion = lib.replaceStrings [ "." ] [ "-" ] version;
+  dashedVersion = lib.replaceStrings ["."] ["-"] version;
 
   src = fetchFromGitHub {
     owner = "lm-sensors";
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     "AR=${stdenv.cc.targetPrefix}ar"
   ] ++ lib.optional sensord "PROG_EXTRA=sensord";
 
-  installFlags = [ "ETCDIR=${placeholder "out"}/etc" ];
+  installFlags = ["ETCDIR=${placeholder "out"}/etc"];
 
   # Making regexp to patch-out installing of .so symlinks from Makefile is
   # complicated, it is easier to remove them post-install.
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
       lgpl21Plus
       gpl2Plus
     ];
-    maintainers = with maintainers; [ pmy ];
+    maintainers = with maintainers; [pmy];
     platforms = platforms.linux;
     mainProgram = "sensors";
   };

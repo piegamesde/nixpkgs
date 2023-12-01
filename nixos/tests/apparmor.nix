@@ -1,8 +1,8 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "apparmor";
-    meta = with pkgs.lib.maintainers; { maintainers = [ julm ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [julm];};
 
     nodes.machine =
       {
@@ -71,14 +71,14 @@ import ./make-test-python.nix (
         r ${pkgs.libunistring}/share/**,
         x ${pkgs.libunistring}/foo/**,
       ''} ${
-                pkgs.runCommand "actual.rules" { preferLocalBuild = true; } ''
+                pkgs.runCommand "actual.rules" {preferLocalBuild = true;} ''
                   ${pkgs.gnused}/bin/sed -e 's:^[^ ]* ${builtins.storeDir}/[^,/-]*-\([^/,]*\):\1 \0:' ${
                     pkgs.apparmorRulesFromClosure
                       {
                         name = "ping";
-                        additionalRules = [ "x $path/foo/**" ];
+                        additionalRules = ["x $path/foo/**"];
                       }
-                      [ pkgs.libcap ]
+                      [pkgs.libcap]
                   } |
                   ${pkgs.coreutils}/bin/sort -n -k1 |
                   ${pkgs.gnused}/bin/sed -e 's:^[^ ]* ::' >$out

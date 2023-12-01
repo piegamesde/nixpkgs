@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
       --replace 'OCIO_ADD_TEST(Config, virtual_display_with_active_displays)' 'static void _skip_virtual_display_with_active_displays()'
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs =
     [
       expat
@@ -103,7 +103,7 @@ stdenv.mkDerivation rec {
     homepage = "https://opencolorio.org";
     description = "A color management framework for visual effects and animation";
     license = licenses.bsd3;
-    maintainers = [ maintainers.rytone ];
+    maintainers = [maintainers.rytone];
     platforms = platforms.unix;
   };
 }

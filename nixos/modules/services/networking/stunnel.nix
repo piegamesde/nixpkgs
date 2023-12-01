@@ -32,7 +32,7 @@ let
     else if v == false then
       "no"
     else
-      generators.mkValueStringDefault { } v;
+      generators.mkValueStringDefault {} v;
   generateConfig =
     c:
     generators.toINI
@@ -122,7 +122,7 @@ in
             cert = "/path/to/pem/file";
           };
         };
-        default = { };
+        default = {};
       };
 
       clients = mkOption {
@@ -166,7 +166,7 @@ in
                 checkHost = c.checkHost or c.verifyHostname or null;
                 verifyHostname = null; # Not a real stunnel configuration setting
               };
-            forceClient = c: c // { client = true; };
+            forceClient = c: c // {client = true;};
           in
           mapAttrs (_: c: forceClient (setCheckHostFromVerifyHostname (applyDefaults c)));
 
@@ -177,7 +177,7 @@ in
             verifyChain = false;
           };
         };
-        default = { };
+        default = {};
       };
     };
   };
@@ -200,7 +200,7 @@ in
       (mapAttrsToList (verifyRequiredField "server" "connect") cfg.servers)
     ];
 
-    environment.systemPackages = [ pkgs.stunnel ];
+    environment.systemPackages = [pkgs.stunnel];
 
     environment.etc."stunnel.cfg".text = ''
       ${optionalString (cfg.user != null) "setuid = ${cfg.user}"}
@@ -220,10 +220,10 @@ in
 
     systemd.services.stunnel = {
       description = "stunnel TLS tunneling service";
-      after = [ "network.target" ];
-      wants = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ config.environment.etc."stunnel.cfg".source ];
+      after = ["network.target"];
+      wants = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      restartTriggers = [config.environment.etc."stunnel.cfg".source];
       serviceConfig = {
         ExecStart = "${pkgs.stunnel}/bin/stunnel ${config.environment.etc."stunnel.cfg".source}";
         Type = "forking";

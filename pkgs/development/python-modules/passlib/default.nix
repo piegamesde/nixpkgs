@@ -23,9 +23,9 @@ buildPythonPackage rec {
   };
 
   passthru.optional-dependencies = {
-    argon2 = [ argon2-cffi ];
-    bcrypt = [ bcrypt ];
-    totp = [ cryptography ];
+    argon2 = [argon2-cffi];
+    bcrypt = [bcrypt];
+    totp = [cryptography];
   };
 
   nativeCheckInputs =
@@ -37,7 +37,7 @@ buildPythonPackage rec {
     ++ passthru.optional-dependencies.bcrypt
     ++ passthru.optional-dependencies.totp;
 
-  pythonImportsCheck = [ "passlib" ];
+  pythonImportsCheck = ["passlib"];
 
   disabledTests = [
     # timming sensitive
@@ -58,6 +58,6 @@ buildPythonPackage rec {
     description = "A password hashing library for Python";
     homepage = "https://foss.heptapod.net/python-libs/passlib";
     license = licenses.bsdOriginal;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

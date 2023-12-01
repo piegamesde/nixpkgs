@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     homepage = "http://johnst.org/sw/exiftags/";
     description = "Displays EXIF data from JPEG files";
     license = lib.licenses.free;
-    maintainers = with lib.maintainers; [ viric ];
+    maintainers = with lib.maintainers; [viric];
     platforms = with lib.platforms; unix;
   };
 }

@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     description = "Headers for The Advanced Media Framework (AMF)";
     homepage = "https://github.com/GPUOpen-LibrariesAndSDKs/AMF";
     license = licenses.mit;
-    maintainers = with maintainers; [ devusb ];
+    maintainers = with maintainers; [devusb];
     platforms = platforms.unix;
   };
 }

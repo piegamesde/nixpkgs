@@ -26,7 +26,7 @@ buildPythonPackage rec {
     pyparsing
   ];
 
-  pythonImportsCheck = [ "twill" ];
+  pythonImportsCheck = ["twill"];
 
   # pypi package comes without tests, other homepage does not provide all verisons
   doCheck = false;
@@ -35,6 +35,6 @@ buildPythonPackage rec {
     description = "A simple scripting language for Web browsing";
     homepage = "https://twill-tools.github.io/twill/";
     license = licenses.mit;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
   };
 }

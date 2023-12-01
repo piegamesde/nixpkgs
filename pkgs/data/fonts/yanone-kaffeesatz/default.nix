@@ -24,7 +24,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = {
     description = "The free font classic";
-    maintainers = with lib.maintainers; [ mt-caret ];
+    maintainers = with lib.maintainers; [mt-caret];
     platforms = with lib.platforms; all;
     homepage = "https://yanone.de/fonts/kaffeesatz/";
     license = lib.licenses.ofl;

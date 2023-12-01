@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "1fk4i9x0cpnpn3llam0zy2pkmhlr2hy3iaxhxg07v9sizd4dircj";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     SDL
     SDL_image
@@ -28,9 +28,9 @@ stdenv.mkDerivation rec {
     libtiff
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  makeFlags = [ "BACKEND=SDL" ];
+  makeFlags = ["BACKEND=SDL"];
 
   patches = [
     (fetchpatch {
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     ./switch.patch
   ];
 
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.svgalib.org/rus/zgv/";
     description = "Picture viewer with a thumbnail-based selector";
     license = licenses.gpl2;
-    maintainers = [ maintainers.vrthra ];
+    maintainers = [maintainers.vrthra];
     platforms = platforms.linux;
   };
 }

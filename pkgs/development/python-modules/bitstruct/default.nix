@@ -17,12 +17,12 @@ buildPythonPackage rec {
     hash = "sha256-65S0DkIYojqo+QQGuDap5u2D5IuNESzj+WQIRjvRuHQ=";
   };
 
-  pythonImportsCheck = [ "bitstruct" ];
+  pythonImportsCheck = ["bitstruct"];
 
   meta = with lib; {
     description = "Python bit pack/unpack package";
     homepage = "https://github.com/eerimoq/bitstruct";
     license = licenses.mit;
-    maintainers = with maintainers; [ jakewaksbaum ];
+    maintainers = with maintainers; [jakewaksbaum];
   };
 }

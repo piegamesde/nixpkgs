@@ -62,11 +62,11 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ pkgs.gnome.gnome-settings-daemon ];
+    environment.systemPackages = [pkgs.gnome.gnome-settings-daemon];
 
-    services.udev.packages = [ pkgs.gnome.gnome-settings-daemon ];
+    services.udev.packages = [pkgs.gnome.gnome-settings-daemon];
 
-    systemd.packages = [ pkgs.gnome.gnome-settings-daemon ];
+    systemd.packages = [pkgs.gnome.gnome-settings-daemon];
 
     systemd.user.targets."gnome-session-x11-services".wants = [
       "org.gnome.SettingsDaemon.XSettings.service"

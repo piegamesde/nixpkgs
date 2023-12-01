@@ -1,5 +1,5 @@
 let
-  pkgs = import ../../../../../. { config.allowBroken = true; };
+  pkgs = import ../../../../../. {config.allowBroken = true;};
   inherit (pkgs) lib emacs;
   inherit (lib)
     isDerivation

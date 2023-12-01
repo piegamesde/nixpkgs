@@ -33,7 +33,7 @@ stdenv.mkDerivation (
       .${stdenv.hostPlatform.system}
     ];
 
-    installTargets = [ "modules_install" ];
+    installTargets = ["modules_install"];
     enableParallelBuilding = true;
 
     meta = with lib; {
@@ -47,7 +47,7 @@ stdenv.mkDerivation (
         "x86_64-linux"
         "aarch64-linux"
       ];
-      maintainers = with maintainers; [ nickcao ];
+      maintainers = with maintainers; [nickcao];
       inherit broken;
     };
   }

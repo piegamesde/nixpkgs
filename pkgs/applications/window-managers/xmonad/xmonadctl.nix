@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
     description = "Send commands to a running instance of xmonad";
     homepage = "https://github.com/xmonad/xmonad-contrib";
     license = licenses.bsd3;
-    maintainers = [ maintainers.ajgrf ];
+    maintainers = [maintainers.ajgrf];
   };
 }

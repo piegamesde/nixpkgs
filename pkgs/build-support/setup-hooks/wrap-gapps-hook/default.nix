@@ -59,7 +59,7 @@ makeSetupHook
         let
           sample-project = ./tests/sample-project;
 
-          testLib = callPackage ./tests/lib.nix { };
+          testLib = callPackage ./tests/lib.nix {};
           inherit (testLib) expectSomeLineContainingYInFileXToMentionZ;
         in
         rec {
@@ -70,7 +70,7 @@ makeSetupHook
             src = sample-project;
 
             strictDeps = true;
-            nativeBuildInputs = [ wrapGAppsHook ];
+            nativeBuildInputs = [wrapGAppsHook];
 
             installFlags = [
               "bin-foo"
@@ -113,7 +113,7 @@ makeSetupHook
 
             strictDeps = true;
 
-            installFlags = [ "typelib-Mahjong" ];
+            installFlags = ["typelib-Mahjong"];
           };
 
           # Simple derivation using a typelib.
@@ -128,7 +128,7 @@ makeSetupHook
               wrapGAppsHook
             ];
 
-            buildInputs = [ typelib-Mahjong ];
+            buildInputs = [typelib-Mahjong];
 
             installFlags = [
               "bin-foo"
@@ -164,9 +164,9 @@ makeSetupHook
 
             strictDeps = true;
 
-            makeFlags = [ "LIBDIR=${placeholder "lib"}/lib" ];
+            makeFlags = ["LIBDIR=${placeholder "lib"}/lib"];
 
-            installFlags = [ "typelib-Bechamel" ];
+            installFlags = ["typelib-Bechamel"];
           };
 
           # Simple derivation using a typelib from non-default output.
@@ -181,7 +181,7 @@ makeSetupHook
               wrapGAppsHook
             ];
 
-            buildInputs = [ typelib-Bechamel ];
+            buildInputs = [typelib-Bechamel];
 
             installFlags = [
               "bin-foo"

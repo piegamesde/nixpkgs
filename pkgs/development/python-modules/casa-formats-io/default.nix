@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-8iZ+wcSfh5ACTb3/iQAf2qQpwZ6wExWwcdJoLmCEjB0=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     astropy
@@ -29,12 +29,12 @@ buildPythonPackage rec {
   # Tests require a large (800 Mb) dataset
   doCheck = false;
 
-  pythonImportsCheck = [ "casa_formats_io" ];
+  pythonImportsCheck = ["casa_formats_io"];
 
   meta = {
     description = "Dask-based reader for CASA data";
     homepage = "https://casa-formats-io.readthedocs.io/";
     license = lib.licenses.lgpl2Only;
-    maintainers = with lib.maintainers; [ smaret ];
+    maintainers = with lib.maintainers; [smaret];
   };
 }

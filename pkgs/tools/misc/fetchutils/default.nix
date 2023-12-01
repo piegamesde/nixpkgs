@@ -22,7 +22,7 @@ stdenvNoCC.mkDerivation rec {
     scdoc
   ];
 
-  installFlags = [ "PREFIX=$(out)/" ];
+  installFlags = ["PREFIX=$(out)/"];
 
   postPatch = ''
     patchShebangs --host src/*
@@ -33,6 +33,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/lptstr/fetchutils";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fortuneteller2k ];
+    maintainers = with maintainers; [fortuneteller2k];
   };
 }

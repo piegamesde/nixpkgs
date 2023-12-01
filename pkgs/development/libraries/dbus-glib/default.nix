@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags =
-    [ "--exec-prefix=${placeholder "dev"}" ]
+    ["--exec-prefix=${placeholder "dev"}"]
     ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
       "--with-dbus-binding-tool=${buildPackages.dbus-glib.dev}/bin/dbus-binding-tool";
 
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       gpl2Plus
     ];
     description = "Obsolete glib bindings for D-Bus lightweight IPC mechanism";
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 }

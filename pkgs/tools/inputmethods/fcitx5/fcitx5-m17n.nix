@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     description = "m17n support for Fcitx5";
     homepage = "https://github.com/fcitx/fcitx5-m17n";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ Technical27 ];
+    maintainers = with maintainers; [Technical27];
     platforms = platforms.linux;
   };
 }

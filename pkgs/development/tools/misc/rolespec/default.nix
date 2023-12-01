@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "1jkidw6aqr0zfqwmcvlpi9qa140z2pxcfsd43xm5ikx6jcwjdrzl";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   # The default build phase (`make`) runs the test code. It's difficult to do
   # the test in the build environment because it depends on the system package
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     '';
     downloadPage = "https://github.com/nickjj/rolespec";
     license = licenses.gpl3;
-    maintainers = [ maintainers.dochang ];
+    maintainers = [maintainers.dochang];
     platforms = platforms.unix;
   };
 }

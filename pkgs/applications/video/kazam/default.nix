@@ -70,6 +70,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/niknah/kazam";
     license = licenses.lgpl3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.domenkozar ];
+    maintainers = [maintainers.domenkozar];
   };
 }

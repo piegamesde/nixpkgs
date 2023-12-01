@@ -103,7 +103,7 @@ stdenv.mkDerivation rec {
     pkg-config
     qttools
     wrapQtAppsHook
-  ] ++ optionals stdenv.isLinux [ util-linux ];
+  ] ++ optionals stdenv.isLinux [util-linux];
 
   postInstall = lib.optionalString withGstreamer ''
     qtWrapperArgs+=(
@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.strawberrymusicplayer.org/";
     changelog = "https://raw.githubusercontent.com/jonaski/strawberry/${version}/Changelog";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     # upstream says darwin should work but they lack maintainers as of 0.6.6
     platforms = platforms.linux;
   };

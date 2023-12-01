@@ -24,7 +24,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-/Kvn3KwSB/mxgBKM+383QHCnVTOt06ZP3gt7FGqA5aM=";
 
-  subPackages = [ "cmd" ];
+  subPackages = ["cmd"];
 
   allowGoReference = true;
 
@@ -69,6 +69,6 @@ buildGoModule rec {
     homepage = "https://github.com/kubernetes-sigs/kubebuilder";
     changelog = "https://github.com/kubernetes-sigs/kubebuilder/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ cmars ];
+    maintainers = with maintainers; [cmars];
   };
 }

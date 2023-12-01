@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     installShellFiles
   ];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = [openssl] ++ lib.optionals stdenv.isDarwin [Security];
 
   buildFeatures = [
     "vault"
@@ -40,7 +40,7 @@ rustPlatform.buildRustPackage rec {
     "process"
   ];
 
-  checkFeatures = [ ];
+  checkFeatures = [];
 
   cargoBuildFlags = [
     "--bin"
@@ -58,8 +58,8 @@ rustPlatform.buildRustPackage rec {
     description = "The 'share-secrets-safely' CLI to interact with GPG/pass-like vaults";
     homepage = "https://share-secrets-safely.github.io/cli/";
     changelog = "https://github.com/share-secrets-safely/cli/releases/tag/${version}";
-    license = with licenses; [ lgpl21Only ];
-    maintainers = with maintainers; [ devhell ];
+    license = with licenses; [lgpl21Only];
+    maintainers = with maintainers; [devhell];
     mainProgram = "sy";
   };
 }

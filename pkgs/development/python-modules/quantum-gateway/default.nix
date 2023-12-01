@@ -36,7 +36,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "quantum_gateway" ];
+  pythonImportsCheck = ["quantum_gateway"];
 
   disabledTests =
     [
@@ -47,7 +47,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python library for interacting with Verizon Fios Quantum gateway devices";
     homepage = "https://github.com/cisasteelersfan/quantum_gateway";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

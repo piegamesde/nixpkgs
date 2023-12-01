@@ -18,16 +18,16 @@ buildPythonPackage rec {
     hash = "sha256-pejph0WyhryS2injlFElFozIDl6zJeiENh6fqh6982s=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "whatthepatch" ];
+  pythonImportsCheck = ["whatthepatch"];
 
   meta = with lib; {
     description = "Python library for both parsing and applying patch files";
     homepage = "https://github.com/cscorley/whatthepatch";
     license = licenses.mit;
-    maintainers = with maintainers; [ joelkoen ];
+    maintainers = with maintainers; [joelkoen];
   };
 }

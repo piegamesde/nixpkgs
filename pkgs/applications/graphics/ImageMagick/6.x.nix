@@ -112,7 +112,7 @@ stdenv.mkDerivation (
     ];
 
     buildInputs =
-      [ ]
+      []
       ++ lib.optional zlibSupport zlib
       ++ lib.optional fontconfigSupport fontconfig
       ++ lib.optional ghostscriptSupport ghostscript
@@ -132,7 +132,7 @@ stdenv.mkDerivation (
       ];
 
     propagatedBuildInputs =
-      [ fftw ]
+      [fftw]
       ++ lib.optional bzip2Support bzip2
       ++ lib.optional freetypeSupport freetype
       ++ lib.optional libjpegSupport libjpeg
@@ -172,7 +172,7 @@ stdenv.mkDerivation (
         "MagickWand"
       ];
       platforms = platforms.linux ++ platforms.darwin;
-      maintainers = with maintainers; [ ];
+      maintainers = with maintainers; [];
       license = licenses.asl20;
       knownVulnerabilities = [
         "CVE-2018-16328"

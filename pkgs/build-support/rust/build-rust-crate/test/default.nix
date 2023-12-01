@@ -18,7 +18,7 @@ let
       p = {
         crateName = "nixtestcrate";
         version = "0.1.0";
-        authors = [ "Test <test@example.com>" ];
+        authors = ["Test <test@example.com>"];
       } // args;
     in
     buildRustCrate p;
@@ -89,10 +89,10 @@ let
   mkTest =
     crateArgs:
     let
-      crate = mkHostCrate (builtins.removeAttrs crateArgs [ "expectedTestOutput" ]);
+      crate = mkHostCrate (builtins.removeAttrs crateArgs ["expectedTestOutput"]);
       hasTests = crateArgs.buildTests or false;
       expectedTestOutputs = crateArgs.expectedTestOutputs or null;
-      binaries = map (v: lib.escapeShellArg v.name) (crateArgs.crateBin or [ ]);
+      binaries = map (v: lib.escapeShellArg v.name) (crateArgs.crateBin or []);
       isLib = crateArgs ? libName || crateArgs ? libPath;
       crateName = crateArgs.crateName or "nixtestcrate";
       libName = crateArgs.libName or crateName;
@@ -103,14 +103,14 @@ let
         else
           mkHostCrate {
             crateName = "run-test-${crateName}";
-            dependencies = [ crate ];
+            dependencies = [crate];
             src = mkBinExtern "src/main.rs" libName;
           };
     in
     assert expectedTestOutputs != null -> hasTests;
     assert hasTests -> expectedTestOutputs != null;
 
-    runCommand "run-buildRustCrate-${crateName}-test" { nativeBuildInputs = [ crate ]; } (
+    runCommand "run-buildRustCrate-${crateName}-test" {nativeBuildInputs = [crate];} (
       if !hasTests then
         ''
           ${lib.concatMapStringsSep "\n"
@@ -172,7 +172,7 @@ let
     assert (builtins.isList expectedFiles);
 
     let
-      crate = mkHostCrate (builtins.removeAttrs crateArgs [ "expectedTestOutput" ]);
+      crate = mkHostCrate (builtins.removeAttrs crateArgs ["expectedTestOutput"]);
       crateOutput = if output == null then crate else crate."${output}";
       expectedFilesFile = writeTextFile {
         name = "expected-files-${name}";
@@ -186,7 +186,7 @@ let
           '';
       };
     in
-    runCommand "assert-outputs-${name}" { } (
+    runCommand "assert-outputs-${name}" {} (
       ''
         local actualFiles=$(mktemp)
 
@@ -252,13 +252,13 @@ rec {
           src = mkBin "src/foobar.rs";
         };
         crateBinNoPath1 = {
-          crateBin = [ { name = "my-binary2"; } ];
+          crateBin = [{name = "my-binary2";}];
           src = mkBin "src/my_binary2.rs";
         };
         crateBinNoPath2 = {
           crateBin = [
-            { name = "my-binary3"; }
-            { name = "my-binary4"; }
+            {name = "my-binary3";}
+            {name = "my-binary4";}
           ];
           src = symlinkJoin {
             name = "buildRustCrateMultipleBinariesCase";
@@ -269,15 +269,15 @@ rec {
           };
         };
         crateBinNoPath3 = {
-          crateBin = [ { name = "my-binary5"; } ];
+          crateBin = [{name = "my-binary5";}];
           src = mkBin "src/bin/main.rs";
         };
         crateBinNoPath4 = {
-          crateBin = [ { name = "my-binary6"; } ];
+          crateBin = [{name = "my-binary6";}];
           src = mkBin "src/main.rs";
         };
         crateBinRename1 = {
-          crateBin = [ { name = "my-binary-rename1"; } ];
+          crateBin = [{name = "my-binary-rename1";}];
           src = mkBinExtern "src/main.rs" "foo_renamed";
           dependencies = [
             (mkHostCrate {
@@ -290,7 +290,7 @@ rec {
           };
         };
         crateBinRename2 = {
-          crateBin = [ { name = "my-binary-rename2"; } ];
+          crateBin = [{name = "my-binary-rename2";}];
           src = mkBinExtern "src/main.rs" "foo_renamed";
           dependencies = [
             (mkHostCrate {
@@ -358,13 +358,13 @@ rec {
         rustLibTestsDefault = {
           src = mkTestFile "src/lib.rs" "baz";
           buildTests = true;
-          expectedTestOutputs = [ "test baz ... ok" ];
+          expectedTestOutputs = ["test baz ... ok"];
         };
         rustLibTestsCustomLibPath = {
           libPath = "src/test_path.rs";
           src = mkTestFile "src/test_path.rs" "bar";
           buildTests = true;
-          expectedTestOutputs = [ "test bar ... ok" ];
+          expectedTestOutputs = ["test bar ... ok"];
         };
         rustLibTestsCustomLibPathWithTests = {
           libPath = "src/test_path.rs";
@@ -422,7 +422,7 @@ rec {
           dependencies = [
             (mkHostCrate {
               crateName = "somerlib";
-              type = [ "rlib" ];
+              type = ["rlib"];
               src = mkLib "src/lib.rs";
             })
           ];
@@ -456,10 +456,10 @@ rec {
                 '')
               ];
             };
-            buildDependencies = [ (depCrate buildPackages.buildRustCrate "true") ];
-            dependencies = [ (depCrate buildRustCrate "false") ];
+            buildDependencies = [(depCrate buildPackages.buildRustCrate "true")];
+            dependencies = [(depCrate buildRustCrate "false")];
             buildTests = true;
-            expectedTestOutputs = [ "test baz_false ... ok" ];
+            expectedTestOutputs = ["test baz_false ... ok"];
           };
         buildScriptFeatureEnv = {
           crateName = "build-script-feature-env";
@@ -488,7 +488,7 @@ rec {
             ];
           };
           buildTests = true;
-          expectedTestOutputs = [ "test feature_not_visible ... ok" ];
+          expectedTestOutputs = ["test feature_not_visible ... ok"];
         };
         # Regression test for https://github.com/NixOS/nixpkgs/pull/88054
         # Build script output should be rewritten as valid env vars.
@@ -523,8 +523,8 @@ rec {
                 '')
               ];
             };
-            buildDependencies = [ depCrate ];
-            dependencies = [ depCrate ];
+            buildDependencies = [depCrate];
+            dependencies = [depCrate];
           };
         # Regression test for https://github.com/NixOS/nixpkgs/issues/74071
         # Whenevever a build.rs file is generating files those should not be overlayed onto the actual source dir
@@ -582,7 +582,7 @@ rec {
                     inherit text;
                   };
                 in
-                runCommandCC name { } ''
+                runCommandCC name {} ''
                   mkdir -p $out/lib
                   # Note: On darwin (which defaults to clang) we have to add
                   # `-undefined dynamic_lookup` as otherwise the compilation fails.
@@ -621,7 +621,7 @@ rec {
           src = symlinkJoin rec {
             name = "find-cargo-toml";
             paths = [
-              (mkCargoToml { name = "ignoreMe"; })
+              (mkCargoToml {name = "ignoreMe";})
               (mkTestFileWithMain "src/main.rs" "ignore_main")
 
               (mkCargoToml {
@@ -643,9 +643,9 @@ rec {
 
         rustCargoTomlInTopDir =
           let
-            withoutCargoTomlSearch = builtins.removeAttrs rustCargoTomlInSubDir [ "workspace_member" ];
+            withoutCargoTomlSearch = builtins.removeAttrs rustCargoTomlInSubDir ["workspace_member"];
           in
-          withoutCargoTomlSearch // { expectedTestOutputs = [ "test ignore_main ... ok" ]; };
+          withoutCargoTomlSearch // {expectedTestOutputs = ["test ignore_main ... ok"];};
         procMacroInPrelude = {
           procMacro = true;
           edition = "2018";
@@ -659,14 +659,14 @@ rec {
           };
         };
       };
-      brotliCrates = (callPackage ./brotli-crates.nix { });
+      brotliCrates = (callPackage ./brotli-crates.nix {});
       rcgenCrates = callPackage ./rcgen-crates.nix {
         # Suppress deprecation warning
         buildRustCrate = null;
       };
       tests =
         lib.mapAttrs
-          (key: value: mkTest (value // lib.optionalAttrs (!value ? crateName) { crateName = key; }))
+          (key: value: mkTest (value // lib.optionalAttrs (!value ? crateName) {crateName = key;}))
           cases;
     in
     tests
@@ -683,7 +683,7 @@ rec {
           ];
           src = mkBin "src/foobar.rs";
         };
-        expectedFiles = [ "./bin/test_binary1" ];
+        expectedFiles = ["./bin/test_binary1"];
       };
 
       crateBinWithPathOutputsDebug = assertOutputs {
@@ -699,7 +699,7 @@ rec {
           src = mkBin "src/foobar.rs";
         };
         expectedFiles =
-          [ "./bin/test_binary1" ]
+          ["./bin/test_binary1"]
           ++ lib.optionals stdenv.isDarwin [
             # On Darwin, the debug symbols are in a separate directory.
             "./bin/test_binary1.dSYM/Contents/Info.plist"
@@ -710,10 +710,10 @@ rec {
       crateBinNoPath1Outputs = assertOutputs {
         name = "crateBinNoPath1";
         crateArgs = {
-          crateBin = [ { name = "my-binary2"; } ];
+          crateBin = [{name = "my-binary2";}];
           src = mkBin "src/my_binary2.rs";
         };
-        expectedFiles = [ "./bin/my-binary2" ];
+        expectedFiles = ["./bin/my-binary2"];
       };
 
       crateLibOutputs = assertOutputs {
@@ -721,7 +721,7 @@ rec {
         output = "lib";
         crateArgs = {
           libName = "test_lib";
-          type = [ "rlib" ];
+          type = ["rlib"];
           libPath = "src/lib.rs";
           src = mkLib "src/lib.rs";
         };
@@ -738,7 +738,7 @@ rec {
         crateArgs = {
           release = false;
           libName = "test_lib";
-          type = [ "rlib" ];
+          type = ["rlib"];
           libPath = "src/lib.rs";
           src = mkLib "src/lib.rs";
         };
@@ -751,9 +751,9 @@ rec {
 
       brotliTest =
         let
-          pkg = brotliCrates.brotli_2_5_0 { };
+          pkg = brotliCrates.brotli_2_5_0 {};
         in
-        runCommand "run-brotli-test-cmd" { nativeBuildInputs = [ pkg ]; } (
+        runCommand "run-brotli-test-cmd" {nativeBuildInputs = [pkg];} (
           if stdenv.hostPlatform == stdenv.buildPlatform then
             ''
               ${pkg}/bin/brotli -c ${pkg}/bin/brotli > /dev/null && touch $out
@@ -765,16 +765,16 @@ rec {
         );
       allocNoStdLibTest =
         let
-          pkg = brotliCrates.alloc_no_stdlib_1_3_0 { };
+          pkg = brotliCrates.alloc_no_stdlib_1_3_0 {};
         in
-        runCommand "run-alloc-no-stdlib-test-cmd" { nativeBuildInputs = [ pkg ]; } ''
+        runCommand "run-alloc-no-stdlib-test-cmd" {nativeBuildInputs = [pkg];} ''
           test -e ${pkg}/bin/example && touch $out
         '';
       brotliDecompressorTest =
         let
-          pkg = brotliCrates.brotli_decompressor_1_3_1 { };
+          pkg = brotliCrates.brotli_decompressor_1_3_1 {};
         in
-        runCommand "run-brotli-decompressor-test-cmd" { nativeBuildInputs = [ pkg ]; } ''
+        runCommand "run-brotli-decompressor-test-cmd" {nativeBuildInputs = [pkg];} ''
           test -e ${pkg}/bin/brotli-decompressor && touch $out
         '';
 
@@ -782,7 +782,7 @@ rec {
         let
           pkg = rcgenCrates.rootCrate.build;
         in
-        runCommand "run-rcgen-test-cmd" { nativeBuildInputs = [ pkg ]; } (
+        runCommand "run-rcgen-test-cmd" {nativeBuildInputs = [pkg];} (
           if stdenv.hostPlatform == stdenv.buildPlatform then
             ''
               ${pkg}/bin/rcgen && touch $out
@@ -797,7 +797,7 @@ rec {
     name = "buildRustCrate-tests";
     meta = {
       description = "Test cases for buildRustCrate";
-      maintainers = [ ];
+      maintainers = [];
     };
     constituents = builtins.attrValues tests;
   };

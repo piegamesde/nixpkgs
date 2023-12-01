@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "yacc";
   version = "cl-20101006-darcs";
 
   description = "A LALR(1) parser generator for Common Lisp";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-yacc/2010-10-06/cl-yacc-20101006-darcs.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "yacc";
 
-  asdFilesToKeep = [ "yacc.asd" ];
+  asdFilesToKeep = ["yacc.asd"];
   overrides = x: x;
 }
 /* (SYSTEM yacc DESCRIPTION A LALR(1) parser generator for Common Lisp SHA256

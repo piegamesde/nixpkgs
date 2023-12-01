@@ -120,7 +120,7 @@ stdenv.mkDerivation rec {
     nixosTest = nixosTests.warzone2100;
   };
 
-  passthru.updateScript = gitUpdater { url = "https://github.com/Warzone2100/warzone2100"; };
+  passthru.updateScript = gitUpdater {url = "https://github.com/Warzone2100/warzone2100";};
 
   meta = with lib; {
     description = "A free RTS game, originally developed by Pumpkin Studios";

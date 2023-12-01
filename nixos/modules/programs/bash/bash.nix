@@ -54,7 +54,7 @@ in
       */
 
       shellAliases = mkOption {
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Set of aliases for bash shell, which overrides {option}`environment.shellAliases`.
           See {option}`environment.shellAliases` for an option format description.

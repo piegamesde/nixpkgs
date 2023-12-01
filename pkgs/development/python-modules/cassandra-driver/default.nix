@@ -42,9 +42,9 @@ buildPythonPackage rec {
       --replace 'geomet>=0.1,<0.3' 'geomet'
   '';
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
-  buildInputs = [ libev ];
+  buildInputs = [libev];
 
   propagatedBuildInputs = [
     six
@@ -78,13 +78,13 @@ buildPythonPackage rec {
       substituteInPlace tests/unit/io/utils.py --replace 'delta=.15' 'delta=.3'
     '';
 
-  pythonImportsCheck = [ "cassandra" ];
+  pythonImportsCheck = ["cassandra"];
 
   postCheck = ''
     unset NIX_REDIRECTS LD_PRELOAD
   '';
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
   disabledTestPaths =
     [

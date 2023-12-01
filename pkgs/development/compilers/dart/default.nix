@@ -5,7 +5,7 @@
   unzip,
   runCommand,
   darwin,
-  sources ? import ./sources.nix { inherit fetchurl; },
+  sources ? import ./sources.nix {inherit fetchurl;},
   version ? sources.versionUsed,
 }:
 
@@ -15,7 +15,7 @@ stdenv.mkDerivation (
     pname = "dart";
     inherit version;
 
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [unzip];
 
     src =
       sources."${version}-${stdenv.hostPlatform.system}"
@@ -31,12 +31,12 @@ stdenv.mkDerivation (
         find $out/bin -executable -type f -exec patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) {} \;
       '';
 
-    libPath = lib.makeLibraryPath [ stdenv.cc.cc ];
+    libPath = lib.makeLibraryPath [stdenv.cc.cc];
     dontStrip = true;
     passthru = {
       updateScript = ./update.sh;
       tests = {
-        testCreate = runCommand "dart-test-create" { nativeBuildInputs = [ finalAttrs.finalPackage ]; } ''
+        testCreate = runCommand "dart-test-create" {nativeBuildInputs = [finalAttrs.finalPackage];} ''
           PROJECTNAME="dart_test_project"
           dart create --no-pub $PROJECTNAME
 
@@ -49,7 +49,7 @@ stdenv.mkDerivation (
           runCommand "dart-test-compile"
             {
               nativeBuildInputs =
-                [ finalAttrs.finalPackage ]
+                [finalAttrs.finalPackage]
                 ++ lib.optionals stdenv.isDarwin [
                   darwin.cctools
                   darwin.sigtool
@@ -69,7 +69,7 @@ stdenv.mkDerivation (
 
     meta = with lib; {
       homepage = "https://www.dartlang.org/";
-      maintainers = with maintainers; [ grburst ];
+      maintainers = with maintainers; [grburst];
       description = "Scalable programming language, with robust libraries and runtimes, for building web, server, and mobile apps";
       longDescription = ''
         Dart is a class-based, single inheritance, object-oriented language
@@ -83,7 +83,7 @@ stdenv.mkDerivation (
         "x86_64-darwin"
         "aarch64-darwin"
       ];
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
       license = licenses.bsd3;
     };
   }

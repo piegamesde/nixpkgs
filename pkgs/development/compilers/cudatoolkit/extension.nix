@@ -32,14 +32,14 @@ let
   ### Add classic cudatoolkit package
   cudatoolkit =
     let
-      attrs = builtins.removeAttrs finalVersion [ "gcc" ];
+      attrs = builtins.removeAttrs finalVersion ["gcc"];
       attrs' = attrs // {
         inherit backendStdenv;
       };
     in
     buildCudaToolkitPackage attrs';
 
-  cudaFlags = final.callPackage ./flags.nix { };
+  cudaFlags = final.callPackage ./flags.nix {};
 in
 {
   inherit backendStdenv cudatoolkit cudaFlags;

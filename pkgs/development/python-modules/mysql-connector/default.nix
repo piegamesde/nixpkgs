@@ -44,7 +44,7 @@ buildPythonPackage rec {
     protobuf
   ];
 
-  pythonImportsCheck = [ "mysql" ];
+  pythonImportsCheck = ["mysql"];
 
   # Tests require a running MySQL instance
   doCheck = false;

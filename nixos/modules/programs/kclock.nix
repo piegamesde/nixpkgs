@@ -15,7 +15,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.dbus.packages = [ kclockPkg ];
-    environment.systemPackages = [ kclockPkg ];
+    services.dbus.packages = [kclockPkg];
+    environment.systemPackages = [kclockPkg];
   };
 }

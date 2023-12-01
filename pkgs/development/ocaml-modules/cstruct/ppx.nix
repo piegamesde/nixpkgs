@@ -31,7 +31,7 @@ else
     ];
 
     doCheck = true;
-    nativeCheckInputs = [ cppo ];
+    nativeCheckInputs = [cppo];
     checkInputs = [
       ounit
       ppx_sexp_conv

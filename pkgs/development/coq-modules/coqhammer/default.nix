@@ -98,6 +98,6 @@ mkCoqDerivation {
     homepage = "http://cl-informatik.uibk.ac.at/cek/coqhammer/";
     description = "Automation for Dependent Type Theory";
     license = licenses.lgpl21;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
   };
 }

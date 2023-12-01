@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "16rmzxhhmbvhp4q6qac5j9c74z2pcg5raag5w16mynzikdd2l05b";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ perl ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [perl];
 
   meta = with lib; {
     description = "A C Library for parsing, editing, and creating BSON documents";

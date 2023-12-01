@@ -1,8 +1,8 @@
-{ runCommand, cctools }:
+{runCommand, cctools}:
 {
   haskellPackages,
   src,
-  deps ? p: [ ],
+  deps ? p: [],
   name,
 }:
 let

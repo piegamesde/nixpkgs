@@ -20,7 +20,7 @@ buildGoModule rec {
   meta = {
     description = "Go tool to modify struct field tags";
     homepage = "https://github.com/fatih/gomodifytags";
-    maintainers = with lib.maintainers; [ vdemeester ];
+    maintainers = with lib.maintainers; [vdemeester];
     license = lib.licenses.bsd3;
   };
 }

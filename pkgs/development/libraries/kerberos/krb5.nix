@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags =
-    [ "--localstatedir=/var/lib" ]
+    ["--localstatedir=/var/lib"]
     # krb5's ./configure does not allow passing --enable-shared and --enable-static at the same time.
     # See https://bbs.archlinux.org/viewtopic.php?pid=1576737#p1576737
     ++ lib.optionals staticOnly [
@@ -76,19 +76,19 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isDarwin bootstrap_cmds;
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals
       (
         stdenv.hostPlatform.isLinux
         && stdenv.hostPlatform.libc != "bionic"
         && !(stdenv.hostPlatform.useLLVM or false)
       )
-      [ keyutils ]
+      [keyutils]
     ++ lib.optionals (!libOnly) [
       openldap
       libedit
     ]
-    ++ lib.optionals withVerto [ libverto ];
+    ++ lib.optionals withVerto [libverto];
 
   sourceRoot = "krb5-${version}/src";
 
@@ -147,10 +147,10 @@ stdenv.mkDerivation rec {
     tests = {
       inherit (nixosTests) kerberos;
       inherit (python3.pkgs) requests-credssp;
-      bind = bind.override { enableGSSAPI = true; };
-      curl = curl.override { gssSupport = true; };
-      openssh = openssh.override { withKerberos = true; };
-      postgresql = postgresql.override { gssSupport = true; };
+      bind = bind.override {enableGSSAPI = true;};
+      curl = curl.override {gssSupport = true;};
+      openssh = openssh.override {withKerberos = true;};
+      postgresql = postgresql.override {gssSupport = true;};
     };
   };
 }

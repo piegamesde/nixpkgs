@@ -40,6 +40,6 @@ buildPythonPackage rec {
     description = "Parquet plugin for Intake";
     homepage = "https://github.com/intake/intake-parquet";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

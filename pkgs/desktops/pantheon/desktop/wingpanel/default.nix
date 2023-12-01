@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dShC6SXjOJmiLI6TUEZsthv5scnm9Jzum+sG/NkWAyM=";
   };
 
-  patches = [ ./indicators.patch ];
+  patches = [./indicators.patch];
 
   nativeBuildInputs = [
     gettext
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

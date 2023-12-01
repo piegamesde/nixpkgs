@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "query-fs";
   version = "20200610-git";
@@ -33,7 +33,7 @@ rec {
 
   packageName = "query-fs";
 
-  asdFilesToKeep = [ "query-fs.asd" ];
+  asdFilesToKeep = ["query-fs.asd"];
   overrides = x: x;
 }
 /* (SYSTEM query-fs DESCRIPTION

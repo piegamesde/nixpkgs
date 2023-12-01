@@ -86,7 +86,7 @@ stdenvNoCC.mkDerivation rec {
   dontConfigure = true;
   dontBuild = true;
 
-  patches = [ ./ndk-version.patch ];
+  patches = [./ndk-version.patch];
 
   postPatch = ''
     substituteInPlace libc/include/sys/cdefs.h --replace \
@@ -155,6 +155,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://android.googlesource.com/platform/bionic/";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ s1341 ];
+    maintainers = with maintainers; [s1341];
   };
 }

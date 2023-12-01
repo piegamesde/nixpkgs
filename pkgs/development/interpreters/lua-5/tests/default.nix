@@ -11,10 +11,10 @@ let
 
   runTest =
     lua:
-    { name, command }:
+    {name, command}:
     pkgs.runCommandLocal "test-${lua.name}"
       ({
-        nativeBuildInputs = [ lua ];
+        nativeBuildInputs = [lua];
         meta.platforms = lua.meta.platforms;
       })
       (
@@ -49,7 +49,7 @@ pkgs.recurseIntoAttrs ({
     '';
   };
 
-  checkWrapping = pkgs.runCommandLocal "test-${lua.name}" ({ }) (''
+  checkWrapping = pkgs.runCommandLocal "test-${lua.name}" ({}) (''
     grep -- 'LUA_PATH=' ${wrappedHello}/bin/hello
     touch $out
   '');

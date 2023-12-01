@@ -18,18 +18,18 @@ buildPythonPackage rec {
   };
 
   LC_ALL = "en_US.UTF-8";
-  buildInputs = [ glibcLocales ];
+  buildInputs = [glibcLocales];
 
   checkPhase = ''
     ${python.interpreter} -m unittest tests/*.py
   '';
 
-  propagatedBuildInputs = [ tqdm ];
+  propagatedBuildInputs = [tqdm];
 
   meta = with lib; {
     description = "A Pure-Python library built as a PDF toolkit";
     homepage = "https://github.com/sfneal/PyPDF3";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

@@ -22,19 +22,19 @@ buildPythonPackage rec {
     hash = "sha256-0tNLwYckWF9GjhniEkiO+A+xDsUriUsMFZxG/FmUfps=";
   };
 
-  propagatedBuildInputs = [ bleak ];
+  propagatedBuildInputs = [bleak];
 
   nativeCheckInputs = [
     pytest-mock
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "fjaraskupan" ];
+  pythonImportsCheck = ["fjaraskupan"];
 
   meta = with lib; {
     description = "Module for controlling Fjäråskupan kitchen fans";
     homepage = "https://github.com/elupus/fjaraskupan";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -31,6 +31,6 @@ buildGraalvmNativeImage rec {
     '';
     homepage = "https://github.com/kkinnear/zprint";
     license = licenses.mit;
-    maintainers = with maintainers; [ stelcodes ];
+    maintainers = with maintainers; [stelcodes];
   };
 }

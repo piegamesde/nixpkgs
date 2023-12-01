@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-tsI71/UdLaGZ3O2lNTd1c8S5OS2imquLovh0n0ez8Ts=";
   };
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   installPhase = ''
     install -m 755 -d $out/bin
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/thejoshwolfe/wolfebin";
     description = "Quick and easy file sharing";
     license = licenses.mit;
-    maintainers = with maintainers; [ andrewrk ];
+    maintainers = with maintainers; [andrewrk];
     platforms = platforms.all;
   };
 }

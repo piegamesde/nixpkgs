@@ -21,7 +21,7 @@ in
   dotnetConfigureHook =
     callPackage
       (
-        { }:
+        {}:
         makeSetupHook
           {
             name = "dotnet-configure-hook";
@@ -36,37 +36,37 @@ in
           }
           ./dotnet-configure-hook.sh
       )
-      { };
+      {};
 
   dotnetBuildHook =
     callPackage
       (
-        { }:
+        {}:
         makeSetupHook
           {
             name = "dotnet-build-hook";
-            propagatedBuildInputs = [ dotnet-sdk ];
+            propagatedBuildInputs = [dotnet-sdk];
             substitutions = {
               inherit buildType runtimeId;
             };
           }
           ./dotnet-build-hook.sh
       )
-      { };
+      {};
 
   dotnetCheckHook =
     callPackage
       (
-        { }:
+        {}:
         makeSetupHook
           {
             name = "dotnet-check-hook";
-            propagatedBuildInputs = [ dotnet-test-sdk ];
+            propagatedBuildInputs = [dotnet-test-sdk];
             substitutions = {
               inherit buildType libraryPath;
-              disabledTests = lib.optionalString (disabledTests != [ ]) (
+              disabledTests = lib.optionalString (disabledTests != []) (
                 let
-                  escapedNames = lib.lists.map (n: lib.replaceStrings [ "," ] [ "%2C" ] n) disabledTests;
+                  escapedNames = lib.lists.map (n: lib.replaceStrings [","] ["%2C"] n) disabledTests;
                   filters = lib.lists.map (n: "FullyQualifiedName!=${n}") escapedNames;
                 in
                 "${lib.concatStringsSep "&" filters}"
@@ -75,32 +75,32 @@ in
           }
           ./dotnet-check-hook.sh
       )
-      { };
+      {};
 
   dotnetInstallHook =
     callPackage
       (
-        { }:
+        {}:
         makeSetupHook
           {
             name = "dotnet-install-hook";
-            propagatedBuildInputs = [ dotnet-sdk ];
+            propagatedBuildInputs = [dotnet-sdk];
             substitutions = {
               inherit buildType runtimeId;
             };
           }
           ./dotnet-install-hook.sh
       )
-      { };
+      {};
 
   dotnetFixupHook =
     callPackage
       (
-        { }:
+        {}:
         makeSetupHook
           {
             name = "dotnet-fixup-hook";
-            propagatedBuildInputs = [ dotnet-runtime ];
+            propagatedBuildInputs = [dotnet-runtime];
             substitutions = {
               dotnetRuntime = dotnet-runtime;
               runtimeDeps = libraryPath;
@@ -108,5 +108,5 @@ in
           }
           ./dotnet-fixup-hook.sh
       )
-      { };
+      {};
 }

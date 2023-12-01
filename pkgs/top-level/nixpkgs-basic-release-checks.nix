@@ -8,8 +8,8 @@
 pkgs.runCommand "nixpkgs-release-checks"
   {
     src = nixpkgs;
-    buildInputs = [ nix ];
-    requiredSystemFeatures = [ "big-parallel" ]; # 1 thread but ~10G RAM; see #227945
+    buildInputs = [nix];
+    requiredSystemFeatures = ["big-parallel"]; # 1 thread but ~10G RAM; see #227945
   }
   ''
     set -o pipefail

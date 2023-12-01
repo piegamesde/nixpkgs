@@ -39,9 +39,9 @@ stdenv.mkDerivation {
 
   src = pfixtoolsSrc;
 
-  patches = [ ./0001-Fix-build-with-unbound-1.6.1.patch ];
+  patches = [./0001-Fix-build-with-unbound-1.6.1.patch];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     git
     gperf
@@ -72,9 +72,9 @@ stdenv.mkDerivation {
 
   meta = {
     description = "A collection of postfix-related tools";
-    license = with lib.licenses; [ bsd3 ];
+    license = with lib.licenses; [bsd3];
     homepage = "https://github.com/Fruneau/pfixtools";
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ jerith666 ];
+    maintainers = with lib.maintainers; [jerith666];
   };
 }

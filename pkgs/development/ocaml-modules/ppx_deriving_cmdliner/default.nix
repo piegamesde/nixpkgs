@@ -41,14 +41,14 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = with lib; {
     description = "Ppx_deriving plugin for generating command line interfaces from types for OCaml";
     homepage = "https://github.com/hammerlab/ppx_deriving_cmdliner";
     license = licenses.asl20;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

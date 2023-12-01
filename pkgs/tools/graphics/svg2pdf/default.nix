@@ -15,14 +15,14 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-0sjJIHD+x9P7FPLNwTXYcetbU4Ck5K4pFGF5cMI3+rk=";
   };
   cargoSha256 = "sha256-vjDV604HDwlaxwq5iQbGOKXmLTRgx1oZ824HXBSiouw=";
-  buildFeatures = [ "cli" ];
+  buildFeatures = ["cli"];
 
   doCheck = true;
 
   meta = with lib; {
     description = "Convert SVG files to PDFs";
     homepage = "https://github.com/typst/svg2pdf";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ doronbehar ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [doronbehar];
   };
 }

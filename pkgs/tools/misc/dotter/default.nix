@@ -22,18 +22,18 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-D8H95dE+th1mMzlLmd+fqU5VdlxdOSBHKSjvh21JhnE=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ];
+  buildInputs = lib.optionals stdenv.isDarwin [CoreServices];
 
-  nativeCheckInputs = [ which ];
+  nativeCheckInputs = [which];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "A dotfile manager and templater written in rust 🦀";
     homepage = "https://github.com/SuperCuber/dotter";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ linsui ];
+    maintainers = with maintainers; [linsui];
   };
 }

@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "C99 HTML parsing algorithm";
     homepage = "https://github.com/google/gumbo-parser";
-    maintainers = [ maintainers.nico202 ];
+    maintainers = [maintainers.nico202];
     platforms = with platforms; linux ++ darwin;
     license = licenses.asl20;
   };

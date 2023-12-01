@@ -56,17 +56,17 @@ buildPythonPackage rec {
       --replace "--disable-socket" ""
   '';
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [typing-extensions];
 
   passthru.optional-dependencies = rec {
     full = crypto ++ image;
-    crypto = [ pycryptodome ];
-    image = [ pillow ];
+    crypto = [pycryptodome];
+    image = [pillow];
   };
 
-  pythonImportsCheck = [ "pypdf" ];
+  pythonImportsCheck = ["pypdf"];
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ passthru.optional-dependencies.full;
+  nativeCheckInputs = [pytestCheckHook] ++ passthru.optional-dependencies.full;
 
   pytestFlagsArray = [
     # don't access the network
@@ -79,6 +79,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/py-pdf/pypdf";
     changelog = "https://github.com/py-pdf/pypdf/blob/${src.rev}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

@@ -17,10 +17,10 @@ let
 
       shell,
       allowedRequisites ? null,
-      extraAttrs ? { },
-      overrides ? (self: super: { }),
+      extraAttrs ? {},
+      overrides ? (self: super: {}),
       config,
-      disallowedRequisites ? [ ],
+      disallowedRequisites ? [],
 
       # The `fetchurl' to use for downloading curl and its dependencies
       # (see all-packages.nix).
@@ -28,10 +28,10 @@ let
 
       setupScript ? ./setup.sh,
 
-      extraNativeBuildInputs ? [ ],
-      extraBuildInputs ? [ ],
-      __stdenvImpureHostDeps ? [ ],
-      __extraImpureHostDeps ? [ ],
+      extraNativeBuildInputs ? [],
+      extraBuildInputs ? [],
+      __stdenvImpureHostDeps ? [],
+      __extraImpureHostDeps ? [],
       stdenvSandboxProfile ? "",
       extraSandboxProfile ? "",
 
@@ -61,7 +61,7 @@ let
 
       # The implementation of `mkDerivation`, parameterized with the final stdenv so we can tie the knot.
       # This is convient to have as a parameter so the stdenv "adapters" work better
-      mkDerivationFromStdenv ? import ./make-derivation.nix { inherit lib config; },
+      mkDerivationFromStdenv ? import ./make-derivation.nix {inherit lib config;},
     }:
 
     let
@@ -82,7 +82,7 @@ let
           ../../build-support/setup-hooks/set-source-date-epoch-to-latest.sh
           ../../build-support/setup-hooks/strip.sh
         ]
-        ++ lib.optionals hasCC [ cc ];
+        ++ lib.optionals hasCC [cc];
 
       defaultBuildInputs = extraBuildInputs;
 
@@ -217,7 +217,7 @@ let
       shellDryRun = "${stdenv.shell} -n -O extglob";
 
       tests = {
-        succeedOnFailure = import ../tests/succeedOnFailure.nix { inherit stdenv; };
+        succeedOnFailure = import ../tests/succeedOnFailure.nix {inherit stdenv;};
       };
       passthru.tests = lib.warn "Use `stdenv.tests` instead. `passthru` is a `mkDerivation` detail." stdenv.tests;
     }

@@ -28,6 +28,6 @@ mkDerivation {
     homepage = "https://apps.kde.org/kirigami2.gallery/";
     description = "View examples of Kirigami components";
     license = licenses.lgpl2;
-    maintainers = with maintainers; [ shadowrz ];
+    maintainers = with maintainers; [shadowrz];
   };
 }

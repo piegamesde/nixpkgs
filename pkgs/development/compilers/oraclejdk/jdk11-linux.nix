@@ -63,7 +63,7 @@ let
 
     meta = with lib; {
       license = licenses.unfree;
-      platforms = [ "x86_64-linux" ];
+      platforms = ["x86_64-linux"];
     };
   };
 in

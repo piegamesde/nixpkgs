@@ -8,15 +8,15 @@ let
   hashed_sha512crypt = "$6$ymzs8WINZ5wGwQcV$VC2S0cQiX8NVukOLymysTPn4v1zJoJp3NGyhnqyv/dAf4NWZsBWYveQcj6gEJr4ZUjRBRjM0Pj1L8TCQ8hUUp0"; # meow
 in
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "shadow";
-    meta = with pkgs.lib.maintainers; { maintainers = [ nequissimus ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [nequissimus];};
 
     nodes.shadow =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        environment.systemPackages = [ pkgs.shadow ];
+        environment.systemPackages = [pkgs.shadow];
 
         users = {
           mutableUsers = true;

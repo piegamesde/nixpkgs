@@ -20,6 +20,6 @@ buildGoModule {
     description = "A file system based matrix client";
     homepage = "https://git.lost.host/meutraa/mm";
     license = licenses.isc;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

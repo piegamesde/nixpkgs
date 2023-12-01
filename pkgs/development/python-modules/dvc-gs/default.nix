@@ -19,7 +19,7 @@ buildPythonPackage rec {
   };
 
   # Prevent circular dependency
-  pythonRemoveDeps = [ "dvc" ];
+  pythonRemoveDeps = ["dvc"];
 
   nativeBuildInputs = [
     setuptools-scm
@@ -34,13 +34,13 @@ buildPythonPackage rec {
   # Network access is needed for tests
   doCheck = false;
 
-  pythonCheckImports = [ "dvc_gs" ];
+  pythonCheckImports = ["dvc_gs"];
 
   meta = with lib; {
     description = "gs plugin for dvc";
     homepage = "https://pypi.org/project/dvc-gs/version";
     changelog = "https://github.com/iterative/dvc-gs/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ melling ];
+    maintainers = with maintainers; [melling];
   };
 }

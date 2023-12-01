@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     libax25
   ];
 
-  configureFlags = [ "--with-motif-includes=${motif}/include" ];
+  configureFlags = ["--with-motif-includes=${motif}/include"];
 
   postPatch = "patchShebangs .";
 
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     description = "Graphical APRS client";
     homepage = "https://xastir.org";
     license = licenses.gpl2;
-    maintainers = [ maintainers.ehmry ];
+    maintainers = [maintainers.ehmry];
     platforms = platforms.linux;
   };
 }

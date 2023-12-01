@@ -53,7 +53,7 @@ let
         ]; # HTTP 104 otherwise
         inherit sha256;
       };
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
 
       installPhase = ''
         makeWrapper ${jdk}/bin/java $out/bin/charles \
@@ -73,8 +73,8 @@ let
       meta = with lib; {
         description = "Web Debugging Proxy";
         homepage = "https://www.charlesproxy.com/";
-        maintainers = with maintainers; [ kalbasit ];
-        sourceProvenance = with sourceTypes; [ binaryBytecode ];
+        maintainers = with maintainers; [kalbasit];
+        sourceProvenance = with sourceTypes; [binaryBytecode];
         license = licenses.unfree;
         platforms = platforms.unix;
       };

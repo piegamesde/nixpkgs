@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     "-DBUILD_TESTING=OFF"
   ] ++ lib.optional cudaSupport "-DCMAKE_LIBRARY_PATH=${cudatoolkit}/lib/stubs";
 
-  patches = [ ./no-download.patch ];
+  patches = [./no-download.patch];
 
   postPatch = ''
     mkdir -p ./build/third_party/clFFT/src
@@ -91,6 +91,6 @@ stdenv.mkDerivation rec {
     license = licenses.bsd3;
     homepage = "https://arrayfire.com/";
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ chessai ];
+    maintainers = with maintainers; [chessai];
   };
 }

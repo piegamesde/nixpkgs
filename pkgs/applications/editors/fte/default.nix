@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   pname = "fte";
   version = "0.50.02";
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
   buildInputs = [
     perl
     libX11
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     ftecommon
   ];
 
-  buildFlags = [ "PREFIX=$(out)" ];
+  buildFlags = ["PREFIX=$(out)"];
 
   installFlags = [
     "PREFIX=$(out)"
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "A free text editor for developers";
     homepage = "https://fte.sourceforge.net/";
     license = licenses.gpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

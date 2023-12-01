@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LNc83E+7NFYYILORElNlYC7arQKGUJHv6phu+vM5xpQ=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     python3
     texinfo
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "Cowsay reimplemention for ponies";
     homepage = "https://github.com/erkin/ponysay";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ bodil ];
+    maintainers = with maintainers; [bodil];
     platforms = platforms.unix;
   };
 }

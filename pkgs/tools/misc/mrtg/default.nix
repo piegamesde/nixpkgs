@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     description = "The Multi Router Traffic Grapher";
     homepage = "https://oss.oetiker.ch/mrtg/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ robberer ];
+    maintainers = with maintainers; [robberer];
     platforms = platforms.unix;
   };
 }

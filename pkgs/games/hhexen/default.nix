@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "1jwccqawbdn0rjn5p59j21rjy460jdhps7zwn2z0gq9biggw325b";
   };
 
-  buildInputs = [ SDL ];
+  buildInputs = [SDL];
   installPhase = ''
     install -Dm755 hhexen-gl -t $out/bin
   '';
@@ -22,6 +22,6 @@ stdenv.mkDerivation rec {
     description = "Linux port of Raven Game's Hexen";
     homepage = "https://hhexen.sourceforge.net/hhexen.html";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ djanatyn ];
+    maintainers = with maintainers; [djanatyn];
   };
 }

@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-NWaf17n4xrONuGGlFwFULEJnK0boq2MlNIaoy4N3toc=";
   };
 
-  propagatedBuildInputs = [ pyyaml ];
+  propagatedBuildInputs = [pyyaml];
 
   nativeCheckInputs = [
     hypothesis
@@ -36,6 +36,6 @@ buildPythonPackage rec {
     description = "A case-insensitive list for Python";
     homepage = "https://github.com/Phynix/yamlloader";
     license = licenses.mit;
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
   };
 }

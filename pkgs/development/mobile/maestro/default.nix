@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   '';
 
   postFixup = ''
-    wrapProgram $out/bin/maestro --prefix PATH : "${lib.makeBinPath [ jre_headless ]}"
+    wrapProgram $out/bin/maestro --prefix PATH : "${lib.makeBinPath [jre_headless]}"
   '';
 
   meta = with lib; {
@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     license = licenses.asl20;
     platforms = lib.platforms.all;
     changelog = "https://github.com/mobile-dev-inc/maestro/blob/main/CHANGELOG.md";
-    maintainers = with maintainers; [ SubhrajyotiSen ];
+    maintainers = with maintainers; [SubhrajyotiSen];
   };
 }

@@ -25,6 +25,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://www.tremor.rs/docs/next/getting-started/tooling";
     license = licenses.asl20;
     platforms = platforms.x86_64;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
   };
 }

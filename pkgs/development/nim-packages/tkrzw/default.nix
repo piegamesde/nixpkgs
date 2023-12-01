@@ -15,8 +15,8 @@ buildNimPackage rec {
     rev = version;
     hash = "sha256-66rUuK+wUrqs1QYjteZcaIrfg+LHQNcR+XM+EtVuGsA=";
   };
-  propagatedNativeBuildInputs = [ pkg-config ];
-  propagatedBuildInputs = [ tkrzw ];
+  propagatedNativeBuildInputs = [pkg-config];
+  propagatedBuildInputs = [tkrzw];
   doCheck = true;
   meta =
     with lib;
@@ -24,6 +24,6 @@ buildNimPackage rec {
     // {
       description = "Nim wrappers over some of the Tkrzw C++ library";
       license = lib.licenses.apsl20;
-      maintainers = with lib.maintainers; [ ehmry ];
+      maintainers = with lib.maintainers; [ehmry];
     };
 }

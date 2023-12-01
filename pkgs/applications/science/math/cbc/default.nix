@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   buildInputs = [
     zlib
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://projects.coin-or.org/Cbc";
     license = lib.licenses.epl10;
-    maintainers = [ lib.maintainers.eelco ];
+    maintainers = [lib.maintainers.eelco];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     description = "A mixed integer programming solver";
   };

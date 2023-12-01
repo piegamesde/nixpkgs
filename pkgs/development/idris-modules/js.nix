@@ -25,6 +25,6 @@ build-idris-package {
     description = "Js libraries for idris";
     homepage = "https://github.com/rbarreiro/idrisjs";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

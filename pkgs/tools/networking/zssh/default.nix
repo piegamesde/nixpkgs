@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "06z73iq59lz8ibjrgs7d3xl39vh9yld1988yx8khssch4pw41s52";
   };
 
-  buildInputs = [ readline ];
+  buildInputs = [readline];
 
   patches =
     [
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
 
   # The makefile does not create the directories
   postBuild = ''
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "SSH and Telnet client with ZMODEM file transfer capability";
     homepage = "https://zssh.sourceforge.net/";
     license = lib.licenses.gpl2;
-    maintainers = [ ]; # required by deepin-terminal
+    maintainers = []; # required by deepin-terminal
     platforms = lib.platforms.linux;
   };
 }

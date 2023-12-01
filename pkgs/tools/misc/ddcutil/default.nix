@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     description = "Query and change Linux monitor settings using DDC/CI and USB";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
     changelog = "https://github.com/rockowitz/ddcutil/blob/v${version}/CHANGELOG.md";
   };
 }

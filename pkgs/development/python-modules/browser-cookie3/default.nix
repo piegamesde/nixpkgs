@@ -34,14 +34,14 @@ buildPythonPackage rec {
   # No tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [ "browser_cookie3" ];
+  pythonImportsCheck = ["browser_cookie3"];
 
   meta = with lib; {
     description = "Loads cookies from your browser into a cookiejar object";
     homepage = "https://github.com/borisbabic/browser_cookie3";
     changelog = "https://github.com/borisbabic/browser_cookie3/blob/master/CHANGELOG.md";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ borisbabic ];
+    maintainers = with maintainers; [borisbabic];
     broken = stdenv.isDarwin;
   };
 }

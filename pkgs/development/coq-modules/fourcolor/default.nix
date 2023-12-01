@@ -57,7 +57,7 @@ mkCoqDerivation {
 
   meta = with lib; {
     description = "Formal proof of the Four Color Theorem ";
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     license = licenses.cecill-b;
     platforms = platforms.unix;
   };

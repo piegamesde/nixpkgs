@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     gst_all_1.gst-editing-services
     gst_all_1.gst-plugins-bad
     gst_all_1.gst-plugins-base
-    (gst_all_1.gst-plugins-good.override { gtkSupport = true; })
+    (gst_all_1.gst-plugins-good.override {gtkSupport = true;})
     gst_all_1.gstreamer
     gst_all_1.gst-devtools
     gtk3
@@ -86,14 +86,14 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Matrix group messaging app";
     homepage = "https://gitlab.gnome.org/GNOME/fractal";
     license = licenses.gpl3;
-    maintainers = teams.gnome.members ++ (with maintainers; [ dtzWill ]);
+    maintainers = teams.gnome.members ++ (with maintainers; [dtzWill]);
     platforms = platforms.unix;
   };
 }

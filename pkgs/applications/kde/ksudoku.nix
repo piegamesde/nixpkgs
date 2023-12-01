@@ -22,7 +22,7 @@ mkDerivation {
   meta = {
     homepage = "https://apps.kde.org/ksudoku/";
     description = "Suduko game";
-    license = with lib.licenses; [ gpl2 ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [gpl2];
+    maintainers = with lib.maintainers; [];
   };
 }

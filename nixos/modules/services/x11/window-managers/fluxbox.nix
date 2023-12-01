@@ -25,6 +25,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ pkgs.fluxbox ];
+    environment.systemPackages = [pkgs.fluxbox];
   };
 }

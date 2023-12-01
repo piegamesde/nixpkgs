@@ -25,9 +25,9 @@ stdenv.mkDerivation rec {
 
   src = null;
 
-  paths = [ wingpanel ] ++ selectedIndicators;
+  paths = [wingpanel] ++ selectedIndicators;
 
-  passAsFile = [ "paths" ];
+  passAsFile = ["paths"];
 
   nativeBuildInputs = [
     glib

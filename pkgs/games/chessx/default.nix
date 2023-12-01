@@ -51,7 +51,7 @@ mkDerivation rec {
     homepage = "http://chessx.sourceforge.net/";
     description = "Browse and analyse chess games";
     license = licenses.gpl2;
-    maintainers = [ maintainers.luispedro ];
+    maintainers = [maintainers.luispedro];
     platforms = platforms.linux;
   };
 }

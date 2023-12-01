@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-smtp";
   version = "20210228-git";
@@ -28,7 +28,7 @@ rec {
 
   packageName = "cl-smtp";
 
-  asdFilesToKeep = [ "cl-smtp.asd" ];
+  asdFilesToKeep = ["cl-smtp.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-smtp DESCRIPTION Common Lisp smtp client. SHA256

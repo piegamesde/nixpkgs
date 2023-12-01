@@ -44,7 +44,7 @@ in
 
 {
 
-  meta.maintainers = with maintainers; [ hexa ];
+  meta.maintainers = with maintainers; [hexa];
 
   ###### interface
 
@@ -68,7 +68,7 @@ in
       };
 
       interfaces = mkOption {
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           A set describing babeld interfaces.
           See {manpage}`babeld(8)` for options.
@@ -111,12 +111,12 @@ in
 
     systemd.services.babeld = {
       description = "Babel routing daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.babeld}/bin/babeld -c ${configFile} -I /run/babeld/babeld.pid -S /var/lib/babeld/state";
-        AmbientCapabilities = [ "CAP_NET_ADMIN" ];
-        CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
+        AmbientCapabilities = ["CAP_NET_ADMIN"];
+        CapabilityBoundingSet = ["CAP_NET_ADMIN"];
         DevicePolicy = "closed";
         DynamicUser = true;
         IPAddressAllow = [

@@ -25,11 +25,11 @@ buildGoModule rec {
     "-X=main.Version=${version}"
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   preFixup = ''
     wrapProgram $out/bin/${pname} \
-      --prefix PATH ":" "${lib.makeBinPath [ mpg123 ]}";
+      --prefix PATH ":" "${lib.makeBinPath [mpg123]}";
   '';
 
   # has no tests
@@ -39,6 +39,6 @@ buildGoModule rec {
     description = "Yet another command-line Youdao Chinese dictionary";
     homepage = "https://github.com/TimothyYe/ydict";
     license = licenses.mit;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-mWt5795kM829AIiHLbxfs+1/4VeLaM27pjTxS7jdBHA=";
   };
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   propagatedBuildInputs = [
     coverage
@@ -34,7 +34,7 @@ buildPythonPackage rec {
     py.test tests
   '';
 
-  pythonImportsCheck = [ "pytest_cov" ];
+  pythonImportsCheck = ["pytest_cov"];
 
   meta = with lib; {
     description = "Plugin for coverage reporting with support for both centralised and distributed testing, including subprocesses and multiprocessing";

@@ -19,7 +19,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "13mqif9b9iajpkrl9ijspdnvy82kxhprxd5mw3njk68rcn4z2pcm";
   };
 
-  nativeBuildInputs = [ intltool ];
+  nativeBuildInputs = [intltool];
   buildInputs = [
     gtk3
     gobject-introspection
@@ -41,6 +41,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://tails.boum.org";
     description = "GTK application to display Tor circuits and streams";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

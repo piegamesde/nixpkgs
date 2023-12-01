@@ -17,6 +17,6 @@ buildPythonPackage rec {
     description = "Twitter's 2.x / 3.x compatibility swiss-army knife";
     homepage = "https://twitter.github.io/commons/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ copumpkin ];
+    maintainers = with maintainers; [copumpkin];
   };
 }

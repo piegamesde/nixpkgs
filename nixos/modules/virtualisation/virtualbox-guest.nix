@@ -45,21 +45,21 @@ in
           }
         ];
 
-        environment.systemPackages = [ kernel.virtualboxGuestAdditions ];
+        environment.systemPackages = [kernel.virtualboxGuestAdditions];
 
-        boot.extraModulePackages = [ kernel.virtualboxGuestAdditions ];
+        boot.extraModulePackages = [kernel.virtualboxGuestAdditions];
 
-        boot.supportedFilesystems = [ "vboxsf" ];
-        boot.initrd.supportedFilesystems = [ "vboxsf" ];
+        boot.supportedFilesystems = ["vboxsf"];
+        boot.initrd.supportedFilesystems = ["vboxsf"];
 
         users.groups.vboxsf.gid = config.ids.gids.vboxsf;
 
         systemd.services.virtualbox = {
           description = "VirtualBox Guest Services";
 
-          wantedBy = [ "multi-user.target" ];
-          requires = [ "dev-vboxguest.device" ];
-          after = [ "dev-vboxguest.device" ];
+          wantedBy = ["multi-user.target"];
+          requires = ["dev-vboxguest.device"];
+          after = ["dev-vboxguest.device"];
 
           unitConfig.ConditionVirtualization = "oracle";
 

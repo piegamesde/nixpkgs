@@ -31,6 +31,6 @@ buildGoModule rec {
     description = "Daemon for the Taro protocol specification";
     homepage = "https://github.com/lightninglabs/taro";
     license = licenses.mit;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

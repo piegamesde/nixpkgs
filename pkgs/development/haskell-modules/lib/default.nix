@@ -1,6 +1,6 @@
 # TODO(@Ericson2314): Remove `pkgs` param, which is only used for
 # `buildStackProject`, `justStaticExecutables` and `checkUnusedPackages`
-{ pkgs, lib }:
+{pkgs, lib}:
 
 rec {
   /* The same functionality as this haskell.lib, except that the derivation
@@ -9,7 +9,7 @@ rec {
      between the function name and argument of another. haskell.lib.compose is
      preferred for any new code.
   */
-  compose = import ./compose.nix { inherit pkgs lib; };
+  compose = import ./compose.nix {inherit pkgs lib;};
 
   /* This function takes a file like `hackage-packages.nix` and constructs
      a full package set out of that.

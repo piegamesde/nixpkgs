@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   ];
   sourceRoot = "trellis";
 
-  buildInputs = [ boost ];
+  buildInputs = [boost];
   nativeBuildInputs = [
     cmake
     python3

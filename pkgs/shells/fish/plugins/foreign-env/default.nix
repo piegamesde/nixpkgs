@@ -18,7 +18,7 @@ buildFishPlugin {
     sha256 = "00xqlyl3lffc5l0viin1nyp819wf81fncqyz87jx8ljjdhilmgbs";
   };
 
-  patches = [ ./suppress-harmless-warnings.patch ];
+  patches = [./suppress-harmless-warnings.patch];
 
   preInstall = ''
     sed -e "s|sed|${gnused}/bin/sed|" \
@@ -30,7 +30,7 @@ buildFishPlugin {
   meta = with lib; {
     description = "A foreign environment interface for Fish shell";
     license = licenses.mit;
-    maintainers = with maintainers; [ jgillich ];
+    maintainers = with maintainers; [jgillich];
     platforms = with platforms; unix;
   };
 }

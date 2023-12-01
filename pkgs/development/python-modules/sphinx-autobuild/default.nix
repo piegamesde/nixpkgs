@@ -25,12 +25,12 @@ buildPythonPackage rec {
   # No tests included.
   doCheck = false;
 
-  pythonImportsCheck = [ "sphinx_autobuild" ];
+  pythonImportsCheck = ["sphinx_autobuild"];
 
   meta = with lib; {
     description = "Rebuild Sphinx documentation on changes, with live-reload in the browser";
     homepage = "https://github.com/executablebooks/sphinx-autobuild";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ holgerpeters ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [holgerpeters];
   };
 }

@@ -54,7 +54,7 @@ buildPythonPackage rec {
       matplotlib
       ipython
     ];
-    others = [ lime ];
+    others = [lime];
   };
 
   preCheck =
@@ -155,7 +155,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/slundberg/shap";
     changelog = "https://github.com/slundberg/shap/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ evax ];
+    maintainers = with maintainers; [evax];
     platforms = platforms.unix;
     # No support for scikit-learn > 1.2
     # https://github.com/slundberg/shap/issues/2866

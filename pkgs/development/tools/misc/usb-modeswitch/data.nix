@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
 
   # we add tcl here so we can patch in support for new devices by dropping config into
   # the usb_modeswitch.d directory
-  nativeBuildInputs = [ tcl ];
+  nativeBuildInputs = [tcl];
 
   meta = with lib; {
     description = "Device database and the rules file for 'multi-mode' USB devices";

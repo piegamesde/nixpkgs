@@ -15,7 +15,7 @@ let
     options = {
       devices = mkOption {
         type = types.listOf types.str;
-        example = [ "/dev/input/by-id/usb-0000_0000-event-kbd" ];
+        example = ["/dev/input/by-id/usb-0000_0000-event-kbd"];
         description = mdDoc "Paths to keyboard devices.";
       };
       config = mkOption {
@@ -61,7 +61,7 @@ let
       };
       extraArgs = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = mdDoc "Extra command line arguments passed to kanata.";
       };
       port = mkOption {
@@ -94,7 +94,7 @@ let
   mkService =
     name: keyboard:
     nameValuePair (mkName name) {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "notify";
         ExecStart = ''
@@ -117,10 +117,10 @@ let
           "/dev/uinput rw"
           "char-input r"
         ];
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         DevicePolicy = "closed";
         IPAddressAllow = optional (keyboard.port != null) "localhost";
-        IPAddressDeny = [ "any" ];
+        IPAddressDeny = ["any"];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         PrivateNetwork = keyboard.port == null;
@@ -134,10 +134,10 @@ let
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
-        RestrictAddressFamilies = [ "AF_UNIX" ] ++ optional (keyboard.port != null) "AF_INET";
+        RestrictAddressFamilies = ["AF_UNIX"] ++ optional (keyboard.port != null) "AF_INET";
         RestrictNamespaces = true;
         RestrictRealtime = true;
-        SystemCallArchitectures = [ "native" ];
+        SystemCallArchitectures = ["native"];
         SystemCallFilter = [
           "@system-service"
           "~@privileged"
@@ -166,7 +166,7 @@ in
     };
     keyboards = mkOption {
       type = types.attrsOf (types.submodule keyboard);
-      default = { };
+      default = {};
       description = mdDoc "Keyboard configurations.";
     };
   };
@@ -177,5 +177,5 @@ in
     systemd.services = mapAttrs' mkService cfg.keyboards;
   };
 
-  meta.maintainers = with maintainers; [ linj ];
+  meta.maintainers = with maintainers; [linj];
 }

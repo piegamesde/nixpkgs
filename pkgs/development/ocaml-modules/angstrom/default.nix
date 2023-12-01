@@ -29,19 +29,19 @@ buildDunePackage rec {
     alcotest
     ppx_let
   ];
-  buildInputs = [ ocaml-syntax-shims ];
+  buildInputs = [ocaml-syntax-shims];
   propagatedBuildInputs = [
     bigstringaf
     result
   ];
   doCheck = lib.versionAtLeast ocaml.version "4.08";
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     homepage = "https://github.com/inhabitedtype/angstrom";
     description = "OCaml parser combinators built for speed and memory efficiency";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ sternenseemann ];
+    maintainers = with lib.maintainers; [sternenseemann];
   };
 }

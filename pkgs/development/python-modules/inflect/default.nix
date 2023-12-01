@@ -19,13 +19,13 @@ buildPythonPackage rec {
     hash = "sha256-GEJkmhe2ytZoEqXJvfrLYxDh57bdijHwJnZt8bYmEus=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ pydantic ];
+  propagatedBuildInputs = [pydantic];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "inflect" ];
+  pythonImportsCheck = ["inflect"];
 
   meta = with lib; {
     description = "Correctly generate plurals, singular nouns, ordinals, indefinite articles";

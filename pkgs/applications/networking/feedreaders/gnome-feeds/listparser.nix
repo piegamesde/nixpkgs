@@ -1,4 +1,4 @@
-{ lib, python3 }:
+{lib, python3}:
 python3.pkgs.buildPythonPackage rec {
   pname = "listparser";
   version = "0.18";
@@ -21,7 +21,7 @@ python3.pkgs.buildPythonPackage rec {
     description = "A parser for subscription lists";
     homepage = "https://github.com/kurtmckee/listparser";
     license = licenses.lgpl3Plus;
-    maintainers = [ maintainers.pbogdan ];
+    maintainers = [maintainers.pbogdan];
     platforms = platforms.linux;
   };
 }

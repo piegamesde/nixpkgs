@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-Gd7FAkDwj7q1rnZzVOtZF1oUdz8CcdeDpX/KxJ5KbaE=";
   };
 
-  nativeBuildInputs = [ pbr ];
+  nativeBuildInputs = [pbr];
 
   propagatedBuildInputs = [
     alembic
@@ -47,7 +47,7 @@ buildPythonPackage rec {
     stestr run
   '';
 
-  pythonImportsCheck = [ "oslo_db" ];
+  pythonImportsCheck = ["oslo_db"];
 
   meta = with lib; {
     description = "Oslo Database library";

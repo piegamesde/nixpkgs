@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       Security
@@ -49,6 +49,6 @@ rustPlatform.buildRustPackage rec {
     description = "Utility for training word and subword embeddings";
     homepage = "https://github.com/finalfusion/finalfrontier/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

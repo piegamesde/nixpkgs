@@ -72,7 +72,7 @@ buildPythonPackage rec {
     toml
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths =
     [

@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-y55F/zV/99fS4ZITtPsSgkpMNfonFztZEP/QZxSQjfc=";
   };
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/DavidGriffith/inform6unix";
     changelog = "https://gitlab.com/DavidGriffith/inform6unix/-/raw/${version}/NEWS";
     license = licenses.artistic2;
-    maintainers = with lib.maintainers; [ ddelabru ];
+    maintainers = with lib.maintainers; [ddelabru];
     platforms = platforms.all;
   };
 }

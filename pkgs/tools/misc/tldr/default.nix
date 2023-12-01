@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     "CFLAGS="
   ];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   postInstall = ''
     installShellCompletion --cmd tldr autocomplete/complete.{bash,fish,zsh}

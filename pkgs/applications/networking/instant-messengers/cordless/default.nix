@@ -15,7 +15,7 @@ buildGoModule rec {
     sha256 = "0avf09b73fs3wpb4fzmm6ka595aanfvp95m6xj1ccxvq8ciwpqcw";
   };
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   vendorSha256 = "01anbhwgwam70dymcmvkia1xpw48658rq7wv4m7fiavxvnli6z2y";
 
@@ -23,7 +23,7 @@ buildGoModule rec {
     homepage = "https://github.com/Bios-Marcel/cordless";
     description = "Discord terminal client";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ colemickens ];
+    maintainers = with maintainers; [colemickens];
     platforms = platforms.unix;
   };
 }

@@ -20,7 +20,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Intelligence tool to crawl the graph of certificate alternate names";
     homepage = "https://github.com/lanrat/certgraph";
-    license = with licenses; [ gpl2Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl2Only];
+    maintainers = with maintainers; [fab];
   };
 }

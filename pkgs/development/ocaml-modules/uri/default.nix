@@ -19,7 +19,7 @@ buildDunePackage rec {
     sha256 = "0szifda6yism5vn5jdizkha3ad0xk6zw4xgfl8g77dnv83ci7h65";
   };
 
-  checkInputs = [ ounit ];
+  checkInputs = [ounit];
   propagatedBuildInputs = [
     angstrom
     stringext
@@ -30,6 +30,6 @@ buildDunePackage rec {
     homepage = "https://github.com/mirage/ocaml-uri";
     description = "RFC3986 URI parsing library for OCaml";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

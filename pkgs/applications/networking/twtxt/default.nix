@@ -51,6 +51,6 @@ buildPythonApplication rec {
     description = "Decentralised, minimalist microblogging service for hackers";
     homepage = "https://github.com/buckket/twtxt";
     license = licenses.mit;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
   };
 }

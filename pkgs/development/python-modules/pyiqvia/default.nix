@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-4xoK/SwpcsjIpGUertWoSlRsKIpgpV1XmuIzDJcZMZg=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -46,7 +46,7 @@ buildPythonPackage rec {
       "examples/"
     ];
 
-  pythonImportsCheck = [ "pyiqvia" ];
+  pythonImportsCheck = ["pyiqvia"];
 
   meta = with lib; {
     description = "Module for working with IQVIA data";
@@ -56,7 +56,7 @@ buildPythonPackage rec {
       https://flustar.com and more).
     '';
     homepage = "https://github.com/bachya/pyiqvia";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

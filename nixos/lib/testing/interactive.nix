@@ -45,7 +45,7 @@ in
 
   config = {
     interactive.qemu.package = hostPkgs.qemu;
-    interactive.extraDriverArgs = [ "--interactive" ];
+    interactive.extraDriverArgs = ["--interactive"];
     passthru.driverInteractive = config.interactive.driver;
   };
 }

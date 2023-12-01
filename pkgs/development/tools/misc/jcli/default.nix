@@ -28,6 +28,6 @@ buildGoModule rec {
     description = "Jenkins CLI allows you to manage your Jenkins in an easy way";
     homepage = "https://jcli.jenkins-zh.cn/";
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

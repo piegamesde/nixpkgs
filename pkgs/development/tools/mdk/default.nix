@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     pkg-config
     intltool
   ];
-  buildInputs = [ glib ];
+  buildInputs = [glib];
   postInstall = ''
     mkdir -p $out/share/emacs/site-lisp/
     cp -v ./misc/*.el $out/share/emacs/site-lisp

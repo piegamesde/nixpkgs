@@ -1,7 +1,7 @@
 # This tests parsedmarc by sending a report to its monitored email
 # address and reading the results out of Elasticsearch.
 
-{ pkgs, ... }@args:
+{pkgs, ...}@args:
 let
   inherit (import ../../lib/testing-python.nix args) makeTest;
   inherit (pkgs) lib;
@@ -55,10 +55,10 @@ in
 {
   localMail = makeTest {
     name = "parsedmarc-local-mail";
-    meta = with lib.maintainers; { maintainers = [ talyz ]; };
+    meta = with lib.maintainers; {maintainers = [talyz];};
 
     nodes.parsedmarc =
-      { nodes, ... }:
+      {nodes, ...}:
       {
         virtualisation.memorySize = 2048;
 
@@ -89,7 +89,7 @@ in
       };
 
     testScript =
-      { nodes }:
+      {nodes}:
       let
         esPort = toString nodes.parsedmarc.config.services.elasticsearch.port;
         valueObject =
@@ -128,15 +128,15 @@ in
     in
     makeTest {
       name = "parsedmarc-external-mail";
-      meta = with lib.maintainers; { maintainers = [ talyz ]; };
+      meta = with lib.maintainers; {maintainers = [talyz];};
 
       nodes = {
         parsedmarc =
-          { nodes, ... }:
+          {nodes, ...}:
           {
             virtualisation.memorySize = 2048;
 
-            security.pki.certificateFiles = [ certs.ca.cert ];
+            security.pki.certificateFiles = [certs.ca.cert];
 
             networking.extraHosts = ''
               127.0.0.1 ${parsedmarcDomain}
@@ -155,13 +155,13 @@ in
               };
             };
 
-            environment.systemPackages = [ pkgs.jq ];
+            environment.systemPackages = [pkgs.jq];
           };
 
         mail =
-          { nodes, ... }:
+          {nodes, ...}:
           {
-            imports = [ ../common/user-account.nix ];
+            imports = [../common/user-account.nix];
 
             networking.extraHosts = ''
               127.0.0.1 ${mailDomain}
@@ -170,7 +170,7 @@ in
 
             services.dovecot2 = {
               enable = true;
-              protocols = [ "imap" ];
+              protocols = ["imap"];
               sslCACert = "${certs.ca.cert}";
               sslServerCert = "${certs.${mailDomain}.cert}";
               sslServerKey = "${certs.${mailDomain}.key}";
@@ -190,14 +190,14 @@ in
                 smtpd_client_restrictions = "permit";
               };
             };
-            environment.systemPackages = [ (sendEmail "alice@${mailDomain}") ];
+            environment.systemPackages = [(sendEmail "alice@${mailDomain}")];
 
-            networking.firewall.allowedTCPPorts = [ 993 ];
+            networking.firewall.allowedTCPPorts = [993];
           };
       };
 
       testScript =
-        { nodes }:
+        {nodes}:
         let
           esPort = toString nodes.parsedmarc.config.services.elasticsearch.port;
           valueObject =

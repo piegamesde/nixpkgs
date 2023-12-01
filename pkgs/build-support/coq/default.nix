@@ -7,7 +7,7 @@
   fetchzip,
 }@args:
 let
-  lib = import ./extra-lib.nix { inherit (args) lib; };
+  lib = import ./extra-lib.nix {inherit (args) lib;};
 in
 with builtins;
 with lib;
@@ -24,26 +24,26 @@ in
   repo ? pname,
   defaultVersion ? null,
   releaseRev ? (v: v),
-  displayVersion ? { },
-  release ? { },
-  buildInputs ? [ ],
-  nativeBuildInputs ? [ ],
-  extraBuildInputs ? [ ],
-  extraNativeBuildInputs ? [ ],
-  overrideBuildInputs ? [ ],
-  overrideNativeBuildInputs ? [ ],
-  namePrefix ? [ "coq" ],
+  displayVersion ? {},
+  release ? {},
+  buildInputs ? [],
+  nativeBuildInputs ? [],
+  extraBuildInputs ? [],
+  extraNativeBuildInputs ? [],
+  overrideBuildInputs ? [],
+  overrideNativeBuildInputs ? [],
+  namePrefix ? ["coq"],
   enableParallelBuilding ? true,
-  extraInstallFlags ? [ ],
+  extraInstallFlags ? [],
   setCOQBIN ? true,
   mlPlugin ? false,
   useMelquiondRemake ? null,
-  dropAttrs ? [ ],
-  keepAttrs ? [ ],
-  dropDerivationAttrs ? [ ],
+  dropAttrs ? [],
+  keepAttrs ? [],
+  dropDerivationAttrs ? [],
   useDuneifVersion ? (x: false),
   useDune ? false,
-  opam-name ? (concatStringsSep "-" (namePrefix ++ [ pname ])),
+  opam-name ? (concatStringsSep "-" (namePrefix ++ [pname])),
   ...
 }@args:
 let
@@ -82,14 +82,14 @@ let
         ++ dropAttrs
       )
       keepAttrs;
-  fetch = import ../coq/meta-fetch/default.nix { inherit lib stdenv fetchzip; } (
+  fetch = import ../coq/meta-fetch/default.nix {inherit lib stdenv fetchzip;} (
     {
       inherit release releaseRev;
       location = {
         inherit domain owner repo;
       };
     }
-    // optionalAttrs (args ? fetcher) { inherit fetcher; }
+    // optionalAttrs (args ? fetcher) {inherit fetcher;}
   );
   fetched = fetch (if version != null then version else defaultVersion);
   display-pkg =
@@ -137,7 +137,7 @@ let
       [
         {
           case = v: versions.isLe "8.6" v && v != "dev";
-          out = [ "COQLIB=$(out)/lib/coq/${coq.coq-version}/" ];
+          out = ["COQLIB=$(out)/lib/coq/${coq.coq-version}/"];
         }
       ]
       [
@@ -149,10 +149,10 @@ let
       [
         {
           case = v: versions.isLe "8.6" v && v != "dev";
-          out = [ "DOCDIR=$(out)/share/coq/${coq.coq-version}/" ];
+          out = ["DOCDIR=$(out)/share/coq/${coq.coq-version}/"];
         }
       ]
-      [ "COQDOCINSTALL=$(out)/share/coq/${coq.coq-version}/user-contrib" ];
+      ["COQDOCINSTALL=$(out)/share/coq/${coq.coq-version}/user-contrib"];
 in
 
 stdenv.mkDerivation (
@@ -166,17 +166,16 @@ stdenv.mkDerivation (
 
         nativeBuildInputs =
           args.overrideNativeBuildInputs or (
-            [ which ]
+            [which]
             ++ optional useDune coq.ocamlPackages.dune_3
             ++ optionals (useDune || mlPlugin) [
               coq.ocamlPackages.ocaml
               coq.ocamlPackages.findlib
             ]
-            ++ (args.nativeBuildInputs or [ ])
+            ++ (args.nativeBuildInputs or [])
             ++ extraNativeBuildInputs
           );
-        buildInputs =
-          args.overrideBuildInputs or ([ coq ] ++ (args.buildInputs or [ ]) ++ extraBuildInputs);
+        buildInputs = args.overrideBuildInputs or ([coq] ++ (args.buildInputs or []) ++ extraBuildInputs);
         inherit enableParallelBuilding;
 
         meta =
@@ -193,16 +192,16 @@ stdenv.mkDerivation (
                   };
                 }
               ]
-              { }
+              {}
             )
             // optionalAttrs (fetched.broken or false) {
               coqFilter = true;
               broken = true;
             }
           )
-          // (args.meta or { });
+          // (args.meta or {});
       }
-      // (optionalAttrs setCOQBIN { COQBIN = "${coq}/bin/"; })
+      // (optionalAttrs setCOQBIN {COQBIN = "${coq}/bin/";})
       // (optionalAttrs (!args ? installPhase && !args ? useMelquiondRemake) {
         installFlags = coqlib-flags ++ docdir-flags ++ extraInstallFlags;
       })
@@ -224,7 +223,7 @@ stdenv.mkDerivation (
       // (optionalAttrs (args ? useMelquiondRemake) rec {
         COQUSERCONTRIB = "$out/lib/coq/${coq.coq-version}/user-contrib";
         preConfigurePhases = "autoconf";
-        configureFlags = [ "--libdir=${COQUSERCONTRIB}/${useMelquiondRemake.logpath or ""}" ];
+        configureFlags = ["--libdir=${COQUSERCONTRIB}/${useMelquiondRemake.logpath or ""}"];
         buildPhase = "./remake -j$NIX_BUILD_CORES";
         installPhase = "./remake install";
       })

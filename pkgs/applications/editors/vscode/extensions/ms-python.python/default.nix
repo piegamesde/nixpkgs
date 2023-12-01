@@ -25,9 +25,9 @@ vscode-utils.buildVscodeMarketplaceExtension rec {
     sha256 = "sha256-JosFv6ngJmw1XRILwTZMVxlGIdWFLFQjj4olfnVwAIM=";
   };
 
-  buildInputs = [ icu ];
+  buildInputs = [icu];
 
-  nativeBuildInputs = [ python3.pkgs.wrapPython ];
+  nativeBuildInputs = [python3.pkgs.wrapPython];
 
   propagatedBuildInputs = with python3.pkgs; [
     debugpy

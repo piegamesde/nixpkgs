@@ -1,8 +1,8 @@
 {
   version,
   sha256,
-  extraPatches ? [ ],
-  knownVulnerabilities ? [ ],
+  extraPatches ? [],
+  knownVulnerabilities ? [],
 }:
 
 {
@@ -361,7 +361,7 @@ stdenv.mkDerivation (
       })
     );
 
-    configurePlatforms = [ ];
+    configurePlatforms = [];
     setOutputFlags = false; # Only accepts some of them
     configureFlags =
       [
@@ -402,7 +402,7 @@ stdenv.mkDerivation (
         (enableFeature buildFfplay "ffplay")
         (enableFeature buildFfprobe "ffprobe")
       ]
-      ++ optionals withBin [ "--bindir=${placeholder "bin"}/bin" ]
+      ++ optionals withBin ["--bindir=${placeholder "bin"}/bin"]
       ++ [
         # *  Library flags
         (enableFeature buildAvcodec "avcodec")
@@ -432,12 +432,12 @@ stdenv.mkDerivation (
         (enableFeature withHtmlDoc "htmlpages")
         (enableFeature withManPages "manpages")
       ]
-      ++ optionals withManPages [ "--mandir=${placeholder "man"}/share/man" ]
+      ++ optionals withManPages ["--mandir=${placeholder "man"}/share/man"]
       ++ [
         (enableFeature withPodDoc "podpages")
         (enableFeature withTxtDoc "txtpages")
       ]
-      ++ optionals withDoc [ "--docdir=${placeholder "doc"}/share/doc/ffmpeg" ]
+      ++ optionals withDoc ["--docdir=${placeholder "doc"}/share/doc/ffmpeg"]
       ++ [
         # *  External libraries
         (enableFeature withAlsa "alsa")
@@ -557,97 +557,97 @@ stdenv.mkDerivation (
 
     # TODO This was always in buildInputs before, why?
     buildInputs =
-      optionals withFullDeps [ libdc1394 ]
-      ++ optionals (withFullDeps && !stdenv.isDarwin) [ libraw1394 ] # TODO where does this belong to
+      optionals withFullDeps [libdc1394]
+      ++ optionals (withFullDeps && !stdenv.isDarwin) [libraw1394] # TODO where does this belong to
       ++ optionals (withNvdec || withNvenc) [
         (if (lib.versionAtLeast version "6") then nv-codec-headers-11 else nv-codec-headers)
       ]
-      ++ optionals withAlsa [ alsa-lib ]
-      ++ optionals withAom [ libaom ]
-      ++ optionals withAss [ libass ]
-      ++ optionals withBluray [ libbluray ]
-      ++ optionals withBs2b [ libbs2b ]
-      ++ optionals withBzlib [ bzip2 ]
-      ++ optionals withCaca [ libcaca ]
-      ++ optionals withCelt [ celt ]
-      ++ optionals withCudaLLVM [ clang ]
-      ++ optionals withDav1d [ dav1d ]
-      ++ optionals withDrm [ libdrm ]
-      ++ optionals withFdkAac [ fdk_aac ]
-      ++ optionals withFontconfig [ fontconfig ]
-      ++ optionals withFreetype [ freetype ]
-      ++ optionals withFrei0r [ frei0r ]
-      ++ optionals withFribidi [ fribidi ]
-      ++ optionals withGlslang [ glslang ]
-      ++ optionals withGme [ game-music-emu ]
-      ++ optionals withGnutls [ gnutls ]
-      ++ optionals withGsm [ gsm ]
-      ++ optionals withIconv [ libiconv ] # On Linux this should be in libc, do we really need it?
-      ++ optionals withJack [ libjack2 ]
-      ++ optionals withLadspa [ ladspaH ]
+      ++ optionals withAlsa [alsa-lib]
+      ++ optionals withAom [libaom]
+      ++ optionals withAss [libass]
+      ++ optionals withBluray [libbluray]
+      ++ optionals withBs2b [libbs2b]
+      ++ optionals withBzlib [bzip2]
+      ++ optionals withCaca [libcaca]
+      ++ optionals withCelt [celt]
+      ++ optionals withCudaLLVM [clang]
+      ++ optionals withDav1d [dav1d]
+      ++ optionals withDrm [libdrm]
+      ++ optionals withFdkAac [fdk_aac]
+      ++ optionals withFontconfig [fontconfig]
+      ++ optionals withFreetype [freetype]
+      ++ optionals withFrei0r [frei0r]
+      ++ optionals withFribidi [fribidi]
+      ++ optionals withGlslang [glslang]
+      ++ optionals withGme [game-music-emu]
+      ++ optionals withGnutls [gnutls]
+      ++ optionals withGsm [gsm]
+      ++ optionals withIconv [libiconv] # On Linux this should be in libc, do we really need it?
+      ++ optionals withJack [libjack2]
+      ++ optionals withLadspa [ladspaH]
       ++ optionals withLibplacebo [
         libplacebo
         vulkan-headers
       ]
-      ++ optionals withLzma [ xz ]
-      ++ optionals withMfx [ intel-media-sdk ]
-      ++ optionals withModplug [ libmodplug ]
-      ++ optionals withMp3lame [ lame ]
-      ++ optionals withMysofa [ libmysofa ]
-      ++ optionals withOgg [ libogg ]
-      ++ optionals withOpenal [ openal ]
+      ++ optionals withLzma [xz]
+      ++ optionals withMfx [intel-media-sdk]
+      ++ optionals withModplug [libmodplug]
+      ++ optionals withMp3lame [lame]
+      ++ optionals withMysofa [libmysofa]
+      ++ optionals withOgg [libogg]
+      ++ optionals withOpenal [openal]
       ++ optionals withOpencl [
         ocl-icd
         opencl-headers
       ]
-      ++ optionals withOpencoreAmrnb [ opencore-amr ]
+      ++ optionals withOpencoreAmrnb [opencore-amr]
       ++ optionals withOpengl [
         libGL
         libGLU
       ]
-      ++ optionals withOpenh264 [ openh264 ]
-      ++ optionals withOpenjpeg [ openjpeg ]
-      ++ optionals withOpenmpt [ libopenmpt ]
-      ++ optionals withOpus [ libopus ]
-      ++ optionals withPulse [ libpulseaudio ]
-      ++ optionals withRav1e [ rav1e ]
-      ++ optionals withRtmp [ rtmpdump ]
-      ++ optionals withSamba [ samba ]
-      ++ optionals withSdl2 [ SDL2 ]
-      ++ optionals withSoxr [ soxr ]
-      ++ optionals withSpeex [ speex ]
-      ++ optionals withSrt [ srt ]
-      ++ optionals withSsh [ libssh ]
-      ++ optionals withSvg [ librsvg ]
-      ++ optionals withSvtav1 [ svt-av1 ]
-      ++ optionals withTheora [ libtheora ]
-      ++ optionals withVaapi [ (if withSmallDeps then libva else libva-minimal) ]
-      ++ optionals withVdpau [ libvdpau ]
-      ++ optionals withVidStab [ vid-stab ]
-      ++ optionals withVmaf [ libvmaf ]
-      ++ optionals withVoAmrwbenc [ vo-amrwbenc ]
-      ++ optionals withVorbis [ libvorbis ]
-      ++ optionals withVpx [ libvpx ]
-      ++ optionals withV4l2 [ libv4l ]
+      ++ optionals withOpenh264 [openh264]
+      ++ optionals withOpenjpeg [openjpeg]
+      ++ optionals withOpenmpt [libopenmpt]
+      ++ optionals withOpus [libopus]
+      ++ optionals withPulse [libpulseaudio]
+      ++ optionals withRav1e [rav1e]
+      ++ optionals withRtmp [rtmpdump]
+      ++ optionals withSamba [samba]
+      ++ optionals withSdl2 [SDL2]
+      ++ optionals withSoxr [soxr]
+      ++ optionals withSpeex [speex]
+      ++ optionals withSrt [srt]
+      ++ optionals withSsh [libssh]
+      ++ optionals withSvg [librsvg]
+      ++ optionals withSvtav1 [svt-av1]
+      ++ optionals withTheora [libtheora]
+      ++ optionals withVaapi [(if withSmallDeps then libva else libva-minimal)]
+      ++ optionals withVdpau [libvdpau]
+      ++ optionals withVidStab [vid-stab]
+      ++ optionals withVmaf [libvmaf]
+      ++ optionals withVoAmrwbenc [vo-amrwbenc]
+      ++ optionals withVorbis [libvorbis]
+      ++ optionals withVpx [libvpx]
+      ++ optionals withV4l2 [libv4l]
       ++ optionals withVulkan [
         vulkan-headers
         vulkan-loader
       ]
-      ++ optionals withWebp [ libwebp ]
-      ++ optionals withX264 [ x264 ]
-      ++ optionals withX265 [ x265 ]
-      ++ optionals withXavs [ xavs ]
-      ++ optionals withXcb [ libxcb ]
+      ++ optionals withWebp [libwebp]
+      ++ optionals withX264 [x264]
+      ++ optionals withX265 [x265]
+      ++ optionals withXavs [xavs]
+      ++ optionals withXcb [libxcb]
       ++ optionals withXlib [
         libX11
         libXv
         libXext
       ]
-      ++ optionals withXml2 [ libxml2 ]
-      ++ optionals withXvid [ xvidcore ]
-      ++ optionals withZimg [ zimg ]
-      ++ optionals withZlib [ zlib ]
-      ++ optionals withZmq [ zeromq4 ]
+      ++ optionals withXml2 [libxml2]
+      ++ optionals withXvid [xvidcore]
+      ++ optionals withZimg [zimg]
+      ++ optionals withZlib [zlib]
+      ++ optionals withZmq [zeromq4]
       ++ optionals stdenv.isDarwin [
         # TODO fine-grained flags
         AVFoundation
@@ -660,7 +660,7 @@ stdenv.mkDerivation (
         VideoToolbox
       ];
 
-    buildFlags = [ "all" ] ++ optional buildQtFaststart "tools/qt-faststart"; # Build qt-faststart executable
+    buildFlags = ["all"] ++ optional buildQtFaststart "tools/qt-faststart"; # Build qt-faststart executable
 
     doCheck = stdenv.hostPlatform == stdenv.buildPlatform;
 
@@ -669,7 +669,7 @@ stdenv.mkDerivation (
       let
         ldLibraryPathEnv = if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
         libsToLink =
-          [ ]
+          []
           ++ optional buildAvcodec "libavcodec"
           ++ optional buildAvdevice "libavdevice"
           ++ optional buildAvfilter "libavfilter"
@@ -685,13 +685,13 @@ stdenv.mkDerivation (
       '';
 
     outputs =
-      optionals withBin [ "bin" ] # The first output is the one that gets symlinked by default!
+      optionals withBin ["bin"] # The first output is the one that gets symlinked by default!
       ++ optionals withLib [
         "lib"
         "dev"
       ]
-      ++ optionals withDoc [ "doc" ]
-      ++ optionals withManPages [ "man" ]
+      ++ optionals withDoc ["doc"]
+      ++ optionals withManPages ["man"]
       ++ [
         "data"
         "out"
@@ -726,13 +726,13 @@ stdenv.mkDerivation (
       '';
       license =
         with licenses;
-        [ lgpl21Plus ]
+        [lgpl21Plus]
         ++ optional withGPL gpl2Plus
         ++ optional withGPLv3 gpl3Plus
         ++ optional withUnfree unfreeRedistributable;
-      pkgConfigModules = [ "libavutil" ];
+      pkgConfigModules = ["libavutil"];
       platforms = platforms.all;
-      maintainers = with maintainers; [ atemu ];
+      maintainers = with maintainers; [atemu];
     };
   }
 )

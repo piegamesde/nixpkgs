@@ -38,8 +38,8 @@ in
 
     networking.nat.internalInterfaces = mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "eth0" ];
+      default = [];
+      example = ["eth0"];
       description = lib.mdDoc ''
         The interfaces for which to perform NAT. Packets coming from
         these interface and destined for the external interface will
@@ -49,8 +49,8 @@ in
 
     networking.nat.internalIPs = mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "192.168.1.0/24" ];
+      default = [];
+      example = ["192.168.1.0/24"];
       description = lib.mdDoc ''
         The IP address ranges for which to perform NAT.  Packets
         coming from these addresses (on any interface) and destined
@@ -60,8 +60,8 @@ in
 
     networking.nat.internalIPv6s = mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "fc00::/64" ];
+      default = [];
+      example = ["fc00::/64"];
       description = lib.mdDoc ''
         The IPv6 address ranges for which to perform NAT.  Packets
         coming from these addresses (on any interface) and destined
@@ -129,14 +129,14 @@ in
 
               loopbackIPs = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
+                default = [];
                 example = literalExpression ''[ "55.1.2.3" ]'';
                 description = lib.mdDoc "Public IPs for NAT reflection; for connections to `loopbackip:sourcePort` from the host itself and from other hosts behind NAT";
               };
             };
           }
         );
-      default = [ ];
+      default = [];
       example = [
         {
           sourcePort = 8080;
@@ -179,7 +179,7 @@ in
         message = "networking.nat.dmzHost requires networking.nat.externalInterface";
       }
       {
-        assertion = (cfg.forwardPorts != [ ]) -> (cfg.externalInterface != null);
+        assertion = (cfg.forwardPorts != []) -> (cfg.externalInterface != null);
         message = "networking.nat.forwardPorts requires networking.nat.externalInterface";
       }
     ];
@@ -187,10 +187,10 @@ in
     # Use the same iptables package as in config.networking.firewall.
     # When the firewall is enabled, this should be deduplicated without any
     # error.
-    environment.systemPackages = [ config.networking.firewall.package ];
+    environment.systemPackages = [config.networking.firewall.package];
 
     boot = {
-      kernelModules = [ "nf_nat_ftp" ];
+      kernelModules = ["nf_nat_ftp"];
       kernel.sysctl =
         {
           "net.ipv4.conf.all.forwarding" = mkOverride 99 true;

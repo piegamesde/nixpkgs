@@ -24,6 +24,6 @@ stdenv.mkDerivation rec {
     homepage = "https://freepats.zenvoid.org/";
     license = licenses.gpl2;
     platforms = platforms.all;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

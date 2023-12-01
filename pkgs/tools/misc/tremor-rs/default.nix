@@ -41,7 +41,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       Security
       libiconv
@@ -78,7 +78,7 @@ rustPlatform.buildRustPackage rec {
     "--skip=connectors::utils::tls::tests::client_config"
   ];
 
-  cargoBuildFlags = [ "-p tremor-cli" ];
+  cargoBuildFlags = ["-p tremor-cli"];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

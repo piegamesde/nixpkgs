@@ -27,9 +27,9 @@ buildPythonPackage rec {
       --replace 'if impl == "PyPy":' 'if impl == "PyPy" or not src_path.exists():'
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "frozendict" ];
+  pythonImportsCheck = ["frozendict"];
 
   preCheck = ''
     pushd test
@@ -47,6 +47,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Marco-Sulla/python-frozendict";
     changelog = "https://github.com/Marco-Sulla/python-frozendict/releases/tag/v${version}";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

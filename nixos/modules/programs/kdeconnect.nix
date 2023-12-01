@@ -32,7 +32,7 @@ with lib; {
       cfg = config.programs.kdeconnect;
     in
     mkIf cfg.enable {
-      environment.systemPackages = [ cfg.package ];
+      environment.systemPackages = [cfg.package];
       networking.firewall = rec {
         allowedTCPPortRanges = [
           {

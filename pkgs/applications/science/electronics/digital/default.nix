@@ -26,7 +26,7 @@ let
       "Education"
       "Electronics"
     ];
-    mimeTypes = [ "text/x-digital" ];
+    mimeTypes = ["text/x-digital"];
     terminal = false;
     keywords = [
       "simulator"
@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
       --add-flags "-jar $out/share/java/Digital.jar"
   '';
 
-  desktopItems = [ desktopItem ];
+  desktopItems = [desktopItem];
 
   meta = with lib; {
     homepage = "https://github.com/hneemann/Digital";
@@ -109,6 +109,6 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "x86_64-darwin"
     ];
-    maintainers = with maintainers; [ Dettorer ];
+    maintainers = with maintainers; [Dettorer];
   };
 }

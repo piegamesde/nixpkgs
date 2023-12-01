@@ -24,11 +24,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-ckqPxG3ieqA0H9g1GfE8hYs6tUsZfzt6/yYR1qlgoxE=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     openssl
-    (libevent.override { inherit openssl; })
+    (libevent.override {inherit openssl;})
     libprom
     libpromhttp
     libmicrohttpd
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     description = "A TURN server";
     homepage = "https://coturn.net/";
     changelog = "https://github.com/coturn/coturn/blob/${version}/ChangeLog";
-    license = with licenses; [ bsd3 ];
+    license = with licenses; [bsd3];
     platforms = platforms.all;
     maintainers = with maintainers; [
       ralith

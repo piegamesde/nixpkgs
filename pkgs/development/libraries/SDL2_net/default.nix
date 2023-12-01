@@ -21,19 +21,19 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = lib.optional stdenv.isDarwin darwin.libobjc;
 
-  configureFlags = [ "--disable-examples" ] ++ lib.optional stdenv.isDarwin "--disable-sdltest";
+  configureFlags = ["--disable-examples"] ++ lib.optional stdenv.isDarwin "--disable-sdltest";
 
-  propagatedBuildInputs = [ SDL2 ];
+  propagatedBuildInputs = [SDL2];
 
   meta = with lib; {
     description = "SDL multiplatform networking library";
     homepage = "https://www.libsdl.org/projects/SDL_net";
     license = licenses.zlib;
-    maintainers = with maintainers; [ MP2E ];
+    maintainers = with maintainers; [MP2E];
     platforms = platforms.unix;
   };
 }

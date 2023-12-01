@@ -82,13 +82,13 @@ buildPythonPackage rec {
       EOF
     '';
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   # needs GL set up which isn't really possible in a build environment even in headless mode.
   # tests do run and pass in nix-shell, however.
   doCheck = false;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export PYGLET_HEADLESS=True
@@ -102,7 +102,7 @@ buildPythonPackage rec {
     "tests/unit/text/test_layout.py"
   ];
 
-  pythonImportsCheck = [ "pyglet" ];
+  pythonImportsCheck = ["pyglet"];
 
   meta = with lib; {
     homepage = "http://www.pyglet.org/";

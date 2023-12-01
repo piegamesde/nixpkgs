@@ -19,8 +19,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-hybvzHwHM0rQwgZfQpww/w9wQDW5h9P2KSjpAScVTBo=";
 
-  nativeBuildInputs = [ python3 ];
-  buildInputs = [ libxcb ];
+  nativeBuildInputs = [python3];
+  buildInputs = [libxcb];
 
   # has not tests
   doCheck = false;
@@ -34,6 +34,6 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/roosta/i3wsr";
     license = licenses.mit;
-    maintainers = [ maintainers.sebbadk ];
+    maintainers = [maintainers.sebbadk];
   };
 }

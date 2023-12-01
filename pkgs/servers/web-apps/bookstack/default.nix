@@ -45,7 +45,7 @@ package.override rec {
     '';
     homepage = "https://www.bookstackapp.com/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ymarkus ];
+    maintainers = with maintainers; [ymarkus];
     platforms = platforms.linux;
   };
 }

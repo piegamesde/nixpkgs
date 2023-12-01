@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     else
       throw "Architecture not supported";
 
-  buildInputs = [ gmp ];
+  buildInputs = [gmp];
   nativeBuildInputs = lib.optional stdenv.isLinux patchelf;
 
   buildPhase = ''

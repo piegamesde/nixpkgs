@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-ascii-table";
   version = "20200610-git";
 
   description = "Common Lisp library to present tabular data in ascii-art table.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-ascii-table/2020-06-10/cl-ascii-table-20200610-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "cl-ascii-table";
 
-  asdFilesToKeep = [ "cl-ascii-table.asd" ];
+  asdFilesToKeep = ["cl-ascii-table.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-ascii-table DESCRIPTION

@@ -19,7 +19,7 @@
 }:
 
 let
-  toolsPath = lib.makeBinPath [ mcpp ];
+  toolsPath = lib.makeBinPath [mcpp];
 in
 stdenv.mkDerivation rec {
   pname = "souffle";
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  hardeningDisable = lib.optionals stdenv.isDarwin [ "strictoverflow" ];
+  hardeningDisable = lib.optionals stdenv.isDarwin ["strictoverflow"];
 
   nativeBuildInputs = [
     bison
@@ -70,13 +70,13 @@ stdenv.mkDerivation rec {
     libffi
   ];
 
-  cmakeFlags = [ "-DSOUFFLE_GIT=OFF" ];
+  cmakeFlags = ["-DSOUFFLE_GIT=OFF"];
 
   postInstall = ''
     wrapProgram "$out/bin/souffle" --prefix PATH : "${toolsPath}"
   '';
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   meta = with lib; {
     description = "A translator of declarative Datalog programs into the C++ language";

@@ -66,7 +66,7 @@ let
           sha256 = "sha256-2c8mDKJuHDSw7p52EKnJO5vr2kNTLU6r9pmGPANjE20=";
         };
 
-        nativeBuildInputs = [ undmg ];
+        nativeBuildInputs = [undmg];
 
         installPhase = ''
           runHook preInstall
@@ -95,8 +95,8 @@ stdenv.mkDerivation (
       description = "Broadband internet speed test app from the german Bundesnetzagentur";
       homepage = "https://www.breitbandmessung.de";
       license = licenses.unfree;
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-      maintainers = with maintainers; [ b4dm4n ];
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
+      maintainers = with maintainers; [b4dm4n];
       platforms = [
         "x86_64-linux"
         "x86_64-darwin"

@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url = "https://github.com/SubtitleEdit/subtitleedit/releases/download/${version}/SE${
-      lib.replaceStrings [ "." ] [ "" ] version
+      lib.replaceStrings ["."] [""] version
     }.zip";
     sha256 = "08p67krgcignjisbq7nmnb3nga2sad4vl739ak4a5rp3b49l1dmb";
     stripRoot = false;
@@ -79,11 +79,11 @@ stdenv.mkDerivation rec {
       exec = "subtitleedit";
       icon = "subtitleedit";
       comment = meta.description;
-      categories = [ "Video" ];
+      categories = ["Video"];
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "A subtitle editor";
@@ -95,8 +95,8 @@ stdenv.mkDerivation rec {
       new subtitles from scratch (using the time-line /waveform/spectrogram)
       or for translating subtitles.
     '';
-    maintainers = with maintainers; [ paveloom ];
+    maintainers = with maintainers; [paveloom];
     platforms = platforms.all;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
   };
 }

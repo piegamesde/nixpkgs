@@ -51,8 +51,8 @@ mkDerivation {
   meta = {
     homepage = "https://apps.kde.org/kalarm/";
     description = "Personal alarm scheduler";
-    license = with lib.licenses; [ gpl2 ];
-    maintainers = [ ];
+    license = with lib.licenses; [gpl2];
+    maintainers = [];
   };
   nativeBuildInputs = [
     extra-cmake-modules
@@ -99,5 +99,5 @@ mkDerivation {
 
     qtx11extras
   ];
-  propagatedUserEnvPkgs = [ kdepim-runtime ];
+  propagatedUserEnvPkgs = [kdepim-runtime];
 }

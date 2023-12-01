@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     requests
@@ -44,12 +44,12 @@ buildPythonPackage rec {
     "TestMprm"
   ];
 
-  pythonImportsCheck = [ "devolo_home_control_api" ];
+  pythonImportsCheck = ["devolo_home_control_api"];
 
   meta = with lib; {
     description = "Python library to work with devolo Home Control";
     homepage = "https://github.com/2Fake/devolo_home_control_api";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [fab];
   };
 }

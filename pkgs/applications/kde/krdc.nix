@@ -37,7 +37,7 @@ mkDerivation {
   ];
   postFixup = ''
     wrapProgram $out/bin/krdc \
-      --prefix PATH : ${lib.makeBinPath [ freerdp ]}
+      --prefix PATH : ${lib.makeBinPath [freerdp]}
   '';
   meta = with lib; {
     homepage = "http://www.kde.org";
@@ -48,7 +48,7 @@ mkDerivation {
       fdl12Plus
       bsd3
     ];
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.linux;
   };
 }

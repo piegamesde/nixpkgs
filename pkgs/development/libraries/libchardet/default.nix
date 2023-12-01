@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-JhEiWM3q8X+eEBHxv8k9yYOaTGoJOzI+/iFYC0gZJJs=";
   };
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   enableParallelBuilding = true;
 
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     description = "Mozilla's Universal Charset Detector C/C++ API";
     homepage = "ftp://ftp.oops.org/pub/oops/libchardet/index.html";
     license = licenses.mpl11;
-    maintainers = [ maintainers.abbradar ];
+    maintainers = [maintainers.abbradar];
     platforms = platforms.unix;
   };
 }

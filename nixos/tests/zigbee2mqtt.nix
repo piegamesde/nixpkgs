@@ -1,9 +1,9 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "zigbee2mqtt";
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         services.zigbee2mqtt = {
           enable = true;

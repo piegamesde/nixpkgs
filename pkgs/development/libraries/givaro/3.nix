@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "A C++ library for arithmetic and algebraic computations";
     license = lib.licenses.cecill-b;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.linux;
   };
 }

@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "xembed";
   version = "clx-20191130-git";
 
   description = "An implementation of the XEMBED protocol that integrates with CLX.";
 
-  deps = [ args."clx" ];
+  deps = [args."clx"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/clx-xembed/2019-11-30/clx-xembed-20191130-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "xembed";
 
-  asdFilesToKeep = [ "xembed.asd" ];
+  asdFilesToKeep = ["xembed.asd"];
   overrides = x: x;
 }
 /* (SYSTEM xembed DESCRIPTION

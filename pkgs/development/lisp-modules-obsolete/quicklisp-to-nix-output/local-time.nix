@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "local-time";
   version = "20210124-git";
 
-  parasites = [ "local-time/test" ];
+  parasites = ["local-time/test"];
 
   description = "A library for manipulating dates and times, based on a paper by Erik Naggum";
 
@@ -20,7 +20,7 @@ rec {
 
   packageName = "local-time";
 
-  asdFilesToKeep = [ "local-time.asd" ];
+  asdFilesToKeep = ["local-time.asd"];
   overrides = x: x;
 }
 /* (SYSTEM local-time DESCRIPTION

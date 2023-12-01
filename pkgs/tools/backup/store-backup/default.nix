@@ -32,8 +32,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ perl ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [perl];
 
   src = fetchurl {
     url = "https://download.savannah.gnu.org/releases/storebackup/storeBackup-${version}.tar.bz2";
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     find $out -name "*.pl" | xargs sed -i \
       -e 's@/bin/pwd@${coreutils}/bin/pwd@' \
       -e 's@/bin/sync@${coreutils}/bin/sync@' \
-      -e '1 s@/usr/bin/env perl@${perl.withPackages (p: [ p.DBFile ])}/bin/perl@'
+      -e '1 s@/usr/bin/env perl@${perl.withPackages (p: [p.DBFile])}/bin/perl@'
 
     for p in $out/bin/*
       do wrapProgram "$p" --prefix PATH ":" "${
@@ -121,7 +121,7 @@ stdenv.mkDerivation rec {
     description = "A backup suite that stores files on other disks";
     homepage = "https://savannah.nongnu.org/projects/storebackup";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ lib.maintainers.marcweber ];
+    maintainers = [lib.maintainers.marcweber];
     platforms = lib.platforms.linux;
   };
 }

@@ -8,7 +8,7 @@
 }:
 
 let
-  json = pkgs.formats.json { };
+  json = pkgs.formats.json {};
 
   cfg = config.services.discourse;
   opt = options.services.discourse;
@@ -34,7 +34,7 @@ in
       package = lib.mkOption {
         type = lib.types.package;
         default = pkgs.discourse;
-        apply = p: p.override { plugins = lib.unique (p.enabledPlugins ++ cfg.plugins); };
+        apply = p: p.override {plugins = lib.unique (p.enabledPlugins ++ cfg.plugins);};
         defaultText = lib.literalExpression "pkgs.discourse";
         description = lib.mdDoc ''
           The discourse package to use.
@@ -121,7 +121,7 @@ in
               ]
             )
           );
-        default = { };
+        default = {};
         example = lib.literalExpression ''
           {
             max_reqs_per_ip_per_minute = 300;
@@ -145,7 +145,7 @@ in
 
       siteSettings = lib.mkOption {
         type = json.type;
-        default = { };
+        default = {};
         example = lib.literalExpression ''
           {
             required = {
@@ -503,7 +503,7 @@ in
 
       plugins = lib.mkOption {
         type = lib.types.listOf lib.types.package;
-        default = [ ];
+        default = [];
         example = lib.literalExpression ''
           with config.services.discourse.package.plugins; [
             discourse-canned-replies
@@ -692,7 +692,7 @@ in
 
     services.postgresql = lib.mkIf databaseActuallyCreateLocally {
       enable = true;
-      ensureUsers = [ { name = "discourse"; } ];
+      ensureUsers = [{name = "discourse";}];
     };
 
     # The postgresql module doesn't currently support concepts like
@@ -703,11 +703,11 @@ in
         pgsql = config.services.postgresql;
       in
       lib.mkIf databaseActuallyCreateLocally {
-        after = [ "postgresql.service" ];
-        bindsTo = [ "postgresql.service" ];
-        wantedBy = [ "discourse.service" ];
-        partOf = [ "discourse.service" ];
-        path = [ pgsql.package ];
+        after = ["postgresql.service"];
+        bindsTo = ["postgresql.service"];
+        wantedBy = ["discourse.service"];
+        partOf = ["discourse.service"];
+        path = [pgsql.package];
         script = ''
           set -o errexit -o pipefail -o nounset -o errtrace
           shopt -s inherit_errexit
@@ -725,14 +725,14 @@ in
       };
 
     systemd.services.discourse = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "redis-discourse.service"
         "postgresql.service"
         "discourse-postgresql.service"
       ];
       bindsTo =
-        [ "redis-discourse.service" ]
+        ["redis-discourse.service"]
         ++ lib.optionals (cfg.database.host == null) [
           "postgresql.service"
           "discourse-postgresql.service"
@@ -768,7 +768,7 @@ in
                 else if isFloat v then
                   lib.strings.floatToString v
                 else
-                  throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}";
+                  throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty {}) v}";
             };
           };
 
@@ -866,7 +866,7 @@ in
       recommendedGzipSettings = true;
       recommendedProxySettings = true;
 
-      upstreams.discourse.servers."unix:/run/discourse/sockets/unicorn.sock" = { };
+      upstreams.discourse.servers."unix:/run/discourse/sockets/unicorn.sock" = {};
 
       appendHttpConfig = ''
         # inactive means we keep stuff around for 1440m minutes regardless of last access (1 week)
@@ -907,7 +907,7 @@ in
           in
           {
             "/".tryFiles = "$uri @discourse";
-            "@discourse" = proxy { };
+            "@discourse" = proxy {};
             "^~ /backups/".extraConfig = ''
               internal;
             '';
@@ -918,8 +918,8 @@ in
                 log_not_found off;
               '';
             };
-            "~ ^/uploads/short-url/" = proxy { };
-            "~ ^/secure-media-uploads/" = proxy { };
+            "~ ^/uploads/short-url/" = proxy {};
+            "~ ^/secure-media-uploads/" = proxy {};
             "~* (fonts|assets|plugins|uploads)/.*.(eot|ttf|woff|woff2|ico|otf)$".extraConfig =
               cache_1y
               + ''
@@ -1013,10 +1013,10 @@ in
         mail-receiver-json = json.generate "mail-receiver.json" mail-receiver-environment;
       in
       {
-        before = [ "postfix.service" ];
-        after = [ "discourse.service" ];
-        wantedBy = [ "discourse.service" ];
-        partOf = [ "discourse.service" ];
+        before = ["postfix.service"];
+        after = ["discourse.service"];
+        wantedBy = ["discourse.service"];
+        partOf = ["discourse.service"];
         path = [
           cfg.package.rake
           pkgs.jq
@@ -1080,7 +1080,7 @@ in
       sslKey = lib.optionalString (cfg.sslCertificateKey != null) cfg.sslCertificateKey;
 
       origin = cfg.hostname;
-      relayDomains = [ cfg.hostname ];
+      relayDomains = [cfg.hostname];
       config = {
         smtpd_recipient_restrictions = "check_policy_service unix:private/discourse-policy";
         append_dot_mydomain = lib.mkDefault false;
@@ -1126,16 +1126,16 @@ in
         };
       }
       // (lib.optionalAttrs cfg.nginx.enable {
-        ${config.services.nginx.user}.extraGroups = [ "discourse" ];
+        ${config.services.nginx.user}.extraGroups = ["discourse"];
       });
 
     users.groups = {
-      discourse = { };
+      discourse = {};
     };
 
-    environment.systemPackages = [ cfg.package.rake ];
+    environment.systemPackages = [cfg.package.rake];
   };
 
   meta.doc = ./discourse.md;
-  meta.maintainers = [ lib.maintainers.talyz ];
+  meta.maintainers = [lib.maintainers.talyz];
 }

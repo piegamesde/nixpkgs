@@ -44,6 +44,6 @@ mkDerivation {
     description = "Task and Note Keeper";
     homepage = "https://invent.kde.org/maui/buho";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

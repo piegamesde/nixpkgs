@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-nhAu9f3VogZh64j61GM4gGw70yzx23KWA/42l7G8g8g=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     importlib-metadata
@@ -43,12 +43,12 @@ buildPythonPackage rec {
   # Requires network
   doCheck = false;
 
-  pythonImportsCheck = [ "twine" ];
+  pythonImportsCheck = ["twine"];
 
   meta = {
     description = "Collection of utilities for interacting with PyPI";
     homepage = "https://github.com/pypa/twine";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fridh ];
+    maintainers = with lib.maintainers; [fridh];
   };
 }

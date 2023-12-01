@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-fUWMlayE8pxVBGloLrywVAFCXF/3vlrz/CHjHNBa7U8=";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   sourceRoot = ".";
 
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Frontend of the Vikunja to-do list app";
     homepage = "https://vikunja.io/";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ leona ];
+    maintainers = with lib.maintainers; [leona];
     platforms = lib.platforms.all;
   };
 }

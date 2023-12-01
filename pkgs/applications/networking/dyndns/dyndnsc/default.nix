@@ -17,7 +17,7 @@ python3Packages.buildPythonApplication rec {
     substituteInPlace setup.py --replace "bottle==" "bottle>="
   '';
 
-  nativeBuildInputs = with python3Packages; [ pytest-runner ];
+  nativeBuildInputs = with python3Packages; [pytest-runner];
   propagatedBuildInputs = with python3Packages; [
     daemonocle
     dnspython
@@ -66,7 +66,7 @@ python3Packages.buildPythonApplication rec {
     '';
     homepage = "https://github.com/infothrill/python-dyndnsc";
     license = licenses.mit;
-    maintainers = with maintainers; [ AluisioASG ];
+    maintainers = with maintainers; [AluisioASG];
     platforms = platforms.unix;
   };
 }

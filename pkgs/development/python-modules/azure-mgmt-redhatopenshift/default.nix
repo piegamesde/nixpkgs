@@ -32,12 +32,12 @@ buildPythonPackage rec {
   # no included
   doCheck = false;
 
-  pythonImportsCheck = [ "azure.mgmt.redhatopenshift" ];
+  pythonImportsCheck = ["azure.mgmt.redhatopenshift"];
 
   meta = with lib; {
     description = "Microsoft Azure Red Hat Openshift Management Client Library for Python";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

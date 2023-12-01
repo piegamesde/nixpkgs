@@ -16,15 +16,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-YSKDOvqWLCrnP1qjmzMuRgjXiXZ9D4AuxXm/3xzS4gc=";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
-  installFlags = [ "prefix=$(out)" ];
+  installFlags = ["prefix=$(out)"];
 
   meta = with lib; {
     description = "Tool to monitor network traffic based on processes";
     license = licenses.gpl3;
     homepage = "https://github.com/berghetti/netproc";
     platforms = platforms.linux;
-    maintainers = [ maintainers.azuwis ];
+    maintainers = [maintainers.azuwis];
   };
 }

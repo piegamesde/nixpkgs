@@ -24,7 +24,7 @@ stdenv.mkDerivation {
 
   inherit prePatch;
 
-  buildInputs = [ ] ++ lib.optional liboggSupport libogg;
+  buildInputs = [] ++ lib.optional liboggSupport libogg;
 
   doCheck = false; # fails
 

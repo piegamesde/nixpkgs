@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub }:
+{lib, fetchFromGitHub}:
 
 {
   # Fujitsu ScanSnap

@@ -29,6 +29,6 @@ stdenv.mkDerivation {
     '';
     license = licenses.mit;
     platforms = postgresql.meta.platforms;
-    maintainers = with maintainers; [ spinus ];
+    maintainers = with maintainers; [spinus];
   };
 }

@@ -25,7 +25,7 @@ in
 
     security.pki.certificateFiles = mkOption {
       type = types.listOf types.path;
-      default = [ ];
+      default = [];
       example = literalExpression ''[ "''${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" ]'';
       description = lib.mdDoc ''
         A list of files containing trusted root certificates in PEM
@@ -38,7 +38,7 @@ in
 
     security.pki.certificates = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = literalExpression ''
         [ '''
             NixOS.org
@@ -58,7 +58,7 @@ in
 
     security.pki.caCertificateBlacklist = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "WoSign"
         "WoSign China"

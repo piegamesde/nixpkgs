@@ -26,7 +26,7 @@ let
           pbzx
         ];
 
-        outputs = [ "out" ];
+        outputs = ["out"];
 
         unpackPhase = ''
           pbzx $src | cpio -idm
@@ -72,7 +72,7 @@ let
     stdenv:
     let
       cc = stdenv.cc.override {
-        bintools = stdenv.cc.bintools.override { libc = packages.Libsystem; };
+        bintools = stdenv.cc.bintools.override {libc = packages.Libsystem;};
         libc = packages.Libsystem;
       };
     in
@@ -104,24 +104,24 @@ let
         ]
     );
 
-  callPackage = newScope (packages // pkgs.darwin // { inherit MacOSX-SDK; });
+  callPackage = newScope (packages // pkgs.darwin // {inherit MacOSX-SDK;});
 
   packages = stdenvs // {
-    inherit (callPackage ./apple_sdk.nix { }) frameworks libs;
+    inherit (callPackage ./apple_sdk.nix {}) frameworks libs;
 
     # TODO: this is nice to be private. is it worth the callPackage above?
     # Probably, I don't think that callPackage costs much at all.
     inherit MacOSX-SDK CLTools_Executables;
 
-    Libsystem = callPackage ./libSystem.nix { };
+    Libsystem = callPackage ./libSystem.nix {};
     LibsystemCross = pkgs.darwin.Libsystem;
-    libcharset = callPackage ./libcharset.nix { };
-    libunwind = callPackage ./libunwind.nix { };
-    libnetwork = callPackage ./libnetwork.nix { };
-    libpm = callPackage ./libpm.nix { };
+    libcharset = callPackage ./libcharset.nix {};
+    libunwind = callPackage ./libunwind.nix {};
+    libnetwork = callPackage ./libnetwork.nix {};
+    libpm = callPackage ./libpm.nix {};
     # Avoid introducing a new objc4 if stdenv already has one, to prevent
     # conflicting LLVM modules.
-    objc4 = stdenv.objc4 or (callPackage ./libobjc.nix { });
+    objc4 = stdenv.objc4 or (callPackage ./libobjc.nix {});
 
     # questionable aliases
     configd = pkgs.darwin.apple_sdk.frameworks.SystemConfiguration;

@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "jibri";
-    meta = with pkgs.lib; { maintainers = teams.jitsi.members; };
+    meta = with pkgs.lib; {maintainers = teams.jitsi.members;};
 
     nodes.machine =
-      { config, pkgs, ... }:
+      {config, pkgs, ...}:
       {
         virtualisation.memorySize = 5120;
 

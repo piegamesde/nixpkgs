@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   # nondeterministic failures when creating directories
   enableParallelBuilding = false;
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   buildInputs = [
     SDL2
@@ -83,6 +83,6 @@ stdenv.mkDerivation rec {
     description = "NES emulator with a focus on accuracy";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ MP2E ];
+    maintainers = with lib.maintainers; [MP2E];
   };
 }

@@ -25,6 +25,6 @@ buildPythonPackage rec {
     description = "utilities for testing.* packages";
     homepage = "https://github.com/tk0miya/testing.common.database";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

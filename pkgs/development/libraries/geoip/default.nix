@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     sha256 = "0ixyp3h51alnncr17hqp1p0rlqz9w69nlhm60rbzjjz3vjx52ajv";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   # Cross compilation shenanigans
   configureFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [

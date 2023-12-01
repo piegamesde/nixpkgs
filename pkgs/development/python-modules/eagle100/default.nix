@@ -18,17 +18,17 @@ buildPythonPackage rec {
     hash = "sha256-eyYY1x8IjIfUx5OiaOomiWunsO1++seFwXlI/iKDDLw=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "eagle100" ];
+  pythonImportsCheck = ["eagle100"];
 
   meta = with lib; {
     description = "Python library for interacting with Rainforest EAGLE devices";
     homepage = "https://github.com/hastarin/eagle100";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

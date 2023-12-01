@@ -29,6 +29,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://material.io/icons";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ mpcsh ];
+    maintainers = with maintainers; [mpcsh];
   };
 }

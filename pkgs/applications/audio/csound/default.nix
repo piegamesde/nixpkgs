@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
   pname = "csound";
   version = "6.18.1";
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   src = fetchFromGitHub {
     owner = "csound";
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
   };
 
   cmakeFlags =
-    [ "-DBUILD_CSOUND_AC=0" ] # fails to find Score.hpp
+    ["-DBUILD_CSOUND_AC=0"] # fails to find Score.hpp
     ++ lib.optional stdenv.isDarwin "-DCS_FRAMEWORK_DEST=${placeholder "out"}/lib"
     ++ lib.optional (libjack2 != null) "-DJACK_HEADER=${libjack2}/include/jack/jack.h";
 
@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
     description = "Sound design, audio synthesis, and signal processing system, providing facilities for music composition and performance on all major operating systems and platforms";
     homepage = "https://csound.com/";
     license = licenses.lgpl21Plus;
-    maintainers = [ maintainers.marcweber ];
+    maintainers = [maintainers.marcweber];
     platforms = platforms.unix;
   };
 }

@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     sed -i '/depmod/d' Makefile
   '';
 
-  nativeBuildInputs = [ kmod ] ++ kernel.moduleBuildDependencies;
+  nativeBuildInputs = [kmod] ++ kernel.moduleBuildDependencies;
 
   postInstall = ''
     make install-utils PREFIX=$bin
@@ -53,8 +53,8 @@ stdenv.mkDerivation rec {
     description = "A kernel module to create V4L2 loopback devices";
     homepage = "https://github.com/umlaeute/v4l2loopback";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ fortuneteller2k ];
+    maintainers = with maintainers; [fortuneteller2k];
     platforms = platforms.linux;
-    outputsToInstall = [ "out" ];
+    outputsToInstall = ["out"];
   };
 }

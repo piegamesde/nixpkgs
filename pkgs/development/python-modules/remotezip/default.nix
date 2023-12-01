@@ -27,16 +27,16 @@ buildPythonPackage {
     tabulate
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  checkInputs = [ requests-mock ];
+  checkInputs = [requests-mock];
 
-  pythonImportsCheck = [ "remotezip" ];
+  pythonImportsCheck = ["remotezip"];
 
   meta = with lib; {
     description = "Python module to access single members of a zip archive without downloading the full content";
     homepage = "https://github.com/gtsystem/python-remotezip";
     license = licenses.mit;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     longDescription = ''
       About Kotlin code completion, linting and more for any editor/IDE
       using the Language Server Protocol Topics'';
-    maintainers = with lib.maintainers; [ vtuan10 ];
+    maintainers = with lib.maintainers; [vtuan10];
     homepage = "https://github.com/fwcd/kotlin-language-server";
     changelog = "https://github.com/fwcd/kotlin-language-server/blob/${version}/CHANGELOG.md";
     license = lib.licenses.mit;

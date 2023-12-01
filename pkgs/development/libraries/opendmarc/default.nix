@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "trusteddomainproject";
     repo = "opendmarc";
-    rev = "rel-opendmarc-${builtins.replaceStrings [ "." ] [ "-" ] version}";
+    rev = "rel-opendmarc-${builtins.replaceStrings ["."] ["-"] version}";
     sha256 = "sha256-SQH85FLfVEEtYhR1+A1XxCDMiTjDgLQX6zifbLxCa5c=";
   };
 
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
   nativeBuildInputs = [
     autoreconfHook
     makeWrapper
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     patchShebangs contrib reports
   '';
 
-  configureFlags = [ "--with-milter=${libmilter}" ];
+  configureFlags = ["--with-milter=${libmilter}"];
 
   postFixup = ''
     for b in $bin/bin/opendmarc-{expire,import,params,reports}; do

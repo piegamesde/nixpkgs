@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-SVOcRzR52RYZsk/OWAr1/s+Nm6x48OxG0TF7yQ+Kb94=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ hidapi ];
+  buildInputs = [hidapi];
 
   # Test depends on having the apropiate headsets connected.
   doCheck = false;
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/Sapd/HeadsetControl";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ leixb ];
+    maintainers = with maintainers; [leixb];
     platforms = platforms.all;
   };
 }

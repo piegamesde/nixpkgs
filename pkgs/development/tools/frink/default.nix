@@ -45,8 +45,8 @@ stdenv.mkDerivation rec {
     description = "A practical calculating tool and programming language";
     homepage = "https://frinklang.org/";
     license = licenses.unfree;
-    sourceProvenance = [ sourceTypes.binaryBytecode ];
-    maintainers = [ maintainers.stefanfehrenbach ];
+    sourceProvenance = [sourceTypes.binaryBytecode];
+    maintainers = [maintainers.stefanfehrenbach];
   };
 
   passthru.tests = {

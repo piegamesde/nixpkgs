@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.services.netatalk;
-  settingsFormat = pkgs.formats.ini { };
+  settingsFormat = pkgs.formats.ini {};
   afpConfFile = settingsFormat.generate "afp.conf" cfg.settings;
 in
 {
@@ -26,7 +26,7 @@ in
 
       settings = mkOption {
         inherit (settingsFormat) type;
-        default = { };
+        default = {};
         example = {
           Global = {
             "uam list" = "uams_guest.so";
@@ -90,9 +90,9 @@ in
         "network.target"
         "avahi-daemon.service"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
-      path = [ pkgs.netatalk ];
+      path = [pkgs.netatalk];
 
       serviceConfig = {
         Type = "forking";
@@ -103,7 +103,7 @@ in
         ExecStop = "${pkgs.coreutils}/bin/kill -TERM $MAINPID";
         Restart = "always";
         RestartSec = 1;
-        StateDirectory = [ "netatalk/CNID" ];
+        StateDirectory = ["netatalk/CNID"];
       };
     };
 

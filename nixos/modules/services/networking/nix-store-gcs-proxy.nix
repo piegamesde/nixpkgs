@@ -9,7 +9,7 @@ with lib;
 
 let
   opts =
-    { name, config, ... }:
+    {name, config, ...}:
     {
       options = {
         enable = mkOption {
@@ -37,7 +37,7 @@ in
 {
   options.services.nix-store-gcs-proxy = mkOption {
     type = types.attrsOf (types.submodule opts);
-    default = { };
+    default = {};
     description = lib.mdDoc ''
       An attribute set describing an HTTP to GCS proxy that allows us to use GCS
       bucket via HTTP protocol.
@@ -48,7 +48,7 @@ in
     name: cfg: {
       "nix-store-gcs-proxy-${name}" = {
         description = "A HTTP nix store that proxies requests to Google Storage";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
 
         startLimitIntervalSec = 10;
         serviceConfig = {
@@ -80,5 +80,5 @@ in
     }
   );
 
-  meta.maintainers = [ maintainers.mrkkrp ];
+  meta.maintainers = [maintainers.mrkkrp];
 }

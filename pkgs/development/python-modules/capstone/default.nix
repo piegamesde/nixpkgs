@@ -26,7 +26,7 @@ buildPythonPackage rec {
     "macosx_11_0"
   ];
 
-  propagatedBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [setuptools];
 
   checkPhase = ''
     mv capstone capstone.hidden

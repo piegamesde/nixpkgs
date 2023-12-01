@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/vanrein/hexio";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
   };
 }

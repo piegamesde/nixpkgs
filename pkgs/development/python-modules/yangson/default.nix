@@ -17,13 +17,13 @@ buildPythonPackage rec {
     hash = "sha256-P447JnQ8zhalcg9k8prW1QQE3h5PqY155hFtvLvBVSI=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ pyxb ];
+  propagatedBuildInputs = [pyxb];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "yangson" ];
+  pythonImportsCheck = ["yangson"];
 
   meta = with lib; {
     description = "Library for working with data modelled in YANG";
@@ -32,6 +32,6 @@ buildPythonPackage rec {
       gpl3Plus
       lgpl3Plus
     ];
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

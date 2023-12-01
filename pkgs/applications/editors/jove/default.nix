@@ -19,7 +19,7 @@ stdenv.mkDerivation (
       sha256 = "sha256-Lo5S3t4vewkpoihVdxa3yRrEzNWeNLHCZHXiLCxOH5o=";
     };
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     buildInputs = [
       groff
@@ -43,7 +43,7 @@ stdenv.mkDerivation (
       description = "Jonathan's Own Version of Emacs";
       changelog = "https://github.com/jonmacs/jove/releases/tag/${finalAttrs.version}";
       license = licenses.bsd2;
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       platforms = platforms.unix;
       # never built on Hydra: https://hydra.nixos.org/job/nixpkgs/trunk/jove.x86_64-darwin
       broken = stdenv.isDarwin;

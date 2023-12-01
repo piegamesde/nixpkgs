@@ -18,7 +18,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-X9vj6ILPUKFo/i50JNehM2GSDWfxTdroWGYJv765Cm4=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   dontBuild = true;
 
   installPhase = ''
@@ -38,7 +38,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/joehillen/sysz";
     description = "A fzf terminal UI for systemctl";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ hleboulanger ];
+    maintainers = with maintainers; [hleboulanger];
     platforms = platforms.unix;
     changelog = "https://github.com/joehillen/sysz/blob/${version}/CHANGELOG.md";
   };

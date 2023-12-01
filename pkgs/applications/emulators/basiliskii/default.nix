@@ -20,7 +20,7 @@ stdenv.mkDerivation {
     sha256 = "+jkns6H2YjlewbUzgoteGSQYWJL+OWVu178aM+BtABM=";
   };
   sourceRoot = "source/BasiliskII/src/Unix";
-  patches = [ ./remove-redhat-6-workaround-for-scsi-sg.h.patch ];
+  patches = [./remove-redhat-6-workaround-for-scsi-sg.h.patch];
   nativeBuildInputs = [
     autoconf
     automake
@@ -44,7 +44,7 @@ stdenv.mkDerivation {
     description = "68k Macintosh emulator";
     homepage = "https://basilisk.cebix.net/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ quag ];
+    maintainers = with maintainers; [quag];
     platforms = platforms.linux;
   };
 }

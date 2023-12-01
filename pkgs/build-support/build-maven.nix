@@ -43,14 +43,11 @@ let
           url = dep.url or "";
 
           fetch =
-            if (url != "") then
-              ((if authenticated then requireFile else fetchurl) { inherit url sha1; })
-            else
-              "";
+            if (url != "") then ((if authenticated then requireFile else fetchurl) {inherit url sha1;}) else "";
 
-          fetchMetadata = (if authenticated then requireFile else fetchurl) { inherit (metadata) url sha1; };
+          fetchMetadata = (if authenticated then requireFile else fetchurl) {inherit (metadata) url sha1;};
 
-          layout = "${builtins.replaceStrings [ "." ] [ "/" ] groupId}/${artifactId}/${versionDir}";
+          layout = "${builtins.replaceStrings ["."] ["/"] groupId}/${artifactId}/${versionDir}";
         in
         lib.optional (url != "") {
           layout = "${layout}/${fetch.name}";
@@ -64,7 +61,7 @@ let
             }
           ]
           ++ lib.optional (fetch != "") {
-            layout = "${layout}/${builtins.replaceStrings [ version ] [ dep.unresolved-version ] fetch.name}";
+            layout = "${layout}/${builtins.replaceStrings [version] [dep.unresolved-version] fetch.name}";
             drv = fetch;
           }
         )
@@ -106,7 +103,7 @@ in
         )
         src;
 
-    buildInputs = [ maven ];
+    buildInputs = [maven];
 
     buildPhase = "mvn --offline --settings ${settings} compile";
 

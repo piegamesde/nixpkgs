@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "unix-options";
   version = "20151031-git";
 
   description = "Easy to use command line option parser";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/unix-options/2015-10-31/unix-options-20151031-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "unix-options";
 
-  asdFilesToKeep = [ "unix-options.asd" ];
+  asdFilesToKeep = ["unix-options.asd"];
   overrides = x: x;
 }
 /* (SYSTEM unix-options DESCRIPTION Easy to use command line option parser

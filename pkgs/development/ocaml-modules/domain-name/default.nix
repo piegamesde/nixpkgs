@@ -18,7 +18,7 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.04";
   duneVersion = "3";
 
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   doCheck = lib.versionAtLeast ocaml.version "4.08";
 
@@ -26,6 +26,6 @@ buildDunePackage rec {
     homepage = "https://github.com/hannesm/domain-name";
     description = "RFC 1035 Internet domain names";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

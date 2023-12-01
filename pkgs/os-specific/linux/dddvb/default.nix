@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  makeFlags = [ "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
+  makeFlags = ["KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"];
 
   INSTALL_MOD_PATH = placeholder "out";
 
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/DigitalDevices/dddvb";
     description = "ddbridge linux driver";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
     platforms = platforms.linux;
   };
 }

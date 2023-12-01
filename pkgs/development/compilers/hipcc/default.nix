@@ -36,7 +36,7 @@ stdenv.mkDerivation (
       })
     ];
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
     installPhase = ''
       runHook preInstall
@@ -56,8 +56,8 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "Compiler driver utility that calls clang or nvcc";
       homepage = "https://github.com/ROCm-Developer-Tools/HIPCC";
-      license = with licenses; [ mit ];
-      maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
+      license = with licenses; [mit];
+      maintainers = with maintainers; [lovesegfault] ++ teams.rocm.members;
       platforms = platforms.linux;
       broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
     };

@@ -35,12 +35,12 @@ let
         libuuid
         zlib
       ];
-      nativeBuildInputs = [ autoreconfHook ];
+      nativeBuildInputs = [autoreconfHook];
 
       doCheck = true;
       env.AUTOMATED_TESTING = true; # https://trac.xapian.org/changeset/8be35f5e1/git
 
-      patches = lib.optionals stdenv.isDarwin [ ./skip-flaky-darwin-test.patch ];
+      patches = lib.optionals stdenv.isDarwin [./skip-flaky-darwin-test.patch];
 
       # the configure script thinks that Darwin has ___exp10
       # but it’s not available on my systems (or hydra apparently)
@@ -58,7 +58,7 @@ let
         homepage = "https://xapian.org/";
         changelog = "https://xapian.org/docs/xapian-core-${version}/NEWS";
         license = licenses.gpl2Plus;
-        maintainers = with maintainers; [ ];
+        maintainers = with maintainers; [];
         platforms = platforms.unix;
       };
     };

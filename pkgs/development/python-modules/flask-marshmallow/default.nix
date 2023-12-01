@@ -26,7 +26,7 @@ buildPythonPackage rec {
     flask
     marshmallow
   ];
-  buildInputs = [ six ];
+  buildInputs = [six];
 
   doCheck = false;
 }

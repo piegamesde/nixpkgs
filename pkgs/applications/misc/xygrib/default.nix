@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   ];
   cmakeFlags = [
     "-DOPENJPEG_INCLUDE_DIR=${openjpeg.dev}/include/openjpeg-${lib.versions.majorMinor openjpeg.version}"
-  ] ++ lib.optionals stdenv.isDarwin [ "-DLIBNOVA_LIBRARY=${libnova}/lib/libnova.dylib" ];
+  ] ++ lib.optionals stdenv.isDarwin ["-DLIBNOVA_LIBRARY=${libnova}/lib/libnova.dylib"];
 
   postInstall =
     if stdenv.isDarwin then
@@ -66,6 +66,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ j03 ];
+    maintainers = with maintainers; [j03];
   };
 }

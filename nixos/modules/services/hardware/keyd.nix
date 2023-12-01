@@ -7,7 +7,7 @@
 with lib;
 let
   cfg = config.services.keyd;
-  settingsFormat = pkgs.formats.ini { };
+  settingsFormat = pkgs.formats.ini {};
 in
 {
   options = {
@@ -16,7 +16,7 @@ in
 
       ids = mkOption {
         type = types.listOf types.string;
-        default = [ "*" ];
+        default = ["*"];
         example = [
           "*"
           "-0123:0456"
@@ -28,7 +28,7 @@ in
 
       settings = mkOption {
         type = settingsFormat.type;
-        default = { };
+        default = {};
         example = {
           main = {
             capslock = "overload(control, esc)";
@@ -58,7 +58,7 @@ in
             [ids]
             ${concatStringsSep "\n" cfg.ids}
           '';
-          passAsFile = [ "ids" ];
+          passAsFile = ["ids"];
         }
         ''
           cat $idsPath <(echo) ${settingsFormat.generate "keyd-main.conf" cfg.settings} >$out
@@ -68,11 +68,11 @@ in
 
     systemd.services.keyd = {
       description = "Keyd remapping daemon";
-      documentation = [ "man:keyd(1)" ];
+      documentation = ["man:keyd(1)"];
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
-      restartTriggers = [ config.environment.etc."keyd/default.conf".source ];
+      restartTriggers = [config.environment.etc."keyd/default.conf".source];
 
       # this is configurable in 2.4.2, later versions seem to remove this option.
       # post-2.4.2 may need to set makeFlags in the derivation:

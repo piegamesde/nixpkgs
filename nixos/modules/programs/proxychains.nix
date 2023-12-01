@@ -61,7 +61,7 @@ in
 
       enable = mkEnableOption (lib.mdDoc "installing proxychains configuration");
 
-      package = mkPackageOptionMD pkgs "proxychains" { example = "pkgs.proxychains-ng"; };
+      package = mkPackageOptionMD pkgs "proxychains" {example = "pkgs.proxychains-ng";};
 
       chain = {
         type = mkOption {
@@ -154,7 +154,7 @@ in
 
   ###### implementation
 
-  meta.maintainers = with maintainers; [ sorki ];
+  meta.maintainers = with maintainers; [sorki];
 
   config = mkIf cfg.enable {
 
@@ -176,6 +176,6 @@ in
     };
 
     environment.etc."proxychains.conf".text = configFile;
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

@@ -7,7 +7,7 @@
   common-updater-scripts,
 }:
 
-{ attrPath }:
+{attrPath}:
 
 let
   url = "http://mirrors.kodi.tv/addons/nexus/addons.xml.gz";

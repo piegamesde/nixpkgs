@@ -37,12 +37,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "environs" ];
+  pythonImportsCheck = ["environs"];
 
   meta = with lib; {
     description = "Python modle for environment variable parsing";
     homepage = "https://github.com/sloria/environs";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

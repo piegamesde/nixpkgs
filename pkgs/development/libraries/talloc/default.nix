@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     wafHook
     docbook-xsl-nons
     docbook_xml_dtd_42
-  ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+  ] ++ lib.optionals stdenv.isDarwin [fixDarwinDylibNames];
 
   buildInputs = [
     python3

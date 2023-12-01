@@ -1,20 +1,20 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "ghostunnel";
     nodes = {
       backend =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           services.nginx.enable = true;
-          services.nginx.virtualHosts."backend".root = pkgs.runCommand "webroot" { } ''
+          services.nginx.virtualHosts."backend".root = pkgs.runCommand "webroot" {} ''
             mkdir $out
             echo hi >$out/hi.txt
           '';
-          networking.firewall.allowedTCPPorts = [ 80 ];
+          networking.firewall.allowedTCPPorts = [80];
         };
       service =
-        { ... }:
+        {...}:
         {
           services.ghostunnel.enable = true;
           services.ghostunnel.servers."plain-old" = {
@@ -31,7 +31,7 @@ import ./make-test-python.nix (
             key = "/root/service-key.pem";
             cacert = "/root/ca.pem";
             target = "backend:80";
-            allowCN = [ "client" ];
+            allowCN = ["client"];
             unsafeTarget = true;
           };
           networking.firewall.allowedTCPPorts = [
@@ -39,7 +39,7 @@ import ./make-test-python.nix (
             1443
           ];
         };
-      client = { pkgs, ... }: { environment.systemPackages = [ pkgs.curl ]; };
+      client = {pkgs, ...}: {environment.systemPackages = [pkgs.curl];};
     };
 
     testScript = ''
@@ -103,6 +103,6 @@ import ./make-test-python.nix (
       client.fail("bash -c 'diff <(curl -v --no-progress-meter --cacert /root/ca.pem https://service:1443/hi.txt) <(echo hi)'")
     '';
 
-    meta.maintainers = with pkgs.lib.maintainers; [ roberth ];
+    meta.maintainers = with pkgs.lib.maintainers; [roberth];
   }
 )

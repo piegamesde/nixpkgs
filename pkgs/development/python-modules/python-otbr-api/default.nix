@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-Rg5+EOsxRse618WvP4+9ybiu0mJpizrzCmeIbRnFgaA=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     aiohttp
@@ -34,15 +34,15 @@ buildPythonPackage rec {
     voluptuous
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "python_otbr_api" ];
+  pythonImportsCheck = ["python_otbr_api"];
 
   meta = with lib; {
     description = "Library for the Open Thread Border Router";
     homepage = "https://github.com/home-assistant-libs/python-otbr-api";
     changelog = "https://github.com/home-assistant-libs/python-otbr-api/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

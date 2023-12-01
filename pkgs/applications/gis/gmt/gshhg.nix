@@ -29,6 +29,6 @@ stdenv.mkDerivation rec {
       Mapping Tools.
     '';
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ tviti ];
+    maintainers = with maintainers; [tviti];
   };
 }

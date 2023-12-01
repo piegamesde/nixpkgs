@@ -47,9 +47,9 @@ buildGoModule rec {
     "pause"
   ];
 
-  patches = [ ./fixup-addonmanager-lib-path.patch ];
+  patches = [./fixup-addonmanager-lib-path.patch];
 
-  WHAT = lib.concatStringsSep " " ([ "cmd/kubeadm" ] ++ components);
+  WHAT = lib.concatStringsSep " " (["cmd/kubeadm"] ++ components);
 
   buildPhase = ''
     runHook preBuild
@@ -94,7 +94,7 @@ buildGoModule rec {
     description = "Production-Grade Container Scheduling and Management";
     license = licenses.asl20;
     homepage = "https://kubernetes.io";
-    maintainers = with maintainers; [ ] ++ teams.kubernetes.members;
+    maintainers = with maintainers; [] ++ teams.kubernetes.members;
     platforms = platforms.linux;
   };
 

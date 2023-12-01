@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     attrdict
@@ -47,12 +47,12 @@ buildPythonPackage rec {
       "test_upstream"
     ];
 
-  pythonImportsCheck = [ "wavedrom" ];
+  pythonImportsCheck = ["wavedrom"];
 
   meta = with lib; {
     description = "WaveDrom compatible Python command line";
     homepage = "https://github.com/wallento/wavedrompy";
     license = licenses.mit;
-    maintainers = with maintainers; [ airwoodix ];
+    maintainers = with maintainers; [airwoodix];
   };
 }

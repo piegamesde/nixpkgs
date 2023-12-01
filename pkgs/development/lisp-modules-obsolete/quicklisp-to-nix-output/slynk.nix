@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "slynk";
   version = "sly-20210411-git";
@@ -18,7 +18,7 @@ rec {
 
   description = "System lacks description";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/sly/2021-04-11/sly-20210411-git.tgz";
@@ -27,7 +27,7 @@ rec {
 
   packageName = "slynk";
 
-  asdFilesToKeep = [ "slynk.asd" ];
+  asdFilesToKeep = ["slynk.asd"];
   overrides = x: x;
 }
 /* (SYSTEM slynk DESCRIPTION System lacks description SHA256

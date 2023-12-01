@@ -51,7 +51,7 @@ let
     name = "${pname}-${version}";
     inherit src patches;
     postPatch = commonPostPatch;
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
     buildInputs = [
       zlib
       gmp
@@ -81,7 +81,7 @@ let
       platforms = platforms.unix;
       license = if includeGplCode then licenses.gpl2 else licenses.mit;
       homepage = "https://github.com/sambayless/monosat";
-      maintainers = [ maintainers.acairncross ];
+      maintainers = [maintainers.acairncross];
     };
   };
 
@@ -123,7 +123,7 @@ let
               --replace 'library_dir = "../../../../"' 'library_dir = "${core}/lib/"'
           '';
 
-      nativeCheckInputs = [ pytestCheckHook ];
+      nativeCheckInputs = [pytestCheckHook];
 
       disabledTests = [
         "test_assertAtMostOne"

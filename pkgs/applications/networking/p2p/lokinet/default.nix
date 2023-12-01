@@ -55,6 +55,6 @@ stdenv.mkDerivation rec {
     homepage = "https://lokinet.org/";
     changelog = "https://github.com/oxen-io/lokinet/releases/tag/v${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ wyndon ];
+    maintainers = with maintainers; [wyndon];
   };
 }

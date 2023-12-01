@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "generic-cl_dot_arithmetic";
   version = "generic-cl-20211020-git";
@@ -41,7 +41,7 @@ rec {
 
   packageName = "generic-cl.arithmetic";
 
-  asdFilesToKeep = [ "generic-cl.arithmetic.asd" ];
+  asdFilesToKeep = ["generic-cl.arithmetic.asd"];
   overrides = x: x;
 }
 /* (SYSTEM generic-cl.arithmetic DESCRIPTION

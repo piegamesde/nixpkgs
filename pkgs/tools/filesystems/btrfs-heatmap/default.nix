@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-yCkuZqWwxrs2eS7EXY6pAOVVVSq7dAMxJtf581gX8vg=";
   };
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
   nativeBuildInputs = [
     python3.pkgs.wrapPython
     installShellFiles
@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/knorrie/btrfs-heatmap";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ maintainers.evils ];
+    maintainers = [maintainers.evils];
   };
 }

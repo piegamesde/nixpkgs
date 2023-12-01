@@ -51,6 +51,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/fwbuilder/fwbuilder";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.elatov ];
+    maintainers = [maintainers.elatov];
   };
 }

@@ -16,9 +16,9 @@ stdenv.mkDerivation {
   };
 
   dontWrapQtApps = true;
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
-  buildInputs = [ qtdeclarative ];
+  buildInputs = [qtdeclarative];
 
   patchPhase = ''
     substituteInPlace box2d.pro \
@@ -26,12 +26,12 @@ stdenv.mkDerivation {
     qmakeFlags="$qmakeFlags PREFIXSHORTCUT=$out"
   '';
 
-  installFlags = [ "INSTALL_ROOT=$(out)" ];
+  installFlags = ["INSTALL_ROOT=$(out)"];
 
   meta = with lib; {
     description = "A QML plugin for Box2D engine";
     homepage = "https://github.com/qml-box2d/qml-box2d";
-    maintainers = [ maintainers.guibou ];
+    maintainers = [maintainers.guibou];
     platforms = platforms.linux;
     license = licenses.zlib;
   };

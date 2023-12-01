@@ -8,7 +8,7 @@ build-idris-package {
   pname = "webgl";
   version = "2017-05-08";
 
-  idrisDeps = [ idrisscript ];
+  idrisDeps = [idrisscript];
 
   src = fetchFromGitHub {
     owner = "pierrebeaucamp";
@@ -21,6 +21,6 @@ build-idris-package {
     description = "Idris library to interact with WebGL";
     homepage = "https://github.com/pierrebeaucamp/idris-webgl";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

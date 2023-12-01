@@ -25,40 +25,40 @@ stdenv.mkDerivation rec {
         [
           {
             suffix = "ref10";
-            configureFlags = [ "--enable-ref10" ];
+            configureFlags = ["--enable-ref10"];
           }
           {
             suffix = "donna";
-            configureFlags = [ "--enable-donna" ];
+            configureFlags = ["--enable-donna"];
           }
         ]
         ++ lib.optionals stdenv.hostPlatform.isx86 [
           {
             suffix = "donna-sse2";
-            configureFlags = [ "--enable-donna-sse2" ];
+            configureFlags = ["--enable-donna-sse2"];
           }
         ]
         ++ lib.optionals (!stdenv.isDarwin && stdenv.isx86_64) [
           {
             suffix = "amd64-51-30k";
-            configureFlags = [ "--enable-amd64-51-30k" ];
+            configureFlags = ["--enable-amd64-51-30k"];
           }
           {
             suffix = "amd64-64-24k";
-            configureFlags = [ "--enable-amd64-64-24k" ];
+            configureFlags = ["--enable-amd64-64-24k"];
           }
         ];
     in
     lib.concatMapStrings
       (
-        { suffix, configureFlags }:
+        {suffix, configureFlags}:
         ''
           install -D ${
             stdenv.mkDerivation {
               name = "mkp224o-${suffix}-${version}";
               inherit version src configureFlags;
-              nativeBuildInputs = [ autoreconfHook ];
-              buildInputs = [ libsodium ];
+              nativeBuildInputs = [autoreconfHook];
+              buildInputs = [libsodium];
               installPhase = "install -D mkp224o $out";
             }
           } $out/bin/mkp224o-${suffix}
@@ -71,6 +71,6 @@ stdenv.mkDerivation rec {
     homepage = "http://cathug2kyi4ilneggumrenayhuhsvrgn6qv2y47bgeet42iivkpynqad.onion/";
     license = licenses.cc0;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

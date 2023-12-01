@@ -37,7 +37,7 @@ python3.pkgs.buildPythonApplication rec {
     gitpython
   ];
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [pytestCheckHook];
 
   meta = with lib; {
     description = "A minimalist command line knowledge base manager";
@@ -52,6 +52,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/gnebbia/kb";
     changelog = "https://github.com/gnebbia/kb/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ wesleyjrz ];
+    maintainers = with maintainers; [wesleyjrz];
   };
 }

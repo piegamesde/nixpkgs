@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-KZ24YozHOyN/wcxX08KUj6oHVuKli2GUtb+B3CCB8eM=";
   };
 
-  buildInputs = [ linuxHeaders ];
+  buildInputs = [linuxHeaders];
 
   patchPhase = ''
     substituteInPlace setup.py \
@@ -27,14 +27,14 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [ "evdev" ];
+  pythonImportsCheck = ["evdev"];
 
   meta = with lib; {
     description = "Provides bindings to the generic input event interface in Linux";
     homepage = "https://python-evdev.readthedocs.io/";
     changelog = "https://github.com/gvalkov/python-evdev/blob/v${version}/docs/changelog.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ goibhniu ];
+    maintainers = with maintainers; [goibhniu];
     platforms = platforms.linux;
   };
 }

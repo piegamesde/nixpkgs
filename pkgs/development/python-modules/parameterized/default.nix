@@ -26,7 +26,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "parameterized/test.py" ];
+  pytestFlagsArray = ["parameterized/test.py"];
 
   disabledTests = [
     # Tests seem outdated
@@ -36,13 +36,13 @@ buildPythonPackage rec {
     "testCamelCaseMethodC"
   ];
 
-  pythonImportsCheck = [ "parameterized" ];
+  pythonImportsCheck = ["parameterized"];
 
   meta = with lib; {
     description = "Parameterized testing with any Python test framework";
     homepage = "https://github.com/wolever/parameterized";
     changelog = "https://github.com/wolever/parameterized/blob/v${version}/CHANGELOG.txt";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

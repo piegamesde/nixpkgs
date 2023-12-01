@@ -24,7 +24,7 @@ buildPythonPackage rec {
 
   sourceRoot = "source/src/python";
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
   postPatch = ''
     substituteInPlace requirements.txt \
@@ -52,7 +52,7 @@ buildPythonPackage rec {
     torch
   ];
 
-  pythonImportsCheck = [ "larynx_train" ];
+  pythonImportsCheck = ["larynx_train"];
 
   doCheck = false; # no tests
 }

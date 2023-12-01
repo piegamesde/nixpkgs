@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.services.lxd-image-server;
-  format = pkgs.formats.toml { };
+  format = pkgs.formats.toml {};
 
   location = "/var/www/simplestreams";
 in
@@ -32,7 +32,7 @@ in
 
           Example see <https://github.com/Avature/lxd-image-server/blob/master/config.toml>.
         '';
-        default = { };
+        default = {};
       };
 
       nginx = {
@@ -52,7 +52,7 @@ in
         isSystemUser = true;
         group = cfg.group;
       };
-      users.groups.${cfg.group} = { };
+      users.groups.${cfg.group} = {};
 
       environment.etc."lxd-image-server/config.toml".source = format.generate "config.toml" cfg.settings;
 
@@ -66,11 +66,11 @@ in
         copytruncate = true;
       };
 
-      systemd.tmpfiles.rules = [ "d /var/www/simplestreams 0755 lxd-image-server ${cfg.group}" ];
+      systemd.tmpfiles.rules = ["d /var/www/simplestreams 0755 lxd-image-server ${cfg.group}"];
 
       systemd.services.lxd-image-server = {
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
 
         description = "LXD Image Server";
 
@@ -86,7 +86,7 @@ in
           LogsDirectory = "lxd-image-server";
           RuntimeDirectory = "lxd-image-server";
           ExecReload = "${pkgs.lxd-image-server}/bin/lxd-image-server reload";
-          ReadWritePaths = [ location ];
+          ReadWritePaths = [location];
         };
       };
     })

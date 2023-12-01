@@ -183,7 +183,7 @@ in
         Kubernetes apiserver authorization policy file. See
         <https://kubernetes.io/docs/reference/access-authn-authz/authorization/>
       '';
-      default = [ ];
+      default = [];
       type = listOf attrs;
     };
 
@@ -218,7 +218,7 @@ in
         Kubernetes admission control plugins to disable. See
         <https://kubernetes.io/docs/admin/admission-controllers/>
       '';
-      default = [ ];
+      default = [];
       type = listOf str;
     };
 
@@ -255,7 +255,7 @@ in
     etcd = {
       servers = mkOption {
         description = lib.mdDoc "List of etcd servers.";
-        default = [ "http://127.0.0.1:2379" ];
+        default = ["http://127.0.0.1:2379"];
         type = types.listOf types.str;
       };
 
@@ -287,7 +287,7 @@ in
 
     extraSANs = mkOption {
       description = lib.mdDoc "Extra x509 Subject Alternative Names to be added to the kubernetes apiserver tls cert.";
-      default = [ ];
+      default = [];
       type = listOf str;
     };
 
@@ -453,8 +453,8 @@ in
     (mkIf cfg.enable {
       systemd.services.kube-apiserver = {
         description = "Kubernetes APIServer Service";
-        wantedBy = [ "kubernetes.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["kubernetes.target"];
+        after = ["network.target"];
         serviceConfig = {
           Slice = "kubernetes.slice";
           ExecStart = ''
@@ -485,7 +485,7 @@ in
                           ${optionalString (cfg.etcd.certFile != null) "--etcd-certfile=${cfg.etcd.certFile}"} \
                           ${optionalString (cfg.etcd.keyFile != null) "--etcd-keyfile=${cfg.etcd.keyFile}"} \
                           ${
-                            optionalString (cfg.featureGates != [ ])
+                            optionalString (cfg.featureGates != [])
                               "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"
                           } \
                           ${
@@ -547,12 +547,12 @@ in
       services.etcd = {
         clientCertAuth = mkDefault true;
         peerClientCertAuth = mkDefault true;
-        listenClientUrls = mkDefault [ "https://0.0.0.0:2379" ];
-        listenPeerUrls = mkDefault [ "https://0.0.0.0:2380" ];
-        advertiseClientUrls = mkDefault [ "https://${top.masterAddress}:2379" ];
-        initialCluster = mkDefault [ "${top.masterAddress}=https://${top.masterAddress}:2380" ];
+        listenClientUrls = mkDefault ["https://0.0.0.0:2379"];
+        listenPeerUrls = mkDefault ["https://0.0.0.0:2380"];
+        advertiseClientUrls = mkDefault ["https://${top.masterAddress}:2379"];
+        initialCluster = mkDefault ["${top.masterAddress}=https://${top.masterAddress}:2380"];
         name = mkDefault top.masterAddress;
-        initialAdvertisePeerUrls = mkDefault [ "https://${top.masterAddress}:2380" ];
+        initialAdvertisePeerUrls = mkDefault ["https://${top.masterAddress}:2380"];
       };
 
       services.kubernetes.addonManager.bootstrapAddons = mkIf isRBACEnabled {

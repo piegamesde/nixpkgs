@@ -174,7 +174,7 @@ stdenv.mkDerivation {
 
   patches =
     optional enableHardening ./hardened.patch
-    ++ [ ./extra_symbols.patch ]
+    ++ [./extra_symbols.patch]
     # When hardening is enabled, we cannot use wrapQtApp to ensure that VirtualBoxVM sees
     # the correct environment variables needed for Qt to work, specifically QT_PLUGIN_PATH.
     # This is because VirtualBoxVM would detect that it is wrapped that and refuse to run,
@@ -334,8 +334,8 @@ stdenv.mkDerivation {
     ];
     license = licenses.gpl2;
     homepage = "https://www.virtualbox.org/";
-    maintainers = with maintainers; [ sander ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [sander];
+    platforms = ["x86_64-linux"];
     mainProgram = "VirtualBox";
   };
 }

@@ -25,14 +25,14 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  passthru.tests = testers.testVersion { package = fq; };
+  passthru.tests = testers.testVersion {package = fq;};
 
   meta = with lib; {
     description = "jq for binary formats";
     homepage = "https://github.com/wader/fq";
     license = licenses.mit;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
   };
 }

@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-Vuhwt+esTkvyEIRVYaRGvNMTAXVWBBv/6lpaxN5RrBA=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests =
     [
@@ -27,12 +27,12 @@ buildPythonPackage rec {
       "test_client_server_communication"
     ];
 
-  pythonImportsCheck = [ "piccata" ];
+  pythonImportsCheck = ["piccata"];
 
   meta = with lib; {
     description = "Simple CoAP (RFC7252) toolkit";
     homepage = "https://github.com/NordicSemiconductor/piccata";
     license = licenses.mit;
-    maintainers = with maintainers; [ gebner ];
+    maintainers = with maintainers; [gebner];
   };
 }

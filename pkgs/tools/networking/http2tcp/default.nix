@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "34fb83c091689dee398ca80db76487e0c39abb17cef390d845ffd888009a5caa";
   };
 
-  buildInputs = [ (python3.withPackages (ps: [ ps.wsgitools ])) ];
+  buildInputs = [(python3.withPackages (ps: [ps.wsgitools]))];
 
   dontBuild = true;
 
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    maintainers = with maintainers; [ clkamp ];
+    maintainers = with maintainers; [clkamp];
     description = "A tool for tunneling TCP connections via HTTP GET requests";
     longDescription = ''
       The http2tcp tools allow to tunnel tcp connections (presumably

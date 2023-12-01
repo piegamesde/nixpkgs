@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hx9VavQDp8LOag8C8Vz4WlcnY+CT0mZY66xVxKtHL8g=";
   };
 
-  nativeBuildInputs = [ gfortran ];
+  nativeBuildInputs = [gfortran];
 
   buildInputs = [
     blas
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     description = "Just Another Gibbs Sampler";
     license = licenses.gpl2;
     homepage = "http://mcmc-jags.sourceforge.net";
-    maintainers = [ maintainers.andres ];
+    maintainers = [maintainers.andres];
     platforms = platforms.unix;
   };
 }

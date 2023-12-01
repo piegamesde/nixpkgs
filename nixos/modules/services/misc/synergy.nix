@@ -111,7 +111,7 @@ in
         ];
         description = "Synergy client";
         wantedBy = optional cfgC.autoStart "graphical-session.target";
-        path = [ pkgs.synergy ];
+        path = [pkgs.synergy];
         serviceConfig.ExecStart = "${pkgs.synergy}/bin/synergyc -f ${
           optionalString (cfgC.screenName != "") "-n ${cfgC.screenName}"
         } ${cfgC.serverAddress}";
@@ -126,7 +126,7 @@ in
         ];
         description = "Synergy server";
         wantedBy = optional cfgS.autoStart "graphical-session.target";
-        path = [ pkgs.synergy ];
+        path = [pkgs.synergy];
         serviceConfig.ExecStart = "${pkgs.synergy}/bin/synergys -c ${cfgS.configFile} -f${
           optionalString (cfgS.address != "") " -a ${cfgS.address}"
         }${

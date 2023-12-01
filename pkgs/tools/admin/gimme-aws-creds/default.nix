@@ -37,7 +37,7 @@ let
             self.python-dateutil
             self.requests
           ];
-          pythonImportsCheck = [ "okta" ];
+          pythonImportsCheck = ["okta"];
           doCheck = false; # no tests were included with this version
         }
       );
@@ -61,7 +61,7 @@ python.pkgs.buildPythonApplication rec {
     pythonRelaxDepsHook
   ];
 
-  pythonRemoveDeps = [ "configparser" ];
+  pythonRemoveDeps = ["configparser"];
 
   propagatedBuildInputs = with python.pkgs; [
     boto3
@@ -78,9 +78,9 @@ python.pkgs.buildPythonApplication rec {
     responses
   ];
 
-  disabledTests = [ "test_build_factor_name_webauthn_registered" ];
+  disabledTests = ["test_build_factor_name_webauthn_registered"];
 
-  pythonImportsCheck = [ "gimme_aws_creds" ];
+  pythonImportsCheck = ["gimme_aws_creds"];
 
   postInstall = ''
     rm $out/bin/gimme-aws-creds.cmd
@@ -91,7 +91,7 @@ python.pkgs.buildPythonApplication rec {
 
   passthru = {
     inherit python;
-    updateScript = nix-update-script { attrPath = pname; };
+    updateScript = nix-update-script {attrPath = pname;};
     tests.version = testers.testVersion {
       package = gimme-aws-creds;
       command = ''touch tmp.conf && OKTA_CONFIG="tmp.conf" gimme-aws-creds --version'';
@@ -104,6 +104,6 @@ python.pkgs.buildPythonApplication rec {
     changelog = "https://github.com/Nike-Inc/gimme-aws-creds/releases";
     description = "A CLI that utilizes Okta IdP via SAML to acquire temporary AWS credentials";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dennajort ];
+    maintainers = with maintainers; [dennajort];
   };
 }

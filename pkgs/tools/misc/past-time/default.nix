@@ -29,12 +29,12 @@ buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "past_time" ];
+  pythonImportsCheck = ["past_time"];
 
   meta = with lib; {
     description = "Tool to visualize the progress of the year based on the past days";
     homepage = "https://github.com/fabaff/past-time";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

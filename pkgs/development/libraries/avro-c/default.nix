@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "A C library which implements parts of the Avro Specification";
     homepage = "https://avro.apache.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lblasc ];
+    maintainers = with maintainers; [lblasc];
     platforms = platforms.all;
   };
 }

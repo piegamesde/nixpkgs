@@ -34,10 +34,10 @@ buildPythonPackage rec {
     numpy
     sundials
     scipy
-  ] ++ lib.optionals (!isPy3k) [ enum34 ];
+  ] ++ lib.optionals (!isPy3k) [enum34];
 
   doCheck = true;
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   checkPhase = ''
     cd $out/${python.sitePackages}/scikits/odes/tests
@@ -48,7 +48,7 @@ buildPythonPackage rec {
     description = "A scikit offering extra ode/dae solvers, as an extension to what is available in scipy";
     homepage = "https://github.com/bmcage/odes";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ idontgetoutmuch ];
+    maintainers = with maintainers; [idontgetoutmuch];
     platforms = [
       "aarch64-linux"
       "x86_64-linux"

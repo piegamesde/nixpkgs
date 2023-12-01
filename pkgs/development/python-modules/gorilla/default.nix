@@ -17,6 +17,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/christophercrouzet/gorilla";
     description = "Convenient approach to monkey patching";
     license = licenses.mit;
-    maintainers = with maintainers; [ tbenst ];
+    maintainers = with maintainers; [tbenst];
   };
 }

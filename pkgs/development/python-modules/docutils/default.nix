@@ -44,6 +44,6 @@ buildPythonPackage rec {
       psfl
       gpl3Plus
     ];
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
   };
 }

@@ -105,7 +105,7 @@ stdenv.mkDerivation {
     description = "A frontend for arcade cabinets and media PCs";
     homepage = "http://retrofe.nl/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ hrdinka ];
+    maintainers = with maintainers; [hrdinka];
     platforms = with platforms; linux;
   };
 }

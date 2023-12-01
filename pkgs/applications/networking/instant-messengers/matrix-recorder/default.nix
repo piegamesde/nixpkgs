@@ -27,6 +27,6 @@
       description = "Matrix message recorder";
       homepage = "https://gitlab.com/argit/matrix-recorder/";
       license = lib.licenses.mit;
-      maintainers = [ lib.maintainers.raskin ];
+      maintainers = [lib.maintainers.raskin];
     };
   }

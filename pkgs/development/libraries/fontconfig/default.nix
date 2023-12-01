@@ -37,9 +37,9 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [ expat ] ++ lib.optional stdenv.isDarwin CoreFoundation;
+  buildInputs = [expat] ++ lib.optional stdenv.isDarwin CoreFoundation;
 
-  propagatedBuildInputs = [ freetype ];
+  propagatedBuildInputs = [freetype];
 
   postPatch = ''
     # Requires networking.
@@ -86,6 +86,6 @@ stdenv.mkDerivation rec {
     homepage = "http://fontconfig.org/";
     license = licenses.bsd2; # custom but very bsd-like
     platforms = platforms.all;
-    maintainers = with maintainers; teams.freedesktop.members ++ [ ];
+    maintainers = with maintainers; teams.freedesktop.members ++ [];
   };
 }

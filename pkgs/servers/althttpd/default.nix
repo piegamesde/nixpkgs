@@ -15,9 +15,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-yfVsOfqtHw9ftnK5B4RWeRR/ygfsTEDm7fFSaVxsCas=";
   };
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  makeFlags = [ "CC:=$(CC)" ];
+  makeFlags = ["CC:=$(CC)"];
 
   installPhase = ''
     install -Dm755 -t $out/bin althttpd
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     description = "The Althttpd webserver";
     homepage = "https://sqlite.org/althttpd/";
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.all;
   };
 }

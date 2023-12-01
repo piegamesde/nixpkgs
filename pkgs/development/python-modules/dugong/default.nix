@@ -19,13 +19,13 @@ buildPythonPackage rec {
     sha256 = "1063c1779idc5nrjzfv5w1xqvyy3crapb2a2xll9y6xphxclnkjc";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Lots of tests hang during teardown with:
   #   ssl.SSLEOFError: EOF occurred in violation of protocol (_ssl.c:2396)
   doCheck = pythonOlder "3.10";
 
-  pythonImportsCheck = [ "dugong" ];
+  pythonImportsCheck = ["dugong"];
 
   meta = with lib; {
     description = "HTTP 1.1 client designed for REST-ful APIs";
@@ -34,6 +34,6 @@ buildPythonPackage rec {
       psfl
       asl20
     ];
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

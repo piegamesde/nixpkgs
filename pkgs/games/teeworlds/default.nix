@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     cmake
     pkg-config
-  ] ++ lib.optionals stdenv.isLinux [ icoutils ];
+  ] ++ lib.optionals stdenv.isLinux [icoutils];
 
   buildInputs =
     [

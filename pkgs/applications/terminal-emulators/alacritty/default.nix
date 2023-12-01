@@ -94,7 +94,7 @@ rustPlatform.buildRustPackage rec {
       --replace xdg-open ${xdg-utils}/bin/xdg-open
   '';
 
-  checkFlags = [ "--skip=term::test::mock_term" ]; # broken on aarch64
+  checkFlags = ["--skip=term::test::mock_term"]; # broken on aarch64
 
   postInstall =
     (

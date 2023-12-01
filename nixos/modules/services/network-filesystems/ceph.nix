@@ -45,10 +45,10 @@ let
           "network-online.target"
           "time-sync.target"
         ];
-        partOf = [ "ceph-${daemonType}.target" ];
-        wantedBy = [ "ceph-${daemonType}.target" ];
+        partOf = ["ceph-${daemonType}.target"];
+        wantedBy = ["ceph-${daemonType}.target"];
 
-        path = [ pkgs.getopt ];
+        path = [pkgs.getopt];
 
         # Don't start services that are not yet initialized
         unitConfig.ConditionPathExists = "/var/lib/${stateDirectory}/keyring";
@@ -89,7 +89,7 @@ let
             RestartSec = "20s";
             PrivateDevices = "no"; # osd needs disk access
           }
-          // optionalAttrs (daemonType == "mon") { RestartSec = "10"; };
+          // optionalAttrs (daemonType == "mon") {RestartSec = "10";};
       }
     );
 
@@ -97,9 +97,9 @@ let
     (daemonType: {
       "ceph-${daemonType}" = {
         description = "Ceph target allowing to start/stop all ceph-${daemonType} services at once";
-        partOf = [ "ceph.target" ];
-        wantedBy = [ "ceph.target" ];
-        before = [ "ceph.target" ];
+        partOf = ["ceph.target"];
+        wantedBy = ["ceph.target"];
+        before = ["ceph.target"];
         unitConfig.StopWhenUnneeded = true;
       };
     });
@@ -236,7 +236,7 @@ in
 
     extraConfig = mkOption {
       type = with types; attrsOf str;
-      default = { };
+      default = {};
       example = {
         "ms bind ipv6" = "true";
       };
@@ -249,7 +249,7 @@ in
       enable = mkEnableOption (lib.mdDoc "Ceph MGR daemon");
       daemons = mkOption {
         type = with types; listOf str;
-        default = [ ];
+        default = [];
         example = [
           "name1"
           "name2"
@@ -261,7 +261,7 @@ in
       };
       extraConfig = mkOption {
         type = with types; attrsOf str;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Extra configuration to add to the global section for manager daemons.
         '';
@@ -272,7 +272,7 @@ in
       enable = mkEnableOption (lib.mdDoc "Ceph MON daemon");
       daemons = mkOption {
         type = with types; listOf str;
-        default = [ ];
+        default = [];
         example = [
           "name1"
           "name2"
@@ -284,7 +284,7 @@ in
       };
       extraConfig = mkOption {
         type = with types; attrsOf str;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Extra configuration to add to the monitor section.
         '';
@@ -295,7 +295,7 @@ in
       enable = mkEnableOption (lib.mdDoc "Ceph OSD daemon");
       daemons = mkOption {
         type = with types; listOf str;
-        default = [ ];
+        default = [];
         example = [
           "name1"
           "name2"
@@ -326,7 +326,7 @@ in
       enable = mkEnableOption (lib.mdDoc "Ceph MDS daemon");
       daemons = mkOption {
         type = with types; listOf str;
-        default = [ ];
+        default = [];
         example = [
           "name1"
           "name2"
@@ -338,7 +338,7 @@ in
       };
       extraConfig = mkOption {
         type = with types; attrsOf str;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Extra configuration to add to the MDS section.
         '';
@@ -349,7 +349,7 @@ in
       enable = mkEnableOption (lib.mdDoc "Ceph RadosGW daemon");
       daemons = mkOption {
         type = with types; listOf str;
-        default = [ ];
+        default = [];
         example = [
           "name1"
           "name2"
@@ -367,7 +367,7 @@ in
       enable = mkEnableOption (lib.mdDoc "Ceph client configuration");
       extraConfig = mkOption {
         type = with types; attrsOf (attrsOf str);
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             # This would create a section for a radosgw daemon named node0 and related
@@ -390,19 +390,19 @@ in
         message = "fsid has to be set to a valid uuid for the cluster to function";
       }
       {
-        assertion = cfg.mon.enable == true -> cfg.mon.daemons != [ ];
+        assertion = cfg.mon.enable == true -> cfg.mon.daemons != [];
         message = "have to set id of atleast one MON if you're going to enable Monitor";
       }
       {
-        assertion = cfg.mds.enable == true -> cfg.mds.daemons != [ ];
+        assertion = cfg.mds.enable == true -> cfg.mds.daemons != [];
         message = "have to set id of atleast one MDS if you're going to enable Metadata Service";
       }
       {
-        assertion = cfg.osd.enable == true -> cfg.osd.daemons != [ ];
+        assertion = cfg.osd.enable == true -> cfg.osd.daemons != [];
         message = "have to set id of atleast one OSD if you're going to enable OSD";
       }
       {
-        assertion = cfg.mgr.enable == true -> cfg.mgr.daemons != [ ];
+        assertion = cfg.mgr.enable == true -> cfg.mgr.daemons != [];
         message = "have to set id of atleast one MGR if you're going to enable MGR";
       }
     ];
@@ -423,18 +423,18 @@ in
           {
             global = globalSection';
           }
-          // optionalAttrs (cfg.mon.enable && cfg.mon.extraConfig != { }) { mon = cfg.mon.extraConfig; }
-          // optionalAttrs (cfg.mds.enable && cfg.mds.extraConfig != { }) { mds = cfg.mds.extraConfig; }
-          // optionalAttrs (cfg.osd.enable && cfg.osd.extraConfig != { }) { osd = cfg.osd.extraConfig; }
-          // optionalAttrs (cfg.client.enable && cfg.client.extraConfig != { }) cfg.client.extraConfig;
+          // optionalAttrs (cfg.mon.enable && cfg.mon.extraConfig != {}) {mon = cfg.mon.extraConfig;}
+          // optionalAttrs (cfg.mds.enable && cfg.mds.extraConfig != {}) {mds = cfg.mds.extraConfig;}
+          // optionalAttrs (cfg.osd.enable && cfg.osd.extraConfig != {}) {osd = cfg.osd.extraConfig;}
+          // optionalAttrs (cfg.client.enable && cfg.client.extraConfig != {}) cfg.client.extraConfig;
       in
-      generators.toINI { } totalConfig;
+      generators.toINI {} totalConfig;
 
     users.users.ceph = {
       uid = config.ids.uids.ceph;
       description = "Ceph daemon user";
       group = "ceph";
-      extraGroups = [ "disk" ];
+      extraGroups = ["disk"];
     };
 
     users.groups.ceph = {
@@ -444,7 +444,7 @@ in
     systemd.services =
       let
         services =
-          [ ]
+          []
           ++ optional cfg.mon.enable (makeServices "mon" cfg.mon.daemons)
           ++ optional cfg.mds.enable (makeServices "mds" cfg.mds.daemons)
           ++ optional cfg.osd.enable (makeServices "osd" cfg.osd.daemons)
@@ -460,7 +460,7 @@ in
             {
               ceph = {
                 description = "Ceph target allowing to start/stop all ceph service instances at once";
-                wantedBy = [ "multi-user.target" ];
+                wantedBy = ["multi-user.target"];
                 unitConfig.StopWhenUnneeded = true;
               };
             }
@@ -479,8 +479,8 @@ in
         "d /run/ceph 0770 ceph ceph -"
         "d /var/lib/ceph - ceph ceph - -"
       ]
-      ++ optionals cfg.mgr.enable [ "d /var/lib/ceph/mgr - ceph ceph - -" ]
-      ++ optionals cfg.mon.enable [ "d /var/lib/ceph/mon - ceph ceph - -" ]
-      ++ optionals cfg.osd.enable [ "d /var/lib/ceph/osd - ceph ceph - -" ];
+      ++ optionals cfg.mgr.enable ["d /var/lib/ceph/mgr - ceph ceph - -"]
+      ++ optionals cfg.mon.enable ["d /var/lib/ceph/mon - ceph ceph - -"]
+      ++ optionals cfg.osd.enable ["d /var/lib/ceph/osd - ceph ceph - -"];
   };
 }

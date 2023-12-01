@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "1hzf9f1fzmlpnxjaxhs2w22wzb28vd87ycaddnix1mmhvh3nvzkd";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ l-smash ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [l-smash];
 
   meta = with lib; {
     description = "Losslessly & gaplessly cut m4a (AAC in MP4) files.";
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
       bsdOriginal
       zlib
     ];
-    maintainers = [ maintainers.chkno ];
+    maintainers = [maintainers.chkno];
     platforms = platforms.all;
   };
 }

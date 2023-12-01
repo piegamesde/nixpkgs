@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     libX11
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "Multimon is a digital baseband audio protocol decoder";
@@ -40,6 +40,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/EliasOenal/multimon-ng";
     license = licenses.gpl2Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ markuskowa ];
+    maintainers = with maintainers; [markuskowa];
   };
 }

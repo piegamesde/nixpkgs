@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-protobufs";
   version = "20200325-git";
@@ -22,7 +22,7 @@ rec {
 
   packageName = "cl-protobufs";
 
-  asdFilesToKeep = [ "cl-protobufs.asd" ];
+  asdFilesToKeep = ["cl-protobufs.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-protobufs DESCRIPTION Protobufs for Common Lisp SHA256

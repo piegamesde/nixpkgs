@@ -14,9 +14,9 @@ stdenv.mkDerivation {
   name = "ndiswrapper-${version}-${kernel.version}";
   inherit version;
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
-  patches = [ ./no-sbin.patch ];
+  patches = [./no-sbin.patch];
 
   # need at least .config and include
   kernel = kernel.dev;

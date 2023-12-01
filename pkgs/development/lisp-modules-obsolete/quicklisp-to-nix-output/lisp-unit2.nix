@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "lisp-unit2";
   version = "20180131-git";
 
-  parasites = [ "lisp-unit2-test" ];
+  parasites = ["lisp-unit2-test"];
 
   description = "Common Lisp library that supports unit testing.";
 
@@ -26,7 +26,7 @@ rec {
 
   packageName = "lisp-unit2";
 
-  asdFilesToKeep = [ "lisp-unit2.asd" ];
+  asdFilesToKeep = ["lisp-unit2.asd"];
   overrides = x: x;
 }
 /* (SYSTEM lisp-unit2 DESCRIPTION

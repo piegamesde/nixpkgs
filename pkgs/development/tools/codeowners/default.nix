@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "A CLI and Go library for Github's CODEOWNERS file";
     homepage = "https://github.com/hmarr/codeowners";
     license = licenses.mit;
-    maintainers = with maintainers; [ yorickvp ];
+    maintainers = with maintainers; [yorickvp];
   };
 }

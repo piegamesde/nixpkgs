@@ -131,6 +131,6 @@ stdenv.mkDerivation {
     ];
     license = licenses.unfree;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jerith666 ];
+    maintainers = with maintainers; [jerith666];
   };
 }

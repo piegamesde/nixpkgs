@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-4bPNW0sSb/J34vSOit8BA9Z/wK0Hz5o9OqfgVSlDDjU=";
   };
 
-  nativeBuildInputs = [ libtool ];
+  nativeBuildInputs = [libtool];
 
   buildInputs = [
     cfitsio
@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/gnuastro/";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

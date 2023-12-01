@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     python3
     python3.pkgs.wrapPython
   ];
-  buildInputs = [ libsepol ];
+  buildInputs = [libsepol];
   propagatedBuildInputs = [
     libselinux
     libsemanage

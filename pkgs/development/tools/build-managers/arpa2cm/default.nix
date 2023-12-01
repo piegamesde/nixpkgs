@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2vb/7UL+uWGrQNh8yOZ3gih5G1/eOp064hF78SDsPGk=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "CMake Module library for the ARPA2 project";

@@ -55,7 +55,7 @@ buildPythonPackage rec {
     sphinxcontrib-jquery
   ];
 
-  pythonImportsCheck = [ "hoverxref" ];
+  pythonImportsCheck = ["hoverxref"];
 
   meta = with lib; {
     description = "A sphinx extension for creating tooltips on the cross references of the documentation";
@@ -69,6 +69,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/readthedocs/sphinx-hoverxref";
     license = licenses.mit;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

@@ -59,19 +59,19 @@ python3.pkgs.buildPythonApplication rec {
 
   dontWrapQtApps = true;
 
-  makeWrapperArgs = [ "\${qtWrapperArgs[@]}" ];
+  makeWrapperArgs = ["\${qtWrapperArgs[@]}"];
 
   nativeCheckInputs = with python3.pkgs; [
     pytestCheckHook
     unittest-xml-reporting
   ];
 
-  pytestFlagsArray = [ "test" ];
+  pytestFlagsArray = ["test"];
 
   meta = with lib; {
     homepage = "https://www.sasview.org";
     description = "Fitting and data analysis for small angle scattering data";
-    maintainers = with maintainers; [ rprospero ];
+    maintainers = with maintainers; [rprospero];
     license = licenses.bsd3;
   };
 }

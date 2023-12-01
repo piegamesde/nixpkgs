@@ -19,7 +19,7 @@ let
       secret_key = s3.secretKey;
       insecure = true;
       signature_version2 = false;
-      put_user_metadata = { };
+      put_user_metadata = {};
       http_config = {
         idle_conn_timeout = "0s";
         insecure_skip_verify = false;
@@ -35,12 +35,12 @@ import ./make-test-python.nix {
 
   nodes = {
     prometheus =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         virtualisation.diskSize = 2 * 1024;
         virtualisation.memorySize = 2048;
-        environment.systemPackages = [ pkgs.jq ];
-        networking.firewall.allowedTCPPorts = [ grpcPort ];
+        environment.systemPackages = [pkgs.jq];
+        networking.firewall.allowedTCPPorts = [grpcPort];
         services.prometheus = {
           enable = true;
           enableReload = true;
@@ -49,7 +49,7 @@ import ./make-test-python.nix {
               job_name = "prometheus";
               static_configs = [
                 {
-                  targets = [ "127.0.0.1:${toString queryPort}" ];
+                  targets = ["127.0.0.1:${toString queryPort}"];
                   labels = {
                     instance = "localhost";
                   };
@@ -59,7 +59,7 @@ import ./make-test-python.nix {
             {
               job_name = "pushgateway";
               scrape_interval = "1s";
-              static_configs = [ { targets = [ "127.0.0.1:${toString pushgwPort}" ]; } ];
+              static_configs = [{targets = ["127.0.0.1:${toString pushgwPort}"];}];
             }
           ];
           rules = [
@@ -126,7 +126,7 @@ import ./make-test-python.nix {
         specialisation = {
           "prometheus-config-change" = {
             configuration = {
-              environment.systemPackages = [ pkgs.yq ];
+              environment.systemPackages = [pkgs.yq];
 
               # This configuration just adds a new prometheus job
               # to scrape the node_exporter metrics of the s3 machine.
@@ -134,7 +134,7 @@ import ./make-test-python.nix {
                 scrapeConfigs = [
                   {
                     job_name = "s3-node_exporter";
-                    static_configs = [ { targets = [ "s3:9100" ]; } ];
+                    static_configs = [{targets = ["s3:9100"];}];
                   }
                 ];
               };
@@ -144,18 +144,18 @@ import ./make-test-python.nix {
       };
 
     query =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        environment.systemPackages = [ pkgs.jq ];
+        environment.systemPackages = [pkgs.jq];
         services.thanos.query = {
           enable = true;
           http-address = "0.0.0.0:${toString queryPort}";
-          store.addresses = [ "prometheus:${toString grpcPort}" ];
+          store.addresses = ["prometheus:${toString grpcPort}"];
         };
       };
 
     store =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         virtualisation.diskSize = 2 * 1024;
         virtualisation.memorySize = 2048;
@@ -179,25 +179,25 @@ import ./make-test-python.nix {
         services.thanos.query = {
           enable = true;
           http-address = "0.0.0.0:${toString queryPort}";
-          store.addresses = [ "localhost:${toString grpcPort}" ];
+          store.addresses = ["localhost:${toString grpcPort}"];
         };
       };
 
     s3 =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         # Minio requires at least 1GiB of free disk space to run.
         virtualisation = {
           diskSize = 2 * 1024;
         };
-        networking.firewall.allowedTCPPorts = [ minioPort ];
+        networking.firewall.allowedTCPPorts = [minioPort];
 
         services.minio = {
           enable = true;
           inherit (s3) accessKey secretKey;
         };
 
-        environment.systemPackages = [ pkgs.minio-client ];
+        environment.systemPackages = [pkgs.minio-client];
 
         services.prometheus.exporters.node = {
           enable = true;
@@ -207,7 +207,7 @@ import ./make-test-python.nix {
   };
 
   testScript =
-    { nodes, ... }:
+    {nodes, ...}:
     ''
       import json
 

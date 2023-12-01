@@ -21,18 +21,18 @@ toPythonModule (
         --replace dist-packages site-packages
     '';
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
     buildInputs = [
       orocos-kdl
       eigen
     ];
-    propagatedBuildInputs = [ python ];
+    propagatedBuildInputs = [python];
 
     meta = with lib; {
       description = "Kinematics and Dynamics Library (Python bindings)";
       homepage = "https://www.orocos.org/kdl.html";
       license = licenses.lgpl21Only;
-      maintainers = with maintainers; [ lopsided98 ];
+      maintainers = with maintainers; [lopsided98];
       platforms = platforms.all;
     };
   }

@@ -16,12 +16,12 @@ buildGoModule rec {
   };
   vendorHash = "sha256-vND29xb5bG+MnBiOCP9PWC+VGqIwdUO0uVOcP5Wc4zA=";
 
-  subPackages = [ "cmd/goa" ];
+  subPackages = ["cmd/goa"];
 
   meta = with lib; {
     description = "Design-based APIs and microservices in Go";
     homepage = "https://goa.design";
     license = licenses.mit;
-    maintainers = with maintainers; [ rushmorem ];
+    maintainers = with maintainers; [rushmorem];
   };
 }

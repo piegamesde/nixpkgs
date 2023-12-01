@@ -23,7 +23,7 @@ buildPythonPackage rec {
     xorg.libX11
   ];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   patches =
     [
@@ -35,7 +35,7 @@ buildPythonPackage rec {
     description = "Open-source software for robot simulation, integrated with OpenAI Gym";
     homepage = "https://pybullet.org/";
     license = licenses.zlib;
-    maintainers = with maintainers; [ timokau ];
+    maintainers = with maintainers; [timokau];
     platforms = platforms.linux;
   };
 }

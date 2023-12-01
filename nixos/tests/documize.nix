@@ -1,13 +1,13 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "documize";
-    meta = with pkgs.lib.maintainers; { maintainers = [ ma27 ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [ma27];};
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        environment.systemPackages = [ pkgs.jq ];
+        environment.systemPackages = [pkgs.jq];
 
         services.documize = {
           enable = true;
@@ -17,8 +17,8 @@ import ./make-test-python.nix (
         };
 
         systemd.services.documize-server = {
-          after = [ "postgresql.service" ];
-          requires = [ "postgresql.service" ];
+          after = ["postgresql.service"];
+          requires = ["postgresql.service"];
         };
 
         services.postgresql = {

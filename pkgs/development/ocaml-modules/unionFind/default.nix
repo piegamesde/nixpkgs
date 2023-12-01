@@ -23,6 +23,6 @@ buildDunePackage rec {
     description = "Implementations of the union-find data structure";
     license = lib.licenses.lgpl2Only;
     inherit (src.meta) homepage;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

@@ -28,12 +28,12 @@ perlPackages.buildPerlPackage rec {
     install -Dm555 -t $out/bin shelldap
     runHook preInstall
   '';
-  outputs = [ "out" ];
+  outputs = ["out"];
   meta = with lib; {
     homepage = "https://bitbucket.org/mahlon/shelldap/";
     description = "A handy shell-like interface for browsing LDAP servers and editing their content";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ tobiasBora ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [tobiasBora];
     platforms = platforms.linux;
   };
 }

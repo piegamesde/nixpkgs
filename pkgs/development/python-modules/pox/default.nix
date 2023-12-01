@@ -20,12 +20,12 @@ buildPythonPackage rec {
   # Test sare failing the sandbox
   doCheck = false;
 
-  pythonImportsCheck = [ "pox" ];
+  pythonImportsCheck = ["pox"];
 
   meta = with lib; {
     description = "Utilities for filesystem exploration and automated builds";
     homepage = "https://pox.readthedocs.io/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

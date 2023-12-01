@@ -17,13 +17,13 @@ stdenv.mkDerivation {
     sha256 = "12p69i3g1fwlw0bds9jqsdmzkid3k5a41w31d227i7vm12wcvjf6";
   };
 
-  buildInputs = [ libmrss ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs = [libmrss] ++ lib.optionals stdenv.isDarwin [libiconv];
 
   postPatch = ''
     substituteInPlace Makefile --replace -liconv_hook ""
   '';
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
   enableParallelBuilding = true;
 
   # just runs cppcheck linter
@@ -37,7 +37,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://www.vanheusden.com/rsstail/";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.Necior ];
+    maintainers = [maintainers.Necior];
     platforms = platforms.unix;
   };
 }

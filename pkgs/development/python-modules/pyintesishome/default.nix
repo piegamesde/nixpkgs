@@ -16,16 +16,16 @@ buildPythonPackage rec {
     hash = "sha256-+pXGB7mQszbBp4KhOYzDKoGFoUHATWLbOU6QwMIpGWU=";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   # Project has no tests
   doCheck = false;
-  pythonImportsCheck = [ "pyintesishome" ];
+  pythonImportsCheck = ["pyintesishome"];
 
   meta = with lib; {
     description = "Python interface for IntesisHome devices";
     homepage = "https://github.com/jnimmo/pyIntesisHome";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

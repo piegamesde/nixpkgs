@@ -20,6 +20,6 @@ rustPlatform.buildRustPackage rec {
     description = "Pure rust implementation of jq";
     homepage = "https://github.com/MiSawa/xq";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
   };
 }

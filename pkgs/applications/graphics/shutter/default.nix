@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-o95skSr6rszh0wsHQTpu1GjqCDmde7aygIP+i4XQW9A=";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook ];
+  nativeBuildInputs = [wrapGAppsHook];
   buildInputs = [
     perlPackages.perl
     procps
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
     hicolor-icon-theme
   ] ++ perlModules;
 
-  makeFlags = [ "prefix=${placeholder "out"}" ];
+  makeFlags = ["prefix=${placeholder "out"}"];
 
   postPatch = ''
     patchShebangs po2mo.sh
@@ -96,8 +96,8 @@ stdenv.mkDerivation rec {
     # make xdg-open overrideable at runtime
     gappsWrapperArgs+=(
       --set PERL5LIB ${perlPackages.makePerlPath perlModules} \
-      --prefix PATH : ${lib.makeBinPath [ imagemagick ]}
-      --suffix PATH : ${lib.makeBinPath [ xdg-utils ]}
+      --prefix PATH : ${lib.makeBinPath [imagemagick]}
+      --suffix PATH : ${lib.makeBinPath [xdg-utils]}
     )
   '';
 
@@ -106,6 +106,6 @@ stdenv.mkDerivation rec {
     homepage = "https://shutter-project.org/";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

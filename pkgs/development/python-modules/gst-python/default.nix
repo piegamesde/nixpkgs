@@ -32,7 +32,7 @@ buildPythonPackage rec {
   # Python 2.x is not supported.
   disabled = !isPy3k;
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     meson

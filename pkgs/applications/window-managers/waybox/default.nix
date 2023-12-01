@@ -51,13 +51,13 @@ stdenv.mkDerivation rec {
     mesa # for libEGL
   ];
 
-  passthru.providedSessions = [ "waybox" ];
+  passthru.providedSessions = ["waybox"];
 
   meta = with lib; {
     homepage = "https://github.com/wizbright/waybox";
     description = "An openbox clone on Wayland";
     license = licenses.mit;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.linux;
   };
 }

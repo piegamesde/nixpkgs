@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     geos # for geos-config
   ];
 
-  buildInputs = [ geos ];
+  buildInputs = [geos];
 
   enableParallelBuilding = true;
 
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "RT Topology Library";
     homepage = "https://git.osgeo.org/gitea/rttopo/librttopo";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     platforms = platforms.unix;
   };
 }

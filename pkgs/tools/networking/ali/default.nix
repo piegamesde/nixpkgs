@@ -23,6 +23,6 @@ buildGoModule rec {
     changelog = "https://github.com/nakabonne/ali/releases/tag/v${version}";
     license = licenses.mit;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ farcaller ];
+    maintainers = with maintainers; [farcaller];
   };
 }

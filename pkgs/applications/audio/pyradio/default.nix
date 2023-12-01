@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-tu/qlrbTcUCIRF15x9ATKHH+LDy1OsGJpo5x+CerTKg=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   propagatedBuildInputs = with python3Packages; [
     requests
@@ -37,6 +37,6 @@ python3Packages.buildPythonApplication rec {
     description = "Curses based internet radio player";
     changelog = "https://github.com/coderholic/pyradio/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ contrun ];
+    maintainers = with maintainers; [contrun];
   };
 }

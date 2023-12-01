@@ -57,7 +57,7 @@ mkCoqDerivation rec {
       The Gaia and Hydra battles projects develop different notions of ordinals.
       This development bridges the different notions.
     '';
-    maintainers = with maintainers; [ Zimmi48 ];
+    maintainers = with maintainers; [Zimmi48];
     license = licenses.mit;
     platforms = platforms.unix;
   };

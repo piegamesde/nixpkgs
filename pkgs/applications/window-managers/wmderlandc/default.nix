@@ -20,7 +20,7 @@ stdenv.mkDerivation {
 
   sourceRoot = "source/ipc-client";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     libX11
@@ -32,6 +32,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/aesophor/wmderland/tree/master/ipc-client";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ takagiy ];
+    maintainers = with maintainers; [takagiy];
   };
 }

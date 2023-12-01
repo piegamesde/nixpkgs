@@ -40,6 +40,6 @@ mkCoqDerivation {
   meta = with lib; {
     description = "Library for serialization to S-expressions";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ Zimmi48 ];
+    maintainers = with maintainers; [Zimmi48];
   };
 }

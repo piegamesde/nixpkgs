@@ -50,13 +50,13 @@ buildPythonPackage rec {
     "test_http_client"
   ];
 
-  disabledTestPaths = [ "test/test_container_token_manager.py" ];
+  disabledTestPaths = ["test/test_container_token_manager.py"];
 
   meta = with lib; {
     description = "Client library for the IBM Cloud services";
     homepage = "https://github.com/IBM/python-sdk-core";
     changelog = "https://github.com/IBM/python-sdk-core/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ globin ];
+    maintainers = with maintainers; [globin];
   };
 }

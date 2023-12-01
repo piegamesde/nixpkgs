@@ -19,13 +19,13 @@ buildGoModule rec {
 
   vendorSha256 = null; # vendorSha256 = "";
 
-  propagatedBuildInputs = [ libpcap ];
+  propagatedBuildInputs = [libpcap];
 
   meta = with lib; {
     description = "Parse and display HTTP traffic from network device or pcap file";
     homepage = "https://github.com/hsiafan/httpdump";
-    license = with licenses; [ bsd2 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd2];
+    maintainers = with maintainers; [fab];
     broken = true; # vendor isn't reproducible with go > 1.17: nix-build -A $name.go-modules --check
   };
 }

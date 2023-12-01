@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  buildInputs = [ openssl ] ++ lib.optionals systemdSupport [ systemd ];
+  buildInputs = [openssl] ++ lib.optionals systemdSupport [systemd];
 
   configureFlags = [
     "--with-ssl=${openssl.dev}"
@@ -55,6 +55,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.stunnel.org/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.thoughtpolice ];
+    maintainers = [lib.maintainers.thoughtpolice];
   };
 }

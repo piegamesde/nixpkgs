@@ -14,7 +14,7 @@ mkDerivation rec {
   src = fetchFromGitHub {
     owner = "jamulussoftware";
     repo = "jamulus";
-    rev = "r${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "r${lib.replaceStrings ["."] ["_"] version}";
     sha256 = "sha256-K2HznkntDhp+I8DHJk5Cuh5cR8yjwfzX+pGGzS8yVLQ=";
   };
 
@@ -27,7 +27,7 @@ mkDerivation rec {
     libjack2
   ];
 
-  qmakeFlags = [ "CONFIG+=noupcasename" ];
+  qmakeFlags = ["CONFIG+=noupcasename"];
 
   meta = {
     description = "Enables musicians to perform real-time jam sessions over the internet";
@@ -35,6 +35,6 @@ mkDerivation rec {
     homepage = "https://github.com/corrados/jamulus/wiki";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.seb314 ];
+    maintainers = [lib.maintainers.seb314];
   };
 }

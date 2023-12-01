@@ -107,7 +107,7 @@ stdenv.mkDerivation rec {
     ++ optional upowerSupport upower
     ++ optional wireplumberSupport wireplumber;
 
-  nativeCheckInputs = [ catch2_3 ];
+  nativeCheckInputs = [catch2_3];
   doCheck = runTests;
 
   mesonFlags =

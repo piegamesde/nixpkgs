@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "lquery";
   version = "20201220-git";
@@ -22,7 +22,7 @@ rec {
 
   packageName = "lquery";
 
-  asdFilesToKeep = [ "lquery.asd" ];
+  asdFilesToKeep = ["lquery.asd"];
   overrides = x: x;
 }
 /* (SYSTEM lquery DESCRIPTION

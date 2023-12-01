@@ -24,8 +24,8 @@ buildPythonPackage rec {
   };
 
   patches =
-    lib.optionals (pythonAtLeast "3.10") [ ./fix-annotations-version-11.patch ]
-    ++ lib.optionals (isPy38 || isPy39) [ ./fix-annotations-version-10.patch ]
+    lib.optionals (pythonAtLeast "3.10") [./fix-annotations-version-11.patch]
+    ++ lib.optionals (isPy38 || isPy39) [./fix-annotations-version-10.patch]
     ++
       lib.optionals isPy27
         [
@@ -35,9 +35,9 @@ buildPythonPackage rec {
           ./skip-test.patch
         ];
 
-  propagatedBuildInputs = [ flake8 ];
+  propagatedBuildInputs = [flake8];
 
-  nativeCheckInputs = [ six ];
+  nativeCheckInputs = [six];
 
   checkPhase = ''
     ${python.interpreter} -m test_flake8_future_import

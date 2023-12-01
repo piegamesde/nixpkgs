@@ -8,9 +8,9 @@
   gtk-engine-murrine,
   python3,
   sassc,
-  accents ? [ "blue" ],
+  accents ? ["blue"],
   size ? "standard",
-  tweaks ? [ ],
+  tweaks ? [],
   variant ? "frappe",
 }:
 let
@@ -52,11 +52,11 @@ in
 lib.checkListOfEnum "${pname}: theme accent" validAccents accents lib.checkListOfEnum
   "${pname}: color variant"
   validVariants
-  [ variant ]
+  [variant]
   lib.checkListOfEnum
   "${pname}: size variant"
   validSizes
-  [ size ]
+  [size]
   lib.checkListOfEnum
   "${pname}: tweaks"
   validTweaks
@@ -81,10 +81,10 @@ lib.checkListOfEnum "${pname}: theme accent" validAccents accents lib.checkListO
 
     buildInputs = [
       gnome-themes-extra
-      (python3.withPackages (ps: [ ps.catppuccin ]))
+      (python3.withPackages (ps: [ps.catppuccin]))
     ];
 
-    propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+    propagatedUserEnvPkgs = [gtk-engine-murrine];
 
     postUnpack = ''
       rm -rf source/colloid
@@ -103,9 +103,9 @@ lib.checkListOfEnum "${pname}: theme accent" validAccents accents lib.checkListO
       export HOME=$(mktemp -d)
 
       python3 install.py ${variant} \
-        ${lib.optionalString (accents != [ ]) "--accent " + builtins.toString accents} \
-        ${lib.optionalString (size != [ ]) "--size " + size} \
-        ${lib.optionalString (tweaks != [ ]) "--tweaks " + builtins.toString tweaks} \
+        ${lib.optionalString (accents != []) "--accent " + builtins.toString accents} \
+        ${lib.optionalString (size != []) "--size " + size} \
+        ${lib.optionalString (tweaks != []) "--tweaks " + builtins.toString tweaks} \
         --dest $out/share/themes
 
       runHook postInstall
@@ -116,6 +116,6 @@ lib.checkListOfEnum "${pname}: theme accent" validAccents accents lib.checkListO
       homepage = "https://github.com/catppuccin/gtk";
       license = licenses.gpl3Plus;
       platforms = platforms.linux;
-      maintainers = [ maintainers.fufexan ];
+      maintainers = [maintainers.fufexan];
     };
   }

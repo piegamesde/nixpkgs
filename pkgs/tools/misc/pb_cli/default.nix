@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     sha256 = "0w6a789zffvz4ixsb92q45n5s4xyx7s2l2f07972i3dajaaai8z7";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   liveDeps = [
     jq
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A no bullshit 0x0.st client";
     homepage = "https://github.com/ptpb/pb_cli";
-    maintainers = [ maintainers.ar1a ];
+    maintainers = [maintainers.ar1a];
     license = licenses.gpl3Plus;
   };
 }

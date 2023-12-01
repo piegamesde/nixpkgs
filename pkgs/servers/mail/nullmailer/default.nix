@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     "--localstatedir=/var"
   ] ++ lib.optional tls "--enable-tls";
 
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   # We have to remove the ''var'' directory, since nix can't handle named pipes
   # and we can't use it in the store anyway. Same for ''etc''.
@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     '';
     license = lib.licenses.gpl2;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ sargon ];
+    maintainers = with lib.maintainers; [sargon];
   };
 }

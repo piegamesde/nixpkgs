@@ -19,15 +19,15 @@ buildDunePackage rec {
 
   minimumOCamlVersion = "4.03";
 
-  propagatedBuildInputs = [ stdlib-shims ];
+  propagatedBuildInputs = [stdlib-shims];
 
   doCheck = true;
-  checkInputs = [ ounit ];
+  checkInputs = [ounit];
 
   meta = with lib; {
     homepage = "https://github.com/mirage/ocaml-diet";
     description = "Simple implementation of Discrete Interval Encoding Trees";
     license = licenses.isc;
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
   };
 }

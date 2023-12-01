@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
 
     license = licenses.mpl20;
     platforms = platforms.unix;
-    maintainers = [ maintainers.sheenobu ];
+    maintainers = [maintainers.sheenobu];
   };
 }

@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "alexandria";
   version = "20211209-git";
 
   description = "Alexandria is a collection of portable public domain utilities.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/alexandria/2021-12-09/alexandria-20211209-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "alexandria";
 
-  asdFilesToKeep = [ "alexandria.asd" ];
+  asdFilesToKeep = ["alexandria.asd"];
   overrides = x: x;
 }
 /* (SYSTEM alexandria DESCRIPTION

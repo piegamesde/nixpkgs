@@ -1,25 +1,25 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   let
     backend =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         services.httpd = {
           enable = true;
           adminAddr = "foo@example.org";
           virtualHosts.localhost.documentRoot = "${pkgs.valgrind.doc}/share/doc/valgrind/html";
         };
-        networking.firewall.allowedTCPPorts = [ 80 ];
+        networking.firewall.allowedTCPPorts = [80];
       };
   in
   {
     name = "proxy";
-    meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [eelco];};
 
     nodes = {
       proxy =
-        { nodes, ... }:
+        {nodes, ...}:
         {
           services.httpd = {
             enable = true;
@@ -54,13 +54,13 @@ import ./make-test-python.nix (
               '';
             };
           };
-          networking.firewall.allowedTCPPorts = [ 80 ];
+          networking.firewall.allowedTCPPorts = [80];
         };
 
       backend1 = backend;
       backend2 = backend;
 
-      client = { ... }: { };
+      client = {...}: {};
     };
 
     testScript = ''

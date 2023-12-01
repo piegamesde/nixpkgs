@@ -66,7 +66,7 @@ in
 
     useDune = true;
 
-    patches = [ ./janestreet-0.15.patch ];
+    patches = [./janestreet-0.15.patch];
 
     propagatedBuildInputs = with coq.ocamlPackages; [
       cmdliner
@@ -106,22 +106,22 @@ in
     {
       src = fetchzip {
         url = "https://github.com/ejgallego/coq-serapi/releases/download/${version}/coq-serapi-${
-          if version == "8.11.0+0.11.1" then version else builtins.replaceStrings [ "+" ] [ "." ] version
+          if version == "8.11.0+0.11.1" then version else builtins.replaceStrings ["+"] ["."] version
         }.tbz";
         sha256 = release."${version}".sha256;
       };
 
       patches =
         if version == "8.10.0+0.7.2" then
-          [ ./8.10.0+0.7.2.patch ]
+          [./8.10.0+0.7.2.patch]
         else if version == "8.11.0+0.11.1" then
-          [ ./8.11.0+0.11.1.patch ]
+          [./8.11.0+0.11.1.patch]
         else if version == "8.12.0+0.12.1" || version == "8.13.0+0.13.0" then
-          [ ./8.12.0+0.12.1.patch ]
+          [./8.12.0+0.12.1.patch]
         else if version == "8.14.0+0.14.0" || version == "8.15.0+0.15.0" then
-          [ ./janestreet-0.15.patch ]
+          [./janestreet-0.15.patch]
         else
-          [ ];
+          [];
 
       propagatedBuildInputs =
         o.propagatedBuildInputs

@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Terminal file manager";
     homepage = "https://github.com/antonmedv/llama";
     license = licenses.mit;
-    maintainers = with maintainers; [ portothree ];
+    maintainers = with maintainers; [portothree];
   };
 }

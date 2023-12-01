@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Sp5wuX2nP3KGyWw7MFa11rI1CPIKIWBt8nvBSsASIEw=";
   };
 
-  buildInputs = [ postgresql ];
+  buildInputs = [postgresql];
 
   installPhase = ''
     runHook preInstall
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Precise fractional arithmetic for PostgreSQL";
     homepage = "https://github.com/begriffs/pg_rational";
-    maintainers = with maintainers; [ netcrns ];
+    maintainers = with maintainers; [netcrns];
     platforms = postgresql.meta.platforms;
     license = licenses.mit;
   };

@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Notify on new X clipboard events";
     inherit (src.meta) homepage;
-    maintainers = with maintainers; [ jb55 ];
+    maintainers = with maintainers; [jb55];
     license = licenses.publicDomain;
   };
 }

@@ -26,17 +26,17 @@ let
   inherit (swift) swiftOs swiftModuleSubdir swiftStaticModuleSubdir;
   sharedLibraryExt = stdenv.hostPlatform.extensions.sharedLibrary;
 
-  sources = callPackage ../sources.nix { };
+  sources = callPackage ../sources.nix {};
   generated = swiftpm2nix.helpers ./generated;
-  cmakeGlue = callPackage ./cmake-glue.nix { };
+  cmakeGlue = callPackage ./cmake-glue.nix {};
 
   # Common attributes for the bootstrap swiftpm and the final swiftpm.
   commonAttrs = {
     inherit (sources) version;
     src = sources.swift-package-manager;
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
     # Required at run-time for the host platform to build package manifests.
-    propagatedBuildInputs = [ Foundation ];
+    propagatedBuildInputs = [Foundation];
     patches = [
       ./patches/cmake-disable-rpath.patch
       ./patches/disable-index-store.patch
@@ -66,13 +66,13 @@ let
 
   # Tools invoked by swiftpm at run-time.
   runtimeDeps =
-    [ git ]
+    [git]
     ++ lib.optionals stdenv.isDarwin [
       xcbuild.xcrun
       # vtool is used to determine a minimum deployment target. This is part of
       # cctools, but adding that as a build input puts an unwrapped linker in
       # PATH, and breaks builds. This small derivation exposes just vtool.
-      (runCommandLocal "vtool" { } ''
+      (runCommandLocal "vtool" {} ''
         mkdir -p $out/bin
         ln -s ${cctools}/bin/vtool $out/bin/vtool
       '')
@@ -85,15 +85,15 @@ let
       attrs
       // {
         nativeBuildInputs =
-          (attrs.nativeBuildInputs or [ ])
+          (attrs.nativeBuildInputs or [])
           ++ [
             cmake
             ninja
             swift
           ]
-          ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+          ++ lib.optionals stdenv.isDarwin [DarwinTools];
 
-        buildInputs = (attrs.buildInputs or [ ]) ++ [ Foundation ];
+        buildInputs = (attrs.buildInputs or []) ++ [Foundation];
 
         postPatch =
           (attrs.postPatch or "")
@@ -131,7 +131,7 @@ let
           '';
 
         cmakeFlags =
-          (attrs.cmakeFlags or [ ])
+          (attrs.cmakeFlags or [])
           ++ [
             # Some builds link to libraries within the same build. Make sure these
             # create references to $out. None of our builds run their own products,
@@ -262,7 +262,7 @@ let
       sqlite
     ];
 
-    patches = [ ./patches/llbuild-cmake-disable-rpath.patch ];
+    patches = [./patches/llbuild-cmake-disable-rpath.patch];
 
     postPatch = ''
       # Substitute ncurses for curses.
@@ -280,7 +280,7 @@ let
         --replace 'add_subdirectory(Xcode/' '#add_subdirectory(Xcode/'
     '';
 
-    cmakeFlags = [ "-DLLBUILD_SUPPORT_BINDINGS=Swift" ];
+    cmakeFlags = ["-DLLBUILD_SUPPORT_BINDINGS=Swift"];
 
     postInstall =
       cmakeGlue.LLBuild
@@ -351,7 +351,7 @@ let
         swift-tools-support-core
       ];
 
-      cmakeFlags = [ "-DUSE_CMAKE_INSTALL=ON" ];
+      cmakeFlags = ["-DUSE_CMAKE_INSTALL=ON"];
 
       postInstall = ''
         for program in $out/bin/swift-*; do

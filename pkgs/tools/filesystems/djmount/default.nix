@@ -22,8 +22,8 @@ stdenv.mkDerivation rec {
         '#define ithread_mutexattr_setkind_np pthread_mutexattr_settype'
   '';
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ fuse ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [fuse];
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     homepage = "https://djmount.sourceforge.net/";
     description = "UPnP AV client, mounts as a Linux filesystem the media content of compatible UPnP AV devices";
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.jagajaga ];
+    maintainers = [lib.maintainers.jagajaga];
     license = lib.licenses.gpl2;
   };
 }

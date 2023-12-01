@@ -19,8 +19,8 @@ buildNimPackage rec {
     src.meta
     // {
       description = "Temporary files and folders";
-      license = [ lib.licenses.mit ];
-      maintainers = [ maintainers.ehmry ];
+      license = [lib.licenses.mit];
+      maintainers = [maintainers.ehmry];
       mainProgram = "tempfile_seeder";
     };
 }

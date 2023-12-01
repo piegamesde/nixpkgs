@@ -70,7 +70,7 @@ stdenv.mkDerivation {
     description = "Utility for switching between keyboard layouts";
     homepage = "https://xneur.ru";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux;
   };
 }

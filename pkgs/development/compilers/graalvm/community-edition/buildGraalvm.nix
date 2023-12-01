@@ -16,8 +16,8 @@
   zlib,
   # extra params
   javaVersion,
-  meta ? { },
-  products ? [ ],
+  meta ? {},
+  products ? [],
   gtkSupport ? stdenv.isLinux,
   ...
 }@args:
@@ -45,7 +45,7 @@ let
     "gtkSupport"
   ];
   runtimeLibraryPath = lib.makeLibraryPath (
-    [ cups ]
+    [cups]
     ++ lib.optionals gtkSupport [
       cairo
       glib
@@ -186,9 +186,9 @@ let
               gpl2Classpath
               bsd3
             ];
-            sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+            sourceProvenance = with sourceTypes; [binaryNativeCode];
             mainProgram = "java";
-            maintainers = with maintainers; teams.graalvm-ce.members ++ [ ];
+            maintainers = with maintainers; teams.graalvm-ce.members ++ [];
           }
           // meta
         );

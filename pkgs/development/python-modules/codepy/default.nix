@@ -24,9 +24,9 @@ buildPythonPackage rec {
     six
     cgen
   ];
-  propagatedBuildInputs = [ appdirs ];
+  propagatedBuildInputs = [appdirs];
 
-  pythonImportsCheck = [ "codepy" ];
+  pythonImportsCheck = ["codepy"];
 
   # Tests are broken
   doCheck = false;
@@ -35,6 +35,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/inducer/codepy";
     description = "Generate and execute native code at run time, from Python";
     license = licenses.mit;
-    maintainers = with maintainers; [ atila ];
+    maintainers = with maintainers; [atila];
   };
 }

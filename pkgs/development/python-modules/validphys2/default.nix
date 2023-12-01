@@ -37,12 +37,12 @@ buildPythonPackage rec {
   ];
 
   doCheck = false; # no tests
-  pythonImportsCheck = [ "validphys" ];
+  pythonImportsCheck = ["validphys"];
 
   meta = with lib; {
     description = "NNPDF analysis framework";
     homepage = "https://data.nnpdf.science/validphys-docs/guide.html";
     inherit (nnpdf.meta) license;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

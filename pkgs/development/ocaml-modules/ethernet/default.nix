@@ -24,7 +24,7 @@ buildDunePackage rec {
     hash = "sha256:0a898vp9dw42majsvzzvs8pc6x4ns01wlwhwbacixliv6vv78ng9";
   };
 
-  buildInputs = [ ppx_cstruct ];
+  buildInputs = [ppx_cstruct];
 
   propagatedBuildInputs = [
     cstruct
@@ -39,6 +39,6 @@ buildDunePackage rec {
     description = "OCaml Ethernet (IEEE 802.3) layer, used in MirageOS";
     homepage = "https://github.com/mirage/ethernet";
     license = licenses.isc;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

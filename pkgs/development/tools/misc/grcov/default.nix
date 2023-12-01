@@ -38,6 +38,6 @@ rustPlatform.buildRustPackage rec {
     description = "Rust tool to collect and aggregate code coverage data for multiple source files";
     homepage = "https://github.com/mozilla/grcov";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ DieracDelta ];
+    maintainers = with maintainers; [DieracDelta];
   };
 }

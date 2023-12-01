@@ -26,9 +26,9 @@ buildPythonPackage rec {
     pillow
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ascii_magic" ];
+  pythonImportsCheck = ["ascii_magic"];
 
   preCheck = ''
     cd tests
@@ -48,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/LeandroBarone/python-ascii_magic";
     changelog = "https://github.com/LeandroBarone/python-ascii_magic#changelog";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

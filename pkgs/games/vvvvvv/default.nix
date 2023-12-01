@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
   # Help CMake find SDL_mixer.h
   env.NIX_CFLAGS_COMPILE = "-I${lib.getDev SDL2_mixer}/include/SDL2";
 
-  cmakeFlags = [ "-DBUNDLE_DEPENDENCIES=OFF" ] ++ lib.optional makeAndPlay "-DMAKEANDPLAY=ON";
+  cmakeFlags = ["-DBUNDLE_DEPENDENCIES=OFF"] ++ lib.optional makeAndPlay "-DMAKEANDPLAY=ON";
 
   desktopItems = [
     (makeDesktopItem {
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       exec = pname;
       icon = "VVVVVV";
       terminal = false;
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
       '';
     homepage = "https://thelettervsixtim.es";
     license = licenses.unfree;
-    maintainers = with maintainers; [ martfont ];
+    maintainers = with maintainers; [martfont];
     platforms = platforms.unix;
   };
 }

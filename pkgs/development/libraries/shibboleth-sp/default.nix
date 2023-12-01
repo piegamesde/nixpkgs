@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     "--with-fastcgi"
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-std=c++14" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-std=c++14"];
 
   enableParallelBuilding = true;
 
@@ -55,6 +55,6 @@ stdenv.mkDerivation rec {
     description = "Enables SSO and Federation web applications written with any programming language or framework";
     platforms = platforms.unix;
     license = licenses.asl20;
-    maintainers = [ maintainers.jammerful ];
+    maintainers = [maintainers.jammerful];
   };
 }

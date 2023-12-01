@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs =
-    [ oniguruma ]
+    [oniguruma]
     ++ lib.optionals stdenv.isLinux [
       libcap
       acl
@@ -30,8 +30,8 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace "-flto -DNDEBUG" "-DNDEBUG"
   '';
 
-  makeFlags = [ "PREFIX=$(out)" ];
-  buildFlags = [ "release" ]; # "release" enables compiler optimizations
+  makeFlags = ["PREFIX=$(out)"];
+  buildFlags = ["release"]; # "release" enables compiler optimizations
 
   meta = with lib; {
     description = "A breadth-first version of the UNIX find command";
@@ -42,6 +42,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/tavianator/bfs";
     license = licenses.bsd0;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ yesbox ];
+    maintainers = with maintainers; [yesbox];
   };
 }

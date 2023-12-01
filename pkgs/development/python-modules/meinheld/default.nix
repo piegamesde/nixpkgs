@@ -20,12 +20,12 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "greenlet>=0.4.5,<0.5" "greenlet>=0.4.5"
   '';
 
-  propagatedBuildInputs = [ greenlet ];
+  propagatedBuildInputs = [greenlet];
 
   # No tests
   doCheck = false;
 
-  pythonImportsCheck = [ "meinheld" ];
+  pythonImportsCheck = ["meinheld"];
 
   meta = with lib; {
     description = "High performance asynchronous Python WSGI Web Server";

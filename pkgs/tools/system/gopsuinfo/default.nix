@@ -19,7 +19,7 @@ buildGoModule rec {
 
   # Remove installing of binary from the Makefile (already taken care of by
   # `buildGoModule`)
-  patches = [ ./no_bin_install.patch ];
+  patches = [./no_bin_install.patch];
 
   # Fix absolute path of icons in the code
   postPatch = ''
@@ -34,7 +34,7 @@ buildGoModule rec {
     description = "A gopsutil-based command to display system usage info";
     homepage = "https://github.com/nwg-piotr/gopsuinfo";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ otini ];
+    maintainers = with maintainers; [otini];
     platforms = platforms.linux;
   };
 }

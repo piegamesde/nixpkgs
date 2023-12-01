@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     (makePkgconfigItem rec {
       name = "libtcc";
       inherit version;
-      cflags = [ "-I${variables.includedir}" ];
+      cflags = ["-I${variables.includedir}"];
       libs = [
         "-L${variables.libdir}"
         "-Wl,--rpath ${variables.libdir}"
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     "--libpaths=${lib.getLib stdenv.cc.libc}/lib"
     # build cross compilers
     "--enable-cross"
-  ] ++ lib.optionals stdenv.hostPlatform.isMusl [ "--config-musl" ];
+  ] ++ lib.optionals stdenv.hostPlatform.isMusl ["--config-musl"];
 
   preConfigure = ''
     ${if stdenv.isDarwin && !isCleanVer version then

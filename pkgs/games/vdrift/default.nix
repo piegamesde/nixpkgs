@@ -49,7 +49,7 @@ let
       gettext
     ];
 
-    patches = [ ./0001-Ignore-missing-data-for-installation.patch ];
+    patches = [./0001-Ignore-missing-data-for-installation.patch];
 
     buildPhase = ''
       sed -i -e s,/usr/local,$out, SConstruct
@@ -62,7 +62,7 @@ let
       description = "Car racing game";
       homepage = "http://vdrift.net/";
       license = lib.licenses.gpl2Plus;
-      maintainers = with lib.maintainers; [ viric ];
+      maintainers = with lib.maintainers; [viric];
       platforms = lib.platforms.linux;
     };
   };
@@ -76,7 +76,7 @@ in
     _: {
       name = wrappedName;
       meta = bin.meta // {
-        hydraPlatforms = [ ];
+        hydraPlatforms = [];
       };
       unwrapped = bin;
       inherit bin data;

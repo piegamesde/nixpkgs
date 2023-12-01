@@ -15,7 +15,7 @@ buildKodiAddon rec {
     sha256 = "sha256-zjbPAEB39dWpNsgoBqCKpLLXmqBI/v0wnnbCTRhYGzE=";
   };
 
-  passthru.updateScript = addonUpdateScript { attrPath = "kodi.packages.six"; };
+  passthru.updateScript = addonUpdateScript {attrPath = "kodi.packages.six";};
 
   meta = with lib; {
     homepage = "https://pypi.org/project/six/";

@@ -21,14 +21,14 @@ buildPythonPackage rec {
     sphinx
   ];
 
-  propagatedBuildInputs = [ lxml ];
+  propagatedBuildInputs = [lxml];
 
-  pythonImportsCheck = [ "dbusdeviation" ];
+  pythonImportsCheck = ["dbusdeviation"];
 
   meta = with lib; {
     homepage = "https://tecnocode.co.uk/dbus-deviation/";
     description = "A project for parsing D-Bus introspection XML and processing it in various ways";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ lilyinstarlight ];
+    maintainers = with maintainers; [lilyinstarlight];
   };
 }

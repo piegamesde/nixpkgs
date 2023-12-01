@@ -41,7 +41,7 @@ let
     in
     # Expose only the sphinx-build binary to avoid contaminating
     # everything with Sphinx’s Python environment.
-    runCommand "sphinx-build" { } ''
+    runCommand "sphinx-build" {} ''
       mkdir -p "$out/bin"
       ln -s "${env}/bin/sphinx-build" "$out/bin"
     '';
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     sha256 = "7Wxriy1fVsfAhcfhOhuvLehhmQYrQ2IgZTK53bt12HI=";
   };
 
-  patches = [ ./udev-absolute-path.patch ];
+  patches = [./udev-absolute-path.patch];
 
   nativeBuildInputs =
     [
@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
       gtk3
     ];
 
-  propagatedBuildInputs = [ udev ];
+  propagatedBuildInputs = [udev];
 
   nativeCheckInputs = [
     check
@@ -132,7 +132,7 @@ stdenv.mkDerivation rec {
     tests = {
       libinput-module = nixosTests.libinput;
     };
-    updateScript = gitUpdater { patchlevel-unstable = true; };
+    updateScript = gitUpdater {patchlevel-unstable = true;};
   };
 
   meta = with lib; {
@@ -140,7 +140,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.freedesktop.org/wiki/Software/libinput/";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ codyopel ] ++ teams.freedesktop.members;
+    maintainers = with maintainers; [codyopel] ++ teams.freedesktop.members;
     changelog = "https://gitlab.freedesktop.org/libinput/libinput/-/releases/${version}";
   };
 }

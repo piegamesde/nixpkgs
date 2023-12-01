@@ -60,6 +60,6 @@ stdenv.mkDerivation rec {
     homepage = "http://smarden.org/socklog/";
     license = licenses.publicDomain;
     platforms = platforms.unix;
-    maintainers = [ maintainers.joachifm ];
+    maintainers = [maintainers.joachifm];
   };
 }

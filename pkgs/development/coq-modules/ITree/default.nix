@@ -34,6 +34,6 @@ mkCoqDerivation rec {
   ];
   meta = {
     description = "A Library for Representing Recursive and Impure Programs in Coq";
-    maintainers = with lib.maintainers; [ larsr ];
+    maintainers = with lib.maintainers; [larsr];
   };
 }

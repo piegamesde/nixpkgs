@@ -30,7 +30,7 @@ buildPythonPackage rec {
       --replace 'requests-toolbelt = "^0.9.1"' 'requests-toolbelt = "*"'
   '';
 
-  buildInputs = [ poetry-core ];
+  buildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     python-jose
@@ -42,12 +42,12 @@ buildPythonPackage rec {
   # Test fixtures require a running keycloak instance
   doCheck = false;
 
-  pythonImportsCheck = [ "keycloak" ];
+  pythonImportsCheck = ["keycloak"];
 
   meta = with lib; {
     description = "Provides access to the Keycloak API";
     homepage = "https://github.com/marcospereirampj/python-keycloak";
     license = licenses.mit;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

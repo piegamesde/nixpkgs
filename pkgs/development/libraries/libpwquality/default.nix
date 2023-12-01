@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     "dev"
     "lib"
     "man"
-  ] ++ lib.optionals enablePython [ "py" ];
+  ] ++ lib.optionals enablePython ["py"];
 
   src = fetchFromGitHub {
     owner = "libpwquality";
@@ -41,10 +41,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     autoreconfHook
     perl
-  ] ++ lib.optionals enablePython [ python ];
-  buildInputs = [ cracklib ] ++ lib.optionals enablePAM [ pam ];
+  ] ++ lib.optionals enablePython [python];
+  buildInputs = [cracklib] ++ lib.optionals enablePAM [pam];
 
-  configureFlags = lib.optionals (!enablePython) [ "--disable-python-bindings" ];
+  configureFlags = lib.optionals (!enablePython) ["--disable-python-bindings"];
 
   meta = with lib; {
     homepage = "https://github.com/libpwquality/libpwquality";
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
       bsd3 # or
       gpl2Plus
     ];
-    maintainers = with maintainers; [ jk ];
+    maintainers = with maintainers; [jk];
     platforms = platforms.unix;
   };
 }

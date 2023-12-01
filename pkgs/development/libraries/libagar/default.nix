@@ -22,7 +22,7 @@
 }:
 
 let
-  srcs = import ./srcs.nix { inherit fetchurl; };
+  srcs = import ./srcs.nix {inherit fetchurl;};
 in
 stdenv.mkDerivation {
   pname = "libagar";
@@ -75,7 +75,7 @@ stdenv.mkDerivation {
     description = "Cross-platform GUI toolkit";
     homepage = "http://libagar.org/index.html";
     license = with licenses; bsd3;
-    maintainers = with maintainers; [ ramkromberg ];
+    maintainers = with maintainers; [ramkromberg];
     platforms = with platforms; linux;
   };
 }

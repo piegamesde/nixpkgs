@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
       sha256 = "1mk8j2njd94s7vf2wggi08xxxzx8dxrvdricl9cbspvkyp715w2m";
       # Don't bother trying to reconcile conflicts for NEWS entries, as they will continue to occur
       # and are uninteresting as well as unimportant for our purposes (since NEWS never leaves the build env).
-      excludes = [ "NEWS.md" ];
+      excludes = ["NEWS.md"];
     })
 
     # glibc 2.33 compat (https://github.com/dex4er/fakechroot/pull/85/)
@@ -49,8 +49,8 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ perl ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [perl];
 
   passthru = {
     tests = {
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/dex4er/fakechroot";
     description = "Give a fake chroot environment through LD_PRELOAD";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     platforms = platforms.linux;
   };
 }

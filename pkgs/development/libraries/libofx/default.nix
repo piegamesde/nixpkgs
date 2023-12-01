@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   };
 
   preConfigure = "./autogen.sh";
-  configureFlags = [ "--with-opensp-includes=${opensp}/include/OpenSP" ];
+  configureFlags = ["--with-opensp-includes=${opensp}/include/OpenSP"];
   nativeBuildInputs = [
     pkg-config
     libtool
@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     homepage = "https://libofx.sourceforge.net/";
     license = "LGPL";
     platforms = lib.platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

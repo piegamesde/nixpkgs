@@ -18,17 +18,17 @@ buildPythonPackage rec {
     sha256 = "fidopnpAt5CXPsLbx+V8wrJCQQ/WIO6AqxpsYLDv8qM=";
   };
 
-  propagatedBuildInputs = [ pyopenssl ];
+  propagatedBuildInputs = [pyopenssl];
 
   # Source is not tagged
   doCheck = false;
 
-  pythonImportsCheck = [ "uonet_request_signer_hebe" ];
+  pythonImportsCheck = ["uonet_request_signer_hebe"];
 
   meta = with lib; {
     description = "UONET+ (hebe) request signer for Python";
     homepage = "https://github.com/wulkanowy/uonet-request-signer";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

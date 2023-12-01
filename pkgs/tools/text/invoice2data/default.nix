@@ -20,7 +20,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-ss2h8cg0sga+lzJyQHckrZB/Eb63Oj3FkqmGqWCzCQ8=";
   };
 
-  buildInputs = with python3.pkgs; [ setuptools-git ];
+  buildInputs = with python3.pkgs; [setuptools-git];
 
   propagatedBuildInputs = with python3.pkgs; [
     chardet
@@ -52,12 +52,12 @@ python3.pkgs.buildPythonApplication rec {
   # Tests fails even when ran manually on my ubuntu machine !!
   doCheck = false;
 
-  pythonImportsCheck = [ "invoice2data" ];
+  pythonImportsCheck = ["invoice2data"];
 
   meta = with lib; {
     description = "Data extractor for PDF invoices";
     homepage = "https://github.com/invoice-x/invoice2data";
     license = licenses.mit;
-    maintainers = with maintainers; [ psyanticy ];
+    maintainers = with maintainers; [psyanticy];
   };
 }

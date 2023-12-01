@@ -17,9 +17,9 @@ stdenv.mkDerivation {
     sha256 = "sha256-AsXqcoqUXUFxTG+G+31lm45gjP6qGohEnUSUtKypew0=";
   };
 
-  buildInputs = [ xorg.libX11 ];
+  buildInputs = [xorg.libX11];
 
-  propagatedBuildInputs = [ spotify ];
+  propagatedBuildInputs = [spotify];
 
   installPhase = ''
     echo "#!${runtimeShell}" > spotifywm
@@ -33,6 +33,6 @@ stdenv.mkDerivation {
     description = "Wrapper around Spotify that correctly sets class name before opening the window";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jqueiroz ];
+    maintainers = with maintainers; [jqueiroz];
   };
 }

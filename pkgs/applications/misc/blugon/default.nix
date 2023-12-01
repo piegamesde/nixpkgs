@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     sed -i 's,CC = gcc,CC ?= gcc,g' backends/scg/Makefile
   '';
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Simple and configurable Blue Light Filter for X";
@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     license = licenses.asl20;
     homepage = "https://github.com/jumper149/blugon";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ jumper149 ];
+    maintainers = with maintainers; [jumper149];
   };
 }

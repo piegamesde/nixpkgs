@@ -20,19 +20,19 @@ buildPythonPackage {
     hash = "sha256-+IvrPaW1w4uYkEad5n0MsPnUlLeLEGyhhF+WwQuRxKw=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   # remove coverage configuration
   preCheck = ''
     rm pytest.ini
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Sans-I/O implementation of SOCKS4, SOCKS4A, and SOCKS5";
     homepage = "https://github.com/sethmlarson/socksio";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

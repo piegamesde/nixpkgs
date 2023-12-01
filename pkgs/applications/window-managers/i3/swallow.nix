@@ -21,7 +21,7 @@ buildPythonApplication rec {
     sha256 = "1l3x8mixwq4n0lnyp0wz5vijgnypamq6lqjazcd2ywl2jv8d6fif";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     i3ipc
@@ -38,6 +38,6 @@ buildPythonApplication rec {
     license = licenses.mit;
     platforms = platforms.linux;
     mainProgram = "swallow";
-    maintainers = [ maintainers.ivar ];
+    maintainers = [maintainers.ivar];
   };
 }

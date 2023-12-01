@@ -40,10 +40,10 @@ buildPythonPackage rec {
     google-cloud-translate
   ];
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   passthru.optional-dependencies = {
-    google = [ google-cloud-translate ];
+    google = [google-cloud-translate];
   };
 
   checkPhase = ''
@@ -55,6 +55,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/wagtail/wagtail-localize";
     changelog = "https://github.com/wagtail/wagtail-localize/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ sephi ];
+    maintainers = with maintainers; [sephi];
   };
 }

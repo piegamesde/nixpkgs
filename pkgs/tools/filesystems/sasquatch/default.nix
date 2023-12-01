@@ -38,10 +38,10 @@ stdenv.mkDerivation rec {
     lzo
     zlib
     zstd
-  ] ++ lib.optionals lz4Support [ lz4 ];
+  ] ++ lib.optionals lz4Support [lz4];
 
-  patches = [ patch ];
-  patchFlags = [ "-p0" ];
+  patches = [patch];
+  patchFlags = ["-p0"];
 
   postPatch = ''
     # Drop blanket -Werror to avoid build failure on fresh toolchains
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
   #     `verbose'; unsquashfs.o:/build/squashfs4.4/squashfs-tools/error.h:34: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  installFlags = [ "INSTALL_DIR=\${out}/bin" ];
+  installFlags = ["INSTALL_DIR=\${out}/bin"];
 
   makeFlags = [
     "XZ_SUPPORT=1"
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/devttys0/sasquatch";
     description = "Set of patches to the standard unsquashfs utility (part of squashfs-tools) that attempts to add support for as many hacked-up vendor-specific SquashFS implementations as possible";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.pamplemousse ];
+    maintainers = [maintainers.pamplemousse];
     platforms = platforms.linux;
   };
 }

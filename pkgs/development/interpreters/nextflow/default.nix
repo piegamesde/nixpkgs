@@ -61,7 +61,7 @@ let
       homepage = "https://www.nextflow.io/";
       changelog = "https://github.com/nextflow-io/nextflow/releases";
       license = licenses.asl20;
-      maintainers = [ maintainers.Etjean ];
+      maintainers = [maintainers.Etjean];
       mainProgram = "nextflow";
       platforms = platforms.unix;
     };
@@ -70,7 +70,7 @@ in
 if stdenv.isLinux then
   buildFHSEnv {
     name = "nextflow";
-    targetPkgs = pkgs: [ nextflow ];
+    targetPkgs = pkgs: [nextflow];
     runScript = "nextflow";
   }
 else

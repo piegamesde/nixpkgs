@@ -3,7 +3,7 @@
   runCommand,
   makeWrapper,
   lib,
-  extraPackages ? [ ],
+  extraPackages ? [],
   runc, # Default container runtime
   conntrack-tools,
   crun, # Container runtime (default with cgroups v2 for podman/buildah)
@@ -32,14 +32,14 @@ runCommand cri-o-unwrapped.name
 
     preferLocalBuild = true;
 
-    meta = builtins.removeAttrs cri-o-unwrapped.meta [ "outputsToInstall" ];
+    meta = builtins.removeAttrs cri-o-unwrapped.meta ["outputsToInstall"];
 
     outputs = [
       "out"
       "man"
     ];
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
   }
   ''
     ln -s ${cri-o-unwrapped.man} $man

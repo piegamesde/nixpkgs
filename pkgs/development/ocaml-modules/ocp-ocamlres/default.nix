@@ -35,14 +35,14 @@ else
 
     createFindlibDestdir = true;
 
-    installFlags = [ "BINDIR=$(out)/bin" ];
+    installFlags = ["BINDIR=$(out)/bin"];
     preInstall = "mkdir -p $out/bin";
 
     meta = {
       description = "A simple tool and library to embed files and directories inside OCaml executables";
       homepage = "https://www.typerex.org/ocp-ocamlres.html";
       license = lib.licenses.lgpl3Plus;
-      maintainers = [ lib.maintainers.vbgl ];
+      maintainers = [lib.maintainers.vbgl];
       mainProgram = "ocp-ocamlres";
       inherit (ocaml.meta) platforms;
     };

@@ -23,7 +23,7 @@ stdenvNoCC.mkDerivation {
     description = "Firmware for the newest Realtek rtlwifi codes";
     homepage = "https://github.com/lwfinger/rtw88";
     license = licenses.unfreeRedistributableFirmware;
-    maintainers = with maintainers; [ tvorog ];
+    maintainers = with maintainers; [tvorog];
     platforms = platforms.linux;
   };
 }

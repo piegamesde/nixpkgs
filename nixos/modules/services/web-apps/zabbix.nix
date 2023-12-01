@@ -258,7 +258,7 @@ in
     services.httpd = {
       enable = true;
       adminAddr = mkDefault cfg.virtualHost.adminAddr;
-      extraModules = [ "proxy_fcgi" ];
+      extraModules = ["proxy_fcgi"];
       virtualHosts.${cfg.virtualHost.hostName} = mkMerge [
         cfg.virtualHost
         {
@@ -285,6 +285,6 @@ in
       inherit group;
     };
 
-    users.groups.${group} = mapAttrs (name: mkDefault) { gid = config.ids.gids.zabbix; };
+    users.groups.${group} = mapAttrs (name: mkDefault) {gid = config.ids.gids.zabbix;};
   };
 }

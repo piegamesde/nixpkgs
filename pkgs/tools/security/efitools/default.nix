@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     description = "Tools for manipulating UEFI secure boot platforms";
     homepage = "https://git.kernel.org/pub/scm/linux/kernel/git/jejb/efitools.git";
     license = licenses.gpl2;
-    maintainers = [ maintainers.grahamc ];
+    maintainers = [maintainers.grahamc];
     platforms = platforms.linux;
   };
 }

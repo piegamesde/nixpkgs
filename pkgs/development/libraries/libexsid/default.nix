@@ -20,18 +20,18 @@ stdenv.mkDerivation rec {
     sha256 = "1qbiri549fma8c72nmj3cpz3sn1vc256kfafnygkmkzg7wdmgi7r";
   };
 
-  outputs = [ "out" ] ++ lib.optional docSupport "doc";
+  outputs = ["out"] ++ lib.optional docSupport "doc";
 
   nativeBuildInputs = [
     autoreconfHook
     pkg-config
   ] ++ lib.optional docSupport doxygen;
 
-  buildInputs = [ libftdi1 ];
+  buildInputs = [libftdi1];
 
   enableParallelBuilding = true;
 
-  installTargets = [ "install" ] ++ lib.optional docSupport "doc";
+  installTargets = ["install"] ++ lib.optional docSupport "doc";
 
   postInstall = lib.optionalString docSupport ''
     mkdir -p $doc/share/libexsid/doc
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     description = "Driver for exSID USB";
     homepage = "http://hacks.slashdirt.org/hw/exsid/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = platforms.all;
   };
 }

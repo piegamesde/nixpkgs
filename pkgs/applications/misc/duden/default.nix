@@ -16,7 +16,7 @@ python3.pkgs.buildPythonPackage rec {
     hash = "sha256-ZrarN09Znw4m6YiZxD7q7dTJ49WjmHDobLnOt8JCwvc=";
   };
 
-  nativeBuildInputs = [ python3.pkgs.poetry-core ];
+  nativeBuildInputs = [python3.pkgs.poetry-core];
 
   propagatedBuildInputs = with python3.pkgs; [
     beautifulsoup4
@@ -27,13 +27,13 @@ python3.pkgs.buildPythonPackage rec {
     setuptools
   ];
 
-  pythonImportsCheck = [ "duden" ];
+  pythonImportsCheck = ["duden"];
 
   meta = with lib; {
     description = "CLI for http://duden.de dictionary written in Python";
     homepage = "https://github.com/radomirbosak/duden";
     changelog = "https://github.com/radomirbosak/duden/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

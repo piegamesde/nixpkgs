@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   setSourceRoot = "sourceRoot=`pwd`";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gtk2
     fftw
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Receive CW through the soundcard";
     homepage = "https://www.pa3fwm.nl/software/rscw/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ earldouglas ];
+    maintainers = with maintainers; [earldouglas];
     platforms = platforms.linux;
   };
 }

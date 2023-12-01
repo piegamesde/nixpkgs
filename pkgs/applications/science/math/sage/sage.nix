@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   pname = "sage";
   src = sage-with-env.env.lib.src;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs =
     lib.optionals requireSageTests
       [

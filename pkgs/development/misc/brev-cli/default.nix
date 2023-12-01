@@ -18,7 +18,7 @@ buildGoModule rec {
   vendorHash = "sha256-IR/tgqh8rS4uN5jSOcopCutbHCKHSU9icUfRhOgu4t8=";
 
   CGO_ENABLED = 0;
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -34,6 +34,6 @@ buildGoModule rec {
     description = "Connect your laptop to cloud computers";
     homepage = "https://github.com/brevdev/brev-cli";
     license = licenses.mit;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

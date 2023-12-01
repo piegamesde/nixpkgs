@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-vGse/J/H52JPrR2DUtcuknvg+6IWC7Jbtri9bGNwv0M=";
   };
 
-  buildInputs = [ allegro ];
+  buildInputs = [allegro];
 
   makeFlags = [
     "PREFIX=$(out)/"
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Atomic Tanks ballistics game";
     homepage = "http://atanks.sourceforge.net/";
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux;
     license = licenses.gpl2;
   };

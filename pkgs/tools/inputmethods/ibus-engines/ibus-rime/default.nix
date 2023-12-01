@@ -11,7 +11,7 @@
   pkg-config,
   rime-data,
   symlinkJoin,
-  rimeDataPkgs ? [ rime-data ],
+  rimeDataPkgs ? [rime-data],
 }:
 
 stdenv.mkDerivation rec {
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  cmakeFlags = [ "-DRIME_DATA_DIR=${placeholder "out"}/share/rime-data" ];
+  cmakeFlags = ["-DRIME_DATA_DIR=${placeholder "out"}/share/rime-data"];
 
   rimeDataDrv = symlinkJoin {
     name = "ibus-rime-data";
@@ -54,6 +54,6 @@ stdenv.mkDerivation rec {
     homepage = "https://rime.im/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pmy ];
+    maintainers = with maintainers; [pmy];
   };
 }

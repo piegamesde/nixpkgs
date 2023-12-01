@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     perl
   ];
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   strictDeps = true;
 
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     "VERSION=${version}"
   ];
 
-  buildFlags = [ "man" ];
+  buildFlags = ["man"];
 
   postInstall = ''
     installManPage doc/gitstats.1
@@ -66,6 +66,6 @@ stdenv.mkDerivation rec {
     description = "Git history statistics generator";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
   };
 }

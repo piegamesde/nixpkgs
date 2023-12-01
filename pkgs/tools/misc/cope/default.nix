@@ -40,6 +40,6 @@ perlPackages.buildPerlPackage rec {
       artistic1
       gpl1Plus
     ];
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

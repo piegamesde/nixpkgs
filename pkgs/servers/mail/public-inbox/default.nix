@@ -103,7 +103,7 @@ buildPerlPackage rec {
       --replace /bin/cp ${coreutils}/bin/cp
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = [
     AnyURIEscape
@@ -135,7 +135,7 @@ buildPerlPackage rec {
     pkg-config
     sqlite
     xapian
-  ] ++ lib.optionals stdenv.isLinux [ LinuxInotify2 ];
+  ] ++ lib.optionals stdenv.isLinux [LinuxInotify2];
   preCheck = ''
     perl certs/create-certs.perl
     export TEST_LEI_ERR_LOUD=1
@@ -143,7 +143,7 @@ buildPerlPackage rec {
     mkdir -p "$HOME"/.cache/public-inbox/inline-c
   '';
 
-  installTargets = [ "install" ];
+  installTargets = ["install"];
   postInstall = ''
     for prog in $out/bin/*; do
         wrapProgram $prog --prefix PATH : ${

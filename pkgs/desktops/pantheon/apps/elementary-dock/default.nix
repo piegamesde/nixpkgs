@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/dock";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ davidak ] ++ teams.pantheon.members;
+    maintainers = with maintainers; [davidak] ++ teams.pantheon.members;
     mainProgram = "plank";
   };
 }

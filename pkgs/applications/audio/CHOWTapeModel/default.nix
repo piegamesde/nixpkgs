@@ -103,8 +103,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/jatinchowdhury18/AnalogTapeModel";
     description = "Physical modelling signal processing for analog tape recording. LV2, VST3 and standalone";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ magnetophon ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [magnetophon];
     platforms = platforms.linux;
     # error: 'vvtanh' was not declared in this scope; did you mean 'tanh'?
     # error: no matching function for call to 'juce::dsp::SIMDRegister<double>::SIMDRegister(xsimd::simd_batch_traits<xsimd::batch<double, 2> >::batch_bool_type)'

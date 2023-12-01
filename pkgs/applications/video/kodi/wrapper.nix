@@ -8,7 +8,7 @@
 }:
 
 let
-  kodiPackages = callPackage ../../../top-level/kodi-packages.nix { inherit kodi; };
+  kodiPackages = callPackage ../../../top-level/kodi-packages.nix {inherit kodi;};
 
   # linux distros are supposed to provide pillow and pycryptodome
   requiredPythonPath =
@@ -33,10 +33,10 @@ in
 buildEnv {
   name = "${kodi.name}-env";
 
-  paths = [ kodi ] ++ addons;
-  pathsToLink = [ "/share" ];
+  paths = [kodi] ++ addons;
+  pathsToLink = ["/share"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     mkdir $out/bin
@@ -46,7 +46,7 @@ buildEnv {
         --prefix PYTHONPATH : ${requiredPythonPath}:${additionalPythonPath} \
         --prefix KODI_HOME : $out/share/kodi \
         --prefix LD_LIBRARY_PATH ":" "${
-          lib.makeLibraryPath (lib.concatMap (plugin: plugin.extraRuntimeDependencies or [ ]) addons)
+          lib.makeLibraryPath (lib.concatMap (plugin: plugin.extraRuntimeDependencies or []) addons)
         }"
     done
   '';

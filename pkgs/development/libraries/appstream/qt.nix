@@ -23,9 +23,9 @@ mkDerivation {
     qtbase
   ];
 
-  nativeBuildInputs = appstream.nativeBuildInputs ++ [ qttools ];
+  nativeBuildInputs = appstream.nativeBuildInputs ++ [qttools];
 
-  mesonFlags = appstream.mesonFlags ++ [ "-Dqt=true" ];
+  mesonFlags = appstream.mesonFlags ++ ["-Dqt=true"];
 
   patches = appstream.patches;
 

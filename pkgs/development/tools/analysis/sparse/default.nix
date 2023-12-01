@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     makeFlags+=" PREFIX=$out"
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gtk3
     libxml2
@@ -38,10 +38,10 @@ stdenv.mkDerivation rec {
     sqlite
   ];
   doCheck = true;
-  buildFlags = [ "GCC_BASE:=${GCC_BASE}" ];
+  buildFlags = ["GCC_BASE:=${GCC_BASE}"];
 
   passthru.tests = {
-    simple-execution = callPackage ./tests.nix { };
+    simple-execution = callPackage ./tests.nix {};
   };
 
   meta = with lib; {

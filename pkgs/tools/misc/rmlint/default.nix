@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
   # Otherwise tries to access /usr.
   prefixKey = "--prefix=";
 
-  sconsFlags = lib.optionals (!withGui) [ "--without-gui" ];
+  sconsFlags = lib.optionals (!withGui) ["--without-gui"];
 
   # in GUI mode, this shells out to itself, and tries to import python modules
   postInstall = lib.optionalString withGui ''

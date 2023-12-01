@@ -61,7 +61,7 @@ let
       cp -r tests $testout/tests
     '';
 
-    pythonImportsCheck = [ "textx" ];
+    pythonImportsCheck = ["textx"];
 
     # Circular dependencies, do tests in passthru.tests instead.
     doCheck = false;
@@ -82,7 +82,7 @@ let
       description = "Domain-specific languages and parsers in Python";
       homepage = "https://github.com/textx/textx/";
       license = licenses.mit;
-      maintainers = with maintainers; [ yuu ];
+      maintainers = with maintainers; [yuu];
     };
   };
 
@@ -131,7 +131,7 @@ let
     format = "setuptools";
     pathToSourceRoot = "tests/functional/registration/projects/flow_dsl";
     sourceRoot = "${src.name}/" + pathToSourceRoot;
-    propagatedBuildInputs = [ textx ];
+    propagatedBuildInputs = [textx];
     meta = with lib; {
       inherit (textx.meta) license maintainers;
       description = "Sample textX language for testing";
@@ -146,7 +146,7 @@ let
     format = "setuptools";
     pathToSourceRoot = "tests/functional/registration/projects/types_dsl";
     sourceRoot = "${src.name}/" + pathToSourceRoot;
-    propagatedBuildInputs = [ textx ];
+    propagatedBuildInputs = [textx];
     meta = with lib; {
       inherit (textx.meta) license maintainers;
       description = "Sample textX language for testing";
@@ -161,7 +161,7 @@ let
     format = "setuptools";
     pathToSourceRoot = "tests/functional/subcommands/example_project";
     sourceRoot = "${src.name}/" + pathToSourceRoot;
-    propagatedBuildInputs = [ textx ];
+    propagatedBuildInputs = [textx];
     meta = with lib; {
       inherit (textx.meta) license maintainers;
       description = "Sample textX sub-command for testing";

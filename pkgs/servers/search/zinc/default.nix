@@ -38,7 +38,7 @@ buildGoModule rec {
   '';
 
   vendorHash = "sha256-akjb0cxHbITKS26c+7lVSHWO/KRoQVVKzAOra+tdAD8=";
-  subPackages = [ "cmd/zinc" ];
+  subPackages = ["cmd/zinc"];
 
   CGO_ENABLED = 0;
 
@@ -52,6 +52,6 @@ buildGoModule rec {
     description = "A lightweight alternative to elasticsearch that requires minimal resources, written in Go";
     homepage = "https://github.com/zinclabs/zinc";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

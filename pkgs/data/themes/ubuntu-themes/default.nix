@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     hicolor-icon-theme
   ];
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
   dontDropIconThemeCache = true;
 
@@ -75,6 +75,6 @@ stdenv.mkDerivation rec {
       gpl3
     ];
     platforms = platforms.linux;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

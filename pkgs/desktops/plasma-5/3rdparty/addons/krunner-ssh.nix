@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     sed -e "s|Exec=.*|Exec=$out/libexec/runner.py|" -i ssh-runner.service
   '';
 
-  nativeBuildInputs = [ pythonEnv ];
+  nativeBuildInputs = [pythonEnv];
 
   installPhase = ''
     runHook preInstall
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     description = "A simple backend for KRunner providing SSH hosts from your .ssh/known_hosts file as search results";
     homepage = "https://selfcoders.com/projects/krunner-ssh";
     license = licenses.mit;
-    maintainers = with maintainers; [ aanderse ];
+    maintainers = with maintainers; [aanderse];
     platforms = platforms.linux;
   };
 }

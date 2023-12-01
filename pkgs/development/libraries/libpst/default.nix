@@ -48,7 +48,7 @@ stdenv.mkDerivation (
       homepage = "https://www.five-ten-sg.com/libpst/";
       description = "A library to read PST (MS Outlook Personal Folders) files";
       license = licenses.gpl2Plus;
-      maintainers = [ ];
+      maintainers = [];
       platforms = platforms.unix;
     };
   }

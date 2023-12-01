@@ -2,9 +2,9 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  flavour ? [ "frappe" ],
-  accents ? [ "blue" ],
-  winDecStyles ? [ "modern" ],
+  flavour ? ["frappe"],
+  accents ? ["blue"],
+  winDecStyles ? ["modern"],
 }:
 
 let
@@ -80,6 +80,6 @@ lib.checkListOfEnum "Invalid accent, valid accents are ${toString validAccents}"
       description = "Soothing pastel theme for KDE";
       homepage = "https://github.com/catppuccin/kde";
       license = licenses.mit;
-      maintainers = with maintainers; [ michaelBelsanti ];
+      maintainers = with maintainers; [michaelBelsanti];
     };
   }

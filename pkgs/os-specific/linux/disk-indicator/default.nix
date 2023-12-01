@@ -16,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-cRqgIxF6H1WyJs5hhaAXVdWAlv6t22BZLp3p/qRlCSM=";
   };
 
-  buildInputs = [ libX11 ];
+  buildInputs = [libX11];
 
   postPatch = ''
     # avoid -Werror
@@ -30,7 +30,7 @@ stdenv.mkDerivation {
     ./configure.sh --all
   '';
 
-  makeFlags = [ "COMPILER=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["COMPILER=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     runHook preInstall

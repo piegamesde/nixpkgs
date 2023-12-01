@@ -17,12 +17,12 @@ buildGoModule rec {
 
   vendorHash = "sha256-6aIE6MyNDOLRxn+CYSCVNj4Q50HywSh/Q0WxnxCEtg8=";
 
-  ldflags = [ "-X main.version=${version}" ];
+  ldflags = ["-X main.version=${version}"];
 
   meta = with lib; {
     homepage = "https://gitlab.com/greut/eclint";
     description = "EditorConfig linter written in Go";
     license = licenses.mit;
-    maintainers = with maintainers; [ lucperkins ];
+    maintainers = with maintainers; [lucperkins];
   };
 }

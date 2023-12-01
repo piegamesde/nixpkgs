@@ -55,12 +55,12 @@ with lib;
 
   config = mkIf config.services.gnome.tracker-miners.enable {
 
-    environment.systemPackages = [ pkgs.tracker-miners ];
+    environment.systemPackages = [pkgs.tracker-miners];
 
-    services.dbus.packages = [ pkgs.tracker-miners ];
+    services.dbus.packages = [pkgs.tracker-miners];
 
-    systemd.packages = [ pkgs.tracker-miners ];
+    systemd.packages = [pkgs.tracker-miners];
 
-    services.gnome.tracker.subcommandPackages = [ pkgs.tracker-miners ];
+    services.gnome.tracker.subcommandPackages = [pkgs.tracker-miners];
   };
 }

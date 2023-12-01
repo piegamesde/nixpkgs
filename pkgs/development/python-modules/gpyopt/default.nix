@@ -22,11 +22,11 @@ buildPythonPackage rec {
     sha256 = "1sv13svaks67i9z560746hz4hslakdna0zd3gxj828il1cv7cslm";
   };
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
   doCheck = false; # requires several packages not available in Nix
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
   checkPhase = "nosetests -v GPyOpt/testing";
 
@@ -38,12 +38,12 @@ buildPythonPackage rec {
     emcee
   ];
 
-  pythonImportsCheck = [ "GPyOpt" ];
+  pythonImportsCheck = ["GPyOpt"];
 
   meta = with lib; {
     description = "Bayesian optimization toolbox in Python";
     homepage = "https://sheffieldml.github.io/GPyOpt";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

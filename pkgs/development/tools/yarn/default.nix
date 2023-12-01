@@ -25,7 +25,7 @@ stdenvNoCC.mkDerivation (
       sha256 = "sha256-12wUuWH+kkqxAgVYkyhIYVtexjv8DFP9kLpFLWg+h0o=";
     };
 
-    buildInputs = [ nodejs ];
+    buildInputs = [nodejs];
 
     installPhase = ''
       mkdir -p $out/{bin,libexec/yarn/,share/bash-completion/completions/}
@@ -35,7 +35,7 @@ stdenvNoCC.mkDerivation (
       ln -s ${completion}/yarn-completion.bash $out/share/bash-completion/completions/yarn.bash
     '';
 
-    passthru.tests = testers.testVersion { package = finalAttrs.finalPackage; };
+    passthru.tests = testers.testVersion {package = finalAttrs.finalPackage;};
 
     meta = with lib; {
       description = "Fast, reliable, and secure dependency management for javascript";

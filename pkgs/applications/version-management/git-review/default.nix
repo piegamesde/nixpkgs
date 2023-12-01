@@ -29,7 +29,7 @@ buildPythonApplication rec {
     "man"
   ];
 
-  nativeBuildInputs = [ pbr ];
+  nativeBuildInputs = [pbr];
 
   propagatedBuildInputs = [
     requests
@@ -41,14 +41,14 @@ buildPythonApplication rec {
   # out how to work around this yet.
   doCheck = false;
 
-  pythonImportsCheck = [ "git_review" ];
+  pythonImportsCheck = ["git_review"];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Tool to submit code to Gerrit";
     homepage = "https://opendev.org/opendev/git-review";
     license = licenses.asl20;
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
   };
 }

@@ -57,7 +57,7 @@ let
       src,
       patchCommands,
     }:
-    runCommand "${name}-k2pdfopt.patch" { inherit src; } ''
+    runCommand "${name}-k2pdfopt.patch" {inherit src;} ''
       source $stdenv/setup
       unpackPhase
 
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
   inherit pname version;
   src = k2pdfopt_src;
 
-  patches = [ ./0001-Fix-CMakeLists.patch ];
+  patches = [./0001-Fix-CMakeLists.patch];
 
   postPatch = ''
     substituteInPlace willuslib/bmpdjvu.c \
@@ -115,11 +115,11 @@ stdenv.mkDerivation rec {
       };
       mupdf_modded = mupdf_1_17.overrideAttrs (
         {
-          patches ? [ ],
+          patches ? [],
           ...
         }:
         {
-          patches = patches ++ [ mupdf_patch ];
+          patches = patches ++ [mupdf_patch];
           # This function is missing in font.c, see font-win32.c
           postPatch = ''
             echo "void pdf_install_load_system_font_funcs(fz_context *ctx) {}" >> source/fitz/font.c
@@ -137,11 +137,11 @@ stdenv.mkDerivation rec {
       };
       leptonica_modded = leptonica.overrideAttrs (
         {
-          patches ? [ ],
+          patches ? [],
           ...
         }:
         {
-          patches = patches ++ [ leptonica_patch ];
+          patches = patches ++ [leptonica_patch];
         }
       );
 
@@ -166,11 +166,11 @@ stdenv.mkDerivation rec {
       tesseract_modded = tesseract4.override {
         tesseractBase = tesseract4.tesseractBase.overrideAttrs (
           {
-            patches ? [ ],
+            patches ? [],
             ...
           }:
           {
-            patches = patches ++ [ tesseract_patch ];
+            patches = patches ++ [tesseract_patch];
             # Additional compilation fixes
             postPatch = ''
               echo libtesseract_api_la_SOURCES += tesscapi.cpp >> src/api/Makefile.am
@@ -197,7 +197,7 @@ stdenv.mkDerivation rec {
 
   dontUseCmakeBuildDir = true;
 
-  cmakeFlags = [ "-DCMAKE_C_FLAGS=-I${src}/include_mod" ];
+  cmakeFlags = ["-DCMAKE_C_FLAGS=-I${src}/include_mod"];
 
   NIX_LDFLAGS = "-lpthread";
 

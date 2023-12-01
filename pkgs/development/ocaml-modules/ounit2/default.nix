@@ -33,6 +33,6 @@ buildDunePackage rec {
     homepage = "https://github.com/gildor478/ounit";
     description = "A unit test framework for OCaml";
     license = licenses.mit;
-    maintainers = with maintainers; [ sternenseemann ];
+    maintainers = with maintainers; [sternenseemann];
   };
 }

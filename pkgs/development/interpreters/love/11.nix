@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
 
   preConfigure = "$shell ./platform/unix/automagic";
 
-  configureFlags = [ "--with-lua=luajit" ];
+  configureFlags = ["--with-lua=luajit"];
 
   env.NIX_CFLAGS_COMPILE = "-DluaL_reg=luaL_Reg"; # needed since luajit-2.1.0-beta3
 
@@ -67,6 +67,6 @@ stdenv.mkDerivation rec {
     description = "A Lua-based 2D game engine/scripting language";
     license = lib.licenses.zlib;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
   };
 }

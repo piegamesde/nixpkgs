@@ -102,7 +102,7 @@ stdenv.mkDerivation {
     homepage = "https://www.qemu.org/";
     description = "Fork of QEMU with AFL++ instrumentation support";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ris ];
+    maintainers = with maintainers; [ris];
     platforms = platforms.linux;
   };
 }

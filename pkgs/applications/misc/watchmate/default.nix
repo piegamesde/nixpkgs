@@ -55,7 +55,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/azymohliad/watchmate";
     changelog = "https://github.com/azymohliad/watchmate/raw/v${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ chuangzhu ];
+    maintainers = with maintainers; [chuangzhu];
     platforms = platforms.linux;
   };
 }

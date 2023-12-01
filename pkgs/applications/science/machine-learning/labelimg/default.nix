@@ -37,6 +37,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/tzutalin/labelImg";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ maintainers.cmcdragonkai ];
+    maintainers = [maintainers.cmcdragonkai];
   };
 }

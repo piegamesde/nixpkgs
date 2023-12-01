@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "An interface library to access tags for identifying languages";
     license = licenses.mpl20;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.unix;
     # There are links to a homepage that are broken by a BitBucket change
     homepage = "https://bitbucket.org/tagoh/liblangtag/overview";

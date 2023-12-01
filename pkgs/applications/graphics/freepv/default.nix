@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "1w19abqjn64w47m35alg7bcdl1p97nf11zn64cp4p0dydihmhv56";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libjpeg
     libGLU
@@ -54,6 +54,6 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Open source panorama viewer using GL";
     homepage = "https://freepv.sourceforge.net/";
-    license = [ lib.licenses.lgpl21 ];
+    license = [lib.licenses.lgpl21];
   };
 }

@@ -118,8 +118,8 @@ in
     systemd.services.aerospike = rec {
       description = "Aerospike server";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/asd --fgdaemon --config-file ${aerospikeConf}";

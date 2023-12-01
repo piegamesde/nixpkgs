@@ -15,7 +15,7 @@ stdenv.mkDerivation (
       hash = "sha256-mGcWgdVoR3DMsGoH+juPAypFS9tW6vwY5vqwRFnqPKo=";
     };
 
-    nativeCheckInputs = [ libopcodes ];
+    nativeCheckInputs = [libopcodes];
 
     doCheck = true;
 
@@ -28,7 +28,7 @@ stdenv.mkDerivation (
         it abstracts over the target CPU, as it exposes to the clients a
         standardized RISC instruction set inspired by the MIPS and SPARC chips.
       '';
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       license = licenses.lgpl3Plus;
       platforms = platforms.unix;
       broken = stdenv.isDarwin; # failing tests

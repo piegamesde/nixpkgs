@@ -139,9 +139,9 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
 
-    providedSessions = [ "pantheon" ];
+    providedSessions = ["pantheon"];
   };
 
   meta = with lib; {

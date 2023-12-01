@@ -81,7 +81,7 @@ stdenv.mkDerivation {
       globalarrays
     ];
 
-  passthru = lib.optionalAttrs enableMpi { inherit mpi; };
+  passthru = lib.optionalAttrs enableMpi {inherit mpi;};
 
   cmakeFlags =
     [
@@ -132,9 +132,9 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Advanced quantum chemistry software package";
     homepage = "https://gitlab.com/Molcas/OpenMolcas";
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
     license = licenses.lgpl21Only;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     mainProgram = "pymolcas";
   };
 }

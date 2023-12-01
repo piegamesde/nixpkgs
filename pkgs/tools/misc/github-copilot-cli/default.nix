@@ -25,7 +25,7 @@ buildNpmPackage rec {
     description = "A CLI experience for letting GitHub Copilot help you on the command line";
     homepage = "https://githubnext.com/projects/copilot-cli/";
     license = licenses.free;
-    maintainers = [ maintainers.malo ];
+    maintainers = [maintainers.malo];
     platforms = platforms.all;
   };
 }

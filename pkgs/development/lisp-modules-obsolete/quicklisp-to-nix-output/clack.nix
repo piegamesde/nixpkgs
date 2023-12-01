@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "clack";
   version = "20211209-git";
@@ -26,7 +26,7 @@ rec {
 
   packageName = "clack";
 
-  asdFilesToKeep = [ "clack.asd" ];
+  asdFilesToKeep = ["clack.asd"];
   overrides = x: x;
 }
 /* (SYSTEM clack DESCRIPTION Web application environment for Common Lisp SHA256

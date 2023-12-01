@@ -24,23 +24,23 @@ buildPythonPackage rec {
     hash = "sha256-eRRlG3GJX3WeKTNJVWgNTTHY56qiUGOlxtvEZ2xObLA=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   nativeCheckInputs = [
     pytestCheckHook
     responses
   ];
 
-  disabledTestPaths = [ "tests/integration" ];
+  disabledTestPaths = ["tests/integration"];
 
-  pythonImportsCheck = [ "msgraph.core" ];
+  pythonImportsCheck = ["msgraph.core"];
 
   meta = {
     description = "Core component of the Microsoft Graph Python SDK";
     homepage = "https://github.com/microsoftgraph/msgraph-sdk-python-core";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

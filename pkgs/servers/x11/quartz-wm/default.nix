@@ -24,8 +24,8 @@ stdenv.mkDerivation {
     ./no_title_crash.patch
     ./extern-patch.patch
   ];
-  configureFlags = [ "--enable-xplugin-dock-support" ];
-  nativeBuildInputs = [ pkg-config ];
+  configureFlags = ["--enable-xplugin-dock-support"];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     xorg.libXinerama
     xorg.libAppleWM
@@ -40,6 +40,6 @@ stdenv.mkDerivation {
   meta = with lib; {
     license = licenses.apsl20;
     platforms = platforms.darwin;
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
   };
 }

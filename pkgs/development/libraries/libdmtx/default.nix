@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/dmtx/libdmtx";
     changelog = "https://github.com/dmtx/libdmtx/blob/v${version}/ChangeLog";
     platforms = lib.platforms.all;
-    maintainers = [ ];
+    maintainers = [];
     license = lib.licenses.bsd2;
   };
 }

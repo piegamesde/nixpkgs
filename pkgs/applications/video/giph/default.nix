@@ -25,9 +25,9 @@ stdenvNoCC.mkDerivation rec {
 
   dontBuild = true;
 
-  installFlags = [ "PREFIX=${placeholder "out"}" ];
+  installFlags = ["PREFIX=${placeholder "out"}"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/giph \
@@ -46,7 +46,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/phisch/giph";
     description = "Simple gif recorder";
     license = licenses.mit;
-    maintainers = [ maintainers.lom ];
+    maintainers = [maintainers.lom];
     platforms = platforms.linux;
   };
 }

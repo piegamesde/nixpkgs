@@ -65,6 +65,6 @@ python3Packages.buildPythonApplication rec {
     '';
     homepage = "https://github.com/zeronet-conservancy/zeronet-conservancy";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

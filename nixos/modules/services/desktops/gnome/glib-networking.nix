@@ -47,10 +47,10 @@ with lib;
 
   config = mkIf config.services.gnome.glib-networking.enable {
 
-    services.dbus.packages = [ pkgs.glib-networking ];
+    services.dbus.packages = [pkgs.glib-networking];
 
-    systemd.packages = [ pkgs.glib-networking ];
+    systemd.packages = [pkgs.glib-networking];
 
-    environment.sessionVariables.GIO_EXTRA_MODULES = [ "${pkgs.glib-networking.out}/lib/gio/modules" ];
+    environment.sessionVariables.GIO_EXTRA_MODULES = ["${pkgs.glib-networking.out}/lib/gio/modules"];
   };
 }

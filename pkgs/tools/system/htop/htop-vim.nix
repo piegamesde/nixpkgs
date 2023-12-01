@@ -20,7 +20,7 @@ htop.overrideAttrs (
       inherit (oldAttrs.meta) platforms license;
       description = "An interactive process viewer for Linux, with vim-style keybindings";
       homepage = "https://github.com/KoffeinFlummi/htop-vim";
-      maintainers = with maintainers; [ thiagokokada ];
+      maintainers = with maintainers; [thiagokokada];
       mainProgram = "htop";
     };
   }

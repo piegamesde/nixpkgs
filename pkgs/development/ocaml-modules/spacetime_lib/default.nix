@@ -22,9 +22,9 @@ lib.throwIfNot (lib.versionAtLeast "4.12" ocaml.version)
       sha256 = "0biisgbycr5v3nm5jp8i0h6vq76vzasdjkcgh8yr7fhxc81jgv3p";
     };
 
-    patches = [ ./spacetime.diff ];
+    patches = [./spacetime.diff];
 
-    propagatedBuildInputs = [ owee ];
+    propagatedBuildInputs = [owee];
 
     preConfigure = ''
       bash ./configure.sh
@@ -34,6 +34,6 @@ lib.throwIfNot (lib.versionAtLeast "4.12" ocaml.version)
       description = "An OCaml library providing some simple operations for handling OCaml “spacetime” profiles";
       inherit (src.meta) homepage;
       license = lib.licenses.mit;
-      maintainers = [ lib.maintainers.vbgl ];
+      maintainers = [lib.maintainers.vbgl];
     };
   }

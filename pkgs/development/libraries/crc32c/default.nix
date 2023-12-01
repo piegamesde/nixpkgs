@@ -19,8 +19,8 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ gflags ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [gflags];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isAarch64 "-march=armv8-a+crc";
 
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/google/crc32c";
     description = "CRC32C implementation with support for CPU-specific acceleration instructions";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ cpcloud ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [cpcloud];
   };
 }

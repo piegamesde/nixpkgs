@@ -22,13 +22,13 @@ stdenv.mkDerivation rec {
     python3
     boost
   ];
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "An advanced SAT Solver";
     homepage = "https://github.com/msoos/cryptominisat";
     license = licenses.mit;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
     platforms = platforms.unix;
   };
 }

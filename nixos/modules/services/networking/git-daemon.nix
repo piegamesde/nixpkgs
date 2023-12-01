@@ -59,7 +59,7 @@ in
 
       repositories = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "/srv/git"
           "/home/user/git/repo2"
@@ -118,11 +118,11 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "git") { git.gid = config.ids.gids.git; };
+    users.groups = optionalAttrs (cfg.group == "git") {git.gid = config.ids.gids.git;};
 
     systemd.services.git-daemon = {
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       script =
         "${pkgs.git}/bin/git daemon --reuseaddr "
         + (optionalString (cfg.basePath != "") "--base-path=${cfg.basePath} ")

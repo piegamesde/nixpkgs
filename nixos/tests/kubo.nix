@@ -1,4 +1,4 @@
-{ lib, ... }:
+{lib, ...}:
 {
   name = "kubo";
   meta = with lib.maintainers; {
@@ -9,7 +9,7 @@
   };
 
   nodes.machine =
-    { config, ... }:
+    {config, ...}:
     {
       services.kubo = {
         enable = true;
@@ -20,12 +20,12 @@
       };
       users.users.alice = {
         isNormalUser = true;
-        extraGroups = [ config.services.kubo.group ];
+        extraGroups = [config.services.kubo.group];
       };
     };
 
   nodes.fuse =
-    { config, ... }:
+    {config, ...}:
     {
       services.kubo = {
         enable = true;
@@ -33,7 +33,7 @@
       };
       users.users.alice = {
         isNormalUser = true;
-        extraGroups = [ config.services.kubo.group ];
+        extraGroups = [config.services.kubo.group];
       };
       users.users.bob = {
         isNormalUser = true;

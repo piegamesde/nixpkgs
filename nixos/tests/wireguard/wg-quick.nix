@@ -8,17 +8,17 @@ import ../make-test-python.nix (
   }:
   let
     wg-snakeoil-keys = import ./snakeoil-keys.nix;
-    peer = import ./make-peer.nix { inherit lib; };
+    peer = import ./make-peer.nix {inherit lib;};
     commonConfig = {
       boot.kernelPackages = lib.mkIf (kernelPackages != null) kernelPackages;
       networking.nftables.enable = nftables;
       # Make sure iptables doesn't work with nftables enabled
-      boot.blacklistedKernelModules = lib.mkIf nftables [ "nft_compat" ];
+      boot.blacklistedKernelModules = lib.mkIf nftables ["nft_compat"];
     };
   in
   {
     name = "wg-quick";
-    meta = with pkgs.lib.maintainers; { maintainers = [ d-xo ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [d-xo];};
 
     nodes = {
       peer0 = peer {
@@ -27,7 +27,7 @@ import ../make-test-python.nix (
         extraConfig = lib.mkMerge [
           commonConfig
           {
-            networking.firewall.allowedUDPPorts = [ 23542 ];
+            networking.firewall.allowedUDPPorts = [23542];
             networking.wg-quick.interfaces.wg0 = {
               address = [
                 "10.23.42.1/32"

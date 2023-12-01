@@ -57,7 +57,7 @@ let
   build = "ga";
 
   # when building a headless jdk, also bootstrap it with a headless jdk
-  openjdk-bootstrap = openjdk8-bootstrap.override { gtkSupport = !headless; };
+  openjdk-bootstrap = openjdk8-bootstrap.override {gtkSupport = !headless;};
 
   openjdk8 = stdenv.mkDerivation rec {
     pname = "openjdk" + lib.optionalString headless "-headless";
@@ -118,7 +118,7 @@ let
       ./read-truststore-from-env-jdk8.patch
       ./currency-date-range-jdk8.patch
       ./fix-library-path-jdk8.patch
-    ] ++ lib.optionals (!headless && enableGnome2) [ ./swing-use-gtk-jdk8.patch ];
+    ] ++ lib.optionals (!headless && enableGnome2) [./swing-use-gtk-jdk8.patch];
 
     # Hotspot cares about the host(!) version otherwise
     DISABLE_HOTSPOT_OS_VERSION_CHECK = "ok";
@@ -183,7 +183,7 @@ let
     # still runs in parallel.
     enableParallelBuilding = false;
 
-    buildFlags = [ "all" ];
+    buildFlags = ["all"];
 
     doCheck = false; # fails with "No rule to make target 'y'."
 
@@ -248,7 +248,7 @@ let
       ln -s $jre/lib/openjdk/jre $out/jre
     '';
 
-    propagatedBuildInputs = [ setJavaClassPath ];
+    propagatedBuildInputs = [setJavaClassPath];
 
     preFixup = ''
       # Propagate the setJavaClassPath setup hook from the JRE so that
@@ -283,13 +283,13 @@ let
       done
     '';
 
-    disallowedReferences = [ openjdk8-bootstrap ];
+    disallowedReferences = [openjdk8-bootstrap];
 
     meta = with lib; {
       homepage = "http://openjdk.java.net/";
       license = licenses.gpl2;
       description = "The open-source Java Development Kit";
-      maintainers = with maintainers; [ edwtjo ];
+      maintainers = with maintainers; [edwtjo];
       platforms = [
         "i686-linux"
         "x86_64-linux"

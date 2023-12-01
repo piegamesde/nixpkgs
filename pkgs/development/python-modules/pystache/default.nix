@@ -18,13 +18,13 @@ buildPythonPackage rec {
 
   LC_ALL = "en_US.UTF-8";
 
-  buildInputs = [ glibcLocales ];
+  buildInputs = [glibcLocales];
 
   # SyntaxError Python 3
   # https://github.com/defunkt/pystache/issues/181
   doCheck = !isPy3k;
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   meta = with lib; {
     description = "A framework-agnostic, logic-free templating system inspired by ctemplate and et";

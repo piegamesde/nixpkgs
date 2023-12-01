@@ -26,7 +26,7 @@ stdenvNoCC.mkDerivation {
   meta = with lib; {
     homepage = "https://github.com/phjamr/MroUnicode";
     description = "Unicode-compliant Mro font";
-    maintainers = with maintainers; [ mathnerd314 ];
+    maintainers = with maintainers; [mathnerd314];
     license = licenses.ofl;
     platforms = platforms.all;
   };

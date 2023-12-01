@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-DCDAuKvov4tkf77nJNo9mQU/bAeQasp4VBQRtLX+U6c=";
 
-  buildInputs = [ libpcap ];
+  buildInputs = [libpcap];
 
   postFixup = ''
     mv $out/bin/GodSpeed $out/bin/${pname}
@@ -29,7 +29,7 @@ buildGoModule rec {
     broken = stdenv.isDarwin;
     description = "Manager for reverse shells";
     homepage = "https://github.com/redcode-labs/GodSpeed";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ] ++ teams.redcodelabs.members;
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab] ++ teams.redcodelabs.members;
   };
 }

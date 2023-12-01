@@ -120,9 +120,9 @@ rec {
         ];
       };
       profile = {
-        scripts = [ "profile" ];
+        scripts = ["profile"];
         interpreter = "none";
-        inputs = [ ];
+        inputs = [];
       };
     };
   };
@@ -138,9 +138,9 @@ rec {
       mkdir -p $out/bin
       install conjure.sh $out/bin/conjure.sh
       ${resholve.phraseSolution "conjure" {
-        scripts = [ "bin/conjure.sh" ];
+        scripts = ["bin/conjure.sh"];
         interpreter = "${bash}/bin/bash";
-        inputs = [ module1 ];
+        inputs = [module1];
         fake = {
           external = [
             "jq"
@@ -159,7 +159,7 @@ rec {
       cp *.ansi $out/
     '';
     doCheck = true;
-    buildInputs = [ resholve ];
+    buildInputs = [resholve];
     nativeCheckInputs = [
       coreutils
       bats
@@ -170,13 +170,11 @@ rec {
     # default path
     RESHOLVE_PATH = "${lib.makeBinPath default_packages}";
     # but separate packages for combining as needed
-    PKG_FILE = "${lib.makeBinPath [ file ]}";
-    PKG_FINDUTILS = "${lib.makeBinPath [ findutils ]}";
-    PKG_GETTEXT = "${lib.makeBinPath [ gettext ]}";
-    PKG_COREUTILS = "${lib.makeBinPath [ coreutils ]}";
-    RESHOLVE_LORE = "${binlore.collect {
-      drvs = default_packages ++ [ coreutils ] ++ parsed_packages;
-    }}";
+    PKG_FILE = "${lib.makeBinPath [file]}";
+    PKG_FINDUTILS = "${lib.makeBinPath [findutils]}";
+    PKG_GETTEXT = "${lib.makeBinPath [gettext]}";
+    PKG_COREUTILS = "${lib.makeBinPath [coreutils]}";
+    RESHOLVE_LORE = "${binlore.collect {drvs = default_packages ++ [coreutils] ++ parsed_packages;}}";
     PKG_PARSED = "${lib.makeBinPath parsed_packages}";
 
     # explicit interpreter for demo suite; maybe some better way...
@@ -209,7 +207,7 @@ rec {
   resholvedScript =
     resholve.writeScript "resholved-script"
       {
-        inputs = [ file ];
+        inputs = [file];
         interpreter = "${bash}/bin/bash";
       }
       ''
@@ -219,7 +217,7 @@ rec {
   resholvedScriptBin =
     resholve.writeScriptBin "resholved-script-bin"
       {
-        inputs = [ file ];
+        inputs = [file];
         interpreter = "${bash}/bin/bash";
       }
       ''
@@ -229,7 +227,7 @@ rec {
   resholvedScriptBinNone =
     resholve.writeScriptBin "resholved-script-bin"
       {
-        inputs = [ file ];
+        inputs = [file];
         interpreter = "none";
       }
       ''

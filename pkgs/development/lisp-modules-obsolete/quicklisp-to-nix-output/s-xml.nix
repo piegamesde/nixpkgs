@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "s-xml";
   version = "20150608-git";
@@ -11,7 +11,7 @@ rec {
 
   description = "Simple Common Lisp XML Parser";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/s-xml/2015-06-08/s-xml-20150608-git.tgz";
@@ -20,7 +20,7 @@ rec {
 
   packageName = "s-xml";
 
-  asdFilesToKeep = [ "s-xml.asd" ];
+  asdFilesToKeep = ["s-xml.asd"];
   overrides = x: x;
 }
 /* (SYSTEM s-xml DESCRIPTION Simple Common Lisp XML Parser SHA256

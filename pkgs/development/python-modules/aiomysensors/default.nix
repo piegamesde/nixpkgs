@@ -28,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-hLUITEPUoUKGqN3AnacahnKwoKdfGN3mp34df74gsbE=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiofiles
@@ -50,13 +50,13 @@ buildPythonPackage rec {
       --replace 'marshmallow = "^3.17"' 'marshmallow = "*"'
   '';
 
-  pythonImportsCheck = [ "aiomysensors" ];
+  pythonImportsCheck = ["aiomysensors"];
 
   meta = with lib; {
     description = "Library to connect to MySensors gateways";
     homepage = "https://github.com/MartinHjelmare/aiomysensors";
     changelog = "https://github.com/MartinHjelmare/aiomysensors/releases/tag/v${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

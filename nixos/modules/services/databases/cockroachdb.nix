@@ -167,7 +167,7 @@ in
 
       extraArgs = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "--advertise-addr"
           "[fe80::f6f2:::]"
@@ -188,7 +188,7 @@ in
       }
     ];
 
-    environment.systemPackages = [ crdb ];
+    environment.systemPackages = [crdb];
 
     users.users = optionalAttrs (cfg.user == "cockroachdb") {
       cockroachdb = {
@@ -218,8 +218,8 @@ in
         "network.target"
         "time-sync.target"
       ];
-      requires = [ "time-sync.target" ];
-      wantedBy = [ "multi-user.target" ];
+      requires = ["time-sync.target"];
+      wantedBy = ["multi-user.target"];
 
       unitConfig.RequiresMountsFor = "/var/lib/cockroachdb";
 
@@ -240,5 +240,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ thoughtpolice ];
+  meta.maintainers = with lib.maintainers; [thoughtpolice];
 }

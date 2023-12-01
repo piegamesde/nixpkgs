@@ -27,12 +27,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5I6hJgUN2BdHc80RrcmWWxdq0iz6rcO4aX16CDtwu/g=";
   };
 
-  patches = [ ./patches/override-python-version-check.patch ];
+  patches = [./patches/override-python-version-check.patch];
 
   dontBuild = true;
   doCheck = false;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     pythonEnv
     libarchive
@@ -53,6 +53,6 @@ stdenv.mkDerivation rec {
     description = "The most reliable stable TV fork of the great Sick-Beard to fully automate TV enjoyment with innovation";
     license = licenses.gpl3;
     homepage = "https://github.com/SickGear/SickGear";
-    maintainers = with lib.maintainers; [ rembo10 ];
+    maintainers = with lib.maintainers; [rembo10];
   };
 }

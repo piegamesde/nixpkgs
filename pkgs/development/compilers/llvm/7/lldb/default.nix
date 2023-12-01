@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   src = fetch "lldb" "0klsscg1sczc4nw2l53xggi969k361cng2sjjrfp3bv4g5x14s4v";
 
-  patches = [ ./gnu-install-dirs.patch ];
+  patches = [./gnu-install-dirs.patch];
 
   postPatch = ''
     # Fix up various paths that assume llvm and clang are installed in the same place
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
     ];
 
   CXXFLAGS = "-fno-rtti";
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-I${libxml2.dev}/include/libxml2";
 

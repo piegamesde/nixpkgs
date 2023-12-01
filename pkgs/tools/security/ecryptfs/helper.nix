@@ -17,7 +17,7 @@ stdenv.mkDerivation {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   # Do not hardcode PATH to ${ecryptfs} as we need the script to invoke executables from /run/wrappers/bin
   installPhase = ''
@@ -29,8 +29,8 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Helper script to create/mount/unemount encrypted directories using eCryptfs without needing root permissions";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ obadz ];
+    maintainers = with maintainers; [obadz];
     platforms = platforms.linux;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

@@ -36,7 +36,7 @@ buildGoModule rec {
       "-X ${t}/misc.Ver=${version}"
     ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   checkPhase = ''
     go test ./...
@@ -56,7 +56,7 @@ buildGoModule rec {
       command = "kubeshark version";
       inherit version;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -69,6 +69,6 @@ buildGoModule rec {
       Think TCPDump and Wireshark re-invented for Kubernetes
       capturing, dissecting and monitoring all traffic and payloads going in, out and across containers, pods, nodes and clusters.
     '';
-    maintainers = with maintainers; [ bryanasdev000 ];
+    maintainers = with maintainers; [bryanasdev000];
   };
 }

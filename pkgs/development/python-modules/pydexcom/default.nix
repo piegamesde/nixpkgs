@@ -16,16 +16,16 @@ buildPythonPackage rec {
     hash = "sha256-ItDGnUUUTwCz4ZJtFVlMYjjoBPn2h8QZgLzgnV2T/Qk=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # tests are interacting with the Dexcom API
   doCheck = false;
-  pythonImportsCheck = [ "pydexcom" ];
+  pythonImportsCheck = ["pydexcom"];
 
   meta = with lib; {
     description = "Python API to interact with Dexcom Share service";
     homepage = "https://github.com/gagebenne/pydexcom";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -29,14 +29,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-3BQi4m44hBmPkJBFNCg6d9YKRbDZwLxdzBb/NDWTQP4=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = [
     file # libmagic
     openssl
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   preFixup = ''
     wrapProgram $out/bin/ctpv \
@@ -62,6 +62,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/NikitaIvanovV/ctpv";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ maintainers.wesleyjrz ];
+    maintainers = [maintainers.wesleyjrz];
   };
 }

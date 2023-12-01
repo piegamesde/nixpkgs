@@ -22,9 +22,9 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ pkg-config ];
+  nativeBuildInputs = lib.optionals stdenv.isLinux [pkg-config];
 
-  buildInputs = lib.optionals stdenv.isLinux [ libsecret ];
+  buildInputs = lib.optionals stdenv.isLinux [libsecret];
 
   ldflags = [
     "-s"
@@ -67,7 +67,7 @@ buildGoModule rec {
       description = "Suite of programs to use native stores to keep Docker credentials safe";
       homepage = "https://github.com/docker/docker-credential-helpers";
       license = licenses.mit;
-      maintainers = with maintainers; [ marsam ];
+      maintainers = with maintainers; [marsam];
     }
-    // lib.optionalAttrs stdenv.isDarwin { mainProgram = "docker-credential-osxkeychain"; };
+    // lib.optionalAttrs stdenv.isDarwin {mainProgram = "docker-credential-osxkeychain";};
 }

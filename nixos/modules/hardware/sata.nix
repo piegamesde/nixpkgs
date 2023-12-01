@@ -40,7 +40,7 @@ let
   '';
 in
 {
-  meta.maintainers = with lib.maintainers; [ peterhoeg ];
+  meta.maintainers = with lib.maintainers; [peterhoeg];
 
   options.hardware.sata.timeout = {
     enable = mkEnableOption (lib.mdDoc "SATA drive timeouts");
@@ -92,7 +92,7 @@ in
           e:
           lib.nameValuePair (unitName e) {
             description = "SATA timeout for ${e.name}";
-            wantedBy = [ "sata-timeout.target" ];
+            wantedBy = ["sata-timeout.target"];
             serviceConfig = {
               Type = "oneshot";
               ExecStart = "${startScript} '${devicePath e}'";
@@ -108,7 +108,7 @@ in
 
     systemd.targets.sata-timeout = {
       description = "SATA timeout";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
   };
 }

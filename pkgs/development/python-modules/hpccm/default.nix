@@ -34,13 +34,13 @@ buildPythonPackage rec {
     "test_tag"
   ];
 
-  pythonImportsCheck = [ "hpccm" ];
+  pythonImportsCheck = ["hpccm"];
 
   meta = with lib; {
     description = "HPC Container Maker";
     homepage = "https://github.com/NVIDIA/hpc-container-maker";
     license = licenses.asl20;
     platforms = platforms.x86;
-    maintainers = with maintainers; [ atila ];
+    maintainers = with maintainers; [atila];
   };
 }

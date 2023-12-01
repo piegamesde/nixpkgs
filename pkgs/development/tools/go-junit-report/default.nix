@@ -26,6 +26,6 @@ buildGoModule rec {
     description = "Convert go test output to junit xml";
     homepage = "https://github.com/jstemmer/go-junit-report";
     license = licenses.mit;
-    maintainers = with maintainers; [ cryptix ];
+    maintainers = with maintainers; [cryptix];
   };
 }

@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     url = "https://ftp.rz.uni-wuerzburg.de/pub/unix/kde/taglib-extras/${version}/src/${pname}-${version}.tar.gz";
     sha256 = "0cln49ws9svvvals5fzxjxlzqm0fzjfymn7yfp4jfcjz655nnm7y";
   };
-  buildInputs = [ taglib ];
+  buildInputs = [taglib];
   nativeBuildInputs = [
     cmake
     zlib

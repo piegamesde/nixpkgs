@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     json-glib
   ];
 
-  mesonFlags = [ "-Dduplicity_command=${duplicity}/bin/duplicity" ];
+  mesonFlags = ["-Dduplicity_command=${duplicity}/bin/duplicity"];
 
   meta = with lib; {
     description = "A simple backup tool";
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://wiki.gnome.org/Apps/DejaDup";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.linux;
   };
 }

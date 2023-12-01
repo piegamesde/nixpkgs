@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "lambda-fiddle";
   version = "20190710-git";
 
   description = "A collection of functions to process lambda-lists.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/lambda-fiddle/2019-07-10/lambda-fiddle-20190710-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "lambda-fiddle";
 
-  asdFilesToKeep = [ "lambda-fiddle.asd" ];
+  asdFilesToKeep = ["lambda-fiddle.asd"];
   overrides = x: x;
 }
 /* (SYSTEM lambda-fiddle DESCRIPTION

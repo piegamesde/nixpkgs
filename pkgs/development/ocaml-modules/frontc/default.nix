@@ -19,13 +19,13 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.08";
 
-  nativeBuildInputs = [ menhir ];
+  nativeBuildInputs = [menhir];
 
   meta = with lib; {
     inherit (src.meta) homepage;
     inherit (ocaml.meta) platforms;
     description = "C Parsing Library";
     license = licenses.lgpl21;
-    maintainers = [ maintainers.maurer ];
+    maintainers = [maintainers.maurer];
   };
 }

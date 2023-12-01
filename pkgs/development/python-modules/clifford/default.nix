@@ -57,12 +57,12 @@ buildPythonPackage rec {
     "test_multivector_inverse.py"
   ];
 
-  pythonImportsCheck = [ "clifford" ];
+  pythonImportsCheck = ["clifford"];
 
   meta = with lib; {
     description = "Numerical Geometric Algebra Module";
     homepage = "https://clifford.readthedocs.io";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

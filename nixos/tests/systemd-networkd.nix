@@ -11,13 +11,13 @@ let
       ...
     }:
     {
-      imports = [ common/user-account.nix ];
+      imports = [common/user-account.nix];
       systemd.services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL = "debug";
       networking.useNetworkd = true;
       networking.useDHCP = false;
       networking.firewall.enable = false;
-      virtualisation.vlans = [ 1 ];
-      environment.systemPackages = with pkgs; [ wireguard-tools ];
+      virtualisation.vlans = [1];
+      environment.systemPackages = with pkgs; [wireguard-tools];
       systemd.network = {
         enable = true;
         config = {
@@ -44,7 +44,7 @@ let
                   Endpoint = "192.168.1.${peerId}:51820";
                   PublicKey = pubk;
                   PresharedKeyFile = pkgs.writeText "psk.key" "yTL3sCOL33Wzi6yCnf9uZQl/Z8laSE+zwpqOHC4HhFU=";
-                  AllowedIPs = [ "10.0.0.${peerId}/32" ];
+                  AllowedIPs = ["10.0.0.${peerId}/32"];
                   PersistentKeepalive = 15;
                 };
               }
@@ -60,7 +60,7 @@ let
             matchConfig = {
               Name = "wg0";
             };
-            address = [ "10.0.0.${nodeId}/32" ];
+            address = ["10.0.0.${nodeId}/32"];
             routes = [
               {
                 routeConfig = {
@@ -129,13 +129,13 @@ let
     };
 in
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "networkd";
-    meta = with pkgs.lib.maintainers; { maintainers = [ ninjatrappeur ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [ninjatrappeur];};
     nodes = {
       node1 =
-        { pkgs, ... }@attrs:
+        {pkgs, ...}@attrs:
         let
           localConf = {
             privk = "GDiXWlMQKb379XthwX0haAbK6hTdjblllpjGX0heP00=";
@@ -147,7 +147,7 @@ import ./make-test-python.nix (
         generateNodeConf (attrs // localConf);
 
       node2 =
-        { pkgs, ... }@attrs:
+        {pkgs, ...}@attrs:
         let
           localConf = {
             privk = "eHxSI2jwX/P4AOI0r8YppPw0+4NZnjOxfbS5mt06K2k=";

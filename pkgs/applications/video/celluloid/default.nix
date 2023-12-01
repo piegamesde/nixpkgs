@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://github.com/celluloid-player/celluloid";
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
       allowing access to mpv's powerful playback capabilities.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.linux;
   };
 }

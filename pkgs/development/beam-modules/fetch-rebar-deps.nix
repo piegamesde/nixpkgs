@@ -9,7 +9,7 @@
   version,
   sha256,
   src,
-  meta ? { },
+  meta ? {},
 }:
 
 stdenv.mkDerivation ({

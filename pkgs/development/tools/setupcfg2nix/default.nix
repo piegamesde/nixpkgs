@@ -18,6 +18,6 @@ buildSetupcfg rec {
     homepage = "https://github.com/target/setupcfg2nix";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.shlevy ];
+    maintainers = [lib.maintainers.shlevy];
   };
 }

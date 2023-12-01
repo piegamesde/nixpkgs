@@ -38,15 +38,15 @@ buildPythonPackage rec {
     "test_quit_gracefully"
   ];
 
-  pytestFlagsArray = [ "test/test.py" ];
+  pytestFlagsArray = ["test/test.py"];
 
-  pythonImportsCheck = [ "ffmpeg_progress_yield" ];
+  pythonImportsCheck = ["ffmpeg_progress_yield"];
 
   meta = with lib; {
     description = "Run an ffmpeg command with progress";
     homepage = "https://github.com/slhck/ffmpeg-progress-yield";
     changelog = "https://github.com/slhck/ffmpeg-progress-yield/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ prusnak ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [prusnak];
   };
 }

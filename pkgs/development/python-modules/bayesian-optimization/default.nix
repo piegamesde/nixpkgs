@@ -38,7 +38,7 @@ buildPythonPackage rec {
       })
     ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests =
     [
@@ -47,7 +47,7 @@ buildPythonPackage rec {
       "test_suggest_with_one_observation"
     ];
 
-  pythonImportsCheck = [ "bayes_opt" ];
+  pythonImportsCheck = ["bayes_opt"];
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64) || stdenv.isDarwin;
@@ -56,6 +56,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/fmfn/BayesianOptimization";
     license = licenses.mit;
-    maintainers = [ maintainers.juliendehos ];
+    maintainers = [maintainers.juliendehos];
   };
 }

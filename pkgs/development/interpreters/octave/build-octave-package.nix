@@ -22,20 +22,20 @@
   src,
 
   dontPatch ? false,
-  patches ? [ ],
+  patches ? [],
   patchPhase ? "",
 
   enableParallelBuilding ? true,
   # Build-time dependencies for the package, which were compiled for the system compiling this.
-  nativeBuildInputs ? [ ],
+  nativeBuildInputs ? [],
 
   # Build-time dependencies for the package, which may not have been compiled for the system compiling this.
-  buildInputs ? [ ],
+  buildInputs ? [],
 
   # Propagate build dependencies so in case we have A -> B -> C,
   # C can import package A propagated by B
   # Run-time dependencies for the package.
-  propagatedBuildInputs ? [ ],
+  propagatedBuildInputs ? [],
 
   # Octave packages that are required at runtime for this one.
   # These behave similarly to propagatedBuildInputs, where if
@@ -43,13 +43,13 @@
   # The main difference between these and propagatedBuildInputs is
   # during the package's installation into octave, where all
   # requiredOctavePackages are ALSO installed into octave.
-  requiredOctavePackages ? [ ],
+  requiredOctavePackages ? [],
 
   preBuild ? "",
 
-  meta ? { },
+  meta ? {},
 
-  passthru ? { },
+  passthru ? {},
 
   ...
 }@attrs:
@@ -110,7 +110,7 @@ stdenv.mkDerivation (
 
     buildInputs = buildInputs ++ requiredOctavePackages';
 
-    propagatedBuildInputs = propagatedBuildInputs ++ [ texinfo ];
+    propagatedBuildInputs = propagatedBuildInputs ++ [texinfo];
 
     preBuild =
       if preBuild == "" then

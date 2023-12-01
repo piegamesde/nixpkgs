@@ -24,7 +24,7 @@ buildPythonPackage rec {
   # No tests
   doCheck = false;
 
-  pythonImportsCheck = [ "buildbot_pkg" ];
+  pythonImportsCheck = ["buildbot_pkg"];
 
   disabled = !isPy3k;
 

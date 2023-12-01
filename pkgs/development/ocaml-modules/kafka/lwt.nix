@@ -10,7 +10,7 @@ buildDunePackage rec {
 
   inherit (kafka) version useDune2 src;
 
-  buildInputs = [ cmdliner ];
+  buildInputs = [cmdliner];
 
   propagatedBuildInputs = [
     kafka

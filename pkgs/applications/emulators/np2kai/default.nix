@@ -68,22 +68,22 @@ let
     else
       "unix";
   sdlMakefiles = concatMapStringsSep " " (x: x + "." + sdlMakefileSuffix) (
-    optionals enable16Bit [ "Makefile" ] ++ optionals enable32Bit [ "Makefile21" ]
+    optionals enable16Bit ["Makefile"] ++ optionals enable32Bit ["Makefile21"]
   );
-  sdlBuildFlags = concatStringsSep " " (optionals enableSDL [ "SDL_VERSION=${withSDLVersion}" ]);
+  sdlBuildFlags = concatStringsSep " " (optionals enableSDL ["SDL_VERSION=${withSDLVersion}"]);
   sdlBins = concatStringsSep " " (
-    optionals enable16Bit [ "np2kai" ] ++ optionals enable32Bit [ "np21kai" ]
+    optionals enable16Bit ["np2kai"] ++ optionals enable32Bit ["np21kai"]
   );
   x11ConfigureFlags = concatStringsSep " " (
     (
       if ((enableHAXM && (enable16Bit || enable32Bit)) || (enable16Bit && enable32Bit)) then
-        [ "--enable-build-all" ]
+        ["--enable-build-all"]
       else if enableHAXM then
-        [ "--enable-haxm" ]
+        ["--enable-haxm"]
       else if enable32Bit then
-        [ "--enable-ia32" ]
+        ["--enable-ia32"]
       else
-        [ ]
+        []
     )
     ++ optionals (!isSDL2) [
       "--enable-sdl"
@@ -102,9 +102,9 @@ let
     ''SDL_LIBS="$(sdl${sdlInfix}-config --libs) -lSDL${sdlInfix}_mixer -lSDL${sdlInfix}_ttf"''
   ];
   x11Bins = concatStringsSep " " (
-    optionals enable16Bit [ "xnp2kai" ]
-    ++ optionals enable32Bit [ "xnp21kai" ]
-    ++ optionals enableHAXM [ "xnp21kai_haxm" ]
+    optionals enable16Bit ["xnp2kai"]
+    ++ optionals enable32Bit ["xnp21kai"]
+    ++ optionals enableHAXM ["xnp21kai_haxm"]
   );
 in
 stdenv.mkDerivation rec {
@@ -197,7 +197,7 @@ stdenv.mkDerivation rec {
     description = "A PC-9801 series emulator";
     homepage = "https://github.com/AZO234/NP2kai";
     license = licenses.mit;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = platforms.x86;
   };
 }

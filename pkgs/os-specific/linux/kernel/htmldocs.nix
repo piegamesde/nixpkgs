@@ -22,7 +22,7 @@ stdenv.mkDerivation {
       scripts/{get_abi.pl,get_feat.pl,kernel-doc,sphinx-pre-install}
   '';
 
-  FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ ]; };
+  FONTCONFIG_FILE = makeFontsConf {fontDirectories = [];};
 
   nativeBuildInputs = [
     graphviz
@@ -37,7 +37,7 @@ stdenv.mkDerivation {
     export XDG_CACHE_HOME="$(mktemp -d)"
   '';
 
-  makeFlags = [ "htmldocs" ];
+  makeFlags = ["htmldocs"];
 
   installPhase = ''
     mkdir -p $out/share/doc
@@ -50,6 +50,6 @@ stdenv.mkDerivation {
     homepage = "https://www.kernel.org/doc/htmldocs/";
     platforms = platforms.linux;
     inherit (linux_latest.meta) license;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

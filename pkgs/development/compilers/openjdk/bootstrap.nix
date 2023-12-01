@@ -40,7 +40,7 @@ let
     else
       throw "No bootstrap jdk for system ${stdenv.hostPlatform.system}";
 
-  bootstrap = runCommand "openjdk-bootstrap" { passthru.home = "${bootstrap}/lib/openjdk"; } ''
+  bootstrap = runCommand "openjdk-bootstrap" {passthru.home = "${bootstrap}/lib/openjdk";} ''
     tar xvf ${src}
     mv openjdk-bootstrap $out
 

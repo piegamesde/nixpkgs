@@ -1,13 +1,13 @@
-{ pkgs, libsForQt5 }:
+{pkgs, libsForQt5}:
 
 let
   packages =
     self:
     with self; {
 
-      lumina = callPackage ./lumina { };
-      lumina-calculator = callPackage ./lumina-calculator { };
-      lumina-pdf = callPackage ./lumina-pdf { };
+      lumina = callPackage ./lumina {};
+      lumina-calculator = callPackage ./lumina-calculator {};
+      lumina-pdf = callPackage ./lumina-pdf {};
 
       preRequisitePackages = [
         pkgs.fluxbox

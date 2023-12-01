@@ -2,14 +2,14 @@ let
   name = "pam";
 in
 import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "pam-file-contents";
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
-        imports = [ ../../modules/profiles/minimal.nix ];
+        imports = [../../modules/profiles/minimal.nix];
 
         krb5.enable = true;
 

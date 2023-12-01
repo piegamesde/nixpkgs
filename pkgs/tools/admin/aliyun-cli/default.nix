@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-EyaJxlif+jo8N7oi6VCJx/kO+ZR4Mb3od8jJFWbwEoo=";
 
-  subPackages = [ "main" ];
+  subPackages = ["main"];
 
   ldflags = [
     "-s"
@@ -35,7 +35,7 @@ buildGoModule rec {
     homepage = "https://github.com/aliyun/aliyun-cli";
     changelog = "https://github.com/aliyun/aliyun-cli/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ornxka ];
+    maintainers = with maintainers; [ornxka];
     mainProgram = "aliyun";
   };
 }

@@ -23,17 +23,17 @@ stdenv.mkDerivation rec {
       --replace "lib%s" "$out/lib/lib%s"
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  cmakeFlags = [ "-DPAHO_WITH_SSL=TRUE" ];
+  cmakeFlags = ["-DPAHO_WITH_SSL=TRUE"];
 
   meta = with lib; {
     description = "Eclipse Paho MQTT C Client Library";
     homepage = "https://www.eclipse.org/paho/";
     license = licenses.epl20;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.unix;
   };
 }

@@ -44,23 +44,23 @@ buildPythonPackage rec {
     cython
     ninja
     setuptools-scm
-  ] ++ lib.optionals stdenv.isDarwin [ xcodebuild ];
+  ] ++ lib.optionals stdenv.isDarwin [xcodebuild];
 
   buildInputs = lib.optionals stdenv.isDarwin [
     ApplicationServices
     OpenGL
   ];
 
-  propagatedBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pathops" ];
+  pythonImportsCheck = ["pathops"];
 
   meta = {
     description = "Python access to operations on paths using the Skia library";
     homepage = "https://skia.org/dev/present/pathops";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.BarinovMaxim ];
+    maintainers = [lib.maintainers.BarinovMaxim];
   };
 }

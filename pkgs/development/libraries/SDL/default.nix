@@ -34,7 +34,7 @@
 
 let
   extraPropagatedBuildInputs =
-    [ ]
+    []
     ++ lib.optionals x11Support [
       libXext
       libICE
@@ -72,12 +72,12 @@ stdenv.mkDerivation rec {
   ];
   outputBin = "dev"; # sdl-config
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optional stdenv.isLinux libcap;
+  nativeBuildInputs = [pkg-config] ++ lib.optional stdenv.isLinux libcap;
 
-  propagatedBuildInputs = [ libiconv ] ++ extraPropagatedBuildInputs;
+  propagatedBuildInputs = [libiconv] ++ extraPropagatedBuildInputs;
 
   buildInputs =
-    [ ]
+    []
     ++ lib.optional (!stdenv.hostPlatform.isMinGW && alsaSupport) audiofile
     ++ lib.optionals stdenv.isDarwin [
       AudioUnit
@@ -176,7 +176,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A cross-platform multimedia library";
     homepage = "http://www.libsdl.org/";
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     platforms = platforms.unix;
     license = licenses.lgpl21;
   };

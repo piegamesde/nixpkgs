@@ -92,6 +92,6 @@ stdenv.mkDerivation {
     homepage = "http://phabricator.org";
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.thoughtpolice ];
+    maintainers = [lib.maintainers.thoughtpolice];
   };
 }

@@ -28,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-plgO+pyKmG0mYnFZxDcrENcuEg5AG2Og2xWipzuzyHo=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -45,9 +45,9 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [ "examples/" ];
+  disabledTestPaths = ["examples/"];
 
-  pythonImportsCheck = [ "aioguardian" ];
+  pythonImportsCheck = ["aioguardian"];
 
   meta = with lib; {
     description = " Python library to interact with Elexa Guardian devices";
@@ -57,7 +57,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/bachya/aioguardian";
     changelog = "https://github.com/bachya/aioguardian/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

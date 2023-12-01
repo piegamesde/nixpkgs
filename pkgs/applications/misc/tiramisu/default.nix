@@ -18,14 +18,14 @@ stdenv.mkDerivation rec {
     sha256 = "1n1x1ybbwbanibw7b90k7v4cadagl41li17hz2l8s2sapacvq3mw";
   };
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   nativeBuildInputs = [
     pkg-config
     vala
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Desktop notifications, the UNIX way";

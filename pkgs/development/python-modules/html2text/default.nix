@@ -18,9 +18,9 @@ buildPythonPackage rec {
     sha256 = "1y924clp2hiqg3a9437z808p29mqcx537j5fmz71plx8qrcm5jf9";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "html2text" ];
+  pythonImportsCheck = ["html2text"];
 
   meta = with lib; {
     description = "Turn HTML into equivalent Markdown-structured text";

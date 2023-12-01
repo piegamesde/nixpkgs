@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
     description = "A cli program for produce fake datas.";
     homepage = "https://github.com/mothsart/pouf";
     changelog = "https://github.com/mothsart/pouf/releases/tag/${version}";
-    maintainers = with maintainers; [ mothsart ];
-    license = with licenses; [ mit ];
+    maintainers = with maintainers; [mothsart];
+    license = with licenses; [mit];
   };
 }

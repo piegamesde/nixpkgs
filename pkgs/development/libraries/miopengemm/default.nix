@@ -39,10 +39,10 @@ stdenv.mkDerivation (
     version = "5.4.3";
 
     outputs =
-      [ "out" ]
-      ++ lib.optionals buildDocs [ "doc" ]
-      ++ lib.optionals buildTests [ "test" ]
-      ++ lib.optionals buildBenchmarks [ "benchmark" ];
+      ["out"]
+      ++ lib.optionals buildDocs ["doc"]
+      ++ lib.optionals buildTests ["test"]
+      ++ lib.optionals buildBenchmarks ["benchmark"];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -57,7 +57,7 @@ stdenv.mkDerivation (
     ];
 
     buildInputs =
-      [ rocm-opencl-runtime ]
+      [rocm-opencl-runtime]
       ++ lib.optionals buildDocs [
         latex
         doxygen
@@ -65,7 +65,7 @@ stdenv.mkDerivation (
         python3Packages.sphinx-rtd-theme
         python3Packages.breathe
       ]
-      ++ lib.optionals buildTests [ openblas ];
+      ++ lib.optionals buildTests [openblas];
 
     cmakeFlags =
       [
@@ -75,7 +75,7 @@ stdenv.mkDerivation (
         "-DCMAKE_INSTALL_LIBDIR=lib"
         "-DCMAKE_INSTALL_INCLUDEDIR=include"
       ]
-      ++ lib.optionals buildTests [ "-DOPENBLAS=ON" ]
+      ++ lib.optionals buildTests ["-DOPENBLAS=ON"]
       ++ lib.optionals buildBenchmarks [
         "-DAPI_BENCH_MIOGEMM=ON"
         # Needs https://github.com/CNugteren/CLBlast
@@ -122,7 +122,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "OpenCL general matrix multiplication API for ROCm";
       homepage = "https://github.com/ROCmSoftwarePlatform/MIOpenGEMM";
-      license = with licenses; [ mit ];
+      license = with licenses; [mit];
       maintainers = teams.rocm.members;
       platforms = platforms.linux;
       broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;

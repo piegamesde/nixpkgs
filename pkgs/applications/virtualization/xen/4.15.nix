@@ -45,7 +45,7 @@ with lib;
 # and try applying all the ones we don't have yet.
 
 let
-  xsa = import ./xsa-patches.nix { inherit fetchpatch; };
+  xsa = import ./xsa-patches.nix {inherit fetchpatch;};
 
   qemuMemfdBuildFix = fetchpatch {
     name = "xen-4.8-memfd-build-fix.patch";
@@ -109,7 +109,7 @@ callPackage
             sha256 = "1dc6dhjp4y2irmi9yiyw1kzmm1habyy8j1s2zkf6qyak850krqj7";
           };
           buildInputs = qemuDeps;
-          patches = [ ];
+          patches = [];
           postPatch = ''
             substituteInPlace xen-hooks.mak \
               --replace /usr/include/pci ${pciutils}/include/pci
@@ -124,7 +124,7 @@ callPackage
             rev = "155821a1990b6de78dde5f98fa5ab90e802021e0";
             sha256 = "sha256-F3lzr00CMAObJtpz0eZFT/rwjFx+bvlI37/JtHXP5Eo=";
           };
-          patches = [ ./0000-qemu-seabios-enable-ATA_DMA.patch ];
+          patches = [./0000-qemu-seabios-enable-ATA_DMA.patch];
           meta.description = "Xen's fork of Seabios";
         };
       }
@@ -151,7 +151,7 @@ callPackage
       };
 
     configureFlags =
-      [ ]
+      []
       ++ optional (!withInternalQemu) "--with-system-qemu" # use qemu from PATH
       ++ optional (withInternalTraditionalQemu) "--enable-qemu-traditional"
       ++ optional (!withInternalTraditionalQemu) "--disable-qemu-traditional"
@@ -213,4 +213,4 @@ callPackage
         if withInternalQemu then "lib/xen/bin/qemu-system-i386" else throw "this xen has no qemu builtin";
     };
   }))
-  ({ ocamlPackages = ocaml-ng.ocamlPackages_4_14; } // args)
+  ({ocamlPackages = ocaml-ng.ocamlPackages_4_14;} // args)

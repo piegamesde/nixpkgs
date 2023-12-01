@@ -16,7 +16,7 @@ buildOctavePackage rec {
   meta = with lib; {
     homepage = "https://octave.sourceforge.io/queueing/index.html";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ KarlJoad ];
+    maintainers = with maintainers; [KarlJoad];
     description = "Provides functions for queueing networks and Markov chains analysis";
     longDescription = ''
       The queueing package provides functions for queueing networks and Markov

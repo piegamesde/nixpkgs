@@ -36,7 +36,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.03")
       topkg
       cmdliner
     ];
-    propagatedBuildInputs = [ uchar ];
+    propagatedBuildInputs = [uchar];
 
     strictDeps = true;
 
@@ -46,7 +46,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.03")
       description = "Non-blocking streaming Unicode codec for OCaml";
       homepage = "https://erratique.ch/software/uutf";
       license = licenses.bsd3;
-      maintainers = [ maintainers.vbgl ];
+      maintainers = [maintainers.vbgl];
       mainProgram = "utftrip";
       inherit (ocaml.meta) platforms;
     };

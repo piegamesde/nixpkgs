@@ -33,16 +33,16 @@ stdenv.mkDerivation rec {
   buildInputs = [
     vulkan-loader
     wayland
-  ] ++ lib.lists.optionals withX11 [ qtx11extras ];
+  ] ++ lib.lists.optionals withX11 [qtx11extras];
 
   patchPhase = ''
     substituteInPlace vulkanCapsViewer.pro \
       --replace '/usr/' "/"
   '';
 
-  qmakeFlags = [ "CONFIG+=release" ];
+  qmakeFlags = ["CONFIG+=release"];
 
-  installFlags = [ "INSTALL_ROOT=$(out)" ];
+  installFlags = ["INSTALL_ROOT=$(out)"];
 
   meta = with lib; {
     mainProgram = "vulkanCapsViewer";
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     homepage = "https://vulkan.gpuinfo.org/";
     platforms = platforms.unix;
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ pedrohlc ];
+    maintainers = with maintainers; [pedrohlc];
     changelog = "https://github.com/SaschaWillems/VulkanCapsViewer/releases/tag/${version}";
     # never built on aarch64-darwin, x86_64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin;

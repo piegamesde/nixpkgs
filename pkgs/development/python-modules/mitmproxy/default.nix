@@ -125,7 +125,7 @@ buildPythonPackage rec {
 
   dontUsePytestXdist = true;
 
-  pythonImportsCheck = [ "mitmproxy" ];
+  pythonImportsCheck = ["mitmproxy"];
 
   meta = with lib; {
     description = "Man-in-the-middle proxy";

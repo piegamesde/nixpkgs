@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "parser_dot_common-rules";
   version = "20200715-git";
 
-  parasites = [ "parser.common-rules/test" ];
+  parasites = ["parser.common-rules/test"];
 
   description = "Provides common parsing rules that are useful in many grammars.";
 
@@ -25,7 +25,7 @@ rec {
 
   packageName = "parser.common-rules";
 
-  asdFilesToKeep = [ "parser.common-rules.asd" ];
+  asdFilesToKeep = ["parser.common-rules.asd"];
   overrides = x: x;
 }
 /* (SYSTEM parser.common-rules DESCRIPTION

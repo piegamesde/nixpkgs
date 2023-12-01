@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     libogg
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
   #     `c_pointcontents'; CMakeFiles/wswtv_server.dir/__/null/ascript_null.c.o:(.bss+0x8): first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  cmakeFlags = [ "-DQFUSION_GAME=Warsow" ];
+  cmakeFlags = ["-DQFUSION_GAME=Warsow"];
 
   preConfigure = ''
     cd source/source

@@ -18,14 +18,14 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-UC3PbqolcCbVrIEDqMovfJ4oeofMUGJag1A6u7X3Ml8=";
   };
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   nativeBuildInputs = [
     gtk3
     xcursorgen
   ];
 
-  propagatedBuildInputs = [ papirus-icon-theme ];
+  propagatedBuildInputs = [papirus-icon-theme];
 
   dontDropIconThemeCache = true;
 

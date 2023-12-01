@@ -30,7 +30,7 @@ let
   readConfig =
     configfile:
     import
-      (runCommand "config.nix" { } ''
+      (runCommand "config.nix" {} ''
         echo "{" > "$out"
         while IFS='=' read key val; do
           [ "x''${key#CONFIG_}" != "x$key" ] || continue
@@ -47,14 +47,14 @@ lib.makeOverridable (
     # Position of the Linux build expression
     pos ? null,
     # Additional kernel make flags
-    extraMakeFlags ? [ ],
+    extraMakeFlags ? [],
     # The name of the kernel module directory
     # Needs to be X.Y.Z[-extra], so pad with zeros if needed.
     modDirVersion ? lib.versions.pad 3 version,
     # The kernel source (tarball, git checkout, etc.)
     src,
     # a list of { name=..., patch=..., extraConfig=...} patches
-    kernelPatches ? [ ],
+    kernelPatches ? [],
     # The kernel .config file
     configfile,
     # Manually specified nixexpr representing the config
@@ -64,7 +64,7 @@ lib.makeOverridable (
     # automatically extended with extra per-version and per-config values.
     randstructSeed ? "",
     # Extra meta attributes
-    extraMeta ? { },
+    extraMeta ? {},
 
     # for module compatibility
     isZen ? false,
@@ -101,7 +101,7 @@ lib.makeOverridable (
       perl
       libelf
       # module makefiles often run uname commands to find out the kernel version
-      (buildPackages.deterministic-uname.override { inherit modDirVersion; })
+      (buildPackages.deterministic-uname.override {inherit modDirVersion;})
     ] ++ optional (lib.versionAtLeast version "5.13") zstd;
 
     config =
@@ -140,7 +140,7 @@ lib.makeOverridable (
       pname = "linux";
       inherit version src;
 
-      depsBuildBuild = [ buildPackages.stdenv.cc ];
+      depsBuildBuild = [buildPackages.stdenv.cc];
       nativeBuildInputs =
         [
           perl
@@ -290,7 +290,7 @@ lib.makeOverridable (
         ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
           "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
         ]
-        ++ (kernelConf.makeFlags or [ ])
+        ++ (kernelConf.makeFlags or [])
         ++ extraMakeFlags;
 
       karch = stdenv.hostPlatform.linuxArch;
@@ -306,7 +306,7 @@ lib.makeOverridable (
       ] ++ extraMakeFlags;
 
       installFlags =
-        [ "INSTALL_PATH=$(out)" ]
+        ["INSTALL_PATH=$(out)"]
         ++ (optional isModular "INSTALL_MOD_PATH=$(out)")
         ++ optionals buildDTBs [
           "dtbs_install"
@@ -480,25 +480,25 @@ lib.makeOverridable (
         kernelAtLeast = lib.versionAtLeast baseVersion;
       };
 
-      requiredSystemFeatures = [ "big-parallel" ];
+      requiredSystemFeatures = ["big-parallel"];
 
       meta = {
         description =
           "The Linux kernel"
           + (
-            if kernelPatches == [ ] then
+            if kernelPatches == [] then
               ""
             else
               " (with patches: " + lib.concatStringsSep ", " (map (x: x.name) kernelPatches) + ")"
           );
         license = lib.licenses.gpl2Only;
         homepage = "https://www.kernel.org/";
-        maintainers = lib.teams.linux-kernel.members ++ [ maintainers.thoughtpolice ];
+        maintainers = lib.teams.linux-kernel.members ++ [maintainers.thoughtpolice];
         platforms = platforms.linux;
         timeout = 14400; # 4 hours
       } // extraMeta;
     }
-    // optionalAttrs (pos != null) { inherit pos; }
+    // optionalAttrs (pos != null) {inherit pos;}
     // optionalAttrs isModular {
       outputs = [
         "out"

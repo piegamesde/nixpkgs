@@ -4,7 +4,7 @@
   crossSystem,
   config,
   overlays,
-  crossOverlays ? [ ],
+  crossOverlays ? [],
 }:
 
 assert crossSystem == localSystem;
@@ -18,7 +18,7 @@ let
       overlays
       ;
     # Remove config.replaceStdenv to ensure termination.
-    config = builtins.removeAttrs config [ "replaceStdenv" ];
+    config = builtins.removeAttrs config ["replaceStdenv"];
   };
 in
 bootStages
@@ -30,6 +30,6 @@ bootStages
     stdenv =
       assert vanillaPackages.hostPlatform == localSystem;
       assert vanillaPackages.targetPlatform == localSystem;
-      config.replaceStdenv { pkgs = vanillaPackages; };
+      config.replaceStdenv {pkgs = vanillaPackages;};
   })
 ]

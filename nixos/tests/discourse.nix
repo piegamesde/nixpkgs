@@ -25,19 +25,19 @@ import ./make-test-python.nix (
   in
   {
     name = "discourse";
-    meta = with pkgs.lib.maintainers; { maintainers = [ talyz ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [talyz];};
 
     nodes.discourse =
-      { nodes, ... }:
+      {nodes, ...}:
       {
         virtualisation.memorySize = 2048;
         virtualisation.cores = 4;
         virtualisation.useNixStoreImage = true;
         virtualisation.writableStore = false;
 
-        imports = [ common/user-account.nix ];
+        imports = [common/user-account.nix];
 
-        security.pki.certificateFiles = [ certs.ca.cert ];
+        security.pki.certificateFiles = [certs.ca.cert];
 
         networking.extraHosts = ''
           127.0.0.1 ${discourseDomain}
@@ -53,7 +53,7 @@ import ./make-test-python.nix (
           };
         };
 
-        environment.systemPackages = [ pkgs.jq ];
+        environment.systemPackages = [pkgs.jq];
 
         services.postgresql.package = pkgs.postgresql_13;
 
@@ -84,11 +84,11 @@ import ./make-test-python.nix (
       };
 
     nodes.client =
-      { nodes, ... }:
+      {nodes, ...}:
       {
-        imports = [ common/user-account.nix ];
+        imports = [common/user-account.nix];
 
-        security.pki.certificateFiles = [ certs.ca.cert ];
+        security.pki.certificateFiles = [certs.ca.cert];
 
         networking.extraHosts = ''
           127.0.0.1 ${clientDomain}
@@ -97,14 +97,14 @@ import ./make-test-python.nix (
 
         services.dovecot2 = {
           enable = true;
-          protocols = [ "imap" ];
-          modules = [ pkgs.dovecot_pigeonhole ];
+          protocols = ["imap"];
+          modules = [pkgs.dovecot_pigeonhole];
         };
 
         services.postfix = {
           enable = true;
           origin = clientDomain;
-          relayDomains = [ clientDomain ];
+          relayDomains = [clientDomain];
           config = {
             compatibility_level = "2";
             smtpd_banner = "ESMTP server";
@@ -157,13 +157,13 @@ import ./make-test-python.nix (
                   smtp.quit()
             '';
           in
-          [ replyToEmail ];
+          [replyToEmail];
 
-        networking.firewall.allowedTCPPorts = [ 25 ];
+        networking.firewall.allowedTCPPorts = [25];
       };
 
     testScript =
-      { nodes }:
+      {nodes}:
       let
         request = builtins.toJSON {
           title = "Private message";

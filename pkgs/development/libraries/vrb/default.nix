@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     description = "A virtual ring buffer library written in C";
     license = licenses.lgpl21;
     homepage = "http://vrb.sourceforge.net/";
-    maintainers = [ maintainers.bobvanderlinden ];
+    maintainers = [maintainers.bobvanderlinden];
     platforms = platforms.linux;
   };
 }

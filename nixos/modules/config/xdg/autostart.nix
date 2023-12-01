@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{config, lib, ...}:
 
 with lib; {
   meta = {
@@ -16,5 +16,5 @@ with lib; {
     };
   };
 
-  config = mkIf config.xdg.autostart.enable { environment.pathsToLink = [ "/etc/xdg/autostart" ]; };
+  config = mkIf config.xdg.autostart.enable {environment.pathsToLink = ["/etc/xdg/autostart"];};
 }

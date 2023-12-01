@@ -21,9 +21,9 @@ buildPythonPackage rec {
   };
 
   # Wheel requires only `numpy`, but the import needs `jax`.
-  propagatedBuildInputs = [ jax ];
+  propagatedBuildInputs = [jax];
 
-  pythonImportsCheck = [ "jmp" ];
+  pythonImportsCheck = ["jmp"];
 
   nativeCheckInputs = [
     jaxlib
@@ -34,6 +34,6 @@ buildPythonPackage rec {
     description = "This library implements support for mixed precision training in JAX.";
     homepage = "https://github.com/deepmind/jmp";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ndl ];
+    maintainers = with maintainers; [ndl];
   };
 }

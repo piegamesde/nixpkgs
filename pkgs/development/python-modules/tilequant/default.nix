@@ -25,7 +25,7 @@ buildPythonPackage rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [ gitpython ];
+  buildInputs = [gitpython];
 
   propagatedBuildInputs = [
     click
@@ -36,7 +36,7 @@ buildPythonPackage rec {
 
   doCheck = false; # there are no tests
 
-  pythonImportsCheck = [ "skytemple_tilequant" ];
+  pythonImportsCheck = ["skytemple_tilequant"];
 
   meta = with lib; {
     description = "Tool for quantizing image colors using tile-based palette restrictions";

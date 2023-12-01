@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "lisp-unit";
   version = "20170124-git";
 
   description = "Common Lisp library that supports unit testing.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/lisp-unit/2017-01-24/lisp-unit-20170124-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "lisp-unit";
 
-  asdFilesToKeep = [ "lisp-unit.asd" ];
+  asdFilesToKeep = ["lisp-unit.asd"];
   overrides = x: x;
 }
 /* (SYSTEM lisp-unit DESCRIPTION

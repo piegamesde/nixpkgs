@@ -37,7 +37,7 @@ buildPythonApplication rec {
   # no tests present
   doCheck = false;
 
-  pythonImportsCheck = [ "evillimiter.evillimiter" ];
+  pythonImportsCheck = ["evillimiter.evillimiter"];
 
   meta = with lib; {
     description = "Tool that monitors, analyzes and limits the bandwidth";
@@ -48,7 +48,7 @@ buildPythonApplication rec {
       bandwidth of hosts on the network.
     '';
     homepage = "https://github.com/bitbrute/evillimiter";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

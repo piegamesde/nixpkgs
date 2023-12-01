@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
       lgpl21
     ];
     platforms = platforms.linux;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
   };
 }

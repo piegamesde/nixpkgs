@@ -2,10 +2,10 @@
   lib,
   buildLinux,
   fetchurl,
-  kernelPatches ? [ ],
-  structuredExtraConfig ? { },
-  extraMeta ? { },
-  argsOverride ? { },
+  kernelPatches ? [],
+  structuredExtraConfig ? {},
+  extraMeta ? {},
+  argsOverride ? {},
   ...
 }@args:
 
@@ -24,7 +24,7 @@ buildLinux (
       if (builtins.match "[^.]*[.][^.]*-.*" version) == null then
         version
       else
-        lib.replaceStrings [ "-" ] [ ".0-" ] version;
+        lib.replaceStrings ["-"] [".0-"] version;
 
     src = fetchurl {
       url = "mirror://kernel/linux/kernel/v6.x/linux-${kversion}.tar.xz";
@@ -41,7 +41,7 @@ buildLinux (
           };
         };
       in
-      [ rt-patch ] ++ kernelPatches;
+      [rt-patch] ++ kernelPatches;
 
     structuredExtraConfig =
       with lib.kernel;

@@ -120,7 +120,7 @@ in
       };
 
       extraConfig = mkOption {
-        default = { };
+        default = {};
         type = types.attrsOf types.anything;
         description = lib.mdDoc ''
           Extra configuration options which are serialized to json and added
@@ -129,7 +129,7 @@ in
       };
 
       extraConfigFiles = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           Additional configuration files to pass to consul
@@ -185,13 +185,13 @@ in
           # The shell is needed for health checks
           shell = "/run/current-system/sw/bin/bash";
         };
-        users.groups.consul = { };
+        users.groups.consul = {};
 
         environment = {
           etc."consul.json".text = builtins.toJSON configOptions;
           # We need consul.d to exist for consul to start
           etc."consul.d/dummy.json".text = "{ }";
-          systemPackages = [ cfg.package ];
+          systemPackages = [cfg.package];
         };
 
         warnings = lib.flatten [
@@ -202,11 +202,11 @@ in
         ];
 
         systemd.services.consul = {
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ] ++ systemdDevices;
+          wantedBy = ["multi-user.target"];
+          after = ["network.target"] ++ systemdDevices;
           bindsTo = systemdDevices;
           restartTriggers =
-            [ config.environment.etc."consul.json".source ]
+            [config.environment.etc."consul.json".source]
             ++ mapAttrsToList (_: d: d.source) (
               filterAttrs (n: _: hasPrefix "consul.d/" n) config.environment.etc
             );
@@ -220,7 +220,7 @@ in
             User = if cfg.dropPrivileges then "consul" else null;
             Restart = "on-failure";
             TimeoutStartSec = "infinity";
-          } // (optionalAttrs (cfg.leaveOnStop) { ExecStop = "${lib.getExe cfg.package} leave"; });
+          } // (optionalAttrs (cfg.leaveOnStop) {ExecStop = "${lib.getExe cfg.package} leave";});
 
           path = with pkgs; [
             iproute2
@@ -279,14 +279,14 @@ in
       }
 
       # deprecated
-      (mkIf (cfg.forceIpv4 != null && cfg.forceIpv4) { services.consul.forceAddrFamily = "ipv4"; })
+      (mkIf (cfg.forceIpv4 != null && cfg.forceIpv4) {services.consul.forceAddrFamily = "ipv4";})
 
       (mkIf (cfg.alerts.enable) {
         systemd.services.consul-alerts = {
-          wantedBy = [ "multi-user.target" ];
-          after = [ "consul.service" ];
+          wantedBy = ["multi-user.target"];
+          after = ["consul.service"];
 
-          path = [ cfg.package ];
+          path = [cfg.package];
 
           serviceConfig = {
             ExecStart = ''

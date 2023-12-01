@@ -43,6 +43,6 @@ rustPlatform.buildRustPackage rec {
     description = "UDP-based load generator";
     homepage = "https://github.com/rozgo/anevicon";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

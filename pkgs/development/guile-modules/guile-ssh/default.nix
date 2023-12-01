@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-P29U88QrCjoyl/wdTPZbiMoykd/v6ul6CW/IJn9UAyw=";
   };
 
-  configureFlags = [ "--with-guilesitedir=\${out}/share/guile/site" ];
+  configureFlags = ["--with-guilesitedir=\${out}/share/guile/site"];
 
   postFixup = ''
     for f in $out/share/guile/site/ssh/**.scm; do \
@@ -36,8 +36,8 @@ stdenv.mkDerivation rec {
     texinfo
     which
   ];
-  buildInputs = [ guile ];
-  propagatedBuildInputs = [ libssh ];
+  buildInputs = [guile];
+  propagatedBuildInputs = [libssh];
 
   enableParallelBuilding = true;
 
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     description = "Bindings to Libssh for GNU Guile";
     homepage = "https://github.com/artyom-poptsov/guile-ssh";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ethancedwards8 ];
+    maintainers = with maintainers; [ethancedwards8];
     platforms = platforms.linux;
   };
 }

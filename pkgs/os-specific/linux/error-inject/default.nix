@@ -25,7 +25,7 @@
       flex
     ];
 
-    makeFlags = [ "destdir=${placeholder "out"}" ];
+    makeFlags = ["destdir=${placeholder "out"}"];
 
     postInstall = ''
       mkdir $out/sbin
@@ -39,7 +39,7 @@
       description = "MCE error injection tool";
       license = licenses.gpl2Only;
       platforms = platforms.linux;
-      maintainers = [ maintainers.evils ];
+      maintainers = [maintainers.evils];
     };
   };
 
@@ -59,7 +59,7 @@
     ];
 
     # how is this necessary?
-    makeFlags = [ "DESTDIR=${placeholder "out"}" ];
+    makeFlags = ["DESTDIR=${placeholder "out"}"];
 
     postInstall = ''
       mkdir $out/bin
@@ -73,7 +73,7 @@
       description = "PCIE AER error injection tool";
       license = licenses.gpl2Only;
       platforms = platforms.linux;
-      maintainers = [ maintainers.evils ];
+      maintainers = [maintainers.evils];
     };
   };
 }

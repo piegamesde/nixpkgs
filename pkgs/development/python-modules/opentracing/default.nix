@@ -35,6 +35,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/opentracing/opentracing-python";
     description = "Platform API for OpenTracing";
     license = licenses.asl20;
-    maintainers = with maintainers; [ rakesh4g ];
+    maintainers = with maintainers; [rakesh4g];
   };
 }

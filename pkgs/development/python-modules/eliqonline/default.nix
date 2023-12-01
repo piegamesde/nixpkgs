@@ -29,12 +29,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "eliqonline" ];
+  pythonImportsCheck = ["eliqonline"];
 
   meta = with lib; {
     description = "Python client to the Eliq Online API";
     homepage = "https://github.com/molobrakos/eliqonline";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

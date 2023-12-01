@@ -17,17 +17,17 @@ buildPythonPackage rec {
 
   disabled = !isPy3k;
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # pynanoleaf does not contain tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pynanoleaf" ];
+  pythonImportsCheck = ["pynanoleaf"];
 
   meta = with lib; {
     homepage = "https://github.com/Oro/pynanoleaf";
     description = "A Python3 wrapper for the Nanoleaf API, capable of controlling both Nanoleaf Aurora and Nanoleaf Canvas";
     license = licenses.mit;
-    maintainers = with maintainers; [ oro ];
+    maintainers = with maintainers; [oro];
   };
 }

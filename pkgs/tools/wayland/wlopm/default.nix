@@ -18,16 +18,16 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ wayland-scanner ];
-  buildInputs = [ wayland ];
+  nativeBuildInputs = [wayland-scanner];
+  buildInputs = [wayland];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Simple client implementing zwlr-output-power-management-v1";
     homepage = "https://git.sr.ht/~leon_plickat/wlopm";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ arjan-s ];
+    maintainers = with maintainers; [arjan-s];
     platforms = platforms.linux;
   };
 }

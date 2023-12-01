@@ -33,7 +33,7 @@ buildPythonPackage rec {
       --replace 'license = "ISC"' 'license = {text = "ISC"}'
   '';
 
-  nativeBuildInputs = [ pdm-pep517 ];
+  nativeBuildInputs = [pdm-pep517];
 
   propagatedBuildInputs = [
     jinja2
@@ -44,9 +44,9 @@ buildPythonPackage rec {
     pymdown-extensions
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "mkdocstrings" ];
+  pythonImportsCheck = ["mkdocstrings"];
 
   disabledTestPaths =
     [
@@ -65,6 +65,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mkdocstrings/mkdocstrings";
     changelog = "https://github.com/mkdocstrings/mkdocstrings/blob/${version}/CHANGELOG.md";
     license = licenses.isc;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -26,7 +26,7 @@ buildGoModule rec {
   ];
 
   passthru.tests = {
-    version = testers.testVersion { package = gh-dash; };
+    version = testers.testVersion {package = gh-dash;};
   };
 
   meta = {
@@ -34,6 +34,6 @@ buildGoModule rec {
     homepage = "https://github.com/dlvhdr/gh-dash";
     changelog = "https://github.com/dlvhdr/gh-dash/releases/tag/${src.rev}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ amesgen ];
+    maintainers = with lib.maintainers; [amesgen];
   };
 }

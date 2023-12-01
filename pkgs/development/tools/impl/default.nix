@@ -25,6 +25,6 @@ buildGoModule rec {
     description = "Generate method stubs for implementing an interface";
     homepage = "https://github.com/josharian/impl";
     license = licenses.mit;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
   };
 }

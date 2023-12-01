@@ -23,7 +23,7 @@ mkDerivation rec {
   src = fetchFromGitHub {
     owner = "rncbc";
     repo = "qjackctl";
-    rev = "${pname}_${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "${pname}_${lib.replaceStrings ["."] ["_"] version}";
     sha256 = "sha256-XF5v+VgSCqqV2ft9qw1NTNzeYOv1OuhljJGdgikPLEo=";
   };
 
@@ -50,7 +50,7 @@ mkDerivation rec {
     description = "A Qt application to control the JACK sound server daemon";
     homepage = "https://github.com/rncbc/qjackctl";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
     platforms = platforms.linux;
   };
 }

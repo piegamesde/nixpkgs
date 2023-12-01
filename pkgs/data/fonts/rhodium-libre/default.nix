@@ -29,6 +29,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/DunwichType/RhodiumLibre";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

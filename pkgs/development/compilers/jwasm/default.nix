@@ -41,7 +41,7 @@ stdenv.mkDerivation (
       description = "A MASM-compatible x86 assembler";
       changelog = "https://github.com/Baron-von-Riedesel/JWasm/releases/tag/v${finalAttrs.version}";
       license = licenses.gpl2Plus;
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       platforms = platforms.unix;
       broken = stdenv.isDarwin;
     };

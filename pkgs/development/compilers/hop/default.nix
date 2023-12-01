@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     substituteInPlace configure --replace "(os-tmp)" '(getenv "TMPDIR")'
   '';
 
-  buildInputs = [ bigloo ];
+  buildInputs = [bigloo];
 
   configureFlags = [
     "--bigloo=${bigloo}/bin/bigloo"
@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     homepage = "http://hop.inria.fr/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ vbgl ];
+    maintainers = with maintainers; [vbgl];
   };
 }

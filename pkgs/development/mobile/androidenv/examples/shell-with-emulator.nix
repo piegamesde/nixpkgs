@@ -14,7 +14,7 @@
   */
 
   # If you want to use the in-tree version of nixpkgs:
-  pkgs ? import ../../../../.. { config.allowUnfree = true; },
+  pkgs ? import ../../../../.. {config.allowUnfree = true;},
 
   config ? pkgs.config,
 }:
@@ -24,8 +24,8 @@ let
   # Declaration of versions for everything. This is useful since these
   # versions may be used in multiple places in this Nix expression.
   android = {
-    platforms = [ "33" ];
-    systemImageTypes = [ "google_apis" ];
+    platforms = ["33"];
+    systemImageTypes = ["google_apis"];
     abis = [
       "arm64-v8a"
       "x86_64"

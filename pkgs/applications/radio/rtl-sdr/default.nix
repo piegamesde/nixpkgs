@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     cmake
   ];
 
-  propagatedBuildInputs = [ libusb1 ];
+  propagatedBuildInputs = [libusb1];
 
   cmakeFlags = lib.optionals stdenv.isLinux [
     "-DINSTALL_UDEV_RULES=ON"
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     description = "Turns your Realtek RTL2832 based DVB dongle into a SDR receiver";
     homepage = "https://github.com/librtlsdr/librtlsdr";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

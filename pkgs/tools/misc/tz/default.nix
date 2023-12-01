@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "A time zone helper";
     homepage = "https://github.com/oz/tz";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
   };
 }

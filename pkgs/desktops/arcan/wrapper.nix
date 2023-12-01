@@ -2,16 +2,16 @@
   arcan,
   makeWrapper,
   symlinkJoin,
-  appls ? [ ],
+  appls ? [],
   name ? "arcan-wrapped",
 }:
 
 symlinkJoin rec {
   inherit name;
 
-  paths = appls ++ [ arcan ];
+  paths = appls ++ [arcan];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     for prog in ${placeholder "out"}/bin/*; do

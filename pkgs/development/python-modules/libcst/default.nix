@@ -60,7 +60,7 @@ buildPythonPackage rec {
       ]
     );
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.isDarwin [libiconv];
 
   propagatedBuildInputs = [
     typing-extensions
@@ -86,7 +86,7 @@ buildPythonPackage rec {
       "test_codemod_formatter_error_input"
     ];
 
-  pythonImportsCheck = [ "libcst" ];
+  pythonImportsCheck = ["libcst"];
 
   meta = with lib; {
     description = "Concrete Syntax Tree (CST) parser and serializer library for Python";
@@ -96,6 +96,6 @@ buildPythonPackage rec {
       asl20
       psfl
     ];
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

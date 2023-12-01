@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-aswssP2l7NdjUEwXO2v0nEiZCk6kArnZA3Jch59W+yA=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     install -Dv asn "$out/bin/asn"
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
       lookup API server / Web traceroute server
     '';
     homepage = "https://github.com/nitefood/asn";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ devhell ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [devhell];
   };
 }

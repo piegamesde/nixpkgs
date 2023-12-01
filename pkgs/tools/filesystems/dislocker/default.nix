@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     description = "Read BitLocker encrypted partitions in Linux";
     homepage = "https://github.com/aorimn/dislocker";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ elitak ];
+    maintainers = with maintainers; [elitak];
     platforms = platforms.unix;
   };
 }

@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "esrap";
   version = "20211020-git";
 
-  parasites = [ "esrap/tests" ];
+  parasites = ["esrap/tests"];
 
   description = "A Packrat / Parsing Grammar / TDPL parser for Common Lisp.";
 
@@ -21,7 +21,7 @@ rec {
 
   packageName = "esrap";
 
-  asdFilesToKeep = [ "esrap.asd" ];
+  asdFilesToKeep = ["esrap.asd"];
   overrides = x: x;
 }
 /* (SYSTEM esrap DESCRIPTION

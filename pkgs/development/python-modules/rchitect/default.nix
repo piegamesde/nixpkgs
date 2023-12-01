@@ -28,7 +28,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     cffi
     six
-  ] ++ (with rPackages; [ reticulate ]);
+  ] ++ (with rPackages; [reticulate]);
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -41,12 +41,12 @@ buildPythonPackage rec {
     cd $TMPDIR
   '';
 
-  pythonImportsCheck = [ "rchitect" ];
+  pythonImportsCheck = ["rchitect"];
 
   meta = with lib; {
     description = "Interoperate R with Python";
     homepage = "https://github.com/randy3k/rchitect";
     license = licenses.mit;
-    maintainers = with maintainers; [ savyajha ];
+    maintainers = with maintainers; [savyajha];
   };
 }

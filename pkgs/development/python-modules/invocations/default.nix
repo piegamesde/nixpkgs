@@ -44,13 +44,13 @@ buildPythonPackage rec {
   # There's an error loading the test suite. See https://github.com/pyinvoke/invocations/issues/29.
   doCheck = false;
 
-  pythonImportsCheck = [ "invocations" ];
+  pythonImportsCheck = ["invocations"];
 
   meta = with lib; {
     description = "Common/best-practice Invoke tasks and collections";
     homepage = "https://invocations.readthedocs.io/";
     changelog = "https://github.com/pyinvoke/invocations/blob/${version}/docs/changelog.rst";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

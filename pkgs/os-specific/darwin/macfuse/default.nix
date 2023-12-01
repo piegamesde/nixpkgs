@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     undmg
     libtapi
   ];
-  propagatedBuildInputs = [ DiskArbitration ];
+  propagatedBuildInputs = [DiskArbitration];
 
   postUnpack = ''
     xar -xf 'Install macFUSE.pkg'
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       project website</link>.
     '';
     platforms = platforms.darwin;
-    maintainers = with maintainers; [ midchildan ];
+    maintainers = with maintainers; [midchildan];
 
     # macFUSE as a whole includes code with restrictions on commercial
     # redistribution. However, the build artifacts that we actually touch for

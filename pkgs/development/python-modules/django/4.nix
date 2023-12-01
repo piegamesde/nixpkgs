@@ -77,7 +77,7 @@ buildPythonPackage rec {
       --replace "/usr/bin/python" "${python.interpreter}"
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     asgiref
@@ -85,8 +85,8 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    argon2 = [ argon2-cffi ];
-    bcrypt = [ bcrypt ];
+    argon2 = [argon2-cffi];
+    bcrypt = [bcrypt];
   };
 
   nativeCheckInputs = [
@@ -135,6 +135,6 @@ buildPythonPackage rec {
     description = "A high-level Python Web framework that encourages rapid development and clean, pragmatic design.";
     homepage = "https://www.djangoproject.com";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

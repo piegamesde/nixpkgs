@@ -58,8 +58,8 @@ let
     lib.appendToName "with-plugins" (
       symlinkJoin {
         inherit (yosys) name;
-        paths = paths ++ [ yosys ];
-        nativeBuildInputs = [ makeWrapper ];
+        paths = paths ++ [yosys];
+        nativeBuildInputs = [makeWrapper];
         postBuild = ''
           wrapProgram $out/bin/yosys \
             --set NIX_YOSYS_PLUGIN_DIRS $out/share/yosys/plugins \
@@ -95,10 +95,10 @@ stdenv.mkDerivation rec {
     readline
     libffi
     zlib
-    (python3.withPackages (pp: with pp; [ click ]))
+    (python3.withPackages (pp: with pp; [click]))
   ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   patches = [
     ./plugin-search-dirs.patch
@@ -135,7 +135,7 @@ stdenv.mkDerivation rec {
 
   checkTarget = "test";
   doCheck = true;
-  nativeCheckInputs = [ verilog ];
+  nativeCheckInputs = [verilog];
 
   # Internally, yosys knows to use the specified hardcoded ABCEXTERNAL binary.
   # But other tools (like mcy or symbiyosys) can't know how yosys was built, so

@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-XGjP+7i3mYCEzPYwVY+75DARdXJFY4vUWHFpPeoNqAE=";
   };
 
-  buildInputs = [ gtkmm3 ];
+  buildInputs = [gtkmm3];
 
   nativeBuildInputs = [
     autoreconfHook
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
         - Syntax highlighting
     '';
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ WhiteBlackGoose ];
+    maintainers = with maintainers; [WhiteBlackGoose];
     platforms = platforms.linux;
   };
 }

@@ -106,7 +106,7 @@ let
       ]
     );
 
-  distDir = runCommand "bazel-deps" { } ''
+  distDir = runCommand "bazel-deps" {} ''
     mkdir -p $out
     for i in ${builtins.toString srcDeps}; do cp $i $out/$(stripHash $i); done
   '';
@@ -175,8 +175,8 @@ let
 
     src = srcDepsSet."java_tools_javac11_${system}-v10.6.zip";
 
-    nativeBuildInputs = [ unzip ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
-    buildInputs = [ gcc-unwrapped ];
+    nativeBuildInputs = [unzip] ++ lib.optional stdenv.isLinux autoPatchelfHook;
+    buildInputs = [gcc-unwrapped];
 
     sourceRoot = ".";
 
@@ -291,8 +291,8 @@ stdenv.mkDerivation rec {
       runLocal =
         name: attrs: script:
         let
-          attrs' = removeAttrs attrs [ "buildInputs" ];
-          buildInputs = attrs.buildInputs or [ ];
+          attrs' = removeAttrs attrs ["buildInputs"];
+          buildInputs = attrs.buildInputs or [];
         in
         runCommandCC name
           (
@@ -315,7 +315,7 @@ stdenv.mkDerivation rec {
             # yes, this path is kinda magic. Sorry.
             "$HOME/.cache/bazel/_bazel_nixbld";
         in
-        runLocal "bazel-extracted-homedir" { passthru.install_dir = install_dir; } ''
+        runLocal "bazel-extracted-homedir" {passthru.install_dir = install_dir;} ''
           export HOME=$(mktemp -d)
           touch WORKSPACE # yeah, everything sucks
           install_base="$(${bazelPkg}/bin/bazel info | grep install_base)"
@@ -332,12 +332,12 @@ stdenv.mkDerivation rec {
           bazelScript,
           workspaceDir,
           bazelPkg,
-          buildInputs ? [ ],
+          buildInputs ? [],
         }:
         let
           be = extracted bazelPkg;
         in
-        runLocal name { inherit buildInputs; } (
+        runLocal name {inherit buildInputs;} (
           # skip extraction caching on Darwin, because nobody knows how Darwin works
           (lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
             # set up home with pre-unpacked bazel
@@ -363,7 +363,7 @@ stdenv.mkDerivation rec {
           ''
         );
 
-      bazelWithNixHacks = bazel_self.override { enableNixHacks = true; };
+      bazelWithNixHacks = bazel_self.override {enableNixHacks = true;};
 
       bazel-examples = fetchFromGitHub {
         owner = "bazelbuild";
@@ -387,7 +387,7 @@ stdenv.mkDerivation rec {
           };
         }
       else
-        { }
+        {}
     )
     // {
       bashTools = callPackage ../bash-tools-test.nix {
@@ -455,13 +455,13 @@ stdenv.mkDerivation rec {
 
       # downstream packages using buildBazelPackage
       # fixed-output hashes of the fetch phase need to be spot-checked manually
-      downstream = recurseIntoAttrs ({ inherit bazel-watcher; });
+      downstream = recurseIntoAttrs ({inherit bazel-watcher;});
     };
 
   src_for_updater = stdenv.mkDerivation rec {
     name = "updater-sources";
     inherit src;
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [unzip];
     inherit sourceRoot;
     installPhase = ''
       runHook preInstall
@@ -632,7 +632,7 @@ stdenv.mkDerivation rec {
     in
     lib.optionalString stdenv.hostPlatform.isDarwin darwinPatches + genericPatches;
 
-  buildInputs = [ buildJdk ] ++ defaultShellUtils;
+  buildInputs = [buildJdk] ++ defaultShellUtils;
 
   # when a command can’t be found in a bazel build, you might also
   # need to add it to `defaultShellPath`.
@@ -659,7 +659,7 @@ stdenv.mkDerivation rec {
   # Bazel WORKSPACE. This is why before executing the build, the source code is moved into a
   # subdirectory.
   # Failing to do this causes "infinite symlink expansion detected"
-  preBuildPhases = [ "preBuildPhase" ];
+  preBuildPhases = ["preBuildPhase"];
   preBuildPhase = ''
     mkdir bazel_src
     shopt -s dotglob extglob

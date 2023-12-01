@@ -24,7 +24,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aenum" ];
+  pythonImportsCheck = ["aenum"];
 
   disabledTests = [
     # https://github.com/ethanfurman/aenum/issues/27
@@ -41,6 +41,6 @@ buildPythonPackage rec {
     description = "Advanced Enumerations (compatible with Python's stdlib Enum), NamedTuples, and NamedConstants";
     homepage = "https://github.com/ethanfurman/aenum";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ vrthra ];
+    maintainers = with maintainers; [vrthra];
   };
 }

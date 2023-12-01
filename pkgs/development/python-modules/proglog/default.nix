@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-ZYwoycguTK6y8l9Ij/+c6s4i+NabFdDByG1kJ15N2rQ=";
   };
 
-  propagatedBuildInputs = [ tqdm ];
+  propagatedBuildInputs = [tqdm];
 
   meta = with lib; {
     description = "Logs and progress bars manager for Python";

@@ -46,7 +46,7 @@ let
     extraPkgs = appimageTools.defaultFhsEnvArgs.multiPkgs;
     extraInstallCommands =
       let
-        appimageContents = appimageTools.extractType2 { inherit name src; };
+        appimageContents = appimageTools.extractType2 {inherit name src;};
       in
       ''
         mv $out/bin/{${name},${pname}}
@@ -66,7 +66,7 @@ let
       meta
       ;
 
-    nativeBuildInputs = [ undmg ];
+    nativeBuildInputs = [undmg];
     sourceRoot = "Octant.app";
     installPhase = ''
       mkdir -p $out/Applications/Octant.app
@@ -91,7 +91,7 @@ let
       with a plugin system to further extend its capabilities.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ jk ];
+    maintainers = with maintainers; [jk];
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"

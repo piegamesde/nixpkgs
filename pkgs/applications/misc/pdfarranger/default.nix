@@ -57,7 +57,7 @@ python3Packages.buildPythonApplication rec {
     inherit (src.meta) homepage;
     description = "Merge or split pdf documents and rotate, crop and rearrange their pages using an interactive and intuitive graphical interface";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ symphorien ];
+    maintainers = with maintainers; [symphorien];
     license = licenses.gpl3Plus;
   };
 }

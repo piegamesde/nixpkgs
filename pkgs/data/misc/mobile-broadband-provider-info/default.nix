@@ -22,14 +22,14 @@ stdenv.mkDerivation rec {
     ];
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = pname; };
+    updateScript = gnome.updateScript {packageName = pname;};
   };
 
   meta = with lib; {
     description = "Mobile broadband service provider database";
     homepage = "https://wiki.gnome.org/Projects/NetworkManager/MobileBroadband/ServiceProviders";
     license = licenses.publicDomain;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

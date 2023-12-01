@@ -41,7 +41,7 @@ stdenv.mkDerivation {
       --replace "home=" "#home="
   '';
 
-  configureFlags = [ "--enable-ssl=yes" ];
+  configureFlags = ["--enable-ssl=yes"];
 
   # Workaround build failure on -fno-common toolchains:
   #   ld: main.o:/build/dillo-3.0.5/dpid/dpid.h:64: multiple definition of `sock_set';
@@ -53,7 +53,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/w00fpack/dilloNG";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     mainProgram = "dillo";
   };
 }

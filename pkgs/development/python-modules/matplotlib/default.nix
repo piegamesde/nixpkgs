@@ -130,7 +130,7 @@ buildPythonPackage rec {
       freetype
       qhull
     ]
-    ++ lib.optionals enableGhostscript [ ghostscript ]
+    ++ lib.optionals enableGhostscript [ghostscript]
     ++ lib.optionals enableGtk3 [
       cairo
       gobject-introspection
@@ -141,10 +141,10 @@ buildPythonPackage rec {
       tcl
       tk
     ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+    ++ lib.optionals stdenv.isDarwin [Cocoa];
 
   # clang-11: error: argument unused during compilation: '-fno-strict-overflow' [-Werror,-Wunused-command-line-argument]
-  hardeningDisable = lib.optionals stdenv.isDarwin [ "strictoverflow" ];
+  hardeningDisable = lib.optionals stdenv.isDarwin ["strictoverflow"];
 
   propagatedBuildInputs =
     [
@@ -159,15 +159,15 @@ buildPythonPackage rec {
       pyparsing
       python-dateutil
     ]
-    ++ lib.optionals (pythonOlder "3.10") [ importlib-resources ]
+    ++ lib.optionals (pythonOlder "3.10") [importlib-resources]
     ++ lib.optionals enableGtk3 [
       pycairo
       pygobject3
     ]
-    ++ lib.optionals enableQt [ pyqt5 ]
-    ++ lib.optionals enableWebagg [ tornado ]
-    ++ lib.optionals enableNbagg [ ipykernel ]
-    ++ lib.optionals enableTk [ tkinter ];
+    ++ lib.optionals enableQt [pyqt5]
+    ++ lib.optionals enableWebagg [tornado]
+    ++ lib.optionals enableNbagg [ipykernel]
+    ++ lib.optionals enableTk [tkinter];
 
   passthru.config = {
     directories = {
@@ -184,7 +184,7 @@ buildPythonPackage rec {
       };
   };
 
-  env.MPLSETUPCFG = writeText "mplsetup.cfg" (lib.generators.toINI { } passthru.config);
+  env.MPLSETUPCFG = writeText "mplsetup.cfg" (lib.generators.toINI {} passthru.config);
 
   # Matplotlib needs to be built against a specific version of freetype in
   # order for all of the tests to pass.

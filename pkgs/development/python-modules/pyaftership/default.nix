@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-njlDScmxIYWxB4EL9lOSGCXqZDzP999gI9EkpcZyFlE=";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   nativeCheckInputs = [
     aresponses
@@ -38,13 +38,13 @@ buildPythonPackage rec {
       --replace 'version="main",' 'version="${version}",'
   '';
 
-  pythonImportsCheck = [ "pyaftership" ];
+  pythonImportsCheck = ["pyaftership"];
 
   meta = with lib; {
     description = "Python wrapper package for the AfterShip API";
     homepage = "https://github.com/ludeeus/pyaftership";
     changelog = "https://github.com/ludeeus/pyaftership/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ jamiemagee ];
+    maintainers = with maintainers; [jamiemagee];
   };
 }

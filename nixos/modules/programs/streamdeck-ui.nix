@@ -20,7 +20,7 @@ in
       description = lib.mdDoc "Whether streamdeck-ui should be started automatically.";
     };
 
-    package = mkPackageOptionMD pkgs "streamdeck-ui" { default = [ "streamdeck-ui" ]; };
+    package = mkPackageOptionMD pkgs "streamdeck-ui" {default = ["streamdeck-ui"];};
   };
 
   config = mkIf cfg.enable {
@@ -34,8 +34,8 @@ in
       ))
     ];
 
-    services.udev.packages = [ cfg.package ];
+    services.udev.packages = [cfg.package];
   };
 
-  meta.maintainers = with maintainers; [ majiir ];
+  meta.maintainers = with maintainers; [majiir];
 }

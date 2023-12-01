@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/olegkapitonov/Kapitonov-Plugins-Pack";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ magnetophon ];
+    maintainers = with maintainers; [magnetophon];
   };
 }

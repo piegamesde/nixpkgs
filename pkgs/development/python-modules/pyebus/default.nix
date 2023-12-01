@@ -20,19 +20,19 @@ buildPythonPackage rec {
     hash = "sha256-6ooOSJAIi8vYmCjDHnbMGQJfPqPmzA5thDSg+iM7T+8=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ anytree ];
+  propagatedBuildInputs = [anytree];
 
   # https://github.com/c0fec0de/pyebus/issues/3
   doCheck = false;
 
-  pythonImportsCheck = [ "pyebus" ];
+  pythonImportsCheck = ["pyebus"];
 
   meta = with lib; {
     description = "Pythonic Interface to EBUS Daemon (ebusd)";
     homepage = "https://github.com/c0fec0de/pyebus";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

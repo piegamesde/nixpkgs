@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Pass extension that provides an easy flow for updating passwords";

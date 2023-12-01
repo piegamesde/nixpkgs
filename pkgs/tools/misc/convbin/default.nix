@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace "-flto" ""
   '';
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   checkPhase = ''
     pushd test
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/mateoconlechuga/convbin";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ luc65r ];
+    maintainers = with maintainers; [luc65r];
     platforms = platforms.all;
   };
 }

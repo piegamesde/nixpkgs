@@ -43,7 +43,7 @@ buildPythonPackage rec {
     hash = "sha256-gHGsbGXxhewsdv6FCflNmf6ggFGf3CBvkIqSDV4F/kM=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   propagatedBuildInputs = [
     cryptography
@@ -133,7 +133,7 @@ buildPythonPackage rec {
       --bash extras/scrapy_bash_completion
   '';
 
-  pythonImportsCheck = [ "scrapy" ];
+  pythonImportsCheck = ["scrapy"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -147,6 +147,6 @@ buildPythonPackage rec {
     homepage = "https://scrapy.org/";
     changelog = "https://github.com/scrapy/scrapy/raw/${version}/docs/news.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [marsam];
   };
 }

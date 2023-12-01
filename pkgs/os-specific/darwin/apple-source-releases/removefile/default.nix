@@ -1,4 +1,4 @@
-{ appleDerivation', stdenvNoCC }:
+{appleDerivation', stdenvNoCC}:
 
 appleDerivation' stdenvNoCC {
   installPhase = ''

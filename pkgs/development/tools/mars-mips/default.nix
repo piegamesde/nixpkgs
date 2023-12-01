@@ -16,8 +16,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url = "https://courses.missouristate.edu/KenVollmar/MARS/MARS_${
-      lib.replaceStrings [ "." ] [ "_" ] version
-    }_Aug2014/Mars${lib.replaceStrings [ "." ] [ "_" ] version}.jar";
+      lib.replaceStrings ["."] ["_"] version
+    }_Aug2014/Mars${lib.replaceStrings ["."] ["_"] version}.jar";
     sha256 = "15kh1fahkkbbf4wvb6ijzny4fi5dh4pycxyzp5325dm2ddkhnd5c";
   };
 
@@ -62,9 +62,9 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "An IDE for programming in MIPS assembly language intended for educational-level use";
     homepage = "https://courses.missouristate.edu/KenVollmar/MARS/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.mit;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.all;
   };
 }

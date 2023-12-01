@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  configureFlags = [ "--enable-shared" ];
+  configureFlags = ["--enable-shared"];
 
   outputs = [
     "bin"
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://udis86.sourceforge.net";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ timor ];
+    maintainers = with maintainers; [timor];
     mainProgram = "udcli";
     description = ''
       Easy-to-use, minimalistic x86 disassembler library (libudis86)

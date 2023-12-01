@@ -30,11 +30,11 @@ stdenv.mkDerivation rec {
     libjpeg
   ];
 
-  patches = [ ./gcc6.patch ];
+  patches = [./gcc6.patch];
 
   meta = {
     description = "A model-airplane flight simulator";
-    maintainers = with lib.maintainers; [ raskin ];
+    maintainers = with lib.maintainers; [raskin];
     platforms = [
       "i686-linux"
       "x86_64-linux"

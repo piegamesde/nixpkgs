@@ -23,13 +23,13 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ nettle ];
+  buildInputs = [nettle];
 
   meta = with lib; {
     homepage = "https://rdfind.pauldreik.se/";
     description = "Removes or hardlinks duplicate files very swiftly";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.wmertens ];
+    maintainers = [maintainers.wmertens];
     platforms = platforms.all;
   };
 }

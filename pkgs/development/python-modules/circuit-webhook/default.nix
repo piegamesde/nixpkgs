@@ -20,12 +20,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "circuit_webhook" ];
+  pythonImportsCheck = ["circuit_webhook"];
 
   meta = with lib; {
     description = "Module for Unify Circuit API webhooks";
     homepage = "https://github.com/braam/unify/tree/master/circuit-webhook-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-NsImnD+erhpakQnl1neuHfSKiV6ipNBMPGKMDM0gwWc=";
   };
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
   # override $HOME directory:
   #   error: [Errno 13] Permission denied: '/homeless-shelter'
   checkPhase = ''

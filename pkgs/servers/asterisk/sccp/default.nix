@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Lonsh7rx3C17LU5pZpZuFxlki0iotDt+FivggFJbldU=";
   };
 
-  nativeBuildInputs = [ patchelf ];
+  nativeBuildInputs = [patchelf];
 
-  configureFlags = [ "--with-asterisk=${asterisk}" ];
+  configureFlags = ["--with-asterisk=${asterisk}"];
 
   installFlags = [
     "DESTDIR=/build/dest"
@@ -33,12 +33,12 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     p="$out/lib/asterisk/modules/chan_sccp.so"
-    patchelf --set-rpath "$p:${lib.makeLibraryPath [ binutils-unwrapped ]}" "$p"
+    patchelf --set-rpath "$p:${lib.makeLibraryPath [binutils-unwrapped]}" "$p"
   '';
 
   meta = with lib; {
     description = "Replacement for the SCCP channel driver in Asterisk";
     license = licenses.gpl1Only;
-    maintainers = with maintainers; [ das_j ];
+    maintainers = with maintainers; [das_j];
   };
 }

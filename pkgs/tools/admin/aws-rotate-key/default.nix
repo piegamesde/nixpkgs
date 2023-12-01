@@ -24,13 +24,13 @@ buildGoModule rec {
     "-w"
   ];
 
-  passthru.tests.version = testers.testVersion { package = aws-rotate-key; };
+  passthru.tests.version = testers.testVersion {package = aws-rotate-key;};
 
   meta = with lib; {
     description = "Easily rotate your AWS key";
     homepage = "https://github.com/Fullscreen/aws-rotate-key";
     license = licenses.mit;
-    maintainers = [ maintainers.mbode ];
+    maintainers = [maintainers.mbode];
     platforms = platforms.unix;
   };
 }

@@ -8,14 +8,14 @@
 with lib;
 let
   cfg = config.services.polaris;
-  settingsFormat = pkgs.formats.toml { };
+  settingsFormat = pkgs.formats.toml {};
 in
 {
   options = {
     services.polaris = {
       enable = mkEnableOption (lib.mdDoc "Polaris Music Server");
 
-      package = mkPackageOptionMD pkgs "polaris" { };
+      package = mkPackageOptionMD pkgs "polaris" {};
 
       user = mkOption {
         type = types.str;
@@ -31,7 +31,7 @@ in
 
       extraGroups = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "Polaris' auxiliary groups.";
         example = literalExpression ''["media" "music"]'';
       };
@@ -47,7 +47,7 @@ in
 
       settings = mkOption {
         type = settingsFormat.type;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Contents for the TOML Polaris config, applied each start.
           Although poorly documented, an example may be found here:
@@ -85,8 +85,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.polaris = {
       description = "Polaris Music Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = rec {
         User = cfg.user;
@@ -106,7 +106,7 @@ in
             "--cache"
             "/var/cache/${CacheDirectory}"
           ]
-          ++ optionals (cfg.settings != { }) [
+          ++ optionals (cfg.settings != {}) [
             "--config"
             (settingsFormat.generate "polaris-config.toml" cfg.settings)
           ]
@@ -160,8 +160,8 @@ in
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {allowedTCPPorts = [cfg.port];};
   };
 
-  meta.maintainers = with maintainers; [ pbsds ];
+  meta.maintainers = with maintainers; [pbsds];
 }

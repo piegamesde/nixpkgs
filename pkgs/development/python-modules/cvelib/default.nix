@@ -33,17 +33,17 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "cvelib" ];
+  pythonImportsCheck = ["cvelib"];
 
-  passthru.tests.version = testers.testVersion { package = cve; };
+  passthru.tests.version = testers.testVersion {package = cve;};
 
   meta = with lib; {
     description = "Library and a command line interface for the CVE Services API";
     homepage = "https://github.com/RedHatProductSecurity/cvelib";
     license = licenses.mit;
-    maintainers = with maintainers; [ raboof ];
+    maintainers = with maintainers; [raboof];
     mainProgram = "cve";
   };
 }

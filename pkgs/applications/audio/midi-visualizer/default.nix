@@ -81,6 +81,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/kosua20/MIDIVisualizer";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ maintainers.ericdallo ];
+    maintainers = [maintainers.ericdallo];
   };
 }

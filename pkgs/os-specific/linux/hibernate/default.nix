@@ -22,7 +22,7 @@ stdenv.mkDerivation {
     ./hibernate.patch
   ];
 
-  buildInputs = [ gawk ];
+  buildInputs = [gawk];
 
   installPhase = ''
     # FIXME: Storing config files under `$out/etc' is not very useful.

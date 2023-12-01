@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-FPsoufB9UDgBDIE3yUq4doBse3qgjP19ussYnMAxntk=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   subPackages = [
     "cmd/crowdsec"

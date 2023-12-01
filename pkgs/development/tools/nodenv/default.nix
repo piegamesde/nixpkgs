@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/nodenv/nodenv/";
     changelog = "https://github.com/nodenv/nodenv/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ alexnortung ];
+    maintainers = with maintainers; [alexnortung];
     platforms = platforms.unix;
   };
 }

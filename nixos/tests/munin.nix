@@ -2,7 +2,7 @@
 # machine.
 
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "munin";
     meta = with pkgs.lib.maintainers; {
@@ -14,13 +14,13 @@ import ./make-test-python.nix (
 
     nodes = {
       one =
-        { config, ... }:
+        {config, ...}:
         {
           services = {
             munin-node = {
               enable = true;
               # disable a failing plugin to prevent irrelevant error message, see #23049
-              disabledPlugins = [ "apc_nis" ];
+              disabledPlugins = ["apc_nis"];
             };
             munin-cron = {
               enable = true;

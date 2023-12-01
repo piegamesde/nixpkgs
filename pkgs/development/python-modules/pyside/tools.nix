@@ -29,9 +29,9 @@ buildPythonPackage rec {
     cmakeFlagsArray=("-DCMAKE_INSTALL_PREFIX=$dev")
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ qt4 ];
+  buildInputs = [qt4];
 
   propagatedBuildInputs = [
     pyside
@@ -42,7 +42,7 @@ buildPythonPackage rec {
     description = "Development tools (pyside-uic/rcc/lupdate) for PySide, the LGPL-licensed Python bindings for the Qt framework";
     license = licenses.gpl2;
     homepage = "https://wiki.qt.io/PySide";
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   let
     nodesIps = [
@@ -10,7 +10,7 @@ import ./make-test-python.nix (
 
     createNode =
       index:
-      { pkgs, ... }:
+      {pkgs, ...}:
       let
         ip = builtins.elemAt nodesIps index; # since we already use IPs to identify servers
       in
@@ -28,13 +28,13 @@ import ./make-test-python.nix (
           5010
         ];
 
-        environment.systemPackages = [ pkgs.jq ];
+        environment.systemPackages = [pkgs.jq];
 
         services.patroni = {
 
           enable = true;
 
-          postgresqlPackage = pkgs.postgresql_14.withPackages (p: [ p.pg_safeupdate ]);
+          postgresqlPackage = pkgs.postgresql_14.withPackages (p: [p.pg_safeupdate]);
 
           scope = "cluster1";
           name = "node${toString (index + 1)}";
@@ -51,7 +51,7 @@ import ./make-test-python.nix (
                 maximum_lag_on_failover = 1048576;
               };
               initdb = [
-                { encoding = "UTF8"; }
+                {encoding = "UTF8";}
                 "data-checksums"
               ];
             };
@@ -108,7 +108,7 @@ import ./make-test-python.nix (
       node3 = createNode 2;
 
       etcd =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
 
           networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
@@ -120,16 +120,16 @@ import ./make-test-python.nix (
 
           services.etcd = {
             enable = true;
-            listenClientUrls = [ "http://192.168.1.4:2379" ];
+            listenClientUrls = ["http://192.168.1.4:2379"];
           };
 
-          networking.firewall.allowedTCPPorts = [ 2379 ];
+          networking.firewall.allowedTCPPorts = [2379];
         };
 
       client =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
-          environment.systemPackages = [ pkgs.postgresql_14 ];
+          environment.systemPackages = [pkgs.postgresql_14];
 
           networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
             {

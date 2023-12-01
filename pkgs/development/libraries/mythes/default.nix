@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "0prh19wy1c74kmzkkavm9qslk99gz8h8wmjvwzjc6lf8v2az708y";
   };
 
-  buildInputs = [ hunspell ];
+  buildInputs = [hunspell];
   nativeBuildInputs = [
     ncurses
     pkg-config

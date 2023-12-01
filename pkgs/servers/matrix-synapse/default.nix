@@ -12,8 +12,8 @@
 }:
 
 let
-  plugins = python3.pkgs.callPackage ./plugins { };
-  tools = callPackage ./tools { };
+  plugins = python3.pkgs.callPackage ./plugins {};
+  tools = callPackage ./tools {};
 in
 with python3.pkgs;
 buildPythonApplication rec {
@@ -53,7 +53,7 @@ buildPythonApplication rec {
       ]
     );
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   propagatedBuildInputs =
     [

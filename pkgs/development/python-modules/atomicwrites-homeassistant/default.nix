@@ -19,14 +19,14 @@ buildPythonPackage {
     hash = "sha256-JWpnIQbxZ0VEUijZZiQLd7VfRqCW0gMFkBpXql0fTC8=";
   };
 
-  pythonImportsCheck = [ "atomicwrites" ];
+  pythonImportsCheck = ["atomicwrites"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Atomic file writes";
     homepage = "https://pypi.org/project/atomicwrites-homeassistant/";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

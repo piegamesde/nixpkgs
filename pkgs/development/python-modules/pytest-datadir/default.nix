@@ -19,14 +19,14 @@ buildPythonPackage rec {
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
-  nativeBuildInputs = [ setuptools-scm ];
-  nativeCheckInputs = [ pytestCheckHook ];
-  pythonImportsCheck = [ "pytest_datadir" ];
+  nativeBuildInputs = [setuptools-scm];
+  nativeCheckInputs = [pytestCheckHook];
+  pythonImportsCheck = ["pytest_datadir"];
 
   meta = with lib; {
     description = "Pytest plugin for manipulating test data directories and files";
     homepage = "https://github.com/gabrielcnr/pytest-datadir";
     license = licenses.mit;
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
   };
 }

@@ -56,9 +56,9 @@ let
               downloadPage = "https://github.com/reasonml/reason-native";
               homepage = "https://reason-native.com/";
               license = licenses.mit;
-              maintainers = with maintainers; [ ];
+              maintainers = with maintainers; [];
             }
-            // (prepkg.meta or { });
+            // (prepkg.meta or {});
         }
         // prepkg
       )

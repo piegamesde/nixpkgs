@@ -38,9 +38,9 @@ buildPythonPackage rec {
     numpy
   ];
 
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [pkgconfig];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   checkPhase = ''
     # Since upstream introduced --doctest-modules in

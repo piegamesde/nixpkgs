@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
       ]
     );
 
-  runtimeDependencies = with pkgs; [ eudev ];
+  runtimeDependencies = with pkgs; [eudev];
 
   unpackCmd = "dpkg -x $src .";
 
@@ -79,8 +79,8 @@ stdenv.mkDerivation rec {
   meta = {
     description = "unofficial Electron-based Figma desktop app for Linux";
     homepage = "https://github.com/Figma-Linux/figma-linux";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ercao ];
+    maintainers = with maintainers; [ercao];
   };
 }

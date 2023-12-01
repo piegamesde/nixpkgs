@@ -54,7 +54,7 @@
       hash = "sha256-JA+3WnZAN4224LbrluHJcnTmQ8VnuAmoEqqLtw0H10M=";
     };
 
-    buildInputs = [ buildbot-pkg ];
+    buildInputs = [buildbot-pkg];
 
     # No tests
     doCheck = false;
@@ -79,7 +79,7 @@
       hash = "sha256-NwLb9aQQwOxo9AqvsYbl/g8mNUeufdPrCwFMJNzdfQM=";
     };
 
-    buildInputs = [ buildbot-pkg ];
+    buildInputs = [buildbot-pkg];
 
     # No tests
     doCheck = false;
@@ -104,7 +104,7 @@
       hash = "sha256-hIBH8+RvZ53Txxl2FyrCs+ZFzRAAbK2th5Im2gZCs3c=";
     };
 
-    buildInputs = [ buildbot-pkg ];
+    buildInputs = [buildbot-pkg];
 
     # No tests
     doCheck = false;
@@ -112,7 +112,7 @@
     meta = with lib; {
       homepage = "https://buildbot.net/";
       description = "Buildbot Grid View Plugin";
-      maintainers = with maintainers; [ lopsided98 ];
+      maintainers = with maintainers; [lopsided98];
       license = licenses.gpl2;
     };
   };
@@ -126,7 +126,7 @@
       hash = "sha256-iK9MwE5Nzc0tHMui0LquCqTFIPbRTEYeHam+5hiOQJE=";
     };
 
-    buildInputs = [ buildbot-pkg ];
+    buildInputs = [buildbot-pkg];
 
     # No tests
     doCheck = false;
@@ -134,7 +134,7 @@
     meta = with lib; {
       homepage = "https://buildbot.net/";
       description = "Buildbot WSGI dashboards Plugin";
-      maintainers = with maintainers; [ lopsided98 ];
+      maintainers = with maintainers; [lopsided98];
       license = licenses.gpl2;
     };
   };
@@ -148,7 +148,7 @@
       hash = "sha256-HtVleYQE+pfwso7oBNucRjHEkwjgQSZJ6Ts1x7ncLsA=";
     };
 
-    buildInputs = [ buildbot-pkg ];
+    buildInputs = [buildbot-pkg];
     propagatedBuildInputs = [
       cairosvg
       klein
@@ -161,7 +161,7 @@
     meta = with lib; {
       homepage = "https://buildbot.net/";
       description = "Buildbot Badges Plugin";
-      maintainers = with maintainers; [ julienmalka ];
+      maintainers = with maintainers; [julienmalka];
       license = licenses.gpl2;
     };
   };

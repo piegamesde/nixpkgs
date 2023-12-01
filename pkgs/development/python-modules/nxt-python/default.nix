@@ -31,6 +31,6 @@ buildPythonPackage rec {
     description = "Python driver/interface for Lego Mindstorms NXT robot";
     homepage = "https://github.com/schodet/nxt-python";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ibizaman ];
+    maintainers = with maintainers; [ibizaman];
   };
 }

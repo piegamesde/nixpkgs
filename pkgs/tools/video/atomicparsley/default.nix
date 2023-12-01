@@ -18,9 +18,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3otyOpDdiltZ0SR1hImfIDBi53PKuAvh93yq1X3Xkmo=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ zlib ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  buildInputs = [zlib] ++ lib.optionals stdenv.isDarwin [Cocoa];
 
   installPhase = ''
     runHook preInstall
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/wez/atomicparsley";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ pjones ];
+    maintainers = with maintainers; [pjones];
     mainProgram = "AtomicParsley";
   };
 }

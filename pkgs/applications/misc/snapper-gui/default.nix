@@ -54,6 +54,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/ricardomv/snapper-gui";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ahuzik ];
+    maintainers = with maintainers; [ahuzik];
   };
 }

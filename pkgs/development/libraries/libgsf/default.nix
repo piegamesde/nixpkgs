@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     domain = "gitlab.gnome.org";
     owner = "GNOME";
     repo = "libgsf";
-    rev = "LIBGSF_${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "LIBGSF_${lib.replaceStrings ["."] ["_"] version}";
     hash = "sha256-6RP2DJWcDQ8dkKtcPxAkRsS7jSvvLoDNZHXiDJwR8Eg=";
   };
 
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  nativeCheckInputs = [ perl ];
+  nativeCheckInputs = [perl];
 
   propagatedBuildInputs = [
     libxml2
@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
     description = "GNOME's Structured File Library";
     homepage = "https://www.gnome.org/projects/libgsf";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     platforms = lib.platforms.unix;
 
     longDescription = ''

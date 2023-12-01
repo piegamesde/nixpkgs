@@ -24,12 +24,12 @@ python3Packages.buildPythonApplication rec {
     psycopg2
   ];
 
-  pythonImportsCheck = [ "pgactivity" ];
+  pythonImportsCheck = ["pgactivity"];
 
   meta = with lib; {
     description = "A top like application for PostgreSQL server activity monitoring";
     homepage = "https://github.com/dalibo/pg_activity";
     license = licenses.postgresql;
-    maintainers = with maintainers; [ mausch ];
+    maintainers = with maintainers; [mausch];
   };
 }

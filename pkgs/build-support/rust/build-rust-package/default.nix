@@ -29,27 +29,27 @@
   preUnpack ? null,
   unpackPhase ? null,
   postUnpack ? null,
-  cargoPatches ? [ ],
-  patches ? [ ],
+  cargoPatches ? [],
+  patches ? [],
   sourceRoot ? null,
   logLevel ? "",
-  buildInputs ? [ ],
-  nativeBuildInputs ? [ ],
+  buildInputs ? [],
+  nativeBuildInputs ? [],
   cargoUpdateHook ? "",
   cargoDepsHook ? "",
   buildType ? "release",
-  meta ? { },
+  meta ? {},
   cargoLock ? null,
   cargoVendorDir ? null,
   checkType ? buildType,
   buildNoDefaultFeatures ? false,
   checkNoDefaultFeatures ? buildNoDefaultFeatures,
-  buildFeatures ? [ ],
+  buildFeatures ? [],
   checkFeatures ? buildFeatures,
   useNextest ? false,
   auditable ? true,
 
-  depsExtraArgs ? { },
+  depsExtraArgs ? {},
 
   # Toggles whether a custom sysroot is created when the target is a .json file.
   __internal_dontAddSysroot ? false,
@@ -90,8 +90,8 @@ let
           name = cargoDepsName;
           patches = cargoPatches;
         }
-        // lib.optionalAttrs (args ? cargoHash) { hash = args.cargoHash; }
-        // lib.optionalAttrs (args ? cargoSha256) { sha256 = args.cargoSha256; }
+        // lib.optionalAttrs (args ? cargoHash) {hash = args.cargoHash;}
+        // lib.optionalAttrs (args ? cargoSha256) {sha256 = args.cargoSha256;}
         // depsExtraArgs
       );
 
@@ -104,7 +104,7 @@ let
   shortTarget =
     if targetIsJSON then (lib.removeSuffix ".json" (builtins.baseNameOf "${target}")) else target;
 
-  sysroot = callPackage ./sysroot { } {
+  sysroot = callPackage ./sysroot {} {
     inherit target shortTarget;
     RUSTFLAGS = args.RUSTFLAGS or "";
     originalCargoToml = src + /Cargo.toml; # profile info is later extracted
@@ -121,7 +121,7 @@ stdenv.mkDerivation (
     "cargoUpdateHook"
     "cargoLock"
   ])
-  // lib.optionalAttrs useSysroot { RUSTFLAGS = "--sysroot ${sysroot} " + (args.RUSTFLAGS or ""); }
+  // lib.optionalAttrs useSysroot {RUSTFLAGS = "--sysroot ${sysroot} " + (args.RUSTFLAGS or "");}
   // {
     inherit buildAndTestSubdir cargoDeps;
 
@@ -142,7 +142,7 @@ stdenv.mkDerivation (
     nativeBuildInputs =
       nativeBuildInputs
       ++ lib.optionals auditable [
-        (buildPackages.cargo-auditable-cargo-wrapper.override { inherit cargo cargo-auditable; })
+        (buildPackages.cargo-auditable-cargo-wrapper.override {inherit cargo cargo-auditable;})
       ]
       ++ [
         cargoBuildHook
@@ -154,8 +154,8 @@ stdenv.mkDerivation (
 
     buildInputs =
       buildInputs
-      ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ]
-      ++ lib.optionals stdenv.hostPlatform.isMinGW [ windows.pthreads ];
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [libiconv]
+      ++ lib.optionals stdenv.hostPlatform.isMinGW [windows.pthreads];
 
     patches = cargoPatches ++ patches;
 

@@ -66,12 +66,12 @@ stdenv.mkDerivation rec {
       lgpl3
       mit
     ];
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"
       "x86_64-darwin"
     ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
   };
 }

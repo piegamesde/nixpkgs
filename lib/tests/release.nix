@@ -1,7 +1,7 @@
 {
   # The pkgs used for dependencies for the testing itself
   # Don't test properties of pkgs.lib, but rather the lib in the parent directory
-  pkgs ? import ../.. { }
+  pkgs ? import ../.. {}
     // {
       lib = throw "pkgs.lib accessed, but the lib tests should use nixpkgs' lib path directly!";
     },
@@ -20,9 +20,9 @@ pkgs.runCommand "nixpkgs-lib-tests"
         inherit pkgs;
         lib = import ../.;
       })
-      (import ../path/tests { inherit pkgs; })
+      (import ../path/tests {inherit pkgs;})
     ];
-    nativeBuildInputs = [ nix ];
+    nativeBuildInputs = [nix];
     strictDeps = true;
   }
   ''

@@ -19,7 +19,7 @@ let
       virtualenv
       virtualenv-clone
     ]
-    ++ lib.optionals stdenv.hostPlatform.isAndroid [ pyjnius ];
+    ++ lib.optionals stdenv.hostPlatform.isAndroid [pyjnius];
 
   pythonEnv = python3.withPackages runtimeDeps;
 in
@@ -34,7 +34,7 @@ buildPythonApplication rec {
 
   LC_ALL = "en_US.UTF-8";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postPatch = ''
     # pipenv invokes python in a subprocess to create a virtualenv
@@ -65,6 +65,6 @@ buildPythonApplication rec {
     description = "Python Development Workflow for Humans";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ berdario ];
+    maintainers = with maintainers; [berdario];
   };
 }

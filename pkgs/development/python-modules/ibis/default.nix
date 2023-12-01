@@ -24,12 +24,12 @@ buildPythonPackage rec {
     ${python.interpreter} test_ibis.py
   '';
 
-  pythonImportsCheck = [ "ibis" ];
+  pythonImportsCheck = ["ibis"];
 
   meta = with lib; {
     description = "Lightweight template engine";
     homepage = "https://github.com/dmulholland/ibis";
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

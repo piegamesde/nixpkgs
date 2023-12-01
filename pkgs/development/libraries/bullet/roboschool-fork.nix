@@ -25,7 +25,7 @@ stdenv.mkDerivation {
     sha256 = "1wd7vj9136dl7lfb8ll0rc2fdl723y3ls9ipp7657yfl2xrqhvkb";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs =
     lib.optionals stdenv.isLinux [
       libGLU
@@ -37,7 +37,7 @@ stdenv.mkDerivation {
       OpenGL
     ];
 
-  patches = [ ./gwen-narrowing.patch ];
+  patches = [./gwen-narrowing.patch];
 
   postPatch = lib.optionalString stdenv.isDarwin ''
     sed -i 's/FIND_PACKAGE(OpenGL)//' CMakeLists.txt

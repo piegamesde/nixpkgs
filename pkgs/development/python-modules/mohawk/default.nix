@@ -17,7 +17,7 @@ buildPythonPackage rec {
     sha256 = "08wppsv65yd0gdxy5zwq37yp6jmxakfz4a2yx5wwq2d222my786j";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   nativeCheckInputs = [
     mock
@@ -33,6 +33,6 @@ buildPythonPackage rec {
     description = "Python library for Hawk HTTP authorization.";
     homepage = "https://github.com/kumar303/mohawk";
     license = lib.licenses.mpl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

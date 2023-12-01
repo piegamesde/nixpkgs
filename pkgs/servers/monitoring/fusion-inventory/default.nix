@@ -32,8 +32,8 @@ perlPackages.buildPerlPackage rec {
       --replace /sbin/ip ${iproute2}/sbin/ip
   '';
 
-  buildTools = [ ];
-  nativeBuildInputs = [ makeWrapper ];
+  buildTools = [];
+  nativeBuildInputs = [makeWrapper];
   buildInputs =
     (
       with perlPackages; [
@@ -94,12 +94,12 @@ perlPackages.buildPerlPackage rec {
     done
   '';
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   meta = with lib; {
     homepage = "http://www.fusioninventory.org";
     description = "FusionInventory unified Agent for UNIX, Linux, Windows and MacOSX";
     license = lib.licenses.gpl2;
-    maintainers = [ maintainers.phile314 ];
+    maintainers = [maintainers.phile314];
   };
 }

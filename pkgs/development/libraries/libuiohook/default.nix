@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
   # This will produce a "uiohook_tests" binary which can be run to test the
   # functionality of the library on the current system.
   # Running the test binary requires a running X11 session.
-  cmakeFlags = [ "-DENABLE_TEST:BOOL=ON" ];
+  cmakeFlags = ["-DENABLE_TEST:BOOL=ON"];
 
   postInstall = ''
     mkdir -p $test/share
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/kwhat/libuiohook";
     license = licenses.gpl3Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ anoa ];
+    maintainers = with maintainers; [anoa];
   };
 
   passthru.tests.libuiohook = nixosTests.libuiohook;

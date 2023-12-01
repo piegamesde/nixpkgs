@@ -34,15 +34,15 @@ buildPythonPackage rec {
     flit-scm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ssdp" ];
+  pythonImportsCheck = ["ssdp"];
 
   meta = with lib; {
     description = "Python asyncio library for Simple Service Discovery Protocol (SSDP)";
     homepage = "https://github.com/codingjoe/ssdp";
     changelog = "https://github.com/codingjoe/ssdp/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

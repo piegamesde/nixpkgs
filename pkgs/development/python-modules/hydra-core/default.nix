@@ -43,15 +43,15 @@ buildPythonPackage rec {
     sed -i 's/antlr4-python3-runtime==.*/antlr4-python3-runtime/' requirements/requirements.txt
   '';
 
-  nativeBuildInputs = [ jre_headless ];
+  nativeBuildInputs = [jre_headless];
 
   propagatedBuildInputs = [
     antlr4-python3-runtime
     omegaconf
     packaging
-  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  ] ++ lib.optionals (pythonOlder "3.9") [importlib-resources];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Test environment setup broken under Nix for a few tests:
   disabledTests = [
@@ -60,7 +60,7 @@ buildPythonPackage rec {
     "test_config_search_path"
   ];
 
-  disabledTestPaths = [ "tests/test_hydra.py" ];
+  disabledTestPaths = ["tests/test_hydra.py"];
 
   pythonImportsCheck = [
     "hydra"
@@ -73,6 +73,6 @@ buildPythonPackage rec {
     description = "A framework for configuring complex applications";
     homepage = "https://hydra.cc";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

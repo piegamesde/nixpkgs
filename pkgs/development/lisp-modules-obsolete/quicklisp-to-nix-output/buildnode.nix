@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "buildnode";
   version = "20170403-git";
 
-  parasites = [ "buildnode-test" ];
+  parasites = ["buildnode-test"];
 
   description = "Tool for building up an xml dom nicely.";
 
@@ -39,7 +39,7 @@ rec {
 
   packageName = "buildnode";
 
-  asdFilesToKeep = [ "buildnode.asd" ];
+  asdFilesToKeep = ["buildnode.asd"];
   overrides = x: x;
 }
 /* (SYSTEM buildnode DESCRIPTION Tool for building up an xml dom nicely. SHA256

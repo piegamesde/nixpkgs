@@ -15,8 +15,8 @@ buildPythonPackage {
 
   disabled = pythonOlder "3.8";
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ xgboost ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [xgboost];
   propagatedBuildInputs = [
     numpy
     scipy
@@ -42,7 +42,7 @@ buildPythonPackage {
   # and are extremely cpu intensive anyway
   doCheck = false;
 
-  pythonImportsCheck = [ "xgboost" ];
+  pythonImportsCheck = ["xgboost"];
 
   __darwinAllowLocalNetworking = true;
 }

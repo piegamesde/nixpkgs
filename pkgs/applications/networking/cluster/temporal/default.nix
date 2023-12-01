@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-Fo/xePou96KdFlUNIqhDZX4TJoYXqlMyuLDvmR/XreY=";
 
-  excludedPackages = [ "./build" ];
+  excludedPackages = ["./build"];
 
   CGO_ENABLED = 0;
 
@@ -45,14 +45,14 @@ buildGoModule rec {
     runHook postInstall
   '';
 
-  passthru.tests.version = testers.testVersion { package = temporal; };
+  passthru.tests.version = testers.testVersion {package = temporal;};
 
   meta = with lib; {
     description = "A microservice orchestration platform which enables developers to build scalable applications without sacrificing productivity or reliability";
     homepage = "https://temporal.io";
     changelog = "https://github.com/temporalio/temporal/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ titanous ];
+    maintainers = with maintainers; [titanous];
     mainProgram = "temporal-server";
   };
 }

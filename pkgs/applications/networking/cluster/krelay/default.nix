@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-1/zy5gz1wvinwzRjjhvrIHdjO/Jy/ragqM5QQaAajXI=";
 
-  subPackages = [ "cmd/client" ];
+  subPackages = ["cmd/client"];
 
   ldflags = [
     "-s"
@@ -34,7 +34,7 @@ buildGoModule rec {
     homepage = "https://github.com/knight42/krelay";
     changelog = "https://github.com/knight42/krelay/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ ivankovnatsky ];
+    maintainers = with maintainers; [ivankovnatsky];
     mainProgram = "kubectl-relay";
   };
 }

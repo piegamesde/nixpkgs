@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "1kn84rsvms1v5l1j2xgrk7dc7mnsmxkc6sqd94mnim22vnwvl8mz";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jre];
 
   dontUnpack = true;
 
@@ -43,9 +43,9 @@ stdenv.mkDerivation rec {
       it's faster (10-720x), simpler (dedicated to just removing things), and
       beautiful (can use Scala instead of bash to script customizations).
     '';
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.gpl3;
-    maintainers = [ maintainers.changlinli ];
+    maintainers = [maintainers.changlinli];
     mainProgram = "bfg";
     platforms = platforms.unix;
     downloadPage = "https://mvnrepository.com/artifact/com.madgag/bfg/${version}";

@@ -21,7 +21,7 @@ stdenv.mkDerivation (
 
     outputs = [
       "out"
-    ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildBenchmarks [ "benchmark" ];
+    ] ++ lib.optionals buildTests ["test"] ++ lib.optionals buildBenchmarks ["benchmark"];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -38,7 +38,7 @@ stdenv.mkDerivation (
 
     buildInputs = [
       rocprim
-    ] ++ lib.optionals buildTests [ gtest ] ++ lib.optionals buildBenchmarks [ gbenchmark ];
+    ] ++ lib.optionals buildTests [gtest] ++ lib.optionals buildBenchmarks [gbenchmark];
 
     cmakeFlags =
       [
@@ -50,8 +50,8 @@ stdenv.mkDerivation (
         "-DCMAKE_INSTALL_LIBDIR=lib"
         "-DCMAKE_INSTALL_INCLUDEDIR=include"
       ]
-      ++ lib.optionals buildTests [ "-DBUILD_TEST=ON" ]
-      ++ lib.optionals buildBenchmarks [ "-DBUILD_BENCHMARK=ON" ];
+      ++ lib.optionals buildTests ["-DBUILD_TEST=ON"]
+      ++ lib.optionals buildBenchmarks ["-DBUILD_BENCHMARK=ON"];
 
     postInstall =
       lib.optionalString buildTests ''
@@ -75,7 +75,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "Thin wrapper library on top of rocPRIM or CUB";
       homepage = "https://github.com/ROCmSoftwarePlatform/hipCUB";
-      license = with licenses; [ bsd3 ];
+      license = with licenses; [bsd3];
       maintainers = teams.rocm.members;
       platforms = platforms.linux;
       broken = versions.minor finalAttrs.version != versions.minor hip.version;

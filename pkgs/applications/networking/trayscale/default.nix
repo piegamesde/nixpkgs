@@ -23,7 +23,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-K1Za2j4kUtsktFi9DjZYXrtfsWF1r6vIbyocLUrj5IU=";
 
-  subPackages = [ "cmd/trayscale" ];
+  subPackages = ["cmd/trayscale"];
 
   ldflags = [
     "-s"
@@ -57,6 +57,6 @@ buildGoModule rec {
     description = "An unofficial GUI wrapper around the Tailscale CLI client";
     homepage = "https://github.com/DeedleFake/trayscale";
     license = licenses.mit;
-    maintainers = with maintainers; [ k900 ];
+    maintainers = with maintainers; [k900];
   };
 }

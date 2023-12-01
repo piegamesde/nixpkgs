@@ -55,9 +55,9 @@ buildPythonPackage rec {
       hash = system.hash;
     };
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
-  buildInputs = [ openssl_1_1 ];
+  buildInputs = [openssl_1_1];
 
   propagatedBuildInputs = [
     coloredlogs
@@ -93,6 +93,6 @@ buildPythonPackage rec {
       "aarch64-linux"
       "x86_64-linux"
     ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
   };
 }

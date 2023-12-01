@@ -20,9 +20,9 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "cmd/virtctl" ];
+  subPackages = ["cmd/virtctl"];
 
-  tags = [ "selinux" ];
+  tags = ["selinux"];
 
   ldflags = [
     "-X kubevirt.io/client-go/version.gitCommit=v${version}"
@@ -30,7 +30,7 @@ buildGoModule rec {
     "-X kubevirt.io/client-go/version.gitVersion=v${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd virtctl \
@@ -49,6 +49,6 @@ buildGoModule rec {
     description = "Client tool to use advanced features such as console access";
     homepage = "https://kubevirt.io/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ haslersn ];
+    maintainers = with maintainers; [haslersn];
   };
 }

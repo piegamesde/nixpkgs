@@ -40,7 +40,7 @@ python3.pkgs.buildPythonApplication {
     sha256 = "1h9r32wdn0p7br36r719x96c8gay83dijw80y2ks951mam16mkkb";
   };
 
-  nativeBuildInputs = lib.optionals enableQt [ wrapQtAppsHook ];
+  nativeBuildInputs = lib.optionals enableQt [wrapQtAppsHook];
 
   propagatedBuildInputs =
     with python3.pkgs;
@@ -126,6 +126,6 @@ python3.pkgs.buildPythonApplication {
     downloadPage = "https://github.com/Groestlcoin/electrum-grs/releases/tag/v{version}";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ gruve-p ];
+    maintainers = with maintainers; [gruve-p];
   };
 }

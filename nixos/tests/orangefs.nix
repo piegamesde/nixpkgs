@@ -1,16 +1,16 @@
 import ./make-test-python.nix (
-  { ... }:
+  {...}:
 
   let
     server =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        networking.firewall.allowedTCPPorts = [ 3334 ];
+        networking.firewall.allowedTCPPorts = [3334];
         boot.initrd.postDeviceCommands = ''
           ${pkgs.e2fsprogs}/bin/mkfs.ext4 -L data /dev/vdb
         '';
 
-        virtualisation.emptyDiskImages = [ 4096 ];
+        virtualisation.emptyDiskImages = [4096];
 
         virtualisation.fileSystems = {
           "/data" = {
@@ -31,7 +31,7 @@ import ./make-test-python.nix (
       };
 
     client =
-      { lib, ... }:
+      {lib, ...}:
       {
         networking.firewall.enable = true;
 

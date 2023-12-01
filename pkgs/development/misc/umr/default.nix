@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     description = "A userspace debugging and diagnostic tool for AMD GPUs";
     homepage = "https://gitlab.freedesktop.org/tomstdenis/umr";
     license = licenses.mit;
-    maintainers = with maintainers; [ Flakebi ];
+    maintainers = with maintainers; [Flakebi];
     platforms = platforms.linux;
   };
 }

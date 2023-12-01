@@ -16,14 +16,14 @@ buildPythonPackage rec {
     sha256 = "1c648c452e8770d759bdc5a5e2431209be70d25484e1be24876cf2168722c762";
   };
 
-  buildInputs = [ setuptools-scm ];
+  buildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ backports_weakref ];
+  propagatedBuildInputs = [backports_weakref];
 
   # requires https://pypi.org/project/backports.test.support
   doCheck = false;
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   unittestFlagsArray = [
     "-s"

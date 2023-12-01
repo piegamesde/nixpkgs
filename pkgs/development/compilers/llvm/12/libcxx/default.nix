@@ -36,7 +36,7 @@ stdenv.mkDerivation {
 
   patches = [
     ./gnu-install-dirs.patch
-  ] ++ lib.optionals stdenv.hostPlatform.isMusl [ ../../libcxx-0001-musl-hacks.patch ];
+  ] ++ lib.optionals stdenv.hostPlatform.isMusl [../../libcxx-0001-musl-hacks.patch];
 
   preConfigure = lib.optionalString stdenv.hostPlatform.isMusl ''
     patchShebangs utils/cat_files.py
@@ -47,10 +47,10 @@ stdenv.mkDerivation {
     python3
   ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
-  buildInputs = [ cxxabi ];
+  buildInputs = [cxxabi];
 
   cmakeFlags =
-    [ "-DLIBCXX_CXX_ABI=${cxxabi.pname}" ]
+    ["-DLIBCXX_CXX_ABI=${cxxabi.pname}"]
     ++ lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi)
       "-DLIBCXX_HAS_MUSL_LIBC=1"
     ++ lib.optional (stdenv.hostPlatform.useLLVM or false) "-DLIBCXX_USE_COMPILER_RT=ON"

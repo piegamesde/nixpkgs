@@ -18,7 +18,7 @@
 }:
 
 let
-  python = python3.withPackages (ps: with ps; [ pygments ]);
+  python = python3.withPackages (ps: with ps; [pygments]);
 in
 
 stdenv.mkDerivation rec {
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     sha256 = "0k3kp1af0qx3l1x6a4sl4fm8qlwchjvwkvs2ck0fhfnc62q2im5f";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     boost
     tbb
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     graphviz
   ];
 
-  cmakeFlags = [ "-DAPRON_ROOT=${ocamlPackages.apron}" ];
+  cmakeFlags = ["-DAPRON_ROOT=${ocamlPackages.apron}"];
 
   postBuild = "make doc";
 
@@ -56,6 +56,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/NASA-SW-VnV/ikos";
     description = "Static analyzer for C/C++ based on the theory of Abstract Interpretation";
     license = licenses.nasa13;
-    maintainers = with maintainers; [ atnnn ];
+    maintainers = with maintainers; [atnnn];
   };
 }

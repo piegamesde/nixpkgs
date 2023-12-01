@@ -1,18 +1,18 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   let
     client =
-      { pkgs, ... }:
+      {pkgs, ...}:
 
       {
-        imports = [ ./common/x11.nix ];
-        environment.systemPackages = [ pkgs.teeworlds ];
+        imports = [./common/x11.nix];
+        environment.systemPackages = [pkgs.teeworlds];
       };
   in
   {
     name = "teeworlds";
-    meta = with pkgs.lib.maintainers; { maintainers = [ hax404 ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [hax404];};
 
     nodes = {
       server = {

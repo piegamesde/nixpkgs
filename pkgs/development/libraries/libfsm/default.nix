@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ bmake ];
+  nativeBuildInputs = [bmake];
   enableParallelBuilding = true;
 
   # note: build checks value of '$CC' to add some extra cflags, but we don't
@@ -58,6 +58,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/katef/libfsm";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

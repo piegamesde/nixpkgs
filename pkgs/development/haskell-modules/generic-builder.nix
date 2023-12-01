@@ -40,19 +40,19 @@ in
     url = "mirror://hackage/${pname}-${version}.tar.gz";
     inherit sha256;
   },
-  buildDepends ? [ ],
-  setupHaskellDepends ? [ ],
-  libraryHaskellDepends ? [ ],
-  executableHaskellDepends ? [ ],
+  buildDepends ? [],
+  setupHaskellDepends ? [],
+  libraryHaskellDepends ? [],
+  executableHaskellDepends ? [],
   buildTarget ? "",
-  buildTools ? [ ],
-  libraryToolDepends ? [ ],
-  executableToolDepends ? [ ],
-  testToolDepends ? [ ],
-  benchmarkToolDepends ? [ ],
-  configureFlags ? [ ],
-  buildFlags ? [ ],
-  haddockFlags ? [ ],
+  buildTools ? [],
+  libraryToolDepends ? [],
+  executableToolDepends ? [],
+  testToolDepends ? [],
+  benchmarkToolDepends ? [],
+  configureFlags ? [],
+  buildFlags ? [],
+  haddockFlags ? [],
   description ? null,
   doCheck ? !isCross && lib.versionOlder "7.4" ghc.version,
   doBenchmark ? false,
@@ -69,14 +69,14 @@ in
   enableDeadCodeElimination ? (!stdenv.isDarwin), # TODO: use -dead_strip for darwin
   enableStaticLibraries ? !(stdenv.hostPlatform.isWindows or stdenv.hostPlatform.isWasm),
   enableHsc2hsViaAsm ? stdenv.hostPlatform.isWindows && lib.versionAtLeast ghc.version "8.4",
-  extraLibraries ? [ ],
-  librarySystemDepends ? [ ],
-  executableSystemDepends ? [ ],
+  extraLibraries ? [],
+  librarySystemDepends ? [],
+  executableSystemDepends ? [],
   # On macOS, statically linking against system frameworks is not supported;
   # see https://developer.apple.com/library/content/qa/qa1118/_index.html
   # They must be propagated to the environment of any executable linking with the library
-  libraryFrameworkDepends ? [ ],
-  executableFrameworkDepends ? [ ],
+  libraryFrameworkDepends ? [],
+  executableFrameworkDepends ? [],
   homepage ? "https://hackage.haskell.org/package/${pname}",
   platforms ? with lib.platforms; all, # GHC can cross-compile
   badPlatforms ? lib.platforms.none,
@@ -93,22 +93,22 @@ in
   doCoverage ? false,
   doHaddock ? !(ghc.isHaLVM or false) && (ghc.hasHaddock or true),
   doHaddockInterfaces ? doHaddock && lib.versionAtLeast ghc.version "9.0.1",
-  passthru ? { },
-  pkg-configDepends ? [ ],
-  libraryPkgconfigDepends ? [ ],
-  executablePkgconfigDepends ? [ ],
-  testPkgconfigDepends ? [ ],
-  benchmarkPkgconfigDepends ? [ ],
-  testDepends ? [ ],
-  testHaskellDepends ? [ ],
-  testSystemDepends ? [ ],
-  testFrameworkDepends ? [ ],
-  benchmarkDepends ? [ ],
-  benchmarkHaskellDepends ? [ ],
-  benchmarkSystemDepends ? [ ],
-  benchmarkFrameworkDepends ? [ ],
+  passthru ? {},
+  pkg-configDepends ? [],
+  libraryPkgconfigDepends ? [],
+  executablePkgconfigDepends ? [],
+  testPkgconfigDepends ? [],
+  benchmarkPkgconfigDepends ? [],
+  testDepends ? [],
+  testHaskellDepends ? [],
+  testSystemDepends ? [],
+  testFrameworkDepends ? [],
+  benchmarkDepends ? [],
+  benchmarkHaskellDepends ? [],
+  benchmarkSystemDepends ? [],
+  benchmarkFrameworkDepends ? [],
   testTarget ? "",
-  testFlags ? [ ],
+  testFlags ? [],
   broken ? false,
   preCompileBuildDriver ? null,
   postCompileBuildDriver ? null,
@@ -250,13 +250,13 @@ let
       "--hsc2hs-option=--cross-compile"
       (optionalString enableHsc2hsViaAsm "--hsc2hs-option=--via-asm")
     ]
-    ++ optional (allPkgconfigDepends != [ ]) "--with-pkg-config=${pkg-config.targetPrefix}pkg-config";
+    ++ optional (allPkgconfigDepends != []) "--with-pkg-config=${pkg-config.targetPrefix}pkg-config";
 
   parallelBuildingFlags = "-j$NIX_BUILD_CORES" + optionalString stdenv.isLinux " +RTS -A64M -RTS";
 
   crossCabalFlagsString = lib.optionalString isCross (" " + lib.concatStringsSep " " crossCabalFlags);
 
-  buildFlagsString = optionalString (buildFlags != [ ]) (" " + concatStringsSep " " buildFlags);
+  buildFlagsString = optionalString (buildFlags != []) (" " + concatStringsSep " " buildFlags);
 
   defaultConfigureFlags =
     [
@@ -317,12 +317,12 @@ let
       "--disable-library-stripping"
       "--disable-executable-stripping"
     ]
-    ++ optionals isGhcjs [ "--ghcjs" ]
+    ++ optionals isGhcjs ["--ghcjs"]
     ++ optionals isCross (
-      [ "--configure-option=--host=${stdenv.hostPlatform.config}" ] ++ crossCabalFlags
+      ["--configure-option=--host=${stdenv.hostPlatform.config}"] ++ crossCabalFlags
     )
-    ++ optionals enableSeparateBinOutput [ "--bindir=${binDir}" ]
-    ++ optionals (doHaddockInterfaces && isLibrary) [ "--ghc-options=-haddock" ];
+    ++ optionals enableSeparateBinOutput ["--bindir=${binDir}"]
+    ++ optionals (doHaddockInterfaces && isLibrary) ["--ghc-options=-haddock"];
 
   setupCompileFlags = [
     (optionalString (!coreSetup) "-${nativePackageDbFlag}=$setupPackageConfDir")
@@ -341,22 +341,20 @@ let
     ++ optionals doBenchmark benchmarkPkgconfigDepends;
 
   depsBuildBuild =
-    [ nativeGhc ]
+    [nativeGhc]
     # CC_FOR_BUILD may be necessary if we have no C preprocessor for the host
     # platform. See crossCabalFlags above for more details.
-    ++ lib.optionals (!stdenv.hasCC) [ buildPackages.stdenv.cc ];
+    ++ lib.optionals (!stdenv.hasCC) [buildPackages.stdenv.cc];
   collectedToolDepends =
     buildTools
     ++ libraryToolDepends
     ++ executableToolDepends
     ++ optionals doCheck testToolDepends
     ++ optionals doBenchmark benchmarkToolDepends;
-  nativeBuildInputs =
-    [
-      ghc
-      removeReferencesTo
-    ]
-    ++ optional (allPkgconfigDepends != [ ]) pkg-config ++ setupHaskellDepends ++ collectedToolDepends;
+  nativeBuildInputs = [
+    ghc
+    removeReferencesTo
+  ] ++ optional (allPkgconfigDepends != []) pkg-config ++ setupHaskellDepends ++ collectedToolDepends;
   propagatedBuildInputs =
     buildDepends ++ libraryHaskellDepends ++ executableHaskellDepends ++ libraryFrameworkDepends;
   otherBuildInputsHaskell =
@@ -416,14 +414,14 @@ in
 lib.fix (
   drv:
 
-  assert allPkgconfigDepends != [ ] -> pkg-config != null;
+  assert allPkgconfigDepends != [] -> pkg-config != null;
 
   stdenv.mkDerivation (
     {
       inherit pname version;
 
       outputs =
-        [ "out" ]
+        ["out"]
         ++ (optional enableSeparateDataOutput "data")
         ++ (optional enableSeparateDocOutput "doc")
         ++ (optional enableSeparateBinOutput "bin");
@@ -431,9 +429,9 @@ lib.fix (
 
       pos = builtins.unsafeGetAttrPos "pname" args;
 
-      prePhases = [ "setupCompilerEnvironmentPhase" ];
-      preConfigurePhases = [ "compileBuildDriverPhase" ];
-      preInstallPhases = [ "haddockPhase" ];
+      prePhases = ["setupCompilerEnvironmentPhase"];
+      preConfigurePhases = ["compileBuildDriverPhase"];
+      preInstallPhases = ["haddockPhase"];
 
       inherit src;
 
@@ -442,7 +440,7 @@ lib.fix (
         otherBuildInputs
         ++ optionals (!isLibrary) propagatedBuildInputs
         # For patchShebangsAuto in fixupPhase
-        ++ optionals stdenv.hostPlatform.isGhcjs [ nodejs ];
+        ++ optionals stdenv.hostPlatform.isGhcjs [nodejs];
       propagatedBuildInputs = optionals isLibrary propagatedBuildInputs;
 
       LANG = "en_US.UTF-8"; # GHC needs the locale configured during the Haddock phase.
@@ -558,7 +556,7 @@ lib.fix (
       '';
 
       # Cabal takes flags like `--configure-option=--host=...` instead
-      configurePlatforms = [ ];
+      configurePlatforms = [];
       inherit configureFlags;
 
       # Note: the options here must be always added, regardless of whether the
@@ -801,9 +799,9 @@ lib.fix (
             depsBuildBuild = lib.optional isCross ghcEnvForBuild;
             nativeBuildInputs = [
               ghcEnv
-            ] ++ optional (allPkgconfigDepends != [ ]) pkg-config ++ collectedToolDepends;
+            ] ++ optional (allPkgconfigDepends != []) pkg-config ++ collectedToolDepends;
             buildInputs = otherBuildInputsSystem;
-            phases = [ "installPhase" ];
+            phases = ["installPhase"];
             installPhase = "echo $nativeBuildInputs $buildInputs > $out";
             LANG = "en_US.UTF-8";
             LOCALE_ARCHIVE =
@@ -817,43 +815,43 @@ lib.fix (
               if ghc.isHaLVM or false then "${ghcEnv}/lib/HaLVM-${ghc.version}" else "${ghcEnv}/${ghcLibdir}";
           });
 
-        env = envFunc { };
+        env = envFunc {};
       };
 
       meta =
         {
           inherit homepage license platforms;
         }
-        // optionalAttrs (args ? broken) { inherit broken; }
-        // optionalAttrs (args ? description) { inherit description; }
-        // optionalAttrs (args ? maintainers) { inherit maintainers; }
-        // optionalAttrs (args ? hydraPlatforms) { inherit hydraPlatforms; }
-        // optionalAttrs (args ? badPlatforms) { inherit badPlatforms; }
-        // optionalAttrs (args ? changelog) { inherit changelog; }
-        // optionalAttrs (args ? mainProgram) { inherit mainProgram; };
+        // optionalAttrs (args ? broken) {inherit broken;}
+        // optionalAttrs (args ? description) {inherit description;}
+        // optionalAttrs (args ? maintainers) {inherit maintainers;}
+        // optionalAttrs (args ? hydraPlatforms) {inherit hydraPlatforms;}
+        // optionalAttrs (args ? badPlatforms) {inherit badPlatforms;}
+        // optionalAttrs (args ? changelog) {inherit changelog;}
+        // optionalAttrs (args ? mainProgram) {inherit mainProgram;};
     }
-    // optionalAttrs (args ? preCompileBuildDriver) { inherit preCompileBuildDriver; }
-    // optionalAttrs (args ? postCompileBuildDriver) { inherit postCompileBuildDriver; }
-    // optionalAttrs (args ? preUnpack) { inherit preUnpack; }
-    // optionalAttrs (args ? postUnpack) { inherit postUnpack; }
-    // optionalAttrs (args ? patches) { inherit patches; }
-    // optionalAttrs (args ? patchPhase) { inherit patchPhase; }
-    // optionalAttrs (args ? preConfigure) { inherit preConfigure; }
-    // optionalAttrs (args ? postConfigure) { inherit postConfigure; }
-    // optionalAttrs (args ? preBuild) { inherit preBuild; }
-    // optionalAttrs (args ? postBuild) { inherit postBuild; }
-    // optionalAttrs (args ? doBenchmark) { inherit doBenchmark; }
-    // optionalAttrs (args ? checkPhase) { inherit checkPhase; }
-    // optionalAttrs (args ? preCheck) { inherit preCheck; }
-    // optionalAttrs (args ? postCheck) { inherit postCheck; }
-    // optionalAttrs (args ? preHaddock) { inherit preHaddock; }
-    // optionalAttrs (args ? postHaddock) { inherit postHaddock; }
-    // optionalAttrs (args ? preInstall) { inherit preInstall; }
-    // optionalAttrs (args ? installPhase) { inherit installPhase; }
-    // optionalAttrs (args ? postInstall) { inherit postInstall; }
-    // optionalAttrs (args ? preFixup) { inherit preFixup; }
-    // optionalAttrs (args ? postFixup) { inherit postFixup; }
-    // optionalAttrs (args ? dontStrip) { inherit dontStrip; }
+    // optionalAttrs (args ? preCompileBuildDriver) {inherit preCompileBuildDriver;}
+    // optionalAttrs (args ? postCompileBuildDriver) {inherit postCompileBuildDriver;}
+    // optionalAttrs (args ? preUnpack) {inherit preUnpack;}
+    // optionalAttrs (args ? postUnpack) {inherit postUnpack;}
+    // optionalAttrs (args ? patches) {inherit patches;}
+    // optionalAttrs (args ? patchPhase) {inherit patchPhase;}
+    // optionalAttrs (args ? preConfigure) {inherit preConfigure;}
+    // optionalAttrs (args ? postConfigure) {inherit postConfigure;}
+    // optionalAttrs (args ? preBuild) {inherit preBuild;}
+    // optionalAttrs (args ? postBuild) {inherit postBuild;}
+    // optionalAttrs (args ? doBenchmark) {inherit doBenchmark;}
+    // optionalAttrs (args ? checkPhase) {inherit checkPhase;}
+    // optionalAttrs (args ? preCheck) {inherit preCheck;}
+    // optionalAttrs (args ? postCheck) {inherit postCheck;}
+    // optionalAttrs (args ? preHaddock) {inherit preHaddock;}
+    // optionalAttrs (args ? postHaddock) {inherit postHaddock;}
+    // optionalAttrs (args ? preInstall) {inherit preInstall;}
+    // optionalAttrs (args ? installPhase) {inherit installPhase;}
+    // optionalAttrs (args ? postInstall) {inherit postInstall;}
+    // optionalAttrs (args ? preFixup) {inherit preFixup;}
+    // optionalAttrs (args ? postFixup) {inherit postFixup;}
+    // optionalAttrs (args ? dontStrip) {inherit dontStrip;}
     // optionalAttrs (stdenv.buildPlatform.libc == "glibc") {
       LOCALE_ARCHIVE = "${glibcLocales}/lib/locale/locale-archive";
     }

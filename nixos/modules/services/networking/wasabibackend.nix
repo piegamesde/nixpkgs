@@ -134,12 +134,12 @@ in
 
   config = mkIf cfg.enable {
 
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -"];
 
     systemd.services.wasabibackend = {
       description = "wasabibackend server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
       environment = {
         DOTNET_PRINT_TELEMETRY_MESSAGE = "false";
         DOTNET_CLI_TELEMETRY_OPTOUT = "true";
@@ -177,6 +177,6 @@ in
       isSystemUser = true;
     };
 
-    users.groups.${cfg.group} = { };
+    users.groups.${cfg.group} = {};
   };
 }

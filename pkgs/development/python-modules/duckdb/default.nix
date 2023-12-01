@@ -53,7 +53,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "duckdb" ];
+  pythonImportsCheck = ["duckdb"];
 
   meta = with lib; {
     description = "Python binding for DuckDB";

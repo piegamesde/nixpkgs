@@ -9,7 +9,7 @@
 }:
 
 let
-  char2underscore = char: str: lib.replaceStrings [ char ] [ "_" ] str;
+  char2underscore = char: str: lib.replaceStrings [char] ["_"] str;
 in
 stdenv.mkDerivation rec {
   pname = "mt32emu-smf2wav";
@@ -46,8 +46,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://munt.sourceforge.net/";
     description = "Produces a WAVE file from a Standard MIDI file (SMF)";
-    license = with licenses; [ gpl3Plus ];
-    maintainers = with maintainers; [ OPNA2608 ];
+    license = with licenses; [gpl3Plus];
+    maintainers = with maintainers; [OPNA2608];
     platforms = platforms.all;
   };
 }

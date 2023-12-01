@@ -20,17 +20,17 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  patches = [ ./darwin-rpath-universal.patch ];
+  patches = [./darwin-rpath-universal.patch];
 
   configureFlags = [
     "--with-bzip2=${bzip2.out}"
     "--enable-reentrant"
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   # Shared-only build
-  buildFlags = [ "shared" ];
+  buildFlags = ["shared"];
   postPatch = ''
     sed -e '/^install:/s/libcfitsio.a //' -e 's@/bin/@@g' -i Makefile.in
   '';

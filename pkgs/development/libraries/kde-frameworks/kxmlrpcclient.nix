@@ -7,9 +7,9 @@
 
 mkDerivation {
   pname = "kxmlrpcclient";
-  nativeBuildInputs = [ extra-cmake-modules ];
-  buildInputs = [ ki18n ];
-  propagatedBuildInputs = [ kio ];
+  nativeBuildInputs = [extra-cmake-modules];
+  buildInputs = [ki18n];
+  propagatedBuildInputs = [kio];
   outputs = [
     "out"
     "dev"

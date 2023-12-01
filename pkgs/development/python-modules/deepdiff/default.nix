@@ -55,13 +55,13 @@ buildPythonPackage rec {
     python-dateutil
   ] ++ passthru.optional-dependencies.cli;
 
-  pythonImportsCheck = [ "deepdiff" ];
+  pythonImportsCheck = ["deepdiff"];
 
   meta = with lib; {
     description = "Deep Difference and Search of any Python object/data";
     homepage = "https://github.com/seperman/deepdiff";
     changelog = "https://github.com/seperman/deepdiff/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
   };
 }

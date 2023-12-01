@@ -1,9 +1,9 @@
-{ lib }:
+{lib}:
 
 with lib; {
 
   # Keeping these around in case we decide to change this horrible implementation :)
-  option = x: x // { optional = true; };
+  option = x: x // {optional = true;};
 
   yes = {
     tristate = "y";

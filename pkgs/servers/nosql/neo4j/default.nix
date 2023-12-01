@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-KIENqsXeSl1bd84tp9fD2kxczxMoi62IW4M8NblhAMg=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p "$out/share/neo4j"

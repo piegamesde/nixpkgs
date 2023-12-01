@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  cmakeFlags = [ "-DVERSION=${version}" ];
+  cmakeFlags = ["-DVERSION=${version}"];
 
   meta = with lib; {
     description = "An image viewing tool with fashion interface and smooth performance";

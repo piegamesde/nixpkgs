@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "dissect";
   version = "20210531-git";
 
   description = "A lib for introspecting the call stack and active restarts.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/dissect/2021-05-31/dissect-20210531-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "dissect";
 
-  asdFilesToKeep = [ "dissect.asd" ];
+  asdFilesToKeep = ["dissect.asd"];
   overrides = x: x;
 }
 /* (SYSTEM dissect DESCRIPTION

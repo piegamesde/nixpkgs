@@ -25,9 +25,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-ioejOtmsi0QnID3V5JxwAz399I5Jp5nHZqpzU9DjpQE=";
 
-  patches = [ ./disable-etc-mutation.patch ];
+  patches = [./disable-etc-mutation.patch];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postPatch = ''
     substitute ${./fix-paths.patch} fix-paths.patch \
@@ -64,6 +64,6 @@ buildGoModule rec {
     description = "Guest Agent for Google Compute Engine";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

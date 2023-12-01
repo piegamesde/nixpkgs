@@ -21,7 +21,7 @@ let
     if cfg.version == 1 then
       grubPkgs.grub
     else if cfg.zfsSupport then
-      grubPkgs.grub2.override { zfsSupport = true; }
+      grubPkgs.grub2.override {zfsSupport = true;}
     else if cfg.trustedBoot.enable then
       if cfg.trustedBoot.isHPLaptop then grubPkgs.trustedGrub-for-HP else grubPkgs.trustedGrub
     else
@@ -30,12 +30,12 @@ let
   grub =
     # Don't include GRUB if we're only generating a GRUB menu (e.g.,
     # in EC2 instances).
-    if cfg.devices == [ "nodev" ] then null else realGrub;
+    if cfg.devices == ["nodev"] then null else realGrub;
 
   grubEfi =
     # EFI version of Grub v2
     if cfg.efiSupport && (cfg.version == 2) then
-      realGrub.override { efiSupport = cfg.efiSupport; }
+      realGrub.override {efiSupport = cfg.efiSupport;}
     else
       null;
 
@@ -45,7 +45,7 @@ let
     args:
     let
       efiSysMountPoint = if args.efiSysMountPoint == null then args.path else args.efiSysMountPoint;
-      efiSysMountPoint' = replaceStrings [ "/" ] [ "-" ] efiSysMountPoint;
+      efiSysMountPoint' = replaceStrings ["/"] ["-"] efiSysMountPoint;
     in
     pkgs.writeText "grub-config.xml" (
       builtins.toXML {
@@ -72,7 +72,7 @@ let
             args.efiBootloaderId;
         timeout = if config.boot.loader.timeout == null then -1 else config.boot.loader.timeout;
         users =
-          if cfg.users == { } || cfg.version != 1 then
+          if cfg.users == {} || cfg.version != 1 then
             cfg.users
           else
             throw "GRUB version 1 does not support user accounts.";
@@ -128,12 +128,12 @@ let
       }
     );
 
-  bootDeviceCounters = foldr (device: attr: attr // { ${device} = (attr.${device} or 0) + 1; }) { } (
+  bootDeviceCounters = foldr (device: attr: attr // {${device} = (attr.${device} or 0) + 1;}) {} (
     concatMap (args: args.devices) cfg.mirroredBoots
   );
 
   convertedFont =
-    (pkgs.runCommand "grub-font-converted.pf2" { } (
+    (pkgs.runCommand "grub-font-converted.pf2" {} (
       builtins.concatStringsSep " " (
         [
           "${realGrub}/bin/grub-mkfont"
@@ -190,8 +190,8 @@ in
       };
 
       devices = mkOption {
-        default = [ ];
-        example = [ "/dev/disk/by-id/wwn-0x500001234567890a" ];
+        default = [];
+        example = ["/dev/disk/by-id/wwn-0x500001234567890a"];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           The devices on which the boot loader, GRUB, will be
@@ -201,7 +201,7 @@ in
       };
 
       users = mkOption {
-        default = { };
+        default = {};
         example = {
           root = {
             hashedPasswordFile = "/path/to/file";
@@ -268,15 +268,15 @@ in
       };
 
       mirroredBoots = mkOption {
-        default = [ ];
+        default = [];
         example = [
           {
             path = "/boot1";
-            devices = [ "/dev/disk/by-id/wwn-0x500001234567890a" ];
+            devices = ["/dev/disk/by-id/wwn-0x500001234567890a"];
           }
           {
             path = "/boot2";
-            devices = [ "/dev/disk/by-id/wwn-0x500009876543210a" ];
+            devices = ["/dev/disk/by-id/wwn-0x500009876543210a"];
           }
         ];
         description = lib.mdDoc ''
@@ -321,7 +321,7 @@ in
                 };
 
                 devices = mkOption {
-                  default = [ ];
+                  default = [];
                   example = [
                     "/dev/disk/by-id/wwn-0x500001234567890a"
                     "/dev/disk/by-id/wwn-0x500009876543210a"
@@ -379,8 +379,8 @@ in
       };
 
       extraGrubInstallArgs = mkOption {
-        default = [ ];
-        example = [ "--modules=nativedisk ahci pata part_gpt part_msdos diskfilter mdraid1x lvm ext2" ];
+        default = [];
+        example = ["--modules=nativedisk ahci pata part_gpt part_msdos diskfilter mdraid1x lvm ext2"];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           Additional arguments passed to `grub-install`.
@@ -469,7 +469,7 @@ in
 
       extraFiles = mkOption {
         type = types.attrsOf types.path;
-        default = { };
+        default = {};
         example = literalExpression ''
           { "memtest.bin" = "''${pkgs.memtest86plus}/memtest.bin"; }
         '';
@@ -824,7 +824,7 @@ in
 
       boot.loader.grub.devices = optional (cfg.device != "") cfg.device;
 
-      boot.loader.grub.mirroredBoots = optionals (cfg.devices != [ ]) [
+      boot.loader.grub.mirroredBoots = optionals (cfg.devices != []) [
         {
           path = "/boot";
           inherit (cfg) devices;
@@ -897,7 +897,7 @@ in
             message = "Only GRUB version 2 provides ZFS support";
           }
           {
-            assertion = cfg.mirroredBoots != [ ];
+            assertion = cfg.mirroredBoots != [];
             message =
               "You must set the option ‘boot.loader.grub.devices’ or "
               + "'boot.loader.grub.mirroredBoots' to make the system bootable.";
@@ -937,7 +937,7 @@ in
           args:
           [
             {
-              assertion = args.devices != [ ];
+              assertion = args.devices != [];
               message = "A boot path cannot have an empty devices string in ${args.path}";
             }
             {

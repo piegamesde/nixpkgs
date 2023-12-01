@@ -16,14 +16,14 @@ buildPythonPackage rec {
     sha256 = "1dxdz89hlycy1rnn269fwl1f0qxgxqarkc0ivs2m77f8xba2qgj9";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "yaswfp" ];
+  pythonImportsCheck = ["yaswfp"];
 
   meta = with lib; {
     description = "Python SWF Parser";
     homepage = "https://github.com/facundobatista/yaswfp";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [fab];
   };
 }

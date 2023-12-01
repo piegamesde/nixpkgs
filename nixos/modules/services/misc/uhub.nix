@@ -31,7 +31,7 @@ in
   options = {
 
     services.uhub = mkOption {
-      default = { };
+      default = {};
       description = lib.mdDoc "Uhub ADC hub instances";
       type = types.attrsOf (
         types.submodule {
@@ -53,7 +53,7 @@ in
                 Configuration of uhub.
                 See https://www.uhub.org/doc/config.php for a list of options.
               '';
-              default = { };
+              default = {};
               example = {
                 server_bind_addr = "any";
                 server_port = 1511;
@@ -85,7 +85,7 @@ in
                     };
                   }
                 );
-              default = [ ];
+              default = [];
             };
           };
         }
@@ -110,7 +110,7 @@ in
                   lib.strings.concatStringsSep "\n" (
                     map
                       (
-                        { plugin, settings }:
+                        {plugin, settings}:
                         ''plugin ${plugin} "${
                           toString (lib.attrsets.mapAttrsToList (key: value: "${key}=${value}") settings)
                         }"''
@@ -133,12 +133,12 @@ in
             name = "uhub-${name}";
             value =
               let
-                pkg = pkgs.uhub.override { tlsSupport = cfg.enableTLS; };
+                pkg = pkgs.uhub.override {tlsSupport = cfg.enableTLS;};
               in
               {
                 description = "high performance peer-to-peer hub for the ADC network";
-                after = [ "network.target" ];
-                wantedBy = [ "multi-user.target" ];
+                after = ["network.target"];
+                wantedBy = ["multi-user.target"];
                 reloadIfChanged = true;
                 serviceConfig = {
                   Type = "notify";

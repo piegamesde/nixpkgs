@@ -14,7 +14,7 @@ stdenv.mkDerivation {
 
   inherit (pyside2) version src;
 
-  patches = [ ./nix_compile_cflags.patch ];
+  patches = [./nix_compile_cflags.patch];
 
   postPatch = ''
     cd sources/shiboken2
@@ -22,7 +22,7 @@ stdenv.mkDerivation {
 
   CLANG_INSTALL_DIR = llvmPackages.libclang.out;
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs =
     [
@@ -40,7 +40,7 @@ stdenv.mkDerivation {
       ]
     );
 
-  cmakeFlags = [ "-DBUILD_TESTS=OFF" ];
+  cmakeFlags = ["-DBUILD_TESTS=OFF"];
 
   dontWrapQtApps = true;
 
@@ -58,7 +58,7 @@ stdenv.mkDerivation {
       lgpl21
     ];
     homepage = "https://wiki.qt.io/Qt_for_Python";
-    maintainers = with maintainers; [ gebner ];
+    maintainers = with maintainers; [gebner];
     broken = stdenv.isDarwin;
   };
 }

@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     rm -r src/tinyxml
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     glew
     SDL2
@@ -71,6 +71,6 @@ stdenv.mkDerivation rec {
       by several third party tools for CVS repositories.
     '';
     platforms = platforms.unix;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

@@ -29,6 +29,6 @@ buildGoModule rec {
     description = "Kubernetes prompt";
     homepage = "https://github.com/jlesquembre/kubeprompt";
     license = licenses.epl20;
-    maintainers = with maintainers; [ jlesquembre ];
+    maintainers = with maintainers; [jlesquembre];
   };
 }

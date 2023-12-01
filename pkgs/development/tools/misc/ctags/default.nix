@@ -15,10 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "0jmbkrmscbl64j71qffcc39x005jrmphx8kirs1g2ws44wil39hf";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   # don't use $T(E)MP which is set to the build directory
-  configureFlags = [ "--enable-tmpdir=/tmp" ];
+  configureFlags = ["--enable-tmpdir=/tmp"];
 
   patches =
     [

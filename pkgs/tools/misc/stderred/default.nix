@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-k/EA327AsRHgUYu7QqSF5yzOyO6h5XcE9Uv4l1VcIPI=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   sourceRoot = "${src.name}/src";
 
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     description = "stderr in red";
     homepage = "https://github.com/sickill/stderred";
     license = licenses.mit;
-    maintainers = with maintainers; [ vojta001 ];
+    maintainers = with maintainers; [vojta001];
     platforms = platforms.unix;
   };
 }

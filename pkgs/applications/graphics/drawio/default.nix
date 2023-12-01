@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
         "application/vnd.jgraph.mxfile"
         "application/vnd.visio"
       ];
-      categories = [ "Graphics" ];
+      categories = ["Graphics"];
       startupWMClass = "drawio";
     })
   ];

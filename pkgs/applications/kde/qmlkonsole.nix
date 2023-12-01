@@ -42,6 +42,6 @@ mkDerivation {
       gpl3Plus
       cc0
     ];
-    maintainers = with maintainers; [ balsoft ];
+    maintainers = with maintainers; [balsoft];
   };
 }

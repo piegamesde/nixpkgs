@@ -27,8 +27,8 @@ buildPythonPackage rec {
     vmprof
     pyqt4
   ];
-  nativeBuildInputs = [ scons ];
-  propagatedBuildInputs = [ chrpath ];
+  nativeBuildInputs = [scons];
+  propagatedBuildInputs = [chrpath];
 
   postPatch =
     ''

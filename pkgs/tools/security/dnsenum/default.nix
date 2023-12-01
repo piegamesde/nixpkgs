@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     NetWhoisIP
     WWWMechanize
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     install -vD dnsenum.pl $out/bin/dnsenum
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/fwaeytens/dnsenum";
     description = "A tool to enumerate DNS information";
-    maintainers = with maintainers; [ c0bw3b ];
+    maintainers = with maintainers; [c0bw3b];
     license = licenses.gpl2Plus;
     platforms = platforms.all;
   };

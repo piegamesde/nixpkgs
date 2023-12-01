@@ -62,13 +62,13 @@ stdenv.mkDerivation rec {
   ];
 
   doCheck = stdenv.hostPlatform == stdenv.buildPlatform;
-  nativeCheckInputs = [ check ];
+  nativeCheckInputs = [check];
 
   meta = with lib; {
     description = "Lightweight Tox client";
     homepage = "https://github.com/uTox/uTox";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.all;
   };
 }

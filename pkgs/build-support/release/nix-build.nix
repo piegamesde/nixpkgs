@@ -11,16 +11,16 @@
   doCoverageAnalysis ? false,
   doClangAnalysis ? false,
   doCoverityAnalysis ? false,
-  lcovFilter ? [ ],
-  lcovExtraTraceFiles ? [ ],
+  lcovFilter ? [],
+  lcovExtraTraceFiles ? [],
   src,
   lib,
   stdenv,
   name ? if doCoverageAnalysis then "nix-coverage" else "nix-build",
   failureHook ? null,
-  prePhases ? [ ],
-  postPhases ? [ ],
-  buildInputs ? [ ],
+  prePhases ? [],
+  postPhases ? [],
+  buildInputs ? [],
   preHook ? "",
   postHook ? "",
   ...
@@ -86,7 +86,7 @@ stdenv.mkDerivation (
       '';
   }
 
-  // removeAttrs args [ "lib" ] # Propagating lib causes the evaluation to fail, because lib is a function that can't be converted to a string
+  // removeAttrs args ["lib"] # Propagating lib causes the evaluation to fail, because lib is a function that can't be converted to a string
 
   // {
     name = name + (lib.optionalString (src ? version) "-${src.version}");
@@ -135,7 +135,7 @@ stdenv.mkDerivation (
       fi
     '';
 
-    prePhases = [ "initPhase" ] ++ prePhases;
+    prePhases = ["initPhase"] ++ prePhases;
 
     buildInputs =
       buildInputs
@@ -144,13 +144,13 @@ stdenv.mkDerivation (
       ++ (lib.optional doCoverityAnalysis args.cov-build)
       ++ (lib.optional doCoverityAnalysis args.xz);
 
-    lcovFilter = [ "${builtins.storeDir}/*" ] ++ lcovFilter;
+    lcovFilter = ["${builtins.storeDir}/*"] ++ lcovFilter;
 
     inherit lcovExtraTraceFiles;
 
-    postPhases = postPhases ++ [ "finalPhase" ];
+    postPhases = postPhases ++ ["finalPhase"];
 
-    meta = (if args ? meta then args.meta else { }) // {
+    meta = (if args ? meta then args.meta else {}) // {
       description =
         if doCoverageAnalysis then "Coverage analysis" else "Nix package for ${stdenv.hostPlatform.system}";
     };
@@ -177,6 +177,6 @@ stdenv.mkDerivation (
             '';
         }
       else
-        { }
+        {}
     )
 )

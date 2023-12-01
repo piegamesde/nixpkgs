@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests.startwindow = callPackage ./test.nix { };
+  passthru.tests.startwindow = callPackage ./test.nix {};
 
   meta = with lib; {
     description = "Electronic TV Program Guide";

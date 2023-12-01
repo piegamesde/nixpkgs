@@ -18,9 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-sHSdsYqeeM93FzeVSoOM3NsdVBWIi6wbqcr4y6d8ZWw=";
   };
 
-  configureFlags = [
-    "--with-boost=${boost.dev}"
-  ] ++ lib.optionals (!doCheck) [ "--enable-unittest=no" ];
+  configureFlags = ["--with-boost=${boost.dev}"] ++ lib.optionals (!doCheck) ["--enable-unittest=no"];
 
   buildInputs =
     [

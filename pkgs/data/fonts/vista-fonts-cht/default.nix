@@ -14,7 +14,7 @@ stdenvNoCC.mkDerivation {
     sha256 = "sha256-fSnbbxlMPzbhFSQyKxQaS5paiWji8njK7tS8Eppsj6g=";
   };
 
-  nativeBuildInputs = [ cabextract ];
+  nativeBuildInputs = [cabextract];
 
   unpackPhase = ''
     cabextract --lowercase --filter '*.TTF' $src
@@ -35,7 +35,7 @@ stdenvNoCC.mkDerivation {
     description = "TrueType fonts from Microsoft Windows Vista For Traditional Chinese (Microsoft JhengHei)";
     homepage = "https://www.microsoft.com/typography/fonts/family.aspx";
     license = licenses.unfree;
-    maintainers = with maintainers; [ atkinschang ];
+    maintainers = with maintainers; [atkinschang];
 
     # Set a non-zero priority to allow easy overriding of the
     # fontconfig configuration files.

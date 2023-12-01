@@ -26,7 +26,7 @@ buildPythonPackage rec {
     wcwidth
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests =
     [
@@ -35,7 +35,7 @@ buildPythonPackage rec {
       "test_pathcompleter_can_expanduser"
     ];
 
-  pythonImportsCheck = [ "prompt_toolkit" ];
+  pythonImportsCheck = ["prompt_toolkit"];
 
   meta = with lib; {
     description = "Python library for building powerful interactive command lines";
@@ -48,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jonathanslenders/python-prompt-toolkit";
     changelog = "https://github.com/prompt-toolkit/python-prompt-toolkit/blob/${version}/CHANGELOG";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

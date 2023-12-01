@@ -9,9 +9,9 @@
 symlinkJoin {
   name = "thunar-with-plugins-${thunar.version}";
 
-  paths = [ thunar ] ++ thunarPlugins;
+  paths = [thunar] ++ thunarPlugins;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     wrapProgram "$out/bin/thunar" \

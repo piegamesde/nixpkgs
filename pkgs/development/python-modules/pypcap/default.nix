@@ -26,21 +26,21 @@ buildPythonPackage rec {
     sed -i "/--cov/d" setup.cfg
   '';
 
-  buildInputs = [ libpcap ];
+  buildInputs = [libpcap];
 
   nativeCheckInputs = [
     dpkt
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
-  pythonImportsCheck = [ "pcap" ];
+  pythonImportsCheck = ["pcap"];
 
   meta = with lib; {
     homepage = "https://github.com/pynetwork/pypcap";
     description = "Simplified object-oriented Python wrapper for libpcap";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
   };
 }

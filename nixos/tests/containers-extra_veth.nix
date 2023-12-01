@@ -1,25 +1,25 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "containers-extra_veth";
     meta = {
-      maintainers = with lib.maintainers; [ kampfschlaefer ];
+      maintainers = with lib.maintainers; [kampfschlaefer];
     };
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        imports = [ ../modules/installer/cd-dvd/channel.nix ];
+        imports = [../modules/installer/cd-dvd/channel.nix];
         virtualisation.writableStore = true;
-        virtualisation.vlans = [ ];
+        virtualisation.vlans = [];
 
         networking.useDHCP = false;
         networking.bridges = {
           br0 = {
-            interfaces = [ ];
+            interfaces = [];
           };
           br1 = {
-            interfaces = [ ];
+            interfaces = [];
           };
         };
         networking.interfaces = {
@@ -64,11 +64,11 @@ import ./make-test-python.nix (
             };
           };
           config = {
-            networking.firewall.allowedTCPPorts = [ 80 ];
+            networking.firewall.allowedTCPPorts = [80];
           };
         };
 
-        virtualisation.additionalPaths = [ pkgs.stdenv ];
+        virtualisation.additionalPaths = [pkgs.stdenv];
       };
 
     testScript = ''

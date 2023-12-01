@@ -40,6 +40,6 @@ buildDunePackage rec {
     description = "An interface to PostgreSQL databases for OCaml applications";
     inherit (src.meta) homepage;
     license = licenses.lgpl2;
-    maintainers = with maintainers; [ vbgl ];
+    maintainers = with maintainers; [vbgl];
   };
 }

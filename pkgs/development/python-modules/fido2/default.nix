@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-XcSVyoxZwcM3ODtLjDFNRrktXG/GUOcZhMbX+VQHn8M=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     six
@@ -33,14 +33,14 @@ buildPythonPackage rec {
     pyfakefs
   ];
 
-  unittestFlagsArray = [ "-v" ];
+  unittestFlagsArray = ["-v"];
 
-  pythonImportsCheck = [ "fido2" ];
+  pythonImportsCheck = ["fido2"];
 
   meta = with lib; {
     description = "Provides library functionality for FIDO 2.0, including communication with a device over USB.";
     homepage = "https://github.com/Yubico/python-fido2";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

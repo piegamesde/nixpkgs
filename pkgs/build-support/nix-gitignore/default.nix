@@ -1,6 +1,6 @@
 # https://github.com/siers/nix-gitignore/
 
-{ lib, runCommand }:
+{lib, runCommand}:
 
 # An interesting bit from the gitignore(5):
 # - A slash followed by two consecutive asterisks then a slash matches
@@ -82,8 +82,8 @@ rec {
             let
               recurse =
                 str:
-                [ (substring 0 1 str) ]
-                ++ (if str == "" then [ ] else (recurse (substring 1 (stringLength (str)) str)));
+                [(substring 0 1 str)]
+                ++ (if str == "" then [] else (recurse (substring 1 (stringLength (str)) str)));
             in
             str:
             recurse str;
@@ -116,7 +116,7 @@ rec {
       mapAroundCharclass =
         f: r: # rl = regex or list
         let
-          slightFix = replaceStrings [ "\\]" ] [ "]" ];
+          slightFix = replaceStrings ["\\]"] ["]"];
         in
         concatStringsSep "" (
           map (rl: if isList rl then slightFix (elemAt rl 0) else f rl) (split "(\\[([^\\\\]|\\\\.)+])" r)
@@ -182,7 +182,7 @@ rec {
       ignores = builtins.filterSource dirOrIgnore root;
     in
     readFile (
-      runCommand "${baseNameOf root}-recursive-gitignore" { } ''
+      runCommand "${baseNameOf root}-recursive-gitignore" {} ''
         cd ${ignores}
 
         find -type f -exec sh -c '
@@ -216,10 +216,10 @@ rec {
       ''
     );
 
-  withGitignoreFile = patterns: root: lib.toList patterns ++ [ ".git" ] ++ [ (root + "/.gitignore") ];
+  withGitignoreFile = patterns: root: lib.toList patterns ++ [".git"] ++ [(root + "/.gitignore")];
 
   withRecursiveGitignoreFile =
-    patterns: root: lib.toList patterns ++ [ ".git" ] ++ [ (compileRecursiveGitignore root) ];
+    patterns: root: lib.toList patterns ++ [".git"] ++ [(compileRecursiveGitignore root)];
 
   # filterSource derivatives
 

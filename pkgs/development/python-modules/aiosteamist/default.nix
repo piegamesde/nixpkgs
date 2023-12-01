@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-IKrAJ4QDcYJRO4hcomL9FRs8hJ3k7SgRgK4H1b8SxIM=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -35,7 +35,7 @@ buildPythonPackage rec {
       --replace 'xmltodict = "^0.12.0"' 'xmltodict = "*"'
   '';
 
-  pythonImportsCheck = [ "aiosteamist" ];
+  pythonImportsCheck = ["aiosteamist"];
 
   # Modules doesn't have test suite
   doCheck = false;
@@ -43,7 +43,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module to control Steamist steam systems";
     homepage = "https://github.com/bdraco/aiosteamist";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

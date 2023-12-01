@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.musicpd.org/clients/ncmpc/";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
   };
 }

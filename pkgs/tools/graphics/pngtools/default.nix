@@ -16,12 +16,12 @@ stdenv.mkDerivation {
     sha256 = "sha256-W1XofOVTyfA7IbxOnTkWdOOZ00gZ4e0GOYl7nMtLIJk=";
   };
 
-  buildInputs = [ libpng12 ];
+  buildInputs = [libpng12];
 
   meta = with lib; {
     homepage = "https://github.com/mikalstill/pngtools";
     description = "PNG manipulation tools";
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
     license = licenses.gpl2Only;
     platforms = platforms.all;
   };

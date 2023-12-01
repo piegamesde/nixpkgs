@@ -31,9 +31,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-dGndgft98RGX9JY4+knO/5+XMiX8j5xxYLC/wAoudHE=";
   };
   # redact configure flags from version output to reduce closure size
-  patches = [ ./version.patch ];
+  patches = [./version.patch];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     boost
     mariadb-connector-c

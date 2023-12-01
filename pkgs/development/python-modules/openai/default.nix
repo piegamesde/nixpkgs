@@ -42,9 +42,9 @@ buildPythonPackage rec {
       requests
       tqdm
     ]
-    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
+    ++ lib.optionals (pythonOlder "3.8") [typing-extensions]
     ++ lib.optionals withOptionalDependencies (
-      builtins.attrValues { inherit (passthru.optional-dependencies) embeddings wandb; }
+      builtins.attrValues {inherit (passthru.optional-dependencies) embeddings wandb;}
     );
 
   passthru.optional-dependencies = {
@@ -60,10 +60,10 @@ buildPythonPackage rec {
       scikit-learn
       tenacity
     ] ++ passthru.optional-dependencies.datalib;
-    wandb = [ wandb ] ++ passthru.optional-dependencies.datalib;
+    wandb = [wandb] ++ passthru.optional-dependencies.datalib;
   };
 
-  pythonImportsCheck = [ "openai" ];
+  pythonImportsCheck = ["openai"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -71,7 +71,7 @@ buildPythonPackage rec {
     pytest-mock
   ];
 
-  pytestFlagsArray = [ "openai/tests" ];
+  pytestFlagsArray = ["openai/tests"];
 
   OPENAI_API_KEY = "sk-foo";
 
@@ -89,6 +89,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/openai/openai-python";
     changelog = "https://github.com/openai/openai-python/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ malo ];
+    maintainers = with maintainers; [malo];
   };
 }

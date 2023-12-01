@@ -52,7 +52,7 @@ mkDerivation rec {
     xercesc
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   preConfigure = ''
     substituteAll ${./meshlab.desktop} scripts/Linux/resources/meshlab.desktop
@@ -84,7 +84,7 @@ mkDerivation rec {
     description = "A system for processing and editing 3D triangular meshes";
     homepage = "https://www.meshlab.net/";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ viric ];
+    maintainers = with lib.maintainers; [viric];
     platforms = with lib.platforms; linux;
   };
 }

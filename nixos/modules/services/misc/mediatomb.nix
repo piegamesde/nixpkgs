@@ -203,7 +203,7 @@ let
       1900
       cfg.port
     ];
-    allowedTCPPorts = [ cfg.port ];
+    allowedTCPPorts = [cfg.port];
   };
 in
 {
@@ -342,7 +342,7 @@ in
 
       mediaDirectories = mkOption {
         type = with types; listOf (submodule mediaDirectory);
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Declare media directories to index.
         '';
@@ -392,13 +392,13 @@ in
           "network.target"
           "network-online.target"
         ];
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         serviceConfig.ExecStart = "${binaryCommand} --port ${toString cfg.port} ${interfaceFlag} ${configFlag} --home ${cfg.dataDir}";
         serviceConfig.User = cfg.user;
         serviceConfig.Group = cfg.group;
       };
 
-      users.groups = optionalAttrs (cfg.group == "mediatomb") { mediatomb.gid = gid; };
+      users.groups = optionalAttrs (cfg.group == "mediatomb") {mediatomb.gid = gid;};
 
       users.users = optionalAttrs (cfg.user == "mediatomb") {
         mediatomb = {

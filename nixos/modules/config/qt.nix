@@ -36,9 +36,9 @@ let
         pkgs.adwaita-qt6
       ]
     else if isQtStyle then
-      [ pkgs.libsForQt5.qtstyleplugins ]
+      [pkgs.libsForQt5.qtstyleplugins]
     else if isQt5ct then
-      [ pkgs.libsForQt5.qt5ct ]
+      [pkgs.libsForQt5.qt5ct]
     else if isLxqt then
       [
         pkgs.lxqt.lxqt-qtplugin
@@ -54,7 +54,7 @@ let
 in
 
 {
-  meta.maintainers = [ maintainers.romildo ];
+  meta.maintainers = [maintainers.romildo];
 
   imports = [
     (mkRenamedOptionModule

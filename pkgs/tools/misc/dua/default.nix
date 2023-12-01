@@ -36,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     description = "A tool to conveniently learn about the disk usage of directories, fast!";
     homepage = "https://github.com/Byron/dua-cli";
     changelog = "https://github.com/Byron/dua-cli/raw/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ killercup ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [killercup];
   };
 }

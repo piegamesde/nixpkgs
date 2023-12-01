@@ -105,7 +105,7 @@ stdenv.mkDerivation rec {
     bash
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   prePatch = ''
     patchShebangs .
@@ -131,7 +131,7 @@ stdenv.mkDerivation rec {
     "NXLIBDIR=${nx-libs}/lib/nx"
   ];
 
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   postInstall = ''
     mv $out/etc/x2go/x2goserver.conf{,.example}

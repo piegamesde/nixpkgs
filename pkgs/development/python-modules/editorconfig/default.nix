@@ -31,7 +31,7 @@ buildPythonPackage rec {
     chmod +w -R source/tests
   '';
 
-  nativeCheckInputs = [ cmake ];
+  nativeCheckInputs = [cmake];
 
   dontUseCmakeConfigure = true;
 
@@ -41,12 +41,12 @@ buildPythonPackage rec {
     ctest -E "utf_8_char" .
   '';
 
-  pythonImportsCheck = [ "editorconfig" ];
+  pythonImportsCheck = ["editorconfig"];
 
   meta = with lib; {
     description = "EditorConfig File Locator and Interpreter for Python";
     homepage = "https://github.com/editorconfig/editorconfig-core-py";
     license = licenses.psfl;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

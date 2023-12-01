@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "1d041j0nd1hc0562lbj269dydjm4rbzagdgzdnmwdxr98544yw44";
   };
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   CXXFLAGS = "-std=c++11";
 

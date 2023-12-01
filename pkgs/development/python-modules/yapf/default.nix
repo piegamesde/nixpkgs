@@ -18,7 +18,7 @@ buildPythonPackage rec {
   # nose is unavailable on pypy
   doCheck = !isPyPy;
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
   meta = with lib; {
     homepage = "https://github.com/google/yapf";

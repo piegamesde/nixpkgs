@@ -1,9 +1,9 @@
 import ../../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
     cert =
       pkgs:
-      pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
+      pkgs.runCommand "selfSignedCerts" {buildInputs = [pkgs.openssl];} ''
         openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -subj '/CN=mastodon.local' -days 36500
         mkdir -p $out
         cp key.pem cert.pem $out
@@ -23,7 +23,7 @@ import ../../make-test-python.nix (
 
     nodes = {
       server =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
 
           virtualisation.memorySize = 2048;
@@ -45,7 +45,7 @@ import ../../make-test-python.nix (
           };
 
           security = {
-            pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
+            pki.certificateFiles = ["${cert pkgs}/cert.pem"];
           };
 
           services.redis.servers.mastodon = {
@@ -78,9 +78,9 @@ import ../../make-test-python.nix (
         };
 
       client =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
-          environment.systemPackages = [ pkgs.jq ];
+          environment.systemPackages = [pkgs.jq];
           networking = {
             interfaces.eth1 = {
               ipv4.addresses = [
@@ -94,7 +94,7 @@ import ../../make-test-python.nix (
           };
 
           security = {
-            pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
+            pki.certificateFiles = ["${cert pkgs}/cert.pem"];
           };
         };
     };

@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     "--without-hal"
     "--enable-udev"
     "--with-udev-dir=${placeholder "out"}/lib/udev"
-  ] ++ lib.optionals monoSupport [ "--with-mono" ];
+  ] ++ lib.optionals monoSupport ["--with-mono"];
 
   dontStrip = monoSupport;
 
@@ -78,6 +78,6 @@ stdenv.mkDerivation rec {
     description = "Library used by gtkpod to access the contents of an ipod";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

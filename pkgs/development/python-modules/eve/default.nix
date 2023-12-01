@@ -38,7 +38,7 @@ buildPythonPackage rec {
       --replace "events>=0.3,<0.4" "events>=0.3"
   '';
 
-  pythonImportsCheck = [ "eve" ];
+  pythonImportsCheck = ["eve"];
 
   # tests call a running mongodb instance
   doCheck = false;
@@ -48,6 +48,6 @@ buildPythonPackage rec {
     description = "Open source Python REST API framework designed for human beings";
     changelog = "https://github.com/pyeve/eve/blob/v${version}/CHANGES.rst";
     license = licenses.bsd3;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

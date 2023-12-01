@@ -35,21 +35,21 @@ buildPythonPackage rec {
       })
     ];
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     requests
     urllib3
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "synology_dsm" ];
+  pythonImportsCheck = ["synology_dsm"];
 
   meta = with lib; {
     description = "Python API for communication with Synology DSM";
     homepage = "https://github.com/hacf-fr/synologydsm-api";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

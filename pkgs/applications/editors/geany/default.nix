@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   doCheck = true;
 
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.geany.org/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ frlan ];
+    maintainers = with maintainers; [frlan];
     platforms = platforms.all;
   };
 }

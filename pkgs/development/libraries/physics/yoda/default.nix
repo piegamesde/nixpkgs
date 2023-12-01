@@ -25,16 +25,16 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ python ]
+    [python]
     ++ (
       with python.pkgs; [
         numpy
         matplotlib
       ]
     )
-    ++ lib.optionals withRootSupport [ root ];
+    ++ lib.optionals withRootSupport [root];
 
-  propagatedBuildInputs = [ zlib ];
+  propagatedBuildInputs = [zlib];
 
   enableParallelBuilding = true;
 
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   doInstallCheck = true;
 
@@ -64,6 +64,6 @@ stdenv.mkDerivation rec {
     homepage = "https://yoda.hepforge.org";
     changelog = "https://gitlab.com/hepcedar/yoda/-/blob/yoda-${version}/ChangeLog";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

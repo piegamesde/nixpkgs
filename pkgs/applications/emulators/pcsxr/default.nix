@@ -118,7 +118,7 @@ stdenv.mkDerivation rec {
     broken = stdenv.isDarwin;
     description = "Playstation 1 emulator";
     homepage = "https://github.com/iCatButler/pcsxr";
-    maintainers = with maintainers; [ rardiol ];
+    maintainers = with maintainers; [rardiol];
     license = licenses.gpl2Plus;
     platforms = platforms.all;
   };

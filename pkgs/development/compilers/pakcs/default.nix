@@ -37,21 +37,21 @@ let
               inherit src;
               postUnpack = "sourceRoot+=/frontend/curry-base";
             })
-            (super.callPackage ./curry-base.nix { });
+            (super.callPackage ./curry-base.nix {});
         curry-frontend =
           haskell.lib.compose.overrideCabal
             (drv: {
               inherit src;
               postUnpack = "sourceRoot+=/frontend/curry-frontend";
             })
-            (super.callPackage ./curry-frontend.nix { });
+            (super.callPackage ./curry-frontend.nix {});
       };
     }).curry-frontend;
 in
 stdenv.mkDerivation {
   inherit pname version src;
 
-  buildInputs = [ swiProlog ];
+  buildInputs = [swiProlog];
   nativeBuildInputs = [
     which
     makeWrapper
@@ -128,7 +128,7 @@ stdenv.mkDerivation {
       with dynamic web pages, prototyping embedded systems).
     '';
 
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

@@ -11,7 +11,7 @@ with lib;
 let
 
   inherit (pkgs) nixos-icons;
-  plymouth = pkgs.plymouth.override { systemd = config.boot.initrd.systemd.package; };
+  plymouth = pkgs.plymouth.override {systemd = config.boot.initrd.systemd.package;};
 
   cfg = config.boot.plymouth;
   opt = options.boot.plymouth;
@@ -23,7 +23,7 @@ let
     osVersion = config.system.nixos.release;
   };
 
-  plymouthLogos = pkgs.runCommand "plymouth-logos" { inherit (cfg) logo; } ''
+  plymouthLogos = pkgs.runCommand "plymouth-logos" {inherit (cfg) logo;} ''
     mkdir -p $out
 
     # For themes that are compiled with PLYMOUTH_LOGO_FILE
@@ -124,10 +124,10 @@ in
 
   config = mkIf cfg.enable {
 
-    boot.kernelParams = [ "splash" ];
+    boot.kernelParams = ["splash"];
 
     # To be discoverable by systemd.
-    environment.systemPackages = [ plymouth ];
+    environment.systemPackages = [plymouth];
 
     environment.etc."plymouth/plymouthd.conf".source = configFile;
     environment.etc."plymouth/plymouthd.defaults".source = "${plymouth}/share/plymouth/plymouthd.defaults";
@@ -136,17 +136,17 @@ in
     # XXX: Needed because we supply a different set of plugins in initrd.
     environment.etc."plymouth/plugins".source = "${plymouth}/lib/plymouth";
 
-    systemd.packages = [ plymouth ];
+    systemd.packages = [plymouth];
 
-    systemd.services.plymouth-kexec.wantedBy = [ "kexec.target" ];
-    systemd.services.plymouth-halt.wantedBy = [ "halt.target" ];
-    systemd.services.plymouth-quit-wait.wantedBy = [ "multi-user.target" ];
-    systemd.services.plymouth-quit.wantedBy = [ "multi-user.target" ];
-    systemd.services.plymouth-poweroff.wantedBy = [ "poweroff.target" ];
-    systemd.services.plymouth-reboot.wantedBy = [ "reboot.target" ];
-    systemd.services.plymouth-read-write.wantedBy = [ "sysinit.target" ];
-    systemd.services.systemd-ask-password-plymouth.wantedBy = [ "multi-user.target" ];
-    systemd.paths.systemd-ask-password-plymouth.wantedBy = [ "multi-user.target" ];
+    systemd.services.plymouth-kexec.wantedBy = ["kexec.target"];
+    systemd.services.plymouth-halt.wantedBy = ["halt.target"];
+    systemd.services.plymouth-quit-wait.wantedBy = ["multi-user.target"];
+    systemd.services.plymouth-quit.wantedBy = ["multi-user.target"];
+    systemd.services.plymouth-poweroff.wantedBy = ["poweroff.target"];
+    systemd.services.plymouth-reboot.wantedBy = ["reboot.target"];
+    systemd.services.plymouth-read-write.wantedBy = ["sysinit.target"];
+    systemd.services.systemd-ask-password-plymouth.wantedBy = ["multi-user.target"];
+    systemd.paths.systemd-ask-password-plymouth.wantedBy = ["multi-user.target"];
 
     # Prevent Plymouth taking over the screen during system updates.
     systemd.services.plymouth-start.restartIfChanged = false;
@@ -158,14 +158,14 @@ in
         "${plymouth}/bin/plymouthd"
         "${plymouth}/sbin/plymouthd"
       ];
-      packages = [ plymouth ]; # systemd units
+      packages = [plymouth]; # systemd units
       contents = {
         # Files
         "/etc/plymouth/plymouthd.conf".source = configFile;
         "/etc/plymouth/plymouthd.defaults".source = "${plymouth}/share/plymouth/plymouthd.defaults";
         "/etc/plymouth/logo.png".source = cfg.logo;
         # Directories
-        "/etc/plymouth/plugins".source = pkgs.runCommand "plymouth-initrd-plugins" { } ''
+        "/etc/plymouth/plugins".source = pkgs.runCommand "plymouth-initrd-plugins" {} ''
           # Check if the actual requested theme is here
           if [[ ! -d ${themesEnv}/share/plymouth/themes/${cfg.theme} ]]; then
               echo "The requested theme: ${cfg.theme} is not provided by any of the packages in boot.plymouth.themePackages"
@@ -179,7 +179,7 @@ in
           cp ${themesEnv}/lib/plymouth/{text,details,label,$moduleName}.so $out
           cp ${plymouth}/lib/plymouth/renderers/{drm,frame-buffer}.so $out/renderers
         '';
-        "/etc/plymouth/themes".source = pkgs.runCommand "plymouth-initrd-themes" { } ''
+        "/etc/plymouth/themes".source = pkgs.runCommand "plymouth-initrd-themes" {} ''
           # Check if the actual requested theme is here
           if [[ ! -d ${themesEnv}/share/plymouth/themes/${cfg.theme} ]]; then
               echo "The requested theme: ${cfg.theme} is not provided by any of the packages in boot.plymouth.themePackages"
@@ -202,7 +202,7 @@ in
         '';
 
         # Fonts
-        "/etc/plymouth/fonts".source = pkgs.runCommand "plymouth-initrd-fonts" { } ''
+        "/etc/plymouth/fonts".source = pkgs.runCommand "plymouth-initrd-fonts" {} ''
           mkdir -p $out
           cp ${cfg.font} $out
         '';
@@ -216,13 +216,13 @@ in
       };
       # Properly enable units. These are the units that arch copies
       services = {
-        plymouth-halt.wantedBy = [ "halt.target" ];
-        plymouth-kexec.wantedBy = [ "kexec.target" ];
-        plymouth-poweroff.wantedBy = [ "poweroff.target" ];
-        plymouth-quit-wait.wantedBy = [ "multi-user.target" ];
-        plymouth-quit.wantedBy = [ "multi-user.target" ];
-        plymouth-read-write.wantedBy = [ "sysinit.target" ];
-        plymouth-reboot.wantedBy = [ "reboot.target" ];
+        plymouth-halt.wantedBy = ["halt.target"];
+        plymouth-kexec.wantedBy = ["kexec.target"];
+        plymouth-poweroff.wantedBy = ["poweroff.target"];
+        plymouth-quit-wait.wantedBy = ["multi-user.target"];
+        plymouth-quit.wantedBy = ["multi-user.target"];
+        plymouth-read-write.wantedBy = ["sysinit.target"];
+        plymouth-reboot.wantedBy = ["reboot.target"];
         plymouth-start.wantedBy = [
           "initrd-switch-root.target"
           "sysinit.target"
@@ -234,14 +234,14 @@ in
           "poweroff.target"
           "reboot.target"
         ];
-        plymouth-switch-root.wantedBy = [ "initrd-switch-root.target" ];
+        plymouth-switch-root.wantedBy = ["initrd-switch-root.target"];
       };
     };
 
     # Insert required udev rules. We take stage 2 systemd because the udev
     # rules are only generated when building with logind.
     boot.initrd.services.udev.packages = [
-      (pkgs.runCommand "initrd-plymouth-udev-rules" { } ''
+      (pkgs.runCommand "initrd-plymouth-udev-rules" {} ''
         mkdir -p $out/etc/udev/rules.d
         cp ${config.systemd.package.out}/lib/udev/rules.d/{70-uaccess,71-seat}.rules $out/etc/udev/rules.d
         sed -i '/loginctl/d' $out/etc/udev/rules.d/71-seat.rules

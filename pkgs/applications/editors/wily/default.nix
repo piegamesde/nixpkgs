@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     libXt
   ];
 
-  configureFlags = [ "--prefix=$(out)" ];
+  configureFlags = ["--prefix=$(out)"];
 
   preInstall = ''
     mkdir -p $out/bin
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     description = "An emulation of ACME";
     homepage = "http://wily.sourceforge.net";
     license = licenses.artistic1;
-    maintainers = [ maintainers.vrthra ];
+    maintainers = [maintainers.vrthra];
     platforms = platforms.unix;
   };
 }

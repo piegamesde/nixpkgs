@@ -22,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/robscott/kube-capacity";
     changelog = "https://github.com/robscott/kube-capacity/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = [ maintainers.bryanasdev000 ];
+    maintainers = [maintainers.bryanasdev000];
   };
 }

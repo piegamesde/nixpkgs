@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   };
 
   # remove for version >1.3
-  patches = [ ./determinism.patch ];
+  patches = [./determinism.patch];
 
   nativeBuildInputs = [
     perl
@@ -104,6 +104,6 @@ stdenv.mkDerivation rec {
       free
       mit
     ];
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
   };
 }

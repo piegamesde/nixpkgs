@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorSha256 = "08zzp0h4c4i5hk4whz06a3da7qjms6lr36596vxz0d8q0n7rspr9";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   ldflags = [
     "-X main.version=${version}"
@@ -29,7 +29,7 @@ buildGoModule rec {
   postInstall = ''
     mkdir -p $lib
     cp -v ./data/*.nix $lib
-    wrapProgram $out/bin/morph --prefix PATH : ${lib.makeBinPath [ openssh ]};
+    wrapProgram $out/bin/morph --prefix PATH : ${lib.makeBinPath [openssh]};
   '';
 
   outputs = [

@@ -60,9 +60,9 @@ melpaStablePackages.tree-sitter-langs.overrideAttrs (
           plugins
       );
 
-    passthru = old.passthru or { } // {
+    passthru = old.passthru or {} // {
       inherit plugins;
-      withPlugins = fn: final.tree-sitter-langs.override { plugins = fn tree-sitter-grammars; };
+      withPlugins = fn: final.tree-sitter-langs.override {plugins = fn tree-sitter-grammars;};
     };
   }
 )

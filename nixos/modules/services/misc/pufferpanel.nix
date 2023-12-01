@@ -38,12 +38,12 @@ in
       '';
     };
 
-    package = lib.mkPackageOptionMD pkgs "pufferpanel" { };
+    package = lib.mkPackageOptionMD pkgs "pufferpanel" {};
 
     extraGroups = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
-      example = [ "podman" ];
+      default = [];
+      example = ["podman"];
       description = lib.mdDoc ''
         Additional groups for the systemd service.
       '';
@@ -51,7 +51,7 @@ in
 
     extraPackages = lib.mkOption {
       type = lib.types.listOf lib.types.package;
-      default = [ ];
+      default = [];
       example = lib.literalExpression "[ pkgs.jre ]";
       description = lib.mdDoc ''
         Packages to add to the PATH environment variable. Both the {file}`bin`
@@ -61,7 +61,7 @@ in
 
     environment = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         {
           PUFFER_WEB_HOST = ":8080";
@@ -108,8 +108,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.pufferpanel = {
       description = "PufferPanel game management server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       path = cfg.extraPackages;
       environment = cfg.environment;
@@ -181,12 +181,12 @@ in
           "AF_UNIX"
         ];
         LockPersonality = true;
-        DeviceAllow = [ "" ];
+        DeviceAllow = [""];
         DevicePolicy = "closed";
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
       };
     };
   };
 
-  meta.maintainers = [ lib.maintainers.tie ];
+  meta.maintainers = [lib.maintainers.tie];
 }

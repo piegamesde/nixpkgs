@@ -135,7 +135,7 @@ stdenv.mkDerivation rec {
         --replace "/etc/appgate.conf" "$out/etc/appgate.conf"
 
     wrapProgram $out/opt/appgate/service/createdump \
-        --set LD_LIBRARY_PATH "${lib.makeLibraryPath [ stdenv.cc.cc ]}"
+        --set LD_LIBRARY_PATH "${lib.makeLibraryPath [stdenv.cc.cc]}"
 
     wrapProgram $out/opt/appgate/appgate-driver \
         --prefix PATH : ${
@@ -149,7 +149,7 @@ stdenv.mkDerivation rec {
 
     # make xdg-open overrideable at runtime
     makeWrapper $out/opt/appgate/Appgate $out/bin/appgate \
-        --suffix PATH : ${lib.makeBinPath [ xdg-utils ]} \
+        --suffix PATH : ${lib.makeBinPath [xdg-utils]} \
         --set LD_LIBRARY_PATH $out/opt/appgate:${lib.makeLibraryPath deps}
 
     wrapProgram $out/opt/appgate/linux/set_dns --set PYTHONPATH $PYTHONPATH
@@ -158,9 +158,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Appgate SDP (Software Defined Perimeter) desktop client";
     homepage = "https://www.appgate.com/support/software-defined-perimeter-support";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ymatsiuk ];
+    maintainers = with maintainers; [ymatsiuk];
   };
 }

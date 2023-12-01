@@ -23,8 +23,8 @@ in
 
 symlinkJoin {
   name = "${typing-booster.name}-with-hunspell";
-  paths = [ typing-booster ];
-  nativeBuildInputs = [ makeWrapper ];
+  paths = [typing-booster];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     for i in bin/emoji-picker libexec/ibus-{setup,engine}-typing-booster; do

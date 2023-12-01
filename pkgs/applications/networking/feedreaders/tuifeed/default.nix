@@ -17,14 +17,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-QKSNbpVRtSKp2q1jVPYTS8XCMtQAyg3AWvD/6+OjI7Y=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [Security];
 
   doCheck = false;
 
   meta = with lib; {
     description = "A terminal feed reader with a fancy UI";
     homepage = "https://github.com/veeso/tuifeed";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ devhell ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [devhell];
   };
 }

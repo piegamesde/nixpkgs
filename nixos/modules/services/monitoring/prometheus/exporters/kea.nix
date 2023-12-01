@@ -39,7 +39,7 @@ in
           --port ${toString cfg.port} \
           ${concatStringsSep " " cfg.controlSocketPaths}
       '';
-      SupplementaryGroups = [ "kea" ];
+      SupplementaryGroups = ["kea"];
       RestrictAddressFamilies =
         [
           # Need AF_UNIX to collect data

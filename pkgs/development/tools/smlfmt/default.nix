@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-7CTfMiEvuOena5SOE0qKpFPq6ARxmkE6d+loznZNbC0=";
   };
 
-  nativeBuildInputs = [ mlton ];
+  nativeBuildInputs = [mlton];
 
   installPhase = ''
     runHook preInstall
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     '';
 
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ munksgaard ];
+    maintainers = with lib.maintainers; [munksgaard];
     platforms = mlton.meta.platforms;
     homepage = "https://github.com/shwestrick/smlfmt";
   };

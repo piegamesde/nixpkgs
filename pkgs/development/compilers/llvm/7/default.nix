@@ -92,7 +92,7 @@ let
     in
     {
 
-      libllvm = callPackage ./llvm { inherit llvm_meta; };
+      libllvm = callPackage ./llvm {inherit llvm_meta;};
 
       # `llvm` historically had the binaries.  When choosing an output explicitly,
       # we need to reintroduce `outputSpecified` to get the expected behavior e.g. of lib.get*
@@ -107,7 +107,7 @@ let
         outputSpecified = false;
       };
 
-      libclang = callPackage ./clang { inherit clang-tools-extra_src llvm_meta; };
+      libclang = callPackage ./clang {inherit clang-tools-extra_src llvm_meta;};
 
       clang-unwrapped = tools.libclang;
 
@@ -145,7 +145,7 @@ let
         cc = tools.clang-unwrapped;
         # libstdcxx is taken from gcc in an ad-hoc way in cc-wrapper.
         libcxx = null;
-        extraPackages = [ targetLlvmLibraries.compiler-rt ];
+        extraPackages = [targetLlvmLibraries.compiler-rt];
         extraBuildCommands = mkExtraBuildCommands cc;
       };
 
@@ -159,9 +159,9 @@ let
         extraBuildCommands = mkExtraBuildCommands cc;
       };
 
-      lld = callPackage ./lld { inherit llvm_meta; };
+      lld = callPackage ./lld {inherit llvm_meta;};
 
-      lldb = callPackage ./lldb { inherit llvm_meta; };
+      lldb = callPackage ./lldb {inherit llvm_meta;};
 
       # Below, is the LLVM bootstrapping logic. It handles building a
       # fully LLVM toolchain from scratch. No GCC toolchain should be
@@ -170,14 +170,14 @@ let
       # doesn’t support like LLVM. Probably we should move to some other
       # file.
 
-      bintools-unwrapped = callPackage ./bintools { };
+      bintools-unwrapped = callPackage ./bintools {};
 
       bintoolsNoLibc = wrapBintoolsWith {
         bintools = tools.bintools-unwrapped;
         libc = preLibcCrossHeaders;
       };
 
-      bintools = wrapBintoolsWith { bintools = tools.bintools-unwrapped; };
+      bintools = wrapBintoolsWith {bintools = tools.bintools-unwrapped;};
 
       clangUseLLVM = wrapCCWith rec {
         cc = tools.clang-unwrapped;
@@ -186,7 +186,7 @@ let
         extraPackages = [
           libcxx.cxxabi
           targetLlvmLibraries.compiler-rt
-        ] ++ lib.optionals (!stdenv.targetPlatform.isWasm) [ targetLlvmLibraries.libunwind ];
+        ] ++ lib.optionals (!stdenv.targetPlatform.isWasm) [targetLlvmLibraries.libunwind];
         extraBuildCommands =
           ''
             echo "-rtlib=compiler-rt -Wno-unused-command-line-argument" >> $out/nix-support/cc-cflags
@@ -208,7 +208,7 @@ let
         cc = tools.clang-unwrapped;
         libcxx = null;
         bintools = bintools';
-        extraPackages = [ targetLlvmLibraries.compiler-rt ];
+        extraPackages = [targetLlvmLibraries.compiler-rt];
         extraBuildCommands =
           ''
             echo "-rtlib=compiler-rt" >> $out/nix-support/cc-cflags
@@ -222,7 +222,7 @@ let
         cc = tools.clang-unwrapped;
         libcxx = null;
         bintools = bintoolsNoLibc';
-        extraPackages = [ targetLlvmLibraries.compiler-rt ];
+        extraPackages = [targetLlvmLibraries.compiler-rt];
         extraBuildCommands =
           ''
             echo "-rtlib=compiler-rt" >> $out/nix-support/cc-cflags
@@ -235,7 +235,7 @@ let
         cc = tools.clang-unwrapped;
         libcxx = null;
         bintools = bintoolsNoLibc';
-        extraPackages = [ ];
+        extraPackages = [];
         extraBuildCommands =
           ''
             echo "-nostartfiles" >> $out/nix-support/cc-cflags
@@ -247,7 +247,7 @@ let
         cc = tools.clang-unwrapped;
         libcxx = null;
         bintools = bintools';
-        extraPackages = [ ];
+        extraPackages = [];
         extraBuildCommands = mkExtraBuildCommands0 cc;
       };
     }
@@ -335,8 +335,8 @@ let
             stdenv;
       };
 
-      openmp = callPackage ./openmp { inherit llvm_meta targetLlvm; };
+      openmp = callPackage ./openmp {inherit llvm_meta targetLlvm;};
     }
   );
 in
-{ inherit tools libraries release_version; } // libraries // tools
+{inherit tools libraries release_version;} // libraries // tools

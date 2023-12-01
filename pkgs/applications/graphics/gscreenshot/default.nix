@@ -33,7 +33,7 @@ python3Packages.buildPythonApplication rec {
   # tests require a display and fail
   doCheck = false;
 
-  nativeBuildInputs = [ wrapGAppsHook ];
+  nativeBuildInputs = [wrapGAppsHook];
   propagatedBuildInputs =
     [
       gettext
@@ -62,7 +62,7 @@ python3Packages.buildPythonApplication rec {
       ]
     );
 
-  patches = [ ./0001-Changing-paths-to-be-nix-compatible.patch ];
+  patches = [./0001-Changing-paths-to-be-nix-compatible.patch];
 
   meta = {
     description = "A screenshot frontend (CLI and GUI) for a variety of screenshot backends";
@@ -92,6 +92,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/thenaterhood/gscreenshot";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.davisrichard437 ];
+    maintainers = [lib.maintainers.davisrichard437];
   };
 }

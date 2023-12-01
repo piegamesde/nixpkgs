@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "126va59jy7rvy6c2wrf8j44m307f2d8jixqkc49s9wllxprj1dmg";
   };
 
-  buildInputs = [ gcc ];
+  buildInputs = [gcc];
 
   postPatch =
     ''
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/makuto/cakelisp";
     license = licenses.gpl3Plus;
     platforms = platforms.darwin ++ platforms.linux;
-    maintainers = [ maintainers.sbond75 ];
+    maintainers = [maintainers.sbond75];
     # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };

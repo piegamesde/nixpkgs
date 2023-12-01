@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     cmake
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   meta = with lib; {
     description = "Ayatana Display Indicator Objects";
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       licenses.lgpl3Plus
       licenses.lgpl21Plus
     ];
-    maintainers = [ maintainers.nickhu ];
+    maintainers = [maintainers.nickhu];
     platforms = platforms.linux;
   };
 }

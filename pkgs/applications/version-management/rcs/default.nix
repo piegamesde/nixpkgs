@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = lib.optional stdenv.cc.isClang "format";
 
-  nativeBuildInputs = [ lzip ];
+  nativeBuildInputs = [lzip];
 
   meta = {
     homepage = "https://www.gnu.org/software/rcs/";
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     '';
 
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ eelco ];
+    maintainers = with lib.maintainers; [eelco];
     platforms = lib.platforms.unix;
   };
 }

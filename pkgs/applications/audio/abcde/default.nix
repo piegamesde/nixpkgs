@@ -42,7 +42,7 @@ stdenv.mkDerivation {
       --replace "/etc/abcde.conf" "$out/etc/abcde.conf"
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = with perlPackages; [
     perl
@@ -50,7 +50,7 @@ stdenv.mkDerivation {
     MusicBrainzDiscID
   ];
 
-  installFlags = [ "sysconfdir=$(out)/etc" ];
+  installFlags = ["sysconfdir=$(out)/etc"];
 
   postFixup = ''
     for cmd in abcde cddb-tool abcde-musicbrainz-tool; do
@@ -77,7 +77,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "http://abcde.einval.com/wiki/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ gebner ];
+    maintainers = with maintainers; [gebner];
     description = "Command-line audio CD ripper";
     longDescription = ''
       abcde is a front-end command-line utility (actually, a shell

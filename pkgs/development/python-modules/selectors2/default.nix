@@ -17,7 +17,7 @@ buildPythonPackage rec {
     sha256 = "1f1bbaac203a23fbc851dc1b5a6e92c50698cc8cefa5873eb5b89eef53d1d82b";
   };
 
-  patches = [ ./mapping-import.patch ];
+  patches = [./mapping-import.patch];
 
   nativeCheckInputs = [
     nose
@@ -39,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://www.github.com/SethMichaelLarson/selectors2";
     description = "Back-ported, durable, and portable selectors";
     license = licenses.mit;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

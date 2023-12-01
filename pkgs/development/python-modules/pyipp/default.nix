@@ -28,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-xTSi5Eh6vVuQ+Kr/oVMlh5YcckVRsfTUgdmGHndmX+Q=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -50,12 +50,12 @@ buildPythonPackage rec {
       --replace " --cov" ""
   '';
 
-  pythonImportsCheck = [ "pyipp" ];
+  pythonImportsCheck = ["pyipp"];
 
   meta = with lib; {
     description = "Asynchronous Python client for Internet Printing Protocol (IPP)";
     homepage = "https://github.com/ctalkington/python-ipp";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

@@ -114,8 +114,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.gvpe = {
       description = "GNU Virtual Private Ethernet node";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         mkdir -p /var/gvpe

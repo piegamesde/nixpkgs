@@ -1,12 +1,12 @@
-{ lib, pkgs }:
+{lib, pkgs}:
 
 with pkgs.javaPackages;
 
 let
-  collections = import ./collections.nix { inherit pkgs; };
-  fetchMaven = pkgs.callPackage ./m2install.nix { };
-  plugins = import ./mavenPlugins.nix { inherit pkgs; };
-  poms = import ./poms.nix { inherit fetchMaven; };
+  collections = import ./collections.nix {inherit pkgs;};
+  fetchMaven = pkgs.callPackage ./m2install.nix {};
+  plugins = import ./mavenPlugins.nix {inherit pkgs;};
+  poms = import ./poms.nix {inherit fetchMaven;};
 in
 {
   # Maven needs all of these to function

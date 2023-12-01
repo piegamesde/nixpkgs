@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{config, lib, ...}:
 
 with lib;
 
@@ -17,11 +17,11 @@ in
 
   config = mkIf cfg.enable {
 
-    boot.kernelModules = [ "ProCapture" ];
+    boot.kernelModules = ["ProCapture"];
 
-    environment.systemPackages = [ kernelPackages.mwprocapture ];
+    environment.systemPackages = [kernelPackages.mwprocapture];
 
-    boot.extraModulePackages = [ kernelPackages.mwprocapture ];
+    boot.extraModulePackages = [kernelPackages.mwprocapture];
 
     boot.extraModprobeConfig = ''
       # Set the png picture to be displayed when no input signal is detected.

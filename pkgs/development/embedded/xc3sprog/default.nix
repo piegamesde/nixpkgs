@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     rev = version;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libusb-compat-0_1
     libftdi
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://xc3sprog.sourceforge.net/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

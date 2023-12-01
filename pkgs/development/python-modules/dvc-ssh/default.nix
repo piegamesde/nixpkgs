@@ -19,7 +19,7 @@ buildPythonPackage rec {
   };
 
   # Prevent circular dependency
-  pythonRemoveDeps = [ "dvc" ];
+  pythonRemoveDeps = ["dvc"];
 
   nativeBuildInputs = [
     setuptools-scm
@@ -39,13 +39,13 @@ buildPythonPackage rec {
   # Network access is needed for tests
   doCheck = false;
 
-  pythonCheckImports = [ "dvc_ssh" ];
+  pythonCheckImports = ["dvc_ssh"];
 
   meta = with lib; {
     description = "ssh plugin for dvc";
     homepage = "https://pypi.org/project/dvc-ssh/${version}";
     changelog = "https://github.com/iterative/dvc-ssh/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ melling ];
+    maintainers = with maintainers; [melling];
   };
 }

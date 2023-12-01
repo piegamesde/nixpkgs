@@ -24,7 +24,7 @@ python3.pkgs.buildPythonApplication rec {
         name = "bitstring-4-compatibility.patch";
         url = "https://github.com/espressif/esptool/commit/16fa58415be2a7ff059ece40d4545288565d0a23.patch";
         hash = "sha256-FYa9EvyET4P8VkdyMzJBkdxVYm0tFt2GPnfsjzBnevE=";
-        excludes = [ "setup.py" ];
+        excludes = ["setup.py"];
       })
     ];
 
@@ -53,7 +53,7 @@ python3.pkgs.buildPythonApplication rec {
     done
   '';
 
-  nativeCheckInputs = with python3.pkgs; [ pyelftools ];
+  nativeCheckInputs = with python3.pkgs; [pyelftools];
 
   # tests mentioned in `.github/workflows/test_esptool.yml`
   checkPhase = ''
@@ -72,7 +72,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "ESP8266 and ESP32 serial bootloader utility";
     homepage = "https://github.com/espressif/esptool";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
     platforms = platforms.linux;
   };
 }

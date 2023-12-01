@@ -6,7 +6,7 @@
   libXinerama,
   libXft,
   writeText,
-  patches ? [ ],
+  patches ? [],
   conf ? null,
 }:
 
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     in
     lib.optionalString (conf != null) "cp ${configFile} config.def.h";
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   meta = with lib; {
     homepage = "https://dwm.suckless.org/";

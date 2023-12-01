@@ -1,4 +1,4 @@
-{ lib, pkgs }:
+{lib, pkgs}:
 
 let
   # Create a derivation that links all desired manylinux libraries
@@ -8,7 +8,7 @@ let
       drvs = lib.unique (lib.attrValues libs);
       names = lib.attrNames libs;
     in
-    pkgs.runCommand name { buildInputs = drvs; } ''
+    pkgs.runCommand name {buildInputs = drvs;} ''
       mkdir -p $out/lib
       num_found=0
 

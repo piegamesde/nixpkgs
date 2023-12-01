@@ -21,9 +21,9 @@ let
 
   backendsToPackages =
     let
-      mkMap = list: name: if isBuiltinBackend name then list else list ++ [ pkgs.nodePackages.${name} ];
+      mkMap = list: name: if isBuiltinBackend name then list else list ++ [pkgs.nodePackages.${name}];
     in
-    foldl mkMap [ ];
+    foldl mkMap [];
 
   configFile = pkgs.writeText "statsd.conf" ''
     {
@@ -51,7 +51,7 @@ let
 
   deps = pkgs.buildEnv {
     name = "statsd-runtime-deps";
-    pathsToLink = [ "/lib" ];
+    pathsToLink = ["/lib"];
     ignoreCollisions = true;
 
     paths = backendsToPackages cfg.backends;
@@ -92,7 +92,7 @@ in
 
     backends = mkOption {
       description = lib.mdDoc "List of backends statsd will use for data persistence";
-      default = [ ];
+      default = [];
       example = [
         "graphite"
         "console"
@@ -130,7 +130,7 @@ in
     assertions =
       map
         (backend: {
-          assertion = !isBuiltinBackend backend -> hasAttrByPath [ backend ] pkgs.nodePackages;
+          assertion = !isBuiltinBackend backend -> hasAttrByPath [backend] pkgs.nodePackages;
           message = "Only builtin backends (graphite, console, repeater) or backends enumerated in `pkgs.nodePackages` are allowed!";
         })
         cfg.backends;
@@ -142,7 +142,7 @@ in
 
     systemd.services.statsd = {
       description = "Statsd Server";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       environment = {
         NODE_PATH = "${deps}/lib/node_modules";
       };
@@ -152,6 +152,6 @@ in
       };
     };
 
-    environment.systemPackages = [ pkgs.statsd ];
+    environment.systemPackages = [pkgs.statsd];
   };
 }

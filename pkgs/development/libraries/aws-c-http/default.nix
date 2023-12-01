@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-pJGzGbIuz8UJkfmTQEZgXSOMuYixMezNZmgaRlcnmfg=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     aws-c-cal
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     s2n-tls
   ];
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
+  cmakeFlags = ["-DBUILD_SHARED_LIBS=ON"];
 
   passthru.tests = {
     inherit nix;
@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/awslabs/aws-c-http";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
   };
 }

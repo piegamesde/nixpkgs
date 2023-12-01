@@ -18,7 +18,7 @@ let
           maintainers = teams.cosmopolitan.members;
         };
         passthru.tests = {
-          cc = runCommand "c-test" { } ''
+          cc = runCommand "c-test" {} ''
             cat > hello.c << END
             #include <stdio.h>
             int main() {

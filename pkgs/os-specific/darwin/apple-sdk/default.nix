@@ -68,7 +68,7 @@ let
 
     meta = with lib; {
       description = "Apple SDK ${version}";
-      maintainers = with maintainers; [ copumpkin ];
+      maintainers = with maintainers; [copumpkin];
       platforms = platforms.darwin;
     };
   };
@@ -100,11 +100,11 @@ let
       # because we copy files from the system
       preferLocalBuild = true;
 
-      disallowedRequisites = [ sdk ];
+      disallowedRequisites = [sdk];
 
-      nativeBuildInputs = [ print-reexports ];
+      nativeBuildInputs = [print-reexports];
 
-      extraTBDFiles = [ ];
+      extraTBDFiles = [];
 
       installPhase = ''
         linkFramework() {
@@ -213,7 +213,7 @@ let
 
       meta = with lib; {
         description = "Apple SDK framework ${name}";
-        maintainers = with maintainers; [ copumpkin ];
+        maintainers = with maintainers; [copumpkin];
         platforms = platforms.darwin;
       };
     };
@@ -268,7 +268,7 @@ rec {
       dontUnpack = true;
 
       # Not enough
-      __propagatedImpureHostDeps = [ "/usr/lib/libXplugin.1.dylib" ];
+      __propagatedImpureHostDeps = ["/usr/lib/libXplugin.1.dylib"];
 
       propagatedBuildInputs = with frameworks; [
         OpenGL
@@ -319,7 +319,7 @@ rec {
     {
       AppKit = lib.overrideDerivation super.AppKit (
         drv: {
-          __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ] ++ [
+          __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [] ++ [
             "/System/Library/PrivateFrameworks/"
           ];
         }
@@ -327,17 +327,17 @@ rec {
 
       Carbon = lib.overrideDerivation super.Carbon (
         drv: {
-          extraTBDFiles = [ "Versions/A/Frameworks/HTMLRendering.framework/Versions/A/HTMLRendering.tbd" ];
+          extraTBDFiles = ["Versions/A/Frameworks/HTMLRendering.framework/Versions/A/HTMLRendering.tbd"];
         }
       );
 
       CoreFoundation = lib.overrideDerivation super.CoreFoundation (
-        drv: { setupHook = ./cf-setup-hook.sh; }
+        drv: {setupHook = ./cf-setup-hook.sh;}
       );
 
       CoreMedia = lib.overrideDerivation super.CoreMedia (
         drv: {
-          __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ] ++ [
+          __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [] ++ [
             "/System/Library/Frameworks/CoreImage.framework"
           ];
         }
@@ -345,7 +345,7 @@ rec {
 
       CoreMIDI = lib.overrideDerivation super.CoreMIDI (
         drv: {
-          __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ] ++ [
+          __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [] ++ [
             "/System/Library/PrivateFrameworks/"
           ];
           setupHook = ./private-frameworks-setup-hook.sh;
@@ -360,7 +360,7 @@ rec {
         }
       );
 
-      Security = lib.overrideDerivation super.Security (drv: { setupHook = ./security-setup-hook.sh; });
+      Security = lib.overrideDerivation super.Security (drv: {setupHook = ./security-setup-hook.sh;});
 
       QuartzCore = lib.overrideDerivation super.QuartzCore (
         drv: {
@@ -406,7 +406,7 @@ rec {
           "SkyLight"
           "UIFoundation"
         ]
-        (x: tbdOnlyFramework x { });
+        (x: tbdOnlyFramework x {});
 
   bareFrameworks = lib.mapAttrs framework (
     import ./frameworks.nix {

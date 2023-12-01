@@ -23,7 +23,7 @@ buildDunePackage rec {
     sha256 = "sha256-OJIzg2hnwkXkQHd4bRR051eLf4HNWa/XExxbj46SyUs=";
   };
 
-  propagatedBuildInputs = [ integers_stubs_js ];
+  propagatedBuildInputs = [integers_stubs_js];
   nativeCheckInputs = [
     nodejs
     js_of_ocaml-compiler
@@ -37,7 +37,7 @@ buildDunePackage rec {
   meta = {
     description = "Js_of_ocaml Javascript stubs for the OCaml ctypes library";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bezmuth ];
+    maintainers = with lib.maintainers; [bezmuth];
     homepage = "https://gitlab.com/nomadic-labs/ctypes_stubs_js";
   };
 }

@@ -42,7 +42,7 @@ let
         inherit sha256;
       };
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
 
       patches = [
         # This changes the default value of the database server field

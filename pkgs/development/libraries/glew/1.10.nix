@@ -23,14 +23,14 @@ stdenv.mkDerivation (
 
     buildInputs =
       if stdenv.isDarwin then
-        [ AGL ]
+        [AGL]
       else
         [
           libXmu
           libXi
           libXext
         ];
-    propagatedBuildInputs = if stdenv.isDarwin then [ OpenGL ] else [ libGLU ]; # GL/glew.h includes GL/glu.h
+    propagatedBuildInputs = if stdenv.isDarwin then [OpenGL] else [libGLU]; # GL/glew.h includes GL/glu.h
 
     outputs = [
       "out"
@@ -44,8 +44,8 @@ stdenv.mkDerivation (
       ''}
     '';
 
-    buildFlags = [ "all" ];
-    installFlags = [ "install.all" ];
+    buildFlags = ["all"];
+    installFlags = ["install.all"];
 
     preInstall = ''
       export GLEW_DEST="$out"
@@ -69,7 +69,7 @@ stdenv.mkDerivation (
       homepage = "https://glew.sourceforge.net/";
       license = licenses.free; # different files under different licenses
       #["BSD" "GLX" "SGI-B" "GPL2"]
-      pkgConfigModules = [ "glew" ];
+      pkgConfigModules = ["glew"];
       platforms = platforms.mesaPlatforms;
     };
   }

@@ -33,7 +33,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "test/" ];
+  pytestFlagsArray = ["test/"];
 
   sourceRoot = "${src.name}/sdk/python/lib";
 
@@ -56,12 +56,12 @@ buildPythonPackage rec {
       || (echo "ERROR: Version substitution seems to be broken"; exit 1)
   '';
 
-  pythonImportsCheck = [ "pulumi" ];
+  pythonImportsCheck = ["pulumi"];
 
   meta = with lib; {
     description = "Modern Infrastructure as Code. Any cloud, any language";
     homepage = "https://github.com/pulumi/pulumi";
     license = licenses.asl20;
-    maintainers = with maintainers; [ teto ];
+    maintainers = with maintainers; [teto];
   };
 }

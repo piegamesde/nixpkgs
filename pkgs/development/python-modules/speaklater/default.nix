@@ -17,6 +17,6 @@ buildPythonPackage rec {
     description = "Implements a lazy string for python useful for use with gettext";
     homepage = "https://github.com/mitsuhiko/speaklater";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ matejc ];
+    maintainers = with maintainers; [matejc];
   };
 }

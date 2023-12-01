@@ -227,7 +227,7 @@ in
   };
 
   config = mkIf (cfg.ssh.enable || cfg.pam.enable) {
-    environment.systemPackages = [ pkgs.duo-unix ];
+    environment.systemPackages = [pkgs.duo-unix];
 
     security.wrappers.login_duo = {
       setuid = true;

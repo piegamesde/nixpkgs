@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   };
 
   # Disable SSE2 extensions on platforms for which they are not enabled by default
-  configureFlags = [ "--disable-sse2" ];
+  configureFlags = ["--disable-sse2"];
   enableParallelBuilding = true;
 
   meta = {

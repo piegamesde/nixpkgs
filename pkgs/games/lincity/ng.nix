@@ -31,7 +31,7 @@ stdenv.mkDerivation {
     sha256 = "0l07cn8rmpmlqdppjc2ikh5c7xmwib27504zpmn3n9pryp394r46";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   nativeBuildInputs = [
     autoreconfHook
@@ -79,7 +79,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "City building game";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
   };
 }

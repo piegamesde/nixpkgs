@@ -11,7 +11,7 @@ buildGoModule rec {
 
   excludedPackages = "test";
 
-  subPackages = [ "cmd/telegraf" ];
+  subPackages = ["cmd/telegraf"];
 
   src = fetchFromGitHub {
     owner = "influxdata";

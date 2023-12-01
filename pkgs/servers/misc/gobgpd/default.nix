@@ -27,13 +27,13 @@ buildGoModule rec {
     "-extldflags '-static'"
   ];
 
-  subPackages = [ "cmd/gobgpd" ];
+  subPackages = ["cmd/gobgpd"];
 
   meta = with lib; {
     description = "BGP implemented in Go";
     homepage = "https://osrg.github.io/gobgp/";
     changelog = "https://github.com/osrg/gobgp/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ higebu ];
+    maintainers = with maintainers; [higebu];
   };
 }

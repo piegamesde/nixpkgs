@@ -23,13 +23,13 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  makeFlags = [ "BINDIR=$(out)/bin" ];
+  makeFlags = ["BINDIR=$(out)/bin"];
 
   meta = with lib; {
     description = "A multi-platform cross assembler for 6502/6510/65816 CPUs";
     homepage = "https://sourceforge.net/projects/acme-crossass/";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
   };
 }

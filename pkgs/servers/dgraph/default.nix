@@ -22,11 +22,11 @@ buildGoModule rec {
 
   doCheck = false;
 
-  ldflags = [ "-X github.com/dgraph-io/dgraph/x.dgraphVersion=${version}-oss" ];
+  ldflags = ["-X github.com/dgraph-io/dgraph/x.dgraphVersion=${version}-oss"];
 
-  tags = [ "oss" ];
+  tags = ["oss"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # todo those dependencies are required in the makefile, but verify how they are used
   # actually
@@ -35,7 +35,7 @@ buildGoModule rec {
     nodejs
   ];
 
-  subPackages = [ "dgraph" ];
+  subPackages = ["dgraph"];
 
   postInstall = ''
     for shell in bash zsh; do
@@ -47,7 +47,7 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://dgraph.io/";
     description = "Fast, Distributed Graph DB";
-    maintainers = with maintainers; [ sigma ];
+    maintainers = with maintainers; [sigma];
     # Apache 2.0 because we use only build "oss"
     license = licenses.asl20;
     platforms = platforms.unix;

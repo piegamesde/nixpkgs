@@ -21,7 +21,7 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     glyphslib
@@ -32,12 +32,12 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonImportsCheck = [ "fontmake" ];
+  pythonImportsCheck = ["fontmake"];
 
   meta = {
     description = "Compiles fonts from various sources (.glyphs, .ufo, designspace) into binaries formats (.otf, .ttf)";
     homepage = "https://github.com/googlefonts/fontmake";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.BarinovMaxim ];
+    maintainers = [lib.maintainers.BarinovMaxim];
   };
 }

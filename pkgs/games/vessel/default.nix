@@ -98,6 +98,6 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.strangeloopgames.com";
     license = licenses.unfree;
-    maintainers = with maintainers; [ jcumming ];
+    maintainers = with maintainers; [jcumming];
   };
 }

@@ -36,6 +36,6 @@ buildGoModule rec {
     homepage = "https://github.com/kitabisa/teler";
     changelog = "https://github.com/kitabisa/teler/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

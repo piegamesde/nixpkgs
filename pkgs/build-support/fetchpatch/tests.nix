@@ -1,4 +1,4 @@
-{ testers, fetchpatch, ... }:
+{testers, fetchpatch, ...}:
 
 let
   isFetchpatch2 = fetchpatch.version == 2;
@@ -29,7 +29,7 @@ in
     relative = "test";
     stripLen = 1;
     extraPrefix = "foo/bar/";
-    excludes = [ "foo/bar/bernoulli_no_atomic_mp.cpp" ];
+    excludes = ["foo/bar/bernoulli_no_atomic_mp.cpp"];
     revert = true;
     sha256 =
       if isFetchpatch2 then

@@ -18,7 +18,7 @@ buildDunePackage rec {
     sha256 = "1dk33lr0g2jnia2gqsm6nnc7nf256qgkm3v30w477gm6y2ppfm3h";
   };
 
-  nativeBuildInputs = [ menhir ];
+  nativeBuildInputs = [menhir];
 
   # Ensure compatibility of v0.6 with menhir ≥ 20220210
   preBuild = ''
@@ -29,6 +29,6 @@ buildDunePackage rec {
     description = "Date and duration in OCaml";
     inherit (src.meta) homepage;
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

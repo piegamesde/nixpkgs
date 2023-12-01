@@ -1,4 +1,4 @@
-{ lib, python3 }:
+{lib, python3}:
 
 with python3.pkgs;
 
@@ -19,14 +19,14 @@ buildPythonApplication rec {
     python-dateutil
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   meta = with lib; {
     description = "ABlog for blogging with Sphinx";
     homepage = "https://ablog.readthedocs.io/en/latest/";
     license = licenses.mit;
-    maintainers = with maintainers; [ rgrinberg ];
+    maintainers = with maintainers; [rgrinberg];
   };
 }

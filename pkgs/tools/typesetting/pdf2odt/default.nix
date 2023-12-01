@@ -25,7 +25,7 @@ resholve.mkDerivation rec {
     sha256 = "14f9r5f0g6jzanl54jv86ls0frvspka1p9c8dy3fnriqpm584j0r";
   };
 
-  patches = [ ./use_mktemp.patch ];
+  patches = [./use_mktemp.patch];
 
   installPhase = ''
     install -Dm0755 pdf2odt           -t $out/bin
@@ -35,7 +35,7 @@ resholve.mkDerivation rec {
   '';
   solutions = {
     default = {
-      scripts = [ "bin/pdf2odt" ];
+      scripts = ["bin/pdf2odt"];
       interpreter = "${bash}/bin/bash";
       inputs = [
         coreutils
@@ -56,6 +56,6 @@ resholve.mkDerivation rec {
     homepage = "https://github.com/gutschke/pdf2odt";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

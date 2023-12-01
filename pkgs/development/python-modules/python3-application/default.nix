@@ -26,7 +26,7 @@ buildPythonPackage rec {
     twisted
   ];
 
-  pythonImportsCheck = [ "application" ];
+  pythonImportsCheck = ["application"];
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64) || stdenv.isDarwin;

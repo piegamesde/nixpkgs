@@ -1,7 +1,7 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }@args:
 
 with pkgs.lib;
@@ -11,7 +11,7 @@ let
     linuxPackages:
     (import ./make-test-python.nix
       (
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           name = "kernel-${linuxPackages.kernel.version}";
           meta = with pkgs.lib.maintainers; {
@@ -21,7 +21,7 @@ let
             ];
           };
 
-          nodes.machine = { ... }: { boot.kernelPackages = linuxPackages; };
+          nodes.machine = {...}: {boot.kernelPackages = linuxPackages;};
 
           testScript = ''
             assert "Linux" in machine.succeed("uname -s")

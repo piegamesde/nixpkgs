@@ -24,12 +24,12 @@ buildPythonPackage rec {
 
   # Project doesn't have any tests
   doCheck = false;
-  pythonImportsCheck = [ "unifiled" ];
+  pythonImportsCheck = ["unifiled"];
 
   meta = with lib; {
     description = "Python module for Ubiquiti Unifi LED controller";
     homepage = "https://github.com/florisvdk/unifiled";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

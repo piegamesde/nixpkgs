@@ -50,8 +50,8 @@ substituteAll {
       and the Nix sandbox currently does not intercept these calls, builds made
       on different kernels will produce different results.
     '';
-    license = [ licenses.mit ];
-    maintainers = with maintainers; [ artturin ];
+    license = [licenses.mit];
+    maintainers = with maintainers; [artturin];
     platforms = platforms.all;
   };
 }

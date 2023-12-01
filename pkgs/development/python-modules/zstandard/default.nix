@@ -19,18 +19,18 @@ buildPythonPackage rec {
     hash = "sha256-YT2q3XLHGxSIdCyvssOzgcOdDJu4xswVeqLV6kXMLvw=";
   };
 
-  propagatedNativeBuildInputs = [ cffi ];
+  propagatedNativeBuildInputs = [cffi];
 
-  propagatedBuildInputs = [ cffi ];
+  propagatedBuildInputs = [cffi];
 
-  nativeCheckInputs = [ hypothesis ];
+  nativeCheckInputs = [hypothesis];
 
-  pythonImportsCheck = [ "zstandard" ];
+  pythonImportsCheck = ["zstandard"];
 
   meta = with lib; {
     description = "zstandard bindings for Python";
     homepage = "https://github.com/indygreg/python-zstandard";
     license = licenses.bsdOriginal;
-    maintainers = with maintainers; [ arnoldfarkas ];
+    maintainers = with maintainers; [arnoldfarkas];
   };
 }

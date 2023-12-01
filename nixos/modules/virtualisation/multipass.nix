@@ -31,19 +31,19 @@ in
         '';
       };
 
-      package = lib.mkPackageOptionMD pkgs "multipass" { };
+      package = lib.mkPackageOptionMD pkgs "multipass" {};
     };
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.multipass = {
       description = "Multipass orchestrates virtual Ubuntu instances.";
 
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
 
       environment = {
         "XDG_DATA_HOME" = "/var/lib/multipass/data";

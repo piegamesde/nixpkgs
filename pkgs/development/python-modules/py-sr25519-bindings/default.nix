@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-Lu3J0+YeQHHKItOZTT24DlQAUJuE9fd+py6Eb46/MSE=";
   };
 
-  cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
+  cargoDeps = rustPlatform.importCargoLock {lockFile = ./Cargo.lock;};
 
   postPatch = ''
     cp ${./Cargo.lock} Cargo.lock
@@ -36,16 +36,16 @@ buildPythonPackage rec {
     maturinBuildHook
   ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.isDarwin [libiconv];
 
   nativeCheckInputs = [
     pytestCheckHook
     py-bip39-bindings
   ];
 
-  pytestFlagsArray = [ "tests.py" ];
+  pytestFlagsArray = ["tests.py"];
 
-  pythonImportsCheck = [ "sr25519" ];
+  pythonImportsCheck = ["sr25519"];
 
   meta = with lib; {
     description = "Python bindings for sr25519 library";

@@ -20,9 +20,9 @@ stdenv.mkDerivation rec {
     ${dpkg}/bin/dpkg -x $src $out
   '';
 
-  buildInputs = [ stdenv.cc.cc.lib ];
+  buildInputs = [stdenv.cc.cc.lib];
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
   installPhase = ''
     mv $out/usr/local/makeblock $out/usr/makeblock
@@ -35,9 +35,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Driver for mBlock web version";
     homepage = "https://mblock.makeblock.com/en-us/download/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ maintainers.mausch ];
+    platforms = ["x86_64-linux"];
+    maintainers = [maintainers.mausch];
   };
 }

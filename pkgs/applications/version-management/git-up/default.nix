@@ -15,7 +15,7 @@ pythonPackages.buildPythonApplication rec {
 
   # git should be on path for tool to work correctly
   propagatedBuildInputs =
-    [ git ]
+    [git]
     ++ (
       with pythonPackages; [
         click
@@ -48,7 +48,7 @@ pythonPackages.buildPythonApplication rec {
     homepage = "https://github.com/msiemens/PyGitUp";
     description = "A git pull replacement that rebases all local branches when pulling";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.all;
   };
 }

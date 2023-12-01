@@ -74,7 +74,7 @@ let
           description = "configured template name";
         }
       );
-      default = [ ];
+      default = [];
     };
     useTemplate = use_template;
 
@@ -89,7 +89,7 @@ let
         with types;
         oneOf [
           bool
-          (enum [ "zfs" ])
+          (enum ["zfs"])
         ];
       default = false;
     };
@@ -121,7 +121,7 @@ let
   configFile =
     let
       mkValueString =
-        v: if builtins.isList v then concatStringsSep "," v else generators.mkValueStringDefault { } v;
+        v: if builtins.isList v then concatStringsSep "," v else generators.mkValueStringDefault {} v;
 
       mkKeyValue =
         k: v:
@@ -132,9 +132,9 @@ let
         else if k == "useTemplate" then
           ""
         else
-          generators.mkKeyValueDefault { inherit mkValueString; } "=" k v;
+          generators.mkKeyValueDefault {inherit mkValueString;} "=" k v;
     in
-    generators.toINI { inherit mkKeyValue; } cfg.settings;
+    generators.toINI {inherit mkKeyValue;} cfg.settings;
 in
 {
 
@@ -143,7 +143,7 @@ in
   options.services.sanoid = {
     enable = mkEnableOption (lib.mdDoc "Sanoid ZFS snapshotting service");
 
-    package = lib.mkPackageOptionMD pkgs "sanoid" { };
+    package = lib.mkPackageOptionMD pkgs "sanoid" {};
 
     interval = mkOption {
       type = types.str;
@@ -160,18 +160,18 @@ in
     datasets = mkOption {
       type = types.attrsOf (
         types.submodule (
-          { config, options, ... }:
+          {config, options, ...}:
           {
             freeformType = datasetSettingsType;
             options = commonOptions // datasetOptions;
-            config.use_template = modules.mkAliasAndWrapDefsWithPriority id (options.useTemplate or { });
+            config.use_template = modules.mkAliasAndWrapDefsWithPriority id (options.useTemplate or {});
             config.process_children_only = modules.mkAliasAndWrapDefsWithPriority id (
-              options.processChildrenOnly or { }
+              options.processChildrenOnly or {}
             );
           }
         )
       );
-      default = { };
+      default = {};
       description = lib.mdDoc "Datasets to snapshot.";
     };
 
@@ -182,7 +182,7 @@ in
           options = commonOptions;
         }
       );
-      default = { };
+      default = {};
       description = lib.mdDoc "Templates for datasets.";
     };
 
@@ -197,7 +197,7 @@ in
 
     extraArgs = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "--verbose"
         "--readonly"
@@ -257,10 +257,10 @@ in
       };
       # Prevents missing snapshots during DST changes
       environment.TZ = "UTC";
-      after = [ "zfs.target" ];
+      after = ["zfs.target"];
       startAt = cfg.interval;
     };
   };
 
-  meta.maintainers = with maintainers; [ lopsided98 ];
+  meta.maintainers = with maintainers; [lopsided98];
 }

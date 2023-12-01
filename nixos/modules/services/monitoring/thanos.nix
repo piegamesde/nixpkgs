@@ -52,7 +52,7 @@ let
     toArgs = _opt: listToArgs opt;
     option = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc description;
     };
   };
@@ -61,7 +61,7 @@ let
     toArgs = _opt: attrsToArgs opt;
     option = mkOption {
       type = types.attrsOf types.str;
-      default = { };
+      default = {};
       description = lib.mdDoc description;
     };
   };
@@ -81,7 +81,7 @@ let
       {
         preferLocalBuild = true;
         json = builtins.toFile "${name}.json" (builtins.toJSON attrs);
-        nativeBuildInputs = [ pkgs.remarshal ];
+        nativeBuildInputs = [pkgs.remarshal];
       }
       "json2yaml -i $json -o $out";
 
@@ -180,7 +180,7 @@ let
       };
 
       tracing.config = {
-        toArgs = _opt: _attrs: [ ];
+        toArgs = _opt: _attrs: [];
         option = nullOpt types.attrs ''
           Tracing configuration.
 
@@ -248,7 +248,7 @@ let
       };
 
       objstore.config = {
-        toArgs = _opt: _attrs: [ ];
+        toArgs = _opt: _attrs: [];
         option = nullOpt types.attrs ''
           Object store configuration.
 
@@ -797,7 +797,7 @@ in
           assertion =
             !(
               config.services.prometheus.globalConfig.external_labels == null
-              || config.services.prometheus.globalConfig.external_labels == { }
+              || config.services.prometheus.globalConfig.external_labels == {}
             );
           message =
             "services.thanos.sidecar requires uniquely identifying external labels "
@@ -806,7 +806,7 @@ in
         }
       ];
       systemd.services.thanos-sidecar = {
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         after = [
           "network.target"
           "prometheus.service"
@@ -824,8 +824,8 @@ in
         (assertRelativeStateDir "store")
         {
           systemd.services.thanos-store = {
-            wantedBy = [ "multi-user.target" ];
-            after = [ "network.target" ];
+            wantedBy = ["multi-user.target"];
+            after = ["network.target"];
             serviceConfig = {
               DynamicUser = true;
               StateDirectory = cfg.store.stateDir;
@@ -839,8 +839,8 @@ in
 
     (mkIf cfg.query.enable {
       systemd.services.thanos-query = {
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
         serviceConfig = {
           DynamicUser = true;
           Restart = "always";
@@ -854,8 +854,8 @@ in
         (assertRelativeStateDir "rule")
         {
           systemd.services.thanos-rule = {
-            wantedBy = [ "multi-user.target" ];
-            after = [ "network.target" ];
+            wantedBy = ["multi-user.target"];
+            after = ["network.target"];
             serviceConfig = {
               DynamicUser = true;
               StateDirectory = cfg.rule.stateDir;
@@ -876,8 +876,8 @@ in
               wait = cfg.compact.startAt == null;
             in
             {
-              wantedBy = [ "multi-user.target" ];
-              after = [ "network.target" ];
+              wantedBy = ["multi-user.target"];
+              after = ["network.target"];
               serviceConfig = {
                 Type = if wait then "simple" else "oneshot";
                 Restart = if wait then "always" else "no";
@@ -886,7 +886,7 @@ in
                 ExecStart = thanos "compact";
               };
             }
-            // optionalAttrs (!wait) { inherit (cfg.compact) startAt; };
+            // optionalAttrs (!wait) {inherit (cfg.compact) startAt;};
         }
       ]
     ))
@@ -896,8 +896,8 @@ in
         (assertRelativeStateDir "downsample")
         {
           systemd.services.thanos-downsample = {
-            wantedBy = [ "multi-user.target" ];
-            after = [ "network.target" ];
+            wantedBy = ["multi-user.target"];
+            after = ["network.target"];
             serviceConfig = {
               DynamicUser = true;
               StateDirectory = cfg.downsample.stateDir;
@@ -914,8 +914,8 @@ in
         (assertRelativeStateDir "receive")
         {
           systemd.services.thanos-receive = {
-            wantedBy = [ "multi-user.target" ];
-            after = [ "network.target" ];
+            wantedBy = ["multi-user.target"];
+            after = ["network.target"];
             serviceConfig = {
               DynamicUser = true;
               StateDirectory = cfg.receive.stateDir;

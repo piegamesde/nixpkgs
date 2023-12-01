@@ -44,9 +44,9 @@ stdenv.mkDerivation {
     boost
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  cmakeFlags = [ "-DSYSTEM_INSTALL=ON" ];
+  cmakeFlags = ["-DSYSTEM_INSTALL=ON"];
 
   postInstall = ''
     mkdir -p $out/share/applications
@@ -56,7 +56,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     inherit description;
     license = licenses.unfree;
-    maintainers = with maintainers; [ cizra ];
+    maintainers = with maintainers; [cizra];
     platforms = platforms.all;
     homepage = "https://github.com/tome2/tome2";
   };

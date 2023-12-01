@@ -18,7 +18,7 @@ let
   downloadsDir = "Downloads";
   incompleteDir = ".incomplete";
   watchDir = "watchdir";
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
   settingsFile = settingsFormat.generate "settings.json" cfg.settings;
 in
 {
@@ -73,7 +73,7 @@ in
           See [Transmission's Wiki](https://github.com/transmission/transmission/wiki/Editing-Configuration-Files)
           for documentation of settings not explicitly covered by this module.
         '';
-        default = { };
+        default = {};
         type = types.submodule {
           freeformType = settingsFormat.type;
           options.download-dir = mkOption {
@@ -203,7 +203,7 @@ in
         };
       };
 
-      package = mkPackageOptionMD pkgs "transmission" { };
+      package = mkPackageOptionMD pkgs "transmission" {};
 
       downloadDirPermissions = mkOption {
         type = with types; nullOr str;
@@ -257,8 +257,8 @@ in
 
       extraFlags = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "--log-debug" ];
+        default = [];
+        example = ["--log-debug"];
         description = lib.mdDoc ''
           Extra flags passed to the transmission command in the service definition.
         '';
@@ -308,9 +308,9 @@ in
 
     systemd.services.transmission = {
       description = "Transmission BitTorrent Service";
-      after = [ "network.target" ] ++ optional apparmor.enable "apparmor.service";
+      after = ["network.target"] ++ optional apparmor.enable "apparmor.service";
       requires = optional apparmor.enable "apparmor.service";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       environment.CURL_CA_BUNDLE = etc."ssl/certs/ca-certificates.crt".source;
 
       serviceConfig = {
@@ -331,7 +331,7 @@ in
         User = cfg.user;
         Group = cfg.group;
         # Create rootDir in the host's mount namespace.
-        RuntimeDirectory = [ (baseNameOf rootDir) ];
+        RuntimeDirectory = [(baseNameOf rootDir)];
         RuntimeDirectoryMode = "755";
         # This is for BindPaths= and BindReadOnlyPaths=
         # to allow traversal of directories they create in RootDirectory=.
@@ -437,7 +437,7 @@ in
     };
 
     # It's useful to have transmission in path, e.g. for remote control
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     users.users = optionalAttrs (cfg.user == "transmission") ({
       transmission = {
@@ -473,11 +473,11 @@ in
           }
         else
           {
-            allowedTCPPorts = [ cfg.settings.peer-port ];
-            allowedUDPPorts = [ cfg.settings.peer-port ];
+            allowedTCPPorts = [cfg.settings.peer-port];
+            allowedUDPPorts = [cfg.settings.peer-port];
           }
       ))
-      (mkIf cfg.openRPCPort { allowedTCPPorts = [ cfg.settings.rpc-port ]; })
+      (mkIf cfg.openRPCPort {allowedTCPPorts = [cfg.settings.rpc-port];})
     ];
 
     boot.kernel.sysctl = mkMerge [
@@ -547,5 +547,5 @@ in
     '';
   };
 
-  meta.maintainers = with lib.maintainers; [ julm ];
+  meta.maintainers = with lib.maintainers; [julm];
 }

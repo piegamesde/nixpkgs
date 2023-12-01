@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   # glib-2.62 deprecations
   env.NIX_CFLAGS_COMPILE = "-DGLIB_DISABLE_DEPRECATION_WARNINGS";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     glib
     gtk2
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
               both for short and long path.
     '';
     homepage = "https://www.nongnu.org/xlog";
-    maintainers = [ maintainers.mafo ];
+    maintainers = [maintainers.mafo];
     license = licenses.gpl3;
     platforms = platforms.unix;
   };

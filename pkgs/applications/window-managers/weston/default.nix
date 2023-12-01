@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-pBP2jCUpV/wxkcNlCCPsNWrowSTMwMtEDaXNxOLLnlc=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     meson
     ninja
@@ -101,9 +101,9 @@ stdenv.mkDerivation rec {
     (lib.mesonBool "demo-clients" buildDemo)
     "-Dsimple-clients="
     "-Dtest-junit-xml=false"
-  ] ++ lib.optionals (xwayland != null) [ "-Dxwayland-path=${xwayland.out}/bin/Xwayland" ];
+  ] ++ lib.optionals (xwayland != null) ["-Dxwayland-path=${xwayland.out}/bin/Xwayland"];
 
-  passthru.providedSessions = [ "weston" ];
+  passthru.providedSessions = ["weston"];
 
   meta = with lib; {
     description = "A lightweight and functional Wayland compositor";
@@ -120,6 +120,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.freedesktop.org/wayland/weston";
     license = licenses.mit; # Expat version
     platforms = platforms.linux;
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
   };
 }

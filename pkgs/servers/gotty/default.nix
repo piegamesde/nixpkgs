@@ -24,7 +24,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Share your terminal as a web application";
     homepage = "https://github.com/sorenisanerd/gotty";
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
     license = licenses.mit;
   };
 }

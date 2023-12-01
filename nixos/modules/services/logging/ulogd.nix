@@ -8,7 +8,7 @@
 with lib;
 let
   cfg = config.services.ulogd;
-  settingsFormat = pkgs.formats.ini { };
+  settingsFormat = pkgs.formats.ini {};
   settingsFile = settingsFormat.generate "ulogd.conf" cfg.settings;
 in
 {
@@ -26,7 +26,7 @@ in
           };
         };
         type = settingsFormat.type;
-        default = { };
+        default = {};
         description = lib.mdDoc "Configuration for ulogd. See {file}`/share/doc/ulogd/` in `pkgs.ulogd.doc`.";
       };
 
@@ -47,9 +47,9 @@ in
   config = mkIf cfg.enable {
     systemd.services.ulogd = {
       description = "Ulogd Daemon";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-pre.target" ];
-      before = [ "network-pre.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-pre.target"];
+      before = ["network-pre.target"];
 
       serviceConfig = {
         ExecStart = "${pkgs.ulogd}/bin/ulogd -c ${settingsFile} --verbose --loglevel ${toString cfg.logLevel}";

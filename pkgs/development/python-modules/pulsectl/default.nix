@@ -29,7 +29,7 @@ buildPythonPackage rec {
       })
     ];
 
-  pythonImportsCheck = [ "pulsectl" ];
+  pythonImportsCheck = ["pulsectl"];
 
   nativeCheckInputs = [
     unittestCheckHook
@@ -44,6 +44,6 @@ buildPythonPackage rec {
     description = "Python high-level interface and ctypes-based bindings for PulseAudio (libpulse)";
     homepage = "https://pypi.python.org/pypi/pulsectl/";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

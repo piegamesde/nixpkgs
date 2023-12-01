@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-QHCKGsHSMT2P64No1IUCjenm1XZMSgEvsJGJOyHFZS8=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   meta = {
     maintainers = with lib.maintainers; [

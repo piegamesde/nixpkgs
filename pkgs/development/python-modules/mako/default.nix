@@ -30,10 +30,10 @@ buildPythonPackage rec {
     hash = "sha256-1go5A9w7sBoYrWqJzb4uTq3GnAvI7x43c7pT1Ew/ejQ=";
   };
 
-  propagatedBuildInputs = [ markupsafe ];
+  propagatedBuildInputs = [markupsafe];
 
   passthru.optional-dependencies = {
-    babel = [ babel ];
+    babel = [babel];
   };
 
   nativeCheckInputs = [
@@ -59,6 +59,6 @@ buildPythonPackage rec {
     changelog = "https://docs.makotemplates.org/en/latest/changelog.html";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ domenkozar ];
+    maintainers = with maintainers; [domenkozar];
   };
 }

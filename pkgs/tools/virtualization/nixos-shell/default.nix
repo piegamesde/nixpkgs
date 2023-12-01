@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-whHBBcthLhEIy2VTaioRZOSZoZR7pk4Qr4DVxwU0r9Y=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/nixos-shell \
@@ -30,13 +30,13 @@ stdenv.mkDerivation rec {
       }
   '';
 
-  installFlags = [ "PREFIX=${placeholder "out"}" ];
+  installFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     description = "Spawns lightweight nixos vms in a shell";
     inherit (src.meta) homepage;
     license = licenses.mit;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
     platforms = platforms.unix;
   };
 }

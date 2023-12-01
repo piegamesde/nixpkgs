@@ -17,13 +17,13 @@ buildDunePackage rec {
     hash = "sha256-1rYs0oxAcayFypUoCIdFwSTJCU7+rpFyJRRzb5lzsPs=";
   };
 
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
   doCheck = lib.versionAtLeast ocaml.version "4.08";
 
   meta = with lib; {
     description = "Get the dimensions of the terminal";
     homepage = "https://github.com/cryptosense/terminal_size";
     license = licenses.bsd2;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

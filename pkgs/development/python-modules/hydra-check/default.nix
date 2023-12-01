@@ -23,14 +23,14 @@ buildPythonPackage rec {
     hash = "sha256-voSbpOPJUPjwzdMLVt2TC/FIi6LKk01PLd/GczOAUR8=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
   propagatedBuildInputs = [
     colorama
     requests
     beautifulsoup4
   ];
 
-  pythonImportsCheck = [ "hydra_check" ];
+  pythonImportsCheck = ["hydra_check"];
 
   meta = with lib; {
     description = "check hydra for the build status of a package";

@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.services.borgmatic;
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
 
   cfgType =
     with types;
@@ -66,27 +66,27 @@ in
       description = mdDoc ''
         Set of borgmatic configurations, see https://torsion.org/borgmatic/docs/reference/configuration/
       '';
-      default = { };
+      default = {};
       type = types.attrsOf cfgType;
     };
   };
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ pkgs.borgmatic ];
+    environment.systemPackages = [pkgs.borgmatic];
 
     environment.etc =
-      (optionalAttrs (cfg.settings != null) { "borgmatic/config.yaml".source = cfgfile; })
+      (optionalAttrs (cfg.settings != null) {"borgmatic/config.yaml".source = cfgfile;})
       // mapAttrs'
         (
           name: value:
-          nameValuePair "borgmatic.d/${name}.yaml" { source = settingsFormat.generate "${name}.yaml" value; }
+          nameValuePair "borgmatic.d/${name}.yaml" {source = settingsFormat.generate "${name}.yaml" value;}
         )
         cfg.configurations;
 
-    systemd.packages = [ pkgs.borgmatic ];
+    systemd.packages = [pkgs.borgmatic];
 
     # Workaround: https://github.com/NixOS/nixpkgs/issues/81138
-    systemd.timers.borgmatic.wantedBy = [ "timers.target" ];
+    systemd.timers.borgmatic.wantedBy = ["timers.target"];
   };
 }

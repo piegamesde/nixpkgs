@@ -69,7 +69,7 @@ stdenv.mkDerivation (
         hash = "sha256-9vsFdOxsW1Cs06gVPvQusju2+wp4PpBwbHZUugwb3co=";
       };
 
-    patches = [ ./000-nixos-sanitization.patch ];
+    patches = [./000-nixos-sanitization.patch];
 
     postPatch = ''
       # Fix permissions.
@@ -116,7 +116,7 @@ stdenv.mkDerivation (
         icon = "VentoyLogo";
         exec = "ventoy-gui";
         terminal = false;
-        categories = [ "Utility" ];
+        categories = ["Utility"];
         startupNotify = true;
       })
     ];
@@ -209,14 +209,14 @@ stdenv.mkDerivation (
       '';
       changelog = "https://www.ventoy.net/doc_news.html";
       license = lib.licenses.gpl3Plus;
-      maintainers = with lib.maintainers; [ AndersonTorres ];
+      maintainers = with lib.maintainers; [AndersonTorres];
       platforms = [
         "x86_64-linux"
         "i686-linux"
         "aarch64-linux"
         "mipsel-linux"
       ];
-      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     };
   }
 )

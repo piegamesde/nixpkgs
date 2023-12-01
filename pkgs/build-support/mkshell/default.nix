@@ -9,19 +9,19 @@
 {
   name ? "nix-shell",
   # a list of packages to add to the shell environment
-  packages ? [ ],
+  packages ? [],
   # propagate all the inputs from the given derivations
-  inputsFrom ? [ ],
-  buildInputs ? [ ],
-  nativeBuildInputs ? [ ],
-  propagatedBuildInputs ? [ ],
-  propagatedNativeBuildInputs ? [ ],
+  inputsFrom ? [],
+  buildInputs ? [],
+  nativeBuildInputs ? [],
+  propagatedBuildInputs ? [],
+  propagatedNativeBuildInputs ? [],
   ...
 }@attrs:
 let
   mergeInputs =
     name:
-    (attrs.${name} or [ ])
+    (attrs.${name} or [])
     ++ (lib.subtractLists inputsFrom (lib.flatten (lib.catAttrs name inputsFrom)));
 
   rest = builtins.removeAttrs attrs [
@@ -46,10 +46,10 @@ stdenv.mkDerivation (
     propagatedNativeBuildInputs = mergeInputs "propagatedNativeBuildInputs";
 
     shellHook = lib.concatStringsSep "\n" (
-      lib.catAttrs "shellHook" (lib.reverseList inputsFrom ++ [ attrs ])
+      lib.catAttrs "shellHook" (lib.reverseList inputsFrom ++ [attrs])
     );
 
-    phases = [ "buildPhase" ];
+    phases = ["buildPhase"];
 
     buildPhase = ''
       { echo "------------------------------------------------------------";

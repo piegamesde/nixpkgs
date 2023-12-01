@@ -37,7 +37,7 @@ let
   #
   # See https://github.com/NixOS/nixpkgs/pull/198311#issuecomment-1326894295
   myCargoSetupHook = rustPlatform.cargoSetupHook.overrideAttrs (
-    old: { cargoConfig = if stdenv.isDarwin then "" else old.cargoConfig; }
+    old: {cargoConfig = if stdenv.isDarwin then "" else old.cargoConfig;}
   );
 
   src = fetchFromGitHub {
@@ -167,7 +167,7 @@ python3Packages.buildPythonApplication {
     );
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       curl
       libiconv

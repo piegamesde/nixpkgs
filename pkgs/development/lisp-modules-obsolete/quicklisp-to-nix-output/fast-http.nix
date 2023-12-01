@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "fast-http";
   version = "20191007-git";
@@ -25,7 +25,7 @@ rec {
 
   packageName = "fast-http";
 
-  asdFilesToKeep = [ "fast-http.asd" ];
+  asdFilesToKeep = ["fast-http.asd"];
   overrides = x: x;
 }
 /* (SYSTEM fast-http DESCRIPTION A fast HTTP protocol parser in Common Lisp

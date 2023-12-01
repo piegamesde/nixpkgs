@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     db
     expat
   ];
-  nativeBuildInputs = [ libtool ];
+  nativeBuildInputs = [libtool];
 
   meta = {
     homepage = "https://logging.apache.org/log4cxx/index.html";

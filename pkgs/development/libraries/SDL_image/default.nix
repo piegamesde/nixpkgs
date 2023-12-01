@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "CVE-2017-2887";
       url = "https://github.com/libsdl-org/SDL_image/commit/e7723676825cd2b2ffef3316ec1879d7726618f2.patch";
-      includes = [ "IMG_xcf.c" ];
+      includes = ["IMG_xcf.c"];
       sha256 = "174ka2r95i29nlshzgp6x5vc68v7pi8lhzf33and2b1ms49g4jb7";
     })
   ];
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     "--disable-tif-shared"
   ] ++ lib.optional stdenv.isDarwin "--disable-sdltest";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     SDL
     libpng
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "SDL image library";
     homepage = "http://www.libsdl.org/projects/SDL_image/";
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     platforms = platforms.unix;
     license = licenses.zlib;
   };

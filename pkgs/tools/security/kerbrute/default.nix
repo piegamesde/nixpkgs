@@ -1,4 +1,4 @@
-{ lib, python3 }:
+{lib, python3}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "kerbrute";
@@ -12,7 +12,7 @@ python3.pkgs.buildPythonApplication rec {
   # This package does not have any tests
   doCheck = false;
 
-  propagatedBuildInputs = with python3.pkgs; [ impacket ];
+  propagatedBuildInputs = with python3.pkgs; [impacket];
 
   installChechPhase = ''
     $out/bin/kerbrute --version
@@ -22,6 +22,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/TarlogicSecurity/kerbrute";
     description = "Kerberos bruteforce utility";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ applePrincess ];
+    maintainers = with lib.maintainers; [applePrincess];
   };
 }

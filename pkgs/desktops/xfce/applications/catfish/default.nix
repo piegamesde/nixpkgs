@@ -65,7 +65,7 @@ python3Packages.buildPythonApplication rec {
   # Disable check because there is no test in the source distribution
   doCheck = false;
 
-  passthru.updateScript = gitUpdater { rev-prefix = "${pname}-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "${pname}-";};
 
   meta = with lib; {
     homepage = "https://docs.xfce.org/apps/catfish/start";
@@ -78,6 +78,6 @@ python3Packages.buildPythonApplication rec {
     '';
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    maintainers = with maintainers; [] ++ teams.xfce.members;
   };
 }

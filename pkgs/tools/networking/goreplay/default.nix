@@ -33,7 +33,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  buildInputs = [ libpcap ];
+  buildInputs = [libpcap];
 
   doCheck = false;
 
@@ -42,6 +42,6 @@ buildGoModule rec {
     license = lib.licenses.lgpl3Only;
     description = "Open-source tool for capturing and replaying live HTTP traffic";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ lovek323 ];
+    maintainers = with lib.maintainers; [lovek323];
   };
 }

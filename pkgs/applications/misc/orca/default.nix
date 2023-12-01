@@ -91,7 +91,7 @@ buildPythonApplication rec {
   ];
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = pname; };
+    updateScript = gnome.updateScript {packageName = pname;};
   };
 
   meta = with lib; {
@@ -107,7 +107,7 @@ buildPythonApplication rec {
 
       Needs `services.gnome.at-spi2-core.enable = true;` in `configuration.nix`.
     '';
-    maintainers = with maintainers; [ berce ] ++ teams.gnome.members;
+    maintainers = with maintainers; [berce] ++ teams.gnome.members;
     license = licenses.lgpl21;
     platforms = platforms.linux;
   };

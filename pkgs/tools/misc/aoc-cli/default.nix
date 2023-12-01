@@ -19,9 +19,9 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-UdeCKhEWr1BjQ6OMLP19OLWPlvvP7FGAO+mi+bQUPQA=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
+  buildInputs = [openssl] ++ lib.optional stdenv.isDarwin Security;
 
   cargoHash = "sha256-EluP4N3UBQeEKVdHTs4O0THXji+nAyE52nGKsxA3AA4=";
 
@@ -29,6 +29,6 @@ rustPlatform.buildRustPackage rec {
     description = "Advent of code command line tool";
     homepage = "https://github.com/scarvalhojr/aoc-cli/";
     license = licenses.mit;
-    maintainers = with maintainers; [ jordanisaacs ];
+    maintainers = with maintainers; [jordanisaacs];
   };
 }

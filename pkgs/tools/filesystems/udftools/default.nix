@@ -21,9 +21,9 @@ stdenv.mkDerivation rec {
     ncurses
     readline
   ];
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   env.NIX_CFLAGS_COMPILE = "-std=gnu90";
 
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "UDF tools";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
   };

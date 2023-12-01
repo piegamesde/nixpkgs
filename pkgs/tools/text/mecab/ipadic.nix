@@ -14,7 +14,7 @@ stdenv.mkDerivation {
     sha256 = "08rmkvj0f0x6jq0axrjw2y5nam0mavv6x77dp9v4al0wi1ym4bxn";
   };
 
-  buildInputs = [ mecab-nodic ];
+  buildInputs = [mecab-nodic];
 
   configurePhase = ''
     ./configure --with-dicdir="$out"

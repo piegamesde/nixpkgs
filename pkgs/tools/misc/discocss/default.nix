@@ -20,7 +20,7 @@ stdenvNoCC.mkDerivation rec {
 
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase =
     ''
@@ -40,6 +40,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/mlvzk/discocss";
     license = licenses.mpl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ mlvzk ];
+    maintainers = with maintainers; [mlvzk];
   };
 }

@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
       mesa # for libgbm
     ];
 
-  runtimeDependencies = [ (lib.getLib udev) ];
+  runtimeDependencies = [(lib.getLib udev)];
 
   installPhase = ''
     runHook preInstall
@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
     description = "Fast, easy and reliable testing for anything that runs in a browser";
     homepage = "https://www.cypress.io";
     mainProgram = "Cypress";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.mit;
     platforms = lib.attrNames availableBinaries;
     maintainers = with maintainers; [

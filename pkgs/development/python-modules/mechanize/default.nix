@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-XoasB3c1fgBusEzSj37Z+BHUjf+mA9OJGsbSuSKA3JE=";
   };
 
-  propagatedBuildInputs = [ html5lib ];
+  propagatedBuildInputs = [html5lib];
 
   doCheck = false;
 

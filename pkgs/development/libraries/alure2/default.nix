@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "1gmc1yfhwaj6lik0vn7zv8y23i05f4rw25v2jg34n856jcs02svx";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     openal
     libvorbis
@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/kcat/alure";
     license = licenses.zlib;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ McSinyx ];
+    maintainers = with maintainers; [McSinyx];
   };
 }

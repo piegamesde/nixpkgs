@@ -39,7 +39,7 @@ let
     libglvnd
   ];
 
-  runBinDeps = [ gnome.zenity ];
+  runBinDeps = [gnome.zenity];
 in
 
 stdenv.mkDerivation rec {
@@ -103,7 +103,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://hexler.net/kodelife";
     description = "Real-time GPU shader editor";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     maintainers = with maintainers; [
       prusnak

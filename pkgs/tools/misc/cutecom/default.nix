@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
       --replace "/Applications" "$out/Applications"
   '';
 
-  buildInputs = [ qtserialport ];
+  buildInputs = [qtserialport];
   nativeBuildInputs = [
     cmake
     wrapQtAppsHook
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     description = "A graphical serial terminal";
     homepage = "https://gitlab.com/cutecom/cutecom/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ bennofs ];
+    maintainers = with maintainers; [bennofs];
     platforms = platforms.unix;
   };
 }

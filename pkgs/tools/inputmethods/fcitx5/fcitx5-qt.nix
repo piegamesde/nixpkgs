@@ -56,7 +56,7 @@ mkDerivation rec {
       lgpl21Plus
       bsd3
     ];
-    maintainers = with maintainers; [ poscat ];
+    maintainers = with maintainers; [poscat];
     platforms = platforms.linux;
   };
 }

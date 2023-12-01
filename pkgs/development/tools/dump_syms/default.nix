@@ -31,9 +31,9 @@ rustPlatform.buildRustPackage {
 
   cargoSha256 = "sha256-gWLd1MUpCeVRUgzqkA5USmlYDq8BmmB/EQfiFl9JsjA=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ] ++ lib.optionals (stdenv.isDarwin) [ Security ];
+  buildInputs = [openssl] ++ lib.optionals (stdenv.isDarwin) [Security];
 
   checkFlags = [
     # Disable tests that require network access
@@ -51,6 +51,6 @@ rustPlatform.buildRustPackage {
     description = "Command-line utility for parsing the debugging information the compiler provides in ELF or stand-alone PDB files";
     license = licenses.asl20;
     homepage = "https://github.com/mozilla/dump_syms/";
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

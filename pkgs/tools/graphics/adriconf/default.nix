@@ -41,13 +41,13 @@ stdenv.mkDerivation rec {
     pciutils
   ];
 
-  cmakeFlags = [ "-DENABLE_UNIT_TESTS=off" ];
+  cmakeFlags = ["-DENABLE_UNIT_TESTS=off"];
 
   meta = with lib; {
     homepage = "https://gitlab.freedesktop.org/mesa/adriconf/";
     description = "A GUI tool used to configure open source graphics drivers";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ muscaln ];
+    maintainers = with maintainers; [muscaln];
     platforms = platforms.linux;
   };
 }

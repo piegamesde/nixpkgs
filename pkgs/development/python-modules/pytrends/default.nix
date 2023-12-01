@@ -25,12 +25,12 @@ buildPythonPackage rec {
   ];
 
   doCheck = false;
-  pythonImportsCheck = [ "pytrends" ];
+  pythonImportsCheck = ["pytrends"];
 
   meta = with lib; {
     description = "Pseudo API for Google Trends";
     homepage = "https://github.com/GeneralMills/pytrends";
-    license = [ licenses.asl20 ];
-    maintainers = [ maintainers.mmahut ];
+    license = [licenses.asl20];
+    maintainers = [maintainers.mmahut];
   };
 }

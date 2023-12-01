@@ -64,7 +64,7 @@ python3.pkgs.buildPythonApplication rec {
     xxHash
     zstd
     openssl
-  ] ++ lib.optionals stdenv.isLinux [ acl ];
+  ] ++ lib.optionals stdenv.isLinux [acl];
 
   propagatedBuildInputs = with python3.pkgs; [
     msgpack
@@ -72,7 +72,7 @@ python3.pkgs.buildPythonApplication rec {
     (if stdenv.isLinux then pyfuse3 else llfuse)
   ];
 
-  makeWrapperArgs = [ ''--prefix PATH ':' "${openssh}/bin"'' ];
+  makeWrapperArgs = [''--prefix PATH ':' "${openssh}/bin"''];
 
   postInstall = ''
     installShellCompletion --cmd borg \

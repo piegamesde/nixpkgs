@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libnl
     openssl
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/sensepost/hostapd-mana";
     description = "A featureful rogue wifi access point tool";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ lourkeur ];
+    maintainers = with maintainers; [lourkeur];
     platforms = platforms.linux;
   };
 }

@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ libusb1 ];
+  buildInputs = [libusb1];
 
   # without this, libusb-compat is unable to find libusb1
   postFixup = ''

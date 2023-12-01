@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       patch -p1 -d llvm -i ${./wasm.patch}
     '';
 
-  patches = [ ./gnu-install-dirs.patch ];
+  patches = [./gnu-install-dirs.patch];
 
   nativeBuildInputs = [
     cmake
@@ -42,14 +42,14 @@ stdenv.mkDerivation rec {
   buildInputs = lib.optional withLibunwind libunwind;
 
   cmakeFlags =
-    [ "-DLIBCXXABI_LIBCXX_INCLUDES=${cxx-headers}/include/c++/v1" ]
-    ++ lib.optionals standalone [ "-DLLVM_ENABLE_LIBCXX=ON" ]
-    ++ lib.optionals (standalone && withLibunwind) [ "-DLIBCXXABI_USE_LLVM_UNWINDER=ON" ]
+    ["-DLIBCXXABI_LIBCXX_INCLUDES=${cxx-headers}/include/c++/v1"]
+    ++ lib.optionals standalone ["-DLLVM_ENABLE_LIBCXX=ON"]
+    ++ lib.optionals (standalone && withLibunwind) ["-DLIBCXXABI_USE_LLVM_UNWINDER=ON"]
     ++ lib.optionals stdenv.hostPlatform.isWasm [
       "-DLIBCXXABI_ENABLE_THREADS=OFF"
       "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
     ]
-    ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ];
+    ++ lib.optionals (!enableShared) ["-DLIBCXXABI_ENABLE_SHARED=OFF"];
 
   preInstall = lib.optionalString stdenv.isDarwin ''
     for file in lib/*.dylib; do
@@ -94,6 +94,6 @@ stdenv.mkDerivation rec {
       mit
       ncsa
     ];
-    maintainers = llvm_meta.maintainers ++ [ lib.maintainers.vlstill ];
+    maintainers = llvm_meta.maintainers ++ [lib.maintainers.vlstill];
   };
 }

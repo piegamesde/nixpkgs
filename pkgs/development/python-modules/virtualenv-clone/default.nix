@@ -26,14 +26,14 @@ buildPythonPackage rec {
       --replace "'virtualenv'" "'${virtualenv}/bin/virtualenv'"
   '';
 
-  propagatedBuildInputs = [ virtualenv ];
+  propagatedBuildInputs = [virtualenv];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     homepage = "https://github.com/edwardgeorge/virtualenv-clone";
     description = "Script to clone virtualenvs";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

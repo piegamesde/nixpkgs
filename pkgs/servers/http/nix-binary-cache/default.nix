@@ -63,9 +63,9 @@ stdenv.mkDerivation rec {
       nix-binary-cache-start that can be run without any setup to launch
       a binary cache and get the example arguments for its usage.
     '';
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.all;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-7vDxcnXhq1wJSLFHGxtwh+H+KWxh6B0JXSMPzSmQFXo=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     make install PREFIX="$out"
@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     description = "Small Footprint Scheme for use as a C Extension Language";
     platforms = lib.platforms.all;
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.DerGuteMoritz ];
+    maintainers = [lib.maintainers.DerGuteMoritz];
   };
 }

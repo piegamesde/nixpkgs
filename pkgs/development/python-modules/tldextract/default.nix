@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-+p5QxKA77eKh2V3KYg1mFnhIRiaFjM84jPlnGg3Ul6Q=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     filelock
@@ -45,7 +45,7 @@ buildPythonPackage rec {
       --replace " --pylint" ""
   '';
 
-  pythonImportsCheck = [ "tldextract" ];
+  pythonImportsCheck = ["tldextract"];
 
   meta = with lib; {
     description = "Python module to accurately separate the TLD from the domain of an URL";
@@ -54,7 +54,7 @@ buildPythonPackage rec {
       from the registered domain and subdomains of a URL.
     '';
     homepage = "https://github.com/john-kurkowski/tldextract";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
   };
 }

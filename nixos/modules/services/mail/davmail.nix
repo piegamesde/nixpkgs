@@ -36,7 +36,7 @@ let
         if isAttrs value then
           map (line: name + "." + line) (linesForAttrs value)
         else
-          [ "${name}=${toStr value}" ]
+          ["${name}=${toStr value}"]
       )
       (attrNames attrs);
 
@@ -55,7 +55,7 @@ in
 
     config = mkOption {
       type = configType;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Davmail configuration. Refer to
         <http://davmail.sourceforge.net/serversetup.html>
@@ -102,8 +102,8 @@ in
 
     systemd.services.davmail = {
       description = "DavMail POP/IMAP/SMTP Exchange Gateway";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "simple";
@@ -114,6 +114,6 @@ in
       };
     };
 
-    environment.systemPackages = [ pkgs.davmail ];
+    environment.systemPackages = [pkgs.davmail];
   };
 }

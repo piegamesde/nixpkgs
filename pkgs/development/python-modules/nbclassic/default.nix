@@ -63,14 +63,14 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "nbclassic" ];
+  pythonImportsCheck = ["nbclassic"];
 
   __darwinAllowLocalNetworking = true;
 
   meta = with lib; {
     description = "Jupyter lab environment notebook server extension";
     homepage = "https://github.com/jupyterlab/nbclassic";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ elohmeier ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [elohmeier];
   };
 }

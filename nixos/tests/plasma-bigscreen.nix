@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   {
     name = "plasma-bigscreen";
@@ -11,10 +11,10 @@ import ./make-test-python.nix (
     };
 
     nodes.machine =
-      { ... }:
+      {...}:
 
       {
-        imports = [ ./common/user-account.nix ];
+        imports = [./common/user-account.nix];
         services.xserver.enable = true;
         services.xserver.displayManager.sddm.enable = true;
         services.xserver.displayManager.defaultSession = "plasma-bigscreen-x11";
@@ -24,11 +24,11 @@ import ./make-test-python.nix (
           user = "alice";
         };
 
-        users.users.alice.extraGroups = [ "uinput" ];
+        users.users.alice.extraGroups = ["uinput"];
       };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         user = nodes.machine.users.users.alice;
         xdo = "${pkgs.xdotool}/bin/xdotool";

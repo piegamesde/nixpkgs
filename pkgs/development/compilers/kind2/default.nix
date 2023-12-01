@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-j64L3HNk2r+MH9eDHWT/ARJ9DT4CchcuVxtIYYVsDxo=";
 
   buildInputs =
-    lib.optionals stdenv.isDarwin [ darwin.apple_sdk_11_0.frameworks.Security ]
+    lib.optionals stdenv.isDarwin [darwin.apple_sdk_11_0.frameworks.Security]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
       darwin.apple_sdk_11_0.frameworks.CoreFoundation
     ];
@@ -30,6 +30,6 @@ rustPlatform.buildRustPackage rec {
     description = "A functional programming language and proof assistant";
     homepage = "https://github.com/kindelia/kind";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

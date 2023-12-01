@@ -44,7 +44,7 @@ stdenv.mkDerivation (
     pname = "rocdbgapi";
     version = "5.4.2";
 
-    outputs = [ "out" ] ++ lib.optionals buildDocs [ "doc" ];
+    outputs = ["out"] ++ lib.optionals buildDocs ["doc"];
 
     src = fetchFromGitHub {
       owner = "ROCm-Developer-Tools";
@@ -98,7 +98,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "Debugger support for control of execution and inspection state";
       homepage = "https://github.com/ROCm-Developer-Tools/ROCdbgapi";
-      license = with licenses; [ mit ];
+      license = with licenses; [mit];
       maintainers = teams.rocm.members;
       platforms = platforms.linux;
       broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;

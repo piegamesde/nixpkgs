@@ -24,8 +24,8 @@ let
       sha256 = "1psryc2ql1cp91xd3f8jz84mdaqvwzkdq2pr96nwn03ds4cd88wh";
     };
 
-    configureFlags = [ "--enable-mcpplib" ];
-    installFlags = [ "PREFIX=$(out)" ];
+    configureFlags = ["--enable-mcpplib"];
+    installFlags = ["PREFIX=$(out)"];
   };
 in
 stdenv.mkDerivation rec {
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
   ];
 
   doCheck = true;
-  nativeCheckInputs = with python3.pkgs; [ passlib ];
+  nativeCheckInputs = with python3.pkgs; [passlib];
   checkPhase =
     with lib;
     let
@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
     description = "The internet communications engine";
     license = licenses.gpl2Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     broken = stdenv.isDarwin;
   };
 }

@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
       ./fixup-miscompilations.patch
     ];
 
-  nativeBuildInputs = [ copyDesktopItems ];
+  nativeBuildInputs = [copyDesktopItems];
 
   buildInputs = [
     libX11
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
       Martin Thornquist).
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.linux;
   };
 }

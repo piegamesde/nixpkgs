@@ -31,6 +31,6 @@ buildGoModule rec {
       artistic1 # or
       gpl3
     ];
-    maintainers = with maintainers; [ Br1ght0ne ];
+    maintainers = with maintainers; [Br1ght0ne];
   };
 }

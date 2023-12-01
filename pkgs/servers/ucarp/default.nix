@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "0qidz5sr55nxlmnl8kcbjsrff2j97b44h9l1dmhvvjl46iji7q7j";
   };
 
-  buildInputs = [ libpcap ];
+  buildInputs = [libpcap];
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:
@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
       bsd2
       gpl2Plus
     ];
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
   };
 }

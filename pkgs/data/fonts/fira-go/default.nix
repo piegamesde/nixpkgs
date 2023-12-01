@@ -30,7 +30,7 @@ stdenvNoCC.mkDerivation {
       supports Arabic, Devenagari, Georgian, Hebrew and Thai
     '';
     license = licenses.ofl;
-    maintainers = [ maintainers.loicreynier ];
+    maintainers = [maintainers.loicreynier];
     platforms = platforms.all;
   };
 }

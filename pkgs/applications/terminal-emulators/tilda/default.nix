@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     description = "A Gtk based drop down terminal for Linux and Unix";
     homepage = "https://github.com/lanoxx/tilda/";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     platforms = platforms.linux;
   };
 }

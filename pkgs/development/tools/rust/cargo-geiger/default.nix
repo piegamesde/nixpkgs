@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-B6Ka35y2fJEDVd891P60TNppr5HGFnzVjLhhfoFCYUA=";
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin (
       with darwin.apple_sdk.frameworks; [
         CoreFoundation
@@ -34,9 +34,9 @@ rustPlatform.buildRustPackage rec {
       ]
     );
   nativeBuildInputs =
-    [ pkg-config ]
+    [pkg-config]
     # curl-sys wants to run curl-config on darwin
-    ++ lib.optionals stdenv.isDarwin [ curl.dev ];
+    ++ lib.optionals stdenv.isDarwin [curl.dev];
 
   # skip tests with networking or other failures
   checkFlags = [

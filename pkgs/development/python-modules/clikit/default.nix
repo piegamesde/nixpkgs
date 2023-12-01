@@ -40,14 +40,14 @@ buildPythonPackage rec {
       'crashtest = { version = "*", python = "^3.6" }'
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs =
     [
       pylev
       pastel
     ]
-    ++ lib.optionals (pythonAtLeast "3.6") [ crashtest ]
+    ++ lib.optionals (pythonAtLeast "3.6") [crashtest]
     ++ lib.optionals isPy27 [
       typing
       enum34
@@ -58,12 +58,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "clikit" ];
+  pythonImportsCheck = ["clikit"];
 
   meta = with lib; {
     homepage = "https://github.com/sdispater/clikit";
     description = "A group of utilities to build beautiful and testable command line interfaces";
     license = licenses.mit;
-    maintainers = with maintainers; [ jakewaksbaum ];
+    maintainers = with maintainers; [jakewaksbaum];
   };
 }

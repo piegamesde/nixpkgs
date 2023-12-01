@@ -40,6 +40,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Scanner for finding hosts which are vulnerable for log4j";
     homepage = "https://github.com/fullhunt/log4j-scan";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

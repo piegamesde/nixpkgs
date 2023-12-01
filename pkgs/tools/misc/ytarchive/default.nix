@@ -20,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-sjwQ/zEYJRkeWUDB7TzV8z+kET8lVRnQkXYbZbcUeHY=";
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   ldflags = [
     "-s"
@@ -29,13 +29,13 @@ buildGoModule rec {
   ];
 
   postInstall = ''
-    wrapProgram $out/bin/ytarchive --prefix PATH : ${lib.makeBinPath [ ffmpeg ]}
+    wrapProgram $out/bin/ytarchive --prefix PATH : ${lib.makeBinPath [ffmpeg]}
   '';
 
   meta = with lib; {
     homepage = "https://github.com/Kethsar/ytarchive";
     description = "Garbage Youtube livestream downloader";
     license = licenses.mit;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

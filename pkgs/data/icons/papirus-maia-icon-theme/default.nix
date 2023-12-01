@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Ste74/papirus-maia-icon-theme";
     license = licenses.lgpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

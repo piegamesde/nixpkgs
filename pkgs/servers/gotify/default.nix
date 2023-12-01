@@ -30,9 +30,9 @@ buildGoModule rec {
 
   doCheck = false;
 
-  buildInputs = [ sqlite ];
+  buildInputs = [sqlite];
 
-  ui = callPackage ./ui.nix { };
+  ui = callPackage ./ui.nix {};
 
   preBuild = ''
     cp -r ${ui}/libexec/gotify-ui/deps/gotify-ui/build ui/build && go run hack/packr/packr.go
@@ -44,7 +44,7 @@ buildGoModule rec {
 
   # Otherwise, all other subpackages are built as well and from some reason,
   # produce binaries which panic when executed and are not interesting at all
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-X main.Version=${version}"
@@ -55,7 +55,7 @@ buildGoModule rec {
     description = "A simple server for sending and receiving messages in real-time per WebSocket";
     homepage = "https://gotify.net";
     license = licenses.mit;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     mainProgram = "server";
   };
 }

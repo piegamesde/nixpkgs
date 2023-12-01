@@ -20,10 +20,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-AstE8KGICgPhqRKlJecrE9iPUUWaOvca6ocWf85IzNo=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # skip flaky test
-  checkFlags = [ "--skip=test_owner_current_group" ];
+  checkFlags = ["--skip=test_owner_current_group"];
 
   postInstall = ''
     installManPage doc/fd.1
@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage rec {
     installShellCompletion --zsh contrib/completion/_fd
   '';
 
-  passthru.tests.version = testers.testVersion { package = fd; };
+  passthru.tests.version = testers.testVersion {package = fd;};
 
   meta = with lib; {
     description = "A simple, fast and user-friendly alternative to find";

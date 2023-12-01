@@ -55,20 +55,20 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    [ cmake ]
-    ++ lib.optionals stdenv.isDarwin [ llvmPackages.openmp ]
+    [cmake]
+    ++ lib.optionals stdenv.isDarwin [llvmPackages.openmp]
     ++ lib.optionals openclSupport [
       opencl-headers
       ocl-icd
       boost
     ]
-    ++ lib.optionals mpiSupport [ openmpi ]
-    ++ lib.optionals hdfsSupport [ hadoop ]
-    ++ lib.optionals (hdfsSupport || javaWrapper) [ openjdk ]
-    ++ lib.optionals javaWrapper [ swig ]
-    ++ lib.optionals rLibrary [ R ];
+    ++ lib.optionals mpiSupport [openmpi]
+    ++ lib.optionals hdfsSupport [hadoop]
+    ++ lib.optionals (hdfsSupport || javaWrapper) [openjdk]
+    ++ lib.optionals javaWrapper [swig]
+    ++ lib.optionals rLibrary [R];
 
-  buildInputs = [ gtest ] ++ lib.optional cudaSupport cudaPackages.cudatoolkit;
+  buildInputs = [gtest] ++ lib.optional cudaSupport cudaPackages.cudatoolkit;
 
   propagatedBuildInputs = lib.optionals rLibrary [
     rPackages.data_table
@@ -96,20 +96,20 @@ stdenv.mkDerivation rec {
   '';
 
   cmakeFlags =
-    lib.optionals doCheck [ "-DBUILD_CPP_TEST=ON" ]
+    lib.optionals doCheck ["-DBUILD_CPP_TEST=ON"]
     ++ lib.optionals cudaSupport [
       "-DUSE_CUDA=1"
       "-DCMAKE_CXX_COMPILER=${cudaPackages.cudatoolkit.cc}/bin/cc"
     ]
-    ++ lib.optionals openclSupport [ "-DUSE_GPU=ON" ]
-    ++ lib.optionals mpiSupport [ "-DUSE_MPI=ON" ]
+    ++ lib.optionals openclSupport ["-DUSE_GPU=ON"]
+    ++ lib.optionals mpiSupport ["-DUSE_MPI=ON"]
     ++ lib.optionals hdfsSupport [
       "-DUSE_HDFS=ON"
       "-DHDFS_LIB=${hadoop}/lib/hadoop-3.3.1/lib/native/libhdfs.so"
       "-DHDFS_INCLUDE_DIR=${hadoop}/lib/hadoop-3.3.1/include"
     ]
-    ++ lib.optionals javaWrapper [ "-DUSE_SWIG=ON" ]
-    ++ lib.optionals rLibrary [ "-D__BUILD_FOR_R=ON" ];
+    ++ lib.optionals javaWrapper ["-DUSE_SWIG=ON"]
+    ++ lib.optionals rLibrary ["-D__BUILD_FOR_R=ON"];
 
   configurePhase = lib.optionals rLibrary ''
     export R_LIBS_SITE="$out/library:$R_LIBS_SITE''${R_LIBS_SITE:+:}"
@@ -175,6 +175,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/microsoft/LightGBM";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ nviets ];
+    maintainers = with maintainers; [nviets];
   };
 }

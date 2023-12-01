@@ -7,7 +7,7 @@
 bundlerApp {
   pname = "overcommit";
   gemdir = ./.;
-  exes = [ "overcommit" ];
+  exes = ["overcommit"];
 
   passthru = {
     updateScript = bundlerUpdateScript "overcommit";

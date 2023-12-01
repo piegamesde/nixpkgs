@@ -2,8 +2,8 @@
 
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
 import ./make-test-python.nix
@@ -12,7 +12,7 @@ import ./make-test-python.nix
 
     nodes = {
       bbmaster =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           services.buildbot-master = {
             enable = true;
@@ -38,7 +38,7 @@ import ./make-test-python.nix
         };
 
       bbworker =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           services.buildbot-worker = {
             enable = true;
@@ -51,17 +51,17 @@ import ./make-test-python.nix
         };
 
       gitrepo =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           services.openssh.enable = true;
           networking.firewall.allowedTCPPorts = [
             22
             9418
           ];
-          environment.systemPackages = with pkgs; [ git ];
+          environment.systemPackages = with pkgs; [git];
           systemd.services.git-daemon = {
             description = "Git daemon for the test";
-            wantedBy = [ "multi-user.target" ];
+            wantedBy = ["multi-user.target"];
             after = [
               "network.target"
               "sshd.service"
@@ -139,6 +139,6 @@ import ./make-test-python.nix
           bbworker.fail("nc -z bbmaster 8011")
     '';
 
-    meta.maintainers = with pkgs.lib.maintainers; [ ];
+    meta.maintainers = with pkgs.lib.maintainers; [];
   }
-  { }
+  {}

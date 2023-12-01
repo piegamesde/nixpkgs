@@ -27,11 +27,11 @@ buildPythonPackage rec {
       --replace "do espeak" "do ${espeak}/bin/espeak"
   '';
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "gruut_ipa" ];
+  pythonImportsCheck = ["gruut_ipa"];
 
   meta = with lib; {
     description = "Library for manipulating pronunciations using the International Phonetic Alphabet (IPA)";

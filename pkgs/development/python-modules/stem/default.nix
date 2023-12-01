@@ -22,7 +22,7 @@ buildPythonPackage rec {
     sed -i '/MOCK_VERSION/d' run_tests.py
   '';
 
-  nativeCheckInputs = [ mock ];
+  nativeCheckInputs = [mock];
 
   checkPhase = ''
     touch .gitignore
@@ -33,6 +33,6 @@ buildPythonPackage rec {
     description = "Controller library that allows applications to interact with Tor";
     homepage = "https://stem.torproject.org/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -33,7 +33,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/slurdge/goeland";
     changelog = "https://github.com/slurdge/goeland/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = [ maintainers.sweenu ];
+    license = with licenses; [mit];
+    maintainers = [maintainers.sweenu];
   };
 }

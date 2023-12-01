@@ -31,7 +31,7 @@ in
       enable = mkEnableOption (lib.mdDoc "the cinnamon desktop manager");
 
       sessionPath = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.package;
         example = literalExpression "[ pkgs.gnome.gpaste ]";
         description = lib.mdDoc ''
@@ -49,14 +49,14 @@ in
       };
 
       extraGSettingsOverridePackages = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.path;
         description = lib.mdDoc "List of packages for which gsettings are overridden.";
       };
     };
 
     environment.cinnamon.excludePackages = mkOption {
-      default = [ ];
+      default = [];
       example = literalExpression "[ pkgs.cinnamon.blueberry ]";
       type = types.listOf types.package;
       description = lib.mdDoc "Which packages cinnamon should exclude from the default environment";
@@ -65,7 +65,7 @@ in
 
   config = mkMerge [
     (mkIf cfg.enable {
-      services.xserver.displayManager.sessionPackages = [ pkgs.cinnamon.cinnamon-common ];
+      services.xserver.displayManager.sessionPackages = [pkgs.cinnamon.cinnamon-common];
 
       services.xserver.displayManager.lightdm.greeters.slick = {
         enable = mkDefault true;
@@ -139,7 +139,7 @@ in
 
       # Fix lockscreen
       security.pam.services = {
-        cinnamon-screensaver = { };
+        cinnamon-screensaver = {};
       };
 
       environment.systemPackages =

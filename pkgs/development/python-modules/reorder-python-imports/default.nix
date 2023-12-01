@@ -25,18 +25,18 @@ buildPythonPackage rec {
     classify-imports
   ];
 
-  pythonImportsCheck = [ "reorder_python_imports" ];
+  pythonImportsCheck = ["reorder_python_imports"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # prints an explanation about PYTHONPATH first
   # and therefore fails the assertion
-  disabledTests = [ "test_success_messages_are_printed_on_stderr" ];
+  disabledTests = ["test_success_messages_are_printed_on_stderr"];
 
   meta = with lib; {
     description = "Tool for automatically reordering python imports";
     homepage = "https://github.com/asottile/reorder_python_imports";
     license = licenses.mit;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

@@ -25,9 +25,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-qx6Ja0DMe4cEmDSpovtY9T3+0nJS9XivR92K3UKgacE=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
+  buildInputs = [openssl] ++ lib.optionals stdenv.isDarwin [CoreServices];
 
   # tests flaky on darwin on hydra
   doCheck = !stdenv.isDarwin;
@@ -41,6 +41,6 @@ rustPlatform.buildRustPackage rec {
     downloadPage = "https://github.com/rojo-rbx/rojo/releases/tag/v${version}";
     changelog = "https://github.com/rojo-rbx/rojo/raw/v${version}/CHANGELOG.md";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ wackbyte ];
+    maintainers = with maintainers; [wackbyte];
   };
 }

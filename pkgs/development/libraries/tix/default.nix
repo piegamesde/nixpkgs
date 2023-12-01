@@ -31,7 +31,7 @@ tcl.mkTclDerivation {
         sha256 = "1jaz0l22xj7x1k4rb9ia6i1psnbwk4pblgq4gfvya7gg7fbb7r36";
       }
     );
-  buildInputs = [ tk ];
+  buildInputs = [tk];
   # the configure script expects to find the location of the sources of
   # tcl and tk in {tcl,tk}Config.sh
   # In fact, it only needs some private headers. We copy them in

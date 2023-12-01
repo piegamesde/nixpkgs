@@ -52,7 +52,7 @@ let
   };
 
   # when building a headless jdk, also bootstrap it with a headless jdk
-  openjdk-bootstrap = openjdk16-bootstrap.override { gtkSupport = !headless; };
+  openjdk-bootstrap = openjdk16-bootstrap.override {gtkSupport = !headless;};
 
   openjdk = stdenv.mkDerivation {
     pname = "openjdk" + lib.optionalString headless "-headless";
@@ -122,7 +122,7 @@ let
         sha256 = "082lmc30x64x583vqq00c8y0wqih3y4r0mp1c4bqq36l22qv6b6r";
       })
       ./fix-glibc-2.34.patch
-    ] ++ lib.optionals (!headless && enableGnome2) [ ./swing-use-gtk-jdk13.patch ];
+    ] ++ lib.optionals (!headless && enableGnome2) [./swing-use-gtk-jdk13.patch];
 
     prePatch = ''
       chmod +x configure
@@ -184,7 +184,7 @@ let
     # still runs in parallel.
     enableParallelBuilding = false;
 
-    buildFlags = [ "all" ];
+    buildFlags = ["all"];
 
     installPhase = ''
       mkdir -p $out/lib
@@ -245,7 +245,7 @@ let
       done
     '';
 
-    disallowedReferences = [ openjdk-bootstrap ];
+    disallowedReferences = [openjdk-bootstrap];
 
     pos = builtins.unsafeGetAttrPos "feature" version;
     meta = import ./meta.nix lib version.feature;

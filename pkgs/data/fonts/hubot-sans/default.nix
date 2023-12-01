@@ -32,7 +32,7 @@ stdenvNoCC.mkDerivation rec {
       of a typeface to be incorporated into one single file, and are supported
       by all major browsers.
     '';
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
     platforms = lib.platforms.all;
   };
 }

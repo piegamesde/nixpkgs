@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       ncurses
     ]
     ++ lib.optionals stdenv.isDarwin (
-      [ Accelerate ]
+      [Accelerate]
       ++
         lib.optionals stdenv.isx86_64 # && isDarwin
           [
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
           ]
     );
 
-  nativeCheckInputs = [ expect ];
+  nativeCheckInputs = [expect];
   doCheck = true;
 
   makeFlags = [
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
       "gnu-variable-sized-type-not-at-end"
       "unused-result"
     ]
-    ++ lib.optionals stdenv.isDarwin [ "-fcommon" ]
+    ++ lib.optionals stdenv.isDarwin ["-fcommon"]
   );
 
   patchPhase = ''
@@ -103,10 +103,10 @@ stdenv.mkDerivation rec {
       used for local analytics, timeseries, logfile processing,
       and more.
     '';
-    license = with licenses; [ bsd2 ];
+    license = with licenses; [bsd2];
     homepage = "https://github.com/kevinlawler/kerf1";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
 
     # aarch64-linux seems hopeless, with over 2,000 warnings
     # generated?

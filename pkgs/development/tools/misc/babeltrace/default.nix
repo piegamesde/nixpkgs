@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.efficios.com/babeltrace";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

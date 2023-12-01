@@ -73,8 +73,8 @@ in
         '';
       }
     ];
-    environment.systemPackages = [ cfg.package ] ++ cfg.extraPackages;
-    environment.etc."i3/config" = mkIf (cfg.configFile != null) { source = cfg.configFile; };
+    environment.systemPackages = [cfg.package] ++ cfg.extraPackages;
+    environment.etc."i3/config" = mkIf (cfg.configFile != null) {source = cfg.configFile;};
   };
 
   imports = [

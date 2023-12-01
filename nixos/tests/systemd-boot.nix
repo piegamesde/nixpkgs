@@ -1,10 +1,10 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
 
 let
@@ -13,13 +13,13 @@ let
     virtualisation.useEFIBoot = true;
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
-    environment.systemPackages = [ pkgs.efibootmgr ];
+    environment.systemPackages = [pkgs.efibootmgr];
   };
 in
 {
   basic = makeTest {
     name = "systemd-boot";
-    meta.maintainers = with pkgs.lib.maintainers; [ danielfullmer ];
+    meta.maintainers = with pkgs.lib.maintainers; [danielfullmer];
 
     nodes.machine = common;
 
@@ -43,13 +43,13 @@ in
   # Check that specialisations create corresponding boot entries.
   specialisation = makeTest {
     name = "systemd-boot-specialisation";
-    meta.maintainers = with pkgs.lib.maintainers; [ lukegb ];
+    meta.maintainers = with pkgs.lib.maintainers; [lukegb];
 
     nodes.machine =
-      { pkgs, lib, ... }:
+      {pkgs, lib, ...}:
       {
-        imports = [ common ];
-        specialisation.something.configuration = { };
+        imports = [common];
+        specialisation.something.configuration = {};
       };
 
     testScript = ''
@@ -68,12 +68,12 @@ in
   # Boot without having created an EFI entry--instead using default "/EFI/BOOT/BOOTX64.EFI"
   fallback = makeTest {
     name = "systemd-boot-fallback";
-    meta.maintainers = with pkgs.lib.maintainers; [ danielfullmer ];
+    meta.maintainers = with pkgs.lib.maintainers; [danielfullmer];
 
     nodes.machine =
-      { pkgs, lib, ... }:
+      {pkgs, lib, ...}:
       {
-        imports = [ common ];
+        imports = [common];
         boot.loader.efi.canTouchEfiVariables = mkForce false;
       };
 
@@ -96,7 +96,7 @@ in
 
   update = makeTest {
     name = "systemd-boot-update";
-    meta.maintainers = with pkgs.lib.maintainers; [ danielfullmer ];
+    meta.maintainers = with pkgs.lib.maintainers; [danielfullmer];
 
     nodes.machine = common;
 
@@ -118,14 +118,14 @@ in
 
   memtest86 = makeTest {
     name = "systemd-boot-memtest86";
-    meta.maintainers = with pkgs.lib.maintainers; [ Enzime ];
+    meta.maintainers = with pkgs.lib.maintainers; [Enzime];
 
     nodes.machine =
-      { pkgs, lib, ... }:
+      {pkgs, lib, ...}:
       {
-        imports = [ common ];
+        imports = [common];
         boot.loader.systemd-boot.memtest86.enable = true;
-        nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "memtest86-efi" ];
+        nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) ["memtest86-efi"];
       };
 
     testScript = ''
@@ -136,12 +136,12 @@ in
 
   netbootxyz = makeTest {
     name = "systemd-boot-netbootxyz";
-    meta.maintainers = with pkgs.lib.maintainers; [ Enzime ];
+    meta.maintainers = with pkgs.lib.maintainers; [Enzime];
 
     nodes.machine =
-      { pkgs, lib, ... }:
+      {pkgs, lib, ...}:
       {
-        imports = [ common ];
+        imports = [common];
         boot.loader.systemd-boot.netbootxyz.enable = true;
       };
 
@@ -153,15 +153,15 @@ in
 
   entryFilename = makeTest {
     name = "systemd-boot-entry-filename";
-    meta.maintainers = with pkgs.lib.maintainers; [ Enzime ];
+    meta.maintainers = with pkgs.lib.maintainers; [Enzime];
 
     nodes.machine =
-      { pkgs, lib, ... }:
+      {pkgs, lib, ...}:
       {
-        imports = [ common ];
+        imports = [common];
         boot.loader.systemd-boot.memtest86.enable = true;
         boot.loader.systemd-boot.memtest86.entryFilename = "apple.conf";
-        nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "memtest86-efi" ];
+        nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) ["memtest86-efi"];
       };
 
     testScript = ''
@@ -173,12 +173,12 @@ in
 
   extraEntries = makeTest {
     name = "systemd-boot-extra-entries";
-    meta.maintainers = with pkgs.lib.maintainers; [ Enzime ];
+    meta.maintainers = with pkgs.lib.maintainers; [Enzime];
 
     nodes.machine =
-      { pkgs, lib, ... }:
+      {pkgs, lib, ...}:
       {
-        imports = [ common ];
+        imports = [common];
         boot.loader.systemd-boot.extraEntries = {
           "banana.conf" = ''
             title banana
@@ -194,12 +194,12 @@ in
 
   extraFiles = makeTest {
     name = "systemd-boot-extra-files";
-    meta.maintainers = with pkgs.lib.maintainers; [ Enzime ];
+    meta.maintainers = with pkgs.lib.maintainers; [Enzime];
 
     nodes.machine =
-      { pkgs, lib, ... }:
+      {pkgs, lib, ...}:
       {
-        imports = [ common ];
+        imports = [common];
         boot.loader.systemd-boot.extraFiles = {
           "efi/fruits/tomato.efi" = pkgs.netbootxyz-efi;
         };
@@ -213,30 +213,30 @@ in
 
   switch-test = makeTest {
     name = "systemd-boot-switch-test";
-    meta.maintainers = with pkgs.lib.maintainers; [ Enzime ];
+    meta.maintainers = with pkgs.lib.maintainers; [Enzime];
 
     nodes = {
       inherit common;
 
       machine =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
-          imports = [ common ];
+          imports = [common];
           boot.loader.systemd-boot.extraFiles = {
             "efi/fruits/tomato.efi" = pkgs.netbootxyz-efi;
           };
         };
 
       with_netbootxyz =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
-          imports = [ common ];
+          imports = [common];
           boot.loader.systemd-boot.netbootxyz.enable = true;
         };
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         originalSystem = nodes.machine.config.system.build.toplevel;
         baseSystem = nodes.common.config.system.build.toplevel;

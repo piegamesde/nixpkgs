@@ -25,10 +25,10 @@ let
     icon = "wavebox";
     desktopName = name;
     genericName = name;
-    categories = [ "Network" ];
+    categories = ["Network"];
   };
 
-  tarball = "Wavebox_${lib.replaceStrings [ "." ] [ "_" ] (toString version)}_linux_${bits}.tar.gz";
+  tarball = "Wavebox_${lib.replaceStrings ["."] ["_"] (toString version)}_linux_${bits}.tar.gz";
 in
 stdenv.mkDerivation {
   pname = "wavebox";
@@ -84,8 +84,8 @@ stdenv.mkDerivation {
     description = "Wavebox messaging application";
     homepage = "https://wavebox.io";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ rawkode ];
-    platforms = [ "x86_64-linux" ];
-    hydraPlatforms = [ ];
+    maintainers = with maintainers; [rawkode];
+    platforms = ["x86_64-linux"];
+    hydraPlatforms = [];
   };
 }

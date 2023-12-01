@@ -21,16 +21,16 @@ buildPythonPackage rec {
     hash = "sha256-H18petSiUdftZN8Q3fPmfSJA3OZks+gI+FAq9LwkRsk=";
   };
 
-  propagatedBuildInputs = [ libcec ];
+  propagatedBuildInputs = [libcec];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pycec" ];
+  pythonImportsCheck = ["pycec"];
 
   meta = with lib; {
     description = "Python modules to access HDMI CEC devices";
     homepage = "https://github.com/konikvranik/pycec/";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

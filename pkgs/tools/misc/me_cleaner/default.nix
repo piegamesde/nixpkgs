@@ -23,6 +23,6 @@ python3.pkgs.buildPythonPackage rec {
       with the final purpose of reducing its ability to interact with the system.
     '';
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

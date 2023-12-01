@@ -21,19 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-XRtbb7kceiqi8pioTWStRo0drCtQfy1t62jCMihlIec=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   # Module doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pyprusalink" ];
+  pythonImportsCheck = ["pyprusalink"];
 
   meta = with lib; {
     description = "Library to communicate with PrusaLink ";
     homepage = "https://github.com/home-assistant-libs/pyprusalink";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

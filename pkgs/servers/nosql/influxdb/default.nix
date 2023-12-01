@@ -37,7 +37,7 @@ let
       ];
     sourceRoot = "source/libflux";
     cargoSha256 = "sha256-kYiZ5ZRiFHRf1RQeeUGjIhnEkTvhNSZ0t4tidpRIDyk=";
-    nativeBuildInputs = [ llvmPackages.libclang ];
+    nativeBuildInputs = [llvmPackages.libclang];
     buildInputs = lib.optional stdenv.isDarwin libiconv;
     LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
     pkgcfg = ''
@@ -47,7 +47,7 @@ let
       Cflags: -I/out/include
       Libs: -L/out/lib -lflux -lpthread
     '';
-    passAsFile = [ "pkgcfg" ];
+    passAsFile = ["pkgcfg"];
     postInstall =
       ''
         mkdir -p $out/include $out/pkgconfig
@@ -73,7 +73,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-AY04cmfg7vbrWR4+LBuCFYqBgQJBXlPpO+2oj0qqjM4=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   PKG_CONFIG_PATH = "${flux}/pkgconfig";
 

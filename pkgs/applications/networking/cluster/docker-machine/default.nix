@@ -19,7 +19,7 @@ buildGoPackage rec {
     sha256 = "sha256-Mo2OGpem3p6hCNJ46+RH3BfC7kmKB4yk4Vzo38K88UM=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     pushd go/src/${goPackagePath}/contrib/completion

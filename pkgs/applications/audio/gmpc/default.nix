@@ -31,10 +31,10 @@ stdenv.mkDerivation rec {
       url = "https://download.sarine.nl/Programs/gmpc/${lib.versions.majorMinor version}/libmpd-${version}.tar.gz";
       sha256 = "10vspwsgr8pwf3qp2bviw6b2l8prgdiswgv7qiqiyr0h1mmk487y";
     };
-    patches = [ ./libmpd-11.8.17-remove-strndup.patch ];
+    patches = [./libmpd-11.8.17-remove-strndup.patch];
 
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ glib ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [glib];
   };
 
   src = fetchurl {
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gmpclient.org";
     description = "A GTK2 frontend for Music Player Daemon";
     license = licenses.gpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

@@ -62,6 +62,6 @@ stdenv.mkDerivation rec {
     inherit (src.meta) homepage;
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ gnxlxnxx ];
+    maintainers = with maintainers; [gnxlxnxx];
   };
 }

@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "generic-cl_dot_internal";
   version = "generic-cl-20211020-git";
@@ -39,7 +39,7 @@ rec {
 
   packageName = "generic-cl.internal";
 
-  asdFilesToKeep = [ "generic-cl.internal.asd" ];
+  asdFilesToKeep = ["generic-cl.internal.asd"];
   overrides = x: x;
 }
 /* (SYSTEM generic-cl.internal DESCRIPTION

@@ -17,8 +17,8 @@ stdenv.mkDerivation {
     rev = "v${version}";
     sha256 = "1wy9wfvyradp0aigfv8yijvj0dgb5kpq2yf2xki15f605jc1r5dm";
   };
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libpng ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libpng];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -31,6 +31,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/google/guetzli";
     license = lib.licenses.asl20;
     platforms = lib.platforms.x86_64;
-    maintainers = [ lib.maintainers.seppeljordan ];
+    maintainers = [lib.maintainers.seppeljordan];
   };
 }

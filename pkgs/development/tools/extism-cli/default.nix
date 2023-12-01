@@ -17,8 +17,8 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-LRzXuZQt5h3exw43UXUwLVIhveYVFw/SQ2YtHI9ZnWc=";
   };
 
-  buildInputs = [ python3 ];
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  buildInputs = [python3];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -37,7 +37,7 @@ stdenvNoCC.mkDerivation rec {
     description = "The extism CLI is used to manage Extism installations";
     homepage = "https://github.com/extism/cli";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ borlaag ];
+    maintainers = with maintainers; [borlaag];
     platforms = platforms.all;
   };
 }

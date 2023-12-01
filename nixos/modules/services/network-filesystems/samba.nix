@@ -51,9 +51,9 @@ let
   daemonService = appName: args: {
     description = "Samba Service Daemon ${appName}";
 
-    after = [ (mkIf (cfg.enableNmbd && "${appName}" == "smbd") "samba-nmbd.service") ];
-    requiredBy = [ "samba.target" ];
-    partOf = [ "samba.target" ];
+    after = [(mkIf (cfg.enableNmbd && "${appName}" == "smbd") "samba-nmbd.service")];
+    requiredBy = ["samba.target"];
+    partOf = ["samba.target"];
 
     environment = {
       LD_LIBRARY_PATH = nssModulesPath;
@@ -70,7 +70,7 @@ let
     };
     unitConfig.RequiresMountsFor = "/var/lib/samba";
 
-    restartTriggers = [ configFile ];
+    restartTriggers = [configFile];
   };
 in
 
@@ -157,7 +157,7 @@ in
 
       invalidUsers = mkOption {
         type = types.listOf types.str;
-        default = [ "root" ];
+        default = ["root"];
         description = lib.mdDoc ''
           List of users who are denied to login via Samba.
         '';
@@ -201,7 +201,7 @@ in
       };
 
       shares = mkOption {
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           A set describing shared resources.
           See {command}`man smb.conf` for options.
@@ -245,9 +245,9 @@ in
       systemd = {
         targets.samba = {
           description = "Samba Server";
-          after = [ "network.target" ];
-          wants = [ "network-online.target" ];
-          wantedBy = [ "multi-user.target" ];
+          after = ["network.target"];
+          wants = ["network-online.target"];
+          wantedBy = ["multi-user.target"];
         };
         # Refer to https://github.com/samba-team/samba/tree/master/packaging/systemd
         # for correct use with systemd
@@ -264,8 +264,8 @@ in
         ];
       };
 
-      security.pam.services.samba = { };
-      environment.systemPackages = [ cfg.package ];
+      security.pam.services.samba = {};
+      environment.systemPackages = [cfg.package];
 
       networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [
         139

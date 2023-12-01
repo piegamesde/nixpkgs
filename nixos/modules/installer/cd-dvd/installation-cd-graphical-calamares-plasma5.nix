@@ -1,10 +1,10 @@
 # This module defines a NixOS installation CD that contains X11 and
 # Plasma 5.
 
-{ pkgs, ... }:
+{pkgs, ...}:
 
 {
-  imports = [ ./installation-cd-graphical-calamares.nix ];
+  imports = [./installation-cd-graphical-calamares.nix];
 
   isoImage.edition = "plasma5";
 

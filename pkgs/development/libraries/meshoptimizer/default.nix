@@ -23,7 +23,7 @@ stdenv.mkDerivation {
     rev = "49d9222385daf61a9ce75bb4699472408eb3df3e";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   outputs = [
     "bin"
@@ -40,7 +40,7 @@ stdenv.mkDerivation {
     description = "Mesh optimization library that makes meshes smaller and faster to render";
     homepage = "https://github.com/zeux/meshoptimizer";
     license = licenses.mit;
-    maintainers = [ maintainers.lillycham ];
+    maintainers = [maintainers.lillycham];
     platforms = platforms.all;
     mainProgram = "gltfpack";
   };

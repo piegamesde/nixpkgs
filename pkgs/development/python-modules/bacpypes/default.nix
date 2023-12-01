@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-BHCHI36nTqBj2dkHB/Y5qkC4uJCmzbHGzSFWKNsIdbc=";
   };
 
-  propagatedBuildInputs = [ wheel ];
+  propagatedBuildInputs = [wheel];
 
   # Using pytes instead of setuptools check hook allows disabling specific tests
   nativeCheckInputs = [
@@ -38,6 +38,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/JoelBender/bacpypes";
     description = "BACpypes provides a BACnet application layer and network layer written in Python for daemons, scripting, and graphical interfaces.";
     license = licenses.mit;
-    maintainers = with maintainers; [ bachp ];
+    maintainers = with maintainers; [bachp];
   };
 }

@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "dbd-mysql";
   version = "cl-dbi-20211020-git";
@@ -25,7 +25,7 @@ rec {
 
   packageName = "dbd-mysql";
 
-  asdFilesToKeep = [ "dbd-mysql.asd" ];
+  asdFilesToKeep = ["dbd-mysql.asd"];
   overrides = x: x;
 }
 /* (SYSTEM dbd-mysql DESCRIPTION Database driver for MySQL. SHA256

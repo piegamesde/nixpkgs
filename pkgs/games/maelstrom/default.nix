@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   };
 
   # this fixes a typedef compilation error with gcc-3.x
-  patches = [ ./fix-compilation.patch ];
+  patches = [./fix-compilation.patch];
 
   buildInputs = [
     SDL2
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       desktopName = "Maelstrom";
       genericName = "Maelstrom";
       comment = "An arcade-style game resembling Asteroids";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     description = "An arcade-style game resembling Asteroids";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ tmountain ];
+    maintainers = with maintainers; [tmountain];
   };
 }

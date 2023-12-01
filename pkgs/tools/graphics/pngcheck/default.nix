@@ -14,16 +14,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DX4mLyQRb93yhHqM61yS2fXybvtC6f/2PsK7dnYTHKc=";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace Makefile.unx --replace "gcc" "clang"
   '';
 
   makefile = "Makefile.unx";
-  makeFlags = [ "ZPATH=${zlib.static}/lib" ];
+  makeFlags = ["ZPATH=${zlib.static}/lib"];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   installPhase = ''
     mkdir -p $out/bin/
@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     description = "Verifies the integrity of PNG, JNG and MNG files";
     license = licenses.free;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ starcraft66 ];
+    maintainers = with maintainers; [starcraft66];
   };
 }

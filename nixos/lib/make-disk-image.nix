@@ -110,7 +110,7 @@
   # user and group name that will be set as owner of the files.
   # `mode', `user', and `group' are optional.
   # When setting one of `user' or `group', the other needs to be set too.
-  contents ? [ ],
+  contents ? [],
 
   # Type of partition table to use; either "legacy", "efi", or "none".
   # For "efi" images, the GPT partition table is used and a mandatory ESP
@@ -191,7 +191,7 @@
   copyChannel ? true,
 
   # Additional store paths to copy to the image's store.
-  additionalPaths ? [ ],
+  additionalPaths ? [],
 }:
 
 assert (lib.assertOneOf "partitionTableType" partitionTableType [
@@ -217,7 +217,7 @@ assert (lib.assertMsg
   "EFI variables can be used only with a partition table of type: hybrid, efi or legacy+gpt."
 );
 # If only Nix store image, then: contents must be empty, configFile must be unset, and we should no install bootloader.
-assert (lib.assertMsg (onlyNixStore -> contents == [ ] && configFile == null && !installBootLoader)
+assert (lib.assertMsg (onlyNixStore -> contents == [] && configFile == null && !installBootLoader)
   "In a only Nix store image, the contents must be empty, no configuration must be provided and no bootloader should be installed."
 );
 # Either both or none of {user,group} need to be set
@@ -323,7 +323,7 @@ let
   nixpkgs = cleanSource pkgs.path;
 
   # FIXME: merge with channel.nix / make-channel.nix.
-  channelSources = pkgs.runCommand "nixos-${config.system.nixos.version}" { } ''
+  channelSources = pkgs.runCommand "nixos-${config.system.nixos.version}" {} ''
     mkdir -p $out
     cp -prd ${nixpkgs.outPath} $out/nixos
     chmod -R u+w $out/nixos
@@ -361,11 +361,11 @@ let
   users = map (x: x.user or "''") contents;
   groups = map (x: x.group or "''") contents;
 
-  basePaths = [ config.system.build.toplevel ] ++ lib.optional copyChannel channelSources;
+  basePaths = [config.system.build.toplevel] ++ lib.optional copyChannel channelSources;
 
   additionalPaths' = subtractLists basePaths additionalPaths;
 
-  closureInfo = pkgs.closureInfo { rootPaths = basePaths ++ additionalPaths'; };
+  closureInfo = pkgs.closureInfo {rootPaths = basePaths ++ additionalPaths';};
 
   blockSize = toString (4 * 1024); # ext4fs block size (not block device sector size)
 
@@ -462,7 +462,7 @@ let
       ${if copyChannel then "--channel ${channelSources}" else "--no-channel-copy"} \
       --substituters ""
 
-    ${optionalString (additionalPaths' != [ ]) ''
+    ${optionalString (additionalPaths' != []) ''
       nix --extra-experimental-features nix-command copy --to $root --no-check-sigs ${concatStringsSep " " additionalPaths'}
     ''}
 
@@ -583,7 +583,7 @@ let
         postVM = moveOrConvertImage + postVM;
         QEMU_OPTS = concatStringsSep " " (
           lib.optional useEFIBoot "-drive if=pflash,format=raw,unit=0,readonly=on,file=${efiFirmware}"
-          ++ lib.optionals touchEFIVars [ "-drive if=pflash,format=raw,unit=1,file=$efiVars" ]
+          ++ lib.optionals touchEFIVars ["-drive if=pflash,format=raw,unit=1,file=$efiVars"]
         );
         inherit memSize;
       }
@@ -667,6 +667,6 @@ let
   );
 in
 if onlyNixStore then
-  pkgs.runCommand name { } (prepareImage + moveOrConvertImage + postVM)
+  pkgs.runCommand name {} (prepareImage + moveOrConvertImage + postVM)
 else
   buildImage

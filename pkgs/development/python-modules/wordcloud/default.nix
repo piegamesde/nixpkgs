@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-ogSkVcPUth7bh7mxwdDmF/Fc2ySDxbLA8ArmBNnPvw8=";
   };
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
   propagatedBuildInputs = [
     matplotlib
@@ -48,7 +48,7 @@ buildPythonPackage rec {
     cd test
   '';
 
-  pythonImportsCheck = [ "wordcloud" ];
+  pythonImportsCheck = ["wordcloud"];
 
   disabledTests =
     [
@@ -60,6 +60,6 @@ buildPythonPackage rec {
     description = "Word cloud generator in Python";
     homepage = "https://github.com/amueller/word_cloud";
     license = licenses.mit;
-    maintainers = with maintainers; [ jm2dev ];
+    maintainers = with maintainers; [jm2dev];
   };
 }

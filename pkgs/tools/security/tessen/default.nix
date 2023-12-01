@@ -59,6 +59,6 @@ stdenvNoCC.mkDerivation rec {
     description = "An interactive menu to autotype and copy Pass and GoPass data";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ monaaraj ];
+    maintainers = with maintainers; [monaaraj];
   };
 }

@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "1gmy5inlghycsxiwnyyjyv81jn2fmfk3s9x78kcgyf7khzb5kwvj";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     install -Dm 755 todofi.sh -t $out/bin
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     description = "Todo-txt + Rofi = Todofi.sh";
     homepage = "https://github.com/hugokernel/todofi.sh";
     license = licenses.mit;
-    maintainers = with maintainers; [ ewok ];
+    maintainers = with maintainers; [ewok];
     platforms = platforms.linux;
   };
 }

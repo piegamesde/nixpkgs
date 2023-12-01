@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     description = "Tools to display or change the CPU governor settings";
     homepage = "http://ftp.be.debian.org/pub/linux/utils/kernel/cpufreq/cpufrequtils.html";
     license = licenses.gpl2Only;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

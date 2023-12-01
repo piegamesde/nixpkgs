@@ -10,17 +10,17 @@
   pname,
   version,
   src,
-  beamDeps ? [ ],
-  buildPlugins ? [ ],
+  beamDeps ? [],
+  buildPlugins ? [],
   checkouts ? null,
   releaseType,
-  buildInputs ? [ ],
+  buildInputs ? [],
   setupHook ? null,
   profile ? "default",
   installPhase ? null,
   buildPhase ? null,
   configurePhase ? null,
-  meta ? { },
+  meta ? {},
   ...
 }@attrs:
 
@@ -29,7 +29,7 @@ let
     drv:
     stdenv.mkDerivation {
       name = "interactive-shell-${drv.pname}";
-      buildInputs = [ drv ];
+      buildInputs = [drv];
     };
 
   customPhases = lib.filterAttrs (_: v: v != null) {
@@ -46,10 +46,10 @@ let
   # `rebar3` package is an escript archive with bundled dependencies which can
   # interfere with those in the app we are trying to build. `rebar3WithPlugins`
   # doesn't have this issue since it puts its own deps last on the code path.
-  rebar3 = rebar3WithPlugins { plugins = buildPlugins; };
+  rebar3 = rebar3WithPlugins {plugins = buildPlugins;};
 
   pkg =
-    assert beamDeps != [ ] -> checkouts == null;
+    assert beamDeps != [] -> checkouts == null;
     self:
     stdenv.mkDerivation (
       attrs
@@ -72,7 +72,7 @@ let
 
         inherit src;
 
-        REBAR_IGNORE_DEPS = beamDeps != [ ];
+        REBAR_IGNORE_DEPS = beamDeps != [];
 
         configurePhase = ''
           runHook preConfigure
@@ -115,7 +115,7 @@ let
               packageName = pname;
               env = shell self;
             }
-            // (if attrs ? passthru then attrs.passthru else { })
+            // (if attrs ? passthru then attrs.passthru else {})
           );
       }
       // customPhases

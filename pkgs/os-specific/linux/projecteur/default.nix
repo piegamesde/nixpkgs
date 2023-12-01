@@ -45,6 +45,6 @@ mkDerivation rec {
     homepage = "https://github.com/jahnf/Projecteur";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ benneti ];
+    maintainers = with maintainers; [benneti];
   };
 }

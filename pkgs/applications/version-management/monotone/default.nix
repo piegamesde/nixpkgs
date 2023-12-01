@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A free distributed version control system";
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.unix;
     license = licenses.gpl2Plus;
   };

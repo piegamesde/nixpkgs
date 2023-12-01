@@ -17,8 +17,8 @@ stdenv.mkDerivation {
     sha256 = "phu1x0yahK/B2bSOCvlze7UJw8smX9zw6dJTpDD9chM=";
   };
 
-  nativeBuildInputs = [ perl ];
-  buildInputs = [ mlton ];
+  nativeBuildInputs = [perl];
+  buildInputs = [mlton];
 
   patchPhase = "patchShebangs .";
 
@@ -32,7 +32,7 @@ stdenv.mkDerivation {
     description = "Automatic theorem prover for first-order logic with equality";
     homepage = "https://www.gilith.com/research/metis/";
     license = licenses.mit;
-    maintainers = with maintainers; [ gebner ];
+    maintainers = with maintainers; [gebner];
     platforms = platforms.unix;
   };
 }

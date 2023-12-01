@@ -15,13 +15,13 @@
   ghcWithPackages,
   makeWrapper,
   diagrams-builder,
-  extraPackages ? (self: [ ]),
+  extraPackages ? (self: []),
 }:
 
 let
 
   # Used same technique as for the yiCustom package.
-  wrappedGhc = ghcWithPackages (self: [ diagrams-builder ] ++ extraPackages self);
+  wrappedGhc = ghcWithPackages (self: [diagrams-builder] ++ extraPackages self);
   ghcVersion = wrappedGhc.version;
 
   exeWrapper = backend: ''
@@ -41,7 +41,7 @@ in
 stdenv.mkDerivation {
   name = "diagrams-builder";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildCommand = with lib; concatStringsSep "\n" (map exeWrapper backends);
 

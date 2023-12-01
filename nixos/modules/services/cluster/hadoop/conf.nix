@@ -39,7 +39,7 @@ let
     export HADOOP_LOG_DIR=/tmp/hadoop/$USER
   '';
 in
-pkgs.runCommand "hadoop-conf" { } (
+pkgs.runCommand "hadoop-conf" {} (
   with cfg; ''
     mkdir -p $out/
     cp ${siteXml "core-site.xml" (coreSite // coreSiteInternal)}/* $out/

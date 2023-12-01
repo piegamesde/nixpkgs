@@ -20,7 +20,7 @@ let
       hash = "sha256-5WvrhO2tGdzBHTDo2biV913ute9elrhKRnBms7hLsE4=";
     };
 
-    nativeBuildInputs = [ setuptools-scm ];
+    nativeBuildInputs = [setuptools-scm];
 
     propagatedBuildInputs = [
       six
@@ -36,14 +36,14 @@ let
     doCheck = false;
 
     passthru.tests = {
-      check = automat.overridePythonAttrs (_: { doCheck = true; });
+      check = automat.overridePythonAttrs (_: {doCheck = true;});
     };
 
     meta = with lib; {
       homepage = "https://github.com/glyph/Automat";
       description = "Self-service finite-state machines for the programmer on the go";
       license = licenses.mit;
-      maintainers = with maintainers; [ SuperSandro2000 ];
+      maintainers = with maintainers; [SuperSandro2000];
     };
   };
 in

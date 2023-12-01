@@ -85,7 +85,7 @@ in
               str
             ]
           );
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           NZBGet configuration, passed via command line using switch -o. Refer to
           <https://github.com/nzbget/nzbget/blob/master/nzbget.conf>
@@ -119,8 +119,8 @@ in
 
     systemd.services.nzbget = {
       description = "NZBGet Daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       path = with pkgs; [
         unrar
         p7zip

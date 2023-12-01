@@ -36,12 +36,12 @@ buildPythonPackage rec {
     rm -rf $out/${python.sitePackages}/tests
   '';
 
-  pythonImportsCheck = [ "aiocron" ];
+  pythonImportsCheck = ["aiocron"];
 
   meta = with lib; {
     description = "Crontabs for asyncio";
     homepage = "https://github.com/gawel/aiocron/";
     license = licenses.mit;
-    maintainers = [ maintainers.starcraft66 ];
+    maintainers = [maintainers.starcraft66];
   };
 }

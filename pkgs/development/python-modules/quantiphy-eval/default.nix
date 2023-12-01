@@ -44,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/KenKundert/quantiphy_eval/";
     changelog = "https://github.com/KenKundert/quantiphy_eval/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ jpetrucciani ];
+    maintainers = with maintainers; [jpetrucciani];
   };
 }

@@ -35,7 +35,7 @@ buildPythonPackage rec {
   # Disable tests because they require a dedicated Android emulator
   doCheck = false;
 
-  pythonImportsCheck = [ "adbe" ];
+  pythonImportsCheck = ["adbe"];
 
   meta = with lib; {
     description = "Tool for Android testing and development";
@@ -45,7 +45,7 @@ buildPythonPackage rec {
       binaryBytecode
     ];
     license = licenses.asl20;
-    maintainers = with maintainers; [ vtuan10 ];
+    maintainers = with maintainers; [vtuan10];
     mainProgram = "adbe";
   };
 }

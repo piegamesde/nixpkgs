@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-xEPmNnaDwFU4l2G4cMvtNeQ9KneF5g9ViQSFrDkrafY=";
 
-  nativeBuildInputs = [ scdoc ];
+  nativeBuildInputs = [scdoc];
 
   postPatch = ''
     substituteInPlace darkman.service \
@@ -42,13 +42,13 @@ buildGoModule rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Framework for dark-mode and light-mode transitions on Linux desktop";
     homepage = "https://gitlab.com/WhyNotHugo/darkman";
     license = licenses.isc;
-    maintainers = [ maintainers.ajgrf ];
+    maintainers = [maintainers.ajgrf];
     platforms = platforms.linux;
   };
 }

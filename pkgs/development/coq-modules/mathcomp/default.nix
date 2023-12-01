@@ -111,7 +111,7 @@ let
     let
       mathcomp-deps =
         if package == "single" then
-          [ ]
+          []
         else
           map mathcomp_ (head (splitList (lib.pred.equal package) packages));
       pkgpath = if package == "single" then "mathcomp" else "mathcomp/${package}";
@@ -138,7 +138,7 @@ let
             graphviz
             lua
           ];
-          buildInputs = [ ncurses ];
+          buildInputs = [ncurses];
           propagatedBuildInputs = mathcomp-deps;
 
           buildFlags = optional withDoc "doc";
@@ -167,7 +167,7 @@ let
             ];
           };
         }
-        // optionalAttrs (package != "single") { passthru = genAttrs packages mathcomp_; }
+        // optionalAttrs (package != "single") {passthru = genAttrs packages mathcomp_;}
         // optionalAttrs withDoc {
           htmldoc_template = fetchzip {
             url = "https://github.com/math-comp/math-comp.github.io/archive/doc-1.12.0.zip";
@@ -187,7 +187,7 @@ let
               cp -r $htmldoc_template/htmldoc_template/* ${tgt}/htmldoc/
             '';
           buildTargets = "doc";
-          extraInstallFlags = [ "-f Makefile.coq" ];
+          extraInstallFlags = ["-f Makefile.coq"];
         }
       );
       patched-derivation1 = derivation.overrideAttrs (
@@ -210,7 +210,7 @@ let
         o:
         optionalAttrs
           (versions.isLe "8.7" coq.coq-version || (o.version != "dev" && versions.isLe "1.7" o.version))
-          { installFlags = o.installFlags ++ [ "-f Makefile.coq" ]; }
+          {installFlags = o.installFlags ++ ["-f Makefile.coq"];}
       );
     in
     patched-derivation;

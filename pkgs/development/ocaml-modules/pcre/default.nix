@@ -19,9 +19,9 @@ buildDunePackage rec {
     sha256 = "sha256-ZxFC9AtthhccvAZyU/qt+QMBkWHVdIi9D7bFRWwsvRo=";
   };
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
 
-  propagatedBuildInputs = [ pcre ];
+  propagatedBuildInputs = [pcre];
 
   meta = with lib; {
     homepage = "https://mmottl.github.io/pcre-ocaml";

@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional sqliteSupport sqlite
     ++ lib.optional tlsSupport openssl
     ++ lib.optional pythonSupport python310
-    ++ lib.optionals stdenv.isDarwin [ libiconv ];
+    ++ lib.optionals stdenv.isDarwin [libiconv];
 
   # To support systems without autoconf LD puts its configure.ac in a non-default
   # location and uses a helper script. We skip that script and symlink the .ac
@@ -114,6 +114,6 @@ stdenv.mkDerivation rec {
     # See https://github.com/ldmud/ldmud/blob/master/COPYRIGHT
     license = licenses.unfreeRedistributable;
     platforms = with platforms; linux ++ darwin;
-    maintainers = with maintainers; [ cpu ];
+    maintainers = with maintainers; [cpu];
   };
 }

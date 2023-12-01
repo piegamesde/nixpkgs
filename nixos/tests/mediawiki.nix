@@ -1,7 +1,7 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
 let
@@ -21,7 +21,7 @@ let
 
   testLib = import ../lib/testing-python.nix {
     inherit system pkgs;
-    extraConfigurations = [ shared ];
+    extraConfigurations = [shared];
   };
 in
 {
@@ -61,7 +61,7 @@ in
       services.mediawiki.webserver = "none";
     };
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       ''
         start_all()
         machine.wait_for_unit("phpfpm-mediawiki.service")

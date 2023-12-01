@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "07wf9yn0f771xkm3x12946x5rp83hxjkd70xgfgy35zvj27wskzm";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     description = "Docker garbage collection of containers and images";
     license = licenses.asl20;
     homepage = "https://github.com/spotify/docker-gc";
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     platforms = docker.meta.platforms;
   };
 }

@@ -24,9 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-uEGl245tmc+W/9G+IclSNu76VTJ7w3zw6BQkhmGgEnY=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ textfsm ];
+  propagatedBuildInputs = [textfsm];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -44,6 +44,6 @@ buildPythonPackage rec {
     description = "TextFSM templates for parsing show commands of network devices";
     homepage = "https://github.com/networktocode/ntc-templates";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

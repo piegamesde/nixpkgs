@@ -23,19 +23,19 @@ buildDunePackage rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ cppo ];
+  nativeBuildInputs = [cppo];
   buildInputs = [
     cmdliner
     re
   ];
 
-  propagatedBuildInputs = [ ocp-indent ];
+  propagatedBuildInputs = [ocp-indent];
 
   meta = {
     homepage = "https://www.typerex.org/ocp-index.html";
     description = "A simple and light-weight documentation extractor for OCaml";
     changelog = "https://github.com/OCamlPro/ocp-index/raw/${version}/CHANGES.md";
     license = lib.licenses.lgpl3;
-    maintainers = with lib.maintainers; [ vbgl ];
+    maintainers = with lib.maintainers; [vbgl];
   };
 }

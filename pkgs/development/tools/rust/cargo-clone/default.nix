@@ -22,10 +22,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-rJcTl5fe3vkNNyLRvm7q5KmzyJXchh1/JuzK0GFhHLk=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       Security
       SystemConfiguration
@@ -42,6 +42,6 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

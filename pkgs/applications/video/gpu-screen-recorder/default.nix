@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     description = "A screen recorder that has minimal impact on system performance by recording a window using the GPU only";
     homepage = "https://git.dec05eba.com/gpu-screen-recorder/about/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ babbaj ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [babbaj];
+    platforms = ["x86_64-linux"];
   };
 }

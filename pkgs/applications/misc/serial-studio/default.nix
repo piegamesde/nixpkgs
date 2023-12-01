@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Multi-purpose serial data visualization & processing program";
     homepage = "https://serial-studio.github.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.linux;
   };
 }

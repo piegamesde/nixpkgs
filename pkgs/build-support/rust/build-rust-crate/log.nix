@@ -1,4 +1,4 @@
-{ lib }:
+{lib}:
 
 let
   echo_colored_body = start_escape:

@@ -36,9 +36,9 @@ python3.pkgs.buildPythonApplication rec {
     urllib3
   ];
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [pytestCheckHook];
 
-  pythonImportsCheck = [ "atomic_operator" ];
+  pythonImportsCheck = ["atomic_operator"];
 
   disabledTests = [
     # Tests require network access
@@ -51,6 +51,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Tool to execute Atomic Red Team tests (Atomics)";
     homepage = "https://www.atomic-operator.com/";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

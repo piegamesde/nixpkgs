@@ -1,4 +1,4 @@
-{ runCommand, git }:
+{runCommand, git}:
 src:
 
 let
@@ -8,7 +8,7 @@ let
   gitHashFile =
     runCommand "put-in-git"
       {
-        nativeBuildInputs = [ git ];
+        nativeBuildInputs = [git];
         dummy = builtins.currentTime; # impure, do every time
         preferLocalBuild = true;
       }
@@ -33,7 +33,7 @@ let
   nixPath =
     runCommand "put-in-nix"
       {
-        nativeBuildInputs = [ git ];
+        nativeBuildInputs = [git];
         preferLocalBuild = true;
       }
       ''

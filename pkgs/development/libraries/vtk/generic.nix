@@ -2,7 +2,7 @@
   majorVersion,
   minorVersion,
   sourceSha256,
-  patchesToFetch ? [ ],
+  patchesToFetch ? [],
 }:
 {
   stdenv,
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     sha256 = sourceSha256;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs =
     [
@@ -101,9 +101,9 @@ stdenv.mkDerivation rec {
       OpenGL
       GLUT
     ]
-    ++ optionals enablePython [ python ];
+    ++ optionals enablePython [python];
   propagatedBuildInputs =
-    optionals stdenv.isDarwin [ libobjc ]
+    optionals stdenv.isDarwin [libobjc]
     ++ optionals stdenv.isLinux [
       libX11
       libGL
@@ -140,8 +140,8 @@ stdenv.mkDerivation rec {
         if lib.versionOlder version "9.0" then "VTK_Group_Qt:BOOL=ON" else "VTK_GROUP_ENABLE_Qt:STRING=YES"
       }"
     ]
-    ++ optionals (enableQt && lib.versionOlder version "8.0") [ "-DVTK_QT_VERSION=5" ]
-    ++ optionals stdenv.isDarwin [ "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks" ]
+    ++ optionals (enableQt && lib.versionOlder version "8.0") ["-DVTK_QT_VERSION=5"]
+    ++ optionals stdenv.isDarwin ["-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks"]
     ++ optionals enablePython [
       "-DVTK_WRAP_PYTHON:BOOL=ON"
       "-DVTK_PYTHON_VERSION:STRING=${pythonMajor}"

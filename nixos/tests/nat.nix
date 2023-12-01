@@ -23,7 +23,7 @@ import ./make-test-python.nix (
         networking.firewall.enable = withFirewall;
         networking.firewall.filterForward = nftables;
         networking.nftables.enable = nftables;
-        networking.nat.internalIPs = [ "192.168.1.0/24" ];
+        networking.nat.internalIPs = ["192.168.1.0/24"];
         networking.nat.externalInterface = "eth1";
       }
     ];
@@ -42,10 +42,10 @@ import ./make-test-python.nix (
 
     nodes = {
       client =
-        { pkgs, nodes, ... }:
+        {pkgs, nodes, ...}:
         lib.mkMerge [
           {
-            virtualisation.vlans = [ 1 ];
+            virtualisation.vlans = [1];
             networking.defaultGateway =
               (pkgs.lib.head nodes.router.config.networking.interfaces.eth2.ipv4.addresses).address;
             networking.nftables.enable = nftables;
@@ -53,23 +53,23 @@ import ./make-test-python.nix (
         ];
 
       router =
-        { ... }:
+        {...}:
         lib.mkMerge [
           routerBase
-          { networking.nat.enable = true; }
+          {networking.nat.enable = true;}
         ];
 
       routerDummyNoNat =
-        { ... }:
+        {...}:
         lib.mkMerge [
           routerBase
-          { networking.nat.enable = false; }
+          {networking.nat.enable = false;}
         ];
 
       server =
-        { ... }:
+        {...}:
         {
-          virtualisation.vlans = [ 2 ];
+          virtualisation.vlans = [2];
           networking.firewall.enable = false;
           services.httpd.enable = true;
           services.httpd.adminAddr = "foo@example.org";
@@ -79,7 +79,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         routerDummyNoNatClosure = nodes.routerDummyNoNat.config.system.build.toplevel;
         routerClosure = nodes.router.config.system.build.toplevel;

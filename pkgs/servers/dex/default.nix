@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-Rsz7UnBlZdPRTrq3nfFaSVwok8wLDtd6aT1sEK+++vg=";
 
-  subPackages = [ "cmd/dex" ];
+  subPackages = ["cmd/dex"];
 
   ldflags = [
     "-w"

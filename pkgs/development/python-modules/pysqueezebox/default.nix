@@ -22,14 +22,14 @@ buildPythonPackage rec {
     hash = "sha256-NCADVSsnaOJfLJ7i18i7d7wlWcyt1DoRFGOVXEEYHPI=";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   nativeCheckInputs = [
     pytest-asyncio
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pysqueezebox" ];
+  pythonImportsCheck = ["pysqueezebox"];
 
   disabledTestPaths =
     [
@@ -41,6 +41,6 @@ buildPythonPackage rec {
     description = "Asynchronous library to control Logitech Media Server";
     homepage = "https://github.com/rajlaud/pysqueezebox";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nyanloutre ];
+    maintainers = with maintainers; [nyanloutre];
   };
 }

@@ -1,13 +1,13 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "nodered";
-    meta = with pkgs.lib.maintainers; { maintainers = [ matthewcroughan ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [matthewcroughan];};
 
     nodes = {
-      client = { config, pkgs, ... }: { environment.systemPackages = [ pkgs.curl ]; };
+      client = {config, pkgs, ...}: {environment.systemPackages = [pkgs.curl];};
       nodered =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         {
           services.node-red = {
             enable = true;

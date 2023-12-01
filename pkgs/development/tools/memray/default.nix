@@ -19,12 +19,12 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-FM6DVBnYgvciTeF9bf2NDvHGsnccxKqcR5ATj6daQ4w=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libunwind
     lz4
-  ] ++ (with python3.pkgs; [ cython ]);
+  ] ++ (with python3.pkgs; [cython]);
 
   propagatedBuildInputs = with python3.pkgs; [
     jinja2
@@ -37,11 +37,11 @@ python3.pkgs.buildPythonApplication rec {
       ipython
       pytestCheckHook
     ]
-    ++ lib.optionals (pythonOlder "3.11") [ greenlet ];
+    ++ lib.optionals (pythonOlder "3.11") [greenlet];
 
-  pythonImportsCheck = [ "memray" ];
+  pythonImportsCheck = ["memray"];
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
   disabledTests = [
     # Import issue
@@ -59,7 +59,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Memory profiler for Python";
     homepage = "https://bloomberg.github.io/memray/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     platforms = platforms.linux;
     changelog = "https://github.com/bloomberg/memray/releases/tag/v${version}";
   };

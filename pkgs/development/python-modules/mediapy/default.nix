@@ -29,12 +29,12 @@ buildPythonPackage rec {
 
   format = "flit";
 
-  pythonImportsCheck = [ "mediapy" ];
+  pythonImportsCheck = ["mediapy"];
 
   meta = with lib; {
     description = "Read/write/show images and videos in an IPython notebook";
     homepage = "https://github.com/google/mediapy";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mcwitt ];
+    maintainers = with maintainers; [mcwitt];
   };
 }

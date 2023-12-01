@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-r4123NJ+nxNOVIg6svWr636xbxOJQ7tp76JoAi2m9p8=";
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   buildInputs =
     [
@@ -40,7 +40,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A package manager for WebAssembly modules";
     homepage = "https://docs.wasmer.io/ecosystem/wapm";
-    license = with licenses; [ mit ];
-    maintainers = [ maintainers.lucperkins ];
+    license = with licenses; [mit];
+    maintainers = [maintainers.lucperkins];
   };
 }

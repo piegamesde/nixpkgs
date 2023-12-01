@@ -20,7 +20,7 @@ stdenv.mkDerivation {
   dontBuild = true;
 
   doCheck = true;
-  nativeCheckInputs = [ libde265 ];
+  nativeCheckInputs = [libde265];
   # based on invocations in https://github.com/strukturag/libde265/blob/0b1752abff97cb542941d317a0d18aa50cb199b1/scripts/ci-run.sh
   checkPhase = ''
     echo "Single-threaded:"

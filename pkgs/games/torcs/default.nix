@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     sed -i -e s,/bin/bash,`type -P bash`, src/linux/torcs.in
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     libGLU
     freeglut
@@ -84,8 +84,8 @@ stdenv.mkDerivation rec {
     description = "Car racing game";
     homepage = "https://torcs.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ viric ];
+    maintainers = with lib.maintainers; [viric];
     platforms = lib.platforms.linux;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

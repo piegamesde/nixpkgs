@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
     description = "A totally original phase rotation plugin";
     homepage = "https://github.com/robbert-vdh/diopser";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ magnetophon ];
+    maintainers = with maintainers; [magnetophon];
     platforms = platforms.all;
   };
 }

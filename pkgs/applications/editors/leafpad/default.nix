@@ -19,17 +19,17 @@ stdenv.mkDerivation rec {
     pkg-config
     intltool
   ];
-  buildInputs = [ gtk2 ];
+  buildInputs = [gtk2];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  configureFlags = [ "--enable-chooser" ];
+  configureFlags = ["--enable-chooser"];
 
   meta = with lib; {
     description = "A notepad clone for GTK 2.0";
     homepage = "http://tarot.freeshell.org/leafpad";
     platforms = platforms.linux;
-    maintainers = [ maintainers.flosse ];
+    maintainers = [maintainers.flosse];
     license = licenses.gpl3;
   };
 }

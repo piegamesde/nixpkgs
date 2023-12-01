@@ -24,7 +24,7 @@ python3.pkgs.buildPythonApplication rec {
   # No test available
   doCheck = false;
 
-  pythonImportsCheck = [ "hyfetch" ];
+  pythonImportsCheck = ["hyfetch"];
 
   meta = with lib; {
     description = "neofetch with pride flags <3";
@@ -40,6 +40,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/hykilpikonna/HyFetch";
     license = licenses.mit;
     mainProgram = "hyfetch";
-    maintainers = with maintainers; [ yisuidenghua ];
+    maintainers = with maintainers; [yisuidenghua];
   };
 }

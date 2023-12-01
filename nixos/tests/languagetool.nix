@@ -1,14 +1,14 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   let
     port = 8082;
   in
   {
     name = "languagetool";
-    meta = with lib.maintainers; { maintainers = [ fbeffa ]; };
+    meta = with lib.maintainers; {maintainers = [fbeffa];};
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
         services.languagetool.enable = true;
         services.languagetool.port = port;

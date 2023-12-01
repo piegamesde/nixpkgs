@@ -62,6 +62,6 @@ stdenv.mkDerivation {
     description = "Game engine used by Frogatto";
     license = licenses.zlib;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
   };
 }

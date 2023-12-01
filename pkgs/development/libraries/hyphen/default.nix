@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   pname = "hyphen";
   inherit version;
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   src = fetchurl {
     url = "https://sourceforge.net/projects/hunspell/files/Hyphen/${folder}/${pname}-${version}.tar.gz";
@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
       lgpl21
       mpl11
     ];
-    maintainers = with maintainers; [ Br1ght0ne ];
+    maintainers = with maintainers; [Br1ght0ne];
   };
 }

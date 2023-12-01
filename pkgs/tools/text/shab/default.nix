@@ -50,7 +50,7 @@ let
       description = "The bash templating language";
       homepage = "https://github.com/zimbatm/shab";
       license = licenses.unlicense;
-      maintainers = with maintainers; [ zimbatm ];
+      maintainers = with maintainers; [zimbatm];
       platforms = bash.meta.platforms;
     };
   };

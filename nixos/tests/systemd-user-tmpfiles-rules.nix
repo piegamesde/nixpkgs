@@ -1,12 +1,12 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
   {
     name = "systemd-user-tmpfiles-rules";
 
-    meta = with lib.maintainers; { maintainers = [ schnusch ]; };
+    meta = with lib.maintainers; {maintainers = [schnusch];};
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
         users.users = {
           alice.isNormalUser = true;
@@ -14,13 +14,13 @@ import ./make-test-python.nix (
         };
 
         systemd.user.tmpfiles = {
-          rules = [ "d %h/user_tmpfiles_created" ];
-          users.alice.rules = [ "d %h/only_alice" ];
+          rules = ["d %h/user_tmpfiles_created"];
+          users.alice.rules = ["d %h/only_alice"];
         };
       };
 
     testScript =
-      { ... }:
+      {...}:
       ''
         machine.succeed("loginctl enable-linger alice bob")
 

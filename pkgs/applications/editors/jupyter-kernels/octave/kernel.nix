@@ -1,4 +1,4 @@
-{ lib, python3Packages }:
+{lib, python3Packages}:
 
 with python3Packages;
 
@@ -25,7 +25,7 @@ buildPythonPackage rec {
     description = "A Jupyter kernel for Octave.";
     homepage = "https://github.com/Calysto/octave_kernel";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ thomasjm ];
+    maintainers = with maintainers; [thomasjm];
     platforms = platforms.all;
   };
 }

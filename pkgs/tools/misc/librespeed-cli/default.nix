@@ -23,7 +23,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Command line client for LibreSpeed";
     homepage = "https://github.com/librespeed/speedtest-cli";
-    license = with licenses; [ lgpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [lgpl3Only];
+    maintainers = with maintainers; [fab];
   };
 }

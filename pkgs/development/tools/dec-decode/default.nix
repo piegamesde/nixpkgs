@@ -21,7 +21,7 @@ buildGoModule rec {
     description = "Nintendo Wii iso.dec decoder";
     homepage = "https://github.com/sammiq/dec-decode";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ hughobrien ];
+    maintainers = with maintainers; [hughobrien];
     platforms = with platforms; linux ++ darwin;
   };
 }

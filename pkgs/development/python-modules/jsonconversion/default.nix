@@ -24,12 +24,12 @@ buildPythonPackage rec {
     numpy
   ];
 
-  pythonImportsCheck = [ "jsonconversion" ];
+  pythonImportsCheck = ["jsonconversion"];
 
   meta = with lib; {
     description = "This python module helps converting arbitrary Python objects into JSON strings and back";
     homepage = "https://pypi.org/project/jsonconversion/";
     license = licenses.bsd2;
-    maintainers = [ maintainers.terlar ];
+    maintainers = [maintainers.terlar];
   };
 }

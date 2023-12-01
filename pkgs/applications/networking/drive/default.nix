@@ -27,7 +27,7 @@ buildGoModule rec {
       })
     ];
 
-  subPackages = [ "cmd/drive" ];
+  subPackages = ["cmd/drive"];
 
   ldflags = [
     "-s"
@@ -38,7 +38,7 @@ buildGoModule rec {
     homepage = "https://github.com/odeke-em/drive";
     description = "Google Drive client for the commandline";
     license = licenses.asl20;
-    maintainers = with maintainers; [ aaronjheng ];
+    maintainers = with maintainers; [aaronjheng];
     platforms = platforms.unix;
   };
 }

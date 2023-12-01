@@ -14,7 +14,7 @@ stdenv.mkDerivation {
     sha256 = "1qjkjhpc4rm62qxn18r83zdlwnj1wvnkcpdiqlv7w4bakh0gvjly";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   installPhase = "\n    mkdir -p $out/share/texmf-nix/tex/generic/lkproof\n    cp -prd *.sty $out/share/texmf-nix/tex/generic/lkproof\n  ";
 

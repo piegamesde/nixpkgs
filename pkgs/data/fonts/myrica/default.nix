@@ -28,7 +28,7 @@ stdenvNoCC.mkDerivation {
   meta = with lib; {
     homepage = "https://myrica.estable.jp/";
     license = licenses.ofl;
-    maintainers = with maintainers; [ mikoim ];
+    maintainers = with maintainers; [mikoim];
     platforms = platforms.all;
   };
 }

@@ -43,7 +43,7 @@ stdenvNoCC.mkDerivation rec {
       licenses.ofl
       licenses.free
     ];
-    maintainers = with maintainers; [ mathnerd314 ];
+    maintainers = with maintainers; [mathnerd314];
     platforms = platforms.all;
   };
 }

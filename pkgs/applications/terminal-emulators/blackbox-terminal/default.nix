@@ -24,7 +24,7 @@
 }:
 
 let
-  marble = callPackage ./marble.nix { };
+  marble = callPackage ./marble.nix {};
 in
 stdenv.mkDerivation rec {
   pname = "blackbox";
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/raggesilver/blackbox";
     changelog = "https://gitlab.gnome.org/raggesilver/blackbox/-/raw/v${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ chuangzhu ];
+    maintainers = with maintainers; [chuangzhu];
     platforms = platforms.linux;
   };
 }

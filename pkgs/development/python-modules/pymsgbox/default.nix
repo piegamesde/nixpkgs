@@ -14,16 +14,16 @@ buildPythonPackage rec {
     hash = "sha256-IZQifei/96PW2lQYSHBaFV3LsqBu4SDZ8oCh1/USY/8=";
   };
 
-  propagatedBuildInputs = [ tkinter ];
+  propagatedBuildInputs = [tkinter];
 
   # Finding tests fails
   doCheck = false;
-  pythonImportsCheck = [ "pymsgbox" ];
+  pythonImportsCheck = ["pymsgbox"];
 
   meta = with lib; {
     description = "A simple, cross-platform, pure Python module for JavaScript-like message boxes";
     homepage = "https://github.com/asweigart/PyMsgBox";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

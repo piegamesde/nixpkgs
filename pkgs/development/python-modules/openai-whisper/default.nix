@@ -55,7 +55,7 @@ buildPythonPackage rec {
       scipy
       tiktoken
     ]
-    ++ lib.optionals (!cudaSupport) [ torch ]
+    ++ lib.optionals (!cudaSupport) [torch]
     ++ lib.optionals (cudaSupport) [
       openai-triton
       torchWithCuda
@@ -77,7 +77,7 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # requires network access to download models

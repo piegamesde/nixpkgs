@@ -40,6 +40,6 @@ stdenv.mkDerivation rec {
       "aarch64-darwin"
       "x86_64-darwin"
     ];
-    maintainers = with maintainers; [ Zimmi48 ];
+    maintainers = with maintainers; [Zimmi48];
   };
 }

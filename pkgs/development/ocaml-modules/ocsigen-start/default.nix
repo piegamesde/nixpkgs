@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     findlib
     eliom
   ];
-  buildInputs = [ ocsigen-ppx-rpc ];
+  buildInputs = [ocsigen-ppx-rpc];
   propagatedBuildInputs = [
     pgocaml_ppx
     safepass
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  patches = [ ./templates-dir.patch ];
+  patches = [./templates-dir.patch];
 
   src = fetchFromGitHub {
     owner = "ocsigen";
@@ -58,6 +58,6 @@ stdenv.mkDerivation rec {
     '';
     license = lib.licenses.lgpl21Only;
     inherit (ocaml.meta) platforms;
-    maintainers = [ lib.maintainers.gal_bolle ];
+    maintainers = [lib.maintainers.gal_bolle];
   };
 }

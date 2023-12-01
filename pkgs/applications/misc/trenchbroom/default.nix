@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
       # https://github.com/TrenchBroom/TrenchBroom/issues/4002#issuecomment-1125390780
       "-DCMAKE_PREFIX_PATH=cmake/packages"
     ];
-  ninjaFlags = [ "TrenchBroom" ];
+  ninjaFlags = ["TrenchBroom"];
   preBuild = "export HOME=$(mktemp -d)";
 
   postInstall = ''
@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
       desktopName = "TrenchBroom level editor";
       icon = "trenchbroom";
       comment = meta.description;
-      categories = [ "Development" ];
+      categories = ["Development"];
       exec = "trenchbroom";
     })
   ];
@@ -101,6 +101,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/TrenchBroom/TrenchBroom/releases/tag/v${version}";
     description = "Level editor for Quake-engine based games";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
   };
 }

@@ -16,12 +16,12 @@ buildPythonPackage rec {
   # Module doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [ "tabulate-stubs" ];
+  pythonImportsCheck = ["tabulate-stubs"];
 
   meta = with lib; {
     description = "Typing stubs for tabulate";
     homepage = "https://github.com/python/typeshed";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jpetrucciani ];
+    maintainers = with maintainers; [jpetrucciani];
   };
 }

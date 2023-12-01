@@ -30,7 +30,7 @@ buildPythonPackage rec {
   # Seems to look for files in the wrong dir
   doCheck = false;
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   unittestFlagsArray = [
     "-s"
@@ -40,7 +40,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Sphinx blockdiag extension";
     homepage = "https://github.com/blockdiag/sphinxcontrib-blockdiag";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.bsd2;
   };
 }

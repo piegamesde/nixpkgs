@@ -14,8 +14,8 @@ buildNimPackage rec {
     rev = "d13e2ccb2acaa4e8dedce4f25e8dbf28e19278a6";
     hash = "sha256-18CFRuDK+E701MHrCixx22QSVmglTc0EJwrMCsKwayM=";
   };
-  propagatedBuildInputs = [ snappy ];
-  patches = [ ./config.patch ];
+  propagatedBuildInputs = [snappy];
+  patches = [./config.patch];
   preCheck = ''
     mkdir $NIX_BUILD_TOP/nimcache/
     mv -v tests/data $NIX_BUILD_TOP/nimcache/data
@@ -25,7 +25,7 @@ buildNimPackage rec {
     src.meta
     // {
       description = "Nim implementation of snappy compression algorithm";
-      license = [ lib.licenses.mit ];
-      maintainers = [ maintainers.ehmry ];
+      license = [lib.licenses.mit];
+      maintainers = [maintainers.ehmry];
     };
 }

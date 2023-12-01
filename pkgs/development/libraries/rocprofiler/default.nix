@@ -22,8 +22,8 @@ stdenv.mkDerivation (
       hash = "sha256-CpD/+soMN8WTeSb5X7dsnZ596PMkw+4EVsVSvFtKCak=";
     };
 
-    patches = [ ./0000-dont-require-hsa_amd_aqlprofile.patch ];
-    nativeBuildInputs = [ cmake ];
+    patches = [./0000-dont-require-hsa_amd_aqlprofile.patch];
+    nativeBuildInputs = [cmake];
 
     buildInputs = [
       rocm-thunk
@@ -60,7 +60,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "Profiling with perf-counters and derived metrics";
       homepage = "https://github.com/ROCm-Developer-Tools/rocprofiler";
-      license = with licenses; [ mit ]; # mitx11
+      license = with licenses; [mit]; # mitx11
       maintainers = teams.rocm.members;
       platforms = platforms.linux;
       broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;

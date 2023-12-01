@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "external-program";
   version = "20190307-git";
 
-  parasites = [ "external-program-test" ];
+  parasites = ["external-program-test"];
 
   description = "System lacks description";
 
@@ -20,7 +20,7 @@ rec {
 
   packageName = "external-program";
 
-  asdFilesToKeep = [ "external-program.asd" ];
+  asdFilesToKeep = ["external-program.asd"];
   overrides = x: x;
 }
 /* (SYSTEM external-program DESCRIPTION System lacks description SHA256

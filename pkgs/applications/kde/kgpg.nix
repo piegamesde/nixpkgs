@@ -54,12 +54,12 @@ mkDerivation {
     qgpgme
   ];
   postFixup = ''
-    wrapProgram "$out/bin/kgpg" --prefix PATH : "${lib.makeBinPath [ gnupg ]}"
+    wrapProgram "$out/bin/kgpg" --prefix PATH : "${lib.makeBinPath [gnupg]}"
   '';
   meta = {
     homepage = "https://apps.kde.org/kgpg/";
     description = "A KDE based interface for GnuPG, a powerful encryption utility";
-    license = [ lib.licenses.gpl2 ];
-    maintainers = [ lib.maintainers.ttuegel ];
+    license = [lib.licenses.gpl2];
+    maintainers = [lib.maintainers.ttuegel];
   };
 }

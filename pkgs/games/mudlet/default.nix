@@ -43,7 +43,7 @@ let
         );
       };
     in
-    lua.override { inherit packageOverrides; };
+    lua.override {inherit packageOverrides;};
 
   luaEnv = overrideLua.withPackages (
     ps:

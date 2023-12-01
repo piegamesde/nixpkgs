@@ -18,13 +18,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2EsuSMXnnMg0e0JD1TXJplsi7sOg9em0qqge2WlC6ro=";
   };
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
   nativeBuildInputs = [
     pkg-config
     wrapGAppsHook
   ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     description = "Monitoring software for AMD Zen-based CPUs";

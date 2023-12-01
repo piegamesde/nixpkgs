@@ -28,6 +28,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/trailofbits/onesixtyone";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.fishi0x01 ];
+    maintainers = [maintainers.fishi0x01];
   };
 }

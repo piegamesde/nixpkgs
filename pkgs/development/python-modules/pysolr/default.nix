@@ -16,11 +16,11 @@ buildPythonPackage rec {
     sha256 = "1rj5jmscvxjwcmlfi6hmkj44l4x6n3ln5p7d8d18j566hzmmzw3f";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
-  nativeCheckInputs = [ mock ];
+  nativeCheckInputs = [mock];
 
   doCheck = false; # requires network access
 

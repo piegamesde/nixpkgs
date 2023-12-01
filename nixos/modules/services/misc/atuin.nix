@@ -66,7 +66,7 @@ in
           };
         }
       ];
-      ensureDatabases = [ "atuin" ];
+      ensureDatabases = ["atuin"];
     };
 
     systemd.services.atuin = {
@@ -75,7 +75,7 @@ in
         "network.target"
         "postgresql.service"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = "${pkgs.atuin}/bin/atuin server start";
@@ -95,6 +95,6 @@ in
       };
     };
 
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.port];
   };
 }

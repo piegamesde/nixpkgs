@@ -36,7 +36,7 @@ in
 stdenv.mkDerivation {
   inherit pname version src;
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = lib.optionals stdenv.isLinux [autoPatchelfHook];
 
   buildInputs =
     [
@@ -71,6 +71,6 @@ stdenv.mkDerivation {
       "x86_64-darwin"
       "aarch64-darwin"
     ];
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
   };
 }

@@ -1,12 +1,12 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   {
     name = "atd";
-    meta = with pkgs.lib.maintainers; { maintainers = [ bjornfor ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [bjornfor];};
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
         services.atd.enable = true;
         users.users.alice = {

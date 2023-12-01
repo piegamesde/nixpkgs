@@ -25,17 +25,17 @@ buildPythonPackage rec {
     msrestazure
     azure-common
     azure-mgmt-core
-  ] ++ lib.optionals (!isPy3k) [ azure-mgmt-nspkg ];
+  ] ++ lib.optionals (!isPy3k) [azure-mgmt-nspkg];
 
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "azure.mgmt.sql" ];
+  pythonImportsCheck = ["azure.mgmt.sql"];
 
   meta = with lib; {
     description = "This is the Microsoft Azure SQL Management Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxwilson ];
+    maintainers = with maintainers; [maxwilson];
   };
 }

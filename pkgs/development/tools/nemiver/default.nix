@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  configureFlags = [ "--enable-gsettings" ];
+  configureFlags = ["--enable-gsettings"];
 
   passthru = {
     updateScript = gnome.updateScript {
@@ -83,6 +83,6 @@ stdenv.mkDerivation rec {
     description = "Easy to use standalone C/C++ debugger";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.juliendehos ];
+    maintainers = [maintainers.juliendehos];
   };
 }

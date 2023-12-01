@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ python3 ];
+  nativeBuildInputs = [python3];
 
   buildInputs = [
     cunit
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  configureFlags = [ "--with-dpdk=${dpdk'}" ];
+  configureFlags = ["--with-dpdk=${dpdk'}"];
 
   env.NIX_CFLAGS_COMPILE = "-mssse3"; # Necessary to compile.
   # otherwise does not find strncpy when compiling
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
     description = "Set of libraries for fast user-mode storage";
     homepage = "https://spdk.io/";
     license = licenses.bsd3;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ orivej ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [orivej];
   };
 }

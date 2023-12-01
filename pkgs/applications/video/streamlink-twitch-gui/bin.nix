@@ -32,7 +32,7 @@ let
     gtk3-x11
     libudev0-shim
   ];
-  runtimeBins = lib.makeBinPath [ streamlink ];
+  runtimeBins = lib.makeBinPath [streamlink];
   arch = if stdenv.hostPlatform.system == "x86_64-linux" then "linux64" else "linux32";
 in
 stdenv.mkDerivation rec {
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ streamlink ];
+  buildInputs = [streamlink];
 
   dontBuild = true;
   dontConfigure = true;
@@ -124,9 +124,9 @@ stdenv.mkDerivation rec {
     longDescription = "Browse Twitch.tv and watch streams in your videoplayer of choice";
     homepage = "https://streamlink.github.io/streamlink-twitch-gui/";
     downloadPage = "https://github.com/streamlink/streamlink-twitch-gui/releases";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.mit;
-    maintainers = with maintainers; [ rileyinman ];
+    maintainers = with maintainers; [rileyinman];
     platforms = [
       "x86_64-linux"
       "i686-linux"

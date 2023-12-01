@@ -22,10 +22,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-KfvkG6bHSU8wTZDKGeEfI1AV9T8uSYZHePMlmjpBXHc=";
   };
 
-  nativeBuildInputs = [ build2 ];
-  buildInputs = [ libbutl ];
+  nativeBuildInputs = [build2];
+  buildInputs = [libbutl];
 
-  build2ConfigureFlags = [ "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}" ];
+  build2ConfigureFlags = ["config.bin.lib=${build2.configSharedStatic enableShared enableStatic}"];
 
   strictDeps = true;
 
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     homepage = "https://build2.org/";
     changelog = "https://git.build2.org/cgit/libbpkg/log";
     license = licenses.mit;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
     platforms = platforms.all;
   };
 }

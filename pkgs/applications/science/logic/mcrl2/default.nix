@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "KoLt8IU/vCdYqzJukNuaZfl8bWiOKB0UxWHEdQj3buU=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libGLU
     libGL
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.mcrl2.org/";
     license = licenses.boost;
-    maintainers = with maintainers; [ moretea ];
+    maintainers = with maintainers; [moretea];
     platforms = platforms.unix;
   };
 }

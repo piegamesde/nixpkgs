@@ -32,7 +32,7 @@
    hardcodes looking for `org.gnome.evolution` into `@EVOLUTION_SCHEMA_PATH@`.
    All schemas must be listed.
 */
-{ src, schemaIdToVariableMapping }:
+{src, schemaIdToVariableMapping}:
 
 runCommand "hardcode-gsettings.patch"
   {

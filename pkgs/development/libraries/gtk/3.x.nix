@@ -100,7 +100,7 @@ stdenv.mkDerivation (
           ./patches/3.0-darwin-x11.patch
         ];
 
-    depsBuildBuild = [ pkg-config ];
+    depsBuildBuild = [pkg-config];
     nativeBuildInputs =
       [
         gettext
@@ -124,13 +124,13 @@ stdenv.mkDerivation (
       ++ lib.optionals (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
         mesonEmulatorHook
       ]
-      ++ lib.optionals waylandSupport [ wayland-scanner ];
+      ++ lib.optionals waylandSupport [wayland-scanner];
 
     buildInputs = [
       libxkbcommon
-      (libepoxy.override { inherit x11Support; })
+      (libepoxy.override {inherit x11Support;})
       isocodes
-    ] ++ lib.optionals stdenv.isDarwin [ AppKit ] ++ lib.optionals trackerSupport [ tracker ];
+    ] ++ lib.optionals stdenv.isDarwin [AppKit] ++ lib.optionals trackerSupport [tracker];
     #TODO: colord?
 
     propagatedBuildInputs =
@@ -165,8 +165,8 @@ stdenv.mkDerivation (
         wayland
         wayland-protocols
       ]
-      ++ lib.optionals xineramaSupport [ libXinerama ]
-      ++ lib.optionals cupsSupport [ cups ];
+      ++ lib.optionals xineramaSupport [libXinerama]
+      ++ lib.optionals cupsSupport [cups];
 
     mesonFlags = [
       "-Dgtk_doc=${lib.boolToString withIntrospection}"
@@ -262,7 +262,7 @@ stdenv.mkDerivation (
       '';
       homepage = "https://www.gtk.org/";
       license = licenses.lgpl2Plus;
-      maintainers = with maintainers; [ raskin ] ++ teams.gnome.members;
+      maintainers = with maintainers; [raskin] ++ teams.gnome.members;
       pkgConfigModules =
         [
           "gdk-3.0"

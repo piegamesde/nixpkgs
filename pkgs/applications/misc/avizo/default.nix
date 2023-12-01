@@ -50,8 +50,8 @@ stdenv.mkDerivation rec {
   ];
 
   postInstall = ''
-    wrapProgram $out/bin/volumectl --suffix PATH : $out/bin:${lib.makeBinPath ([ pamixer ])}
-    wrapProgram $out/bin/lightctl --suffix PATH : $out/bin:${lib.makeBinPath ([ brightnessctl ])}
+    wrapProgram $out/bin/volumectl --suffix PATH : $out/bin:${lib.makeBinPath ([pamixer])}
+    wrapProgram $out/bin/lightctl --suffix PATH : $out/bin:${lib.makeBinPath ([brightnessctl])}
   '';
 
   meta = with lib; {
@@ -59,6 +59,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/misterdanb/avizo";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.berbiche ];
+    maintainers = [maintainers.berbiche];
   };
 }

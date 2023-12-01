@@ -24,10 +24,10 @@ buildPythonPackage rec {
     hash = "sha256-rmmSfFwXK+Gt2SA3JtS4TPPrrR7c1fcfzcdG5m6Cn1k=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs =
-    [ tomli ]
+    [tomli]
     ++ lib.optionals (pythonOlder "3.8") [
       importlib-metadata
       zipp

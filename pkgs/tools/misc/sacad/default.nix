@@ -33,12 +33,12 @@ python3Packages.buildPythonApplication rec {
   # tests require internet connection
   doCheck = false;
 
-  pythonImportsCheck = [ "sacad" ];
+  pythonImportsCheck = ["sacad"];
 
   meta = with lib; {
     description = "Smart Automatic Cover Art Downloader";
     homepage = "https://github.com/desbma/sacad";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ fortuneteller2k ];
+    maintainers = with maintainers; [fortuneteller2k];
   };
 }

@@ -1,17 +1,17 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   {
     name = "tinywl";
     meta = {
-      maintainers = with lib.maintainers; [ primeos ];
+      maintainers = with lib.maintainers; [primeos];
     };
 
     nodes.machine =
-      { config, ... }:
+      {config, ...}:
       {
         # Automatically login on tty1 as a normal user:
-        imports = [ ./common/user-account.nix ];
+        imports = [./common/user-account.nix];
         services.getty.autologinUser = "alice";
         security.polkit.enable = true;
 
@@ -36,11 +36,11 @@ import ./make-test-python.nix (
         '';
 
         # Switch to a different GPU driver (default: -vga std), otherwise TinyWL segfaults:
-        virtualisation.qemu.options = [ "-vga none -device virtio-gpu-pci" ];
+        virtualisation.qemu.options = ["-vga none -device virtio-gpu-pci"];
       };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       ''
         start_all()
         machine.wait_for_unit("multi-user.target")

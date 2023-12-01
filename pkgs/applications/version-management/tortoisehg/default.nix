@@ -23,7 +23,7 @@ python3Packages.buildPythonApplication rec {
     qscintilla-qt5
     iniparse
   ];
-  nativeBuildInputs = [ qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [qt5.wrapQtAppsHook];
 
   doCheck = true;
   postInstall = ''

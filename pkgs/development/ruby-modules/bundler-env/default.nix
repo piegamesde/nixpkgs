@@ -16,15 +16,15 @@
   gemfile ? null,
   lockfile ? null,
   gemset ? null,
-  groups ? [ "default" ],
+  groups ? ["default"],
   ruby ? defs.ruby,
   copyGemFiles ? false, # Copy gem files instead of symlinking
   gemConfig ? defaultGemConfig,
   postBuild ? null,
-  document ? [ ],
-  meta ? { },
+  document ? [],
+  meta ? {},
   ignoreCollisions ? false,
-  passthru ? { },
+  passthru ? {},
   ...
 }@args:
 
@@ -41,7 +41,7 @@ let
     genStubsScript
     ;
 
-  basicEnv = (callPackage ../bundled-common { inherit bundler; }) (
+  basicEnv = (callPackage ../bundled-common {inherit bundler;}) (
     args
     // {
       inherit pname name;
@@ -60,7 +60,7 @@ in
 # than the expression trying to deduce a use case.
 # The basicEnv should be put into passthru so that e.g. nix-shell can use it.
 if pname == null then
-  basicEnv // { inherit name basicEnv; }
+  basicEnv // {inherit name basicEnv;}
 else
   let
     bundlerEnvArgs = {
@@ -69,7 +69,7 @@ else
       name = basicEnv.name;
 
       paths = envPaths;
-      pathsToLink = [ "/lib" ];
+      pathsToLink = ["/lib"];
 
       postBuild =
         genStubsScript {
@@ -80,7 +80,7 @@ else
             groups
             ;
           confFiles = basicEnv.confFiles;
-          binPaths = [ basicEnv.gems.${pname} ];
+          binPaths = [basicEnv.gems.${pname}];
         }
         + lib.optionalString (postBuild != null) postBuild;
 

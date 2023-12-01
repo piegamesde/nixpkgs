@@ -37,7 +37,7 @@ buildPythonPackage rec {
       --replace 'websockets = ">=9.0,<11.0"' 'websockets = "*"'
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     docopt
@@ -55,7 +55,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "--asyncio-mode=auto" ];
+  pytestFlagsArray = ["--asyncio-mode=auto"];
 
   disabledTestPaths =
     [
@@ -68,12 +68,12 @@ buildPythonPackage rec {
     export PATH=$out/bin:$PATH
   '';
 
-  pythonImportsCheck = [ "amqtt" ];
+  pythonImportsCheck = ["amqtt"];
 
   meta = with lib; {
     description = "Python MQTT client and broker implementation";
     homepage = "https://amqtt.readthedocs.io/";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

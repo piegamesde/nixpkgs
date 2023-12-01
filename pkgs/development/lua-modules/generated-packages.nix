@@ -55,17 +55,17 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/cheusov/lua-alt-getopt";
             description = "Process application arguments the same way as getopt_long";
-            maintainers = with lib.maintainers; [ arobyn ];
+            maintainers = with lib.maintainers; [arobyn];
             license.fullName = "MIT/X11";
           };
         }
       )
-      { };
+      {};
 
   argparse =
     callPackage
@@ -103,7 +103,7 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1") || (luaAtLeast "5.5");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/luarocks/argparse";
@@ -112,7 +112,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   basexx =
     callPackage
@@ -134,7 +134,7 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/aiq/basexx";
@@ -143,7 +143,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   binaryheap =
     callPackage
@@ -164,17 +164,17 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/Tieske/binaryheap.lua";
             description = "Binary heap implementation in pure Lua";
-            maintainers = with lib.maintainers; [ vcunat ];
+            maintainers = with lib.maintainers; [vcunat];
             license.fullName = "MIT/X11";
           };
         }
       )
-      { };
+      {};
 
   bit32 =
     callPackage
@@ -215,17 +215,17 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://www.lua.org/manual/5.2/manual.html#6.7";
             description = "Lua 5.2 bit manipulation library";
-            maintainers = with lib.maintainers; [ lblasc ];
+            maintainers = with lib.maintainers; [lblasc];
             license.fullName = "MIT/X11";
           };
         }
       )
-      { };
+      {};
 
   busted =
     callPackage
@@ -295,7 +295,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   cassowary =
     callPackage
@@ -353,7 +353,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   cldr =
     callPackage
@@ -403,12 +403,12 @@ final: prev: {
           meta = {
             homepage = "https://github.com/alerque/cldr-lua";
             description = "Lua interface to Unicode CLDR data";
-            maintainers = with lib.maintainers; [ alerque ];
+            maintainers = with lib.maintainers; [alerque];
             license.fullName = "MIT/ICU";
           };
         }
       )
-      { };
+      {};
 
   compat53 =
     callPackage
@@ -434,17 +434,17 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/keplerproject/lua-compat-5.3";
             description = "Compatibility module providing Lua-5.3-style APIs for Lua 5.2 and 5.1";
-            maintainers = with lib.maintainers; [ vcunat ];
+            maintainers = with lib.maintainers; [vcunat];
             license.fullName = "MIT";
           };
         }
       )
-      { };
+      {};
 
   cosmo =
     callPackage
@@ -483,22 +483,22 @@ final: prev: {
               ]
           );
 
-          propagatedBuildInputs = [ lpeg ];
+          propagatedBuildInputs = [lpeg];
 
           meta = {
             homepage = "http://cosmo.luaforge.net";
             description = "Safe templates for Lua";
-            maintainers = with lib.maintainers; [ marsam ];
+            maintainers = with lib.maintainers; [marsam];
             license.fullName = "MIT/X11";
           };
         }
       )
-      { };
+      {};
 
   coxpcall =
     callPackage
       (
-        { buildLuarocksPackage, fetchgit }:
+        {buildLuarocksPackage, fetchgit}:
         buildLuarocksPackage {
           pname = "coxpcall";
           version = "1.17.0-1";
@@ -535,7 +535,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   cqueues =
     callPackage
@@ -559,17 +559,17 @@ final: prev: {
           };
 
           disabled = (lua.luaversion != "5.2");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://25thandclement.com/~william/projects/cqueues.html";
             description = "Continuation Queues: Embeddable asynchronous networking, threading, and notification framework for Lua on Unix.";
-            maintainers = with lib.maintainers; [ vcunat ];
+            maintainers = with lib.maintainers; [vcunat];
             license.fullName = "MIT/X11";
           };
         }
       )
-      { };
+      {};
 
   cyan =
     callPackage
@@ -623,7 +623,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   cyrussasl =
     callPackage
@@ -660,7 +660,7 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://github.com/JorjBauer/lua-cyrussasl";
@@ -669,7 +669,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   digestif =
     callPackage
@@ -721,7 +721,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   dkjson =
     callPackage
@@ -747,7 +747,7 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.1") || (luaAtLeast "5.5");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://dkolf.de/src/dkjson-lua.fsl/";
@@ -756,7 +756,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   fennel =
     callPackage
@@ -781,17 +781,17 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://fennel-lang.org/";
             description = "A lisp that compiles to Lua";
-            maintainers = with lib.maintainers; [ misterio77 ];
+            maintainers = with lib.maintainers; [misterio77];
             license.fullName = "MIT";
           };
         }
       )
-      { };
+      {};
 
   fifo =
     callPackage
@@ -814,7 +814,7 @@ final: prev: {
             sha256 = "1800k7h5hxsvm05bjdr65djjml678lwb0661cll78z1ys2037nzn";
           };
 
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/daurnimator/fifo.lua";
@@ -823,7 +823,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   fluent =
     callPackage
@@ -877,12 +877,12 @@ final: prev: {
           meta = {
             homepage = "https://github.com/alerque/fluent-lua";
             description = "Lua implementation of Project Fluent";
-            maintainers = with lib.maintainers; [ alerque ];
+            maintainers = with lib.maintainers; [alerque];
             license.fullName = "MIT";
           };
         }
       )
-      { };
+      {};
 
   gitsigns-nvim =
     callPackage
@@ -918,7 +918,7 @@ final: prev: {
           );
 
           disabled = (lua.luaversion != "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://github.com/lewis6991/gitsigns.nvim";
@@ -927,7 +927,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   haskell-tools-nvim =
     callPackage
@@ -965,7 +965,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   http =
     callPackage
@@ -1015,12 +1015,12 @@ final: prev: {
           meta = {
             homepage = "https://github.com/daurnimator/lua-http";
             description = "HTTP library for Lua";
-            maintainers = with lib.maintainers; [ vcunat ];
+            maintainers = with lib.maintainers; [vcunat];
             license.fullName = "MIT";
           };
         }
       )
-      { };
+      {};
 
   inspect =
     callPackage
@@ -1045,7 +1045,7 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/kikito/inspect.lua";
@@ -1054,7 +1054,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   jsregexp =
     callPackage
@@ -1095,7 +1095,7 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/kmarius/jsregexp";
@@ -1104,7 +1104,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   ldbus =
     callPackage
@@ -1146,7 +1146,7 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1") || (luaAtLeast "5.5");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/daurnimator/ldbus";
@@ -1155,7 +1155,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   ldoc =
     callPackage
@@ -1203,7 +1203,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   lgi =
     callPackage
@@ -1244,7 +1244,7 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://github.com/pavouk/lgi";
@@ -1253,7 +1253,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   linenoise =
     callPackage
@@ -1274,7 +1274,7 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/hoelzro/lua-linenoise";
@@ -1283,7 +1283,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   ljsyscall =
     callPackage
@@ -1307,17 +1307,17 @@ final: prev: {
           };
 
           disabled = (lua.luaversion != "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://www.myriabit.com/ljsyscall/";
             description = "LuaJIT Linux syscall FFI";
-            maintainers = with lib.maintainers; [ lblasc ];
+            maintainers = with lib.maintainers; [lblasc];
             license.fullName = "MIT";
           };
         }
       )
-      { };
+      {};
 
   lmathx =
     callPackage
@@ -1340,17 +1340,17 @@ final: prev: {
             sha256 = "1r0ax3lq4xx6469aqc6qlfl3jynlghzhl5j65mpdj0kyzv4nknzf";
           };
 
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://www.tecgraf.puc-rio.br/~lhf/ftp/lua/#lmathx";
             description = "C99 extensions for the math library";
-            maintainers = with lib.maintainers; [ alexshpilkin ];
+            maintainers = with lib.maintainers; [alexshpilkin];
             license.fullName = "Public domain";
           };
         }
       )
-      { };
+      {};
 
   lmpfrlib =
     callPackage
@@ -1376,17 +1376,17 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.3") || (luaAtLeast "5.5");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://www.circuitwizard.de/lmpfrlib/lmpfrlib.html";
             description = "Lua API for the GNU MPFR library";
-            maintainers = with lib.maintainers; [ alexshpilkin ];
+            maintainers = with lib.maintainers; [alexshpilkin];
             license.fullName = "LGPL";
           };
         }
       )
-      { };
+      {};
 
   loadkit =
     callPackage
@@ -1427,17 +1427,17 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/leafo/loadkit";
             description = "Loadkit allows you to load arbitrary files within the Lua package path";
-            maintainers = with lib.maintainers; [ alerque ];
+            maintainers = with lib.maintainers; [alerque];
             license.fullName = "MIT";
           };
         }
       )
-      { };
+      {};
 
   lpeg =
     callPackage
@@ -1462,17 +1462,17 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://www.inf.puc-rio.br/~roberto/lpeg.html";
             description = "Parsing Expression Grammars For Lua";
-            maintainers = with lib.maintainers; [ vyp ];
+            maintainers = with lib.maintainers; [vyp];
             license.fullName = "MIT/X11";
           };
         }
       )
-      { };
+      {};
 
   lpeg_patterns =
     callPackage
@@ -1508,7 +1508,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   lpeglabel =
     callPackage
@@ -1533,7 +1533,7 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/sqmedeiros/lpeglabel/";
@@ -1542,7 +1542,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   lpty =
     callPackage
@@ -1567,7 +1567,7 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://www.tset.de/lpty/";
@@ -1576,7 +1576,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   lrexlib-gnu =
     callPackage
@@ -1617,7 +1617,7 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://github.com/rrthomas/lrexlib";
@@ -1626,7 +1626,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   lrexlib-pcre =
     callPackage
@@ -1667,17 +1667,17 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://github.com/rrthomas/lrexlib";
             description = "Regular expression library binding (PCRE flavour).";
-            maintainers = with lib.maintainers; [ vyp ];
+            maintainers = with lib.maintainers; [vyp];
             license.fullName = "MIT/X11";
           };
         }
       )
-      { };
+      {};
 
   lrexlib-posix =
     callPackage
@@ -1718,7 +1718,7 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://github.com/rrthomas/lrexlib";
@@ -1727,7 +1727,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   lua-cjson =
     callPackage
@@ -1768,7 +1768,7 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://www.kyne.com.au/~mark/software/lua-cjson.php";
@@ -1777,7 +1777,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   lua-cmsgpack =
     callPackage
@@ -1818,7 +1818,7 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://github.com/antirez/lua-cmsgpack";
@@ -1827,7 +1827,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   lua-curl =
     callPackage
@@ -1853,7 +1853,7 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.1") || (luaAtLeast "5.5");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/Lua-cURL";
@@ -1862,7 +1862,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   lua-iconv =
     callPackage
@@ -1887,7 +1887,7 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://ittner.github.com/lua-iconv/";
@@ -1896,7 +1896,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   lua-lsp =
     callPackage
@@ -1955,7 +1955,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   lua-messagepack =
     callPackage
@@ -1980,7 +1980,7 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://fperrad.frama.io/lua-MessagePack/";
@@ -1989,7 +1989,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   lua-protobuf =
     callPackage
@@ -2030,17 +2030,17 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/starwing/lua-protobuf";
             description = "protobuf data support for Lua";
-            maintainers = with lib.maintainers; [ lockejan ];
+            maintainers = with lib.maintainers; [lockejan];
             license.fullName = "MIT";
           };
         }
       )
-      { };
+      {};
 
   lua-resty-http =
     callPackage
@@ -2081,7 +2081,7 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/ledgetech/lua-resty-http";
@@ -2090,7 +2090,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   lua-resty-jwt =
     callPackage
@@ -2144,7 +2144,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   lua-resty-openidc =
     callPackage
@@ -2202,12 +2202,12 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   lua-resty-openssl =
     callPackage
       (
-        { fetchgit, buildLuarocksPackage }:
+        {fetchgit, buildLuarocksPackage}:
         buildLuarocksPackage {
           pname = "lua-resty-openssl";
           version = "0.8.17-1";
@@ -2244,7 +2244,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   lua-resty-session =
     callPackage
@@ -2299,7 +2299,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   lua-subprocess =
     callPackage
@@ -2336,22 +2336,22 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/xlq/lua-subprocess";
             description = "A Lua module written in C that allows you to create child processes and communicate with them.";
-            maintainers = with lib.maintainers; [ scoder12 ];
+            maintainers = with lib.maintainers; [scoder12];
             license.fullName = "MIT";
           };
         }
       )
-      { };
+      {};
 
   lua-term =
     callPackage
       (
-        { fetchurl, buildLuarocksPackage }:
+        {fetchurl, buildLuarocksPackage}:
         buildLuarocksPackage {
           pname = "lua-term";
           version = "0.7-1";
@@ -2372,7 +2372,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   lua-toml =
     callPackage
@@ -2413,7 +2413,7 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/jonstoler/lua-toml";
@@ -2422,7 +2422,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   lua-yajl =
     callPackage
@@ -2463,17 +2463,17 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://github.com/brimworks/lua-yajl";
             description = "Integrate the yajl JSON library with Lua.";
-            maintainers = with lib.maintainers; [ pstn ];
+            maintainers = with lib.maintainers; [pstn];
             license.fullName = "MIT/X11";
           };
         }
       )
-      { };
+      {};
 
   lua-zlib =
     callPackage
@@ -2514,17 +2514,17 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/brimworks/lua-zlib";
             description = "Simple streaming interface to zlib for Lua.";
-            maintainers = with lib.maintainers; [ koral ];
+            maintainers = with lib.maintainers; [koral];
             license.fullName = "MIT";
           };
         }
       )
-      { };
+      {};
 
   lua_cliargs =
     callPackage
@@ -2545,7 +2545,7 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/amireh/lua_cliargs";
@@ -2554,7 +2554,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   luabitop =
     callPackage
@@ -2592,7 +2592,7 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1") || (luaAtLeast "5.3");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://bitop.luajit.org/";
@@ -2601,7 +2601,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   luacheck =
     callPackage
@@ -2657,7 +2657,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   luacov =
     callPackage
@@ -2699,7 +2699,7 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1") || (luaAtLeast "5.5");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://keplerproject.github.io/luacov/";
@@ -2708,7 +2708,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   luadbi =
     callPackage
@@ -2750,7 +2750,7 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/mwild1/luadbi";
@@ -2759,7 +2759,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   luadbi-mysql =
     callPackage
@@ -2814,7 +2814,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   luadbi-postgresql =
     callPackage
@@ -2869,7 +2869,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   luadbi-sqlite3 =
     callPackage
@@ -2924,7 +2924,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   luaepnf =
     callPackage
@@ -2979,7 +2979,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   luaevent =
     callPackage
@@ -3004,7 +3004,7 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/harningt/luaevent";
@@ -3013,7 +3013,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   luaexpat =
     callPackage
@@ -3054,7 +3054,7 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://lunarmodules.github.io/luaexpat";
@@ -3067,7 +3067,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   luaffi =
     callPackage
@@ -3108,7 +3108,7 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/facebook/luaffifb";
@@ -3117,7 +3117,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   luafilesystem =
     callPackage
@@ -3158,17 +3158,17 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "git://github.com/keplerproject/luafilesystem";
             description = "File System Library for the Lua Programming Language";
-            maintainers = with lib.maintainers; [ flosse ];
+            maintainers = with lib.maintainers; [flosse];
             license.fullName = "MIT/X11";
           };
         }
       )
-      { };
+      {};
 
   lualdap =
     callPackage
@@ -3209,17 +3209,17 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://lualdap.github.io/lualdap/";
             description = "A Lua interface to the OpenLDAP library";
-            maintainers = with lib.maintainers; [ aanderse ];
+            maintainers = with lib.maintainers; [aanderse];
             license.fullName = "MIT";
           };
         }
       )
-      { };
+      {};
 
   lualogging =
     callPackage
@@ -3258,7 +3258,7 @@ final: prev: {
               ]
           );
 
-          propagatedBuildInputs = [ luasocket ];
+          propagatedBuildInputs = [luasocket];
 
           meta = {
             homepage = "https://github.com/lunarmodules/lualogging";
@@ -3267,7 +3267,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   luaossl =
     callPackage
@@ -3290,7 +3290,7 @@ final: prev: {
             sha256 = "1a9pgmc6fbhgh1m9ksz9fq057yzz46npqgakcsy9vngg47xacfdb";
           };
 
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://25thandclement.com/~william/projects/luaossl.html";
@@ -3299,7 +3299,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   luaposix =
     callPackage
@@ -3342,7 +3342,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   luarepl =
     callPackage
@@ -3367,7 +3367,7 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/hoelzro/lua-repl";
@@ -3376,7 +3376,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   luasec =
     callPackage
@@ -3426,12 +3426,12 @@ final: prev: {
           meta = {
             homepage = "https://github.com/brunoos/luasec/wiki";
             description = "A binding for OpenSSL library to provide TLS/SSL communication over LuaSocket.";
-            maintainers = with lib.maintainers; [ flosse ];
+            maintainers = with lib.maintainers; [flosse];
             license.fullName = "MIT";
           };
         }
       )
-      { };
+      {};
 
   luasocket =
     callPackage
@@ -3472,7 +3472,7 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/lunarmodules/luasocket";
@@ -3481,7 +3481,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   luasql-sqlite3 =
     callPackage
@@ -3522,17 +3522,17 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://www.keplerproject.org/luasql/";
             description = "Database connectivity for Lua (SQLite3 driver)";
-            maintainers = with lib.maintainers; [ vyp ];
+            maintainers = with lib.maintainers; [vyp];
             license.fullName = "MIT/X11";
           };
         }
       )
-      { };
+      {};
 
   luassert =
     callPackage
@@ -3586,7 +3586,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   luasystem =
     callPackage
@@ -3611,7 +3611,7 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://olivinelabs.com/luasystem/";
@@ -3620,7 +3620,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   luaunbound =
     callPackage
@@ -3646,7 +3646,7 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.1") || (luaAtLeast "5.5");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://www.zash.se/luaunbound.html";
@@ -3655,7 +3655,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   luaunit =
     callPackage
@@ -3681,17 +3681,17 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.1") || (luaAtLeast "5.5");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://github.com/bluebird75/luaunit";
             description = "A unit testing framework for Lua";
-            maintainers = with lib.maintainers; [ lockejan ];
+            maintainers = with lib.maintainers; [lockejan];
             license.fullName = "BSD";
           };
         }
       )
-      { };
+      {};
 
   luautf8 =
     callPackage
@@ -3716,17 +3716,17 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://github.com/starwing/luautf8";
             description = "A UTF-8 support module for Lua";
-            maintainers = with lib.maintainers; [ pstn ];
+            maintainers = with lib.maintainers; [pstn];
             license.fullName = "MIT";
           };
         }
       )
-      { };
+      {};
 
   luazip =
     callPackage
@@ -3768,7 +3768,7 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/mpeterv/luazip";
@@ -3777,7 +3777,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   lush-nvim =
     callPackage
@@ -3815,17 +3815,17 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/rktjmp/lush.nvim";
             description = "Define Neovim themes as a DSL in lua, with real-time feedback.";
-            maintainers = with lib.maintainers; [ teto ];
+            maintainers = with lib.maintainers; [teto];
             license.fullName = "MIT/X11";
           };
         }
       )
-      { };
+      {};
 
   luuid =
     callPackage
@@ -3851,7 +3851,7 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.2") || (luaAtLeast "5.4");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://www.tecgraf.puc-rio.br/~lhf/ftp/lua/#luuid";
@@ -3860,7 +3860,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   luv =
     callPackage
@@ -3885,7 +3885,7 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/luvit/luv";
@@ -3894,7 +3894,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   lyaml =
     callPackage
@@ -3920,17 +3920,17 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.1") || (luaAtLeast "5.5");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://github.com/gvvaughan/lyaml";
             description = "libYAML binding for Lua";
-            maintainers = with lib.maintainers; [ lblasc ];
+            maintainers = with lib.maintainers; [lblasc];
             license.fullName = "MIT/X11";
           };
         }
       )
-      { };
+      {};
 
   markdown =
     callPackage
@@ -3972,7 +3972,7 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/mpeterv/markdown";
@@ -3981,7 +3981,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   mediator_lua =
     callPackage
@@ -4006,7 +4006,7 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://olivinelabs.com/mediator_lua/";
@@ -4015,7 +4015,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   moonscript =
     callPackage
@@ -4065,17 +4065,17 @@ final: prev: {
           meta = {
             homepage = "http://moonscript.org";
             description = "A programmer friendly language that compiles to Lua";
-            maintainers = with lib.maintainers; [ arobyn ];
+            maintainers = with lib.maintainers; [arobyn];
             license.fullName = "MIT";
           };
         }
       )
-      { };
+      {};
 
   mpack =
     callPackage
       (
-        { buildLuarocksPackage, fetchurl }:
+        {buildLuarocksPackage, fetchurl}:
         buildLuarocksPackage {
           pname = "mpack";
           version = "1.0.9-0";
@@ -4096,7 +4096,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   nvim-client =
     callPackage
@@ -4134,7 +4134,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   nvim-cmp =
     callPackage
@@ -4172,7 +4172,7 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/hrsh7th/nvim-cmp";
@@ -4181,7 +4181,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   penlight =
     callPackage
@@ -4227,12 +4227,12 @@ final: prev: {
           meta = {
             homepage = "https://lunarmodules.github.io/penlight";
             description = "Lua utility libraries loosely based on the Python standard libraries";
-            maintainers = with lib.maintainers; [ alerque ];
+            maintainers = with lib.maintainers; [alerque];
             license.fullName = "MIT/X11";
           };
         }
       )
-      { };
+      {};
 
   plenary-nvim =
     callPackage
@@ -4283,7 +4283,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   rapidjson =
     callPackage
@@ -4320,7 +4320,7 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/xpol/lua-rapidjson";
@@ -4329,7 +4329,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   readline =
     callPackage
@@ -4368,7 +4368,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   rest-nvim =
     callPackage
@@ -4403,12 +4403,12 @@ final: prev: {
           meta = {
             homepage = "https://github.com/rest-nvim/rest.nvim";
             description = "A fast Neovim http client written in Lua";
-            maintainers = with lib.maintainers; [ teto ];
+            maintainers = with lib.maintainers; [teto];
             license.fullName = "MIT";
           };
         }
       )
-      { };
+      {};
 
   say =
     callPackage
@@ -4445,7 +4445,7 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://lunarmodules.github.io/say";
@@ -4454,7 +4454,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   serpent =
     callPackage
@@ -4496,17 +4496,17 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1") || (luaAtLeast "5.5");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/pkulchenko/serpent";
             description = "Lua serializer and pretty printer";
-            maintainers = with lib.maintainers; [ lockejan ];
+            maintainers = with lib.maintainers; [lockejan];
             license.fullName = "MIT";
           };
         }
       )
-      { };
+      {};
 
   sqlite =
     callPackage
@@ -4545,7 +4545,7 @@ final: prev: {
               ]
           );
 
-          propagatedBuildInputs = [ luv ];
+          propagatedBuildInputs = [luv];
 
           meta = {
             homepage = "https://github.com/tami5/sqlite.lua";
@@ -4554,7 +4554,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   std-_debug =
     callPackage
@@ -4592,7 +4592,7 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1") || (luaAtLeast "5.5");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://lua-stdlib.github.io/_debug";
@@ -4601,7 +4601,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   std-normalize =
     callPackage
@@ -4652,7 +4652,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   stdlib =
     callPackage
@@ -4678,17 +4678,17 @@ final: prev: {
           };
 
           disabled = (luaOlder "5.1") || (luaAtLeast "5.5");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "http://lua-stdlib.github.io/lua-stdlib";
             description = "General Lua Libraries";
-            maintainers = with lib.maintainers; [ vyp ];
+            maintainers = with lib.maintainers; [vyp];
             license.fullName = "MIT/X11";
           };
         }
       )
-      { };
+      {};
 
   teal-language-server =
     callPackage
@@ -4742,7 +4742,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   telescope-manix =
     callPackage
@@ -4780,7 +4780,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   telescope-nvim =
     callPackage
@@ -4833,7 +4833,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   tl =
     callPackage
@@ -4883,12 +4883,12 @@ final: prev: {
           meta = {
             homepage = "https://github.com/teal-language/tl";
             description = "Teal, a typed dialect of Lua";
-            maintainers = with lib.maintainers; [ mephistophiles ];
+            maintainers = with lib.maintainers; [mephistophiles];
             license.fullName = "MIT";
           };
         }
       )
-      { };
+      {};
 
   vstruct =
     callPackage
@@ -4925,7 +4925,7 @@ final: prev: {
           );
 
           disabled = (luaOlder "5.1");
-          propagatedBuildInputs = [ lua ];
+          propagatedBuildInputs = [lua];
 
           meta = {
             homepage = "https://github.com/ToxicFrog/vstruct";
@@ -4933,7 +4933,7 @@ final: prev: {
           };
         }
       )
-      { };
+      {};
 
   vusted =
     callPackage
@@ -4972,16 +4972,16 @@ final: prev: {
               ]
           );
 
-          propagatedBuildInputs = [ busted ];
+          propagatedBuildInputs = [busted];
 
           meta = {
             homepage = "https://github.com/notomo/vusted";
             description = "`busted` wrapper for testing neovim plugin";
-            maintainers = with lib.maintainers; [ figsoda ];
+            maintainers = with lib.maintainers; [figsoda];
             license.fullName = "MIT <http://opensource.org/licenses/MIT>";
           };
         }
       )
-      { };
+      {};
 }
 # GENERATED - do not edit this file

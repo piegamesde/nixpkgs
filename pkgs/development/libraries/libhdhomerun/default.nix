@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
       --replace "-arch x86_64" "-arch ${stdenv.hostPlatform.darwinArch}"
   '';
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     mkdir -p $out/{bin,lib,include/hdhomerun}
@@ -36,6 +36,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.silicondust.com/support/linux";
     license = licenses.lgpl21Only;
     platforms = platforms.unix;
-    maintainers = [ maintainers.titanous ];
+    maintainers = [maintainers.titanous];
   };
 }

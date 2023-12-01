@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs${
-      lib.replaceStrings [ "." ] [ "" ] version
+      lib.replaceStrings ["."] [""] version
     }/ghostscript-${version}.tar.xz";
     hash = "sha512-2US+norvaNEXbWTEDbb6htVdDJ4wBH8hR8AoBqthz+msLLANTlshj/PFHMbtR87/4brE3Z1MwXYLeXTzDGwnNQ==";
   };
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   nativeBuildInputs = [
     pkg-config
@@ -139,15 +139,15 @@ stdenv.mkDerivation rec {
       "--enable-dynamic"
       "--disable-hidden-visibility"
     ]
-    ++ lib.optional x11Support [ "--with-x" ]
-    ++ lib.optionals cupsSupport [ "--enable-cups" ];
+    ++ lib.optional x11Support ["--with-x"]
+    ++ lib.optionals cupsSupport ["--enable-cups"];
 
   # make check does nothing useful
   doCheck = false;
 
   # don't build/install statically linked bin/gs
-  buildFlags = [ "so" ];
-  installTargets = [ "soinstall" ];
+  buildFlags = ["so"];
+  installTargets = ["soinstall"];
 
   postInstall =
     ''
@@ -193,7 +193,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.tests = {
-    test-corpus-render = callPackage ./test-corpus-render.nix { };
+    test-corpus-render = callPackage ./test-corpus-render.nix {};
     inherit
       graphicsmagick
       imagemagick
@@ -217,7 +217,7 @@ stdenv.mkDerivation rec {
     '';
     license = lib.licenses.agpl3;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.viric ];
+    maintainers = [lib.maintainers.viric];
     mainProgram = "gs";
   };
 }

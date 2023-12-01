@@ -33,7 +33,7 @@ stdenvNoCC.mkDerivation (
     nativeBuildInputs = [
       buf
       dart
-      (callPackage ../../build-support/dart/fetch-dart-deps { } {
+      (callPackage ../../build-support/dart/fetch-dart-deps {} {
         buildDrvArgs = finalAttrs;
         vendorHash = "sha256-aEBE+z8M5ivMR9zL7kleBJ8c9T+4PGXoec56iwHVT+c=";
       })
@@ -71,7 +71,7 @@ stdenvNoCC.mkDerivation (
       homepage = "https://github.com/sass/dart-sass-embedded";
       changelog = "https://github.com/sass/dart-sass-embedded/blob/${finalAttrs.version}/CHANGELOG.md";
       license = licenses.mit;
-      maintainers = with maintainers; [ shyim ];
+      maintainers = with maintainers; [shyim];
     };
   }
 )

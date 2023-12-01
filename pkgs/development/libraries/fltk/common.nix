@@ -59,12 +59,12 @@ stdenv.mkDerivation rec {
     inherit rev sha256;
   };
 
-  outputs = [ "out" ] ++ lib.optional withExamples "bin" ++ lib.optional withDocs "doc";
+  outputs = ["out"] ++ lib.optional withExamples "bin" ++ lib.optional withDocs "doc";
 
   # Manually move example & test binaries to $bin to avoid cyclic dependencies on dev binaries
   outputBin = lib.optionalString withExamples "out";
 
-  patches = lib.optionals stdenv.hostPlatform.isDarwin [ ./nsosv.patch ];
+  patches = lib.optionals stdenv.hostPlatform.isDarwin [./nsosv.patch];
 
   postPatch = ''
     patchShebangs documentation/make_*
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
       libGL
       libGLU
     ]
-    ++ lib.optionals (withExamples && withGL) [ glew ];
+    ++ lib.optionals (withExamples && withGL) [glew];
 
   propagatedBuildInputs =
     [
@@ -108,10 +108,10 @@ stdenv.mkDerivation rec {
       libXft
       libXrender
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ Cocoa ]
-    ++ lib.optionals (withGL && stdenv.hostPlatform.isDarwin) [ OpenGL ]
-    ++ lib.optionals withCairo [ cairo ]
-    ++ lib.optionals withPango [ pango ];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [Cocoa]
+    ++ lib.optionals (withGL && stdenv.hostPlatform.isDarwin) [OpenGL]
+    ++ lib.optionals withCairo [cairo]
+    ++ lib.optionals withPango [pango];
 
   cmakeFlags = [
     # Common

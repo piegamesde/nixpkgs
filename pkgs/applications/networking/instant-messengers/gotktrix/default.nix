@@ -27,7 +27,7 @@ buildGoModule rec {
     gobject-introspection
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   # Checking requires a working display
   doCheck = false;
@@ -46,7 +46,7 @@ buildGoModule rec {
     description = "Matrix client written in Go using GTK4";
     homepage = "https://github.com/diamondburned/gotktrix";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ chuangzhu ];
+    maintainers = with maintainers; [chuangzhu];
     platforms = platforms.linux;
   };
 }

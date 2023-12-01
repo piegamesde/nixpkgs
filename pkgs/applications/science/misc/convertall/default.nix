@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  propagatedBuildInputs = [ pyqt5 ];
+  propagatedBuildInputs = [pyqt5];
 
   installPhase = ''
     python3 install.py -p $out -x
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     homepage = "https://convertall.bellz.org/";
     description = "Graphical unit converter";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = pyqt5.meta.platforms;
   };
 }

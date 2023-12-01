@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     pkg-config
     scons
   ];
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   meta = with lib; {
     description = "A bit-oriented parser combinator library";
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://gitlab.special-circumstanc.es/hammer/hammer";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
   };
 }

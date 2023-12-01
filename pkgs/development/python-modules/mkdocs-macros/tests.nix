@@ -10,7 +10,7 @@
 let
   inherit (mkdocs-macros) pname version src;
 
-  mkdocs-macros-test = callPackage ./mkdocs-macros-test.nix { };
+  mkdocs-macros-test = callPackage ./mkdocs-macros-test.nix {};
 
   env = {
     nativeBuildInputs = [

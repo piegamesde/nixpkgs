@@ -1,4 +1,4 @@
-{ lib, python3Packages }:
+{lib, python3Packages}:
 
 python3Packages.buildPythonApplication rec {
   pname = "gomp";
@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication rec {
     description = "A tool for comparing Git branches";
     homepage = "https://github.com/MarkForged/GOMP";
     license = licenses.mit;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
     platforms = platforms.unix;
   };
 }

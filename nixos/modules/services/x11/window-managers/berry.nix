@@ -25,6 +25,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ pkgs.berry ];
+    environment.systemPackages = [pkgs.berry];
   };
 }

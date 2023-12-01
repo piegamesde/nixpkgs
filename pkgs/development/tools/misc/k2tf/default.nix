@@ -28,6 +28,6 @@ buildGoModule rec {
     description = "Kubernetes YAML to Terraform HCL converter";
     homepage = "https://github.com/sl1pm4t/k2tf";
     license = licenses.mpl20;
-    maintainers = [ maintainers.flokli ];
+    maintainers = [maintainers.flokli];
   };
 }

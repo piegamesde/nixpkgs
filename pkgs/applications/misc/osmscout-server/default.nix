@@ -71,7 +71,7 @@ mkDerivation rec {
     description = "Maps server providing tiles, geocoder, and router";
     homepage = "https://github.com/rinigus/osmscout-server";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.Thra11 ];
+    maintainers = [maintainers.Thra11];
     platforms = platforms.linux;
   };
 }

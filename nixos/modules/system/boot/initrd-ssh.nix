@@ -55,7 +55,7 @@ in
 
     hostKeys = mkOption {
       type = types.listOf (types.either types.str types.path);
-      default = [ ];
+      default = [];
       example = [
         "/etc/secrets/initrd/ssh_host_rsa_key"
         "/etc/secrets/initrd/ssh_host_ed25519_key"
@@ -123,7 +123,7 @@ in
               "network"
               "ssh"
             ]
-            ++ [ opt ]
+            ++ [opt]
           )
           ''
             The initrd SSH functionality now uses OpenSSH rather than Dropbear.
@@ -190,12 +190,12 @@ in
     mkIf enabled {
       assertions = [
         {
-          assertion = cfg.authorizedKeys != [ ];
+          assertion = cfg.authorizedKeys != [];
           message = "You should specify at least one authorized key for initrd SSH";
         }
 
         {
-          assertion = (cfg.hostKeys != [ ]) || cfg.ignoreEmptyHostKeys;
+          assertion = (cfg.hostKeys != []) || cfg.ignoreEmptyHostKeys;
           message = ''
             You must now pre-generate the host keys for initrd SSH.
             See the boot.initrd.network.ssh.hostKeys documentation
@@ -287,11 +287,11 @@ in
 
         contents."/etc/ssh/authorized_keys.d/root".text = concatStringsSep "\n" config.boot.initrd.network.ssh.authorizedKeys;
         contents."/etc/ssh/sshd_config".text = sshdConfig;
-        storePaths = [ "${package}/bin/sshd" ];
+        storePaths = ["${package}/bin/sshd"];
 
         services.sshd = {
           description = "SSH Daemon";
-          wantedBy = [ "initrd.target" ];
+          wantedBy = ["initrd.target"];
           after = [
             "network.target"
             "initrd-nixos-copy-secrets.service"

@@ -16,7 +16,7 @@ buildPythonPackage rec {
   };
 
   doCheck = false; # there are no tests
-  pythonImportsCheck = [ "dungeon_eos" ];
+  pythonImportsCheck = ["dungeon_eos"];
 
   meta = with lib; {
     homepage = "https://github.com/SkyTemple/dungeon-eos";

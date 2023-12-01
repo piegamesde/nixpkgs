@@ -27,7 +27,7 @@ buildPythonApplication rec {
       --replace "/usr/" "$out/"
   '';
 
-  nativeBuildInputs = [ wrapGAppsHook ];
+  nativeBuildInputs = [wrapGAppsHook];
 
   propagatedBuildInputs = [
     p7zip
@@ -49,7 +49,7 @@ buildPythonApplication rec {
     description = "A tool to create a Windows USB stick installer from a real Windows DVD or image";
     homepage = "https://github.com/WoeUSB/WoeUSB-ng";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ stunkymonkey ];
+    maintainers = with maintainers; [stunkymonkey];
     platforms = platforms.linux;
   };
 }

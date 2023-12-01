@@ -1,15 +1,15 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "apfs";
-    meta.maintainers = with pkgs.lib.maintainers; [ Luflosi ];
+    meta.maintainers = with pkgs.lib.maintainers; [Luflosi];
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        virtualisation.emptyDiskImages = [ 1024 ];
+        virtualisation.emptyDiskImages = [1024];
 
-        boot.supportedFilesystems = [ "apfs" ];
+        boot.supportedFilesystems = ["apfs"];
       };
 
     testScript = ''

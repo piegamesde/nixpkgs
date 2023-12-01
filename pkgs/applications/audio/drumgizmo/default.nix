@@ -26,9 +26,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-AF8gQLiB29j963uI84TyNHIC0qwEWOCqmZIUWGq8V2o=";
   };
 
-  configureFlags = [ "--enable-lv2" ];
+  configureFlags = ["--enable-lv2"];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     alsa-lib

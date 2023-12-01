@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       bash-completion
       libGL
     ]
-    ++ lib.optionals (with stdenv.hostPlatform; isUnix && !isDarwin) [ libglvnd ]
+    ++ lib.optionals (with stdenv.hostPlatform; isUnix && !isDarwin) [libglvnd]
     ++ lib.optionals x11Support [
       libX11
       libxcb
@@ -81,6 +81,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.waffle-gl.org/";
     license = licenses.bsd2;
     platforms = platforms.mesaPlatforms;
-    maintainers = with maintainers; [ Flakebi ];
+    maintainers = with maintainers; [Flakebi];
   };
 }

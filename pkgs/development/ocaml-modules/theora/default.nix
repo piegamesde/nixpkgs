@@ -20,7 +20,7 @@ buildDunePackage rec {
     hash = "sha256-VN1XYqxMCO0W9tMTqSAwWKv7GErTtRZgnC2SnmmV7+k=";
   };
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     ogg
     libtheora
@@ -30,6 +30,6 @@ buildDunePackage rec {
     homepage = "https://github.com/savonet/ocaml-theora";
     description = "Bindings to libtheora";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

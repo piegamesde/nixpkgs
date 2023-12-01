@@ -32,9 +32,9 @@ mkDerivation rec {
     qtwebkit
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     description = "Fontmatrix is a free/libre font explorer for Linux, Windows and Mac";

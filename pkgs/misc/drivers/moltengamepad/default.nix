@@ -16,9 +16,9 @@ stdenv.mkDerivation {
     sha256 = "05cpxfzxgm86kxx0a9f76bshjwpz9w1g8bn30ib1i5a3fv7bmirl";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  buildInputs = [ udev ];
+  buildInputs = [udev];
 
   buildPhase = ''
     make
@@ -37,7 +37,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/jgeumlek/MoltenGamepad";
     description = "Flexible Linux input device translator, geared for gamepads";
     license = licenses.mit;
-    maintainers = [ maintainers.ebzzry ];
+    maintainers = [maintainers.ebzzry];
     platforms = platforms.linux;
   };
 }

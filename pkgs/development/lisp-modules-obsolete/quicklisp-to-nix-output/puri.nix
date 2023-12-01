@@ -1,14 +1,14 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "puri";
   version = "20201016-git";
 
-  parasites = [ "puri/test" ];
+  parasites = ["puri/test"];
 
   description = "Portable Universal Resource Indentifier Library";
 
-  deps = [ args."ptester" ];
+  deps = [args."ptester"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/puri/2020-10-16/puri-20201016-git.tgz";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "puri";
 
-  asdFilesToKeep = [ "puri.asd" ];
+  asdFilesToKeep = ["puri.asd"];
   overrides = x: x;
 }
 /* (SYSTEM puri DESCRIPTION Portable Universal Resource Indentifier Library

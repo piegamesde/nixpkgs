@@ -1,9 +1,9 @@
 import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "test-hocker-fetchdocker";
     meta = with pkgs.lib.maintainers; {
-      maintainers = [ ixmatus ];
+      maintainers = [ixmatus];
       broken = true; # tries to download from registry-1.docker.io - how did this ever work?
     };
 

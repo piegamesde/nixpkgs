@@ -14,13 +14,13 @@ stdenv.mkDerivation rec {
     sha256 = "1idsfxff1x264n8jd7077qrd61rycsd09fwmc4ar7l4qmhk6gw9b";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     description = "UDF reader";
     homepage = "https://code.videolan.org/videolan/libudfread";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ chkno ];
+    maintainers = with maintainers; [chkno];
     platforms = platforms.all;
   };
 }

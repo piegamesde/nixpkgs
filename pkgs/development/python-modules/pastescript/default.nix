@@ -38,9 +38,9 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonNamespaces = [ "paste" ];
+  pythonNamespaces = ["paste"];
 
-  disabledTestPaths = [ "appsetup/testfiles" ];
+  disabledTestPaths = ["appsetup/testfiles"];
 
   pythonImportsCheck = [
     "paste.script"
@@ -52,6 +52,6 @@ buildPythonPackage rec {
     description = "A pluggable command-line frontend, including commands to setup package file layouts";
     homepage = "https://github.com/cdent/pastescript/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

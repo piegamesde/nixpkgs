@@ -18,7 +18,7 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
   buildInputs = [
     dune-configurator
     stdio

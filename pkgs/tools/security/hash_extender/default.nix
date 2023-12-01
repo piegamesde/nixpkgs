@@ -16,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "1fj118566hr1wv03az2w0iqknazsqqkak0mvlcvwpgr6midjqi9b";
   };
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   doCheck = true;
   checkPhase = "./hash_extender --test";
@@ -32,6 +32,6 @@ stdenv.mkDerivation {
     description = "Tool to automate hash length extension attacks";
     homepage = "https://github.com/iagox86/hash_extender";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
   };
 }

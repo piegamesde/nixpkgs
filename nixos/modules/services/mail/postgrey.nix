@@ -85,7 +85,7 @@ in
           ];
         in
         if value inetAddr == null then
-          { path = "/run/postgrey.sock"; }
+          {path = "/run/postgrey.sock";}
         else
           {
             addr = value inetAddr;
@@ -172,12 +172,12 @@ in
       };
       whitelistClients = mkOption {
         type = listOf path;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "Client address whitelist files (see postgrey(8))";
       };
       whitelistRecipients = mkOption {
         type = listOf path;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "Recipient address whitelist files (see postgrey(8))";
       };
     };
@@ -185,7 +185,7 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ pkgs.postgrey ];
+    environment.systemPackages = [pkgs.postgrey];
 
     users = {
       users = {
@@ -214,8 +214,8 @@ in
       in
       {
         description = "Postfix Greylisting Service";
-        wantedBy = [ "multi-user.target" ];
-        before = [ "postfix.service" ];
+        wantedBy = ["multi-user.target"];
+        before = ["postfix.service"];
         preStart = ''
           mkdir -p /var/postgrey
           chown postgrey:postgrey /var/postgrey

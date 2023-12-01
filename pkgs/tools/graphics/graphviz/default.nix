@@ -67,9 +67,9 @@ stdenv.mkDerivation rec {
         libXpm
       ]
     )
-    ++ optionals stdenv.isDarwin [ ApplicationServices ];
+    ++ optionals stdenv.isDarwin [ApplicationServices];
 
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   configureFlags = [
     "--with-ltdl-lib=${libtool.lib}/lib"

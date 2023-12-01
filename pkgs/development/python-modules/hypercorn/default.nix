@@ -32,27 +32,27 @@ buildPythonPackage rec {
     sed -i "/^addopts/d" pyproject.toml
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     wsproto
     toml
     h2
     priority
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  ] ++ lib.optionals (pythonOlder "3.8") [typing-extensions];
 
   nativeCheckInputs = [
     pytest-asyncio
     pytest-trio
     pytestCheckHook
-  ] ++ lib.optionals (pythonOlder "3.8") [ mock ];
+  ] ++ lib.optionals (pythonOlder "3.8") [mock];
 
-  pythonImportsCheck = [ "hypercorn" ];
+  pythonImportsCheck = ["hypercorn"];
 
   meta = with lib; {
     homepage = "https://github.com/pgjones/hypercorn";
     description = "The ASGI web server inspired by Gunicorn";
     license = licenses.mit;
-    maintainers = with maintainers; [ dgliwka ];
+    maintainers = with maintainers; [dgliwka];
   };
 }

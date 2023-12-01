@@ -5,7 +5,7 @@
 #      files in Nix store paths
 #   3. nginx doesn't restart on configuration changes (only reloads)
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "nginx";
     meta = with pkgs.lib.maintainers; {
@@ -17,7 +17,7 @@ import ./make-test-python.nix (
 
     nodes = {
       webserver =
-        { pkgs, lib, ... }:
+        {pkgs, lib, ...}:
         {
           services.nginx.enable = true;
           services.nginx.commonHttpConfig = ''
@@ -41,7 +41,7 @@ import ./make-test-python.nix (
           };
 
           services.nginx.virtualHosts.localhost = {
-            root = pkgs.runCommand "testdir" { } ''
+            root = pkgs.runCommand "testdir" {} ''
               mkdir "$out"
               echo hello world > "$out/index.html"
             '';
@@ -52,7 +52,7 @@ import ./make-test-python.nix (
           specialisation.etagSystem.configuration = {
             services.nginx.virtualHosts.localhost = {
               root = lib.mkForce (
-                pkgs.runCommand "testdir2" { } ''
+                pkgs.runCommand "testdir2" {} ''
                   mkdir "$out"
                   echo content changed > "$out/index.html"
                 ''
@@ -81,7 +81,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         etagSystem = "${nodes.webserver.system.build.toplevel}/specialisation/etagSystem";
         justReloadSystem = "${nodes.webserver.system.build.toplevel}/specialisation/justReloadSystem";

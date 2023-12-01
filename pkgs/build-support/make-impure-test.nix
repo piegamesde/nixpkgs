@@ -36,9 +36,9 @@
   name,
   testedPackage ? null,
   testPath ? "${testedPackage}.impureTests.${name}.testDerivation",
-  sandboxPaths ? [ "/sys" ],
+  sandboxPaths ? ["/sys"],
   prepareRunCommands ? "",
-  nixFlags ? [ ],
+  nixFlags ? [],
   testScript,
   ...
 }@args:
@@ -53,7 +53,7 @@ let
       {
         name = "test-run-${name}";
 
-        requiredSystemFeatures = [ "nixos-test" ];
+        requiredSystemFeatures = ["nixos-test"];
 
         buildCommand = ''
           mkdir -p $out

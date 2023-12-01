@@ -34,7 +34,7 @@ buildDunePackage rec {
   meta = with lib; {
     description = "Library to connect and control a running dune instance";
     inherit (dune_3.meta) homepage;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     license = licenses.mit;
   };
 }

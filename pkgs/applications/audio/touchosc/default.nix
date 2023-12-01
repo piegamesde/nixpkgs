@@ -39,7 +39,7 @@ let
     libglvnd
   ];
 
-  runBinDeps = [ gnome.zenity ];
+  runBinDeps = [gnome.zenity];
 in
 
 stdenv.mkDerivation rec {
@@ -104,9 +104,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://hexler.net/touchosc";
     description = "Next generation modular control surface";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ lilyinstarlight ];
+    maintainers = with maintainers; [lilyinstarlight];
     platforms = [
       "aarch64-linux"
       "armv7l-linux"

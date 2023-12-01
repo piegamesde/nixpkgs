@@ -31,7 +31,7 @@ let
     {
       name,
       stdenv',
-      extraAttrs ? { },
+      extraAttrs ? {},
     }:
 
     stdenv'.cc.overrideAttrs (
@@ -64,7 +64,7 @@ let
     {
       name,
       stdenv',
-      extraAttrs ? { },
+      extraAttrs ? {},
     }:
     stdenv'.mkDerivation (
       {
@@ -73,7 +73,7 @@ let
           string = "testing-string";
         };
 
-        passAsFile = [ "buildCommand" ];
+        passAsFile = ["buildCommand"];
         buildCommand = ''
           declare -p string
           echo "env.string = $string"
@@ -89,7 +89,7 @@ let
     {
       name,
       stdenv',
-      extraAttrs ? { },
+      extraAttrs ? {},
     }:
     stdenv'.mkDerivation (
       {
@@ -98,7 +98,7 @@ let
           string = "testing-string";
         };
 
-        passAsFile = [ "buildCommand" ] ++ lib.optionals (extraAttrs ? extraTest) [ "extraTest" ];
+        passAsFile = ["buildCommand"] ++ lib.optionals (extraAttrs ? extraTest) ["extraTest"];
         buildCommand = ''
           declare -p string
           appendToVar string hello
@@ -149,7 +149,7 @@ in
           bootStdenv.mkDerivation {
             NIX_DEBUG = 1;
             name = "outputs-no-out";
-            outputs = [ "foo" ];
+            outputs = ["foo"];
             buildPhase = ":";
             installPhase = ''
               touch $foo
@@ -185,7 +185,7 @@ in
       '';
     };
 
-    passAsFile = [ "buildCommand" ];
+    passAsFile = ["buildCommand"];
     buildCommand = ''
       declare -p env
       [[ $env == "${env}" ]]
@@ -315,7 +315,7 @@ in
       in
       bootStdenvStructuredAttrsByDefault.mkDerivation {
         name = "test-golden-example-structuredAttrsByDefault";
-        nativeBuildInputs = [ earlyPkgs.jq ];
+        nativeBuildInputs = [earlyPkgs.jq];
 
         EXAMPLE_BOOL_TRUE = true;
         EXAMPLE_BOOL_FALSE = false;
@@ -331,7 +331,7 @@ in
             "foo"
             "bar"
           ]
-          [ "baz" ]
+          ["baz"]
         ];
         EXAMPLE_ATTRS = {
           foo = "bar";

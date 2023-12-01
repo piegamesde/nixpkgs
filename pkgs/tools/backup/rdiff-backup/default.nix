@@ -22,9 +22,9 @@ pypkgs.buildPythonApplication rec {
       --replace 'version = "DEV"' 'version = "${version}"'
   '';
 
-  buildInputs = [ librsync ];
+  buildInputs = [librsync];
 
-  nativeBuildInputs = with pypkgs; [ setuptools-scm ];
+  nativeBuildInputs = with pypkgs; [setuptools-scm];
 
   # no tests from pypi
   doCheck = false;
@@ -33,7 +33,7 @@ pypkgs.buildPythonApplication rec {
     description = "Backup system trying to combine best a mirror and an incremental backup system";
     homepage = "https://rdiff-backup.net";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.all;
   };
 }

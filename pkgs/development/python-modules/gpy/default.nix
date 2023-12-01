@@ -21,7 +21,7 @@ buildPythonPackage rec {
     sha256 = "a2b793ef8d0ac71739e7ba1c203bc8a5afa191058b42caa617e0e29aa52aa6fb";
   };
 
-  buildInputs = [ cython ];
+  buildInputs = [cython];
   propagatedBuildInputs = [
     numpy
     scipy
@@ -29,7 +29,7 @@ buildPythonPackage rec {
     paramz
     matplotlib
   ];
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
   # $ nosetests GPy/testing/*.py
   # => Ran 483 tests in 112.146s (on 8 cores)
@@ -47,13 +47,13 @@ buildPythonPackage rec {
     done
   '';
 
-  pythonImportsCheck = [ "GPy" ];
+  pythonImportsCheck = ["GPy"];
 
   meta = with lib; {
     description = "Gaussian process framework in Python";
     homepage = "https://sheffieldml.github.io/GPy";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     broken = stdenv.isDarwin; # See inscrutable error message here: https://github.com/NixOS/nixpkgs/pull/107653#issuecomment-751527547
   };
 }

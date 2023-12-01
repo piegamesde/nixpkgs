@@ -19,7 +19,7 @@ buildPecl {
     sha256 = "sha256-CDhNDk78D15MtljbtyYj8euPnCruLZnc2NEHqXDX8HY=";
   };
 
-  buildInputs = [ rabbitmq-c ];
+  buildInputs = [rabbitmq-c];
 
   AMQP_DIR = rabbitmq-c;
 

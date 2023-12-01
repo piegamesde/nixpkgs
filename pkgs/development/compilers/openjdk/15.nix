@@ -52,7 +52,7 @@ let
   };
 
   # when building a headless jdk, also bootstrap it with a headless jdk
-  openjdk-bootstrap = openjdk15-bootstrap.override { gtkSupport = !headless; };
+  openjdk-bootstrap = openjdk15-bootstrap.override {gtkSupport = !headless;};
 
   openjdk = stdenv.mkDerivation {
     pname = "openjdk" + lib.optionalString headless "-headless";
@@ -119,7 +119,7 @@ let
         url = "https://src.fedoraproject.org/rpms/java-openjdk/raw/06c001c7d87f2e9fe4fedeef2d993bcd5d7afa2a/f/rh1673833-remove_removal_of_wformat_during_test_compilation.patch";
         sha256 = "082lmc30x64x583vqq00c8y0wqih3y4r0mp1c4bqq36l22qv6b6r";
       })
-    ] ++ lib.optionals (!headless && enableGnome2) [ ./swing-use-gtk-jdk13.patch ];
+    ] ++ lib.optionals (!headless && enableGnome2) [./swing-use-gtk-jdk13.patch];
 
     prePatch = ''
       chmod +x configure
@@ -179,7 +179,7 @@ let
     # still runs in parallel.
     enableParallelBuilding = false;
 
-    buildFlags = [ "all" ];
+    buildFlags = ["all"];
 
     installPhase = ''
       mkdir -p $out/lib
@@ -240,7 +240,7 @@ let
       done
     '';
 
-    disallowedReferences = [ openjdk-bootstrap ];
+    disallowedReferences = [openjdk-bootstrap];
 
     pos = builtins.unsafeGetAttrPos "major" version;
     meta = import ./meta.nix lib version.major;

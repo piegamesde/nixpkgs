@@ -12,7 +12,7 @@
   gdk-pixbuf,
   glib,
   gtk3,
-  extraOptions ? [ ], # E.g.: [ "--verbose" ]
+  extraOptions ? [], # E.g.: [ "--verbose" ]
   # Used by the NixOS module:
   isNixOS ? false,
 
@@ -25,7 +25,7 @@ assert extraSessionCommands != "" -> withBaseWrapper;
 with lib;
 
 let
-  sway = sway-unwrapped.override { inherit isNixOS enableXWayland; };
+  sway = sway-unwrapped.override {inherit isNixOS enableXWayland;};
   baseWrapper = writeShellScriptBin "sway" ''
     set -o errexit
     if [ ! "$_SWAY_WRAPPER_ALREADY_EXECUTED" ]; then
@@ -44,10 +44,10 @@ in
 symlinkJoin {
   name = "sway-${sway.version}";
 
-  paths = (optional withBaseWrapper baseWrapper) ++ [ sway ];
+  paths = (optional withBaseWrapper baseWrapper) ++ [sway];
 
   strictDeps = false;
-  nativeBuildInputs = [ makeWrapper ] ++ (optional withGtkWrapper wrapGAppsHook);
+  nativeBuildInputs = [makeWrapper] ++ (optional withGtkWrapper wrapGAppsHook);
 
   buildInputs = optionals withGtkWrapper [
     gdk-pixbuf
@@ -63,14 +63,12 @@ symlinkJoin {
 
     wrapProgram $out/bin/sway \
       ${optionalString withGtkWrapper ''"''${gappsWrapperArgs[@]}"''} \
-      ${
-        optionalString (extraOptions != [ ]) "${concatMapStrings (x: " --add-flags " + x) extraOptions}"
-      }
+      ${optionalString (extraOptions != []) "${concatMapStrings (x: " --add-flags " + x) extraOptions}"}
   '';
 
   passthru = {
     inherit (sway.passthru) tests;
-    providedSessions = [ "sway" ];
+    providedSessions = ["sway"];
   };
 
   inherit (sway) meta;

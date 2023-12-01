@@ -37,9 +37,9 @@ stdenv.mkDerivation rec {
     bison
     texinfo
   ];
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   patches = [
     (fetchpatch {
@@ -80,6 +80,6 @@ stdenv.mkDerivation rec {
     description = "A daemon that provides mouse support on the Linux console";
     license = licenses.gpl2;
     platforms = platforms.linux ++ platforms.cygwin;
-    maintainers = with maintainers; [ eelco ];
+    maintainers = with maintainers; [eelco];
   };
 }

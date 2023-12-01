@@ -21,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-19xeS3+t6bc3XFaKJEdbe+gQJMrCogyu8yYO8LUSh7Q=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     pyyaml
@@ -54,12 +54,12 @@ buildPythonPackage rec {
     "test_runtime"
   ];
 
-  pythonImportsCheck = [ "ansible_compat" ];
+  pythonImportsCheck = ["ansible_compat"];
 
   meta = with lib; {
     description = "A python package containing functions that help interacting with various versions of Ansible";
     homepage = "https://github.com/ansible/ansible-compat";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

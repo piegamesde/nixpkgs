@@ -27,10 +27,10 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    email = [ email-validator ];
+    email = [email-validator];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Simple integration of Flask and WTForms.";

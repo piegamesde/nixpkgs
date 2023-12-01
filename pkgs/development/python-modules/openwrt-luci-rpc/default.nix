@@ -23,9 +23,9 @@ buildPythonPackage rec {
     packaging
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "openwrt_luci_rpc" ];
+  pythonImportsCheck = ["openwrt_luci_rpc"];
 
   meta = with lib; {
     description = "Python module for interacting with the OpenWrt Luci RPC interface";
@@ -36,6 +36,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/fbradyirl/openwrt-luci-rpc";
     license = licenses.asl20;
-    maintainers = with maintainers; [ matt-snider ];
+    maintainers = with maintainers; [matt-snider];
   };
 }

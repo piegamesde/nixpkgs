@@ -28,12 +28,12 @@ buildPythonPackage rec {
     ecdsa
   ];
 
-  passthru.optional-dependencies.smartcard = [ pyscard ];
+  passthru.optional-dependencies.smartcard = [pyscard];
 
   # tests requires hardware
   doCheck = false;
 
-  pythonImportsCheck = [ "btchip.btchip" ];
+  pythonImportsCheck = ["btchip.btchip"];
 
   meta = with lib; {
     description = "Python communication library for Ledger Hardware Wallet products";

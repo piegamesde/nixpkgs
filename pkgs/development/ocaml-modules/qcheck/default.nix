@@ -1,4 +1,4 @@
-{ buildDunePackage, qcheck-ounit }:
+{buildDunePackage, qcheck-ounit}:
 
 buildDunePackage {
   pname = "qcheck";
@@ -7,7 +7,7 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ qcheck-ounit ];
+  propagatedBuildInputs = [qcheck-ounit];
 
   meta = qcheck-ounit.meta // {
     description = "Compatibility package for qcheck";

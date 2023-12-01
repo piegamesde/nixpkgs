@@ -25,6 +25,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/alvatip/Nordzy-cursors";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ alexnortung ];
+    maintainers = with maintainers; [alexnortung];
   };
 }

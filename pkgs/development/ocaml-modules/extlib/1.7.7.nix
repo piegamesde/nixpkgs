@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "Enhancements to the OCaml Standard Library modules";
     license = lib.licenses.lgpl21Only;
     inherit (ocaml.meta) platforms;
-    maintainers = [ lib.maintainers.sternenseemann ];
+    maintainers = [lib.maintainers.sternenseemann];
     broken = lib.versionAtLeast ocaml.version "4.12";
   };
 }

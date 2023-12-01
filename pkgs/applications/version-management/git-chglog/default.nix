@@ -23,12 +23,12 @@ buildGoModule rec {
     "-X=main.Version=v${version}"
   ];
 
-  subPackages = [ "cmd/git-chglog" ];
+  subPackages = ["cmd/git-chglog"];
 
   meta = with lib; {
     description = "CHANGELOG generator implemented in Go (Golang)";
     homepage = "https://github.com/git-chglog/git-chglog";
     license = licenses.mit;
-    maintainers = with maintainers; [ ldenefle ];
+    maintainers = with maintainers; [ldenefle];
   };
 }

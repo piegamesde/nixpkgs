@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [ bzip2 ] ++ lib.optional stdenv.isDarwin Security;
+  buildInputs = [bzip2] ++ lib.optional stdenv.isDarwin Security;
 
   postInstall = ''
     installManPage artifacts/pactorio.1
@@ -41,6 +41,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/figsoda/pactorio";
     changelog = "https://github.com/figsoda/pactorio/blob/v${version}/CHANGELOG.md";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

@@ -16,7 +16,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-D7+C02VlE42wWQSOkeTJVDS4rWnGB06RTZ7tzdpYmZw=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # Because there's a test that requires terminal access
   doCheck = false;
@@ -36,7 +36,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A terminal user interface for taskwarrior ";
     homepage = "https://github.com/kdheepak/taskwarrior-tui";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ matthiasbeyer ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [matthiasbeyer];
   };
 }

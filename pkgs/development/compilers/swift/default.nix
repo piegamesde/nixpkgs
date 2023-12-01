@@ -26,7 +26,7 @@ let
       if pkgs.stdenv.isDarwin then
         llvmPackages_latest.clang.override rec {
           libc = apple_sdk.Libsystem;
-          bintools = pkgs.bintools.override { inherit libc; };
+          bintools = pkgs.bintools.override {inherit libc;};
         }
       else
         llvmPackages_latest.clang;
@@ -74,13 +74,13 @@ let
       if stdenv.isDarwin then
         null # part of libsystem
       else
-        callPackage ./libdispatch { swift = swiftNoSwiftDriver; };
+        callPackage ./libdispatch {swift = swiftNoSwiftDriver;};
 
     Foundation =
       if stdenv.isDarwin then
         apple_sdk.frameworks.Foundation
       else
-        callPackage ./foundation { swift = swiftNoSwiftDriver; };
+        callPackage ./foundation {swift = swiftNoSwiftDriver;};
 
     # TODO: Apple distributes a binary XCTest with Xcode, but it is not part of
     # CLTools (or SUS), so would have to figure out how to fetch it. The binary
@@ -96,9 +96,9 @@ let
       swift = swiftNoSwiftDriver;
     };
 
-    swift-driver = callPackage ./swift-driver { swift = swiftNoSwiftDriver; };
+    swift-driver = callPackage ./swift-driver {swift = swiftNoSwiftDriver;};
 
-    swift = callPackage ./wrapper { swift = swift-unwrapped; };
+    swift = callPackage ./wrapper {swift = swift-unwrapped;};
 
     sourcekit-lsp = callPackage ./sourcekit-lsp {
       inherit (apple_sdk.frameworks) CryptoKit LocalAuthentication;

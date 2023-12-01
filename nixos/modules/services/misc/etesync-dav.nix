@@ -60,13 +60,13 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.port];
 
     systemd.services.etesync-dav = {
       description = "etesync-dav - A CalDAV and CardDAV adapter for EteSync";
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.etesync-dav ];
+      after = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.etesync-dav];
       environment = {
         ETESYNC_LISTEN_ADDRESS = cfg.host;
         ETESYNC_LISTEN_PORT = toString cfg.port;

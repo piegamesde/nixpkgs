@@ -25,15 +25,15 @@ mkDerivation rec {
     qtx11extras
   ];
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
 
-  cmakeFlags = [ "-Wno-dev" ];
+  cmakeFlags = ["-Wno-dev"];
 
   meta = with lib; {
     description = "Manage virtual desktops dynamically in a convenient way";
     homepage = "https://github.com/wsdfhjxc/virtual-desktop-bar";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

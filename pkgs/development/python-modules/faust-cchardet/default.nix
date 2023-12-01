@@ -37,9 +37,9 @@ buildPythonPackage rec {
     ln -s $out/${python.sitePackages}/{faust_,}cchardet-${version}.dist-info
   '';
 
-  pythonImportsCheck = [ "cchardet" ];
+  pythonImportsCheck = ["cchardet"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     changelog = "https://github.com/faust-streaming/cChardet/blob/${src.rev}/CHANGES.rst";

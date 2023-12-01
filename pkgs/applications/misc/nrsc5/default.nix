@@ -67,6 +67,6 @@ stdenv.mkDerivation {
     description = "HD-Radio decoder for RTL-SDR";
     platforms = lib.platforms.linux;
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ markuskowa ];
+    maintainers = with maintainers; [markuskowa];
   };
 }

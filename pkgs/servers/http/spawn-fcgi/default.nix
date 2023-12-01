@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     homepage = "https://redmine.lighttpd.net/projects/spawn-fcgi";
     description = "Provides an interface to external programs that support the FastCGI interface";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ cstrahan ];
+    maintainers = with maintainers; [cstrahan];
     platforms = with platforms; unix;
   };
 }

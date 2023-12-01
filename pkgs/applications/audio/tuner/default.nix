@@ -64,6 +64,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     mainProgram = "com.github.louis77.tuner";
-    maintainers = [ maintainers.abbe ];
+    maintainers = [maintainers.abbe];
   };
 }

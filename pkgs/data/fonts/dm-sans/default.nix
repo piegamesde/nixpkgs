@@ -27,6 +27,6 @@ stdenvNoCC.mkDerivation rec {
     description = "A geometric sans-serif typeface";
     homepage = "https://github.com/googlefonts/dm-fonts";
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [ gilice ];
+    maintainers = with lib.maintainers; [gilice];
   };
 }

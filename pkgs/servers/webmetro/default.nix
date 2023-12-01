@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage rec {
       (compatibly-encoded) webm files can be chained together without
       clients needing to reconnect.
     '';
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ leenaars ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [leenaars];
   };
 }

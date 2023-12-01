@@ -1,4 +1,4 @@
-{ fetchzip }:
+{fetchzip}:
 
 {
   owner,

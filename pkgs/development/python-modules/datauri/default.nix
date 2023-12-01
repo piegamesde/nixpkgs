@@ -16,9 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-Eevd/xxKgxvvsAfI/L/KShH+PfxffBGyVwKewLgyEu0=";
   };
 
-  pythonImportsCheck = [ "datauri" ];
+  pythonImportsCheck = ["datauri"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths =
     [
@@ -30,6 +30,6 @@ buildPythonPackage rec {
     description = "Data URI manipulation made easy.";
     homepage = "https://github.com/fcurella/python-datauri";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ yuu ];
+    maintainers = with maintainers; [yuu];
   };
 }

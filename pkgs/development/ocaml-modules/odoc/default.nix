@@ -31,7 +31,7 @@ buildDunePackage rec {
   # dune 3 is required for tests to pass
   duneVersion = if doCheck then "3" else "2";
 
-  nativeBuildInputs = [ cppo ];
+  nativeBuildInputs = [cppo];
   buildInputs = [
     astring
     cmdliner
@@ -65,7 +65,7 @@ buildDunePackage rec {
   meta = {
     description = "A documentation generator for OCaml";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     homepage = "https://github.com/ocaml/odoc";
   };
 }

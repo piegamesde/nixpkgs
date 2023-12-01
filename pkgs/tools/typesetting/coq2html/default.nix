@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-2J9uETDt+P+t4E9KhTIypA4MQpTCCxYmR6FYF30RqKk=";
   };
 
-  nativeBuildInputs = [ ocaml ];
+  nativeBuildInputs = [ocaml];
 
   installPhase = ''
     mkdir -p $out/bin

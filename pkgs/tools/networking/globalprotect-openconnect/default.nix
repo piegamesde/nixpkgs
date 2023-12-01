@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     description = "GlobalProtect VPN client (GUI) for Linux based on OpenConnect that supports SAML auth mode";
     homepage = "https://github.com/yuezk/GlobalProtect-openconnect";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.jerith666 ];
+    maintainers = [maintainers.jerith666];
     platforms = platforms.linux;
   };
 }

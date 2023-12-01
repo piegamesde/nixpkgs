@@ -3,7 +3,7 @@
   stdenv,
   fetchurl,
   writeText,
-  plugins ? [ ],
+  plugins ? [],
   nixosTests,
 }:
 
@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
     description = "Free and open-source learning management system (LMS) written in PHP";
     license = licenses.gpl3Plus;
     homepage = "https://moodle.org/";
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
     platforms = platforms.all;
   };
 }

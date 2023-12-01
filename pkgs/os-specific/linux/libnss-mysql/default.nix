@@ -22,10 +22,10 @@ stdenv.mkDerivation rec {
     autoreconfHook
     which
   ];
-  buildInputs = [ libmysqlclient ];
+  buildInputs = [libmysqlclient];
 
-  configureFlags = [ "--sysconfdir=/etc" ];
-  installFlags = [ "sysconfdir=$(out)/etc" ];
+  configureFlags = ["--sysconfdir=/etc"];
+  installFlags = ["sysconfdir=$(out)/etc"];
   postInstall = ''
     rm -r $out/etc
   '';
@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/saknopper/libnss-mysql";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ netali ];
+    maintainers = with maintainers; [netali];
   };
 }

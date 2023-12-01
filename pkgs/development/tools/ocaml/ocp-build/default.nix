@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     cmdliner_1_0
     re
   ];
-  propagatedBuildInputs = [ ncurses ];
+  propagatedBuildInputs = [ncurses];
   preInstall = "mkdir -p $out/bin";
 
   meta = with lib; {
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.typerex.org/ocp-build.html";
     license = licenses.gpl3;
-    maintainers = [ maintainers.jirkamarsik ];
+    maintainers = [maintainers.jirkamarsik];
     mainProgram = "ocp-build";
     inherit (ocaml.meta) platforms;
   };

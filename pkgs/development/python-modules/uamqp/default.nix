@@ -52,16 +52,16 @@ buildPythonPackage rec {
   ];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       CoreFoundation
       CFNetwork
       Security
     ];
 
-  propagatedBuildInputs = [ certifi ];
+  propagatedBuildInputs = [certifi];
 
-  LDFLAGS = lib.optionals stdenv.isDarwin [ "-L${lib.getLib libcxxabi}/lib" ];
+  LDFLAGS = lib.optionals stdenv.isDarwin ["-L${lib.getLib libcxxabi}/lib"];
 
   dontUseCmakeConfigure = true;
 
@@ -75,12 +75,12 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  pythonImportsCheck = [ "uamqp" ];
+  pythonImportsCheck = ["uamqp"];
 
   meta = with lib; {
     description = "An AMQP 1.0 client library for Python";
     homepage = "https://github.com/Azure/azure-uamqp-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxwilson ];
+    maintainers = with maintainers; [maxwilson];
   };
 }

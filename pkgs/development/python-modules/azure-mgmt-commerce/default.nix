@@ -32,11 +32,11 @@ buildPythonPackage rec {
     sed -i "/azure-namespace-package/c\ " setup.cfg
   '';
 
-  pythonNamespaces = [ "azure.mgmt" ];
+  pythonNamespaces = ["azure.mgmt"];
 
   # has no tests
   doCheck = false;
-  pythonImportsCheck = [ "azure.mgmt.commerce" ];
+  pythonImportsCheck = ["azure.mgmt.commerce"];
 
   meta = with lib; {
     description = "This is the Microsoft Azure Commerce Management Client Library";

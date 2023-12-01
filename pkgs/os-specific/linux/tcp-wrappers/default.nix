@@ -32,14 +32,14 @@ stdenv.mkDerivation rec {
   '';
 
   # Fix __BEGIN_DECLS usage (even if it wasn't non-standard, this doesn't include sys/cdefs.h)
-  patches = [ ./cdecls.patch ];
+  patches = [./cdecls.patch];
 
   postPatch = lib.optionalString stdenv.hostPlatform.isMusl ''
     substituteInPlace Makefile \
       --replace '-DNETGROUP' '-DUSE_GETDOMAIN'
   '';
 
-  buildInputs = [ libnsl ];
+  buildInputs = [libnsl];
 
   makeFlags = [
     "REAL_DAEMON_DIR=$(out)/bin"

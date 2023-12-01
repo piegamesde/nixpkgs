@@ -111,7 +111,7 @@ buildPythonPackage rec {
   '';
 
   # Override default arguments in pytest.ini
-  pytestFlagsArray = [ "--timeout=0" ];
+  pytestFlagsArray = ["--timeout=0"];
 
   # Fixes hanging tests on Darwin
   __darwinAllowLocalNetworking = true;
@@ -122,14 +122,14 @@ buildPythonPackage rec {
       "test_flask_breakpoint_multiproc"
     ];
 
-  pythonImportsCheck = [ "debugpy" ];
+  pythonImportsCheck = ["debugpy"];
 
   meta = with lib; {
     description = "An implementation of the Debug Adapter Protocol for Python";
     homepage = "https://github.com/microsoft/debugpy";
     changelog = "https://github.com/microsoft/debugpy/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
     platforms = [
       "x86_64-linux"
       "i686-linux"

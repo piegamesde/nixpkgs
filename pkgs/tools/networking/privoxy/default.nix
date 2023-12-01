@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5sy8oWVvTmFrRlf4UU4zpw9ml+nXKUNWV3g5Mio8XSw=";
   };
 
-  hardeningEnable = [ "pie" ];
+  hardeningEnable = ["pie"];
 
   nativeBuildInputs = [
     autoreconfHook
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     brotli
   ];
 
-  makeFlags = [ "STRIP=" ];
+  makeFlags = ["STRIP="];
   configureFlags = [
     "--with-openssl"
     "--with-brotli"
@@ -57,6 +57,6 @@ stdenv.mkDerivation rec {
     # GPLv2 (or later). See https://www.privoxy.org/user-manual/copyright.html
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

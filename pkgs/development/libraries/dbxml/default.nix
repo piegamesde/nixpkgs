@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     xqilla
   ];
 
-  propagatedBuildInputs = [ db62 ];
+  propagatedBuildInputs = [db62];
 
   configureFlags = [
     "--with-berkeleydb=${db62.out}"
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.oracle.com/database/berkeley-db/xml.html";
     description = "Embeddable XML database based on Berkeley DB";
     license = licenses.agpl3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

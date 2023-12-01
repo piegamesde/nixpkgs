@@ -26,7 +26,7 @@ buildKodiAddon rec {
 
   passthru = {
     pythonPath = "resources/lib";
-    updateScript = addonUpdateScript { attrPath = "kodi.packages.youtube"; };
+    updateScript = addonUpdateScript {attrPath = "kodi.packages.youtube";};
   };
 
   meta = with lib; {

@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     "installPhase"
   ];
 
-  buildInputs = [ jdk ];
+  buildInputs = [jdk];
 
   buildPhase = ''
     jar -xf IBJts/jts.jar
@@ -98,9 +98,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Trader Work Station of Interactive Brokers";
     homepage = "https://www.interactivebrokers.com";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.unfree;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

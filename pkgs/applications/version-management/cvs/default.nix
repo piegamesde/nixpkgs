@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     "cvs_cv_func_printf_ptr=yes"
   ];
 
-  makeFlags = [ "AR=${stdenv.cc.targetPrefix}ar" ];
+  makeFlags = ["AR=${stdenv.cc.targetPrefix}ar"];
 
   doCheck = false; # fails 1 of 1 tests
 

@@ -1,9 +1,9 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "cloudlog";
     meta = {
-      maintainers = with pkgs.lib.maintainers; [ melling ];
+      maintainers = with pkgs.lib.maintainers; [melling];
     };
     nodes = {
       machine = {

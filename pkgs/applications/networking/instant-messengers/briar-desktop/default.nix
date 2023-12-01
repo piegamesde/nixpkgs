@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     cp ${src} $out/lib/briar-desktop.jar
     makeWrapper ${openjdk}/bin/java $out/bin/briar-desktop \
       --add-flags "-jar $out/lib/briar-desktop.jar" \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libnotify ]}"
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [libnotify]}"
   '';
 
   fixupPhase = ''
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     description = "Decentalized and secure messnger";
     homepage = "https://code.briarproject.org/briar/briar-desktop";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ onny ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [onny];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -22,9 +22,9 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
       sha256 = "sha256-oa6Hw6eZQO+NHdWfdED3dtHckm4BmEbdMiAuRkYntfs=";
     };
 
-    nativeBuildInputs = [ ocaml ];
+    nativeBuildInputs = [ocaml];
 
-    makeFlags = [ "PREFIX=$(out)" ];
+    makeFlags = ["PREFIX=$(out)"];
     installTargets = "install install-doc";
     installFlags = [
       "LIBDIR=$(out)/lib/ocaml/${ocaml.version}/site-lib/${pname}"
@@ -39,6 +39,6 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
       description = "An OCaml module for the declarative definition of command line interfaces";
       license = licenses.isc;
       inherit (ocaml.meta) platforms;
-      maintainers = [ maintainers.vbgl ];
+      maintainers = [maintainers.vbgl];
     };
   }

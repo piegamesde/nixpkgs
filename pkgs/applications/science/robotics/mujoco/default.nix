@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-FxMaXl7yfUAyY6LE1sxaw226dBtp1DOCWNnROp0WX2I=";
   };
 
-  patches = [ ./dependencies.patch ];
+  patches = [./dependencies.patch];
 
   nativeBuildInputs = [
     cmake
@@ -121,6 +121,6 @@ stdenv.mkDerivation rec {
     description = "Multi-Joint dynamics with Contact. A general purpose physics simulator.";
     homepage = "https://mujoco.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

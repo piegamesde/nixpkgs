@@ -101,6 +101,6 @@ mkDerivation rec {
     description = "Widget styles for Qt5/Plasma 5 and gtk2";
     platforms = platforms.linux;
     license = licenses.lgpl21Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

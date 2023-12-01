@@ -71,7 +71,7 @@ mkDerivation rec {
     "--prefix"
     "PATH"
     ":"
-    "${lib.makeBinPath [ bibutils ]}"
+    "${lib.makeBinPath [bibutils]}"
   ];
 
   meta = with lib; {
@@ -79,7 +79,7 @@ mkDerivation rec {
     homepage = "https://userbase.kde.org/KBibTeX";
     changelog = "https://invent.kde.org/office/kbibtex/-/raw/v${version}/ChangeLog";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     platforms = platforms.linux;
   };
 }

@@ -15,8 +15,8 @@ let
   user = "dokuwiki";
   webserver = config.services.${cfg.webserver};
 
-  mkPhpIni = generators.toKeyValue { mkKeyValue = generators.mkKeyValueDefault { } " = "; };
-  mkPhpPackage = cfg: cfg.phpPackage.buildEnv { extraConfig = mkPhpIni cfg.phpOptions; };
+  mkPhpIni = generators.toKeyValue {mkKeyValue = generators.mkKeyValueDefault {} " = ";};
+  mkPhpPackage = cfg: cfg.phpPackage.buildEnv {extraConfig = mkPhpIni cfg.phpOptions;};
 
   dokuwikiAclAuthConfig =
     hostName: cfg:
@@ -70,7 +70,7 @@ let
     else if isHasAttr "_raw" then
       v._raw
     else
-      abort "The dokuwiki localConf value ${lib.generators.toPretty { } v} can not be encoded.";
+      abort "The dokuwiki localConf value ${lib.generators.toPretty {} v} can not be encoded.";
 
   mkPhpAttrVals = v: flatten (mapAttrsToList mkPhpKeyVal v);
   mkPhpKeyVal =
@@ -78,7 +78,7 @@ let
     let
       values =
         if (isAttrs v && (hasAttr "_file" v || hasAttr "_raw" v)) || !isAttrs v then
-          [ " = ${mkPhpValue v};" ]
+          [" = ${mkPhpValue v};"]
         else
           mkPhpAttrVals v;
     in
@@ -119,7 +119,7 @@ let
     };
 
   aclOpts =
-    { ... }:
+    {...}:
     {
       options = {
 
@@ -209,20 +209,20 @@ let
     }:
     {
       imports = [
-        (mkRenamed [ "aclUse" ] [
+        (mkRenamed ["aclUse"] [
           "settings"
           "useacl"
         ])
-        (mkRenamed [ "superUser" ] [
+        (mkRenamed ["superUser"] [
           "settings"
           "superuser"
         ])
-        (mkRenamed [ "disableActions" ] [
+        (mkRenamed ["disableActions"] [
           "settings"
           "disableactions"
         ])
         (
-          { config, options, ... }:
+          {config, options, ...}:
           let
             showPath =
               suffix:
@@ -235,9 +235,9 @@ let
                 ]
                 ++ suffix
               );
-            replaceExtraConfig = "Please use `${showPath [ "settings" ]}' to pass structured settings instead.";
+            replaceExtraConfig = "Please use `${showPath ["settings"]}' to pass structured settings instead.";
             ecOpt = options.extraConfig;
-            ecPath = showPath [ "extraConfig" ];
+            ecPath = showPath ["extraConfig"];
           in
           {
             options.extraConfig = mkOption {
@@ -257,7 +257,7 @@ let
               }
               {
                 assertion = config.mergedConfig.useacl -> (config.acl != null || config.aclFile != null);
-                message = "Either ${showPath [ "acl" ]} or ${showPath [ "aclFile" ]} is mandatory if ${
+                message = "Either ${showPath ["acl"]} or ${showPath ["aclFile"]} is mandatory if ${
                   showPath [
                     "settings"
                     "useacl"
@@ -271,7 +271,7 @@ let
                     "settings"
                     "useacl"
                   ]
-                } is required when ${showPath [ "usersFile" ]} is set (Currently defiend as `${config.usersFile}' in ${showFiles options.usersFile.files}).";
+                } is required when ${showPath ["usersFile"]} is set (Currently defiend as `${config.usersFile}' in ${showFiles options.usersFile.files}).";
               }
             ];
           }
@@ -369,7 +369,7 @@ let
 
         plugins = mkOption {
           type = types.listOf types.path;
-          default = [ ];
+          default = [];
           description = lib.mdDoc ''
             List of path(s) to respective plugin(s) which are copied from the 'plugin' directory.
 
@@ -396,7 +396,7 @@ let
 
         templates = mkOption {
           type = types.listOf types.path;
-          default = [ ];
+          default = [];
           description = lib.mdDoc ''
             List of path(s) to respective template(s) which are copied from the 'tpl' directory.
 
@@ -461,7 +461,7 @@ let
 
         phpOptions = mkOption {
           type = types.attrsOf types.str;
-          default = { };
+          default = {};
           description = lib.mdDoc ''
             Options for PHP's php.ini file for this dokuwiki site.
           '';
@@ -521,13 +521,13 @@ let
         # or we don't have any more notes about the removal of extraConfig, ...
         warnings = mkOption {
           type = types.listOf types.unspecified;
-          default = [ ];
+          default = [];
           visible = false;
           internal = true;
         };
         assertions = mkOption {
           type = types.listOf types.unspecified;
-          default = [ ];
+          default = [];
           visible = false;
           internal = true;
         };
@@ -540,7 +540,7 @@ in
 
       sites = mkOption {
         type = types.attrsOf (types.submodule siteOpts);
-        default = { };
+        default = {};
         description = lib.mdDoc "Specification of one or more DokuWiki sites to serve";
       };
 
@@ -564,7 +564,7 @@ in
   };
 
   # implementation
-  config = mkIf (eachSite != { }) (
+  config = mkIf (eachSite != {}) (
     mkMerge [
       {
 
@@ -582,7 +582,7 @@ in
 
                 phpPackage = mkPhpPackage cfg;
                 phpEnv =
-                  optionalAttrs (cfg.usersFile != null) { DOKUWIKI_USERS_AUTH_CONFIG = "${cfg.usersFile}"; }
+                  optionalAttrs (cfg.usersFile != null) {DOKUWIKI_USERS_AUTH_CONFIG = "${cfg.usersFile}";}
                   // optionalAttrs (cfg.mergedConfig.useacl) {
                     DOKUWIKI_ACL_AUTH_CONFIG =
                       if (cfg.acl != null) then "${dokuwikiAclAuthConfig hostName cfg}" else "${toString cfg.aclFile}";

@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xkZkKiiEywUWkiFw4PbUmQsStB1iRLCNU/MY27lRjC8=";
   };
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   sourceRoot = "IINA.app";
 
@@ -28,6 +28,6 @@ stdenv.mkDerivation rec {
     description = "The modern media player for macOS";
     platforms = platforms.darwin;
     license = licenses.gpl3;
-    maintainers = with maintainers; [ arkivm ];
+    maintainers = with maintainers; [arkivm];
   };
 }

@@ -18,7 +18,7 @@
 let
   self = mkDerivation {
     pname = "krunner";
-    nativeBuildInputs = [ extra-cmake-modules ];
+    nativeBuildInputs = [extra-cmake-modules];
     buildInputs = [
       kconfig
       kcoreaddons

@@ -1,6 +1,6 @@
 # General list operations.
 
-{ lib }:
+{lib}:
 let
   inherit (lib.strings) toInt;
   inherit (lib.trivial) compare min;
@@ -31,7 +31,7 @@ rec {
         singleton "foo"
         => [ "foo" ]
   */
-  singleton = x: [ x ];
+  singleton = x: [x];
 
   /* Apply the function to each element in the list. Same as `map`, but arguments
       flipped.
@@ -143,7 +143,7 @@ rec {
        flatten 1
        => [1]
   */
-  flatten = x: if isList x then concatMap (y: flatten y) x else [ x ];
+  flatten = x: if isList x then concatMap (y: flatten y) x else [x];
 
   /* Remove elements equal to 'e' from a list.  Useful for buildInputs.
 
@@ -212,7 +212,7 @@ rec {
     let
       found = filter pred list;
     in
-    if found == [ ] then default else head found;
+    if found == [] then default else head found;
 
   /* Return true if function `pred` returns true for at least one
      element of `list`.
@@ -265,7 +265,7 @@ rec {
        optional false "foo"
        => [ ]
   */
-  optional = cond: elem: if cond then [ elem ] else [ ];
+  optional = cond: elem: if cond then [elem] else [];
 
   /* Return a list or an empty list, depending on a boolean value.
 
@@ -282,7 +282,7 @@ rec {
     cond:
     # List to return if condition is true
     elems:
-    if cond then elems else [ ];
+    if cond then elems else [];
 
   /* If argument is a list, return it; else, wrap it in a singleton
      list.  If you're using this, you should almost certainly
@@ -294,7 +294,7 @@ rec {
        toList "hi"
        => [ "hi "]
   */
-  toList = x: if isList x then x else [ x ];
+  toList = x: if isList x then x else [x];
 
   /* Return a list of integers from `first` up to and including `last`.
 
@@ -311,7 +311,7 @@ rec {
     first:
     # Last integer in the range
     last:
-    if first > last then [ ] else genList (n: first + n) (last - first + 1);
+    if first > last then [] else genList (n: first + n) (last - first + 1);
 
   /* Return a list with `n` copies of an element.
 
@@ -342,18 +342,18 @@ rec {
           h: t:
           if pred h then
             {
-              right = [ h ] ++ t.right;
+              right = [h] ++ t.right;
               wrong = t.wrong;
             }
           else
             {
               right = t.right;
-              wrong = [ h ] ++ t.wrong;
+              wrong = [h] ++ t.wrong;
             }
         )
         {
-          right = [ ];
-          wrong = [ ];
+          right = [];
+          wrong = [];
         }
     );
 
@@ -392,9 +392,9 @@ rec {
           let
             key = pred e;
           in
-          r // { ${key} = (r.${key} or [ ]) ++ [ e ]; }
+          r // {${key} = (r.${key} or []) ++ [e];}
         )
-        { }
+        {}
     );
 
   /* Merges two lists of the same size together. If the sizes aren't the same
@@ -425,7 +425,7 @@ rec {
        zipLists [ 1 2 ] [ "a" "b" ]
        => [ { fst = 1; snd = "a"; } { fst = 2; snd = "b"; } ]
   */
-  zipLists = zipListsWith (fst: snd: { inherit fst snd; });
+  zipLists = zipListsWith (fst: snd: {inherit fst snd;});
 
   /* Reverse the order of the elements of a list.
 
@@ -484,9 +484,9 @@ rec {
           }
         else
           # grab the first one before us and continue
-          dfs' (head b.right) ([ us ] ++ visited) (tail b.right ++ b.wrong);
+          dfs' (head b.right) ([us] ++ visited) (tail b.right ++ b.wrong);
     in
-    dfs' (head list) [ ] (tail list);
+    dfs' (head list) [] (tail list);
 
   /* Sort a list based on a partial ordering using DFS. This
      implementation is O(N^2), if your ordering is linear, use `sort`
@@ -517,11 +517,11 @@ rec {
     in
     if length list < 2 then
       # finish
-      { result = list; }
+      {result = list;}
     else if dfsthis ? cycle then
       # there's a cycle, starting from the current vertex, return it
       {
-        cycle = reverseList ([ dfsthis.cycle ] ++ dfsthis.visited);
+        cycle = reverseList ([dfsthis.cycle] ++ dfsthis.visited);
         inherit (dfsthis) loops;
       }
     else if toporest ? cycle then
@@ -530,7 +530,7 @@ rec {
     # Slow, but short. Can be made a bit faster with an explicit stack.
     else
       # there are no cycles
-      { result = [ dfsthis.minimal ] ++ toporest.result; };
+      {result = [dfsthis.minimal] ++ toporest.result;};
 
   /* Sort a list based on a comparator function which compares two
      elements and returns true if the first argument is strictly below
@@ -549,7 +549,7 @@ rec {
         first = head list;
         pivot' =
           n:
-          acc@{ left, right }:
+          acc@{left, right}:
           let
             el = elemAt list n;
             next = pivot' (n + 1);
@@ -559,19 +559,19 @@ rec {
           else if strictLess first el then
             next {
               inherit left;
-              right = [ el ] ++ right;
+              right = [el] ++ right;
             }
           else
             next {
-              left = [ el ] ++ left;
+              left = [el] ++ left;
               inherit right;
             };
         pivot = pivot' 1 {
-          left = [ ];
-          right = [ ];
+          left = [];
+          right = [];
         };
       in
-      if len < 2 then list else (sort strictLess pivot.left) ++ [ first ] ++ (sort strictLess pivot.right)
+      if len < 2 then list else (sort strictLess pivot.left) ++ [first] ++ (sort strictLess pivot.right)
     );
 
   /* Compare two lists element-by-element.
@@ -588,9 +588,9 @@ rec {
   */
   compareLists =
     cmp: a: b:
-    if a == [ ] then
-      if b == [ ] then 0 else -1
-    else if b == [ ] then
+    if a == [] then
+      if b == [] then 0 else -1
+    else if b == [] then
       1
     else
       let
@@ -697,7 +697,7 @@ rec {
   */
   last =
     list:
-    assert lib.assertMsg (list != [ ]) "lists.last: list must not be empty!";
+    assert lib.assertMsg (list != []) "lists.last: list must not be empty!";
     elemAt list (length list - 1);
 
   /* Return all elements but the last.
@@ -712,7 +712,7 @@ rec {
   */
   init =
     list:
-    assert lib.assertMsg (list != [ ]) "lists.init: list must not be empty!";
+    assert lib.assertMsg (list != []) "lists.init: list must not be empty!";
     take (length list - 1) list;
 
   /* Return the image of the cross product of some lists by a function.
@@ -722,7 +722,7 @@ rec {
        => [ "13" "14" "23" "24" ]
   */
   crossLists = builtins.trace "lib.crossLists is deprecated, use lib.cartesianProductOfSets instead" (
-    f: foldl (fs: args: concatMap (f: map f args) fs) [ f ]
+    f: foldl (fs: args: concatMap (f: map f args) fs) [f]
   );
 
   /* Remove duplicate elements from the list. O(n^2) complexity.
@@ -733,7 +733,7 @@ rec {
        unique [ 3 2 3 4 ]
        => [ 3 2 4 ]
   */
-  unique = foldl' (acc: e: if elem e acc then acc else acc ++ [ e ]) [ ];
+  unique = foldl' (acc: e: if elem e acc then acc else acc ++ [e]) [];
 
   /* Intersects list 'e' and another list. O(nm) complexity.
 

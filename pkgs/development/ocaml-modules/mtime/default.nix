@@ -27,7 +27,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
       ocamlbuild
       topkg
     ];
-    buildInputs = [ topkg ];
+    buildInputs = [topkg];
 
     strictDeps = true;
 
@@ -37,7 +37,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
       description = "Monotonic wall-clock time for OCaml";
       homepage = "https://erratique.ch/software/mtime";
       inherit (ocaml.meta) platforms;
-      maintainers = [ maintainers.vbgl ];
+      maintainers = [maintainers.vbgl];
       license = licenses.bsd3;
     };
   }

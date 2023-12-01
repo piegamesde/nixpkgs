@@ -24,7 +24,7 @@ buildDunePackage rec {
     ocamlbuild
     ocaml
   ];
-  buildInputs = [ topkg ];
+  buildInputs = [topkg];
 
   inherit (topkg) buildPhase installPhase;
 

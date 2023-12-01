@@ -17,7 +17,7 @@ buildPythonPackage {
   disabled = !isPy3k;
 
   sourceRoot = "source/python";
-  buildInputs = [ olm ];
+  buildInputs = [olm];
 
   preBuild = ''
     make include/olm/olm.h
@@ -28,9 +28,9 @@ buildPythonPackage {
     future
   ];
 
-  propagatedNativeBuildInputs = [ cffi ];
+  propagatedNativeBuildInputs = [cffi];
 
-  pythonImportsCheck = [ "olm" ];
+  pythonImportsCheck = ["olm"];
 
   nativeCheckInputs = [
     aspectlib

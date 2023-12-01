@@ -39,7 +39,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     chardet
@@ -50,11 +50,11 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    cli = [ click ];
-    flex = [ flex ];
-    icu = [ pyicu ];
-    osv = [ openapi-spec-validator ];
-    ssv = [ swagger-spec-validator ];
+    cli = [click];
+    flex = [flex];
+    icu = [pyicu];
+    osv = [openapi-spec-validator];
+    ssv = [swagger-spec-validator];
   };
 
   nativeCheckInputs = [
@@ -62,19 +62,19 @@ buildPythonPackage rec {
   ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
   # Disable tests that require network
-  disabledTestPaths = [ "tests/test_convert.py" ];
+  disabledTestPaths = ["tests/test_convert.py"];
   disabledTests = [
     "test_convert_defaults"
     "test_convert_output"
     "test_fetch_url_http"
   ];
-  pythonImportsCheck = [ "prance" ];
+  pythonImportsCheck = ["prance"];
 
   meta = with lib; {
     changelog = "https://github.com/RonnyPfannschmidt/prance/blob/${src.rev}/CHANGES.rst";
     description = "Resolving Swagger/OpenAPI 2.0 and 3.0.0 Parser";
     homepage = "https://github.com/RonnyPfannschmidt/prance";
     license = licenses.mit;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

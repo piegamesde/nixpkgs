@@ -44,7 +44,7 @@ buildPythonPackage rec {
     openssl
   ];
 
-  nativeBuildInputs = [ curl ];
+  nativeBuildInputs = [curl];
 
   nativeCheckInputs = [
     bottle
@@ -89,6 +89,6 @@ buildPythonPackage rec {
       lgpl2Only
       mit
     ];
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

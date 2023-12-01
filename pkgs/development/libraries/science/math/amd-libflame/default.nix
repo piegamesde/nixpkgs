@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [ amd-blis ];
+  buildInputs = [amd-blis];
 
   configureFlags = [
     # Build a dynamic library with a LAPACK interface.
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     # implicit dependency. Moreover, since the point of the AMD forks
     # is to optimized for recent AMD CPUs, link against AMD BLIS.
     "LDFLAGS=-lcblas"
-  ] ++ lib.optionals withOpenMP [ "--enable-multithreading=openmp" ];
+  ] ++ lib.optionals withOpenMP ["--enable-multithreading=openmp"];
 
   enableParallelBuilding = true;
 
@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
     description = "LAPACK-compatible linear algebra library optimized for AMD CPUs";
     homepage = "https://developer.amd.com/amd-aocl/blas-library/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [];
+    platforms = ["x86_64-linux"];
   };
 }

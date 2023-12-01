@@ -27,21 +27,21 @@ callPackage ../nginx/generic.nix args rec {
     let
       name = patch.name or (builtins.baseNameOf patch);
     in
-    runCommand "openresty-${name}" { src = patch; } ''
+    runCommand "openresty-${name}" {src = patch;} ''
       substitute $src $out \
         --replace "a/" "a/bundle/nginx-${nginxVersion}/" \
         --replace "b/" "b/bundle/nginx-${nginxVersion}/"
     '';
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
-  buildInputs = [ postgresql ];
+  buildInputs = [postgresql];
 
   postPatch = ''
     patchShebangs configure bundle/
   '';
 
-  configureFlags = [ "--with-http_postgres_module" ];
+  configureFlags = ["--with-http_postgres_module"];
 
   postInstall = ''
     ln -s $out/luajit/bin/luajit-2.1.0-beta3 $out/bin/luajit-openresty

@@ -15,9 +15,9 @@ buildPythonPackage rec {
     sha256 = "905f84c712230b2c592c19470d3ca8d552de726050d1d1716282a1f6146be65e";
   };
 
-  propagatedBuildInputs = [ pyasn1 ];
+  propagatedBuildInputs = [pyasn1];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   # running tests through setup.py fails only for python2 for some reason:
   # AttributeError: 'module' object has no attribute 'suitetests'

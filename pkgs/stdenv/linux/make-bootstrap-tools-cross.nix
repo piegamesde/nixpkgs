@@ -7,12 +7,11 @@ let
   releaseLib = import ../../top-level/release-lib.nix {
     # We're not using any functions from release-lib.nix that look at
     # supportedSystems.
-    supportedSystems = [ ];
+    supportedSystems = [];
   };
 
   make =
-    crossSystem:
-    import ./make-bootstrap-tools.nix { pkgs = releaseLib.pkgsForCross crossSystem system; };
+    crossSystem: import ./make-bootstrap-tools.nix {pkgs = releaseLib.pkgsForCross crossSystem system;};
 in
 lib.mapAttrs (n: make) (
   with lib.systems.examples; {

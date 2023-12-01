@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     bison
     flex
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     description = "A library to handle keyboard descriptions";
     homepage = "https://xkbcommon.org";
     license = licenses.mit;
-    maintainers = with maintainers; [ ttuegel ];
+    maintainers = with maintainers; [ttuegel];
     mainProgram = "xkbcli";
     platforms = with platforms; unix;
   };

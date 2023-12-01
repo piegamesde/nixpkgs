@@ -31,7 +31,7 @@ else
       ocamlbuild
       topkg
     ];
-    buildInputs = [ topkg ];
+    buildInputs = [topkg];
 
     strictDeps = true;
 
@@ -41,7 +41,7 @@ else
       description = "An OCaml streaming codec to decode and encode the XML data format";
       homepage = webpage;
       license = licenses.isc;
-      maintainers = [ maintainers.vbgl ];
+      maintainers = [maintainers.vbgl];
       mainProgram = "xmltrip";
       inherit (ocaml.meta) platforms;
     };

@@ -29,6 +29,6 @@ rustPlatform.buildRustPackage rec {
     description = "A command-line application to view images from the terminal written in Rust";
     homepage = "https://github.com/atanunq/viu";
     license = licenses.mit;
-    maintainers = with maintainers; [ chuangzhu ];
+    maintainers = with maintainers; [chuangzhu];
   };
 }

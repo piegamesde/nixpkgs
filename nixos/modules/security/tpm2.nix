@@ -147,7 +147,7 @@ in
           isSystemUser = true;
           group = "tss";
         };
-        users.groups.${cfg.tssGroup} = lib.mkIf (cfg.tssGroup == "tss") { };
+        users.groups.${cfg.tssGroup} = lib.mkIf (cfg.tssGroup == "tss") {};
 
         environment.variables = lib.mkIf cfg.tctiEnvironment.enable (
           lib.attrsets.genAttrs
@@ -169,7 +169,7 @@ in
 
       (lib.mkIf cfg.abrmd.enable {
         systemd.services."tpm2-abrmd" = {
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
           serviceConfig = {
             Type = "dbus";
             Restart = "always";
@@ -186,5 +186,5 @@ in
     ]
   );
 
-  meta.maintainers = with lib.maintainers; [ lschuermann ];
+  meta.maintainers = with lib.maintainers; [lschuermann];
 }

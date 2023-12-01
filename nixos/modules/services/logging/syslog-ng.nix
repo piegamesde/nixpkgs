@@ -22,7 +22,7 @@ let
 
   syslogngOptions = [
     "--foreground"
-    "--module-path=${concatStringsSep ":" ([ "${cfg.package}/lib/syslog-ng" ] ++ cfg.extraModulePaths)}"
+    "--module-path=${concatStringsSep ":" (["${cfg.package}/lib/syslog-ng"] ++ cfg.extraModulePaths)}"
     "--cfgfile=${syslogngConfig}"
     "--control=${ctrlSocket}"
     "--persist-file=${persistFile}"
@@ -69,7 +69,7 @@ in
       };
       extraModulePaths = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           A list of paths that should be included in syslog-ng's
           `--module-path` option. They should usually
@@ -101,8 +101,8 @@ in
     systemd.services.syslog-ng = {
       description = "syslog-ng daemon";
       preStart = "mkdir -p /{var,run}/syslog-ng";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "multi-user.target" ]; # makes sure hostname etc is set
+      wantedBy = ["multi-user.target"];
+      after = ["multi-user.target"]; # makes sure hostname etc is set
       serviceConfig = {
         Type = "notify";
         PIDFile = pidFile;

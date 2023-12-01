@@ -16,7 +16,7 @@
 let
   mkFlag = b: if b then "yes" else "no";
 
-  games = import ./games.nix { inherit stdenv lib fetchFromGitHub; };
+  games = import ./games.nix {inherit stdenv lib fetchFromGitHub;};
 
   wrapper = import ./wrapper.nix {
     inherit
@@ -35,7 +35,7 @@ let
     src = fetchFromGitHub {
       owner = "yquake2";
       repo = "yquake2";
-      rev = "QUAKE2_${builtins.replaceStrings [ "." ] [ "_" ] version}";
+      rev = "QUAKE2_${builtins.replaceStrings ["."] ["_"] version}";
       sha256 = "sha256-x1mk6qo03b438ZBS16/f7pzMCfugtQvaRcV+hg7Zc/w=";
     };
 
@@ -84,7 +84,7 @@ let
       homepage = "https://www.yamagi.org/quake2/";
       license = licenses.gpl2;
       platforms = platforms.unix;
-      maintainers = with maintainers; [ tadfisher ];
+      maintainers = with maintainers; [tadfisher];
     };
   };
 in
@@ -92,19 +92,19 @@ in
   inherit yquake2;
 
   yquake2-ctf = wrapper {
-    games = [ games.ctf ];
+    games = [games.ctf];
     name = "yquake2-ctf";
     inherit (games.ctf) description;
   };
 
   yquake2-ground-zero = wrapper {
-    games = [ games.ground-zero ];
+    games = [games.ground-zero];
     name = "yquake2-ground-zero";
     inherit (games.ground-zero) description;
   };
 
   yquake2-the-reckoning = wrapper {
-    games = [ games.the-reckoning ];
+    games = [games.the-reckoning];
     name = "yquake2-the-reckoning";
     inherit (games.the-reckoning) description;
   };

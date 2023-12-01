@@ -11,7 +11,7 @@ buildGoModule rec {
 
   vendorHash = pulumi.sdkVendorHash;
 
-  subPackages = [ "go/pulumi-language-go" ];
+  subPackages = ["go/pulumi-language-go"];
 
   ldflags = [
     "-s"

@@ -28,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-NPpY29HMQe5KT0JdlLAXY9MVycDslbP2i38NSTirB3I=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     numpy
@@ -41,13 +41,13 @@ buildPythonPackage rec {
   ];
 
   doCheck = false; # tried to download pretrained model
-  pythonImportsCheck = [ "peft" ];
+  pythonImportsCheck = ["peft"];
 
   meta = with lib; {
     homepage = "https://github.com/huggingface/peft";
     description = "State-of-the art parameter-efficient fine tuning";
     changelog = "https://github.com/huggingface/peft/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

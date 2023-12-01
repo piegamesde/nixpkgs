@@ -41,9 +41,9 @@ stdenv.mkDerivation {
     sha256 = "sha256-faIm1uXERvIDZ6SK6uarVkWGNJskAroHgq5Cg7nUZc4=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  patches = [ ./nixos-paths.patch ];
+  patches = [./nixos-paths.patch];
   postPatch = ''
     rm lib/hollywood/speedometer
     rm bin/wallstreet
@@ -92,6 +92,6 @@ stdenv.mkDerivation {
     description = "Fill your console with Hollywood melodrama technobabble";
     homepage = "https://a.hollywood.computer/";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.anselmschueler ];
+    maintainers = [lib.maintainers.anselmschueler];
   };
 }

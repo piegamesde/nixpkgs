@@ -68,7 +68,7 @@ in
 
   config = mkIf cfg.tsocks.enable {
 
-    environment.systemPackages = [ torify ]; # expose it to the users
+    environment.systemPackages = [torify]; # expose it to the users
 
     services.tor.tsocks.config = ''
       server = ${toString (head (splitString ":" cfg.tsocks.server))}

@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "fset";
   version = "20200925-git";
 
-  parasites = [ "fset/test" ];
+  parasites = ["fset/test"];
 
   description = ''
     A functional set-theoretic collections library.
@@ -24,7 +24,7 @@ rec {
 
   packageName = "fset";
 
-  asdFilesToKeep = [ "fset.asd" ];
+  asdFilesToKeep = ["fset.asd"];
   overrides = x: x;
 }
 /* (SYSTEM fset DESCRIPTION A functional set-theoretic collections library.

@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "1qn98bwp7v7blw4v0g4pckgxrky5ggvq9m0kck2kqw8jg9jc15jp";
   };
 
-  nativeBuildInputs = [ zig ];
+  nativeBuildInputs = [zig];
   buildInputs = [
     libX11
     libXfixes
@@ -36,6 +36,6 @@ stdenv.mkDerivation rec {
     description = "Buzz on new X11 clipboard events";
     homepage = "https://git.sr.ht/~cnx/clipbuzz";
     license = licenses.unlicense;
-    maintainers = [ maintainers.McSinyx ];
+    maintainers = [maintainers.McSinyx];
   };
 }

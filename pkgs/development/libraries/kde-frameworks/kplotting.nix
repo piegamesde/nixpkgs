@@ -7,7 +7,7 @@
 
 mkDerivation {
   pname = "kplotting";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   propagatedBuildInputs = [
     qtbase
     qttools

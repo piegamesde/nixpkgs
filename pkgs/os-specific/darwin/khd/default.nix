@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/koekeishiya/khd";
     downloadPage = "https://github.com/koekeishiya/khd/releases";
     platforms = platforms.darwin;
-    maintainers = with maintainers; [ lnl7 ];
+    maintainers = with maintainers; [lnl7];
     license = licenses.mit;
   };
 }

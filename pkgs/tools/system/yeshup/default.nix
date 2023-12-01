@@ -24,6 +24,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/RhysU/yeshup";
     platforms = platforms.linux;
     license = licenses.cc-by-sa-30; # From Stackoverflow answer
-    maintainers = with maintainers; [ obadz ];
+    maintainers = with maintainers; [obadz];
   };
 }

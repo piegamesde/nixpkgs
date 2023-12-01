@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
     libnotify
   ] ++ gst_plugins;
 
-  nativeCheckInputs = [ check ];
+  nativeCheckInputs = [check];
 
   mesonFlags = [
     "-Ddaap=enabled"
@@ -119,6 +119,6 @@ stdenv.mkDerivation rec {
     description = "A music playing application for GNOME";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.rasendubi ];
+    maintainers = [maintainers.rasendubi];
   };
 }

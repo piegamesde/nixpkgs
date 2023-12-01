@@ -35,7 +35,7 @@ mkDerivation {
     kconfig
     kcoreaddons
   ];
-  propagatedUserEnvPkgs = [ shared-mime-info ]; # for kbuildsycoca5
+  propagatedUserEnvPkgs = [shared-mime-info]; # for kbuildsycoca5
   patches = [
     ./qdiriterator-follow-symlinks.patch
     ./no-canonicalize-path.patch

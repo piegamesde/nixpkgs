@@ -22,7 +22,7 @@ stdenvNoCC.mkDerivation rec {
     inherit (nixosTests) freshrss-sqlite freshrss-pgsql;
   };
 
-  buildInputs = [ php ];
+  buildInputs = [php];
 
   # There's nothing to build.
   dontBuild = true;

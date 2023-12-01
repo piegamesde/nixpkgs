@@ -12,7 +12,7 @@
 mkOpenModelicaDerivation rec {
   pname = "omshell";
   omdir = "OMShell";
-  omdeps = [ openmodelica.omcompiler ];
+  omdeps = [openmodelica.omcompiler];
   omautoconf = true;
 
   nativeBuildInputs = [

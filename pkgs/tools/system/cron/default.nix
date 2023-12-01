@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   unpackCmd = "(mkdir cron && cd cron && sh $curSrc)";
 
-  hardeningEnable = [ "pie" ];
+  hardeningEnable = ["pie"];
 
   preBuild = ''
     # do not set sticky bit in /nix/store

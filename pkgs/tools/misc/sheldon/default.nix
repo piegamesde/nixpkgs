@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-uRcaHuDLQm6OYqt01kLbW/mfZnL4HaDabaweaw1EOfs=";
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       Security
       curl
@@ -62,8 +62,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A fast and configurable shell plugin manager";
     homepage = "https://github.com/rossmacarthur/sheldon";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ seqizz ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [seqizz];
     platforms = platforms.linux;
   };
 }

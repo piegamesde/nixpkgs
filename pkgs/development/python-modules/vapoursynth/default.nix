@@ -11,11 +11,11 @@ buildPythonPackage {
 
   inherit (vapoursynth) version src;
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
-  buildInputs = [ vapoursynth ];
+  buildInputs = [vapoursynth];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   unittestFlagsArray = [
     "-s"
@@ -26,7 +26,7 @@ buildPythonPackage {
 
   passthru = {
     withPlugins =
-      plugins: python.pkgs.vapoursynth.override { vapoursynth = vapoursynth.withPlugins plugins; };
+      plugins: python.pkgs.vapoursynth.override {vapoursynth = vapoursynth.withPlugins plugins;};
   };
 
   inherit (vapoursynth) meta;

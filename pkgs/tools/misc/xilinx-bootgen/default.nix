@@ -16,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "1qciz3jkzy0z0lcgqnhch9pqj0202mk5ghzp2m9as5pzk8n8hrbz";
   };
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   enableParallelBuilding = true;
 
@@ -37,6 +37,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/Xilinx/bootgen";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = [ maintainers.flokli ];
+    maintainers = [maintainers.flokli];
   };
 }

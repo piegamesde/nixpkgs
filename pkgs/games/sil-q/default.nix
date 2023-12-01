@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-v/sWhPWF9cCKD8N0RHpwzChMM1t9G2yrMDmi1cZxdOs=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     ncurses
     libX11
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.tests = {
-    saveDirCreation = pkgs.runCommand "save-dir-creation" { } ''
+    saveDirCreation = pkgs.runCommand "save-dir-creation" {} ''
       HOME=$(pwd) ${lib.getExe pkgs.sil-q} --help
       test -d .sil-q && touch $out
     '';
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/sil-quirk/sil-q";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.kenran ];
+    maintainers = [lib.maintainers.kenran];
     platforms = lib.platforms.linux;
   };
 }

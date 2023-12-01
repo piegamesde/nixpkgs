@@ -16,13 +16,13 @@ buildPythonPackage rec {
     hash = "sha256-yKZHkrf6fM0WsHczIEK5Kxusz5dSBgydK3fLu1nDyvk=";
   };
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
   checkPhase = "pytest tests";
 
   meta = with lib; {
     description = "A python implementation of the simulated annealing optimization technique";
     homepage = "https://github.com/perrygeo/simanneal";
     license = licenses.isc;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

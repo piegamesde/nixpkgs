@@ -100,7 +100,7 @@ stdenv.mkDerivation {
     ++ lib.optional (!withZstd) "NO_LIBZSTD=1"
     ++ lib.optional (!withLibcap) "NO_LIBCAP=1";
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   # perf refers both to newt and slang
   nativeBuildInputs = [
@@ -188,7 +188,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://perf.wiki.kernel.org/";
     description = "Linux tools to profile with performance counters";
-    maintainers = with maintainers; [ viric ];
+    maintainers = with maintainers; [viric];
     platforms = platforms.linux;
     broken = kernel.kernelOlder "5";
   };

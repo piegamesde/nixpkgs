@@ -39,7 +39,7 @@ buildDunePackage rec {
     ppx_jane
     ppx_sexp_conv
   ];
-  checkInputs = [ ounit ];
+  checkInputs = [ounit];
   propagatedBuildInputs = [
     async
     base64
@@ -54,7 +54,7 @@ buildDunePackage rec {
   meta = with lib; {
     description = "Bioinformatics library for Ocaml";
     homepage = "http://${pname}.org";
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
     license = licenses.gpl2;
   };
 }

@@ -48,7 +48,7 @@ buildPythonPackage {
     "dev"
   ];
 
-  buildInputs = [ protobuf ];
+  buildInputs = [protobuf];
 
   propagatedNativeBuildInputs =
     [
@@ -56,7 +56,7 @@ buildPythonPackage {
       buildPackages."protobuf${lib.versions.major protobuf.version}_${lib.versions.minor protobuf.version}"
     ];
 
-  setupPyGlobalFlags = [ "--cpp_implementation" ];
+  setupPyGlobalFlags = ["--cpp_implementation"];
 
   pythonImportsCheck = [
     "google.protobuf"
@@ -71,6 +71,6 @@ buildPythonPackage {
     description = "Protocol Buffers are Google's data interchange format";
     homepage = "https://developers.google.com/protocol-buffers/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ knedlsepp ];
+    maintainers = with maintainers; [knedlsepp];
   };
 }

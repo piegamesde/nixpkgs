@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "usocket-server";
   version = "usocket-0.8.3";
@@ -20,7 +20,7 @@ rec {
 
   packageName = "usocket-server";
 
-  asdFilesToKeep = [ "usocket-server.asd" ];
+  asdFilesToKeep = ["usocket-server.asd"];
   overrides = x: x;
 }
 /* (SYSTEM usocket-server DESCRIPTION

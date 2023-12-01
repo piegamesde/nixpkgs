@@ -22,7 +22,7 @@ with lib;
   ename ? null,
   version,
   recipe,
-  meta ? { },
+  meta ? {},
   ...
 }@args:
 
@@ -58,7 +58,7 @@ import ./generic.nix
           sha256 = "17z0wbqdd6fspbj43yq8biff6wfggk74xgnaf1xx6ynsp1i74is5";
         };
 
-        patches = [ ./package-build-dont-use-mtime.patch ];
+        patches = [./package-build-dont-use-mtime.patch];
 
         dontConfigure = true;
         dontBuild = true;
@@ -118,5 +118,5 @@ import ./generic.nix
       meta = defaultMeta // meta;
     }
 
-    // removeAttrs args [ "meta" ]
+    // removeAttrs args ["meta"]
   )

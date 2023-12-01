@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
   ];
   setOutputFlags = false; # it would move $out/modules, etc.
 
-  nativeBuildInputs = [ which ];
+  nativeBuildInputs = [which];
 
   buildInputs =
     [
@@ -139,6 +139,6 @@ stdenv.mkDerivation rec {
     homepage = "https://httpd.apache.org/";
     license = licenses.asl20;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
   };
 }

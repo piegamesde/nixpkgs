@@ -8,7 +8,7 @@
 with lib;
 
 {
-  meta.maintainers = [ maintainers.mic92 ];
+  meta.maintainers = [maintainers.mic92];
 
   ###### interface
   options = {
@@ -27,8 +27,8 @@ with lib;
 
   ###### implementation
   config = mkIf config.programs.adb.enable {
-    services.udev.packages = [ pkgs.android-udev-rules ];
-    environment.systemPackages = [ pkgs.android-tools ];
-    users.groups.adbusers = { };
+    services.udev.packages = [pkgs.android-udev-rules];
+    environment.systemPackages = [pkgs.android-tools];
+    users.groups.adbusers = {};
   };
 }

@@ -20,7 +20,7 @@ buildDunePackage rec {
     sha256 = "1vlnjqqpypmjhlyrxfzla79y4ilmc9ggz311giy6vmh4cyzl29h3";
   };
 
-  buildInputs = [ stdlib-shims ];
+  buildInputs = [stdlib-shims];
 
   doCheck = true;
 
@@ -28,6 +28,6 @@ buildDunePackage rec {
     homepage = "https://github.com/mransan/ocaml-protoc";
     description = "A Protobuf Compiler for OCaml";
     license = licenses.mit;
-    maintainers = [ maintainers.vyorkin ];
+    maintainers = [maintainers.vyorkin];
   };
 }

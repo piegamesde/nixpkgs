@@ -32,7 +32,7 @@ stdenv.mkDerivation {
     installShellFiles
     setJavaClassPath
   ];
-  buildInputs = [ deps ];
+  buildInputs = [deps];
 
   dontUnpack = true;
 
@@ -53,6 +53,6 @@ stdenv.mkDerivation {
     description = "Refactoring and linting tool for Scala";
     homepage = "https://scalacenter.github.io/scalafix/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.tomahna ];
+    maintainers = [maintainers.tomahna];
   };
 }

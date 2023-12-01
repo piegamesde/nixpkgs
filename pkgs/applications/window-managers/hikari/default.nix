@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
 
   makeFlags =
     with lib;
-    [ "PREFIX=$(out)" ]
+    ["PREFIX=$(out)"]
     ++ optional stdenv.isLinux "WITH_POSIX_C_SOURCE=YES"
     ++ mapAttrsToList (feat: enabled: optionalString enabled "WITH_${toUpper feat}=YES") features;
 
@@ -77,6 +77,6 @@ stdenv.mkDerivation rec {
     homepage = "https://hikari.acmelabs.space";
     license = licenses.bsd2;
     platforms = platforms.linux ++ platforms.freebsd;
-    maintainers = with maintainers; [ jpotier ];
+    maintainers = with maintainers; [jpotier];
   };
 }

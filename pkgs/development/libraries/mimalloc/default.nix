@@ -35,10 +35,10 @@ stdenv.mkDerivation rec {
     ninja
   ];
   cmakeFlags =
-    [ "-DMI_INSTALL_TOPLEVEL=ON" ]
-    ++ lib.optionals secureBuild [ "-DMI_SECURE=ON" ]
-    ++ lib.optionals stdenv.hostPlatform.isStatic [ "-DMI_BUILD_SHARED=OFF" ]
-    ++ lib.optionals (!doCheck) [ "-DMI_BUILD_TESTS=OFF" ];
+    ["-DMI_INSTALL_TOPLEVEL=ON"]
+    ++ lib.optionals secureBuild ["-DMI_SECURE=ON"]
+    ++ lib.optionals stdenv.hostPlatform.isStatic ["-DMI_BUILD_SHARED=OFF"]
+    ++ lib.optionals (!doCheck) ["-DMI_BUILD_TESTS=OFF"];
 
   postInstall =
     let

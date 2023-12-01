@@ -19,13 +19,13 @@ buildPythonPackage rec {
   # there are no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "wasm" ];
+  pythonImportsCheck = ["wasm"];
 
   meta = with lib; {
     description = "WebAssembly decoder and disassembler";
     homepage = "https://github.com/athre0z/wasm";
     changelog = "https://github.com/athre0z/wasm/blob/master/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ arturcygan ];
+    maintainers = with maintainers; [arturcygan];
   };
 }

@@ -40,8 +40,8 @@ stdenv.mkDerivation rec {
     mv git-open $out/bin
     installManPage git-open.1
     wrapProgram $out/bin/git-open \
-      --prefix PATH : "${lib.makeBinPath [ gnugrep ]}" \
-      --suffix PATH : "${lib.makeBinPath [ xdg-utils ]}"
+      --prefix PATH : "${lib.makeBinPath [gnugrep]}" \
+      --suffix PATH : "${lib.makeBinPath [xdg-utils]}"
   '';
 
   meta = with lib; {
@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
     description = "Open the GitHub page or website for a repository in your browser";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

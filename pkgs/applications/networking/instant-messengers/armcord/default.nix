@@ -127,7 +127,7 @@ stdenv.mkDerivation rec {
       --prefix XDG_DATA_DIRS : "${gtk3}/share/gsettings-schemas/${gtk3.name}/" \
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform=wayland --enable-features=UseOzonePlatform --enable-features=WebRTCPipeWireCapturer }}" \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath buildInputs}" \
-      --suffix PATH : ${lib.makeBinPath [ xdg-utils ]}
+      --suffix PATH : ${lib.makeBinPath [xdg-utils]}
 
     # Fix desktop link
     substituteInPlace $out/share/applications/armcord.desktop \
@@ -139,9 +139,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Lightweight, alternative desktop client for Discord";
     homepage = "https://github.com/ArmCord/ArmCord";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.osl3;
-    maintainers = with maintainers; [ wrmilling ];
+    maintainers = with maintainers; [wrmilling];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

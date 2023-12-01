@@ -39,7 +39,7 @@ python3.pkgs.buildPythonApplication rec {
     libgudev
   ];
 
-  propagatedBuildInputs = [ python3.pkgs.pygobject3 ];
+  propagatedBuildInputs = [python3.pkgs.pygobject3];
 
   mesonFlags = [
     "-Dsystemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
@@ -51,7 +51,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://gitlab.freedesktop.org/hadess/switcheroo-control/";
     changelog = "https://gitlab.freedesktop.org/hadess/switcheroo-control/-/blob/${version}/NEWS";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

@@ -19,8 +19,8 @@ buildPythonPackage rec {
     sha256 = "1ajmflvvlkflrcmqmkrx0zaira84z8kv4ssb2jprfwvjh8vfkysb";
   };
 
-  buildInputs = [ gcc ];
-  propagatedBuildInputs = [ wirelesstools ];
+  buildInputs = [gcc];
+  propagatedBuildInputs = [wirelesstools];
 
   meta = {
     description = "Get info about wireless interfaces using libiw";

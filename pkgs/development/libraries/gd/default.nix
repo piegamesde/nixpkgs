@@ -36,10 +36,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   configureFlags =
-    [ "--enable-gd-formats" ]
+    ["--enable-gd-formats"]
     # -pthread gets passed to clang, causing warnings
     ++ lib.optional stdenv.isDarwin "--enable-werror=no";
 
@@ -79,6 +79,6 @@ stdenv.mkDerivation rec {
     description = "A dynamic image creation library";
     license = licenses.free; # some custom license
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

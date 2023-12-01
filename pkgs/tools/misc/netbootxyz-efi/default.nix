@@ -1,4 +1,4 @@
-{ lib, fetchurl }:
+{lib, fetchurl}:
 
 let
   pname = "netboot.xyz-efi";
@@ -14,7 +14,7 @@ fetchurl {
     homepage = "https://netboot.xyz/";
     description = "A tool to boot OS installers and utilities over the network, to be run from a bootloader";
     license = licenses.asl20;
-    maintainers = with maintainers; [ Enzime ];
+    maintainers = with maintainers; [Enzime];
     platforms = platforms.linux;
   };
 }

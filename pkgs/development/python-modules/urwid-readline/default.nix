@@ -16,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-AYAgy8hku17Ye+F9wmsGnq4nVcsp86nFaarDve0e+vQ=";
   };
 
-  propagatedBuildInputs = [ urwid ];
+  propagatedBuildInputs = [urwid];
 
   nativeCheckInputs = [
     glibcLocales
@@ -27,6 +27,6 @@ buildPythonPackage rec {
     description = "A textbox edit widget for urwid that supports readline shortcuts";
     homepage = "https://github.com/rr-/urwid_readline";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

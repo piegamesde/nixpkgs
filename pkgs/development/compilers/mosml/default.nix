@@ -42,6 +42,6 @@ stdenv.mkDerivation rec {
     homepage = "https://mosml.org/";
     license = licenses.gpl2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ vaibhavsagar ];
+    maintainers = with maintainers; [vaibhavsagar];
   };
 }

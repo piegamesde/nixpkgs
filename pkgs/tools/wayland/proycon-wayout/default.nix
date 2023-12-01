@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   '';
 
   strictDeps = true;
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     scdoc
     ninja
@@ -55,6 +55,6 @@ stdenv.mkDerivation rec {
     homepage = "https://git.sr.ht/~proycon/wayout";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ wentam ];
+    maintainers = with maintainers; [wentam];
   };
 }

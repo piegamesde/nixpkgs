@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     description = "A tiny multi user lightdm greeter";
     homepage = "https://github.com/off-world/lightdm-tiny-greeter";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ edwtjo ];
+    maintainers = with maintainers; [edwtjo];
     platforms = platforms.linux;
   };
 }

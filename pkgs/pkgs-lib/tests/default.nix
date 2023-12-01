@@ -7,7 +7,7 @@
 # See `structured` below.
 
 {
-  pkgs ? import ../../.. { },
+  pkgs ? import ../../.. {},
 }:
 let
   inherit (pkgs.lib)
@@ -21,25 +21,25 @@ let
     ;
 
   structured = {
-    formats = import ./formats.nix { inherit pkgs; };
+    formats = import ./formats.nix {inherit pkgs;};
     java-properties = recurseIntoAttrs {
-      jdk8 = pkgs.callPackage ../formats/java-properties/test { jdk = pkgs.jdk8; };
-      jdk11 = pkgs.callPackage ../formats/java-properties/test { jdk = pkgs.jdk11_headless; };
-      jdk17 = pkgs.callPackage ../formats/java-properties/test { jdk = pkgs.jdk17_headless; };
+      jdk8 = pkgs.callPackage ../formats/java-properties/test {jdk = pkgs.jdk8;};
+      jdk11 = pkgs.callPackage ../formats/java-properties/test {jdk = pkgs.jdk11_headless;};
+      jdk17 = pkgs.callPackage ../formats/java-properties/test {jdk = pkgs.jdk17_headless;};
     };
   };
 
   flatten =
     prefix: as:
-    foldl' mergeAttrs { } (
+    foldl' mergeAttrs {} (
       attrValues (
         mapAttrs
           (
             k: v:
             if isDerivation v then
-              { "${prefix}${k}" = v; }
+              {"${prefix}${k}" = v;}
             else if v ? recurseForDerivations then
-              flatten "${prefix}${k}-" (removeAttrs v [ "recurseForDerivations" ])
+              flatten "${prefix}${k}-" (removeAttrs v ["recurseForDerivations"])
             else
               builtins.trace v throw "expected derivation or recurseIntoAttrs"
           )

@@ -40,7 +40,7 @@ mkDerivation rec {
     libXrandr
   ];
 
-  patches = [ ./ffmpeg-out-of-box.patch ];
+  patches = [./ffmpeg-out-of-box.patch];
 
   # Workaround build failure on -fno-common toolchains:
   #   ld: alsa_device.o:(.bss+0x8): multiple definition of `rc'; QvkAlsaDevice.o:(.bss+0x8): first defined here
@@ -63,7 +63,7 @@ mkDerivation rec {
       videoconferences, etc.
     '';
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.league ];
+    maintainers = [maintainers.league];
     platforms = platforms.linux;
   };
 }

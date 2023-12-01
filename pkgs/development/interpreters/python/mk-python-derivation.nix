@@ -33,27 +33,27 @@
   name ? "${attrs.pname}-${attrs.version}",
 
   # Build-time dependencies for the package
-  nativeBuildInputs ? [ ],
+  nativeBuildInputs ? [],
 
   # Run-time dependencies for the package
-  buildInputs ? [ ],
+  buildInputs ? [],
 
   # Dependencies needed for running the checkPhase.
   # These are added to buildInputs when doCheck = true.
-  checkInputs ? [ ],
-  nativeCheckInputs ? [ ],
+  checkInputs ? [],
+  nativeCheckInputs ? [],
 
   # propagate build dependencies so in case we have A -> B -> C,
   # C can import package A propagated by B
-  propagatedBuildInputs ? [ ],
+  propagatedBuildInputs ? [],
 
   # DEPRECATED: use propagatedBuildInputs
-  pythonPath ? [ ],
+  pythonPath ? [],
 
   # Enabled to detect some (native)BuildInputs mistakes
   strictDeps ? true,
 
-  outputs ? [ "out" ],
+  outputs ? ["out"],
 
   # used to disable derivation, useful for specific python versions
   disabled ? false,
@@ -65,7 +65,7 @@
 
   # Additional arguments to pass to the makeWrapper function, which wraps
   # generated binaries.
-  makeWrapperArgs ? [ ],
+  makeWrapperArgs ? [],
 
   # Skip wrapping of python programs altogether
   dontWrapPythonPrograms ? false,
@@ -93,13 +93,13 @@
   # "other" : Provide your own buildPhase and installPhase.
   format ? "setuptools",
 
-  meta ? { },
+  meta ? {},
 
-  passthru ? { },
+  passthru ? {},
 
   doCheck ? config.doCheckByDefault or false,
 
-  disabledTestPaths ? [ ],
+  disabledTestPaths ? [],
 
   ...
 }@attrs:
@@ -205,19 +205,19 @@ let
             ensureNewerSourcesForZipFilesHook # move to wheel installer (pip) or builder (setuptools, flit, ...)?
             pythonRemoveTestsDirHook
           ]
-          ++ lib.optionals catchConflicts [ pythonCatchConflictsHook ]
-          ++ lib.optionals removeBinBytecode [ pythonRemoveBinBytecodeHook ]
-          ++ lib.optionals (lib.hasSuffix "zip" (attrs.src.name or "")) [ unzip ]
-          ++ lib.optionals (format == "setuptools") [ setuptoolsBuildHook ]
-          ++ lib.optionals (format == "flit") [ flitBuildHook ]
-          ++ lib.optionals (format == "pyproject") [ pipBuildHook ]
-          ++ lib.optionals (format == "wheel") [ wheelUnpackHook ]
+          ++ lib.optionals catchConflicts [pythonCatchConflictsHook]
+          ++ lib.optionals removeBinBytecode [pythonRemoveBinBytecodeHook]
+          ++ lib.optionals (lib.hasSuffix "zip" (attrs.src.name or "")) [unzip]
+          ++ lib.optionals (format == "setuptools") [setuptoolsBuildHook]
+          ++ lib.optionals (format == "flit") [flitBuildHook]
+          ++ lib.optionals (format == "pyproject") [pipBuildHook]
+          ++ lib.optionals (format == "wheel") [wheelUnpackHook]
           ++ lib.optionals (format == "egg") [
             eggUnpackHook
             eggBuildHook
             eggInstallHook
           ]
-          ++ lib.optionals (!(format == "other") || dontUsePipInstall) [ pipInstallHook ]
+          ++ lib.optionals (!(format == "other") || dontUsePipInstall) [pipInstallHook]
           ++
             lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform)
               [
@@ -230,7 +230,7 @@ let
                 # Optionally enforce PEP420 for python3
                 pythonNamespacesHook
               ]
-          ++ lib.optionals withDistOutput [ pythonOutputDistHook ]
+          ++ lib.optionals withDistOutput [pythonOutputDistHook]
           ++ nativeBuildInputs;
 
         buildInputs = validatePythonMatches "buildInputs" (buildInputs ++ pythonPath);
@@ -253,7 +253,7 @@ let
         doCheck = false;
         doInstallCheck = attrs.doCheck or true;
         nativeInstallCheckInputs =
-          [ ]
+          []
           ++
             lib.optionals (format == "setuptools")
               [
@@ -289,7 +289,7 @@ let
         # Longer-term we should get rid of `checkPhase` and use `installCheckPhase`.
         installCheckPhase = attrs.checkPhase;
       }
-      // lib.optionalAttrs (disabledTestPaths != [ ]) {
+      // lib.optionalAttrs (disabledTestPaths != []) {
         disabledTestPaths = lib.escapeShellArgs disabledTestPaths;
       }
     )

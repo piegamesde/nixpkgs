@@ -11,7 +11,7 @@ let
   cfg = config.services.cachix-agent;
 in
 {
-  meta.maintainers = [ lib.maintainers.domenkozar ];
+  meta.maintainers = [lib.maintainers.domenkozar];
 
   options.services.cachix-agent = {
     enable = mkEnableOption (lib.mdDoc "Cachix Deploy Agent: https://docs.cachix.org/deploy/");
@@ -60,9 +60,9 @@ in
   config = mkIf cfg.enable {
     systemd.services.cachix-agent = {
       description = "Cachix Deploy Agent";
-      after = [ "network-online.target" ];
-      path = [ config.nix.package ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network-online.target"];
+      path = [config.nix.package];
+      wantedBy = ["multi-user.target"];
 
       # Cachix requires $USER to be set
       environment.USER = "root";

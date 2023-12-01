@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-IL+BB08uZr5fm05ITxpm66jTb+pYYlLKOwQ8uf5rKSs=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd cargo-asm \
@@ -31,9 +31,9 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = lib.optionalAttrs stdenv.hostPlatform.isx86_64 {
-      test-basic-x86_64 = callPackage ./test-basic-x86_64.nix { };
+      test-basic-x86_64 = callPackage ./test-basic-x86_64.nix {};
     };
   };
 

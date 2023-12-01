@@ -51,7 +51,7 @@ in
       endpoints = mkOption {
         description = lib.mdDoc "Etcd endpoints";
         type = types.listOf types.str;
-        default = [ "http://127.0.0.1:2379" ];
+        default = ["http://127.0.0.1:2379"];
       };
 
       prefix = mkOption {
@@ -152,8 +152,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.flannel = {
       description = "Flannel Service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       environment =
         {
           FLANNELD_PUBLIC_IP = cfg.publicIp;
@@ -175,7 +175,7 @@ in
           FLANNELD_KUBECONFIG_FILE = cfg.kubeconfig;
           NODE_NAME = cfg.nodeName;
         };
-      path = [ pkgs.iptables ];
+      path = [pkgs.iptables];
       preStart = optionalString (cfg.storageBackend == "etcd") ''
         echo "setting network configuration"
         until ${pkgs.etcd}/bin/etcdctl put /coreos.com/network/config '${builtins.toJSON networkConfig}'
@@ -193,7 +193,7 @@ in
     };
 
     services.etcd.enable = mkDefault (
-      cfg.storageBackend == "etcd" && cfg.etcd.endpoints == [ "http://127.0.0.1:2379" ]
+      cfg.storageBackend == "etcd" && cfg.etcd.endpoints == ["http://127.0.0.1:2379"]
     );
 
     # for some reason, flannel doesn't let you configure this path

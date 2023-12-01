@@ -15,7 +15,7 @@ buildGoModule rec {
     sha256 = "sha256-FjU9AyRAdGFr1bVpkmj5STkbzCXvpxOaOj7WNQJq7A0=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   vendorSha256 = null;
 
@@ -32,6 +32,6 @@ buildGoModule rec {
     description = "Non-web client for the terminal, supporting Gopher, Gemini and more";
     homepage = "https://bombadillo.colorfield.space/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
   };
 }

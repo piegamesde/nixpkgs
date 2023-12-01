@@ -26,9 +26,9 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  buildInputs = [ libmnl ];
-  propagatedBuildInputs = [ libnfnetlink ];
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [libmnl];
+  propagatedBuildInputs = [libnfnetlink];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     description = "Userspace library providing an API to the in-kernel connection tracking state table";

@@ -16,19 +16,19 @@ buildPythonPackage rec {
     hash = "sha256-on3PYSwF0uveYm99UGVV8Q38gVs+3cz6rfx9mbEcmgc=";
   };
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   unittestFlagsArray = [
     "-s"
     "pytz/tests"
   ];
 
-  pythonImportsCheck = [ "pytz" ];
+  pythonImportsCheck = ["pytz"];
 
   meta = with lib; {
     description = "World timezone definitions, modern and historical";
     homepage = "https://pythonhosted.org/pytz";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

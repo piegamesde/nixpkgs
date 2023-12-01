@@ -31,6 +31,6 @@ python3.pkgs.buildPythonPackage rec {
     homepage = "https://github.com/mov-cli/mov-cli";
     description = "A cli tool to browse and watch movies";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ baitinq ];
+    maintainers = with maintainers; [baitinq];
   };
 }

@@ -44,6 +44,6 @@ mkDerivation {
     homepage = "https://github.com/ptrkrysik/gr-gsm";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mog ];
+    maintainers = with maintainers; [mog];
   };
 }

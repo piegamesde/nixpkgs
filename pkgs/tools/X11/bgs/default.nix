@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "V8GP+xLSiCvaYZt8Bi3/3KlTBaGnMYQUeNCHwH6Ejzo=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libX11
@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
     description = "Extremely fast and small background setter for X";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

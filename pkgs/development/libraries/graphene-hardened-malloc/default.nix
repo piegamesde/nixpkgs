@@ -22,7 +22,7 @@ lib.fix (
     };
 
     doCheck = true;
-    nativeCheckInputs = [ python3 ];
+    nativeCheckInputs = [python3];
     # these tests cover use as a build-time-linked library
     checkPhase = ''
       make test
@@ -44,7 +44,7 @@ lib.fix (
         name = "${self.name}-ld-preload-tests";
         src = self.src;
 
-        nativeBuildInputs = [ makeWrapper ];
+        nativeBuildInputs = [makeWrapper];
 
         # reuse the projects tests to cover use with LD_PRELOAD. we have
         # to convince the test programs to build as though they're naive
@@ -69,12 +69,12 @@ lib.fix (
         '';
       };
       tests = {
-        ld-preload = runCommand "ld-preload-test-run" { } ''
+        ld-preload = runCommand "ld-preload-test-run" {} ''
           ${self}/bin/preload-hardened-malloc ${self.ld-preload-tests}/bin/run-tests
           touch $out
         '';
         # to compensate for the lack of tests of correct normal malloc operation
-        stress = runCommand "stress-test-run" { } ''
+        stress = runCommand "stress-test-run" {} ''
           ${self}/bin/preload-hardened-malloc ${stress-ng}/bin/stress-ng \
             --no-rand-seed \
             --malloc 8 \
@@ -94,7 +94,7 @@ lib.fix (
         corruption vulnerabilities yet aims to provide decent overall performance.
       '';
       license = licenses.mit;
-      maintainers = with maintainers; [ ris ];
+      maintainers = with maintainers; [ris];
       platforms = [
         "x86_64-linux"
         "aarch64-linux"

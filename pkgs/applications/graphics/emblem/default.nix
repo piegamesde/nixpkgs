@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     gtk4
     libadwaita
     libxml2
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Foundation ];
+  ] ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.Foundation];
 
   meta = with lib; {
     description = "Generate project icons and avatars from a symbolic icon";

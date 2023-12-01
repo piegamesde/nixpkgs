@@ -49,13 +49,13 @@ mkDerivation rec {
     libkdcraw
   ];
 
-  qtWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ ffmpeg ]}" ];
+  qtWrapperArgs = ["--prefix PATH : ${lib.makeBinPath [ffmpeg]}"];
 
   meta = with lib; {
     description = "Efficient image organization and indexing";
     homepage = "https://www.kphotoalbum.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     inherit (kconfig.meta) platforms;
   };
 }

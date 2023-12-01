@@ -35,7 +35,7 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  pythonImportsCheck = [ "gradient_statsd" ];
+  pythonImportsCheck = ["gradient_statsd"];
 
   # Pypi does not contain tests
   doCheck = false;
@@ -44,7 +44,7 @@ buildPythonPackage rec {
     description = "Wrapper around the DogStatsd client";
     homepage = "https://paperspace.com";
     license = licenses.mit;
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
     platforms = platforms.unix;
   };
 }

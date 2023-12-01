@@ -4,7 +4,7 @@
   libxslt,
   dbus,
   findXMLCatalogs,
-  serviceDirectories ? [ ],
+  serviceDirectories ? [],
   suidHelper ? "/var/setuid-wrappers/dbus-daemon-launch-helper",
   apparmor ? "disabled", # one of enabled, disabled, required
 }:
@@ -24,7 +24,7 @@ runCommand "dbus-1"
       findXMLCatalogs
     ];
 
-    buildInputs = [ dbus.out ];
+    buildInputs = [dbus.out];
   }
   ''
     mkdir -p $out

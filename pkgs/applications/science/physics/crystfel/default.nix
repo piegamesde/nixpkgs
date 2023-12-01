@@ -53,14 +53,14 @@ let
       gsl
     ];
 
-    configureFlags = [ "FFLAGS=-fallow-argument-mismatch" ];
+    configureFlags = ["FFLAGS=-fallow-argument-mismatch"];
 
     # libccp4 tries to read syminfo.lib by looking at an environment variable, which hinders reproducibility.
     # We hard-code this by providing a little patch and then passing the absolute path to syminfo.lib as a
     # preprocessor flag.
     env.NIX_CFLAGS_COMPILE = ''-DNIX_PROVIDED_SYMOP_FILE="${placeholder "out"}/share/ccp4/syminfo.lib"'';
 
-    patches = [ ./libccp4-use-hardcoded-syminfo-lib.patch ];
+    patches = [./libccp4-use-hardcoded-syminfo-lib.patch];
 
     postPatch =
       let
@@ -82,14 +82,14 @@ let
         if stdenv.isDarwin then
           fetchurl {
             url = "https://www.mrc-lmb.cam.ac.uk/mosflm/mosflm/ver${
-              builtins.replaceStrings [ "." ] [ "" ] version
+              builtins.replaceStrings ["."] [""] version
             }/pre-built/mosflm-osx-64-noX11.zip";
             sha256 = "1da5wimv3kl8bccp49j69vh8gi28cn7axg59lrmb38s68c618h7j";
           }
         else
           fetchurl {
             url = "https://www.mrc-lmb.cam.ac.uk/mosflm/mosflm/ver${
-              builtins.replaceStrings [ "." ] [ "" ] version
+              builtins.replaceStrings ["."] [""] version
             }/pre-built/mosflm-linux-64-noX11.zip";
             sha256 = "1rqh3nprxfmnyihllw31nb8i3wfhybmsic6y7z6wn4rafyv3w4fk";
           };
@@ -131,7 +131,7 @@ let
       pkg-config
       ninja
     ];
-    buildInputs = [ eigen ];
+    buildInputs = [eigen];
   };
 
   pinkIndexer = stdenv.mkDerivation rec {
@@ -147,7 +147,7 @@ let
       pkg-config
       ninja
     ];
-    buildInputs = [ eigen ];
+    buildInputs = [eigen];
   };
 
   fdip = stdenv.mkDerivation rec {
@@ -163,7 +163,7 @@ let
       ninja
       pkg-config
     ];
-    buildInputs = [ eigen ];
+    buildInputs = [eigen];
   };
 
   hdf5-external-filter-plugins = stdenv.mkDerivation rec {
@@ -183,7 +183,7 @@ let
       })
     ];
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
     buildInputs = [
       hdf5
       lz4
@@ -213,7 +213,7 @@ stdenv.mkDerivation rec {
     doxygen
     opencl-headers
     makeWrapper
-  ] ++ lib.optionals withGui [ wrapGAppsHook ];
+  ] ++ lib.optionals withGui [wrapGAppsHook];
   buildInputs =
     [
       hdf5
@@ -233,9 +233,9 @@ stdenv.mkDerivation rec {
       gtk3
       gdk-pixbuf
     ]
-    ++ lib.optionals stdenv.isDarwin [ argp-standalone ]
-    ++ lib.optionals (stdenv.isDarwin && !stdenv.isAarch64) [ memorymappingHook ]
-    ++ lib.optionals withBitshuffle [ hdf5-external-filter-plugins ];
+    ++ lib.optionals stdenv.isDarwin [argp-standalone]
+    ++ lib.optionals (stdenv.isDarwin && !stdenv.isAarch64) [memorymappingHook]
+    ++ lib.optionals withBitshuffle [hdf5-external-filter-plugins];
 
   patches = [
     ./link-to-argp-standalone-if-needed.patch
@@ -272,7 +272,7 @@ stdenv.mkDerivation rec {
     changelog = "https://www.desy.de/~twhite/crystfel/changes.html";
     downloadPage = "https://www.desy.de/~twhite/crystfel/download.html";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ pmiddend ];
+    maintainers = with maintainers; [pmiddend];
     platforms = platforms.unix;
   };
 }

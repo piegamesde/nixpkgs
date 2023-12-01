@@ -1,4 +1,4 @@
-{ lib, python3 }:
+{lib, python3}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "distgen";
@@ -27,6 +27,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Templating system/generator for distributions";
     license = licenses.gpl2Plus;
     homepage = "https://distgen.readthedocs.io/";
-    maintainers = with maintainers; [ bachp ];
+    maintainers = with maintainers; [bachp];
   };
 }

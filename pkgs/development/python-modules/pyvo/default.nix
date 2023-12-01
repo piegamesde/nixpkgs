@@ -35,7 +35,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     astropy
@@ -55,12 +55,12 @@ buildPythonPackage rec {
       "pyvo/dal/tests/test_datalink.py"
     ];
 
-  pythonImportsCheck = [ "pyvo" ];
+  pythonImportsCheck = ["pyvo"];
 
   meta = with lib; {
     description = "Astropy affiliated package for accessing Virtual Observatory data and services";
     homepage = "https://github.com/astropy/pyvo";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ smaret ];
+    maintainers = with maintainers; [smaret];
   };
 }

@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     gdb
     pcre
   ];
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   CXXFLAGS = [
     "-fPIC"
     "-O2"
@@ -56,6 +56,6 @@ stdenv.mkDerivation rec {
 
     homepage = "https://igprof.org/";
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ ktf ];
+    maintainers = with lib.maintainers; [ktf];
   };
 }

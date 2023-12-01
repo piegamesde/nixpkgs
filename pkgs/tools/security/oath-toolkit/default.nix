@@ -20,16 +20,16 @@ stdenv.mkDerivation rec {
     sha256 = "1aa620k05lsw3l3slkp2mzma40q3p9wginspn9zk8digiz7dzv9n";
   };
 
-  buildInputs = [ securityDependency ];
+  buildInputs = [securityDependency];
 
-  configureFlags = lib.optionals stdenv.isDarwin [ "--disable-pam" ];
+  configureFlags = lib.optionals stdenv.isDarwin ["--disable-pam"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Components for building one-time password authentication systems";
     homepage = "https://www.nongnu.org/oath-toolkit/";
-    maintainers = with maintainers; [ schnusch ];
+    maintainers = with maintainers; [schnusch];
     platforms = with platforms; linux ++ darwin;
   };
 }

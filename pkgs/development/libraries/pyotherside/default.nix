@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-IIvL704snJIJbigAgJZ3WWg5a/mX/8qzgFN+dBEClG8=";
   };
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
   buildInputs = [
     python3
     qtbase
@@ -32,13 +32,13 @@ stdenv.mkDerivation rec {
 
   dontWrapQtApps = true;
 
-  patches = [ ./qml-path.patch ];
-  installTargets = [ "sub-src-install_subtargets" ];
+  patches = [./qml-path.patch];
+  installTargets = ["sub-src-install_subtargets"];
 
   meta = with lib; {
     description = "Asynchronous Python 3 Bindings for Qt 5";
     homepage = "https://thp.io/2011/pyotherside/";
     license = licenses.isc;
-    maintainers = [ maintainers.mic92 ];
+    maintainers = [maintainers.mic92];
   };
 }

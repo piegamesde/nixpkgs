@@ -32,12 +32,12 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  checkInputs = [ ounit2 ];
+  checkInputs = [ounit2];
 
   meta = {
     description = "OCaml client for google services";
     inherit (src.meta) homepage;
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bennofs ];
+    maintainers = with lib.maintainers; [bennofs];
   };
 }

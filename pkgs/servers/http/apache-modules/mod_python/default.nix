@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-EH8wrXqUAOFWyPKfysGeiIezgrVc789RYO4AHeSA6t4=";
   };
 
-  patches = [ ./install.patch ];
+  patches = [./install.patch];
 
   installFlags = [
     "LIBEXECDIR=$(out)/modules"
@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     homepage = "https://modpython.org/";
     description = "An Apache module that embeds the Python interpreter within the server";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -19,14 +19,14 @@ buildPythonPackage rec {
     sha256 = "1msvvdzk33sxzgyvs4fs8dlsrsi7fjj038z83s0yw5h8m8d78469";
   };
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
   checkPhase = "pytest";
-  pythonImportsCheck = [ "mergedeep" ];
+  pythonImportsCheck = ["mergedeep"];
 
   meta = with lib; {
     homepage = "https://github.com/clarketm/mergedeep";
     description = "A deep merge function for python";
     license = licenses.mit;
-    maintainers = with maintainers; [ ris ];
+    maintainers = with maintainers; [ris];
   };
 }

@@ -32,6 +32,6 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = [ maintainers.mgttlinger ];
+    maintainers = [maintainers.mgttlinger];
   };
 }

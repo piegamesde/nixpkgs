@@ -37,7 +37,7 @@ buildPythonPackage rec {
   '';
 
   # setup-requires requirements
-  nativeBuildInputs = [ importlib-metadata ];
+  nativeBuildInputs = [importlib-metadata];
 
   propagatedBuildInputs = [
     aenum

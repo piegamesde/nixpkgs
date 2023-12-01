@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/atx/wtype";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ justinlovinger ];
+    maintainers = with maintainers; [justinlovinger];
   };
 }

@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
   '';
 
   strictDeps = true;
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
   enableParallelBuilding = true;
 
   installPhase = ''
@@ -54,6 +54,6 @@ stdenv.mkDerivation rec {
       progval
       r-burns
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

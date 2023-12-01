@@ -65,9 +65,9 @@ let
           https-enabled = false;
         };
 
-        graphite = [ { enabled = false; } ];
+        graphite = [{enabled = false;}];
 
-        udp = [ { enabled = false; } ];
+        udp = [{enabled = false;}];
 
         collectd = [
           {
@@ -78,7 +78,7 @@ let
           }
         ];
 
-        opentsdb = [ { enabled = false; } ];
+        opentsdb = [{enabled = false;}];
 
         continuous_queries = {
           enabled = true;
@@ -100,7 +100,7 @@ let
       }
       cfg.extraConfig;
 
-  configFile = pkgs.runCommandLocal "config.toml" { } ''
+  configFile = pkgs.runCommandLocal "config.toml" {} ''
     ${pkgs.buildPackages.remarshal}/bin/remarshal -if json -of toml \
       < ${pkgs.writeText "config.json" (builtins.toJSON configOptions)} \
       > $out
@@ -146,7 +146,7 @@ in
       };
 
       extraConfig = mkOption {
-        default = { };
+        default = {};
         description = lib.mdDoc "Extra configuration options for influxdb";
         type = types.attrs;
       };
@@ -157,12 +157,12 @@ in
 
   config = mkIf config.services.influxdb.enable {
 
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0770 ${cfg.user} ${cfg.group} - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.dataDir}' 0770 ${cfg.user} ${cfg.group} - -"];
 
     systemd.services.influxdb = {
       description = "InfluxDB Server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         ExecStart = ''${cfg.package}/bin/influxd -config "${configFile}"'';
         User = cfg.user;
@@ -190,6 +190,6 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "influxdb") { influxdb.gid = config.ids.gids.influxdb; };
+    users.groups = optionalAttrs (cfg.group == "influxdb") {influxdb.gid = config.ids.gids.influxdb;};
   };
 }

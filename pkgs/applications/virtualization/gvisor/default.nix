@@ -25,7 +25,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-iGLWxx/Kn1QaJTNOZcc+mwoF3ecEDOkaqmA0DH4pdgU=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   CGO_ENABLED = 0;
 
@@ -60,6 +60,6 @@ buildGoModule rec {
       andrew-d
       gpl
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

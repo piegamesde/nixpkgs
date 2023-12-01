@@ -20,7 +20,7 @@
   ...
 }:
 
-{ name, src, ... }:
+{name, src, ...}:
 
 stdenv.mkDerivation rec {
 
@@ -133,10 +133,10 @@ stdenv.mkDerivation rec {
       packaging (ppa:pharo/stable)' project.
     '';
     license = licenses.mit;
-    maintainers = [ maintainers.lukego ];
+    maintainers = [maintainers.lukego];
     # Pharo VM sources are packaged separately for darwin (OS X)
     platforms =
-      lib.filter (system: with lib.systems.elaborate { inherit system; }; isUnix && !isDarwin)
+      lib.filter (system: with lib.systems.elaborate {inherit system;}; isUnix && !isDarwin)
         lib.platforms.mesaPlatforms;
   };
 }

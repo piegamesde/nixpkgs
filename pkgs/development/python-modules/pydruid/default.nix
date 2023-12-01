@@ -34,22 +34,22 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace '"console_scripts": ["pydruid = pydruid.console:main"],' ""
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   nativeCheckInputs = [
     pytestCheckHook
     pycurl
   ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
-  pythonImportsCheck = [ "pydruid" ];
+  pythonImportsCheck = ["pydruid"];
 
   passthru = {
     optional-dependencies = {
-      pandas = [ pandas ];
-      async = [ tornado ];
-      sqlalchemy = [ sqlalchemy ];
+      pandas = [pandas];
+      async = [tornado];
+      sqlalchemy = [sqlalchemy];
       # druid has a `cli` extra, but it doesn't work with nixpkgs pygments
     };
   };
@@ -58,6 +58,6 @@ buildPythonPackage rec {
     description = "Simple API to create, execute, and analyze Druid queries";
     homepage = "https://github.com/druid-io/pydruid";
     license = licenses.asl20;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

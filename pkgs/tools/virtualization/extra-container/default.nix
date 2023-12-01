@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     install $src/eval-config.nix -Dt $share
 
     # Use existing PATH for systemctl and machinectl
-    scriptPath="export PATH=${lib.makeBinPath [ openssh ]}:\$PATH"
+    scriptPath="export PATH=${lib.makeBinPath [openssh]}:\$PATH"
 
     sed -i "
       s|evalConfig=.*|evalConfig=$share/eval-config.nix|
@@ -40,6 +40,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/erikarvstedt/extra-container";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ maintainers.erikarvstedt ];
+    maintainers = [maintainers.erikarvstedt];
   };
 }

@@ -58,7 +58,7 @@ buildPythonPackage rec {
     "test_subscribe_manual_resubscribe"
     "test_subscribe_renew"
     "test_unsubscribe"
-  ] ++ lib.optionals stdenv.isDarwin [ "test_deferred_callback_url" ];
+  ] ++ lib.optionals stdenv.isDarwin ["test_deferred_callback_url"];
 
   disabledTestPaths =
     [
@@ -66,13 +66,13 @@ buildPythonPackage rec {
       "tests/test_ssdp_listener.py"
     ];
 
-  pythonImportsCheck = [ "async_upnp_client" ];
+  pythonImportsCheck = ["async_upnp_client"];
 
   meta = with lib; {
     description = "Asyncio UPnP Client library for Python";
     homepage = "https://github.com/StevenLooman/async_upnp_client";
     changelog = "https://github.com/StevenLooman/async_upnp_client/blob/${version}/CHANGES.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

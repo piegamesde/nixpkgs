@@ -44,6 +44,6 @@ mkDerivation {
     description = "Multi-platform media player";
     homepage = "https://invent.kde.org/maui/vvave";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

@@ -41,9 +41,9 @@ rustPlatform.buildRustPackage (
     cargoHash = "sha256-FqhN1t3n6j5czZ40JUFtsz4ZxTl7vpMTBhrR66M1DNw=";
 
     nativeBuildInputs =
-      [ pkg-config ]
-      ++ lib.optionals (withDefaultFeatures && stdenv.isLinux) [ python3 ]
-      ++ lib.optionals stdenv.isDarwin [ rustPlatform.bindgenHook ];
+      [pkg-config]
+      ++ lib.optionals (withDefaultFeatures && stdenv.isLinux) [python3]
+      ++ lib.optionals stdenv.isDarwin [rustPlatform.bindgenHook];
 
     buildInputs =
       [
@@ -56,14 +56,14 @@ rustPlatform.buildRustPackage (
         Libsystem
         Security
       ]
-      ++ lib.optionals (withDefaultFeatures && stdenv.isLinux) [ xorg.libX11 ]
+      ++ lib.optionals (withDefaultFeatures && stdenv.isLinux) [xorg.libX11]
       ++ lib.optionals (withDefaultFeatures && stdenv.isDarwin) [
         AppKit
         nghttp2
         libgit2
       ];
 
-    buildFeatures = additionalFeatures [ (lib.optional withDefaultFeatures "default") ];
+    buildFeatures = additionalFeatures [(lib.optional withDefaultFeatures "default")];
 
     # TODO investigate why tests are broken on darwin
     # failures show that tests try to write to paths
@@ -91,8 +91,8 @@ rustPlatform.buildRustPackage (
 
     passthru = {
       shellPath = "/bin/nu";
-      tests.version = testers.testVersion { package = nushell; };
-      updateScript = nix-update-script { };
+      tests.version = testers.testVersion {package = nushell;};
+      updateScript = nix-update-script {};
     };
   }
 )

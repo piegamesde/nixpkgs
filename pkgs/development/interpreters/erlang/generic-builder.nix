@@ -45,9 +45,9 @@
   enableSmpSupport ? true,
   enableKernelPoll ? true,
   javacSupport ? false,
-  javacPackages ? [ openjdk11 ],
+  javacPackages ? [openjdk11],
   odbcSupport ? false,
-  odbcPackages ? [ unixODBC ],
+  odbcPackages ? [unixODBC],
   opensslPackage ? openssl,
   wxPackages ? [
     libGL
@@ -57,11 +57,11 @@
   ],
   preUnpack ? "",
   postUnpack ? "",
-  patches ? [ ],
+  patches ? [],
   patchPhase ? "",
   prePatch ? "",
   postPatch ? "",
-  configureFlags ? [ ],
+  configureFlags ? [],
   configurePhase ? "",
   preConfigure ? "",
   postConfigure ? "",
@@ -81,7 +81,7 @@
   fixupPhase ? "",
   preFixup ? "",
   postFixup ? "",
-  meta ? { },
+  meta ? {},
 }:
 
 assert wxSupport
@@ -102,7 +102,7 @@ let
     optionalAttrs
     optionalString
     ;
-  wxPackages2 = if stdenv.isDarwin then [ wxGTK ] else wxPackages;
+  wxPackages2 = if stdenv.isDarwin then [wxGTK] else wxPackages;
 in
 stdenv.mkDerivation (
   {
@@ -160,8 +160,8 @@ stdenv.mkDerivation (
     '';
 
     configureFlags =
-      [ "--with-ssl=${lib.getOutput "out" opensslPackage}" ]
-      ++ [ "--with-ssl-incl=${lib.getDev opensslPackage}" ] # This flag was introduced in R24
+      ["--with-ssl=${lib.getOutput "out" opensslPackage}"]
+      ++ ["--with-ssl-incl=${lib.getDev opensslPackage}"] # This flag was introduced in R24
       ++ optional enableThreads "--enable-threads"
       ++ optional enableSmpSupport "--enable-smp-support"
       ++ optional enableKernelPoll "--enable-kernel-poll"
@@ -246,24 +246,24 @@ stdenv.mkDerivation (
         // meta
       );
   }
-  // optionalAttrs (preUnpack != "") { inherit preUnpack; }
-  // optionalAttrs (postUnpack != "") { inherit postUnpack; }
-  // optionalAttrs (patches != [ ]) { inherit patches; }
-  // optionalAttrs (prePatch != "") { inherit prePatch; }
-  // optionalAttrs (patchPhase != "") { inherit patchPhase; }
-  // optionalAttrs (configurePhase != "") { inherit configurePhase; }
-  // optionalAttrs (preConfigure != "") { inherit preConfigure; }
-  // optionalAttrs (postConfigure != "") { inherit postConfigure; }
-  // optionalAttrs (buildPhase != "") { inherit buildPhase; }
-  // optionalAttrs (preBuild != "") { inherit preBuild; }
-  // optionalAttrs (postBuild != "") { inherit postBuild; }
-  // optionalAttrs (checkPhase != "") { inherit checkPhase; }
-  // optionalAttrs (preCheck != "") { inherit preCheck; }
-  // optionalAttrs (postCheck != "") { inherit postCheck; }
-  // optionalAttrs (installPhase != "") { inherit installPhase; }
-  // optionalAttrs (installTargets != [ ]) { inherit installTargets; }
-  // optionalAttrs (preInstall != "") { inherit preInstall; }
-  // optionalAttrs (fixupPhase != "") { inherit fixupPhase; }
-  // optionalAttrs (preFixup != "") { inherit preFixup; }
-  // optionalAttrs (postFixup != "") { inherit postFixup; }
+  // optionalAttrs (preUnpack != "") {inherit preUnpack;}
+  // optionalAttrs (postUnpack != "") {inherit postUnpack;}
+  // optionalAttrs (patches != []) {inherit patches;}
+  // optionalAttrs (prePatch != "") {inherit prePatch;}
+  // optionalAttrs (patchPhase != "") {inherit patchPhase;}
+  // optionalAttrs (configurePhase != "") {inherit configurePhase;}
+  // optionalAttrs (preConfigure != "") {inherit preConfigure;}
+  // optionalAttrs (postConfigure != "") {inherit postConfigure;}
+  // optionalAttrs (buildPhase != "") {inherit buildPhase;}
+  // optionalAttrs (preBuild != "") {inherit preBuild;}
+  // optionalAttrs (postBuild != "") {inherit postBuild;}
+  // optionalAttrs (checkPhase != "") {inherit checkPhase;}
+  // optionalAttrs (preCheck != "") {inherit preCheck;}
+  // optionalAttrs (postCheck != "") {inherit postCheck;}
+  // optionalAttrs (installPhase != "") {inherit installPhase;}
+  // optionalAttrs (installTargets != []) {inherit installTargets;}
+  // optionalAttrs (preInstall != "") {inherit preInstall;}
+  // optionalAttrs (fixupPhase != "") {inherit fixupPhase;}
+  // optionalAttrs (preFixup != "") {inherit preFixup;}
+  // optionalAttrs (postFixup != "") {inherit postFixup;}
 )

@@ -114,7 +114,7 @@ buildPythonApplication rec {
     ]
     ++ lib.optional withXclip xclip;
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   # check phase uses the output bin, which is not possible when cross-compiling
   doCheck = stdenv.buildPlatform == stdenv.hostPlatform;
@@ -142,7 +142,7 @@ buildPythonApplication rec {
     install -Dm644 _visidata -t $out/share/zsh/site-functions
   '';
 
-  pythonImportsCheck = [ "visidata" ];
+  pythonImportsCheck = ["visidata"];
 
   passthru.tests.version = testers.testVersion {
     package = visidata;

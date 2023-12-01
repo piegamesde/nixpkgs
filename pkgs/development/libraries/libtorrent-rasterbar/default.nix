@@ -32,7 +32,7 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     boostPython
@@ -40,7 +40,7 @@ stdenv.mkDerivation {
     zlib
     python
     ncurses
-  ] ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
+  ] ++ lib.optionals stdenv.isDarwin [SystemConfiguration];
 
   # https://github.com/arvidn/libtorrent/issues/6865
   postPatch = ''
@@ -65,13 +65,13 @@ stdenv.mkDerivation {
     "python"
   ];
 
-  cmakeFlags = [ "-Dpython-bindings=on" ];
+  cmakeFlags = ["-Dpython-bindings=on"];
 
   meta = with lib; {
     homepage = "https://libtorrent.org/";
     description = "A C++ BitTorrent implementation focusing on efficiency and scalability";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

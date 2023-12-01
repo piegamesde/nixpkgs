@@ -21,7 +21,7 @@ buildPythonPackage rec {
     matplotlib
   ];
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
   checkPhase = ''
     nosetests --verbosity=3
   '';
@@ -30,6 +30,6 @@ buildPythonPackage rec {
     description = "DEAP is a novel evolutionary computation framework for rapid prototyping and testing of ideas.";
     homepage = "https://github.com/DEAP/deap";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ psyanticy ];
+    maintainers = with maintainers; [psyanticy];
   };
 }

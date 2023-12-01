@@ -35,7 +35,7 @@ mkDerivation rec {
     qtermwidget
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   passthru.tests.test = nixosTests.terminal-emulators.qterminal;
 
@@ -44,6 +44,6 @@ mkDerivation rec {
     description = "A lightweight Qt-based terminal emulator";
     license = licenses.gpl2Plus;
     platforms = with platforms; unix;
-    maintainers = with maintainers; [ globin ] ++ teams.lxqt.members;
+    maintainers = with maintainers; [globin] ++ teams.lxqt.members;
   };
 }

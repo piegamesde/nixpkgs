@@ -78,7 +78,7 @@ buildPythonApplication rec {
   # https://github.com/oracle/oci-cli/issues/187
   doCheck = false;
 
-  pythonImportsCheck = [ " oci_cli " ];
+  pythonImportsCheck = [" oci_cli "];
 
   meta = with lib; {
     description = "Command Line Interface for Oracle Cloud Infrastructure";
@@ -87,6 +87,6 @@ buildPythonApplication rec {
       asl20 # or
       upl
     ];
-    maintainers = with maintainers; [ ilian ];
+    maintainers = with maintainers; [ilian];
   };
 }

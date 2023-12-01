@@ -34,10 +34,10 @@ stdenv.mkDerivation rec {
   GIT_VERSION = version;
   GIT_DATE = "2019-08-12";
 
-  buildInputs = [ libftdi ];
+  buildInputs = [libftdi];
 
   makefile = "Makefile.linux";
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
   postPatch = ''
     cd software
     substituteInPlace init_scripts/infnoise.service --replace "/usr/local" "$out"
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    tests.version = testers.testVersion { package = infnoise; };
+    tests.version = testers.testVersion {package = infnoise;};
   };
 
   meta = with lib; {

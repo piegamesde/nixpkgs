@@ -8,7 +8,7 @@ build-idris-package {
   pname = "graphviz";
   version = "2017-01-16";
 
-  idrisDeps = [ lightyear ];
+  idrisDeps = [lightyear];
 
   src = fetchFromGitLab {
     owner = "mgttlinger";
@@ -25,6 +25,6 @@ build-idris-package {
     description = "Parser and library for graphviz dot files";
     homepage = "https://gitlab.com/mgttlinger/idris-graphviz";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

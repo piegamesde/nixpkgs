@@ -128,8 +128,8 @@ in
       };
 
       extraIPs = mkOption {
-        default = [ ];
-        example = [ "127.0.0.1" ];
+        default = [];
+        example = ["127.0.0.1"];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           Extra IP's to bind.
@@ -160,8 +160,8 @@ in
 
     systemd.services.ircd-hybrid = {
       description = "IRCD Hybrid server";
-      after = [ "started networking" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["started networking"];
+      wantedBy = ["multi-user.target"];
       script = "${ircdService}/bin/control start";
     };
   };

@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   let
     client_base = {
       containers.test1 = {
@@ -11,23 +11,23 @@ import ./make-test-python.nix (
 
       # prevent make-test-python.nix to change IP
       networking.interfaces = {
-        eth1.ipv4.addresses = lib.mkOverride 0 [ ];
+        eth1.ipv4.addresses = lib.mkOverride 0 [];
       };
     };
   in
   {
     name = "containers-reloadable";
     meta = {
-      maintainers = with lib.maintainers; [ danbst ];
+      maintainers = with lib.maintainers; [danbst];
     };
 
     nodes = {
-      client = { ... }: { imports = [ client_base ]; };
+      client = {...}: {imports = [client_base];};
 
       client_c1 =
-        { lib, ... }:
+        {lib, ...}:
         {
-          imports = [ client_base ];
+          imports = [client_base];
 
           containers.test1.config = {
             environment.etc.check.text = lib.mkForce "client_c1";
@@ -36,9 +36,9 @@ import ./make-test-python.nix (
           };
         };
       client_c2 =
-        { lib, ... }:
+        {lib, ...}:
         {
-          imports = [ client_base ];
+          imports = [client_base];
 
           containers.test1.config = {
             environment.etc.check.text = lib.mkForce "client_c2";
@@ -48,7 +48,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         c1System = nodes.client_c1.config.system.build.toplevel;
         c2System = nodes.client_c2.config.system.build.toplevel;

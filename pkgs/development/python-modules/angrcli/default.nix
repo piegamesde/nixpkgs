@@ -48,13 +48,13 @@ buildPythonPackage rec {
     "test_morph"
   ];
 
-  pythonImportsCheck = [ "angrcli" ];
+  pythonImportsCheck = ["angrcli"];
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);
     description = "Python modules to allow easier interactive use of angr";
     homepage = "https://github.com/fmagin/angr-cli";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

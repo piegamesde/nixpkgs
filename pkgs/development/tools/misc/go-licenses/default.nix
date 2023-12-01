@@ -26,7 +26,7 @@ buildGoModule rec {
       ./fix-go-version-error.patch
     ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd go-licenses \
@@ -42,7 +42,7 @@ buildGoModule rec {
     changelog = "https://github.com/google/go-licenses/releases/tag/v${version}";
     description = "Reports on the licenses used by a Go package and its dependencies";
     homepage = "https://github.com/google/go-licenses";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ Luflosi ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [Luflosi];
   };
 }

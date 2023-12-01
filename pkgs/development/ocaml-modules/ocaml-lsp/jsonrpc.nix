@@ -51,7 +51,7 @@ buildDunePackage rec {
 
   buildInputs =
     if lib.versionAtLeast version "1.7.0" then
-      [ ]
+      []
     else
       [
         yojson
@@ -61,7 +61,7 @@ buildDunePackage rec {
 
   propagatedBuildInputs =
     if lib.versionAtLeast version "1.7.0" then
-      [ ]
+      []
     else
       [
         ppx_yojson_conv_lib
@@ -72,6 +72,6 @@ buildDunePackage rec {
     description = "Jsonrpc protocol implementation in OCaml";
     license = licenses.isc;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [marsam];
   };
 }

@@ -72,6 +72,6 @@ buildPythonApplication rec {
     description = "Automatic framework to detect, exploit and report XSS vulnerabilities in web-based applications";
     homepage = "https://xsser.03c8.net/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
   };
 }

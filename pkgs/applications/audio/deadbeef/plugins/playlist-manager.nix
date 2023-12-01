@@ -18,7 +18,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-dsKthlQ0EuX4VhO8K9VTyX3zN8ytzDUbSi/xSMB4xRw=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     deadbeef
@@ -43,7 +43,7 @@ stdenv.mkDerivation {
     description = "Removes duplicate and vanished files from the current playlist";
     homepage = "https://github.com/kpcee/deadbeef-playlist-manager";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.cmm ];
+    maintainers = [maintainers.cmm];
     platforms = platforms.linux;
   };
 }

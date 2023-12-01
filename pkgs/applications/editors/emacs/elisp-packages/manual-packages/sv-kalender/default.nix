@@ -18,6 +18,6 @@ trivialBuild {
     homepage = "http://bigwalter.net/daniel/elisp/sv-kalender.el";
     platforms = platforms.all;
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.rycee ];
+    maintainers = [maintainers.rycee];
   };
 }

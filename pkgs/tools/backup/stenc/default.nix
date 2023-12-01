@@ -17,15 +17,15 @@ stdenv.mkDerivation rec {
     sha256 = "GcCRVkv+1mREq3MhMRn5fICthwI4WRQJSP6InuzxP1Q=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     description = "SCSI Tape Encryption Manager";
     homepage = "https://github.com/scsitape/stenc";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ woffs ];
+    maintainers = with lib.maintainers; [woffs];
     platforms = lib.platforms.linux;
   };
 }

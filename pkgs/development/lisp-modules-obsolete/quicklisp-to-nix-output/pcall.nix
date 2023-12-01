@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "pcall";
   version = "0.3";
 
-  parasites = [ "pcall-tests" ];
+  parasites = ["pcall-tests"];
 
   description = "System lacks description";
 
@@ -22,7 +22,7 @@ rec {
 
   packageName = "pcall";
 
-  asdFilesToKeep = [ "pcall.asd" ];
+  asdFilesToKeep = ["pcall.asd"];
   overrides = x: x;
 }
 /* (SYSTEM pcall DESCRIPTION System lacks description SHA256

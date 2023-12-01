@@ -47,7 +47,7 @@ let
       lines = mapAttrsToList (key: value: "${key}=${value}") (default // cfg.extraConfig);
       content = concatStringsSep "\n" lines;
       file = pkgs.writeText "nagios.cfg" content;
-      validated = pkgs.runCommand "nagios-checked.cfg" { preferLocalBuild = true; } ''
+      validated = pkgs.runCommand "nagios-checked.cfg" {preferLocalBuild = true;} ''
         cp ${file} nagios.cfg
         # nagios checks the existence of /var/lib/nagios, but
         # it does not exist in the build sandbox, so we fake it
@@ -97,7 +97,7 @@ in
     )
   ];
 
-  meta.maintainers = with lib.maintainers; [ symphorien ];
+  meta.maintainers = with lib.maintainers; [symphorien];
 
   options = {
     services.nagios = {
@@ -143,7 +143,7 @@ in
           debug_level = "-1";
           debug_file = "/var/log/nagios/debug.log";
         };
-        default = { };
+        default = {};
         description = lib.mdDoc "Configuration to add to /etc/nagios.cfg";
       };
 
@@ -199,19 +199,19 @@ in
       group = "nagios";
     };
 
-    users.groups.nagios = { };
+    users.groups.nagios = {};
 
     # This isn't needed, it's just so that the user can type "nagiostats
     # -c /etc/nagios.cfg".
     environment.etc."nagios.cfg".source = nagiosCfgFile;
 
-    environment.systemPackages = [ pkgs.nagios ];
+    environment.systemPackages = [pkgs.nagios];
     systemd.services.nagios = {
       description = "Nagios monitoring daemon";
-      path = [ pkgs.nagios ] ++ cfg.plugins;
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      restartTriggers = [ nagiosCfgFile ];
+      path = [pkgs.nagios] ++ cfg.plugins;
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      restartTriggers = [nagiosCfgFile];
 
       serviceConfig = {
         User = "nagios";
@@ -227,7 +227,7 @@ in
     services.httpd.virtualHosts = optionalAttrs cfg.enableWebInterface {
       ${cfg.virtualHost.hostName} = mkMerge [
         cfg.virtualHost
-        { extraConfig = extraHttpdConfig; }
+        {extraConfig = extraHttpdConfig;}
       ];
     };
   };

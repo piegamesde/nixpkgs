@@ -30,9 +30,9 @@ stdenv.mkDerivation (
       "-DCMAKE_INSTALL_UDEVRULESDIR=etc/udev/rules.d"
     ];
 
-    buildInputs = [ libusb1 ];
+    buildInputs = [libusb1];
 
-    propagatedBuildInputs = [ hidapi ];
+    propagatedBuildInputs = [hidapi];
 
     meta = with lib; {
       description = "Communicate with Nitrokey devices in a clean and easy manner";

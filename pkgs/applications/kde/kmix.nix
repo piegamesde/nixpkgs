@@ -22,7 +22,7 @@ mkDerivation {
       lgpl21Plus
       fdl12Plus
     ];
-    maintainers = [ lib.maintainers.rongcuid ];
+    maintainers = [lib.maintainers.rongcuid];
   };
   nativeBuildInputs = [
     extra-cmake-modules
@@ -37,5 +37,5 @@ mkDerivation {
     libpulseaudio
     plasma-framework
   ];
-  cmakeFlags = [ "-DKMIX_KF5_BUILD=1" ];
+  cmakeFlags = ["-DKMIX_KF5_BUILD=1"];
 }

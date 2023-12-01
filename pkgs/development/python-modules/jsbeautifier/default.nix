@@ -25,16 +25,16 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "jsbeautifier" ];
+  pythonImportsCheck = ["jsbeautifier"];
 
-  pytestFlagsArray = [ "jsbeautifier/tests/testindentation.py" ];
+  pytestFlagsArray = ["jsbeautifier/tests/testindentation.py"];
 
   meta = with lib; {
     description = "JavaScript unobfuscator and beautifier";
     homepage = "http://jsbeautifier.org";
     license = licenses.mit;
-    maintainers = with maintainers; [ apeyroux ];
+    maintainers = with maintainers; [apeyroux];
   };
 }

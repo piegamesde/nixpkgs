@@ -1,7 +1,7 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
   # bool: whether to use networkd in the tests
   networkd ? false,
 }@args:
@@ -10,12 +10,12 @@
 import ./make-test-python.nix
   {
     name = "avahi";
-    meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [eelco];};
 
     nodes =
       let
         cfg =
-          { ... }:
+          {...}:
           {
             services.avahi = {
               enable = true;

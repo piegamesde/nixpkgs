@@ -17,7 +17,7 @@ buildPythonPackage rec {
     sha256 = "06136f03d5b361718b8d0d234042f7b2f203910d8568f63df2f866b547b3d4b9";
   };
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   propagatedBuildInputs = [
     colorama
@@ -27,12 +27,12 @@ buildPythonPackage rec {
 
   # No Tests
   doCheck = false;
-  pythonImportsCheck = [ "pytest_watch" ];
+  pythonImportsCheck = ["pytest_watch"];
 
   meta = with lib; {
     homepage = "https://github.com/joeyespo/pytest-watch";
     description = "Local continuous test runner with pytest and watchdog";
     license = licenses.mit;
-    maintainers = with maintainers; [ dmvianna ];
+    maintainers = with maintainers; [dmvianna];
   };
 }

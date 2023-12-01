@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     perl
     rdma-core
   ];
-  buildInputs = [ rdma-core ];
+  buildInputs = [rdma-core];
 
   postUnpack = ''
     patchShebangs .
@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linux-rdma/qperf";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ edwtjo ];
+    maintainers = with maintainers; [edwtjo];
   };
 }

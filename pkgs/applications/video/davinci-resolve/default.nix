@@ -30,7 +30,7 @@ let
 
       nativeBuildInputs = [
         unzip
-        (appimage-run.override { buildFHSEnv = buildFHSEnvChroot; })
+        (appimage-run.override {buildFHSEnv = buildFHSEnvChroot;})
         addOpenGLRunpath
       ];
 
@@ -49,7 +49,7 @@ let
 
             impureEnvVars = lib.fetchers.proxyImpureEnvVars;
 
-            nativeBuildInputs = [ curl ];
+            nativeBuildInputs = [curl];
 
             # ENV VARS
             SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
@@ -186,7 +186,7 @@ buildFHSEnv {
     description = "Professional Video Editing, Color, Effects and Audio Post";
     homepage = "https://www.blackmagicdesign.com/products/davinciresolve/";
     license = licenses.unfree;
-    maintainers = with maintainers; [ jshcmpbll ];
+    maintainers = with maintainers; [jshcmpbll];
     platforms = platforms.linux;
   };
 }

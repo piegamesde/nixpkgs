@@ -16,7 +16,7 @@ let
         version = "0.6.2";
         url = "https://github.com/Chris00/ocaml-rope/releases/download/${version}/rope-${version}.tbz";
         sha256 = "15cvfa0s1vjx7gjd07d3fkznilishqf4z4h2q5f20wm9ysjh2h2i";
-        nativeBuildInputs = [ dune_2 ];
+        nativeBuildInputs = [dune_2];
         extra = {
           buildPhase = "dune build -p rope";
           installPhase = ''
@@ -29,7 +29,7 @@ let
         version = "0.5";
         url = "https://forge.ocamlcore.org/frs/download.php/1156/rope-0.5.tar.gz";
         sha256 = "05fr2f5ch2rqhyaj06rv5218sbg99p1m9pq5sklk04hpslxig21f";
-        nativeBuildInputs = [ ocamlbuild ];
+        nativeBuildInputs = [ocamlbuild];
         extra = {
           createFindlibDestdir = true;
         };
@@ -41,13 +41,13 @@ stdenv.mkDerivation (
     pname = "ocaml${ocaml.version}-rope";
     inherit (param) version;
 
-    src = fetchurl { inherit (param) url sha256; };
+    src = fetchurl {inherit (param) url sha256;};
 
     nativeBuildInputs = [
       ocaml
       findlib
     ] ++ param.nativeBuildInputs;
-    buildInputs = [ benchmark ];
+    buildInputs = [benchmark];
 
     strictDeps = true;
 
@@ -56,7 +56,7 @@ stdenv.mkDerivation (
       inherit (ocaml.meta) platforms;
       description = ''Ropes ("heavyweight strings") in OCaml'';
       license = lib.licenses.lgpl21;
-      maintainers = with lib.maintainers; [ ];
+      maintainers = with lib.maintainers; [];
     };
   }
   // param.extra

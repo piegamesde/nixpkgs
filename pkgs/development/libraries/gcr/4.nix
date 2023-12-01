@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     p11-kit
   ];
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
 
   mesonFlags =
     [

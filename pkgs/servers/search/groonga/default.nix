@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     homepage = "https://groonga.org/";
     description = "An open-source fulltext search engine and column store";
     license = licenses.lgpl21;
-    maintainers = [ maintainers.ericsagnes ];
+    maintainers = [maintainers.ericsagnes];
     platforms = platforms.unix;
     longDescription = ''
       Groonga is an open-source fulltext search engine and column store.

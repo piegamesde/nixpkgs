@@ -16,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "1mw8j8ads8hqdbz42siwpffi4wi5s33z9g14a5c2i7vxp8m68qc1";
   };
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   unittestFlagsArray = [
     "-s"
@@ -27,6 +27,6 @@ buildPythonPackage rec {
     description = "GNU Readline-like line editing module";
     homepage = "https://github.com/jangler/readlike";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

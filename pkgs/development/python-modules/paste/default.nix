@@ -32,7 +32,7 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests =
     [
@@ -47,13 +47,13 @@ buildPythonPackage rec {
         "test_form"
       ];
 
-  pythonNamespaces = [ "paste" ];
+  pythonNamespaces = ["paste"];
 
   meta = with lib; {
     description = "Tools for using a Web Server Gateway Interface stack";
     homepage = "https://pythonpaste.readthedocs.io/";
     changelog = "https://github.com/cdent/paste/blob/${version}/docs/news.txt";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

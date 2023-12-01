@@ -27,9 +27,9 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [ poppler ];
+  buildInputs = [poppler];
 
-  qmakeFlags = [ "VERSION=${version}" ];
+  qmakeFlags = ["VERSION=${version}"];
 
   meta = with lib; {
     description = "A document parser library ported from document2html";

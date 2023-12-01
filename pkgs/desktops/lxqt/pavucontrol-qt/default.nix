@@ -38,7 +38,7 @@ mkDerivation rec {
     pcre
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/lxqt/pavucontrol-qt";

@@ -1,4 +1,4 @@
-{ pkgs, makeTest }:
+{pkgs, makeTest}:
 
 with pkgs.lib;
 
@@ -11,7 +11,7 @@ with pkgs.lib;
       script,
       hostname ? "ec2-instance",
       sshPublicKey ? null,
-      meta ? { },
+      meta ? {},
     }:
     let
       metaData = pkgs.stdenv.mkDerivation {
@@ -32,7 +32,7 @@ with pkgs.lib;
     in
     makeTest {
       name = "ec2-" + name;
-      nodes = { };
+      nodes = {};
       testScript =
         ''
           import os

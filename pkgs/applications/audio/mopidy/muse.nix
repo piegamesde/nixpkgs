@@ -19,7 +19,7 @@ pythonPackages.buildPythonApplication rec {
     pythonPackages.pykka
   ];
 
-  pythonImportsCheck = [ "mopidy_muse" ];
+  pythonImportsCheck = ["mopidy_muse"];
 
   # has no tests
   doCheck = false;
@@ -28,6 +28,6 @@ pythonPackages.buildPythonApplication rec {
     description = "Mopidy web client with Snapcast support";
     homepage = "https://github.com/cristianpb/muse";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

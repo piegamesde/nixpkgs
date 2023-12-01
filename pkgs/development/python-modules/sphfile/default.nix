@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "1596d801facc2b03a40a1bc67a839701f068a41597059feb82fc9378420c52c0";
   };
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   doCheck = false;
 
@@ -22,7 +22,7 @@ buildPythonPackage rec {
     description = "Numpy-based NIST SPH audio-file reader";
     homepage = "https://github.com/mcfletch/sphfile";
     license = licenses.mit;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     platforms = platforms.unix;
   };
 }

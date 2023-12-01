@@ -17,10 +17,10 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ pkgs.irqbalance ];
+    environment.systemPackages = [pkgs.irqbalance];
 
-    systemd.services.irqbalance.wantedBy = [ "multi-user.target" ];
+    systemd.services.irqbalance.wantedBy = ["multi-user.target"];
 
-    systemd.packages = [ pkgs.irqbalance ];
+    systemd.packages = [pkgs.irqbalance];
   };
 }

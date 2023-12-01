@@ -8,8 +8,8 @@
 
 let
   description = "Action-adventure game, starring a certain quixotic frog";
-  engine = callPackage ./engine.nix { };
-  data = callPackage ./data.nix { };
+  engine = callPackage ./engine.nix {};
+  data = callPackage ./data.nix {};
   desktopItem = makeDesktopItem {
     name = "frogatto";
     exec = "frogatto";
@@ -28,7 +28,7 @@ in
 buildEnv {
   name = "frogatto-${version}";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   paths = [
     engine
     data
@@ -55,6 +55,6 @@ buildEnv {
       unfree
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
   };
 }

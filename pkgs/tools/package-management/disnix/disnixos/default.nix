@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "0nm7g184xh6xzjz4a40a7kgfnpmq043x6v0cynpffa6wd9jv89s9";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     socat
     dysnomia
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Provides complementary NixOS infrastructure deployment to Disnix";
     license = lib.licenses.lgpl21Plus;
-    maintainers = [ lib.maintainers.sander ];
+    maintainers = [lib.maintainers.sander];
     platforms = lib.platforms.linux;
   };
 }

@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     url = "https://bitbucket.org/mpyne/game-music-emu/downloads/${pname}-${version}.tar.xz";
     sha256 = "07857vdkak306d9s5g6fhmjyxk7vijzjhkmqb15s7ihfxx9lx8xb";
   };
-  cmakeFlags = lib.optionals (stdenv.isDarwin || stdenv.hostPlatform.isMusl) [ "-DENABLE_UBSAN=OFF" ];
+  cmakeFlags = lib.optionals (stdenv.isDarwin || stdenv.hostPlatform.isMusl) ["-DENABLE_UBSAN=OFF"];
   nativeBuildInputs = [
     cmake
     removeReferencesTo
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   # It used to reference it, in the past, but thanks to the postFixup hook, now
   # it doesn't.
-  disallowedReferences = [ stdenv.cc.cc ];
+  disallowedReferences = [stdenv.cc.cc];
 
   postFixup = lib.optionalString stdenv.isLinux ''
     remove-references-to -t ${stdenv.cc.cc} "$(readlink -f $out/lib/libgme.so)"

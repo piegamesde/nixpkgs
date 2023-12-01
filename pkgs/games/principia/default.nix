@@ -86,14 +86,14 @@ stdenv.mkDerivation {
   '';
 
   # The actual binary is here, see comment above installPhase
-  stripDebugList = [ "share/principia" ];
+  stripDebugList = ["share/principia"];
 
   meta = with lib; {
     description = "Physics-based sandbox game";
     homepage = "https://principia-web.se/";
     downloadPage = "https://principia-web.se/download";
     license = licenses.bsd3;
-    maintainers = [ maintainers.fgaz ];
+    maintainers = [maintainers.fgaz];
     platforms = platforms.linux;
   };
 }

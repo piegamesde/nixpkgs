@@ -1,25 +1,25 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
     inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
 
     commonConfig =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        virtualisation.emptyDiskImages = [ 2048 ];
-        boot.supportedFilesystems = [ "zfs" ];
-        environment.systemPackages = [ pkgs.parted ];
+        virtualisation.emptyDiskImages = [2048];
+        boot.supportedFilesystems = ["zfs"];
+        environment.systemPackages = [pkgs.parted];
       };
   in
   {
     name = "sanoid";
-    meta = with pkgs.lib.maintainers; { maintainers = [ lopsided98 ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [lopsided98];};
 
     nodes = {
       source =
-        { ... }:
+        {...}:
         {
-          imports = [ commonConfig ];
+          imports = [commonConfig];
           networking.hostId = "daa82e91";
 
           programs.ssh.extraConfig = ''
@@ -37,9 +37,9 @@ import ./make-test-python.nix (
 
               autosnap = true;
             };
-            datasets."pool/sanoid".use_template = [ "test" ];
-            datasets."pool/compat".useTemplate = [ "test" ];
-            extraArgs = [ "--verbose" ];
+            datasets."pool/sanoid".use_template = ["test"];
+            datasets."pool/compat".useTemplate = ["test"];
+            extraArgs = ["--verbose"];
           };
 
           services.syncoid = {
@@ -63,19 +63,19 @@ import ./make-test-python.nix (
               # Test backward compatible options (regression test for https://github.com/NixOS/nixpkgs/issues/181561)
               "pool/compat" = {
                 target = "root@target:pool/compat";
-                extraArgs = [ "--no-sync-snap" ];
+                extraArgs = ["--no-sync-snap"];
               };
             };
           };
         };
       target =
-        { ... }:
+        {...}:
         {
-          imports = [ commonConfig ];
+          imports = [commonConfig];
           networking.hostId = "dcf39d36";
 
           services.openssh.enable = true;
-          users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
+          users.users.root.openssh.authorizedKeys.keys = [snakeOilPublicKey];
         };
     };
 

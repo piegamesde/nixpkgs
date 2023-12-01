@@ -57,12 +57,12 @@ buildPythonPackage rec {
       "test_message_to_parents"
     ];
 
-  pythonImportsCheck = [ "bayespy" ];
+  pythonImportsCheck = ["bayespy"];
 
   meta = with lib; {
     homepage = "http://www.bayespy.org";
     description = "Variational Bayesian inference tools for Python";
     license = licenses.mit;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

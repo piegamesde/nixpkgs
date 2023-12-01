@@ -41,7 +41,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "zigpy_zigate" ];
+  pythonImportsCheck = ["zigpy_zigate"];
 
   disabledTestPaths =
     [
@@ -54,7 +54,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/zigpy/zigpy-zigate";
     changelog = "https://github.com/zigpy/zigpy-zigate/releases/tag/${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ mvnetbiz ];
+    maintainers = with maintainers; [mvnetbiz];
     platforms = platforms.linux;
   };
 }

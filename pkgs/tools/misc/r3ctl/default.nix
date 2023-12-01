@@ -30,7 +30,7 @@ qt5.mkDerivation rec {
     mv bin $out
   '';
 
-  nativeBuildInputs = [ qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [qt5.wrapQtAppsHook];
 
   buildInputs = [
     qtbase
@@ -42,7 +42,7 @@ qt5.mkDerivation rec {
   meta = with lib; {
     description = "A cmdline tool to control the r3 hackerspace lights";
     homepage = "https://github.com/0xfeedc0de64/r3ctl";
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
     license = licenses.gpl3Only;
     platforms = platforms.linux;
   };

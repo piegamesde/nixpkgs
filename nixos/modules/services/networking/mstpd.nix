@@ -20,11 +20,11 @@ with lib; {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.mstpd ];
+    environment.systemPackages = [pkgs.mstpd];
 
     systemd.services.mstpd = {
       description = "Multiple Spanning Tree Protocol Daemon";
-      wantedBy = [ "network.target" ];
+      wantedBy = ["network.target"];
       unitConfig.ConditionCapability = "CAP_NET_ADMIN";
       serviceConfig = {
         Type = "forking";

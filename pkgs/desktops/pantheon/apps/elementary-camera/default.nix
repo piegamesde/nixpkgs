@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
         gst-plugins-base
         # gtkSupport needed for gtksink
         # https://github.com/elementary/camera/issues/181
-        (gst-plugins-good.override { gtkSupport = true; })
+        (gst-plugins-good.override {gtkSupport = true;})
         gst-plugins-ugly
         gstreamer
       ]
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

@@ -18,7 +18,7 @@ python3Packages.buildPythonApplication {
     sha256 = "Bl5o492BUAn1KsscnlMIXCzJuy7xWUsdnxIKZKaRM3M=";
   };
 
-  nativeCheckInputs = [ python3Packages.coverage ];
+  nativeCheckInputs = [python3Packages.coverage];
   buildInputs = [
     zlib
     libjpeg
@@ -35,6 +35,6 @@ python3Packages.buildPythonApplication {
     longDescription = "Takes in a GIF, short video, or a query to the Tenor GIF API and converts it to animated ASCII art.";
     homepage = "https://github.com/google/gif-for-cli";
     license = licenses.asl20;
-    maintainers = with maintainers; [ Scriptkiddi ];
+    maintainers = with maintainers; [Scriptkiddi];
   };
 }

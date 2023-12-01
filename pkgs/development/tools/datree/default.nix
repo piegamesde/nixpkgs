@@ -20,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-MrVIpr2iwddW3yUeBuDfeg+Xo9Iarr/fp4Rc4WGYGeU=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -28,7 +28,7 @@ buildGoModule rec {
     "-X github.com/datreeio/datree/cmd.CliVersion=${version}"
   ];
 
-  tags = [ "main" ];
+  tags = ["main"];
 
   postInstall = ''
     installShellCompletion \

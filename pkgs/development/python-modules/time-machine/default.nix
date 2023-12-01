@@ -23,11 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-mE9unzVh0QXSl93hHH43o8AshDEzrl2NXsBJ2fph5is=";
   };
 
-  propagatedBuildInputs = [
-    python-dateutil
-  ] ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
+  propagatedBuildInputs = [python-dateutil] ++ lib.optionals (pythonOlder "3.9") [backports-zoneinfo];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = lib.optionals (pythonAtLeast "3.9") [
     # Assertion Errors related to Africa/Addis_Ababa
@@ -37,12 +35,12 @@ buildPythonPackage rec {
     "test_move_to_datetime_with_tzinfo_zoneinfo"
   ];
 
-  pythonImportsCheck = [ "time_machine" ];
+  pythonImportsCheck = ["time_machine"];
 
   meta = with lib; {
     description = "Travel through time in your tests";
     homepage = "https://github.com/adamchainz/time-machine";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

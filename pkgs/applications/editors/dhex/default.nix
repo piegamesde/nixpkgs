@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "06y4lrp29f2fh303ijk1xhspa1d4x4dm6hnyw3dd8szi3k6hnwsj";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     description = "A themeable hex editor with diff mode";
     homepage = "http://www.dettus.net/dhex/";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ qknight ];
+    maintainers = with lib.maintainers; [qknight];
     platforms = with lib.platforms; linux;
   };
 }

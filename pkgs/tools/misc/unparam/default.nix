@@ -17,12 +17,12 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-pfIxWvJYAus4DShTcBI1bwn/Q2c5qWvCwPCwfUsv8c0=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Find unused parameters in Go";
     homepage = "https://github.com/mvdan/unparam";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

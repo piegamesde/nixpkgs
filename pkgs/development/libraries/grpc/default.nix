@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     openssl
     protobuf
-  ] ++ lib.optionals stdenv.isLinux [ libnsl ];
+  ] ++ lib.optionals stdenv.isLinux [libnsl];
 
   cmakeFlags =
     [

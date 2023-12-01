@@ -64,7 +64,7 @@ let
       message = "You need to define a resolver for the acme test module.";
       firstNS = lib.head config.networking.nameservers;
     in
-    if config.networking.nameservers == [ ] then throw message else firstNS;
+    if config.networking.nameservers == [] then throw message else firstNS;
 
   pebbleConf.pebble = {
     listenAddress = "0.0.0.0:443";
@@ -81,7 +81,7 @@ let
   pebbleConfFile = pkgs.writeText "pebble.conf" (builtins.toJSON pebbleConf);
 in
 {
-  imports = [ ../../resolver.nix ];
+  imports = [../../resolver.nix];
 
   options.test-support.acme = with lib; {
     caDomain = mkOption {
@@ -109,14 +109,14 @@ in
     test-support = {
       resolver.enable =
         let
-          isLocalResolver = config.networking.nameservers == [ "127.0.0.1" ];
+          isLocalResolver = config.networking.nameservers == ["127.0.0.1"];
         in
         lib.mkOverride 900 isLocalResolver;
     };
 
     # This has priority 140, because modules/testing/test-instrumentation.nix
     # already overrides this with priority 150.
-    networking.nameservers = lib.mkOverride 140 [ "127.0.0.1" ];
+    networking.nameservers = lib.mkOverride 140 ["127.0.0.1"];
     networking.firewall.allowedTCPPorts = [
       80
       443
@@ -133,7 +133,7 @@ in
       pebble = {
         enable = true;
         description = "Pebble ACME server";
-        wantedBy = [ "network.target" ];
+        wantedBy = ["network.target"];
         environment = {
           # We're not testing lego, we're just testing our configuration.
           # No need to sleep.
@@ -145,7 +145,7 @@ in
           WorkingDirectory = "/run/pebble";
 
           # Required to bind on privileged ports.
-          AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+          AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
 
           ExecStart = "${pkgs.pebble}/bin/pebble -config ${pebbleConfFile}";
         };

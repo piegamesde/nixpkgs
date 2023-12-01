@@ -32,7 +32,7 @@
 
 let
   variant = "gtk";
-  pythonEnv = python3.withPackages (ps: with ps; [ pygobject3 ]);
+  pythonEnv = python3.withPackages (ps: with ps; [pygobject3]);
 in
 stdenv.mkDerivation rec {
   pname = "gImageReader";
@@ -79,13 +79,13 @@ stdenv.mkDerivation rec {
   ];
 
   # interface type can be where <type> is either gtk, qt5, qt4
-  cmakeFlags = [ "-DINTERFACE_TYPE=${variant}" ];
+  cmakeFlags = ["-DINTERFACE_TYPE=${variant}"];
 
   meta = with lib; {
     description = "A simple Gtk/Qt front-end to tesseract-ocr";
     homepage = "https://github.com/manisandro/gImageReader";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ teto ];
+    maintainers = with maintainers; [teto];
     platforms = platforms.linux;
   };
 }

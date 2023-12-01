@@ -46,13 +46,13 @@ buildPythonPackage rec {
       --replace "'pytest-runner'" ""
   '';
 
-  pythonImportsCheck = [ "notifications_python_client" ];
+  pythonImportsCheck = ["notifications_python_client"];
 
   meta = with lib; {
     description = "Python client for the GOV.UK Notify API";
     homepage = "https://github.com/alphagov/notifications-python-client";
     changelog = "https://github.com/alphagov/notifications-python-client/blob/${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

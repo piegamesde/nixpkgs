@@ -56,6 +56,6 @@ stdenv.mkDerivation rec {
     description = "Letsencrypt/acme client implemented as a shell-script";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [ maintainers.pstn ];
+    maintainers = [maintainers.pstn];
   };
 }

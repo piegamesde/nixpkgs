@@ -20,13 +20,13 @@ buildPythonPackage rec {
     hash = "sha256-23mKwoRGjtxpCOC26V8bAN5QEHLDOoSqPeTlUuIrxZ0=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pythonImportsCheck = [ "uc_micro" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pythonImportsCheck = ["uc_micro"];
 
   meta = with lib; {
     description = "Micro subset of unicode data files for linkify-it-py";
     homepage = "https://github.com/tsutsu3/uc.micro-py";
     license = licenses.mit;
-    maintainers = with maintainers; [ AluisioASG ];
+    maintainers = with maintainers; [AluisioASG];
   };
 }

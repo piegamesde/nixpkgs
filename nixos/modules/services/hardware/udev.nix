@@ -13,7 +13,7 @@ let
 
   cfg = config.services.udev;
 
-  initrdUdevRules = pkgs.runCommand "initrd-udev-rules" { } ''
+  initrdUdevRules = pkgs.runCommand "initrd-udev-rules" {} ''
     mkdir -p $out/etc/udev/rules.d
     for f in 60-cdrom_id 60-persistent-storage 75-net-description 80-drivers 80-net-setup-link; do
       ln -s ${config.boot.initrd.systemd.package}/lib/udev/rules.d/$f.rules $out/etc/udev/rules.d
@@ -164,7 +164,7 @@ let
       {
         preferLocalBuild = true;
         allowSubstitutes = false;
-        packages = unique (map toString ([ udev ] ++ cfg.packages));
+        packages = unique (map toString ([udev] ++ cfg.packages));
       }
       ''
         mkdir -p etc/udev/hwdb.d
@@ -226,7 +226,7 @@ in
 
       packages = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           List of packages containing {command}`udev` rules.
           All files found in
@@ -239,7 +239,7 @@ in
 
       path = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Packages added to the {env}`PATH` environment variable when
           executing programs from Udev rules.
@@ -277,7 +277,7 @@ in
 
     hardware.firmware = mkOption {
       type = types.listOf types.package;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         List of packages containing firmware files.  Such files
         will be loaded automatically if the kernel asks for them
@@ -292,7 +292,7 @@ in
         pkgs.buildEnv {
           name = "firmware";
           paths = map compressFirmware list;
-          pathsToLink = [ "/lib/firmware" ];
+          pathsToLink = ["/lib/firmware"];
           ignoreCollisions = true;
         };
     };
@@ -317,7 +317,7 @@ in
 
       packages = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         visible = false;
         description = lib.mdDoc ''
           *This will only be used when systemd is used in stage 1.*
@@ -332,7 +332,7 @@ in
 
       binPackages = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         visible = false;
         description = lib.mdDoc ''
           *This will only be used when systemd is used in stage 1.*
@@ -378,7 +378,7 @@ in
       udev
     ];
 
-    boot.kernelParams = mkIf (!config.networking.usePredictableInterfaceNames) [ "net.ifnames=0" ];
+    boot.kernelParams = mkIf (!config.networking.usePredictableInterfaceNames) ["net.ifnames=0"];
 
     boot.initrd.extraUdevRulesCommands =
       optionalString (!config.boot.initrd.systemd.enable && config.boot.initrd.services.udev.rules != "")

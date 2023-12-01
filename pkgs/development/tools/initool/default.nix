@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-pszlP9gy1zjQjNNr0L1NY0XViejUUuvUZH6JHtUxdJI=";
   };
 
-  nativeBuildInputs = [ mlton ];
+  nativeBuildInputs = [mlton];
 
   doCheck = true;
 
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Manipulate INI files from the command line";
     homepage = "https://github.com/dbohdan/initool";
     license = licenses.mit;
-    maintainers = with maintainers; [ e1mo ];
+    maintainers = with maintainers; [e1mo];
     changelog = "https://github.com/dbohdan/initool/releases/tag/v${version}";
   };
 }

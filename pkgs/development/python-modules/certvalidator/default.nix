@@ -23,19 +23,19 @@ buildPythonPackage rec {
     oscrypto
   ];
 
-  nativeCheckInputs = [ cacert ];
+  nativeCheckInputs = [cacert];
   checkPhase = ''
     # Tests are run with a custom executor/loader
     # The regex to skip specific tests relies on negative lookahead of regular expressions
     # We're skipping the few tests that rely on the network, fetching CRLs, OCSP or remote certificates
     python -c 'import dev.tests; dev.tests.run("^(?!.*test_(basic_certificate_validator_tls|fetch|revocation|build_path)).*$")'
   '';
-  pythonImportsCheck = [ "certvalidator" ];
+  pythonImportsCheck = ["certvalidator"];
 
   meta = with lib; {
     homepage = "https://github.com/wbond/certvalidator";
     description = "Validates X.509 certificates and paths";
     license = licenses.mit;
-    maintainers = with maintainers; [ baloo ];
+    maintainers = with maintainers; [baloo];
   };
 }

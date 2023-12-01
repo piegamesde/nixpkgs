@@ -19,12 +19,12 @@ buildPecl {
     sha256 = "sha256-AKZ3F2XzEQCeZkacSXBinxeGQrHBmqjP7mDGQ3RBAiE=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ (dlib.override { guiSupport = true; }) ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [(dlib.override {guiSupport = true;})];
 
   meta = with lib; {
     description = "A PHP extension for Dlib";
-    license = with licenses; [ mit ];
+    license = with licenses; [mit];
     homepage = "https://github.com/goodspb/pdlib";
     maintainers = lib.teams.php.members;
   };

@@ -16,7 +16,7 @@ in
 
     etcd = {
       machines = mkOption {
-        default = [ "http://127.0.0.1:2379" ];
+        default = ["http://127.0.0.1:2379"];
         type = types.listOf types.str;
         description = lib.mdDoc "Skydns list of etcd endpoints to connect to.";
       };
@@ -71,7 +71,7 @@ in
     };
 
     extraConfig = mkOption {
-      default = { };
+      default = {};
       type = types.attrsOf types.str;
       description = lib.mdDoc "Skydns attribute set of extra config options passed as environment variables.";
     };
@@ -79,7 +79,7 @@ in
 
   config = mkIf (cfg.enable) {
     systemd.services.skydns = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network.target"
         "etcd.service"
@@ -99,6 +99,6 @@ in
       };
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

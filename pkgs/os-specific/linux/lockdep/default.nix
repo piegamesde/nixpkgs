@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
   '';
 
   doCheck = true;
-  nativeCheckInputs = [ valgrind ];
+  nativeCheckInputs = [valgrind];
   checkPhase = ''
     # there are more /bin/bash references than just shebangs
     for f in lockdep run_tests.sh tests/*.sh; do
@@ -73,6 +73,6 @@ stdenv.mkDerivation rec {
     homepage = "https://kernel.org/";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.thoughtpolice ];
+    maintainers = [lib.maintainers.thoughtpolice];
   };
 }

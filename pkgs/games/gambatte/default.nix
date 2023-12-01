@@ -24,7 +24,7 @@ stdenv.mkDerivation {
     alsa-lib
   ];
 
-  patches = [ ./fix-scons-paths.patch ];
+  patches = [./fix-scons-paths.patch];
 
   buildPhase = ''
     ./build_qt.sh
@@ -39,7 +39,7 @@ stdenv.mkDerivation {
     description = "Portable, open-source Game Boy Color emulator";
     homepage = "https://github.com/sinamas/gambatte";
     license = licenses.gpl2;
-    maintainers = [ maintainers.dezgeg ];
+    maintainers = [maintainers.dezgeg];
     platforms = platforms.linux;
   };
 }

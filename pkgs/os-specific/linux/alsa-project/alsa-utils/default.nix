@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     "--with-udev-rules-dir=$(out)/lib/udev/rules.d"
   ];
 
-  installFlags = [ "ASOUND_STATE_DIR=$(TMPDIR)/dummy" ];
+  installFlags = ["ASOUND_STATE_DIR=$(TMPDIR)/dummy"];
 
   postFixup = ''
     mv $out/bin/alsa-info.sh $out/bin/alsa-info
@@ -59,6 +59,6 @@ stdenv.mkDerivation rec {
 
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
   };
 }

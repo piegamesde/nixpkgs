@@ -23,8 +23,8 @@ in
     };
 
     extraOptions = mkOption {
-      default = [ ];
-      example = [ "--ignore-sleep" ];
+      default = [];
+      example = ["--ignore-sleep"];
       type = types.listOf types.str;
       description = lib.mdDoc ''
         Additional command-line arguments to pass to
@@ -36,8 +36,8 @@ in
   config = mkIf cfg.enable {
     systemd.user.services.xss-lock = {
       description = "XSS Lock Daemon";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      partOf = ["graphical-session.target"];
       serviceConfig.ExecStart =
         with lib;
         strings.concatStringsSep " " (

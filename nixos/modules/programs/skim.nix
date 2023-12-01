@@ -19,7 +19,7 @@ in
     programs.skim = {
       fuzzyCompletion = mkEnableOption (mdDoc "fuzzy completion with skim");
       keybindings = mkEnableOption (mdDoc "skim keybindings");
-      package = mkPackageOptionMD pkgs "skim" { };
+      package = mkPackageOptionMD pkgs "skim" {};
     };
   };
 

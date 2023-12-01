@@ -109,7 +109,7 @@
       drivers, and databases; and extensive documentation, training and support services.'';
     homepage = "https://irods.org";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.bzizou ];
+    maintainers = [lib.maintainers.bzizou];
     platforms = lib.platforms.linux;
   };
 }

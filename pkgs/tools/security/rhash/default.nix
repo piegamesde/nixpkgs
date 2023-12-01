@@ -17,12 +17,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-R+dHYG0DBI1uo+yF/pxoTv/V9WSfph043bH6erZjeCE=";
   };
 
-  nativeBuildInputs = [ which ];
+  nativeBuildInputs = [which];
 
   # configure script is not autotools-based, doesn't support these options
   dontAddStaticConfigureFlags = true;
 
-  configurePlatforms = [ ];
+  configurePlatforms = [];
 
   configureFlags = [
     "--ar=${stdenv.cc.targetPrefix}ar"
@@ -38,13 +38,13 @@ stdenv.mkDerivation rec {
   installTargets = [
     "install"
     "install-lib-headers"
-  ] ++ lib.optionals (!enableStatic) [ "install-lib-so-link" ];
+  ] ++ lib.optionals (!enableStatic) ["install-lib-so-link"];
 
   meta = with lib; {
     homepage = "https://rhash.sourceforge.net/";
     description = "Console utility and library for computing and verifying hash sums of files";
     license = licenses.bsd0;
     platforms = platforms.all;
-    maintainers = with maintainers; [ andrewrk ];
+    maintainers = with maintainers; [andrewrk];
   };
 }

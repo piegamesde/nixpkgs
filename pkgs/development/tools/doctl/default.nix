@@ -15,7 +15,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/doctl" ];
+  subPackages = ["cmd/doctl"];
 
   ldflags =
     let
@@ -28,7 +28,7 @@ buildGoModule rec {
       "-X ${t}.Label=release"
     ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     export HOME=$(mktemp -d) # attempts to write to /homeless-shelter
@@ -49,6 +49,6 @@ buildGoModule rec {
     description = "A command line tool for DigitalOcean services";
     homepage = "https://github.com/digitalocean/doctl";
     license = licenses.asl20;
-    maintainers = [ maintainers.siddharthist ];
+    maintainers = [maintainers.siddharthist];
   };
 }

@@ -35,6 +35,6 @@ buildGoModule rec {
     description = "A list command for AWS resources";
     homepage = "https://github.com/jckuester/awsls";
     license = licenses.mit;
-    maintainers = [ maintainers.markus1189 ];
+    maintainers = [maintainers.markus1189];
   };
 }

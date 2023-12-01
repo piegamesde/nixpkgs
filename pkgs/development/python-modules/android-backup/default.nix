@@ -19,18 +19,18 @@ buildPythonPackage rec {
     sha256 = "0c436hv64ddqrjs77pa7z6spiv49pjflbmgg31p38haj5mzlrqvw";
   };
 
-  propagatedBuildInputs = [ pycrypto ] ++ lib.optional (pythonOlder "3.4") enum34;
+  propagatedBuildInputs = [pycrypto] ++ lib.optional (pythonOlder "3.4") enum34;
 
   checkPhase = ''
     ${python.interpreter} -m android_backup.tests
   '';
 
-  pythonImportsCheck = [ "android_backup" ];
+  pythonImportsCheck = ["android_backup"];
 
   meta = with lib; {
     description = "Unpack and repack android backups";
     homepage = "https://github.com/bluec0re/android-backup-tools";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

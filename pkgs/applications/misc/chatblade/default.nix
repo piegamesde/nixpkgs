@@ -1,4 +1,4 @@
-{ lib, python3Packages }:
+{lib, python3Packages}:
 
 python3Packages.buildPythonApplication rec {
   pname = "chatblade";
@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
 
   doCheck = false; # there are no tests
 
-  pythonImportsCheck = [ "chatblade" ];
+  pythonImportsCheck = ["chatblade"];
   propagatedBuildInputs = with python3Packages; [
     aiohttp
     aiosignal
@@ -42,6 +42,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/npiv/chatblade/";
     description = "A CLI Swiss Army Knife for ChatGPT";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ deejayem ];
+    maintainers = with maintainers; [deejayem];
   };
 }

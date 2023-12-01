@@ -38,6 +38,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "A D-Bus thumbnailer service";
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    maintainers = with maintainers; [] ++ teams.xfce.members;
   };
 }

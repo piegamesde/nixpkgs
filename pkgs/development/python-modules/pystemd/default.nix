@@ -19,9 +19,9 @@ buildPythonPackage rec {
 
   disabled = python.pythonOlder "3.4";
 
-  buildInputs = [ systemd ];
+  buildInputs = [systemd];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   nativeCheckInputs = [
     pytest
@@ -38,6 +38,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/facebookincubator/pystemd/";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
   };
 }

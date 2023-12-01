@@ -41,7 +41,7 @@ let
     sha256 = "14nhk0kls83xfb64d5xy14vpi6k8laswjycjg80indq9pkcr2rlv";
   };
 
-  freebsdSetupHook = makeSetupHook { name = "freebsd-setup-hook"; } ./setup-hook.sh;
+  freebsdSetupHook = makeSetupHook {name = "freebsd-setup-hook";} ./setup-hook.sh;
 
   mkBsdArch =
     stdenv':
@@ -87,7 +87,7 @@ let
     done
   '';
 in
-makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
+makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: {}) (_: {}) (
   self:
   let
     inherit (self) mkDerivation;
@@ -114,8 +114,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
         rec {
           pname = "${attrs.pname or (baseNameOf attrs.path)}-freebsd";
           inherit version;
-          src = runCommand "${pname}-filtered-src" { nativeBuildInputs = [ rsync ]; } ''
-            for p in ${lib.concatStringsSep " " ([ attrs.path ] ++ attrs.extraPaths or [ ])}; do
+          src = runCommand "${pname}-filtered-src" {nativeBuildInputs = [rsync];} ''
+            for p in ${lib.concatStringsSep " " ([attrs.path] ++ attrs.extraPaths or [])}; do
               set -x
               path="$out/$p"
               mkdir -p "$(dirname "$path")"
@@ -126,7 +126,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
             done
           '';
 
-          extraPaths = [ ];
+          extraPaths = [];
 
           nativeBuildInputs = with buildPackages.freebsd; [
             bsdSetupHook
@@ -161,7 +161,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
           strictDeps = true;
 
           meta = with lib; {
-            maintainers = with maintainers; [ ericson2314 ];
+            maintainers = with maintainers; [ericson2314];
             platforms = platforms.unix;
             license = licenses.bsd2;
           };
@@ -170,14 +170,14 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
           # TODO should CC wrapper set this?
           CPP = "${stdenv'.cc.targetPrefix}cpp";
         }
-        // lib.optionalAttrs stdenv'.isDarwin { MKRELRO = "no"; }
+        // lib.optionalAttrs stdenv'.isDarwin {MKRELRO = "no";}
         // lib.optionalAttrs (stdenv'.cc.isClang or false) {
           HAVE_LLVM = lib.versions.major (lib.getVersion stdenv'.cc.cc);
         }
         // lib.optionalAttrs (stdenv'.cc.isGNU or false) {
           HAVE_GCC = lib.versions.major (lib.getVersion stdenv'.cc.cc);
         }
-        // lib.optionalAttrs (stdenv'.isx86_32) { USE_SSP = "no"; }
+        // lib.optionalAttrs (stdenv'.isx86_32) {USE_SSP = "no";}
         // lib.optionalAttrs (attrs.headersOnly or false) {
           installPhase = "includesPhase";
           dontBuild = true;
@@ -192,7 +192,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
     makeMinimal = mkDerivation rec {
       inherit (self.make) path;
 
-      buildInputs = with self; [ ];
+      buildInputs = with self; [];
       nativeBuildInputs = with buildPackages.netbsd; [
         bsdSetupHook
         freebsdSetupHook
@@ -200,7 +200,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
 
       skipIncludesPhase = true;
 
-      makeFlags = [ ];
+      makeFlags = [];
 
       postPatch = ''
         patchShebangs configure
@@ -309,7 +309,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
           "sys/sys/elf_generic.h"
           "sys/${mkBsdArch stdenv}/include"
         ]
-        ++ lib.optionals stdenv.hostPlatform.isx86 [ "sys/x86/include" ]
+        ++ lib.optionals stdenv.hostPlatform.isx86 ["sys/x86/include"]
         ++ [
 
           "sys/sys/queue.h"
@@ -427,7 +427,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
       in
       mkDerivation {
         path = "usr.bin/xinstall";
-        extraPaths = with self; [ mtree.path ];
+        extraPaths = with self; [mtree.path];
         nativeBuildInputs = with buildPackages.freebsd; [
           bsdSetupHook
           freebsdSetupHook
@@ -486,7 +486,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
     # breaks stdenv.  Work around that with a hook that will point
     # NetBSD's build system and NetBSD stat without including it in
     # PATH.
-    statHook = makeSetupHook { name = "netbsd-stat-hook"; } (
+    statHook = makeSetupHook {name = "netbsd-stat-hook";} (
       writeText "netbsd-stat-hook-impl" ''
         makeFlagsArray+=(TOOL_STAT=${self.stat}/bin/stat)
       ''
@@ -518,7 +518,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
         bsdSetupHook
         freebsdSetupHook
       ];
-      buildInputs = [ ];
+      buildInputs = [];
       outputs = [
         "out"
         "man"
@@ -549,14 +549,14 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
       postInstall = ''
         make -C $BSDSRCDIR/share/mk FILESDIR=$out/share/mk install
       '';
-      extraPaths = [ "share/mk" ] ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "tools/build/mk";
+      extraPaths = ["share/mk"] ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "tools/build/mk";
     };
     mtree = mkDerivation {
       path = "contrib/mtree";
-      extraPaths = with self; [ mknod.path ];
+      extraPaths = with self; [mknod.path];
     };
 
-    mknod = mkDerivation { path = "sbin/mknod"; };
+    mknod = mkDerivation {path = "sbin/mknod";};
 
     rpcgen = mkDerivation rec {
       path = "usr.bin/rpcgen";
@@ -581,7 +581,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
           ];
     };
 
-    gencat = mkDerivation { path = "usr.bin/gencat"; };
+    gencat = mkDerivation {path = "usr.bin/gencat";};
 
     file2c = mkDerivation {
       path = "usr.bin/file2c";
@@ -599,7 +599,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
 
     libsbuf = mkDerivation {
       path = "lib/libsbuf";
-      extraPaths = [ "sys/kern" ];
+      extraPaths = ["sys/kern"];
       MK_TESTS = "no";
     };
 
@@ -645,7 +645,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
 
         m4
       ];
-      buildInputs = with self; compatIfNeeded ++ [ libelf ];
+      buildInputs = with self; compatIfNeeded ++ [libelf];
       MK_TESTS = "no";
     };
 
@@ -706,7 +706,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
         buildPackages.netbsd.mtree
       ];
 
-      patches = [ ./no-perms-BSD.include.dist.patch ];
+      patches = [./no-perms-BSD.include.dist.patch];
 
       # The makefiles define INCSDIR per subdirectory, so we have to set
       # something else on the command line so those definitions aren't
@@ -718,7 +718,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
             {} \;
       '';
 
-      makeFlags = [ "RPCGEN_CPP=${buildPackages.stdenv.cc.cc}/bin/cpp" ];
+      makeFlags = ["RPCGEN_CPP=${buildPackages.stdenv.cc.cc}/bin/cpp"];
 
       # multiple header dirs, see above
       postConfigure = ''
@@ -752,7 +752,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
         byacc
         gencat
       ];
-      buildInputs = with self; [ include ];
+      buildInputs = with self; [include];
       MK_TESTS = "no";
       meta.platforms = lib.platforms.freebsd;
     };

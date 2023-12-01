@@ -52,7 +52,7 @@ in
     hosts = mkOption {
       description = lib.mdDoc "a list of elasticsearch hosts to connect to";
       type = types.listOf types.str;
-      default = [ "localhost" ];
+      default = ["localhost"];
     };
     port = mkOption {
       description = lib.mdDoc "the port that elasticsearch is listening on";

@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "s-sysdeps";
   version = "20210228-git";
@@ -21,7 +21,7 @@ rec {
 
   packageName = "s-sysdeps";
 
-  asdFilesToKeep = [ "s-sysdeps.asd" ];
+  asdFilesToKeep = ["s-sysdeps.asd"];
   overrides = x: x;
 }
 /* (SYSTEM s-sysdeps DESCRIPTION

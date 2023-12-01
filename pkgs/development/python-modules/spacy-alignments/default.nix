@@ -28,7 +28,7 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs =
-    [ setuptools-rust ]
+    [setuptools-rust]
     ++ (
       with rustPlatform; [
         cargoSetupHook
@@ -37,17 +37,17 @@ buildPythonPackage rec {
       ]
     );
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.isDarwin [libiconv];
 
   # Fails because spacy_alignments module cannot be loaded correctly.
   doCheck = false;
 
-  pythonImportsCheck = [ "spacy_alignments" ];
+  pythonImportsCheck = ["spacy_alignments"];
 
   meta = with lib; {
     description = "Align tokenizations for spaCy and transformers";
     homepage = "https://github.com/explosion/spacy-alignments";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

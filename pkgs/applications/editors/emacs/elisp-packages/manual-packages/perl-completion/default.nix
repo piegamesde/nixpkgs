@@ -1,4 +1,4 @@
-{ trivialBuild, fetchurl }:
+{trivialBuild, fetchurl}:
 
 trivialBuild {
   pname = "perl-completion";

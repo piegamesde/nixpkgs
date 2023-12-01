@@ -24,9 +24,9 @@ buildEnv {
   name = "gitweb-${lib.getVersion git}";
 
   ignoreCollisions = true;
-  paths = lib.optional gitwebTheme gitwebThemeSrc ++ [ "${git}/share/gitweb" ];
+  paths = lib.optional gitwebTheme gitwebThemeSrc ++ ["${git}/share/gitweb"];
 
   meta = git.meta // {
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

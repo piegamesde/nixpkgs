@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.gnu.org/software/libtool/";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

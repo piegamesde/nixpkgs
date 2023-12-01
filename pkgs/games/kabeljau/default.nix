@@ -37,7 +37,7 @@ stdenvNoCC.mkDerivation rec {
     runHook preInstall
 
     just install
-    wrapProgram $out/bin/${pname} --suffix PATH : ${lib.makeBinPath [ dialog ]}
+    wrapProgram $out/bin/${pname} --suffix PATH : ${lib.makeBinPath [dialog]}
 
     runHook postInstall
   '';
@@ -46,6 +46,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Survive as a stray cat in an ncurses game";
     homepage = "https://codeberg.org/annaaurora/kabeljau";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ annaaurora ];
+    maintainers = with maintainers; [annaaurora];
   };
 }

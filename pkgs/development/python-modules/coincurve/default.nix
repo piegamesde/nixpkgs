@@ -56,9 +56,9 @@ buildPythonPackage rec {
     rm tests/test_bench.py
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "coincurve" ];
+  pythonImportsCheck = ["coincurve"];
 
   meta = with lib; {
     description = "Cross-platform bindings for libsecp256k1";
@@ -67,6 +67,6 @@ buildPythonPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

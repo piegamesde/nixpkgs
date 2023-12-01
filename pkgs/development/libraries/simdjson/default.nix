@@ -16,11 +16,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-a6I1qcuBSkwQxuU4T7tKrqouhLMJsY/rfCKqhGGvkjQ=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags =
-    [ "-DSIMDJSON_DEVELOPER_MODE=OFF" ]
-    ++ lib.optionals stdenv.hostPlatform.isStatic [ "-DBUILD_SHARED_LIBS=OFF" ]
+    ["-DSIMDJSON_DEVELOPER_MODE=OFF"]
+    ++ lib.optionals stdenv.hostPlatform.isStatic ["-DBUILD_SHARED_LIBS=OFF"]
     ++
       lib.optionals (with stdenv.hostPlatform; isPower && isBigEndian)
         [
@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
     description = "Parsing gigabytes of JSON per second";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ chessai ];
+    maintainers = with maintainers; [chessai];
   };
 }

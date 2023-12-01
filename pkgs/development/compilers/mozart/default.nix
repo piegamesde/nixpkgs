@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     sha256 = "1hgh1a8hgzgr6781as4c4rc52m2wbazdlw3646s57c719g5xphjz";
   };
 
-  patches = [ ./patch-limits.diff ];
+  patches = [./patch-limits.diff];
 
   postConfigure = ''
     cp ${bootcompiler} bootcompiler/bootcompiler.jar

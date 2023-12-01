@@ -1,4 +1,4 @@
-{ stdenvNoCC, fetchurl }:
+{stdenvNoCC, fetchurl}:
 
 stdenvNoCC.mkDerivation {
   pname = "darwin-stubs";

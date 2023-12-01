@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
     wxGTK
   ] ++ gstInputs ++ pythonInputs;
 
-  patches = [ ./no-dl-googletest.patch ];
+  patches = [./no-dl-googletest.patch];
 
   postPatch = ''
     for x in package/CMakeLists.txt include/radiotray-ng/common.hpp data/*.desktop; do
@@ -97,16 +97,16 @@ stdenv.mkDerivation rec {
       --replace radiotray-ng-notification radiotray-ng-on
   '';
 
-  cmakeFlags = [ "-DBUILD_TESTS=${if doCheck then "ON" else "OFF"}" ];
+  cmakeFlags = ["-DBUILD_TESTS=${if doCheck then "ON" else "OFF"}"];
 
   # 'wxFont::wxFont(int, int, int, int, bool, const wxString&, wxFontEncoding)' is deprecated
   env.NIX_CFLAGS_COMPILE = "-Wno-error=deprecated-declarations";
 
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
   doCheck = !stdenv.isAarch64; # single failure that I can't explain
 
   preFixup = ''
-    gappsWrapperArgs+=(--suffix PATH : ${lib.makeBinPath [ dbus ]})
+    gappsWrapperArgs+=(--suffix PATH : ${lib.makeBinPath [dbus]})
     wrapProgram $out/bin/rt2rtng --prefix PYTHONPATH : $PYTHONPATH
   '';
 
@@ -114,7 +114,7 @@ stdenv.mkDerivation rec {
     description = "An internet radio player for linux";
     homepage = "https://github.com/ebruck/radiotray-ng";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
     platforms = platforms.linux;
   };
 }

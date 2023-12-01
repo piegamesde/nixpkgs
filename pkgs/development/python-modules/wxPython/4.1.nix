@@ -75,7 +75,7 @@ buildPythonPackage rec {
     gtk3
     pkg-config
     setuptools
-  ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+  ] ++ lib.optionals stdenv.isLinux [autoPatchelfHook];
 
   buildInputs =
     [
@@ -143,7 +143,7 @@ buildPythonPackage rec {
     description = "Cross platform GUI toolkit for Python, Phoenix version";
     homepage = "http://wxpython.org/";
     license = licenses.wxWindows;
-    maintainers = with maintainers; [ tfmoraes ];
+    maintainers = with maintainers; [tfmoraes];
     broken = true;
   };
 }

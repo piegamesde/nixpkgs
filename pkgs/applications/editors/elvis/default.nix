@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "182fj9qzyq6cjq1r849gpam6nq9smwv9f9xwaq84961p56r6d14s";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   patches = [
     (fetchpatch {
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  configureFlags = [ "--ioctl=termios" ];
+  configureFlags = ["--ioctl=termios"];
 
   meta = {
     homepage = "http://elvis.the-little-red-haired-girl.org/";

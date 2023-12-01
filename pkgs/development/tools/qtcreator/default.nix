@@ -22,7 +22,7 @@ let
   clang_qt_vendor = llvmPackages_8.clang-unwrapped.overrideAttrs (
     oldAttrs: {
       # file RPATH_CHANGE could not write new RPATH
-      cmakeFlags = [ "-DCMAKE_SKIP_BUILD_RPATH=ON" ];
+      cmakeFlags = ["-DCMAKE_SKIP_BUILD_RPATH=ON"];
       src = fetchgit {
         url = "https://code.qt.io/clang/clang.git";
         rev = "c12b012bb7465299490cf93c2ae90499a5c417d5";
@@ -57,7 +57,7 @@ mkDerivation rec {
       llvmPackages_8.llvm
     ];
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
   # 0001-Fix-clang-libcpp-regexp.patch is for fixing regexp that is used to
   # find clang libc++ library include paths. By default it's not covering paths
@@ -73,9 +73,9 @@ mkDerivation rec {
 
   buildFlags = lib.optional withDocumentation "docs";
 
-  installFlags = [ "INSTALL_ROOT=$(out)" ] ++ lib.optional withDocumentation "install_docs";
+  installFlags = ["INSTALL_ROOT=$(out)"] ++ lib.optional withDocumentation "install_docs";
 
-  qtWrapperArgs = [ "--set-default PERFPROFILER_PARSER_FILEPATH ${lib.getBin perf}/bin" ];
+  qtWrapperArgs = ["--set-default PERFPROFILER_PARSER_FILEPATH ${lib.getBin perf}/bin"];
 
   preConfigure =
     ''
@@ -123,7 +123,7 @@ mkDerivation rec {
     '';
     homepage = "https://wiki.qt.io/Category:Tools::QtCreator";
     license = "LGPL";
-    maintainers = [ lib.maintainers.akaWolf ];
+    maintainers = [lib.maintainers.akaWolf];
     platforms = [
       "i686-linux"
       "x86_64-linux"

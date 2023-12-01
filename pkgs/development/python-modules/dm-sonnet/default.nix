@@ -37,7 +37,7 @@ buildPythonPackage rec {
   ] ++ etils.optional-dependencies.epath;
 
   passthru.optional-dependencies = {
-    tensorflow = [ tensorflow ];
+    tensorflow = [tensorflow];
   };
 
   nativeCheckInputs = [
@@ -45,12 +45,12 @@ buildPythonPackage rec {
     tensorflow-datasets
   ];
 
-  pythonImportsCheck = [ "sonnet" ];
+  pythonImportsCheck = ["sonnet"];
 
   meta = with lib; {
     description = "Library for building neural networks in TensorFlow";
     homepage = "https://github.com/deepmind/sonnet";
     license = licenses.asl20;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

@@ -28,6 +28,6 @@ in
       '';
     };
 
-    environment.systemPackages = [ gnome.metacity ];
+    environment.systemPackages = [gnome.metacity];
   };
 }

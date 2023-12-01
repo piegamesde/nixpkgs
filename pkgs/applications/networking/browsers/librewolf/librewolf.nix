@@ -1,12 +1,12 @@
-{ callPackage }:
+{callPackage}:
 let
-  src = callPackage ./src.nix { };
+  src = callPackage ./src.nix {};
 in
 rec {
 
   inherit (src) packageVersion firefox source;
 
-  extraPatches = [ ];
+  extraPatches = [];
 
   extraConfigureFlags = [
     "--with-app-name=librewolf"
@@ -29,9 +29,9 @@ rec {
     sed -i '/MOZ_NORMANDY/ s/True/False/' browser/moz.configure
   '';
 
-  extraPrefsFiles = [ "${source}/submodules/settings/librewolf.cfg" ];
+  extraPrefsFiles = ["${source}/submodules/settings/librewolf.cfg"];
 
-  extraPoliciesFiles = [ "${source}/submodules/settings/distribution/policies.json" ];
+  extraPoliciesFiles = ["${source}/submodules/settings/distribution/policies.json"];
 
   extraPassthru = {
     librewolf = {

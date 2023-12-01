@@ -17,11 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-VRPE+1QLKGy5W99ia5BuPNtmH/eoXulApS8n8SdQSaQ=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
-  nativeCheckInputs = [ lxml ];
+  nativeCheckInputs = [lxml];
 
   checkPhase = ''
     # Disable test_load because requires loading models which aren't part of the tarball
@@ -29,12 +29,12 @@ buildPythonPackage rec {
     python tests/test_minimal.py
   '';
 
-  pythonImportsCheck = [ "trimesh" ];
+  pythonImportsCheck = ["trimesh"];
 
   meta = with lib; {
     description = "Python library for loading and using triangular meshes";
     homepage = "https://trimsh.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ gebner ];
+    maintainers = with maintainers; [gebner];
   };
 }

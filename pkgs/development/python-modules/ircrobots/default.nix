@@ -44,12 +44,12 @@ buildPythonPackage rec {
     ${python.interpreter} -m unittest test
   '';
 
-  pythonImportsCheck = [ "ircrobots" ];
+  pythonImportsCheck = ["ircrobots"];
 
   meta = with lib; {
     description = "Asynchronous bare-bones IRC bot framework for python3";
     license = licenses.mit;
     homepage = "https://github.com/jesopo/ircrobots";
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

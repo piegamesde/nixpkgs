@@ -22,8 +22,8 @@ in
     };
 
     settings = mkOption {
-      type = (pkgs.formats.json { }).type;
-      default = { };
+      type = (pkgs.formats.json {}).type;
+      default = {};
       description = lib.mdDoc ''
         Specify the configuration for Vector in Nix.
       '';
@@ -32,20 +32,20 @@ in
 
   config = mkIf cfg.enable {
     # for cli usage
-    environment.systemPackages = [ pkgs.vector ];
+    environment.systemPackages = [pkgs.vector];
 
     systemd.services.vector = {
       description = "Vector event and log aggregator";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
-      requires = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
+      requires = ["network-online.target"];
       serviceConfig =
         let
-          format = pkgs.formats.toml { };
+          format = pkgs.formats.toml {};
           conf = format.generate "vector.toml" cfg.settings;
           validateConfig =
             file:
-            pkgs.runCommand "validate-vector-conf" { nativeBuildInputs = [ pkgs.vector ]; } ''
+            pkgs.runCommand "validate-vector-conf" {nativeBuildInputs = [pkgs.vector];} ''
               vector validate --no-environment "${file}"
               ln -s "${file}" "$out"
             '';

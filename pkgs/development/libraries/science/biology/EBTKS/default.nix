@@ -23,15 +23,15 @@ stdenv.mkDerivation rec {
       --replace "#define FINITE(x) finite(x)" "#define FINITE(x) isfinite(x)"
   '';
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ libminc ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [libminc];
 
-  cmakeFlags = [ "-DLIBMINC_DIR=${libminc}/lib/cmake" ];
+  cmakeFlags = ["-DLIBMINC_DIR=${libminc}/lib/cmake"];
 
   meta = with lib; {
     homepage = "https://github.com/BIC-MNI/${pname}";
     description = "Library for working with MINC files";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = platforms.unix;
     license = licenses.free;
   };

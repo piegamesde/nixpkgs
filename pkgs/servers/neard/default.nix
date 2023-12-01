@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     glib
     dbus
     libnl
-  ] ++ (with python2Packages; [ python ]);
+  ] ++ (with python2Packages; [python]);
 
   pythonPath = with python2Packages; [
     pygobject2
@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
     description = "Near Field Communication manager";
     homepage = "https://01.org/linux-nfc";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.unix;
   };
 }

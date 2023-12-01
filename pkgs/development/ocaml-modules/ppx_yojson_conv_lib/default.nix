@@ -20,12 +20,12 @@ buildDunePackage rec {
     sha256 = "sha256-Hpg4AKAe7Q5P5UkBpH+5l1nZbIVA2Dr1Q30D4zkrjGo=";
   };
 
-  propagatedBuildInputs = [ yojson ];
+  propagatedBuildInputs = [yojson];
 
   meta = with lib; {
     description = "Runtime lib for ppx_yojson_conv";
     homepage = "https://github.com/janestreet/ppx_yojson_conv_lib";
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
     license = licenses.mit;
   };
 }

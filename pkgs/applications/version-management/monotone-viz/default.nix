@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
   };
 
   prePatch = "ln -s . a; ln -s . b";
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
   patches = [
     (fetchurl {
       url = "https://src.fedoraproject.org/cgit/rpms/monotone-viz.git/plain/monotone-viz-1.0.2-dot.patch";
@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Monotone ancestry visualiser";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.linux;
   };
 }

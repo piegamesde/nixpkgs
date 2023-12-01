@@ -1,14 +1,14 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
   {
     name = "systemd-initrd-luks-tpm2";
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         # Use systemd-boot
         virtualisation = {
-          emptyDiskImages = [ 512 ];
+          emptyDiskImages = [512];
           useBootLoader = true;
           useEFIBoot = true;
           qemu.options = [
@@ -17,9 +17,9 @@ import ./make-test-python.nix (
         };
         boot.loader.systemd-boot.enable = true;
 
-        boot.initrd.availableKernelModules = [ "tpm_tis" ];
+        boot.initrd.availableKernelModules = ["tpm_tis"];
 
-        environment.systemPackages = with pkgs; [ cryptsetup ];
+        environment.systemPackages = with pkgs; [cryptsetup];
         boot.initrd.systemd = {
           enable = true;
         };
@@ -28,7 +28,7 @@ import ./make-test-python.nix (
           boot.initrd.luks.devices = lib.mkVMOverride {
             cryptroot = {
               device = "/dev/vdb";
-              crypttabExtraOpts = [ "tpm2-device=auto" ];
+              crypttabExtraOpts = ["tpm2-device=auto"];
             };
           };
           virtualisation.rootDevice = "/dev/mapper/cryptroot";

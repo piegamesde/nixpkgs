@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     glib
   ];
 
-  configureFlags = [ "--enable-libusb10" ];
+  configureFlags = ["--enable-libusb10"];
 
   postInstall = ''
     mkdir -p $out/etc/udev/rules.d

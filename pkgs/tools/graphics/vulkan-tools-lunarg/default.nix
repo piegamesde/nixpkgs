@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  patches = [ ./gtest.patch ];
+  patches = [./gtest.patch];
 
   # Same as vulkan-validation-layers
   dontPatchELF = true;
@@ -110,6 +110,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/LunarG/VulkanTools";
     platforms = platforms.linux;
     license = licenses.asl20;
-    maintainers = [ maintainers.expipiplus1 ];
+    maintainers = [maintainers.expipiplus1];
   };
 }

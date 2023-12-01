@@ -27,7 +27,7 @@ python3.pkgs.buildPythonApplication rec {
     networkmanager
     tshark
     wirelesstools
-  ] ++ (with python3.pkgs; [ matplotlib ]);
+  ] ++ (with python3.pkgs; [matplotlib]);
 
   dontBuild = true;
 
@@ -50,6 +50,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Tool to track WiFi devices by signal strength";
     homepage = "https://github.com/90N45-d3v/dBmonster";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

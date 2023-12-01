@@ -39,9 +39,9 @@ stdenv.mkDerivation {
       xz
       zstd
     ]
-    ++ lib.optionals (fuseSupport) [ fuse ]
-    ++ lib.optionals (selinuxSupport) [ libselinux ]
-    ++ lib.optionals (udevSupport) [ udev ];
+    ++ lib.optionals (fuseSupport) [fuse]
+    ++ lib.optionals (selinuxSupport) [libselinux]
+    ++ lib.optionals (udevSupport) [udev];
   nativeBuildInputs = [
     meson
     ninja
@@ -63,9 +63,9 @@ stdenv.mkDerivation {
 
   PKG_CONFIG_UDEV_UDEVDIR = "lib/udev";
   mesonFlags =
-    lib.optionals (!fuseSupport) [ "-Dfuse=false" ]
-    ++ lib.optionals (!udevSupport) [ "-Dudev=false" ]
-    ++ lib.optionals (!selinuxSupport) [ "-Dselinux=false" ];
+    lib.optionals (!fuseSupport) ["-Dfuse=false"]
+    ++ lib.optionals (!udevSupport) ["-Dudev=false"]
+    ++ lib.optionals (!selinuxSupport) ["-Dselinux=false"];
 
   doCheck = true;
   preCheck = ''
@@ -77,6 +77,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/systemd/casync";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
   };
 }

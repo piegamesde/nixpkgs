@@ -152,7 +152,7 @@ stdenv.mkDerivation rec {
   # https://bugzilla.kernel.org/show_bug.cgi?id=203793
   doCheck = false;
 
-  disallowedReferences = [ (lib.getDev libkrb5) ];
+  disallowedReferences = [(lib.getDev libkrb5)];
 
   passthru.tests = {
     nfs3-simple = nixosTests.nfs3.simple;
@@ -172,6 +172,6 @@ stdenv.mkDerivation rec {
     homepage = "https://linux-nfs.org/";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

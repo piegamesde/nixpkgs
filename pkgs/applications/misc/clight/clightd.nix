@@ -83,9 +83,9 @@ stdenv.mkDerivation rec {
       util-linux
       libpthreadstubs
     ]
-    ++ optionals enableDdc [ ddcutil ]
-    ++ optionals enableDpms [ libXext ]
-    ++ optionals enableGamma [ libXrandr ]
+    ++ optionals enableDdc [ddcutil]
+    ++ optionals enableDpms [libXext]
+    ++ optionals enableGamma [libXrandr]
     ++ optionals (enableDpms || enableGamma || enableScreen) [
       libdrm
       wayland
@@ -101,6 +101,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/FedeDP/Clightd";
     platforms = platforms.linux;
     license = licenses.gpl3;
-    maintainers = with maintainers; [ eadwu ];
+    maintainers = with maintainers; [eadwu];
   };
 }

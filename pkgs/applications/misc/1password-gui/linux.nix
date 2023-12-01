@@ -41,7 +41,7 @@
   # The 1Password polkit file requires a list of users for whom polkit
   # integrations should be enabled. This should be a list of strings that
   # correspond to usernames.
-  polkitPolicyOwners ? [ ],
+  polkitPolicyOwners ? [],
 }:
 let
   # Convert the polkitPolicyOwners variable to a polkit-compatible string for the polkit file.
@@ -59,7 +59,7 @@ stdenv.mkDerivation {
     makeShellWrapper
     wrapGAppsHook
   ];
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   dontConfigure = true;
   dontBuild = true;
@@ -113,7 +113,7 @@ stdenv.mkDerivation {
         --replace 'Exec=/opt/1Password/${pname}' 'Exec=${pname}'
 
     ''
-    + (lib.optionalString (polkitPolicyOwners != [ ]) ''
+    + (lib.optionalString (polkitPolicyOwners != []) ''
       # Polkit file
         mkdir -p $out/share/polkit-1/actions
         substitute com.1password.1Password.policy.tpl $out/share/polkit-1/actions/com.1password.1Password.policy --replace "\''${POLICY_OWNERS}" "${policyOwners}"
@@ -142,8 +142,8 @@ stdenv.mkDerivation {
     # Make xdg-open overrideable at runtime.
     makeShellWrapper $out/share/1password/1password $out/bin/1password \
       "''${gappsWrapperArgs[@]}" \
-      --suffix PATH : ${lib.makeBinPath [ xdg-utils ]} \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ udev ]} \
+      --suffix PATH : ${lib.makeBinPath [xdg-utils]} \
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [udev]} \
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
   '';
 }

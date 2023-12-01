@@ -21,7 +21,7 @@ let
     targets: pkg:
     pkg.override (
       old: {
-        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
+        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [
           binwrap
           binwrap-install
         ];

@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "lack-middleware-backtrace";
   version = "lack-20211209-git";
 
   description = "System lacks description";
 
-  deps = [ args."uiop" ];
+  deps = [args."uiop"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/lack/2021-12-09/lack-20211209-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "lack-middleware-backtrace";
 
-  asdFilesToKeep = [ "lack-middleware-backtrace.asd" ];
+  asdFilesToKeep = ["lack-middleware-backtrace.asd"];
   overrides = x: x;
 }
 /* (SYSTEM lack-middleware-backtrace DESCRIPTION System lacks description

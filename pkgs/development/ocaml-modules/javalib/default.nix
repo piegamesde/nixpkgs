@@ -44,7 +44,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
     configureScript = "./configure.sh";
     dontAddPrefix = "true";
     dontAddStaticConfigureFlags = true;
-    configurePlatforms = [ ];
+    configurePlatforms = [];
 
     propagatedBuildInputs = [
       camlzip
@@ -55,7 +55,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
       description = "A library that parses Java .class files into OCaml data structures";
       homepage = "https://javalib-team.github.io/javalib/";
       license = licenses.lgpl3;
-      maintainers = [ maintainers.vbgl ];
+      maintainers = [maintainers.vbgl];
       inherit (ocaml.meta) platforms;
     };
   }

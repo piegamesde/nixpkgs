@@ -26,7 +26,7 @@ symlinkJoin rec {
       agpl3Plus
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ToxicFrog ];
-    hydraPlatforms = [ ];
+    maintainers = with maintainers; [ToxicFrog];
+    hydraPlatforms = [];
   };
 }

@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-0HOmItooNsGq6iTIb9M5IPXMwYh2nQ03qfjomkg0d00=";
 
-  nativeBuildInputs = [ cargo-c ];
+  nativeBuildInputs = [cargo-c];
 
   postBuild = ''
     pushd imagequant-sys

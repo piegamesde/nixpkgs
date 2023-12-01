@@ -40,6 +40,6 @@ stdenv.mkDerivation {
     '';
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

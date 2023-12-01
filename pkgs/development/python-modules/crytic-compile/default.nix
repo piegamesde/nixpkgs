@@ -31,7 +31,7 @@ buildPythonPackage rec {
   # Test require network access
   doCheck = false;
 
-  pythonImportsCheck = [ "crytic_compile" ];
+  pythonImportsCheck = ["crytic_compile"];
 
   meta = with lib; {
     description = "Abstraction layer for smart contract build systems";

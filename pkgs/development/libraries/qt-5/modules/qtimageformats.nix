@@ -6,6 +6,6 @@
 
 qtModule {
   pname = "qtimageformats";
-  qtInputs = [ qtbase ];
-  propagatedBuildInputs = [ libtiff ];
+  qtInputs = [qtbase];
+  propagatedBuildInputs = [libtiff];
 }

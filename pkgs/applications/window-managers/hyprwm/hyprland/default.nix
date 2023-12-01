@@ -89,14 +89,14 @@ stdenv.mkDerivation rec {
       wayland-protocols
       pango
       pciutils
-      (wlroots.override { inherit enableXWayland hidpiXWayland nvidiaPatches; })
+      (wlroots.override {inherit enableXWayland hidpiXWayland nvidiaPatches;})
     ]
     ++ lib.optionals enableXWayland [
       libxcb
       xcbutilwm
       xwayland
     ]
-    ++ lib.optionals withSystemd [ systemd ];
+    ++ lib.optionals withSystemd [systemd];
 
   mesonBuildType = if debug then "debug" else "release";
 
@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
     (lib.optional withSystemd "-Dsystemd=enabled")
   ];
 
-  passthru.providedSessions = [ "hyprland" ];
+  passthru.providedSessions = ["hyprland"];
 
   meta = with lib; {
     homepage = "https://github.com/vaxerski/Hyprland";

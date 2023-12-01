@@ -23,9 +23,9 @@ melpaBuild {
     sha256 = "sha256-StOezQEnNTjRmjY02ub5FRh59aL6gWfw+qgboz0wF94=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ libffi ];
+  buildInputs = [libffi];
 
   preBuild = ''
     mv ffi.el elisp-ffi.el

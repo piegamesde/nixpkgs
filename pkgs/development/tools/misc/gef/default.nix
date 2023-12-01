@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/share/gef
@@ -83,6 +83,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/hugsy/gef";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ freax13 ];
+    maintainers = with maintainers; [freax13];
   };
 }

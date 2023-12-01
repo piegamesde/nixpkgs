@@ -14,11 +14,11 @@ stdenv.mkDerivation rec {
     sha256 = "1awmpjamrwivi69i0j2fyrziy9s096ckviqd9c4llc3990mfsn4n";
   };
 
-  configureFlags = [ "--sysconfdir=/etc" ];
+  configureFlags = ["--sysconfdir=/etc"];
 
-  installFlags = [ "sysconfdir=$(out)/etc" ];
+  installFlags = ["sysconfdir=$(out)/etc"];
 
-  buildInputs = [ openldap ];
+  buildInputs = [openldap];
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     description = "Active Directory administration utility for Unix";
     homepage = "https://gp2x.org/adtool";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     broken = true; # does not link against recent libldap versions and unmaintained since 2017
   };
 }

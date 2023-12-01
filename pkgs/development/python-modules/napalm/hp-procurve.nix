@@ -28,13 +28,13 @@ buildPythonPackage rec {
     setuptools
     napalm
   ];
-  propagatedBuildInputs = [ netmiko ];
+  propagatedBuildInputs = [netmiko];
 
   # setup.cfg seems to contain invalid pytest parameters
   preCheck = ''
     rm setup.cfg
   '';
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
   disabledTests = [
     # AssertionError: Some methods vary.
     "test_method_signatures"
@@ -48,6 +48,6 @@ buildPythonPackage rec {
     description = "HP ProCurve Driver for NAPALM automation frontend";
     homepage = "https://github.com/napalm-automation-community/napalm-hp-procurve";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

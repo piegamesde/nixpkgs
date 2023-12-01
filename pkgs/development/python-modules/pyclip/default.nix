@@ -29,7 +29,7 @@ buildPythonPackage rec {
   '';
 
   nativeCheckInputs =
-    [ pytest ]
+    [pytest]
     ++ lib.optionals stdenv.isLinux [
       xclip
       xvfb-run
@@ -46,6 +46,6 @@ buildPythonPackage rec {
     description = "Cross-platform clipboard utilities supporting both binary and text data";
     homepage = "https://github.com/spyoungtech/pyclip";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mcaju ];
+    maintainers = with maintainers; [mcaju];
   };
 }

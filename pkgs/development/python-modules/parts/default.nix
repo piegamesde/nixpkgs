@@ -18,17 +18,17 @@ buildPythonPackage rec {
     hash = "sha256-anjD/UfKyfgfJh16cR8ZSUjdAmswO3cdMYKRczyMN3A=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "parts" ];
+  pythonImportsCheck = ["parts"];
 
   meta = with lib; {
     description = "Library for common list functions related to partitioning lists";
     homepage = "https://github.com/lapets/parts";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

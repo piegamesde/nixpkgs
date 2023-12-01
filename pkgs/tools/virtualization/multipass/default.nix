@@ -101,7 +101,7 @@ stdenv.mkDerivation {
     wrapQtAppsHook
   ];
 
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
 
   postInstall = ''
     wrapProgram $out/bin/multipassd --prefix PATH : ${
@@ -125,7 +125,7 @@ stdenv.mkDerivation {
     description = "Ubuntu VMs on demand for any workstation.";
     homepage = "https://multipass.run";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ jnsgruk ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [jnsgruk];
+    platforms = ["x86_64-linux"];
   };
 }

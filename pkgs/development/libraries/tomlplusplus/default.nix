@@ -13,7 +13,7 @@
 let
   fixedMeson = buildPackages.meson.overrideAttrs (
     {
-      patches ? [ ],
+      patches ? [],
       ...
     }:
     {
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/marzer/tomlplusplus";
     description = "Header-only TOML config file parser and serializer for C++17";
     license = licenses.mit;
-    maintainers = with maintainers; [ Scrumplex ];
+    maintainers = with maintainers; [Scrumplex];
     platforms = with platforms; unix;
   };
 }

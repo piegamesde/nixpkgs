@@ -29,6 +29,6 @@ buildDunePackage rec {
     homepage = "https://github.com/mirage/mirage-unix";
     description = "Unix core platform libraries for MirageOS";
     license = licenses.isc;
-    maintainers = with maintainers; [ sternenseemann ];
+    maintainers = with maintainers; [sternenseemann];
   };
 }

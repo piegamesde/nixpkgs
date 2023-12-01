@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     '';
   };
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   configurePhase = ''
     ln -sf ${libs-src} Libraries
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "Z80 / 8080 / Z180 assembler (for unix-style OS)";
     homepage = "https://k1.spdns.de/Develop/Projects/zasm/Distributions/";
     license = licenses.bsd2;
-    maintainers = [ maintainers.turbomack ];
+    maintainers = [maintainers.turbomack];
     platforms = platforms.unix;
     badPlatforms = platforms.aarch64;
   };

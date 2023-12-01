@@ -28,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-lsCQ220yg2U24/Ccpk3rWZ6GRYeqjj1NLGtK9YhzMwc=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     dask-glm
@@ -56,6 +56,6 @@ buildPythonPackage rec {
     description = "Scalable Machine Learn with Dask";
     homepage = "https://github.com/dask/dask-ml";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

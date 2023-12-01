@@ -48,7 +48,7 @@ appleDerivation {
     # ln -s $out/share/man/man1/pkill.1 $out/share/man/man1/pgrep.1
   '';
 
-  nativeBuildInputs = [ xcbuild ];
+  nativeBuildInputs = [xcbuild];
   buildInputs = [
     ncurses
     libutil
@@ -57,6 +57,6 @@ appleDerivation {
 
   meta = {
     platforms = lib.platforms.darwin;
-    maintainers = with lib.maintainers; [ matthewbauer ];
+    maintainers = with lib.maintainers; [matthewbauer];
   };
 }

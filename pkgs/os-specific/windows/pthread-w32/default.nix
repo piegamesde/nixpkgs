@@ -30,7 +30,7 @@ stdenv.mkDerivation {
     description = "POSIX threads library for Windows";
     homepage = "https://sourceware.org/pthreads-win32";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ yana ];
+    maintainers = with maintainers; [yana];
     platforms = platforms.windows;
   };
 }

@@ -21,7 +21,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.03")
       sha256 = "sha256-8m0zem/6nvpEJtjJNP/+vafeVLlMvNQGdl8lyf/OeBg=";
     };
 
-    nativeBuildInputs = [ ocaml ];
+    nativeBuildInputs = [ocaml];
 
     # build fails otherwise
     enableParallelBuilding = false;
@@ -56,6 +56,6 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.03")
       description = "A stub code generator and COM binding for Objective Caml";
       homepage = "https://xavierleroy.org/camlidl/";
       license = lib.licenses.lgpl21;
-      maintainers = [ lib.maintainers.roconnor ];
+      maintainers = [lib.maintainers.roconnor];
     };
   }

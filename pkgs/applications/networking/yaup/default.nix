@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       Mostly used for IPv4.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
     # ld: unknown option: --export-dynamic
     broken = stdenv.isDarwin;

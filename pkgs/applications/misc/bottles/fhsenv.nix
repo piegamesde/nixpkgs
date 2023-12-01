@@ -4,8 +4,8 @@
   symlinkJoin,
   bottles-unwrapped,
   gst_all_1,
-  extraPkgs ? pkgs: [ ],
-  extraLibraries ? pkgs: [ ],
+  extraPkgs ? pkgs: [],
+  extraLibraries ? pkgs: [],
 }:
 
 let

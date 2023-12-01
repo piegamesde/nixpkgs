@@ -24,14 +24,14 @@ buildPythonPackage rec {
     python-mimeparse
     extras
   ];
-  buildInputs = [ traceback2 ];
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  buildInputs = [traceback2];
+  nativeBuildInputs = [pythonRelaxDepsHook];
 
   # testscenarios has a circular dependency on testtools
   doCheck = false;
-  nativeCheckInputs = [ testscenarios ];
+  nativeCheckInputs = [testscenarios];
 
-  pythonRemoveDeps = [ "fixtures" ];
+  pythonRemoveDeps = ["fixtures"];
 
   meta = {
     description = "A set of extensions to the Python standard library's unit testing framework";

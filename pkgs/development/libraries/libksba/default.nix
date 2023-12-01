@@ -22,11 +22,11 @@ stdenv.mkDerivation rec {
     "info"
   ];
 
-  buildInputs = [ gettext ];
-  propagatedBuildInputs = [ libgpg-error ];
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  buildInputs = [gettext];
+  propagatedBuildInputs = [libgpg-error];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
-  configureFlags = [ "--with-libgpg-error-prefix=${libgpg-error.dev}" ];
+  configureFlags = ["--with-libgpg-error-prefix=${libgpg-error.dev}"];
 
   postInstall = ''
     mkdir -p $dev/bin
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnupg.org";
     description = "CMS and X.509 access library";
     platforms = platforms.all;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.lgpl3;
   };
 }

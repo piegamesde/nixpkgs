@@ -50,8 +50,8 @@ buildPythonPackage rec {
   ] ++ passthru.optional-dependencies.fsspec;
 
   passthru.optional-dependencies = {
-    fsspec = [ fsspec ];
-    http2 = [ httpx.optional-dependencies.http2 ];
+    fsspec = [fsspec];
+    http2 = [httpx.optional-dependencies.http2];
     all = [
       fsspec
       httpx.optional-dependencies.http2
@@ -63,7 +63,7 @@ buildPythonPackage rec {
       --replace " --cov" ""
   '';
 
-  pythonImportsCheck = [ "webdav4" ];
+  pythonImportsCheck = ["webdav4"];
 
   disabledTests = [
     # ValueError: Invalid dir_browser htdocs_path
@@ -82,7 +82,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for interacting with WebDAV";
     homepage = "https://skshetry.github.io/webdav4/";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -42,9 +42,9 @@ stdenv.mkDerivation rec {
     substituteInPlace tools/plot/fio2gnuplot --replace /usr/share/fio $out/share/fio
   '';
 
-  pythonPath = [ python3.pkgs.six ];
+  pythonPath = [python3.pkgs.six];
 
-  makeWrapperArgs = lib.optionals withGnuplot [ "--prefix PATH : ${lib.makeBinPath [ gnuplot ]}" ];
+  makeWrapperArgs = lib.optionals withGnuplot ["--prefix PATH : ${lib.makeBinPath [gnuplot]}"];
 
   postInstall = ''
     wrapPythonProgramsIn "$out/bin" "$out $pythonPath"

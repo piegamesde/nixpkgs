@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-taJAQPa0EA0Ph9OpCs7jzLqBV61kVstZrWyNEYc/GBk=";
 
-  subPackages = [ "cmd/kubectl-kuttl" ];
+  subPackages = ["cmd/kubectl-kuttl"];
 
   ldflags = [
     "-s"
@@ -30,7 +30,7 @@ buildGoModule rec {
     description = "The KUbernetes Test TooL (KUTTL) provides a declarative approach to testing production-grade Kubernetes operators";
     homepage = "https://github.com/kudobuilder/kuttl";
     license = licenses.asl20;
-    maintainers = with maintainers; [ diegolelis ];
+    maintainers = with maintainers; [diegolelis];
     mainProgram = "kubectl-kuttl";
   };
 }

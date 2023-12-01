@@ -40,12 +40,12 @@ buildPythonPackage rec {
       --replace 'opencv-python>=4.1.0.25' 'opencv'
   '';
 
-  pythonImportsCheck = [ "imwatermark" ];
+  pythonImportsCheck = ["imwatermark"];
 
   meta = with lib; {
     description = "A library for creating and decoding invisible image watermarks";
     homepage = "https://github.com/ShieldMnt/invisible-watermark";
     license = licenses.mit;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
   };
 }

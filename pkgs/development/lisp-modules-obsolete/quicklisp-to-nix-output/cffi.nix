@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cffi";
   version = "cffi_0.24.1";
@@ -27,7 +27,7 @@ rec {
 
   packageName = "cffi";
 
-  asdFilesToKeep = [ "cffi.asd" ];
+  asdFilesToKeep = ["cffi.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cffi DESCRIPTION The Common Foreign Function Interface SHA256

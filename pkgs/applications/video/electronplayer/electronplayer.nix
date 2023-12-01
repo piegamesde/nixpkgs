@@ -14,7 +14,7 @@ let
     sha256 = "wAsmSFdbRPnYnDyWQSbtyj+GLJLN7ibksUE7cegfkhI=";
   };
 
-  appimageContents = appimageTools.extractType2 { inherit name src; };
+  appimageContents = appimageTools.extractType2 {inherit name src;};
 in
 appimageTools.wrapType2 {
   inherit name src;
@@ -32,7 +32,7 @@ appimageTools.wrapType2 {
     description = "An electron based web video services player";
     homepage = "https://github.com/oscartbeaumont/ElectronPlayer";
     license = licenses.mit;
-    maintainers = with maintainers; [ extends ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [extends];
+    platforms = ["x86_64-linux"];
   };
 }

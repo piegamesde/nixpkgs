@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     # MemTest86 Free Edition is free to download with no restrictions on usage. However, the source code is not available.
     # https://www.memtest86.com/tech_license-information.html
     license = licenses.unfreeRedistributable;
-    maintainers = with maintainers; [ cdepillabout ];
+    maintainers = with maintainers; [cdepillabout];
     platforms = platforms.linux;
   };
 }

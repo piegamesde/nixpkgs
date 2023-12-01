@@ -34,8 +34,8 @@ stdenv.mkDerivation {
     })
   ];
 
-  configureFlags = [ "--disable-update-xdg-database" ];
-  nativeBuildInputs = [ pkg-config ];
+  configureFlags = ["--disable-update-xdg-database"];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     guile
     gtk2
@@ -47,7 +47,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Full GPL'd suite of Electronic Design Automation tools";
     homepage = "http://www.geda-project.org/";
-    maintainers = with maintainers; [ pjones ];
+    maintainers = with maintainers; [pjones];
     platforms = platforms.linux;
     license = licenses.gpl2;
   };

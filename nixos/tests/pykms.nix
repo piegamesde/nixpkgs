@@ -1,8 +1,8 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "pykms-test";
-    meta.maintainers = with pkgs.lib.maintainers; [ zopieux ];
+    meta.maintainers = with pkgs.lib.maintainers; [zopieux];
 
     nodes.machine =
       {

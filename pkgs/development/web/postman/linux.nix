@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
       comment = "API Development Environment";
       desktopName = "Postman";
       genericName = "Postman";
-      categories = [ "Development" ];
+      categories = ["Development"];
     })
   ];
 

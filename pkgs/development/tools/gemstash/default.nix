@@ -8,7 +8,7 @@
 bundlerApp rec {
   pname = "gemstash";
   gemdir = ./.;
-  exes = [ pname ];
+  exes = [pname];
 
   passthru = {
     updateScript = bundlerUpdateScript pname;
@@ -21,6 +21,6 @@ bundlerApp rec {
     description = "A cache for RubyGems.org and a private gem server";
     homepage = "https://github.com/rubygems/gemstash";
     license = licenses.mit;
-    maintainers = [ maintainers.viraptor ];
+    maintainers = [maintainers.viraptor];
   };
 }

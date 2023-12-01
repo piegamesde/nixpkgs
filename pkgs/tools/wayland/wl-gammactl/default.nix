@@ -56,6 +56,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/mischw/wl-gammactl";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ lodi ];
+    maintainers = with maintainers; [lodi];
   };
 }

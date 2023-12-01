@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  cmakeFlags = [ "-DIWYU_LLVM_ROOT_PATH=${llvmPackages.clang-unwrapped}" ];
+  cmakeFlags = ["-DIWYU_LLVM_ROOT_PATH=${llvmPackages.clang-unwrapped}"];
 
   postInstall = ''
     substituteInPlace $out/bin/iwyu_tool.py \

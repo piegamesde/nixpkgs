@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-lyASp0jFwaPLPQ3Jnow6eTpUBybwhSEmQUK/20fsh7I=";
   };
 
-  patches = [ ./0001-Use-dbus_glib-instead-of-elogind.patch ];
+  patches = [./0001-Use-dbus_glib-instead-of-elogind.patch];
 
   buildInputs = [
     # meson.build

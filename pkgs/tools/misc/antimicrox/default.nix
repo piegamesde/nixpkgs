@@ -42,7 +42,7 @@ mkDerivation rec {
   meta = with lib; {
     description = "GUI for mapping keyboard and mouse controls to a gamepad";
     inherit (src.meta) homepage;
-    maintainers = with maintainers; [ sbruder ];
+    maintainers = with maintainers; [sbruder];
     license = licenses.gpl3Plus;
     platforms = with platforms; linux;
   };

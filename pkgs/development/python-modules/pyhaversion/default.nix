@@ -41,13 +41,13 @@ buildPythonPackage rec {
       --replace "main" ${version}
   '';
 
-  pythonImportsCheck = [ "pyhaversion" ];
+  pythonImportsCheck = ["pyhaversion"];
 
   meta = with lib; {
     description = "Python module to the newest version number of Home Assistant";
     homepage = "https://github.com/ludeeus/pyhaversion";
     changelog = "https://github.com/ludeeus/pyhaversion/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ makefu ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [makefu];
   };
 }

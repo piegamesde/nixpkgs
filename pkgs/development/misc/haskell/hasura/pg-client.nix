@@ -94,5 +94,5 @@ mkDerivation {
   ];
   homepage = "https://github.com/hasura/platform";
   license = lib.licenses.asl20;
-  maintainers = with lib.maintainers; [ lassulus ];
+  maintainers = with lib.maintainers; [lassulus];
 }

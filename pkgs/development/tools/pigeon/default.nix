@@ -19,14 +19,14 @@ buildGoModule rec {
 
   proxyVendor = true;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   doCheck = false;
 
   meta = {
     homepage = "https://github.com/mna/pigeon";
     description = "A PEG parser generator for Go";
-    maintainers = with lib.maintainers; [ zimbatm ];
-    license = with lib.licenses; [ bsd3 ];
+    maintainers = with lib.maintainers; [zimbatm];
+    license = with lib.licenses; [bsd3];
   };
 }

@@ -68,7 +68,7 @@ buildPythonPackage rec {
     sip
     which
     wxGTK
-  ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+  ] ++ lib.optionals stdenv.isLinux [autoPatchelfHook];
 
   buildInputs =
     [
@@ -129,6 +129,6 @@ buildPythonPackage rec {
     description = "Cross platform GUI toolkit for Python, Phoenix version";
     homepage = "http://wxpython.org/";
     license = licenses.wxWindows;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

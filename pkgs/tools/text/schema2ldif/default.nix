@@ -24,8 +24,8 @@ stdenvNoCC.mkDerivation rec {
       bin/ldap-schema-manager
   '';
 
-  buildInputs = [ perlPackages.perl ];
-  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [perlPackages.perl];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/bin $out/share/man/man1
@@ -35,7 +35,7 @@ stdenvNoCC.mkDerivation rec {
     gzip -c man/ldap-schema-manager.1 > $out/share/man/man1/ldap-schema-manager.1.gz
 
     wrapProgram $out/bin/schema2ldif \
-       --prefix PERL5PATH : "${perlPackages.makePerlPath [ perlPackages.GetoptLong ]}"
+       --prefix PERL5PATH : "${perlPackages.makePerlPath [perlPackages.GetoptLong]}"
   '';
 
   meta = with lib; {
@@ -43,6 +43,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://www.fusiondirectory.org/schema2ldif-project-and-components/";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ das_j ];
+    maintainers = with maintainers; [das_j];
   };
 }

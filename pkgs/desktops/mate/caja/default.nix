@@ -40,11 +40,11 @@ stdenv.mkDerivation rec {
     hicolor-icon-theme
   ];
 
-  configureFlags = [ "--disable-update-mimedb" ];
+  configureFlags = ["--disable-update-mimedb"];
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "File manager for the MATE desktop";

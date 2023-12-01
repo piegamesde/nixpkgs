@@ -20,7 +20,7 @@ stdenv.mkDerivation {
     sha256 = "0d0lv33flhgsxhc77kfp2avdz5gvml04r8l1j95yjz2rr096lzlj";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     poppler
     gdk-pixbuf
@@ -28,7 +28,7 @@ stdenv.mkDerivation {
     gtk2
   ];
 
-  patches = [ ./gdk-libs.patch ];
+  patches = [./gdk-libs.patch];
 
   buildPhase = ''
     make PREFIX=$out
@@ -45,6 +45,6 @@ stdenv.mkDerivation {
 
     platforms = platforms.unix;
     license = licenses.gpl3;
-    maintainers = [ maintainers.vrthra ];
+    maintainers = [maintainers.vrthra];
   };
 }

@@ -22,7 +22,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-XXD55sxgKg8qSdXV7mbnSCQJ4fNgWFG5IiR1QTjDkHI=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -48,7 +48,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/pystardust/ani-cli";
     description = "A cli tool to browse and play anime";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ skykanin ];
+    maintainers = with maintainers; [skykanin];
     platforms = platforms.unix;
   };
 }

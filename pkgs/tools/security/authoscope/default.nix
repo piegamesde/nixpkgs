@@ -45,7 +45,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Scriptable network authentication cracker";
     homepage = "https://github.com/kpcyrd/authoscope";
-    license = with licenses; [ gpl3Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Plus];
+    maintainers = with maintainers; [fab];
   };
 }

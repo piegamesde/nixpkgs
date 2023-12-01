@@ -18,7 +18,7 @@ mkDerivation {
       })
     ];
 
-  outputs = [ "out" ]; # this package has no runtime components
+  outputs = ["out"]; # this package has no runtime components
 
   propagatedBuildInputs = [
     cmake

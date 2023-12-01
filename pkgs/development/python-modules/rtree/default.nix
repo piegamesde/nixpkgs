@@ -25,19 +25,19 @@ buildPythonPackage rec {
       'find_library("spatialindex_c")' '"${libspatialindex}/lib/libspatialindex_c${stdenv.hostPlatform.extensions.sharedLibrary}"'
   '';
 
-  buildInputs = [ libspatialindex ];
+  buildInputs = [libspatialindex];
 
   nativeCheckInputs = [
     numpy
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "rtree" ];
+  pythonImportsCheck = ["rtree"];
 
   meta = with lib; {
     description = "R-Tree spatial index for Python GIS";
     homepage = "https://toblerity.org/rtree/";
     license = licenses.mit;
-    maintainers = with maintainers; [ bgamari ];
+    maintainers = with maintainers; [bgamari];
   };
 }

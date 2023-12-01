@@ -57,8 +57,8 @@ in
 
     systemd.services.cpuminer-cryptonight = {
       description = "Cryptonight cpuminer";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         ExecStart = "${pkgs.cpuminer-multi}/bin/minerd --syslog --config=${confFile}";
         User = "nobody";

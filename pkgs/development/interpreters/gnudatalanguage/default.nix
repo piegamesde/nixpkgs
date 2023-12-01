@@ -87,10 +87,10 @@ let
         inherit szip;
       };
   netcdf-custom =
-    if netcdf-forced != null then netcdf-forced else netcdf.override { hdf5 = hdf5-custom; };
+    if netcdf-forced != null then netcdf-forced else netcdf.override {hdf5 = hdf5-custom;};
   enablePlplotDrivers = enableWX || enableXWin;
   plplot-with-drivers =
-    if plplot-forced != null then plplot-forced else plplot.override { inherit enableWX enableXWin; };
+    if plplot-forced != null then plplot-forced else plplot.override {inherit enableWX enableXWin;};
 in
 stdenv.mkDerivation rec {
   pname = "gnudatalanguage";
@@ -139,13 +139,13 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableLibtirpc hdf4-custom.libtirpc
     ++ lib.optional enableSzip szip;
 
-  propagatedBuildInputs = [ (python3.withPackages (ps: with ps; [ numpy ])) ];
+  propagatedBuildInputs = [(python3.withPackages (ps: with ps; [numpy]))];
 
-  nativeBuildInputs = [ cmake ] ++ lib.optional enableWX wrapGAppsHook;
+  nativeBuildInputs = [cmake] ++ lib.optional enableWX wrapGAppsHook;
 
   cmakeFlags =
     lib.optional (!enableHDF4) "-DHDF=OFF"
-    ++ [ (if enableHDF5 then "-DHDF5DIR=${hdf5-custom}" else "-DHDF5=OFF") ]
+    ++ [(if enableHDF5 then "-DHDF5DIR=${hdf5-custom}" else "-DHDF5=OFF")]
     ++ lib.optional (!enableNetCDF) "-DNETCDF=OFF"
     ++ lib.optional (!enablePlplotDrivers) "-DINTERACTIVE_GRAPHICS=OFF"
     ++ lib.optional (!enableGRIB) "-DGRIB=OFF"
@@ -206,7 +206,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/gnudatalanguage/gdl";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ ShamrockLee ];
+    maintainers = with maintainers; [ShamrockLee];
     platforms = platforms.all;
     mainProgram = "gdl";
   };

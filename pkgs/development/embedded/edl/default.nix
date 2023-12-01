@@ -42,7 +42,7 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://github.com/bkerler/edl";
     description = "Qualcomm EDL tool (Sahara / Firehose / Diag)";
     license = licenses.mit;
-    maintainers = with maintainers; [ lorenz ];
+    maintainers = with maintainers; [lorenz];
     # Case-sensitive files in 'Loader' submodule
     broken = stdenv.isDarwin;
   };

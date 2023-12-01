@@ -33,12 +33,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "waterfurnace" ];
+  pythonImportsCheck = ["waterfurnace"];
 
   meta = with lib; {
     description = "Python interface to waterfurnace geothermal systems";
     homepage = "https://github.com/sdague/waterfurnace";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

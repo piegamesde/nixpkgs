@@ -25,7 +25,7 @@ stdenvNoCC.mkDerivation rec {
     description = "A grotesque sans";
     homepage = "https://weiweihuanghuang.github.io/Work-Sans/";
     license = licenses.ofl;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
     platforms = platforms.all;
   };
 }

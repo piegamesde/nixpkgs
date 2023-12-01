@@ -1,15 +1,15 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "nginx-auth";
 
     nodes = {
       webserver =
-        { pkgs, lib, ... }:
+        {pkgs, lib, ...}:
         {
           services.nginx =
             let
-              root = pkgs.runCommand "testdir" { } ''
+              root = pkgs.runCommand "testdir" {} ''
                 mkdir "$out"
                 echo hello world > "$out/index.html"
               '';

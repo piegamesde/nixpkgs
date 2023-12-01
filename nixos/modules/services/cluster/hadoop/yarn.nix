@@ -7,7 +7,7 @@
 with lib;
 let
   cfg = config.services.hadoop;
-  hadoopConf = "${import ./conf.nix { inherit cfg pkgs lib; }}/";
+  hadoopConf = "${import ./conf.nix {inherit cfg pkgs lib;}}/";
   restartIfChanged = mkOption {
     type = types.bool;
     description = lib.mdDoc ''
@@ -20,7 +20,7 @@ let
   };
   extraFlags = mkOption {
     type = with types; listOf str;
-    default = [ ];
+    default = [];
     description = lib.mdDoc "Extra command line flags to pass to the service";
     example = [
       "-Dcom.sun.management.jmxremote"
@@ -29,7 +29,7 @@ let
   };
   extraEnv = mkOption {
     type = with types; attrsOf str;
-    default = { };
+    default = {};
     description = lib.mdDoc "Extra environment variables";
   };
 in
@@ -85,7 +85,7 @@ in
       localDir = mkOption {
         description = lib.mdDoc "List of directories to store localized files in.";
         type = with types; nullOr (listOf path);
-        example = [ "/var/lib/hadoop/yarn/nm" ];
+        example = ["/var/lib/hadoop/yarn/nm"];
         default = null;
       };
 
@@ -119,7 +119,7 @@ in
     (mkIf cfg.yarn.resourcemanager.enable {
       systemd.services.yarn-resourcemanager = {
         description = "Hadoop YARN ResourceManager";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         inherit (cfg.yarn.resourcemanager) restartIfChanged;
         environment = cfg.yarn.resourcemanager.extraEnv;
 
@@ -154,7 +154,7 @@ in
 
       systemd.services.yarn-nodemanager = {
         description = "Hadoop YARN NodeManager";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         inherit (cfg.yarn.nodemanager) restartIfChanged;
         environment = cfg.yarn.nodemanager.extraEnv;
 

@@ -36,9 +36,9 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  configureFlags = [ "--enable-module-ssh=yes" ];
+  configureFlags = ["--enable-module-ssh=yes"];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     freerdp
     openssl
@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jmk-foofus/medusa";
     description = "A speedy, parallel, and modular, login brute-forcer";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

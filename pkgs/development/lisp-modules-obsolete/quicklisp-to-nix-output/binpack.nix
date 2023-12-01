@@ -1,14 +1,14 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "binpack";
   version = "20201220-git";
 
-  parasites = [ "binpack/2" ];
+  parasites = ["binpack/2"];
 
   description = "Rectangle packer for sprite/texture atlases";
 
-  deps = [ args."alexandria" ];
+  deps = [args."alexandria"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/binpack/2020-12-20/binpack-20201220-git.tgz";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "binpack";
 
-  asdFilesToKeep = [ "binpack.asd" ];
+  asdFilesToKeep = ["binpack.asd"];
   overrides = x: x;
 }
 /* (SYSTEM binpack DESCRIPTION Rectangle packer for sprite/texture atlases

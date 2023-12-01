@@ -13,18 +13,18 @@ stdenv.mkDerivation rec {
     url = "https://foremost.sourceforge.net/pkg/${pname}-${version}.tar.gz";
   };
 
-  patches = [ ./makefile.patch ];
+  patches = [./makefile.patch];
 
   # -fcommon: Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:
   #   ld: api.o:(.bss+0xbdba0): multiple definition of `wildcard'; main.o:(.bss+0xbd760): first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  makeFlags = [ "PREFIX=$(out)" ] ++ lib.optionals stdenv.isDarwin [ "mac" ];
+  makeFlags = ["PREFIX=$(out)"] ++ lib.optionals stdenv.isDarwin ["mac"];
 
   enableParallelBuilding = true;
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   preInstall = ''
     mkdir -p $out/{bin,share/man/man8}
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://foremost.sourceforge.net/";
     license = licenses.publicDomain;
-    maintainers = [ maintainers.jiegec ];
+    maintainers = [maintainers.jiegec];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

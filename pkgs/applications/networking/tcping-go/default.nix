@@ -21,6 +21,6 @@ buildGoModule {
     description = "Ping over TCP instead of ICMP, written in Go";
     homepage = "https://github.com/cloverstd/tcping";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

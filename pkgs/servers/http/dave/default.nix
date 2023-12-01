@@ -43,6 +43,6 @@ buildGoModule rec {
     homepage = "https://github.com/micromata/dave";
     description = "A totally simple and very easy to configure stand alone webdav server";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lunik1 ];
+    maintainers = with maintainers; [lunik1];
   };
 }

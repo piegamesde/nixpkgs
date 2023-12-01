@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
         | sh
     '';
     # Don't move info to share/
-    forceShare = [ "dummy" ];
+    forceShare = ["dummy"];
     outputHashMode = "recursive";
     # Downloaded jars differ by platform
     outputHash = "sha256-CZf5M3lI7Lz9Pl8U/lNoQ6V6Jxbmkxau8L273XFFS2E=";
@@ -144,9 +144,9 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Decentralised and censorship-resistant network";
     homepage = "https://freenetproject.org/";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ nagy ];
+    maintainers = with lib.maintainers; [nagy];
     platforms = with lib.platforms; linux;
     changelog = "https://github.com/freenet/fred/blob/build${version}/NEWS.md";
   };

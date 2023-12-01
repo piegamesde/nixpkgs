@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
   postFixup = lib.optionalString xenSupport ''
     libvmi="$out/lib/libvmi.so.${libVersion}"
     oldrpath=$(patchelf --print-rpath "$libvmi")
-    patchelf --set-rpath "$oldrpath:${lib.makeLibraryPath [ xen ]}" "$libvmi"
+    patchelf --set-rpath "$oldrpath:${lib.makeLibraryPath [xen]}" "$libvmi"
   '';
 
   meta = with lib; {
@@ -59,6 +59,6 @@ stdenv.mkDerivation rec {
       lgpl3
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
   };
 }

@@ -99,7 +99,7 @@ stdenv.mkDerivation (
       ++ (
         with python3Packages;
         [
-          (apsw.overrideAttrs (oldAttrs: { setupPyBuildFlags = [ "--enable=load_extension" ]; }))
+          (apsw.overrideAttrs (oldAttrs: {setupPyBuildFlags = ["--enable=load_extension"];}))
           beautifulsoup4
           css-parser
           cssselect
@@ -195,7 +195,7 @@ stdenv.mkDerivation (
       done
     '';
 
-    disallowedReferences = [ podofo.dev ];
+    disallowedReferences = [podofo.dev];
 
     meta = {
       homepage = "https://calibre-ebook.com";

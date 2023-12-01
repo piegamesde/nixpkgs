@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-HXkVjdAdmSQx3S4/rLif2slxJ/iXhOosthDGAPsMFIM=";
   };
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   nativeBuildInputs = [
     pkg-config
     texinfo
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
       sqlite
       zlib
     ]
-    ++ lib.optionals withTpm2Tss [ tpm2-tss ];
+    ++ lib.optionals withTpm2Tss [tpm2-tss];
 
   patches = [
     ./fix-libusb-include-path.patch

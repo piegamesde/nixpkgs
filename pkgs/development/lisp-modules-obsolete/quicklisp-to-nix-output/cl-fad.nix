@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-fad";
   version = "20210124-git";
 
-  parasites = [ "cl-fad-test" ];
+  parasites = ["cl-fad-test"];
 
   description = "Portable pathname library";
 
@@ -22,7 +22,7 @@ rec {
 
   packageName = "cl-fad";
 
-  asdFilesToKeep = [ "cl-fad.asd" ];
+  asdFilesToKeep = ["cl-fad.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-fad DESCRIPTION Portable pathname library SHA256

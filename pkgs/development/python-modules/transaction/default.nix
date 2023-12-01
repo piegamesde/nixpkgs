@@ -24,13 +24,13 @@ buildPythonPackage rec {
     mock
   ];
 
-  pythonImportsCheck = [ "transaction" ];
+  pythonImportsCheck = ["transaction"];
 
   meta = with lib; {
     description = "Transaction management";
     homepage = "https://transaction.readthedocs.io/";
     changelog = "https://github.com/zopefoundation/transaction/blob/${version}/CHANGES.rst";
     license = licenses.zpl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

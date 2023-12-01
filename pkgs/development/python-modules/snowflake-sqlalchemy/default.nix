@@ -29,13 +29,13 @@ buildPythonPackage rec {
   # Pypi does not include tests
   doCheck = false;
 
-  pythonImportsCheck = [ "snowflake.sqlalchemy" ];
+  pythonImportsCheck = ["snowflake.sqlalchemy"];
 
   meta = with lib; {
     changelog = "https://github.com/snowflakedb/snowflake-sqlalchemy/blob/v${version}/DESCRIPTION.md";
     description = "Snowflake SQLAlchemy Dialect";
     homepage = "https://github.com/snowflakedb/snowflake-sqlalchemy";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

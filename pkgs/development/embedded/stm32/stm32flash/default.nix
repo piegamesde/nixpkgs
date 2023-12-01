@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xMnNi+x52mOxEdFXE+9cws2UfeykEdNdbjBl4ifcQUo=";
   };
 
-  buildFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  buildFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     # Manually copy, make install copies to /usr/local/bin
@@ -26,6 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/stm32flash/";
     license = lib.licenses.gpl2;
     platforms = platforms.all; # Should work on all platforms
-    maintainers = with maintainers; [ elitak ];
+    maintainers = with maintainers; [elitak];
   };
 }

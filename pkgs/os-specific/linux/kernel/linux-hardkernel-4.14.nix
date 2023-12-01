@@ -6,7 +6,7 @@
   buildLinux,
   libelf,
   util-linux,
-  kernelPatches ? [ ],
+  kernelPatches ? [],
   ...
 }@args:
 
@@ -52,7 +52,7 @@ buildLinux (
       ''
       + (args.extraConfig or "");
 
-    extraMeta.platforms = [ "armv7l-linux" ];
+    extraMeta.platforms = ["armv7l-linux"];
   }
-  // (args.argsOverride or { })
+  // (args.argsOverride or {})
 )

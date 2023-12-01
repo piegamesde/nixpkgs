@@ -23,17 +23,17 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   # No tests included
   doCheck = false;
 
-  pythonImportsCheck = [ "elevate" ];
+  pythonImportsCheck = ["elevate"];
 
   meta = with lib; {
     description = "Python module for re-launching the current process as super-user";
     homepage = "https://github.com/barneygale/elevate";
     license = licenses.mit;
-    maintainers = with maintainers; [ rkitover ];
+    maintainers = with maintainers; [rkitover];
   };
 }

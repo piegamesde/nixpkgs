@@ -28,6 +28,6 @@ stdenvNoCC.mkDerivation rec {
     description = "The typeface used in Edward Tufte’s books.";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ jethro ];
+    maintainers = with maintainers; [jethro];
   };
 }

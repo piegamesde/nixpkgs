@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-P00oxUz0oVQB969c/N2wpKLe09wtvQWPH4DH4EZUaxc=";
   };
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
   propagatedBuildInputs = [
     arrow
@@ -44,6 +44,6 @@ buildPythonPackage rec {
     description = "Python library for interacting with Strava v3 REST API";
     homepage = "https://github.com/stravalib/stravalib";
     license = licenses.asl20;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

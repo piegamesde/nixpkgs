@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "8bf0d570f01e70a6e124884088870cbed7537f36328d512909eb10cd53179d9c";
   };
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   configureLocal = ''
     MANPATH_DEFAULT="/run/current-system/sw/share/man"
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
   checkTarget = "regress";
-  nativeCheckInputs = [ perl ];
+  nativeCheckInputs = [perl];
   preCheck = "patchShebangs --build regress/regress.pl";
 
   passthru.tests = {

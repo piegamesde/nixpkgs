@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "1blzyh1646955d580f71slgdvz0nqx0qacryx0jc9w02yrag17cs";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     qt4
     qscintilla-qt4
@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     homepage = "http://sqliteman.yarpen.cz/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.eikek ];
+    maintainers = [maintainers.eikek];
   };
 }

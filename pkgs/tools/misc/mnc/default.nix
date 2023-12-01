@@ -22,6 +22,6 @@ buildGoModule rec {
     homepage = "https://git.sr.ht/~anjan/mnc";
     license = licenses.unlicense;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ wentam ];
+    maintainers = with maintainers; [wentam];
   };
 }

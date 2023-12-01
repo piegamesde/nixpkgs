@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-syslog";
   version = "20190202-git";
@@ -24,7 +24,7 @@ rec {
 
   packageName = "cl-syslog";
 
-  asdFilesToKeep = [ "cl-syslog.asd" ];
+  asdFilesToKeep = ["cl-syslog.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-syslog DESCRIPTION Common Lisp syslog interface. SHA256

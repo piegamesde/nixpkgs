@@ -107,14 +107,14 @@ let
         in
         flatten (mapAttrsToList mkSublist attrs);
     in
-    all (x: x == null) (findPkiDefinitions [ ] manualPkiOptions);
+    all (x: x == null) (findPkiDefinitions [] manualPkiOptions);
 
   orgOptions =
-    { ... }:
+    {...}:
     {
       options.users = mkOption {
         type = types.uniq (types.listOf types.str);
-        default = [ ];
+        default = [];
         example = [
           "alice"
           "bob"
@@ -126,7 +126,7 @@ let
 
       options.groups = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "workers"
           "slackers"
@@ -144,7 +144,7 @@ let
     buildPythonApplication {
       name = "nixos-taskserver";
 
-      src = pkgs.runCommand "nixos-taskserver-src" { preferLocalBuild = true; } ''
+      src = pkgs.runCommand "nixos-taskserver-src" {preferLocalBuild = true;} ''
         mkdir -p "$out"
         cat "${
           pkgs.substituteAll {
@@ -171,7 +171,7 @@ let
         EOF
       '';
 
-      propagatedBuildInputs = [ click ];
+      propagatedBuildInputs = [click];
     };
 in
 {
@@ -226,7 +226,7 @@ in
 
       organisations = mkOption {
         type = types.attrsOf (types.submodule orgOptions);
-        default = { };
+        default = {};
         example.myShinyOrganisation.users = [
           "alice"
           "bob"
@@ -297,8 +297,8 @@ in
 
       allowedClientIDs = mkOption {
         type = with types; either str (listOf str);
-        default = [ ];
-        example = [ "[Tt]ask [2-9]+" ];
+        default = [];
+        example = ["[Tt]ask [2-9]+"];
         description = lib.mdDoc ''
           A list of regular expressions that are matched against the reported
           client id (such as `task 2.3.0`).
@@ -311,8 +311,8 @@ in
 
       disallowedClientIDs = mkOption {
         type = with types; either str (listOf str);
-        default = [ ];
-        example = [ "[Tt]ask [2-9]+" ];
+        default = [];
+        example = ["[Tt]ask [2-9]+"];
         description = lib.mdDoc ''
           A list of regular expressions that are matched against the reported
           client id (such as `task 2.3.0`).
@@ -413,7 +413,7 @@ in
                 mapper =
                   name: val:
                   let
-                    newPath = path ++ [ name ];
+                    newPath = path ++ [name];
                     scalar =
                       if val == true then
                         "true"
@@ -422,11 +422,11 @@ in
                       else
                         toString val;
                   in
-                  if isAttrs val then recurse newPath val else [ "${mkKey newPath}=${scalar}" ];
+                  if isAttrs val then recurse newPath val else ["${mkKey newPath}=${scalar}"];
               in
               concatLists (mapAttrsToList mapper attrs);
           in
-          recurse [ ];
+          recurse [];
       };
     };
   };
@@ -451,7 +451,7 @@ in
 
   config = mkMerge [
     (mkIf cfg.enable {
-      environment.systemPackages = [ nixos-taskserver ];
+      environment.systemPackages = [nixos-taskserver];
 
       users.users = optionalAttrs (cfg.user == "taskd") {
         taskd = {
@@ -461,7 +461,7 @@ in
         };
       };
 
-      users.groups = optionalAttrs (cfg.group == "taskd") { taskd.gid = config.ids.gids.taskd; };
+      users.groups = optionalAttrs (cfg.group == "taskd") {taskd.gid = config.ids.gids.taskd;};
 
       services.taskserver.config = {
         # systemd related
@@ -508,8 +508,8 @@ in
       };
 
       systemd.services.taskserver-init = {
-        wantedBy = [ "taskserver.service" ];
-        before = [ "taskserver.service" ];
+        wantedBy = ["taskserver.service"];
+        before = ["taskserver.service"];
         description = "Initialize Taskserver Data Directory";
 
         preStart = ''
@@ -538,8 +538,8 @@ in
       systemd.services.taskserver = {
         description = "Taskwarrior Server";
 
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
 
         environment.TASKDDATA = cfg.dataDir;
 
@@ -570,9 +570,9 @@ in
     })
     (mkIf (cfg.enable && needToCreateCA) {
       systemd.services.taskserver-ca = {
-        wantedBy = [ "taskserver.service" ];
-        after = [ "taskserver-init.service" ];
-        before = [ "taskserver.service" ];
+        wantedBy = ["taskserver.service"];
+        after = ["taskserver-init.service"];
+        before = ["taskserver.service"];
         description = "Initialize CA for TaskServer";
         serviceConfig.Type = "oneshot";
         serviceConfig.UMask = "0077";
@@ -652,9 +652,7 @@ in
         '';
       };
     })
-    (mkIf (cfg.enable && cfg.openFirewall) {
-      networking.firewall.allowedTCPPorts = [ cfg.listenPort ];
-    })
+    (mkIf (cfg.enable && cfg.openFirewall) {networking.firewall.allowedTCPPorts = [cfg.listenPort];})
   ];
 
   meta.doc = ./default.md;

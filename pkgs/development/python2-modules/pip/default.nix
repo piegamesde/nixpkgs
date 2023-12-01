@@ -23,11 +23,11 @@ buildPythonPackage rec {
     name = "${pname}-${version}-source";
   };
 
-  nativeBuildInputs = [ bootstrapped-pip ];
+  nativeBuildInputs = [bootstrapped-pip];
 
   # pip detects that we already have bootstrapped_pip "installed", so we need
   # to force it a little.
-  pipInstallFlags = [ "--ignore-installed" ];
+  pipInstallFlags = ["--ignore-installed"];
 
   nativeCheckInputs = [
     mock
@@ -41,7 +41,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "The PyPA recommended tool for installing Python packages";
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     homepage = "https://pip.pypa.io/";
     priority = 10;
   };

@@ -10,14 +10,14 @@ with lib;
 
 let
   cfg = config.services.matrix-synapse;
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
 
   # remove null values from the final configuration
   finalSettings = lib.filterAttrsRecursive (_: v: v != null) cfg.settings;
   configFile = format.generate "homeserver.yaml" finalSettings;
   logConfigFile = format.generate "log_config.yaml" cfg.logConfig;
 
-  pluginsEnv = cfg.package.python.buildEnv.override { extraLibs = cfg.plugins; };
+  pluginsEnv = cfg.package.python.buildEnv.override {extraLibs = cfg.plugins;};
 
   usePostgresql = cfg.settings.database.name == "psycopg2";
   hasLocalPostgresDB =
@@ -46,13 +46,13 @@ let
       # don't rely on lib.last, this will not work.
 
       # add a tail, so that without any bind_addresses we still have a useable address
-      bindAddress = head (listener.bind_addresses ++ [ "127.0.0.1" ]);
+      bindAddress = head (listener.bind_addresses ++ ["127.0.0.1"]);
       listenerProtocol = if listener.tls then "https" else "http";
     in
     pkgs.writeShellScriptBin "matrix-synapse-register_new_matrix_user" ''
       exec ${cfg.package}/bin/register_new_matrix_user \
         $@ \
-        ${lib.concatMapStringsSep " " (x: "-c ${x}") ([ configFile ] ++ cfg.extraConfigFiles)} \
+        ${lib.concatMapStringsSep " " (x: "-c ${x}") ([configFile] ++ cfg.extraConfigFiles)} \
         "${listenerProtocol}://${
           if (isIpv6 bindAddress) then "[${bindAddress}]" else "${bindAddress}"
         }:${builtins.toString listener.port}/"
@@ -592,7 +592,7 @@ in
 
       plugins = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         example = literalExpression ''
           with config.services.matrix-synapse.package.plugins; [
             matrix-synapse-ldap3
@@ -622,7 +622,7 @@ in
       };
 
       settings = mkOption {
-        default = { };
+        default = {};
         description = mdDoc ''
           The primary synapse configuration. See the
           [sample configuration](https://github.com/matrix-org/synapse/blob/v${cfg.package.version}/docs/sample_config.yaml)
@@ -866,7 +866,7 @@ in
                                 description = lib.mdDoc ''
                                   List of resources to host on this listener.
                                 '';
-                                example = [ "client" ];
+                                example = ["client"];
                               };
                               compress = mkOption {
                                 type = types.bool;
@@ -889,17 +889,17 @@ in
                 default = [
                   {
                     port = 8008;
-                    bind_addresses = [ "127.0.0.1" ];
+                    bind_addresses = ["127.0.0.1"];
                     type = "http";
                     tls = false;
                     x_forwarded = true;
                     resources = [
                       {
-                        names = [ "client" ];
+                        names = ["client"];
                         compress = true;
                       }
                       {
-                        names = [ "federation" ];
+                        names = ["federation"];
                         compress = false;
                       }
                     ];
@@ -1008,7 +1008,7 @@ in
 
               url_preview_ip_range_whitelist = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
+                default = [];
                 description = lib.mdDoc ''
                   List of IP address CIDR ranges that the URL preview spider is allowed
                   to access even if they are specified in url_preview_ip_range_blacklist.
@@ -1017,7 +1017,7 @@ in
 
               url_preview_url_blacklist = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
+                default = [];
                 description = lib.mdDoc ''
                   Optional list of URL matches that the URL preview spider is
                   denied from accessing.
@@ -1057,7 +1057,7 @@ in
 
               turn_uris = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
+                default = [];
                 example = [
                   "turn:turn.example.com:3487?transport=udp"
                   "turn:turn.example.com:3487?transport=tcp"
@@ -1126,7 +1126,7 @@ in
 
               app_service_config_files = mkOption {
                 type = types.listOf types.path;
-                default = [ ];
+                default = [];
                 description = lib.mdDoc ''
                   A list of application service config file to use
                 '';
@@ -1137,7 +1137,7 @@ in
 
       extraConfigFiles = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Extra config files to include.
 
@@ -1187,8 +1187,8 @@ in
 
     systemd.services.matrix-synapse = {
       description = "Synapse Matrix homeserver";
-      after = [ "network.target" ] ++ optional hasLocalPostgresDB "postgresql.service";
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"] ++ optional hasLocalPostgresDB "postgresql.service";
+      wantedBy = ["multi-user.target"];
       preStart = ''
         ${cfg.package}/bin/synapse_homeserver \
           --config-path ${configFile} \
@@ -1196,8 +1196,8 @@ in
           --generate-keys
       '';
       environment = {
-        PYTHONPATH = makeSearchPathOutput "lib" cfg.package.python.sitePackages [ pluginsEnv ];
-      } // optionalAttrs (cfg.withJemalloc) { LD_PRELOAD = "${pkgs.jemalloc}/lib/libjemalloc.so"; };
+        PYTHONPATH = makeSearchPathOutput "lib" cfg.package.python.sitePackages [pluginsEnv];
+      } // optionalAttrs (cfg.withJemalloc) {LD_PRELOAD = "${pkgs.jemalloc}/lib/libjemalloc.so";};
       serviceConfig = {
         Type = "notify";
         User = "matrix-synapse";
@@ -1214,9 +1214,7 @@ in
         ];
         ExecStart = ''
           ${cfg.package}/bin/synapse_homeserver \
-            ${
-              concatMapStringsSep "\n  " (x: "--config-path ${x} \\") ([ configFile ] ++ cfg.extraConfigFiles)
-            }
+            ${concatMapStringsSep "\n  " (x: "--config-path ${x} \\") ([configFile] ++ cfg.extraConfigFiles)}
             --keys-directory ${cfg.dataDir}
         '';
         ExecReload = "${pkgs.util-linux}/bin/kill -HUP $MAINPID";
@@ -1225,7 +1223,7 @@ in
 
         # Security Hardening
         # Refer to systemd.exec(5) for option descriptions.
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         LockPersonality = true;
         NoNewPrivileges = true;
         PrivateDevices = true;
@@ -1241,7 +1239,7 @@ in
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
         ProtectSystem = "strict";
-        ReadWritePaths = [ cfg.dataDir ];
+        ReadWritePaths = [cfg.dataDir];
         RemoveIPC = true;
         RestrictAddressFamilies = [
           "AF_INET"
@@ -1260,7 +1258,7 @@ in
       };
     };
 
-    environment.systemPackages = [ registerNewMatrixUser ];
+    environment.systemPackages = [registerNewMatrixUser];
   };
 
   meta = {

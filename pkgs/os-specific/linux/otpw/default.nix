@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     libxcrypt
   ];
 
-  hardeningDisable = [ "stackprotector" ];
+  hardeningDisable = ["stackprotector"];
 
   meta = {
     homepage = "http://www.cl.cam.ac.uk/~mgk25/otpw.html";

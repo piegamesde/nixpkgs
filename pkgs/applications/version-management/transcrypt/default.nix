@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "1dkr69plk16wllk5bzlkchrzw63pk239dgbjhrb3mb61i065jdam";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     git
     openssl
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     gawk
   ];
 
-  patches = [ ./helper-scripts_depspathprefix.patch ];
+  patches = [./helper-scripts_depspathprefix.patch];
 
   installPhase = ''
     install -m 755 -D transcrypt $out/bin/transcrypt
@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/elasticdog/transcrypt";
     license = licenses.mit;
-    maintainers = [ maintainers.elasticdog ];
+    maintainers = [maintainers.elasticdog];
     platforms = platforms.all;
   };
 }

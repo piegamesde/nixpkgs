@@ -53,7 +53,7 @@ buildPythonPackage rec {
       --replace "path = None" 'path = os.environ["PATH"] + ":${lib.makeBinPath compression-utilities}"'
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ compression-utilities;
+  nativeCheckInputs = [pytestCheckHook] ++ compression-utilities;
 
   disabledTests = [
     "test_unzip"
@@ -66,6 +66,6 @@ buildPythonPackage rec {
     description = "portable archive file manager";
     homepage = "https://wummel.github.io/patool/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ marius851000 ];
+    maintainers = with maintainers; [marius851000];
   };
 }

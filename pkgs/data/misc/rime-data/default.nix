@@ -16,10 +16,10 @@ stdenv.mkDerivation {
     sha256 = "sha256-D7rPUxcB3QkCtisfBLHPiqfgL5lqmxjSiuEcpE63elw=";
   };
 
-  buildInputs = [ librime ];
+  buildInputs = [librime];
 
-  buildFlags = [ "all" ];
-  makeFlags = [ "PREFIX=$(out)" ];
+  buildFlags = ["all"];
+  makeFlags = ["PREFIX=$(out)"];
 
   preBuild = import ./fetchSchema.nix fetchFromGitHub;
 
@@ -66,6 +66,6 @@ stdenv.mkDerivation {
       # rime-cantonese
       cc-by-40
     ];
-    maintainers = with maintainers; [ pmy ];
+    maintainers = with maintainers; [pmy];
   };
 }

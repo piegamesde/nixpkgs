@@ -35,11 +35,11 @@ buildPythonPackage rec {
     cargoSetupHook
   ];
 
-  buildInputs = [ libiconv ];
+  buildInputs = [libiconv];
 
-  pythonImportsCheck = [ "rtoml" ];
+  pythonImportsCheck = ["rtoml"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     cd tests
@@ -49,6 +49,6 @@ buildPythonPackage rec {
     description = "Rust based TOML library for Python";
     homepage = "https://github.com/samuelcolvin/rtoml";
     license = licenses.mit;
-    maintainers = with maintainers; [ evils ];
+    maintainers = with maintainers; [evils];
   };
 }

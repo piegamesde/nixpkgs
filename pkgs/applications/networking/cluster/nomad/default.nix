@@ -28,7 +28,7 @@ let
         pname = "nomad";
         inherit version vendorSha256;
 
-        subPackages = [ "." ];
+        subPackages = ["."];
 
         src = fetchFromGitHub {
           owner = "hashicorp";
@@ -40,7 +40,7 @@ let
         # ui:
         #  Nomad release commits include the compiled version of the UI, but the file
         #  is only included if we build with the ui tag.
-        tags = [ "ui" ];
+        tags = ["ui"];
 
         meta = with lib; {
           homepage = "https://www.nomadproject.io/";

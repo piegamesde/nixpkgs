@@ -22,7 +22,7 @@ buildGoModule {
 
   vendorHash = "sha256-/BINHOlRmAfOIXY9x5VjnQwIc87Mt2TAvBE1tPq6W80=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   checkPhase = ''
     go test $(go list ./... | grep -v client)

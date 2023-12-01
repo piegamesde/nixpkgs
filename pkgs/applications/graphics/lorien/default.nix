@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
         "Graphics"
         "Office"
       ];
-      keywords = [ "whiteboard" ];
+      keywords = ["whiteboard"];
     })
   ];
 
@@ -126,6 +126,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ hqurve ];
+    maintainers = with maintainers; [hqurve];
   };
 }

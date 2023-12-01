@@ -25,7 +25,7 @@ in
 
       bundles = mkOption {
         type = types.listOf types.package;
-        default = [ pkgs.felix_remoteshell ];
+        default = [pkgs.felix_remoteshell];
         defaultText = literalExpression "[ pkgs.felix_remoteshell ]";
         description = lib.mdDoc "List of bundles that should be activated on startup";
       };
@@ -57,7 +57,7 @@ in
 
     systemd.services.felix = {
       description = "Felix server";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         # Initialise felix instance on first startup

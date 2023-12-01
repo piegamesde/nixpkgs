@@ -34,15 +34,15 @@ buildPythonPackage rec {
     async-timeout
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "synology_dsm" ];
+  pythonImportsCheck = ["synology_dsm"];
 
   meta = with lib; {
     description = "Python API for Synology DSM";
     homepage = "https://github.com/mib1185/py-synologydsm-api";
     changelog = "https://github.com/mib1185/py-synologydsm-api/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ uvnikita ];
+    maintainers = with maintainers; [uvnikita];
   };
 }

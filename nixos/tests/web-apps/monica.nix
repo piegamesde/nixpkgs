@@ -1,7 +1,7 @@
 import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
-    cert = pkgs.runCommand "selfSignedCerts" { nativeBuildInputs = [ pkgs.openssl ]; } ''
+    cert = pkgs.runCommand "selfSignedCerts" {nativeBuildInputs = [pkgs.openssl];} ''
       openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -subj '/CN=localhost' -days 36500
       mkdir -p $out
       cp key.pem cert.pem $out
@@ -12,7 +12,7 @@ import ../make-test-python.nix (
 
     nodes = {
       machine =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           services.monica = {
             enable = true;

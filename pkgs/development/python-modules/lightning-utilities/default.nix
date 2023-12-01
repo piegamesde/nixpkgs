@@ -27,14 +27,14 @@ buildPythonPackage rec {
     hash = "sha256-uwmX+/SK2zBkZQbN/t/DZ3i+XbdAJ/RM+Q649QwMUz0=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     packaging
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "lightning_utilities" ];
+  pythonImportsCheck = ["lightning_utilities"];
 
   nativeCheckInputs = [
     pytest-timeout
@@ -69,6 +69,6 @@ buildPythonPackage rec {
     description = "Common Python utilities and GitHub Actions in Lightning Ecosystem";
     homepage = "https://github.com/Lightning-AI/utilities";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

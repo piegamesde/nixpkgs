@@ -36,8 +36,8 @@ let
         homepage = "https://tomcat.apache.org/";
         description = "An implementation of the Java Servlet and JavaServer Pages technologies";
         platforms = platforms.all;
-        maintainers = [ ];
-        license = [ licenses.asl20 ];
+        maintainers = [];
+        license = [licenses.asl20];
       };
     });
 in

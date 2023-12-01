@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     libkeyfinder
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   enableParallelBuilding = true;
 

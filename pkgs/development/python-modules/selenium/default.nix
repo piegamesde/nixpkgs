@@ -43,7 +43,7 @@ buildPythonPackage rec {
     urllib3
   ] ++ urllib3.optional-dependencies.socks;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   passthru.tests = {
     testing-vaultwarden = nixosTests.vaultwarden;

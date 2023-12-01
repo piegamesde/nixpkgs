@@ -32,7 +32,7 @@ let
       args = lib.fix (
         lib.extends
           (_: previousAttrs: {
-            passthru = (previousAttrs.passthru or { }) // {
+            passthru = (previousAttrs.passthru or {}) // {
               overridePythonAttrs = newArgs: makeOverridablePythonPackage f (overrideWith newArgs);
             };
           })
@@ -81,9 +81,7 @@ let
     let
       modules = lib.filter hasPythonModule drvs;
     in
-    lib.unique (
-      [ python ] ++ modules ++ lib.concatLists (lib.catAttrs "requiredPythonModules" modules)
-    );
+    lib.unique ([python] ++ modules ++ lib.concatLists (lib.catAttrs "requiredPythonModules" modules));
 
   # Create a PYTHONPATH from a list of derivations. This function recurses into the items to find derivations
   # providing Python modules.
@@ -97,9 +95,9 @@ let
     drv.overrideAttrs (
       oldAttrs: {
         # Use passthru in order to prevent rebuilds when possible.
-        passthru = (oldAttrs.passthru or { }) // {
+        passthru = (oldAttrs.passthru or {}) // {
           pythonModule = python;
-          pythonPath = [ ]; # Deprecated, for compatibility.
+          pythonPath = []; # Deprecated, for compatibility.
           requiredPythonModules = requiredPythonModules drv.propagatedBuildInputs;
         };
       }
@@ -110,7 +108,7 @@ let
     drv:
     drv.overrideAttrs (
       oldAttrs: {
-        passthru = (oldAttrs.passthru or { }) // {
+        passthru = (oldAttrs.passthru or {}) // {
           # Remove Python prefix from name so we have a "normal" name.
           # While the prefix shows up in the store path, it won't be
           # used by `nix-env`.
@@ -161,6 +159,6 @@ in
 
   # Remove?
   recursivePthLoader = toPythonModule (
-    callPackage ../../../development/python-modules/recursive-pth-loader { }
+    callPackage ../../../development/python-modules/recursive-pth-loader {}
   );
 }

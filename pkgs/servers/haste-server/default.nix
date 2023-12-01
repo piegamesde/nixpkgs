@@ -63,6 +63,6 @@ stdenv.mkDerivation rec {
     description = "open source pastebin written in node.js";
     homepage = "https://www.toptal.com/developers/hastebin/about.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
   };
 }

@@ -33,7 +33,7 @@ let
       jdk
       maven
     ];
-    buildInputs = [ jre ];
+    buildInputs = [jre];
 
     buildPhase = ''
       while mvn -Plinux package -Dmaven.test.skip=true -Dmaven.repo.local=$out/.m2 -Dmaven.wagon.rto=5000; [ $? = 1 ]; do
@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
           glib
         ]
       }" \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ fuse ]}" \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [fuse]}" \
       --set JAVA_HOME "${jre.home}"
 
     # install desktop entry and icons
@@ -136,7 +136,7 @@ stdenv.mkDerivation rec {
       binaryBytecode # deps
     ];
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ bachp ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [bachp];
+    platforms = ["x86_64-linux"];
   };
 }

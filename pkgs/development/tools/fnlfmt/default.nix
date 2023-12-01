@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Q7nQjmEHwdu3qRdLK68aKg7es5okVz9FCoR7INzh/xk=";
   };
 
-  nativeBuildInputs = [ luaPackages.fennel ];
+  nativeBuildInputs = [luaPackages.fennel];
 
-  buildInputs = [ lua ];
+  buildInputs = [lua];
 
   buildPhase = ''
     runHook preBuild
@@ -42,6 +42,6 @@ stdenv.mkDerivation rec {
     homepage = "https://git.sr.ht/~technomancy/fnlfmt";
     license = licenses.lgpl3Plus;
     platforms = lua.meta.platforms;
-    maintainers = with maintainers; [ chiroptical ];
+    maintainers = with maintainers; [chiroptical];
   };
 }

@@ -1,8 +1,8 @@
 {
   system ? builtins.currentSystem,
-  pkgs ? import ../../.. { inherit system; },
+  pkgs ? import ../../.. {inherit system;},
 }:
-with import ./base.nix { inherit system; };
+with import ./base.nix {inherit system;};
 let
   domain = "my.zyx";
 
@@ -56,13 +56,13 @@ let
     tag = "latest";
     copyToRoot = pkgs.buildEnv {
       name = "image-root";
-      pathsToLink = [ "/bin" ];
+      pathsToLink = ["/bin"];
       paths = [
         pkgs.redis
         pkgs.bind.host
       ];
     };
-    config.Entrypoint = [ "/bin/redis-server" ];
+    config.Entrypoint = ["/bin/redis-server"];
   };
 
   probePod = pkgs.writeText "probe-pod.json" (
@@ -75,7 +75,7 @@ let
         {
           name = "probe";
           image = "probe";
-          args = [ "-f" ];
+          args = ["-f"];
           tty = true;
           imagePullPolicy = "Never";
         }
@@ -88,13 +88,13 @@ let
     tag = "latest";
     copyToRoot = pkgs.buildEnv {
       name = "image-root";
-      pathsToLink = [ "/bin" ];
+      pathsToLink = ["/bin"];
       paths = [
         pkgs.bind.host
         pkgs.busybox
       ];
     };
-    config.Entrypoint = [ "/bin/tail" ];
+    config.Entrypoint = ["/bin/tail"];
   };
 
   extraConfiguration =
@@ -105,7 +105,7 @@ let
       ...
     }:
     {
-      environment.systemPackages = [ pkgs.bind.host ];
+      environment.systemPackages = [pkgs.bind.host];
       services.dnsmasq.enable = true;
       services.dnsmasq.settings.server = [
         "/cluster.local/${config.services.kubernetes.addons.dns.clusterIp}#53"

@@ -17,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-TzMo31jFhcvlrmq2TJgQyds9n8eATaChnyhnQ7bwdzs=";
   };
 
-  buildInputs = [ django ];
+  buildInputs = [django];
 
-  pythonImportsCheck = [ "jquery" ];
+  pythonImportsCheck = ["jquery"];
 
   doCheck = false; # no tests
 
@@ -27,6 +27,6 @@ buildPythonPackage rec {
     description = "jQuery, bundled up so apps can depend upon it";
     homepage = "https://bitbucket.org/tim_heap/django-jquery";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

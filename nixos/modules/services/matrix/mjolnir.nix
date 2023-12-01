@@ -30,9 +30,9 @@ let
   };
 
   moduleConfigFile = pkgs.writeText "module-config.yaml" (
-    generators.toYAML { } (
+    generators.toYAML {} (
       filterAttrs (_: v: v != null) (
-        fold recursiveUpdate { } [
+        fold recursiveUpdate {} [
           yamlConfig
           cfg.settings
         ]
@@ -106,7 +106,7 @@ in
 
         This will create a `pantalaimon` instance with the name "mjolnir".
       '';
-      default = { };
+      default = {};
       type = types.submodule {
         options = {
           enable = mkEnableOption (
@@ -131,7 +131,7 @@ in
 
           options = mkOption {
             type = types.submodule (import ./pantalaimon-options.nix);
-            default = { };
+            default = {};
             description = lib.mdDoc ''
               passthrough additional options to the `pantalaimon` service.
             '';
@@ -161,7 +161,7 @@ in
 
     protectedRooms = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = literalExpression ''
         [
           "https://matrix.to/#/#yourroom:example.org"
@@ -174,8 +174,8 @@ in
     };
 
     settings = mkOption {
-      default = { };
-      type = (pkgs.formats.yaml { }).type;
+      default = {};
+      type = (pkgs.formats.yaml {}).type;
       example = literalExpression ''
         {
           autojoinOnlyIfManager = true;
@@ -205,21 +205,21 @@ in
     ];
 
     services.pantalaimon-headless.instances."mjolnir" =
-      mkIf cfg.pantalaimon.enable { homeserver = cfg.homeserverUrl; } // cfg.pantalaimon.options;
+      mkIf cfg.pantalaimon.enable {homeserver = cfg.homeserverUrl;} // cfg.pantalaimon.options;
 
     systemd.services.mjolnir = {
       description = "mjolnir - a moderation tool for Matrix";
       wants = [
         "network-online.target"
-      ] ++ optionals (cfg.pantalaimon.enable) [ "pantalaimon-mjolnir.service" ];
+      ] ++ optionals (cfg.pantalaimon.enable) ["pantalaimon-mjolnir.service"];
       after = [
         "network-online.target"
-      ] ++ optionals (cfg.pantalaimon.enable) [ "pantalaimon-mjolnir.service" ];
-      wantedBy = [ "multi-user.target" ];
+      ] ++ optionals (cfg.pantalaimon.enable) ["pantalaimon-mjolnir.service"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = "${pkgs.mjolnir}/bin/mjolnir";
-        ExecStartPre = [ generateConfig ];
+        ExecStartPre = [generateConfig];
         WorkingDirectory = cfg.dataPath;
         StateDirectory = "mjolnir";
         StateDirectoryMode = "0700";
@@ -249,12 +249,12 @@ in
         group = "mjolnir";
         isSystemUser = true;
       };
-      groups.mjolnir = { };
+      groups.mjolnir = {};
     };
   };
 
   meta = {
     doc = ./mjolnir.md;
-    maintainers = with maintainers; [ jojosch ];
+    maintainers = with maintainers; [jojosch];
   };
 }

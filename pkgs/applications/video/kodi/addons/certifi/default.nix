@@ -34,7 +34,7 @@ buildKodiAddon rec {
 
   passthru = {
     pythonPath = "lib";
-    updateScript = addonUpdateScript { attrPath = "kodi.packages.certifi"; };
+    updateScript = addonUpdateScript {attrPath = "kodi.packages.certifi";};
   };
 
   meta = with lib; {

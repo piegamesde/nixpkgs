@@ -49,7 +49,7 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    tunnel = [ pytap2 ];
+    tunnel = [pytap2];
   };
 
   nativeCheckInputs = [
@@ -61,7 +61,7 @@ buildPythonPackage rec {
     export PATH="$PATH:$out/bin";
   '';
 
-  pythonImportsCheck = [ "meshtastic" ];
+  pythonImportsCheck = ["meshtastic"];
 
   disabledTests = [
     # AttributeError: 'HardwareMessage'...
@@ -113,7 +113,7 @@ buildPythonPackage rec {
     description = "Python API for talking to Meshtastic devices";
     homepage = "https://github.com/meshtastic/Meshtastic-python";
     changelog = "https://github.com/meshtastic/python/releases/tag/${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

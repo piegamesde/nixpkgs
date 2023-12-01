@@ -25,8 +25,8 @@ buildFishPlugin rec {
   # and https://github.com/pure-fish/pure/pull/275.
   doCheck = false;
 
-  nativeCheckInputs = [ git ];
-  checkPlugins = [ fishtape ];
+  nativeCheckInputs = [git];
+  checkPlugins = [fishtape];
   checkPhase = ''
     # https://github.com/rafaelrinaldi/pure/issues/264
     rm tests/_pure_string_width.test.fish
@@ -38,6 +38,6 @@ buildFishPlugin rec {
     description = "Pretty, minimal and fast Fish prompt, ported from zsh";
     homepage = "https://github.com/rafaelrinaldi/pure";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pacien ];
+    maintainers = with lib.maintainers; [pacien];
   };
 }

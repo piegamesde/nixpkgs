@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "1syli6i5ma10cwzpa61a18pyjmianjwsf6pvmvzsh5md6yk4yx01";
   };
 
-  patches = [ ./gcc-0.8.patch ];
+  patches = [./gcc-0.8.patch];
 
   buildInputs = [
     glib

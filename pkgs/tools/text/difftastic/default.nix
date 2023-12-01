@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage rec {
       -p1 < ${mimallocPatch}
   '';
 
-  passthru.tests.version = testers.testVersion { package = difftastic; };
+  passthru.tests.version = testers.testVersion {package = difftastic;};
 
   meta = with lib; {
     description = "A syntax-aware diff";

@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     db
     cyrus_sasl
     zlib
-  ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  ] ++ lib.optionals stdenv.isDarwin [Security];
 
   meta = with lib; {
     homepage = "http://isync.sourceforge.net/";

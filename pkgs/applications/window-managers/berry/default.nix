@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
       comment = meta.description;
       desktopName = "Berry Window Manager";
       genericName = "Berry Window Manager";
-      categories = [ "Utility" ];
+      categories = ["Utility"];
     })
   ];
 
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
       - Virtual desktops.
     '';
     license = licenses.mit;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     platforms = platforms.linux;
   };
 }

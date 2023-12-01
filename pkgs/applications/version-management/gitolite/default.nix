@@ -26,8 +26,8 @@ stdenv.mkDerivation rec {
     nettools
     perl
   ];
-  nativeBuildInputs = [ makeWrapper ];
-  propagatedBuildInputs = [ git ];
+  nativeBuildInputs = [makeWrapper];
+  propagatedBuildInputs = [git];
 
   dontBuild = true;
 
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       --prefix PATH : ${
         lib.makeBinPath [
           git
-          (perl.withPackages (p: [ p.JSON ]))
+          (perl.withPackages (p: [p.JSON]))
         ]
       }
   '';

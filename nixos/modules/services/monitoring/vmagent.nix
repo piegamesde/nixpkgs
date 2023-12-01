@@ -7,7 +7,7 @@
 with lib;
 let
   cfg = config.services.vmagent;
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
 in
 {
   options.services.vmagent = {
@@ -55,7 +55,7 @@ in
     };
 
     prometheusConfig = mkOption {
-      type = lib.types.submodule { freeformType = settingsFormat.type; };
+      type = lib.types.submodule {freeformType = settingsFormat.type;};
       description = lib.mdDoc ''
         Config for prometheus style metrics
       '';
@@ -71,7 +71,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    users.groups = mkIf (cfg.group == "vmagent") { vmagent = { }; };
+    users.groups = mkIf (cfg.group == "vmagent") {vmagent = {};};
 
     users.users = mkIf (cfg.user == "vmagent") {
       vmagent = {
@@ -82,15 +82,15 @@ in
       };
     };
 
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ 8429 ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [8429];
 
     systemd.services.vmagent =
       let
         prometheusConfig = settingsFormat.generate "prometheusConfig.yaml" cfg.prometheusConfig;
       in
       {
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
         description = "vmagent system service";
         serviceConfig = {
           User = cfg.user;
@@ -102,6 +102,6 @@ in
         };
       };
 
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0755 ${cfg.user} ${cfg.group} -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.dataDir}' 0755 ${cfg.user} ${cfg.group} -"];
   };
 }

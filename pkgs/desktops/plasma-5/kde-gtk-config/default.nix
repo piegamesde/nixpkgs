@@ -48,7 +48,7 @@ mkDerivation {
   ];
   # The gtkconfig KDED module will crash the daemon if the GSettings schemas
   # aren't found.
-  patches = [ ./0001-gsettings-schemas-path.patch ];
+  patches = [./0001-gsettings-schemas-path.patch];
   preConfigure = ''
     NIX_CFLAGS_COMPILE+=" -DGSETTINGS_SCHEMAS_PATH=\"$GSETTINGS_SCHEMAS_PATH\""
   '';

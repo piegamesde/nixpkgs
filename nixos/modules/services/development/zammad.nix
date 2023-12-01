@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.services.zammad;
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   filterNull = filterAttrs (_: v: v != null);
   serviceConfig = {
     Type = "simple";
@@ -144,7 +144,7 @@ in
 
         settings = mkOption {
           type = settingsFormat.type;
-          default = { };
+          default = {};
           example = literalExpression ''
             {
             }
@@ -216,7 +216,7 @@ in
       group = "zammad";
     };
 
-    users.groups.zammad = { };
+    users.groups.zammad = {};
 
     assertions = [
       {
@@ -232,7 +232,7 @@ in
     services.mysql = optionalAttrs (cfg.database.createLocally && cfg.database.type == "MySQL") {
       enable = true;
       package = mkDefault pkgs.mariadb;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -247,7 +247,7 @@ in
       optionalAttrs (cfg.database.createLocally && cfg.database.type == "PostgreSQL")
         {
           enable = true;
-          ensureDatabases = [ cfg.database.name ];
+          ensureDatabases = [cfg.database.name];
           ensureUsers = [
             {
               name = cfg.database.user;
@@ -268,9 +268,9 @@ in
         "network.target"
         "postgresql.service"
       ];
-      requires = [ "postgresql.service" ];
+      requires = ["postgresql.service"];
       description = "Zammad web";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       preStart = ''
         # Blindly copy the whole project here.
         chmod -R +w .
@@ -319,10 +319,10 @@ in
 
     systemd.services.zammad-websocket = {
       inherit serviceConfig environment;
-      after = [ "zammad-web.service" ];
-      requires = [ "zammad-web.service" ];
+      after = ["zammad-web.service"];
+      requires = ["zammad-web.service"];
       description = "Zammad websocket";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       script = "./script/websocket-server.rb -b ${cfg.host} -p ${toString cfg.websocketPort} start";
     };
 
@@ -331,10 +331,10 @@ in
       serviceConfig = serviceConfig // {
         Type = "forking";
       };
-      after = [ "zammad-web.service" ];
-      requires = [ "zammad-web.service" ];
+      after = ["zammad-web.service"];
+      requires = ["zammad-web.service"];
       description = "Zammad scheduler";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       script = "./script/scheduler.rb start";
     };
   };

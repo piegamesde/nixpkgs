@@ -24,7 +24,7 @@ else
 
       sourceRoot = ".";
 
-      nativeBuildInputs = [ unzip ];
+      nativeBuildInputs = [unzip];
 
       dontBuild = true;
 

@@ -45,6 +45,6 @@ buildGoModule rec {
     homepage = "https://cfssl.org/";
     description = "Cloudflare's PKI and TLS toolkit";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ mbrgm ];
+    maintainers = with maintainers; [mbrgm];
   };
 }

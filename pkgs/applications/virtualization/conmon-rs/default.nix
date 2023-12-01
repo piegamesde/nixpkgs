@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
     description = "An OCI container runtime monitor written in Rust";
     homepage = "https://github.com/containers/conmon-rs";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ] ++ teams.podman.members;
+    maintainers = with maintainers; [] ++ teams.podman.members;
     platforms = platforms.linux;
   };
 }

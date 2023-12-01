@@ -30,7 +30,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     hardware.digitalbitbox = {
       enable = true;
       package = cfg.package;
@@ -39,6 +39,6 @@ in
 
   meta = {
     doc = ./default.md;
-    maintainers = with lib.maintainers; [ vidbina ];
+    maintainers = with lib.maintainers; [vidbina];
   };
 }

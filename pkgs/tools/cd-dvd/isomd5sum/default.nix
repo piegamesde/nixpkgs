@@ -18,8 +18,8 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ python3 ];
-  buildInputs = [ popt ];
+  nativeBuildInputs = [python3];
+  buildInputs = [popt];
 
   postPatch = ''
     substituteInPlace Makefile --replace "#/usr/" "#"
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  makeFlags = [ "DESTDIR=${placeholder "out"}" ];
+  makeFlags = ["DESTDIR=${placeholder "out"}"];
 
   # we don't install python stuff as it borks up directories
   installTargets = [
@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
     description = "Utilities for working with md5sum implanted in ISO images";
     platforms = platforms.linux;
     license = licenses.gpl2;
-    maintainers = with maintainers; [ knl ];
+    maintainers = with maintainers; [knl];
   };
 }

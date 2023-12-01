@@ -21,13 +21,13 @@ stdenv.mkDerivation rec {
     xcursorgen
   ];
 
-  makeFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = ["DESTDIR=$(out)"];
 
   meta = with lib; {
     description = "Clean and sharp X11/Wayland cursor theme";
     homepage = "https://www.gnome-look.org/p/999999/";
     license = licenses.mit;
-    maintainers = with maintainers; [ zaninime ];
+    maintainers = with maintainers; [zaninime];
     platforms = platforms.linux;
   };
 }

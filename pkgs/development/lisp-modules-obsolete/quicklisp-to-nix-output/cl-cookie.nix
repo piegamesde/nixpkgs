@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-cookie";
   version = "20191007-git";
@@ -25,7 +25,7 @@ rec {
 
   packageName = "cl-cookie";
 
-  asdFilesToKeep = [ "cl-cookie.asd" ];
+  asdFilesToKeep = ["cl-cookie.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-cookie DESCRIPTION HTTP cookie manager SHA256

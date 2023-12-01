@@ -1,4 +1,4 @@
-{ buildDhallGitHubPackage, Prelude }:
+{buildDhallGitHubPackage, Prelude}:
 
 let
   version = "0.9.64";
@@ -10,5 +10,5 @@ buildDhallGitHubPackage {
   rev = version;
   sha256 = "sha256-EDbMKHORYQOKoSrbErkUnsadDiYfK1ULbFhz3D5AcXc=";
   file = "package.dhall";
-  dependencies = [ Prelude ];
+  dependencies = [Prelude];
 }

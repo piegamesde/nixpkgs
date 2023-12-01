@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "EMWd7T/k4v1uvXe2QxhyPoQKUpKIUANE9AOwX461FgU=";
   };
 
-  buildFlags = [ "CC=${stdenv.cc}/bin/cc" ];
+  buildFlags = ["CC=${stdenv.cc}/bin/cc"];
 
   installPhase = ''
     mkdir -p $out/bin $out/share/man/man8

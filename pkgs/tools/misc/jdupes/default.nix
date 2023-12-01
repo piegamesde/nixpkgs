@@ -41,12 +41,12 @@ stdenv.mkDerivation rec {
   dontConfigure = true;
 
   makeFlags =
-    [ "PREFIX=${placeholder "out"}" ]
+    ["PREFIX=${placeholder "out"}"]
     ++ lib.optionals stdenv.isLinux [
       "ENABLE_DEDUPE=1"
       "STATIC_DEDUPE_H=1"
     ]
-    ++ lib.optionals stdenv.cc.isGNU [ "HARDEN=1" ];
+    ++ lib.optionals stdenv.cc.isGNU ["HARDEN=1"];
 
   enableParallelBuilding = true;
 
@@ -65,6 +65,6 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/jbruchon/jdupes";
     license = licenses.mit;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

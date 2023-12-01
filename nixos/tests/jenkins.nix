@@ -5,7 +5,7 @@
 #   4. declarative jobs can be added and removed
 
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "jenkins";
     meta = with pkgs.lib.maintainers; {
@@ -20,7 +20,7 @@ import ./make-test-python.nix (
     nodes = {
 
       master =
-        { ... }:
+        {...}:
         {
           services.jenkins = {
             enable = true;
@@ -64,28 +64,28 @@ import ./make-test-python.nix (
           };
 
           specialisation.noJenkinsJobs.configuration = {
-            services.jenkins.jobBuilder.nixJobs = pkgs.lib.mkForce [ ];
+            services.jenkins.jobBuilder.nixJobs = pkgs.lib.mkForce [];
           };
 
           # should have no effect
           services.jenkinsSlave.enable = true;
 
-          users.users.jenkins.extraGroups = [ "users" ];
+          users.users.jenkins.extraGroups = ["users"];
 
           systemd.services.jenkins.serviceConfig.TimeoutStartSec = "6min";
         };
 
       slave =
-        { ... }:
+        {...}:
         {
           services.jenkinsSlave.enable = true;
 
-          users.users.jenkins.extraGroups = [ "users" ];
+          users.users.jenkins.extraGroups = ["users"];
         };
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         configWithoutJobs = "${nodes.master.config.system.build.toplevel}/specialisation/noJenkinsJobs";
         jenkinsPort = nodes.master.config.services.jenkins.port;

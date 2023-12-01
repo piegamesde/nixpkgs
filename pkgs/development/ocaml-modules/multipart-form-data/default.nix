@@ -19,7 +19,7 @@ buildDunePackage rec {
     hash = "sha256-3MYJDvVbPIv/JDiB9nKcLRFC5Qa0afyEfz7hk8MWRII=";
   };
 
-  buildInputs = [ lwt_ppx ];
+  buildInputs = [lwt_ppx];
   propagatedBuildInputs = [
     lwt
     stringext
@@ -28,12 +28,12 @@ buildDunePackage rec {
   duneVersion = "3";
 
   doCheck = true;
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   meta = {
     description = "Parser for multipart/form-data (RFC2388)";
     homepage = "https://github.com/cryptosense/multipart-form-data";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

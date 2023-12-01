@@ -55,7 +55,7 @@ let
 
     duneVersion = "3";
 
-    propagatedBuildInputs = [ bwd ];
+    propagatedBuildInputs = [bwd];
 
     doCheck = true;
 
@@ -81,7 +81,7 @@ buildDunePackage {
     sha256 = "sha256:1n9bh86r2n9s3mm7ayfzwjbnjqcphpsf8yqnf4whd3yi930sqisw";
   };
 
-  nativeBuildInputs = [ menhir ];
+  nativeBuildInputs = [menhir];
 
   buildInputs = [
     cmdliner
@@ -110,6 +110,6 @@ buildDunePackage {
     homepage = "https://github.com/RedPRL/cooltt";
     description = "A cool implementation of normalization by evaluation (nbe) & elaboration for Cartesian cubical type theory";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fortuneteller2k ];
+    maintainers = with maintainers; [fortuneteller2k];
   };
 }

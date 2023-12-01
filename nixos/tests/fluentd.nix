@@ -1,10 +1,10 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "fluentd";
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         services.fluentd = {
           enable = true;
@@ -34,7 +34,7 @@ import ./make-test-python.nix (
       let
         testMessage = "an example log message";
 
-        payload = pkgs.writeText "test-message.json" (builtins.toJSON { inherit testMessage; });
+        payload = pkgs.writeText "test-message.json" (builtins.toJSON {inherit testMessage;});
       in
       ''
         machine.start()

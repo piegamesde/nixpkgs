@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-CUyJMVvzXniK5fdZBuWUK9GLSGJyL5Zig49ikGOGRTw=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   nativeBuildInputs = [
     autoreconfHook
@@ -36,14 +36,14 @@ stdenv.mkDerivation rec {
     ncurses
   ];
 
-  installFlags = [ "bashcompdir=\${out}/share/bash-completion/completions" ];
+  installFlags = ["bashcompdir=\${out}/share/bash-completion/completions"];
 
   meta = with lib; {
     broken = stdenv.isDarwin;
     homepage = "https://csl.name/jp2a/";
     description = "A small utility that converts JPG images to ASCII";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.FlorianFranzen ];
+    maintainers = [maintainers.FlorianFranzen];
     platforms = platforms.unix;
   };
 }

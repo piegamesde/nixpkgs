@@ -35,19 +35,19 @@ buildPythonPackage rec {
     pytest-mock
   ];
 
-  pytestFlagsArray = [ "--asyncio-mode=auto" ];
+  pytestFlagsArray = ["--asyncio-mode=auto"];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace " --cov=aiosyncthing --cov-report=html" ""
   '';
 
-  pythonImportsCheck = [ "aiosyncthing" ];
+  pythonImportsCheck = ["aiosyncthing"];
 
   meta = with lib; {
     description = "Python client for the Syncthing REST API";
     homepage = "https://github.com/zhulik/aiosyncthing";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

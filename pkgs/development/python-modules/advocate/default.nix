@@ -35,12 +35,12 @@ buildPythonPackage rec {
   # The tests do network requests, so disabled
   doCheck = false;
 
-  pythonImportsCheck = [ "advocate" ];
+  pythonImportsCheck = ["advocate"];
 
   meta = with lib; {
     homepage = "https://github.com/JordanMilne/Advocate";
     description = "An SSRF-preventing wrapper around Python's requests library";
     license = licenses.asl20;
-    maintainers = with maintainers; [ pborzenkov ];
+    maintainers = with maintainers; [pborzenkov];
   };
 }

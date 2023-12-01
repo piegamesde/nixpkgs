@@ -14,8 +14,8 @@ let
       v6_6 = {
         version = "6.6";
         sha256 = "sha256-QhuaQ9346a3neoRM4GrOVzjR8fg9ysMZR1VzNgyIQtc=";
-        nativeBuildInputs = [ cppo ];
-        buildInputs = [ cppo ];
+        nativeBuildInputs = [cppo];
+        buildInputs = [cppo];
       };
     in
     {
@@ -68,7 +68,7 @@ let
     description = "Tools for authors of ppx rewriters";
     homepage = "https://www.lexifi.com/ppx_tools";
     license = licenses.mit;
-    maintainers = with maintainers; [ vbgl ];
+    maintainers = with maintainers; [vbgl];
   };
 in
 if lib.versionAtLeast param.version "6.0" then

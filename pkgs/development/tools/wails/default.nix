@@ -30,7 +30,7 @@ buildGoModule rec {
 
   proxyVendor = true;
 
-  subPackages = [ "cmd/wails" ];
+  subPackages = ["cmd/wails"];
 
   # These packages are needed to build wails
   # and will also need to be used when building a wails app.
@@ -76,14 +76,14 @@ buildGoModule rec {
         ]
       } \
       --set PKG_CONFIG_PATH "$PKG_CONFIG_PATH" \
-      --set CGO_LDFLAGS "-L${lib.makeLibraryPath [ zlib ]}"
+      --set CGO_LDFLAGS "-L${lib.makeLibraryPath [zlib]}"
   '';
 
   meta = with lib; {
     description = "Build applications using Go + HTML + CSS + JS";
     homepage = "https://wails.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ ianmjones ];
+    maintainers = with maintainers; [ianmjones];
     platforms = platforms.linux;
   };
 }

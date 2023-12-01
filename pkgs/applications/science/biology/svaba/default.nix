@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     description = "Structural variant and INDEL caller for DNA sequencing data, using genome-wide local assembly";
     license = licenses.gpl3;
     homepage = "https://github.com/walaj/svaba";
-    maintainers = with maintainers; [ scalavision ];
+    maintainers = with maintainers; [scalavision];
     platforms = platforms.linux;
     longDescription = ''
       SvABA is a method for detecting structural variants in sequencing data

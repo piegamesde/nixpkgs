@@ -21,7 +21,7 @@ let
       socat
     ];
 
-  pyEnv = pkgs.python.withPackages (ps: [ ps.mininet-python ]);
+  pyEnv = pkgs.python.withPackages (ps: [ps.mininet-python]);
 
   mnexecWrapped =
     pkgs.runCommand "mnexec-wrapper"
@@ -50,6 +50,6 @@ in
 
     virtualisation.vswitch.enable = true;
 
-    environment.systemPackages = [ mnexecWrapped ];
+    environment.systemPackages = [mnexecWrapped];
   };
 }

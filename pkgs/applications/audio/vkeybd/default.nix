@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "0107b5j1gf7dwp7qb4w2snj4bqiyps53d66qzl2rwj4jfpakws5a";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     alsa-lib
     libX11
@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.alsa-project.org/~tiwai/alsa.html";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
   };
 }

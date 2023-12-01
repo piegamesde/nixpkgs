@@ -58,6 +58,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/lakoliu/Furtherance";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ CaptainJawZ ];
+    maintainers = with maintainers; [CaptainJawZ];
   };
 }

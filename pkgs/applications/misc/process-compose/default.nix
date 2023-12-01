@@ -41,7 +41,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   vendorHash = "sha256-iiGn0dYHNEp5Bs54X44sHbsG3HD92Xs4oah4iZXqqvQ=";
 
@@ -61,6 +61,6 @@ buildGoModule rec {
     homepage = "https://github.com/F1bonacc1/process-compose";
     changelog = "https://github.com/F1bonacc1/process-compose/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ thenonameguy ];
+    maintainers = with maintainers; [thenonameguy];
   };
 }

@@ -84,7 +84,7 @@ mkChromiumDerivation (
       inherit sandboxExecutableName;
     };
 
-    requiredSystemFeatures = [ "big-parallel" ];
+    requiredSystemFeatures = ["big-parallel"];
 
     meta = {
       description =

@@ -1,13 +1,13 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   {
     name = "invoiceplane";
-    meta = with pkgs.lib.maintainers; { maintainers = [ onny ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [onny];};
 
     nodes = {
       invoiceplane_caddy =
-        { ... }:
+        {...}:
         {
           services.invoiceplane.webserver = "caddy";
           services.invoiceplane.sites = {
@@ -23,7 +23,7 @@ import ./make-test-python.nix (
             };
           };
 
-          networking.firewall.allowedTCPPorts = [ 80 ];
+          networking.firewall.allowedTCPPorts = [80];
           networking.hosts."127.0.0.1" = [
             "site1.local"
             "site2.local"

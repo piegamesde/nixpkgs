@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ hidapi ]
+    [hidapi]
     ++ lib.optionals withExamples [
       SDL2
       glew
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
       Oculus Rift, HTC Vive, Windows Mixed Reality, and etc.
     '';
     license = licenses.boost;
-    maintainers = with maintainers; [ oxij ];
+    maintainers = with maintainers; [oxij];
     platforms = platforms.unix;
     broken = true;
   };

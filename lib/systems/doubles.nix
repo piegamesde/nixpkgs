@@ -1,4 +1,4 @@
-{ lib }:
+{lib}:
 let
   inherit (lib) lists;
   inherit (lib.systems) parse;
@@ -113,7 +113,7 @@ in
 {
   inherit all;
 
-  none = [ ];
+  none = [];
 
   arm = filterDoubles predicates.isAarch32;
   armv7 = filterDoubles predicates.isArmv7;

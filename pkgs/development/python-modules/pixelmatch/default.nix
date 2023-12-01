@@ -25,7 +25,7 @@ buildPythonPackage rec {
     fetchLFS = true;
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   nativeCheckInputs = [
     pillow
@@ -41,12 +41,12 @@ buildPythonPackage rec {
       "--benchmark-disable"
     ];
 
-  pythonImportsCheck = [ "pixelmatch" ];
+  pythonImportsCheck = ["pixelmatch"];
 
   meta = with lib; {
     description = "Pixel-level image comparison library";
     homepage = "https://github.com/whtsky/pixelmatch-py";
     license = licenses.isc;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     url = "mirror://sourceforge/rote/${pname}-${version}.tar.gz";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   enableParallelBuilding = true;
 

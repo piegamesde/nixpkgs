@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     ldc
     gnumake42
   ]; # fails with make 4.4
-  buildInputs = [ curl ];
+  buildInputs = [curl];
 
   makeCmd = ''
     make -f posix.mak all DMD_DIR=dmd DMD=${ldc.out}/bin/ldmd2 CC=${stdenv.cc}/bin/cc
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     description = "Ancillary tools for the D programming language compiler";
     homepage = "https://github.com/dlang/tools";
     license = lib.licenses.boost;
-    maintainers = with maintainers; [ ThomasMader ];
+    maintainers = with maintainers; [ThomasMader];
     platforms = lib.platforms.unix;
   };
 }

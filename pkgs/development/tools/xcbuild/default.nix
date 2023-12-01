@@ -42,7 +42,7 @@ stdenv.mkDerivation {
     sha256 = "1xxwg2849jizxv0g1hy0b1m3i7iivp9bmc4f5pi76swsn423d41m";
   };
 
-  patches = [ ./includes.patch ];
+  patches = [./includes.patch];
 
   prePatch = ''
     rmdir ThirdParty/*
@@ -72,7 +72,7 @@ stdenv.mkDerivation {
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
-  cmakeFlags = [ "-GNinja" ];
+  cmakeFlags = ["-GNinja"];
 
   nativeBuildInputs = [
     cmake

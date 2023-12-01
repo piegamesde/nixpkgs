@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
   outputs = [
     "out"
     "dev"
-  ] ++ lib.optionals pythonSupport [ "dist" ];
+  ] ++ lib.optionals pythonSupport ["dist"];
 
   enableParallelBuilding = true;
 
@@ -105,7 +105,7 @@ stdenv.mkDerivation rec {
     "-Deigen_SOURCE_PATH=${eigen.src}"
     "-DFETCHCONTENT_SOURCE_DIR_ABSEIL_CPP=${abseil-cpp_202111.src}"
     "-Donnxruntime_USE_DNNL=YES"
-  ] ++ lib.optionals pythonSupport [ "-Donnxruntime_ENABLE_PYTHON=ON" ];
+  ] ++ lib.optionals pythonSupport ["-Donnxruntime_ENABLE_PYTHON=ON"];
 
   doCheck = true;
 
@@ -128,7 +128,7 @@ stdenv.mkDerivation rec {
 
   passthru = {
     inherit protobuf;
-    tests = lib.optionalAttrs pythonSupport { python = python3Packages.onnxruntime; };
+    tests = lib.optionalAttrs pythonSupport {python = python3Packages.onnxruntime;};
   };
 
   meta = with lib; {

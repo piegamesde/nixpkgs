@@ -71,7 +71,7 @@ let
           lgpl3
           mpl11
         ];
-        maintainers = with maintainers; [ renzo ];
+        maintainers = with maintainers; [renzo];
         platforms = platforms.all;
       };
       nativeBuildInputs = [
@@ -125,7 +125,7 @@ let
         license = licenses.lgpl3;
         platforms = platforms.all;
       };
-      nativeBuildInputs = [ unzip ];
+      nativeBuildInputs = [unzip];
       sourceRoot = ".";
       unpackCmd = ''
         unzip $src dictionaries/${dictFileName}.dic dictionaries/${dictFileName}.aff $readmeFile
@@ -167,10 +167,10 @@ let
         description = "Hunspell dictionary for ${shortDescription} from Dicollecte";
         homepage = "https://www.dicollecte.org/home.php?prj=fr";
         license = licenses.mpl20;
-        maintainers = with maintainers; [ renzo ];
+        maintainers = with maintainers; [renzo];
         platforms = platforms.all;
       };
-      nativeBuildInputs = [ unzip ];
+      nativeBuildInputs = [unzip];
       sourceRoot = ".";
       unpackCmd = ''
         unzip $src ${dictFileName}.dic ${dictFileName}.aff ${readmeFile}
@@ -201,10 +201,10 @@ let
         description = "Hunspell dictionary for ${shortDescription} from Wordlist";
         homepage = "http://wordlist.aspell.net/";
         license = licenses.bsd3;
-        maintainers = with maintainers; [ renzo ];
+        maintainers = with maintainers; [renzo];
         platforms = platforms.all;
       };
-      nativeBuildInputs = [ unzip ];
+      nativeBuildInputs = [unzip];
       sourceRoot = ".";
       unpackCmd = ''
         unzip $src ${srcFileName}.dic ${srcFileName}.aff ${srcReadmeFile}
@@ -232,10 +232,10 @@ let
         description = "Hunspell dictionary for ${shortDescription}";
         homepage = "https://sourceforge.net/projects/linguistico/";
         license = licenses.gpl3;
-        maintainers = with maintainers; [ renzo ];
+        maintainers = with maintainers; [renzo];
         platforms = platforms.all;
       };
-      nativeBuildInputs = [ unzip ];
+      nativeBuildInputs = [unzip];
       sourceRoot = ".";
       prePatch = ''
         # Fix dic file empty lines (FS#22275)
@@ -279,7 +279,7 @@ let
         description = shortDescription;
         longDescription = longDescription;
         license = licenses.gpl2;
-        maintainers = with maintainers; [ zalakain ];
+        maintainers = with maintainers; [zalakain];
         platforms = platforms.all;
       };
     };
@@ -327,7 +327,7 @@ let
           gpl2
           gpl3
         ];
-        maintainers = with maintainers; [ timor ];
+        maintainers = with maintainers; [timor];
         platforms = platforms.all;
       };
     };
@@ -358,7 +358,7 @@ let
         homepage = "https://wiki.documentfoundation.org/Development/Dictionaries";
         description = "Hunspell dictionary for ${shortDescription} from LibreOffice";
         license = license;
-        maintainers = with maintainers; [ vlaci ];
+        maintainers = with maintainers; [vlaci];
         platforms = platforms.all;
       };
     };
@@ -783,7 +783,7 @@ rec {
 
     dictFileName = "uk_UA";
     readmeFile = "README_uk_UA.txt";
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [unzip];
     unpackCmd = ''
       unzip $src ${dictFileName}/{${dictFileName}.dic,${dictFileName}.aff,${readmeFile}}
     '';
@@ -792,7 +792,7 @@ rec {
       description = "Hunspell dictionary for Ukrainian (Ukraine) from LibreOffice";
       homepage = "https://extensions.libreoffice.org/extensions/ukrainian-spelling-dictionary-and-thesaurus/";
       license = licenses.mpl20;
-      maintainers = with maintainers; [ dywedir ];
+      maintainers = with maintainers; [dywedir];
       platforms = platforms.all;
     };
   };
@@ -818,7 +818,7 @@ rec {
     dictFileName = "cs_CZ";
     shortDescription = "Czech (Czechia)";
     readmeFile = "README_cs.txt";
-    license = with lib.licenses; [ gpl2 ];
+    license = with lib.licenses; [gpl2];
   };
 
   # SLOVAK
@@ -852,7 +852,7 @@ rec {
     shortDescription = "Danish (Danmark)";
     dictFileName = "da_DK";
     readmeFile = "README_da_DK.txt";
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [unzip];
     unpackCmd = ''
       unzip $src ${dictFileName}.dic ${dictFileName}.aff ${readmeFile} -d ${dictFileName}
     '';
@@ -865,7 +865,7 @@ rec {
         lgpl21Only
         mpl11
       ];
-      maintainers = with maintainers; [ louisdk1 ];
+      maintainers = with maintainers; [louisdk1];
     };
   };
 
@@ -894,8 +894,8 @@ rec {
     meta = with lib; {
       description = "Hunspell dictionary for Dutch (Netherlands) from OpenTaal";
       homepage = "https://www.opentaal.org/";
-      license = with licenses; [ bsd3 ]; # and/or cc-by-nc-30
-      maintainers = with maintainers; [ artturin ];
+      license = with licenses; [bsd3]; # and/or cc-by-nc-30
+      maintainers = with maintainers; [artturin];
     };
   };
 
@@ -907,7 +907,7 @@ rec {
     dictFileName = "he_IL";
     shortDescription = "Hebrew (Israel)";
     readmeFile = "README_he_IL.txt";
-    license = with lib.licenses; [ agpl3Plus ];
+    license = with lib.licenses; [agpl3Plus];
   };
 
   # THAI
@@ -927,8 +927,8 @@ rec {
     meta = with lib; {
       description = "Hunspell dictionary for Central Thai (Thailand)";
       homepage = "https://github.com/SyafiqHadzir/Hunspell-TH";
-      license = with licenses; [ gpl3 ];
-      maintainers = with maintainers; [ toastal ]; # looking for a native speaker
+      license = with licenses; [gpl3];
+      maintainers = with maintainers; [toastal]; # looking for a native speaker
       platforms = platforms.all;
     };
   };
@@ -957,7 +957,7 @@ rec {
     sourceRoot = "no";
     readmeFile = "README_hyph_NO.txt";
     shortDescription = "Norwegian Bokmål (Norway)";
-    license = with lib.licenses; [ gpl2Only ];
+    license = with lib.licenses; [gpl2Only];
   };
 
   nn_NO = nn-no;
@@ -967,7 +967,7 @@ rec {
     sourceRoot = "no";
     readmeFile = "README_hyph_NO.txt";
     shortDescription = "Norwegian Nynorsk (Norway)";
-    license = with lib.licenses; [ gpl2Only ];
+    license = with lib.licenses; [gpl2Only];
   };
 
   # TOKI PONA
@@ -994,7 +994,7 @@ rec {
         cc-by-sa-30
         cc-by-sa-40
       ];
-      maintainers = with maintainers; [ somasis ];
+      maintainers = with maintainers; [somasis];
       platforms = platforms.all;
     };
   };

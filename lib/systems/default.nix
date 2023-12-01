@@ -1,22 +1,22 @@
-{ lib }:
+{lib}:
 let
   inherit (lib.attrsets) mapAttrs;
 in
 
 rec {
-  doubles = import ./doubles.nix { inherit lib; };
-  parse = import ./parse.nix { inherit lib; };
-  inspect = import ./inspect.nix { inherit lib; };
-  platforms = import ./platforms.nix { inherit lib; };
-  examples = import ./examples.nix { inherit lib; };
-  architectures = import ./architectures.nix { inherit lib; };
+  doubles = import ./doubles.nix {inherit lib;};
+  parse = import ./parse.nix {inherit lib;};
+  inspect = import ./inspect.nix {inherit lib;};
+  platforms = import ./platforms.nix {inherit lib;};
+  examples = import ./examples.nix {inherit lib;};
+  architectures = import ./architectures.nix {inherit lib;};
 
   /* List of all Nix system doubles the nixpkgs flake will expose the package set
      for. All systems listed here must be supported by nixpkgs as `localSystem`.
 
      **Warning**: This attribute is considered experimental and is subject to change.
   */
-  flakeExposed = import ./flake-systems.nix { };
+  flakeExposed = import ./flake-systems.nix {};
 
   # Elaborate a `localSystem` or `crossSystem` so that it contains everything
   # necessary.
@@ -27,7 +27,7 @@ rec {
   elaborate =
     args':
     let
-      args = if lib.isString args' then { system = args'; } else args';
+      args = if lib.isString args' then {system = args';} else args';
       final =
         {
           # Prefer to parse `config` as it is strictly more informative.
@@ -144,9 +144,9 @@ rec {
           inherit
             (
               {
-                linux-kernel = args.linux-kernel or { };
-                gcc = args.gcc or { };
-                rustc = args.rust or { };
+                linux-kernel = args.linux-kernel or {};
+                gcc = args.gcc or {};
+                rustc = args.rust or {};
               }
               // platforms.select final
             )
@@ -250,7 +250,7 @@ rec {
                   smbdSupport = false;
                   seccompSupport = false;
                   enableDocs = false;
-                  hostCpuTargets = [ "${final.qemuArch}-linux-user" ];
+                  hostCpuTargets = ["${final.qemuArch}-linux-user"];
                 };
                 wine = (pkgs.winePackagesFor "wine${toString final.parsed.cpu.bits}").minimal;
               in
@@ -286,8 +286,7 @@ rec {
         // args;
     in
     assert final.useAndroidPrebuilt -> final.isAndroid;
-    assert lib.foldl (pass: { assertion, message }: if assertion final then pass else throw message)
-        true
-        (final.parsed.abi.assertions or [ ]);
+    assert lib.foldl (pass: {assertion, message}: if assertion final then pass else throw message) true
+        (final.parsed.abi.assertions or []);
     final;
 }

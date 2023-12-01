@@ -24,16 +24,16 @@ buildPythonPackage rec {
       --replace "poetry.masonry.api" "poetry.core.masonry.api"
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "filecheck" ];
+  pythonImportsCheck = ["filecheck"];
 
   meta = with lib; {
     homepage = "https://github.com/mull-project/FileCheck.py";
     license = licenses.asl20;
     description = "Python port of LLVM's FileCheck, flexible pattern matching file verifier";
-    maintainers = with maintainers; [ yorickvp ];
+    maintainers = with maintainers; [yorickvp];
   };
 }

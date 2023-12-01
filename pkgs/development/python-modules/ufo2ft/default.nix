@@ -30,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-ZpO55rNXkVbqMdGxsZn77gJnGBbM8c8GIAaQnTzVnf8=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     cu2qu
@@ -43,7 +43,7 @@ buildPythonPackage rec {
     skia-pathops
   ] ++ fonttools.optional-dependencies.lxml ++ fonttools.optional-dependencies.ufo;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pytestFlagsArray = [
     # Do not depend on skia.
@@ -53,12 +53,12 @@ buildPythonPackage rec {
     "--deselect=tests/preProcessor_test.py::TTFInterpolatablePreProcessorTest::test_custom_filters_as_argument"
   ];
 
-  pythonImportsCheck = [ "ufo2ft" ];
+  pythonImportsCheck = ["ufo2ft"];
 
   meta = with lib; {
     description = "Bridge from UFOs to FontTools objects";
     homepage = "https://github.com/googlefonts/ufo2ft";
     license = licenses.mit;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
   };
 }

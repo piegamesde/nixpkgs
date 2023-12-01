@@ -20,7 +20,7 @@ mkDerivation rec {
     hash = "sha256-VQ0H9iPrrxO9e/kMo7yZ/zN5I2qDWBCAFacS9uGuZLI=";
   };
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
   buildInputs = [
     qtbase
@@ -33,7 +33,7 @@ mkDerivation rec {
     description = "Practical and minimal image viewer";
     homepage = "https://interversehq.com/qview/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ acowley ];
+    maintainers = with maintainers; [acowley];
     platforms = platforms.all;
   };
 }

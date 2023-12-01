@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Prefetch any fetcher function call, e.g. package sources";
     license = licenses.mit;
-    maintainers = with maintainers; [ msteen ];
+    maintainers = with maintainers; [msteen];
     homepage = "https://github.com/msteen/nix-prefetch";
     platforms = platforms.all;
   };

@@ -24,15 +24,15 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-JQdL4D6ECH8wLOCcAGm7HomJAfJD838KfI4/IRAeqD0=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libgit2
     openssl
     zlib
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  ] ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.Security];
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   checkFlags = [
     # requires nightly version of cargo-rustdoc

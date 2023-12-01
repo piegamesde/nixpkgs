@@ -1,4 +1,4 @@
-{ lib, python3Packages }:
+{lib, python3Packages}:
 
 with python3Packages;
 
@@ -39,6 +39,6 @@ buildPythonApplication rec {
     homepage = "https://agda.github.io/agda-pkg/";
     description = "Package manager for Agda";
     license = licenses.mit;
-    maintainers = with maintainers; [ alexarice ];
+    maintainers = with maintainers; [alexarice];
   };
 }

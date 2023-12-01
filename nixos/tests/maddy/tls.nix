@@ -1,23 +1,23 @@
 import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
     certs = import ../common/acme/server/snakeoil-certs.nix;
     domain = certs.domain;
   in
   {
     name = "maddy-tls";
-    meta = with pkgs.lib.maintainers; { maintainers = [ onny ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [onny];};
 
     nodes = {
       server =
-        { options, ... }:
+        {options, ...}:
         {
           services.maddy = {
             enable = true;
             hostname = domain;
             primaryDomain = domain;
             openFirewall = true;
-            ensureAccounts = [ "postmaster@${domain}" ];
+            ensureAccounts = ["postmaster@${domain}"];
             ensureCredentials = {
               # Do not use this in production. This will make passwords world-readable
               # in the Nix store
@@ -54,14 +54,14 @@ import ../make-test-python.nix (
         };
 
       client =
-        { nodes, ... }:
+        {nodes, ...}:
         {
-          security.pki.certificateFiles = [ certs.ca.cert ];
+          security.pki.certificateFiles = [certs.ca.cert];
           networking.extraHosts = ''
             ${nodes.server.networking.primaryIPAddress} ${domain}
           '';
           environment.systemPackages = [
-            (pkgs.writers.writePython3Bin "send-testmail" { } ''
+            (pkgs.writers.writePython3Bin "send-testmail" {} ''
               import smtplib
               import ssl
               from email.mime.text import MIMEText
@@ -77,7 +77,7 @@ import ../make-test-python.nix (
                     'postmaster@${domain}', 'postmaster@${domain}', msg.as_string()
                   )
             '')
-            (pkgs.writers.writePython3Bin "test-imap" { } ''
+            (pkgs.writers.writePython3Bin "test-imap" {} ''
               import imaplib
 
               with imaplib.IMAP4_SSL('${domain}') as imap:

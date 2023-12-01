@@ -21,11 +21,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-CqEnQNbwiB6+zM8gWhplvFPblKp+mPMAtnHP8JZiKv4=";
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ pkg-config ];
+  nativeBuildInputs = lib.optionals stdenv.isLinux [pkg-config];
 
-  buildInputs =
-    lib.optionals stdenv.isLinux [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = lib.optionals stdenv.isLinux [openssl] ++ lib.optionals stdenv.isDarwin [Security];
 
   doCheck = false;
 
@@ -33,6 +31,6 @@ rustPlatform.buildRustPackage rec {
     description = "A bittorrent client in Rust";
     homepage = "https://github.com/ikatson/rqbit";
     license = licenses.asl20;
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [marsam];
   };
 }

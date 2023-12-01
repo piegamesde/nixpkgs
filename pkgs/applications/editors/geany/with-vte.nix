@@ -15,7 +15,7 @@ symlinkJoin {
     man
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     # need to replace the directory since it is a symlink

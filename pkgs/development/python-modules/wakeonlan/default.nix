@@ -20,18 +20,18 @@ buildPythonPackage rec {
     hash = "sha256-7BDE7TmTT8rSaG0rEn5QwH+izGWA2PeQzxpGiv7+3fo=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "test_wakeonlan.py" ];
+  pytestFlagsArray = ["test_wakeonlan.py"];
 
-  pythonImportsCheck = [ "wakeonlan" ];
+  pythonImportsCheck = ["wakeonlan"];
 
   meta = with lib; {
     description = "Python module for wake on lan";
     homepage = "https://github.com/remcohaszing/pywakeonlan";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

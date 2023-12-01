@@ -48,6 +48,6 @@ mkCoqDerivation rec {
     homepage = "http://c-corn.github.io/";
     license = licenses.gpl2;
     description = "A Coq library for constructive analysis";
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
   };
 }

@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     enchant
     isocodes
   ];
-  propagatedBuildInputs = [ enchant ];
+  propagatedBuildInputs = [enchant];
 
   configureFlags = [
     "--enable-introspection"
@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
     description = "Word-processor-style highlighting GtkTextView widget";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

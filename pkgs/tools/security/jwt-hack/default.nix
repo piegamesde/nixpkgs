@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Tool for attacking JWT";
     homepage = "https://github.com/hahwul/jwt-hack";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

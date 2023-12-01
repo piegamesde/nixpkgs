@@ -33,28 +33,28 @@ in
   luarocksCheckHook =
     callPackage
       (
-        { luarocks }:
+        {luarocks}:
         makeSetupHook
           {
             name = "luarocks-check-hook";
-            propagatedBuildInputs = [ luarocks ];
+            propagatedBuildInputs = [luarocks];
           }
           ./luarocks-check-hook.sh
       )
-      { };
+      {};
 
   # luarocks installs data in a non-overridable location. Until a proper luarocks patch,
   # we move the files around ourselves
   luarocksMoveDataFolder =
     callPackage
       (
-        { }:
+        {}:
         makeSetupHook
           {
             name = "luarocks-move-rock";
-            propagatedBuildInputs = [ ];
+            propagatedBuildInputs = [];
           }
           ./luarocks-move-data.sh
       )
-      { };
+      {};
 }

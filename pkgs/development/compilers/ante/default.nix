@@ -28,7 +28,7 @@ rustPlatform.buildRustPackage {
      llvm-sys requires a specific version of llvmPackages,
      that is not the same as the one included by default with rustPlatform.
   */
-  nativeBuildInputs = [ llvmPackages_13.llvm ];
+  nativeBuildInputs = [llvmPackages_13.llvm];
   buildInputs = [
     libffi
     libxml2
@@ -56,7 +56,7 @@ rustPlatform.buildRustPackage {
   meta = with lib; {
     homepage = "https://antelang.org/";
     description = "A low-level functional language for exploring refinement types, lifetime inference, and algebraic effects";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ ehllie ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [ehllie];
   };
 }

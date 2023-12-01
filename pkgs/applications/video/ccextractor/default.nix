@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ zlib ]
+    [zlib]
     ++ lib.optional (!stdenv.isLinux) libiconv
     ++ lib.optionals enableOcr [
       leptonica
@@ -82,6 +82,6 @@ stdenv.mkDerivation rec {
     # during Linking C executable ccextractor
     broken = stdenv.isAarch64;
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ titanous ];
+    maintainers = with maintainers; [titanous];
   };
 }

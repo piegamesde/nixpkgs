@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     sha256 = "1bfpbazvhaz9x356nsghz0czysh9b75g79cd9s35v0x0rrzdr9qj";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -64,6 +64,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jeffmhubbard/multilockscreen";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ kylesferrazza ];
+    maintainers = with maintainers; [kylesferrazza];
   };
 }

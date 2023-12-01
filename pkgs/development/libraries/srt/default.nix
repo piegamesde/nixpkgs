@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qVvoHtROtJjrUd+YpjN/0I6KmiH7c24+pQ4xYTUGPXk=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   cmakeFlags = [
     # the cmake package does not handle absolute CMAKE_INSTALL_INCLUDEDIR correctly
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Secure, Reliable, Transport";
     homepage = "https://github.com/Haivision/srt";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ nh2 ];
+    maintainers = with maintainers; [nh2];
     platforms = platforms.all;
   };
 }

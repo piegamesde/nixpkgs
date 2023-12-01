@@ -34,9 +34,9 @@ stdenv.mkDerivation {
     "-lpugixml"
     "-lhidapi${hidapiDriver}"
   ];
-  env.NIX_CFLAGS_COMPILE = toString [ "-I${hidapi}/include/hidapi" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-I${hidapi}/include/hidapi"];
 
-  patches = [ ./bsl430.patch ];
+  patches = [./bsl430.patch];
 
   preBuild =
     ''
@@ -52,7 +52,7 @@ stdenv.mkDerivation {
     install -Dm0644 -t $out/include DLL430_v3/include/*.h
   '';
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
   buildInputs = [
     boost
     hidapi
@@ -64,6 +64,6 @@ stdenv.mkDerivation {
     homepage = "https://www.ti.com/tool/MSPDS";
     license = licenses.bsd3;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ aerialx ];
+    maintainers = with maintainers; [aerialx];
   };
 }

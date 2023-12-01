@@ -23,8 +23,8 @@ buildPythonPackage rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [ portaudio ];
-  nativeBuildInputs = [ cython ];
+  buildInputs = [portaudio];
+  nativeBuildInputs = [cython];
 
   propagatedBuildInputs = [
     cffi
@@ -35,7 +35,7 @@ buildPythonPackage rec {
   meta = {
     description = "Reliable low-latency audio playback and recording with Python, using PortAudio via the sounddevice module";
     homepage = "https://python-rtmixer.readthedocs.io";
-    maintainers = with lib.maintainers; [ laikq ];
+    maintainers = with lib.maintainers; [laikq];
     license = lib.licenses.mit;
   };
 }

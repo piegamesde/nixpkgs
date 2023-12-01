@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     patchelf --set-interpreter ${pkgsi686Linux.glibc.out}/lib/ld-linux.so.2 $dir/lpd/brmfc9140cdnfilter
 
     wrapProgram $dir/inf/setupPrintcapij \
-      --prefix PATH : ${lib.makeBinPath [ coreutils ]}
+      --prefix PATH : ${lib.makeBinPath [coreutils]}
 
     substituteInPlace $dir/lpd/filtermfc9140cdn \
       --replace "BR_CFG_PATH=" "BR_CFG_PATH=\"$dir/\" #" \
@@ -69,9 +69,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Brother MFC-9140CDN LPR printer driver";
     homepage = "http://www.brother.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
     platforms = [
       "i686-linux"
       "x86_64-linux"

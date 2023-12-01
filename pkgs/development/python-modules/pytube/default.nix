@@ -21,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-Y4mriCwFvwAZ3e8kHKo9/S2vReb4q+b8KTHxtQo8SEw=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     "tests/test_extract.py"
@@ -30,12 +30,12 @@ buildPythonPackage rec {
     "tests/test_main.py"
   ];
 
-  pythonImportsCheck = [ "pytube" ];
+  pythonImportsCheck = ["pytube"];
 
   meta = with lib; {
     description = "Python 3 library for downloading YouTube Videos";
     homepage = "https://github.com/nficano/pytube";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

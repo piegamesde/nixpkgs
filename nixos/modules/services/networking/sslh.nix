@@ -109,8 +109,8 @@ in
     (mkIf cfg.enable {
       systemd.services.sslh = {
         description = "Applicative Protocol Multiplexer (e.g. share SSH and HTTPS on the same port)";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
 
         serviceConfig = {
           DynamicUser = true;
@@ -190,9 +190,9 @@ in
             ''
               # Cleanup old iptables entries which might be still there
               ${concatMapStringsSep "\n"
-                ({ table, command }: "while iptables -w -t ${table} -D ${command} 2>/dev/null; do echo; done")
+                ({table, command}: "while iptables -w -t ${table} -D ${command} 2>/dev/null; do echo; done")
                 iptablesCommands}
-              ${concatMapStringsSep "\n" ({ table, command }: "iptables -w -t ${table} -A ${command}")
+              ${concatMapStringsSep "\n" ({table, command}: "iptables -w -t ${table} -A ${command}")
                 iptablesCommands}
 
               # Configure routing for those marked packets
@@ -202,9 +202,9 @@ in
             ''
             + optionalString config.networking.enableIPv6 ''
               ${concatMapStringsSep "\n"
-                ({ table, command }: "while ip6tables -w -t ${table} -D ${command} 2>/dev/null; do echo; done")
+                ({table, command}: "while ip6tables -w -t ${table} -D ${command} 2>/dev/null; do echo; done")
                 ip6tablesCommands}
-              ${concatMapStringsSep "\n" ({ table, command }: "ip6tables -w -t ${table} -A ${command}")
+              ${concatMapStringsSep "\n" ({table, command}: "ip6tables -w -t ${table} -A ${command}")
                 ip6tablesCommands}
 
               ip -6 rule  add fwmark 0x2 lookup 100
@@ -213,14 +213,14 @@ in
 
           postStop =
             ''
-              ${concatMapStringsSep "\n" ({ table, command }: "iptables -w -t ${table} -D ${command}")
+              ${concatMapStringsSep "\n" ({table, command}: "iptables -w -t ${table} -D ${command}")
                 iptablesCommands}
 
               ip rule  del fwmark 0x2 lookup 100
               ip route del local 0.0.0.0/0 dev lo table 100
             ''
             + optionalString config.networking.enableIPv6 ''
-              ${concatMapStringsSep "\n" ({ table, command }: "ip6tables -w -t ${table} -D ${command}")
+              ${concatMapStringsSep "\n" ({table, command}: "ip6tables -w -t ${table} -D ${command}")
                 ip6tablesCommands}
 
               ip -6 rule  del fwmark 0x2 lookup 100

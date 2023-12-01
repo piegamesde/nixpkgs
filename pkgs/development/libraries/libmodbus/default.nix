@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-e2lB5D41a5MOmz9M90ZXfIltSOxNDOrQUpRNU2yYd1k=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   configureFlags = [
     # when cross-compiling we assume that the host system will return a valid
@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
     homepage = "https://libmodbus.org/";
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

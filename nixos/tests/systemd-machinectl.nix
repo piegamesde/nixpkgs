@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
 
     container = {
@@ -15,13 +15,13 @@ import ./make-test-python.nix (
       # systemd-nspawn expects /sbin/init
       boot.loader.initScript.enable = true;
 
-      imports = [ ../modules/profiles/minimal.nix ];
+      imports = [../modules/profiles/minimal.nix];
     };
 
     containerSystem =
       (import ../lib/eval-config.nix {
         inherit (pkgs) system;
-        modules = [ container ];
+        modules = [container];
       }).config.system.build.toplevel;
 
     containerName = "container";
@@ -31,22 +31,22 @@ import ./make-test-python.nix (
     name = "systemd-machinectl";
 
     nodes.machine =
-      { lib, ... }:
+      {lib, ...}:
       {
         # use networkd to obtain systemd network setup
         networking.useNetworkd = true;
         networking.useDHCP = false;
 
         # do not try to access cache.nixos.org
-        nix.settings.substituters = lib.mkForce [ ];
+        nix.settings.substituters = lib.mkForce [];
 
         # auto-start container
-        systemd.targets.machines.wants = [ "systemd-nspawn@${containerName}.service" ];
+        systemd.targets.machines.wants = ["systemd-nspawn@${containerName}.service"];
 
-        virtualisation.additionalPaths = [ containerSystem ];
+        virtualisation.additionalPaths = [containerSystem];
 
         # not needed, but we want to test the nspawn file generation
-        systemd.nspawn.${containerName} = { };
+        systemd.nspawn.${containerName} = {};
 
         systemd.services."systemd-nspawn@${containerName}" = {
           serviceConfig.Environment =

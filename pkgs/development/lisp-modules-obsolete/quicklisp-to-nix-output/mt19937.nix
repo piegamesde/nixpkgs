@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "mt19937";
   version = "1.1.1";
 
   description = "Portable MT19937 Mersenne Twister random number generator";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/mt19937/2011-02-19/mt19937-1.1.1.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "mt19937";
 
-  asdFilesToKeep = [ "mt19937.asd" ];
+  asdFilesToKeep = ["mt19937.asd"];
   overrides = x: x;
 }
 /* (SYSTEM mt19937 DESCRIPTION

@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = [
     gettext
@@ -65,6 +65,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/baszoetekouw/pinfo";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

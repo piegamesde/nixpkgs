@@ -33,6 +33,6 @@ buildGoModule rec {
     '';
     homepage = "https://nova.docs.fairwinds.com/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ qjoly ];
+    maintainers = with maintainers; [qjoly];
   };
 }

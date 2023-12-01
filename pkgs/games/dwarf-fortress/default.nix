@@ -55,7 +55,7 @@ let
   latestVersion = "0.47.05";
 
   # Converts a version to a package name.
-  versionToName = version: "dwarf-fortress_${lib.replaceStrings [ "." ] [ "_" ] version}";
+  versionToName = version: "dwarf-fortress_${lib.replaceStrings ["."] ["_"] version}";
 
   dwarf-therapist-original = libsForQt5.callPackage ./dwarf-therapist {
     texlive = texlive.combine {
@@ -85,9 +85,9 @@ let
               inherit dwarf-fortress-unfuck;
             };
 
-            dwarf-fortress-unfuck = callPackage ./unfuck.nix { inherit dfVersion; };
+            dwarf-fortress-unfuck = callPackage ./unfuck.nix {inherit dfVersion;};
 
-            twbt = callPackage ./twbt { inherit dfVersion; };
+            twbt = callPackage ./twbt {inherit dfVersion;};
 
             dfhack = callPackage ./dfhack {
               inherit (perlPackages) XMLLibXML XMLLibXSLT;
@@ -124,15 +124,15 @@ let
     dwarf-therapist = dwarf-fortress.dwarf-therapist;
     dwarf-fortress-original = dwarf-fortress.dwarf-fortress;
 
-    dwarf-fortress-full = callPackage ./lazy-pack.nix { inherit df-games versionToName latestVersion; };
+    dwarf-fortress-full = callPackage ./lazy-pack.nix {inherit df-games versionToName latestVersion;};
 
-    soundSense = callPackage ./soundsense.nix { };
+    soundSense = callPackage ./soundsense.nix {};
 
     legends-browser = callPackage ./legends-browser {
       jre = jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
     };
 
-    themes = recurseIntoAttrs (callPackage ./themes { stdenv = stdenvNoCC; });
+    themes = recurseIntoAttrs (callPackage ./themes {stdenv = stdenvNoCC;});
 
     # Theme aliases
     phoebus-theme = themes.phoebus;

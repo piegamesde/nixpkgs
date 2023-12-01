@@ -25,8 +25,8 @@ stdenv.mkDerivation {
     zlib
   ];
 
-  hardeningDisable = [ "pic" ];
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=implicit-fallthrough" ];
+  hardeningDisable = ["pic"];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-error=implicit-fallthrough"];
 
   patches = [
     # fix paths in netatop.service
@@ -60,6 +60,6 @@ stdenv.mkDerivation {
     homepage = "https://www.atoptool.nl/downloadnetatop.php";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ viric ];
+    maintainers = with lib.maintainers; [viric];
   };
 }

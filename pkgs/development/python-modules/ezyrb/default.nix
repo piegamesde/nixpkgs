@@ -36,9 +36,9 @@ buildPythonPackage rec {
     torch
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ezyrb" ];
+  pythonImportsCheck = ["ezyrb"];
 
   disabledTestPaths =
     [
@@ -51,6 +51,6 @@ buildPythonPackage rec {
     homepage = "https://mathlab.github.io/EZyRB/";
     downloadPage = "https://github.com/mathLab/EZyRB/releases";
     license = licenses.mit;
-    maintainers = with maintainers; [ yl3dy ];
+    maintainers = with maintainers; [yl3dy];
   };
 }

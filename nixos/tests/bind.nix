@@ -2,7 +2,7 @@ import ./make-test-python.nix {
   name = "bind";
 
   nodes.machine =
-    { pkgs, lib, ... }:
+    {pkgs, lib, ...}:
     {
       services.bind.enable = true;
       services.bind.extraOptions = "empty-zones-enable no;";

@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-8iaYil2wiqnu9p7Gj93GE5akta1A0zqyApRwHct5RSs=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     guile
     texinfo
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/mwitmer/guile-xcb";
     description = "XCB bindings for Guile";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ vyp ];
+    maintainers = with maintainers; [vyp];
     platforms = platforms.linux;
   };
 }

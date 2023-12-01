@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-tK1peq+6cYTJ62oeLrxB94FUckKs3ozq6aCiWwTAki0=";
   };
 
-  buildInputs = [ mock ];
+  buildInputs = [mock];
 
   preCheck = ''
     # https://github.com/dbader/schedule/issues/488
@@ -27,13 +27,13 @@ buildPythonPackage rec {
       "# self.assertRaises(ScheduleValueError, every().day.until, datetime.time(hour=5))"
   '';
 
-  pythonImportsCheck = [ "schedule" ];
+  pythonImportsCheck = ["schedule"];
 
   meta = with lib; {
     description = "Python job scheduling for humans";
     homepage = "https://github.com/dbader/schedule";
     changelog = "https://github.com/dbader/schedule/blob/${version}/HISTORY.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

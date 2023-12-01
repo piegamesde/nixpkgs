@@ -88,7 +88,7 @@ stdenv.mkDerivation (rec {
   makeFlags = [
     "PONYC_VERSION=${version}"
     "prefix=${placeholder "out"}"
-  ] ++ lib.optionals stdenv.isDarwin ([ "bits=64" ] ++ lib.optional (!lto) "lto=no");
+  ] ++ lib.optionals stdenv.isDarwin (["bits=64"] ++ lib.optional (!lto) "lto=no");
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wno-error=redundant-move"

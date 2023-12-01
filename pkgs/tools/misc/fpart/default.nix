@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-SULtbfUUzYgD/Q6wmgYSIldiGgk9MY4dr0hveTTMwvw=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ fts ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [fts];
 
   postInstall = ''
     sed "s|^FPART_BIN=.*|FPART_BIN=\"$out/bin/fpart\"|" \
@@ -48,6 +48,6 @@ stdenv.mkDerivation rec {
     homepage = "http://contribs.martymac.org/";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

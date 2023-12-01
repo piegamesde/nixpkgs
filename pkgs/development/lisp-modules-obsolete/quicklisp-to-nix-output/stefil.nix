@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "stefil";
   version = "20181210-git";
 
-  parasites = [ "stefil-test" ];
+  parasites = ["stefil-test"];
 
   description = "Stefil - Simple Test Framework In Lisp";
 
@@ -22,7 +22,7 @@ rec {
 
   packageName = "stefil";
 
-  asdFilesToKeep = [ "stefil.asd" ];
+  asdFilesToKeep = ["stefil.asd"];
   overrides = x: x;
 }
 /* (SYSTEM stefil DESCRIPTION Stefil - Simple Test Framework In Lisp SHA256

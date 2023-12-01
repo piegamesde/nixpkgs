@@ -24,17 +24,17 @@ buildPythonPackage rec {
     cloudpickle
     numpy
     gym-notices
-  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  ] ++ lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
   # The test needs MuJoCo that is not free library.
   doCheck = false;
 
-  pythonImportsCheck = [ "gym" ];
+  pythonImportsCheck = ["gym"];
 
   meta = with lib; {
     description = "A toolkit for developing and comparing your reinforcement learning agents";
     homepage = "https://gym.openai.com/";
     license = licenses.mit;
-    maintainers = with maintainers; [ hyphon81 ];
+    maintainers = with maintainers; [hyphon81];
   };
 }

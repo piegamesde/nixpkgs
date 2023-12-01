@@ -26,6 +26,6 @@ stdenv.mkDerivation rec {
     description = "JDBC 4.2 driver for Amazon Redshift allowing Java programs to connect to a Redshift database";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sir4ur0n ];
+    maintainers = with maintainers; [sir4ur0n];
   };
 }

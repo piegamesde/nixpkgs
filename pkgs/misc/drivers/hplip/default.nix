@@ -343,6 +343,6 @@ python3Packages.buildPythonApplication {
       "armv7l-linux"
       "aarch64-linux"
     ];
-    maintainers = with maintainers; [ ttuegel ];
+    maintainers = with maintainers; [ttuegel];
   };
 }

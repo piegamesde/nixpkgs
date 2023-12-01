@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "A SOAP interface and client for Disnix";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.sander ];
+    maintainers = [lib.maintainers.sander];
     platforms = lib.platforms.linux;
   };
 }

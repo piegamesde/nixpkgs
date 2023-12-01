@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-4hiXzd8YZJiewG0voh4/ryb3NwBHKrw3lKpUPA5nCdw=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontUnpack = true;
 
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "The easy, open source way for everyone in your company to ask questions and learn from data";
     homepage = "https://metabase.com";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.agpl3Only;
     platforms = platforms.all;
     maintainers = with maintainers; [

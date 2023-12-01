@@ -26,7 +26,7 @@ let
 
         vendorSha256 = "sha256-TQrXUcLv7rFo3PP3bVx0wEC1WbtkJDsCm+/izHAxqBc=";
 
-        subPackages = [ package ];
+        subPackages = [package];
 
         meta = with lib; {
           homepage = "https://www.elastic.co/products/beats";
@@ -45,13 +45,13 @@ in
 rec {
   filebeat7 = beat "filebeat" {
     meta.description = "Lightweight shipper for logfiles";
-    buildInputs = [ systemd ];
-    tags = [ "withjournald" ];
+    buildInputs = [systemd];
+    tags = ["withjournald"];
     postFixup = ''
-      patchelf --set-rpath ${lib.makeLibraryPath [ (lib.getLib systemd) ]} "$out/bin/filebeat"
+      patchelf --set-rpath ${lib.makeLibraryPath [(lib.getLib systemd)]} "$out/bin/filebeat"
     '';
   };
-  heartbeat7 = beat "heartbeat" { meta.description = "Lightweight shipper for uptime monitoring"; };
+  heartbeat7 = beat "heartbeat" {meta.description = "Lightweight shipper for uptime monitoring";};
   metricbeat7 = beat "metricbeat" {
     meta.description = "Lightweight shipper for metrics";
     passthru.tests = lib.optionalAttrs config.allowUnfree (
@@ -61,7 +61,7 @@ rec {
     );
   };
   packetbeat7 = beat "packetbeat" {
-    buildInputs = [ libpcap ];
+    buildInputs = [libpcap];
     meta.description = "Network packet analyzer that ships data to Elasticsearch";
     meta.longDescription = ''
       Packetbeat is an open source network packet analyzer that ships the

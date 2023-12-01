@@ -22,12 +22,12 @@ buildGoModule rec {
 
   vendorHash = "sha256-EtNFSAx8YcRhzgV3IdrZaCM6fOd284iuTperCFECsL8=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     gobject-introspection
     vips
-  ] ++ lib.optionals stdenv.isDarwin [ libunwind ];
+  ] ++ lib.optionals stdenv.isDarwin [libunwind];
 
   preBuild = ''
     export CGO_LDFLAGS_ALLOW='-(s|w)'
@@ -38,6 +38,6 @@ buildGoModule rec {
     homepage = "https://imgproxy.net";
     changelog = "https://github.com/imgproxy/imgproxy/blob/master/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ paluh ];
+    maintainers = with maintainers; [paluh];
   };
 }

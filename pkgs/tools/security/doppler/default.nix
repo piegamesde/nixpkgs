@@ -25,7 +25,7 @@ buildGoModule rec {
     "-X github.com/DopplerHQ/cli/pkg/version.ProgramVersion=v${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     mv $out/bin/cli $out/bin/doppler
@@ -44,6 +44,6 @@ buildGoModule rec {
     description = "The official CLI for interacting with your Doppler Enclave secrets and configuration";
     homepage = "https://doppler.com";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lucperkins ];
+    maintainers = with maintainers; [lucperkins];
   };
 }

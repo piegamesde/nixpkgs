@@ -58,7 +58,7 @@ let
     in
     lib.concatStringsSep "\n" (
       lib.forEach files (
-        { src, dst }:
+        {src, dst}:
         ''
           mkdir -p "${dirOf dst}"
           cp "${package}/${src}" "${dst}"
@@ -111,7 +111,7 @@ rustPlatform.buildRustPackage rec {
   OPENSSL_NO_VENDOR = 1;
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       DiskArbitration
@@ -137,7 +137,7 @@ rustPlatform.buildRustPackage rec {
       --replace _Materialize root
   '';
 
-  cargoBuildFlags = [ "--bin materialized" ];
+  cargoBuildFlags = ["--bin materialized"];
 
   postInstall = ''
     install --mode=444 -D ./misc/dist/materialized.service $out/etc/systemd/system/materialized.service
@@ -152,6 +152,6 @@ rustPlatform.buildRustPackage rec {
       "x86_64-darwin"
       "aarch64-linux"
     ];
-    maintainers = [ maintainers.petrosagg ];
+    maintainers = [maintainers.petrosagg];
   };
 }

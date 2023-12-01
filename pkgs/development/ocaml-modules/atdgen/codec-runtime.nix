@@ -18,7 +18,7 @@ buildDunePackage rec {
   meta = {
     description = "Runtime for atdgen generated bucklescript converters";
     homepage = "https://github.com/ahrefs/atd";
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     license = lib.licenses.mit;
   };
 }

@@ -35,7 +35,7 @@ stdenv.mkDerivation {
     description = "Configure MMC storage devices from userspace";
     homepage = "https://git.kernel.org/pub/scm/utils/mmc/mmc-utils.git/";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.dezgeg ];
+    maintainers = [maintainers.dezgeg];
     platforms = platforms.linux;
   };
 }

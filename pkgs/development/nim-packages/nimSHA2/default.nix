@@ -16,7 +16,7 @@ buildNimPackage rec {
   doCheck = true;
   meta = src.meta // {
     description = "Secure Hash Algorithm 2";
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
     license = lib.licenses.mit;
   };
 }

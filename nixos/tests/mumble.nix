@@ -1,12 +1,12 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   let
     client =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        imports = [ ./common/x11.nix ];
-        environment.systemPackages = [ pkgs.mumble ];
+        imports = [./common/x11.nix];
+        environment.systemPackages = [pkgs.mumble];
       };
 
     # outside of tests, this file should obviously not come from the nix store
@@ -25,13 +25,13 @@ import ./make-test-python.nix (
 
     nodes = {
       server =
-        { config, ... }:
+        {config, ...}:
         {
           services.murmur.enable = true;
           services.murmur.registerName = "NixOS tests";
           services.murmur.password = "$MURMURD_PASSWORD";
           services.murmur.environmentFile = envFile;
-          networking.firewall.allowedTCPPorts = [ config.services.murmur.port ];
+          networking.firewall.allowedTCPPorts = [config.services.murmur.port];
         };
 
       client1 = client;

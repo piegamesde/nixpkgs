@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     homepage = "http://audiality.org";
     license = licenses.zlib;
     platforms = platforms.all;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

@@ -58,14 +58,14 @@ stdenv.mkDerivation rec {
       --replace 'Exec=phosh-mobile-settings' "Exec=$out/bin/phosh-mobile-settings"
   '';
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = with lib; {
     description = "A settings app for mobile specific things";
     homepage = "https://gitlab.gnome.org/guidog/phosh-mobile-settings";
     changelog = "https://gitlab.gnome.org/guidog/phosh-mobile-settings/-/blob/v${version}/debian/changelog";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ colinsane ];
+    maintainers = with maintainers; [colinsane];
     platforms = platforms.linux;
   };
 }

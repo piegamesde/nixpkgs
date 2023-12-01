@@ -31,12 +31,12 @@ buildPythonPackage rec {
     ./manage.py test
   '';
 
-  pythonImportsCheck = [ "rest_framework_guardian" ];
+  pythonImportsCheck = ["rest_framework_guardian"];
 
   meta = with lib; {
     description = "Django-guardian support for Django REST Framework";
     homepage = "https://github.com/johnthagen/django-rest-framework-guardian2/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ e1mo ];
+    maintainers = with maintainers; [e1mo];
   };
 }

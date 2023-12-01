@@ -108,13 +108,13 @@ buildPythonPackage rec {
     ++ passthru.optional-dependencies.fsqla
     ++ passthru.optional-dependencies.mfa;
 
-  pythonImportsCheck = [ "flask_security" ];
+  pythonImportsCheck = ["flask_security"];
 
   meta = with lib; {
     changelog = "https://github.com/Flask-Middleware/flask-security/blob/${version}/CHANGES.rst";
     homepage = "https://github.com/Flask-Middleware/flask-security";
     description = "Simple security for Flask apps (fork)";
     license = licenses.mit;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-b6RMl6QStNxR4vX9Tcc8W9SZ01KA+IzSvNJviuHkV3s=";
   };
 
-  propagatedBuildInputs = [ zope_interface ];
+  propagatedBuildInputs = [zope_interface];
 
   # circular deps
   doCheck = false;
@@ -23,6 +23,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/zopefoundation/zope.proxy";
     description = "Generic Transparent Proxies";
     license = licenses.zpl20;
-    maintainers = with maintainers; [ goibhniu ];
+    maintainers = with maintainers; [goibhniu];
   };
 }

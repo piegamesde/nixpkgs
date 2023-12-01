@@ -29,6 +29,6 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/libxosd";
     license = licenses.gpl2;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

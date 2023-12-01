@@ -7,7 +7,7 @@
 # - Opening and closing issues.
 # - Downloading repository archives as tar.gz and tar.bz2
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   with lib;
 
@@ -38,9 +38,9 @@ import ./make-test-python.nix (
 
     nodes = {
       gitlab =
-        { ... }:
+        {...}:
         {
-          imports = [ common/user-account.nix ];
+          imports = [common/user-account.nix];
 
           virtualisation.memorySize = if pkgs.stdenv.is64bit then 4096 else 2047;
           virtualisation.cores = 4;
@@ -95,14 +95,14 @@ import ./make-test-python.nix (
               secretFile = pkgs.writeText "secret" "Aig5zaic";
               otpFile = pkgs.writeText "otpsecret" "Riew9mue";
               dbFile = pkgs.writeText "dbsecret" "we2quaeZ";
-              jwsFile = pkgs.runCommand "oidcKeyBase" { } "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
+              jwsFile = pkgs.runCommand "oidcKeyBase" {} "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
             };
           };
         };
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         auth = pkgs.writeText "auth.json" (
           builtins.toJSON {
@@ -183,7 +183,7 @@ import ./make-test-python.nix (
           }
         );
 
-        newIssue = pkgs.writeText "new-issue.json" (builtins.toJSON { title = "useful issue title"; });
+        newIssue = pkgs.writeText "new-issue.json" (builtins.toJSON {title = "useful issue title";});
 
         closeIssue = pkgs.writeText "close-issue.json" (
           builtins.toJSON {

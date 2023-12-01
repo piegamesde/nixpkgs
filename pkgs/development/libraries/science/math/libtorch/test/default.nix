@@ -7,7 +7,7 @@
   symlinkJoin,
 
   cudaSupport,
-  cudaPackages ? { },
+  cudaPackages ? {},
 }:
 let
   inherit (cudaPackages) cudatoolkit cudnn;
@@ -35,11 +35,11 @@ stdenv.mkDerivation {
 
   src = ./.;
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ libtorch-bin ] ++ lib.optionals cudaSupport [ cudnn ];
+  buildInputs = [libtorch-bin] ++ lib.optionals cudaSupport [cudnn];
 
-  cmakeFlags = lib.optionals cudaSupport [ "-DCUDA_TOOLKIT_ROOT_DIR=${cudatoolkit_joined}" ];
+  cmakeFlags = lib.optionals cudaSupport ["-DCUDA_TOOLKIT_ROOT_DIR=${cudatoolkit_joined}"];
 
   doCheck = true;
 

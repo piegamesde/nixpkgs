@@ -24,7 +24,7 @@ let
     comment = "A silly speed painting game";
     desktopName = "90 Second Portraits";
     genericName = "90secondportraits";
-    categories = [ "Game" ];
+    categories = ["Game"];
   };
 in
 
@@ -36,7 +36,7 @@ stdenv.mkDerivation {
     sha256 = "0jj3k953r6vb02212gqcgqpb4ima87gnqgls43jmylxq2mcm33h5";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     lua
     love
@@ -59,7 +59,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "A silly speed painting game";
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
     platforms = platforms.linux;
     license = licenses.free;
     downloadPage = "http://tangramgames.dk/games/90secondportraits";

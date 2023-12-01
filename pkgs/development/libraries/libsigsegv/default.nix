@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-zaw5QYAzZM+BqQhJm+t5wgDq1gtrW0DK0ST9HgbKopU=";
   };
 
-  patches = if enableSigbusFix then [ ./sigbus_fix.patch ] else null;
+  patches = if enableSigbusFix then [./sigbus_fix.patch] else null;
 
   doCheck = true; # not cross;
 
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.gpl2Plus;
 
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 }

@@ -141,7 +141,7 @@ stdenv.mkDerivation rec {
       meson test --print-errorlogs
   '';
 
-  pythonPath = with python3.pkgs; requiredPythonModules [ pygobject3 ];
+  pythonPath = with python3.pkgs; requiredPythonModules [pygobject3];
 
   preFixup = ''
     buildPythonPath "$out $pythonPath"
@@ -160,7 +160,7 @@ stdenv.mkDerivation rec {
     moveToOutput share/doc/libide "$devdoc"
   '';
 
-  passthru.updateScript = gnome.updateScript { packageName = pname; };
+  passthru.updateScript = gnome.updateScript {packageName = pname;};
 
   meta = with lib; {
     description = "An IDE for writing GNOME-based software";

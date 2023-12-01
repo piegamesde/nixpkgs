@@ -15,12 +15,12 @@ let
     name = "${pname}-${version}.AppImage";
   };
 
-  appimageContents = appimageTools.extractType2 { inherit pname version src; };
+  appimageContents = appimageTools.extractType2 {inherit pname version src;};
 in
 appimageTools.wrapType2 {
   inherit pname version src;
 
-  extraPkgs = pkgs: with pkgs; [ segger-jlink ];
+  extraPkgs = pkgs: with pkgs; [segger-jlink];
 
   extraInstallCommands = ''
     mv $out/bin/${pname}-${version} $out/bin/${pname}
@@ -36,6 +36,6 @@ appimageTools.wrapType2 {
     homepage = "https://www.nordicsemi.com/Products/Development-tools/nRF-Connect-for-desktop";
     license = licenses.unfree;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ stargate01 ];
+    maintainers = with maintainers; [stargate01];
   };
 }

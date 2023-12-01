@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sed '1i#include <cstring>' -i deps.h
   '';
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
 
   doCheck = !stdenv.isDarwin;
 
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "Programming language/shell calculator";
     homepage = "https://tab-lang.xyz";
     license = licenses.boost;
-    maintainers = with maintainers; [ mstarzyk ];
+    maintainers = with maintainers; [mstarzyk];
     platforms = with platforms; unix;
   };
 }

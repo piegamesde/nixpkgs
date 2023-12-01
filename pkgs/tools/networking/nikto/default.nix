@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   # Nikto searches its configuration file based on its current path
   # This fixes the current path regex for the wrapped executable.
-  patches = [ ./NIKTODIR-nix-wrapper-fix.patch ];
+  patches = [./NIKTODIR-nix-wrapper-fix.patch];
 
   postPatch = ''
     # EXECDIR needs to be changed to the path where we copy the programs stuff
@@ -35,9 +35,9 @@ stdenv.mkDerivation rec {
     installShellFiles
   ];
 
-  propagatedBuildInputs = [ perlPackages.NetSSLeay ];
+  propagatedBuildInputs = [perlPackages.NetSSLeay];
 
-  buildInputs = [ perlPackages.perl ];
+  buildInputs = [perlPackages.perl];
 
   installPhase = ''
     runHook preInstall
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     description = "Web server scanner";
     license = licenses.gpl2Plus;
     homepage = "https://cirt.net/Nikto2";
-    maintainers = with maintainers; [ shamilton ];
+    maintainers = with maintainers; [shamilton];
     platforms = platforms.unix;
   };
 }

@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "0bninv2bklz7ly140cxx8iyaqjlq809jjx6xqpimn34ghwsaxbpv";
   };
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     make PREFIX=$out install
@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
     description = "Tool for talking to modems";
     platforms = platforms.unix;
     license = licenses.gpl3;
-    maintainers = with maintainers; [ bendlas ];
+    maintainers = with maintainers; [bendlas];
   };
 }

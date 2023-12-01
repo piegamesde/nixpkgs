@@ -64,13 +64,13 @@ in
   ###### implementation
   config = mkIf config.services.rethinkdb.enable {
 
-    environment.systemPackages = [ rethinkdb ];
+    environment.systemPackages = [rethinkdb];
 
     systemd.services.rethinkdb = {
       description = "RethinkDB server";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         # TODO: abstract away 'default', which is a per-instance directory name
@@ -102,6 +102,6 @@ in
       isSystemUser = true;
     };
 
-    users.groups = optionalAttrs (cfg.group == "rethinkdb") (singleton { name = "rethinkdb"; });
+    users.groups = optionalAttrs (cfg.group == "rethinkdb") (singleton {name = "rethinkdb";});
   };
 }

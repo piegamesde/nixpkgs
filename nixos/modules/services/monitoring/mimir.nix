@@ -16,15 +16,15 @@ let
 
   cfg = config.services.mimir;
 
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
 in
 {
   options.services.mimir = {
     enable = mkEnableOption (lib.mdDoc "mimir");
 
     configuration = mkOption {
-      type = (pkgs.formats.json { }).type;
-      default = { };
+      type = (pkgs.formats.json {}).type;
+      default = {};
       description = lib.mdDoc ''
         Specify the configuration for Mimir in Nix.
       '';
@@ -48,14 +48,14 @@ in
 
   config = mkIf cfg.enable {
     # for mimirtool
-    environment.systemPackages = [ pkgs.mimir ];
+    environment.systemPackages = [pkgs.mimir];
 
     assertions = [
       {
         assertion =
           (
-            (cfg.configuration == { } -> cfg.configFile != null)
-            && (cfg.configFile != null -> cfg.configuration == { })
+            (cfg.configuration == {} -> cfg.configFile != null)
+            && (cfg.configFile != null -> cfg.configuration == {})
           );
         message = ''
           Please specify either
@@ -67,7 +67,7 @@ in
 
     systemd.services.mimir = {
       description = "mimir Service Daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig =
         let

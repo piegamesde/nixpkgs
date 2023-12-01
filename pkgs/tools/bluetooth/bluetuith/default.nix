@@ -28,6 +28,6 @@ buildGoModule rec {
     homepage = "https://github.com/darkhz/bluetuith";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ thehedgeh0g ];
+    maintainers = with maintainers; [thehedgeh0g];
   };
 }

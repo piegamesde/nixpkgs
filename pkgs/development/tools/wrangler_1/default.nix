@@ -25,10 +25,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-tPLqDm6kOVBKrLvhgZ9xD6vVBNjBBk9uLF7WOPgz8qE=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       curl
       CoreFoundation
@@ -49,6 +49,6 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ Br1ght0ne ];
+    maintainers = with maintainers; [Br1ght0ne];
   };
 }

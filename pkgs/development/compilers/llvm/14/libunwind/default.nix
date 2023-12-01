@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
 
   # I am not so comfortable giving libc++ and friends the whole monorepo as
   # requested, so I filter it to what is needed.
-  src = runCommand "${pname}-src-${version}" { } ''
+  src = runCommand "${pname}-src-${version}" {} ''
     mkdir -p "$out"
     cp -r ${monorepoSrc}/cmake "$out"
     cp -r ${monorepoSrc}/${pname} "$out"
@@ -28,14 +28,14 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${src.name}/${pname}";
 
-  patches = [ ./gnu-install-dirs.patch ];
+  patches = [./gnu-install-dirs.patch];
 
   outputs = [
     "out"
     "dev"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = lib.optional (!enableShared) "-DLIBUNWIND_ENABLE_SHARED=OFF";
 

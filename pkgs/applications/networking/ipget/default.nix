@@ -28,7 +28,7 @@ buildGoModule rec {
     description = "Retrieve files over IPFS and save them locally";
     homepage = "https://ipfs.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
     platforms = platforms.unix;
   };
 }

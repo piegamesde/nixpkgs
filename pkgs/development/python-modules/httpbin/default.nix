@@ -46,9 +46,9 @@ buildPythonPackage rec {
     werkzeug
   ] ++ raven.optional-dependencies.flask;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "test_httpbin.py" ];
+  pytestFlagsArray = ["test_httpbin.py"];
 
   disabledTests = [
     # Tests seems to be outdated
@@ -61,12 +61,12 @@ buildPythonPackage rec {
     "test_relative_redirect_n_higher_than_1"
   ];
 
-  pythonImportsCheck = [ "httpbin" ];
+  pythonImportsCheck = ["httpbin"];
 
   meta = with lib; {
     description = "HTTP Request and Response Service";
     homepage = "https://github.com/kennethreitz/httpbin";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

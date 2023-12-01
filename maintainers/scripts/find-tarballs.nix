@@ -1,9 +1,9 @@
 # This expression returns a list of all fetchurl calls used by ‘expr’.
 
-with import ../.. { };
+with import ../.. {};
 with lib;
 
-{ expr }:
+{expr}:
 
 let
 
@@ -18,14 +18,14 @@ let
             inherit file;
           })
           urls;
-      operator = const [ ];
+      operator = const [];
     }
   );
 
   urls =
     map
       (drv: {
-        url = head (drv.urls or [ drv.url ]);
+        url = head (drv.urls or [drv.url]);
         hash = drv.outputHash;
         isPatch = (drv ? postFetch && drv.postFetch != "");
         type = drv.outputHashAlgo;
@@ -44,14 +44,14 @@ let
   dependencies = map (x: x.value) (
     genericClosure {
       startSet = map keyDrv (derivationsIn' root);
-      operator = { key, value }: map keyDrv (immediateDependenciesOf value);
+      operator = {key, value}: map keyDrv (immediateDependenciesOf value);
     }
   );
 
   derivationsIn' =
     x:
     if !canEval x then
-      [ ]
+      []
     else if isDerivation x then
       optional (canEval x.drvPath) x
     else if isList x then
@@ -61,7 +61,7 @@ let
         mapAttrsToList (n: v: addErrorContext "while finding tarballs in '${n}':" (derivationsIn' v)) x
       )
     else
-      [ ];
+      [];
 
   keyDrv =
     drv:
@@ -71,7 +71,7 @@ let
         value = drv;
       }
     else
-      { };
+      {};
 
   immediateDependenciesOf =
     drv:
@@ -90,13 +90,13 @@ let
   derivationsIn =
     x:
     if !canEval x then
-      [ ]
+      []
     else if isDerivation x then
       optional (canEval x.drvPath) x
     else if isList x then
       concatLists (map derivationsIn x)
     else
-      [ ];
+      [];
 
   canEval = val: (builtins.tryEval val).success;
 in

@@ -38,12 +38,12 @@ in
       isSystemUser = true;
       group = "tvheadend";
     };
-    users.groups.tvheadend = { };
+    users.groups.tvheadend = {};
 
     systemd.services.tvheadend = {
       description = "Tvheadend TV streaming server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         Type = "forking";

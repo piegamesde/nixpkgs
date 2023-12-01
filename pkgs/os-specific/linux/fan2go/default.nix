@@ -30,7 +30,7 @@ buildGoModule rec {
     description = "A simple daemon providing dynamic fan speed control based on temperature sensors";
     homepage = "https://github.com/markusressel/fan2go";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ mtoohey ];
+    maintainers = with maintainers; [mtoohey];
     platforms = platforms.linux;
   };
 }

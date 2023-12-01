@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
   {
     name = "swap-partition";
 
@@ -37,7 +37,7 @@ import ./make-test-python.nix (
           };
         };
 
-        swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
+        swapDevices = [{device = "/dev/disk/by-label/swap";}];
       };
 
     testScript = ''

@@ -19,20 +19,20 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-4iJghmSXsaijNCvYyrM3dEsqCDk6zeTU92oP5Qs6tOY=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   # This is an FHS specific assert depending on glibc location
-  checkFlags = [ "--skip=dependencies::resolve_test" ];
+  checkFlags = ["--skip=dependencies::resolve_test"];
 
   postInstall = ''
     wrapProgram $out/bin/cargo-deb \
-      --prefix PATH : ${lib.makeBinPath [ dpkg ]}
+      --prefix PATH : ${lib.makeBinPath [dpkg]}
   '';
 
   meta = with lib; {
     description = "A cargo subcommand that generates Debian packages from information in Cargo.toml";
     homepage = "https://github.com/kornelski/cargo-deb";
     license = licenses.mit;
-    maintainers = with maintainers; [ Br1ght0ne ];
+    maintainers = with maintainers; [Br1ght0ne];
   };
 }

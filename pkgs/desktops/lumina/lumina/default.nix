@@ -53,7 +53,7 @@ mkDerivation rec {
 
   dontDropIconThemeCache = true;
 
-  patches = [ ./LuminaOS-NixOS.cpp.patch ];
+  patches = [./LuminaOS-NixOS.cpp.patch];
 
   prePatch = ''
     # Copy Gentoo setup as NixOS setup and then patch it
@@ -95,7 +95,7 @@ mkDerivation rec {
     "LRELEASE=${lib.getDev qttools}/bin/lrelease"
   ];
 
-  passthru.providedSessions = [ "Lumina-DE" ];
+  passthru.providedSessions = ["Lumina-DE"];
 
   meta = with lib; {
     description = "A lightweight, portable desktop environment";

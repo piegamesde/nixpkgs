@@ -15,7 +15,7 @@ stdenv.mkDerivation {
     cmake
     llvm
   ];
-  buildInputs = [ llvmPackages.libclang ];
+  buildInputs = [llvmPackages.libclang];
 
   dontUseCmakeBuildDir = true;
 
@@ -24,7 +24,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "The server part of irony";
     homepage = "https://melpa.org/#/irony";
-    maintainers = [ maintainers.deepfire ];
+    maintainers = [maintainers.deepfire];
     platforms = platforms.unix;
     license = licenses.free;
   };

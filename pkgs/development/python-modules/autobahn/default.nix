@@ -95,9 +95,9 @@ buildPythonPackage rec {
     export USE_ASYNCIO=1
   '';
 
-  pytestFlagsArray = [ "--pyargs autobahn" ];
+  pytestFlagsArray = ["--pyargs autobahn"];
 
-  pythonImportsCheck = [ "autobahn" ];
+  pythonImportsCheck = ["autobahn"];
 
   passthru.optional-dependencies = rec {
     all = accelerate ++ compress ++ encryption ++ nvx ++ serialization ++ scram ++ twisted ++ ui ++ xbr;
@@ -105,14 +105,14 @@ buildPythonPackage rec {
       [
         # wsaccel
       ];
-    compress = [ python-snappy ];
+    compress = [python-snappy];
     encryption = [
       pynacl
       pyopenssl
       qrcode # pytrie
       service-identity
     ];
-    nvx = [ cffi ];
+    nvx = [cffi];
     scram = [
       argon2-cffi
       cffi
@@ -130,7 +130,7 @@ buildPythonPackage rec {
       args.twisted
       zope_interface
     ];
-    ui = [ pygobject3 ];
+    ui = [pygobject3];
     xbr = [
       base58
       cbor2
@@ -154,6 +154,6 @@ buildPythonPackage rec {
     description = "WebSocket and WAMP in Python for Twisted and asyncio";
     homepage = "https://crossbar.io/autobahn";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

@@ -26,7 +26,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     dulwich
@@ -35,7 +35,7 @@ buildPythonPackage rec {
     voluptuous
   ];
 
-  pythonImportsCheck = [ "dvc_studio_client" ];
+  pythonImportsCheck = ["dvc_studio_client"];
 
   # Tests try to access network
   doCheck = false;
@@ -45,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/iterative/dvc-studio-client";
     changelog = "https://github.com/iterative/dvc-studio-client/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ melling ];
+    maintainers = with maintainers; [melling];
   };
 }

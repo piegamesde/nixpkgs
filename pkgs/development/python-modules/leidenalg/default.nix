@@ -30,7 +30,7 @@ buildPythonPackage rec {
     rm -r vendor
   '';
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     igraph
@@ -42,12 +42,12 @@ buildPythonPackage rec {
     unittestCheckHook
   ];
 
-  pythonImportsCheck = [ "leidenalg" ];
+  pythonImportsCheck = ["leidenalg"];
 
   meta = with lib; {
     description = "Implementation of the Leiden algorithm for various quality functions to be used with igraph in Python";
     homepage = "https://leidenalg.readthedocs.io";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ jboy ];
+    maintainers = with maintainers; [jboy];
   };
 }

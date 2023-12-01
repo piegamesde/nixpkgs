@@ -1,4 +1,4 @@
-{ lib, python3Packages }:
+{lib, python3Packages}:
 
 with python3Packages;
 
@@ -11,7 +11,7 @@ buildPythonApplication rec {
     sha256 = "02rrlllz2ci6i6cs3iddyfns7ang9a54jrlygd2jw1f9s6418ll8";
   };
 
-  propagatedBuildInputs = [ stem ];
+  propagatedBuildInputs = [stem];
 
   # ./run_tests.py returns `TypeError: testFailure() takes exactly 1 argument`
   doCheck = false;
@@ -20,6 +20,6 @@ buildPythonApplication rec {
     description = "Command-line monitor for Tor";
     homepage = "https://nyx.torproject.org/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
   };
 }

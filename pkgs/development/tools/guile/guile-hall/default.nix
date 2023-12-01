@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     description = "Project manager and build tool for GNU guile";
     homepage = "https://gitlab.com/a-sassmannshausen/guile-hall";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = guile.meta.platforms;
   };
 }

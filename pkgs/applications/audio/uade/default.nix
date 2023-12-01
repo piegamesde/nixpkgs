@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     pkg-config
     which
     makeWrapper
-  ] ++ lib.optionals withWriteAudio [ python3 ];
+  ] ++ lib.optionals withWriteAudio [python3];
 
   buildInputs =
     [
@@ -70,11 +70,11 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--bencode-tools-prefix=${bencodetools}"
     "--with-text-scope"
-  ] ++ lib.optionals (!withWriteAudio) [ "--without-write-audio" ];
+  ] ++ lib.optionals (!withWriteAudio) ["--without-write-audio"];
 
   enableParallelBuilding = true;
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   postInstall =
     ''
@@ -103,7 +103,7 @@ stdenv.mkDerivation rec {
     # - infogrames player is disassembled from Andi Silvas player, unknown license
     # Let's make it easy and flag the whole package as unfree.
     license = licenses.unfree;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     mainProgram = "uade123";
     platforms = platforms.unix;
   };

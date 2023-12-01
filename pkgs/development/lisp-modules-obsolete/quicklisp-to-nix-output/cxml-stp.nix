@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cxml-stp";
   version = "20200325-git";
 
-  parasites = [ "cxml-stp/test" ];
+  parasites = ["cxml-stp/test"];
 
   description = "System lacks description";
 
@@ -32,7 +32,7 @@ rec {
 
   packageName = "cxml-stp";
 
-  asdFilesToKeep = [ "cxml-stp.asd" ];
+  asdFilesToKeep = ["cxml-stp.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cxml-stp DESCRIPTION System lacks description SHA256

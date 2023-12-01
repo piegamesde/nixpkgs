@@ -11,8 +11,8 @@ else
   symlinkJoin {
     name = "termite-with-config-${termite.version}";
 
-    paths = [ termite ];
-    nativeBuildInputs = [ makeWrapper ];
+    paths = [termite];
+    nativeBuildInputs = [makeWrapper];
 
     postBuild = ''
       wrapProgram $out/bin/termite \

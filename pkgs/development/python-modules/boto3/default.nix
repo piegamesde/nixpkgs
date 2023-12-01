@@ -30,9 +30,9 @@ buildPythonPackage rec {
 
   doCheck = true;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "boto3" ];
+  pythonImportsCheck = ["boto3"];
 
   disabledTestPaths =
     [
@@ -50,6 +50,6 @@ buildPythonPackage rec {
       Python, which allows Python developers to write software that makes use of
       services like Amazon S3 and Amazon EC2.
     '';
-    maintainers = with maintainers; [ anthonyroussel ];
+    maintainers = with maintainers; [anthonyroussel];
   };
 }

@@ -29,7 +29,7 @@ buildPythonPackage rec {
     scikit-learn
   ];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   checkPhase = ''
     # numerical rounding error in test
@@ -40,7 +40,7 @@ buildPythonPackage rec {
     description = "Experimental Gradient Boosting Machines in Python";
     homepage = "https://github.com/ogrisel/pygbm";
     license = licenses.mit;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
     broken = true;
   };
 }

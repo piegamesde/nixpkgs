@@ -55,9 +55,9 @@ mkDerivation rec {
       "--disable-qtgui"
       "--disable-x11mon"
     ]
-    ++ (if stdenv.isLinux then [ "--with-inotify" ] else [ "--without-inotify" ]);
+    ++ (if stdenv.isLinux then ["--with-inotify"] else ["--without-inotify"]);
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-DNIXPKGS" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-DNIXPKGS"];
 
   patches =
     [
@@ -80,7 +80,7 @@ mkDerivation rec {
     python3Packages.mutagen
     xapian
     zlib
-  ] ++ lib.optionals withGui [ qtbase ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
+  ] ++ lib.optionals withGui [qtbase] ++ lib.optionals stdenv.isDarwin [libiconv];
 
   # the filters search through ${PATH} using a sh proc 'checkcmds' for the
   # filtering utils. Short circuit this by replacing the filtering command with
@@ -116,7 +116,7 @@ mkDerivation rec {
       wrapProgram $out/share/recoll/filters/rclaudio.py \
         --prefix PYTHONPATH : $PYTHONPATH
       wrapProgram $out/share/recoll/filters/rclimg \
-        --prefix PERL5LIB : "${with perlPackages; makeFullPerlPath [ ImageExifTool ]}"
+        --prefix PERL5LIB : "${with perlPackages; makeFullPerlPath [ImageExifTool]}"
     ''
     + lib.optionalString stdenv.isLinux ''
       substituteInPlace  $f --replace '"lyx"' '"${lib.getBin lyx}/bin/lyx"'

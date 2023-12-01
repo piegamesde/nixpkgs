@@ -68,15 +68,15 @@ let
         --set GDK_PIXBUF_MODULE_FILE "$GDK_PIXBUF_MODULE_FILE" \
         --argv0 factor \
         --prefix LD_LIBRARY_PATH : /run/opengl-driver/lib:${lib.makeLibraryPath runtimeLibs} \
-        --prefix PATH : ${lib.makeBinPath [ graphviz ]}
+        --prefix PATH : ${lib.makeBinPath [graphviz]}
     '';
 
   wrapFactor =
     runtimeLibs:
     runCommand (lib.appendToName "with-libs" interpreter).name
       {
-        nativeBuildInputs = [ makeWrapper ];
-        buildInputs = [ gdk-pixbuf ];
+        nativeBuildInputs = [makeWrapper];
+        buildInputs = [gdk-pixbuf];
         passthru.runtimeLibs = runtimeLibs ++ interpreter.runtimeLibs;
       }
       (

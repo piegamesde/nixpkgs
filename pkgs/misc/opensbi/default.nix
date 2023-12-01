@@ -23,14 +23,14 @@ stdenv.mkDerivation rec {
     patchShebangs ./scripts
   '';
 
-  nativeBuildInputs = [ python3 ];
+  nativeBuildInputs = [python3];
 
-  installFlags = [ "I=$(out)" ];
+  installFlags = ["I=$(out)"];
 
   makeFlags =
-    [ "PLATFORM=${withPlatform}" ]
-    ++ lib.optionals (withPayload != null) [ "FW_PAYLOAD_PATH=${withPayload}" ]
-    ++ lib.optionals (withFDT != null) [ "FW_FDT_PATH=${withFDT}" ];
+    ["PLATFORM=${withPlatform}"]
+    ++ lib.optionals (withPayload != null) ["FW_PAYLOAD_PATH=${withPayload}"]
+    ++ lib.optionals (withFDT != null) ["FW_FDT_PATH=${withFDT}"];
 
   dontStrip = true;
   dontPatchELF = true;
@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
       nickcao
       zhaofengli
     ];
-    platforms = [ "riscv64-linux" ];
+    platforms = ["riscv64-linux"];
   };
 }

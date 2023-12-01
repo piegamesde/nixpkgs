@@ -33,7 +33,7 @@ lib.throwIf (lib.versionAtLeast ocaml.version "5.0")
       menhirSdk
     ];
 
-    passthru.updateScript = gitUpdater { };
+    passthru.updateScript = gitUpdater {};
 
     meta = with lib; {
       description = "A simple fork of OCaml parser with support for error recovery";
@@ -43,7 +43,7 @@ lib.throwIf (lib.versionAtLeast ocaml.version "5.0")
         mit
         mpl20
       ];
-      maintainers = with maintainers; [ romildo ];
+      maintainers = with maintainers; [romildo];
       mainProgram = "menhir-recover";
     };
   }

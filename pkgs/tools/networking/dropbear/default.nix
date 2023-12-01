@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
             "dropbearkey"
             "dropbearconvert"
           ]
-          ++ lib.optionals enableSCP [ "scp" ]
+          ++ lib.optionals enableSCP ["scp"]
         )
       }"
     )
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
     homepage = "https://matt.ucc.asn.au/dropbear/dropbear.html";
     changelog = "https://github.com/mkj/dropbear/raw/DROPBEAR_${version}/CHANGES";
     license = licenses.mit;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     platforms = platforms.linux;
   };
 }

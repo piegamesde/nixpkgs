@@ -22,7 +22,7 @@ buildPecl {
     sha256 = "sha256-xadseYMbA+llzTf9JFIitJK2iR0dN8vAjv3n9/e7FGs=";
   };
 
-  buildInputs = [ pcre2 ] ++ lib.optionals (!stdenv.isDarwin) [ valgrind ];
+  buildInputs = [pcre2] ++ lib.optionals (!stdenv.isDarwin) [valgrind];
 
   doCheck = true;
   checkTarget = "tests";

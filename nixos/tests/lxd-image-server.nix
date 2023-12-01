@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   let
     lxd-image = import ../release.nix {
@@ -23,7 +23,7 @@ import ./make-test-python.nix (
     };
 
     nodes.machine =
-      { lib, ... }:
+      {lib, ...}:
       {
         virtualisation = {
           cores = 2;
@@ -35,7 +35,7 @@ import ./make-test-python.nix (
           lxd.enable = true;
         };
 
-        security.pki.certificates = [ (builtins.readFile ./common/acme/server/ca.cert.pem) ];
+        security.pki.certificates = [(builtins.readFile ./common/acme/server/ca.cert.pem)];
 
         services.nginx = {
           enable = true;
@@ -56,7 +56,7 @@ import ./make-test-python.nix (
         };
 
         networking.hosts = {
-          "::1" = [ "acme.test" ];
+          "::1" = ["acme.test"];
         };
       };
 

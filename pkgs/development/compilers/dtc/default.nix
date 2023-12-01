@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       swig
     ];
 
-  buildInputs = [ libyaml ];
+  buildInputs = [libyaml];
 
   postPatch = ''
     patchShebangs pylibfdt/
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     description = "Device Tree Compiler";
     homepage = "https://git.kernel.org/pub/scm/utils/dtc/dtc.git";
     license = licenses.gpl2Plus; # dtc itself is GPLv2, libfdt is dual GPL/BSD
-    maintainers = [ maintainers.dezgeg ];
+    maintainers = [maintainers.dezgeg];
     platforms = platforms.unix;
   };
 }

@@ -21,10 +21,10 @@ stdenv.mkDerivation {
     rev = version;
   };
 
-  nativeBuildInputs = [ sharutils ]; # for uuencode
-  buildInputs = [ coreutils ];
+  nativeBuildInputs = [sharutils]; # for uuencode
+  buildInputs = [coreutils];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   buildPhase = ''
     sed -i 's,/bin/cat,${coreutils}/bin/cat,g' vimpager

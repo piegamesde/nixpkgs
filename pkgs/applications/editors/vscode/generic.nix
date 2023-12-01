@@ -60,8 +60,8 @@ let
         tests
         updateScript
         ;
-      fhs = fhs { };
-      fhsWithPackages = f: fhs { additionalPkgs = f; };
+      fhs = fhs {};
+      fhsWithPackages = f: fhs {additionalPkgs = f;};
     };
 
     desktopItem = makeDesktopItem {
@@ -83,7 +83,7 @@ let
         "text/plain"
         "inode/directory"
       ];
-      keywords = [ "vscode" ];
+      keywords = ["vscode"];
       actions.new-empty-window = {
         name = "New Empty Window";
         exec = "${executableName} --new-window %F";
@@ -105,8 +105,8 @@ let
         "Development"
         "IDE"
       ];
-      mimeTypes = [ "x-scheme-handler/vscode" ];
-      keywords = [ "vscode" ];
+      mimeTypes = ["x-scheme-handler/vscode"];
+      keywords = ["vscode"];
       noDisplay = true;
     };
 
@@ -114,7 +114,7 @@ let
       libsecret
       libXScrnSaver
       libxshmfence
-    ] ++ lib.optionals (!stdenv.isDarwin) ([ at-spi2-atk ] ++ atomEnv.packages);
+    ] ++ lib.optionals (!stdenv.isDarwin) ([at-spi2-atk] ++ atomEnv.packages);
 
     runtimeDependencies = lib.optionals stdenv.isLinux [
       (lib.getLib systemd)
@@ -124,12 +124,12 @@ let
     ];
 
     nativeBuildInputs =
-      [ unzip ]
+      [unzip]
       ++ lib.optionals stdenv.isLinux [
         autoPatchelfHook
         nodePackages.asar
         # override doesn't preserve splicing https://github.com/NixOS/nixpkgs/issues/132651
-        (buildPackages.wrapGAppsHook.override { inherit (buildPackages) makeWrapper; })
+        (buildPackages.wrapGAppsHook.override {inherit (buildPackages) makeWrapper;})
       ];
 
     dontBuild = true;
@@ -220,7 +220,7 @@ let
   # extension tooling without significant pain.
   fhs =
     {
-      additionalPkgs ? pkgs: [ ],
+      additionalPkgs ? pkgs: [],
     }:
     buildFHSEnv {
       # also determines the name of the wrapped command
@@ -249,7 +249,7 @@ let
         )
         ++ additionalPkgs pkgs;
 
-      extraBwrapArgs = [ "--bind-try /etc/nixos/ /etc/nixos/" ];
+      extraBwrapArgs = ["--bind-try /etc/nixos/ /etc/nixos/"];
 
       # symlink shared assets, including icons and desktop entries
       extraInstallCommands = ''

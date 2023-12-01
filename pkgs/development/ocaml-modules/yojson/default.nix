@@ -15,14 +15,14 @@ buildDunePackage rec {
     sha256 = "sha256-h2u284r3OoSilDij2jXkhXxgoUVWpgZSWxSMb9vlRhs=";
   };
 
-  nativeBuildInputs = [ cppo ];
-  propagatedBuildInputs = [ seq ];
+  nativeBuildInputs = [cppo];
+  propagatedBuildInputs = [seq];
 
   meta = with lib; {
     description = "An optimized parsing and printing library for the JSON format";
     homepage = "https://github.com/ocaml-community/${pname}";
     license = licenses.bsd3;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
     mainProgram = "ydump";
   };
 }

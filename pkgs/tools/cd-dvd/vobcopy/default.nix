@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     homepage = "http://vobcopy.org/projects/c/c.shtml";
     license = lib.licenses.gpl2;
 
-    maintainers = [ lib.maintainers.bluescreen303 ];
+    maintainers = [lib.maintainers.bluescreen303];
     platforms = lib.platforms.all;
   };
 }

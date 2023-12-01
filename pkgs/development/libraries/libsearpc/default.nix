@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   propagatedBuildInputs = [
     glib
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     description = "A simple and easy-to-use C language RPC framework based on GObject System";
     license = licenses.lgpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ greizgh ];
+    maintainers = with maintainers; [greizgh];
   };
 }

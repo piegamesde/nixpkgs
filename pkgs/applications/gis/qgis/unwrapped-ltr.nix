@@ -46,7 +46,7 @@
 let
 
   py = python3.override {
-    packageOverrides = self: super: { pyqt5 = super.pyqt5.override { withLocation = true; }; };
+    packageOverrides = self: super: {pyqt5 = super.pyqt5.override {withLocation = true;};};
   };
 
   pythonBuildInputs = with py.pkgs; [
@@ -77,7 +77,7 @@ mkDerivation rec {
   src = fetchFromGitHub {
     owner = "qgis";
     repo = "QGIS";
-    rev = "final-${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "final-${lib.replaceStrings ["."] ["_"] version}";
     hash = "sha256-3fQB0oCIZSVEVMZzmeyvw8/Ew+JjzAFnTIsnsklAayI=";
   };
 
@@ -156,7 +156,7 @@ mkDerivation rec {
     # on non-NixOS
     wrapProgram $out/bin/qgis \
       "''${gappsWrapperArgs[@]}" \
-      --prefix PATH : ${lib.makeBinPath [ grass ]}
+      --prefix PATH : ${lib.makeBinPath [grass]}
   '';
 
   meta = {

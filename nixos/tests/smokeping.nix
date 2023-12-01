@@ -1,12 +1,12 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "smokeping";
-    meta = with pkgs.lib.maintainers; { maintainers = [ cransom ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [cransom];};
 
     nodes = {
       sm =
-        { ... }:
+        {...}:
         {
           networking.domain = "example.com"; # FQDN: sm.example.com
           services.smokeping = {

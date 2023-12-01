@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-856OWlnNiGB20571TJg7Ayzcz4r6NqdW5DMDiim09mc=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir $out -p
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "Animated pipes terminal screensaver";
     homepage = "https://github.com/pipeseroni/pipes.sh";
     license = licenses.mit;
-    maintainers = [ maintainers.matthiasbeyer ];
+    maintainers = [maintainers.matthiasbeyer];
     mainProgram = "pipes.sh";
     platforms = platforms.unix;
   };

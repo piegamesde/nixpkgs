@@ -25,12 +25,12 @@ buildPythonPackage rec {
   # upstream doesn't have any tests, single file
   doCheck = false;
 
-  pythonImportsCheck = [ "flask_sockets" ];
+  pythonImportsCheck = ["flask_sockets"];
 
   meta = with lib; {
     description = "Elegant WebSockets for your Flask apps";
     homepage = "https://github.com/heroku-python/flask-sockets";
     license = licenses.mit;
-    maintainers = [ maintainers.prusnak ];
+    maintainers = [maintainers.prusnak];
   };
 }

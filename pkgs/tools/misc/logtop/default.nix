@@ -18,14 +18,14 @@ stdenv.mkDerivation rec {
     sha256 = "1f8vk9gybldxvc0kwz38jxmwvzwangsvlfslpsx8zf04nvbkqi12";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     ncurses
     uthash
   ];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
-  installFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
+  installFlags = ["DESTDIR=$(out)"];
 
   postConfigure = ''
     substituteInPlace Makefile --replace /usr ""
@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
     license = licenses.bsd2;
     homepage = "https://github.com/JulienPalard/logtop";
     platforms = platforms.unix;
-    maintainers = [ maintainers.starcraft66 ];
+    maintainers = [maintainers.starcraft66];
   };
 }

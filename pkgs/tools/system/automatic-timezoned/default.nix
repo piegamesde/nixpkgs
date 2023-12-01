@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/maxbrunet/automatic-timezoned";
     changelog = "https://github.com/maxbrunet/automatic-timezoned/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ maxbrunet ];
+    maintainers = with maintainers; [maxbrunet];
     platforms = platforms.linux;
   };
 }

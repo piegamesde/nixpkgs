@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
     sha256 = "1spy9xs41v76kid5ana8n126f3mvgq6fjibbfbj4kn0larbhix73";
   };
 
-  buildInputs = [ libmnl ];
-  propagatedBuildInputs = [ libnfnetlink ];
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [libmnl];
+  propagatedBuildInputs = [libnfnetlink];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     description = "Userspace library providing interface to packets that have been logged by the kernel packet filter";
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     homepage = "https://netfilter.org/projects/libnetfilter_log/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

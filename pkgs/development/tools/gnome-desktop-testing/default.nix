@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -42,6 +42,6 @@ stdenv.mkDerivation rec {
     homepage = "https://wiki.gnome.org/Initiatives/GnomeGoals/InstalledTests";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.jtojnar ];
+    maintainers = [maintainers.jtojnar];
   };
 }

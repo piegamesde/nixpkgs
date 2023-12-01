@@ -17,17 +17,17 @@ buildPythonPackage rec {
     hash = "sha256-z+U0PRwymDDXVNM7a2Yl4pNNVBxpx/BhJnlx6kgyvww=";
   };
 
-  patches = [ ./mkdocs-gitlab-plugin.diff ];
+  patches = [./mkdocs-gitlab-plugin.diff];
 
-  propagatedBuildInputs = [ mkdocs ];
+  propagatedBuildInputs = [mkdocs];
 
-  pythonImportsCheck = [ "mkdocs_gitlab_plugin" ];
+  pythonImportsCheck = ["mkdocs_gitlab_plugin"];
 
   meta = with lib; {
     description = "MkDocs plugin to transform strings such as #1234, %56, or !789 into links to a Gitlab repository.";
     homepage = "https://gitlab.inria.fr/vidjil/mkdocs-gitlab-plugin";
     license = licenses.mit;
-    maintainers = with maintainers; [ snpschaaf ];
+    maintainers = with maintainers; [snpschaaf];
     longDescription = ''
       Plugin for MkDocs.
       Transform handles such as #1234, %56, !789, &12 or $34 into links to a gitlab repository,

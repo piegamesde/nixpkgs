@@ -25,8 +25,8 @@ let
     {
       version,
       sha256,
-      extraNativeBuildInputs ? [ ],
-      extraBuildInputs ? [ ],
+      extraNativeBuildInputs ? [],
+      extraBuildInputs ? [],
       withGraphviz ? false,
     }:
     let
@@ -92,7 +92,7 @@ let
         ]
         ++ lib.optional (stdenv.isDarwin && (lib.versionAtLeast version "0.38")) expat
         ++ lib.optional disableGraphviz autoreconfHook # if we changed our ./configure script, need to reconfigure
-        ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ vala ]
+        ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [vala]
         ++ extraNativeBuildInputs;
 
       buildInputs = [

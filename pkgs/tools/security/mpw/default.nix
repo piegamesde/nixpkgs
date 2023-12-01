@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     "-DBUILD_MPW_TESTS=ON"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     json_c

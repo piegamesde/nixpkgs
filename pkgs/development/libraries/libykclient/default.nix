@@ -23,12 +23,12 @@ stdenv.mkDerivation {
     pkg-config
     help2man
   ];
-  buildInputs = [ curl ];
+  buildInputs = [curl];
 
   meta = with lib; {
     description = "Yubikey C client library";
     homepage = "https://developers.yubico.com/yubico-c-client";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
   };
 }

@@ -45,7 +45,7 @@ let
     {
       version,
       sha256,
-      extraPatches ? [ ],
+      extraPatches ? [],
     }:
     stdenv.mkDerivation (
       rec {
@@ -92,12 +92,12 @@ let
             Security
           ];
 
-        patches = [ ./apr-1.patch ] ++ extraPatches;
+        patches = [./apr-1.patch] ++ extraPatches;
 
         # We are hitting the following issue even with APR 1.6.x
         # -> https://issues.apache.org/jira/browse/SVN-4813
         # "-P" CPPFLAG is needed to build Python bindings and subversionClient
-        CPPFLAGS = [ "-P" ];
+        CPPFLAGS = ["-P"];
 
         preConfigure = lib.optionalString needsAutogen ''
           ./autogen.sh
@@ -159,7 +159,7 @@ let
         # make: *** [build-outputs.mk:1316: install-serf-lib] Error 1
         enableParallelInstalling = false;
 
-        nativeCheckInputs = [ python3 ];
+        nativeCheckInputs = [python3];
         doCheck = false; # fails 10 out of ~2300 tests
 
         meta = with lib; {

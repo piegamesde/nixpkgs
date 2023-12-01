@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     description = "A C library for exact computation with real and complex numbers";
     homepage = "https://fredrikj.net/calcium/";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ smasher164 ];
+    maintainers = with maintainers; [smasher164];
     platforms = platforms.unix;
   };
 }

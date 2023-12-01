@@ -28,6 +28,6 @@ in
         }
       ];
     };
-    environment.systemPackages = [ pkgs.spectrwm ];
+    environment.systemPackages = [pkgs.spectrwm];
   };
 }

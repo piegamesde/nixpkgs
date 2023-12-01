@@ -21,7 +21,7 @@ let
   cfg = writeTextFile {
     name = "site.cfg";
     text =
-      (lib.generators.toINI { } {
+      (lib.generators.toINI {} {
         ${blas.implementation} = {
           include_dirs = "${lib.getDev blas}/include:${lib.getDev lapack}/include";
           library_dirs = "${blas}/lib:${lapack}/lib";
@@ -89,7 +89,7 @@ buildPythonPackage rec {
   nativeCheckInputs = [
     pytest
     # "hypothesis" indirectly depends on numpy to build its documentation.
-    (hypothesis.override { enableDocumentation = false; })
+    (hypothesis.override {enableDocumentation = false;})
     typing-extensions
   ];
 
@@ -116,6 +116,6 @@ buildPythonPackage rec {
     description = "Scientific tools for Python";
     homepage = "https://numpy.org/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ fridh ];
+    maintainers = with lib.maintainers; [fridh];
   };
 }

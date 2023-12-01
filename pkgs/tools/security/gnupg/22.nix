@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-E/MpEAel6FRvy3vAxmEM5EqqmzmVBZ1PgUW6Cf1b4+E=";
   };
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   nativeBuildInputs = [
     pkg-config
     texinfo

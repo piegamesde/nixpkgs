@@ -24,9 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-J3DEkoq8ch9GtwXmpysMWUgMSmnJqDygsAu5lPHqSzI=";
   };
 
-  buildInputs = [ vcversioner ];
+  buildInputs = [vcversioner];
 
-  propagatedBuildInputs = [ typing-extensions ];
+  propagatedBuildInputs = [typing-extensions];
 
   nativeCheckInputs = [
     mock
@@ -36,12 +36,12 @@ buildPythonPackage rec {
     twisted
   ];
 
-  pythonImportsCheck = [ "pyee" ];
+  pythonImportsCheck = ["pyee"];
 
   meta = with lib; {
     description = "A port of Node.js's EventEmitter to Python";
     homepage = "https://github.com/jfhbrook/pyee";
     license = licenses.mit;
-    maintainers = with maintainers; [ kmein ];
+    maintainers = with maintainers; [kmein];
   };
 }

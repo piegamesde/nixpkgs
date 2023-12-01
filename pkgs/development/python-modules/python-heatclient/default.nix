@@ -62,7 +62,7 @@ buildPythonPackage rec {
     ")
   '';
 
-  pythonImportsCheck = [ "heatclient" ];
+  pythonImportsCheck = ["heatclient"];
 
   meta = with lib; {
     description = "Library for Heat built on the Heat orchestration API";

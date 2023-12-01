@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "8cgt5KpLfnLwhucn4DQYC/7ot1u24ahJxWG+/1SL584=";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   PREFIX = placeholder "out";
 
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     inherit (src.meta) homepage;
     description = "Fuzzy text selection utility";
     license = licenses.mit;
-    maintainers = [ maintainers.womfoo ];
+    maintainers = [maintainers.womfoo];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

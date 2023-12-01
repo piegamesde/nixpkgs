@@ -21,12 +21,12 @@ buildPythonPackage rec {
     xz
   ];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   meta = with lib; {
     homepage = "https://deeptools.readthedocs.io/en/develop";
     description = "Helper library for deeptools";
     license = licenses.mit;
-    maintainers = with maintainers; [ scalavision ];
+    maintainers = with maintainers; [scalavision];
   };
 }

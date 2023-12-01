@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     sha256 = "03b7y0h3mf4jfq5y8zw6hv9v44z3n6i8hc1iswax96y3z7sc85y5";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     gnutls
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     "--without-expat"
   ];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   enableParallelBuilding = true;
 
@@ -55,6 +55,6 @@ stdenv.mkDerivation rec {
     homepage = "https://lftp.yar.ru/";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

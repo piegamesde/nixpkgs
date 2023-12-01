@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     libpthreadstubs
     gstreamer
     gst-plugins-base
-    (gst-plugins-good.override { gtkSupport = true; })
+    (gst-plugins-good.override {gtkSupport = true;})
     gst-libav
     qrencode
     webkitgtk
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
     description = "A presenter console with multi-monitor support for PDF files";
     homepage = "https://pdfpc.github.io/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = platforms.unix;
   };
 }

@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gKxUU2y6Gtm5a/tXYw/fsaTBrriNh5vouPGICs3Ph3c=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   patchPhase = ''
     sed -i "s|prefix=/usr/local|prefix=$out|" Makefile
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     description = "A frontend for arcade cabinets and media PCs";
     homepage = "http://attractmode.org";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ hrdinka ];
+    maintainers = with maintainers; [hrdinka];
     platforms = with platforms; linux;
   };
 }

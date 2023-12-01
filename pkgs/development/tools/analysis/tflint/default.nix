@@ -24,7 +24,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -37,10 +37,10 @@ buildGoModule rec {
       actualPlugins = plugins tflint-plugins;
       pluginDir = symlinkJoin {
         name = "tflint-plugin-dir";
-        paths = [ actualPlugins ];
+        paths = [actualPlugins];
       };
     in
-    runCommand "tflint-with-plugins" { nativeBuildInputs = [ makeWrapper ]; } ''
+    runCommand "tflint-with-plugins" {nativeBuildInputs = [makeWrapper];} ''
       makeWrapper ${tflint}/bin/tflint $out/bin/tflint \
         --set TFLINT_PLUGIN_DIR "${pluginDir}"
     '';
@@ -50,6 +50,6 @@ buildGoModule rec {
     homepage = "https://github.com/terraform-linters/tflint";
     changelog = "https://github.com/terraform-linters/tflint/raw/v${version}/CHANGELOG.md";
     license = licenses.mpl20;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

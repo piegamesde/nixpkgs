@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs =
     [
       libpcap
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       gnupg
       gpgme.dev
     ]
-    ++ lib.optionals wgetSupport [ wget ];
+    ++ lib.optionals wgetSupport [wget];
 
   configureFlags =
     [
@@ -86,6 +86,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.cipherdyne.org/fwknop/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
   };
 }

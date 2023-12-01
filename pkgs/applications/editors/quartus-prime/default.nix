@@ -13,7 +13,7 @@
     "MAX II/V"
     "MAX 10 FPGA"
   ],
-  unwrapped ? callPackage ./quartus.nix { inherit supportedDevices; },
+  unwrapped ? callPackage ./quartus.nix {inherit supportedDevices;},
 }:
 
 let
@@ -23,7 +23,7 @@ let
     icon = "quartus";
     desktopName = "Quartus";
     genericName = "Quartus Prime";
-    categories = [ "Development" ];
+    categories = ["Development"];
   };
 in
 # I think modelsim_ase/linux/vlm checksums itself, so use FHSUserEnv instead of `patchelf`
@@ -47,9 +47,9 @@ buildFHSEnvChroot rec {
     with pkgs;
     let
       # This seems ugly - can we override `libpng = libpng12` for all `pkgs`?
-      freetype = pkgs.freetype.override { libpng = libpng12; };
-      fontconfig = pkgs.fontconfig.override { inherit freetype; };
-      libXft = pkgs.xorg.libXft.override { inherit freetype fontconfig; };
+      freetype = pkgs.freetype.override {libpng = libpng12;};
+      fontconfig = pkgs.fontconfig.override {inherit freetype;};
+      libXft = pkgs.xorg.libXft.override {inherit freetype fontconfig;};
     in
     [
       # modelsim requirements
@@ -93,7 +93,7 @@ buildFHSEnvChroot rec {
           "stp"
           "tan"
         ])
-        ++ [ "quartus/bin/quartus" ];
+        ++ ["quartus/bin/quartus"];
 
       qsysExecutables = map (c: "quartus/sopc_builder/bin/qsys-${c}") [
         "generate"

@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-Q5p6NicwmHBR7drX8Tdgf6Mruqssg9qzMC9sG9DlMbQ=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = lib.optionals freedvSupport [ lpcnetfreedv ];
+  buildInputs = lib.optionals freedvSupport [lpcnetfreedv];
 
   # Install a binary that is used by openwebrx
   postInstall = ''
@@ -38,13 +38,13 @@ stdenv.mkDerivation rec {
       # RPATH of binary /nix/store/.../bin/freedv_rx contains a forbidden reference to /build/
       "-DCMAKE_SKIP_BUILD_RPATH=ON"
     ]
-    ++ lib.optionals freedvSupport [ "-DLPCNET=ON" ];
+    ++ lib.optionals freedvSupport ["-DLPCNET=ON"];
 
   meta = with lib; {
     description = "Speech codec designed for communications quality speech at low data rates";
     homepage = "https://www.rowetel.com/codec2.html";
     license = licenses.lgpl21Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ markuskowa ];
+    maintainers = with maintainers; [markuskowa];
   };
 }

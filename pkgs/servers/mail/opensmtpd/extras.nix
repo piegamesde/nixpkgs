@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     sha256 = "1b1mx71bvmv92lbm08wr2p60g3qhikvv3n15zsr6dcwbk9aqahzq";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     openssl
     libevent
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableSqlite [
       "--with-table-sqlite"
     ]
-    ++ lib.optionals enableRedis [ "--with-table-redis" ];
+    ++ lib.optionals enableRedis ["--with-table-redis"];
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString enableRedis "-I${hiredis}/include/hiredis -lhiredis"

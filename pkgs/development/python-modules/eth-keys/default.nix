@@ -57,16 +57,16 @@ buildPythonPackage rec {
     "test_encode_decode_pairings"
   ];
 
-  pythonImportsCheck = [ "eth_keys" ];
+  pythonImportsCheck = ["eth_keys"];
 
   passthru.optional-dependencies = {
-    coincurve = [ coincurve ];
+    coincurve = [coincurve];
   };
 
   meta = with lib; {
     description = "Common API for Ethereum key operations";
     homepage = "https://github.com/ethereum/eth-keys";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

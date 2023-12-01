@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-kcvtF/p1L5OVXJSRxRQ0NMFtV29tAysZs8cnTHqOBOo=";
   };
 
-  propagatedBuildInputs = [ typing-extensions ];
+  propagatedBuildInputs = [typing-extensions];
 
   postPatch = ''
     sed -i -e '/^addopts/d' -e '/^filterwarnings/,+2d' setup.cfg
@@ -34,12 +34,12 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  pythonImportsCheck = [ "async_lru" ];
+  pythonImportsCheck = ["async_lru"];
 
   meta = with lib; {
     description = "Simple lru cache for asyncio";
     homepage = "https://github.com/wikibusiness/async_lru";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -67,7 +67,7 @@ let
   docDir = "$out/share/doc/ghc/html";
   packageCfgDir = "${libDir}/package.conf.d";
   paths = lib.concatLists (
-    builtins.map (pkg: [ pkg ] ++ lib.optionals installDocumentation [ (lib.getOutput "doc" pkg) ]) (
+    builtins.map (pkg: [pkg] ++ lib.optionals installDocumentation [(lib.getOutput "doc" pkg)]) (
       lib.filter (x: x ? isHaskellLibrary) (lib.closePropagation packages)
     )
   );
@@ -75,13 +75,13 @@ let
   # CLang is needed on Darwin for -fllvm to work:
   # https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/codegens.html#llvm-code-generator-fllvm
   llvm = lib.makeBinPath (
-    [ llvmPackages.llvm ] ++ lib.optional stdenv.targetPlatform.isDarwin llvmPackages.clang
+    [llvmPackages.llvm] ++ lib.optional stdenv.targetPlatform.isDarwin llvmPackages.clang
   );
 in
 
 assert ghcLibdir != null -> (ghc.isGhcjs or false);
 
-if paths == [ ] && !useLLVM then
+if paths == [] && !useLLVM then
   ghc
 else
   symlinkJoin {
@@ -89,8 +89,8 @@ else
     # if such a feature is needed, the real compiler name should be saved
     # as a dedicated drv attribute, like `compiler-name`
     name = ghc.name + "-with-packages";
-    paths = paths ++ [ ghc ] ++ lib.optionals installDocumentation [ (lib.getOutput "doc" ghc) ];
-    nativeBuildInputs = [ makeWrapper ];
+    paths = paths ++ [ghc] ++ lib.optionals installDocumentation [(lib.getOutput "doc" ghc)];
+    nativeBuildInputs = [makeWrapper];
     postBuild =
       ''
         # wrap compiler executables with correct env variables

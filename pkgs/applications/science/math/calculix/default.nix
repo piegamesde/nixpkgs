@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "01vdy9sns58hkm39z6d0r5y7gzqf5z493d18jin9krqib1l6jnn7";
   };
 
-  nativeBuildInputs = [ gfortran ];
+  nativeBuildInputs = [gfortran];
 
   buildInputs = [
     arpack
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     "-std=legacy"
   ];
 
-  patches = [ ./calculix.patch ];
+  patches = [./calculix.patch];
 
   postPatch = ''
     cd ccx*/src
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.calculix.de/";
     description = "Three-dimensional structural finite element program";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ gebner ];
+    maintainers = with maintainers; [gebner];
     platforms = platforms.unix;
   };
 }

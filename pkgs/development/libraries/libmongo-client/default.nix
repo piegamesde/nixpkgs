@@ -22,8 +22,8 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ ];
-  propagatedBuildInputs = [ glib ];
+  buildInputs = [];
+  propagatedBuildInputs = [glib];
 
   postPatch = ''
     # Fix when uses glib in public headers

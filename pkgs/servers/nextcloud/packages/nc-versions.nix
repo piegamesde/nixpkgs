@@ -3,7 +3,7 @@
 
 # this file is used to figure out which versions of nextcloud we have in nixpkgs
 {
-  pkgs ? import ../../../.. { },
+  pkgs ? import ../../../.. {},
   lib ? pkgs.lib,
 }:
 let

@@ -26,7 +26,7 @@ buildPythonPackage rec {
     rm test-requirements.txt
   '';
 
-  nativeBuildInputs = [ pbr ];
+  nativeBuildInputs = [pbr];
 
   propagatedBuildInputs = [
     msgpack
@@ -43,7 +43,7 @@ buildPythonPackage rec {
     stestr run
   '';
 
-  pythonImportsCheck = [ "oslo_serialization" ];
+  pythonImportsCheck = ["oslo_serialization"];
 
   meta = with lib; {
     description = "Oslo Serialization library";

@@ -14,7 +14,7 @@ in
   options.services.plausible = {
     enable = mkEnableOption (lib.mdDoc "plausible");
 
-    package = mkPackageOptionMD pkgs "plausible" { };
+    package = mkPackageOptionMD pkgs "plausible" {};
 
     releaseCookiePath = mkOption {
       type = with types; either str path;
@@ -182,20 +182,20 @@ in
       }
     ];
 
-    services.postgresql = mkIf cfg.database.postgres.setup { enable = true; };
+    services.postgresql = mkIf cfg.database.postgres.setup {enable = true;};
 
-    services.clickhouse = mkIf cfg.database.clickhouse.setup { enable = true; };
+    services.clickhouse = mkIf cfg.database.clickhouse.setup {enable = true;};
 
     services.epmd.enable = true;
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services = mkMerge [
       {
         plausible = {
           inherit (cfg.package.meta) description;
-          documentation = [ "https://plausible.io/docs/self-hosting" ];
-          wantedBy = [ "multi-user.target" ];
+          documentation = ["https://plausible.io/docs/self-hosting"];
+          wantedBy = ["multi-user.target"];
           after =
             optional cfg.database.clickhouse.setup "clickhouse.service"
             ++ optionals cfg.database.postgres.setup [
@@ -239,9 +239,9 @@ in
             SMTP_HOST_SSL_ENABLED = boolToString cfg.mail.smtp.enableSSL;
 
             SELFHOST = "true";
-          } // (optionalAttrs (cfg.mail.smtp.user != null) { SMTP_USER_NAME = cfg.mail.smtp.user; });
+          } // (optionalAttrs (cfg.mail.smtp.user != null) {SMTP_USER_NAME = cfg.mail.smtp.user;});
 
-          path = [ cfg.package ] ++ optional cfg.database.postgres.setup config.services.postgresql.package;
+          path = [cfg.package] ++ optional cfg.database.postgres.setup config.services.postgresql.package;
           script = ''
             export CONFIG_DIR=$CREDENTIALS_DIRECTORY
 
@@ -279,8 +279,8 @@ in
       (mkIf cfg.database.postgres.setup {
         # `plausible' requires the `citext'-extension.
         plausible-postgres = {
-          after = [ "postgresql.service" ];
-          partOf = [ "plausible.service" ];
+          after = ["postgresql.service"];
+          partOf = ["plausible.service"];
           serviceConfig = {
             Type = "oneshot";
             User = config.services.postgresql.superUser;
@@ -302,6 +302,6 @@ in
     ];
   };
 
-  meta.maintainers = with maintainers; [ ma27 ];
+  meta.maintainers = with maintainers; [ma27];
   meta.doc = ./plausible.md;
 }

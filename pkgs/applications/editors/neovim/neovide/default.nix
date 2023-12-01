@@ -24,7 +24,7 @@
   wayland,
 }:
 
-rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
+rustPlatform.buildRustPackage.override {stdenv = clangStdenv;} rec {
   pname = "neovide";
   version = "0.10.4";
 
@@ -63,7 +63,7 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
           (lib.importJSON ./skia-externals.json)
       );
     in
-    runCommand "source" { } ''
+    runCommand "source" {} ''
       cp -R ${repo} $out
       chmod -R +w $out
       ln -s ${externals} $out/third_party/externals
@@ -77,7 +77,7 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
     pkg-config
     python3 # skia
     removeReferencesTo
-  ] ++ lib.optionals stdenv.isDarwin [ xcbuild ];
+  ] ++ lib.optionals stdenv.isDarwin [xcbuild];
 
   # All tests passes but at the end cargo prints for unknown reason:
   #   error: test failed, to rerun pass '--bin neovide'
@@ -89,7 +89,7 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
     SDL2
     fontconfig
     rustPlatform.bindgenHook
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ];
+  ] ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.AppKit];
 
   postFixup =
     let
@@ -102,7 +102,7 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
           xorg.libXrandr
           xorg.libXi
         ]
-        ++ lib.optionals enableWayland [ wayland ]
+        ++ lib.optionals enableWayland [wayland]
       );
     in
     ''
@@ -123,13 +123,13 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
     install -m444 -Dt $out/share/applications assets/neovide.desktop
   '';
 
-  disallowedReferences = [ SKIA_SOURCE_DIR ];
+  disallowedReferences = [SKIA_SOURCE_DIR];
 
   meta = with lib; {
     description = "This is a simple graphical user interface for Neovim.";
     homepage = "https://github.com/neovide/neovide";
     changelog = "https://github.com/neovide/neovide/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ ck3d ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [ck3d];
   };
 }

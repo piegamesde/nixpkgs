@@ -26,7 +26,7 @@ stdenvNoCC.mkDerivation rec {
   dontBuild = true;
   dontFixup = true;
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   sourceRoot = "Raycast.app";
 
@@ -43,7 +43,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Control your tools with a few keystrokes";
     homepage = "https://raycast.app/";
     license = licenses.unfree;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     maintainers = with maintainers; [
       lovesegfault
       stepbrobd

@@ -61,7 +61,7 @@ in
       }
     ];
 
-    users.groups.mail = { };
+    users.groups.mail = {};
     security.wrappers = {
       dtmail = {
         setgid = true;
@@ -86,5 +86,5 @@ in
     ];
   };
 
-  meta.maintainers = [ ];
+  meta.maintainers = [];
 }

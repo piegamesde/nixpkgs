@@ -28,12 +28,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pyobihai" ];
+  pythonImportsCheck = ["pyobihai"];
 
   meta = with lib; {
     description = "Python package to interact with Obihai devices";
     homepage = "https://github.com/dshokouhi/pyobihai";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

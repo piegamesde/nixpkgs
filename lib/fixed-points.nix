@@ -1,4 +1,4 @@
-{ lib, ... }:
+{lib, ...}:
 rec {
   # Compute the fixed point of the given function `f`, which is usually an
   # attribute set that expects its final, non-recursive representation as an
@@ -101,7 +101,7 @@ rec {
   #
   # composeManyExtensions : [packageSet -> packageSet -> packageSet] -> packageSet -> packageSet -> packageSet
   #                          ^final        ^prev         ^overrides     ^final        ^prev         ^overrides
-  composeManyExtensions = lib.foldr (x: y: composeExtensions x y) (final: prev: { });
+  composeManyExtensions = lib.foldr (x: y: composeExtensions x y) (final: prev: {});
 
   # Create an overridable, recursive attribute set. For example:
   #

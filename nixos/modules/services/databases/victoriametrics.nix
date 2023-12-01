@@ -34,7 +34,7 @@ in
     };
     extraOptions = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Extra options to pass to VictoriaMetrics. See the README:
         <https://github.com/VictoriaMetrics/VictoriaMetrics/blob/master/README.md>
@@ -46,7 +46,7 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.victoriametrics = {
       description = "VictoriaMetrics time series database";
-      after = [ "network.target" ];
+      after = ["network.target"];
       startLimitBurst = 5;
       serviceConfig = {
         Restart = "on-failure";
@@ -69,7 +69,7 @@ in
         # open /var/lib/victoriametrics/data/small/2021_08/[...]/values.bin: too many open files
         LimitNOFILE = 1048576;
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       postStart =
         let

@@ -63,7 +63,7 @@ in
               "${systemd}"
               "${pkgs.symlinkJoin {
                 name = "systemd";
-                paths = [ systemd ];
+                paths = [systemd];
               }}"
             ];
           };
@@ -75,9 +75,9 @@ in
         uid = config.ids.uids.systemd-coredump;
         group = "systemd-coredump";
       };
-      users.groups.systemd-coredump = { };
+      users.groups.systemd-coredump = {};
     })
 
-    (mkIf (!cfg.enable) { boot.kernel.sysctl."kernel.core_pattern" = mkDefault "core"; })
+    (mkIf (!cfg.enable) {boot.kernel.sysctl."kernel.core_pattern" = mkDefault "core";})
   ];
 }

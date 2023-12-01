@@ -20,16 +20,16 @@ buildPythonPackage rec {
     sha256 = "WtkPCReXhxyr6pOzE9gsdIeBlLk+nSnbxkS3OowEaHo=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "test/__main__.py::TestEsprima" ];
+  pytestFlagsArray = ["test/__main__.py::TestEsprima"];
 
-  pythonImportsCheck = [ "esprima" ];
+  pythonImportsCheck = ["esprima"];
 
   meta = with lib; {
     description = "Python parser for standard-compliant ECMAScript";
     homepage = "https://github.com/Kronuz/esprima-python";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

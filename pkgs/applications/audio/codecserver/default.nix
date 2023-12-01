@@ -24,9 +24,9 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ udev ];
+  buildInputs = [udev];
 
-  propagatedBuildInputs = [ protobuf ];
+  propagatedBuildInputs = [protobuf];
 
   postFixup = ''
     substituteInPlace "$out"/lib/pkgconfig/codecserver.pc \

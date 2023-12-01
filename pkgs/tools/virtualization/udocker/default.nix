@@ -20,7 +20,7 @@ python3Packages.buildPythonApplication rec {
   # crun patchelf proot runc fakechroot
   # are download statistically linked during runtime
   buildInputs =
-    [ singularity ]
+    [singularity]
     ++ (
       with python3Packages; [
         pytest-runner
@@ -35,7 +35,7 @@ python3Packages.buildPythonApplication rec {
     })
   ];
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [pytestCheckHook];
 
   disabledTests = [
     "test_02__load_structure"
@@ -52,7 +52,7 @@ python3Packages.buildPythonApplication rec {
     description = "basic user tool to execute simple docker containers in user space without root privileges";
     homepage = "https://indigo-dc.gitbooks.io/udocker";
     license = licenses.asl20;
-    maintainers = [ maintainers.bzizou ];
+    maintainers = [maintainers.bzizou];
     platforms = platforms.linux;
   };
 }

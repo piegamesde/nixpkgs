@@ -40,7 +40,7 @@ python3Packages.buildPythonApplication rec {
     export XDG_CONFIG_HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [ "mps_youtube" ];
+  pythonImportsCheck = ["mps_youtube"];
 
   meta = with lib; {
     description = "Terminal based YouTube player and downloader, forked from mps-youtube";

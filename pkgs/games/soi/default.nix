@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "03c3wnvhd42qh8mi68lybf8nv6wzlm1nx16d6pdcn2jzgx1j2lzd";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     boost
     lua
@@ -32,11 +32,11 @@ stdenv.mkDerivation rec {
     SDL
   ];
 
-  cmakeFlags = [ "-DEIGEN_INCLUDE_DIR=${eigen2}/include/eigen2" ];
+  cmakeFlags = ["-DEIGEN_INCLUDE_DIR=${eigen2}/include/eigen2"];
 
   meta = with lib; {
     description = "A physics-based puzzle game";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
     license = licenses.free;
     downloadPage = "https://sourceforge.net/projects/soi/files/";

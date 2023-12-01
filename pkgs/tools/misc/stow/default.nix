@@ -41,7 +41,7 @@ stdenv.mkDerivation {
 
     license = licenses.gpl3Plus;
     homepage = "https://www.gnu.org/software/stow/";
-    maintainers = with maintainers; [ sarcasticadmin ];
+    maintainers = with maintainers; [sarcasticadmin];
     platforms = platforms.all;
   };
 }

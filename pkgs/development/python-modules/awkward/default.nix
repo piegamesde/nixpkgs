@@ -34,7 +34,7 @@ buildPythonPackage rec {
     awkward-cpp
     numpy
     packaging
-  ] ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ];
+  ] ++ lib.optionals (pythonOlder "3.11") [typing-extensions];
 
   dontUseCmakeConfigure = true;
 
@@ -43,14 +43,14 @@ buildPythonPackage rec {
     numba
   ];
 
-  disabledTestPaths = [ "tests-cuda" ];
+  disabledTestPaths = ["tests-cuda"];
 
-  pythonImportsCheck = [ "awkward" ];
+  pythonImportsCheck = ["awkward"];
 
   meta = with lib; {
     description = "Manipulate JSON-like data with NumPy-like idioms";
     homepage = "https://github.com/scikit-hep/awkward";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

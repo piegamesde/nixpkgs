@@ -29,13 +29,13 @@ buildPythonPackage rec {
   # Module no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pybotvac" ];
+  pythonImportsCheck = ["pybotvac"];
 
   meta = with lib; {
     description = "Python module for interacting with Neato Botvac Connected vacuum robots";
     homepage = "https://github.com/stianaske/pybotvac";
     changelog = "https://github.com/stianaske/pybotvac/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

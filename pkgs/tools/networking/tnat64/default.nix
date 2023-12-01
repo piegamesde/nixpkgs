@@ -16,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "191j1fpr3bw6fk48npl99z7iq6m1g33f15xk5cay1gnk5f46i2j6";
   };
 
-  configureFlags = [ "--libdir=$(out)/lib" ];
-  nativeBuildInputs = [ autoreconfHook ];
+  configureFlags = ["--libdir=$(out)/lib"];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     description = "IPv4 to IPv6 interceptor";
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     '';
     platforms = platforms.unix;
     badPlatforms = platforms.darwin;
-    maintainers = [ maintainers.rnhmjoj ];
+    maintainers = [maintainers.rnhmjoj];
   };
 }

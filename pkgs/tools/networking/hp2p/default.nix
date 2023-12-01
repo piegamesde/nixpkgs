@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "0zvlwb941rlp3vrf9yzv7njgpj3mh4671ch7qvxfa4hq2ivd52br";
   };
 
-  patches = [ ./python3.patch ];
+  patches = [./python3.patch];
   enableParallelBuilding = true;
   nativeBuildInputs = [
     autoconf
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     python3Packages.wrapPython
   ];
   buildInputs =
-    [ mpi ]
+    [mpi]
     ++ (
       with python3Packages; [
         python
@@ -63,6 +63,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/cea-hpc/hp2p";
     platforms = platforms.unix;
     license = licenses.cecill-c;
-    maintainers = [ maintainers.bzizou ];
+    maintainers = [maintainers.bzizou];
   };
 }

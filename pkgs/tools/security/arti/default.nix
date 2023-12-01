@@ -24,11 +24,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-vgrwjmJ/S5xqYzMZGMXjIC4szSRcSeBcTQoYIiuaUNI=";
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ pkg-config ];
+  nativeBuildInputs = lib.optionals stdenv.isLinux [pkg-config];
 
   buildInputs = [
     sqlite
-  ] ++ lib.optionals stdenv.isLinux [ openssl ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
+  ] ++ lib.optionals stdenv.isLinux [openssl] ++ lib.optionals stdenv.isDarwin [CoreServices];
 
   cargoBuildFlags = [
     "--package"
@@ -48,6 +48,6 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [marsam];
   };
 }

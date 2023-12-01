@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     libxml2
   ];
 
-  mesonFlags = [ "-Dprofile=default" ];
+  mesonFlags = ["-Dprofile=default"];
 
   postPatch = ''
     chmod +x build-aux/meson/post_install.py

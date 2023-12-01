@@ -58,7 +58,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-wUniz7E9l/5ldgPHo+wZkKaZuAH5kvjT0VDl4qkcoNs=";
 
-  excludedPackages = [ "documentation/prometheus-mixin" ];
+  excludedPackages = ["documentation/prometheus-mixin"];
 
   postPatch = ''
     tar -C web/ui -xzf ${webUiStatic}
@@ -98,7 +98,7 @@ buildGoModule rec {
     if [[ -d vendor ]]; then GOARCH= make -o assets assets-compress plugins; fi
   '';
 
-  tags = [ "builtinassets" ];
+  tags = ["builtinassets"];
 
   ldflags =
     let

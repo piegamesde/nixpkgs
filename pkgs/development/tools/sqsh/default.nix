@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     libiconv
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   patches = [
     (fetchurl {
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
 
   meta = with lib; {
     description = "Command line tool for querying Sybase/MSSQL databases";

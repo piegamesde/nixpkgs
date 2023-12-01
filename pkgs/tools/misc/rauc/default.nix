@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     })
   ];
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   enableParallelBuilding = true;
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     description = "Safe and secure software updates for embedded Linux";
     homepage = "https://rauc.io";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ emantor ];
+    maintainers = with maintainers; [emantor];
     platforms = with platforms; linux;
   };
 }

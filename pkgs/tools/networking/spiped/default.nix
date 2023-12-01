@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-BdRofRLRHX+YiNQ/PYDFQbdyHJhwONCF9xyRuwYgRWc=";
   };
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   postPatch = ''
     substituteInPlace libcperciva/cpusupport/Build/cpusupport.sh \
@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.tarsnap.com/spiped.html";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.thoughtpolice ];
+    maintainers = [lib.maintainers.thoughtpolice];
   };
 }

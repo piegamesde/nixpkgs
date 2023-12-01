@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Lattice algorithms using floating-point arithmetic";
     license = lib.licenses.lgpl21Plus;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.linux;
   };
 }

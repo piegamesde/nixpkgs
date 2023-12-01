@@ -25,7 +25,7 @@ stdenv.mkDerivation (
       rocm-cmake
     ];
 
-    buildInputs = [ rocm-device-libs ];
+    buildInputs = [rocm-device-libs];
 
     passthru.updateScript = rocmUpdateScript {
       name = finalAttrs.pname;
@@ -36,7 +36,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "OpenCL compilation with clang compiler";
       homepage = "https://github.com/RadeonOpenCompute/clang-ocl";
-      license = with licenses; [ mit ];
+      license = with licenses; [mit];
       maintainers = teams.rocm.members;
       platforms = platforms.linux;
       broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;

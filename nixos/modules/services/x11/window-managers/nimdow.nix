@@ -23,6 +23,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ pkgs.nimdow ];
+    environment.systemPackages = [pkgs.nimdow];
   };
 }

@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "HaxeFoundation";
     repo = "neko";
-    rev = "v${lib.replaceStrings [ "." ] [ "-" ] version}";
+    rev = "v${lib.replaceStrings ["."] ["-"] version}";
     sha256 = "19rc59cx7qqhcqlb0znwbnwbg04c1yq6xmvrwm1xi46k3vxa957g";
   };
 
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
       pkgs.darwin.apple_sdk.frameworks.Security
       pkgs.darwin.apple_sdk.frameworks.Carbon
     ];
-  cmakeFlags = [ "-DRUN_LDCONFIG=OFF" ];
+  cmakeFlags = ["-DRUN_LDCONFIG=OFF"];
 
   installCheckPhase = ''
     bin/neko bin/test.n

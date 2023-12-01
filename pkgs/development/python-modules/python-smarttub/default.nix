@@ -44,12 +44,12 @@ buildPythonPackage rec {
       --replace "pyjwt~=2.1.0" "pyjwt>=2.1.0"
   '';
 
-  pythonImportsCheck = [ "smarttub" ];
+  pythonImportsCheck = ["smarttub"];
 
   meta = with lib; {
     description = "Python API for SmartTub enabled hot tubs";
     homepage = "https://github.com/mdz/python-smarttub";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

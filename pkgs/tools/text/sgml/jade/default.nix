@@ -20,9 +20,9 @@ stdenv.mkDerivation rec {
     sha256 = "8e94486898e3503308805f856a65ba5b499a6f21994151270aa743de48305464";
   };
 
-  patches = [ patchsrc ];
+  patches = [patchsrc];
 
-  buildInputs = [ gnum4 ];
+  buildInputs = [gnum4];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-deprecated";
 
@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     license = "custom";
     homepage = "http://www.jclark.com/jade/";
     platforms = with lib.platforms; linux;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

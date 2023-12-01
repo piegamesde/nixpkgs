@@ -19,7 +19,7 @@ buildPythonPackage rec {
     sha256 = "a2d872a40196404386d1e0d960e97b37c86c3f72a4f9d5a2b5f9ca1adaff5b62";
   };
 
-  buildInputs = [ libunwind ];
+  buildInputs = [libunwind];
   propagatedBuildInputs = [
     colorama
     requests
@@ -29,7 +29,7 @@ buildPythonPackage rec {
 
   # No tests included
   doCheck = false;
-  pythonImportsCheck = [ "vmprof" ];
+  pythonImportsCheck = ["vmprof"];
 
   # Workaround build failure on -fno-common toolchains:
   #   ld: src/vmprof_unix.o:src/vmprof_common.h:92: multiple definition of

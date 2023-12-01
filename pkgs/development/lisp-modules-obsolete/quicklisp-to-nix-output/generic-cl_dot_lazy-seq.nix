@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "generic-cl_dot_lazy-seq";
   version = "generic-cl-20211020-git";
@@ -48,7 +48,7 @@ rec {
 
   packageName = "generic-cl.lazy-seq";
 
-  asdFilesToKeep = [ "generic-cl.lazy-seq.asd" ];
+  asdFilesToKeep = ["generic-cl.lazy-seq.asd"];
   overrides = x: x;
 }
 /* (SYSTEM generic-cl.lazy-seq DESCRIPTION Lazy sequences SHA256

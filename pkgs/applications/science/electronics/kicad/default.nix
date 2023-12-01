@@ -25,7 +25,7 @@
   sanitizeThreads ? false,
   with3d ? true,
   withI18n ? true,
-  srcs ? { },
+  srcs ? {},
 }:
 
 # The `srcs` parameter can be used to override the kicad source code
@@ -122,7 +122,7 @@ in
 stdenv.mkDerivation rec {
 
   # Common libraries, referenced during runtime, via the wrapper.
-  passthru.libraries = callPackages ./libraries.nix { inherit libSrc; };
+  passthru.libraries = callPackages ./libraries.nix {inherit libSrc;};
   base = callPackage ./base.nix {
     inherit stable baseName;
     inherit kicadSrc kicadVersion;
@@ -146,7 +146,7 @@ stdenv.mkDerivation rec {
     python.pkgs.requests
   ];
 
-  nativeBuildInputs = [ makeWrapper ] ++ optionals (withScripting) [ python.pkgs.wrapPython ];
+  nativeBuildInputs = [makeWrapper] ++ optionals (withScripting) [python.pkgs.wrapPython];
 
   # We are emulating wrapGAppsHook, along with other variables to the wrapper
   makeWrapperArgs =
@@ -168,11 +168,11 @@ stdenv.mkDerivation rec {
       "--prefix KICAD7_TEMPLATE_DIR : ${symbols}/share/kicad/template"
       "--prefix KICAD7_TEMPLATE_DIR : ${footprints}/share/kicad/template"
     ]
-    ++ optionals (with3d) [ "--set-default KICAD7_3DMODEL_DIR ${packages3d}/share/kicad/3dmodels" ]
-    ++ optionals (withNgspice) [ "--prefix LD_LIBRARY_PATH : ${libngspice}/lib" ]
+    ++ optionals (with3d) ["--set-default KICAD7_3DMODEL_DIR ${packages3d}/share/kicad/3dmodels"]
+    ++ optionals (withNgspice) ["--prefix LD_LIBRARY_PATH : ${libngspice}/lib"]
 
     # infinisil's workaround for #39493
-    ++ [ "--set GDK_PIXBUF_MODULE_FILE ${librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache" ];
+    ++ ["--set GDK_PIXBUF_MODULE_FILE ${librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"];
 
   # why does $makeWrapperArgs have to be added explicitly?
   # $out and $program_PYTHONPATH don't exist when makeWrapperArgs gets set?
@@ -262,7 +262,7 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.all;
     broken = stdenv.isDarwin;
 
-    hydraPlatforms = if (with3d) then [ ] else platforms;
+    hydraPlatforms = if (with3d) then [] else platforms;
     # We can't download the 3d models on Hydra,
     # they are a ~1 GiB download and they occupy ~5 GiB in store.
     # as long as the base and libraries (minus 3d) are build,

@@ -33,10 +33,10 @@ buildPythonPackage {
   ];
 
   # cython is optional - if not supplied, the "pure python" implementation will be used
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
   # numpy is optional - if not supplied, tests simply have less coverage
-  nativeCheckInputs = [ numpy ];
+  nativeCheckInputs = [numpy];
   # checkPhase begins by deleting source dir to force test execution against installed version
   checkPhase = ''
     rm -r code/png
@@ -47,6 +47,6 @@ buildPythonPackage {
     description = "Pure Python library for PNG image encoding/decoding";
     homepage = "https://github.com/scondo/purepng";
     license = licenses.mit;
-    maintainers = with maintainers; [ ris ];
+    maintainers = with maintainers; [ris];
   };
 }

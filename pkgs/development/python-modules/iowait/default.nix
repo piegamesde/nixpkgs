@@ -1,4 +1,4 @@
-{ buildPythonPackage, fetchPypi }:
+{buildPythonPackage, fetchPypi}:
 
 buildPythonPackage rec {
   pname = "iowait";

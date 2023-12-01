@@ -73,8 +73,8 @@ stdenv.mkDerivation {
       description = "${generation} IPU firmware and proprietary image processing libraries";
       homepage = "https://github.com/intel/ipu6-camera-bins";
       license = licenses.issl;
-      sourceProvenance = with sourceTypes; [ binaryFirmware ];
-      maintainers = with maintainers; [ hexa ];
-      platforms = [ "x86_64-linux" ];
+      sourceProvenance = with sourceTypes; [binaryFirmware];
+      maintainers = with maintainers; [hexa];
+      platforms = ["x86_64-linux"];
     };
 }

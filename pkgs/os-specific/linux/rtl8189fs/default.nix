@@ -24,7 +24,7 @@ rtl8189es.overrideAttrs (
       homepage = "https://github.com/jwrdegoede/rtl8189ES_linux/tree/rtl8189fs";
       license = licenses.gpl2;
       platforms = platforms.linux;
-      maintainers = with maintainers; [ puffnfresh ];
+      maintainers = with maintainers; [puffnfresh];
     };
   }
 )

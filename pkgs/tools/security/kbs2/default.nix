@@ -23,11 +23,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-LcnvCWGVdBxhDgQDoGHXRppGeEpfjOv/F0dZMN2bOF8=";
 
-  nativeBuildInputs = [ installShellFiles ] ++ lib.optionals stdenv.isLinux [ python3 ];
+  nativeBuildInputs = [installShellFiles] ++ lib.optionals stdenv.isLinux [python3];
 
   buildInputs =
-    [ ]
-    ++ lib.optionals stdenv.isLinux [ libxcb ]
+    []
+    ++ lib.optionals stdenv.isLinux [libxcb]
     ++ lib.optionals stdenv.isDarwin [
       SystemConfiguration
       AppKit
@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage rec {
 
   checkFlags = [
     "--skip=kbs2::config::tests::test_find_config_dir"
-  ] ++ lib.optionals stdenv.isDarwin [ "--skip=test_ragelib_rewrap_keyfile" ];
+  ] ++ lib.optionals stdenv.isDarwin ["--skip=test_ragelib_rewrap_keyfile"];
 
   postInstall = ''
     mkdir -p $out/share/kbs2
@@ -55,6 +55,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/woodruffw/kbs2";
     changelog = "https://github.com/woodruffw/kbs2/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

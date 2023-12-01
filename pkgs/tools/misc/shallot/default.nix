@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "0cjafdxvjkwb9vyifhh11mw0la7yfqswqwqmrfp1fy9jl7m0il9k";
   };
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   patches = [
     (fetchpatch {

@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     mkdir build && cd build
   '';
 
-  qmakeFlags = [ "../kitsas/kitsas.pro" ];
+  qmakeFlags = ["../kitsas/kitsas.pro"];
 
   installPhase =
     lib.optionalString stdenv.isDarwin ''
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/artoh/kitupiikki";
     description = "An accounting tool suitable for Finnish associations and small business";
-    maintainers = with maintainers; [ gspia ];
+    maintainers = with maintainers; [gspia];
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
   };

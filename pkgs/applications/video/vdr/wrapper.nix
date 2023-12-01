@@ -3,21 +3,21 @@
   lib,
   makeWrapper,
   vdr,
-  plugins ? [ ],
+  plugins ? [],
 }:
 let
 
   makeXinePluginPath = l: lib.concatStringsSep ":" (map (p: "${p}/lib/xine/plugins") l);
 
-  requiredXinePlugins = lib.flatten (map (p: p.passthru.requiredXinePlugins or [ ]) plugins);
+  requiredXinePlugins = lib.flatten (map (p: p.passthru.requiredXinePlugins or []) plugins);
 in
 symlinkJoin {
 
   name = "vdr-with-plugins-${lib.getVersion vdr}";
 
-  paths = [ vdr ] ++ plugins;
+  paths = [vdr] ++ plugins;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     wrapProgram $out/bin/vdr \

@@ -19,13 +19,13 @@ buildGoModule rec {
 
   CGO_ENABLED = 0;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "A log file highlighter and a drop-in replacement for `tail -f`";
     homepage = "https://github.com/bensadeh/tailspin";
     license = licenses.mit;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
     mainProgram = "spin";
   };
 }

@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Interface to scripting languages, including JSR-223";
     homepage = "https://commons.apache.org/proper/commons-bsf/";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
   };

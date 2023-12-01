@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
   outputs = [
     "out"
     "dev"
-  ] ++ lib.optionals x11Support [ "devdoc" ];
+  ] ++ lib.optionals x11Support ["devdoc"];
   outputBin = "dev";
 
   setupHooks = [
@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
       ./patches/4.0-fix-darwin-build.patch
     ];
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     gettext
@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
     sassc
     gi-docgen
     libxml2 # for xmllint
-  ] ++ lib.optionals waylandSupport [ wayland-scanner ] ++ setupHooks;
+  ] ++ lib.optionals waylandSupport [wayland-scanner] ++ setupHooks;
 
   buildInputs =
     [
@@ -109,10 +109,10 @@ stdenv.mkDerivation rec {
       libpng
       libtiff
       libjpeg
-      (libepoxy.override { inherit x11Support; })
+      (libepoxy.override {inherit x11Support;})
       isocodes
     ]
-    ++ lib.optionals vulkanSupport [ vulkan-headers ]
+    ++ lib.optionals vulkanSupport [vulkan-headers]
     ++ [
       gst_all_1.gst-plugins-base
       gst_all_1.gst-plugins-bad
@@ -130,17 +130,17 @@ stdenv.mkDerivation rec {
         libXrender
       ]
     )
-    ++ lib.optionals stdenv.isDarwin [ AppKit ]
-    ++ lib.optionals trackerSupport [ tracker ]
+    ++ lib.optionals stdenv.isDarwin [AppKit]
+    ++ lib.optionals trackerSupport [tracker]
     ++ lib.optionals waylandSupport [
       libGL
       wayland
       wayland-protocols
     ]
-    ++ lib.optionals xineramaSupport [ xorg.libXinerama ]
-    ++ lib.optionals cupsSupport [ cups ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-    ++ lib.optionals stdenv.hostPlatform.isMusl [ libexecinfo ];
+    ++ lib.optionals xineramaSupport [xorg.libXinerama]
+    ++ lib.optionals cupsSupport [cups]
+    ++ lib.optionals stdenv.isDarwin [Cocoa]
+    ++ lib.optionals stdenv.hostPlatform.isMusl [libexecinfo];
   #TODO: colord?
 
   propagatedBuildInputs =
@@ -152,8 +152,8 @@ stdenv.mkDerivation rec {
       graphene
       pango
     ]
-    ++ lib.optionals waylandSupport [ wayland ]
-    ++ lib.optionals vulkanSupport [ vulkan-loader ]
+    ++ lib.optionals waylandSupport [wayland]
+    ++ lib.optionals vulkanSupport [vulkan-loader]
     ++ [
       # Required for GSettings schemas at runtime.
       # Will be picked up by wrapGAppsHook.
@@ -168,12 +168,12 @@ stdenv.mkDerivation rec {
       "-Dtracker=${if trackerSupport then "enabled" else "disabled"}"
       "-Dbroadway-backend=${lib.boolToString broadwaySupport}"
     ]
-    ++ lib.optionals vulkanSupport [ "-Dvulkan=enabled" ]
-    ++ lib.optionals (!cupsSupport) [ "-Dprint-cups=disabled" ]
+    ++ lib.optionals vulkanSupport ["-Dvulkan=enabled"]
+    ++ lib.optionals (!cupsSupport) ["-Dprint-cups=disabled"]
     ++ lib.optionals (stdenv.isDarwin && !stdenv.isAarch64) [
       "-Dmedia-gstreamer=disabled" # requires gstreamer-gl
     ]
-    ++ lib.optionals (!x11Support) [ "-Dx11-backend=false" ];
+    ++ lib.optionals (!x11Support) ["-Dx11-backend=false"];
 
   doCheck = false; # needs X11
 
@@ -183,7 +183,7 @@ stdenv.mkDerivation rec {
   # See: https://developer.gnome.org/gtk3/stable/gtk-building.html#extra-configuration-options
   env = {
     NIX_CFLAGS_COMPILE = "-DG_ENABLE_DEBUG -DG_DISABLE_CAST_CHECKS";
-  } // lib.optionalAttrs stdenv.hostPlatform.isMusl { NIX_LDFLAGS = "-lexecinfo"; };
+  } // lib.optionalAttrs stdenv.hostPlatform.isMusl {NIX_LDFLAGS = "-lexecinfo";};
 
   postPatch = ''
     files=(
@@ -262,7 +262,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.gtk.org/";
     license = licenses.lgpl2Plus;
-    maintainers = teams.gnome.members ++ (with maintainers; [ raskin ]);
+    maintainers = teams.gnome.members ++ (with maintainers; [raskin]);
     platforms = platforms.all;
     changelog = "https://gitlab.gnome.org/GNOME/gtk/-/raw/${version}/NEWS";
   };

@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     sha256 = "0xmz64m02knbrpasfij4rrq53ksxna5idxwgabcw4n2b1ig7pyx5";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   strictDeps = true;
 
@@ -66,6 +66,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/wb2osz/direwolf/";
     license = licenses.gpl2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ lasandell ];
+    maintainers = with maintainers; [lasandell];
   };
 }

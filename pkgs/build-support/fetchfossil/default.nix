@@ -22,7 +22,7 @@ stdenv.mkDerivation {
 
   # Envvar docs are hard to find. A link for the future:
   # https://www.fossil-scm.org/index.html/doc/trunk/www/env-opts.md
-  impureEnvVars = [ "http_proxy" ];
+  impureEnvVars = ["http_proxy"];
 
   outputHashAlgo = "sha256";
   outputHashMode = "recursive";

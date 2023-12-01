@@ -22,6 +22,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/verigak/progress/";
     description = "Easy to use progress bars";
     license = licenses.mit;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

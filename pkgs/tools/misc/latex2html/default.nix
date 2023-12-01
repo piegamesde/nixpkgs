@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     perl
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   configurePhase = ''
     ./configure \
@@ -57,6 +57,6 @@ stdenv.mkDerivation rec {
 
     license = licenses.gpl2;
     platforms = with platforms; linux ++ darwin;
-    maintainers = with maintainers; [ yurrriq ];
+    maintainers = with maintainers; [yurrriq];
   };
 }

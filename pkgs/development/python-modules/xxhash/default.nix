@@ -14,12 +14,12 @@ buildPythonPackage rec {
     hash = "sha256-Gv1Hr4lVxdtzD2MK1TrnmM9/rgrLZM67PPlNNcR90Ig=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   meta = with lib; {
     homepage = "https://github.com/ifduyue/python-xxhash";
     description = "Python Binding for xxHash https://pypi.org/project/xxhash/";
     license = licenses.bsd2;
-    maintainers = [ maintainers.teh ];
+    maintainers = [maintainers.teh];
   };
 }

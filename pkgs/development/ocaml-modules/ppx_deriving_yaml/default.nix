@@ -27,12 +27,12 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   meta = {
     description = "A YAML codec generator for OCaml";
     homepage = "https://github.com/patricoferris/ppx_deriving_yaml";
     license = lib.licenses.isc;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

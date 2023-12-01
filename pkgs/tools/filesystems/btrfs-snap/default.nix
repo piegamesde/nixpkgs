@@ -18,8 +18,8 @@ stdenvNoCC.mkDerivation rec {
     rev = version;
     sha256 = "sha256-SDzLjgNRuR9XpmcYCD9T10MLS+//+pWFGDiTAb8NiLQ=";
   };
-  buildInputs = [ bash ];
-  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [bash];
+  nativeBuildInputs = [makeWrapper];
   dontConfigure = true;
   dontBuild = true;
   installPhase = ''
@@ -38,7 +38,7 @@ stdenvNoCC.mkDerivation rec {
     description = "btrfs-snap creates and maintains the history of snapshots of btrfs filesystems.";
     homepage = "https://github.com/jf647/btrfs-snap";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ lionello ];
+    maintainers = with maintainers; [lionello];
     platforms = platforms.linux;
   };
 }

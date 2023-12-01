@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     "PREFIX=${placeholder "out"}"
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   postInstall = ''
     wrapProgram $out/bin/ttygif \
       --prefix PATH : ${
@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     description = "Convert terminal recordings to animated gifs";
     platforms = platforms.unix;
     license = licenses.mit;
-    maintainers = with maintainers; [ moaxcp ];
+    maintainers = with maintainers; [moaxcp];
   };
 }

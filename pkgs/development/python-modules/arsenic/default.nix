@@ -36,7 +36,7 @@ buildPythonPackage rec {
       })
     ];
 
-  pythonRelaxDeps = [ "structlog" ];
+  pythonRelaxDeps = ["structlog"];
 
   nativeBuildInputs = [
     poetry-core
@@ -49,18 +49,18 @@ buildPythonPackage rec {
     structlog
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Depends on asyncio_extras which is not longer maintained
   doCheck = false;
 
-  pythonImportsCheck = [ "arsenic" ];
+  pythonImportsCheck = ["arsenic"];
 
   meta = with lib; {
     description = "WebDriver implementation for asyncio and asyncio-compatible frameworks";
     homepage = "https://github.com/HENNGE/arsenic/";
     changelog = "https://github.com/HENNGE/arsenic/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

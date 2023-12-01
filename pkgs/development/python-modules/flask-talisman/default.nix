@@ -16,16 +16,16 @@ buildPythonPackage rec {
     hash = "sha256-IF0958Xs+tZnyEEj9fvlgLH2jNmhsFjXNTzANI4Vsb8=";
   };
 
-  buildInputs = [ flask ];
+  buildInputs = [flask];
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
-  nativeBuildInputs = [ pytestCheckHook ];
+  nativeBuildInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "HTTP security headers for Flask";
     homepage = "https://github.com/wntrblm/flask-talisman";
     license = licenses.asl20;
-    maintainers = [ lib.maintainers.symphorien ];
+    maintainers = [lib.maintainers.symphorien];
   };
 }

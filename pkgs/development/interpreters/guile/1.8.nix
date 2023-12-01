@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
 
   # GCC 4.6 raises a number of set-but-unused warnings.
   configureFlags =
-    [ "--disable-error-on-warning" ]
+    ["--disable-error-on-warning"]
     # Guile needs patching to preset results for the configure tests about
     # pthreads, which work only in native builds.
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) "--with-threads=no";
@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
       foreign function call interface, and powerful string processing.
     '';
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ ludo ];
+    maintainers = with maintainers; [ludo];
     platforms = platforms.all;
   };
 }

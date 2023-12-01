@@ -6,7 +6,7 @@
 }:
 let
   cfg = config.services.dendrite;
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   configurationYaml = settingsFormat.generate "dendrite.yaml" cfg.settings;
   workingDir = "/var/lib/dendrite";
 in
@@ -79,8 +79,8 @@ in
     };
     loadCredential = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
-      example = [ "private_key:/path/to/my_private_key" ];
+      default = [];
+      example = ["private_key:/path/to/my_private_key"];
       description = lib.mdDoc ''
         This can be used to pass secrets to the systemd service without adding them to
         the nix store.
@@ -116,7 +116,7 @@ in
           };
           trusted_third_party_id_servers = lib.mkOption {
             type = lib.types.listOf lib.types.str;
-            example = [ "matrix.org" ];
+            example = ["matrix.org"];
             default = [
               "matrix.org"
               "vector.im"
@@ -261,7 +261,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Configuration for dendrite, see:
         <https://github.com/matrix-org/dendrite/blob/master/dendrite-config.yaml>
@@ -291,8 +291,8 @@ in
 
     systemd.services.dendrite = {
       description = "Dendrite Matrix homeserver";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "simple";
         DynamicUser = true;
@@ -315,13 +315,13 @@ in
             "${pkgs.dendrite}/bin/dendrite"
             "--config /run/dendrite/dendrite.yaml"
           ]
-          ++ lib.optionals (cfg.httpPort != null) [ "--http-bind-address :${builtins.toString cfg.httpPort}" ]
+          ++ lib.optionals (cfg.httpPort != null) ["--http-bind-address :${builtins.toString cfg.httpPort}"]
           ++ lib.optionals (cfg.httpsPort != null) [
             "--https-bind-address :${builtins.toString cfg.httpsPort}"
             "--tls-cert ${cfg.tlsCert}"
             "--tls-key ${cfg.tlsKey}"
           ]
-          ++ lib.optionals cfg.openRegistration [ "--really-enable-open-registration" ]
+          ++ lib.optionals cfg.openRegistration ["--really-enable-open-registration"]
         );
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         Restart = "on-failure";

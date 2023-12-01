@@ -31,6 +31,6 @@ buildPythonPackage rec {
     description = "Pure-Python Java Keystore (JKS) library";
     homepage = "https://github.com/kurtbrose/pyjks";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ kamadorueda ];
+    maintainers = with lib.maintainers; [kamadorueda];
   };
 }

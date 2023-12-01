@@ -22,6 +22,6 @@ rustPlatform.buildRustPackage rec {
       mit
       asl20
     ];
-    maintainers = with maintainers; [ GoldsteinE ];
+    maintainers = with maintainers; [GoldsteinE];
   };
 }

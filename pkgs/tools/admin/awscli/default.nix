@@ -89,6 +89,6 @@ buildPythonApplication rec {
     description = "Unified tool to manage your AWS services";
     license = licenses.asl20;
     mainProgram = "aws";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

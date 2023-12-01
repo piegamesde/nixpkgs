@@ -1,4 +1,4 @@
-{ lib, ... }:
+{lib, ...}:
 let
   inherit (lib) types mkOption mdDoc;
 in
@@ -15,7 +15,7 @@ in
         options = {
           maintainers = lib.mkOption {
             type = types.listOf types.raw;
-            default = [ ];
+            default = [];
             description = mdDoc ''
               The [list of maintainers](https://nixos.org/manual/nixpkgs/stable/#var-meta-maintainers) for this test.
             '';
@@ -36,7 +36,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
     };
   };
 }

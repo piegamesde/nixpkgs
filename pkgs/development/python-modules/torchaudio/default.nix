@@ -32,9 +32,9 @@ buildPythonPackage rec {
     cmake
     pkg-config
     ninja
-  ] ++ lib.optionals cudaSupport [ cudaPackages.cudatoolkit ];
-  buildInputs = [ pybind11 ] ++ lib.optionals cudaSupport [ cudaPackages.cudnn ];
-  propagatedBuildInputs = [ torch ];
+  ] ++ lib.optionals cudaSupport [cudaPackages.cudatoolkit];
+  buildInputs = [pybind11] ++ lib.optionals cudaSupport [cudaPackages.cudnn];
+  propagatedBuildInputs = [torch];
 
   BUILD_SOX = 0;
   BUILD_KALDI = 0;
@@ -51,6 +51,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/pytorch/audio/releases/tag/v${version}";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ junjihashimoto ];
+    maintainers = with maintainers; [junjihashimoto];
   };
 }

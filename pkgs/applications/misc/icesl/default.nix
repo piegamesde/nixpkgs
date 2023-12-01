@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     else
       throw "Unsupported architecture";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   installPhase = ''
     cp -r ./ $out
     rm $out/bin/*.so
@@ -76,12 +76,12 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "GPU-accelerated procedural modeler and slicer for 3D printing";
     homepage = "https://icesl.loria.fr/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.inria-icesl;
     platforms = [
       "i686-linux"
       "x86_64-linux"
     ];
-    maintainers = with maintainers; [ mgttlinger ];
+    maintainers = with maintainers; [mgttlinger];
   };
 }

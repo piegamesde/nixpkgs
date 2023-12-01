@@ -35,7 +35,7 @@ buildPythonPackage rec {
     hash = "sha256-s0ADo/+lcH8Y31hf1iSLbfTsV3fZtlCuZf7BS0uQc9Y=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   postPatch = ''
     # remove coverage arguments to pytest
@@ -51,8 +51,8 @@ buildPythonPackage rec {
       pyyaml
       httpx
     ]
-    ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ]
-    ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
+    ++ lib.optionals (pythonOlder "3.10") [typing-extensions]
+    ++ lib.optionals stdenv.isDarwin [ApplicationServices];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -73,13 +73,13 @@ buildPythonPackage rec {
     "test_request_headers"
   ];
 
-  pythonImportsCheck = [ "starlette" ];
+  pythonImportsCheck = ["starlette"];
 
   meta = with lib; {
     changelog = "https://github.com/encode/starlette/releases/tag/${version}";
     homepage = "https://www.starlette.io/";
     description = "The little ASGI framework that shines";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ wd15 ];
+    maintainers = with maintainers; [wd15];
   };
 }

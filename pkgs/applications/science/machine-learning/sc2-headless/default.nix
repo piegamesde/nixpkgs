@@ -17,7 +17,7 @@ if !licenseAccepted then
 else
   assert licenseAccepted;
   let
-    maps = callPackage ./maps.nix { };
+    maps = callPackage ./maps.nix {};
   in
   stdenv.mkDerivation rec {
     version = "4.7.1";
@@ -32,7 +32,7 @@ else
       unzip -P 'iagreetotheeula' $curSrc
     '';
 
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [unzip];
 
     installPhase = ''
       mkdir -p $out
@@ -62,12 +62,12 @@ else
     meta = {
       platforms = lib.platforms.linux;
       description = "Starcraft II headless linux client for machine learning research";
-      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
       license = {
         fullName = "BLIZZARD® STARCRAFT® II AI AND MACHINE LEARNING LICENSE";
         url = "https://blzdistsc2-a.akamaihd.net/AI_AND_MACHINE_LEARNING_LICENSE.html";
         free = false;
       };
-      maintainers = with lib.maintainers; [ ];
+      maintainers = with lib.maintainers; [];
     };
   }

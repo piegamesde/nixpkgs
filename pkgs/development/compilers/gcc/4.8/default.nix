@@ -68,7 +68,7 @@ assert stdenv.buildPlatform.isDarwin -> gnused != null;
 assert langGo -> langCC;
 
 # threadsCross is just for MinGW
-assert threadsCross != { } -> stdenv.targetPlatform.isWindows;
+assert threadsCross != {} -> stdenv.targetPlatform.isWindows;
 
 # profiledCompiler builds inject non-determinism in one of the compilation stages.
 # If turned on, we can't provide reproducible builds anymore
@@ -84,7 +84,7 @@ let
   inherit (stdenv) buildPlatform hostPlatform targetPlatform;
 
   patches =
-    [ ../parallel-bconfig.patch ]
+    [../parallel-bconfig.patch]
     ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
     ++ optional noSysDirs ../no-sys-dirs.patch
     ++ optional langFortran ../gfortran-driving.patch
@@ -94,7 +94,7 @@ let
         name = "libc_name_p.diff"; # needed to build with gcc6
         url = "https://gcc.gnu.org/git/?p=gcc.git;a=commitdiff_plain;h=ec1cc0263f1";
         sha256 = "01jd7pdarh54ki498g6sz64ijl9a1l5f9v8q2696aaxalvh2vwzl";
-        excludes = [ "gcc/cp/ChangeLog" ];
+        excludes = ["gcc/cp/ChangeLog"];
       })
     ]
     ++ [
@@ -106,7 +106,7 @@ let
       (fetchpatch {
         name = "gcc4-char-reload.patch";
         url = "https://gcc.gnu.org/git/?p=gcc.git;a=commitdiff_plain;h=d57c99458933a21fdf94f508191f145ad8d5ec58";
-        includes = [ "gcc/reload.h" ];
+        includes = ["gcc/reload.h"];
         sha256 = "sha256-66AMP7/ajunGKAN5WJz/yPn42URZ2KN51yPrFdsxEuM=";
       })
     ];
@@ -235,7 +235,7 @@ assert x11Support
         libart_lgpl
       ]
       ++ xlibs
-    )) == [ ];
+    )) == [];
 
 stdenv.mkDerivation (
   {
@@ -296,7 +296,7 @@ stdenv.mkDerivation (
       crossMingw
       ;
 
-    inherit (callFile ../common/dependencies.nix { })
+    inherit (callFile ../common/dependencies.nix {})
       depsBuildBuild
       nativeBuildInputs
       depsBuildTarget
@@ -304,7 +304,7 @@ stdenv.mkDerivation (
       depsTargetTarget
       ;
 
-    preConfigure = callFile ../common/pre-configure.nix { };
+    preConfigure = callFile ../common/pre-configure.nix {};
 
     dontDisableStatic = true;
 
@@ -314,7 +314,7 @@ stdenv.mkDerivation (
       "target"
     ];
 
-    configureFlags = callFile ../common/configure-flags.nix { };
+    configureFlags = callFile ../common/configure-flags.nix {};
 
     targetConfig = if targetPlatform != hostPlatform then targetPlatform.config else null;
 
@@ -322,7 +322,7 @@ stdenv.mkDerivation (
       if profiledCompiler then "profiledbootstrap" else "bootstrap"
     );
 
-    inherit (callFile ../common/strip-attributes.nix { }) stripDebugList stripDebugListTarget preFixup;
+    inherit (callFile ../common/strip-attributes.nix {}) stripDebugList stripDebugListTarget preFixup;
 
     doCheck = false; # requires a lot of tools, causes a dependency cycle for stdenv
 
@@ -345,7 +345,7 @@ stdenv.mkDerivation (
 
     CPATH = optionals (targetPlatform == hostPlatform) (
       makeSearchPathOutput "dev" "include" (
-        [ ]
+        []
         ++ optional (zlib != null) zlib
         ++ optional langJava boehmgc
         ++ optionals javaAwtGtk xlibs
@@ -358,7 +358,7 @@ stdenv.mkDerivation (
 
     LIBRARY_PATH = optionals (targetPlatform == hostPlatform) (
       makeLibraryPath (
-        [ ]
+        []
         ++ optional (zlib != null) zlib
         ++ optional langJava boehmgc
         ++ optionals javaAwtGtk xlibs
@@ -369,7 +369,7 @@ stdenv.mkDerivation (
       )
     );
 
-    inherit (callFile ../common/extra-target-flags.nix { })
+    inherit (callFile ../common/extra-target-flags.nix {})
       EXTRA_FLAGS_FOR_TARGET
       EXTRA_LDFLAGS_FOR_TARGET
       ;
@@ -395,7 +395,7 @@ stdenv.mkDerivation (
     inherit enableShared enableMultilib;
 
     meta = {
-      inherit (callFile ../common/meta.nix { })
+      inherit (callFile ../common/meta.nix {})
         homepage
         license
         description
@@ -418,5 +418,5 @@ stdenv.mkDerivation (
         installTargets = "install-gcc install-target-libgcc";
       }
 
-  // optionalAttrs (enableMultilib) { dontMoveLib64 = true; }
+  // optionalAttrs (enableMultilib) {dontMoveLib64 = true;}
 )

@@ -58,24 +58,24 @@ let
 
   options = [
     {
-      names = [ "CDDB" ];
+      names = ["CDDB"];
       enable = withCddb;
-      pkgs = [ libcddb ];
+      pkgs = [libcddb];
     }
     {
-      names = [ "CDPARANOIA" ];
+      names = ["CDPARANOIA"];
       enable = withCdda;
-      pkgs = [ cdparanoia ];
+      pkgs = [cdparanoia];
     }
     {
-      names = [ "DEVICES_SUPPORT" ];
+      names = ["DEVICES_SUPPORT"];
       enable = withDevices;
-      pkgs = [ ];
+      pkgs = [];
     }
     {
-      names = [ "DYNAMIC" ];
+      names = ["DYNAMIC"];
       enable = withDynamic;
-      pkgs = [ ];
+      pkgs = [];
     }
     {
       names = [
@@ -91,49 +91,49 @@ let
       ];
     }
     {
-      names = [ "HTTPS_SUPPORT" ];
+      names = ["HTTPS_SUPPORT"];
       enable = true;
-      pkgs = [ ];
+      pkgs = [];
     }
     {
-      names = [ "HTTP_SERVER" ];
+      names = ["HTTP_SERVER"];
       enable = withHttpServer;
-      pkgs = [ ];
+      pkgs = [];
     }
     {
-      names = [ "HTTP_STREAM_PLAYBACK" ];
+      names = ["HTTP_STREAM_PLAYBACK"];
       enable = withHttpStream;
-      pkgs = [ qtmultimedia ];
+      pkgs = [qtmultimedia];
     }
     {
-      names = [ "LAME" ];
+      names = ["LAME"];
       enable = withLame;
-      pkgs = [ lame ];
+      pkgs = [lame];
     }
     {
-      names = [ "LIBVLC" ];
+      names = ["LIBVLC"];
       enable = withLibVlc;
-      pkgs = [ libvlc ];
+      pkgs = [libvlc];
     }
     {
-      names = [ "MTP" ];
+      names = ["MTP"];
       enable = withMtp;
-      pkgs = [ libmtp ];
+      pkgs = [libmtp];
     }
     {
-      names = [ "MUSICBRAINZ" ];
+      names = ["MUSICBRAINZ"];
       enable = withMusicbrainz;
-      pkgs = [ libmusicbrainz5 ];
+      pkgs = [libmusicbrainz5];
     }
     {
-      names = [ "ONLINE_SERVICES" ];
+      names = ["ONLINE_SERVICES"];
       enable = withOnlineServices;
-      pkgs = [ ];
+      pkgs = [];
     }
     {
-      names = [ "STREAMS" ];
+      names = ["STREAMS"];
       enable = withStreams;
-      pkgs = [ ];
+      pkgs = [];
     }
     {
       names = [
@@ -147,9 +147,9 @@ let
       ];
     }
     {
-      names = [ "UDISKS2" ];
+      names = ["UDISKS2"];
       enable = withUdisks;
-      pkgs = [ udisks2 ];
+      pkgs = [udisks2];
     }
   ];
 in
@@ -179,7 +179,7 @@ mkDerivation rec {
   buildInputs = [
     qtbase
     qtsvg
-    (perl.withPackages (ppkgs: with ppkgs; [ URI ]))
+    (perl.withPackages (ppkgs: with ppkgs; [URI]))
   ] ++ lib.flatten (builtins.catAttrs "pkgs" (builtins.filter (e: e.enable) options));
 
   nativeBuildInputs = [
@@ -194,7 +194,7 @@ mkDerivation rec {
     description = "A graphical client for MPD";
     homepage = "https://github.com/cdrummond/cantata";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     # Technically, Cantata should run on Darwin/Windows so if someone wants to
     # bother figuring that one out, be my guest.
     platforms = platforms.linux;

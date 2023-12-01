@@ -22,14 +22,14 @@ buildPythonPackage rec {
     substituteInPlace tests/parse_ifconfig.py --replace "Popen('ifconfig'," "Popen('${nettools}/bin/ifconfig',"
   '';
 
-  buildInputs = [ libnl ];
-  nativeBuildInputs = [ pkg-config ];
-  pythonImportsCheck = [ "ethtool" ];
+  buildInputs = [libnl];
+  nativeBuildInputs = [pkg-config];
+  pythonImportsCheck = ["ethtool"];
 
   meta = with lib; {
     description = "Python bindings for the ethtool kernel interface";
     homepage = "https://github.com/fedora-python/python-ethtool";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ elohmeier ];
+    maintainers = with maintainers; [elohmeier];
   };
 }

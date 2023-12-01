@@ -33,12 +33,12 @@ let
       with lib;
       {
         homepage = "http://bitscope.com/software/";
-        sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+        sourceProvenance = with sourceTypes; [binaryNativeCode];
         license = licenses.unfree;
-        platforms = [ "x86_64-linux" ];
-        maintainers = with maintainers; [ vidbina ];
+        platforms = ["x86_64-linux"];
+        maintainers = with maintainers; [vidbina];
       }
-      // (attrs.meta or { });
+      // (attrs.meta or {});
 
     nativeBuildInputs = [
       makeWrapper

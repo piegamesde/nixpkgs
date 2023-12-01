@@ -53,7 +53,7 @@ in
     ];
     systemd.sockets.epmd = rec {
       description = "Erlang Port Mapper Daemon Activation Socket";
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
       before = wantedBy;
       socketConfig = {
         ListenStream = cfg.listenStream;
@@ -63,8 +63,8 @@ in
 
     systemd.services.epmd = {
       description = "Erlang Port Mapper Daemon";
-      after = [ "network.target" ];
-      requires = [ "epmd.socket" ];
+      after = ["network.target"];
+      requires = ["epmd.socket"];
 
       serviceConfig = {
         DynamicUser = true;

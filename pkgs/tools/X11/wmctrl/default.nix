@@ -20,21 +20,21 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs = [ glib.dev ];
+  depsBuildBuild = [pkg-config];
+  nativeBuildInputs = [glib.dev];
   buildInputs = [
     libX11
     libXmu
     glib
   ];
 
-  patches = [ ./64-bit-data.patch ];
+  patches = [./64-bit-data.patch];
 
   meta = {
     homepage = "https://sites.google.com/site/tstyblo/wmctrl";
     description = "CLI tool to interact with EWMH/NetWM compatible X Window Managers";
     license = lib.licenses.gpl2;
     platforms = with lib.platforms; all;
-    maintainers = [ lib.maintainers.Anton-Latukha ];
+    maintainers = [lib.maintainers.Anton-Latukha];
   };
 }

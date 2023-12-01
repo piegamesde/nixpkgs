@@ -15,9 +15,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-AC6w7uYw0OW70pQpWbK1A3rkCnMvTJzTCAdFiY3rO7A=";
   };
 
-  buildInputs = [ postgresql ];
+  buildInputs = [postgresql];
 
-  makeFlags = [ "USE_PGXS=1" ];
+  makeFlags = ["USE_PGXS=1"];
 
   installPhase = ''
     install -D -t $out/lib *.so
@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     homepage = "http://sigaev.ru/git/gitweb.cgi?p=smlar.git";
     platforms = postgresql.meta.platforms;
     license = licenses.bsd2;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

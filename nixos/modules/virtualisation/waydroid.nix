@@ -45,20 +45,20 @@ in
        as reading the kernel config is not always possible and on kernels where it's
        already on it will be no-op
     */
-    boot.kernelParams = [ "psi=1" ];
+    boot.kernelParams = ["psi=1"];
 
     environment.etc."gbinder.d/waydroid.conf".source = waydroidGbinderConf;
 
-    environment.systemPackages = with pkgs; [ waydroid ];
+    environment.systemPackages = with pkgs; [waydroid];
 
-    networking.firewall.trustedInterfaces = [ "waydroid0" ];
+    networking.firewall.trustedInterfaces = ["waydroid0"];
 
     virtualisation.lxc.enable = true;
 
     systemd.services.waydroid-container = {
       description = "Waydroid Container";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = "${pkgs.waydroid}/bin/waydroid -w container start";

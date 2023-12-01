@@ -30,7 +30,7 @@ buildPythonPackage rec {
     ${python.interpreter} test/run_readelf_tests.py --parallel
   '';
 
-  pythonImportsCheck = [ "elftools" ];
+  pythonImportsCheck = ["elftools"];
 
   meta = with lib; {
     description = "Python library for analyzing ELF files and DWARF debugging information";

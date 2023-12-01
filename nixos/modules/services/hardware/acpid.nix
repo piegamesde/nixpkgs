@@ -27,7 +27,7 @@ let
     };
   };
 
-  acpiConfDir = pkgs.runCommand "acpi-events" { preferLocalBuild = true; } ''
+  acpiConfDir = pkgs.runCommand "acpi-events" {preferLocalBuild = true;} ''
     mkdir -p $out
     ${
     # Generate a configuration file for each event. (You can't have
@@ -84,7 +84,7 @@ in
           Handler can be a single command.
           :::
         '';
-        default = { };
+        default = {};
         example = {
           ac-power = {
             event = "ac_adapter/*";
@@ -132,9 +132,9 @@ in
 
     systemd.services.acpid = {
       description = "ACPI Daemon";
-      documentation = [ "man:acpid(8)" ];
+      documentation = ["man:acpid(8)"];
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = escapeShellArgs (
@@ -150,7 +150,7 @@ in
       };
       unitConfig = {
         ConditionVirtualization = "!systemd-nspawn";
-        ConditionPathExists = [ "/proc/acpi" ];
+        ConditionPathExists = ["/proc/acpi"];
       };
     };
   };

@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
     removeReferencesTo
     file
   ];
-  buildInputs = [ openssl ] ++ lib.optional withPerlTools perlWithPkgs;
+  buildInputs = [openssl] ++ lib.optional withPerlTools perlWithPkgs;
 
   enableParallelBuilding = true;
   # Missing dependencies during relinking:

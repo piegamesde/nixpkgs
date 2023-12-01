@@ -39,7 +39,7 @@ mkDerivation rec {
     description = "A settings manager for the C Suite";
     homepage = "https://gitlab.com/cubocore/coreapps/coregarage";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dan4ik605743 ];
+    maintainers = with maintainers; [dan4ik605743];
     platforms = platforms.linux;
   };
 }

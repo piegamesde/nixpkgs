@@ -11,7 +11,7 @@ stdenvNoCC.mkDerivation {
   dontUnpack = true;
   dontBuild = true;
 
-  nativeBuildInputs = [ buildPackages.darwin.checkReexportsHook ];
+  nativeBuildInputs = [buildPackages.darwin.checkReexportsHook];
 
   installPhase = ''
     mkdir -p $out/include/mach-o

@@ -19,15 +19,15 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  buildInputs = [ zsh ];
+  buildInputs = [zsh];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Fish shell like syntax highlighting for Zsh";
     homepage = "https://github.com/zsh-users/zsh-syntax-highlighting";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = [ maintainers.loskutov ];
+    maintainers = [maintainers.loskutov];
   };
 }

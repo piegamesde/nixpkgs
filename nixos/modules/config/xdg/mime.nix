@@ -15,7 +15,7 @@ in
 
 {
   meta = {
-    maintainers = teams.freedesktop.members ++ (with maintainers; [ figsoda ]);
+    maintainers = teams.freedesktop.members ++ (with maintainers; [figsoda]);
   };
 
   options = {
@@ -31,7 +31,7 @@ in
 
     xdg.mime.addedAssociations = mkOption {
       type = associationOptions;
-      default = { };
+      default = {};
       example = {
         "application/pdf" = "firefox.desktop";
         "text/xml" = [
@@ -48,7 +48,7 @@ in
 
     xdg.mime.defaultApplications = mkOption {
       type = associationOptions;
-      default = { };
+      default = {};
       example = {
         "application/pdf" = "firefox.desktop";
         "image/png" = [
@@ -65,7 +65,7 @@ in
 
     xdg.mime.removedAssociations = mkOption {
       type = associationOptions;
-      default = { };
+      default = {};
       example = {
         "audio/mp3" = [
           "mpv.desktop"
@@ -83,17 +83,16 @@ in
 
   config = mkIf cfg.enable {
     environment.etc."xdg/mimeapps.list" =
-      mkIf
-        (cfg.addedAssociations != { } || cfg.defaultApplications != { } || cfg.removedAssociations != { })
+      mkIf (cfg.addedAssociations != {} || cfg.defaultApplications != {} || cfg.removedAssociations != {})
         {
-          text = generators.toINI { } {
+          text = generators.toINI {} {
             "Added Associations" = cfg.addedAssociations;
             "Default Applications" = cfg.defaultApplications;
             "Removed Associations" = cfg.removedAssociations;
           };
         };
 
-    environment.pathsToLink = [ "/share/mime" ];
+    environment.pathsToLink = ["/share/mime"];
 
     environment.systemPackages =
       [

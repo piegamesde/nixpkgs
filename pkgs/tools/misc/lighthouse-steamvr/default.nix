@@ -20,15 +20,15 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "0aqd9ixszwq6qmj751gxx453gwbhwqi16m72bkbkj9s6nfyqihql";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ dbus ];
+  buildInputs = [dbus];
 
   meta = with lib; {
     broken = stdenv.isDarwin;
     description = "VR Lighthouse power state management";
     homepage = "https://github.com/ShayBox/Lighthouse";
     license = licenses.mit;
-    maintainers = with maintainers; [ expipiplus1 ];
+    maintainers = with maintainers; [expipiplus1];
   };
 }

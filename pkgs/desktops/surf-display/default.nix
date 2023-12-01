@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-wiyFh1te3afASIODn0cA5QXcqnrP/8Bk6hBAZYbKJQQ=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = [
     surf
@@ -37,9 +37,9 @@ stdenv.mkDerivation rec {
     unclutter
   ];
 
-  patches = [ ./pdf-makefile.patch ];
+  patches = [./pdf-makefile.patch];
 
-  buildFlags = [ "man" ];
+  buildFlags = ["man"];
 
   postFixup = ''
     substituteInPlace $out/share/xsessions/surf-display.desktop \
@@ -52,16 +52,16 @@ stdenv.mkDerivation rec {
        --prefix PATH ':' ${lib.makeBinPath buildInputs}
   '';
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   passthru = {
-    providedSessions = [ "surf-display" ];
+    providedSessions = ["surf-display"];
   };
 
   meta = with lib; {
     description = "Kiosk browser session manager based on the surf browser";
     homepage = "https://code.it-zukunft-schule.de/cgit/surf-display/";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

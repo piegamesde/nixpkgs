@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     qwt6_1
   ];
 
-  patches = [ ./0001-unbundled-qwt.patch ];
+  patches = [./0001-unbundled-qwt.patch];
 
   postPatch = ''
     sed -e "s|/usr/include/qt5.*$|& ${qwt6_1}/include|" -i linssid-app/linssid-app.pro
@@ -62,6 +62,6 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/linssid/";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

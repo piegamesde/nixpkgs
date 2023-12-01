@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     boost
@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.iqtree.org/";
     description = "Efficient and versatile phylogenomic software by maximum likelihood";
     license = licenses.lgpl2;
-    maintainers = with maintainers; [ bzizou ];
+    maintainers = with maintainers; [bzizou];
   };
 }

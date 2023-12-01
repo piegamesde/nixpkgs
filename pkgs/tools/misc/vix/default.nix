@@ -17,14 +17,14 @@ stdenv.mkDerivation {
     sha256 = "1y0a2sajkrsg36px21b8lgx1irf0pyj7hccyd6k806bm4zhgxw1z";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  buildInputs = [ SDL ];
+  buildInputs = [SDL];
 
   meta = with lib; {
     description = "Visual Interface heXadecimal dump ";
     homepage = "http://actinid.org/vix/";
     license = licenses.gpl3;
-    maintainers = [ maintainers.ehmry ];
+    maintainers = [maintainers.ehmry];
   };
 }

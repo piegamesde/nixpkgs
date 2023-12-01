@@ -60,12 +60,12 @@ buildPythonPackage rec {
     six
     toml
     virtualenv
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  ] ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   doCheck = false; # infinite recursion via devpi-client
 
   passthru.tests = {
-    version = testers.testVersion { package = tox; };
+    version = testers.testVersion {package = tox;};
   };
 
   meta = with lib; {
@@ -73,6 +73,6 @@ buildPythonPackage rec {
     description = "A generic virtualenv management and test command line tool";
     homepage = "https://github.com/tox-dev/tox";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

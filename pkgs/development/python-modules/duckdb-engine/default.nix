@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-qLQjFkud9DivLQ9PignLrXlUVOAxsd28s7+2GdC5jKE=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     duckdb
@@ -38,7 +38,7 @@ buildPythonPackage rec {
   '';
 
   # this test tries to download the httpfs extension
-  disabledTests = [ "test_preload_extension" ];
+  disabledTests = ["test_preload_extension"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -47,13 +47,13 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "duckdb_engine" ];
+  pythonImportsCheck = ["duckdb_engine"];
 
   meta = with lib; {
     description = "SQLAlchemy driver for duckdb";
     homepage = "https://github.com/Mause/duckdb_engine";
     changelog = "https://github.com/Mause/duckdb_engine/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

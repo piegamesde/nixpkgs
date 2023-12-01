@@ -112,7 +112,7 @@ let
             "read A/B"
             "readwrite A/#"
           ];
-          default = [ ];
+          default = [];
           description = lib.mdDoc ''
             Control client access to topics on the broker.
           '';
@@ -185,7 +185,7 @@ let
       ''
       + concatStringsSep "\n" (
         plainLines
-        ++ optional (plainLines != [ ]) ''
+        ++ optional (plainLines != []) ''
           ${cfg.package}/bin/mosquitto_passwd -U "$file"
         ''
         ++ hashedLines
@@ -198,7 +198,7 @@ let
       concatStringsSep "\n" (
         flatten [
           supplement
-          (mapAttrsToList (n: u: [ "user ${n}" ] ++ map (t: "topic ${t}") u.acl) users)
+          (mapAttrsToList (n: u: ["user ${n}"] ++ map (t: "topic ${t}") u.acl) users)
         ]
       )
     );
@@ -229,7 +229,7 @@ let
             Options for the auth plugin. Each key turns into a `auth_opt_*`
              line in the config.
           '';
-          default = { };
+          default = {};
         };
       };
     };
@@ -249,7 +249,7 @@ let
       "auth_plugin ${plugin.plugin}"
       "auth_plugin_deny_special_chars ${optionToString plugin.denySpecialChars}"
     ]
-    ++ formatFreeform { prefix = "auth_opt_"; } plugin.options;
+    ++ formatFreeform {prefix = "auth_opt_";} plugin.options;
 
   freeformListenerKeys = {
     allow_anonymous = 1;
@@ -311,7 +311,7 @@ let
             Refer to the [mosquitto.conf documentation](https://mosquitto.org/man/mosquitto-conf-5.html)
             for details on authentication plugins.
           '';
-          default = [ ];
+          default = [];
         };
 
         users = mkOption {
@@ -319,13 +319,13 @@ let
           example = {
             john = {
               password = "123456";
-              acl = [ "readwrite john/#" ];
+              acl = ["readwrite john/#"];
             };
           };
           description = lib.mdDoc ''
             A set of users and their passwords and ACLs.
           '';
-          default = { };
+          default = {};
         };
 
         omitPasswordAuth = mkOption {
@@ -346,15 +346,15 @@ let
             "pattern read #"
             "topic readwrite anon/report/#"
           ];
-          default = [ ];
+          default = [];
         };
 
         settings = mkOption {
-          type = submodule { freeformType = attrsOf optionType; };
+          type = submodule {freeformType = attrsOf optionType;};
           description = lib.mdDoc ''
             Additional settings for this listener.
           '';
-          default = { };
+          default = {};
         };
       };
     };
@@ -372,7 +372,7 @@ let
       "acl_file ${makeACLFile idx listener.users listener.acl}"
     ]
     ++ optional (!listener.omitPasswordAuth) "password_file ${cfg.dataDir}/passwd-${toString idx}"
-    ++ formatFreeform { } listener.settings
+    ++ formatFreeform {} listener.settings
     ++ concatMap formatAuthPlugin listener.authPlugins;
 
   freeformBridgeKeys = {
@@ -436,7 +436,7 @@ let
               };
             }
           );
-          default = [ ];
+          default = [];
           description = lib.mdDoc ''
             Remote endpoints for the bridge.
           '';
@@ -449,16 +449,16 @@ let
             Refer to the [
             mosquitto.conf documentation](https://mosquitto.org/man/mosquitto-conf-5.html) for details on the format.
           '';
-          default = [ ];
-          example = [ "# both 2 local/topic/ remote/topic/" ];
+          default = [];
+          example = ["# both 2 local/topic/ remote/topic/"];
         };
 
         settings = mkOption {
-          type = submodule { freeformType = attrsOf optionType; };
+          type = submodule {freeformType = attrsOf optionType;};
           description = lib.mdDoc ''
             Additional settings for this bridge.
           '';
-          default = { };
+          default = {};
         };
       };
     };
@@ -480,7 +480,7 @@ let
       "addresses ${concatMapStringsSep " " (a: "${a.address}:${toString a.port}") bridge.addresses}"
     ]
     ++ map (t: "topic ${t}") bridge.topics
-    ++ formatFreeform { } bridge.settings;
+    ++ formatFreeform {} bridge.settings;
 
   freeformGlobalKeys = {
     allow_duplicate_messages = 1;
@@ -526,7 +526,7 @@ let
 
     bridges = mkOption {
       type = attrsOf bridgeOptions;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Bridges to build to other MQTT brokers.
       '';
@@ -534,7 +534,7 @@ let
 
     listeners = mkOption {
       type = listOf listenerOptions;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Listeners to configure on this broker.
       '';
@@ -548,7 +548,7 @@ let
         `*.conf` files in the directory will be
         read in case-sensitive alphabetical order.
       '';
-      default = [ ];
+      default = [];
     };
 
     logDest = mkOption {
@@ -566,7 +566,7 @@ let
       description = lib.mdDoc ''
         Destinations to send log messages to.
       '';
-      default = [ "stderr" ];
+      default = ["stderr"];
     };
 
     logType = mkOption {
@@ -587,7 +587,7 @@ let
       description = lib.mdDoc ''
         Types of messages to log.
       '';
-      default = [ ];
+      default = [];
     };
 
     persistence = mkOption {
@@ -607,11 +607,11 @@ let
     };
 
     settings = mkOption {
-      type = submodule { freeformType = attrsOf optionType; };
+      type = submodule {freeformType = attrsOf optionType;};
       description = lib.mdDoc ''
         Global configuration options for the mosquitto broker.
       '';
-      default = { };
+      default = {};
     };
   };
 
@@ -631,7 +631,7 @@ let
     ]
     ++ map (d: if path.check d then "log_dest file ${d}" else "log_dest ${d}") cfg.logDest
     ++ map (t: "log_type ${t}") cfg.logType
-    ++ formatFreeform { } cfg.settings
+    ++ formatFreeform {} cfg.settings
     ++ concatLists (imap0 formatListener cfg.listeners)
     ++ concatLists (mapAttrsToList formatBridge cfg.bridges)
     ++ map (d: "include_dir ${d}") cfg.includeDirs;
@@ -653,8 +653,8 @@ in
 
     systemd.services.mosquitto = {
       description = "Mosquitto MQTT Broker Daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
       serviceConfig = {
         Type = "notify";
         NotifyAccess = "main";
@@ -754,7 +754,7 @@ in
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ pennae ];
+    maintainers = with lib.maintainers; [pennae];
     doc = ./mosquitto.md;
   };
 }

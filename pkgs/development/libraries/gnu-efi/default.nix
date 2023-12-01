@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-kxole5xcG6Zf9Rnxg3PEOKJoJfLbeGaxY+ltGxaPIOo=";
   };
 
-  buildInputs = [ pciutils ];
+  buildInputs = [pciutils];
 
-  hardeningDisable = [ "stackprotector" ];
+  hardeningDisable = ["stackprotector"];
 
   makeFlags = [
     "PREFIX=\${out}"
@@ -36,6 +36,6 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/gnu-efi/";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

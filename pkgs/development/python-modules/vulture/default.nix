@@ -25,19 +25,19 @@ buildPythonPackage rec {
       --replace " --cov vulture --cov-report=html --cov-report=term --cov-report=xml --cov-append" ""
   '';
 
-  propagatedBuildInputs = [ toml ];
+  propagatedBuildInputs = [toml];
 
   nativeCheckInputs = [
     pint
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "vulture" ];
+  pythonImportsCheck = ["vulture"];
 
   meta = with lib; {
     description = "Finds unused code in Python programs";
     homepage = "https://github.com/jendrikseipp/vulture";
     license = licenses.mit;
-    maintainers = with maintainers; [ mcwitt ];
+    maintainers = with maintainers; [mcwitt];
   };
 }

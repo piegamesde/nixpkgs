@@ -43,7 +43,7 @@ else
       findlib
       ocamlbuild
     ];
-    buildInputs = [ topkg ];
+    buildInputs = [topkg];
 
     propagatedBuildInputs =
       [
@@ -84,7 +84,7 @@ else
       '';
       homepage = webpage;
       license = licenses.isc;
-      maintainers = [ maintainers.jirkamarsik ];
+      maintainers = [maintainers.jirkamarsik];
       mainProgram = "vecho";
       inherit (ocaml.meta) platforms;
     };

@@ -18,7 +18,7 @@ buildPythonPackage rec {
     sha256 = "02j74w28wzmdvxkk8i561ywjgizjifq3hgcl080yj0rvkd3wivlb";
   };
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   checkPhase = ''
     cd tests/suite
@@ -39,6 +39,6 @@ buildPythonPackage rec {
       applications.
     '';
     license = licenses.bsd2;
-    maintainers = with maintainers; [ tfmoraes ];
+    maintainers = with maintainers; [tfmoraes];
   };
 }

@@ -36,7 +36,7 @@ let
         sed -i "s/build_manual=no/build_manual=yes/g" DIST
       '';
 
-      configureFlags = [ "--with-colm=${colm}" ];
+      configureFlags = ["--with-colm=${colm}"];
 
       env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isGNU "-std=gnu++98";
 
@@ -47,7 +47,7 @@ let
         description = "State machine compiler";
         inherit broken license;
         platforms = platforms.unix;
-        maintainers = with maintainers; [ pSub ];
+        maintainers = with maintainers; [pSub];
       };
     };
 in

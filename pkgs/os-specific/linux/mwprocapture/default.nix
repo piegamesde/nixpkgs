@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     "format"
   ];
 
-  makeFlags = [ "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
+  makeFlags = ["KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=implicit-fallthrough";
 
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.magewell.com/";
     description = "Linux driver for the Magewell Pro Capture family";
     license = licenses.unfreeRedistributable;
-    maintainers = with maintainers; [ MP2E ];
+    maintainers = with maintainers; [MP2E];
     platforms = platforms.linux;
   };
 }

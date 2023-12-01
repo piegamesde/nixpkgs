@@ -24,12 +24,12 @@ buildPythonPackage rec {
     deprecated
   ];
 
-  pythonImportsCheck = [ "jwcrypto" ];
+  pythonImportsCheck = ["jwcrypto"];
 
   meta = with lib; {
     description = "Implementation of JOSE Web standards";
     homepage = "https://github.com/latchset/jwcrypto";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

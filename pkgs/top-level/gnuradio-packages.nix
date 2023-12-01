@@ -26,7 +26,7 @@ lib.makeScope newScope (
           ;
         inherit mkDerivationWith mkDerivation;
       }
-      // lib.optionalAttrs (gnuradio.hasFeature "gr-uhd") { inherit (gnuradio) uhd; }
+      // lib.optionalAttrs (gnuradio.hasFeature "gr-uhd") {inherit (gnuradio) uhd;}
     );
   in
   {
@@ -38,18 +38,18 @@ lib.makeScope newScope (
     inherit gnuradio;
     inherit (gnuradio) python;
 
-    osmosdr = callPackage ../development/gnuradio-modules/osmosdr/default.nix { };
+    osmosdr = callPackage ../development/gnuradio-modules/osmosdr/default.nix {};
 
-    ais = callPackage ../development/gnuradio-modules/ais/default.nix { };
+    ais = callPackage ../development/gnuradio-modules/ais/default.nix {};
 
-    grnet = callPackage ../development/gnuradio-modules/grnet/default.nix { };
+    grnet = callPackage ../development/gnuradio-modules/grnet/default.nix {};
 
-    gsm = callPackage ../development/gnuradio-modules/gsm/default.nix { };
+    gsm = callPackage ../development/gnuradio-modules/gsm/default.nix {};
 
-    nacl = callPackage ../development/gnuradio-modules/nacl/default.nix { };
+    nacl = callPackage ../development/gnuradio-modules/nacl/default.nix {};
 
-    rds = callPackage ../development/gnuradio-modules/rds/default.nix { };
+    rds = callPackage ../development/gnuradio-modules/rds/default.nix {};
 
-    limesdr = callPackage ../development/gnuradio-modules/limesdr/default.nix { };
+    limesdr = callPackage ../development/gnuradio-modules/limesdr/default.nix {};
   }
 )

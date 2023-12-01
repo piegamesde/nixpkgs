@@ -1,10 +1,10 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 
 let
   inherit (pkgs) lib;
@@ -14,9 +14,9 @@ let
       name = "sddm";
 
       nodes.machine =
-        { ... }:
+        {...}:
         {
-          imports = [ ./common/user-account.nix ];
+          imports = [./common/user-account.nix];
           services.xserver.enable = true;
           services.xserver.displayManager.sddm.enable = true;
           services.xserver.displayManager.defaultSession = "none+icewm";
@@ -26,7 +26,7 @@ let
       enableOCR = true;
 
       testScript =
-        { nodes, ... }:
+        {nodes, ...}:
         let
           user = nodes.machine.config.users.users.alice;
         in
@@ -43,12 +43,12 @@ let
 
     autoLogin = {
       name = "sddm-autologin";
-      meta = with pkgs.lib.maintainers; { maintainers = [ ttuegel ]; };
+      meta = with pkgs.lib.maintainers; {maintainers = [ttuegel];};
 
       nodes.machine =
-        { ... }:
+        {...}:
         {
-          imports = [ ./common/user-account.nix ];
+          imports = [./common/user-account.nix];
           services.xserver.enable = true;
           services.xserver.displayManager = {
             sddm.enable = true;
@@ -62,7 +62,7 @@ let
         };
 
       testScript =
-        { nodes, ... }:
+        {nodes, ...}:
         let
           user = nodes.machine.config.users.users.alice;
         in

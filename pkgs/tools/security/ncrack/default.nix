@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "Network authentication tool";
     homepage = "https://nmap.org/ncrack/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.unix;
   };
 }

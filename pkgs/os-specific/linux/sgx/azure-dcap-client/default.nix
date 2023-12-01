@@ -24,7 +24,7 @@ let
       owner = "intel";
       repo = "SGXDataCenterAttestationPrimitives";
       rev = "0436284f12f1bd5da7e7a06f6274d36b4c8d39f9";
-      sparseCheckout = [ "QuoteGeneration/quote_wrapper/common/inc/sgx_ql_lib_common.h" ];
+      sparseCheckout = ["QuoteGeneration/quote_wrapper/common/inc/sgx_ql_lib_common.h"];
       hash = "sha256-ipKpYHbiwjCUXF/pCArJZy5ko1YX2wqMMdSnMUzhkgY=";
       postFetch = filterSparse sparseCheckout;
     })
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-EYj3jnzTyJRl6N7avNf9VrB8r9U6zIE6wBNeVsMtWCA=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     curl
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
 
   # Online test suite; run with
   # $(nix-build -A sgx-azure-dcap-client.tests.suite)/bin/tests
-  passthru.tests.suite = callPackage ./test-suite.nix { };
+  passthru.tests.suite = callPackage ./test-suite.nix {};
 
   meta = with lib; {
     description = "Interfaces between SGX SDKs and the Azure Attestation SGX Certification Cache";
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
       trundle
       veehaitch
     ];
-    platforms = [ "x86_64-linux" ];
-    license = [ licenses.mit ];
+    platforms = ["x86_64-linux"];
+    license = [licenses.mit];
   };
 }

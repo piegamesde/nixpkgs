@@ -31,7 +31,7 @@ mkDerivation rec {
     qttools
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     broken = stdenv.isDarwin;

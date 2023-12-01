@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-RsL2ujS8t+V+R8sDS/M45fx9zO3dqSEqLvO9MUbZe+0=";
   };
 
-  patches = [ ./0001-Don-t-resolve-symlinks-when-trying-to-find-INSTALL_P.patch ];
+  patches = [./0001-Don-t-resolve-symlinks-when-trying-to-find-INSTALL_P.patch];
 
   dontBuild = true;
 
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     f:
     buildEnv {
       name = "${roundcube.name}-with-plugins";
-      paths = (f roundcubePlugins) ++ [ roundcube ];
+      paths = (f roundcubePlugins) ++ [roundcube];
     };
 
   meta = {

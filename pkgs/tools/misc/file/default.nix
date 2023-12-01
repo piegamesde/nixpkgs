@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   nativeBuildInputs = lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) file;
-  buildInputs = [ zlib ] ++ lib.optional stdenv.hostPlatform.isWindows libgnurx;
+  buildInputs = [zlib] ++ lib.optional stdenv.hostPlatform.isWindows libgnurx;
 
   # https://bugs.astron.com/view.php?id=382
   doCheck = !stdenv.buildPlatform.isMusl;
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://darwinsys.com/file";
     description = "A program that shows the type of files";
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     license = licenses.bsd2;
     platforms = platforms.all;
   };

@@ -45,14 +45,14 @@ stdenv.mkDerivation rec {
     makeWrapper
     pkg-config
     wrapGAppsHook
-  ] ++ lib.optionals stdenv.isLinux [ lsb-release ];
+  ] ++ lib.optionals stdenv.isLinux [lsb-release];
 
   buildInputs = [
     curl
     sqlite
     wxGTK32
     gtk3
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.libobjc ];
+  ] ++ lib.optionals stdenv.isDarwin [darwin.libobjc];
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals stdenv.cc.isClang [
@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
     description = "Easy-to-use personal finance software";
     homepage = "https://www.moneymanagerex.org/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ viric ];
+    maintainers = with lib.maintainers; [viric];
     platforms = with lib.platforms; unix;
     mainProgram = "mmex";
   };

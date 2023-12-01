@@ -27,12 +27,12 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  checkInputs = [ qcheck ];
+  checkInputs = [qcheck];
 
   meta = with lib; {
     description = "Syslog message parser";
     homepage = "https://github.com/verbosemode/syslog-message";
     license = licenses.bsd2;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

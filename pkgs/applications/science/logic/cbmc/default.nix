@@ -31,11 +31,11 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [ cadical ];
+  buildInputs = [cadical];
 
   # do not download sources
   # link existing cadical instead
-  patches = [ ./0001-Do-not-download-sources-in-cmake.patch ];
+  patches = [./0001-Do-not-download-sources-in-cmake.patch];
 
   postPatch =
     ''
@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
     description = "CBMC is a Bounded Model Checker for C and C++ programs";
     homepage = "http://www.cprover.org/cbmc/";
     license = licenses.bsdOriginal;
-    maintainers = with maintainers; [ jiegec ];
+    maintainers = with maintainers; [jiegec];
     platforms = platforms.unix;
     # https://github.com/diffblue/cbmc/issues/7423
     broken = stdenv.isLinux && stdenv.isAarch64;

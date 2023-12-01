@@ -41,6 +41,6 @@ mkDerivation rec {
     homepage = "https://www.opendesktop.org/content/show.php?content=168066";
     platforms = platforms.linux;
     license = licenses.bsd2;
-    maintainers = with maintainers; [ ralith ];
+    maintainers = with maintainers; [ralith];
   };
 }

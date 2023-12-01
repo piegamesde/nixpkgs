@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-cffi-gtk-cairo";
   version = "cl-cffi-gtk-20201220-git";
@@ -23,7 +23,7 @@ rec {
 
   packageName = "cl-cffi-gtk-cairo";
 
-  asdFilesToKeep = [ "cl-cffi-gtk-cairo.asd" ];
+  asdFilesToKeep = ["cl-cffi-gtk-cairo.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-cffi-gtk-cairo DESCRIPTION A Lisp binding to Cairo SHA256

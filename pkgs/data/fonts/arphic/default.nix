@@ -40,7 +40,7 @@ in
       homepage = "https://www.freedesktop.org/wiki/Software/CJKUnifonts/";
 
       license = licenses.arphicpl;
-      maintainers = [ maintainers.changlinli ];
+      maintainers = [maintainers.changlinli];
       platforms = platforms.all;
     };
   };
@@ -75,7 +75,7 @@ in
       homepage = "https://www.freedesktop.org/wiki/Software/CJKUnifonts/";
 
       license = licenses.arphicpl;
-      maintainers = [ maintainers.changlinli ];
+      maintainers = [maintainers.changlinli];
       platforms = platforms.all;
     };
   };

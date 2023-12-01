@@ -84,7 +84,7 @@ in
     };
 
     virtualisation.xen.bootParams = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
       description = lib.mdDoc ''
         Parameters passed to the Xen hypervisor at boot time.
@@ -180,7 +180,7 @@ in
     virtualisation.xen.package-qemu = mkDefault pkgs.xen;
     virtualisation.xen.stored = mkDefault "${cfg.package}/bin/oxenstored";
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     boot.kernelModules = [
       "xen-evtchn"
@@ -210,11 +210,11 @@ in
     # The xenfs module is needed in system.activationScripts.xen, but
     # the modprobe command there fails silently. Include xenfs in the
     # initrd as a work around.
-    boot.initrd.kernelModules = [ "xenfs" ];
+    boot.initrd.kernelModules = ["xenfs"];
 
     # The radeonfb kernel module causes the screen to go black as soon
     # as it's loaded, so don't load it.
-    boot.blacklistedKernelModules = [ "radeonfb" ];
+    boot.blacklistedKernelModules = ["radeonfb"];
 
     # Increase the number of loopback devices from the default (8),
     # which is way too small because every VM virtual disk requires a
@@ -224,7 +224,7 @@ in
     '';
 
     virtualisation.xen.bootParams =
-      [ ]
+      []
       ++ optionals cfg.trace [
         "loglvl=all"
         "guest_loglvl=all"
@@ -281,7 +281,7 @@ in
       };
 
     # Xen provides udev rules.
-    services.udev.packages = [ cfg.package ];
+    services.udev.packages = [cfg.package];
 
     services.udev.path = [
       pkgs.bridge-utils
@@ -290,12 +290,12 @@ in
 
     systemd.services.xen-store = {
       description = "Xen Store Daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network.target"
         "xen-store.socket"
       ];
-      requires = [ "xen-store.socket" ];
+      requires = ["xen-store.socket"];
       preStart = ''
         export XENSTORED_ROOTDIR="/var/lib/xenstored"
         rm -f "$XENSTORED_ROOTDIR"/tdb* &>/dev/null
@@ -344,7 +344,7 @@ in
 
     systemd.sockets.xen-store = {
       description = "XenStore Socket for userspace API";
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
       socketConfig = {
         ListenStream = [
           "/var/run/xenstored/socket"
@@ -358,9 +358,9 @@ in
 
     systemd.services.xen-console = {
       description = "Xen Console Daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "xen-store.service" ];
-      requires = [ "xen-store.service" ];
+      wantedBy = ["multi-user.target"];
+      after = ["xen-store.service"];
+      requires = ["xen-store.service"];
       preStart = ''
         mkdir -p /var/run/xen
         ${optionalString cfg.trace "mkdir -p /var/log/xen"}
@@ -377,9 +377,9 @@ in
 
     systemd.services.xen-qemu = {
       description = "Xen Qemu Daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "xen-console.service" ];
-      requires = [ "xen-store.service" ];
+      wantedBy = ["multi-user.target"];
+      after = ["xen-console.service"];
+      requires = ["xen-store.service"];
       serviceConfig.ExecStart = ''
         ${cfg.package-qemu}/${cfg.package-qemu.qemu-system-i386} \
            -xen-attach -xen-domid 0 -name dom0 -M xenpv \
@@ -389,7 +389,7 @@ in
 
     systemd.services.xen-watchdog = {
       description = "Xen Watchdog Daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "xen-qemu.service"
         "xen-domains.service"
@@ -402,8 +402,8 @@ in
 
     systemd.services.xen-bridge = {
       description = "Xen bridge";
-      wantedBy = [ "multi-user.target" ];
-      before = [ "xen-domains.service" ];
+      wantedBy = ["multi-user.target"];
+      before = ["xen-domains.service"];
       preStart = ''
         mkdir -p /var/run/xen
         touch /var/run/xen/dnsmasq.pid
@@ -482,7 +482,7 @@ in
 
     systemd.services.xen-domains = {
       description = "Xen domains - automatically starts, saves and restores Xen domains";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "xen-bridge.service"
         "xen-qemu.service"
@@ -494,7 +494,7 @@ in
       ## To prevent a race between dhcpcd and xend's bridge setup script
       ## (which renames eth* to peth* and recreates eth* as a virtual
       ## device), start dhcpcd after xend.
-      before = [ "dhcpd.service" ];
+      before = ["dhcpd.service"];
       restartIfChanged = false;
       serviceConfig.RemainAfterExit = "yes";
       path = [

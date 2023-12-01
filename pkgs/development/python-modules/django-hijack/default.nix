@@ -48,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/arteria/django-hijack";
     changelog = "https://github.com/django-hijack/django-hijack/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ ris ];
+    maintainers = with maintainers; [ris];
   };
 }

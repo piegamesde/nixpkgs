@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "clsql-sqlite3";
   version = "clsql-20210228-git";
@@ -19,7 +19,7 @@ rec {
 
   packageName = "clsql-sqlite3";
 
-  asdFilesToKeep = [ "clsql-sqlite3.asd" ];
+  asdFilesToKeep = ["clsql-sqlite3.asd"];
   overrides = x: x;
 }
 /* (SYSTEM clsql-sqlite3 DESCRIPTION Common Lisp Sqlite3 Driver SHA256

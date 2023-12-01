@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace "-lnl" "$(pkg-config --libs libnl-genl-3.0)"
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libnl
     popt

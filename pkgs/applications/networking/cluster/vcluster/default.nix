@@ -18,9 +18,9 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  subPackages = [ "cmd/vclusterctl" ];
+  subPackages = ["cmd/vclusterctl"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"

@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "8b2287f671529505b296005e6de9150b074344c2c7d1c805b3f053d081d58c52";
   };
 
-  propagatedBuildInputs = [ azure-nspkg ];
+  propagatedBuildInputs = [azure-nspkg];
 
   doCheck = false;
 

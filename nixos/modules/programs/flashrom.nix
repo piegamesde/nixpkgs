@@ -21,11 +21,11 @@ in
         group.
       '';
     };
-    package = mkPackageOptionMD pkgs "flashrom" { };
+    package = mkPackageOptionMD pkgs "flashrom" {};
   };
 
   config = mkIf cfg.enable {
-    services.udev.packages = [ cfg.package ];
-    environment.systemPackages = [ cfg.package ];
+    services.udev.packages = [cfg.package];
+    environment.systemPackages = [cfg.package];
   };
 }

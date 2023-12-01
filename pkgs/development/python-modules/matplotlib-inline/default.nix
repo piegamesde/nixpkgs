@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-+Ifl8Qupjo0rFQ3c9HAsHl+LOiAAXrD3S/29Ng7m8wQ=";
   };
 
-  propagatedBuildInputs = [ traitlets ];
+  propagatedBuildInputs = [traitlets];
 
   # wants to import ipython, which creates a circular dependency
   doCheck = false;
@@ -37,6 +37,6 @@ buildPythonPackage rec {
     description = "Matplotlib Inline Back-end for IPython and Jupyter";
     homepage = "https://github.com/ipython/matplotlib-inline";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

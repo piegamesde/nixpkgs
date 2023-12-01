@@ -18,20 +18,20 @@ stdenv.mkDerivation rec {
     hash = "sha256-ds5k5VHwc7/sq4PUe/WvxAx7gJkU4phKZk0KunPLNE0=";
   };
 
-  nativeBuildInputs = [ bison ];
+  nativeBuildInputs = [bison];
 
   buildInputs = [
     libressl
     libevent
   ];
 
-  configureFlags = [ "PREFIX=${placeholder "out"}" ];
+  configureFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     description = "Simple and secure Gemini server";
     homepage = "https://gmid.omarpolo.com/";
     license = licenses.isc;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.linux;
   };
 }

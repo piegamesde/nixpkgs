@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{config, lib, ...}:
 
 with lib;
 
@@ -40,12 +40,12 @@ with lib;
 
   config = mkIf config.services.timesyncd.enable {
 
-    systemd.additionalUpstreamSystemUnits = [ "systemd-timesyncd.service" ];
+    systemd.additionalUpstreamSystemUnits = ["systemd-timesyncd.service"];
 
     systemd.services.systemd-timesyncd = {
-      wantedBy = [ "sysinit.target" ];
-      aliases = [ "dbus-org.freedesktop.timesync1.service" ];
-      restartTriggers = [ config.environment.etc."systemd/timesyncd.conf".source ];
+      wantedBy = ["sysinit.target"];
+      aliases = ["dbus-org.freedesktop.timesync1.service"];
+      restartTriggers = [config.environment.etc."systemd/timesyncd.conf".source];
     };
 
     environment.etc."systemd/timesyncd.conf".text = ''

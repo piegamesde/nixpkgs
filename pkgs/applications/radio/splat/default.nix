@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     description = "SPLAT! is an RF Signal Propagation, Loss, And Terrain analysis tool for the electromagnetic spectrum between 20 MHz and 20 GHz";
     license = licenses.gpl2Only;
     homepage = "https://www.qsl.net/kd2bd/splat.html";
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
     platforms = platforms.x86_64;
   };
 }

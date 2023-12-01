@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     qtxmlpatterns
   ];
 
-  cmakeFlags = [ "-DWANT_DEBUG=OFF" ];
+  cmakeFlags = ["-DWANT_DEBUG=OFF"];
 
   meta = with lib; {
     description = "Advanced drum machine";

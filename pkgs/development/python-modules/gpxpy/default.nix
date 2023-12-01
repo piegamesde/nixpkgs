@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-Fkl2dte1WkPi2hBOdT23BMfNflR0j4GeNH86d46WNQk=";
   };
 
-  propagatedBuildInputs = [ lxml ];
+  propagatedBuildInputs = [lxml];
 
   checkPhase = ''
     ${python.interpreter} -m unittest test
@@ -30,6 +30,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/tkrajina/gpxpy";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

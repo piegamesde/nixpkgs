@@ -25,7 +25,7 @@ mkDerivation rec {
     qttools
   ];
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   qmakeFlags = [
     "CONFIG+=WITH_I18N"

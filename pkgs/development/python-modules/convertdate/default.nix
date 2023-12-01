@@ -27,14 +27,14 @@ buildPythonPackage rec {
     pytz
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "convertdate" ];
+  pythonImportsCheck = ["convertdate"];
 
   meta = with lib; {
     description = "Utils for converting between date formats and calculating holidays";
     homepage = "https://github.com/fitnr/convertdate";
     license = licenses.mit;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

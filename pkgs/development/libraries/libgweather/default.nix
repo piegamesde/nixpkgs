@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       ./fix-pkgconfig.patch
     ];
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs =
     [
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
       pkg-config
       gettext
       glib
-      (python3.pythonForBuild.withPackages (ps: [ ps.pygobject3 ]))
+      (python3.pythonForBuild.withPackages (ps: [ps.pygobject3]))
     ]
     ++ lib.optionals withIntrospection [
       gi-docgen

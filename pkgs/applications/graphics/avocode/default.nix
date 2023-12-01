@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
     icon = "avocode";
     desktopName = "Avocode";
     genericName = "Design Inspector";
-    categories = [ "Development" ];
+    categories = ["Development"];
     comment = "The bridge between designers and developers";
   };
 
@@ -137,9 +137,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://avocode.com/";
     description = "The bridge between designers and developers";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ megheaiulian ];
+    maintainers = with maintainers; [megheaiulian];
   };
 }

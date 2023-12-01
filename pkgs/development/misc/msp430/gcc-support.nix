@@ -30,7 +30,7 @@ stdenvNoCC.mkDerivation rec {
     '';
     homepage = "https://www.ti.com/tool/msp430-gcc-opensource";
     license = licenses.bsd3;
-    platforms = [ "msp430-none" ];
-    maintainers = with maintainers; [ aerialx ];
+    platforms = ["msp430-none"];
+    maintainers = with maintainers; [aerialx];
   };
 }

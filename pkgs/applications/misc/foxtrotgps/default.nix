@@ -94,6 +94,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.foxtrotgps.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ wucke13 ];
+    maintainers = with maintainers; [wucke13];
   };
 }

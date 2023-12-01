@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "1jhz6jfwv5kawa8kajvg18nfwc1b30f38zc0lggszd1vcmrwqkz1";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   postInstall = "ln -s . $out/include/fastcgi";
 

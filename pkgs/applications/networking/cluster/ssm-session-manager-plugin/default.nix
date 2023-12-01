@@ -32,7 +32,7 @@ buildGo120Package rec {
   '';
 
   doCheck = true;
-  checkFlags = [ "-skip=TestSetSessionHandlers" ];
+  checkFlags = ["-skip=TestSetSessionHandlers"];
 
   preCheck = ''
     if ! [[ $(go/bin/sessionmanagerplugin-main --version) = ${lib.escapeShellArg version} ]]; then

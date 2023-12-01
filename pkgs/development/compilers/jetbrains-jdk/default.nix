@@ -51,7 +51,7 @@ openjdk17.overrideAttrs (
     BOOT_JDK = openjdk17-bootstrap.home;
     SOURCE_DATE_EPOCH = 1666098567;
 
-    patches = [ ];
+    patches = [];
 
     # Configure is done in build phase
     configurePhase = "true";
@@ -159,7 +159,7 @@ openjdk17.overrideAttrs (
       '';
       homepage = "https://confluence.jetbrains.com/display/JBR/JetBrains+Runtime";
       inherit (openjdk17.meta) license platforms mainProgram;
-      maintainers = with maintainers; [ edwtjo ];
+      maintainers = with maintainers; [edwtjo];
 
       broken = stdenv.isDarwin;
     };

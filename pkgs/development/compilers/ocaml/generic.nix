@@ -2,7 +2,7 @@
   minor_version,
   major_version,
   patch_version,
-  patches ? [ ],
+  patches ? [],
   ...
 }@args:
 let
@@ -151,7 +151,7 @@ stdenv.mkDerivation (
     # sequential order among them as a single rule.
     makefile = ./Makefile.nixpkgs;
     buildFlags =
-      if useNativeCompilers then [ "nixpkgs_world_bootstrap_world_opt" ] else [ "nixpkgs_world" ];
+      if useNativeCompilers then ["nixpkgs_world_bootstrap_world_opt"] else ["nixpkgs_world"];
     buildInputs =
       optional (lib.versionOlder version "4.07") ncurses
       ++ optionals useX11 [
@@ -159,7 +159,7 @@ stdenv.mkDerivation (
         xorgproto
       ];
     propagatedBuildInputs = optional spaceTimeSupport libunwind;
-    installTargets = [ "install" ] ++ optional useNativeCompilers "installopt";
+    installTargets = ["install"] ++ optional useNativeCompilers "installopt";
     preConfigure =
       optionalString (lib.versionOlder version "4.04") ''
         CAT=$(type -tp cat)

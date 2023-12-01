@@ -11,8 +11,8 @@ stdenv.mkDerivation rec {
   version = "6.6.3";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/smc/smc/${lib.replaceStrings [ "." ] [ "_" ] version}/smc_${
-      lib.replaceStrings [ "." ] [ "_" ] version
+    url = "mirror://sourceforge/project/smc/smc/${lib.replaceStrings ["."] ["_"] version}/smc_${
+      lib.replaceStrings ["."] ["_"] version
     }.tgz";
     sha256 = "1gv0hrgdl4wp562virpf9sib6pdhapwv4zvwbl0d5f5xyx04il11";
   };
@@ -51,9 +51,9 @@ stdenv.mkDerivation rec {
       SMC can also generate GraphViz state diagrams from the input file.
     '';
     homepage = "https://smc.sourceforge.net/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.mpl11;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

@@ -40,14 +40,14 @@ rustPlatform.buildRustPackage rec {
     git
   ];
 
-  buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
+  buildInputs = [openssl] ++ lib.optional stdenv.isDarwin Security;
 
   meta = with lib; {
     homepage = "https://git.ondrovo.com/MightyPork/group-actor#fedi-groups";
     downloadPage = "https://git.ondrovo.com/MightyPork/group-actor/releases";
     description = "An approximation of groups usable with Fediverse software that implements the Mastodon client API";
     license = licenses.mit;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
   };
 }

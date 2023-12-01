@@ -19,7 +19,7 @@
   avrdude,
   gdb,
   openocd,
-  tinygoTests ? [ "smoketest" ],
+  tinygoTests ? ["smoketest"],
 }:
 
 let
@@ -62,7 +62,7 @@ buildGoModule rec {
     avrgcc
     binaryen
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs =
     [
       llvm
@@ -80,13 +80,13 @@ buildGoModule rec {
   inherit tinygoTests;
 
   allowGoReference = true;
-  tags = [ "llvm${llvmMajor}" ];
-  ldflags = [ "-X github.com/tinygo-org/tinygo/goenv.TINYGOROOT=${placeholder "out"}/share/tinygo" ];
-  subPackages = [ "." ];
+  tags = ["llvm${llvmMajor}"];
+  ldflags = ["-X github.com/tinygo-org/tinygo/goenv.TINYGOROOT=${placeholder "out"}/share/tinygo"];
+  subPackages = ["."];
 
   # Output contains static libraries for different arm cpus
   # and stripping could mess up these so only strip the compiler
-  stripDebugList = [ "bin" ];
+  stripDebugList = ["bin"];
 
   postConfigure = lib.optionalString stdenv.isDarwin ''
     for i in vendor/tinygo.org/x/go-llvm/llvm_config_darwin*; do
@@ -164,7 +164,7 @@ buildGoModule rec {
       done
     '';
 
-  checkPhase = lib.optionalString (tinygoTests != [ ] && tinygoTests != null) ''
+  checkPhase = lib.optionalString (tinygoTests != [] && tinygoTests != null) ''
     make ''${tinygoTests[@]} XTENSA=0 ${lib.optionalString stdenv.isDarwin "AVR=0"}
   '';
 
@@ -187,7 +187,7 @@ buildGoModule rec {
     runHook postInstall
   '';
 
-  disallowedReferences = [ wasi-libc ];
+  disallowedReferences = [wasi-libc];
 
   meta = with lib; {
     homepage = "https://tinygo.org/";

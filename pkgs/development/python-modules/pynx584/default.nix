@@ -37,12 +37,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "nx584" ];
+  pythonImportsCheck = ["nx584"];
 
   meta = with lib; {
     description = "Python package for communicating to NX584/NX8E interfaces";
     homepage = "https://github.com/kk7ds/pynx584";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [fab];
   };
 }

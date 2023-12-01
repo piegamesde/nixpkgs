@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-gn3ydjf/msdhIhngGlhK+jhEyFy0qGeDr58E7kM2YZs=";
   };
 
-  pythonImportsCheck = [ "pyscreeze" ];
+  pythonImportsCheck = ["pyscreeze"];
   nativeCheckInputs = [
     scrot
     xlib
@@ -29,12 +29,12 @@ buildPythonPackage rec {
     xvfb-run python -m unittest tests.test_pyscreeze
   '';
 
-  propagatedBuildInputs = [ pillow ];
+  propagatedBuildInputs = [pillow];
 
   meta = with lib; {
     description = "PyScreeze is a simple, cross-platform screenshot module for Python 2 and 3.";
     homepage = "https://github.com/asweigart/pyscreeze";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ lucasew ];
+    maintainers = with maintainers; [lucasew];
   };
 }

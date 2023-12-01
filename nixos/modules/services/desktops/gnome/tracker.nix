@@ -54,7 +54,7 @@ in
 
       subcommandPackages = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         internal = true;
         description = lib.mdDoc ''
           List of packages containing tracker3 subcommands.
@@ -67,18 +67,18 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ pkgs.tracker ];
+    environment.systemPackages = [pkgs.tracker];
 
-    services.dbus.packages = [ pkgs.tracker ];
+    services.dbus.packages = [pkgs.tracker];
 
-    systemd.packages = [ pkgs.tracker ];
+    systemd.packages = [pkgs.tracker];
 
     environment.variables = {
       TRACKER_CLI_SUBCOMMANDS_DIR =
         let
           subcommandPackagesTree = pkgs.symlinkJoin {
             name = "tracker-with-subcommands-${pkgs.tracker.version}";
-            paths = [ pkgs.tracker ] ++ cfg.subcommandPackages;
+            paths = [pkgs.tracker] ++ cfg.subcommandPackages;
           };
         in
         "${subcommandPackagesTree}/libexec/tracker3";

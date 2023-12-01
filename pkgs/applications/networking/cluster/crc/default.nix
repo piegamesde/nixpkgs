@@ -32,7 +32,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  nativeBuildInputs = [ git ];
+  nativeBuildInputs = [git];
 
   postPatch = ''
     substituteInPlace pkg/crc/oc/oc_linux_test.go \
@@ -42,7 +42,7 @@ buildGoModule rec {
       --replace "/bin/bash" "${runtimeShell}"
   '';
 
-  tags = [ "containers_image_openpgp" ];
+  tags = ["containers_image_openpgp"];
 
   ldflags = [
     "-X github.com/crc-org/crc/pkg/crc/version.crcVersion=${version}"

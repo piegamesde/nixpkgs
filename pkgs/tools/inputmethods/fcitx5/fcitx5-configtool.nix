@@ -31,7 +31,7 @@ mkDerivation rec {
     sha256 = "sha256-nYHrJBcbaYxZ61OEFfnwTTsZFEBtDJkR0kuYPyTcjio=";
   };
 
-  cmakeFlags = [ "-DKDE_INSTALL_USE_QT_SYS_PATHS=ON" ];
+  cmakeFlags = ["-DKDE_INSTALL_USE_QT_SYS_PATHS=ON"];
 
   nativeBuildInputs = [
     cmake
@@ -61,7 +61,7 @@ mkDerivation rec {
     description = "Configuration Tool for Fcitx5";
     homepage = "https://github.com/fcitx/fcitx5-configtool";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ poscat ];
+    maintainers = with maintainers; [poscat];
     platforms = platforms.linux;
     mainProgram = "fcitx5-config-qt";
   };

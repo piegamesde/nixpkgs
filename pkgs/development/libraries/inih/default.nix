@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/benhoyt/inih";
     changelog = "https://github.com/benhoyt/inih/releases/tag/r${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ TredwellGit ];
+    maintainers = with maintainers; [TredwellGit];
     platforms = platforms.all;
   };
 }

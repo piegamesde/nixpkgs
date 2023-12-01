@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.programs.starship;
 
-  settingsFormat = pkgs.formats.toml { };
+  settingsFormat = pkgs.formats.toml {};
 
   settingsFile = settingsFormat.generate "starship.toml" cfg.settings;
 
@@ -32,7 +32,7 @@ in
 
     settings = mkOption {
       inherit (settingsFormat) type;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Configuration included in `starship.toml`.
 

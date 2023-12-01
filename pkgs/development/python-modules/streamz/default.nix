@@ -49,7 +49,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [ "streamz" ];
+  pythonImportsCheck = ["streamz"];
 
   disabledTests = [
     # Error with distutils version: fixture 'cleanup' not found
@@ -78,6 +78,6 @@ buildPythonPackage rec {
     description = "Pipelines to manage continuous streams of data";
     homepage = "https://github.com/python-streamz/streamz";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

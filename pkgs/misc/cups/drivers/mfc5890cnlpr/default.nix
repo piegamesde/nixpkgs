@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     patchelf --set-interpreter ${pkgsi686Linux.glibc.out}/lib/ld-linux.so.2 $dir/lpd/brmfc5890cnfilter
 
     wrapProgram $dir/inf/setupPrintcapij \
-      --prefix PATH : ${lib.makeBinPath [ coreutils ]}
+      --prefix PATH : ${lib.makeBinPath [coreutils]}
 
     substituteInPlace $dir/lpd/filtermfc5890cn \
       --replace "/usr/" "$out/usr/"
@@ -70,9 +70,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Brother MFC-5890CN LPR printer driver";
     homepage = "http://www.brother.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ martinramm ];
+    maintainers = with maintainers; [martinramm];
     platforms = [
       "i686-linux"
       "x86_64-linux"

@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-b1brLHM48t45bwUXk7QreLLmvTzU0sX7Uoc1ZAgGkrE=";
   };
 
-  propagatedBuildInputs = [ packaging ];
+  propagatedBuildInputs = [packaging];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -31,13 +31,13 @@ buildPythonPackage rec {
     simplejson
   ];
 
-  pythonImportsCheck = [ "marshmallow" ];
+  pythonImportsCheck = ["marshmallow"];
 
   meta = with lib; {
     changelog = "https://github.com/marshmallow-code/marshmallow/blob/${src.rev}/CHANGELOG.rst";
     description = "Library for converting complex objects to and from simple Python datatypes";
     homepage = "https://github.com/marshmallow-code/marshmallow";
     license = licenses.mit;
-    maintainers = with maintainers; [ cript0nauta ];
+    maintainers = with maintainers; [cript0nauta];
   };
 }

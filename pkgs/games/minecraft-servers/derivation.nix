@@ -12,7 +12,7 @@ stdenv.mkDerivation {
   pname = "minecraft-server";
   inherit version;
 
-  src = fetchurl { inherit url sha1; };
+  src = fetchurl {inherit url sha1;};
 
   preferLocalBuild = true;
 
@@ -40,7 +40,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Minecraft Server";
     homepage = "https://minecraft.net";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.unfreeRedistributable;
     platforms = platforms.unix;
     maintainers = with maintainers; [

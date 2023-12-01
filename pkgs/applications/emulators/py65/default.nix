@@ -24,6 +24,6 @@ buildPythonApplication rec {
       for interacting with the simulated 6502-based system.
     '';
     license = licenses.bsd3;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
   };
 }

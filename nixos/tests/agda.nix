@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   let
     hello-world = pkgs.writeText "hello-world" ''
@@ -20,9 +20,9 @@ import ./make-test-python.nix (
     };
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        environment.systemPackages = [ (pkgs.agda.withPackages { pkgs = p: [ p.standard-library ]; }) ];
+        environment.systemPackages = [(pkgs.agda.withPackages {pkgs = p: [p.standard-library];})];
         virtualisation.memorySize = 2000; # Agda uses a lot of memory
       };
 

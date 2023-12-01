@@ -8,7 +8,7 @@
   pkg-config,
   baseBinName ? "pkg-config",
   propagateDoc ? pkg-config != null && pkg-config ? man,
-  extraPackages ? [ ],
+  extraPackages ? [],
   extraBuildCommands ? "",
 }:
 
@@ -46,7 +46,7 @@ stdenv.mkDerivation {
 
   preferLocalBuild = true;
 
-  outputs = [ "out" ] ++ optionals propagateDoc ([ "man" ] ++ optional (pkg-config ? doc) "doc");
+  outputs = ["out"] ++ optionals propagateDoc (["man"] ++ optional (pkg-config ? doc) "doc");
 
   passthru = {
     inherit targetPrefix suffixSalt;
@@ -133,9 +133,9 @@ stdenv.mkDerivation {
 
   meta =
     let
-      pkg-config_ = if pkg-config != null then pkg-config else { };
+      pkg-config_ = if pkg-config != null then pkg-config else {};
     in
-    (if pkg-config_ ? meta then removeAttrs pkg-config.meta [ "priority" ] else { })
+    (if pkg-config_ ? meta then removeAttrs pkg-config.meta ["priority"] else {})
     // {
       description =
         lib.attrByPath

@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Create GNOME Shell extensions in seconds";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ andersk ];
+    maintainers = with maintainers; [andersk];
     homepage = "https://github.com/p-e-w/argos";
   };
 }

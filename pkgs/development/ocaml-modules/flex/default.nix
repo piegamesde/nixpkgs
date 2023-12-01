@@ -16,12 +16,12 @@ buildDunePackage rec {
     sha256 = "sha256-GomTOdlU5ZwElKK8CM4DEMr51YDIrFKmTxUCGMLL3c4=";
   };
 
-  nativeBuildInputs = [ reason ];
+  nativeBuildInputs = [reason];
 
   meta = with lib; {
     description = "Native Reason implementation of CSS Flexbox layout. An Yoga project port";
     homepage = "https://github.com/jordwalke/flex";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.mit;
   };
 }

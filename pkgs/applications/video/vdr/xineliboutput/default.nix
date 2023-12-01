@@ -43,7 +43,7 @@ let
         -e 's,XINEPLUGINDIR=/[^/]*/[^/]*/[^/]*/,XINEPLUGINDIR=/,'
     '';
 
-    makeFlags = [ "DESTDIR=$(out)" ];
+    makeFlags = ["DESTDIR=$(out)"];
 
     postFixup = ''
       for f in $out/bin/*; do
@@ -57,7 +57,7 @@ let
       done
     '';
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     buildInputs = [
       libav
@@ -83,7 +83,7 @@ let
     meta = with lib; {
       homepage = "https://sourceforge.net/projects/xineliboutput/";
       description = "Xine-lib based software output device for VDR";
-      maintainers = [ maintainers.ck3d ];
+      maintainers = [maintainers.ck3d];
       license = licenses.gpl2;
       inherit (vdr.meta) platforms;
     };

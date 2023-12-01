@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       ./clpeak-clhpp2.diff
     ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     ocl-icd
@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     description = "A tool which profiles OpenCL devices to find their peak capacities";
     homepage = "https://github.com/krrishnarraj/clpeak/";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

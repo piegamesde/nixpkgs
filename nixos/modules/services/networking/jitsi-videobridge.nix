@@ -45,7 +45,7 @@ let
       };
       stats = {
         enabled = true;
-        transports = [ { type = "muc"; } ];
+        transports = [{type = "muc";}];
       };
       apis.xmpp-client.configs = flip mapAttrs cfg.xmppConfigs (
         name: xmppConfig: {
@@ -72,7 +72,7 @@ in
 
     config = mkOption {
       type = attrs;
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           videobridge = {
@@ -98,7 +98,7 @@ in
 
         See <https://github.com/jitsi/jitsi-videobridge/blob/master/doc/muc.md> for more information.
       '';
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           "localhost" = {
@@ -112,7 +112,7 @@ in
       '';
       type = attrsOf (
         submodule (
-          { name, ... }:
+          {name, ...}:
           {
             options = {
               hostName = mkOption {
@@ -169,9 +169,7 @@ in
             };
             config = {
               hostName = mkDefault name;
-              mucNickname = mkDefault (
-                builtins.replaceStrings [ "." ] [ "-" ] (config.networking.fqdnOrHostName)
-              );
+              mucNickname = mkDefault (builtins.replaceStrings ["."] ["-"] (config.networking.fqdnOrHostName));
             };
           }
         )
@@ -200,7 +198,7 @@ in
 
     extraProperties = mkOption {
       type = attrsOf str;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Additional Java properties passed to jitsi-videobridge.
       '';
@@ -220,13 +218,13 @@ in
         What is passed as --apis= parameter. If this is empty, "none" is passed.
         Needed for monitoring jitsi.
       '';
-      default = [ ];
+      default = [];
       example = literalExpression ''[ "colibri" "rest" ]'';
     };
   };
 
   config = mkIf cfg.enable {
-    users.groups.jitsi-meet = { };
+    users.groups.jitsi-meet = {};
 
     services.jitsi-videobridge.extraProperties = optionalAttrs (cfg.nat.localAddress != null) {
       "org.ice4j.ice.harvest.NAT_HARVESTER_LOCAL_ADDRESS" = cfg.nat.localAddress;
@@ -245,10 +243,10 @@ in
         } // (mapAttrs' (k: v: nameValuePair "-D${k}" v) cfg.extraProperties);
       in
       {
-        aliases = [ "jitsi-videobridge.service" ];
+        aliases = ["jitsi-videobridge.service"];
         description = "Jitsi Videobridge";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
 
         environment.JAVA_SYS_PROPS = attrsToArgs jvbProps;
 
@@ -262,7 +260,7 @@ in
           ))
           + ''
             ${pkgs.jitsi-videobridge}/bin/jitsi-videobridge --apis=${
-              if (cfg.apis == [ ]) then "none" else concatStringsSep "," cfg.apis
+              if (cfg.apis == []) then "none" else concatStringsSep "," cfg.apis
             }
           '';
 
@@ -306,8 +304,8 @@ in
     boot.kernel.sysctl."net.core.rmem_max" = mkDefault 10485760;
     boot.kernel.sysctl."net.core.netdev_max_backlog" = mkDefault 100000;
 
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ jvbConfig.videobridge.ice.tcp.port ];
-    networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [ jvbConfig.videobridge.ice.udp.port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [jvbConfig.videobridge.ice.tcp.port];
+    networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [jvbConfig.videobridge.ice.udp.port];
 
     assertions = [
       {

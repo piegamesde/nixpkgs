@@ -24,7 +24,7 @@ let
     hash = "sha256-JBvY+0QAouEc0im62aVSJ27GAB7jt0qVnYtc6VN2qTA=";
   };
 
-  ui = callPackage ./ui { inherit src version; };
+  ui = callPackage ./ui {inherit src version;};
 in
 
 buildGoModule {
@@ -50,7 +50,7 @@ buildGoModule {
     "-X github.com/navidrome/navidrome/consts.gitTag=v${version}"
   ];
 
-  CGO_CFLAGS = lib.optionals stdenv.cc.isGNU [ "-Wno-return-local-addr" ];
+  CGO_CFLAGS = lib.optionals stdenv.cc.isGNU ["-Wno-return-local-addr"];
 
   prePatch = ''
     cp -r ${ui}/* ui/build
@@ -58,20 +58,20 @@ buildGoModule {
 
   postFixup = lib.optionalString ffmpegSupport ''
     wrapProgram $out/bin/navidrome \
-      --prefix PATH : ${lib.makeBinPath [ ffmpeg-headless ]}
+      --prefix PATH : ${lib.makeBinPath [ffmpeg-headless]}
   '';
 
   passthru = {
     inherit ui;
     tests.navidrome = nixosTests.navidrome;
-    updateScript = callPackage ./update.nix { };
+    updateScript = callPackage ./update.nix {};
   };
 
   meta = {
     description = "Navidrome Music Server and Streamer compatible with Subsonic/Airsonic";
     homepage = "https://www.navidrome.org/";
     license = lib.licenses.gpl3Only;
-    sourceProvenance = with lib.sourceTypes; [ fromSource ];
+    sourceProvenance = with lib.sourceTypes; [fromSource];
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [
       aciceri

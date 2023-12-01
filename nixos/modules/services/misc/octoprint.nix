@@ -22,7 +22,7 @@ let
 
   cfgUpdate = pkgs.writeText "octoprint-config.yaml" (builtins.toJSON fullConfig);
 
-  pluginsEnv = package.python.withPackages (ps: [ ps.octoprint ] ++ (cfg.plugins ps));
+  pluginsEnv = package.python.withPackages (ps: [ps.octoprint] ++ (cfg.plugins ps));
 
   package = pkgs.octoprint;
 in
@@ -77,7 +77,7 @@ in
 
       plugins = mkOption {
         type = types.functionTo (types.listOf types.package);
-        default = plugins: [ ];
+        default = plugins: [];
         defaultText = literalExpression "plugins: []";
         example = literalExpression "plugins: with plugins; [ themeify stlviewer ]";
         description = lib.mdDoc "Additional plugins to be used. Available plugins are passed through the plugins input.";
@@ -85,7 +85,7 @@ in
 
       extraConfig = mkOption {
         type = types.attrs;
-        default = { };
+        default = {};
         description = lib.mdDoc "Extra options which are added to OctoPrint's YAML configuration file.";
       };
     };
@@ -115,9 +115,9 @@ in
 
     systemd.services.octoprint = {
       description = "OctoPrint, web interface for 3D printers";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      path = [ pluginsEnv ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      path = [pluginsEnv];
 
       preStart = ''
         if [ -e "${cfg.stateDir}/config.yaml" ]; then
@@ -133,10 +133,10 @@ in
         ExecStart = "${pluginsEnv}/bin/octoprint serve -b ${cfg.stateDir}";
         User = cfg.user;
         Group = cfg.group;
-        SupplementaryGroups = [ "dialout" ];
+        SupplementaryGroups = ["dialout"];
       };
     };
 
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.port];
   };
 }

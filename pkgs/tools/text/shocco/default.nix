@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
     homepage = "https://rtomayko.github.io/shocco/";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

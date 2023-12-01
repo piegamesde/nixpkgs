@@ -19,6 +19,6 @@ rustPlatform.buildRustPackage rec {
     description = "A simple tool to do basic modification of ini files";
     homepage = "https://github.com/domgreen/clini";
     license = licenses.mit;
-    maintainers = with maintainers; [ Flakebi ];
+    maintainers = with maintainers; [Flakebi];
   };
 }

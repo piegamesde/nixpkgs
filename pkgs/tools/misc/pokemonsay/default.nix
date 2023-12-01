@@ -74,6 +74,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/HRKings/pokemonsay-newgenerations";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

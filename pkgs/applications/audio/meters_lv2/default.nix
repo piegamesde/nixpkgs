@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   version = "0.9.20";
   robtkVersion = "0.7.5";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     lv2
     libGLU
@@ -55,12 +55,12 @@ stdenv.mkDerivation rec {
 
   meter_VERSION = version;
   enableParallelBuilding = true;
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     description = "Collection of audio level meters with GUI in LV2 plugin format";
     homepage = "https://x42.github.io/meters.lv2/";
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

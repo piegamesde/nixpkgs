@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-J9pIX0Y3znFjzeqxOoAxK5O30MG3db70pHYpoxELylE=";
   };
 
-  propagatedBuildInputs = [ sgmllib3k ];
+  propagatedBuildInputs = [sgmllib3k];
 
   checkPhase = ''
     # Tests are failing
@@ -28,12 +28,12 @@ buildPythonPackage rec {
     ${python.interpreter} -Wd tests/runtests.py
   '';
 
-  pythonImportsCheck = [ "feedparser" ];
+  pythonImportsCheck = ["feedparser"];
 
   meta = with lib; {
     homepage = "https://github.com/kurtmckee/feedparser";
     description = "Universal feed parser";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ domenkozar ];
+    maintainers = with maintainers; [domenkozar];
   };
 }

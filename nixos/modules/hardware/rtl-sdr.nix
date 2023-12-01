@@ -26,7 +26,7 @@ in
       "e4000"
       "rtl2832"
     ];
-    services.udev.packages = [ pkgs.rtl-sdr ];
-    users.groups.plugdev = { };
+    services.udev.packages = [pkgs.rtl-sdr];
+    users.groups.plugdev = {};
   };
 }

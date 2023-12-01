@@ -36,7 +36,7 @@ buildDunePackage rec {
 
   # Tests need opam-monorepo
   doCheck = false;
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   installPhase = ''
     runHook preInstall

@@ -89,7 +89,7 @@ let
 
   phpExt = pkgs.php81.buildEnv {
     extensions =
-      { all, ... }:
+      {all, ...}:
       with all; [
         iconv
         mbstring
@@ -285,7 +285,7 @@ in
     services.mysql = mkIf mysqlLocal {
       enable = true;
       package = mkDefault pkgs.mariadb;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -298,7 +298,7 @@ in
 
     services.postgresql = mkIf pgsqlLocal {
       enable = true;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -327,7 +327,7 @@ in
     services.httpd = {
       enable = true;
       adminAddr = mkDefault cfg.virtualHost.adminAddr;
-      extraModules = [ "proxy_fcgi" ];
+      extraModules = ["proxy_fcgi"];
       virtualHosts.${cfg.virtualHost.hostName} = mkMerge [
         cfg.virtualHost
         {
@@ -347,11 +347,11 @@ in
       ];
     };
 
-    systemd.tmpfiles.rules = [ "d '${stateDir}' 0750 ${user} ${group} - -" ];
+    systemd.tmpfiles.rules = ["d '${stateDir}' 0750 ${user} ${group} - -"];
 
     systemd.services.moodle-init = {
-      wantedBy = [ "multi-user.target" ];
-      before = [ "phpfpm-moodle.service" ];
+      wantedBy = ["multi-user.target"];
+      before = ["phpfpm-moodle.service"];
       after = optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
       environment.MOODLE_CONFIG = moodleConfig;
       script = ''
@@ -376,7 +376,7 @@ in
 
     systemd.services.moodle-cron = {
       description = "Moodle cron service";
-      after = [ "moodle-init.service" ];
+      after = ["moodle-init.service"];
       environment.MOODLE_CONFIG = moodleConfig;
       serviceConfig = {
         User = user;
@@ -387,7 +387,7 @@ in
 
     systemd.timers.moodle-cron = {
       description = "Moodle cron timer";
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig = {
         OnCalendar = "minutely";
       };

@@ -20,7 +20,7 @@ let
     icon = icon;
     desktopName = pname;
     genericName = "Evernote desktop app";
-    categories = [ "Application" ];
+    categories = ["Application"];
   };
 in
 appimageTools.wrapType2 rec {
@@ -50,7 +50,7 @@ appimageTools.wrapType2 rec {
     '';
     homepage = "https://klaussinani.github.io/tusk/";
     license = licenses.mit;
-    maintainers = with maintainers; [ tbenst ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [tbenst];
+    platforms = ["x86_64-linux"];
   };
 }

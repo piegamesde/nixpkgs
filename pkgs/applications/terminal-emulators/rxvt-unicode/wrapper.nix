@@ -7,11 +7,11 @@
   rxvt-unicode-plugins,
   perlPackages,
   nixosTests,
-  configure ? { availablePlugins, ... }:
+  configure ? {availablePlugins, ...}:
     {
       plugins = builtins.attrValues availablePlugins;
-      extraDeps = [ ];
-      perlDeps = [ ];
+      extraDeps = [];
+      perlDeps = [];
     },
 }:
 
@@ -24,7 +24,7 @@ let
   mkPerlDeps =
     p:
     let
-      deps = p.perlPackages or [ ];
+      deps = p.perlPackages or [];
     in
     map (x: if x == "self" then p else x) deps;
 
@@ -35,19 +35,19 @@ let
   # This provides simple way to customize urxvt using
   # the `.override` mechanism.
   wrapper =
-    { configure, ... }:
+    {configure, ...}:
     let
-      config = configure { inherit availablePlugins; };
+      config = configure {inherit availablePlugins;};
       plugins = config.plugins or (builtins.attrValues availablePlugins);
-      extraDeps = config.extraDeps or [ ];
-      perlDeps = (config.perlDeps or [ ]) ++ lib.concatMap mkPerlDeps plugins;
+      extraDeps = config.extraDeps or [];
+      perlDeps = (config.perlDeps or []) ++ lib.concatMap mkPerlDeps plugins;
     in
     symlinkJoin {
       name = "rxvt-unicode-${rxvt-unicode-unwrapped.version}";
 
-      paths = [ rxvt-unicode-unwrapped ] ++ plugins ++ extraDeps;
+      paths = [rxvt-unicode-unwrapped] ++ plugins ++ extraDeps;
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
 
       postBuild = ''
         wrapProgram $out/bin/urxvt \
@@ -66,4 +66,4 @@ let
       };
     };
 in
-lib.makeOverridable wrapper { inherit configure; }
+lib.makeOverridable wrapper {inherit configure;}

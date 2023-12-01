@@ -12,7 +12,7 @@ let
   cfg = config.services.vdirsyncer;
 
   toIniJson =
-    with generators; toINI { mkKeyValue = mkKeyValueDefault { mkValueString = builtins.toJSON; } "="; };
+    with generators; toINI {mkKeyValue = mkKeyValueDefault {mkValueString = builtins.toJSON;} "=";};
 
   toConfigFile =
     name: cfg':
@@ -39,8 +39,8 @@ let
         User = if cfg'.user == null then "vdirsyncer" else cfg'.user;
         Group = if cfg'.group == null then "vdirsyncer" else cfg'.group;
       }
-      // (optionalAttrs (cfg'.user == null) { DynamicUser = true; })
-      // (optionalAttrs (cfg'.additionalGroups != [ ]) { SupplementaryGroups = cfg'.additionalGroups; })
+      // (optionalAttrs (cfg'.user == null) {DynamicUser = true;})
+      // (optionalAttrs (cfg'.additionalGroups != []) {SupplementaryGroups = cfg'.additionalGroups;})
       // (optionalAttrs (cfg'.config.statusPath == null) {
         StateDirectory = "vdirsyncer/${name}";
         StateDirectoryMode = "0700";
@@ -48,7 +48,7 @@ let
   };
 
   commonUnitConfig = {
-    after = [ "network.target" ];
+    after = ["network.target"];
     serviceConfig = {
       Type = "oneshot";
       # Sandboxing
@@ -73,7 +73,7 @@ in
     services.vdirsyncer = {
       enable = mkEnableOption (mdDoc "vdirsyncer");
 
-      package = mkPackageOptionMD pkgs "vdirsyncer" { };
+      package = mkPackageOptionMD pkgs "vdirsyncer" {};
 
       jobs = mkOption {
         description = mdDoc "vdirsyncer job configurations";
@@ -102,7 +102,7 @@ in
 
               additionalGroups = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
+                default = [];
                 description = mdDoc "additional groups to add the dynamic user to";
               };
 
@@ -139,13 +139,13 @@ in
 
                 general = mkOption {
                   type = types.attrs;
-                  default = { };
+                  default = {};
                   description = mdDoc "general configuration";
                 };
 
                 pairs = mkOption {
                   type = types.attrsOf types.attrs;
-                  default = { };
+                  default = {};
                   description = mdDoc "vdirsyncer pair configurations";
                   example = literalExpression ''
                     {
@@ -162,7 +162,7 @@ in
 
                 storages = mkOption {
                   type = types.attrsOf types.attrs;
-                  default = { };
+                  default = {};
                   description = mdDoc "vdirsyncer storage configurations";
                   example = literalExpression ''
                     {
@@ -196,7 +196,7 @@ in
         (
           name: cfg':
           nameValuePair "vdirsyncer@${name}" (
-            foldr recursiveUpdate { } [
+            foldr recursiveUpdate {} [
               commonUnitConfig
               (userUnitConfig name cfg')
               {
@@ -209,7 +209,7 @@ in
                       yes | ${cfg.package}/bin/vdirsyncer discover
                     ''
                   ))
-                  ++ [ "${cfg.package}/bin/vdirsyncer sync" ];
+                  ++ ["${cfg.package}/bin/vdirsyncer sync"];
               }
             ]
           )
@@ -221,7 +221,7 @@ in
         (
           name: cfg':
           nameValuePair "vdirsyncer@${name}" {
-            wantedBy = [ "timers.target" ];
+            wantedBy = ["timers.target"];
             description = "synchronize calendars and contacts (${name})";
             inherit (cfg') timerConfig;
           }

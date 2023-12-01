@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-kiEvQl3SuDnHI4Fh97AarsszHGFt7tbWBvBRW84Qv18=";
   };
 
-  propagatedBuildInputs = [ digiham ];
+  propagatedBuildInputs = [digiham];
   buildInputs = [
     codecserver
     pycsdr
@@ -32,7 +32,7 @@ buildPythonPackage rec {
 
   # has no tests
   doCheck = false;
-  pythonImportsCheck = [ "digiham" ];
+  pythonImportsCheck = ["digiham"];
 
   meta = {
     homepage = "https://github.com/jketterl/pydigiham";

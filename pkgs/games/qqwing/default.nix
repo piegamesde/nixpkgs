@@ -48,6 +48,6 @@ stdenv.mkDerivation rec {
     description = "Sudoku generating and solving software";
     license = licenses.gpl2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

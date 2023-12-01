@@ -21,6 +21,6 @@ rustPlatform.buildRustPackage rec {
     description = "A CLI-tool to diff Keepass (.kdbx) files";
     homepage = "https://keepass-diff.narigo.dev/";
     license = licenses.mit;
-    maintainers = with maintainers; [ wamserma ];
+    maintainers = with maintainers; [wamserma];
   };
 }

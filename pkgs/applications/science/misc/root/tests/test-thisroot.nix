@@ -12,7 +12,7 @@ runCommand "test-thisroot"
   {
     meta = with lib; {
       description = "Test for root thisroot.* sourcing";
-      maintainers = unique ((with maintainers; [ ShamrockLee ]) ++ root.meta.maintainers);
+      maintainers = unique ((with maintainers; [ShamrockLee]) ++ root.meta.maintainers);
     };
   }
   ''

@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/glandium/git-cinnabar";
     description = "git remote helper to interact with mercurial repositories";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     platforms = platforms.all;
   };
 }

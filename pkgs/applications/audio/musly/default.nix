@@ -15,7 +15,7 @@ stdenv.mkDerivation {
     rev = "f911eacbbe0b39ebe87cb37d0caef09632fa40d6";
     sha256 = "1q42wvdwy2pac7bhfraqqj2czw7w2m33ms3ifjl8phm7d87i8825";
   };
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     eigen
     ffmpeg_4
@@ -37,7 +37,7 @@ stdenv.mkDerivation {
       some automatic music playlists right away.
     '';
     license = licenses.mpl20;
-    maintainers = with maintainers; [ ggpeti ];
+    maintainers = with maintainers; [ggpeti];
     platforms = with platforms; darwin ++ linux;
   };
 }

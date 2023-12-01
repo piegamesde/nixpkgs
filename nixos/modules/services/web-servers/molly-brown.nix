@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.services.molly-brown;
-  settingsFormat = pkgs.formats.toml { };
+  settingsFormat = pkgs.formats.toml {};
   configFile = settingsFormat.generate "molly-brown.toml" cfg.settings;
 in
 {
@@ -67,7 +67,7 @@ in
 
     settings = mkOption {
       inherit (settingsFormat) type;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         molly-brown configuration. Refer to
         <https://tildegit.org/solderpunk/molly-brown/src/branch/master/example.conf>
@@ -94,8 +94,8 @@ in
 
     systemd.services.molly-brown = {
       description = "Molly Brown gemini server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         DynamicUser = true;
         LogsDirectory = "molly-brown";

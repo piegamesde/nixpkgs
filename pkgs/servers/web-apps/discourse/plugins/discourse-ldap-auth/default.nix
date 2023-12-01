@@ -15,7 +15,7 @@ mkDiscoursePlugin {
   };
   meta = with lib; {
     homepage = "https://github.com/jonmbake/discourse-ldap-auth";
-    maintainers = with maintainers; [ ryantm ];
+    maintainers = with maintainers; [ryantm];
     license = licenses.mit;
     description = "Discourse plugin to enable LDAP/Active Directory authentication.";
   };

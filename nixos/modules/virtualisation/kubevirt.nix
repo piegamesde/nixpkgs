@@ -6,7 +6,7 @@
 }:
 
 {
-  imports = [ ../profiles/qemu-guest.nix ];
+  imports = [../profiles/qemu-guest.nix];
 
   config = {
     fileSystems."/" = {
@@ -16,7 +16,7 @@
     };
 
     boot.growPartition = true;
-    boot.kernelParams = [ "console=ttyS0" ];
+    boot.kernelParams = ["console=ttyS0"];
     boot.loader.grub.device = "/dev/vda";
     boot.loader.timeout = 0;
 

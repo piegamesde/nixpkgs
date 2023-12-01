@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   # mpfr.h requires gmp.h
-  propagatedBuildInputs = [ gmp ];
+  propagatedBuildInputs = [gmp];
 
   configureFlags =
     lib.optional stdenv.hostPlatform.isSunOS "--disable-thread-safe"
@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.lgpl2Plus;
 
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.all;
   };
 }

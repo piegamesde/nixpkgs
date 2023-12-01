@@ -40,11 +40,11 @@ stdenv.mkDerivation rec {
         })
       ];
 
-  buildInputs = [ ncurses ] ++ lib.optional withSystemd systemd;
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ncurses] ++ lib.optional withSystemd systemd;
+  nativeBuildInputs = [pkg-config];
 
   makeFlags =
-    [ "usrbin_execdir=$(out)/bin" ]
+    ["usrbin_execdir=$(out)/bin"]
     ++ lib.optionals watchOnly [
       "watch"
       "PKG_LDFLAGS="
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
 
   # Too red
   configureFlags =
-    [ "--disable-modern-top" ]
+    ["--disable-modern-top"]
     ++ lib.optional withSystemd "--with-systemd"
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "ac_cv_func_malloc_0_nonnull=yes"
@@ -72,6 +72,6 @@ stdenv.mkDerivation rec {
     priority = 11; # less than coreutils, which also provides "kill" and "uptime"
     license = licenses.gpl2;
     platforms = platforms.unix;
-    maintainers = [ maintainers.typetetris ];
+    maintainers = [maintainers.typetetris];
   };
 }

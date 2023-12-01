@@ -30,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-WTEhLVy8H5Vvb9YVdVteFfOJqOqmlyiNu+Q3cBdhXsw=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   postPatch = ''
     # use wrapped executable in tests
@@ -51,7 +51,7 @@ buildPythonPackage rec {
     traitlets
   ];
 
-  pythonImportsCheck = [ "jupyter_console" ];
+  pythonImportsCheck = ["jupyter_console"];
 
   nativeCheckInputs = [
     flaky

@@ -23,6 +23,6 @@ buildNpmPackage rec {
     description = "A language server for the DOT language";
     homepage = "https://github.com/nikeee/dot-language-server";
     license = licenses.mit;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

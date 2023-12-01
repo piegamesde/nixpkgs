@@ -27,7 +27,7 @@ let
     pname = "clasp-repos";
     version = "tarball";
     inherit src;
-    patches = [ ./clasp-pin-repos-commits.patch ];
+    patches = [./clasp-pin-repos-commits.patch];
     nativeBuildInputs = with pkgs; [
       sbcl
       git

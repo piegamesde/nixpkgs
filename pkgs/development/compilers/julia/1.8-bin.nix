@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
         '@test_skip ca_roots_path() != bundled_ca_roots()'
   '';
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = lib.optionals stdenv.isLinux [autoPatchelfHook];
 
   installPhase = ''
     runHook preInstall

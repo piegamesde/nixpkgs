@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  configureFlags = [ "--with-anthy-zipcode=${anthy}/share/anthy/zipcode.t" ];
+  configureFlags = ["--with-anthy-zipcode=${anthy}/share/anthy/zipcode.t"];
 
   postFixup = ''
     substituteInPlace $out/share/ibus/component/anthy.xml --replace \$\{exec_prefix\} $out

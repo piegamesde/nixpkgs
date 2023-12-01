@@ -71,7 +71,7 @@ let
     .${stdenv.hostPlatform.system} or throwSystem;
 
   # rels per component and architecture, optional
-  rels = { }.${stdenv.hostPlatform.system} or { };
+  rels = {}.${stdenv.hostPlatform.system} or {};
 
   # convert platform to oracle architecture names
   arch =
@@ -120,9 +120,7 @@ in
 stdenv.mkDerivation {
   inherit pname version srcs;
 
-  buildInputs = [
-    stdenv.cc.cc.lib
-  ] ++ optional stdenv.isLinux libaio ++ optional odbcSupport unixODBC;
+  buildInputs = [stdenv.cc.cc.lib] ++ optional stdenv.isLinux libaio ++ optional odbcSupport unixODBC;
 
   nativeBuildInputs = [
     makeWrapper
@@ -167,7 +165,7 @@ stdenv.mkDerivation {
       OCCI, Pro*C, ODBC or JDBC). This package includes the sqlplus
       command line SQL client.
     '';
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.unfree;
     platforms = [
       "x86_64-linux"
@@ -178,6 +176,6 @@ stdenv.mkDerivation {
       flokli
       dylanmtaylor
     ];
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

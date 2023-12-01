@@ -46,13 +46,13 @@ buildPythonPackage rec {
     "--ignore=docs"
     "--ignore=tests/test_sklearn.py"
   ];
-  disabledTests = [ "gridplot_outputs" ];
+  disabledTests = ["gridplot_outputs"];
 
   meta = with lib; {
     homepage = "https://graspologic.readthedocs.io";
     description = "A package for graph statistical algorithms";
     license = licenses.asl20; # changing to `licenses.mit` in next release
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     # graspologic-native is not available
     broken = true;
   };

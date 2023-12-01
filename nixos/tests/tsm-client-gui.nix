@@ -6,16 +6,16 @@
 # and verifies some configuration information.
 
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
   {
     name = "tsm-client";
 
     enableOCR = true;
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        imports = [ ./common/x11.nix ];
+        imports = [./common/x11.nix];
         programs.tsmClient = {
           enable = true;
           package = pkgs.tsm-client-withGui;
@@ -57,6 +57,6 @@ import ./make-test-python.nix (
       machine.shutdown()
     '';
 
-    meta.maintainers = [ lib.maintainers.yarny ];
+    meta.maintainers = [lib.maintainers.yarny];
   }
 )

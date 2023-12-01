@@ -21,14 +21,14 @@ buildPythonPackage rec {
   # make setuptools happy on case-sensitive filesystems
   postPatch = "if [[ ! -f README.md ]]; then mv README.MD README.md; fi";
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "prodict" ];
+  pythonImportsCheck = ["prodict"];
 
   meta = {
     description = "Access Python dictionary as a class with type hinting and autocompletion";
     homepage = "https://github.com/ramazanpolat/prodict";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

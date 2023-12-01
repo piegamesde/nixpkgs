@@ -19,16 +19,16 @@ buildPythonPackage rec {
 
   format = "pyproject";
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
-  pythonImportsCheck = [ "jumpy" ];
+  pythonImportsCheck = ["jumpy"];
 
   meta = with lib; {
     description = "Jumpy is a common backend for NumPy and optionally JAX";
     homepage = "https://github.com/Farama-Foundation/Jumpy";
     license = licenses.asl20;
-    maintainers = with maintainers; [ GaetanLepage ];
+    maintainers = with maintainers; [GaetanLepage];
   };
 }

@@ -22,13 +22,13 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  configureFlags = [ "--enable-python" ];
+  configureFlags = ["--enable-python"];
 
   meta = with lib; {
     description = "Library to access the BitLocker Drive Encryption (BDE) format";
     homepage = "https://github.com/libyal/libbde/";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ eliasp ];
+    maintainers = with maintainers; [eliasp];
     platforms = platforms.all;
   };
 }

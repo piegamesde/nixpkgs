@@ -52,14 +52,14 @@ buildPythonPackage rec {
         "test_snitun_runner_updown"
       ];
 
-  pythonImportsCheck = [ "snitun" ];
+  pythonImportsCheck = ["snitun"];
 
   meta = with lib; {
     changelog = "https://github.com/NabuCasa/snitun/releases/tag/${version}";
     homepage = "https://github.com/nabucasa/snitun";
     description = "SNI proxy with TCP multiplexer";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ Scriptkiddi ];
+    maintainers = with maintainers; [Scriptkiddi];
     platforms = platforms.linux;
   };
 }

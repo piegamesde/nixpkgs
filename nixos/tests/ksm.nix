@@ -1,14 +1,14 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
 
   {
     name = "ksm";
-    meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };
+    meta = with lib.maintainers; {maintainers = [rnhmjoj];};
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
-        imports = [ ../modules/profiles/minimal.nix ];
+        imports = [../modules/profiles/minimal.nix];
 
         hardware.ksm.enable = true;
         hardware.ksm.sleep = 300;

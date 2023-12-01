@@ -15,8 +15,8 @@ buildPythonPackage rec {
     sha256 = "5227999904233a7d2e9ce5eac5225b9a5fac0318ae5107e3ed09c8bf89286768";
   };
 
-  buildInputs = [ docopt ];
-  propagatedBuildInputs = [ requests ];
+  buildInputs = [docopt];
+  propagatedBuildInputs = [requests];
   patchPhase = ''
     sed -i 's/==/>=/' setup.py
   '';

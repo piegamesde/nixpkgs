@@ -33,7 +33,7 @@ buildGoModule rec {
     "-X github.com/git-lfs/git-lfs/v${lib.versions.major version}/config.Vendor=${version}"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   preBuild = ''
     GOARCH= go generate ./commands
@@ -43,7 +43,7 @@ buildGoModule rec {
     make man
   '';
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   preCheck = ''
     unset subPackages
@@ -53,7 +53,7 @@ buildGoModule rec {
     installManPage man/man*/*
   '';
 
-  passthru.tests.version = testers.testVersion { package = git-lfs; };
+  passthru.tests.version = testers.testVersion {package = git-lfs;};
 
   meta = with lib; {
     description = "Git extension for versioning large files";

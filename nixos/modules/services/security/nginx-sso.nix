@@ -27,7 +27,7 @@ in
 
     configuration = mkOption {
       type = types.attrsOf types.unspecified;
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           listen = { addr = "127.0.0.1"; port = 8080; };
@@ -57,8 +57,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.nginx-sso = {
       description = "Nginx SSO Backend";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = ''
           ${pkg}/bin/nginx-sso \

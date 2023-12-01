@@ -117,7 +117,7 @@ in
       isSystemUser = true;
     };
 
-    users.groups.gollum = { };
+    users.groups.gollum = {};
 
     systemd.tmpfiles.rules = [
       "d '${cfg.stateDir}' - ${config.users.users.gollum.name} ${config.users.groups.gollum.name} - -"
@@ -125,9 +125,9 @@ in
 
     systemd.services.gollum = {
       description = "Gollum wiki";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.git ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.git];
 
       preStart = ''
         # This is safe to be run on an existing repo

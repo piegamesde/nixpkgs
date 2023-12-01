@@ -6,8 +6,8 @@
 (
   {
     dictlist,
-    allowList ? [ "127.0.0.1" ],
-    denyList ? [ ],
+    allowList ? ["127.0.0.1"],
+    denyList ? [],
   }:
 
   /* dictlist is a list of form
@@ -91,7 +91,7 @@
   stdenv.mkDerivation {
     name = "dictd-dbs";
 
-    buildInputs = [ dict ];
+    buildInputs = [dict];
 
     dontUnpack = true;
     inherit installPhase;

@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     gsettings-desktop-schemas
   ];
 
-  configureFlags = [ "--libexecdir=$(out)/bin" ];
+  configureFlags = ["--libexecdir=$(out)/bin"];
 
   preFixup = ''
     wrapProgram "$out/bin/notify-osd" \
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     description = "Daemon that displays passive pop-up notifications";
     homepage = "https://launchpad.net/notify-osd";
     license = licenses.gpl3;
-    maintainers = [ maintainers.bodil ];
+    maintainers = [maintainers.bodil];
     platforms = platforms.linux;
   };
 }

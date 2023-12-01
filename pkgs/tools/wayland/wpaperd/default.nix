@@ -17,8 +17,8 @@ rustPlatform.buildRustPackage rec {
     sha256 = "cgjHCSBrkX3aoz42qBS/1JUGhc7sZKarKByntp7ubaQ=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libxkbcommon ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libxkbcommon];
 
   cargoLock = {
     lockFile = ./Cargo.lock;
@@ -43,6 +43,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/danyspin97/wpaperd";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ DPDmancul ];
+    maintainers = with maintainers; [DPDmancul];
   };
 }

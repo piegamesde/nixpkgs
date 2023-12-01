@@ -18,7 +18,7 @@ buildPythonPackage rec {
     sha256 = "1kc1042jydgk54xpgcp0r1ib4gys91nhy285jzfcxj3pfqrk4w8n";
   };
 
-  propagatedBuildInputs = [ pyyaml ];
+  propagatedBuildInputs = [pyyaml];
   nativeCheckInputs = [
     nose
     jinja2
@@ -34,6 +34,6 @@ buildPythonPackage rec {
     description = "Media asset management for Python, with glue code for various web frameworks";
     homepage = "https://github.com/miracle2k/webassets/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

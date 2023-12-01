@@ -17,14 +17,14 @@ buildPythonPackage rec {
     hash = "sha256-jD1XJJhcpJymn0CwZ65U06xLKm1JjHffmx/umEO7a5s=";
   };
 
-  checkInputs = [ unittestCheckHook ];
+  checkInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "arpy" ];
+  pythonImportsCheck = ["arpy"];
 
   meta = with lib; {
     description = "A library for accessing the archive files and reading the contents";
     homepage = "https://github.com/viraptor/arpy";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ thornycrackers ];
+    maintainers = with maintainers; [thornycrackers];
   };
 }

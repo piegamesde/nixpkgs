@@ -41,7 +41,7 @@ stdenv.mkDerivation {
     homepage = "https://git.sr.ht/~rabbits/orca";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ netcrns ];
+    maintainers = with maintainers; [netcrns];
     mainProgram = "orca";
   };
 }

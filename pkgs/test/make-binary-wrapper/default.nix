@@ -10,7 +10,7 @@
 
 let
   env = {
-    nativeBuildInputs = [ makeBinaryWrapper ];
+    nativeBuildInputs = [makeBinaryWrapper];
   };
   envCheck = runCommandCC "envcheck" env ''
     cc -Wall -Werror -Wpedantic -o $out ${./envcheck.c}
@@ -64,7 +64,7 @@ let
       cross =
         pkgsCross.${if stdenv.buildPlatform.isAarch64 then "gnu64" else "aarch64-multiplatform"}.callPackage
           ./cross.nix
-          { };
+          {};
     };
 in
 

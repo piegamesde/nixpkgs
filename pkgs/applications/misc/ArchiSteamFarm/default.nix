@@ -29,12 +29,12 @@ buildDotnetModule rec {
   nugetDeps = ./deps.nix;
 
   projectFile = "ArchiSteamFarm.sln";
-  executables = [ "ArchiSteamFarm" ];
+  executables = ["ArchiSteamFarm"];
   dotnetFlags = [
     "-p:PublishSingleFile=true"
     "-p:PublishTrimmed=true"
   ];
-  dotnetInstallFlags = [ "--framework=net7.0" ];
+  dotnetInstallFlags = ["--framework=net7.0"];
   selfContainedBuild = true;
 
   runtimeDeps = [
@@ -74,7 +74,7 @@ buildDotnetModule rec {
   passthru = {
     # nix-shell maintainers/scripts/update.nix --argstr package ArchiSteamFarm
     updateScript = ./update.sh;
-    ui = callPackage ./web-ui { };
+    ui = callPackage ./web-ui {};
   };
 
   meta = with lib; {

@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  cmakeFlags = [ "-DUSE_SYSTEM_PFFFT=ON" ];
+  cmakeFlags = ["-DUSE_SYSTEM_PFFFT=ON"];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isAarch64 "-Wno-error=narrowing";
 
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     description = "A multi-platform GUI for bit-based analysis, processing, and visualization";
     homepage = "https://github.com/Mahlet-Inc/hobbits";
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.linux;
   };
 }

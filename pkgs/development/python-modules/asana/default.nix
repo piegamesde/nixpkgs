@@ -33,13 +33,13 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [ "asana" ];
+  pythonImportsCheck = ["asana"];
 
   meta = with lib; {
     description = "Python client library for Asana";
     homepage = "https://github.com/asana/python-asana";
     changelog = "https://github.com/Asana/python-asana/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

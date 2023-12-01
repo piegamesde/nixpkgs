@@ -39,9 +39,9 @@ buildPythonPackage rec {
       --replace "boto3~=1.9, >=1.9.56" "boto3"
   '';
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
-  pythonImportsCheck = [ "serverlessrepo" ];
+  pythonImportsCheck = ["serverlessrepo"];
 
   meta = with lib; {
     homepage = "https://github.com/awslabs/aws-serverlessrepo-python";
@@ -51,6 +51,6 @@ buildPythonPackage rec {
       AWS Serverless Application Repository.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ dhkl ];
+    maintainers = with maintainers; [dhkl];
   };
 }

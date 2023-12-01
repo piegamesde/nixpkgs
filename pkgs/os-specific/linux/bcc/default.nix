@@ -53,7 +53,7 @@ python.pkgs.buildPythonApplication rec {
       ./fix-deadlock-detector-import.patch
     ];
 
-  propagatedBuildInputs = [ python.pkgs.netaddr ];
+  propagatedBuildInputs = [python.pkgs.netaddr];
   nativeBuildInputs = [
     makeWrapper
     cmake

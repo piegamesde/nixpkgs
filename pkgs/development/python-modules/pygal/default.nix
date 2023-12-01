@@ -23,8 +23,8 @@ buildPythonPackage rec {
   '';
 
   passthru.optional-dependencies = {
-    lxml = [ lxml ];
-    png = [ cairosvg ];
+    lxml = [lxml];
+    png = [cairosvg];
   };
 
   nativeCheckInputs = [
@@ -41,6 +41,6 @@ buildPythonPackage rec {
     description = "Sexy and simple python charting";
     homepage = "http://www.pygal.org";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

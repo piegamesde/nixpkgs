@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cffi-grovel";
   version = "cffi_0.24.1";
@@ -21,7 +21,7 @@ rec {
 
   packageName = "cffi-grovel";
 
-  asdFilesToKeep = [ "cffi-grovel.asd" ];
+  asdFilesToKeep = ["cffi-grovel.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cffi-grovel DESCRIPTION The CFFI Groveller SHA256

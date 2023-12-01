@@ -1,12 +1,12 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../../.. {inherit system config;},
   lib ? pkgs.lib,
 }:
 
 let
-  inherit (import ./common.nix { inherit pkgs lib; }) mkTestName mariadbPackages mysqlPackages;
+  inherit (import ./common.nix {inherit pkgs lib;}) mkTestName mariadbPackages mysqlPackages;
 
   makeTest = import ./../make-test-python.nix;
   # Setup common users
@@ -29,11 +29,11 @@ let
 
       nodes = {
         ${name} =
-          { pkgs, ... }:
+          {pkgs, ...}:
           {
 
             users = {
-              groups.testusers = { };
+              groups.testusers = {};
 
               users.testuser = {
                 isSystemUser = true;
@@ -100,7 +100,7 @@ let
             };
           };
 
-        mariadb = { };
+        mariadb = {};
       };
 
       testScript = ''
@@ -171,4 +171,4 @@ lib.mapAttrs
     }
   )
   mysqlPackages
-// (lib.mapAttrs (_: package: makeMySQLTest { inherit package; }) mariadbPackages)
+// (lib.mapAttrs (_: package: makeMySQLTest {inherit package;}) mariadbPackages)

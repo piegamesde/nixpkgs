@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-GHSsfsEhBYeUbSKZfve3O2Z+bL3e7dqpl4sQKrQgWDE=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
     description = "Source code search and cross reference engine";
     homepage = "https://opengrok.github.io/OpenGrok/";
     license = licenses.cddl;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

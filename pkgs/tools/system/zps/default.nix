@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-t0kVMrJn+eqUUD98pp3iIK28MoLwOplLk0sYgRJkO4c=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   postInstall = ''
     mkdir -p $out/share/applications
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/orhun/zps";
     changelog = "https://github.com/orhun/zps/releases/tag/${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     platforms = platforms.linux;
   };
 }

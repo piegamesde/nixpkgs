@@ -75,7 +75,7 @@ buildPythonApplication rec {
       python3
       zlib
     ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [ Libsystem ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [Libsystem]
     ++ lib.optionals stdenv.isLinux [
       fontconfig
       libunistring
@@ -274,7 +274,7 @@ buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.test = nixosTests.terminal-emulators.kitty;
   };
 

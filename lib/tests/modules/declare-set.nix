@@ -1,8 +1,8 @@
-{ lib, ... }:
+{lib, ...}:
 
 {
   options.set = lib.mkOption {
-    default = { };
+    default = {};
     example = {
       a = 1;
     };

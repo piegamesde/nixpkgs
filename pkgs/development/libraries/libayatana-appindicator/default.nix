@@ -36,14 +36,14 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   propagatedBuildInputs = [
     libayatana-indicator
     libdbusmenu-gtk3
   ];
 
-  cmakeFlags = [ "-DENABLE_BINDINGS_MONO=False" ];
+  cmakeFlags = ["-DENABLE_BINDINGS_MONO=False"];
 
   meta = with lib; {
     description = "Ayatana Application Indicators Shared Library";
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       licenses.lgpl3Plus
       licenses.lgpl21Plus
     ];
-    maintainers = [ maintainers.nickhu ];
+    maintainers = [maintainers.nickhu];
     platforms = platforms.linux;
   };
 }

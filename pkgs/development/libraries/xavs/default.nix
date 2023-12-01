@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "https://xavs.sourceforge.net/";
     license = licenses.lgpl2;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ codyopel ];
+    maintainers = with maintainers; [codyopel];
   };
 }

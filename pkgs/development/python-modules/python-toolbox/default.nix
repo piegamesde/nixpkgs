@@ -35,6 +35,6 @@ buildPythonPackage rec {
     description = "Tools for testing PySnooper";
     homepage = "https://github.com/cool-RR/python_toolbox";
     license = licenses.mit;
-    maintainers = with maintainers; [ seqizz ];
+    maintainers = with maintainers; [seqizz];
   };
 }

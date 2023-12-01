@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-ppcre-template";
   version = "cl-unification-20200925-git";
@@ -23,7 +23,7 @@ rec {
 
   packageName = "cl-ppcre-template";
 
-  asdFilesToKeep = [ "cl-ppcre-template.asd" ];
+  asdFilesToKeep = ["cl-ppcre-template.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-ppcre-template DESCRIPTION

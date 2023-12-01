@@ -19,6 +19,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Command line tool to manipulate compilation databases";
     license = licenses.mit;
     homepage = "https://github.com/Sarcasm/compdb";
-    maintainers = [ maintainers.detegr ];
+    maintainers = [maintainers.detegr];
   };
 }

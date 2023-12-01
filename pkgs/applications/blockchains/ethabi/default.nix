@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Ethereum function call encoding (ABI) utility";
     homepage = "https://github.com/rust-ethereum/ethabi";
-    maintainers = [ maintainers.dbrock ];
+    maintainers = [maintainers.dbrock];
     license = licenses.asl20;
   };
 }

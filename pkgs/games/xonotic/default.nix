@@ -92,7 +92,7 @@ let
       sha256 = "sha256-oagbpVqxUb8JdY5/WWFLLlFQ6EIkdT53lQvNB6KC6l0=";
     };
 
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [unzip];
     buildInputs =
       [
         libjpeg
@@ -110,7 +110,7 @@ let
         libXxf86vm.dev
         alsa-lib.dev
       ]
-      ++ lib.optionals withSDL [ SDL2.dev ];
+      ++ lib.optionals withSDL [SDL2.dev];
 
     sourceRoot = "Xonotic/source/darkplaces";
 
@@ -209,7 +209,7 @@ rec {
       cd $out
       rm -rf $(ls | grep -v "^data$" | grep -v "^key_0.d0pk$")
     '';
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
     passthru.version = version;
   };
 
@@ -221,11 +221,11 @@ rec {
           makeWrapper
           copyDesktopItems
         ];
-        desktopItems = [ desktopItem ];
+        desktopItems = [desktopItem];
         passthru = {
           inherit version;
           meta = meta // {
-            hydraPlatforms = [ ];
+            hydraPlatforms = [];
           };
         };
       }

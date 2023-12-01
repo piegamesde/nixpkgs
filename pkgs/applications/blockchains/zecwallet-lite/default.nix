@@ -15,7 +15,7 @@ appimageTools.wrapType2 rec {
 
   extraInstallCommands =
     let
-      contents = appimageTools.extract { inherit pname version src; };
+      contents = appimageTools.extract {inherit pname version src;};
     in
     ''
       mv $out/bin/${pname}-${version} $out/bin/${pname}
@@ -30,7 +30,7 @@ appimageTools.wrapType2 rec {
     description = "A fully featured shielded wallet for Zcash";
     homepage = "https://www.zecwallet.co/";
     license = licenses.mit;
-    maintainers = with maintainers; [ colinsane ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [colinsane];
+    platforms = ["x86_64-linux"];
   };
 }

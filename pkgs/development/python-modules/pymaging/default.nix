@@ -19,6 +19,6 @@ buildPythonPackage {
     description = "Pure Python imaging library with Python 2.6, 2.7, 3.1+ support";
     homepage = "http://pymaging.rtfd.org";
     license = licenses.mit;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
   };
 }

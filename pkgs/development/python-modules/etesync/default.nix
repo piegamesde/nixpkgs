@@ -57,7 +57,7 @@ buildPythonPackage rec {
     vobject
   ];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   checkPhase = ''
     pytest tests/test_collections.py
@@ -68,6 +68,6 @@ buildPythonPackage rec {
     homepage = "https://www.etesync.com/";
     description = "A python API to interact with an EteSync server.";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ valodim ];
+    maintainers = with maintainers; [valodim];
   };
 }

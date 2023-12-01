@@ -23,12 +23,12 @@ let
   pinData = import ./pin.nix;
   inherit (pinData.hashes) desktopSrcHash desktopYarnHash;
   executableName = "element-desktop";
-  keytar = callPackage ./keytar { inherit Security AppKit; };
-  seshat = callPackage ./seshat { inherit CoreServices; };
+  keytar = callPackage ./keytar {inherit Security AppKit;};
+  seshat = callPackage ./seshat {inherit CoreServices;};
 in
 stdenv.mkDerivation (
   finalAttrs:
-  builtins.removeAttrs pinData [ "hashes" ]
+  builtins.removeAttrs pinData ["hashes"]
   // {
     pname = "element-desktop";
     name = "${finalAttrs.pname}-${finalAttrs.version}";
@@ -49,7 +49,7 @@ stdenv.mkDerivation (
       fixup_yarn_lock
       nodejs
       makeWrapper
-    ] ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ];
+    ] ++ lib.optionals stdenv.isDarwin [desktopToDarwinBundle];
 
     inherit seshat;
 
@@ -132,7 +132,7 @@ stdenv.mkDerivation (
         "Chat"
       ];
       startupWMClass = "element";
-      mimeTypes = [ "x-scheme-handler/element" ];
+      mimeTypes = ["x-scheme-handler/element"];
     };
 
     passthru = {

@@ -81,7 +81,7 @@ mkDerivation rec {
     description = "A multi-platform GUI for pass, the standard unix password manager";
     homepage = "https://qtpass.org";
     license = licenses.gpl3;
-    maintainers = [ maintainers.hrdinka ];
+    maintainers = [maintainers.hrdinka];
     platforms = platforms.all;
   };
 }

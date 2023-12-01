@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     description = ''Modern "Jedi Engine" replacement supporting Dark Forces, mods, and in the future Outlaws.'';
     homepage = "https://theforceengine.github.io";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ devusb ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [devusb];
+    platforms = ["x86_64-linux"];
   };
 }

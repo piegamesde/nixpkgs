@@ -53,8 +53,8 @@ let
     optionalAttrs cfg.enable {
       "dhcpd${postfix}" = {
         description = "DHCPv${postfix} server";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
 
         preStart = "touch ${leaseFile}";
         serviceConfig = {
@@ -76,7 +76,7 @@ let
     };
 
   machineOpts =
-    { ... }:
+    {...}:
     {
 
       options = {
@@ -140,7 +140,7 @@ let
 
     extraFlags = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Additional command line flags to be passed to the dhcpd daemon.
       '';
@@ -157,7 +157,7 @@ let
 
     interfaces = mkOption {
       type = types.listOf types.str;
-      default = [ "eth0" ];
+      default = ["eth0"];
       description = lib.mdDoc ''
         The interfaces on which the DHCP server should listen.
       '';
@@ -165,7 +165,7 @@ let
 
     machines = mkOption {
       type = with types; listOf (submodule machineOpts);
-      default = [ ];
+      default = [];
       example = [
         {
           hostName = "foo";

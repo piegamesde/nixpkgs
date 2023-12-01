@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
     "--with-uncompress-command=${gzip}/bin/gunzip"
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ popt ] ++ lib.optionals aclSupport [ acl ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [popt] ++ lib.optionals aclSupport [acl];
 
   passthru.tests = {
     nixos-logrotate = nixosTests.logrotate;
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/logrotate/logrotate";
     description = "Rotates and compresses system logs";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.viric ];
+    maintainers = [maintainers.viric];
     platforms = platforms.all;
   };
 }

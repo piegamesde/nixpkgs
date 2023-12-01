@@ -34,6 +34,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/scanny/python-pptx";
     description = "Create Open XML PowerPoint documents in Python";
     license = licenses.mit;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
   };
 }

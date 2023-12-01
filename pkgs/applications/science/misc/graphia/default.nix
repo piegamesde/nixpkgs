@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     description = "A visualisation tool for the creation and analysis of graphs.";
     homepage = "https://graphia.app";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.bgamari ];
+    maintainers = [maintainers.bgamari];
     platforms = platforms.all;
   };
 }

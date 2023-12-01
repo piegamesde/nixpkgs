@@ -7,7 +7,7 @@
 bundlerApp {
   pname = "riemann-dash";
   gemdir = ./.;
-  exes = [ "riemann-dash" ];
+  exes = ["riemann-dash"];
 
   passthru.updateScript = bundlerUpdateScript "riemann-dash";
 

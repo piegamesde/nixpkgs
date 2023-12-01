@@ -19,11 +19,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-7uBRybAkexBl3SldV4qudwPZ8JcKCUaAlwbAcT9JXy8=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = [openssl] ++ lib.optionals stdenv.isDarwin [Security];
 
-  buildFeatures = [ "fix" ];
+  buildFeatures = ["fix"];
 
   # The tests require network access which is not available in sandboxed Nix builds.
   doCheck = false;

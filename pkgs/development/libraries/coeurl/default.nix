@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     homepage = "https://nheko.im/nheko-reborn/coeurl";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
   };
 }

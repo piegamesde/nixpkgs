@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "collectors";
   version = "20161204-git";
 
-  parasites = [ "collectors-test" ];
+  parasites = ["collectors-test"];
 
   description = ''
     A library providing various collector type macros
@@ -25,7 +25,7 @@ rec {
 
   packageName = "collectors";
 
-  asdFilesToKeep = [ "collectors.asd" ];
+  asdFilesToKeep = ["collectors.asd"];
   overrides = x: x;
 }
 /* (SYSTEM collectors DESCRIPTION

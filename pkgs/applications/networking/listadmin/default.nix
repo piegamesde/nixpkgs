@@ -16,7 +16,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "00333d65ygdbm1hqr4yp2j8vh1cgh3hyfm7iy9y1alf0p0f6aqac";
   };
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
   nativeBuildInputs = [
     makeWrapper
     installShellFiles
@@ -58,6 +58,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/listadmin/";
     license = licenses.publicDomain;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ nomeata ];
+    maintainers = with maintainers; [nomeata];
   };
 }

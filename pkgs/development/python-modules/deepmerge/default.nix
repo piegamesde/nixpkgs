@@ -19,16 +19,16 @@ buildPythonPackage rec {
     hash = "sha256-TCeg213iheGnzqx9vBUx3qpVa2J96kkAyCRFgezf6i0=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "deepmerge" ];
+  pythonImportsCheck = ["deepmerge"];
 
   meta = with lib; {
     description = "A toolset to deeply merge python dictionaries.";
     homepage = "http://deepmerge.readthedocs.io/en/latest/";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

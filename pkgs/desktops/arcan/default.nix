@@ -15,35 +15,35 @@ lib.makeScope pkgs.newScope (
 
     # Arcan
 
-    arcan = callPackage ./arcan { };
-    arcan-wrapped = callPackage ./wrapper.nix { };
-    xarcan = callPackage ./xarcan { };
+    arcan = callPackage ./arcan {};
+    arcan-wrapped = callPackage ./wrapper.nix {};
+    xarcan = callPackage ./xarcan {};
 
     # Appls
 
-    cat9 = callPackage ./cat9 { };
+    cat9 = callPackage ./cat9 {};
     cat9-wrapped = callPackage ./wrapper.nix {
       name = "cat9-wrapped";
-      appls = [ cat9 ];
+      appls = [cat9];
     };
 
-    durden = callPackage ./durden { };
+    durden = callPackage ./durden {};
     durden-wrapped = callPackage ./wrapper.nix {
       name = "durden-wrapped";
-      appls = [ durden ];
+      appls = [durden];
     };
 
-    pipeworld = callPackage ./pipeworld { };
+    pipeworld = callPackage ./pipeworld {};
     pipeworld-wrapped = callPackage ./wrapper.nix {
       name = "pipeworld-wrapped";
-      appls = [ pipeworld ];
+      appls = [pipeworld];
     };
 
     # Warning: prio is deprecated; however it works and is useful for testing
-    prio = callPackage ./prio { };
+    prio = callPackage ./prio {};
     prio-wrapped = callPackage ./wrapper.nix {
       name = "prio-wrapped";
-      appls = [ prio ];
+      appls = [prio];
     };
 
     # One Expression to SymlinkJoin Them All

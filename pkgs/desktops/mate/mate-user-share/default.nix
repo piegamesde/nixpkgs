@@ -62,12 +62,12 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "User level public file sharing for the MATE desktop";
     homepage = "https://github.com/mate-desktop/mate-user-share";
-    license = with licenses; [ gpl2Plus ];
+    license = with licenses; [gpl2Plus];
     platforms = platforms.unix;
     maintainers = teams.mate.members;
   };

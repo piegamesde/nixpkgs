@@ -21,7 +21,7 @@ python3Packages.buildPythonApplication rec {
       --replace /usr ${vkbasalt}
   '';
 
-  pythonImportsCheck = [ "vkbasalt.lib" ];
+  pythonImportsCheck = ["vkbasalt.lib"];
 
   meta = with lib; {
     description = "Command-line utility for vkBasalt";
@@ -30,6 +30,6 @@ python3Packages.buildPythonApplication rec {
       lgpl3Only
       gpl3Only
     ];
-    maintainers = with maintainers; [ martfont ];
+    maintainers = with maintainers; [martfont];
   };
 }

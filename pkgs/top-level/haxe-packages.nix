@@ -10,7 +10,7 @@
 }:
 
 let
-  withCommas = lib.replaceStrings [ "." ] [ "," ];
+  withCommas = lib.replaceStrings ["."] [","];
 
   # simulate "haxelib dev $libname ."
   simulateHaxelibDev = libname: ''
@@ -45,7 +45,7 @@ let
       // {
         name = "${libname}-${version}";
 
-        buildInputs = (attrs.buildInputs or [ ]) ++ [
+        buildInputs = (attrs.buildInputs or []) ++ [
           haxe
           neko
         ]; # for setup-hook.sh to work
@@ -65,7 +65,7 @@ let
               else
                 cd $src
               fi
-              ${installLibHaxe { inherit libname version; }}
+              ${installLibHaxe {inherit libname version;}}
             )
             runHook postInstall
           '';
@@ -116,7 +116,7 @@ in
       for f in $out/lib/haxe/${withCommas libname}/${withCommas version}/{,project/libs/nekoapi/}bin/Linux{,64}/*; do
         chmod +w "$f"
         patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker)   "$f" || true
-        patchelf --set-rpath ${lib.makeLibraryPath [ stdenv.cc.cc ]}  "$f" || true
+        patchelf --set-rpath ${lib.makeLibraryPath [stdenv.cc.cc]}  "$f" || true
       done
     '';
     meta.description = "Runtime support library for the Haxe C++ backend";
@@ -127,7 +127,7 @@ in
     version = "3.2.0";
     sha256 = "1vgd7qvsdxlscl3wmrrfi5ipldmr4xlsiwnj46jz7n6izff5261z";
     meta.description = "Support library for the Java backend of the Haxe compiler";
-    propagatedBuildInputs = [ jdk ];
+    propagatedBuildInputs = [jdk];
   };
 
   hxcs = buildHaxeLib {
@@ -135,7 +135,7 @@ in
     version = "3.4.0";
     sha256 = "0f5vgp2kqnpsbbkn2wdxmjf7xkl0qhk9lgl9kb8d5wdy89nac6q6";
     meta.description = "Support library for the C# backend of the Haxe compiler";
-    propagatedBuildInputs = [ mono ];
+    propagatedBuildInputs = [mono];
   };
 
   hxnodejs_4 = buildHaxeLib {
@@ -158,7 +158,7 @@ in
         rev = "cf80c6a";
         sha256 = "0mdiacr5b2m8jrlgyd2d3vp1fha69lcfb67x4ix7l7zfi8g460gs";
       };
-      installPhase = installLibHaxe { inherit libname version; };
+      installPhase = installLibHaxe {inherit libname version;};
       meta = {
         homepage = "http://lib.haxe.org/p/${libname}";
         license = lib.licenses.bsd2;

@@ -20,7 +20,7 @@ buildPythonPackage rec {
     sha256 = "1wcl3r02q10gxy4xw7g8x2wg2sx4sbawzbfcl7a5xdydrxl4r4v4";
   };
 
-  buildInputs = [ zetup ];
+  buildInputs = [zetup];
 
   propagatedBuildInputs = [
     six
@@ -28,15 +28,15 @@ buildPythonPackage rec {
     path
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "modeled" ];
+  pythonImportsCheck = ["modeled"];
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64) || stdenv.isDarwin;
     description = "Universal data modeling for Python";
     homepage = "https://github.com/modeled/modeled";
     license = licenses.lgpl3Only;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

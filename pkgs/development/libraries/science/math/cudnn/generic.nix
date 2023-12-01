@@ -54,7 +54,7 @@ backendStdenv.mkDerivation {
   pname = "cudatoolkit-${cudaMajorVersion}-cudnn";
   version = versionTriple;
 
-  src = fetchurl { inherit url hash; };
+  src = fetchurl {inherit url hash;};
 
   # Check and normalize Runpath against DT_NEEDED using autoPatchelf.
   # Prepend /run/opengl-driver/lib using addOpenGLRunpath for dlopen("libcudacuda.so")
@@ -123,10 +123,10 @@ backendStdenv.mkDerivation {
       strings.versionOlder cudaVersion minCudaVersion || strings.versionOlder maxCudaVersion cudaVersion;
     description = "NVIDIA CUDA Deep Neural Network library (cuDNN)";
     homepage = "https://developer.nvidia.com/cudnn";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     # TODO: consider marking unfreRedistributable when not using runfile
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     maintainers = with maintainers; [
       mdaiter
       samuela

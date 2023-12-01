@@ -43,9 +43,9 @@ stdenv.mkDerivation {
     inherit (platform) sha256;
   };
 
-  runtimeDependencies = [ segger-jlink ];
+  runtimeDependencies = [segger-jlink];
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
   buildInputs = [
     udev
     libusb1
@@ -71,6 +71,6 @@ stdenv.mkDerivation {
     homepage = "https://www.nordicsemi.com/Products/Development-tools/nRF-Command-Line-Tools";
     license = licenses.unfree;
     platforms = attrNames supported;
-    maintainers = with maintainers; [ stargate01 ];
+    maintainers = with maintainers; [stargate01];
   };
 }

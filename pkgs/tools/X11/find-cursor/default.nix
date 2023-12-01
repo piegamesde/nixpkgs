@@ -34,13 +34,13 @@ stdenv.mkDerivation rec {
     libXext
   ];
   preInstall = "mkdir -p $out/share/man/man1";
-  installFlags = [ "PREFIX=${placeholder "out"}" ];
+  installFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     description = "Simple XLib program to highlight the cursor position";
     homepage = "https://github.com/arp242/find-cursor";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ maintainers.yanganto ];
+    maintainers = [maintainers.yanganto];
   };
 }

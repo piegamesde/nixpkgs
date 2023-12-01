@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "trivial-shell";
   version = "20180228-git";
 
   description = "OS and Implementation independent access to the shell";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/trivial-shell/2018-02-28/trivial-shell-20180228-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "trivial-shell";
 
-  asdFilesToKeep = [ "trivial-shell.asd" ];
+  asdFilesToKeep = ["trivial-shell.asd"];
   overrides = x: x;
 }
 /* (SYSTEM trivial-shell DESCRIPTION

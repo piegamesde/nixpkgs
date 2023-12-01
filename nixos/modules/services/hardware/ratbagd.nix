@@ -23,10 +23,10 @@ in
 
   config = mkIf cfg.enable {
     # Give users access to the "ratbagctl" tool
-    environment.systemPackages = [ pkgs.libratbag ];
+    environment.systemPackages = [pkgs.libratbag];
 
-    services.dbus.packages = [ pkgs.libratbag ];
+    services.dbus.packages = [pkgs.libratbag];
 
-    systemd.packages = [ pkgs.libratbag ];
+    systemd.packages = [pkgs.libratbag];
   };
 }

@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-5XxG5ur584fgW4oCONgMiWzV48Q02HEdmpb9+YhBFe0=";
   };
 
-  patches = [ ./drumstick-plugins.patch ];
+  patches = [./drumstick-plugins.patch];
 
   postPatch = ''
     substituteInPlace library/rt/backendmanager.cpp --subst-var out
@@ -60,10 +60,10 @@ stdenv.mkDerivation rec {
     sonivox
   ];
 
-  cmakeFlags = [ "-DUSE_DBUS=ON" ];
+  cmakeFlags = ["-DUSE_DBUS=ON"];
 
   meta = with lib; {
-    maintainers = [ ];
+    maintainers = [];
     description = "MIDI libraries for Qt5/C++";
     homepage = "https://drumstick.sourceforge.io/";
     license = licenses.gpl2Plus;

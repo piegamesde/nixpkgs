@@ -17,7 +17,7 @@ let
     sha256 = "sha256-uqmu7Yf4tXDlNGkeEZut4m339S6ZNKhAmej+epKLB/8=";
   };
 
-  appimageContents = appimageTools.extractType2 { inherit name src; };
+  appimageContents = appimageTools.extractType2 {inherit name src;};
 in
 appimageTools.wrapType2 rec {
   inherit name src;
@@ -35,9 +35,9 @@ appimageTools.wrapType2 rec {
   meta = with lib; {
     homepage = "https://www.mendeley.com";
     description = "A reference manager and academic social network";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     maintainers = with maintainers; [
       dtzWill
       atila

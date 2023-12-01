@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-form-types";
   version = "20211209-git";
 
-  parasites = [ "cl-form-types/test" ];
+  parasites = ["cl-form-types/test"];
 
   description = "Library for determining types of Common Lisp forms.";
 
@@ -31,7 +31,7 @@ rec {
 
   packageName = "cl-form-types";
 
-  asdFilesToKeep = [ "cl-form-types.asd" ];
+  asdFilesToKeep = ["cl-form-types.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-form-types DESCRIPTION

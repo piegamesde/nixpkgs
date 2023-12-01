@@ -29,12 +29,12 @@ buildPythonPackage rec {
   # tests require credentials
   doCheck = false;
 
-  pythonImportsCheck = [ "micloud" ];
+  pythonImportsCheck = ["micloud"];
 
   meta = with lib; {
     description = "Xiaomi cloud connect library";
     homepage = "https://github.com/Squachen/micloud";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

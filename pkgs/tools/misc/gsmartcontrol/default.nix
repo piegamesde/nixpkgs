@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/ECfK4qEzEC7ED1sgkAbnUwBgtWjsiPJOVnHrWYZGEc=";
   };
 
-  patches = [ ./fix-paths.patch ];
+  patches = [./fix-paths.patch];
 
   postPatch = ''
     substituteInPlace data/org.gsmartcontrol.policy --replace "/usr/sbin" $out/bin
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : "${lib.makeBinPath [ smartmontools ]}"
+      --prefix PATH : "${lib.makeBinPath [smartmontools]}"
     )
   '';
 
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://gsmartcontrol.shaduri.dev/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ qknight ];
+    maintainers = with lib.maintainers; [qknight];
     platforms = with lib.platforms; linux;
   };
 }

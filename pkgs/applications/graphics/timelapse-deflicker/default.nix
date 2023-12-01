@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/timelapse-deflicker --set PERL5LIB $PERL5LIB
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = with perlPackages; [
     perl
     ImageMagick
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "Simple script to deflicker images taken for timelapses";
     homepage = "https://github.com/cyberang3l/timelapse-deflicker";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ valeriangalliat ];
+    maintainers = with maintainers; [valeriangalliat];
     platforms = platforms.unix;
   };
 }

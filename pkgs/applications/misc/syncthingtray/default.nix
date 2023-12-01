@@ -50,16 +50,16 @@ mkDerivation rec {
       boost
       qtforkawesome
     ]
-    ++ lib.optionals stdenv.isDarwin [ iconv ]
-    ++ lib.optionals webviewSupport [ qtwebengine ]
-    ++ lib.optionals jsSupport [ qtdeclarative ]
-    ++ lib.optionals kioPluginSupport [ kio ]
-    ++ lib.optionals plasmoidSupport [ plasma-framework ];
+    ++ lib.optionals stdenv.isDarwin [iconv]
+    ++ lib.optionals webviewSupport [qtwebengine]
+    ++ lib.optionals jsSupport [qtdeclarative]
+    ++ lib.optionals kioPluginSupport [kio]
+    ++ lib.optionals plasmoidSupport [plasma-framework];
 
   nativeBuildInputs = [
     cmake
     qttools
-  ] ++ lib.optionals plasmoidSupport [ extra-cmake-modules ];
+  ] ++ lib.optionals plasmoidSupport [extra-cmake-modules];
 
   # No tests are available by upstream, but we test --help anyway
   # Don't test on Darwin because output is .app
@@ -74,16 +74,16 @@ mkDerivation rec {
       # See https://github.com/Martchus/syncthingtray/issues/42
       "-DQT_PLUGIN_DIR:STRING=${placeholder "out"}/lib/qt-5"
     ]
-    ++ lib.optionals (!plasmoidSupport) [ "-DNO_PLASMOID=ON" ]
-    ++ lib.optionals (!kioPluginSupport) [ "-DNO_FILE_ITEM_ACTION_PLUGIN=ON" ]
-    ++ lib.optionals systemdSupport [ "-DSYSTEMD_SUPPORT=ON" ]
-    ++ lib.optionals (!webviewSupport) [ "-DWEBVIEW_PROVIDER:STRING=none" ];
+    ++ lib.optionals (!plasmoidSupport) ["-DNO_PLASMOID=ON"]
+    ++ lib.optionals (!kioPluginSupport) ["-DNO_FILE_ITEM_ACTION_PLUGIN=ON"]
+    ++ lib.optionals systemdSupport ["-DSYSTEMD_SUPPORT=ON"]
+    ++ lib.optionals (!webviewSupport) ["-DWEBVIEW_PROVIDER:STRING=none"];
 
   meta = with lib; {
     homepage = "https://github.com/Martchus/syncthingtray";
     description = "Tray application and Dolphin/Plasma integration for Syncthing";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

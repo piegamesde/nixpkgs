@@ -32,7 +32,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   patches =
     [
@@ -44,7 +44,7 @@ buildPythonPackage rec {
       })
     ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests =
     [
@@ -52,13 +52,13 @@ buildPythonPackage rec {
       "test_modulus_verification"
     ];
 
-  pythonImportsCheck = [ "proton" ];
+  pythonImportsCheck = ["proton"];
 
   meta = with lib; {
     description = "Python Proton client module";
     homepage = "https://github.com/ProtonMail/proton-python-client";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ wolfangaukang ];
+    maintainers = with maintainers; [wolfangaukang];
     platforms = platforms.linux;
   };
 }

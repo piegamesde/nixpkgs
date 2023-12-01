@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   let
     testPort = 8888;
@@ -9,11 +9,11 @@ import ./make-test-python.nix (
   in
   with lib; {
     name = "atuin";
-    meta.maintainers = with pkgs.lib.maintainers; [ devusb ];
+    meta.maintainers = with pkgs.lib.maintainers; [devusb];
 
     nodes = {
       server =
-        { ... }:
+        {...}:
         {
           services.atuin = {
             enable = true;
@@ -24,7 +24,7 @@ import ./make-test-python.nix (
           };
         };
 
-      client = { ... }: { };
+      client = {...}: {};
     };
 
     testScript = with pkgs; ''

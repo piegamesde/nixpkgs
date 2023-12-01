@@ -1,10 +1,10 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "systemd";
 
     nodes.machine =
-      { lib, ... }:
+      {lib, ...}:
       {
         imports = [
           common/user-account.nix
@@ -16,7 +16,7 @@ import ./make-test-python.nix (
           512
         ];
 
-        environment.systemPackages = [ pkgs.cryptsetup ];
+        environment.systemPackages = [pkgs.cryptsetup];
 
         virtualisation.fileSystems = {
           "/test-x-initrd-mount" = {
@@ -24,7 +24,7 @@ import ./make-test-python.nix (
             fsType = "ext2";
             autoFormat = true;
             noCheck = true;
-            options = [ "x-initrd.mount" ];
+            options = ["x-initrd.mount"];
           };
         };
 
@@ -57,7 +57,7 @@ import ./make-test-python.nix (
 
         systemd.services.testservice1 = {
           description = "Test Service 1";
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
           serviceConfig.Type = "oneshot";
           script = ''
             if [ "$XXX_SYSTEM" = foo ]; then
@@ -68,7 +68,7 @@ import ./make-test-python.nix (
 
         systemd.user.services.testservice2 = {
           description = "Test Service 2";
-          wantedBy = [ "default.target" ];
+          wantedBy = ["default.target"];
           serviceConfig.Type = "oneshot";
           script = ''
             if [ "$XXX_USER" = bar ]; then

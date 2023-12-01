@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-M8FMin9y6nAiPYeT5pUUy0KyZ1dkuH708GshZ6GoXXw=";
   };
 
-  nativeBuildInputs = [ flex ];
+  nativeBuildInputs = [flex];
 
   buildInputs = [
     postgresql
@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     description = "Replication manager for PostgreSQL cluster";
     license = licenses.postgresql;
     platforms = postgresql.meta.platforms;
-    maintainers = with maintainers; [ zimbatm ];
+    maintainers = with maintainers; [zimbatm];
   };
 }

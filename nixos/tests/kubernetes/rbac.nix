@@ -1,8 +1,8 @@
 {
   system ? builtins.currentSystem,
-  pkgs ? import ../../.. { inherit system; },
+  pkgs ? import ../../.. {inherit system;},
 }:
-with import ./base.nix { inherit system; };
+with import ./base.nix {inherit system;};
 let
 
   roServiceAccount = pkgs.writeText "ro-service-account.json" (
@@ -49,8 +49,8 @@ let
       };
       rules = [
         {
-          apiGroups = [ "" ];
-          resources = [ "pods" ];
+          apiGroups = [""];
+          resources = ["pods"];
           verbs = [
             "get"
             "list"
@@ -107,7 +107,7 @@ let
     }
   );
 
-  copyKubectl = pkgs.runCommand "copy-kubectl" { } ''
+  copyKubectl = pkgs.runCommand "copy-kubectl" {} ''
     mkdir -p $out/bin
     cp ${pkgs.kubernetes}/bin/kubectl $out/bin/kubectl
   '';
@@ -117,14 +117,14 @@ let
     tag = "latest";
     copyToRoot = pkgs.buildEnv {
       name = "image-root";
-      pathsToLink = [ "/bin" ];
+      pathsToLink = ["/bin"];
       paths = [
         copyKubectl
         pkgs.busybox
         kubectlPod2
       ];
     };
-    config.Entrypoint = [ "/bin/sh" ];
+    config.Entrypoint = ["/bin/sh"];
   };
 
   base = {

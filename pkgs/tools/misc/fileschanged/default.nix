@@ -14,9 +14,9 @@ stdenv.mkDerivation rec {
     sha256 = "0ajc9h023vzpnlqqjli4wbvs0q36nr5p9msc3wzbic8rk687qcxc";
   };
 
-  buildInputs = [ gamin ];
+  buildInputs = [gamin];
 
-  patches = [ ./unused-variables.debian.patch ];
+  patches = [./unused-variables.debian.patch];
 
   doCheck = true;
 

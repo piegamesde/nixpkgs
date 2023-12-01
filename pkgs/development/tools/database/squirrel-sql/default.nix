@@ -8,7 +8,7 @@
   makeWrapper,
   unzip,
   jre,
-  drivers ? [ ],
+  drivers ? [],
 }:
 stdenv.mkDerivation rec {
   pname = "squirrel-sql";
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     makeWrapper
     unzip
   ];
-  buildInputs = [ jre ];
+  buildInputs = [jre];
 
   unpackPhase = ''
     runHook preUnpack
@@ -72,16 +72,16 @@ stdenv.mkDerivation rec {
     comment = meta.description;
     desktopName = "SQuirreL SQL";
     genericName = "SQL Client";
-    categories = [ "Development" ];
+    categories = ["Development"];
     icon = "squirrel-sql";
   };
 
   meta = with lib; {
     description = "Universal SQL Client";
     homepage = "http://squirrel-sql.sourceforge.net/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ khumba ];
+    maintainers = with maintainers; [khumba];
   };
 }

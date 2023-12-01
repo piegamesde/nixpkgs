@@ -37,7 +37,7 @@ buildPythonApplication rec {
     description = "An open Apple AirDrop implementation written in Python";
     homepage = "https://owlink.org/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ wolfangaukang ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [wolfangaukang];
+    platforms = ["x86_64-linux"];
   };
 }

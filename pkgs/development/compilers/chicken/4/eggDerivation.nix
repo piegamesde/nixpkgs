@@ -7,9 +7,9 @@
 {
   name,
   src,
-  buildInputs ? [ ],
-  chickenInstallFlags ? [ ],
-  cscOptions ? [ ],
+  buildInputs ? [],
+  chickenInstallFlags ? [],
+  cscOptions ? [],
   ...
 }@args:
 
@@ -17,14 +17,14 @@ let
   libPath = "${chicken}/var/lib/chicken/${toString chicken.binaryVersion}/";
   overrides = import ./overrides.nix;
   baseName = lib.getName name;
-  override = if builtins.hasAttr baseName overrides then builtins.getAttr baseName overrides else { };
+  override = if builtins.hasAttr baseName overrides then builtins.getAttr baseName overrides else {};
 in
 stdenv.mkDerivation (
   {
     name = "chicken-${name}";
     propagatedBuildInputs = buildInputs;
-    nativeBuildInputs = [ makeWrapper ];
-    buildInputs = [ chicken ];
+    nativeBuildInputs = [makeWrapper];
+    buildInputs = [chicken];
 
     CSC_OPTIONS = lib.concatStringsSep " " cscOptions;
 
@@ -50,7 +50,7 @@ stdenv.mkDerivation (
 
     meta = {
       inherit (chicken.meta) platforms;
-    } // args.meta or { };
+    } // args.meta or {};
   }
   // (builtins.removeAttrs args [
     "name"

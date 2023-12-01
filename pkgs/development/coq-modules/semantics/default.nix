@@ -47,8 +47,8 @@ mkCoqDerivation rec {
       null;
 
   mlPlugin = true;
-  nativeBuildInputs = (with coq.ocamlPackages; [ ocamlbuild ]);
-  propagatedBuildInputs = (with coq.ocamlPackages; [ num ]);
+  nativeBuildInputs = (with coq.ocamlPackages; [ocamlbuild]);
+  propagatedBuildInputs = (with coq.ocamlPackages; [num]);
 
   postPatch = ''
     for p in Make Makefile.coq.local
@@ -64,7 +64,7 @@ mkCoqDerivation rec {
       structural operational, axiomatic, and denotational semantics, to
       abstract interpretation
     '';
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     license = licenses.mit;
   };
 }

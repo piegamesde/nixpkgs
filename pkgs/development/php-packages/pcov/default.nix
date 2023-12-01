@@ -20,7 +20,7 @@ buildPecl {
     sha256 = "sha256-lyY17Y9chpTO8oeWmDGSh0YSnipYqCuy1qmn9su5Eu8=";
   };
 
-  buildInputs = [ pcre2 ];
+  buildInputs = [pcre2];
 
   meta = with lib; {
     changelog = "https://github.com/krakjoe/pcov/releases/tag/v${version}";

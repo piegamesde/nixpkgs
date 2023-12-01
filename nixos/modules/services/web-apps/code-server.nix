@@ -26,7 +26,7 @@ in
       };
 
       extraPackages = mkOption {
-        default = [ ];
+        default = [];
         description = lib.mdDoc "Packages that are available in the PATH of code-server.";
         example = "[ pkgs.go ]";
         type = types.listOf types.package;
@@ -35,14 +35,14 @@ in
       extraEnvironment = mkOption {
         type = types.attrsOf types.str;
         description = lib.mdDoc "Additional environment variables to passed to code-server.";
-        default = { };
+        default = {};
         example = {
           PKG_CONFIG_PATH = "/run/current-system/sw/lib/pkgconfig";
         };
       };
 
       extraArguments = mkOption {
-        default = [ "--disable-telemetry" ];
+        default = ["--disable-telemetry"];
         description = lib.mdDoc "Additional arguments that passed to code-server";
         example = ''[ "--verbose" ]'';
         type = types.listOf types.str;
@@ -96,9 +96,9 @@ in
       };
 
       extraGroups = mkOption {
-        default = [ ];
+        default = [];
         description = lib.mdDoc "An array of additional groups for the `${defaultUser}` user.";
-        example = [ "docker" ];
+        example = ["docker"];
         type = types.listOf types.str;
       };
     };
@@ -108,8 +108,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.code-server = {
       description = "VSCode server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
       path = cfg.extraPackages;
       environment = {
         HASHED_PASSWORD = cfg.hashedPassword;
@@ -138,8 +138,8 @@ in
       }
     ];
 
-    users.groups."${defaultGroup}" = mkIf (cfg.group == defaultGroup) { };
+    users.groups."${defaultGroup}" = mkIf (cfg.group == defaultGroup) {};
   };
 
-  meta.maintainers = with maintainers; [ stackshadow ];
+  meta.maintainers = with maintainers; [stackshadow];
 }

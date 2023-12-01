@@ -33,9 +33,9 @@ buildPythonPackage rec {
       --replace "rich >=10.11.0,<13.0.0" "rich"
   '';
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  propagatedBuildInputs = [ click ];
+  propagatedBuildInputs = [click];
 
   passthru.optional-dependencies = {
     all = [
@@ -61,14 +61,14 @@ buildPythonPackage rec {
       "test_show_completion"
       "test_install_completion"
     ]
-    ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [ "test_install_completion" ];
+    ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) ["test_install_completion"];
 
-  pythonImportsCheck = [ "typer" ];
+  pythonImportsCheck = ["typer"];
 
   meta = with lib; {
     description = "Library for building CLI applications";
     homepage = "https://typer.tiangolo.com/";
     license = licenses.mit;
-    maintainers = with maintainers; [ winpat ];
+    maintainers = with maintainers; [winpat];
   };
 }

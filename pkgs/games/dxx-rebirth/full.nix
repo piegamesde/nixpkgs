@@ -13,7 +13,7 @@ let
     stdenv.mkDerivation {
       name = "d${toString ver}x-rebirth-full-${assets.version}";
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
 
       buildCommand = ''
         mkdir -p $out/bin
@@ -29,9 +29,9 @@ let
           free
           unfree
         ];
-        maintainers = with maintainers; [ peterhoeg ];
+        maintainers = with maintainers; [peterhoeg];
         platforms = with platforms; linux;
-        hydraPlatforms = [ ];
+        hydraPlatforms = [];
       };
     };
 in

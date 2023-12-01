@@ -17,9 +17,9 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256:1nhn30ypc2zvq58b3zi66ypc9wv3v8cryn43cqihazc1lq8qxqdw";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ nodejs ];
+  buildInputs = [nodejs];
 
   patches =
     [
@@ -59,7 +59,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/mlochbaum/BQN/";
     description = "The original BQN implementation in Javascript";
     license = licenses.isc;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.all;
   };
 }

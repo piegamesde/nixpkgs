@@ -29,7 +29,7 @@ python3Packages.buildPythonApplication rec {
       --replace /var/tmp /tmp
   '';
 
-  nativeBuildInputs = [ texinfo ];
+  nativeBuildInputs = [texinfo];
 
   checkPhase = ''
     runHook preCheck

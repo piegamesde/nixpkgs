@@ -100,7 +100,7 @@ in
 
     users.groups.polipo = {
       gid = config.ids.gids.polipo;
-      members = [ "polipo" ];
+      members = ["polipo"];
     };
 
     systemd.services.polipo = {
@@ -109,7 +109,7 @@ in
         "network.target"
         "nss-lookup.target"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.polipo}/bin/polipo -c ${polipoConfig}";
         User = "polipo";

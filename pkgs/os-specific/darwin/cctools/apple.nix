@@ -24,7 +24,7 @@ let
       hash = "sha256-r/6tsyyfi3R/0cLl+lN/B9ZaOaVF+Z7vJ6xj4LzSgiQ=";
     };
 
-    patches = [ ./cctools-add-missing-vtool-libstuff-dep.patch ];
+    patches = [./cctools-add-missing-vtool-libstuff-dep.patch];
 
     postPatch = ''
       for file in libstuff/writeout.c misc/libtool.c misc/lipo.c; do
@@ -44,7 +44,7 @@ let
       llvm
     ];
 
-    xcbuildFlags = [ "MACOSX_DEPLOYMENT_TARGET=10.12" ];
+    xcbuildFlags = ["MACOSX_DEPLOYMENT_TARGET=10.12"];
 
     doCheck = true;
     checkPhase = ''
@@ -89,7 +89,7 @@ let
       sed -i src/ld/Options.cpp -e '1iconst char ldVersionString[] = "${version}";'
     '';
 
-    nativeBuildInputs = [ xcbuildHook ];
+    nativeBuildInputs = [xcbuildHook];
     buildInputs = [
       libtapi
       libunwind

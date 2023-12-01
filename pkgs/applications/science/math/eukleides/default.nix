@@ -64,7 +64,7 @@ stdenv.mkDerivation (
 
     postInstall = ''
       wrapProgram $out/bin/euktoeps \
-        --prefix PATH : ${lib.makeBinPath [ getopt ]}
+        --prefix PATH : ${lib.makeBinPath [getopt]}
     '';
 
     outputs = [
@@ -82,7 +82,7 @@ stdenv.mkDerivation (
         iftex
         moreverb
       ];
-      pkgs = [ finalAttrs.finalPackage.tex ];
+      pkgs = [finalAttrs.finalPackage.tex];
     };
 
     meta = {

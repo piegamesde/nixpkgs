@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-gupC35pLQOJgSmXiBp+KxqWuMX3iKSX9xDUtEaB/wFQ=";
   };
 
-  nativeCheckInputs = [ mercurial ];
+  nativeCheckInputs = [mercurial];
 
   checkPhase = ''
     runHook preCheck

@@ -46,7 +46,7 @@ let
 
   activationSnippet =
     name:
-    { interpreter, wrapInterpreterInShell, ... }:
+    {interpreter, wrapInterpreterInShell, ...}:
     if wrapInterpreterInShell then
       ''
         rm -f /run/binfmt/${name}
@@ -62,8 +62,8 @@ let
         ln -s ${interpreter} /run/binfmt/${name}
       '';
 
-  getEmulator = system: (lib.systems.elaborate { inherit system; }).emulator pkgs;
-  getQemuArch = system: (lib.systems.elaborate { inherit system; }).qemuArch;
+  getEmulator = system: (lib.systems.elaborate {inherit system;}).emulator pkgs;
+  getQemuArch = system: (lib.systems.elaborate {inherit system;}).qemuArch;
 
   # Mapping of systems to “magicOrExtension” and “mask”. Mostly taken from:
   # - https://github.com/cleverca22/nixos-configs/blob/master/qemu.nix
@@ -195,7 +195,7 @@ in
   options = {
     boot.binfmt = {
       registrations = mkOption {
-        default = { };
+        default = {};
 
         description = lib.mdDoc ''
           Extra binary formats to register with the kernel.
@@ -204,7 +204,7 @@ in
 
         type = types.attrsOf (
           types.submodule (
-            { config, ... }:
+            {config, ...}:
             {
               options = {
                 recognitionType = mkOption {
@@ -317,7 +317,7 @@ in
       };
 
       emulatedSystems = mkOption {
-        default = [ ];
+        default = [];
         example = [
           "wasm32-wasi"
           "x86_64-windows"
@@ -339,7 +339,7 @@ in
         (system: {
           name = system;
           value =
-            { config, ... }:
+            {config, ...}:
             let
               interpreter = getEmulator system;
               qemuArch = getQemuArch system;
@@ -365,7 +365,7 @@ in
         })
         cfg.emulatedSystems
     );
-    nix.settings = lib.mkIf (cfg.emulatedSystems != [ ]) {
+    nix.settings = lib.mkIf (cfg.emulatedSystems != []) {
       extra-platforms =
         cfg.emulatedSystems
         ++ lib.optional pkgs.stdenv.hostPlatform.isx86_64 "i686-linux";
@@ -374,7 +374,7 @@ in
           ruleFor = system: cfg.registrations.${system};
           hasWrappedRule = lib.any (system: (ruleFor system).wrapInterpreterInShell) cfg.emulatedSystems;
         in
-        [ "/run/binfmt" ]
+        ["/run/binfmt"]
         ++ lib.optional hasWrappedRule "${pkgs.bash}"
         ++ (map (system: (ruleFor system).interpreterSandboxPath) cfg.emulatedSystems);
     };
@@ -382,17 +382,17 @@ in
     environment.etc."binfmt.d/nixos.conf".source = builtins.toFile "binfmt_nixos.conf" (
       lib.concatStringsSep "\n" (lib.mapAttrsToList makeBinfmtLine config.boot.binfmt.registrations)
     );
-    system.activationScripts.binfmt = stringAfter [ "specialfs" ] ''
+    system.activationScripts.binfmt = stringAfter ["specialfs"] ''
       mkdir -p -m 0755 /run/binfmt
       ${lib.concatStringsSep "\n" (lib.mapAttrsToList activationSnippet config.boot.binfmt.registrations)}
     '';
-    systemd = lib.mkIf (config.boot.binfmt.registrations != { }) {
+    systemd = lib.mkIf (config.boot.binfmt.registrations != {}) {
       additionalUpstreamSystemUnits = [
         "proc-sys-fs-binfmt_misc.automount"
         "proc-sys-fs-binfmt_misc.mount"
         "systemd-binfmt.service"
       ];
-      services.systemd-binfmt.restartTriggers = [ (builtins.toJSON config.boot.binfmt.registrations) ];
+      services.systemd-binfmt.restartTriggers = [(builtins.toJSON config.boot.binfmt.registrations)];
     };
   };
 }

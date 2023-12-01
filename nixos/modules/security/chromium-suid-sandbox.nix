@@ -43,7 +43,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ sandbox ];
+    environment.systemPackages = [sandbox];
     security.wrappers.${sandbox.passthru.sandboxExecutableName} = {
       setuid = true;
       owner = "root";

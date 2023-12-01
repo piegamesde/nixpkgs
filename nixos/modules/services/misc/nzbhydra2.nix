@@ -37,12 +37,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0700 nzbhydra2 nzbhydra2 - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.dataDir}' 0700 nzbhydra2 nzbhydra2 - -"];
 
     systemd.services.nzbhydra2 = {
       description = "NZBHydra2";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "simple";
@@ -69,13 +69,13 @@ in
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ 5076 ]; };
+    networking.firewall = mkIf cfg.openFirewall {allowedTCPPorts = [5076];};
 
     users.users.nzbhydra2 = {
       group = "nzbhydra2";
       isSystemUser = true;
     };
 
-    users.groups.nzbhydra2 = { };
+    users.groups.nzbhydra2 = {};
   };
 }

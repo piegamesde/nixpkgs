@@ -64,8 +64,8 @@ stdenv.mkDerivation rec {
     zlib
   ] ++ lib.optional enableElpa elpa;
 
-  propagatedBuildInputs = [ mpi ];
-  propagatedUserEnvPkgs = [ mpi ];
+  propagatedBuildInputs = [mpi];
+  propagatedUserEnvPkgs = [mpi];
 
   makeFlags = [
     "ARCH=${arch}"
@@ -151,7 +151,7 @@ stdenv.mkDerivation rec {
     description = "Quantum chemistry and solid state physics program";
     homepage = "https://www.cp2k.org";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.sheepforce ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.sheepforce];
+    platforms = ["x86_64-linux"];
   };
 }

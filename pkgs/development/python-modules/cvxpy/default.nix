@@ -49,9 +49,9 @@ buildPythonPackage rec {
     export LDFLAGS="-lgomp"
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "./cvxpy" ];
+  pytestFlagsArray = ["./cvxpy"];
 
   # Disable the slowest benchmarking tests, cuts test time in half
   disabledTests =
@@ -65,7 +65,7 @@ buildPythonPackage rec {
       "test_ecos_bb_mi_lp_2" # https://github.com/cvxgrp/cvxpy/issues/1241#issuecomment-780912155
     ];
 
-  pythonImportsCheck = [ "cvxpy" ];
+  pythonImportsCheck = ["cvxpy"];
 
   meta = with lib; {
     description = "A domain-specific language for modeling convex optimization problems in Python";
@@ -73,6 +73,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/cvxgrp/cvxpy/releases";
     changelog = "https://github.com/cvxgrp/cvxpy/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

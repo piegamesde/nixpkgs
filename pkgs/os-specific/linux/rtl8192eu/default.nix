@@ -22,11 +22,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-c5swRxSjWT1tCcR7tfFKdAdVVmAEYgMZuOwUxGYYESI=";
   };
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
-  nativeBuildInputs = kernel.moduleBuildDependencies ++ [ bc ];
+  nativeBuildInputs = kernel.moduleBuildDependencies ++ [bc];
 
-  makeFlags = kernel.makeFlags ++ [ "KSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
+  makeFlags = kernel.makeFlags ++ ["KSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"];
 
   enableParallelBuilding = true;
 
@@ -46,6 +46,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Only;
     platforms = platforms.linux;
     broken = stdenv.hostPlatform.isAarch64 || kernel.kernelAtLeast "5.18";
-    maintainers = with maintainers; [ troydm ];
+    maintainers = with maintainers; [troydm];
   };
 }

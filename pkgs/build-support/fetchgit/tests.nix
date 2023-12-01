@@ -1,4 +1,4 @@
-{ testers, fetchgit, ... }:
+{testers, fetchgit, ...}:
 
 {
   simple = testers.invalidateFetcherByDrvHash fetchgit {

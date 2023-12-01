@@ -26,12 +26,12 @@ buildPythonPackage rec {
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pykodi" ];
+  pythonImportsCheck = ["pykodi"];
 
   meta = with lib; {
     description = "An async python interface for Kodi over JSON-RPC";
     homepage = "https://github.com/OnFreund/PyKodi";
     license = licenses.mit;
-    maintainers = with maintainers; [ sephalon ];
+    maintainers = with maintainers; [sephalon];
   };
 }

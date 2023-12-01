@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "ViPER FX core wrapper plug-in for GStreamer1";
     homepage = "https://github.com/Audio4Linux/gst-plugin-viperfx";
     license = licenses.unfreeRedistributable;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ rewine ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [rewine];
   };
 }

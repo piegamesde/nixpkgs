@@ -24,7 +24,7 @@ gsmakeDerivation {
     gui
     system_preferences
   ];
-  configureFlags = [ "--with-inotify" ];
+  configureFlags = ["--with-inotify"];
   meta = {
     description = "A workspace manager for GNUstep";
   };

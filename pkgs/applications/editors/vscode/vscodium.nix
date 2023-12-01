@@ -71,7 +71,7 @@ callPackage ./generic.nix rec {
     homepage = "https://github.com/VSCodium/vscodium";
     downloadPage = "https://github.com/VSCodium/vscodium/releases";
     license = licenses.mit;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     maintainers = with maintainers; [
       synthetica
       turion

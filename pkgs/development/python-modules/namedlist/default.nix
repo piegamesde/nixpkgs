@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-NPifyZJZLICzmnCeE27c9B6hfyS6Mer4SjFKAsi5vO8=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   patches =
     [
@@ -36,7 +36,7 @@ buildPythonPackage rec {
     substituteInPlace test/test_namedlist.py --replace "unittest.main()" ""
   '';
 
-  pythonImportsCheck = [ "namedlist" ];
+  pythonImportsCheck = ["namedlist"];
 
   disabledTests =
     [
@@ -48,6 +48,6 @@ buildPythonPackage rec {
     description = "Similar to namedtuple, but instances are mutable";
     homepage = "https://gitlab.com/ericvsmith/namedlist";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ivan ];
+    maintainers = with maintainers; [ivan];
   };
 }

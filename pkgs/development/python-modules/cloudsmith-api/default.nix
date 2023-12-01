@@ -32,12 +32,12 @@ buildPythonPackage rec {
   # Wheels have no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "cloudsmith_api" ];
+  pythonImportsCheck = ["cloudsmith_api"];
 
   meta = with lib; {
     description = "Cloudsmith API Client";
     homepage = "https://github.com/cloudsmith-io/cloudsmith-api";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
   };
 }

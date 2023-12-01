@@ -1,12 +1,12 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
   systemdStage1 ? false,
 }:
 
 import ../make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
 
   {
     name = "initrd-network-openvpn";
@@ -27,7 +27,7 @@ import ../make-test-python.nix (
 
         # Minimal test case to check a successful boot, even with invalid config
         minimalboot =
-          { ... }:
+          {...}:
           {
             boot.initrd.systemd.enable = systemdStage1;
             boot.initrd.network = {
@@ -41,17 +41,17 @@ import ../make-test-python.nix (
 
         # initrd VPN client
         ovpnclient =
-          { ... }:
+          {...}:
           {
             virtualisation.useBootLoader = true;
-            virtualisation.vlans = [ 1 ];
+            virtualisation.vlans = [1];
 
             boot.initrd = {
               systemd.enable = systemdStage1;
               systemd.extraBin.nc = "${pkgs.busybox}/bin/nc";
               systemd.services.nc = {
-                requiredBy = [ "initrd.target" ];
-                after = [ "network.target" ];
+                requiredBy = ["initrd.target"];
+                after = ["network.target"];
                 serviceConfig = {
                   ExecStart = "/bin/nc -p 1234 -lke /bin/echo TESTVALUE";
                   Type = "oneshot";
@@ -84,7 +84,7 @@ import ../make-test-python.nix (
 
         # VPN server and gateway for ovpnclient between vlan 1 and 2
         ovpnserver =
-          { ... }:
+          {...}:
           {
             virtualisation.vlans = [
               1
@@ -94,7 +94,7 @@ import ../make-test-python.nix (
             # Enable NAT and forward port 12345 to port 1234
             networking.nat = {
               enable = true;
-              internalInterfaces = [ "tun0" ];
+              internalInterfaces = ["tun0"];
               externalInterface = "eth2";
               forwardPorts = [
                 {
@@ -106,8 +106,8 @@ import ../make-test-python.nix (
 
             # Trust tun0 and allow the VPN Server to be reached
             networking.firewall = {
-              trustedInterfaces = [ "tun0" ];
-              allowedUDPPorts = [ 1194 ];
+              trustedInterfaces = ["tun0"];
+              allowedUDPPorts = [1194];
             };
 
             # Minimal OpenVPN server configuration
@@ -122,7 +122,7 @@ import ../make-test-python.nix (
           };
 
         # Client that resides in the "external" VLAN
-        testclient = { ... }: { virtualisation.vlans = [ 2 ]; };
+        testclient = {...}: {virtualisation.vlans = [2];};
       };
 
     testScript = ''

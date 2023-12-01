@@ -32,14 +32,14 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  propagatedBuildInputs = [ httpx ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [httpx] ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   nativeCheckInputs = [
     pytestCheckHook
     flaky
   ];
 
-  pythonImportsCheck = [ "pylast" ];
+  pythonImportsCheck = ["pylast"];
 
   meta = with lib; {
     description = "Python interface to last.fm (and compatibles)";

@@ -54,13 +54,13 @@ buildPythonPackage rec {
   CURL_DIR = curl.dev;
   JPEG_DIR = libjpeg.dev;
 
-  pythonImportsCheckHook = [ "netcdf4" ];
+  pythonImportsCheckHook = ["netcdf4"];
 
   meta = with lib; {
     description = "Interface to netCDF library (versions 3 and 4)";
     homepage = "https://github.com/Unidata/netcdf4-python";
     changelog = "https://github.com/Unidata/netcdf4-python/raw/v${version}/Changelog";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.mit;
   };
 }

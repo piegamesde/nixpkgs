@@ -43,7 +43,7 @@ stdenv.mkDerivation {
     ICU
   ];
 
-  patches = [ ./0001-Add-missing-TARGET_OS_-defines.patch ];
+  patches = [./0001-Add-missing-TARGET_OS_-defines.patch];
 
   postPatch = ''
     cd CoreFoundation

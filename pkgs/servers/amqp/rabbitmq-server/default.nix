@@ -36,7 +36,7 @@ let
       gnused
       coreutils # used by helper scripts
     ]
-    ++ lib.optionals stdenv.isLinux [ systemd ]
+    ++ lib.optionals stdenv.isLinux [systemd]
   ); # for systemd unit activation check
 in
 
@@ -118,6 +118,6 @@ stdenv.mkDerivation rec {
     description = "An implementation of the AMQP messaging protocol";
     license = licenses.mpl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ turion ];
+    maintainers = with maintainers; [turion];
   };
 }

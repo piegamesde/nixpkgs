@@ -20,7 +20,7 @@ mkXfceDerivation {
   version = "0.4.6";
   sha256 = "sha256-P1ln0cBskRAPsIygKAZeQLvt51xgMOnm0WZoR5sRvsM=";
 
-  nativeBuildInputs = [ automakeAddFlags ];
+  nativeBuildInputs = [automakeAddFlags];
 
   postPatch = ''
     substituteInPlace configure.ac.in --replace gio-2.0 gio-unix-2.0
@@ -41,6 +41,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "Adjust the audio volume of the PulseAudio sound system";
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    maintainers = with maintainers; [] ++ teams.xfce.members;
   };
 }

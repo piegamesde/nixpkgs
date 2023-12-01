@@ -47,9 +47,9 @@ stdenv.mkDerivation (
         gpl2Plus
         lgpl2Plus
       ];
-      pkgConfigModules = [ "gnome-keyring-1" ];
+      pkgConfigModules = ["gnome-keyring-1"];
       platforms = lib.platforms.unix;
-      maintainers = [ ];
+      maintainers = [];
 
       longDescription = ''
         gnome-keyring is a program that keeps password and other secrets for

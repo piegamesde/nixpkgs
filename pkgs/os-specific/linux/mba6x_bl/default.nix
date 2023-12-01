@@ -17,7 +17,7 @@ stdenv.mkDerivation {
   };
 
   enableParallelBuilding = true;
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
@@ -31,6 +31,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/patjak/mba6x_bl";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.simonvandel ];
+    maintainers = [maintainers.simonvandel];
   };
 }

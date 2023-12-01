@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-7Qow315zuZB6BNIIm6QR9ZMFH6E/VSp2vRBpONlqYhM=";
   };
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   propagatedBuildInputs = [
     chevron
@@ -45,7 +45,7 @@ buildPythonPackage rec {
     export PATH="$PATH:$out/bin";
   '';
 
-  pythonImportsCheck = [ "pytest_mypy_plugins" ];
+  pythonImportsCheck = ["pytest_mypy_plugins"];
 
   disabledTests = [
     # ...TypecheckAssertionError: Invalid output:
@@ -60,6 +60,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/TypedDjango/pytest-mypy-plugins";
     changelog = "https://github.com/typeddjango/pytest-mypy-plugins/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ SomeoneSerge ];
+    maintainers = with maintainers; [SomeoneSerge];
   };
 }

@@ -20,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-Sg8f6fqe7DAsNsEGU1Ml42qgSuE5CrD+YrFqZKpNKtU=";
 
-  subPackages = [ "cmd/console" ];
+  subPackages = ["cmd/console"];
 
   postInstall = ''
     mv $out/bin/console $out/bin/kics
@@ -45,6 +45,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/Checkmarx/kics";
     license = licenses.asl20;
-    maintainers = with maintainers; [ patryk4815 ];
+    maintainers = with maintainers; [patryk4815];
   };
 }

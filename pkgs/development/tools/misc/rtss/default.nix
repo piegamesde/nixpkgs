@@ -21,6 +21,6 @@ rustPlatform.buildRustPackage rec {
     description = "Annotate output with relative durations between lines";
     homepage = "https://github.com/Freaky/rtss";
     license = licenses.mit;
-    maintainers = with maintainers; [ djanatyn ];
+    maintainers = with maintainers; [djanatyn];
   };
 }

@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  buildInputs = [ bash ];
+  buildInputs = [bash];
 
   postInstall = ''
     substituteInPlace $out/bin/rush-po \
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/rush/";
     license = lib.licenses.gpl3Plus;
 
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.all;
   };
 

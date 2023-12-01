@@ -22,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/projectdiscovery/alterx";
     changelog = "https://github.com/projectdiscovery/alterx/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

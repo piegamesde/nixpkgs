@@ -8,7 +8,7 @@
   qtquickcontrols2,
   qtgraphicaleffects,
   curaengine,
-  plugins ? [ ],
+  plugins ? [],
 }:
 
 mkDerivation rec {

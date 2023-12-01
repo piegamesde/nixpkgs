@@ -149,15 +149,15 @@ let
     '';
 
   # tt-rss and plugins and themes and config.php
-  servedRoot = pkgs.runCommand "tt-rss-served-root" { } ''
+  servedRoot = pkgs.runCommand "tt-rss-served-root" {} ''
     cp --no-preserve=mode -r ${pkgs.tt-rss} $out
     cp ${tt-rss-config} $out/config.php
-    ${optionalString (cfg.pluginPackages != [ ]) ''
+    ${optionalString (cfg.pluginPackages != []) ''
       for plugin in ${concatStringsSep " " cfg.pluginPackages}; do
       cp -r "$plugin"/* "$out/plugins.local/"
       done
     ''}
-    ${optionalString (cfg.themePackages != [ ]) ''
+    ${optionalString (cfg.themePackages != []) ''
       for theme in ${concatStringsSep " " cfg.themePackages}; do
       cp -r "$theme"/* "$out/themes.local/"
       done
@@ -536,7 +536,7 @@ in
 
       pluginPackages = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           List of plugins to install. The list elements are expected to
           be derivations. All elements in this derivation are automatically
@@ -546,7 +546,7 @@ in
 
       themePackages = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           List of themes to install. The list elements are expected to
           be derivations. All elements in this derivation are automatically
@@ -663,7 +663,7 @@ in
     ];
 
     systemd.services = {
-      phpfpm-tt-rss = mkIf (cfg.pool == "${poolName}") { restartTriggers = [ servedRoot ]; };
+      phpfpm-tt-rss = mkIf (cfg.pool == "${poolName}") {restartTriggers = [servedRoot];};
 
       tt-rss = {
         description = "Tiny Tiny RSS feeds update daemon";
@@ -728,7 +728,7 @@ in
           SyslogIdentifier = "tt-rss";
         };
 
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         requires = optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
         after = [
           "network.target"
@@ -739,7 +739,7 @@ in
     services.mysql = mkIf mysqlLocal {
       enable = true;
       package = mkDefault pkgs.mariadb;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.user;
@@ -752,7 +752,7 @@ in
 
     services.postgresql = mkIf pgsqlLocal {
       enable = mkDefault true;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.user;
@@ -769,6 +769,6 @@ in
       group = "tt_rss";
     };
 
-    users.groups.tt_rss = { };
+    users.groups.tt_rss = {};
   };
 }

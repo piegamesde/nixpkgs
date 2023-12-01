@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "A tool to output images as RGB ANSI graphics on the terminal";
     homepage = "https://github.com/trashhalo/imgcat";
     license = licenses.mit;
-    maintainers = with maintainers; [ penguwin ];
+    maintainers = with maintainers; [penguwin];
   };
 }

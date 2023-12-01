@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     Pango
     SOAPLite
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -pv $out/bin

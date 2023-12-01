@@ -28,7 +28,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A code search-and-replace tool";
     homepage = "https://github.com/dalance/amber";
-    license = with licenses; [ mit ];
-    maintainers = [ maintainers.bdesham ];
+    license = with licenses; [mit];
+    maintainers = [maintainers.bdesham];
   };
 }

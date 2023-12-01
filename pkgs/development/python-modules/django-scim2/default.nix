@@ -36,14 +36,14 @@ buildPythonPackage rec {
     sssd
   ];
 
-  pythonImportsCheck = [ "django_scim" ];
+  pythonImportsCheck = ["django_scim"];
 
-  nativeCheckInputs = [ mock ];
+  nativeCheckInputs = [mock];
 
   meta = with lib; {
     description = "A SCIM 2.0 Service Provider Implementation (for Django)";
     homepage = "https://github.com/15five/django-scim2";
     license = licenses.mit;
-    maintainers = with maintainers; [ s1341 ];
+    maintainers = with maintainers; [s1341];
   };
 }

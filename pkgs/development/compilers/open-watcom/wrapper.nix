@@ -12,7 +12,7 @@ open-watcom:
 
 let
   wrapper =
-    { }:
+    {}:
     let
       archToBindir =
         with stdenv.hostPlatform;
@@ -48,16 +48,16 @@ let
       # This works good enough as-is, but should really only be targetPlatform-specific
       # but we don't support targeting DOS, OS/2, 16-bit Windows etc Nixpkgs-wide so this needs extra logic
       includeDirs =
-        with stdenv.hostPlatform; [ "h" ] ++ lib.optional isWindows "h/nt" ++ lib.optional isLinux "lh";
+        with stdenv.hostPlatform; ["h"] ++ lib.optional isWindows "h/nt" ++ lib.optional isLinux "lh";
       listToDirs = list: lib.strings.concatMapStringsSep ":" (dir: "${placeholder "out"}/${dir}") list;
       name = "${open-watcom.passthru.prettyName}-${open-watcom.version}";
     in
     symlinkJoin {
       inherit name;
 
-      paths = [ open-watcom ];
+      paths = [open-watcom];
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
 
       postBuild = ''
         mkdir $out/bin
@@ -82,10 +82,10 @@ let
         unwrapped = open-watcom;
         tests =
           let
-            wrapped = wrapper { };
+            wrapped = wrapper {};
           in
           {
-            simple = runCommand "${name}-test-simple" { nativeBuildInputs = [ wrapped ]; } ''
+            simple = runCommand "${name}-test-simple" {nativeBuildInputs = [wrapped];} ''
               cat <<EOF >test.c
               #include <stdio.h>
               int main() {

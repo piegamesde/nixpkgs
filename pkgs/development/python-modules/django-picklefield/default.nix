@@ -21,7 +21,7 @@ buildPythonPackage rec {
     sha256 = "0ni7bc86k0ra4pc8zv451pzlpkhs1nyil1sq9jdb4m2mib87b5fk";
   };
 
-  propagatedBuildInputs = [ django ];
+  propagatedBuildInputs = [django];
 
   # Tests are failing with Django 3.2
   # https://github.com/gintas/django-picklefield/issues/58
@@ -37,6 +37,6 @@ buildPythonPackage rec {
     description = "A pickled object field for Django";
     homepage = "https://github.com/gintas/django-picklefield";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

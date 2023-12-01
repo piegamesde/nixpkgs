@@ -23,14 +23,14 @@ stdenv.mkDerivation rec {
     sed -e 's@/usr/bin/@@' -i Makefile
   '';
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = {
     description = "";
     # Code cannot be used in commercial programs
     # Looks like the definition hinges on the price, not license
     license = lib.licenses.unfree;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.linux;
     homepage = "https://www.fractint.net/";
   };

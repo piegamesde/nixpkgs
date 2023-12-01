@@ -28,13 +28,13 @@ let
         };
       set = (nullOr (lazyAttrsOf valueTypes)) // {
         description = "KDE Configuration set";
-        emptyValue.value = { };
+        emptyValue.value = {};
       };
     in
     (lazyAttrsOf set)
     // {
       description = "KDE Configuration file";
-      emptyValue.value = { };
+      emptyValue.value = {};
     };
 
   libsForQt5 = pkgs.plasma5Packages;
@@ -131,21 +131,21 @@ in
       };
 
       notoPackage = mkPackageOptionMD pkgs "Noto fonts" {
-        default = [ "noto-fonts" ];
+        default = ["noto-fonts"];
         example = "noto-fonts-lgc-plus";
       };
 
       # Internally allows configuring kdeglobals globally
       kdeglobals = mkOption {
         internal = true;
-        default = { };
+        default = {};
         type = kdeConfigurationType;
       };
 
       # Internally allows configuring kwin globally
       kwinrc = mkOption {
         internal = true;
-        default = { };
+        default = {};
         type = kdeConfigurationType;
       };
 
@@ -177,7 +177,7 @@ in
     environment.plasma5.excludePackages = mkOption {
       description = lib.mdDoc "List of default packages to exclude from the configuration";
       type = types.listOf types.package;
-      default = [ ];
+      default = [];
       example = literalExpression "[ pkgs.plasma5Packages.oxygen ]";
     };
   };
@@ -381,7 +381,7 @@ in
         ++ lib.optional config.services.flatpak.enable flatpak-kcm;
 
       # Extra services for D-Bus activation
-      services.dbus.packages = [ plasma5.kactivitymanagerd ];
+      services.dbus.packages = [plasma5.kactivitymanagerd];
 
       environment.pathsToLink =
         [
@@ -405,7 +405,7 @@ in
       };
 
       # Enable GTK applications to load SVG icons
-      services.xserver.gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
+      services.xserver.gdk-pixbuf.modulePackages = [pkgs.librsvg];
 
       fonts.fonts = with pkgs; [
         cfg.notoPackage
@@ -416,8 +416,8 @@ in
           "Hack"
           "Noto Sans Mono"
         ];
-        sansSerif = [ "Noto Sans" ];
-        serif = [ "Noto Serif" ];
+        sansSerif = ["Noto Sans"];
+        serif = ["Noto Serif"];
       };
 
       programs.ssh.askPassword = mkDefault "${plasma5.ksshaskpass.out}/bin/ksshaskpass";
@@ -452,14 +452,14 @@ in
       systemd.user.services = {
         plasma-early-setup = mkIf cfg.runUsingSystemd {
           description = "Early Plasma setup";
-          wantedBy = [ "graphical-session-pre.target" ];
+          wantedBy = ["graphical-session-pre.target"];
           serviceConfig.Type = "oneshot";
           script = activationScript;
         };
       };
 
       xdg.portal.enable = true;
-      xdg.portal.extraPortals = [ plasma5.xdg-desktop-portal-kde ];
+      xdg.portal.extraPortals = [plasma5.xdg-desktop-portal-kde];
       # xdg-desktop-portal-kde expects PipeWire to be running.
       # This does not, by default, replace PulseAudio.
       services.pipewire.enable = mkDefault true;
@@ -470,12 +470,10 @@ in
       nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
     })
 
-    (mkIf (cfg.kwinrc != { }) {
-      environment.etc."xdg/kwinrc".text = lib.generators.toINI { } cfg.kwinrc;
-    })
+    (mkIf (cfg.kwinrc != {}) {environment.etc."xdg/kwinrc".text = lib.generators.toINI {} cfg.kwinrc;})
 
-    (mkIf (cfg.kdeglobals != { }) {
-      environment.etc."xdg/kdeglobals".text = lib.generators.toINI { } cfg.kdeglobals;
+    (mkIf (cfg.kdeglobals != {}) {
+      environment.etc."xdg/kdeglobals".text = lib.generators.toINI {} cfg.kdeglobals;
     })
 
     # Plasma Desktop
@@ -490,7 +488,7 @@ in
         ''
       ];
 
-      services.xserver.displayManager.sessionPackages = [ pkgs.libsForQt5.plasma5.plasma-workspace ];
+      services.xserver.displayManager.sessionPackages = [pkgs.libsForQt5.plasma5.plasma-workspace];
       # Default to be `plasma` (X11) instead of `plasmawayland`, since plasma wayland currently has
       # many tiny bugs.
       # See: https://github.com/NixOS/nixpkgs/issues/143272
@@ -533,7 +531,7 @@ in
       systemd.user.services = {
         plasma-run-with-systemd = {
           description = "Run KDE Plasma via systemd";
-          wantedBy = [ "basic.target" ];
+          wantedBy = ["basic.target"];
           serviceConfig.Type = "oneshot";
           script = ''
             ${set_XDG_CONFIG_HOME}
@@ -631,7 +629,7 @@ in
         };
       };
 
-      services.xserver.displayManager.sessionPackages = [ pkgs.libsForQt5.plasma5.plasma-mobile ];
+      services.xserver.displayManager.sessionPackages = [pkgs.libsForQt5.plasma5.plasma-mobile];
     })
 
     # Plasma Bigscreen
@@ -650,7 +648,7 @@ in
         kdeconnect-kde
       ];
 
-      services.xserver.displayManager.sessionPackages = [ pkgs.plasma5Packages.plasma-bigscreen ];
+      services.xserver.displayManager.sessionPackages = [pkgs.plasma5Packages.plasma-bigscreen];
 
       # required for plasma-remotecontrollers to work correctly
       hardware.uinput.enable = true;

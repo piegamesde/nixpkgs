@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
     udev
   ];
 
-  autoPatchelfIgnoreMissingDeps = [ "libc.musl-x86_64.so.1" ];
+  autoPatchelfIgnoreMissingDeps = ["libc.musl-x86_64.so.1"];
 
   dontWrapGApps = true;
   dontConfigure = true;
@@ -143,9 +143,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Snapmaker Luban is an easy-to-use 3-in-1 software tailor-made for Snapmaker machines";
     homepage = "https://github.com/Snapmaker/Luban";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.gpl3;
-    maintainers = [ maintainers.simonkampe ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.simonkampe];
+    platforms = ["x86_64-linux"];
   };
 }

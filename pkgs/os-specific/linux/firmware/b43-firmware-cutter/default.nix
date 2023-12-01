@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "1ki1f5fy3yrw843r697f8mqqdz0pbsbqnvg4yzkhibpn1lqqbsnn";
   };
 
-  patches = [ ./no-root-install.patch ];
+  patches = [./no-root-install.patch];
 
   makeFlags = [
     "PREFIX=$(out)"

@@ -44,13 +44,13 @@ stdenv.mkDerivation rec {
     mate.mate-panel
   ];
 
-  configureFlags = [ "--without-console-kit" ];
+  configureFlags = ["--without-console-kit"];
 
-  makeFlags = [ "DBUS_SESSION_SERVICE_DIR=$(out)/etc" ];
+  makeFlags = ["DBUS_SESSION_SERVICE_DIR=$(out)/etc"];
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "Screen saver and locker for the MATE desktop";

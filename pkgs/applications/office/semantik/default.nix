@@ -93,14 +93,14 @@ mkDerivation rec {
     kdelibs4support
   ];
 
-  wafConfigureFlags = [ "--qtlibs=${lib.getLib qtbase}/lib" ];
+  wafConfigureFlags = ["--qtlibs=${lib.getLib qtbase}/lib"];
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);
     description = "A mind-mapping application for KDE";
     license = licenses.mit;
     homepage = "https://waf.io/semantik.html";
-    maintainers = [ maintainers.shamilton ];
+    maintainers = [maintainers.shamilton];
     platforms = platforms.linux;
   };
 }

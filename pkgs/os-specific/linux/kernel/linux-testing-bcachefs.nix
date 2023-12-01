@@ -9,7 +9,7 @@
 
   ,
   kernelPatches, # must always be defined in bcachefs' all-packages.nix entry because it's also a top-level attribute supplied by callPackage
-  argsOverride ? { },
+  argsOverride ? {},
   ...
 }@args:
 

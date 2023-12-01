@@ -17,16 +17,16 @@ in
   extraOpts = {
     enabledCollectors = mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "systemd" ];
+      default = [];
+      example = ["systemd"];
       description = lib.mdDoc ''
         Collectors to enable. The collectors listed here are enabled in addition to the default ones.
       '';
     };
     disabledCollectors = mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "timex" ];
+      default = [];
+      example = ["timex"];
       description = lib.mdDoc ''
         Collectors to disable which are enabled by default.
       '';

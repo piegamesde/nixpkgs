@@ -34,7 +34,7 @@ buildDunePackage rec {
     alcotest
   ];
 
-  buildInputs = [ zarith ];
+  buildInputs = [zarith];
 
   checkInputs = [
     alcotest
@@ -45,6 +45,6 @@ buildDunePackage rec {
     description = "Mec - Mini Elliptic Curve library";
     homepage = "https://gitlab.com/nomadic-labs/cryptography/ocaml-ec";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

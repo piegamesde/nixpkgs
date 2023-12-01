@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/3proxy/3proxy";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ misuzu ];
+    maintainers = with maintainers; [misuzu];
   };
 }

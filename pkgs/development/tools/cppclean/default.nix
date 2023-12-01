@@ -29,7 +29,7 @@ buildPythonApplication rec {
     description = "Finds problems in C++ source that slow development of large code bases";
     homepage = "https://github.com/myint/cppclean";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nthorne ];
+    maintainers = with maintainers; [nthorne];
     platforms = platforms.linux;
   };
 }

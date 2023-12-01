@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "1f3x4yn9a9p4f4wk4l8pv7hxfjc8q7cv20xzf7ky735sq1hj0xcg";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libdnet
     libpcap
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     description = "";
     homepage = "https://sourceforge.net/projects/hyenae/";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.marcweber ];
+    maintainers = [lib.maintainers.marcweber];
     platforms = lib.platforms.linux;
   };
 }

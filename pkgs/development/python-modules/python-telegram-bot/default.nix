@@ -51,7 +51,7 @@ buildPythonPackage rec {
     tornado
   ];
 
-  pythonImportsCheck = [ "telegram" ];
+  pythonImportsCheck = ["telegram"];
 
   disabledTests = [
     # Tests require network access

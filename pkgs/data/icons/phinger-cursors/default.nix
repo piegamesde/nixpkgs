@@ -27,6 +27,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/phisch/phinger-cursors";
     platforms = platforms.unix;
     license = licenses.cc-by-sa-40;
-    maintainers = with maintainers; [ fortuneteller2k ];
+    maintainers = with maintainers; [fortuneteller2k];
   };
 }

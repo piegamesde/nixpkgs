@@ -29,10 +29,10 @@ stdenv.mkDerivation rec {
     runHook postUnpack
   '';
 
-  patches = [ ./cups-filter-ppd-dirs.patch ];
+  patches = [./cups-filter-ppd-dirs.patch];
 
-  buildInputs = [ cups ];
-  nativeBuildInputs = [ busybox ];
+  buildInputs = [cups];
+  nativeBuildInputs = [busybox];
 
   meta = with lib; {
     homepage = "http://download.ebz.epson.net/dsc/search/01/search/";

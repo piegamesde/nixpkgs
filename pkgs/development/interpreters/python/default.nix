@@ -39,7 +39,7 @@
             ensurePythonModules =
               items:
               let
-                exceptions = [ stdenv ];
+                exceptions = [stdenv];
                 providesSetupHook =
                   lib.attrByPath
                     [
@@ -57,7 +57,7 @@
                         valid value
                         || throw "${name} should use `buildPythonPackage` or `toPythonModule` if it is to be part of the Python packages set."
                       )
-                      { }
+                      {}
                       value
                   else
                     value;
@@ -87,19 +87,19 @@
                     selfBuildHost = pythonOnBuildForHost.pkgs;
                     selfBuildTarget = pythonOnBuildForTarget.pkgs;
                     selfHostHost = pythonOnHostForHost.pkgs;
-                    selfTargetTarget = pythonOnTargetForTarget.pkgs or { }; # There is no Python TargetTarget.
+                    selfTargetTarget = pythonOnTargetForTarget.pkgs or {}; # There is no Python TargetTarget.
                   };
                   hooks = import ./hooks/default.nix;
                   keep = lib.extends hooks pythonPackagesFun;
-                  extra = _: { };
+                  extra = _: {};
                   optionalExtensions = cond: as: lib.optionals cond as;
                   pythonExtension = import ../../../top-level/python-packages.nix;
                   python2Extension = import ../../../top-level/python2-packages.nix;
                   extensions = lib.composeManyExtensions (
-                    [ pythonExtension ]
-                    ++ (optionalExtensions (!self.isPy3k) [ python2Extension ])
+                    [pythonExtension]
+                    ++ (optionalExtensions (!self.isPy3k) [python2Extension])
                     ++ pythonPackagesExtensions
-                    ++ [ overrides ]
+                    ++ [overrides]
                   );
                   aliases =
                     self: super:
@@ -132,7 +132,7 @@
           python = self;
           inherit (pythonPackages) requiredPythonModules;
         };
-        withPackages = import ./with-packages.nix { inherit buildEnv pythonPackages; };
+        withPackages = import ./with-packages.nix {inherit buildEnv pythonPackages;};
         pkgs = pythonPackages;
         interpreter = "${self}/bin/${executable}";
         inherit
@@ -153,7 +153,7 @@
           self = pythonForBuild;
         };
 
-        tests = callPackage ./tests.nix { python = self; };
+        tests = callPackage ./tests.nix {python = self;};
 
         inherit pythonAttr;
       };
@@ -299,7 +299,7 @@
 
       hash = "sha256-ERevtmgx2k6m852NIIR4enRon9AineC+MB+e2bJVCTw=";
       pythonVersion = "2.7";
-      db = db.override { dbmSupport = !stdenv.isDarwin; };
+      db = db.override {dbmSupport = !stdenv.isDarwin;};
       python = __splicedPackages.pythonInterpreters.pypy27_prebuilt;
       inherit passthruFun;
       inherit (darwin) libunwind;
@@ -316,7 +316,7 @@
 
       hash = "sha256-sPMWb7Klqt/VzrnbXN1feSmg7MygK0omwNrgSS98qOo=";
       pythonVersion = "3.9";
-      db = db.override { dbmSupport = !stdenv.isDarwin; };
+      db = db.override {dbmSupport = !stdenv.isDarwin;};
       python = __splicedPackages.pypy27;
       inherit passthruFun;
       inherit (darwin) libunwind;

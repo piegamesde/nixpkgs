@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = lib.optional docSupport doxygen;
 
-  propagatedBuildInputs = [ libpng ];
+  propagatedBuildInputs = [libpng];
 
   preConfigure =
     lib.optionalString stdenv.isDarwin ''
@@ -47,6 +47,6 @@ stdenv.mkDerivation rec {
     description = "C++ wrapper for libpng library";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = [ maintainers.ramkromberg ];
+    maintainers = [maintainers.ramkromberg];
   };
 }

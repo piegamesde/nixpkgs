@@ -31,14 +31,14 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
-  pythonImportsCheck = [ "datapoint" ];
+  pythonImportsCheck = ["datapoint"];
 
   meta = {
     description = "Python interface to the Met Office's Datapoint API";
     homepage = "https://github.com/ejep/datapoint-python";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

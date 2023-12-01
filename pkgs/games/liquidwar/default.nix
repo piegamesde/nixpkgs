@@ -63,9 +63,9 @@ stdenv.mkDerivation rec {
     readline
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12") [
@@ -81,12 +81,12 @@ stdenv.mkDerivation rec {
   );
 
   # To avoid problems finding SDL_types.h.
-  configureFlags = [ "CFLAGS=-I${lib.getDev SDL}/include/SDL" ];
+  configureFlags = ["CFLAGS=-I${lib.getDev SDL}/include/SDL"];
 
   meta = with lib; {
     description = "Quick tactics game";
     homepage = "https://www.gnu.org/software/liquidwar6/";
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

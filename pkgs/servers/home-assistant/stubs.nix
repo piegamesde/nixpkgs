@@ -34,7 +34,7 @@ buildPythonPackage rec {
     cat pyproject.toml
   '';
 
-  pythonImportsCheck = [ "homeassistant-stubs" ];
+  pythonImportsCheck = ["homeassistant-stubs"];
 
   doCheck = false;
 

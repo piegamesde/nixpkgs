@@ -19,14 +19,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-r8bWk1+weSyQ5QPGKKwdAzMkzh3DgzTUr5YCMUq5UUM=";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   buildInputs = [
     zlib
     python3
   ];
 
-  makeFlags = [ "prefix=${placeholder "out"}" ];
+  makeFlags = ["prefix=${placeholder "out"}"];
 
   postFixup = ''
     for f in $out/bin/parallel-* ; do
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "Genomic sequence aligner";
     homepage = "https://gitlab.com/mcfrith/last";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ jbedo ];
+    maintainers = with maintainers; [jbedo];
     platforms = platforms.x86_64;
   };
 }

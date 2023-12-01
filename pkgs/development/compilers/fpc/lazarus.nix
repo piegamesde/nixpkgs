@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
   #  Fatal: (1018) Compilation aborted
   enableParallelBuilding = false;
 
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optional withQt wrapQtAppsHook;
+  nativeBuildInputs = [makeWrapper] ++ lib.optional withQt wrapQtAppsHook;
 
   makeFlags = [
     "FPC=fpc"
@@ -145,7 +145,7 @@ stdenv.mkDerivation rec {
     description = "Graphical IDE for the FreePascal language";
     homepage = "https://www.lazarus.freepascal.org";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
   };
 }

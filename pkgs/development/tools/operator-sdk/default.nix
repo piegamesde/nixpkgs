@@ -19,9 +19,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-ZWOIF3vmtoXzdGHHzjPy/351bHzMTTXcgSRBso+ixyM=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ go ];
+  buildInputs = [go];
 
   doCheck = false;
 
@@ -35,7 +35,7 @@ buildGoModule rec {
   allowGoReference = true;
 
   postFixup = ''
-    wrapProgram $out/bin/operator-sdk --prefix PATH : ${lib.makeBinPath [ go ]}
+    wrapProgram $out/bin/operator-sdk --prefix PATH : ${lib.makeBinPath [go]}
   '';
 
   meta = with lib; {
@@ -43,7 +43,7 @@ buildGoModule rec {
     homepage = "https://github.com/operator-framework/operator-sdk";
     changelog = "https://github.com/operator-framework/operator-sdk/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ arnarg ];
+    maintainers = with maintainers; [arnarg];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

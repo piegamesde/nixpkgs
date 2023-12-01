@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   ];
   meta = with lib; {
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ chkno ];
+    maintainers = with maintainers; [chkno];
     platforms = platforms.all;
   };
 }

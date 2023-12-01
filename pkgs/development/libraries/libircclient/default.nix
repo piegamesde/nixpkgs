@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  configureFlags = [ "--enable-shared" ];
+  configureFlags = ["--enable-shared"];
 
   postPatch = ''
     substituteInPlace src/Makefile.in \
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     description = "A small but extremely powerful library which implements the client IRC protocol";
     homepage = "http://www.ulduzsoft.com/libircclient/";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ obadz ];
+    maintainers = with maintainers; [obadz];
     platforms = platforms.linux;
   };
 }

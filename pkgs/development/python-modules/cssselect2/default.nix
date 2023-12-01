@@ -23,13 +23,13 @@ buildPythonPackage rec {
     sed -i '/^addopts/d' pyproject.toml
   '';
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  propagatedBuildInputs = [ tinycss2 ];
+  propagatedBuildInputs = [tinycss2];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "cssselect2" ];
+  pythonImportsCheck = ["cssselect2"];
 
   meta = with lib; {
     description = "CSS selectors for Python ElementTree";

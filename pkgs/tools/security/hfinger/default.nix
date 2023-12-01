@@ -23,16 +23,16 @@ python3.pkgs.buildPythonApplication rec {
       fnvhash
       python-magic
     ]
-    ++ [ wireshark-cli ];
+    ++ [wireshark-cli];
 
   # Project has no tests
   doCheck = false;
-  pythonImportsCheck = [ "hfinger" ];
+  pythonImportsCheck = ["hfinger"];
 
   meta = with lib; {
     description = "Fingerprinting tool for HTTP requests";
     homepage = "https://github.com/CERT-Polska/hfinger";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [fab];
   };
 }

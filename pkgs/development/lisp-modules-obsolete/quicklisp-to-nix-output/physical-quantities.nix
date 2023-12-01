@@ -1,14 +1,14 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "physical-quantities";
   version = "20211020-git";
 
-  parasites = [ "physical-quantities/test" ];
+  parasites = ["physical-quantities/test"];
 
   description = "A library that provides a numeric type with optional unit and/or uncertainty for computations with automatic error propagation.";
 
-  deps = [ args."parseq" ];
+  deps = [args."parseq"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/physical-quantities/2021-10-20/physical-quantities-20211020-git.tgz";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "physical-quantities";
 
-  asdFilesToKeep = [ "physical-quantities.asd" ];
+  asdFilesToKeep = ["physical-quantities.asd"];
   overrides = x: x;
 }
 /* (SYSTEM physical-quantities DESCRIPTION

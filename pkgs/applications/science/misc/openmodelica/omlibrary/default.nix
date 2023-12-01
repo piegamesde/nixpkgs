@@ -20,7 +20,7 @@ mkOpenModelicaDerivation {
   pname = "omlibrary";
   omdir = "libraries";
   omtarget = "omlibrary-all";
-  omdeps = [ openmodelica.omcompiler ];
+  omdeps = [openmodelica.omcompiler];
 
   postPatch = ''
     patchShebangs --build libraries

@@ -37,7 +37,7 @@ else
       hash = "sha256-8JHZWsgpz2pzpDxST3bkMSmPHtj7MDzD5G3ujqMW+MU=";
     };
 
-    nativeBuildInputs = [ menhir ];
+    nativeBuildInputs = [menhir];
 
     buildInputs = [
       cmdliner
@@ -53,12 +53,12 @@ else
       ppx_deriving_yojson
     ];
 
-    passthru.updateScript = gitUpdater { };
+    passthru.updateScript = gitUpdater {};
 
     meta = {
       homepage = "https://github.com/hackwaly/ocamlearlybird";
       description = "OCaml debug adapter";
       license = lib.licenses.mit;
-      maintainers = [ lib.maintainers.romildo ];
+      maintainers = [lib.maintainers.romildo];
     };
   }

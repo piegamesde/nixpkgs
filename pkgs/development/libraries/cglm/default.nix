@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-V6qX6f1pETjDHVu+VJXRDcKKiCBYuQnh8Bz48HRyRR8=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/recp/cglm";
     description = "Highly Optimized Graphics Math (glm) for C";
     license = licenses.mit;
-    maintainers = [ maintainers.ivar ];
+    maintainers = [maintainers.ivar];
     platforms = platforms.unix;
   };
 }

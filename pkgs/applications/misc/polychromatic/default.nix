@@ -85,6 +85,6 @@ python3Packages.buildPythonApplication rec {
     '';
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ evanjs ];
+    maintainers = with maintainers; [evanjs];
   };
 }

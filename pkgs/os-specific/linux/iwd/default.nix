@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     readline
   ];
 
-  nativeCheckInputs = [ openssl ];
+  nativeCheckInputs = [openssl];
 
   # wrapPython wraps the scripts in $test. They pull in gobject-introspection,
   # which doesn't cross-compile.

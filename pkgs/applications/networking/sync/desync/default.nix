@@ -26,6 +26,6 @@ buildGoModule rec {
     homepage = "https://github.com/folbricht/desync";
     license = licenses.bsd3;
     platforms = platforms.unix; # *may* work on Windows, but varies between releases.
-    maintainers = [ maintainers.chaduffy ];
+    maintainers = [maintainers.chaduffy];
   };
 }

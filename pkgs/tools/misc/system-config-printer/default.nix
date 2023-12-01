@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile.am --replace /bin/bash ${bash}/bin/bash
   '';
 
-  patches = [ ./detect_serverbindir.patch ];
+  patches = [./detect_serverbindir.patch];
 
   buildInputs = [
     glib

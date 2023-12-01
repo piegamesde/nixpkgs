@@ -27,14 +27,14 @@ buildPythonPackage rec {
     scikit-learn
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ppscore" ];
+  pythonImportsCheck = ["ppscore"];
 
   meta = with lib; {
     description = "Python implementation of the Predictive Power Score (PPS)";
     homepage = "https://github.com/8080labs/ppscore/";
     license = licenses.mit;
-    maintainers = with maintainers; [ evax ];
+    maintainers = with maintainers; [evax];
   };
 }

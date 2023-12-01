@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  configureFlags = [ "--disable-python" ];
+  configureFlags = ["--disable-python"];
 
   preConfigure = ''
     ./autogen.sh --prefix="$out" $configureFlags
@@ -60,6 +60,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/engla/keybinder/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

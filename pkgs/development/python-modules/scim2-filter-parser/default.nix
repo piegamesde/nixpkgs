@@ -21,20 +21,20 @@ buildPythonPackage rec {
     hash = "sha256-QEPTYpWlRPWO6Evyt4zoqUST4ousF67GmiOpD7WUqcI=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace "poetry.masonry.api" "poetry.core.masonry.api"
   '';
 
-  propagatedBuildInputs = [ sly ];
+  propagatedBuildInputs = [sly];
 
   passthru.optional-dependencies = {
-    django-query = [ django ];
+    django-query = [django];
   };
 
-  pythonImportsCheck = [ "scim2_filter_parser" ];
+  pythonImportsCheck = ["scim2_filter_parser"];
 
   nativeCheckInputs = [
     mock
@@ -46,6 +46,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/15five/scim2-filter-parser";
     changelog = "https://github.com/15five/scim2-filter-parser/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ s1341 ];
+    maintainers = with maintainers; [s1341];
   };
 }

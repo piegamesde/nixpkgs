@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-wymV6G4Et5TCoIztZfdb3xuzjdBHFyB5OmI4EcsJKwQ=";
   };
 
-  nativeBuildInputs = [ texinfo ];
+  nativeBuildInputs = [texinfo];
 
   # missed: Reiser3 FAT12/16/32 MinixFS HFS+ OCFS
   buildInputs = [
@@ -48,6 +48,6 @@ stdenv.mkDerivation rec {
     homepage = "https://wipefreespace.sourceforge.io";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ catap ];
+    maintainers = with maintainers; [catap];
   };
 }

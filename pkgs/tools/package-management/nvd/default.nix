@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-kOPcQP2tSym69qSOBwVc2XFO8+uy7bgYIQq4L/orS+A=";
   };
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   installPhase = ''
     runHook preInstall
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     description = "Nix/NixOS package version diff tool";
     homepage = "https://gitlab.com/khumba/nvd";
     license = licenses.asl20;
-    maintainers = with maintainers; [ khumba ];
+    maintainers = with maintainers; [khumba];
     platforms = platforms.all;
   };
 }

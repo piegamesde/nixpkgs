@@ -62,6 +62,6 @@ buildPythonPackage {
   ];
 
   meta = onnxruntime.meta // {
-    maintainers = with lib.maintainers; [ fridh ];
+    maintainers = with lib.maintainers; [fridh];
   };
 }

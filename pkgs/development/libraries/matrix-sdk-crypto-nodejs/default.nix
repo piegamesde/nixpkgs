@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     nodejs
   ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.isDarwin [libiconv];
 
   buildPhase = ''
     runHook preBuild
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     description = "A no-network-IO implementation of a state machine that handles E2EE for Matrix clients";
     homepage = "https://github.com/matrix-org/matrix-rust-sdk/tree/${src.rev}/bindings/matrix-sdk-crypto-nodejs";
     license = licenses.asl20;
-    maintainers = with maintainers; [ winter ];
+    maintainers = with maintainers; [winter];
     inherit (nodejs.meta) platforms;
   };
 }

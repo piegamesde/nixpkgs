@@ -121,11 +121,11 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    providedSessions = [ "sm.puri.Phosh" ];
+    providedSessions = ["sm.puri.Phosh"];
 
     tests.phosh = nixosTests.phosh;
 
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = with lib; {

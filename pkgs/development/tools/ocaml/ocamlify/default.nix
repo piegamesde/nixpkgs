@@ -40,8 +40,8 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://forge.ocamlcore.org/projects/ocamlmod/ocamlmod";
     description = "Generate OCaml modules from source files";
-    platforms = ocaml.meta.platforms or [ ];
+    platforms = ocaml.meta.platforms or [];
     license = lib.licenses.lgpl21;
-    maintainers = with lib.maintainers; [ maggesi ];
+    maintainers = with lib.maintainers; [maggesi];
   };
 }

@@ -21,20 +21,20 @@ buildPythonPackage rec {
     hash = "sha256-Ux9EereKKbgaVQORliW6J5FSBlytLM+m4PVFBk+OW6k=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pybravia" ];
+  pythonImportsCheck = ["pybravia"];
 
   meta = with lib; {
     description = "Library for remote control of Sony Bravia TVs 2013 and newer";
     homepage = "https://github.com/Drafteed/pybravia";
     changelog = "https://github.com/Drafteed/pybravia/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -41,8 +41,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.whitebophir = {
       description = "Whitebophir Service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       environment = {
         PORT = toString cfg.port;
         HOST = toString cfg.listenAddress;

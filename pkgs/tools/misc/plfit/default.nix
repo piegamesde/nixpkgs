@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    [ cmake ]
+    [cmake]
     ++ lib.optionals (python != null) [
       python
       swig
@@ -28,15 +28,15 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DPLFIT_USE_OPENMP=ON"
-  ] ++ lib.optionals (python != null) [ "-DPLFIT_COMPILE_PYTHON_MODULE=ON" ];
+  ] ++ lib.optionals (python != null) ["-DPLFIT_COMPILE_PYTHON_MODULE=ON"];
 
-  buildInputs = lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
+  buildInputs = lib.optionals stdenv.cc.isClang [llvmPackages.openmp];
 
   meta = with lib; {
     description = "Fitting power-law distributions to empirical data";
     homepage = "https://github.com/ntamas/plfit";
     changelog = "https://github.com/ntamas/plfit/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -16,14 +16,14 @@ buildPythonPackage rec {
     sha256 = "d5ed2169378b67d3c545e5600d363a923b09c456dab1593914935a68ad478271";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Test fail on Python 2
   doCheck = isPy3k;
 
-  pythonNamespaces = [ "backports" ];
+  pythonNamespaces = ["backports"];
 
   meta = {
     description = "Backport of functools.lru_cache";

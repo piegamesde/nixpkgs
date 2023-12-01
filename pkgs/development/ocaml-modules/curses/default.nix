@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  propagatedBuildInputs = [ ncurses ];
+  propagatedBuildInputs = [ncurses];
 
   nativeBuildInputs = [
     ocaml
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/mbacarella/curses";
     license = licenses.lgpl21Plus;
     changelog = "https://github.com/mbacarella/curses/raw/${version}/CHANGES";
-    maintainers = [ ];
+    maintainers = [];
     inherit (ocaml.meta) platforms;
   };
 }

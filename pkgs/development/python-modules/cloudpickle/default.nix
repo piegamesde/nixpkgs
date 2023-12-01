@@ -24,7 +24,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "cloudpickle" ];
+  pythonImportsCheck = ["cloudpickle"];
 
   disabledTestPaths =
     [
@@ -41,7 +41,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Extended pickling support for Python objects";
     homepage = "https://github.com/cloudpipe/cloudpickle";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [];
   };
 }

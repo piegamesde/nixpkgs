@@ -123,7 +123,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Spell checker oriented word lists";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.unix;
     homepage = "http://wordlist.aspell.net/";
   };

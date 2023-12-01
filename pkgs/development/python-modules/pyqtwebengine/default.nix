@@ -55,7 +55,7 @@ buildPythonPackage rec {
     qtwebengine
     pyqt-builder
     pythonPackages.setuptools
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
+  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [autoSignDarwinBinariesHook];
 
   buildInputs = [
     sip
@@ -64,7 +64,7 @@ buildPythonPackage rec {
     qtwebengine
   ];
 
-  propagatedBuildInputs = [ pyqt5 ];
+  propagatedBuildInputs = [pyqt5];
 
   dontWrapQtApps = true;
 

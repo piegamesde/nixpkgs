@@ -20,7 +20,7 @@ trivialBuild {
     homepage = "https://www.emacswiki.org/emacs/IsearchPlus";
     description = "Search text- or overlay-property contexts";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ leungbk ];
+    maintainers = with maintainers; [leungbk];
     inherit (emacs.meta) platforms;
   };
 }

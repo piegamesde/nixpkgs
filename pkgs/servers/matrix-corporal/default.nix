@@ -30,7 +30,7 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/devture/matrix-corporal";
     description = "Reconciliator and gateway for a managed Matrix server";
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
     mainProgram = "devture-matrix-corporal";
     license = licenses.agpl3Only;
   };

@@ -48,13 +48,13 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [ "qualysclient" ];
+  pythonImportsCheck = ["qualysclient"];
 
   meta = with lib; {
     description = "Python SDK for interacting with the Qualys API";
     homepage = "https://qualysclient.readthedocs.io/";
     changelog = "https://github.com/woodtechie1428/qualysclient/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -21,11 +21,11 @@ stdenv.mkDerivation rec {
     sha256 = "0g3i2k6n2yhp88rrcf0hp6ils7836db7hx73hw9qnpcbmckz0i4w";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   preInstall = "mkdir -p $out/bin";
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   postInstall = ''
     wrapProgram $out/bin/fontpreview \
@@ -53,6 +53,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ maintainers.erictapen ];
+    maintainers = [maintainers.erictapen];
   };
 }

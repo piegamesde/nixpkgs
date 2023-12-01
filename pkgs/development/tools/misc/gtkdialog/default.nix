@@ -25,8 +25,8 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ gtk2 ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [gtk2];
 
   meta = {
     homepage = "https://code.google.com/archive/p/gtkdialog/";

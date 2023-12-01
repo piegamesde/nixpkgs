@@ -35,8 +35,8 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    word_list = [ pyahocorasick ];
-    gibberish = [ gibberish-detector ];
+    word_list = [pyahocorasick];
+    gibberish = [gibberish-detector];
   };
 
   nativeCheckInputs = [
@@ -63,12 +63,12 @@ buildPythonPackage rec {
     "TestModifiesBaselineFromVersionChange"
   ];
 
-  pythonImportsCheck = [ "detect_secrets" ];
+  pythonImportsCheck = ["detect_secrets"];
 
   meta = with lib; {
     description = "Tool to detect secrets in the code";
     homepage = "https://github.com/bridgecrewio/detect-secrets";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

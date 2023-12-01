@@ -34,7 +34,7 @@ buildGoModule rec {
   '';
 
   passthru.tests = {
-    sample1 = callPackage ./tests/sample1 { };
+    sample1 = callPackage ./tests/sample1 {};
   };
 
   meta = with lib; {
@@ -48,6 +48,6 @@ buildGoModule rec {
       * Strip out server side fields when piping kubectl get $R -o yaml | tfk8s --strip
     '';
     homepage = "https://github.com/jrhouston/tfk8s/";
-    maintainers = with maintainers; [ bryanasdev000 ];
+    maintainers = with maintainers; [bryanasdev000];
   };
 }

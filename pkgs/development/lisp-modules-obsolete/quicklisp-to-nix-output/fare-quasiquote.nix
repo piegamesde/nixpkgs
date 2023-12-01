@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "fare-quasiquote";
   version = "20200925-git";
 
   description = "Portable, matchable implementation of quasiquote";
 
-  deps = [ args."fare-utils" ];
+  deps = [args."fare-utils"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/fare-quasiquote/2020-09-25/fare-quasiquote-20200925-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "fare-quasiquote";
 
-  asdFilesToKeep = [ "fare-quasiquote.asd" ];
+  asdFilesToKeep = ["fare-quasiquote.asd"];
   overrides = x: x;
 }
 /* (SYSTEM fare-quasiquote DESCRIPTION

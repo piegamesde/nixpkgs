@@ -72,7 +72,7 @@ in
 
       systemPackages = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         example = literalExpression "[ pkgs.firefox pkgs.thunderbird ]";
         description = lib.mdDoc ''
           The set of packages that appear in
@@ -94,7 +94,7 @@ in
 
               ${defaultPackagesText}
         '';
-        example = [ ];
+        example = [];
         description = lib.mdDoc ''
           Set of default packages that aren't strictly necessary
           for a running system, entries can be removed for a more
@@ -118,14 +118,14 @@ in
         type = types.listOf types.str;
         # Note: We need `/lib' to be among `pathsToLink' for NSS modules
         # to work.
-        default = [ ];
-        example = [ "/" ];
+        default = [];
+        example = ["/"];
         description = lib.mdDoc "List of directories to be symlinked in {file}`/run/current-system/sw`.";
       };
 
       extraOutputsToInstall = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "doc"
           "info"

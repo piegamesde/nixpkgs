@@ -18,12 +18,12 @@ buildPythonPackage rec {
   # no tests on PyPI, no tags on GitLab
   doCheck = false;
 
-  pythonImportsCheck = [ "asyncio_rlock" ];
+  pythonImportsCheck = ["asyncio_rlock"];
 
   meta = with lib; {
     description = "Rlock like in threading module but for asyncio";
     homepage = "https://gitlab.com/heckad/asyncio_rlock";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

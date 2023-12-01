@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{config, lib, ...}:
 let
   inherit (lib)
     types
@@ -17,12 +17,12 @@ let
 in
 {
   options = {
-    deferred = mkOption { type = deferredModule; };
-    result = mkOption { default = (evalModules { modules = [ config.deferred ]; }).config.result; };
+    deferred = mkOption {type = deferredModule;};
+    result = mkOption {default = (evalModules {modules = [config.deferred];}).config.result;};
   };
   config = {
     deferred =
-      { ... }:
+      {...}:
       # this should be an attrset, so this fails
       true;
   };

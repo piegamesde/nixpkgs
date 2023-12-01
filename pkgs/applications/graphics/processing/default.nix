@@ -125,6 +125,6 @@ stdenv.mkDerivation rec {
       lgpl21Only
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ evan-goode ];
+    maintainers = with maintainers; [evan-goode];
   };
 }

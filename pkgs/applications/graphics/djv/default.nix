@@ -59,8 +59,8 @@ let
 
     sourceRoot = "source/etc/SuperBuild";
 
-    nativeBuildInputs = [ cmake ];
-    buildInputs = [ libGL ];
+    nativeBuildInputs = [cmake];
+    buildInputs = [libGL];
 
     postPatch = ''
       chmod -R +w .
@@ -126,7 +126,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     alsa-lib
     libGL
@@ -164,7 +164,7 @@ stdenv.mkDerivation rec {
     description = "A professional review software for VFX, animation, and film production";
     homepage = "https://darbyjohnston.github.io/DJV/";
     platforms = platforms.linux;
-    maintainers = [ maintainers.blitz ];
+    maintainers = [maintainers.blitz];
     license = licenses.bsd3;
   };
 }

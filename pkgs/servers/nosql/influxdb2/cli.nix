@@ -21,7 +21,7 @@ buildGoModule {
   inherit src;
 
   vendorHash = "sha256-QNhL5RPkNLTXoQ0NqcZuKec3ZBc3CDTc/XTWvjy55wk=";
-  subPackages = [ "cmd/influx" ];
+  subPackages = ["cmd/influx"];
 
   ldflags = [
     "-X main.commit=v${version}"

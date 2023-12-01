@@ -52,15 +52,15 @@ buildPythonPackage rec {
   ];
 
   # tries to import `transformers` and download HuggingFace data
-  disabledTestPaths = [ "skorch/tests/test_hf.py" ];
+  disabledTestPaths = ["skorch/tests/test_hf.py"];
 
-  pythonImportsCheck = [ "skorch" ];
+  pythonImportsCheck = ["skorch"];
 
   meta = with lib; {
     description = "Scikit-learn compatible neural net library using Pytorch";
     homepage = "https://skorch.readthedocs.io";
     changelog = "https://github.com/skorch-dev/skorch/blob/master/CHANGES.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

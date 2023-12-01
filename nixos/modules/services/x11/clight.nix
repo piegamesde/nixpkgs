@@ -19,7 +19,7 @@ let
     else if isBool v then
       boolToString v
     else if isString v then
-      ''"${escape [ ''"'' ] v}"''
+      ''"${escape [''"''] v}"''
     else if isList v then
       "[ " + concatMapStringsSep ", " toConf v + " ]"
     else if isAttrs v then
@@ -88,7 +88,7 @@ in
       in
       mkOption {
         type = with types; attrsOf (nullOr (either collectionTypes (attrsOf collectionTypes)));
-        default = { };
+        default = {};
         example = {
           captures = 20;
           gamma_long_transition = true;
@@ -122,7 +122,7 @@ in
         }
       ];
 
-    boot.kernelModules = [ "i2c_dev" ];
+    boot.kernelModules = ["i2c_dev"];
     environment.systemPackages = with pkgs; [
       clight
       clightd
@@ -153,8 +153,8 @@ in
     };
 
     systemd.services.clightd = {
-      requires = [ "polkit.service" ];
-      wantedBy = [ "multi-user.target" ];
+      requires = ["polkit.service"];
+      wantedBy = ["multi-user.target"];
 
       description = "Bus service to manage various screen related properties (gamma, dpms, backlight)";
       serviceConfig = {
@@ -177,8 +177,8 @@ in
         "upower.service"
         "clightd.service"
       ];
-      partOf = [ "graphical-session.target" ];
-      wantedBy = [ "graphical-session.target" ];
+      partOf = ["graphical-session.target"];
+      wantedBy = ["graphical-session.target"];
 
       description = "C daemon to adjust screen brightness to match ambient brightness, as computed capturing frames from webcam";
       serviceConfig = {

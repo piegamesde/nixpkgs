@@ -42,12 +42,12 @@ buildPythonPackage rec {
   # no tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [ "sense_energy" ];
+  pythonImportsCheck = ["sense_energy"];
 
   meta = with lib; {
     description = "API for the Sense Energy Monitor";
     homepage = "https://github.com/scottbonline/sense";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

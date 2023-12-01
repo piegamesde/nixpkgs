@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Replacement for fancontrol with more fine-grained control interface in its config file";
     homepage = "https://gitlab.com/mcoffin/fanctl";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ icewind1991 ];
+    maintainers = with maintainers; [icewind1991];
     platforms = platforms.linux;
   };
 }

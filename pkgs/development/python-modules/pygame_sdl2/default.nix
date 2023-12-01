@@ -55,6 +55,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/renpy/pygame_sdl2";
     # Some parts are also available under Zlib License
     license = licenses.lgpl2;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
   };
 }

@@ -29,7 +29,7 @@ buildPythonPackage rec {
     sentry-sdk
   ];
 
-  pythonImportsCheck = [ "django_rq" ];
+  pythonImportsCheck = ["django_rq"];
 
   doCheck = false; # require redis-server
 
@@ -38,6 +38,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/rq/django-rq";
     changelog = "https://github.com/rq/django-rq/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
 
   preConfigure = "substituteInPlace ./configure --replace /usr/bin/file ${file}/bin/file";
 
-  configureFlags = [ "--disable-debug" ];
+  configureFlags = ["--disable-debug"];
 
   meta = {
     description = "GTK 3 application to edit video subtitles";
@@ -74,6 +74,6 @@ stdenv.mkDerivation rec {
     homepage = "http://kitone.github.io/subtitleeditor/";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.plcplc ];
+    maintainers = [lib.maintainers.plcplc];
   };
 }

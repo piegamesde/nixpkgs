@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     inherit version;
-    pname = lib.replaceStrings [ "-" ] [ "_" ] pname;
+    pname = lib.replaceStrings ["-"] ["_"] pname;
     hash = "sha256-iMOE60MimXpY3ok46RrJ/5D2orbLKuI+IWnHQFrdOtg=";
   };
 
@@ -49,6 +49,6 @@ buildPythonPackage rec {
     description = "BSD-licensed HEALPix for Astropy";
     homepage = "https://github.com/astropy/astropy-healpix";
     license = licenses.bsd3;
-    maintainers = [ maintainers.smaret ];
+    maintainers = [maintainers.smaret];
   };
 }

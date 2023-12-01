@@ -79,7 +79,7 @@ let
       + ''
         ${cfg.postCreate}
       ''
-      + optionalString (cfg.prune.keep != { }) ''
+      + optionalString (cfg.prune.keep != {}) ''
         borg prune $extraArgs \
           ${mkKeepArgs cfg} \
           ${
@@ -95,11 +95,11 @@ let
     cfg:
     with cfg.encryption;
     if passCommand != null then
-      { BORG_PASSCOMMAND = passCommand; }
+      {BORG_PASSCOMMAND = passCommand;}
     else if passphrase != null then
-      { BORG_PASSPHRASE = passphrase; }
+      {BORG_PASSPHRASE = passphrase;}
     else
-      { };
+      {};
 
   mkBackupService =
     name: cfg:
@@ -156,7 +156,7 @@ let
     name: cfg:
     nameValuePair "borgbackup-job-${name}" {
       description = "BorgBackup job ${name} timer";
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig = {
         Persistent = cfg.persistentTimer;
         OnCalendar = cfg.startAt;
@@ -170,9 +170,9 @@ let
     {
       original,
       name,
-      set ? { },
+      set ? {},
     }:
-    pkgs.runCommand "${name}-wrapper" { nativeBuildInputs = [ pkgs.makeWrapper ]; } (
+    pkgs.runCommand "${name}-wrapper" {nativeBuildInputs = [pkgs.makeWrapper];} (
       with lib; ''
         makeWrapper "${original}" "$out/bin/${name}" \
           ${concatStringsSep " \\\n " (mapAttrsToList (name: value: ''--set ${name} "${value}"'') set)}
@@ -196,7 +196,7 @@ let
       install = "install -o ${cfg.user} -g ${cfg.group}";
     in
     nameValuePair "borgbackup-job-${name}" (
-      stringAfter [ "users" ] (
+      stringAfter ["users"] (
         ''
           # Ensure that the home directory already exists
           # We can't assert createHome == true because that's not the case for root
@@ -230,7 +230,7 @@ let
         # The service's only task is to ensure that the specified path exists
         Type = "oneshot";
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
 
   mkAuthorizedKey =
@@ -256,11 +256,11 @@ let
       group = cfg.group;
       isSystemUser = true;
     };
-    groups.${cfg.group} = { };
+    groups.${cfg.group} = {};
   };
 
   mkKeysAssertion = name: cfg: {
-    assertion = cfg.authorizedKeys != [ ] || cfg.authorizedKeysAppendOnly != [ ];
+    assertion = cfg.authorizedKeys != [] || cfg.authorizedKeysAppendOnly != [];
     message = "borgbackup.repos.${name} does not make sense" + " without at least one public key";
   };
 
@@ -284,7 +284,7 @@ let
   };
 in
 {
-  meta.maintainers = with maintainers; [ dotlambda ];
+  meta.maintainers = with maintainers; [dotlambda];
   meta.doc = ./borgbackup.md;
 
   ###### interface
@@ -296,7 +296,7 @@ in
       to your system path, so that you can perform maintenance easily.
       See also the chapter about BorgBackup in the NixOS manual.
     '';
-    default = { };
+    default = {};
     example = literalExpression ''
         { # for a local backup
           rootBackup = {
@@ -334,7 +334,7 @@ in
         let
           globalConfig = config;
         in
-        { name, config, ... }:
+        {name, config, ...}:
         {
           options = {
 
@@ -507,7 +507,7 @@ in
                 Exclude paths matching any of the given patterns. See
                 {command}`borg help patterns` for pattern syntax.
               '';
-              default = [ ];
+              default = [];
               example = [
                 "/home/*/.cache"
                 "/nix"
@@ -522,7 +522,7 @@ in
                 matches before an exclude pattern (prefix `-`), the file is
                 backed up. See [{command}`borg help patterns`](https://borgbackup.readthedocs.io/en/stable/usage/help.html#borg-patterns) for pattern syntax.
               '';
-              default = [ ];
+              default = [];
               example = [
                 "+ /home/susan"
                 "- /home/*"
@@ -537,8 +537,8 @@ in
                 If, for example, your preHook script needs to dump files
                 somewhere, put those directories here.
               '';
-              default = [ ];
-              example = [ "/var/backup/mysqldump" ];
+              default = [];
+              example = ["/var/backup/mysqldump"];
             };
 
             privateTmp = mkOption {
@@ -583,7 +583,7 @@ in
                 specified retention options. See {command}`borg help prune`
                 for the available options.
               '';
-              default = { };
+              default = {};
               example = literalExpression ''
                 {
                   within = "1d"; # Keep all archives from the last day
@@ -611,7 +611,7 @@ in
                 Environment variables passed to the backup script.
                 You can for example specify which SSH key to use.
               '';
-              default = { };
+              default = {};
               example = {
                 BORG_RSH = "ssh -i /path/to/key";
               };
@@ -728,10 +728,10 @@ in
       Also, clients do not need to specify the absolute path when accessing the repository,
       i.e. `user@machine:.` is enough. (Note colon and dot.)
     '';
-    default = { };
+    default = {};
     type = types.attrsOf (
       types.submodule (
-        { ... }:
+        {...}:
         {
           options = {
             path = mkOption {
@@ -771,7 +771,7 @@ in
                 the specified keys are restricted to running {command}`borg serve`
                 and can only access this single repository.
               '';
-              default = [ ];
+              default = [];
             };
 
             authorizedKeysAppendOnly = mkOption {
@@ -781,7 +781,7 @@ in
                 Note that archives can still be marked as deleted and are subsequently removed from disk
                 upon accessing the repo with full write access, e.g. when pruning.
               '';
-              default = [ ];
+              default = [];
             };
 
             allowSubRepos = mkOption {
@@ -816,7 +816,7 @@ in
 
   ###### implementation
 
-  config = mkIf (with config.services.borgbackup; jobs != { } || repos != { }) (
+  config = mkIf (with config.services.borgbackup; jobs != {} || repos != {}) (
     with config.services.borgbackup; {
       assertions =
         mapAttrsToList mkPassAssertion jobs
@@ -834,11 +834,11 @@ in
 
       # A job named "foo" is mapped to systemd.timers.borgbackup-job-foo
       # only generate the timer if interval (startAt) is set
-      systemd.timers = mapAttrs' mkBackupTimers (filterAttrs (_: cfg: cfg.startAt != [ ]) jobs);
+      systemd.timers = mapAttrs' mkBackupTimers (filterAttrs (_: cfg: cfg.startAt != []) jobs);
 
       users = mkMerge (mapAttrsToList mkUsersConfig repos);
 
-      environment.systemPackages = with pkgs; [ borgbackup ] ++ (mapAttrsToList mkBorgWrapper jobs);
+      environment.systemPackages = with pkgs; [borgbackup] ++ (mapAttrsToList mkBorgWrapper jobs);
     }
   );
 }

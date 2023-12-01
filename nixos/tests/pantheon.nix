@@ -1,27 +1,27 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   {
     name = "pantheon";
 
-    meta = with lib; { maintainers = teams.pantheon.members; };
+    meta = with lib; {maintainers = teams.pantheon.members;};
 
     nodes.machine =
-      { ... }:
+      {...}:
 
       {
-        imports = [ ./common/user-account.nix ];
+        imports = [./common/user-account.nix];
 
         services.xserver.enable = true;
         services.xserver.desktopManager.pantheon.enable = true;
 
-        environment.systemPackages = [ pkgs.xdotool ];
+        environment.systemPackages = [pkgs.xdotool];
       };
 
     enableOCR = true;
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         user = nodes.machine.users.users.alice;
         bob = nodes.machine.users.users.bob;

@@ -32,8 +32,8 @@ let
     {
       version,
       hash,
-      extraBuildInputs ? [ ],
-      extraNativeBuildInputs ? [ ],
+      extraBuildInputs ? [],
+      extraNativeBuildInputs ? [],
       extraPatch ? "",
     }:
     stdenv.mkDerivation rec {
@@ -57,7 +57,7 @@ let
       ];
 
       strictDeps = true;
-      depsBuildBuild = [ pkg-config ];
+      depsBuildBuild = [pkg-config];
 
       nativeBuildInputs = [
         meson
@@ -129,15 +129,15 @@ rec {
   wlroots_0_15 = generic {
     version = "0.15.1";
     hash = "sha256-MFR38UuB/wW7J9ODDUOfgTzKLse0SSMIRYTpEaEdRwM=";
-    extraBuildInputs = [ vulkan-loader ];
-    extraNativeBuildInputs = [ glslang ];
+    extraBuildInputs = [vulkan-loader];
+    extraNativeBuildInputs = [glslang];
   };
 
   wlroots_0_16 = generic {
     version = "0.16.2";
     hash = "sha256-JeDDYinio14BOl6CbzAPnJDOnrk4vgGNMN++rcy2ItQ=";
-    extraBuildInputs = [ vulkan-loader ];
-    extraNativeBuildInputs = [ glslang ];
+    extraBuildInputs = [vulkan-loader];
+    extraNativeBuildInputs = [glslang];
     extraPatch = ''
       substituteInPlace backend/drm/meson.build \
         --replace /usr/share/hwdata/ ${hwdata}/share/hwdata/

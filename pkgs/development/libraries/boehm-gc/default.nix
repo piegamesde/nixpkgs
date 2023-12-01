@@ -81,7 +81,7 @@ stdenv.mkDerivation (
       # non-copyleft, X11-style license
       changelog = "https://github.com/ivmai/bdwgc/blob/v${finalAttrs.version}/ChangeLog";
       license = "https://hboehm.info/gc/license.txt";
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       platforms = platforms.all;
     };
   }

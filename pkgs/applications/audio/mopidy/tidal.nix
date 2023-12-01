@@ -23,12 +23,12 @@ python3Packages.buildPythonApplication rec {
     pytest-mock
   ];
 
-  pytestFlagsArray = [ "tests/" ];
+  pytestFlagsArray = ["tests/"];
 
   meta = with lib; {
     description = "Mopidy extension for playing music from Tidal";
     homepage = "https://github.com/tehkillerbee/mopidy-tidal";
     license = licenses.mit;
-    maintainers = [ maintainers.rodrgz ];
+    maintainers = [maintainers.rodrgz];
   };
 }

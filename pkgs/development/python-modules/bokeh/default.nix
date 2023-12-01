@@ -51,9 +51,9 @@ buildPythonPackage rec {
 
   disabled = isPyPy || isPy27;
 
-  nativeBuildInputs = [ pythonImportsCheckHook ];
+  nativeBuildInputs = [pythonImportsCheckHook];
 
-  pythonImportsCheck = [ "bokeh" ];
+  pythonImportsCheck = ["bokeh"];
 
   nativeCheckInputs = [
     mock
@@ -80,7 +80,7 @@ buildPythonPackage rec {
     numpy
     packaging
     typing-extensions
-  ] ++ lib.optionals (isPy27) [ futures ];
+  ] ++ lib.optionals (isPy27) [futures];
 
   # This test suite is a complete pain. Somehow it can't find its fixtures.
   doCheck = false;
@@ -89,6 +89,6 @@ buildPythonPackage rec {
     description = "Statistical and novel interactive HTML plots for Python";
     homepage = "https://github.com/bokeh/bokeh";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ orivej ];
+    maintainers = with lib.maintainers; [orivej];
   };
 }

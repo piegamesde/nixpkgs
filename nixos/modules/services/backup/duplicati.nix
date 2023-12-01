@@ -58,12 +58,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.duplicati ];
+    environment.systemPackages = [pkgs.duplicati];
 
     systemd.services.duplicati = {
       description = "Duplicati backup";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = mkMerge [
         {
           User = cfg.user;
@@ -71,7 +71,7 @@ in
           ExecStart = "${pkgs.duplicati}/bin/duplicati-server --webservice-interface=${cfg.interface} --webservice-port=${toString cfg.port} --server-datafolder=${cfg.dataDir}";
           Restart = "on-failure";
         }
-        (mkIf (cfg.dataDir == "/var/lib/duplicati") { StateDirectory = "duplicati"; })
+        (mkIf (cfg.dataDir == "/var/lib/duplicati") {StateDirectory = "duplicati";})
       ];
     };
 

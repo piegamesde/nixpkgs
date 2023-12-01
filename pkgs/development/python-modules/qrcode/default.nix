@@ -20,14 +20,14 @@ buildPythonPackage rec {
     hash = "sha256-ndlpRUgn4Sfb2TaWsgdHI55tVA4IKTfJDxSslbMPWEU=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     typing-extensions
     pypng
   ];
 
-  passthru.optional-dependencies.pil = [ pillow ];
+  passthru.optional-dependencies.pil = [pillow];
 
   nativeCheckInputs = [
     mock

@@ -85,10 +85,10 @@ stdenv.mkDerivation rec {
       sonic
       pcaudiolib
     ]
-    ++ lib.optionals withFlite [ flite ]
-    ++ lib.optionals withPico [ svox ];
+    ++ lib.optionals withFlite [flite]
+    ++ lib.optionals withPico [svox];
 
-  pythonPath = [ pyxdg ];
+  pythonPath = [pyxdg];
 
   configureFlags =
     [
@@ -96,12 +96,12 @@ stdenv.mkDerivation rec {
       ''--with-default-audio-method="libao,pulse,alsa,oss"''
       "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
     ]
-    ++ lib.optionals withPulse [ "--with-pulse" ]
-    ++ lib.optionals withAlsa [ "--with-alsa" ]
-    ++ lib.optionals withLibao [ "--with-libao" ]
-    ++ lib.optionals withOss [ "--with-oss" ]
-    ++ lib.optionals withEspeak [ "--with-espeak-ng" ]
-    ++ lib.optionals withPico [ "--with-pico" ];
+    ++ lib.optionals withPulse ["--with-pulse"]
+    ++ lib.optionals withAlsa ["--with-alsa"]
+    ++ lib.optionals withLibao ["--with-libao"]
+    ++ lib.optionals withOss ["--with-oss"]
+    ++ lib.optionals withEspeak ["--with-espeak-ng"]
+    ++ lib.optionals withPico ["--with-pico"];
 
   postPatch = ''
     substituteInPlace src/modules/pico.c --replace "/usr/share/pico/lang" "${svox}/share/pico/lang"

@@ -30,11 +30,11 @@ buildGoModule rec {
 
   sourceRoot = ".";
 
-  subPackages = [ "cmd/ipfs" ];
+  subPackages = ["cmd/ipfs"];
 
-  buildInputs = [ openssl ];
-  nativeBuildInputs = [ pkg-config ];
-  tags = [ "openssl" ];
+  buildInputs = [openssl];
+  nativeBuildInputs = [pkg-config];
+  tags = ["openssl"];
 
   passthru.tests.kubo = nixosTests.kubo;
 

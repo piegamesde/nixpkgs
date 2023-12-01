@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-6hbSxVtvg0Eh3rYyp0VLCg+uJdXRMLFfa+l667B2yfw=";
   };
 
-  propagatedBuildInputs = [ simplejson ];
+  propagatedBuildInputs = [simplejson];
 
   nativeCheckInputs = [
     mock
@@ -43,6 +43,6 @@ buildPythonPackage rec {
 
     homepage = "https://github.com/tpltnt/pyutil";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

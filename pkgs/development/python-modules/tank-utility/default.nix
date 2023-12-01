@@ -43,12 +43,12 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [ "tank_utility" ];
+  pythonImportsCheck = ["tank_utility"];
 
   meta = with lib; {
     description = "Library for the Tank Utility API";
     homepage = "https://github.com/krismolendyke/tank-utility";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  cmakeFlags = [ "-C../cmake/caches/PredefinedParams.cmake" ];
+  cmakeFlags = ["-C../cmake/caches/PredefinedParams.cmake"];
 
   # The default install target installs heaps of LLVM stuff.
   #

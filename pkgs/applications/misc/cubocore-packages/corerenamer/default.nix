@@ -35,7 +35,7 @@ mkDerivation rec {
     description = "A batch file renamer from the C Suite";
     homepage = "https://gitlab.com/cubocore/coreapps/corerenamer";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dan4ik605743 ];
+    maintainers = with maintainers; [dan4ik605743];
     platforms = platforms.linux;
   };
 }

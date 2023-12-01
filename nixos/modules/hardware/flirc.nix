@@ -13,7 +13,7 @@ in
   );
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.flirc ];
-    services.udev.packages = [ pkgs.flirc ];
+    environment.systemPackages = [pkgs.flirc];
+    services.udev.packages = [pkgs.flirc];
   };
 }

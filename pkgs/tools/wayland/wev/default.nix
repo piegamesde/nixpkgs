@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   # for scdoc
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     pkg-config
     scdoc
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     libxkbcommon
   ];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     homepage = "https://git.sr.ht/~sircmpwn/wev";
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       X11 tool xev.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
     platforms = platforms.linux;
   };
 }

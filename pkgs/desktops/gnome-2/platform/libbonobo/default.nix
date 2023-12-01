@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     intltool
     procps
   ];
-  buildInputs = [ libxml2 ];
+  buildInputs = [libxml2];
   propagatedBuildInputs = [
     popt
     glib

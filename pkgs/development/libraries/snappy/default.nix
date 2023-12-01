@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # See https://github.com/NixOS/nixpkgs/pull/219778#issuecomment-1464884412
   # and https://github.com/NixOS/nixpkgs/pull/221215#issuecomment-1482564003.

@@ -23,15 +23,15 @@ in
     extraArgs = mkOption {
       type = with types; listOf str;
       description = mdDoc "Extra arguments passed to `mmsd-tng`";
-      default = [ ];
-      example = [ "--debug" ];
+      default = [];
+      example = ["--debug"];
     };
   };
   config = mkIf cfg.enable {
-    services.dbus.packages = [ dbusServiceFile ];
+    services.dbus.packages = [dbusServiceFile];
     systemd.user.services.mmsd = {
-      after = [ "ModemManager.service" ];
-      aliases = [ "dbus-org.ofono.mms.service" ];
+      after = ["ModemManager.service"];
+      aliases = ["dbus-org.ofono.mms.service"];
       serviceConfig = {
         Type = "dbus";
         ExecStart = "${pkgs.mmsd-tng}/bin/mmsdtng " + escapeShellArgs cfg.extraArgs;

@@ -18,7 +18,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-XlHbGkwdOV1nobjtQP/M3IIEuzXHBuwf52EsXf3MWoM=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
+  nativeBuildInputs = with python3.pkgs; [poetry-core];
 
   propagatedBuildInputs = with python3.pkgs; [
     requests
@@ -30,7 +30,7 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "GraphQL password brute-force and fuzzing utility";
     homepage = "https://github.com/nicholasaleks/CrackQL";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
   };
 }

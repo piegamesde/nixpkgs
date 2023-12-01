@@ -44,6 +44,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/Ajatt-Tools/mpvacious";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ kmicklas ];
+    maintainers = with maintainers; [kmicklas];
   };
 }

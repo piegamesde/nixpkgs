@@ -33,7 +33,7 @@ buildGoModule (
       homepage = "https://git.sr.ht/~sircmpwn/pages.sr.ht";
       description = "Web hosting service for the sr.ht network";
       license = licenses.agpl3Only;
-      maintainers = with maintainers; [ eadwu ];
+      maintainers = with maintainers; [eadwu];
     };
     # There is no ./loaders but this does not cause troubles
     # to go generate

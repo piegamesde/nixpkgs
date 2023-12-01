@@ -27,13 +27,13 @@ buildPythonPackage rec {
   # Note that pythonImportsCheck is not used because it requires a Django app
   doCheck = false;
 
-  passthru.tests.wagtail-factories = callPackage ./tests.nix { };
+  passthru.tests.wagtail-factories = callPackage ./tests.nix {};
 
   meta = with lib; {
     description = "Factory boy classes for wagtail";
     homepage = "https://github.com/wagtail/wagtail-factories";
     changelog = "https://github.com/wagtail/wagtail-factories/blob/${version}/CHANGES";
     license = licenses.mit;
-    maintainers = with maintainers; [ sephi ];
+    maintainers = with maintainers; [sephi];
   };
 }

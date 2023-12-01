@@ -16,7 +16,7 @@ buildNimPackage rec {
     hash = "sha256-mDmDlhOGoYYjKgF5j808oT2NqRlfcOdLSDE3WtdJFQ0=";
   };
 
-  propagatedBuildInputs = [ vmath ];
+  propagatedBuildInputs = [vmath];
 
   doCheck = true;
 
@@ -25,7 +25,7 @@ buildNimPackage rec {
     src.meta
     // {
       description = "2d collision library";
-      license = [ licenses.mit ];
-      maintainers = [ maintainers.ehmry ];
+      license = [licenses.mit];
+      maintainers = [maintainers.ehmry];
     };
 }

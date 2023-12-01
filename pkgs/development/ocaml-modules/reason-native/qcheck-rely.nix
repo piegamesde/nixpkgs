@@ -10,7 +10,7 @@
 {
   pname = "qcheck-rely";
 
-  nativeBuildInputs = [ reason ];
+  nativeBuildInputs = [reason];
 
   patches = [
     (fetchpatch {

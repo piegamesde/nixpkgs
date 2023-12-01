@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     gst_all_1.gst-libav
   ];
 
-  passthru.updateScript = directoryListingUpdater { };
+  passthru.updateScript = directoryListingUpdater {};
 
   meta = with lib; {
     description = "Video and audio player along the lines of mplayer";

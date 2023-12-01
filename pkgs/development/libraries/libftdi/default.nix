@@ -18,14 +18,14 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs =
-    [ libusb-compat-0_1 ]
+    [libusb-compat-0_1]
     ++ lib.optionals stdenv.isDarwin [
       libobjc
       Security
       IOKit
     ];
 
-  propagatedBuildInputs = [ libusb-compat-0_1 ];
+  propagatedBuildInputs = [libusb-compat-0_1];
 
   # Hack to avoid TMPDIR in RPATHs.
   preFixup = ''rm -rf "$(pwd)" '';

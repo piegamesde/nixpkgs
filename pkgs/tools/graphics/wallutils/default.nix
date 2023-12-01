@@ -25,13 +25,13 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  patches = [ ./000-add-nixos-dirs-to-default-wallpapers.patch ];
+  patches = [./000-add-nixos-dirs-to-default-wallpapers.patch];
 
   excludedPackages = [
     "./pkg/event/cmd" # Development tools
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libX11
@@ -66,7 +66,7 @@ buildGoModule rec {
     description = "Utilities for handling monitors, resolutions, and (timed) wallpapers";
     inherit (src.meta) homepage;
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.AndersonTorres ];
+    maintainers = [lib.maintainers.AndersonTorres];
     inherit (wayland.meta) platforms;
     badPlatforms = lib.platforms.darwin;
   };

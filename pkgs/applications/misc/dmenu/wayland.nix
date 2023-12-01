@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     meson
     ninja
@@ -69,6 +69,6 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     description = "dmenu for wayland-compositors";
     homepage = "https://github.com/nyyManni/dmenu-wayland";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

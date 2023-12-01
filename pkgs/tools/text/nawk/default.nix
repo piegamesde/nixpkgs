@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-W5WkGk4WY3g1qSFjJxFBa8KY1k13oK6WAMg5GH6kKU4=";
   };
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ bison ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
+  nativeBuildInputs = [bison];
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
     "HOSTCC=${if stdenv.buildPlatform.isDarwin then "clang" else "cc"}"
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.cs.princeton.edu/~bwk/btl.mirror/";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.konimex ];
+    maintainers = [lib.maintainers.konimex];
     platforms = lib.platforms.all;
   };
 }

@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "clump";
   version = "20160825-git";
@@ -19,7 +19,7 @@ rec {
 
   packageName = "clump";
 
-  asdFilesToKeep = [ "clump.asd" ];
+  asdFilesToKeep = ["clump.asd"];
   overrides = x: x;
 }
 /* (SYSTEM clump DESCRIPTION Library for operations on different kinds of trees

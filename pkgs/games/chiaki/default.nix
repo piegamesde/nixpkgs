@@ -51,7 +51,7 @@ mkDerivation rec {
       libevdev
       udev
     ]
-    ++ lib.optionals stdenv.isDarwin [ qtmacextras ];
+    ++ lib.optionals stdenv.isDarwin [qtmacextras];
 
   doCheck = true;
 
@@ -61,7 +61,7 @@ mkDerivation rec {
     homepage = "https://git.sr.ht/~thestr4ng3r/chiaki";
     description = "Free and Open Source PlayStation Remote Play Client";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ delroth ];
+    maintainers = with maintainers; [delroth];
     platforms = platforms.all;
   };
 }

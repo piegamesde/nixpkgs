@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "06bwqb3l7syy4c1d8xynxwakmdxvm3qfm8r834nidsknvpdckd9z";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postPatch = ''
     patchShebangs make-helper.bsh
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     rm -r usr
   '';
 
-  makeFlags = [ "DESTDIR=${placeholder "out"}" ];
+  makeFlags = ["DESTDIR=${placeholder "out"}"];
 
   postInstall = ''
     # Specify binary paths: tor, firejail, iptables
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     description = "Force programs to exclusively use tor network";
     homepage = "https://github.com/orjail/orjail";
     license = licenses.wtfpl;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
     platforms = platforms.linux;
   };
 }

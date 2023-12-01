@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     openssl
     ncurses
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     homepage = "http://mcabber.com/";
     description = "Small Jabber console client";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = with platforms; linux;
     downloadPage = "http://mcabber.com/files/";
   };

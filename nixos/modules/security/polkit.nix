@@ -45,7 +45,7 @@ in
 
     security.polkit.adminIdentities = mkOption {
       type = types.listOf types.str;
-      default = [ "unix-group:wheel" ];
+      default = ["unix-group:wheel"];
       example = [
         "unix-user:alice"
         "unix-group:admin"
@@ -66,18 +66,18 @@ in
       pkgs.polkit.out
     ];
 
-    systemd.packages = [ pkgs.polkit.out ];
+    systemd.packages = [pkgs.polkit.out];
 
     systemd.services.polkit.serviceConfig.ExecStart = [
       ""
       "${pkgs.polkit.out}/lib/polkit-1/polkitd ${optionalString (!cfg.debug) "--no-debug"}"
     ];
 
-    systemd.services.polkit.restartTriggers = [ config.system.path ];
+    systemd.services.polkit.restartTriggers = [config.system.path];
     systemd.services.polkit.stopIfChanged = false;
 
     # The polkit daemon reads action/rule files
-    environment.pathsToLink = [ "/share/polkit-1" ];
+    environment.pathsToLink = ["/share/polkit-1"];
 
     # PolKit rules for NixOS.
     environment.etc."polkit-1/rules.d/10-nixos.rules".text = ''
@@ -88,9 +88,9 @@ in
       ${cfg.extraConfig}
     ''; # TODO: validation on compilation (at least against typos)
 
-    services.dbus.packages = [ pkgs.polkit.out ];
+    services.dbus.packages = [pkgs.polkit.out];
 
-    security.pam.services.polkit-1 = { };
+    security.pam.services.polkit-1 = {};
 
     security.wrappers = {
       pkexec = {
@@ -119,6 +119,6 @@ in
       group = "polkituser";
     };
 
-    users.groups.polkituser = { };
+    users.groups.polkituser = {};
   };
 }

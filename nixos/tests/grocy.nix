@@ -1,18 +1,18 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "grocy";
-    meta = with pkgs.lib.maintainers; { maintainers = [ ma27 ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [ma27];};
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         services.grocy = {
           enable = true;
           hostName = "localhost";
           nginx.enableSSL = false;
         };
-        environment.systemPackages = [ pkgs.jq ];
+        environment.systemPackages = [pkgs.jq];
       };
 
     testScript = ''

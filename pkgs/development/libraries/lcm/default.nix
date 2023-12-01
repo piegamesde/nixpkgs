@@ -29,13 +29,13 @@ stdenv.mkDerivation rec {
     cmake
   ];
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   meta = with lib; {
     description = "Lightweight Communications and Marshalling (LCM)";
     homepage = "https://github.com/lcm-proj/lcm";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ kjeremy ];
+    maintainers = with maintainers; [kjeremy];
     platforms = lib.platforms.unix;
   };
 }

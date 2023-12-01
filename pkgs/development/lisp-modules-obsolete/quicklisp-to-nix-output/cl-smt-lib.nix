@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-smt-lib";
   version = "20211020-git";
@@ -19,7 +19,7 @@ rec {
 
   packageName = "cl-smt-lib";
 
-  asdFilesToKeep = [ "cl-smt-lib.asd" ];
+  asdFilesToKeep = ["cl-smt-lib.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-smt-lib DESCRIPTION

@@ -51,22 +51,22 @@ buildPythonPackage rec {
     pyqt-builder
   ];
 
-  buildInputs = with qt6Packages; [ qtcharts ];
+  buildInputs = with qt6Packages; [qtcharts];
 
-  propagatedBuildInputs = [ pyqt6 ];
+  propagatedBuildInputs = [pyqt6];
 
   dontConfigure = true;
 
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "PyQt6.QtCharts" ];
+  pythonImportsCheck = ["PyQt6.QtCharts"];
 
   meta = with lib; {
     description = "Python bindings for Qt6 QtCharts";
     homepage = "https://riverbankcomputing.com/";
     license = licenses.gpl3Only;
     platforms = platforms.mesaPlatforms;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

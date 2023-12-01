@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-WorRyfjWucV8UhAjvuW+22CRzPcz5tjXF7Has4wrLMI=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   prePatch = ''
     substituteInPlace usr/sbin/flexibee-server \
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     description = "Client for an accouting economic system";
     homepage = "https://www.flexibee.eu/";
     license = licenses.unfree;
-    maintainers = [ maintainers.mmahut ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.mmahut];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -39,9 +39,9 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "yabadaba" ];
+  pythonImportsCheck = ["yabadaba"];
 
   preCheck = ''
     export HOME=$(mktemp -d);
@@ -51,6 +51,6 @@ buildPythonPackage rec {
     description = "Abstraction layer allowing for common interactions with databases and records";
     homepage = "https://github.com/usnistgov/yabadaba";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

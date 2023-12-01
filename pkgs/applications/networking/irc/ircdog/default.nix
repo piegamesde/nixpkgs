@@ -22,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/ergochat/ircdog";
     changelog = "https://github.com/ergochat/ircdog/releases/tag/v${version}";
     license = licenses.isc;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

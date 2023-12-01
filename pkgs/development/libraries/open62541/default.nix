@@ -82,7 +82,7 @@ stdenv.mkDerivation (
 
     buildInputs = lib.optional (withEncryption != false) encryptionBackend;
 
-    buildFlags = [ "all" ] ++ lib.optional withDoc "doc";
+    buildFlags = ["all"] ++ lib.optional withDoc "doc";
 
     doCheck = true;
 
@@ -97,7 +97,7 @@ stdenv.mkDerivation (
     preCheck =
       let
         disabledTests =
-          lib.optionals (withEncryption == "mbedtls") [ "encryption_basic128rsa15" ]
+          lib.optionals (withEncryption == "mbedtls") ["encryption_basic128rsa15"]
           ++ lib.optionals withPubSub [
             # "Cannot set socket option IP_ADD_MEMBERSHIP"
             "pubsub_publish"
@@ -109,7 +109,7 @@ stdenv.mkDerivation (
           ];
         regex = "^(${builtins.concatStringsSep "|" disabledTests})$";
       in
-      lib.optionalString (disabledTests != [ ]) ''
+      lib.optionalString (disabledTests != []) ''
         checkFlagsArray+=(ARGS="-E ${lib.escapeRegex regex}")
       '';
 
@@ -167,7 +167,7 @@ stdenv.mkDerivation (
       '';
       homepage = "https://www.open62541.org";
       license = licenses.mpl20;
-      maintainers = with maintainers; [ panicgh ];
+      maintainers = with maintainers; [panicgh];
       platforms = platforms.linux;
     };
   }

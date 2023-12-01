@@ -5,7 +5,7 @@
   lib,
   ninja,
   pkgs,
-  python3Packages ? { },
+  python3Packages ? {},
   pythonSupport ? false,
   stdenv,
   symlinkJoin,
@@ -68,7 +68,7 @@ stdenv.mkDerivation (
       );
 
     buildInputs =
-      [ cuda-redist ]
+      [cuda-redist]
       ++ lib.optionals pythonSupport (
         with python3Packages; [
           pybind11
@@ -76,7 +76,7 @@ stdenv.mkDerivation (
         ]
       );
 
-    propagatedBuildInputs = lib.optionals pythonSupport (with python3Packages; [ torch ]);
+    propagatedBuildInputs = lib.optionals pythonSupport (with python3Packages; [torch]);
 
     # NOTE: We cannot use pythonImportsCheck for this module because it uses torch to immediately
     #   initailize CUDA and GPU access is not allowed in the nix build environment.
@@ -153,7 +153,7 @@ stdenv.mkDerivation (
       description = "Lightning fast C++/CUDA neural network framework";
       homepage = "https://github.com/NVlabs/tiny-cuda-nn";
       license = licenses.bsd3;
-      maintainers = with maintainers; [ connorbaker ];
+      maintainers = with maintainers; [connorbaker];
       platforms = platforms.linux;
     };
   }

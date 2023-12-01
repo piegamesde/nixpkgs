@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libsodium
     libarchive
@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage rec {
     zeromq
   ];
 
-  cargoBuildFlags = [ "--package hab" ];
+  cargoBuildFlags = ["--package hab"];
 
   checkPhase = ''
     runHook preCheck
@@ -52,7 +52,7 @@ rustPlatform.buildRustPackage rec {
     description = "An application automation framework";
     homepage = "https://www.habitat.sh";
     license = licenses.asl20;
-    maintainers = with maintainers; [ rushmorem ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [rushmorem];
+    platforms = ["x86_64-linux"];
   };
 }

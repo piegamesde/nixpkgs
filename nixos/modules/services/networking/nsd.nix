@@ -45,7 +45,7 @@ let
   nsdEnv = pkgs.buildEnv {
     name = "nsd-env";
 
-    paths = [ configFile ] ++ mapAttrsToList (name: zone: writeZoneData name zone.data) zoneConfigs;
+    paths = [configFile] ++ mapAttrsToList (name: zone: writeZoneData name zone.data) zoneConfigs;
 
     postBuild = ''
       echo "checking zone files"
@@ -200,20 +200,20 @@ let
     ${forEach "  provide-xfr: " zone.provideXFR}
   '';
 
-  zoneConfigs = zoneConfigs' { } "" { children = cfg.zones; };
+  zoneConfigs = zoneConfigs' {} "" {children = cfg.zones;};
 
   zoneConfigs' =
     parent: name: zone:
     if
-      !(zone ? children) || zone.children == null || zone.children == { }
+      !(zone ? children) || zone.children == null || zone.children == {}
     # leaf -> actual zone
     then
-      listToAttrs [ (nameValuePair name (parent // zone)) ]
+      listToAttrs [(nameValuePair name (parent // zone))]
 
     # fork -> pattern
     else
       zipAttrsWith (name: head) (
-        mapAttrsToList (name: child: zoneConfigs' (parent // zone // { children = { }; }) name child)
+        mapAttrsToList (name: child: zoneConfigs' (parent // zone // {children = {};}) name child)
           zone.children
       );
 
@@ -232,7 +232,7 @@ let
 
       allowNotify = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "192.0.2.0/24 NOKEY"
           "10.0.0.1-10.0.0.5 my_tsig_key_name"
@@ -267,7 +267,7 @@ let
         # type here with `zoneConfigs`, since that would set all the attributes
         # to default values, breaking the parent inheriting function.
         type = types.attrsOf types.anything;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Children zones inherit all options of their parents. Attributes
           defined in a child will overwrite the ones of its parent. Only
@@ -368,7 +368,7 @@ let
 
       notify = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "10.0.0.1@3721 my_key"
           "::5 NOKEY"
@@ -409,7 +409,7 @@ let
 
       provideXFR = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "192.0.2.0/24 NOKEY"
           "192.0.2.0/24 my_tsig_key_name"
@@ -422,7 +422,7 @@ let
 
       requestXFR = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Format: `[AXFR|UDP] <ip-address> <key-name | NOKEY>`
         '';
@@ -445,7 +445,7 @@ let
               "all"
             ]
           );
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Whitelists the given rrl-types.
         '';
@@ -489,9 +489,9 @@ let
 
   dnssecZones = (filterAttrs (n: v: if v ? dnssec then v.dnssec else false) zoneConfigs);
 
-  dnssec = dnssecZones != { };
+  dnssec = dnssecZones != {};
 
-  dnssecTools = pkgs.bind.override { enablePython = true; };
+  dnssecTools = pkgs.bind.override {enablePython = true;};
 
   signZones = optionalString dnssec ''
     mkdir -p ${stateDir}/dnssec
@@ -771,7 +771,7 @@ in
           };
         }
       );
-      default = { };
+      default = {};
       example = literalExpression ''
         { "tsig.example.org" = {
             algorithm = "hmac-md5";
@@ -905,7 +905,7 @@ in
 
     zones = mkOption {
       type = types.attrsOf zoneOptions;
-      default = { };
+      default = {};
       example = literalExpression ''
         { "serverGroup1" = {
             provideXFR = [ "10.1.2.3 NOKEY" ];
@@ -958,7 +958,7 @@ in
     };
 
     environment = {
-      systemPackages = [ nsdPkg ];
+      systemPackages = [nsdPkg];
       etc."nsd/nsd.conf".source = "${configFile}/nsd.conf";
     };
 
@@ -975,8 +975,8 @@ in
     systemd.services.nsd = {
       description = "NSD authoritative only domain name service";
 
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       startLimitBurst = 4;
       startLimitIntervalSec = 5 * 60; # 5 mins
@@ -1016,7 +1016,7 @@ in
     systemd.timers.nsd-dnssec = mkIf dnssec {
       description = "Automatic DNSSEC key rollover";
 
-      wantedBy = [ "nsd.service" ];
+      wantedBy = ["nsd.service"];
 
       timerConfig = {
         OnActiveSec = cfg.dnssecInterval;
@@ -1027,8 +1027,8 @@ in
     systemd.services.nsd-dnssec = mkIf dnssec {
       description = "DNSSEC key rollover";
 
-      wantedBy = [ "nsd.service" ];
-      before = [ "nsd.service" ];
+      wantedBy = ["nsd.service"];
+      before = ["nsd.service"];
 
       script = signZones;
 
@@ -1038,5 +1038,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ hrdinka ];
+  meta.maintainers = with lib.maintainers; [hrdinka];
 }

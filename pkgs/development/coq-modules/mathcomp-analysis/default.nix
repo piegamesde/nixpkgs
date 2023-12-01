@@ -124,7 +124,7 @@ let
       ];
       intra-deps =
         if package == "single" then
-          [ ]
+          []
         else
           map mathcomp_ (head (splitList (lib.pred.equal package) packages));
       pkgpath =
@@ -173,7 +173,7 @@ let
 
         meta = {
           description = "Analysis library compatible with Mathematical Components";
-          maintainers = [ maintainers.cohencyril ];
+          maintainers = [maintainers.cohencyril];
           license = licenses.cecill-c;
         };
 
@@ -206,12 +206,12 @@ let
             && o.version != "dev"
             && versions.isLt "0.6" o.version
           )
-          { preBuild = ""; }
+          {preBuild = "";}
       );
       patched-derivation = patched-derivation2.overrideAttrs (
         o:
         optionalAttrs (o.version != null && (o.version == "dev" || versions.isGe "0.3.4" o.version)) {
-          propagatedBuildInputs = o.propagatedBuildInputs ++ [ hierarchy-builder ];
+          propagatedBuildInputs = o.propagatedBuildInputs ++ [hierarchy-builder];
         }
       );
     in

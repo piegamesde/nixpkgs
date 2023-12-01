@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
 
-  mesonFlags = [ "-Dgtk_doc=true" ];
+  mesonFlags = ["-Dgtk_doc=true"];
 
   # Disable until tests are fixed upstream https://gitlab.gnome.org/GNOME/calls/-/issues/258
   doCheck = false;

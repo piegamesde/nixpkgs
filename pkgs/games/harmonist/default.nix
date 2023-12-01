@@ -33,6 +33,6 @@ buildGoModule rec {
     homepage = "https://harmonist.tuxfamily.org/";
     license = licenses.isc;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ aaronjheng ];
+    maintainers = with maintainers; [aaronjheng];
   };
 }

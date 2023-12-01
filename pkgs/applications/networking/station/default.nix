@@ -14,7 +14,7 @@ let
     sha256 = "0lhiwvnf94is9klvzrqv2wri53gj8nms9lg2678bs4y58pvjxwid";
   };
 
-  appimageContents = appimageTools.extractType2 { inherit name src; };
+  appimageContents = appimageTools.extractType2 {inherit name src;};
 in
 appimageTools.wrapType2 rec {
   inherit name src;
@@ -38,7 +38,7 @@ appimageTools.wrapType2 rec {
     description = "A single place for all of your web applications";
     homepage = "https://getstation.com";
     license = licenses.mit;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [];
   };
 }

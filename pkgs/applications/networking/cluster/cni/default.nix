@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-nH/myA/KdTeFXvmBymXITyx5fdCGnWRn6hNRinXc3/s=";
 
-  subPackages = [ "./cnitool" ];
+  subPackages = ["./cnitool"];
 
   ldflags = [
     "-s"

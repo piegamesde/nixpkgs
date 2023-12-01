@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
   # the rust build system complains that nix alters the checksums
   dontFixLibtool = true;
 
-  patches = [ ./patches/0001-dont-download-rustc.patch ];
+  patches = [./patches/0001-dont-download-rustc.patch];
 
   postPatch = ''
     echo "applying patch ./rustc-${rustcVersion}-src.patch"
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     libxml2
     # for cargo
     openssl
-    (curl.override { inherit openssl; })
+    (curl.override {inherit openssl;})
   ];
 
   makeFlags = [
@@ -152,6 +152,6 @@ stdenv.mkDerivation rec {
       mit
       asl20
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

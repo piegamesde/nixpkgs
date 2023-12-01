@@ -139,7 +139,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
   cmakeFlags = [
     "-Dstatic=OFF"
     "-DBoost_NO_BOOST_CMAKE=ON"
@@ -192,6 +192,6 @@ stdenv.mkDerivation rec {
       RaghavSood
     ];
     license = licenses.isc;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

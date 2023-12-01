@@ -29,6 +29,6 @@ buildGoModule rec {
     description = "A personal multi-machine syncable key value store";
     homepage = "https://github.com/charmbracelet/skate";
     license = licenses.mit;
-    maintainers = with maintainers; [ penguwin ];
+    maintainers = with maintainers; [penguwin];
   };
 }

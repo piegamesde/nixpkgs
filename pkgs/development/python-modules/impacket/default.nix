@@ -39,13 +39,13 @@ buildPythonPackage rec {
   # RecursionError: maximum recursion depth exceeded
   doCheck = false;
 
-  pythonImportsCheck = [ "impacket" ];
+  pythonImportsCheck = ["impacket"];
 
   meta = with lib; {
     description = "Network protocols Constructors and Dissectors";
     homepage = "https://github.com/SecureAuthCorp/impacket";
     # Modified Apache Software License, Version 1.1
     license = licenses.free;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

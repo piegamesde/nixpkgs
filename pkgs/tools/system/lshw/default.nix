@@ -23,10 +23,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-PzbNGc1pPiPLWWgTeWoNfAo+SsXgi1HcjnXfYXA9S0I=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
-    [ hwdata ]
+    [hwdata]
     ++ lib.optionals withGUI [
       gtk2
       sqlite
@@ -37,9 +37,9 @@ stdenv.mkDerivation rec {
     "VERSION=${src.rev}"
   ];
 
-  buildFlags = [ "all" ] ++ lib.optional withGUI "gui";
+  buildFlags = ["all"] ++ lib.optional withGUI "gui";
 
-  installTargets = [ "install" ] ++ lib.optional withGUI "install-gui";
+  installTargets = ["install"] ++ lib.optional withGUI "install-gui";
 
   enableParallelBuilding = true;
 
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     homepage = "https://ezix.org/project/wiki/HardwareLiSter";
     description = "Provide detailed information on the hardware configuration of the machine";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ thiagokokada ];
+    maintainers = with maintainers; [thiagokokada];
     platforms = platforms.linux;
   };
 }

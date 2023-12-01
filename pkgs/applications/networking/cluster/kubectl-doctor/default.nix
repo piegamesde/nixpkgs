@@ -36,6 +36,6 @@ buildGoModule rec {
     homepage = "https://github.com/emirozer/kubectl-doctor";
     changelog = "https://github.com/emirozer/kubectl-doctor/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = [ maintainers.zimbatm ];
+    maintainers = [maintainers.zimbatm];
   };
 }

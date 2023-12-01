@@ -23,13 +23,13 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   meta = with lib; {
     description = "USB viewer for Linux";
     license = licenses.gpl2Only;
     homepage = "http://www.kroah.com/linux-usb/";
-    maintainers = with maintainers; [ shamilton ];
+    maintainers = with maintainers; [shamilton];
     platforms = platforms.linux;
   };
 }

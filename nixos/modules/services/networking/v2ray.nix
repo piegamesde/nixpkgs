@@ -54,7 +54,7 @@ with lib;
               protocol = "http";
             }
           ];
-          outbounds = [ { protocol = "freedom"; } ];
+          outbounds = [{protocol = "freedom";}];
         };
         description = lib.mdDoc ''
           The configuration object.
@@ -92,13 +92,13 @@ with lib;
 
       environment.etc."v2ray/config.json".source = configFile;
 
-      systemd.packages = [ cfg.package ];
+      systemd.packages = [cfg.package];
 
       systemd.services.v2ray = {
-        restartTriggers = [ config.environment.etc."v2ray/config.json".source ];
+        restartTriggers = [config.environment.etc."v2ray/config.json".source];
 
         # Workaround: https://github.com/NixOS/nixpkgs/issues/81138
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
       };
     };
 }

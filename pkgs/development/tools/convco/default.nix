@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       Security
@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A Conventional commit cli";
     homepage = "https://github.com/convco/convco";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ hoverbear ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [hoverbear];
   };
 }

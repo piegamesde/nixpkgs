@@ -53,13 +53,13 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=MinSizeRel" ];
+  cmakeFlags = ["-DCMAKE_BUILD_TYPE=MinSizeRel"];
 
   meta = {
     homepage = "https://github.com/keyleds/keyleds";
     description = "Advanced RGB animation service for Logitech keyboards";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

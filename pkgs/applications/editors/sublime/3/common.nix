@@ -53,7 +53,7 @@ let
     cairo
     pango
   ];
-  redirects = [ "/usr/bin/pkexec=${pkexecPath}" ];
+  redirects = ["/usr/bin/pkexec=${pkexecPath}"];
 in
 let
   binaryPackage = stdenv.mkDerivation {
@@ -149,7 +149,7 @@ stdenv.mkDerivation (rec {
 
   ${primaryBinary} = binaryPackage;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase =
     ''
@@ -182,7 +182,7 @@ stdenv.mkDerivation (rec {
       demin-dmitriy
       zimbatm
     ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     platforms = [
       "x86_64-linux"

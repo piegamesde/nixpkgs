@@ -40,7 +40,7 @@ buildPythonPackage rec {
     hash = "sha256-T2DB3oWePYR8qKfUeVDMUA5JGdMk/onbpjBt2fWhCuw=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     aiohttp
@@ -65,7 +65,7 @@ buildPythonPackage rec {
 
   preCheck =
     let
-      pythonEnv = python.withPackages (_: propagatedBuildInputs ++ nativeCheckInputs ++ [ pytest ]);
+      pythonEnv = python.withPackages (_: propagatedBuildInputs ++ nativeCheckInputs ++ [pytest]);
     in
     ''
       export PYTHONPATH=${pythonEnv}/${python.sitePackages}

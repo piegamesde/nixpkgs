@@ -17,19 +17,19 @@ buildPythonPackage rec {
     sha256 = "sha256-kfEAYCXbK0HTf1Gut/APkpw2krMa6C6mU/dJ0dsqzS0=";
   };
 
-  checkInputs = [ django ];
+  checkInputs = [django];
 
   checkPhase = ''
     ${python.interpreter} -m django test --settings=telepath.test_settings
   '';
 
-  pythonImportsCheck = [ "telepath" ];
+  pythonImportsCheck = ["telepath"];
 
   meta = with lib; {
     description = "A library for exchanging data between Python and JavaScript";
     homepage = "https://github.com/wagtail/telepath";
     changelog = "https://github.com/wagtail/telepath/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ sephi ];
+    maintainers = with maintainers; [sephi];
   };
 }

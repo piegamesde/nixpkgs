@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     description = "Emulator for IBM PC computers and clones";
     homepage = "https://pcem-emulator.co.uk/";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.terin ];
+    maintainers = [maintainers.terin];
     platforms = platforms.linux ++ platforms.windows;
   };
 }

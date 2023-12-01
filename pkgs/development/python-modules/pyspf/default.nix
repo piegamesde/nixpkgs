@@ -17,7 +17,7 @@ buildPythonPackage rec {
     sha256 = "0bmimlmwrq9glnjc4i6pwch30n3y5wyqmkjfyayxqxkfrixqwydi";
   };
 
-  propagatedBuildInputs = [ pydns ];
+  propagatedBuildInputs = [pydns];
 
   # requires /etc/resolv.conf to exist
   doCheck = false;
@@ -25,7 +25,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "http://bmsi.com/python/milter.html";
     description = "Python API for Sendmail Milters (SPF)";
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     license = licenses.gpl2;
   };
 }

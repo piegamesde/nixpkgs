@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-JEdjy91+8xJPNzjkumadT05SxcvtM551+SjLN1SQcAU=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     openssl
     curl

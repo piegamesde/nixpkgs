@@ -23,7 +23,7 @@ mkDerivation rec {
     qtbase
     qtscript
   ];
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   patches = [
     ./grantlee-nix-profiles.patch
@@ -61,7 +61,7 @@ mkDerivation rec {
       and the design of Django is reused in Grantlee.'';
 
     homepage = "https://github.com/steveire/grantlee";
-    maintainers = [ maintainers.ttuegel ];
+    maintainers = [maintainers.ttuegel];
     license = licenses.lgpl21;
     inherit (qtbase.meta) platforms;
   };

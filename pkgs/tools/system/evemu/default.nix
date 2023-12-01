@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       lgpl3Only
       gpl3Only
     ];
-    maintainers = [ maintainers.amorsillo ];
+    maintainers = [maintainers.amorsillo];
     platforms = platforms.linux;
   };
 }

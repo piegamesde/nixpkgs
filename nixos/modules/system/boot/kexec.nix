@@ -1,16 +1,16 @@
-{ pkgs, lib, ... }:
+{pkgs, lib, ...}:
 
 {
   config = lib.mkIf (lib.meta.availableOn pkgs.stdenv.hostPlatform pkgs.kexec-tools) {
-    environment.systemPackages = [ pkgs.kexec-tools ];
+    environment.systemPackages = [pkgs.kexec-tools];
 
     systemd.services.prepare-kexec = {
       description = "Preparation for kexec";
-      wantedBy = [ "kexec.target" ];
-      before = [ "systemd-kexec.service" ];
+      wantedBy = ["kexec.target"];
+      before = ["systemd-kexec.service"];
       unitConfig.DefaultDependencies = false;
       serviceConfig.Type = "oneshot";
-      path = [ pkgs.kexec-tools ];
+      path = [pkgs.kexec-tools];
       script = ''
         # Don't load the current system profile if we already have a kernel loaded
         if [[ 1 = "$(</sys/kernel/kexec_loaded)" ]] ; then

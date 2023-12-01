@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
     HOME="$(mktemp -d)"
   '';
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-I${libtirpc.dev}/include/tirpc" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-I${libtirpc.dev}/include/tirpc"];
   NIX_LDFLAGS = [
     "-L${libtirpc.dev}/lib"
     "-ltirpc"
@@ -128,13 +128,13 @@ stdenv.mkDerivation rec {
       remove-references-to -t "${go}" $out/lib/libnvidia-container-go.so.1.9.0
       wrapProgram $out/bin/nvidia-container-cli --prefix LD_LIBRARY_PATH : ${libraryPath}
     '';
-  disallowedReferences = [ go ];
+  disallowedReferences = [go];
 
   meta = with lib; {
     homepage = "https://github.com/NVIDIA/libnvidia-container";
     description = "NVIDIA container runtime library";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

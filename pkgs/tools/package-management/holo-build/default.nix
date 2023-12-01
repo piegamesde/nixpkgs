@@ -32,7 +32,7 @@ buildGoModule rec {
     perl
   ];
 
-  subPackages = [ "src/holo-build" ];
+  subPackages = ["src/holo-build"];
 
   ldflags = [
     "-s"
@@ -44,7 +44,7 @@ buildGoModule rec {
     make build/man/holo-build.8 VERSION=${version}
   '';
 
-  nativeCheckInputs = [ file ];
+  nativeCheckInputs = [file];
 
   checkPhase = ''
     ln -s ../../go/bin/holo-build build/holo-build
@@ -68,6 +68,6 @@ buildGoModule rec {
     description = "Cross-distribution system package compiler";
     homepage = "https://holocm.org/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

@@ -96,6 +96,6 @@ in
       }
     '';
 
-    environment.systemPackages = [ commandNotFound ];
+    environment.systemPackages = [commandNotFound];
   };
 }

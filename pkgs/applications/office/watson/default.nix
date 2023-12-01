@@ -47,7 +47,7 @@ buildPythonApplication rec {
     click-didyoumean
     requests
   ];
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   meta = with lib; {
     homepage = "https://tailordev.github.io/Watson/";

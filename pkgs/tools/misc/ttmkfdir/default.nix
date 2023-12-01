@@ -51,7 +51,7 @@ stdenv.mkDerivation {
     bison
     pkg-config
   ];
-  buildInputs = [ freetype ];
+  buildInputs = [freetype];
 
   meta = {
     description = "Create fonts.dir for TTF font directory";

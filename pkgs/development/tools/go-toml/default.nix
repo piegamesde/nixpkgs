@@ -30,7 +30,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Go library for the TOML language";
     homepage = "https://github.com/pelletier/go-toml";
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
     license = licenses.mit;
   };
 }

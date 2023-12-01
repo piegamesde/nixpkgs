@@ -51,7 +51,7 @@ mkCoqDerivation {
       possible. We present a few implementations of addition chains,
       with proofs of their correctness.
     '';
-    maintainers = with maintainers; [ Zimmi48 ];
+    maintainers = with maintainers; [Zimmi48];
     license = licenses.mit;
     platforms = platforms.unix;
   };

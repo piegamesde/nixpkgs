@@ -12,8 +12,8 @@
   withExamples ? false,
 }:
 let
-  deps = import ./deps.nix { inherit fetchurl; };
-  testInputs = import ./testinputs.nix { inherit fetchurl; };
+  deps = import ./deps.nix {inherit fetchurl;};
+  testInputs = import ./testinputs.nix {inherit fetchurl;};
 in
 stdenv.mkDerivation rec {
   pname = "mkgmap";
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       mkdir -p test/resources/in/img
       ${lib.concatMapStringsSep "\n"
         (res: ''
-          cp ${res} test/resources/in/${builtins.replaceStrings [ "__" ] [ "/" ] res.name}
+          cp ${res} test/resources/in/${builtins.replaceStrings ["__"] ["/"] res.name}
         '')
         testInputs}
     '';
@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
       binaryBytecode # deps
     ];
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.all;
   };
 }

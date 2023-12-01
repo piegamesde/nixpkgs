@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "hu_dot_dwim_dot_def_plus_swank";
   version = "hu.dwim.def-20201016-darcs";
@@ -23,7 +23,7 @@ rec {
 
   packageName = "hu.dwim.def+swank";
 
-  asdFilesToKeep = [ "hu.dwim.def+swank.asd" ];
+  asdFilesToKeep = ["hu.dwim.def+swank.asd"];
   overrides = x: x;
 }
 /* (SYSTEM hu.dwim.def+swank DESCRIPTION System lacks description SHA256

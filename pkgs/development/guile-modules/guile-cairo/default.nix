@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-YjLU3Cxb2dMxE5s7AfQ0PD4fucp4mDYaaZIGcwlBoHs=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     cairo
     expat
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   doCheck = false; # Cannot find unit-test module from guile-lib
-  nativeCheckInputs = [ guile-lib ];
+  nativeCheckInputs = [guile-lib];
 
   meta = with lib; {
     homepage = "https://www.nongnu.org/guile-cairo/";
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       management, exceptions, macros, and a dynamic programming environment.
     '';
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ vyp ];
+    maintainers = with maintainers; [vyp];
     platforms = platforms.linux;
   };
 }

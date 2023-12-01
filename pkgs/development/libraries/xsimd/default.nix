@@ -15,17 +15,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-onALN6agtrHWigtFlCeefD9CiRZI4Y690XTzy2UDnrk=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  cmakeFlags = [ "-DBUILD_TESTS=ON" ];
+  cmakeFlags = ["-DBUILD_TESTS=ON"];
 
   doCheck = true;
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
   checkTarget = "xtest";
   GTEST_FILTER =
     let
       # Upstream Issue: https://github.com/xtensor-stack/xsimd/issues/456
-      filteredTests = lib.optionals stdenv.hostPlatform.isDarwin [ "error_gamma_test/*" ];
+      filteredTests = lib.optionals stdenv.hostPlatform.isDarwin ["error_gamma_test/*"];
     in
     "-${builtins.concatStringsSep ":" filteredTests}";
 
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "C++ wrappers for SIMD intrinsics";
     homepage = "https://github.com/xtensor-stack/xsimd";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ tobim ];
+    maintainers = with maintainers; [tobim];
     platforms = platforms.all;
   };
 }

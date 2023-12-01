@@ -17,7 +17,7 @@ crossLibcStdenv.mkDerivation {
     sha256 = "131r4v0nn68flnqibjcvhsrys3hs89bn0i4vwmrzgjd7v1rbgqav";
   };
   dontUpdateAutotoolsGnuConfigScripts = true;
-  configurePlatforms = [ "target" ];
+  configurePlatforms = ["target"];
   enableParallelBuilding = true;
 
   nativeBuildInputs = [
@@ -25,7 +25,7 @@ crossLibcStdenv.mkDerivation {
     flex
     bison
   ];
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   # newlib expects CC to build for build platform, not host platform
   preConfigure = ''
     export CC=cc

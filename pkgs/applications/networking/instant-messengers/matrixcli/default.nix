@@ -62,7 +62,7 @@ buildPythonApplication rec {
   meta = {
     description = "CLI client for Matrix";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.linux;
     homepage = "https://github.com/saadnpq/matrixcli";
   };

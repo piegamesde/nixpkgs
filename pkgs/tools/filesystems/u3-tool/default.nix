@@ -20,6 +20,6 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/u3-tool/";
     license = licenses.gpl2;
     platforms = with platforms; linux;
-    maintainers = with maintainers; [ makefu ];
+    maintainers = with maintainers; [makefu];
   };
 }

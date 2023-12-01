@@ -18,10 +18,10 @@ buildGoModule rec {
   proxyVendor = true;
   vendorSha256 = "sha256-CUiex+ljzpbkqbXCmOjO62YTcgqOIE9Cg3JB6CWUbsk=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # We only want the witness binary, not the helper utilities for generating docs.
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"

@@ -16,10 +16,10 @@ luarocks.overrideAttrs (
       sha256 = "sha256-7L8B+/C7Kzt25Ec+OsM2rliYB2/wyZQ3OT63V7AaOxo=";
     };
 
-    patches = [ ];
+    patches = [];
 
     passthru = {
-      updateScript = unstableGitUpdater { };
+      updateScript = unstableGitUpdater {};
     };
 
     meta = old.meta // {

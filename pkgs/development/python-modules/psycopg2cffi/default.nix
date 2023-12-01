@@ -28,23 +28,23 @@ buildPythonPackage rec {
     sha256 = "09hsnjkix1c0vlhmfvrp8pchpnz2ya4xrchyq15czj527nx2dmy2";
   };
 
-  nativeBuildInputs = [ postgresql ];
+  nativeBuildInputs = [postgresql];
   propagatedBuildInputs = [
     six
     cffi
   ];
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # NB: The tests need a postgres instance running to test against, and so we
   # disable them.
   doCheck = false;
 
-  pythonImportsCheck = [ "psycopg2cffi" ];
+  pythonImportsCheck = ["psycopg2cffi"];
 
   meta = with lib; {
     description = "An implementation of the psycopg2 module using cffi";
     homepage = "https://pypi.org/project/psycopg2cffi/";
-    license = with licenses; [ lgpl3Plus ];
-    maintainers = with maintainers; [ lovesegfault ];
+    license = with licenses; [lgpl3Plus];
+    maintainers = with maintainers; [lovesegfault];
   };
 }

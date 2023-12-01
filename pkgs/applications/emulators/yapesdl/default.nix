@@ -18,11 +18,11 @@ stdenv.mkDerivation (
       hash = "sha256-QGF3aS/YSzdGxHONKyA/iTewEVYsjBAsKARVMXkFV2k=";
     };
 
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
 
-    buildInputs = [ SDL2 ];
+    buildInputs = [SDL2];
 
-    makeFlags = [ "CC=${stdenv.cc.targetPrefix}c++" ];
+    makeFlags = ["CC=${stdenv.cc.targetPrefix}c++"];
 
     installPhase = ''
       runHook preInstall
@@ -35,7 +35,7 @@ stdenv.mkDerivation (
       homepage = "http://yape.plus4.net/";
       description = "Multiplatform Commodore 64 and 264 family emulator";
       license = lib.licenses.gpl2Plus;
-      maintainers = with lib.maintainers; [ AndersonTorres ];
+      maintainers = with lib.maintainers; [AndersonTorres];
       platforms = lib.platforms.unix;
       broken = stdenv.isDarwin;
     };

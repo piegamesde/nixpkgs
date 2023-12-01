@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage rec {
        * wasm2luau: translate WebAssembly Luau source code
     '';
     homepage = "https://github.com/Rerumu/Wasynth";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ wackbyte ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [wackbyte];
   };
 }

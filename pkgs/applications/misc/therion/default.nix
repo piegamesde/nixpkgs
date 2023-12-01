@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     export OUTDIR=$out
   '';
 
-  cmakeFlags = [ "-DBUILD_THBOOK=OFF" ];
+  cmakeFlags = ["-DBUILD_THBOOK=OFF"];
 
   buildInputs = [
     expat
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
         ]
       }
     wrapProgram $out/bin/xtherion \
-      --prefix PATH : ${lib.makeBinPath [ tk ]}
+      --prefix PATH : ${lib.makeBinPath [tk]}
     runHook postFixup
   '';
 
@@ -96,6 +96,6 @@ stdenv.mkDerivation rec {
     homepage = "https://therion.speleo.sk/";
     changelog = "https://github.com/therion/therion/blob/${src.rev}/CHANGES";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
   };
 }

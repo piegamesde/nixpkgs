@@ -20,14 +20,14 @@ stdenv.mkDerivation rec {
     sha256 = "0p33wyqi27y0q1mvjv5nn6l3vvqlg6b8yd6k2l07bax670bl0q3g";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     deadbeef
     fftw
     glib
     gtk3
   ];
-  makeFlags = [ "gtk3" ];
+  makeFlags = ["gtk3"];
 
   installPhase = ''
     runHook preInstall
@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/cboxdoerfer/ddb_musical_spectrum";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.ddelabru ];
+    maintainers = [maintainers.ddelabru];
   };
 }

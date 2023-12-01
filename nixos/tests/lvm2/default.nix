@@ -1,7 +1,7 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../../.. {inherit system config;},
   lib ? pkgs.lib,
   kernelVersionsToTest ? [
     "4.19"
@@ -16,7 +16,7 @@
 let
   tests =
     let
-      callTest = p: lib.flip (import p) { inherit system pkgs; };
+      callTest = p: lib.flip (import p) {inherit system pkgs;};
     in
     {
       thinpool = {
@@ -48,11 +48,11 @@ let
     };
 in
 lib.listToAttrs (
-  lib.filter (x: x.value != { }) (
+  lib.filter (x: x.value != {}) (
     lib.flip lib.concatMap kernelVersionsToTest (
       version:
       let
-        v' = lib.replaceStrings [ "." ] [ "_" ] version;
+        v' = lib.replaceStrings ["."] ["_"] version;
       in
       lib.flip lib.mapAttrsToList tests (
         name: t:

@@ -89,7 +89,7 @@ mkDerivation rec {
     vty
     yaml
   ];
-  libraryToolDepends = [ hpack ];
+  libraryToolDepends = [hpack];
   executableHaskellDepends = libraryHaskellDepends;
   testHaskellDepends = [
     tasty
@@ -109,7 +109,7 @@ mkDerivation rec {
   description = "Ethereum smart contract fuzzer";
   homepage = "https://github.com/crytic/echidna";
   license = lib.licenses.agpl3Plus;
-  maintainers = with lib.maintainers; [ arturcygan ];
+  maintainers = with lib.maintainers; [arturcygan];
   platforms = lib.platforms.unix;
   mainProgram = "echidna-test";
 }

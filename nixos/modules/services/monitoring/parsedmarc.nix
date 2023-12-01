@@ -25,7 +25,7 @@ let
         else if isSecret v then
           hashString "sha256" v._secret
         else
-          throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}";
+          throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty {}) v}";
     };
   };
   inherit (builtins)
@@ -258,7 +258,7 @@ in
                 attrset or not (refer to [](#opt-services.parsedmarc.settings) for
                 details).
               '';
-              apply = x: if isAttrs x || x == null then x else { _secret = x; };
+              apply = x: if isAttrs x || x == null then x else {_secret = x;};
             };
           };
 
@@ -306,7 +306,7 @@ in
                 attrset or not (refer to [](#opt-services.parsedmarc.settings) for
                 details).
               '';
-              apply = x: if isAttrs x || x == null then x else { _secret = x; };
+              apply = x: if isAttrs x || x == null then x else {_secret = x;};
             };
 
             from = lib.mkOption {
@@ -329,9 +329,9 @@ in
 
           elasticsearch = {
             hosts = lib.mkOption {
-              default = [ ];
+              default = [];
               type = with lib.types; listOf str;
-              apply = x: if x == [ ] then null else lib.concatStringsSep "," x;
+              apply = x: if x == [] then null else lib.concatStringsSep "," x;
               description = lib.mdDoc ''
                 A list of Elasticsearch hosts to push parsed reports
                 to.
@@ -359,7 +359,7 @@ in
                 attrset or not (refer to [](#opt-services.parsedmarc.settings) for
                 details).
               '';
-              apply = x: if isAttrs x || x == null then x else { _secret = x; };
+              apply = x: if isAttrs x || x == null then x else {_secret = x;};
             };
 
             ssl = lib.mkOption {
@@ -420,7 +420,7 @@ in
 
     services.dovecot2 = lib.mkIf cfg.provision.localMail.enable {
       enable = true;
-      protocols = [ "imap" ];
+      protocols = ["imap"];
     };
 
     services.postfix = lib.mkIf cfg.provision.localMail.enable {
@@ -480,7 +480,7 @@ in
     services.parsedmarc.settings = lib.mkMerge [
       (lib.mkIf cfg.provision.elasticsearch {
         elasticsearch = {
-          hosts = [ "localhost:9200" ];
+          hosts = ["localhost:9200"];
           ssl = false;
         };
       })
@@ -510,8 +510,8 @@ in
               _: v:
               !elem v [
                 null
-                [ ]
-                { }
+                []
+                {}
               ]
             ))
             cfg.settings;
@@ -533,7 +533,7 @@ in
         secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
       in
       {
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         after = [
           "postfix.service"
           "dovecot2.service"
@@ -610,5 +610,5 @@ in
   };
 
   meta.doc = ./parsedmarc.md;
-  meta.maintainers = [ lib.maintainers.talyz ];
+  meta.maintainers = [lib.maintainers.talyz];
 }

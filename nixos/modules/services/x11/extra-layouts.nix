@@ -82,7 +82,7 @@ let
     };
   };
 
-  xkb_patched = pkgs.xorg.xkeyboardconfig_custom { layouts = config.services.xserver.extraLayouts; };
+  xkb_patched = pkgs.xorg.xkeyboardconfig_custom {layouts = config.services.xserver.extraLayouts;};
 in
 
 {
@@ -92,7 +92,7 @@ in
   options.services.xserver = {
     extraLayouts = mkOption {
       type = types.attrsOf (types.submodule layoutOpts);
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           mine = {
@@ -114,7 +114,7 @@ in
 
   ###### implementation
 
-  config = mkIf (layouts != { }) {
+  config = mkIf (layouts != {}) {
 
     environment.sessionVariables = {
       # runtime override supported by multiple libraries e. g. libxkbcommon

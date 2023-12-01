@@ -25,12 +25,12 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "swaggerhole" ];
+  pythonImportsCheck = ["swaggerhole"];
 
   meta = with lib; {
     description = "Tool to searching for secret on swaggerhub";
     homepage = "https://github.com/Liodeus/swaggerHole";
-    license = with licenses; [ gpl3Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Plus];
+    maintainers = with maintainers; [fab];
   };
 }

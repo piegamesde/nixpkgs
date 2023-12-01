@@ -14,7 +14,7 @@ else
 
     inherit (cppo) version useDune2 src;
 
-    propagatedBuildInputs = [ ocamlbuild ];
+    propagatedBuildInputs = [ocamlbuild];
 
     meta = cppo.meta // {
       description = "Plugin to use cppo with ocamlbuild";

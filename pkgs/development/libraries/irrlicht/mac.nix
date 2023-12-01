@@ -12,7 +12,7 @@
 }:
 
 let
-  common = import ./common.nix { inherit fetchzip; };
+  common = import ./common.nix {inherit fetchzip;};
 in
 
 stdenv.mkDerivation rec {
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     chmod -R 777 $sourceRoot
   '';
 
-  patches = [ ./mac_device.patch ];
+  patches = [./mac_device.patch];
   dontFixCmake = true;
 
   cmakeFlags = [
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     "-DIRRLICHT_BUILD_TOOLS=OFF"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     OpenGL
     Cocoa

@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "marshal";
   version = "cl-20211020-git";
 
   description = "marshal: Simple (de)serialization of Lisp datastructures.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-marshal/2021-10-20/cl-marshal-20211020-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "marshal";
 
-  asdFilesToKeep = [ "marshal.asd" ];
+  asdFilesToKeep = ["marshal.asd"];
   overrides = x: x;
 }
 /* (SYSTEM marshal DESCRIPTION

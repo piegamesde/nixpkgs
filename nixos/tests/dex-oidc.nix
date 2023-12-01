@@ -1,13 +1,13 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
   {
     name = "dex-oidc";
-    meta.maintainers = with lib.maintainers; [ Flakebi ];
+    meta.maintainers = with lib.maintainers; [Flakebi];
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        environment.systemPackages = with pkgs; [ jq ];
+        environment.systemPackages = with pkgs; [jq];
         services.dex = {
           enable = true;
           settings = {
@@ -22,7 +22,7 @@ import ./make-test-python.nix (
               {
                 id = "oidcclient";
                 name = "Client";
-                redirectURIs = [ "https://example.com/callback" ];
+                redirectURIs = ["https://example.com/callback"];
                 secretFile = "/etc/dex/oidcclient";
               }
             ];
@@ -49,7 +49,7 @@ import ./make-test-python.nix (
 
         services.postgresql = {
           enable = true;
-          ensureDatabases = [ "dex" ];
+          ensureDatabases = ["dex"];
           ensureUsers = [
             {
               name = "dex";

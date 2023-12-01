@@ -38,13 +38,13 @@ stdenv.mkDerivation rec {
     vulkan-loader
   ] ++ lib.optional stdenv.isDarwin moltenvk;
 
-  buildFlags = [ "DO_USERDIRS=1" ];
+  buildFlags = ["DO_USERDIRS=1"];
 
   preInstall = ''
     mkdir -p "$out/bin"
   '';
 
-  makeFlags = [ "prefix=$(out) bindir=$(out)/bin" ];
+  makeFlags = ["prefix=$(out) bindir=$(out)/bin"];
 
   postFixup = ''
     wrapProgram $out/bin/vkquake \
@@ -66,6 +66,6 @@ stdenv.mkDerivation rec {
     '';
 
     platforms = with platforms; linux ++ darwin;
-    maintainers = with maintainers; [ ylh ];
+    maintainers = with maintainers; [ylh];
   };
 }

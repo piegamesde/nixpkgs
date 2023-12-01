@@ -34,12 +34,12 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [ "twitch" ];
+  pythonImportsCheck = ["twitch"];
 
   meta = with lib; {
     description = "Twitch module for Python";
     homepage = "https://github.com/PetterKraabol/Twitch-Python";
     license = licenses.mit;
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [marsam];
   };
 }

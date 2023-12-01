@@ -20,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-N6xZjCREjJlhR6f8m65WJswUQv/TTdTbk670+C46UWQ=";
   };
 
-  propagatedBuildInputs = [ mkdocs ];
+  propagatedBuildInputs = [mkdocs];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "tests.py" ];
+  pytestFlagsArray = ["tests.py"];
 
   # disable failing tests
   disabledTests = [
@@ -36,6 +36,6 @@ buildPythonPackage rec {
     description = "Define your own hooks for mkdocs, without having to create a new package.";
     homepage = "https://github.com/aklajnert/mkdocs-simple-hooks";
     license = licenses.mit;
-    maintainers = with maintainers; [ arjan-s ];
+    maintainers = with maintainers; [arjan-s];
   };
 }

@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  patches = [ ./spooles.patch ];
+  patches = [./spooles.patch];
 
   postPatch = lib.optionalString stdenv.hostPlatform.isDarwin ''
     substituteInPlace makefile --replace '-Wl,-soname' '-Wl,-install_name'
@@ -43,13 +43,13 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   meta = with lib; {
     homepage = "http://www.netlib.org/linalg/spooles/";
     description = "Library for solving sparse real and complex linear systems of equations";
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ gebner ];
+    maintainers = with maintainers; [gebner];
     platforms = platforms.unix;
   };
 }

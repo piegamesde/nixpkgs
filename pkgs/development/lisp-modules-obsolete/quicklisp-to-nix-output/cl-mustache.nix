@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-mustache";
   version = "20200325-git";
 
   description = "Mustache Template Renderer";
 
-  deps = [ args."uiop" ];
+  deps = [args."uiop"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-mustache/2020-03-25/cl-mustache-20200325-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "cl-mustache";
 
-  asdFilesToKeep = [ "cl-mustache.asd" ];
+  asdFilesToKeep = ["cl-mustache.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-mustache DESCRIPTION Mustache Template Renderer SHA256

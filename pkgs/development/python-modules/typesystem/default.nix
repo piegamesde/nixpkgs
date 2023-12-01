@@ -27,14 +27,14 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "typesystem" ];
+  pythonImportsCheck = ["typesystem"];
 
   meta = with lib; {
     description = "A type system library for Python";
     homepage = "https://github.com/encode/typesystem";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

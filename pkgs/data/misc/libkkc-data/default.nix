@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ python3.pkgs.marisa ];
+  nativeBuildInputs = [python3.pkgs.marisa];
 
   strictDeps = true;
 
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "Language model data package for libkkc";
     homepage = "https://github.com/ueno/libkkc";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ vanzef ];
+    maintainers = with maintainers; [vanzef];
     platforms = platforms.linux;
   };
 }

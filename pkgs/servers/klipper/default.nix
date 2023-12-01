@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   sourceRoot = "source/klippy";
 
   # NB: This is needed for the postBuild step
-  nativeBuildInputs = [ (python3.withPackages (p: with p; [ cffi ])) ];
+  nativeBuildInputs = [(python3.withPackages (p: with p; [cffi]))];
 
   buildInputs = [
     (python3.withPackages (
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { url = meta.homepage; };
+  passthru.updateScript = unstableGitUpdater {url = meta.homepage;};
 
   meta = with lib; {
     description = "The Klipper 3D printer firmware";

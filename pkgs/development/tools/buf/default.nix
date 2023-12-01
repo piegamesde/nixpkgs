@@ -29,7 +29,7 @@ buildGoModule rec {
     ./skip_test_requiring_dotgit.patch
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -73,7 +73,7 @@ buildGoModule rec {
     runHook postInstall
   '';
 
-  passthru.tests.version = testers.testVersion { package = buf; };
+  passthru.tests.version = testers.testVersion {package = buf;};
 
   meta = with lib; {
     homepage = "https://buf.build";

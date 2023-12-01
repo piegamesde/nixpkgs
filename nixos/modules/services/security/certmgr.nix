@@ -38,13 +38,13 @@ let
         if isAttrs spec then
           collect isString (filterAttrsRecursive (n: v: isAttrs v || n == "path") spec)
         else
-          [ spec ]
+          [spec]
       )
       (attrValues cfg.specs)
   );
 
   preStart = ''
-    ${concatStringsSep " \\\n" ([ "mkdir -p" ] ++ map escapeShellArg specPaths)}
+    ${concatStringsSep " \\\n" (["mkdir -p"] ++ map escapeShellArg specPaths)}
     ${cfg.package}/bin/certmgr -f ${certmgrYaml} check
   '';
 in
@@ -90,7 +90,7 @@ in
     };
 
     specs = mkOption {
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           exampleCert =
@@ -207,7 +207,7 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion = cfg.specs != { };
+        assertion = cfg.specs != {};
         message = "Certmgr specs cannot be empty.";
       }
       {
@@ -227,9 +227,9 @@ in
 
     systemd.services.certmgr = {
       description = "certmgr";
-      path = mkIf (cfg.svcManager == "command") [ pkgs.bash ];
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      path = mkIf (cfg.svcManager == "command") [pkgs.bash];
+      after = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
       inherit preStart;
 
       serviceConfig = {

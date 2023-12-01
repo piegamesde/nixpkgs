@@ -36,12 +36,12 @@ buildPythonPackage rec {
     transifex-cli
   ];
 
-  pythonImportsCheck = [ "sphinx_intl" ];
+  pythonImportsCheck = ["sphinx_intl"];
 
   meta = with lib; {
     description = "Sphinx utility that make it easy to translate and to apply translation";
     homepage = "https://github.com/sphinx-doc/sphinx-intl";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ thornycrackers ];
+    maintainers = with maintainers; [thornycrackers];
   };
 }

@@ -42,6 +42,6 @@ buildPythonPackage rec {
     description = "Python library for reading, writing, and converting computational chemistry file formats and generating input files";
     homepage = "https://github.com/theochem/iodata";
     license = licenses.lgpl3Only;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

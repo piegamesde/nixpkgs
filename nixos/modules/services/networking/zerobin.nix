@@ -87,13 +87,13 @@ in
           createHome = true;
         }
       else
-        { };
-    users.groups.${cfg.group} = { };
+        {};
+    users.groups.${cfg.group} = {};
 
     systemd.services.zerobin = {
       enable = true;
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig.ExecStart = "${pkgs.zerobin}/bin/zerobin ${cfg.listenAddress} ${toString cfg.listenPort} false ${cfg.user} ${cfg.group} ${zerobin_config}";
       serviceConfig.PrivateTmp = "yes";
       serviceConfig.User = cfg.user;

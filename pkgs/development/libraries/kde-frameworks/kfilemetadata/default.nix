@@ -18,8 +18,8 @@
 
 mkDerivation {
   pname = "kfilemetadata";
-  nativeBuildInputs = [ extra-cmake-modules ];
-  buildInputs = lib.optionals stdenv.isLinux [ attr ] ++ [
+  nativeBuildInputs = [extra-cmake-modules];
+  buildInputs = lib.optionals stdenv.isLinux [attr] ++ [
     ebook_tools
     exiv2
     ffmpeg
@@ -31,5 +31,5 @@ mkDerivation {
     qtmultimedia
     taglib
   ];
-  patches = [ ./cmake-install-paths.patch ];
+  patches = [./cmake-install-paths.patch];
 }

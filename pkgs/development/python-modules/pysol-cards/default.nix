@@ -25,6 +25,6 @@ buildPythonPackage rec {
     description = "Generates Solitaire deals";
     homepage = "https://github.com/shlomif/pysol_cards";
     license = licenses.mit;
-    maintainers = with maintainers; [ mwolfe ];
+    maintainers = with maintainers; [mwolfe];
   };
 }

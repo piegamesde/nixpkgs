@@ -26,9 +26,9 @@ buildPythonPackage rec {
     hash = "sha256-H7aA1nHd8JI3+4dzZhu+GOv/0Y2KRdDkn6Fvc76ny/A=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   nativeCheckInputs = [
     lxml
@@ -51,13 +51,13 @@ buildPythonPackage rec {
     "tests/test_tiff2jp2.py"
   ];
 
-  pythonImportsCheck = [ "glymur" ];
+  pythonImportsCheck = ["glymur"];
 
   meta = with lib; {
     description = "Tools for accessing JPEG2000 files";
     homepage = "https://github.com/quintusdias/glymur";
     changelog = "https://github.com/quintusdias/glymur/blob/v${version}/CHANGES.txt";
     license = licenses.mit;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

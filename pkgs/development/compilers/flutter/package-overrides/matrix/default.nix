@@ -1,12 +1,12 @@
-{ openssl }:
+{openssl}:
 
-{ ... }:
+{...}:
 
 {
-  runtimeDependencies ? [ ],
+  runtimeDependencies ? [],
   ...
 }:
 
 {
-  runtimeDependencies = runtimeDependencies ++ [ openssl ];
+  runtimeDependencies = runtimeDependencies ++ [openssl];
 }

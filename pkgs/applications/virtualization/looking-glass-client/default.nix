@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
     ];
 
   cmakeFlags =
-    [ "-DOPTIMIZE_FOR_NATIVE=OFF" ]
+    ["-DOPTIMIZE_FOR_NATIVE=OFF"]
     ++ lib.optional (!xorgSupport) "-DENABLE_X11=no"
     ++ lib.optional (!waylandSupport) "-DENABLE_WAYLAND=no"
     ++ lib.optional (!pulseSupport) "-DENABLE_PULSEAUDIO=no"
@@ -134,6 +134,6 @@ stdenv.mkDerivation rec {
       babbaj
       j-brn
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

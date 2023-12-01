@@ -39,13 +39,13 @@ buildPythonPackage rec {
     tzdata
   ];
 
-  pythonImportsCheck = [ "recurring_ical_events" ];
+  pythonImportsCheck = ["recurring_ical_events"];
 
   meta = {
     changelog = "https://github.com/niccokunzmann/python-recurring-ical-events/blob/${src.rev}/README.rst#changelog";
     description = "Repeat ICalendar events by RRULE, RDATE and EXDATE";
     homepage = "https://github.com/niccokunzmann/python-recurring-ical-events";
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

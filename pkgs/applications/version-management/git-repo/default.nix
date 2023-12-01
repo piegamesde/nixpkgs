@@ -23,10 +23,10 @@ stdenv.mkDerivation rec {
   };
 
   # Fix 'NameError: name 'ssl' is not defined'
-  patches = [ ./import-ssl-module.patch ];
+  patches = [./import-ssl-module.patch];
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ python3 ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [python3];
 
   postPatch = ''
     substituteInPlace repo --replace \
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://android.googlesource.com/tools/repo";
     license = licenses.asl20;
-    maintainers = with maintainers; [ otavio ];
+    maintainers = with maintainers; [otavio];
     platforms = platforms.unix;
   };
 }

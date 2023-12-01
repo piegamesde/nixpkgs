@@ -19,15 +19,15 @@ buildPythonPackage rec {
     hash = "sha256-UHz2v6K5lNYb7cxBViTfPkpu2M8LItApGoSg3Bb2bqI=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ exceptiongroup ];
+  propagatedBuildInputs = [exceptiongroup];
 
-  pythonImportsCheck = [ "generic" ];
+  pythonImportsCheck = ["generic"];
 
   meta = with lib; {
     description = "Generic programming (Multiple dispatch) library for Python";
-    maintainers = with maintainers; [ wolfangaukang ];
+    maintainers = with maintainers; [wolfangaukang];
     homepage = "https://github.com/gaphor/generic";
     license = licenses.bsdOriginal;
   };

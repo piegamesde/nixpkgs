@@ -24,7 +24,7 @@ in
 
     pools = mkOption {
       type = with types; nullOr (listOf str);
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Name of the pool(s) to collect, repeat for multiple pools (default: all pools).
       '';
@@ -33,7 +33,7 @@ in
 
   serviceOpts = {
     # needs zpool
-    path = [ config.boot.zfs.package ];
+    path = [config.boot.zfs.package];
     serviceConfig = {
       ExecStart = ''
         ${pkgs.prometheus-zfs-exporter}/bin/zfs_exporter \

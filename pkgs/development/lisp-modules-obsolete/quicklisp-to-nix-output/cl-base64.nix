@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-base64";
   version = "20201016-git";
 
-  parasites = [ "cl-base64/test" ];
+  parasites = ["cl-base64/test"];
 
   description = "Base64 encoding and decoding with URI support.";
 
@@ -20,7 +20,7 @@ rec {
 
   packageName = "cl-base64";
 
-  asdFilesToKeep = [ "cl-base64.asd" ];
+  asdFilesToKeep = ["cl-base64.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-base64 DESCRIPTION Base64 encoding and decoding with URI support.

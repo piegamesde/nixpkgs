@@ -62,6 +62,6 @@ stdenv.mkDerivation rec {
     homepage = "http://openlab.ring.gr.jp/efont/unicode/";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = [ maintainers.ncfavier ];
+    maintainers = [maintainers.ncfavier];
   };
 }

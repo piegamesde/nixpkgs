@@ -19,9 +19,9 @@ buildDunePackage rec {
     sha256 = "sha256-LFug1BELy7dzHLpOr7bESnSHw/iMGtR0AScbaf+o7Wo=";
   };
 
-  buildInputs = [ cmdliner ];
+  buildInputs = [cmdliner];
 
-  propagatedBuildInputs = [ ptime ];
+  propagatedBuildInputs = [ptime];
 
   outputs = [
     "lib"
@@ -37,6 +37,6 @@ buildDunePackage rec {
     homepage = "https://github.com/mirage/ocaml-crunch";
     description = "Convert a filesystem into a static OCaml module";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

@@ -20,7 +20,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-0O80uhxSVsV9N7Z/FgaLwcjZqeb4MqSCE1YW5Zd32ns=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     glib
     libxml2
@@ -35,6 +35,6 @@ buildGoModule rec {
     homepage = "https://github.com/sloonz/ua";
     license = licenses.isc;
     description = "Universal Aggregator";
-    maintainers = with maintainers; [ ttuegel ];
+    maintainers = with maintainers; [ttuegel];
   };
 }

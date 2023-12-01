@@ -44,7 +44,7 @@ buildPythonPackage rec {
     six
   ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ GSS ];
+  buildInputs = lib.optionals stdenv.isDarwin [GSS];
 
   nativeCheckInputs = [
     k5test
@@ -69,7 +69,7 @@ buildPythonPackage rec {
     export PYTHONPATH="$out/${python.sitePackages}:$PYTHONPATH"
     nosetests -e 'ext_test_\d.*'
   '';
-  pythonImportsCheck = [ "gssapi" ];
+  pythonImportsCheck = ["gssapi"];
 
   meta = with lib; {
     homepage = "https://pypi.python.org/pypi/gssapi";

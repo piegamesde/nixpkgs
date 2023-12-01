@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-7I4V4DVdHSvr/1ic/YT+Vttreg0tFasRNT/aFe4/0OY=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   CGO_ENABLED = 0;
 
@@ -46,6 +46,6 @@ buildGoModule rec {
     description = "CLI for interacting with Civo resources";
     homepage = "https://github.com/civo/cli";
     license = licenses.asl20;
-    maintainers = with maintainers; [ berryp ];
+    maintainers = with maintainers; [berryp];
   };
 }

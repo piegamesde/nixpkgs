@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     description = "Tap a rhythm into your delay! For jack and lv2";
     homepage = "https://github.com/magnetophon/RhythmDelay";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.magnetophon ];
+    maintainers = [lib.maintainers.magnetophon];
   };
 }

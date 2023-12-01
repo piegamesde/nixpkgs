@@ -3,7 +3,7 @@ import ./make-test-python.nix {
 
   nodes = {
     server =
-      { ... }:
+      {...}:
 
       {
         virtualisation.memorySize = 4096;

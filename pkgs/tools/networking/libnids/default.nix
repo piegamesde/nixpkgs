@@ -14,7 +14,7 @@ stdenv.mkDerivation {
     url = "mirror://sourceforge/libnids/libnids-1.24.tar.gz";
     sha256 = "1cblklfdfxcmy0an6xyyzx4l877xdawhjd28daqfsvrh81mb07k1";
   };
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libpcap
     glib
@@ -35,7 +35,7 @@ stdenv.mkDerivation {
     description = "An E-component of Network Intrusion Detection System which emulates the IP stack of Linux 2.0.x";
     homepage = "https://libnids.sourceforge.net/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.symphorien ];
+    maintainers = [maintainers.symphorien];
     # probably also bsd and solaris
     platforms = platforms.linux;
   };

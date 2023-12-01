@@ -56,6 +56,6 @@ buildPythonPackage rec {
     description = "Programmer friendly subprocess wrapper";
     homepage = "https://github.com/xolox/python-executor";
     license = licenses.mit;
-    maintainers = with maintainers; [ eyjhb ];
+    maintainers = with maintainers; [eyjhb];
   };
 }

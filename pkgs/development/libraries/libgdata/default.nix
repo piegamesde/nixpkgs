@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     sha256 = "3YWS7rZRKtCoz1yL6McudvdL/msj5N2T8HVu4HFoBMc=";
   };
 
-  patches = [ ./installed-tests-path.patch ];
+  patches = [./installed-tests-path.patch];
 
   nativeBuildInputs = [
     gettext
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "GData API library";
     homepage = "https://wiki.gnome.org/Projects/libgdata";
-    maintainers = with maintainers; [ raskin ] ++ teams.gnome.members;
+    maintainers = with maintainers; [raskin] ++ teams.gnome.members;
     platforms = platforms.linux;
     license = licenses.lgpl21Plus;
   };

@@ -92,7 +92,7 @@ stdenv.mkDerivation (
       hash = "sha256-m2selrdI0EuWh4a2vfQHqlx1q1Oj03wcjIHNtzZVXM8=";
     };
 
-    patches = [ ./7.79.1-darwin-no-systemconfiguration.patch ];
+    patches = [./7.79.1-darwin-no-systemconfiguration.patch];
 
     outputs = [
       "bin"
@@ -221,14 +221,14 @@ stdenv.mkDerivation (
 
     passthru =
       let
-        useThisCurl = attr: attr.override { curl = finalAttrs.finalPackage; };
+        useThisCurl = attr: attr.override {curl = finalAttrs.finalPackage;};
       in
       {
         inherit opensslSupport openssl;
         tests = {
-          withCheck = finalAttrs.finalPackage.overrideAttrs (_: { doCheck = true; });
+          withCheck = finalAttrs.finalPackage.overrideAttrs (_: {doCheck = true;});
           fetchpatch = tests.fetchpatch.simple.override {
-            fetchpatch = (fetchpatch.override { fetchurl = useThisCurl fetchurl; }) // {
+            fetchpatch = (fetchpatch.override {fetchurl = useThisCurl fetchurl;}) // {
               version = 1;
             };
           };
@@ -247,15 +247,15 @@ stdenv.mkDerivation (
       };
 
     meta = with lib; {
-      changelog = "https://curl.se/changes.html#${lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version}";
+      changelog = "https://curl.se/changes.html#${lib.replaceStrings ["."] ["_"] finalAttrs.version}";
       description = "A command line tool for transferring files with URL syntax";
       homepage = "https://curl.se/";
       license = licenses.curl;
-      maintainers = with maintainers; [ lovek323 ];
+      maintainers = with maintainers; [lovek323];
       platforms = platforms.all;
       # Fails to link against static brotli or gss
       broken = stdenv.hostPlatform.isStatic && (brotliSupport || gssSupport);
-      pkgConfigModules = [ "libcurl" ];
+      pkgConfigModules = ["libcurl"];
     };
   }
 )

@@ -35,6 +35,6 @@ tcl.mkTclDerivation {
     mainProgram = "nagelfar";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = [ maintainers.nat-418 ];
+    maintainers = [maintainers.nat-418];
   };
 }

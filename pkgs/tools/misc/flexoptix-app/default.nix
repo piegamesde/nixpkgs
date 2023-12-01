@@ -19,7 +19,7 @@ let
     hash = "sha256-OZe5dV50xq99olImbo7JQxPjRd7hGyBIVwFvtR9cIVc=";
   };
 
-  appimageContents = (appimageTools.extract { inherit pname version src; }).overrideAttrs (
+  appimageContents = (appimageTools.extract {inherit pname version src;}).overrideAttrs (
     oA: {
       buildCommand = ''
         ${oA.buildCommand}
@@ -37,7 +37,7 @@ appimageTools.wrapAppImage {
   src = appimageContents;
 
   multiPkgs = null; # no 32bit needed
-  extraPkgs = { pkgs, ... }@args: [ pkgs.hidapi ] ++ appimageTools.defaultFhsEnvArgs.multiPkgs args;
+  extraPkgs = {pkgs, ...}@args: [pkgs.hidapi] ++ appimageTools.defaultFhsEnvArgs.multiPkgs args;
 
   extraInstallCommands = ''
     # Add desktop convencience stuff
@@ -57,7 +57,7 @@ appimageTools.wrapAppImage {
     homepage = "https://www.flexoptix.net";
     changelog = "https://www.flexoptix.net/en/flexoptix-app/?os=linux#flexapp__modal__changelog";
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ das_j ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [das_j];
+    platforms = ["x86_64-linux"];
   };
 }

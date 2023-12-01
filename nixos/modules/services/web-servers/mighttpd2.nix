@@ -107,8 +107,8 @@ in
     ];
     systemd.services.mighttpd2 = {
       description = "Mighttpd2 web server";
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = ''
           ${pkgs.haskellPackages.mighttpd2}/bin/mighty \
@@ -134,5 +134,5 @@ in
     users.groups.mighttpd2.gid = config.ids.gids.mighttpd2;
   };
 
-  meta.maintainers = with lib.maintainers; [ fgaz ];
+  meta.maintainers = with lib.maintainers; [fgaz];
 }

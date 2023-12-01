@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Zi72yMS9cNDzX9HF8IuRVJuUNmOLZfihozlWsJ34n8Y=";
   };
 
-  patches = [ ./0001-Set-plugindir-to-PREFIX-lib-audacious.patch ];
+  patches = [./0001-Set-plugindir-to-PREFIX-lib-audacious.patch];
 
   nativeBuildInputs = [
     gettext
@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
     libopenmpt
   ];
 
-  mesonFlags = [ "-Dgtk=false" ];
+  mesonFlags = ["-Dgtk=false"];
 
   dontWrapQtApps = true;
 

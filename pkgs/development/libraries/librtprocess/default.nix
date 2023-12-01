@@ -16,13 +16,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/1o6SWUor+ZBQ6RsK2PoDRu03jcVRG58PNYFttriH2w=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     homepage = "https://github.com/CarVac/librtprocess";
     description = "Highly optimized library for processing RAW images";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ hjones2199 ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [hjones2199];
+    platforms = ["x86_64-linux"];
   };
 }

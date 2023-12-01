@@ -15,9 +15,9 @@ stdenv.mkDerivation rec {
     sha256 = "1w3g9q5z3nrn3mwdhaq6zsg0jila8d102dgwgrhj9vfx58apsvli";
   };
 
-  buildInputs = [ alsa-lib ];
+  buildInputs = [alsa-lib];
 
-  makeFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = ["DESTDIR=$(out)"];
 
   # Borrowed from Arch Linux's AUR
   patches = [
@@ -42,6 +42,6 @@ stdenv.mkDerivation rec {
     description = "Real-time adjustable equalizer plugin for ALSA";
     homepage = "https://thedigitalmachine.net/alsaequal.html";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ymeister ];
+    maintainers = with maintainers; [ymeister];
   };
 }

@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-gobject-introspection";
   version = "20210124-git";
@@ -22,7 +22,7 @@ rec {
 
   packageName = "cl-gobject-introspection";
 
-  asdFilesToKeep = [ "cl-gobject-introspection.asd" ];
+  asdFilesToKeep = ["cl-gobject-introspection.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-gobject-introspection DESCRIPTION Binding to GObjectIntrospection

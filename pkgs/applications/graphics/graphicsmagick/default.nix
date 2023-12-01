@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-4wscpY6HPQoe4gg4RyRCTbLTwzpUA04mHRTo+7j40E8=";
   };
 
-  patches = [ ./disable-popen.patch ];
+  patches = [./disable-popen.patch];
 
   configureFlags = [
     "--enable-shared"
@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
 
   passthru = {
     tests = {
-      issue-157920 = runCommand "issue-157920-regression-test" { buildInputs = [ graphicsmagick ]; } ''
+      issue-157920 = runCommand "issue-157920-regression-test" {buildInputs = [graphicsmagick];} ''
         gm convert ${graphviz}/share/graphviz/doc/pdf/neatoguide.pdf jpg:$out
       '';
     };

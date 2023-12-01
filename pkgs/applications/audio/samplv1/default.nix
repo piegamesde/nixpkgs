@@ -42,6 +42,6 @@ mkDerivation rec {
     homepage = "http://samplv1.sourceforge.net/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
   };
 }

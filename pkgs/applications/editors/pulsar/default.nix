@@ -13,7 +13,7 @@
   hunspell,
   hunspellDicts,
   useHunspell ? true,
-  languages ? [ "en_US" ],
+  languages ? ["en_US"],
   withNemoAction ? true,
   makeDesktopItem,
   copyDesktopItems,
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       inherit hash;
     };
 
-  patches = [ ./001-patch-wrapper.patch ];
+  patches = [./001-patch-wrapper.patch];
 
   nativeBuildInputs = [
     wrapGAppsHook
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
     ''
       gappsWrapperArgs+=(
         # needed for gio executable to be able to delete files
-        --prefix "PATH" : "${lib.makeBinPath [ glib ]}"
+        --prefix "PATH" : "${lib.makeBinPath [glib]}"
       )
     ''
     + lib.optionalString useHunspell ''
@@ -175,7 +175,7 @@ stdenv.mkDerivation rec {
         "TextEditor"
         "Utility"
       ];
-      mimeTypes = [ "text/plain" ];
+      mimeTypes = ["text/plain"];
     })
   ];
 
@@ -188,9 +188,9 @@ stdenv.mkDerivation rec {
       Designed to be deeply customizable, but still approachable using the default configuration.
     '';
     homepage = "https://github.com/pulsar-edit/pulsar";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ colamaroro ];
+    maintainers = with maintainers; [colamaroro];
   };
 }

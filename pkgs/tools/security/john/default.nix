@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "improve-apple-clang-pseudo-intrinsics-portability.patch";
       url = "https://github.com/openwall/john/commit/c9825e688d1fb9fdd8942ceb0a6b4457b0f9f9b4.patch";
-      excludes = [ "doc/*" ];
+      excludes = ["doc/*"];
       sha256 = "sha256-hgoiz7IgR4f66fMP7bV1F8knJttY8g2Hxyk3QfkTu+g=";
     })
   ];

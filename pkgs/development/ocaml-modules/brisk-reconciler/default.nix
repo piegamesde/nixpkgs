@@ -19,9 +19,9 @@ buildDunePackage rec {
     sha256 = "sha256-AAB4ZzBnwfwFXOAqX/sIT6imOl70F0YNMt96SWOOE9w=";
   };
 
-  nativeBuildInputs = [ reason ];
+  nativeBuildInputs = [reason];
 
-  buildInputs = [ ppxlib ];
+  buildInputs = [ppxlib];
 
   meta = with lib; {
     description = "React.js-like reconciler implemented in OCaml/Reason";
@@ -33,7 +33,7 @@ buildDunePackage rec {
       * stateful functions: Functions that maintain state over time. Imagine that you can take any variable in your function and manage its value over the function's invocation. Now, imagine that any function invocation really creates its own "instance" of the function which will track this state separately from other invocations of this function.
     '';
     homepage = "https://github.com/briskml/brisk-reconciler";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.mit;
   };
 }

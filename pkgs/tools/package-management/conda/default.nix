@@ -26,7 +26,7 @@
     zlib
   ],
   # Any extra nixpkgs you'd like available in the FHS env for Conda to use
-  extraPkgs ? [ ],
+  extraPkgs ? [],
 }:
 
 # How to use this package?
@@ -57,8 +57,8 @@ let
       in
       runCommand "conda-install"
         {
-          nativeBuildInputs = [ makeWrapper ];
-          buildInputs = [ zlib ];
+          nativeBuildInputs = [makeWrapper];
+          buildInputs = [zlib];
         }
         # on line 10, we have 'unset LD_LIBRARY_PATH'
         # we have to comment it out however in a way that the number of bytes in the
@@ -86,7 +86,7 @@ buildFHSEnv {
   targetPkgs =
     pkgs:
     (builtins.concatLists [
-      [ conda ]
+      [conda]
       condaDeps
       extraPkgs
     ]);

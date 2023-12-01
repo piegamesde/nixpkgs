@@ -28,9 +28,9 @@ stdenv.mkDerivation rec {
   ];
 
   # Prevent cycle between bin and dev (only occurs on Darwin for some reason)
-  propagatedBuildOutputs = [ "lib" ];
+  propagatedBuildOutputs = ["lib"];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # NOTE: Alembic also support imath instead of ilmbase, but some users of Alembic (e.g. Blender)
   # are incompatible with the imath version of Alembic
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
 
   # Downstream packages trying to use Alembic via CMake need ilmbase as well
   # For some reason this won't be picked up correctly otherwise
-  propagatedBuildInputs = [ ilmbase ];
+  propagatedBuildInputs = [ilmbase];
 
   # These flags along with the postPatch step ensure that all artifacts end up
   # in the correct output without needing to move anything

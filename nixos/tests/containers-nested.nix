@@ -1,14 +1,14 @@
 # Test for NixOS' container nesting.
 
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "nested";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ sorki ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [sorki];};
 
     nodes.machine =
-      { lib, ... }:
+      {lib, ...}:
       let
         makeNested = subConf: {
           containers.nested = {
@@ -18,7 +18,7 @@ import ./make-test-python.nix (
           };
         };
       in
-      makeNested (makeNested { });
+      makeNested (makeNested {});
 
     testScript = ''
       machine.start()

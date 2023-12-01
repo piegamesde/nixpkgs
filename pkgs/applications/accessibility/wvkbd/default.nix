@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5m4aeuCqSJNgerQKyP9M6Qf7P4ijCtCY4Efew6E09Bc=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     wayland-scanner
     wayland
@@ -33,12 +33,12 @@ stdenv.mkDerivation rec {
     cairo
     libxkbcommon
   ];
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     homepage = "https://github.com/jjsullivan5196/wvkbd";
     description = "On-screen keyboard for wlroots";
-    maintainers = [ maintainers.elohmeier ];
+    maintainers = [maintainers.elohmeier];
     platforms = platforms.linux;
     license = licenses.gpl3Plus;
   };

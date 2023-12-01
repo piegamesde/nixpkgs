@@ -16,7 +16,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.dbus.packages = with pkgs; [ openvpn3 ];
+    services.dbus.packages = with pkgs; [openvpn3];
 
     users.users.openvpn = {
       isSystemUser = true;
@@ -28,6 +28,6 @@ in
       gid = config.ids.gids.openvpn;
     };
 
-    environment.systemPackages = with pkgs; [ openvpn3 ];
+    environment.systemPackages = with pkgs; [openvpn3];
   };
 }

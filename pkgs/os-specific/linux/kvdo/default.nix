@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
   preBuild = ''
     makeFlags="$makeFlags -C ${KSRC} M=$(pwd)"
   '';
-  installTargets = [ "modules_install" ];
+  installTargets = ["modules_install"];
 
   meta = with lib; {
     inherit (vdo.meta) license maintainers;

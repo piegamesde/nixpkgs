@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-UENh8oxZm7uukCr448Nrf7devDK4SIT3DVhvXbwfjw8=";
   };
 
-  buildInputs = [ libyaml ];
+  buildInputs = [libyaml];
 
   makeFlags = [
     "VARIANT=release"

@@ -14,12 +14,12 @@ buildPythonPackage rec {
     sha256 = "fa1b44e5e59d2f429add49289ab89e36f8dcda49b7badd99e0beea273be331f4";
   };
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   # no tests defined upstream
   doCheck = false;
 
-  pythonImportsCheck = [ "isosurfaces" ];
+  pythonImportsCheck = ["isosurfaces"];
 
   meta = with lib; {
     homepage = "https://github.com/jared-hughes/isosurfaces";
@@ -32,6 +32,6 @@ buildPythonPackage rec {
       many far from the implicit surface.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ friedelino ];
+    maintainers = with maintainers; [friedelino];
   };
 }

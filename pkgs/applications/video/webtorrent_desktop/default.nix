@@ -97,7 +97,7 @@ runCommand "${pname}-${version}"
         maintainers.flokli
         maintainers.bendlas
       ];
-      platforms = [ "x86_64-linux" ];
+      platforms = ["x86_64-linux"];
     };
   }
   ''

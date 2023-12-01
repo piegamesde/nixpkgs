@@ -23,11 +23,11 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [ qtscript ];
+  buildInputs = [qtscript];
 
   dontUseQmakeConfigure = true;
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     homepage = "https://www.smplayer.info";
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
       possibility to play Youtube videos or download subtitles.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.linux;
   };
 }

@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-S0PAlSrMOQ68mX548pZzARfau/lytXWC4S5uVO1rUmo=";
   };
 
-  buildInputs = [ django ];
+  buildInputs = [django];
 
   propagatedBuildInputs = [
     six
@@ -46,6 +46,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/EliotBerriot/django-dynamic-preferences";
     description = "Dynamic global and instance settings for your django project";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ mmai ];
+    maintainers = with maintainers; [mmai];
   };
 }

@@ -28,6 +28,6 @@ buildGoModule rec {
     description = "Dockerfile format";
     homepage = "https://github.com/jessfraz/dockfmt";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

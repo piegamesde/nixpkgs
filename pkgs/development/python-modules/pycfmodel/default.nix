@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-TumqpNaxH9YET56PhTXJVG/OQw3syXaYNtHn+Vyh6xI=";
   };
 
-  propagatedBuildInputs = [ pydantic ];
+  propagatedBuildInputs = [pydantic];
 
   nativeCheckInputs = [
     httpx
@@ -38,12 +38,12 @@ buildPythonPackage rec {
     "test_resolve_booleans_different_properties_for_generic_resource"
   ];
 
-  pythonImportsCheck = [ "pycfmodel" ];
+  pythonImportsCheck = ["pycfmodel"];
 
   meta = with lib; {
     description = "Model for Cloud Formation scripts";
     homepage = "https://github.com/Skyscanner/pycfmodel";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

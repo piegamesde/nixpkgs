@@ -59,7 +59,7 @@ in
 
       commonHooks = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           A list of custom git hooks that get copied to `~/.gitolite/hooks/common`.
         '';
@@ -127,7 +127,7 @@ in
   config = mkIf cfg.enable (
     let
       manageGitoliteRc = cfg.extraGitoliteRc != "";
-      rcDir = pkgs.runCommand "gitolite-rc" { preferLocalBuild = true; } rcDirScript;
+      rcDir = pkgs.runCommand "gitolite-rc" {preferLocalBuild = true;} rcDirScript;
       rcDirScript =
         ''
           mkdir "$out"
@@ -169,7 +169,7 @@ in
 
       systemd.services.gitolite-init = {
         description = "Gitolite initialization";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         unitConfig.RequiresMountsFor = cfg.dataDir;
 
         environment = {

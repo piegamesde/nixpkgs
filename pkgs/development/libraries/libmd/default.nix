@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     homepage = "https://www.hadrons.org/software/${pname}/";
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       beerware
       publicDomain
     ];
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
     platforms = platforms.unix;
   };
 }

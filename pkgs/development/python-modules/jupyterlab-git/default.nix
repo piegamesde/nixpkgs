@@ -28,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-UXZ9qgAvCKfPCzchFOtwbv8vNPEtcLU0dwBGTmiHSD4=";
   };
 
-  nativeBuildInputs = [ jupyter-packaging ];
+  nativeBuildInputs = [jupyter-packaging];
 
   propagatedBuildInputs = [
     jupyter-server
@@ -62,12 +62,12 @@ buildPythonPackage rec {
     "test_Git_get_nbdiff_dict"
   ];
 
-  pythonImportsCheck = [ "jupyterlab_git" ];
+  pythonImportsCheck = ["jupyterlab_git"];
 
   meta = with lib; {
     description = "Jupyter lab extension for version control with Git";
     homepage = "https://github.com/jupyterlab/jupyterlab-git";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ chiroptical ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [chiroptical];
   };
 }

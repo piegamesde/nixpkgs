@@ -16,7 +16,7 @@ buildKodiAddon rec {
 
   passthru = {
     pythonPath = "lib";
-    updateScript = addonUpdateScript { attrPath = "kodi.packages.idna"; };
+    updateScript = addonUpdateScript {attrPath = "kodi.packages.idna";};
   };
 
   meta = with lib; {

@@ -31,7 +31,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests/test.py" ];
+  pytestFlagsArray = ["tests/test.py"];
 
   disabledTests = [
     # No git repo available and network
@@ -40,12 +40,12 @@ buildPythonPackage rec {
     "test_send"
   ];
 
-  pythonImportsCheck = [ "codecov" ];
+  pythonImportsCheck = ["codecov"];
 
   meta = with lib; {
     description = "Python report uploader for Codecov";
     homepage = "https://codecov.io/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

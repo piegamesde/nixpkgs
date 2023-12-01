@@ -33,13 +33,13 @@ buildPythonPackage rec {
 
   # Test suite makes REST calls against github.com
   doCheck = false;
-  pythonImportsCheck = [ "github" ];
+  pythonImportsCheck = ["github"];
 
   meta = with lib; {
     description = "Python library to access the GitHub API v3";
     homepage = "https://github.com/PyGithub/PyGithub";
     changelog = "https://github.com/PyGithub/PyGithub/raw/v${version}/doc/changes.rst";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ jhhuh ];
+    maintainers = with maintainers; [jhhuh];
   };
 }

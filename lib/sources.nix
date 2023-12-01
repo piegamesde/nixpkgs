@@ -1,5 +1,5 @@
 # Functions for copying sources to the Nix store.
-{ lib }:
+{lib}:
 
 # Tested in lib/tests/sources.sh
 let
@@ -184,7 +184,7 @@ let
         in
         type == "directory" || lib.any (ext: lib.hasSuffix ext base) exts;
     in
-    cleanSourceWith { inherit filter src; };
+    cleanSourceWith {inherit filter src;};
 
   pathIsGitRepo = path: (_commitIdFromGitRepoOrError path) ? value;
 
@@ -223,7 +223,7 @@ let
             m = match "^gitdir: (.*)$" (lib.fileContents path);
           in
           if m == null then
-            { error = "File contains no gitdir reference: " + path; }
+            {error = "File contains no gitdir reference: " + path;}
           else
             let
               gitDir = absolutePath (dirOf path) (lib.head m);
@@ -244,7 +244,7 @@ let
             fileContent = lib.fileContents fileName;
             matchRef = match "^ref: (.*)$" fileContent;
           in
-          if matchRef == null then { value = fileContent; } else readCommitFromFile (lib.head matchRef) path
+          if matchRef == null then {value = fileContent;} else readCommitFromFile (lib.head matchRef) path
 
         else if
           pathIsRegularFile packedRefsName
@@ -259,13 +259,13 @@ let
             # https://github.com/NixOS/nix/issues/2147#issuecomment-659868795
             refs = filter isRef (split "\n" fileContent);
           in
-          if refs == [ ] then
-            { error = "Could not find " + file + " in " + packedRefsName; }
+          if refs == [] then
+            {error = "Could not find " + file + " in " + packedRefsName;}
           else
-            { value = lib.head (matchRef (lib.head refs)); }
+            {value = lib.head (matchRef (lib.head refs));}
 
         else
-          { error = "Not a .git directory: " + toString path; };
+          {error = "Not a .git directory: " + toString path;};
     in
     readCommitFromFile "HEAD";
 

@@ -10,13 +10,13 @@
 rec {
   # Gerbil libraries
   gerbilPackages-unstable = {
-    gerbil-libp2p = callPackage ./gerbil-libp2p.nix { };
-    gerbil-utils = callPackage ./gerbil-utils.nix { };
-    gerbil-crypto = callPackage ./gerbil-crypto.nix { };
-    gerbil-poo = callPackage ./gerbil-poo.nix { };
-    gerbil-persist = callPackage ./gerbil-persist.nix { };
-    gerbil-ethereum = callPackage ./gerbil-ethereum.nix { };
-    smug-gerbil = callPackage ./smug-gerbil.nix { };
+    gerbil-libp2p = callPackage ./gerbil-libp2p.nix {};
+    gerbil-utils = callPackage ./gerbil-utils.nix {};
+    gerbil-crypto = callPackage ./gerbil-crypto.nix {};
+    gerbil-poo = callPackage ./gerbil-poo.nix {};
+    gerbil-persist = callPackage ./gerbil-persist.nix {};
+    gerbil-ethereum = callPackage ./gerbil-ethereum.nix {};
+    smug-gerbil = callPackage ./smug-gerbil.nix {};
   };
 
   # Use this function in any package that uses Gerbil libraries, to define the GERBIL_LOADPATH.
@@ -35,9 +35,9 @@ rec {
       version-path ? "",
       gerbil ? pkgs.gerbil-unstable,
       gambit-params ? pkgs.gambit-support.stable-params,
-      gerbilInputs ? [ ],
-      nativeBuildInputs ? [ ],
-      buildInputs ? [ ],
+      gerbilInputs ? [],
+      nativeBuildInputs ? [],
+      buildInputs ? [],
       buildScript ? "./build.ss",
       softwareName ? "",
     }:
@@ -55,7 +55,7 @@ rec {
       passthru = {
         inherit gerbil-package version-path;
       };
-      buildInputs = [ gerbil ] ++ gerbilInputs ++ buildInputs_;
+      buildInputs = [gerbil] ++ gerbilInputs ++ buildInputs_;
       postPatch = ''
         set -e ;
         if [ -n "${version-path}.ss" ] ; then

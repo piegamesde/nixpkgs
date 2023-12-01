@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-LHcLqP9IGqi0YmjgFoTwojyS+IZmBOBujYWMPuqNc6w=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     asyncio-dgram
@@ -48,7 +48,7 @@ buildPythonPackage rec {
       --replace 'dnspython = "2.2.1"' 'dnspython = ">=2.2.0"'
   '';
 
-  pythonImportsCheck = [ "mcstatus" ];
+  pythonImportsCheck = ["mcstatus"];
 
   disabledTests = [
     # DNS features are limited in the sandbox
@@ -60,7 +60,7 @@ buildPythonPackage rec {
     description = "Python library for checking the status of Minecraft servers";
     homepage = "https://github.com/py-mine/mcstatus";
     changelog = "https://github.com/py-mine/mcstatus/releases/tag/v${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

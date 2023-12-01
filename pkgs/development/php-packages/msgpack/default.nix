@@ -1,4 +1,4 @@
-{ buildPecl, lib }:
+{buildPecl, lib}:
 
 buildPecl rec {
   version = "2.2.0RC2";
@@ -11,6 +11,6 @@ buildPecl rec {
     description = "PHP extension for interfacing with MessagePack";
     license = licenses.bsd3;
     homepage = "https://github.com/msgpack/msgpack-php";
-    maintainers = teams.php.members ++ [ maintainers.ostrolucky ];
+    maintainers = teams.php.members ++ [maintainers.ostrolucky];
   };
 }

@@ -23,12 +23,12 @@ buildGoModule rec {
     "-X main.version=v${version}"
   ];
 
-  subPackages = [ "cmd/kubent" ];
+  subPackages = ["cmd/kubent"];
 
   meta = with lib; {
     homepage = "https://github.com/doitintl/kube-no-trouble";
     description = "Easily check your cluster for use of deprecated APIs";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterromfeldhk ];
+    maintainers = with maintainers; [peterromfeldhk];
   };
 }

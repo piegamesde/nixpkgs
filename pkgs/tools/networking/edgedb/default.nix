@@ -49,7 +49,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ curl ]
+    [curl]
     ++ lib.optionals stdenv.isDarwin [
       CoreServices
       Security
@@ -57,7 +57,7 @@ rustPlatform.buildRustPackage rec {
       xz
     ];
 
-  checkFeatures = [ ];
+  checkFeatures = [];
 
   patches = [
     (substituteAll {
@@ -81,6 +81,6 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = [ maintainers.ranfdev ];
+    maintainers = [maintainers.ranfdev];
   };
 }

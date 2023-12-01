@@ -45,19 +45,19 @@ buildNpmPackage rec {
     giflib
     cairo
     pango
-  ] ++ lib.optionals stdenv.isDarwin [ CoreText ];
+  ] ++ lib.optionals stdenv.isDarwin [CoreText];
 
   postInstall = ''
     makeWrapper ${nodePackages.ts-node}/bin/ts-node $out/bin/lv_img_conv --add-flags $out/lib/node_modules/lv_img_conv/lib/cli.ts
   '';
 
-  passthru.updateScript = nix-update-script { attrPath = pname; };
+  passthru.updateScript = nix-update-script {attrPath = pname;};
 
   meta = with lib; {
     changelog = "https://github.com/lvgl/lv_img_conv/releases/tag/v${version}";
     description = "Image converter for LVGL";
     homepage = "https://github.com/lvgl/lv_img_conv";
     license = licenses.mit;
-    maintainers = with maintainers; [ stargate01 ];
+    maintainers = with maintainers; [stargate01];
   };
 }

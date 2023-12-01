@@ -29,8 +29,8 @@ buildDunePackage rec {
     uuidm
   ];
 
-  nativeCheckInputs = [ gnuplot ];
-  checkInputs = [ metrics-lwt ];
+  nativeCheckInputs = [gnuplot];
+  checkInputs = [metrics-lwt];
 
   doCheck = true;
 

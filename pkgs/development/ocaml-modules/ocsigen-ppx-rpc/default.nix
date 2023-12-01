@@ -18,12 +18,12 @@ buildDunePackage rec {
     sha256 = "sha256:0qgasd89ayamgl2rfyxsipznmwa3pjllkyq9qg0g1f41h8ixpsfh";
   };
 
-  propagatedBuildInputs = [ ppxlib ];
+  propagatedBuildInputs = [ppxlib];
 
   meta = {
     inherit (src.meta) homepage;
     description = "Syntax for RPCs for Eliom and Ocsigen Start";
     license = lib.licenses.lgpl21Only;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

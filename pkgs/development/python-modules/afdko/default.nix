@@ -88,7 +88,7 @@ buildPythonPackage rec {
   # Use system libxml2
   FORCE_SYSTEM_LIBXML2 = true;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export PATH=$PATH:$out/bin
@@ -112,10 +112,10 @@ buildPythonPackage rec {
           # https://github.com/adobe-type-tools/afdko/issues/1425
           "test_spec"
         ]
-    ++ lib.optionals (stdenv.hostPlatform.isi686) [ "test_type1mm_inputs" ];
+    ++ lib.optionals (stdenv.hostPlatform.isi686) ["test_type1mm_inputs"];
 
   passthru.tests = {
-    fullTestsuite = afdko.override { runAllTests = true; };
+    fullTestsuite = afdko.override {runAllTests = true;};
   };
 
   meta = with lib; {
@@ -123,6 +123,6 @@ buildPythonPackage rec {
     description = "Adobe Font Development Kit for OpenType";
     homepage = "https://adobe-type-tools.github.io/afdko";
     license = licenses.asl20;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

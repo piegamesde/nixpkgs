@@ -79,7 +79,7 @@ buildPythonPackage rec {
     homepage = "https://opendev.org/x/sqlalchemy-migrate";
     description = "Schema migration tools for SQLAlchemy";
     license = licenses.asl20;
-    maintainers = teams.openstack.members ++ (with maintainers; [ makefu ]);
+    maintainers = teams.openstack.members ++ (with maintainers; [makefu]);
     broken = lib.versionAtLeast sqlalchemy.version "2.0.0";
   };
 }

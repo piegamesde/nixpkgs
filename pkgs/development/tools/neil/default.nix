@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+0+d0XZhZeRTAXRvA3QcWvbuOqlhNbFo2gTnROevJtU=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontBuild = true;
 
@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     description = "A CLI to add common aliases and features to deps.edn-based projects";
     license = licenses.mit;
     platforms = babashka.meta.platforms;
-    maintainers = with maintainers; [ jlesquembre ];
+    maintainers = with maintainers; [jlesquembre];
   };
 }

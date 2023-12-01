@@ -36,6 +36,6 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/jaxwilko/gtk-theme-framework";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ flexagoon ];
+    maintainers = with maintainers; [flexagoon];
   };
 }

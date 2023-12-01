@@ -1,10 +1,10 @@
-{ lib, ... }:
+{lib, ...}:
 let
   inherit (lib) types;
 in
 {
   options = {
-    name = lib.mkOption { type = types.str; };
+    name = lib.mkOption {type = types.str;};
     email = lib.mkOption {
       type = types.nullOr types.str;
       default = null;
@@ -22,8 +22,8 @@ in
       default = null;
     };
     keys = lib.mkOption {
-      type = types.listOf (types.submodule { options.fingerprint = lib.mkOption { type = types.str; }; });
-      default = [ ];
+      type = types.listOf (types.submodule {options.fingerprint = lib.mkOption {type = types.str;};});
+      default = [];
     };
   };
 }

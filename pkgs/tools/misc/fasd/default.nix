@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     '';
 
     platforms = platforms.all;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     mainProgram = "fasd";
   };
 }

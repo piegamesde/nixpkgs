@@ -21,16 +21,16 @@ buildPythonPackage rec {
     hash = "sha256-wxV8DKeTwKpFTUBuGTQXaVHc0eW1//Y+2V8Kgs85TDM=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "mdurl" ];
+  pythonImportsCheck = ["mdurl"];
 
   meta = with lib; {
     description = "URL utilities for markdown-it";
     homepage = "https://github.com/hukkin/mdurl";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

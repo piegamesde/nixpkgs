@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-CSA8ECMRFJ9d9cw2dAn5bHJXQmZtGcJNtbqZTVqBpvU=";
   };
   buildInputs =
-    lib.optionals stdenv.isDarwin [ Carbon ]
-    ++ lib.optionals withJpegSupport [ libjpeg ]
-    ++ lib.optionals withPngSupport [ libpng ];
+    lib.optionals stdenv.isDarwin [Carbon]
+    ++ lib.optionals withJpegSupport [libjpeg]
+    ++ lib.optionals withPngSupport [libpng];
   preBuild =
     ''
       cd unix
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       "bsd"
     else
       throw "Don't know what arch to select for tachyon build";
-  makeFlags = [ arch ];
+  makeFlags = [arch];
 
   patches = [
     # Remove absolute paths in Make-config (and unset variables so they can be set in preBuild)
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "A Parallel / Multiprocessor Ray Tracing System";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = with lib.platforms; linux ++ cygwin ++ darwin;
     homepage = "http://jedi.ks.uiuc.edu/~johns/tachyon/";
   };

@@ -35,7 +35,7 @@ buildFishPlugin rec {
     clownfish
     fishtape_3
   ];
-  checkFunctionDirs = [ "./functions" ];
+  checkFunctionDirs = ["./functions"];
   checkPhase =
     ''
       # Disable git tests which inspect the project's git repo, which isn't

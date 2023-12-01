@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     alsa-lib
   ];
 
-  buildInputs = [ dpkg ];
+  buildInputs = [dpkg];
 
   dontUnpack = true;
   dontBuild = true;
@@ -49,9 +49,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Cross-platform, easy to use, fast and functional audio editor";
     homepage = "https://www.ocenaudio.com";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ onny ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [onny];
   };
 }

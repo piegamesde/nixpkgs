@@ -17,7 +17,7 @@ stdenv.mkDerivation (
       hash = "sha256-HnhXBvIjo1JXhp+hUQvjs83t5IBVbNN6o3ZGhB4WESQ=";
     };
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
     meta = with lib; {
       homepage = "https://github.com/ToruNiina/toml11";
@@ -40,7 +40,7 @@ stdenv.mkDerivation (
           and Windows.
       '';
       license = licenses.mit;
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       platforms = platforms.unix;
     };
   }

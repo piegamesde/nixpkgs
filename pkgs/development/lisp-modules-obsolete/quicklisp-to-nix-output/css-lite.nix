@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "css-lite";
   version = "20120407-git";
 
   description = "System lacks description";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/css-lite/2012-04-07/css-lite-20120407-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "css-lite";
 
-  asdFilesToKeep = [ "css-lite.asd" ];
+  asdFilesToKeep = ["css-lite.asd"];
   overrides = x: x;
 }
 /* (SYSTEM css-lite DESCRIPTION System lacks description SHA256

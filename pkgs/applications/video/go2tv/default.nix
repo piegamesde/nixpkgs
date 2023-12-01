@@ -26,7 +26,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     [
@@ -53,7 +53,7 @@ buildGoModule rec {
   ];
 
   # conditionally build with GUI or not (go2tv or go2tv-lite sub-packages)
-  subPackages = [ "cmd/${pname}" ];
+  subPackages = ["cmd/${pname}"];
 
   doCheck = false;
 
@@ -61,6 +61,6 @@ buildGoModule rec {
     description = "Cast media files to UPnP/DLNA Media Renderers and Smart TVs";
     homepage = "https://github.com/alexballas/go2tv";
     license = licenses.mit;
-    maintainers = with maintainers; [ gdamjan ];
+    maintainers = with maintainers; [gdamjan];
   };
 }

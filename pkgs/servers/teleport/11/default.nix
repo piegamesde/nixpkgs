@@ -1,4 +1,4 @@
-{ callPackage, ... }@args:
+{callPackage, ...}@args:
 callPackage ../generic.nix (
   {
     version = "11.3.10";
@@ -12,5 +12,5 @@ callPackage ../generic.nix (
       };
     };
   }
-  // builtins.removeAttrs args [ "callPackage" ]
+  // builtins.removeAttrs args ["callPackage"]
 )

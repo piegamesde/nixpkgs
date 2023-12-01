@@ -31,9 +31,9 @@ stdenv.mkDerivation {
     ocamlbuild
     topkg
   ];
-  buildInputs = [ topkg ];
+  buildInputs = [topkg];
 
-  propagatedBuildInputs = [ uutf ];
+  propagatedBuildInputs = [uutf];
 
   strictDeps = true;
 
@@ -48,7 +48,7 @@ stdenv.mkDerivation {
     '';
     homepage = webpage;
     license = licenses.bsd3;
-    maintainers = [ maintainers.jirkamarsik ];
+    maintainers = [maintainers.jirkamarsik];
     mainProgram = "otftrip";
     inherit (ocaml.meta) platforms;
   };

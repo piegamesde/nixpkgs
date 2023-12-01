@@ -54,7 +54,7 @@ import ../pillow/generic.nix (
         Currently, Pillow-SIMD can be compiled with SSE4 (default) or AVX2 support.
       '';
       license = "http://www.pythonware.com/products/pil/license.htm";
-      maintainers = with maintainers; [ SuperSandro2000 ];
+      maintainers = with maintainers; [SuperSandro2000];
     };
   }
   // args

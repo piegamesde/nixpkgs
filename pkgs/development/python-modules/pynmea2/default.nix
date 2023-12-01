@@ -14,14 +14,14 @@ buildPythonPackage rec {
     hash = "sha256-Hap5uTJ5+IfRwjXlzFx54yZEVkE4zkaYmrD0ovyXDXw=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pynmea2" ];
+  pythonImportsCheck = ["pynmea2"];
 
   meta = {
     homepage = "https://github.com/Knio/pynmea2";
     description = "Python library for the NMEA 0183 protcol";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ oxzi ];
+    maintainers = with lib.maintainers; [oxzi];
   };
 }

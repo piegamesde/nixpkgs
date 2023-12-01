@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "0nzsdxbah0shm2vlziaaw3ilzlizd3d35rridkpg40nfxmq84qnx";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     SDL
@@ -27,6 +27,6 @@ stdenv.mkDerivation rec {
     description = "Program for representing sounds visually";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.infinisil ];
+    maintainers = [lib.maintainers.infinisil];
   };
 }

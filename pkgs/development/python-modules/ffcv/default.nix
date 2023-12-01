@@ -36,8 +36,8 @@ buildPythonPackage rec {
       --replace "'webdataset'," ""
   '';
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libjpeg ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libjpeg];
   propagatedBuildInputs = [
     opencv4
     numba
@@ -51,12 +51,12 @@ buildPythonPackage rec {
   # reason. See https://github.com/NixOS/nixpkgs/pull/160441#issuecomment-1045204722.
   doCheck = false;
 
-  pythonImportsCheck = [ "ffcv" ];
+  pythonImportsCheck = ["ffcv"];
 
   meta = with lib; {
     description = "FFCV: Fast Forward Computer Vision";
     homepage = "https://ffcv.io";
     license = licenses.asl20;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

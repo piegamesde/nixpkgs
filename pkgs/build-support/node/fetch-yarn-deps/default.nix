@@ -24,7 +24,7 @@ in
 
     dontUnpack = true;
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
     buildInputs = [
       coreutils
       nix-prefetch-git
@@ -97,7 +97,7 @@ in
             dontUnpack = src == null;
             dontInstall = true;
 
-            nativeBuildInputs = [ prefetch-yarn-deps ];
+            nativeBuildInputs = [prefetch-yarn-deps];
             GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
             buildPhase = ''
@@ -121,5 +121,5 @@ in
           ])
         );
     in
-    lib.setFunctionArgs f (lib.functionArgs f) // { tests = callPackage ./tests { }; };
+    lib.setFunctionArgs f (lib.functionArgs f) // {tests = callPackage ./tests {};};
 }

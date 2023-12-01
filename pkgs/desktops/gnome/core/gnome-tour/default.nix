@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
 
   cargoVendorDir = "vendor";
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     appstream-glib
@@ -67,10 +67,10 @@ stdenv.mkDerivation rec {
         rust = [ 'rustc', '--target', '${rust.toRustTargetSpec stdenv.hostPlatform}' ]
       '';
     in
-    lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [ "--cross-file=${crossFile}" ];
+    lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) ["--cross-file=${crossFile}"];
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = pname; };
+    updateScript = gnome.updateScript {packageName = pname;};
   };
 
   meta = with lib; {

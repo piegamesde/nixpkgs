@@ -19,7 +19,7 @@ mkDerivation rec {
     sha256 = "sha256-8sIdX+qm7CGPHIziFBHHIe+KEbhbwDY6w/iRm1V+so4=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     ffmpeg_4
@@ -35,7 +35,7 @@ mkDerivation rec {
     description = "Stereoscopic 3D and multi-display video player";
     homepage = "https://bino3d.org/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = platforms.linux;
   };
 }

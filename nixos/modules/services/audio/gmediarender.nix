@@ -47,7 +47,7 @@ in
       '';
     };
 
-    package = mkPackageOptionMD pkgs "gmediarender" { default = "gmrender-resurrect"; };
+    package = mkPackageOptionMD pkgs "gmediarender" {default = "gmrender-resurrect";};
 
     port = mkOption {
       type = types.nullOr types.port;
@@ -68,8 +68,8 @@ in
   config = mkIf cfg.enable {
     systemd = {
       services.gmediarender = {
-        after = [ "network-online.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network-online.target"];
+        wantedBy = ["multi-user.target"];
         description = "gmediarender server daemon";
         environment = {
           XDG_CACHE_HOME = "%t/gmediarender";
@@ -78,7 +78,7 @@ in
           DynamicUser = true;
           User = "gmediarender";
           Group = "gmediarender";
-          SupplementaryGroups = [ "audio" ];
+          SupplementaryGroups = ["audio"];
           ExecStart =
             "${cfg.package}/bin/gmediarender "
             + optionalString (cfg.audioDevice != null) (

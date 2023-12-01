@@ -39,7 +39,7 @@ lib.throwIfNot (lib.versionAtLeast ppxlib.version "0.24.0")
       inherit (param) sha256;
     };
 
-    propagatedBuildInputs = [ ppxlib ];
+    propagatedBuildInputs = [ppxlib];
 
     checkInputs = [
       ounit

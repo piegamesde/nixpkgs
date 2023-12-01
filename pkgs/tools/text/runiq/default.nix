@@ -19,6 +19,6 @@ rustPlatform.buildRustPackage rec {
     description = "An efficient way to filter duplicate lines from input, à la uniq";
     homepage = "https://github.com/whitfin/runiq";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

@@ -20,14 +20,14 @@ stdenv.mkDerivation rec {
     sha256 = "1nj7iv3xrq600i37na9a5idd718piiiqbs4zxvpjs66cdrsk1h6i";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs =
     [
       zlib
       bzip2
       perl
     ]
-    ++ lib.optionals stdenv.isLinux [ libcap ]
+    ++ lib.optionals stdenv.isLinux [libcap]
     ++ lib.optionals stdenv.isDarwin (
       with darwin.apple_sdk.frameworks; [
         Carbon
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       ]
     );
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isMusl "-D__THROW=";
 
   # efi-boot-patch extracted from http://arm.koji.fedoraproject.org/koji/rpminfo?rpmID=174244
@@ -77,9 +77,9 @@ stdenv.mkDerivation rec {
     ln -s $out/bin/wodim $out/bin/cdrecord
   '';
 
-  cmakeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "-DBITFIELDS_HTOL=0" ];
+  cmakeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) ["-DBITFIELDS_HTOL=0"];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = {
     description = "Portable command-line CD/DVD recorder software, mostly compatible with cdrtools";

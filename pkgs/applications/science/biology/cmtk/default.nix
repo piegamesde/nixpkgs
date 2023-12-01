@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "1nmsga9m7vcc4y4a6zl53ra3mwlgjwdgsq1j291awkn7zr1az6qs";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-std=c++11"
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
       A software toolkit for computational morphometry of
             biomedical images, CMTK comprises a set of command line tools and a
             back-end general-purpose library for processing and I/O'';
-    maintainers = with maintainers; [ tbenst ];
+    maintainers = with maintainers; [tbenst];
     platforms = platforms.all;
     license = licenses.gpl3;
     homepage = "https://www.nitrc.org/projects/cmtk/";

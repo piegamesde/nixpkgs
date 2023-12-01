@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-cKEMRbH/xNtYM0lmNVazv3i0Q1tmVrVPrB6F2s02Sro=";
   };
 
-  nativeBuildInputs = [ pytest-runner ];
+  nativeBuildInputs = [pytest-runner];
   propagatedBuildInputs = [
     colorama
     regex
@@ -33,7 +33,7 @@ buildPythonPackage rec {
     pytest-mypy
   ];
 
-  pythonImportsCheck = [ "tatsu" ];
+  pythonImportsCheck = ["tatsu"];
 
   meta = with lib; {
     description = "Generates Python parsers from grammars in a variation of EBNF";
@@ -44,6 +44,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://tatsu.readthedocs.io/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

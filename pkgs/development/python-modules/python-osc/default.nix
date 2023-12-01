@@ -13,12 +13,12 @@ buildPythonPackage rec {
     hash = "sha256-69a3z4rjhzgPSOnW1zabrRwXahr2YI79eIi1C08OdK0=";
   };
 
-  pythonImportsCheck = [ "pythonosc" ];
+  pythonImportsCheck = ["pythonosc"];
 
   meta = with lib; {
     description = "Open Sound Control server and client in pure python";
     homepage = "https://github.com/attwad/python-osc";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ anirrudh ];
+    maintainers = with maintainers; [anirrudh];
   };
 }

@@ -5,7 +5,7 @@
   stdenv,
   cmake,
   pkg-config,
-  cudaPackages ? { },
+  cudaPackages ? {},
   symlinkJoin,
   tbb,
   hostSystem ? "CPP",
@@ -75,7 +75,7 @@ stdenv.mkDerivation {
     echo > cmake/ThrustCompilerHacks.cmake
   '';
 
-  buildInputs = lib.optionals tbbSupport [ tbb ];
+  buildInputs = lib.optionals tbbSupport [tbb];
 
   nativeBuildInputs =
     [
@@ -97,7 +97,7 @@ stdenv.mkDerivation {
       "-DTHRUST_AUTO_DETECT_COMPUTE_ARCHS=OFF"
       "-DTHRUST_DISABLE_ARCH_BY_DEFAULT=ON"
     ]
-    ++ lib.optionals cudaFlags.enableForwardCompat [ "-DTHRUST_ENABLE_COMPUTE_FUTURE=ON" ]
+    ++ lib.optionals cudaFlags.enableForwardCompat ["-DTHRUST_ENABLE_COMPUTE_FUTURE=ON"]
     ++ map (sm: "THRUST_ENABLE_COMPUTE_${sm}") cudaCapabilities;
 
   passthru = {
@@ -109,6 +109,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/NVIDIA/thrust";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ SomeoneSerge ];
+    maintainers = with maintainers; [SomeoneSerge];
   };
 }

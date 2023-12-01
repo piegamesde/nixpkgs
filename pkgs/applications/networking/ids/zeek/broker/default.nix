@@ -70,14 +70,14 @@ stdenv.mkDerivation {
     touch $sourceRoot/bindings/python/3rdparty/pybind11/CMakeLists.txt
   '';
 
-  patches = [ ./0001-Fix-include-path-in-exported-CMake-targets.patch ];
+  patches = [./0001-Fix-include-path-in-exported-CMake-targets.patch];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     openssl
     python3.pkgs.pybind11
   ];
-  propagatedBuildInputs = [ caf' ];
+  propagatedBuildInputs = [caf'];
 
   cmakeFlags = [
     "-DCAF_ROOT=${caf'}"
@@ -90,6 +90,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/zeek/broker";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ tobim ];
+    maintainers = with maintainers; [tobim];
   };
 }

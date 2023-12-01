@@ -23,13 +23,13 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  makeFlags = [ "AR:=$(AR)" ];
+  makeFlags = ["AR:=$(AR)"];
 
-  nativeBuildInputs = [ gettext ];
+  nativeBuildInputs = [gettext];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  configureFlags = [ "--program-transform-name=s/^l//" ];
+  configureFlags = ["--program-transform-name=s/^l//"];
 
   meta = with lib; {
     homepage = "https://ohse.de/uwe/software/lrzsz.html";

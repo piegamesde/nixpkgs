@@ -25,6 +25,6 @@ buildPythonPackage rec {
     description = "miniUPnP client";
     homepage = "http://miniupnp.free.fr/";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

@@ -19,7 +19,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Table cat";
     homepage = "https://github.com/rsc/tcat";
-    maintainers = with maintainers; [ mmlb ];
+    maintainers = with maintainers; [mmlb];
     license = licenses.bsd3;
   };
 }

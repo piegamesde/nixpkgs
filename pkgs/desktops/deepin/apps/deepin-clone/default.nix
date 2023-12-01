@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     partclone
   ];
 
-  cmakeFlags = [ "-DDISABLE_DFM_PLUGIN=YES" ];
+  cmakeFlags = ["-DDISABLE_DFM_PLUGIN=YES"];
 
   strictDeps = true;
 

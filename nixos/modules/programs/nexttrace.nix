@@ -14,12 +14,12 @@ in
       enable = lib.mkEnableOption (
         lib.mdDoc "Nexttrace to the global environment and configure a setcap wrapper for it"
       );
-      package = lib.mkPackageOptionMD pkgs "nexttrace" { };
+      package = lib.mkPackageOptionMD pkgs "nexttrace" {};
     };
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     security.wrappers.nexttrace = {
       owner = "root";

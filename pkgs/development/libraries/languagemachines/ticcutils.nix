@@ -46,6 +46,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/LanguageMachines/ticcutils";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ roberth ];
+    maintainers = with maintainers; [roberth];
   };
 }

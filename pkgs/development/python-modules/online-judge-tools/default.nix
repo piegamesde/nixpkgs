@@ -31,6 +31,6 @@ buildPythonPackage rec {
     description = "Tools for various online judges. Download sample cases, generate additional test cases, test your code, and submit it.";
     homepage = "https://github.com/online-judge-tools/oj";
     license = licenses.mit;
-    maintainers = with maintainers; [ sei40kr ];
+    maintainers = with maintainers; [sei40kr];
   };
 }

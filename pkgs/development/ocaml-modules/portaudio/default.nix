@@ -17,13 +17,13 @@ buildDunePackage rec {
     sha256 = "sha256-rMSE+ta7ughjjCnz4oho1D3VGaAsUlLtxizvxZT0/cQ=";
   };
 
-  buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [ portaudio ];
+  buildInputs = [dune-configurator];
+  propagatedBuildInputs = [portaudio];
 
   meta = with lib; {
     homepage = "https://github.com/savonet/ocaml-portaudio";
     description = "Bindings for the portaudio library which provides high-level functions for using soundcards";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

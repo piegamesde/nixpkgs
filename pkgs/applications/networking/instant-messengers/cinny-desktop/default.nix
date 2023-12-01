@@ -38,9 +38,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Yet another matrix client for desktop";
     homepage = "https://github.com/cinnyapp/cinny-desktop";
-    maintainers = [ maintainers.aveltras ];
+    maintainers = [maintainers.aveltras];
     license = licenses.agpl3Only;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     platforms = platforms.linux;
     mainProgram = "cinny";
   };

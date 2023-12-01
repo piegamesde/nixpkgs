@@ -23,9 +23,9 @@ stdenv.mkDerivation rec {
     cmake
     makeWrapper
   ];
-  buildInputs = [ SDL2 ];
+  buildInputs = [SDL2];
 
-  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ];
+  cmakeFlags = ["-DCMAKE_BUILD_TYPE=Release"];
 
   installPhase = ''
     runHook preInstall
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/jorio/Nanosaur2";
     license = licenses.cc-by-sa-40;
-    maintainers = with maintainers; [ lux ];
+    maintainers = with maintainers; [lux];
     platforms = platforms.linux;
   };
 }

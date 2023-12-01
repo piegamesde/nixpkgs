@@ -28,9 +28,9 @@ buildPythonPackage rec {
     py-air-control
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "py_air_control_exporter" ];
+  pythonImportsCheck = ["py_air_control_exporter"];
 
   passthru.tests = {
     inherit (nixosTests.prometheus-exporters) py-air-control;
@@ -40,6 +40,6 @@ buildPythonPackage rec {
     description = "Exports Air Quality Metrics to Prometheus";
     homepage = "https://github.com/urbas/py-air-control-exporter";
     license = licenses.mit;
-    maintainers = with maintainers; [ urbas ];
+    maintainers = with maintainers; [urbas];
   };
 }

@@ -34,7 +34,7 @@ buildGoPackage rec {
     description = "A Prometheus exporter for Minio cloud storage server";
     homepage = "https://github.com/joe-pll/minio-exporter";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bachp ];
+    maintainers = with maintainers; [bachp];
     platforms = platforms.unix;
   };
 }

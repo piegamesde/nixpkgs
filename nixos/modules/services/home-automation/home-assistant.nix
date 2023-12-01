@@ -9,19 +9,19 @@ with lib;
 
 let
   cfg = config.services.home-assistant;
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
 
   # Render config attribute sets to YAML
   # Values that are null will be filtered from the output, so this is one way to have optional
   # options shown in settings.
   # We post-process the result to add support for YAML functions, like secrets or includes, see e.g.
   # https://www.home-assistant.io/docs/configuration/secrets/
-  filteredConfig = lib.converge (lib.filterAttrsRecursive (_: v: !elem v [ null ])) cfg.config or { };
-  configFile = pkgs.runCommand "configuration.yaml" { preferLocalBuild = true; } ''
+  filteredConfig = lib.converge (lib.filterAttrsRecursive (_: v: !elem v [null])) cfg.config or {};
+  configFile = pkgs.runCommand "configuration.yaml" {preferLocalBuild = true;} ''
     cp ${format.generate "configuration.yaml" filteredConfig} $out
     sed -i -e "s/'\!\([a-z_]\+\) \(.*\)'/\!\1 \2/;s/^\!\!/\!/;" $out
   '';
-  lovelaceConfig = cfg.lovelaceConfig or { };
+  lovelaceConfig = cfg.lovelaceConfig or {};
   lovelaceConfigFile = format.generate "ui-lovelace.yaml" lovelaceConfig;
 
   # Components advertised by the home-assistant package
@@ -43,13 +43,13 @@ let
     config:
     # don't recurse into derivations possibly creating an infinite recursion
     if isDerivation config then
-      [ ]
+      []
     else if isAttrs config then
       optional (config ? platform) config.platform ++ concatMap usedPlatforms (attrValues config)
     else if isList config then
       concatMap usedPlatforms config
     else
-      [ ];
+      [];
 
   useComponentPlatform = component: elem component (usedPlatforms cfg.config);
 
@@ -70,8 +70,8 @@ let
       oldArgs: {
         # Respect overrides that already exist in the passed package and
         # concat it with values passed via the module.
-        extraComponents = oldArgs.extraComponents or [ ] ++ extraComponents;
-        extraPackages = ps: (oldArgs.extraPackages or (_: [ ]) ps) ++ (cfg.extraPackages ps);
+        extraComponents = oldArgs.extraComponents or [] ++ extraComponents;
+        extraPackages = ps: (oldArgs.extraPackages or (_: []) ps) ++ (cfg.extraPackages ps);
       }
     ));
 in
@@ -162,7 +162,7 @@ in
 
     extraPackages = mkOption {
       type = types.functionTo (types.listOf types.package);
-      default = _: [ ];
+      default = _: [];
       defaultText = literalExpression ''
         python3Packages: with python3Packages; [];
       '';
@@ -385,7 +385,7 @@ in
     };
 
     package = mkOption {
-      default = pkgs.home-assistant.overrideAttrs (oldAttrs: { doInstallCheck = false; });
+      default = pkgs.home-assistant.overrideAttrs (oldAttrs: {doInstallCheck = false;});
       defaultText = literalExpression ''
         pkgs.home-assistant.overrideAttrs (oldAttrs: {
           doInstallCheck = false;
@@ -424,7 +424,7 @@ in
       }
     ];
 
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.config.http.server_port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.config.http.server_port];
 
     # symlink the configuration to /etc/home-assistant
     environment.etc = lib.mkMerge [
@@ -640,25 +640,25 @@ in
                 "homeassistant"
                 "allowlist_external_dirs"
               ];
-              value = attrByPath cfgPath [ ] cfg;
+              value = attrByPath cfgPath [] cfg;
               allowPaths = if isList value then value else singleton value;
             in
-            [ "${cfg.configDir}" ] ++ allowPaths;
+            ["${cfg.configDir}"] ++ allowPaths;
           RestrictAddressFamilies = [
             "AF_INET"
             "AF_INET6"
             "AF_NETLINK"
             "AF_UNIX"
-          ] ++ optionals (any useComponent componentsUsingBluetooth) [ "AF_BLUETOOTH" ];
+          ] ++ optionals (any useComponent componentsUsingBluetooth) ["AF_BLUETOOTH"];
           RestrictNamespaces = true;
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
-          SupplementaryGroups = optionals (any useComponent componentsUsingSerialDevices) [ "dialout" ];
+          SupplementaryGroups = optionals (any useComponent componentsUsingSerialDevices) ["dialout"];
           SystemCallArchitectures = "native";
           SystemCallFilter = [
             "@system-service"
             "~@privileged"
-          ] ++ optionals (any useComponent componentsUsingPing) [ "capset" ];
+          ] ++ optionals (any useComponent componentsUsingPing) ["capset"];
           UMask = "0077";
         };
       path = [
@@ -668,8 +668,8 @@ in
 
     systemd.targets.home-assistant = rec {
       description = "Home Assistant";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "home-assistant.service" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["home-assistant.service"];
       after = wants;
     };
 

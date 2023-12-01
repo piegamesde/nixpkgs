@@ -44,10 +44,10 @@ stdenv.mkDerivation rec {
   x11inc = "${x11env}/include";
 
   prefixKey = "-prefix ";
-  configureFlags = optionals useX11 [ "--enable-flambda" ];
+  configureFlags = optionals useX11 ["--enable-flambda"];
 
   dontStrip = true;
-  buildInputs = [ ncurses ] ++ optionals useX11 x11deps;
+  buildInputs = [ncurses] ++ optionals useX11 x11deps;
 
   patches =
     [
@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
       qpl # library
       lgpl2
     ];
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
 
     branch = baseOcamlBranch;
     platforms = with platforms; linux ++ darwin;

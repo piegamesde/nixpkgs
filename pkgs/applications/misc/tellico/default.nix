@@ -73,7 +73,7 @@ mkDerivation rec {
       gpl3Only
       lgpl2Only
     ];
-    maintainers = with maintainers; [ numkem ];
+    maintainers = with maintainers; [numkem];
     platforms = platforms.linux;
   };
 }

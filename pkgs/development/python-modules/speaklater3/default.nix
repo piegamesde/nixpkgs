@@ -13,12 +13,12 @@ buildPythonPackage rec {
     sha256 = "ySYdS2taMEZyMS0esImb4Cj6yRdgGQqA/szTHTo7UEI=";
   };
 
-  pythonImportsCheck = [ "speaklater" ];
+  pythonImportsCheck = ["speaklater"];
 
   meta = with lib; {
     description = "Implements a lazy string for python useful for use with gettext";
     homepage = "https://github.com/mitsuhiko/speaklater";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

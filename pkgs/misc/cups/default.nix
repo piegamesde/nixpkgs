@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
       ]
     );
 
-  propagatedBuildInputs = [ gmp ];
+  propagatedBuildInputs = [gmp];
 
   configurePlatforms = lib.optionals stdenv.isLinux [
     "build"
@@ -175,7 +175,7 @@ stdenv.mkDerivation rec {
     homepage = "https://openprinting.github.io/cups/";
     description = "A standards-based printing system for UNIX";
     license = licenses.asl20;
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
     platforms = platforms.unix;
   };
 }

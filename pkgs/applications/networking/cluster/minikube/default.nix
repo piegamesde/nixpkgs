@@ -35,9 +35,9 @@ buildGoModule rec {
 
   buildInputs =
     if stdenv.isDarwin then
-      [ vmnet ]
+      [vmnet]
     else if stdenv.isLinux then
-      [ libvirt ]
+      [libvirt]
     else
       null;
 

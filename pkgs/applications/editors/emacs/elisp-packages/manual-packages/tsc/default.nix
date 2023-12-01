@@ -44,7 +44,7 @@ let
 
     pname = "tsc-dyn";
 
-    nativeBuildInputs = [ rustPlatform.bindgenHook ];
+    nativeBuildInputs = [rustPlatform.bindgenHook];
     sourceRoot = "source/core";
 
     postInstall = ''
@@ -69,7 +69,7 @@ symlinkJoin {
   passthru = {
     updateScript =
       let
-        pythonEnv = python3.withPackages (ps: [ ps.requests ]);
+        pythonEnv = python3.withPackages (ps: [ps.requests]);
       in
       writeScript "tsc-update" ''
         #!${runtimeShell}
@@ -88,6 +88,6 @@ symlinkJoin {
   meta = {
     description = "The core APIs of the Emacs binding for tree-sitter.";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pimeys ];
+    maintainers = with lib.maintainers; [pimeys];
   };
 }

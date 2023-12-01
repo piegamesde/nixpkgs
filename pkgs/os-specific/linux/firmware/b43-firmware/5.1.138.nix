@@ -18,7 +18,7 @@ stdenvNoCC.mkDerivation {
     sha256 = "0vz4ka8gycf72gmnaq61k8rh8y17j1wm2k3fidxvcqjvmix0drzi";
   };
 
-  nativeBuildInputs = [ b43FirmwareCutter ];
+  nativeBuildInputs = [b43FirmwareCutter];
 
   installPhase = ''
     mkdir -p $out/lib/firmware

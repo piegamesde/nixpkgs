@@ -83,7 +83,7 @@ let
     };
 
   siteOpts =
-    { lib, name, ... }:
+    {lib, name, ...}:
     {
       options = {
 
@@ -143,7 +143,7 @@ let
 
         invoiceTemplates = mkOption {
           type = types.listOf types.path;
-          default = [ ];
+          default = [];
           description = lib.mdDoc ''
             List of path(s) to respective template(s) which are copied from the 'invoice_templates/pdf' directory.
 
@@ -241,12 +241,12 @@ in
 
         options.sites = mkOption {
           type = types.attrsOf (types.submodule siteOpts);
-          default = { };
+          default = {};
           description = lib.mdDoc "Specification of one or more WordPress sites to serve";
         };
 
         options.webserver = mkOption {
-          type = types.enum [ "caddy" ];
+          type = types.enum ["caddy"];
           default = "caddy";
           description = lib.mdDoc ''
             Which webserver to use for virtual host management. Currently only
@@ -254,13 +254,13 @@ in
           '';
         };
       };
-      default = { };
+      default = {};
       description = lib.mdDoc "InvoicePlane configuration.";
     };
   };
 
   # implementation
-  config = mkIf (eachSite != { }) (
+  config = mkIf (eachSite != {}) (
     mkMerge [
       {
 
@@ -348,7 +348,7 @@ in
               '')
               eachSite
           );
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
         };
 
         users.users.${user} = {
@@ -366,7 +366,7 @@ in
               hostName: cfg:
               (nameValuePair "invoiceplane-cron-${hostName}" (
                 mkIf cfg.cron.enable {
-                  wantedBy = [ "timers.target" ];
+                  wantedBy = ["timers.target"];
                   timerConfig = {
                     OnBootSec = "5m";
                     OnUnitActiveSec = "5m";

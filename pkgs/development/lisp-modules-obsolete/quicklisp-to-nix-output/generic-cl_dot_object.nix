@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "generic-cl_dot_object";
   version = "generic-cl-20211020-git";
@@ -41,7 +41,7 @@ rec {
 
   packageName = "generic-cl.object";
 
-  asdFilesToKeep = [ "generic-cl.object.asd" ];
+  asdFilesToKeep = ["generic-cl.object.asd"];
   overrides = x: x;
 }
 /* (SYSTEM generic-cl.object DESCRIPTION

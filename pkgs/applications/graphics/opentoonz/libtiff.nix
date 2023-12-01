@@ -22,7 +22,7 @@
 }:
 
 let
-  source = import ./source.nix { inherit fetchFromGitHub; };
+  source = import ./source.nix {inherit fetchFromGitHub;};
 in
 stdenv.mkDerivation {
   pname = "libtiff";
@@ -37,7 +37,7 @@ stdenv.mkDerivation {
     "doc"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   propagatedBuildInputs = [
     zlib
     libjpeg
@@ -73,6 +73,6 @@ stdenv.mkDerivation {
         More info at https://github.com/opentoonz/opentoonz/issues/4193
       ''
     ];
-    maintainers = with lib.maintainers; [ chkno ];
+    maintainers = with lib.maintainers; [chkno];
   };
 }

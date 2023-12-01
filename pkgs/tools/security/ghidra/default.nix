@@ -20,7 +20,7 @@ let
     icon = "ghidra";
     desktopName = "Ghidra";
     genericName = "Ghidra Software Reverse Engineering Suite";
-    categories = [ "Development" ];
+    categories = ["Development"];
   };
 in
 stdenv.mkDerivation rec {
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     makeWrapper
     icoutils
-  ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+  ] ++ lib.optionals stdenv.isLinux [autoPatchelfHook];
 
   buildInputs = [
     stdenv.cc.cc.lib
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     ln -s "${pkg_path}/ghidraRun" "$out/bin/ghidra"
 
     wrapProgram "${pkg_path}/support/launch.sh" \
-      --prefix PATH : ${lib.makeBinPath [ openjdk17 ]}
+      --prefix PATH : ${lib.makeBinPath [openjdk17]}
   '';
 
   meta = with lib; {
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "x86_64-darwin"
     ];
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
     maintainers = with maintainers; [
       ck3d

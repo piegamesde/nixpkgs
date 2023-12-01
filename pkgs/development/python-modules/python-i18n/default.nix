@@ -22,12 +22,12 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  pytestFlagsArray = [ "i18n/tests/run_tests.py" ];
+  pytestFlagsArray = ["i18n/tests/run_tests.py"];
 
   meta = with lib; {
     description = "Easy to use i18n library";
     homepage = "https://github.com/danhper/python-i18n";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ emilytrau ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [emilytrau];
   };
 }

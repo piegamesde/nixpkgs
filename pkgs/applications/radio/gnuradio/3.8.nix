@@ -38,9 +38,9 @@
   libsForQt5,
   # Features available to override, the list of them is in featuresInfo. They
   # are all turned on by default.
-  features ? { },
+  features ? {},
   # If one wishes to use a different src or name for a very custom build
-  overrideSrc ? { },
+  overrideSrc ? {},
   pname ? "gnuradio",
   versionAttr ? {
     major = "3.8";
@@ -67,7 +67,7 @@ let
         ]
         # when gr-qtgui is disabled, icu needs to be included, otherwise
         # building with boost 1.7x fails
-        ++ lib.optionals (!(hasFeature "gr-qtgui")) [ icu ];
+        ++ lib.optionals (!(hasFeature "gr-qtgui")) [icu];
       pythonNative = with python.pkgs; [
         mako
         six
@@ -75,18 +75,18 @@ let
     };
     volk = {
       cmakeEnableFlag = "VOLK";
-      runtime = [ volk ];
+      runtime = [volk];
     };
     doxygen = {
-      native = [ doxygen ];
+      native = [doxygen];
       cmakeEnableFlag = "DOXYGEN";
     };
     sphinx = {
-      pythonNative = with python.pkgs; [ sphinx ];
+      pythonNative = with python.pkgs; [sphinx];
       cmakeEnableFlag = "SPHINX";
     };
     python-support = {
-      pythonRuntime = [ python.pkgs.six ];
+      pythonRuntime = [python.pkgs.six];
       native = [
         swig
         python
@@ -94,7 +94,7 @@ let
       cmakeEnableFlag = "PYTHON";
     };
     testing-support = {
-      native = [ cppunit ];
+      native = [cppunit];
       cmakeEnableFlag = "TESTING";
     };
     gnuradio-runtime = {
@@ -102,8 +102,8 @@ let
     };
     gr-ctrlport = {
       cmakeEnableFlag = "GR_CTRLPORT";
-      native = [ swig ];
-      runtime = [ thrift ];
+      native = [swig];
+      runtime = [thrift];
       pythonRuntime = with python.pkgs; [
         python.pkgs.thrift
         # For gr-perf-monitorx
@@ -133,11 +133,11 @@ let
       cmakeEnableFlag = "GR_FEC";
     };
     gr-fft = {
-      runtime = [ fftwFloat ];
+      runtime = [fftwFloat];
       cmakeEnableFlag = "GR_FFT";
     };
     gr-filter = {
-      runtime = [ fftwFloat ];
+      runtime = [fftwFloat];
       cmakeEnableFlag = "GR_FILTER";
     };
     gr-analog = {
@@ -151,12 +151,12 @@ let
     };
     gr-audio = {
       runtime =
-        [ ]
+        []
         ++ lib.optionals stdenv.isLinux [
           alsa-lib
           libjack2
         ]
-        ++ lib.optionals stdenv.isDarwin [ CoreAudio ];
+        ++ lib.optionals stdenv.isDarwin [CoreAudio];
       cmakeEnableFlag = "GR_AUDIO";
     };
     gr-channels = {
@@ -167,14 +167,14 @@ let
         qt5.qtbase
         libsForQt5.qwt
       ];
-      pythonRuntime = [ python.pkgs.pyqt5 ];
+      pythonRuntime = [python.pkgs.pyqt5];
       cmakeEnableFlag = "GR_QTGUI";
     };
     gr-trellis = {
       cmakeEnableFlag = "GR_TRELLIS";
     };
     gr-uhd = {
-      runtime = [ uhd ];
+      runtime = [uhd];
       cmakeEnableFlag = "GR_UHD";
     };
     gr-utils = {
@@ -195,7 +195,7 @@ let
       cmakeEnableFlag = "GR_MODTOOL";
     };
     gr-video-sdl = {
-      runtime = [ SDL ];
+      runtime = [SDL];
       cmakeEnableFlag = "GR_VIDEO_SDL";
     };
     gr-vocoder = {
@@ -207,10 +207,10 @@ let
     };
     gr-wavelet = {
       cmakeEnableFlag = "GR_WAVELET";
-      runtime = [ gsl ];
+      runtime = [gsl];
     };
     gr-zeromq = {
-      runtime = [ cppzmq ];
+      runtime = [cppzmq];
       cmakeEnableFlag = "GR_ZEROMQ";
     };
   };
@@ -266,8 +266,8 @@ stdenv.mkDerivation {
       # gnuradio3.10 where there it's spdlog.
       logLib = log4cpp;
     }
-    // lib.optionalAttrs (hasFeature "gr-uhd") { inherit uhd; }
-    // lib.optionalAttrs (hasFeature "gr-qtgui") { inherit (libsForQt5) qwt; };
+    // lib.optionalAttrs (hasFeature "gr-uhd") {inherit uhd;}
+    // lib.optionalAttrs (hasFeature "gr-qtgui") {inherit (libsForQt5) qwt;};
   cmakeFlags =
     shared.cmakeFlags
     # From some reason, if these are not set, libcodec2 and gsm are not
@@ -286,7 +286,7 @@ stdenv.mkDerivation {
       "-DLIBGSM_LIBRARIES=${gsm}/lib/libgsm${stdenv.hostPlatform.extensions.sharedLibrary}"
       "-DLIBGSM_INCLUDE_DIRS=${gsm}/include/gsm"
     ]
-    ++ lib.optionals (hasFeature "volk" && volk != null) [ "-DENABLE_INTERNAL_VOLK=OFF" ];
+    ++ lib.optionals (hasFeature "volk" && volk != null) ["-DENABLE_INTERNAL_VOLK=OFF"];
 
   postInstall =
     shared.postInstall

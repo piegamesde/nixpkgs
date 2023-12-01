@@ -22,7 +22,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Tool to scan for CRLF vulnerability";
     homepage = "https://github.com/dwisiswant0/crlfuzz";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

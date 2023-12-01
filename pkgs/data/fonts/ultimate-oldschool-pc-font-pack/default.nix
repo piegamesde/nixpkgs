@@ -28,6 +28,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://int10h.org/oldschool-pc-fonts/";
     changelog = "https://int10h.org/oldschool-pc-fonts/readme/#history";
     license = licenses.cc-by-sa-40;
-    maintainers = [ maintainers.endgame ];
+    maintainers = [maintainers.endgame];
   };
 }

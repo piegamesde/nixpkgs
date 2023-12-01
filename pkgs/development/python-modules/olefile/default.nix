@@ -16,9 +16,9 @@ buildPythonPackage rec {
     sha256 = "133b031eaf8fd2c9399b78b8bc5b8fcbe4c31e85295749bb17a87cba8f3c3964";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "olefile" ];
+  pythonImportsCheck = ["olefile"];
 
   meta = with lib; {
     description = "Python package to parse, read and write Microsoft OLE2 files";
@@ -29,6 +29,6 @@ buildPythonPackage rec {
       bsd2 # and
       hpnd
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     "REG_BIN=${wireless-regdb}/lib/crda/regulatory.bin"
   ];
 
-  buildFlags = [ "all_noverify" ];
+  buildFlags = ["all_noverify"];
   enableParallelBuilding = true;
 
   doCheck = true;

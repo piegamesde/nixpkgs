@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     sha256 = "0f70lkw66v9cj72q0iw1s2546r6bwwcd8idcm3621fg2fgh2rw58";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     dbus
     dbus-glib
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     homepage = "https://wiki.gnome.org/Attic/LibUnique";
     description = "A library for writing single instance applications";
     license = lib.licenses.lgpl21;
-    maintainers = [ lib.maintainers.AndersonTorres ];
+    maintainers = [lib.maintainers.AndersonTorres];
     platforms = lib.platforms.linux;
   };
 }

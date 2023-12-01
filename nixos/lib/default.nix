@@ -10,7 +10,7 @@ in
 
   # Feature flags allow you to opt in to unfinished code. These may change some
   # behavior or disable warnings.
-  featureFlags ? { },
+  featureFlags ? {},
 
   # This file itself is rather new, so we accept unknown parameters to be forward
   # compatible. This is generally not recommended, because typos go undetected.
@@ -21,9 +21,9 @@ let
   # If cond, force `a` before returning any attr
   seqAttrsIf = cond: a: lib.mapAttrs (_: v: seqIf cond a v);
 
-  eval-config-minimal = import ./eval-config-minimal.nix { inherit lib; };
+  eval-config-minimal = import ./eval-config-minimal.nix {inherit lib;};
 
-  testing-lib = import ./testing/default.nix { inherit lib; };
+  testing-lib = import ./testing/default.nix {inherit lib;};
 in
 /* This attribute set appears as lib.nixos in the flake, or can be imported
    using a binding like `nixosLib = import (nixpkgs + "/nixos/lib") { }`.

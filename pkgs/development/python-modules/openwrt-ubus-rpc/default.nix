@@ -24,12 +24,12 @@ buildPythonPackage rec {
 
   # Project has no tests
   doCheck = false;
-  pythonImportsCheck = [ "openwrt.ubus" ];
+  pythonImportsCheck = ["openwrt.ubus"];
 
   meta = with lib; {
     description = "Python API for OpenWrt ubus RPC";
     homepage = "https://github.com/Noltari/python-ubus-rpc";
-    license = with licenses; [ gpl2Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl2Only];
+    maintainers = with maintainers; [fab];
   };
 }

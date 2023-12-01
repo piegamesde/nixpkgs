@@ -14,12 +14,12 @@ buildPythonPackage rec {
     hash = "sha256-Sl4yhuYmHMoC8gXP1VFqerEBkPowxRwo00WAj1leNCE=";
   };
 
-  pythonImportsCheck = [ "dawg_python" ];
+  pythonImportsCheck = ["dawg_python"];
 
   meta = with lib; {
     description = "Pure Python reader for DAWGs created by dawgdic C++ library or DAWG Python extension";
     homepage = "https://github.com/pytries/DAWG-Python";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

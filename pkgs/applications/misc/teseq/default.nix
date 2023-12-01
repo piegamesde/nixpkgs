@@ -22,6 +22,6 @@ stdenv.mkDerivation {
     license = lib.licenses.gpl3;
 
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.vaibhavsagar ];
+    maintainers = [lib.maintainers.vaibhavsagar];
   };
 }

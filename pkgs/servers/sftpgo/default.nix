@@ -25,11 +25,11 @@ buildGoModule rec {
     "-X github.com/drakkan/sftpgo/v2/internal/version.date=1970-01-01T00:00:00Z"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   doCheck = false;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   postInstall = ''
     $out/bin/sftpgo gen man
@@ -53,6 +53,6 @@ buildGoModule rec {
       Google Cloud Storage, Azure Blob Storage, SFTP.
     '';
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ thenonameguy ];
+    maintainers = with maintainers; [thenonameguy];
   };
 }

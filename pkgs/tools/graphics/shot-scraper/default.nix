@@ -1,4 +1,4 @@
-{ lib, python3 }:
+{lib, python3}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "shot-scraper";
@@ -22,13 +22,13 @@ python3.pkgs.buildPythonApplication rec {
   # skip tests due to network access
   doCheck = false;
 
-  pythonImportsCheck = [ "shot_scraper" ];
+  pythonImportsCheck = ["shot_scraper"];
 
   meta = with lib; {
     description = "A command-line utility for taking automated screenshots of websites";
     homepage = "https://github.com/simonw/shot-scraper";
     changelog = "https://github.com/simonw/shot-scraper/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ techknowlogick ];
+    maintainers = with maintainers; [techknowlogick];
   };
 }

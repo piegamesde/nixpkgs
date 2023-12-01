@@ -21,16 +21,16 @@ stdenv.mkDerivation rec {
     touch ChangeLog
   '';
 
-  buildInputs = [ gmp ];
+  buildInputs = [gmp];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   doCheck = true;
 
   meta = with lib; {
     description = "Highly optimized multi-polynomial quadratic sieve for integer factorization";
     homepage = "https://github.com/sagemath/FlintQS";
-    license = with licenses; [ gpl2 ];
+    license = with licenses; [gpl2];
     maintainers = teams.sage.members;
     mainProgram = "QuadraticSieve";
     platforms = platforms.all;

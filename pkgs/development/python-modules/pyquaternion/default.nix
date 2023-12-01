@@ -21,15 +21,15 @@ buildPythonPackage rec {
     echo "${version}" > VERSION.txt
   '';
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
-  nativeCheckInputs = [ nose ];
-  pythonImportsCheck = [ "pyquaternion" ];
+  nativeCheckInputs = [nose];
+  pythonImportsCheck = ["pyquaternion"];
 
   meta = with lib; {
     description = "Library for representing and using quaternions.";
     homepage = "http://kieranwynn.github.io/pyquaternion/";
     license = licenses.mit;
-    maintainers = with maintainers; [ lucasew ];
+    maintainers = with maintainers; [lucasew];
   };
 }

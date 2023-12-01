@@ -21,14 +21,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qx6oBxd0YrUyFq+7ArnKBqOwrl5X8RS9nErhRDUJ7+8=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     gbenchmark
     gtest
     zlib
     curl
   ];
-  propagatedBuildInputs = [ civetweb ];
+  propagatedBuildInputs = [civetweb];
   strictDeps = true;
 
   cmakeFlags = [
@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Prometheus Client Library for Modern C++";
     homepage = "https://github.com/jupp0r/prometheus-cpp";
-    license = [ lib.licenses.mit ];
+    license = [lib.licenses.mit];
   };
 }

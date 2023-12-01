@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-JZPNoQuIl5XayUpm0RdWNg8TT2LZGDOuFoae9crZe5Q=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     guile
     libffi
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       panel, and menu.
     '';
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ vyp ];
+    maintainers = with maintainers; [vyp];
     platforms = platforms.gnu ++ platforms.linux;
   };
 }

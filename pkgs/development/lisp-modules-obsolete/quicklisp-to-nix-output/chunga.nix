@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "chunga";
   version = "20200427-git";
 
   description = "System lacks description";
 
-  deps = [ args."trivial-gray-streams" ];
+  deps = [args."trivial-gray-streams"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/chunga/2020-04-27/chunga-20200427-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "chunga";
 
-  asdFilesToKeep = [ "chunga.asd" ];
+  asdFilesToKeep = ["chunga.asd"];
   overrides = x: x;
 }
 /* (SYSTEM chunga DESCRIPTION System lacks description SHA256

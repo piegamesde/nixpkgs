@@ -27,7 +27,7 @@ buildGoModule rec {
     homepage = "https://gitlab.com/jtaimisto/bluewalker";
     changelog = "https://gitlab.com/jtaimisto/bluewalker/-/tags/v${version}";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ cimm ];
+    maintainers = with maintainers; [cimm];
     platforms = platforms.linux;
   };
 }

@@ -1,4 +1,4 @@
-{ lib, python3Packages }:
+{lib, python3Packages}:
 
 python3Packages.buildPythonApplication rec {
   pname = "Flootty";
@@ -13,6 +13,6 @@ python3Packages.buildPythonApplication rec {
     description = "A collaborative terminal. In practice, it's similar to a shared screen or tmux session";
     homepage = "https://floobits.com/help/flootty";
     license = licenses.asl20;
-    maintainers = with maintainers; [ sellout ];
+    maintainers = with maintainers; [sellout];
   };
 }

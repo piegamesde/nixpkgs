@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
       --replace "tests/" "$out/share/davtest/tests/"
   '';
 
-  buildInputs = [ (perl.withPackages (p: with p; [ HTTPDAV ])) ];
+  buildInputs = [(perl.withPackages (p: with p; [HTTPDAV]))];
 
   installPhase = ''
     runHook preInstall
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     homepage = "https://code.google.com/p/davtest/";
     mainProgram = "davtest.pl";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.unix;
   };
 }

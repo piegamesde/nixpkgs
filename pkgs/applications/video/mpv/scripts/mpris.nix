@@ -18,18 +18,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-leW7oCWTnJuprVnJJ+iXd3nuB2VXl3fw8FmPxv7d6rA=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     glib
     mpv-unwrapped
   ];
 
-  installFlags = [ "SCRIPTS_DIR=$(out)/share/mpv/scripts" ];
+  installFlags = ["SCRIPTS_DIR=$(out)/share/mpv/scripts"];
 
   # Otherwise, the shared object isn't `strip`ped. See:
   # https://discourse.nixos.org/t/debug-why-a-derivation-has-a-reference-to-gcc/7009
-  stripDebugList = [ "share/mpv/scripts" ];
+  stripDebugList = ["share/mpv/scripts"];
   passthru.scriptName = "mpris.so";
 
   meta = with lib; {
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/hoyon/mpv-mpris";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jfrankenau ];
+    maintainers = with maintainers; [jfrankenau];
   };
 }

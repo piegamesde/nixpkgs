@@ -32,7 +32,7 @@ let
       .${system} or throwSystem;
   };
 
-  appimageContents = appimageTools.extractType2 { inherit name src; };
+  appimageContents = appimageTools.extractType2 {inherit name src;};
 
   meta = with lib; {
     description = "An open source note taking and to-do application with synchronisation capabilities";
@@ -45,7 +45,7 @@ let
     '';
     homepage = "https://joplinapp.org";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ hugoreeves ];
+    maintainers = with maintainers; [hugoreeves];
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"
@@ -77,7 +77,7 @@ let
   darwin = stdenv.mkDerivation {
     inherit name src meta;
 
-    nativeBuildInputs = [ undmg ];
+    nativeBuildInputs = [undmg];
 
     sourceRoot = "Joplin.app";
 

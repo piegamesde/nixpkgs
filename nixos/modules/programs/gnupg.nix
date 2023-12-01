@@ -108,27 +108,27 @@ in
     };
 
     systemd.user.sockets.gpg-agent = {
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
     };
 
     systemd.user.sockets.gpg-agent-ssh = mkIf cfg.agent.enableSSHSupport {
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
     };
 
     systemd.user.sockets.gpg-agent-extra = mkIf cfg.agent.enableExtraSocket {
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
     };
 
     systemd.user.sockets.gpg-agent-browser = mkIf cfg.agent.enableBrowserSocket {
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
     };
 
-    systemd.user.sockets.dirmngr = mkIf cfg.dirmngr.enable { wantedBy = [ "sockets.target" ]; };
+    systemd.user.sockets.dirmngr = mkIf cfg.dirmngr.enable {wantedBy = ["sockets.target"];};
 
-    services.dbus.packages = mkIf (cfg.agent.pinentryFlavor == "gnome3") [ pkgs.gcr ];
+    services.dbus.packages = mkIf (cfg.agent.pinentryFlavor == "gnome3") [pkgs.gcr];
 
-    environment.systemPackages = with pkgs; [ cfg.package ];
-    systemd.packages = [ cfg.package ];
+    environment.systemPackages = with pkgs; [cfg.package];
+    systemd.packages = [cfg.package];
 
     environment.interactiveShellInit = ''
       # Bind gpg-agent to this TTY if gpg commands are used.

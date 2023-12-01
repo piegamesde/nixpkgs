@@ -36,6 +36,6 @@ buildGoModule rec {
     homepage = "https://github.com/unpoller/unpoller";
     changelog = "https://github.com/unpoller/unpoller/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ Frostman ];
+    maintainers = with maintainers; [Frostman];
   };
 }

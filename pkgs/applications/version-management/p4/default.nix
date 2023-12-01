@@ -17,7 +17,7 @@
 }:
 
 let
-  opensslStatic = openssl.override { static = true; };
+  opensslStatic = openssl.override {static = true;};
   androidZlibContrib =
     let
       src = fetchzip {
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     sha256 = "27ab3ddd7b178b05cf0b710e941650dac0688d294110ebafda9027732c0944c6";
   };
 
-  nativeBuildInputs = [ jam ];
+  nativeBuildInputs = [jam];
 
   buildInputs = lib.optionals stdenv.isDarwin [
     CoreServices
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  hardeningDisable = lib.optionals stdenv.isDarwin [ "strictoverflow" ];
+  hardeningDisable = lib.optionals stdenv.isDarwin ["strictoverflow"];
 
   jamFlags =
     [
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
       "-sOSCOMP=gcc"
       "-sGCCVER=${stdenv.cc.cc.version}"
     ]
-    ++ lib.optionals stdenv.isLinux [ "-sOSVER=26" ]
+    ++ lib.optionals stdenv.isLinux ["-sOSVER=26"]
     ++ lib.optionals stdenv.isDarwin [
       "-sOSVER=1013"
       "-sMACOSX_SDK=${emptyDirectory}"
@@ -96,11 +96,11 @@ stdenv.mkDerivation rec {
   CCFLAGS =
     # The file contrib/optimizations/slide_hash_neon.h is missing from the
     # upstream distribution. It comes from the Android/Chromium sources.
-    lib.optionals stdenv.isAarch64 [ "-I${androidZlibContrib}" ];
+    lib.optionals stdenv.isAarch64 ["-I${androidZlibContrib}"];
 
   "C++FLAGS" =
     # Avoid a compilation error that only occurs for 4-byte longs.
-    lib.optionals stdenv.isi686 [ "-Wno-narrowing" ]
+    lib.optionals stdenv.isi686 ["-Wno-narrowing"]
     # See the "Header dependency changes" section of
     # https://www.gnu.org/software/gcc/gcc-11/porting_to.html for more
     # information on why we need to include these.

@@ -49,7 +49,7 @@ buildPythonPackage rec {
     hash = "sha256-ld3NuBTjDJUN4ZK+eTwmmfzcB8XCtg8xaLMECo95+Cg=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     markdown
@@ -70,6 +70,6 @@ buildPythonPackage rec {
       mit
       bsd2
     ];
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

@@ -21,18 +21,18 @@ stdenv.mkDerivation rec {
     coreutils
     bashInteractive
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     install -Dv yallback $out/bin/yallback
-    wrapProgram $out/bin/yallback --prefix PATH : ${lib.makeBinPath [ coreutils ]}
+    wrapProgram $out/bin/yallback --prefix PATH : ${lib.makeBinPath [coreutils]}
   '';
 
   meta = with lib; {
     description = "Callbacks for YARA rule matches";
     homepage = "https://github.com/abathur/yallback";
     license = licenses.mit;
-    maintainers = with maintainers; [ abathur ];
+    maintainers = with maintainers; [abathur];
     platforms = platforms.all;
   };
 }

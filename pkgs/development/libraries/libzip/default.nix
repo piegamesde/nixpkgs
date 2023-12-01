@@ -38,16 +38,16 @@ stdenv.mkDerivation (
       perl
       groff
     ];
-    propagatedBuildInputs = [ zlib ];
+    propagatedBuildInputs = [zlib];
     buildInputs =
-      lib.optionals withLZMA [ xz ]
-      ++ lib.optionals withBzip2 [ bzip2 ]
-      ++ lib.optionals withOpenssl [ openssl ]
-      ++ lib.optionals withZstd [ zstd ];
+      lib.optionals withLZMA [xz]
+      ++ lib.optionals withBzip2 [bzip2]
+      ++ lib.optionals withOpenssl [openssl]
+      ++ lib.optionals withZstd [zstd];
 
     # Don't build the regression tests because they don't build with
     # pkgsStatic and are not executed anyway.
-    cmakeFlags = [ "-DBUILD_REGRESS=0" ];
+    cmakeFlags = ["-DBUILD_REGRESS=0"];
 
     preCheck = ''
       # regress/runtest is a generated file
@@ -60,7 +60,7 @@ stdenv.mkDerivation (
       homepage = "https://libzip.org/";
       description = "A C library for reading, creating and modifying zip archives";
       license = licenses.bsd3;
-      pkgConfigModules = [ "libzip" ];
+      pkgConfigModules = ["libzip"];
       platforms = platforms.unix;
       changelog = "https://github.com/nih-at/libzip/blob/v${version}/NEWS.md";
     };

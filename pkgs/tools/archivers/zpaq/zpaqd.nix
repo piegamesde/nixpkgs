@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   buildPhase = ''
     $CXX ${compileFlags} -fPIC --shared libzpaq.cpp -o libzpaq.so
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "ZPAQ archive (de)compressor and algorithm development tool";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
   };
 }

@@ -12,9 +12,9 @@ buildPythonPackage rec {
   pname = "sage-setup";
   src = sage-src;
 
-  nativeBuildInputs = [ cython ];
-  buildInputs = [ pkgconfig ];
-  propagatedBuildInputs = [ jinja2 ];
+  nativeBuildInputs = [cython];
+  buildInputs = [pkgconfig];
+  propagatedBuildInputs = [jinja2];
 
   preBuild = ''
     cd pkgs/sage-setup

@@ -12,7 +12,7 @@
   crossSystem,
   config,
   overlays,
-  crossOverlays ? [ ],
+  crossOverlays ? [],
 }@args:
 
 let
@@ -24,7 +24,7 @@ let
   stagesNative = import ./native args;
 
   # The Nix build environment.
-  stagesNix = import ./nix (args // { bootStages = stagesNative; });
+  stagesNix = import ./nix (args // {bootStages = stagesNative;});
 
   stagesFreeBSD = import ./freebsd args;
 
@@ -40,7 +40,7 @@ let
   stagesCustom = import ./custom args;
 in
 # Select the appropriate stages for the platform `system'.
-if crossSystem != localSystem || crossOverlays != [ ] then
+if crossSystem != localSystem || crossOverlays != [] then
   stagesCross
 else if config ? replaceStdenv then
   stagesCustom

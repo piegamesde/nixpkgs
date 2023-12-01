@@ -1,14 +1,14 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "gnome";
-    meta = with lib; { maintainers = teams.gnome.members; };
+    meta = with lib; {maintainers = teams.gnome.members;};
 
     nodes.machine =
-      { ... }:
+      {...}:
 
       {
-        imports = [ ./common/user-account.nix ];
+        imports = [./common/user-account.nix];
 
         services.xserver.enable = true;
 
@@ -41,7 +41,7 @@ import ./make-test-python.nix (
       };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         # Keep line widths somewhat managable
         user = nodes.machine.config.users.users.alice;

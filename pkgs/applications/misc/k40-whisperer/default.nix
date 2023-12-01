@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3O+lCpmsCCu61REuxhrV8Uy01AgEGq/1DlMhjo45URM=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   patchPhase = ''
     substituteInPlace svg_reader.py \
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.scorchworks.com/K40whisperer/k40whisperer.html";
     downloadPage = "https://www.scorchworks.com/K40whisperer/k40whisperer.html#download";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ fooker ];
+    maintainers = with maintainers; [fooker];
     platforms = platforms.all;
   };
 }

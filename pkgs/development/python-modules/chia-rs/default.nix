@@ -23,7 +23,7 @@ buildPythonPackage rec {
       ./fix-build.patch
     ];
 
-  cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
+  cargoDeps = rustPlatform.importCargoLock {lockFile = ./Cargo.lock;};
 
   postPatch = ''
     cp ${./Cargo.lock} Cargo.lock
@@ -39,7 +39,7 @@ buildPythonPackage rec {
     touch wheel/Cargo.lock
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   buildAndTestSubdir = "wheel";
 

@@ -19,11 +19,11 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "atari800";
     repo = "atari800";
-    rev = "ATARI800_${replaceStrings [ "." ] [ "_" ] version}";
+    rev = "ATARI800_${replaceStrings ["."] ["_"] version}";
     sha256 = "sha256-+eJXhqPyU0GhmzF7DbteTXzEnn5klCor9Io/UgXQfQg=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = [
     zlib
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       TT/Falcon, MS-Windows, MS WinCE, Sega Dreamcast, Android and
       other systems supported by the SDL library.
     '';
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     license = licenses.gpl2Plus;
     platforms = lib.platforms.linux;
   };

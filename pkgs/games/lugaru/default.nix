@@ -44,12 +44,12 @@ stdenv.mkDerivation rec {
     libjpeg_turbo
   ];
 
-  cmakeFlags = [ "-DSYSTEM_INSTALL=ON" ];
+  cmakeFlags = ["-DSYSTEM_INSTALL=ON"];
 
   meta = {
     description = "Third person ninja rabbit fighting game";
     homepage = "https://osslugaru.gitlab.io";
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     license = lib.licenses.gpl2Plus;
   };

@@ -46,7 +46,7 @@ buildPythonApplication rec {
   meta = with lib; {
     description = "Stateless password manager";
     homepage = "https://lesspass.com";
-    maintainers = with maintainers; [ jasoncarr ];
+    maintainers = with maintainers; [jasoncarr];
     license = licenses.gpl3;
   };
 }

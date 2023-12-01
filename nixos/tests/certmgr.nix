@@ -1,10 +1,10 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 let
   mkSpec =
     {
@@ -86,11 +86,11 @@ let
               "networking.target"
             ];
 
-            systemd.tmpfiles.rules = [ "d /var/ssl 777 root root" ];
+            systemd.tmpfiles.rules = ["d /var/ssl 777 root root"];
 
             systemd.services.cfssl-init = {
               description = "Initialize the cfssl CA";
-              wantedBy = [ "multi-user.target" ];
+              wantedBy = ["multi-user.target"];
               serviceConfig = {
                 User = "cfssl";
                 Type = "oneshot";
@@ -100,7 +100,7 @@ let
                 ${pkgs.cfssl}/bin/cfssl genkey -initca ${
                   pkgs.writeText "ca.json" (
                     builtins.toJSON {
-                      hosts = [ "ca.example.com" ];
+                      hosts = ["ca.example.com"];
                       key = {
                         algo = "rsa";
                         size = 4096;
@@ -143,9 +143,9 @@ let
               );
             };
 
-            systemd.services.nginx.wantedBy = lib.mkForce [ ];
+            systemd.services.nginx.wantedBy = lib.mkForce [];
 
-            systemd.services.certmgr.after = [ "cfssl.service" ];
+            systemd.services.certmgr.after = ["cfssl.service"];
             services.certmgr = {
               enable = true;
               inherit svcManager;

@@ -20,7 +20,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-qeBuDM3REUxgu3ty02d7qsULH04USE0JUvBrtVnW8vg=";
 
-  nativeBuildInputs = [ stuffbin ];
+  nativeBuildInputs = [stuffbin];
 
   ldflags = [
     "-s"
@@ -51,7 +51,7 @@ buildGoModule rec {
     '';
 
   passthru = {
-    frontend = callPackage ./frontend.nix { inherit meta; };
+    frontend = callPackage ./frontend.nix {inherit meta;};
     tests = {
       inherit (nixosTests) listmonk;
     };
@@ -61,7 +61,7 @@ buildGoModule rec {
     description = "High performance, self-hosted, newsletter and mailing list manager with a modern dashboard.";
     homepage = "https://github.com/knadh/listmonk";
     changelog = "https://github.com/knadh/listmonk/releases/tag/v${version}";
-    maintainers = with maintainers; [ raitobezarius ];
+    maintainers = with maintainers; [raitobezarius];
     license = licenses.agpl3;
   };
 }

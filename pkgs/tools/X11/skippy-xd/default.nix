@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     rev = "d0557c3144fc67568a49d7207efef89c1d5777a0";
     sha256 = "sha256-dnoPUPCvuR/HhqIz1WAsmWL/CkfTf11YEkbrkVWM4dc=";
   };
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     xorgproto
     libX11
@@ -34,14 +34,14 @@ stdenv.mkDerivation rec {
     libjpeg
     giflib
   ];
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
   preInstall = ''
     sed -e "s@/etc/xdg@$out&@" -i Makefile
   '';
   meta = with lib; {
     description = "Expose-style compositing-based standalone window switcher";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
   };
 }

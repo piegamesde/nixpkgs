@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "heap";
   version = "20181018-git";
 
   description = "Binary Heap for Common Lisp.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/heap/2018-10-18/heap-20181018-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "heap";
 
-  asdFilesToKeep = [ "heap.asd" ];
+  asdFilesToKeep = ["heap.asd"];
   overrides = x: x;
 }
 /* (SYSTEM heap DESCRIPTION Binary Heap for Common Lisp. SHA256

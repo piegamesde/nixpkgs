@@ -92,6 +92,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.openucx.org";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
   };
 }

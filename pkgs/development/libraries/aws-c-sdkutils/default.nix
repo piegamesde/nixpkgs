@@ -18,11 +18,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-iKHO8awWWB8tvYCr+/R6hhK8a/PnanYYEAJ7zNOJC3w=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ aws-c-common ];
+  buildInputs = [aws-c-common];
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
+  cmakeFlags = ["-DBUILD_SHARED_LIBS=ON"];
 
   doCheck = true;
 
@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/awslabs/aws-c-sdkutils";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
   };
 }

@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-1Nt69lIle4vKSXfsTKWry1DXqCBEvBJz2JOOWrUYdX4=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     async-timeout
@@ -38,7 +38,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "xknx" ];
+  pythonImportsCheck = ["xknx"];
 
   disabledTests = [
     # Test requires network access
@@ -55,8 +55,8 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/XKNX/xknx";
     changelog = "https://github.com/XKNX/xknx/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
     platforms = platforms.linux;
   };
 }

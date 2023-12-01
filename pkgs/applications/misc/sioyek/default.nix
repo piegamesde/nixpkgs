@@ -37,7 +37,7 @@ stdenv.mkDerivation (
       openjpeg
       qt3d
       qtbase
-    ] ++ lib.optionals stdenv.isDarwin [ freetype ];
+    ] ++ lib.optionals stdenv.isDarwin [freetype];
 
     nativeBuildInputs = [
       installShellFiles
@@ -45,7 +45,7 @@ stdenv.mkDerivation (
       wrapQtAppsHook
     ];
 
-    qmakeFlags = lib.optionals stdenv.isDarwin [ "CONFIG+=non_portable" ];
+    qmakeFlags = lib.optionals stdenv.isDarwin ["CONFIG+=non_portable"];
 
     postPatch = ''
       substituteInPlace pdf_viewer_build_config.pro \
@@ -82,7 +82,7 @@ stdenv.mkDerivation (
       description = "A PDF viewer designed for research papers and technical books";
       changelog = "https://github.com/ahrm/sioyek/releases/tag/v${finalAttrs.version}";
       license = licenses.gpl3Only;
-      maintainers = with maintainers; [ podocarp ];
+      maintainers = with maintainers; [podocarp];
       platforms = platforms.unix;
     };
   }

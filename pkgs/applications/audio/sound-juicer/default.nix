@@ -67,13 +67,13 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = pname; };
+    updateScript = gnome.updateScript {packageName = pname;};
   };
 
   meta = with lib; {
     description = "A Gnome CD Ripper";
     homepage = "https://wiki.gnome.org/Apps/SoundJuicer";
-    maintainers = [ maintainers.bdimcheff ];
+    maintainers = [maintainers.bdimcheff];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

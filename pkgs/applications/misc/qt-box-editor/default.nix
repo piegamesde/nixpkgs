@@ -27,7 +27,7 @@ mkDerivation {
     tesseract4
   ];
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
   # https://github.com/zdenop/qt-box-editor/issues/87
   postPatch = ''
@@ -41,7 +41,7 @@ mkDerivation {
     description = "Editor of tesseract-ocr box files";
     homepage = "https://github.com/zdenop/qt-box-editor";
     license = licenses.asl20;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
     platforms = platforms.all;
   };
 }

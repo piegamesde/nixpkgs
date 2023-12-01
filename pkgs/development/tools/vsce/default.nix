@@ -32,17 +32,17 @@ buildNpmPackage rec {
     python3
   ];
 
-  buildInputs = [ libsecret ];
+  buildInputs = [libsecret];
 
   makeCacheWritable = true;
-  npmFlags = [ "--legacy-peer-deps" ];
+  npmFlags = ["--legacy-peer-deps"];
 
-  passthru.tests.version = testers.testVersion { package = vsce; };
+  passthru.tests.version = testers.testVersion {package = vsce;};
 
   meta = with lib; {
     homepage = "https://github.com/microsoft/vscode-vsce";
     description = "Visual Studio Code Extension Manager";
-    maintainers = with maintainers; [ aaronjheng ];
+    maintainers = with maintainers; [aaronjheng];
     license = licenses.mit;
   };
 }

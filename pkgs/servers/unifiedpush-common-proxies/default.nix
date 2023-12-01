@@ -21,7 +21,7 @@ buildGoModule rec {
     description = "A set of rewrite proxies and gateways for UnifiedPush";
     homepage = "https://github.com/UnifiedPush/common-proxies";
     license = licenses.mit;
-    maintainers = with maintainers; [ yuka ];
+    maintainers = with maintainers; [yuka];
     mainProgram = "up_rewrite";
   };
 }

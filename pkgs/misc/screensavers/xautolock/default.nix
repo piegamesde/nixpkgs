@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Launch a given program when your X session has been idle for a given time";
     homepage = "http://www.ibiblio.org/pub/linux/X11/screensavers";
-    maintainers = with maintainers; [ peti ];
+    maintainers = with maintainers; [peti];
     platforms = platforms.linux;
     license = licenses.gpl2;
   };

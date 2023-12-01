@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
       IOKit
       OpenGL
     ]
-    ++ lib.optionals (stdenv.isDarwin && useSDL2) [ CoreFoundation ];
+    ++ lib.optionals (stdenv.isDarwin && useSDL2) [CoreFoundation];
 
   buildFlags =
     [
@@ -116,7 +116,7 @@ stdenv.mkDerivation rec {
       name = "quakespasm";
       exec = "quake";
       desktopName = "Quakespasm";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -133,7 +133,7 @@ stdenv.mkDerivation rec {
     '';
 
     platforms = platforms.unix;
-    maintainers = with maintainers; [ mikroskeem ];
+    maintainers = with maintainers; [mikroskeem];
     mainProgram = "quake";
   };
 }

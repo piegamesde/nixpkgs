@@ -17,6 +17,6 @@ buildDunePackage rec {
     homepage = "https://github.com/mirage/optint";
     description = "Abstract type of integer between x64 and x86 architecture";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

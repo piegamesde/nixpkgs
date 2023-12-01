@@ -24,7 +24,7 @@ buildPythonPackage rec {
     six
     decorator
   ];
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
   # Ran 113 tests in 3.082s
   checkPhase = ''
@@ -35,6 +35,6 @@ buildPythonPackage rec {
     description = "Parameterization framework for parameterized model creation and handling";
     homepage = "https://github.com/sods/paramz";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

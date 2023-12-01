@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "08q6xrxsyj6vj0sz59nix9isqz84gw3x9hym63lz6v8fpacvykdq";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = [
     SDL
@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
     description = "SDL based picture viewer/slideshow";
     platforms = platforms.unix;
     license = licenses.gpl3;
-    maintainers = [ maintainers.vrthra ];
+    maintainers = [maintainers.vrthra];
   };
 }

@@ -39,13 +39,13 @@ buildPythonPackage rec {
     pytz
   ];
 
-  pythonImportsCheck = [ "duo_client" ];
+  pythonImportsCheck = ["duo_client"];
 
   meta = with lib; {
     description = "Python library for interacting with the Duo Auth, Admin, and Accounts APIs";
     homepage = "https://github.com/duosecurity/duo_client_python";
     changelog = "https://github.com/duosecurity/duo_client_python/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

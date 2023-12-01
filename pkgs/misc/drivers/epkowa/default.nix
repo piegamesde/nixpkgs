@@ -21,7 +21,7 @@
 let
   common_meta = {
     homepage = "http://download.ebz.epson.net/dsc/search/01/search/?OSC=LX";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = with lib.licenses; epson;
     platforms = with lib.platforms; linux;
   };
@@ -185,8 +185,8 @@ let
       pname = "iscan-gt-f720-bundle";
       version = "2.30.4";
 
-      nativeBuildInputs = [ autoPatchelfHook ];
-      buildInputs = [ gcc.cc.lib ];
+      nativeBuildInputs = [autoPatchelfHook];
+      buildInputs = [gcc.cc.lib];
       src = fetchurl {
         urls = [
           "https://download2.ebz.epson.net/iscan/plugin/gt-f720/rpm/x64/iscan-gt-f720-bundle-${version}.x64.rpm.tar.gz"
@@ -217,7 +217,7 @@ let
       pname = "iscan-gt-s80-bundle";
       version = "2.30.4";
 
-      nativeBuildInputs = [ autoPatchelfHook ];
+      nativeBuildInputs = [autoPatchelfHook];
       buildInputs = [
         gcc.cc.lib
         libtool
@@ -333,8 +333,8 @@ let
       # for the version, look for the driver of XP-750 in the search page
       version = "2.30.4";
 
-      buildInputs = [ stdenv.cc.cc.lib ];
-      nativeBuildInputs = [ autoPatchelfHook ];
+      buildInputs = [stdenv.cc.cc.lib];
+      nativeBuildInputs = [autoPatchelfHook];
 
       src = fetchurl {
         urls = [
@@ -382,7 +382,7 @@ let
       sha256 = "092qhlnjjgz11ifx6mng7mz20i44gc0nlccrbmw18xr5hipbqqka";
     };
 
-    buildInputs = [ libxslt ];
+    buildInputs = [libxslt];
 
     meta = common_meta;
   };
@@ -425,7 +425,7 @@ stdenv.mkDerivation rec {
     # Patch deprecated use of sscanf code to use a more modern C99 compatible version
     ./sscanf.patch
   ];
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
 
   configureFlags = [
     "--enable-dependency-reduction"

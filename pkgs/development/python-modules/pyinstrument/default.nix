@@ -19,12 +19,12 @@ buildPythonPackage rec {
   # Module import recursion
   doCheck = false;
 
-  pythonImportsCheck = [ "pyinstrument" ];
+  pythonImportsCheck = ["pyinstrument"];
 
   meta = with lib; {
     description = "Call stack profiler for Python";
     homepage = "https://github.com/joerick/pyinstrument";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

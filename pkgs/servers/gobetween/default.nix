@@ -17,7 +17,7 @@ buildGoModule rec {
     sha256 = "0bxf89l53sqan9qq23rwawjkcanv9p61sw56zjqhyx78f0bh0zbc";
   };
 
-  patches = [ ./gomod.patch ];
+  patches = [./gomod.patch];
 
   buildPhase = ''
     make -e build${lib.optionalString enableStatic "-static"}
@@ -36,7 +36,7 @@ buildGoModule rec {
     description = "Modern & minimalistic load balancer for the Сloud era";
     homepage = "https://gobetween.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ tomberek ];
+    maintainers = with maintainers; [tomberek];
     broken = true; # vendor isn't reproducible with go > 1.17: nix-build -A $name.go-modules --check
   };
 }

@@ -1,7 +1,7 @@
 # Gitea's URLs are compatible with GitHub
 
-{ lib, fetchFromGitHub }:
+{lib, fetchFromGitHub}:
 
-{ domain, ... }@args:
+{domain, ...}@args:
 
-fetchFromGitHub ((removeAttrs args [ "domain" ]) // { githubBase = domain; })
+fetchFromGitHub ((removeAttrs args ["domain"]) // {githubBase = domain;})

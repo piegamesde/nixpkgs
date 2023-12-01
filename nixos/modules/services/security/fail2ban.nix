@@ -78,7 +78,7 @@ in
       };
 
       extraPackages = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.package;
         example = lib.literalExpression "[ pkgs.ipset ]";
         description = lib.mdDoc ''
@@ -194,7 +194,7 @@ in
       };
 
       ignoreIP = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         example = [
           "192.168.0.0/16"
@@ -231,7 +231,7 @@ in
               str
             ]
           );
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Extra default configuration for all jails (i.e. `[DEFAULT]`). See
           <https://github.com/fail2ban/fail2ban/blob/master/config/jail.conf> for an overview.
@@ -244,7 +244,7 @@ in
       };
 
       jails = mkOption {
-        default = { };
+        default = {};
         example = literalExpression ''
           { apache-nohome-iptables = '''
               # Block an IP address if it accesses a non-existent
@@ -307,7 +307,7 @@ in
       "fail2ban can not be used without a firewall"
     ];
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     environment.etc = {
       "fail2ban/fail2ban.local".source = fail2banConf;
@@ -320,9 +320,9 @@ in
       "fail2ban/filter.d".source = "${cfg.package}/etc/fail2ban/filter.d/*.conf";
     };
 
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
     systemd.services.fail2ban = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       partOf = optional config.networking.firewall.enable "firewall.service";
 
       restartTriggers = [
@@ -393,9 +393,9 @@ in
       # Actions
       banaction   = ${cfg.banaction}
       banaction_allports = ${cfg.banaction-allports}
-      ${optionalString (cfg.extraSettings != { }) ''
+      ${optionalString (cfg.extraSettings != {}) ''
         # Extra settings
-        ${generators.toKeyValue { } cfg.extraSettings}
+        ${generators.toKeyValue {} cfg.extraSettings}
       ''}
     '';
     # Block SSH if there are too many failing connection attempts.

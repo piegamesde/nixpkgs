@@ -17,9 +17,9 @@ buildDunePackage rec {
 
   # get rid of check for curl at configure time
   # opam-format does not call curl at run time
-  configureFlags = [ "--disable-checks" ];
+  configureFlags = ["--disable-checks"];
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
   propagatedBuildInputs = [
     opam-core
     opam-file-format
@@ -27,6 +27,6 @@ buildDunePackage rec {
 
   meta = opam-core.meta // {
     description = "Definition of opam datastructures and its file interface";
-    maintainers = with lib.maintainers; [ sternenseemann ];
+    maintainers = with lib.maintainers; [sternenseemann];
   };
 }

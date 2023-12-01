@@ -16,14 +16,14 @@ buildPythonPackage rec {
     hash = "sha256-T9K290seKhQLqW36EfA9kn3WveKCmyjN4Mx2j50qIEk=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "language_tags" ];
+  pythonImportsCheck = ["language_tags"];
 
   meta = with lib; {
     description = "Dealing with IANA language tags in Python";
     homepage = "https://language-tags.readthedocs.io/en/latest/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

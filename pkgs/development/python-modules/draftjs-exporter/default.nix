@@ -20,7 +20,7 @@ buildPythonPackage rec {
   };
 
   passthru.optional-dependencies = {
-    lxml = [ lxml ];
+    lxml = [lxml];
     html5lib = [
       beautifulsoup4
       html5lib
@@ -37,13 +37,13 @@ buildPythonPackage rec {
     ${python.interpreter} -m unittest discover
   '';
 
-  pythonImportsCheck = [ "draftjs_exporter" ];
+  pythonImportsCheck = ["draftjs_exporter"];
 
   meta = with lib; {
     description = "Library to convert Draft.js ContentState to HTML";
     homepage = "https://github.com/springload/draftjs_exporter";
     changelog = "https://github.com/springload/draftjs_exporter/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ sephi ];
+    maintainers = with maintainers; [sephi];
   };
 }

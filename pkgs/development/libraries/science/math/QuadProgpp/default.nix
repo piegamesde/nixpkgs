@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "02r0dlk2yjpafknvm945vbgs4sl26w2i1gw3pllar9hi364y8hnx";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     homepage = "https://github.com/liuq/QuadProgpp";
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
       A C++ library for Quadratic Programming which implements the
       Goldfarb-Idnani active-set dual method.
     '';
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.all;
   };
 }

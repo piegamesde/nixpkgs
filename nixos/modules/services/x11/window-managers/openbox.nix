@@ -24,6 +24,6 @@ in
         }
       ];
     };
-    environment.systemPackages = [ pkgs.openbox ];
+    environment.systemPackages = [pkgs.openbox];
   };
 }

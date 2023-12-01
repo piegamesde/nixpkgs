@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.openrsync.org/";
     description = "BSD-licensed implementation of rsync";
     license = licenses.isc;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     # https://github.com/kristapsdz/openrsync#portability
     # https://github.com/kristapsdz/oconfigure#readme
     platforms = platforms.unix;

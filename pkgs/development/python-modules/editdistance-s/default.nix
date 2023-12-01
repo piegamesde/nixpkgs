@@ -17,18 +17,18 @@ buildPythonPackage rec {
     sha256 = "0w2qd5b6a3c3ahd0xy9ykq4wzqk0byqwdqrr26dyn8j2425j46lg";
   };
 
-  propagatedNativeBuildInputs = [ cffi ];
+  propagatedNativeBuildInputs = [cffi];
 
-  propagatedBuildInputs = [ cffi ];
+  propagatedBuildInputs = [cffi];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "editdistance_s" ];
+  pythonImportsCheck = ["editdistance_s"];
 
   meta = with lib; {
     description = "Fast implementation of the edit distance (Levenshtein distance)";
     homepage = "https://github.com/asottile/editdistance-s";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ austinbutler ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [austinbutler];
   };
 }

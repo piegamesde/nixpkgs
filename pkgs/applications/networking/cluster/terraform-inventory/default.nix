@@ -27,12 +27,12 @@ buildGoModule rec {
 
   doCheck = false;
 
-  passthru.tests.version = testers.testVersion { package = terraform-inventory; };
+  passthru.tests.version = testers.testVersion {package = terraform-inventory;};
 
   meta = with lib; {
     homepage = "https://github.com/adammck/terraform-inventory";
     description = "Terraform state to ansible inventory adapter";
     license = licenses.mit;
-    maintainers = with maintainers; [ htr ];
+    maintainers = with maintainers; [htr];
   };
 }

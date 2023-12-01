@@ -32,7 +32,7 @@ let
         --replace /bin/sh ${runtimeShell}
     '';
 
-    propagatedBuildInputs = with pypkgs; [ xlib ];
+    propagatedBuildInputs = with pypkgs; [xlib];
 
     dontBuild = true;
 
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       --replace /usr/bin $out/bin
   '';
 
-  buildInputs = [ systemd ];
+  buildInputs = [systemd];
 
   enableParallelBuilding = true;
 
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A key remapping daemon for linux.";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.linux;
   };
 }

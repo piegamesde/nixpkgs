@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Tool to scan memory for secrets";
     homepage = "https://github.com/liamg/dismember";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

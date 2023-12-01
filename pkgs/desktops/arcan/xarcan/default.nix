@@ -115,7 +115,7 @@ stdenv.mkDerivation (
         allows running an X session as a window under Arcan.
       '';
       license = licenses.mit;
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       platforms = platforms.unix;
     };
   }

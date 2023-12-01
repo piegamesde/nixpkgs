@@ -10,7 +10,7 @@
   librime,
   rime-data,
   symlinkJoin,
-  rimeDataPkgs ? [ rime-data ],
+  rimeDataPkgs ? [rime-data],
 }:
 
 stdenv.mkDerivation rec {
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-YAunuxdMlv1KOj2/xXstb/Uhm97G9D9rxb35AbNgMaE=";
   };
 
-  cmakeFlags = [ "-DRIME_DATA_DIR=${placeholder "out"}/share/rime-data" ];
+  cmakeFlags = ["-DRIME_DATA_DIR=${placeholder "out"}/share/rime-data"];
 
   nativeBuildInputs = [
     cmake
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     description = "RIME support for Fcitx5";
     homepage = "https://github.com/fcitx/fcitx5-rime";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ poscat ];
+    maintainers = with maintainers; [poscat];
     platforms = platforms.linux;
   };
 }

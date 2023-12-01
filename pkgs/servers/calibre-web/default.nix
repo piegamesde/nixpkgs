@@ -99,7 +99,7 @@ python.pkgs.buildPythonApplication rec {
     description = "Web app for browsing, reading and downloading eBooks stored in a Calibre database";
     homepage = "https://github.com/janeczku/calibre-web";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ pborzenkov ];
+    maintainers = with maintainers; [pborzenkov];
     platforms = platforms.all;
   };
 }

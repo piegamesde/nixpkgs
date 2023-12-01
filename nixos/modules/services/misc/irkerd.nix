@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.services.irkerd;
-  ports = [ 6659 ];
+  ports = [6659];
 in
 {
   options.services.irkerd = {
@@ -53,22 +53,22 @@ in
         "man:irkerhook(1)"
         "man:irk(1)"
       ];
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.irker}/bin/irkerd -H ${cfg.listenAddress} -n ${cfg.nick}";
         User = "irkerd";
       };
     };
 
-    environment.systemPackages = [ pkgs.irker ];
+    environment.systemPackages = [pkgs.irker];
 
     users.users.irkerd = {
       description = "Irker daemon user";
       isSystemUser = true;
       group = "irkerd";
     };
-    users.groups.irkerd = { };
+    users.groups.irkerd = {};
 
     networking.firewall.allowedTCPPorts = mkIf cfg.openPorts ports;
     networking.firewall.allowedUDPPorts = mkIf cfg.openPorts ports;

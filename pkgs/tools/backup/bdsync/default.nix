@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     pandoc
     which
   ];
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   postPatch = ''
     patchShebangs ./tests.sh
@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/TargetHolding/bdsync";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

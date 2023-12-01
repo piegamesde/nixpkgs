@@ -21,7 +21,7 @@ buildGoModule rec {
     description = "Prometheus exporter for Speedtest metrics";
     homepage = "https://github.com/nlamirault/speedtest_exporter";
     license = licenses.asl20;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
     mainProgram = "speedtest_exporter";
   };
 }

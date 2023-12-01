@@ -9,7 +9,7 @@ let
   cfg = config.services.hadoop;
 
   # Config files for hadoop services
-  hadoopConf = "${import ./conf.nix { inherit cfg pkgs lib; }}/";
+  hadoopConf = "${import ./conf.nix {inherit cfg pkgs lib;}}/";
 
   # Generator for HDFS service options
   hadoopServiceOption =
@@ -32,7 +32,7 @@ let
       };
       extraFlags = mkOption {
         type = with types; listOf str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "Extra command line flags to pass to ${serviceName}";
         example = [
           "-Dcom.sun.management.jmxremote"
@@ -41,7 +41,7 @@ let
       };
       extraEnv = mkOption {
         type = with types; attrsOf str;
-        default = { };
+        default = {};
         description = lib.mdDoc "Extra environment variables for ${serviceName}";
       };
     }
@@ -61,10 +61,10 @@ let
       serviceOptions ? cfg.hdfs."${toLower name}",
       description ? "Hadoop HDFS ${name}",
       User ? "hdfs",
-      allowedTCPPorts ? [ ],
+      allowedTCPPorts ? [],
       preStart ? "",
-      environment ? { },
-      extraConfig ? { },
+      environment ? {},
+      extraConfig ? {},
     }:
     (
 
@@ -74,7 +74,7 @@ let
             systemd.services."hdfs-${toLower name}" = {
               inherit description preStart;
               environment = environment // serviceOptions.extraEnv;
-              wantedBy = [ "multi-user.target" ];
+              wantedBy = ["multi-user.target"];
               inherit (serviceOptions) restartIfChanged;
               serviceConfig = {
                 inherit User;
@@ -98,7 +98,7 @@ in
 {
   options.services.hadoop.hdfs = {
 
-    namenode = hadoopServiceOption { serviceName = "HDFS NameNode"; } // {
+    namenode = hadoopServiceOption {serviceName = "HDFS NameNode";} // {
       formatOnInit = mkOption {
         type = types.bool;
         default = false;
@@ -112,7 +112,7 @@ in
       };
     };
 
-    datanode = hadoopServiceOption { serviceName = "HDFS DataNode"; } // {
+    datanode = hadoopServiceOption {serviceName = "HDFS DataNode";} // {
       dataDirs = mkOption {
         default = null;
         description = lib.mdDoc "Tier and path definitions for datanode storage.";
@@ -135,7 +135,7 @@ in
                   };
                   path = mkOption {
                     type = path;
-                    example = [ "/var/lib/hadoop/hdfs/dn" ];
+                    example = ["/var/lib/hadoop/hdfs/dn"];
                     description = lib.mdDoc "Determines where on the local filesystem a data node should store its blocks.";
                   };
                 };
@@ -145,14 +145,14 @@ in
       };
     };
 
-    journalnode = hadoopServiceOption { serviceName = "HDFS JournalNode"; };
+    journalnode = hadoopServiceOption {serviceName = "HDFS JournalNode";};
 
     zkfc = hadoopServiceOption {
       serviceName = "HDFS ZooKeeper failover controller";
       firewallOption = false;
     };
 
-    httpfs = hadoopServiceOption { serviceName = "HDFS JournalNode"; } // {
+    httpfs = hadoopServiceOption {serviceName = "HDFS JournalNode";} // {
       tempPath = mkOption {
         type = types.path;
         default = "/tmp/hadoop/httpfs";

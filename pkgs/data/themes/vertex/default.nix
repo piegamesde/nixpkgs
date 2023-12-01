@@ -23,9 +23,9 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
-  configureFlags = [ "--disable-unity" ];
+  configureFlags = ["--disable-unity"];
 
   postInstall = ''
     mkdir -p $out/share/plank/themes
@@ -42,6 +42,6 @@ stdenv.mkDerivation rec {
     description = "Theme for GTK 3, GTK 2, Gnome-Shell, and Cinnamon";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

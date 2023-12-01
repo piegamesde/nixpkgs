@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-doYDRIWiuHam2i3r3J3BZuWEhopoN4jms/xPXGyypok=";
   };
 
-  passthru.scripts = [ "autosort.py" ];
+  passthru.scripts = ["autosort.py"];
   installPhase = ''
     install -D autosort.py $out/share/autosort.py
   '';

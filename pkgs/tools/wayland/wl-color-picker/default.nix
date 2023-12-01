@@ -23,8 +23,8 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ bash ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [bash];
 
   patchPhase = ''
     substituteInPlace Makefile \
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       --replace 'wl-copy' "${wl-clipboard}/bin/wl-copy"
   '';
 
-  installFlags = [ "DESTDIR=${placeholder "out"}" ];
+  installFlags = ["DESTDIR=${placeholder "out"}"];
 
   postInstall = ''
     wrapProgram $out/usr/bin/wl-color-picker \
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     description = "Wayland color picker that also works on wlroots";
     homepage = "https://github.com/jgmdev/wl-color-picker";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
     platforms = platforms.linux;
   };
 }

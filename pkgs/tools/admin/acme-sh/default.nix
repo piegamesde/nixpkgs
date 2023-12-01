@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-IDhJRIsk+a+tP+ZeNm6nGvkDh54M0uvAMnSWHbCF3E8=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase =
     let
@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
       - Cron job notifications for renewal or error etc.
     '';
     license = licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ mkaito ] ++ teams.serokell.members;
+    maintainers = with lib.maintainers; [mkaito] ++ teams.serokell.members;
     inherit (coreutils.meta) platforms;
   };
 }

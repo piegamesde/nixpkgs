@@ -23,7 +23,7 @@ buildPerlPackage rec {
     patchShebangs ./pgbadger
   '';
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   PERL_MM_OPT = "INSTALL_BASE=${placeholder "out"}";
 

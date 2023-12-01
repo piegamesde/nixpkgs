@@ -29,7 +29,7 @@ buildPythonPackage rec {
       --replace "multiset>=2.0,<3.0" "multiset"
   '';
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     hopcroftkarp
@@ -41,12 +41,12 @@ buildPythonPackage rec {
     hypothesis
   ];
 
-  pythonImportsCheck = [ "matchpy" ];
+  pythonImportsCheck = ["matchpy"];
 
   meta = with lib; {
     description = "A library for pattern matching on symbolic expressions";
     homepage = "https://github.com/HPAC/matchpy";
     license = licenses.mit;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

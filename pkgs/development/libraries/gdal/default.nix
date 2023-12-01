@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (!stdenv.isDarwin) [
       "-DCMAKE_SKIP_BUILD_RPATH=ON" # without, libgdal.so can't find libmariadb.so
     ]
-    ++ lib.optionals stdenv.isDarwin [ "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON" ];
+    ++ lib.optionals stdenv.isDarwin ["-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON"];
 
   buildInputs =
     [

@@ -34,10 +34,10 @@ stdenv.mkDerivation rec {
         --replace '$(shell pkg-config alsa jack --cflags)' ""
     '';
 
-  nativeBuildInputs = [ dos2unix ] ++ lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ];
+  nativeBuildInputs = [dos2unix] ++ lib.optionals stdenv.hostPlatform.isLinux [pkg-config];
 
   buildInputs =
-    [ zlib ]
+    [zlib]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       alsa-lib
       libjack2
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { url = "https://github.com/vampirefrog/fmtoy.git"; };
+  passthru.updateScript = unstableGitUpdater {url = "https://github.com/vampirefrog/fmtoy.git";};
 
   meta = with lib; {
     homepage = "https://github.com/vampirefrog/fmtoy";
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     # Unclear if gpl3Only or gpl3Plus
     # https://github.com/vampirefrog/fmtoy/issues/1
     license = licenses.gpl3;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = platforms.all;
   };
 }

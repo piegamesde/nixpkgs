@@ -56,7 +56,7 @@ buildPythonPackage rec {
     "zeroconf"
   ];
 
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  nativeBuildInputs = [pythonRelaxDepsHook];
 
   propagatedBuildInputs = [
     aiohttp
@@ -80,7 +80,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "--asyncio-mode=legacy" ];
+  pytestFlagsArray = ["--asyncio-mode=legacy"];
 
   disabledTestPaths = [
     # Test doesn't work in the sandbox
@@ -90,13 +90,13 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "pyatv" ];
+  pythonImportsCheck = ["pyatv"];
 
   meta = with lib; {
     description = "Python client library for the Apple TV";
     homepage = "https://github.com/postlund/pyatv";
     changelog = "https://github.com/postlund/pyatv/blob/v${version}/CHANGES.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

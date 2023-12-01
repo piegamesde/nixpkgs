@@ -30,7 +30,7 @@ in
 
   config = {
 
-    assertions = [ ];
+    assertions = [];
 
     boot.growPartition = true;
 
@@ -51,9 +51,9 @@ in
 
     boot.zfs.devNodes = mkIf cfg.zfs.enable "/dev/";
 
-    boot.extraModulePackages = [ config.boot.kernelPackages.ena ];
-    boot.initrd.kernelModules = [ "xen-blkfront" ];
-    boot.initrd.availableKernelModules = [ "nvme" ];
+    boot.extraModulePackages = [config.boot.kernelPackages.ena];
+    boot.initrd.kernelModules = ["xen-blkfront"];
+    boot.initrd.availableKernelModules = ["nvme"];
     boot.kernelParams = [
       "console=ttyS0,115200n8"
       "random.trust_cpu=on"
@@ -79,9 +79,9 @@ in
     '';
 
     systemd.services.fetch-ec2-metadata = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
-      path = [ pkgs.curl ];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
+      path = [pkgs.curl];
       script = builtins.readFile ./ec2-metadata-fetcher.sh;
       serviceConfig.Type = "oneshot";
       serviceConfig.StandardOutput = "journal+console";
@@ -96,16 +96,16 @@ in
     systemd.services."serial-getty@ttyS0".enable = true;
 
     # Creates symlinks for block device names.
-    services.udev.packages = [ pkgs.amazon-ec2-utils ];
+    services.udev.packages = [pkgs.amazon-ec2-utils];
 
     # Force getting the hostname from EC2.
     networking.hostName = mkDefault "";
 
     # Always include cryptsetup so that Charon can use it.
-    environment.systemPackages = [ pkgs.cryptsetup ];
+    environment.systemPackages = [pkgs.cryptsetup];
 
     # EC2 has its own NTP server provided by the hypervisor
-    networking.timeServers = [ "169.254.169.123" ];
+    networking.timeServers = ["169.254.169.123"];
 
     # udisks has become too bloated to have in a headless system
     # (e.g. it depends on GTK).

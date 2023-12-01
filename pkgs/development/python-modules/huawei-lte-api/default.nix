@@ -29,7 +29,7 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "huawei_lte_api.AuthorizedConnection"
@@ -42,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Salamek/huawei-lte-api";
     changelog = "https://github.com/Salamek/huawei-lte-api/releases/tag/${version}";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

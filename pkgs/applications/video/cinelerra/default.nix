@@ -115,7 +115,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Professional video editing and compositing environment (community version)";
     homepage = "http://cinelerra-cv.wikidot.com/";
-    maintainers = with maintainers; [ marcweber ];
+    maintainers = with maintainers; [marcweber];
     license = licenses.gpl2Only;
   };
 }

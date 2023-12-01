@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{pkgs, ...}:
 let
   inherit (pkgs) lib;
 
@@ -9,17 +9,17 @@ let
     #  - Alternatively, blocked on a NixOps 2 release
     #    https://github.com/NixOS/nixops/issues/1242
     # stable = testsLegacyNetwork { nixopsPkg = pkgs.nixops; };
-    unstable = testsForPackage { nixopsPkg = pkgs.nixops_unstable; };
+    unstable = testsForPackage {nixopsPkg = pkgs.nixops_unstable;};
 
     # inherit testsForPackage;
   };
 
   testsForPackage = lib.makeOverridable (
-    args: lib.recurseIntoAttrs { legacyNetwork = testLegacyNetwork args; }
+    args: lib.recurseIntoAttrs {legacyNetwork = testLegacyNetwork args;}
   );
 
   testLegacyNetwork =
-    { nixopsPkg }:
+    {nixopsPkg}:
     pkgs.nixosTest ({
       name = "nixops-legacy-network";
       nodes = {
@@ -32,9 +32,9 @@ let
             ...
           }:
           {
-            imports = [ ../../modules/installer/cd-dvd/channel.nix ];
-            environment.systemPackages = [ nixopsPkg ];
-            nix.settings.substituters = lib.mkForce [ ];
+            imports = [../../modules/installer/cd-dvd/channel.nix];
+            environment.systemPackages = [nixopsPkg];
+            nix.settings.substituters = lib.mkForce [];
             users.users.person.isNormalUser = true;
             virtualisation.writableStore = true;
             virtualisation.additionalPaths = [
@@ -45,11 +45,11 @@ let
             # TODO: make this efficient, https://github.com/NixOS/nixpkgs/issues/180529
             system.includeBuildDependencies = true;
           };
-        server = { lib, ... }: { imports = [ ./legacy/base-configuration.nix ]; };
+        server = {lib, ...}: {imports = [./legacy/base-configuration.nix];};
       };
 
       testScript =
-        { nodes }:
+        {nodes}:
         let
           deployerSetup = pkgs.writeScript "deployerSetup" ''
             #!${pkgs.runtimeShell}
@@ -109,7 +109,7 @@ let
     let
       name = "allDrvOutputs-${pkg.pname or pkg.name or "unknown"}";
     in
-    pkgs.runCommand name { refs = pkgs.writeReferencesToFile pkg.drvPath; } ''
+    pkgs.runCommand name {refs = pkgs.writeReferencesToFile pkg.drvPath;} ''
       touch $out
       while read ref; do
         case $ref in

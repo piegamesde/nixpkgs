@@ -18,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-RiIRCypvMLd+FHOv+ql+cRvC8H0/EISEIP8YmO2+lPM=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   nativeCheckInputs = [
     astroid
@@ -39,12 +39,12 @@ buildPythonPackage rec {
       "tests/test_astroid.py"
     ];
 
-  pythonImportsCheck = [ "asttokens" ];
+  pythonImportsCheck = ["asttokens"];
 
   meta = with lib; {
     homepage = "https://github.com/gristlabs/asttokens";
     description = "Annotate Python AST trees with source text and token information";
     license = licenses.asl20;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
   };
 }

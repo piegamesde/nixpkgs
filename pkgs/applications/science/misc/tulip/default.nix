@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  qtWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ python3 ]}" ];
+  qtWrapperArgs = ["--prefix PATH : ${lib.makeBinPath [python3]}"];
 
   # FIXME: "make check" needs Docbook's DTD 4.4, among other things.
   doCheck = false;
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.gpl3Plus;
 
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.gnu ++ lib.platforms.linux; # arbitrary choice
   };
 }

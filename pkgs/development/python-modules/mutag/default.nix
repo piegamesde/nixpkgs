@@ -18,12 +18,12 @@ buildPythonPackage {
     hash = "sha256-YT3DGvYPyTuB70gg6p/3oXcTahEPcNuSIqe56xu3rSs=";
   };
 
-  propagatedBuildInputs = [ pyparsing ];
+  propagatedBuildInputs = [pyparsing];
 
   meta = with lib; {
     homepage = "https://github.com/aroig/mutag";
     description = "A script to change email tags in a mu indexed maildir";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

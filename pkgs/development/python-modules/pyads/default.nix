@@ -21,21 +21,21 @@ buildPythonPackage rec {
     hash = "sha256-eNouFJQDgp56fgkA7wZKfosKWOKU6OvXRjFwjCMvZqI=";
   };
 
-  buildInputs = [ adslib ];
+  buildInputs = [adslib];
 
   patchPhase = ''
     substituteInPlace pyads/pyads_ex.py \
       --replace "ctypes.CDLL(adslib)" "ctypes.CDLL(\"${adslib}/lib/adslib.so\")"
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyads" ];
+  pythonImportsCheck = ["pyads"];
 
   meta = with lib; {
     description = "Python wrapper for TwinCAT ADS library";
     homepage = "https://github.com/MrLeeh/pyads";
     license = licenses.mit;
-    maintainers = with maintainers; [ jamiemagee ];
+    maintainers = with maintainers; [jamiemagee];
   };
 }

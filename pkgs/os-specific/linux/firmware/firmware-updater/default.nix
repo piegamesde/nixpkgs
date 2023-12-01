@@ -24,7 +24,7 @@ flutter.buildFlutterApplication {
     description = "Firmware Updater for Linux";
     homepage = "https://github.com/canonical/firmware-updater";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
     platforms = platforms.linux;
   };
 }

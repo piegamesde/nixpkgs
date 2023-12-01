@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/Usbac/quich";
     license = licenses.mit;
-    maintainers = [ maintainers.xdhampus ];
+    maintainers = [maintainers.xdhampus];
     platforms = platforms.all;
   };
 }

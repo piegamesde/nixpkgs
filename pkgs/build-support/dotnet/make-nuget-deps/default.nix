@@ -1,5 +1,5 @@
-{ linkFarmFromDrvs, fetchurl }:
-{ name, nugetDeps }:
+{linkFarmFromDrvs, fetchurl}:
+{name, nugetDeps}:
 linkFarmFromDrvs "${name}-nuget-deps" (
   nugetDeps {
     fetchNuGet =

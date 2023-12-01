@@ -30,7 +30,7 @@ buildPythonPackage rec {
 
   LC_ALL = "en_US.UTF-8";
 
-  buildInputs = [ setuptools-scm ];
+  buildInputs = [setuptools-scm];
 
   propagatedBuildInputs =
     [
@@ -71,13 +71,13 @@ buildPythonPackage rec {
 
   doCheck = !stdenv.isDarwin;
 
-  pythonImportsCheck = [ "cmd2" ];
+  pythonImportsCheck = ["cmd2"];
 
   meta = with lib; {
     description = "Enhancements for standard library's cmd module";
     homepage = "https://github.com/python-cmd2/cmd2";
     changelog = "https://github.com/python-cmd2/cmd2/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ teto ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [teto];
   };
 }

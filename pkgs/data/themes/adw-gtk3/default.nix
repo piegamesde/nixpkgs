@@ -31,7 +31,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -39,6 +39,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/lassekongo83/adw-gtk3";
     license = licenses.lgpl21Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ciferkey ];
+    maintainers = with maintainers; [ciferkey];
   };
 }

@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
       systemd
     ];
 
-  propagatedBuildInputs = [ gsettings-desktop-schemas ];
+  propagatedBuildInputs = [gsettings-desktop-schemas];
 
   mesonFlags =
     [
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
   separateDebugInfo = stdenv.isLinux;
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-desktop"; };
+    updateScript = gnome.updateScript {packageName = "gnome-desktop";};
   };
 
   meta = with lib; {

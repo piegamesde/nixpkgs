@@ -26,10 +26,10 @@ buildPythonPackage rec {
     hash = "sha256-hf6b/tZLggHzgFmZ6aldZIBd17Ni7vCTIIzhNlyjvxw=";
   };
 
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  nativeBuildInputs = [pythonRelaxDepsHook];
 
   # rdflib-jsonld functionality is part of rdblib from version 6 onwards
-  pythonRemoveDeps = [ "rdflib-jsonld" ];
+  pythonRemoveDeps = ["rdflib-jsonld"];
 
   propagatedBuildInputs = [
     html-text
@@ -47,12 +47,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "extruct" ];
+  pythonImportsCheck = ["extruct"];
 
   meta = with lib; {
     description = "Extract embedded metadata from HTML markup";
     homepage = "https://github.com/scrapinghub/extruct";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

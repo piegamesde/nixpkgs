@@ -42,7 +42,7 @@ buildPythonPackage {
     setuptools
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Setting $HOME to prevent pytest to try to create a folder inside
   # /homeless-shelter which is read-only.
@@ -71,12 +71,12 @@ buildPythonPackage {
           "test_time_check"
         ];
 
-  pythonImportsCheck = [ "pydicom" ];
+  pythonImportsCheck = ["pydicom"];
 
   meta = with lib; {
     description = "Python package for working with DICOM files";
     homepage = "https://pydicom.github.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

@@ -22,7 +22,7 @@ mkDerivation rec {
     sha256 = "14xmm6f8xmvypagx4qdw8q9llzmyi9zzfhnzh4kbbflhjbcr7isz";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     qtbase
     qttools
@@ -40,6 +40,6 @@ mkDerivation rec {
     description = "Open source beer recipe creation tool";
     homepage = "http://www.brewtarget.org/";
     license = licenses.gpl3;
-    maintainers = [ maintainers.mmahut ];
+    maintainers = [maintainers.mmahut];
   };
 }

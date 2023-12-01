@@ -24,14 +24,14 @@ mkDerivation rec {
       --replace '$$[QMAKE_MKSPECS]'      "$out/mkspecs"
   '';
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   meta = {
     description = "Qt and QML MPRIS interface and adaptor";
     homepage = "https://github.com/sailfishos/qtmpris";
     license = lib.licenses.lgpl21Plus;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

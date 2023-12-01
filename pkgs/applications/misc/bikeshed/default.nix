@@ -60,7 +60,7 @@ buildPythonApplication rec {
     $out/bin/bikeshed test
   '';
 
-  pythonImportsCheck = [ "bikeshed" ];
+  pythonImportsCheck = ["bikeshed"];
 
   meta = with lib; {
     description = "Preprocessor for anyone writing specifications that converts source files into actual specs";
@@ -73,6 +73,6 @@ buildPythonApplication rec {
     '';
     homepage = "https://tabatkins.github.io/bikeshed/";
     license = licenses.cc0;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -31,7 +31,7 @@ stdenv.mkDerivation {
   pname = "cups-brother-hll2340dw";
   inherit version;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     cups
     ghostscript
@@ -95,10 +95,10 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "http://www.brother.com/";
     description = "Brother hl-l2340dw printer driver";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     platforms = platforms.linux;
     downloadPage = "https://support.brother.com/g/b/downloadlist.aspx?c=us&lang=es&prod=hll2340dw_us_eu_as&os=128&flang=English";
-    maintainers = [ maintainers.qknight ];
+    maintainers = [maintainers.qknight];
   };
 }

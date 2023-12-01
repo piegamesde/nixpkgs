@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     perl
     readline
     tex
-  ] ++ lib.optionals withThread [ libpthreadstubs ];
+  ] ++ lib.optionals withThread [libpthreadstubs];
 
   configureScript = "./Configure";
   configureFlags = [
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     export LD=$CC
   '';
 
-  makeFlags = [ "all" ];
+  makeFlags = ["all"];
 
   meta = with lib; {
     homepage = "http://pari.math.u-bordeaux.fr";
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
     '';
     downloadPage = "http://pari.math.u-bordeaux.fr/download.html";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ertes ] ++ teams.sage.members;
+    maintainers = with maintainers; [ertes] ++ teams.sage.members;
     platforms = platforms.linux ++ platforms.darwin;
     mainProgram = "gp";
   };

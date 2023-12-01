@@ -18,6 +18,6 @@ build-idris-package {
     description = "UnionType in Idris";
     homepage = "https://github.com/berewt/UnionType";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

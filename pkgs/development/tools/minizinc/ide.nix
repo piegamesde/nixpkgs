@@ -12,7 +12,7 @@ mkDerivation rec {
   pname = "minizinc-ide";
   version = "2.5.5";
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
   buildInputs = [
     qtbase
     qtwebengine
@@ -32,7 +32,7 @@ mkDerivation rec {
   dontWrapQtApps = true;
 
   postInstall = ''
-    wrapProgram $out/bin/MiniZincIDE --prefix PATH ":" ${lib.makeBinPath [ minizinc ]}
+    wrapProgram $out/bin/MiniZincIDE --prefix PATH ":" ${lib.makeBinPath [minizinc]}
   '';
 
   meta = with lib; {
@@ -49,6 +49,6 @@ mkDerivation rec {
 
     license = licenses.mpl20;
     platforms = platforms.linux;
-    maintainers = [ maintainers.dtzWill ];
+    maintainers = [maintainers.dtzWill];
   };
 }

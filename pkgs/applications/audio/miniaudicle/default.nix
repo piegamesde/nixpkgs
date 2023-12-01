@@ -46,16 +46,16 @@ stdenv.mkDerivation rec {
     ++ lib.optional (audioBackend == "pulse") libpulseaudio
     ++ lib.optional (audioBackend == "jack") libjack2;
 
-  buildFlags = [ "linux-${audioBackend}" ];
+  buildFlags = ["linux-${audioBackend}"];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "A light-weight integrated development environment for the ChucK digital audio programming language";
     homepage = "https://audicle.cs.princeton.edu/mini/";
     downloadPage = "https://audicle.cs.princeton.edu/mini/linux/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
     broken = stdenv.isDarwin; # not attempted
   };

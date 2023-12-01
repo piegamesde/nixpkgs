@@ -25,8 +25,8 @@ with lib;
 
   ###### implementation
   config = mkIf config.services.dleyna-renderer.enable {
-    environment.systemPackages = [ pkgs.dleyna-renderer ];
+    environment.systemPackages = [pkgs.dleyna-renderer];
 
-    services.dbus.packages = [ pkgs.dleyna-renderer ];
+    services.dbus.packages = [pkgs.dleyna-renderer];
   };
 }

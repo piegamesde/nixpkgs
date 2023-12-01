@@ -41,7 +41,7 @@ python3Packages.buildPythonApplication rec {
     "NO_VENV=1"
   ];
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [pytestCheckHook];
   preCheck = ''
     export HOME="$(mktemp -d)"
   '';
@@ -67,6 +67,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/arsenetar/dupeguru";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = [ maintainers.novoxd ];
+    maintainers = [maintainers.novoxd];
   };
 }

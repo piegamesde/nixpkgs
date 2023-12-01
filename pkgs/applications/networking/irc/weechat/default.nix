@@ -36,7 +36,7 @@
   libxml2,
   pcre2,
   libargon2,
-  extraBuildInputs ? [ ],
+  extraBuildInputs ? [],
 }:
 
 let
@@ -50,37 +50,37 @@ let
       name = "perl";
       enabled = perlSupport;
       cmakeFlag = "ENABLE_PERL";
-      buildInputs = [ perl ];
+      buildInputs = [perl];
     }
     {
       name = "tcl";
       enabled = tclSupport;
       cmakeFlag = "ENABLE_TCL";
-      buildInputs = [ tcl ];
+      buildInputs = [tcl];
     }
     {
       name = "ruby";
       enabled = rubySupport;
       cmakeFlag = "ENABLE_RUBY";
-      buildInputs = [ ruby ];
+      buildInputs = [ruby];
     }
     {
       name = "guile";
       enabled = guileSupport;
       cmakeFlag = "ENABLE_GUILE";
-      buildInputs = [ guile ];
+      buildInputs = [guile];
     }
     {
       name = "lua";
       enabled = luaSupport;
       cmakeFlag = "ENABLE_LUA";
-      buildInputs = [ lua5 ];
+      buildInputs = [lua5];
     }
     {
       name = "python";
       enabled = pythonSupport;
       cmakeFlag = "ENABLE_PYTHON3";
-      buildInputs = [ python ];
+      buildInputs = [python];
     }
     {
       name = "php";
@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
   version = "3.8";
   pname = "weechat";
 
-  hardeningEnable = [ "pie" ];
+  hardeningEnable = ["pie"];
 
   src = fetchurl {
     url = "https://weechat.org/files/src/weechat-${version}.tar.bz2";
@@ -120,7 +120,7 @@ stdenv.mkDerivation rec {
       "-DENABLE_DOC=ON"
       "-DENABLE_TESTS=${if enableTests then "ON" else "OFF"}"
     ]
-    ++ optionals stdenv.isDarwin [ "-DICONV_LIBRARY=${libiconv}/lib/libiconv.dylib" ]
+    ++ optionals stdenv.isDarwin ["-DICONV_LIBRARY=${libiconv}/lib/libiconv.dylib"]
     ++ map (p: "-D${p.cmakeFlag}=" + (if p.enabled then "ON" else "OFF")) plugins;
 
   nativeBuildInputs = [
@@ -175,7 +175,7 @@ stdenv.mkDerivation rec {
       on https://nixos.org/nixpkgs/manual/#sec-weechat .
     '';
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ ncfavier ];
+    maintainers = with lib.maintainers; [ncfavier];
     platforms = lib.platforms.unix;
   };
 }

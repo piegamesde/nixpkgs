@@ -19,7 +19,7 @@ in
 
       extraOptions = mkOption {
         type = with types; listOf str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "Extra command line options for pvfs2-client.";
       };
 
@@ -41,7 +41,7 @@ in
           with types;
           listOf (
             submodule (
-              { ... }:
+              {...}:
               {
                 options = {
 
@@ -53,7 +53,7 @@ in
 
                   options = mkOption {
                     type = with types; listOf str;
-                    default = [ ];
+                    default = [];
                     description = lib.mdDoc "Mount options";
                   };
 
@@ -73,14 +73,14 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.orangefs ];
+    environment.systemPackages = [pkgs.orangefs];
 
-    boot.supportedFilesystems = [ "pvfs2" ];
-    boot.kernelModules = [ "orangefs" ];
+    boot.supportedFilesystems = ["pvfs2"];
+    boot.kernelModules = ["orangefs"];
 
     systemd.services.orangefs-client = {
-      requires = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      requires = ["network-online.target"];
+      after = ["network-online.target"];
 
       serviceConfig = {
         Type = "simple";
@@ -97,10 +97,10 @@ in
     systemd.mounts =
       map
         (fs: {
-          requires = [ "orangefs-client.service" ];
-          after = [ "orangefs-client.service" ];
-          bindsTo = [ "orangefs-client.service" ];
-          wantedBy = [ "remote-fs.target" ];
+          requires = ["orangefs-client.service"];
+          after = ["orangefs-client.service"];
+          bindsTo = ["orangefs-client.service"];
+          wantedBy = ["remote-fs.target"];
           type = "pvfs2";
           options = concatStringsSep "," fs.options;
           what = fs.target;

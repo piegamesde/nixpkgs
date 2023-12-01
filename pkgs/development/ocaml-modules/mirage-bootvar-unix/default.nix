@@ -26,6 +26,6 @@ buildDunePackage rec {
     description = "Unix implementation of MirageOS Bootvar interface";
     homepage = "https://github.com/mirage/mirage-bootvar-unix";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

@@ -31,7 +31,7 @@ buildPythonPackage rec {
     sed -i "/debugpy/d" pyproject.toml
   '';
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     comm
@@ -47,13 +47,13 @@ buildPythonPackage rec {
   doCheck = false;
 
   passthru.tests = {
-    pytest = callPackage ./tests.nix { };
+    pytest = callPackage ./tests.nix {};
   };
 
   meta = {
     description = "IPython Kernel for Jupyter";
     homepage = "https://ipython.org/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ fridh ];
+    maintainers = with lib.maintainers; [fridh];
   };
 }

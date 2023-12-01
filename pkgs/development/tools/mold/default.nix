@@ -30,17 +30,17 @@ stdenv.mkDerivation rec {
   buildInputs = [
     openssl
     zlib
-  ] ++ lib.optionals (!stdenv.isDarwin) [ mimalloc ];
+  ] ++ lib.optionals (!stdenv.isDarwin) [mimalloc];
 
   postPatch = ''
     sed -i CMakeLists.txt -e '/.*set(DEST\ .*/d'
   '';
 
-  cmakeFlags = [ "-DMOLD_USE_SYSTEM_MIMALLOC:BOOL=ON" ];
+  cmakeFlags = ["-DMOLD_USE_SYSTEM_MIMALLOC:BOOL=ON"];
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.isDarwin [ "-faligned-allocation" ]);
+  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.isDarwin ["-faligned-allocation"]);
 
-  passthru.tests.version = testers.testVersion { package = mold; };
+  passthru.tests.version = testers.testVersion {package = mold;};
 
   meta = with lib; {
     description = "A faster drop-in replacement for existing Unix linkers";

@@ -23,14 +23,14 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace ", 'pytest-runner==2.6.2'" ""
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   propagatedBuildInputs = [
     cffi
     secp256k1
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Tests are not included in archive
   doCheck = false;
@@ -44,7 +44,7 @@ buildPythonPackage rec {
   meta = {
     homepage = "https://github.com/ludbb/secp256k1-py";
     description = "Python FFI bindings for secp256k1";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [];
   };
 }

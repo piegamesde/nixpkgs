@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/vanhauser-thc/thc-hydra"; # https://www.thc.org/
     changelog = "https://github.com/vanhauser-thc/thc-hydra/raw/v${version}/CHANGES";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     platforms = platforms.unix;
     badPlatforms = platforms.darwin; # fails to build since v9.4
   };

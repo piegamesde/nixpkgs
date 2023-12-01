@@ -16,12 +16,12 @@ buildPythonPackage rec {
   };
 
   doCheck = false; # there are no tests
-  pythonImportsCheck = [ "skytemple_icons" ];
+  pythonImportsCheck = ["skytemple_icons"];
 
   meta = with lib; {
     homepage = "https://github.com/SkyTemple/skytemple-icons";
     description = "Icons for SkyTemple";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ xfix ];
+    maintainers = with maintainers; [xfix];
   };
 }

@@ -30,16 +30,16 @@ stdenv.mkDerivation {
     automake
     libtool
   ];
-  buildInputs = [ udev ];
+  buildInputs = [udev];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=address-of-packed-member" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-error=address-of-packed-member"];
 
   preConfigure = ''
     cd tools/usb/usbip
     ./autogen.sh
   '';
 
-  configureFlags = [ "--with-usbids-dir=${hwdata}/share/hwdata/" ];
+  configureFlags = ["--with-usbids-dir=${hwdata}/share/hwdata/"];
 
   meta = with lib; {
     homepage = "https://github.com/torvalds/linux/tree/master/tools/usb/usbip";

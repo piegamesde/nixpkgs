@@ -16,7 +16,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-1al7EMYbE/hFXKV4mYZlkEWTUIKYxgXYU3qBLlczYvs=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ requests ];
+  propagatedBuildInputs = with python3.pkgs; [requests];
 
   installPhase = ''
     runHook preInstall
@@ -28,6 +28,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Tool to check for vulnerable Log4j (CVE-2021-44228) systems";
     homepage = "https://github.com/NorthwaveSecurity/log4jcheck";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

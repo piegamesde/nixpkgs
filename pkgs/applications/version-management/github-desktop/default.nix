@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     autoPatchelfHook
-    (wrapGAppsHook.override { inherit makeWrapper; })
+    (wrapGAppsHook.override {inherit makeWrapper;})
   ];
 
   buildInputs = [
@@ -69,14 +69,14 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  runtimeDependencies = [ (lib.getLib systemd) ];
+  runtimeDependencies = [(lib.getLib systemd)];
 
   meta = with lib; {
     description = "GUI for managing Git and GitHub.";
     homepage = "https://desktop.github.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.mit;
-    maintainers = with maintainers; [ dan4ik605743 ];
+    maintainers = with maintainers; [dan4ik605743];
     platforms = platforms.linux;
   };
 }

@@ -55,7 +55,7 @@ let
           };
         }
       ]
-      { }
+      {}
   );
 in
 mkCoqDerivation {
@@ -128,7 +128,7 @@ mkCoqDerivation {
   release."1.6.0".sha256 = "0kf99i43mlf750fr7fric764mm495a53mg5kahnbp6zcjcxxrm0b";
   releaseRev = v: "v${v}";
 
-  buildFlags = [ "OCAMLWARN=" ];
+  buildFlags = ["OCAMLWARN="];
 
   mlPlugin = true;
   propagatedBuildInputs = [
@@ -138,7 +138,7 @@ mkCoqDerivation {
 
   meta = {
     description = "Coq plugin embedding ELPI.";
-    maintainers = [ maintainers.cohencyril ];
+    maintainers = [maintainers.cohencyril];
     license = licenses.lgpl21Plus;
   };
 }

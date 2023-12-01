@@ -15,12 +15,12 @@ buildPythonPackage rec {
 
   # no tests are defined in 1.3.5
   doCheck = false;
-  pythonImportsCheck = [ "simplekml" ];
+  pythonImportsCheck = ["simplekml"];
 
   meta = with lib; {
     description = "Python package to generate KML";
     homepage = "https://simplekml.readthedocs.io/";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ rvolosatovs ];
+    maintainers = with maintainers; [rvolosatovs];
   };
 }

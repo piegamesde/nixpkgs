@@ -39,8 +39,8 @@ stdenv.mkDerivation rec {
     rpcsvc-proto
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-I${libtirpc.dev}/include/tirpc" ];
-  NIX_LDFLAGS = [ "-ltirpc" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-I${libtirpc.dev}/include/tirpc"];
+  NIX_LDFLAGS = ["-ltirpc"];
 
   buildInputs = [
     zlib
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://www.nongnu.org/libchop/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.gnu ++ platforms.linux;
   };
 }

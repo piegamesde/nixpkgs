@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     openssl
   ] ++ lib.optional stdenv.isDarwin Security;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   cargoHash = "sha256-ZNhUqnsme1rczl3FdFBGGs+vBDFcFEELkPp0/udTfR4=";
 
@@ -33,6 +33,6 @@ rustPlatform.buildRustPackage rec {
     description = "CLI command organizer written in rust";
     homepage = "https://github.com/hyde46/hoard";
     license = licenses.mit;
-    maintainers = with maintainers; [ builditluc ];
+    maintainers = with maintainers; [builditluc];
   };
 }

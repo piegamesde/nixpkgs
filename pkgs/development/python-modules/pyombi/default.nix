@@ -18,17 +18,17 @@ buildPythonPackage rec {
     sha256 = "1ykbmdc2v05ly9q358j7g73ma9fsqdlclc8i0k1yd0bn7219icpx";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pyombi" ];
+  pythonImportsCheck = ["pyombi"];
 
   meta = with lib; {
     description = "Python module to retrieve information from Ombi";
     homepage = "https://github.com/larssont/pyombi";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -110,7 +110,7 @@ else
       --replace +camlp4 $out/lib/ocaml/${ocaml.version}/site-lib/camlp4
     '';
 
-    makeFlags = [ "all" ];
+    makeFlags = ["all"];
 
     installTargets = [
       "install"
@@ -122,6 +122,6 @@ else
     meta = with lib; {
       description = "A software system for writing extensible parsers for programming languages";
       homepage = "https://github.com/ocaml/camlp4";
-      platforms = ocaml.meta.platforms or [ ];
+      platforms = ocaml.meta.platforms or [];
     };
   }

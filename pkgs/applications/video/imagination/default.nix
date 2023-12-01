@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     description = "Lightweight and simple DVD slide show maker";
     homepage = "https://imagination.sourceforge.net";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ austinbutler ];
+    maintainers = with maintainers; [austinbutler];
     platforms = platforms.linux;
   };
 }

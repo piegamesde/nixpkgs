@@ -1,12 +1,12 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "icingaweb2";
-    meta = with pkgs.lib.maintainers; { maintainers = [ das_j ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [das_j];};
 
     nodes = {
       icingaweb2 =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         {
           services.icingaweb2 = {
             enable = true;

@@ -32,7 +32,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     jsonschema
@@ -44,7 +44,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "dtschema" ];
+  pythonImportsCheck = ["dtschema"];
 
   meta = with lib; {
     description = "Tooling for devicetree validation using YAML and jsonschema";
@@ -54,6 +54,6 @@ buildPythonPackage rec {
       bsd2 # or
       gpl2Only
     ];
-    maintainers = with maintainers; [ sorki ];
+    maintainers = with maintainers; [sorki];
   };
 }

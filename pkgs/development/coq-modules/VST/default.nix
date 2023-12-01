@@ -19,12 +19,12 @@ let
     ]
     # floyd/printf.v is broken in VST 2.9
     ++ lib.optional (!lib.versions.isGe "8.13" coq.coq-version) "printf.v"
-    ++ [ "quickprogram.v" ];
+    ++ ["quickprogram.v"];
 in
 
 mkCoqDerivation {
   pname = "coq${coq.coq-version}-VST";
-  namePrefix = [ ];
+  namePrefix = [];
   displayVersion = {
     coq = false;
   };
@@ -58,8 +58,8 @@ mkCoqDerivation {
   release."2.9".sha256 = "sha256:1adwzbl1pprrrwrm7cm493098fizxanxpv7nyfbvwdhgbhcnv6qf";
   release."2.8".sha256 = "sha256-cyK88uzorRfjapNQ6XgQEmlbWnDsiyLve5po1VG52q0=";
   releaseRev = v: "v${v}";
-  buildInputs = [ ITree ];
-  propagatedBuildInputs = [ compcert ];
+  buildInputs = [ITree];
+  propagatedBuildInputs = [compcert];
 
   preConfigure = ''
     patchShebangs util

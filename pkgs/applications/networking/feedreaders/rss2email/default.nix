@@ -15,7 +15,7 @@ buildPythonApplication rec {
     feedparser
     html2text
   ];
-  nativeCheckInputs = [ beautifulsoup4 ];
+  nativeCheckInputs = [beautifulsoup4];
 
   src = fetchurl {
     url = "mirror://pypi/r/rss2email/${pname}-${version}.tar.gz";

@@ -24,14 +24,14 @@ let
     deps:
     let
       mergeRewrites = x: y: {
-        prefix = lib.mergeAttrs (x.prefix or { }) (y.prefix or { });
-        const = lib.mergeAttrs (x.const or { }) (y.const or { });
+        prefix = lib.mergeAttrs (x.prefix or {}) (y.prefix or {});
+        const = lib.mergeAttrs (x.const or {}) (y.const or {});
       };
 
       rewriteArgs =
         {
-          prefix ? { },
-          const ? { },
+          prefix ? {},
+          const ? {},
         }:
         lib.concatLists (
           (lib.mapAttrsToList
@@ -52,7 +52,7 @@ let
 
       rewrites =
         depList:
-        lib.fold mergeRewrites { } (
+        lib.fold mergeRewrites {} (
           map (dep: dep.tbdRewrites) (lib.filter (dep: dep ? tbdRewrites) depList)
         );
     in
@@ -74,9 +74,9 @@ let
         # because we copy files from the system
         preferLocalBuild = true;
 
-        disallowedRequisites = [ MacOSX-SDK ];
+        disallowedRequisites = [MacOSX-SDK];
 
-        nativeBuildInputs = [ buildPackages.darwin.rewrite-tbd ];
+        nativeBuildInputs = [buildPackages.darwin.rewrite-tbd];
 
         installPhase = ''
           mkdir -p $out/Library/Frameworks
@@ -113,7 +113,7 @@ let
 
         meta = with lib; {
           description = "Apple SDK framework ${name}";
-          maintainers = with maintainers; [ copumpkin ];
+          maintainers = with maintainers; [copumpkin];
           platforms = platforms.darwin;
         };
       };
@@ -219,7 +219,7 @@ rec {
   frameworks =
     let
       # Dependency map created by gen-frameworks.py.
-      generatedDeps = import ./frameworks.nix { inherit frameworks libs; };
+      generatedDeps = import ./frameworks.nix {inherit frameworks libs;};
 
       # Additional dependencies that are not picked up by gen-frameworks.py.
       # Some of these are simply private frameworks the generator does not see.
@@ -359,7 +359,7 @@ rec {
       # Overrides for framework derivations.
       overrides = super: {
         CoreFoundation = lib.overrideDerivation super.CoreFoundation (
-          drv: { setupHook = ./cf-setup-hook.sh; }
+          drv: {setupHook = ./cf-setup-hook.sh;}
         );
 
         # This framework doesn't exist in newer SDKs (somewhere around 10.13), but

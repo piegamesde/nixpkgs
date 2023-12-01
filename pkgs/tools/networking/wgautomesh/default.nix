@@ -21,6 +21,6 @@ rustPlatform.buildRustPackage rec {
     description = "A simple utility to help connect wireguard nodes together in a full mesh topology";
     homepage = "https://git.deuxfleurs.fr/Deuxfleurs/wgautomesh";
     license = licenses.agpl3Only;
-    maintainers = [ maintainers.lx ];
+    maintainers = [maintainers.lx];
   };
 }

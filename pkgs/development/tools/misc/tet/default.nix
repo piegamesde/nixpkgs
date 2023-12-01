@@ -13,7 +13,7 @@ stdenv.mkDerivation ({
     sha256 = "1j57hv56df38w249l595b8rsgmsyvjkbysai03a9724gax5jl9av";
   };
 
-  buildInputs = [ ];
+  buildInputs = [];
 
   patchPhase = "chmod +x configure";
 
@@ -28,6 +28,6 @@ stdenv.mkDerivation ({
     homepage = "http://tetworks.opengroup.org/Products/tet.htm";
     license = lib.licenses.artistic1;
     platforms = lib.platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

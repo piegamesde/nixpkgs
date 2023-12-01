@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
     makeWrapper
     pkg-config
     python3
-  ] ++ lib.optionals stdenv.isLinux [ linuxHeaders ];
+  ] ++ lib.optionals stdenv.isLinux [linuxHeaders];
 
   buildInputs =
     [

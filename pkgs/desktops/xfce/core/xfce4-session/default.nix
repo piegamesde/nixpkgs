@@ -32,7 +32,7 @@ mkXfceDerivation {
     iceauth
   ];
 
-  configureFlags = [ "--with-xsession-prefix=${placeholder "out"}" ];
+  configureFlags = ["--with-xsession-prefix=${placeholder "out"}"];
 
   # See https://github.com/NixOS/nixpkgs/issues/36468
   env.NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
@@ -41,6 +41,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "Session manager for Xfce";
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    maintainers = with maintainers; [] ++ teams.xfce.members;
   };
 }

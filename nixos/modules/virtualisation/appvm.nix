@@ -43,8 +43,8 @@ in
     };
 
     users.users."${cfg.user}" = {
-      packages = [ pkgs.appvm ];
-      extraGroups = [ "libvirtd" ];
+      packages = [pkgs.appvm];
+      extraGroups = ["libvirtd"];
     };
   };
 }

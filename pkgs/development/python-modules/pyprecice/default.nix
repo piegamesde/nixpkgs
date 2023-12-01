@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-ppDilMwRxVsikTFQMNRYL0G1/HvVomz2S/2yx43u000=";
   };
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
   propagatedBuildInputs = [
     numpy
@@ -40,6 +40,6 @@ buildPythonPackage rec {
     description = "Python language bindings for preCICE";
     homepage = "https://github.com/precice/python-bindings";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ Scriptkiddi ];
+    maintainers = with maintainers; [Scriptkiddi];
   };
 }

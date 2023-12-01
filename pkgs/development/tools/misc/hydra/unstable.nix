@@ -202,7 +202,7 @@ stdenv.mkDerivation rec {
     openldap
   ];
 
-  configureFlags = [ "--with-docbook-xsl=${docbook_xsl}/xml/xsl/docbook" ];
+  configureFlags = ["--with-docbook-xsl=${docbook_xsl}/xml/xsl/docbook"];
 
   env.NIX_CFLAGS_COMPILE = "-pthread";
 

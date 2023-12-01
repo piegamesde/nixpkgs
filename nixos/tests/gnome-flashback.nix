@@ -1,17 +1,17 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "gnome-flashback";
-    meta = with lib; { maintainers = teams.gnome.members ++ [ maintainers.chpatrick ]; };
+    meta = with lib; {maintainers = teams.gnome.members ++ [maintainers.chpatrick];};
 
     nodes.machine =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         user = nodes.machine.config.users.users.alice;
       in
 
       {
-        imports = [ ./common/user-account.nix ];
+        imports = [./common/user-account.nix];
 
         services.xserver.enable = true;
 
@@ -31,7 +31,7 @@ import ./make-test-python.nix (
       };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         user = nodes.machine.config.users.users.alice;
         uid = toString user.uid;

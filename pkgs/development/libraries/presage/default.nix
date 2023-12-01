@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     tinyxml
   ];
 
-  nativeCheckInputs = [ cppunit ];
+  nativeCheckInputs = [cppunit];
 
   doCheck = true;
 
@@ -70,6 +70,6 @@ stdenv.mkDerivation rec {
     description = "An intelligent predictive text entry system";
     homepage = "https://presage.sourceforge.io/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

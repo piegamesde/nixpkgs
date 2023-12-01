@@ -12,7 +12,7 @@ in
 {
   options.services.tahoe = {
     introducers = mkOption {
-      default = { };
+      default = {};
       type =
         with types;
         attrsOf (
@@ -56,7 +56,7 @@ in
       '';
     };
     nodes = mkOption {
-      default = { };
+      default = {};
       type =
         with types;
         attrsOf (
@@ -205,7 +205,7 @@ in
     };
   };
   config = mkMerge [
-    (mkIf (cfg.introducers != { }) {
+    (mkIf (cfg.introducers != {}) {
       environment = {
         etc = flip mapAttrs' cfg.introducers (
           node: settings:
@@ -238,9 +238,9 @@ in
         in
         nameValuePair "tahoe.introducer-${node}" {
           description = "Tahoe LAFS node ${node}";
-          wantedBy = [ "multi-user.target" ];
-          path = [ settings.package ];
-          restartTriggers = [ config.environment.etc."tahoe-lafs/introducer-${node}.cfg".source ];
+          wantedBy = ["multi-user.target"];
+          path = [settings.package];
+          restartTriggers = [config.environment.etc."tahoe-lafs/introducer-${node}.cfg".source];
           serviceConfig = {
             Type = "simple";
             PIDFile = pidfile;
@@ -278,7 +278,7 @@ in
         }
       );
     })
-    (mkIf (cfg.nodes != { }) {
+    (mkIf (cfg.nodes != {}) {
       environment = {
         etc = flip mapAttrs' cfg.nodes (
           node: settings:
@@ -342,9 +342,9 @@ in
         in
         nameValuePair "tahoe.${node}" {
           description = "Tahoe LAFS node ${node}";
-          wantedBy = [ "multi-user.target" ];
-          path = [ settings.package ];
-          restartTriggers = [ config.environment.etc."tahoe-lafs/${node}.cfg".source ];
+          wantedBy = ["multi-user.target"];
+          path = [settings.package];
+          restartTriggers = [config.environment.etc."tahoe-lafs/${node}.cfg".source];
           serviceConfig = {
             Type = "simple";
             PIDFile = pidfile;

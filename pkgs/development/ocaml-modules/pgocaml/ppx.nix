@@ -10,6 +10,6 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  buildInputs = [ ppx_optcomp ];
-  propagatedBuildInputs = [ pgocaml ];
+  buildInputs = [ppx_optcomp];
+  propagatedBuildInputs = [pgocaml];
 }

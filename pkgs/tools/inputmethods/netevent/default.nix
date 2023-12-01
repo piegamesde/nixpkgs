@@ -17,8 +17,8 @@ stdenv.mkDerivation {
     sha256 = "0myk91pmim0m51h4b8hplkbxvns0icvfmv0401r0hw8md828nh5c";
   };
 
-  buildInputs = [ docutils ];
-  nativeBuildInputs = [ installShellFiles ];
+  buildInputs = [docutils];
+  nativeBuildInputs = [installShellFiles];
 
   outputs = [
     "out"
@@ -46,6 +46,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/Blub/netevent";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ rgrunbla ];
+    maintainers = with maintainers; [rgrunbla];
   };
 }

@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
   ];
 
   # TODO: Remove after the next release (0.8.4 should work without this):
-  env.NIX_CFLAGS_COMPILE = toString [ "-I${harfbuzz.dev}/include/harfbuzz" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-I${harfbuzz.dev}/include/harfbuzz"];
 
   meta = with lib; {
     description = "Comprehensive suite for man in the middle attacks";
@@ -89,6 +89,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.ettercap-project.org/";
     license = licenses.gpl2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Extensible Virtual Display Interface";
-    maintainers = with maintainers; [ eyjhb ];
+    maintainers = with maintainers; [eyjhb];
     platforms = platforms.linux;
     license = with licenses; [
       lgpl21Only

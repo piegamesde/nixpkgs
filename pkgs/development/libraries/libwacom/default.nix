@@ -47,10 +47,10 @@ stdenv.mkDerivation rec {
 
   doCheck = stdenv.hostPlatform == stdenv.buildPlatform;
 
-  mesonFlags = [ "-Dtests=${if doCheck then "enabled" else "disabled"}" ];
+  mesonFlags = ["-Dtests=${if doCheck then "enabled" else "disabled"}"];
 
   nativeCheckInputs =
-    [ valgrind ]
+    [valgrind]
     ++ (
       with python3.pkgs; [
         libevdev

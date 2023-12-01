@@ -60,10 +60,10 @@ buildPythonPackage rec {
     export CI # Increases LONG_TIMEOUT
   '';
 
-  pythonImportsCheck = [ "urllib3" ];
+  pythonImportsCheck = ["urllib3"];
 
   passthru.optional-dependencies = {
-    brotli = if isPyPy then [ brotlicffi ] else [ brotli ];
+    brotli = if isPyPy then [brotlicffi] else [brotli];
     # Use carefully since pyopenssl is not supported aarch64-darwin
     secure = [
       certifi
@@ -71,7 +71,7 @@ buildPythonPackage rec {
       idna
       pyopenssl
     ];
-    socks = [ pysocks ];
+    socks = [pysocks];
   };
 
   meta = with lib; {
@@ -79,6 +79,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/shazow/urllib3";
     changelog = "https://github.com/urllib3/urllib3/blob/${version}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

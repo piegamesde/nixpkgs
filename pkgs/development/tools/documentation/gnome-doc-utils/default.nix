@@ -45,12 +45,12 @@ python3Packages.buildPythonApplication rec {
     libxslt
     bash
   ];
-  propagatedBuildInputs = [ python3Packages.libxml2 ];
+  propagatedBuildInputs = [python3Packages.libxml2];
 
-  configureFlags = [ "--disable-scrollkeeper" ];
+  configureFlags = ["--disable-scrollkeeper"];
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = pname; };
+    updateScript = gnome.updateScript {packageName = pname;};
   };
 
   meta = with lib; {

@@ -18,9 +18,9 @@ stdenv.mkDerivation rec {
     sha256 = "wYoCyWZqu/jgqAuNYdNr2bjpz4pFRTnAF7qF4BRs9GE=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     xorg.libX11
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     description = ''The "Activate Windows" watermark ported to Linux'';
     homepage = "https://github.com/MrGlockenspiel/activate-linux";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ alexnortung ];
+    maintainers = with maintainers; [alexnortung];
     platforms = platforms.linux;
   };
 }

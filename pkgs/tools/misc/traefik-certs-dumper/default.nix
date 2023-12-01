@@ -22,6 +22,6 @@ buildGoModule rec {
     description = "dump ACME data from traefik to certificates";
     homepage = "https://github.com/ldez/traefik-certs-dumper";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

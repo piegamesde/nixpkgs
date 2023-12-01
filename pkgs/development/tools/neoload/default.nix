@@ -58,21 +58,21 @@ else
       if stdenv.hostPlatform.system == "x86_64-linux" then
         {
           url = "http://neoload.installers.neotys.com/documents/download/${pname}/v${lib.versions.majorMinor version}/${pname}_${
-            lib.replaceStrings [ "." ] [ "_" ] version
+            lib.replaceStrings ["."] ["_"] version
           }_linux_x64.sh";
           sha256 = "199jcf5a0nwfm8wfld2rcjgq64g91vvz2bkmki8dxfzf1yasifcd";
         }
       else
         {
           url = "http://neoload.installers.neotys.com/documents/download/${pname}/v${lib.versions.majorMinor version}/${pname}_${
-            lib.replaceStrings [ "." ] [ "_" ] version
+            lib.replaceStrings ["."] ["_"] version
           }_linux_x86.sh";
           sha256 = "1z66jiwcxixsqqwa0f4q8m2p5kna4knq6lic8y8l74dgv25mw912";
         }
     );
 
-    nativeBuildInputs = [ makeWrapper ];
-    phases = [ "installPhase" ];
+    nativeBuildInputs = [makeWrapper];
+    phases = ["installPhase"];
 
     # TODO: load generator / monitoring agent only builds
 
@@ -116,11 +116,11 @@ else
 
       homepage = "https://www.neotys.com/product/overview-neoload.html";
 
-      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
       # https://www.neotys.com/documents/legal/eula/neoload/eula_en.html
       license = lib.licenses.unfree;
 
-      maintainers = [ lib.maintainers.bluescreen303 ];
+      maintainers = [lib.maintainers.bluescreen303];
       platforms = [
         "i686-linux"
         "x86_64-linux"

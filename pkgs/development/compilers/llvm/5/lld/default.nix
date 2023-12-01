@@ -15,10 +15,10 @@ stdenv.mkDerivation rec {
 
   src = fetch "lld" "1ah75rjly6747jk1zbwca3z0svr9b09ylgxd4x9ns721xir6sia6";
 
-  patches = [ ./gnu-install-dirs.patch ];
+  patches = [./gnu-install-dirs.patch];
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ libllvm ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [libllvm];
 
   cmakeFlags =
     [

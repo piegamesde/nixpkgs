@@ -27,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-dMcbv/qf+8Qzu47MVFU2QUviT/vjKsHp+45F/6NOlWo=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   pythonImportsCheck = [
     "bx_py_utils.anonymize"
@@ -59,12 +59,12 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  disabledTestPaths = [ "bx_py_utils_tests/tests/test_project_setup.py" ];
+  disabledTestPaths = ["bx_py_utils_tests/tests/test_project_setup.py"];
 
   meta = {
     description = "Various Python utility functions";
     homepage = "https://github.com/boxine/bx_py_utils";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

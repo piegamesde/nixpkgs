@@ -24,12 +24,12 @@ buildPythonPackage rec {
   # Package have no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "httpie_ntlm" ];
+  pythonImportsCheck = ["httpie_ntlm"];
 
   meta = with lib; {
     description = "NTLM auth plugin for HTTPie";
     homepage = "https://github.com/httpie/httpie-ntlm";
     license = licenses.bsdOriginal;
-    maintainers = with maintainers; [ kfollesdal ];
+    maintainers = with maintainers; [kfollesdal];
   };
 }

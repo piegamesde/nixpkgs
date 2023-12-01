@@ -23,12 +23,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-e5CwLzpvW5ktv5R8PZkNmSXAi/SaTltJs9LY26iKsLo=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   # Do not build static libraries
-  cmakeFlags = [ "-DENABLE_STATIC=NO" ];
+  cmakeFlags = ["-DENABLE_STATIC=NO"];
 
   env.NIX_CFLAGS_COMPILE = toString (
     [
@@ -57,6 +57,6 @@ stdenv.mkDerivation rec {
     description = "Modern library implementing SIP (RFC 3261) transport, transaction and dialog layers. Part of the Linphone project.";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

@@ -1,16 +1,16 @@
 # Miscellaneous small tests that don't warrant their own VM run.
 
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
     foo = pkgs.writeText "foo" "Hello World";
   in
   {
     name = "misc";
-    meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [eelco];};
 
     nodes.machine =
-      { lib, ... }:
+      {lib, ...}:
       with lib; {
         swapDevices = mkOverride 0 [
           {
@@ -20,7 +20,7 @@ import ./make-test-python.nix (
         ];
         environment.variables.EDITOR = mkOverride 0 "emacs";
         documentation.nixos.enable = mkOverride 0 true;
-        systemd.tmpfiles.rules = [ "d /tmp 1777 root root 10d" ];
+        systemd.tmpfiles.rules = ["d /tmp 1777 root root 10d"];
         virtualisation.fileSystems = {
           "/tmp2" = {
             fsType = "tmpfs";
@@ -51,7 +51,7 @@ import ./make-test-python.nix (
           };
         };
         systemd.automounts = singleton {
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
           where = "/tmp2";
         };
         users.users.sybil = {
@@ -66,8 +66,8 @@ import ./make-test-python.nix (
           wheelNeedsPassword = false;
         };
         boot.kernel.sysctl."vm.swappiness" = 1;
-        boot.kernelParams = [ "vsyscall=emulate" ];
-        system.extraDependencies = [ foo ];
+        boot.kernelParams = ["vsyscall=emulate"];
+        system.extraDependencies = [foo];
       };
 
     testScript = ''

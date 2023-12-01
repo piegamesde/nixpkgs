@@ -30,7 +30,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  outputs = [ "out" ] ++ bins;
+  outputs = ["out"] ++ bins;
 
   # Move binaries to separate outputs and symlink them back to $out
   postInstall = lib.concatStringsSep "\n" (
@@ -59,7 +59,7 @@ buildGoModule rec {
   ];
 
   # Following upstream: https://github.com/ethereum/go-ethereum/blob/v1.11.6/build/ci.go#L218
-  tags = [ "urfave_cli_no_docs" ];
+  tags = ["urfave_cli_no_docs"];
 
   # Fix for usb-related segmentation faults on darwin
   propagatedBuildInputs = lib.optionals stdenv.isDarwin [

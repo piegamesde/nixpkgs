@@ -1,16 +1,16 @@
 import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "hitch";
-    meta = with pkgs.lib.maintainers; { maintainers = [ jflanglois ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [jflanglois];};
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        environment.systemPackages = [ pkgs.curl ];
+        environment.systemPackages = [pkgs.curl];
         services.hitch = {
           enable = true;
           backend = "[127.0.0.1]:80";
-          pem-files = [ ./example.pem ];
+          pem-files = [./example.pem];
         };
 
         services.httpd = {

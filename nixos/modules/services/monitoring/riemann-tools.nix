@@ -40,7 +40,7 @@ in
       };
       extraArgs = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           A list of commandline-switches forwarded to a riemann-tool.
           See for example `riemann-health --help` for available options.
@@ -65,8 +65,8 @@ in
     };
 
     systemd.services.riemann-health = {
-      wantedBy = [ "multi-user.target" ];
-      path = [ procps ];
+      wantedBy = ["multi-user.target"];
+      path = [procps];
       serviceConfig = {
         User = "riemanntools";
         ExecStart = "${healthLauncher}/bin/riemann-health";

@@ -25,7 +25,7 @@ mkDerivation rec {
     qmake
     qttools
   ];
-  buildInputs = [ qtx11extras ];
+  buildInputs = [qtx11extras];
 
   qmakeFlags = [
     "PREFIX=${placeholder "out"}"
@@ -43,7 +43,7 @@ mkDerivation rec {
     description = "Notepad++-like editor for the Linux desktop";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.sebtm ];
+    maintainers = [maintainers.sebtm];
     broken = stdenv.isAarch64;
   };
 }

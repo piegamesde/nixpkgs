@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "1nj2bm1v6ymm3fmyvhbn6ih5fgdiapavlfghh1pvbmhw71cysyqs";
   };
 
-  patches = [ ./no-external-blosc.patch ];
+  patches = [./no-external-blosc.patch];
 
   outputs = [
     "out"
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     "plugin"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     c-blosc
     hdf5
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     substituteInPlace CMakeLists.txt --replace 'set(BLOSC_INSTALL_DIR "''${CMAKE_CURRENT_BINARY_DIR}/blosc")' 'set(BLOSC_INSTALL_DIR "${c-blosc}")'
   '';
 
-  cmakeFlags = [ "-DPLUGIN_INSTALL_PATH=${placeholder "plugin"}/hdf5/lib/plugin" ];
+  cmakeFlags = ["-DPLUGIN_INSTALL_PATH=${placeholder "plugin"}/hdf5/lib/plugin"];
 
   postInstall = ''
     mkdir -p $out/lib/pkgconfig
@@ -47,6 +47,6 @@ stdenv.mkDerivation rec {
     description = "Filter for HDF5 that uses the Blosc compressor";
     homepage = "https://github.com/Blosc/hdf5-blosc";
     license = licenses.mit;
-    maintainers = with maintainers; [ bhipple ];
+    maintainers = with maintainers; [bhipple];
   };
 }

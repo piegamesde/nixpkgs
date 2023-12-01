@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "003715lvj4nx23arn1s9ss6hgc2yblkwfy5h94li6pjz2a6xc1rs";
   };
 
-  buildInputs = [ cutee ];
+  buildInputs = [cutee];
 
   patches =
     [
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     description = "MIME handling library";
     homepage = "https://www.codesink.org/mimetic_mime_library.html";
     license = licenses.mit;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
     platforms = platforms.linux;
   };
 }

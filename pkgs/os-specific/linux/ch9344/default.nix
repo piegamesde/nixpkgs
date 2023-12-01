@@ -23,14 +23,14 @@ stdenv.mkDerivation rec {
       ];
 
   sourceRoot = "${src.name}/driver";
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
   preBuild = ''
     substituteInPlace Makefile --replace "KERNELDIR :=" "KERNELDIR ?="
   '';
 
-  makeFlags = [ "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
+  makeFlags = ["KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"];
 
   installPhase = ''
     runHook preInstall
@@ -48,6 +48,6 @@ stdenv.mkDerivation rec {
     # Archive contains no license.
     license = licenses.unfree;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ MakiseKurisu ];
+    maintainers = with maintainers; [MakiseKurisu];
   };
 }

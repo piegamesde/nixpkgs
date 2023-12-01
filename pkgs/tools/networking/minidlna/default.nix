@@ -25,7 +25,7 @@ stdenv.mkDerivation {
 
   src = fetchgit {
     url = "https://git.code.sf.net/p/${pname}/git";
-    rev = "v${builtins.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "v${builtins.replaceStrings ["."] ["_"] version}";
     hash = "sha256-v+puglrbuLqHIAbrO7bhOA0npc/GYp0Bdi3DnD9qyII=";
   };
 
@@ -33,7 +33,7 @@ stdenv.mkDerivation {
     export makeFlags="INSTALLPREFIX=$out"
   '';
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = [
     ffmpeg

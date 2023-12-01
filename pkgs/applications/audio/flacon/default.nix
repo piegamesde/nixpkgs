@@ -65,6 +65,6 @@ stdenv.mkDerivation rec {
     homepage = "https://flacon.github.io/";
     license = licenses.lgpl21;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ snglth ];
+    maintainers = with maintainers; [snglth];
   };
 }

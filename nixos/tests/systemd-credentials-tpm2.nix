@@ -18,11 +18,11 @@ import ./make-test-python.nix (
     name = "systemd-credentials-tpm2";
 
     meta = {
-      maintainers = with pkgs.lib.maintainers; [ tmarkus ];
+      maintainers = with pkgs.lib.maintainers; [tmarkus];
     };
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         virtualisation = {
           qemu.options = [
@@ -32,9 +32,9 @@ import ./make-test-python.nix (
           ];
         };
 
-        boot.initrd.availableKernelModules = [ "tpm_tis" ];
+        boot.initrd.availableKernelModules = ["tpm_tis"];
 
-        environment.systemPackages = with pkgs; [ diffutils ];
+        environment.systemPackages = with pkgs; [diffutils];
       };
 
     testScript = ''

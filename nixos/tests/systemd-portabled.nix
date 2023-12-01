@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   let
     demo-program = pkgs.writeShellScriptBin "demo" ''
       while ${pkgs.coreutils}/bin/sleep 3; do
@@ -45,7 +45,7 @@ import ./make-test-python.nix (
   {
 
     name = "systemd-portabled";
-    nodes.machine = { };
+    nodes.machine = {};
     testScript = ''
       machine.succeed("portablectl")
       machine.wait_for_unit("systemd-portabled.service")

@@ -175,7 +175,7 @@ stdenv.mkDerivation rec {
     description = "A data analysis framework";
     platforms = platforms.unix;
     broken = !stdenv.isx86_64;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
     license = licenses.lgpl21;
   };
 }

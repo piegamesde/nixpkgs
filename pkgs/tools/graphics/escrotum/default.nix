@@ -54,7 +54,7 @@ buildPythonApplication {
     homepage = "https://github.com/Roger/escrotum";
     description = "Linux screen capture using pygtk, inspired by scrot";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ rasendubi ];
+    maintainers = with maintainers; [rasendubi];
     license = licenses.gpl3;
   };
 }

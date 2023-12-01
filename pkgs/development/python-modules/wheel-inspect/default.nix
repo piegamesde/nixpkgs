@@ -48,7 +48,7 @@ buildPythonPackage rec {
       --replace "entry-points-txt ~= 0.1.0" "entry-points-txt >= 0.1.0"
   '';
 
-  pythonImportsCheck = [ "wheel_inspect" ];
+  pythonImportsCheck = ["wheel_inspect"];
 
   pytestFlagsArray = [
     "-W"
@@ -58,7 +58,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Extract information from wheels";
     homepage = "https://github.com/jwodder/wheel-inspect";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ ayazhafiz ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [ayazhafiz];
   };
 }

@@ -66,7 +66,7 @@ let
   # the set of TeX Live packages, collections, and schemes; using upstream naming
   tl =
     let
-      orig = removeAttrs tlpdb [ "00texlive.config" ];
+      orig = removeAttrs tlpdb ["00texlive.config"];
 
       overridden = orig // {
         # overrides of texlive.tlpdb
@@ -77,7 +77,7 @@ let
 
         xdvi = orig.xdvi // {
           # it seems to need it to transform fonts
-          deps = (orig.xdvi.deps or [ ]) ++ [ "metafont" ];
+          deps = (orig.xdvi.deps or []) ++ ["metafont"];
         };
 
         # remove dependency-heavy packages from the basic collections
@@ -86,10 +86,10 @@ let
         };
         # add them elsewhere so that collections cover all packages
         collection-metapost = orig.collection-metapost // {
-          deps = orig.collection-metapost.deps ++ [ "metafont" ];
+          deps = orig.collection-metapost.deps ++ ["metafont"];
         };
         collection-plaingeneric = orig.collection-plaingeneric // {
-          deps = orig.collection-plaingeneric.deps ++ [ "xdvi" ];
+          deps = orig.collection-plaingeneric.deps ++ ["xdvi"];
         };
 
         texdoc = orig.texdoc // {
@@ -147,13 +147,13 @@ let
                 tlType = "run";
                 hasFormats = attrs.hasFormats or false;
                 hasHyphens = attrs.hasHyphens or false;
-                tlDeps = map (n: tl.${n}) (attrs.deps or [ ]);
+                tlDeps = map (n: tl.${n}) (attrs.deps or []);
               }
           )
         ]
         ++ lib.optional (attrs.sha512 ? doc) (mkPkgV "doc")
         ++ lib.optional (attrs.sha512 ? source) (mkPkgV "source")
-        ++ lib.optional (bin ? ${pname}) (bin.${pname} // { tlType = "bin"; });
+        ++ lib.optional (bin ? ${pname}) (bin.${pname} // {tlType = "bin";});
     };
 
   version = {
@@ -224,7 +224,7 @@ let
       urls =
         args.urls or (
           if args ? url then
-            [ args.url ]
+            [args.url]
           else
             map (up: "${up}/archive/${urlName}.r${toString revision}.tar.xz") (args.urlPrefixes or urlPrefixes)
         );
@@ -232,14 +232,14 @@ let
     runCommand "texlive-${tlName}"
       (
         {
-          src = fetchurl { inherit urls sha512; };
+          src = fetchurl {inherit urls sha512;};
           inherit stripPrefix;
           # metadata for texlive.combine
           passthru =
             {
               inherit pname tlType version;
             }
-            // lib.optionalAttrs (tlType == "run" && args ? deps) { tlDeps = map (n: tl.${n}) args.deps; }
+            // lib.optionalAttrs (tlType == "run" && args ? deps) {tlDeps = map (n: tl.${n}) args.deps;}
             // lib.optionalAttrs (tlType == "run") {
               hasFormats = args.hasFormats or false;
               hasHyphens = args.hasHyphens or false;
@@ -269,7 +269,7 @@ let
         # a TeX package is an attribute set { pkgs = [ ... ]; ... } where pkgs is a list of derivations
         # the derivations make up the TeX package and optionally (for backward compatibility) its dependencies
         tlPkgToSets =
-          { pkgs, ... }:
+          {pkgs, ...}:
           map
             (
               {
@@ -289,7 +289,7 @@ let
       in
       builtins.genericClosure {
         startSet = pkgListToSets pkgList;
-        operator = { pkg, ... }: pkgListToSets (pkg.tlDeps or [ ]);
+        operator = {pkg, ...}: pkgListToSets (pkg.tlDeps or []);
       }
     );
 
@@ -324,7 +324,7 @@ tl
             rec {
               description = "TeX Live environment for ${pname}";
               platforms = lib.platforms.all;
-              maintainers = with lib.maintainers; [ veprbl ];
+              maintainers = with lib.maintainers; [veprbl];
             }
             (
               combine {

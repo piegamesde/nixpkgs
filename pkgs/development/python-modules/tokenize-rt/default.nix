@@ -18,12 +18,12 @@ buildPythonPackage rec {
     hash = "sha256-YNt4YwkuA3DVq4EjJaIES9V3A6ENa3k6/qVKisjA5Pc=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "A wrapper around the stdlib `tokenize` which roundtrips";
     homepage = "https://github.com/asottile/tokenize-rt";
     license = licenses.mit;
-    maintainers = with maintainers; [ lovesegfault ];
+    maintainers = with maintainers; [lovesegfault];
   };
 }

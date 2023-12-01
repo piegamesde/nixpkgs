@@ -28,7 +28,7 @@ python3.pkgs.buildPythonApplication rec {
     rich
   ];
 
-  pythonImportsCheck = [ "octosuite" ];
+  pythonImportsCheck = ["octosuite"];
 
   # Project has no tests
   doCheck = false;
@@ -38,6 +38,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/bellingcat/octosuite";
     changelog = "https://github.com/bellingcat/octosuite/releases/tag/${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

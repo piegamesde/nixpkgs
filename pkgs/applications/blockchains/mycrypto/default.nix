@@ -16,7 +16,7 @@ let
     inherit sha256;
   };
 
-  appimageContents = appimageTools.extractType2 { inherit name src; };
+  appimageContents = appimageTools.extractType2 {inherit name src;};
 
   desktopItem = makeDesktopItem {
     name = pname;
@@ -24,7 +24,7 @@ let
     comment = "MyCrypto is a free, open-source interface for interacting with the blockchain";
     exec = pname;
     icon = "mycrypto";
-    categories = [ "Finance" ];
+    categories = ["Finance"];
   };
 in
 appimageTools.wrapType2 rec {
@@ -50,7 +50,7 @@ appimageTools.wrapType2 rec {
     '';
     homepage = "https://mycrypto.com";
     license = licenses.mit;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ oxalica ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [oxalica];
   };
 }

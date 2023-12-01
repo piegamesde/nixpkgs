@@ -136,8 +136,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.kube-controller-manager = {
       description = "Kubernetes Controller Manager Service";
-      wantedBy = [ "kubernetes.target" ];
-      after = [ "kube-apiserver.service" ];
+      wantedBy = ["kubernetes.target"];
+      after = ["kube-apiserver.service"];
       serviceConfig = {
         RestartSec = "30s";
         Restart = "on-failure";
@@ -148,7 +148,7 @@ in
                     --bind-address=${cfg.bindAddress} \
                     ${optionalString (cfg.clusterCidr != null) "--cluster-cidr=${cfg.clusterCidr}"} \
                     ${
-                      optionalString (cfg.featureGates != [ ])
+                      optionalString (cfg.featureGates != [])
                         "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"
                     } \
                     --kubeconfig=${top.lib.mkKubeConfig "kube-controller-manager" cfg.kubeconfig} \

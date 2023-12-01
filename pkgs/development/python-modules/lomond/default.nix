@@ -31,13 +31,13 @@ buildPythonPackage rec {
       --replace "'pytest-runner'" ""
   '';
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   nativeCheckInputs = [
     freezegun
     pytest-mock
     pytestCheckHook
-  ] ++ lib.optionals (pythonOlder "3.10") [ tornado_4 ];
+  ] ++ lib.optionals (pythonOlder "3.10") [tornado_4];
 
   disabledTests = [
     # Makes HTTP requests
@@ -56,6 +56,6 @@ buildPythonPackage rec {
     description = "Websocket Client Library";
     homepage = "https://github.com/wildfoundry/dataplicity-lomond";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jamiemagee ];
+    maintainers = with maintainers; [jamiemagee];
   };
 }

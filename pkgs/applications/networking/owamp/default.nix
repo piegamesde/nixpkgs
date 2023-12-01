@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     autoconf
     automake
   ];
-  buildInputs = [ mandoc ];
+  buildInputs = [mandoc];
   src = fetchFromGitHub {
     owner = "perfsonar";
     repo = "owamp";
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     homepage = "http://software.internet2.edu/owamp/";
     description = "A tool for performing one-way active measurements";
     platforms = platforms.linux;
-    maintainers = [ maintainers.teto ];
+    maintainers = [maintainers.teto];
     license = licenses.asl20;
   };
 }

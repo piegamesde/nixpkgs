@@ -104,7 +104,7 @@ stdenv.mkDerivation {
       binaryBytecode # source bundles dependencies as jars
     ];
     license = licenses.gpl3;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
   };
 }

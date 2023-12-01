@@ -1,15 +1,15 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../../.. {inherit system config;},
 }:
 
-with import ../../lib/testing-python.nix { inherit system pkgs; };
+with import ../../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
 
 let
 
-  inherit (import ./common.nix { inherit system; }) baseConfig;
+  inherit (import ./common.nix {inherit system;}) baseConfig;
 
   hydraPkgs = {
     inherit (pkgs) hydra_unstable;
@@ -28,9 +28,9 @@ let
       };
 
       nodes.machine =
-        { pkgs, lib, ... }:
+        {pkgs, lib, ...}:
         {
-          imports = [ baseConfig ];
+          imports = [baseConfig];
           services.hydra = {
             inherit package;
           };

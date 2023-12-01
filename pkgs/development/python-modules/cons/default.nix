@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-ivHFep9iYPvyiBIZKMAzqrLGnQkeuxd0meYMZwZFFH0=";
   };
 
-  propagatedBuildInputs = [ logical-unification ];
+  propagatedBuildInputs = [logical-unification];
 
   nativeCheckInputs = [
     py
@@ -32,13 +32,13 @@ buildPythonPackage rec {
     "--self-contained-html"
   ];
 
-  pythonImportsCheck = [ "cons" ];
+  pythonImportsCheck = ["cons"];
 
   meta = with lib; {
     description = "An implementation of Lisp/Scheme-like cons in Python";
     homepage = "https://github.com/pythological/python-cons";
     changelog = "https://github.com/pythological/python-cons/releases";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ Etjean ];
+    maintainers = with maintainers; [Etjean];
   };
 }

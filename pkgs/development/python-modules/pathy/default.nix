@@ -41,12 +41,12 @@ buildPythonPackage rec {
     "pathy/_tests/test_s3.py"
   ];
 
-  pythonImportsCheck = [ "pathy" ];
+  pythonImportsCheck = ["pathy"];
 
   meta = with lib; {
     description = "A Path interface for local and cloud bucket storage";
     homepage = "https://github.com/justindujardin/pathy";
     license = licenses.asl20;
-    maintainers = with maintainers; [ melling ];
+    maintainers = with maintainers; [melling];
   };
 }

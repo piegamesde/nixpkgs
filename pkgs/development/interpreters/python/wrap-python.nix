@@ -8,7 +8,7 @@
 makePythonHook
   {
     name = "wrap-python-hook";
-    propagatedBuildInputs = [ makeWrapper ];
+    propagatedBuildInputs = [makeWrapper];
     substitutions.sitePackages = python.sitePackages;
     substitutions.executable = python.interpreter;
     substitutions.python = python.pythonForBuild;
@@ -60,7 +60,7 @@ makePythonHook
           /\\$|,$/{N;br}
           /__future__|^ |^ *(#.*)?$/{n;br}
           ${lib.concatImapStrings mkStringSkipper quoteVariants}
-          /^[^# ]/i ${lib.replaceStrings [ "\n" ] [ ";" ] preamble}
+          /^[^# ]/i ${lib.replaceStrings ["\n"] [";"] preamble}
         }
       '';
   }

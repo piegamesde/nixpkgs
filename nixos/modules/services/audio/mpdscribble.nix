@@ -129,7 +129,7 @@ in
     passwordFile = mkOption {
       default =
         if localMpd then
-          (findFirst (c: any (x: x == "read") c.permissions) { passwordFile = null; } mpdCfg.credentials)
+          (findFirst (c: any (x: x == "read") c.permissions) {passwordFile = null;} mpdCfg.credentials)
           .passwordFile
         else
           null;
@@ -159,7 +159,7 @@ in
         (
           let
             endpoint =
-              { name, ... }:
+              {name, ...}:
               {
                 options = {
                   url = mkOption {
@@ -182,7 +182,7 @@ in
           in
           types.attrsOf (types.submodule endpoint)
         );
-      default = { };
+      default = {};
       example = {
         "last.fm" = {
           username = "foo";
@@ -202,9 +202,9 @@ in
 
   config = mkIf cfg.enable {
     systemd.services.mpdscribble = {
-      after = [ "network.target" ] ++ (optional localMpd "mpd.service");
+      after = ["network.target"] ++ (optional localMpd "mpd.service");
       description = "mpdscribble mpd scrobble client";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         DynamicUser = true;
         StateDirectory = "mpdscribble";

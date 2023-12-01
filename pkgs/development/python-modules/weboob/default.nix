@@ -39,7 +39,7 @@ buildPythonPackage rec {
     sha256 = "1c69vzf8sg8471lcaafpz9iw2q3rfj5hmcpqrs2k59fkgbvy32zw";
   };
 
-  nativeBuildInputs = [ pyqt5 ];
+  nativeBuildInputs = [pyqt5];
 
   propagatedBuildInputs = [
     babel
@@ -75,18 +75,18 @@ buildPythonPackage rec {
       --replace "weboob.tools.capabilities.bank.transactions," ""
   '';
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
   checkPhase = ''
     nosetests
   '';
 
-  pythonImportsCheck = [ "weboob" ];
+  pythonImportsCheck = ["weboob"];
 
   meta = with lib; {
     description = "Collection of applications and APIs to interact with websites";
     homepage = "http://weboob.org";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

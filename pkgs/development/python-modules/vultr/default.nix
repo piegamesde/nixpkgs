@@ -16,17 +16,17 @@ buildPythonPackage rec {
     sha256 = "00lc5hdhchvm0472p03019bp9541d8y2773xkjy8vblq9qhys8q7";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # Tests disabled. They fail because they try to access the network
   doCheck = false;
 
-  pythonImportsCheck = [ "vultr" ];
+  pythonImportsCheck = ["vultr"];
 
   meta = with lib; {
     description = "Vultr.com API Client";
     homepage = "https://github.com/spry-group/python-vultr";
     license = licenses.mit;
-    maintainers = with maintainers; [ lihop ];
+    maintainers = with maintainers; [lihop];
   };
 }

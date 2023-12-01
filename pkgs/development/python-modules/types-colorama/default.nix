@@ -21,6 +21,6 @@ buildPythonPackage rec {
     description = "Typing stubs for colorama";
     homepage = "https://github.com/python/typeshed";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

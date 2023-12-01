@@ -47,7 +47,7 @@ stdenv.mkDerivation (
       homepage = "https://argbash.io/";
       description = "Bash argument parsing code generator";
       license = lib.licenses.bsd3;
-      maintainers = with lib.maintainers; [ AndersonTorres ];
+      maintainers = with lib.maintainers; [AndersonTorres];
       platforms = lib.platforms.all;
     };
   }

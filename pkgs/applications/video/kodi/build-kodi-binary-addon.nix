@@ -11,10 +11,10 @@
   name ? "${attrs.pname}-${attrs.version}",
   namespace,
   version,
-  extraNativeBuildInputs ? [ ],
-  extraBuildInputs ? [ ],
-  extraRuntimeDependencies ? [ ],
-  extraCMakeFlags ? [ ],
+  extraNativeBuildInputs ? [],
+  extraBuildInputs ? [],
+  extraRuntimeDependencies ? [],
+  extraCMakeFlags ? [],
   extraInstallPhase ? "",
   ...
 }@attrs:
@@ -25,7 +25,7 @@ toKodiAddon (
 
       dontStrip = true;
 
-      nativeBuildInputs = [ cmake ] ++ extraNativeBuildInputs;
+      nativeBuildInputs = [cmake] ++ extraNativeBuildInputs;
       buildInputs = [
         kodi
         kodi-platform
@@ -35,7 +35,7 @@ toKodiAddon (
       inherit extraRuntimeDependencies;
 
       # disables check ensuring install prefix is that of kodi
-      cmakeFlags = [ "-DOVERRIDE_PATHS=1" ] ++ extraCMakeFlags;
+      cmakeFlags = ["-DOVERRIDE_PATHS=1"] ++ extraCMakeFlags;
 
       # kodi checks for addon .so libs existance in the addon folder (share/...)
       # and the non-wrapped kodi lib/... folder before even trying to dlopen

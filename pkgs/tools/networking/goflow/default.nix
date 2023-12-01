@@ -21,7 +21,7 @@ buildGoModule rec {
     description = "A NetFlow/IPFIX/sFlow collector in Go";
     homepage = "https://github.com/cloudflare/goflow";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ heph2 ];
+    maintainers = with maintainers; [heph2];
     platforms = platforms.all;
   };
 }

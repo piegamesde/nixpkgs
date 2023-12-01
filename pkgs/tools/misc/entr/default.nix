@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   dontAddPrefix = true;
   doCheck = true;
   checkTarget = "test";
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     homepage = "https://eradman.com/entrproject/";

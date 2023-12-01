@@ -29,11 +29,11 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ django ];
+  propagatedBuildInputs = [django];
 
-  pythonImportsCheck = [ "taggit" ];
+  pythonImportsCheck = ["taggit"];
 
-  nativeCheckInputs = [ djangorestframework ];
+  nativeCheckInputs = [djangorestframework];
 
   checkPhase = ''
     # prove we're running tests against installed package, not build dir
@@ -49,6 +49,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jazzband/django-taggit";
     changelog = "https://github.com/jazzband/django-taggit/blob/${version}/CHANGELOG.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ desiderius ];
+    maintainers = with maintainers; [desiderius];
   };
 }

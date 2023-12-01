@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ri7WIGvGJ4tl6ZpPeN8O6ykR8wGij7V7UMVzwNWGmYc=";
   };
 
-  buildInputs = [ fastjet ];
+  buildInputs = [fastjet];
 
   postPatch = ''
     for f in Makefile.in */Makefile; do
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
   # Written in shell manually, does not support autoconf-style
   # --build=/--host= options:
   #   Error: --build=x86_64-unknown-linux-gnu: unrecognised argument
-  configurePlatforms = [ ];
+  configurePlatforms = [];
 
   enableParallelBuilding = true;
 
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     homepage = "http://fastjet.fr/";
     changelog = "https://phab.hepforge.org/source/fastjetsvn/browse/contrib/tags/${version}/NEWS?as=source&blame=off";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
     platforms = platforms.unix;
   };
 }

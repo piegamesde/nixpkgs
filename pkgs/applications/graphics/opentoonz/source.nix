@@ -1,7 +1,7 @@
 # opentoonz's source archive contains both opentoonz's source and a modified
 # version of libtiff that opentoonz requires.
 
-{ fetchFromGitHub }:
+{fetchFromGitHub}:
 rec {
   versions = {
     opentoonz = "1.5.0";

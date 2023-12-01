@@ -19,7 +19,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-X github.com/kopia/kopia/repo.BuildVersion=${version}"
@@ -30,6 +30,6 @@ buildGoModule rec {
     homepage = "https://kopia.io";
     description = "Cross-platform backup tool with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication";
     license = licenses.asl20;
-    maintainers = [ maintainers.bbigras ];
+    maintainers = [maintainers.bbigras];
   };
 }

@@ -1,17 +1,17 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "tuxguitar";
-    meta = with pkgs.lib.maintainers; { maintainers = [ ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [];};
 
     nodes.machine =
-      { config, pkgs, ... }:
+      {config, pkgs, ...}:
       {
-        imports = [ ./common/x11.nix ];
+        imports = [./common/x11.nix];
 
         services.xserver.enable = true;
 
-        environment.systemPackages = [ pkgs.tuxguitar ];
+        environment.systemPackages = [pkgs.tuxguitar];
       };
 
     testScript = ''

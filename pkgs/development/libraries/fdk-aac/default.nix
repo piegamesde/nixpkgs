@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     description = "A high-quality implementation of the AAC codec from Android";
     homepage = "https://sourceforge.net/projects/opencore-amr/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ codyopel ];
+    maintainers = with maintainers; [codyopel];
     platforms = platforms.all;
   };
 }

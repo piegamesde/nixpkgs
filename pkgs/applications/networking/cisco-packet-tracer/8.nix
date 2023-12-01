@@ -35,7 +35,7 @@ let
 
     dontUnpack = true;
     src = requireFile {
-      name = "CiscoPacketTracer_${builtins.replaceStrings [ "." ] [ "" ] version}_Ubuntu_64bit.deb";
+      name = "CiscoPacketTracer_${builtins.replaceStrings ["."] [""] version}_Ubuntu_64bit.deb";
       sha256 = "1b19885d59f6130ee55414fb02e211a1773460689db38bfd1ac7f0d45117ed16";
       url = "https://www.netacad.com";
     };
@@ -109,7 +109,7 @@ let
   fhs = buildFHSEnv {
     name = "packettracer8";
     runScript = "${ptFiles}/bin/packettracer";
-    targetPkgs = pkgs: [ libudev0-shim ];
+    targetPkgs = pkgs: [libudev0-shim];
 
     extraInstallCommands = ''
       mkdir -p "$out/share/applications"
@@ -128,15 +128,15 @@ stdenv.mkDerivation {
     ${lndir}/bin/lndir -silent ${fhs} $out
   '';
 
-  desktopItems = [ desktopItem ];
-  nativeBuildInputs = [ copyDesktopItems ];
+  desktopItems = [desktopItem];
+  nativeBuildInputs = [copyDesktopItems];
 
   meta = with lib; {
     description = "Network simulation tool from Cisco";
     homepage = "https://www.netacad.com/courses/packet-tracer";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ lucasew ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [lucasew];
+    platforms = ["x86_64-linux"];
   };
 }

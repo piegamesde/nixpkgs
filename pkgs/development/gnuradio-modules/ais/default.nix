@@ -34,7 +34,7 @@ mkDerivation rec {
     python
   ];
 
-  cmakeFlags = [ "-DCMAKE_EXE_LINKER_FLAGS=-pthread" ];
+  cmakeFlags = ["-DCMAKE_EXE_LINKER_FLAGS=-pthread"];
 
   buildInputs = [
     cppunit
@@ -54,6 +54,6 @@ mkDerivation rec {
     homepage = "https://github.com/bistromath/gr-ais";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ mog ];
+    maintainers = with maintainers; [mog];
   };
 }

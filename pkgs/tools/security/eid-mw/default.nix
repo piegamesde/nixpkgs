@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
       --replace "c_rehash" "openssl rehash"
   '';
   # pinentry uses hardcoded `/usr/bin/pinentry`, so use the built-in (uglier) dialogs for pinentry.
-  configureFlags = [ "--disable-pinentry" ];
+  configureFlags = ["--disable-pinentry"];
 
   postPatch = ''
     sed 's@m4_esyscmd_s(.*,@[${version}],@' -i configure.ac

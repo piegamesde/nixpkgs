@@ -21,7 +21,7 @@
   git,
 }:
 let
-  qtPython = python3.withPackages (pkgs: with pkgs; [ pyqt5 ]);
+  qtPython = python3.withPackages (pkgs: with pkgs; [pyqt5]);
 in
 stdenv.mkDerivation rec {
   pname = "seamly2d";
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
     "CONFIG+=no_ccache"
   ];
 
-  installFlags = [ "INSTALL_ROOT=$(out)" ];
+  installFlags = ["INSTALL_ROOT=$(out)"];
 
   postInstall = ''
     mv $out/usr/share $out/
@@ -100,6 +100,6 @@ stdenv.mkDerivation rec {
     homepage = "https://seamly.net/";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ WhittlesJr ];
+    maintainers = with lib.maintainers; [WhittlesJr];
   };
 }

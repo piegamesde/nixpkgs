@@ -24,7 +24,7 @@ stdenv.mkDerivation {
     description = "Smallest Enclosing Balls of Points";
     homepage = "https://www.inf.ethz.ch/personal/gaertner/miniball.html";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.erikryb ];
+    maintainers = [lib.maintainers.erikryb];
     platforms = lib.platforms.unix;
   };
 }

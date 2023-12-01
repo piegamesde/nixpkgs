@@ -38,10 +38,10 @@ in
 
   config = mkIf cfg.enable {
     systemd.services.hercules-ci-agent = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
-      path = [ config.nix.package ];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
+      path = [config.nix.package];
       startLimitBurst = 30 * 1000000; # practically infinite
       serviceConfig = {
         User = "hercules-ci-agent";
@@ -58,7 +58,7 @@ in
     # Changes in the secrets do not affect the unit in any way that would cause
     # a restart, which is currently necessary to reload the secrets.
     systemd.paths.hercules-ci-agent-restart-files = {
-      wantedBy = [ "hercules-ci-agent.service" ];
+      wantedBy = ["hercules-ci-agent.service"];
       pathConfig = {
         Unit = "hercules-ci-agent-restarter.service";
         PathChanged = [
@@ -87,7 +87,7 @@ in
 
     # Trusted user allows simplified configuration and better performance
     # when operating in a cluster.
-    nix.settings.trusted-users = [ config.systemd.services.hercules-ci-agent.serviceConfig.User ];
+    nix.settings.trusted-users = [config.systemd.services.hercules-ci-agent.serviceConfig.User];
     services.hercules-ci-agent = {
       settings = {
         nixUserIsTrusted = true;
@@ -114,8 +114,8 @@ in
       isSystemUser = true;
     };
 
-    users.groups.hercules-ci-agent = { };
+    users.groups.hercules-ci-agent = {};
   };
 
-  meta.maintainers = [ lib.maintainers.roberth ];
+  meta.maintainers = [lib.maintainers.roberth];
 }

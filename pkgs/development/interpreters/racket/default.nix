@@ -36,7 +36,7 @@
 
 let
 
-  fontsConf = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
+  fontsConf = makeFontsConf {fontDirectories = [freefont_ttf];};
 
   libPath = lib.makeLibraryPath [
     cairo
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
 
   src =
     (lib.makeOverridable (
-      { name, sha256 }:
+      {name, sha256}:
       fetchurl {
         url = "https://mirror.racket-lang.org/installers/${version}/${name}-src.tgz";
         inherit sha256;
@@ -166,8 +166,7 @@ stdenv.mkDerivation rec {
       "--enable-${shared}"
       "--enable-lt=${libtool}/bin/libtool"
     ]
-    ++ lib.optionals disableDocs [ "--disable-docs" ]
-    ++ lib.optionals stdenv.isDarwin [ "--enable-xonx" ];
+    ++ lib.optionals disableDocs ["--disable-docs"] ++ lib.optionals stdenv.isDarwin ["--enable-xonx"];
 
   configureScript = "../configure";
 

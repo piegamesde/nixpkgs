@@ -19,7 +19,7 @@ buildPythonApplication rec {
     hash = "sha256-zJH2ojLQChElRvU2TWg4lW+Mey+wP0XbLJhVF16nvss=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -37,7 +37,7 @@ buildPythonApplication rec {
     tornado
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   __darwinAllowLocalNetworking = true;
 
@@ -48,6 +48,6 @@ buildPythonApplication rec {
     description = "A Python pastebin that tries to keep it simple";
     homepage = "https://supakeen.com/project/pinnwand/";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

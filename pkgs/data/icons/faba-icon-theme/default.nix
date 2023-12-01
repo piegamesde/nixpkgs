@@ -49,6 +49,6 @@ stdenvNoCC.mkDerivation rec {
       gpl3
     ];
     platforms = platforms.all;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

@@ -12,7 +12,7 @@
 makeSetupHook
   {
     name = "${octave.name}-pkgs-setup-hook";
-    propagatedBuildInputs = [ makeWrapper ];
+    propagatedBuildInputs = [makeWrapper];
     substitutions.executable = octave.interpreter;
     substitutions.octave = octave;
   }

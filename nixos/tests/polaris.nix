@@ -1,16 +1,16 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
 
   with lib;
 
   {
     name = "polaris";
-    meta.maintainers = with maintainers; [ pbsds ];
+    meta.maintainers = with maintainers; [pbsds];
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        environment.systemPackages = [ pkgs.jq ];
+        environment.systemPackages = [pkgs.jq];
         services.polaris = {
           enable = true;
           port = 5050;

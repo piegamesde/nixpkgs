@@ -1,14 +1,14 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-who";
   version = "20190710-git";
 
-  parasites = [ "cl-who-test" ];
+  parasites = ["cl-who-test"];
 
   description = "(X)HTML generation macros";
 
-  deps = [ args."flexi-streams" ];
+  deps = [args."flexi-streams"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-who/2019-07-10/cl-who-20190710-git.tgz";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "cl-who";
 
-  asdFilesToKeep = [ "cl-who.asd" ];
+  asdFilesToKeep = ["cl-who.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-who DESCRIPTION (X)HTML generation macros SHA256

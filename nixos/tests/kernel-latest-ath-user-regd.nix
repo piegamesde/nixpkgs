@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "kernel-latest-ath-user-regd";
-    meta = with pkgs.lib.maintainers; { maintainers = [ veehaitch ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [veehaitch];};
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         boot.kernelPackages = pkgs.linuxPackages_latest;
         networking.wireless.athUserRegulatoryDomain = true;

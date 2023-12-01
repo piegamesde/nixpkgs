@@ -179,7 +179,7 @@ in
 
   config = mkIf config.services.couchdb.enable {
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     services.couchdb.configFile = mkDefault "/var/lib/couchdb/local.ini";
 
@@ -192,7 +192,7 @@ in
 
     systemd.services.couchdb = {
       description = "CouchDB Server";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         touch ${cfg.configFile}

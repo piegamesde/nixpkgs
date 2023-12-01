@@ -53,7 +53,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python tool and library for SoloKeys Solo 1";
     homepage = "https://github.com/solokeys/solo1-cli";
-    maintainers = with maintainers; [ wucke13 ];
+    maintainers = with maintainers; [wucke13];
     license = with licenses; [
       asl20
       mit

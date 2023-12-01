@@ -48,14 +48,14 @@ buildBazelPackage rec {
   removeRulesCC = false;
 
   bazel = bazel_5;
-  bazelFlags = [ "--override_repository=rules_proto=${rulesProto}" ];
+  bazelFlags = ["--override_repository=rules_proto=${rulesProto}"];
   bazelBuildFlags = lib.optionals stdenv.cc.isClang [
     "--cxxopt=-x"
     "--cxxopt=c++"
     "--host_cxxopt=-x"
     "--host_cxxopt=c++"
   ];
-  bazelTargets = [ "//cmd/ibazel" ];
+  bazelTargets = ["//cmd/ibazel"];
 
   fetchConfigured = false; # we want to fetch all dependencies, regardless of the current system
   fetchAttrs = {
@@ -114,7 +114,7 @@ buildBazelPackage rec {
     homepage = "https://github.com/bazelbuild/bazel-watcher";
     description = "Tools for building Bazel targets when source files change";
     license = licenses.asl20;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
     mainProgram = "ibazel";
     platforms = platforms.all;
   };

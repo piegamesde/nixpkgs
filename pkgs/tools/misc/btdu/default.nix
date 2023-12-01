@@ -93,6 +93,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/CyberShadow/btdu/releases/tag/v${version}";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ atila ];
+    maintainers = with maintainers; [atila];
   };
 }

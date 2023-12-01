@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  cmakeFlags = [ "-DWITH_APPS=Qt;CLI" ];
+  cmakeFlags = ["-DWITH_APPS=Qt;CLI"];
   NIX_LDFLAGS = "-lm -lpthread";
 
   preConfigure = ''
@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
         LRC files.
     '';
     license = licenses.lgpl2Plus;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     platforms = platforms.linux;
   };
 }

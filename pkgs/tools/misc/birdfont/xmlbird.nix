@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   postPatch = ''
     substituteInPlace configure \
@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
     description = "XML parser for Vala and C programs";
     homepage = "https://birdfont.org/xmlbird.php";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
   };
 }

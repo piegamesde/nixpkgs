@@ -17,7 +17,7 @@ stdenv.mkDerivation {
     sha256 = "473e27f3b69864b905d1340d97917cd202705c761611eb3aec4c24521f69b52c";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -42,6 +42,6 @@ stdenv.mkDerivation {
     license = lib.licenses.asl20;
 
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ zimbatm ];
+    maintainers = with lib.maintainers; [zimbatm];
   };
 }

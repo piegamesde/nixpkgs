@@ -21,7 +21,7 @@ buildPythonPackage rec {
     nltk
   ];
 
-  pythonImportsCheck = [ "g2pkk" ];
+  pythonImportsCheck = ["g2pkk"];
 
   doCheck = false;
 

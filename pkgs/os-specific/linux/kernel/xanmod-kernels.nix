@@ -77,7 +77,7 @@ let
           broken = stdenv.isAarch64;
         };
       }
-      // (args.argsOverride or { })
+      // (args.argsOverride or {})
     );
 in
 {

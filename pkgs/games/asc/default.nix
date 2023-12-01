@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     sha256 = "atamYCN2mOqxV6auToTeWdpKuFfC+GLfLdRsfT0ouwQ=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     SDL
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
 
     license = licenses.gpl2Plus;
 
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
   };
 }

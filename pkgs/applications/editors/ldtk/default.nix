@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     appimage-run
   ];
 
-  buildInputs = [ appimage-run ];
+  buildInputs = [appimage-run];
 
   unpackPhase = ''
     runHook preUnpack
@@ -55,8 +55,8 @@ stdenv.mkDerivation rec {
       terminal = false;
       desktopName = "LDtk";
       comment = "2D level editor";
-      categories = [ "Utility" ];
-      mimeTypes = [ "application/json" ];
+      categories = ["Utility"];
+      mimeTypes = ["application/json"];
     })
   ];
 
@@ -65,8 +65,8 @@ stdenv.mkDerivation rec {
     homepage = "https://ldtk.io/";
     changelog = "https://github.com/deepnight/ldtk/releases/tag/v${version}";
     license = licenses.mit;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ felschr ];
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [felschr];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
   };
 }

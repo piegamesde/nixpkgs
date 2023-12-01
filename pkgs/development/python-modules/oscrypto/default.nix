@@ -31,11 +31,11 @@ buildPythonPackage rec {
     done
   '';
 
-  propagatedBuildInputs = [ asn1crypto ];
+  propagatedBuildInputs = [asn1crypto];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "oscrypto" ];
+  pythonImportsCheck = ["oscrypto"];
 
   doCheck = !stdenv.isDarwin;
 
@@ -49,6 +49,6 @@ buildPythonPackage rec {
     description = "Encryption library for Python";
     homepage = "https://github.com/wbond/oscrypto";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

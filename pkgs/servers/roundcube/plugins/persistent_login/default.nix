@@ -1,4 +1,4 @@
-{ roundcubePlugin, fetchFromGitHub }:
+{roundcubePlugin, fetchFromGitHub}:
 
 roundcubePlugin rec {
   pname = "persistent_login";

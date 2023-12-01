@@ -24,12 +24,12 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [Security];
 
   meta = with lib; {
     description = "A jq clone focused on correctness, speed and simplicity";
     homepage = "https://github.com/01mf02/jaq";
     license = licenses.mit;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
   };
 }

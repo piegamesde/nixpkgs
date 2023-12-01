@@ -25,6 +25,6 @@ buildGoModule rec {
     description = "Environment variables substitution for Go";
     homepage = "https://github.com/a8m/envsubst";
     license = licenses.mit;
-    maintainers = with maintainers; [ nicknovitski ];
+    maintainers = with maintainers; [nicknovitski];
   };
 }

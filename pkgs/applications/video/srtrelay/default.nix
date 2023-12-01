@@ -19,13 +19,13 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-xTYlfdijSo99ei+ZMX6N9gl+yw0DrPQ2wOhn6SS9S/E=";
 
-  buildInputs = [ srt ];
-  nativeCheckInputs = [ ffmpeg ];
+  buildInputs = [srt];
+  nativeCheckInputs = [ffmpeg];
 
   meta = with lib; {
     description = "Streaming-Relay for the SRT-protocol";
     homepage = "https://github.com/voc/srtrelay";
     license = licenses.mit;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
   };
 }

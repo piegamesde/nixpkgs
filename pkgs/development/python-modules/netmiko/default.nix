@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-9e3iooZw09/TRwBhRoZl+A+bSQbtIOaw+02eHJvmevw=";
   };
 
-  buildInputs = [ setuptools ];
+  buildInputs = [setuptools];
   propagatedBuildInputs = [
     paramiko
     scp
@@ -40,6 +40,6 @@ buildPythonPackage rec {
     description = "Multi-vendor library to simplify Paramiko SSH connections to network devices";
     homepage = "https://github.com/ktbyers/netmiko/";
     license = licenses.mit;
-    maintainers = [ maintainers.astro ];
+    maintainers = [maintainers.astro];
   };
 }

@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     "out"
     "man"
     "dev"
-  ] ++ lib.optionals (!stdenv.isDarwin) [ "devdoc" ];
+  ] ++ lib.optionals (!stdenv.isDarwin) ["devdoc"];
 
   src = fetchFromGitHub {
     owner = "libvips";
@@ -67,14 +67,14 @@ stdenv.mkDerivation rec {
     ninja
     docbook-xsl-nons
     gobject-introspection
-  ] ++ lib.optionals (!stdenv.isDarwin) [ gtk-doc ];
+  ] ++ lib.optionals (!stdenv.isDarwin) [gtk-doc];
 
   buildInputs =
     [
       glib
       libxml2
       expat
-      (python3.withPackages (p: [ p.pycairo ]))
+      (python3.withPackages (p: [p.pycairo]))
       # Optional dependencies
       libjpeg
       libexif
@@ -104,21 +104,21 @@ stdenv.mkDerivation rec {
     ];
 
   # Required by .pc file
-  propagatedBuildInputs = [ glib ];
+  propagatedBuildInputs = [glib];
 
   mesonFlags = [
     "-Dcgif=disabled"
     "-Dspng=disabled"
     "-Dpdfium=disabled"
     "-Dnifti=disabled"
-  ] ++ lib.optionals (!stdenv.isDarwin) [ "-Dgtk_doc=true" ];
+  ] ++ lib.optionals (!stdenv.isDarwin) ["-Dgtk_doc=true"];
 
   meta = with lib; {
     changelog = "https://github.com/libvips/libvips/blob/${src.rev}/ChangeLog";
     homepage = "https://libvips.github.io/libvips/";
     description = "Image processing system for large images";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ kovirobi ];
+    maintainers = with maintainers; [kovirobi];
     platforms = platforms.unix;
   };
 }

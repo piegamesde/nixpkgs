@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-/Db32OomEkrBtq5lfT8zBGgvaUWnWE/sTqwNVNB9XAg=";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   # Module doesn't have tests
   doCheck = false;
@@ -30,12 +30,12 @@ buildPythonPackage rec {
       --replace '"pytest-runner",' ""
   '';
 
-  pythonImportsCheck = [ "aiooncue" ];
+  pythonImportsCheck = ["aiooncue"];
 
   meta = with lib; {
     description = "Module to interact with the Kohler Oncue API";
     homepage = "https://github.com/bdraco/aiooncue";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -48,10 +48,10 @@ let
   };
 
   nodeDependencies =
-    (botamusiqueNodePackages.shell.override (old: { src = src + "/web"; })).nodeDependencies;
+    (botamusiqueNodePackages.shell.override (old: {src = src + "/web";})).nodeDependencies;
 
   # Python needed to instantiate the html templates
-  buildPython = python3Packages.python.withPackages (ps: [ ps.jinja2 ]);
+  buildPython = python3Packages.python.withPackages (ps: [ps.jinja2]);
 in
 stdenv.mkDerivation rec {
   pname = "botamusique";
@@ -126,7 +126,7 @@ stdenv.mkDerivation rec {
 
     # Convenience binary and wrap with ffmpeg dependency
     makeWrapper $out/share/botamusique/mumbleBot.py $out/bin/botamusique \
-      --prefix PATH : ${lib.makeBinPath [ ffmpeg ]}
+      --prefix PATH : ${lib.makeBinPath [ffmpeg]}
 
     runHook postInstall
   '';
@@ -180,6 +180,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/azlux/botamusique";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ infinisil ];
+    maintainers = with maintainers; [infinisil];
   };
 }

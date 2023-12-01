@@ -26,6 +26,6 @@ buildPythonPackage rec {
     description = "Module for representing and manipulating file sizes with different prefix";
     homepage = "https://github.com/tbielawa/bitmath";
     license = licenses.mit;
-    maintainers = with maintainers; [ twey ];
+    maintainers = with maintainers; [twey];
   };
 }

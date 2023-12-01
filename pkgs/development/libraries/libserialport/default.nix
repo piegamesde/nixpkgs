@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "17ajlwgvyyrap8z7f16zcs59pksvncwbmd3mzf98wj7zqgczjaja";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     lib.optional stdenv.isLinux udev
     ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.IOKit;
@@ -26,6 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "https://sigrok.org/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

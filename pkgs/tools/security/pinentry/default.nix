@@ -22,11 +22,11 @@
     "gtk2"
     "emacs"
   ]
-    ++ lib.optionals stdenv.isLinux [ "gnome3" ]
-    ++ lib.optionals (!stdenv.isDarwin) [ "qt" ],
+    ++ lib.optionals stdenv.isLinux ["gnome3"]
+    ++ lib.optionals (!stdenv.isDarwin) ["qt"],
 }:
 
-assert lib.isList enabledFlavors && enabledFlavors != [ ];
+assert lib.isList enabledFlavors && enabledFlavors != [];
 
 let
   pinentryMkDerivation =
@@ -45,7 +45,7 @@ let
     curses = {
       bin = "curses";
       flag = "curses";
-      buildInputs = [ ncurses ];
+      buildInputs = [ncurses];
     };
     tty = {
       bin = "tty";
@@ -54,24 +54,24 @@ let
     gtk2 = {
       bin = "gtk-2";
       flag = "gtk2";
-      buildInputs = [ gtk2 ];
+      buildInputs = [gtk2];
     };
     gnome3 = {
       bin = "gnome3";
       flag = "gnome3";
-      buildInputs = [ gcr ];
-      nativeBuildInputs = [ wrapGAppsHook ];
+      buildInputs = [gcr];
+      nativeBuildInputs = [wrapGAppsHook];
     };
     qt = {
       bin = "qt";
       flag = "qt";
-      buildInputs = [ qtbase ];
-      nativeBuildInputs = [ wrapQtAppsHook ];
+      buildInputs = [qtbase];
+      nativeBuildInputs = [wrapQtAppsHook];
     };
     emacs = {
       bin = "emacs";
       flag = "emacs";
-      buildInputs = [ ];
+      buildInputs = [];
     };
   };
 in
@@ -88,7 +88,7 @@ pinentryMkDerivation rec {
   nativeBuildInputs = [
     pkg-config
     autoreconfHook
-  ] ++ lib.concatMap (f: flavorInfo.${f}.nativeBuildInputs or [ ]) enabledFlavors;
+  ] ++ lib.concatMap (f: flavorInfo.${f}.nativeBuildInputs or []) enabledFlavors;
 
   buildInputs =
     [
@@ -96,13 +96,13 @@ pinentryMkDerivation rec {
       libassuan
     ]
     ++ lib.optional withLibsecret libsecret
-    ++ lib.concatMap (f: flavorInfo.${f}.buildInputs or [ ]) enabledFlavors;
+    ++ lib.concatMap (f: flavorInfo.${f}.buildInputs or []) enabledFlavors;
 
   dontWrapGApps = true;
   dontWrapQtApps = true;
 
   patches =
-    [ ./autoconf-ar.patch ]
+    [./autoconf-ar.patch]
     ++ lib.optionals (lib.elem "gtk2" enabledFlavors) [
       (fetchpatch {
         url = "https://salsa.debian.org/debian/pinentry/raw/debian/1.1.0-1/debian/patches/0007-gtk2-When-X11-input-grabbing-fails-try-again-over-0..patch";
@@ -141,7 +141,7 @@ pinentryMkDerivation rec {
       } $out/bin/pinentry
     '';
 
-  outputs = [ "out" ] ++ enabledFlavors;
+  outputs = ["out"] ++ enabledFlavors;
 
   passthru = {
     flavors = enabledFlavors;

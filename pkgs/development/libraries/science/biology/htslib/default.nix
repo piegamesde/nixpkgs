@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   };
 
   # perl is only used during the check phase.
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   buildInputs = [
     zlib
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     if !stdenv.hostPlatform.isStatic then
-      [ "--enable-libcurl" ] # optional but strongly recommended
+      ["--enable-libcurl"] # optional but strongly recommended
     else
       [
         "--disable-libcurl"
@@ -65,6 +65,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     homepage = "http://www.htslib.org/";
     platforms = platforms.unix;
-    maintainers = [ maintainers.mimame ];
+    maintainers = [maintainers.mimame];
   };
 }

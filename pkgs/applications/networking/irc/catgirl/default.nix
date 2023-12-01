@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     description = "A TLS-only terminal IRC client";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ xfnw ];
+    maintainers = with maintainers; [xfnw];
   };
 }

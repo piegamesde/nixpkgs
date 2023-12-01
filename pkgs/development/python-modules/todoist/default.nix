@@ -18,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-AFRKA5VRD6jyiguZYP7WOQOWqHq1GjUzbuez0f1070U=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
-  pythonImportsCheck = [ "todoist" ];
+  pythonImportsCheck = ["todoist"];
 
   meta = with lib; {
     description = "The official Todoist Python API library";
     homepage = "https://todoist-python.readthedocs.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

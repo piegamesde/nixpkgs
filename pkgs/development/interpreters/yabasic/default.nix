@@ -40,7 +40,7 @@ stdenv.mkDerivation (
       '';
       changelog = "https://2484.de/yabasic/whatsnew.html";
       license = lib.licenses.mit;
-      maintainers = with lib.maintainers; [ AndersonTorres ];
+      maintainers = with lib.maintainers; [AndersonTorres];
       platforms = lib.platforms.all;
     };
   }

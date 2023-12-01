@@ -19,6 +19,6 @@ buildFishPlugin rec {
     description = "Paired symbols in the command line";
     homepage = "https://github.com/laughedelic/pisces";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ vanilla ];
+    maintainers = with maintainers; [vanilla];
   };
 }

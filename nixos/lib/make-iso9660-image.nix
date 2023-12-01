@@ -19,7 +19,7 @@
   # This is a list of attribute sets {object, symlink} where `object'
   # is a store path whose closure will be copied, and `symlink' is a
   # symlink to `object' that will be added to the CD.
-  storeContents ? [ ],
+  storeContents ? [],
 
   # Whether this should be an El-Torito bootable CD.
   bootable ? false,
@@ -82,5 +82,5 @@ stdenv.mkDerivation {
   symlinks = map (x: x.symlink) storeContents;
 
   # For obtaining the closure of `storeContents'.
-  closureInfo = closureInfo { rootPaths = map (x: x.object) storeContents; };
+  closureInfo = closureInfo {rootPaths = map (x: x.object) storeContents;};
 }

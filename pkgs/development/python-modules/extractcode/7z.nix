@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   sourceRoot = "source/builtins/extractcode_7z-linux";
 
-  propagatedBuildInputs = [ plugincode ];
+  propagatedBuildInputs = [plugincode];
 
   preBuild = ''
     pushd src/extractcode_7z/bin
@@ -34,7 +34,7 @@ buildPythonPackage rec {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "extractcode_7z" ];
+  pythonImportsCheck = ["extractcode_7z"];
 
   meta = with lib; {
     description = "A ScanCode Toolkit plugin to provide pre-built binary libraries and utilities and their locations";
@@ -43,7 +43,7 @@ buildPythonPackage rec {
       asl20
       lgpl21
     ];
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

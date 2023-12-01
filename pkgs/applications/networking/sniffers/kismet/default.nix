@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
         -i Makefile
   '';
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optionals withPython [ python3 ];
+  nativeBuildInputs = [pkg-config] ++ lib.optionals withPython [python3];
 
   buildInputs =
     [
@@ -71,10 +71,10 @@ stdenv.mkDerivation rec {
       networkmanager
       glib
     ]
-    ++ lib.optionals withSensors [ lm_sensors ];
+    ++ lib.optionals withSensors [lm_sensors];
 
   propagatedBuildInputs =
-    [ ]
+    []
     ++ lib.optionals withPython [
       (python3.withPackages (
         ps: [
@@ -88,10 +88,10 @@ stdenv.mkDerivation rec {
     ];
 
   configureFlags =
-    [ ]
-    ++ lib.optionals (!withNetworkManager) [ "--disable-libnm" ]
-    ++ lib.optionals (!withPython) [ "--disable-python-tools" ]
-    ++ lib.optionals (!withSensors) [ "--disable-lmsensors" ];
+    []
+    ++ lib.optionals (!withNetworkManager) ["--disable-libnm"]
+    ++ lib.optionals (!withPython) ["--disable-python-tools"]
+    ++ lib.optionals (!withSensors) ["--disable-lmsensors"];
 
   enableParallelBuilding = true;
 

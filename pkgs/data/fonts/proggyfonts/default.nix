@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-SsLzZdR5icVJNbr5rcCPbagPPtWghbqs2Jxmrtufsa4=";
   };
 
-  nativeBuildInputs = [ mkfontscale ];
+  nativeBuildInputs = [mkfontscale];
 
   dontConfigure = true;
   dontBuild = true;
@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     description = "A set of fixed-width screen fonts that are designed for code listings";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [ maintainers.myrl ];
+    maintainers = [maintainers.myrl];
   };
 }

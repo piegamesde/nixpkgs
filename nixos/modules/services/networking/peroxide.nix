@@ -9,14 +9,14 @@ with lib;
 
 let
   cfg = config.services.peroxide;
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   stateDir = "peroxide";
 in
 {
   options.services.peroxide = {
     enable = mkEnableOption (lib.mdDoc "peroxide");
 
-    package = mkPackageOptionMD pkgs "peroxide" { default = [ "peroxide" ]; };
+    package = mkPackageOptionMD pkgs "peroxide" {default = ["peroxide"];};
 
     logLevel = mkOption {
       # https://github.com/sirupsen/logrus#level-logging
@@ -59,7 +59,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Configuration for peroxide.  See
         [config.example.yaml](https://github.com/ljanyst/peroxide/blob/master/config.example.yaml)
@@ -84,15 +84,15 @@ in
       isSystemUser = true;
       group = "peroxide";
     };
-    users.groups.peroxide = { };
+    users.groups.peroxide = {};
 
     systemd.services.peroxide = {
       description = "Peroxide ProtonMail bridge";
-      requires = [ "network.target" ];
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      requires = ["network.target"];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
-      restartTriggers = [ config.environment.etc."peroxide.conf".source ];
+      restartTriggers = [config.environment.etc."peroxide.conf".source];
 
       serviceConfig = {
         Type = "simple";
@@ -138,7 +138,7 @@ in
     };
 
     environment.etc."peroxide.conf".source = settingsFormat.generate "peroxide.conf" cfg.settings;
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 
   meta.maintainers = with maintainers; [

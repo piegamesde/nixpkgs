@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "http-body";
   version = "20190813-git";
@@ -40,7 +40,7 @@ rec {
 
   packageName = "http-body";
 
-  asdFilesToKeep = [ "http-body.asd" ];
+  asdFilesToKeep = ["http-body.asd"];
   overrides = x: x;
 }
 /* (SYSTEM http-body DESCRIPTION HTTP POST data parser for Common Lisp SHA256

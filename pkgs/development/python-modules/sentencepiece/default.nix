@@ -9,11 +9,11 @@ buildPythonPackage rec {
   pname = "sentencepiece";
   inherit (sentencepiece) version src;
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ sentencepiece.dev ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [sentencepiece.dev];
 
   sourceRoot = "source/python";
 
   # sentencepiece installs 'bin' output.
-  meta = builtins.removeAttrs sentencepiece.meta [ "outputsToInstall" ];
+  meta = builtins.removeAttrs sentencepiece.meta ["outputsToInstall"];
 }

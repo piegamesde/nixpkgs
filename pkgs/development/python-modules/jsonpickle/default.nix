@@ -17,14 +17,14 @@ buildPythonPackage rec {
     hash = "sha256-AyU4gEeV5zuU6tQQgArDh/223pj4iCrJV/zSR+OoUgA=";
   };
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   nativeBuildInputs = [
     setuptools-scm
     toml
   ];
 
-  propagatedBuildInputs = [ importlib-metadata ];
+  propagatedBuildInputs = [importlib-metadata];
 
   checkPhase = ''
     rm pytest.ini

@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "01nlyyk1qxk76dq2hw3wpbjwkh27zzp6mpczjnxdpv6rxs7mc825";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   cargoLock = {
     lockFile = ./Cargo.lock;
@@ -53,6 +53,6 @@ rustPlatform.buildRustPackage rec {
     description = "ZetZ a zymbolic verifier and tranzpiler to bare metal C";
     homepage = "https://github.com/zetzit/zz";
     license = licenses.mit;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

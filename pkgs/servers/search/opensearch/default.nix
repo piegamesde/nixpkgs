@@ -22,12 +22,12 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-qJrgWF8JCR4jmnF239gaiRr4Y7Tin0TyYjzxd1Q4Wko";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     jre_headless
     util-linux
   ];
-  patches = [ ./opensearch-home-fix.patch ];
+  patches = [./opensearch-home-fix.patch];
 
   installPhase = ''
     runHook preInstall
@@ -47,7 +47,7 @@ stdenvNoCC.mkDerivation rec {
         ]
       }" \
       --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [ stdenv.cc.cc.lib ]
+        lib.makeLibraryPath [stdenv.cc.cc.lib]
       }:$out/plugins/opensearch-knn/lib/" \
       --set JAVA_HOME "${jre_headless}"
 
@@ -63,6 +63,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/opensearch-project/OpenSearch";
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ shyim ];
+    maintainers = with lib.maintainers; [shyim];
   };
 }

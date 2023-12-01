@@ -30,6 +30,6 @@ python3Packages.buildPythonApplication rec {
     description = "Mailman archive -> rss converter";
     homepage = "https://github.com/kyamagu/mailman-rss";
     license = licenses.mit;
-    maintainers = with maintainers; [ samueldr ];
+    maintainers = with maintainers; [samueldr];
   };
 }

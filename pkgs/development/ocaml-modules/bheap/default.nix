@@ -17,12 +17,12 @@ buildDunePackage rec {
   useDune2 = true;
 
   doCheck = true;
-  checkInputs = [ stdlib-shims ];
+  checkInputs = [stdlib-shims];
 
   meta = with lib; {
     description = "OCaml binary heap implementation by Jean-Christophe Filliatre";
     license = licenses.lgpl21Only;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
     homepage = "https://github.com/backtracking/bheap";
   };
 }

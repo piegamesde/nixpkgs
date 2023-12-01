@@ -11,9 +11,9 @@
 mkOpenModelicaDerivation rec {
   pname = "omsimulator";
   omdir = "OMSimulator";
-  omdeps = [ openmodelica.omcompiler ];
+  omdeps = [openmodelica.omcompiler];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     readline

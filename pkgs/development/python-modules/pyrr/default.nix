@@ -27,6 +27,6 @@ buildPythonPackage rec {
     description = "3D mathematical functions using NumPy";
     homepage = "https://github.com/adamlwgriffiths/Pyrr/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ c0deaddict ];
+    maintainers = with maintainers; [c0deaddict];
   };
 }

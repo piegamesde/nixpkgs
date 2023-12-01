@@ -20,7 +20,7 @@ let
       (server: "server " + server + " " + cfg.serverOption + optionalString (cfg.enableNTS) " nts")
       cfg.servers}
 
-    ${optionalString (cfg.initstepslew.enabled && (cfg.servers != [ ]))
+    ${optionalString (cfg.initstepslew.enabled && (cfg.servers != []))
       "initstepslew ${toString cfg.initstepslew.threshold} ${concatStringsSep " " cfg.servers}"}
 
     driftfile ${driftFile}
@@ -135,8 +135,8 @@ in
       };
 
       extraFlags = mkOption {
-        default = [ ];
-        example = [ "-s" ];
+        default = [];
+        example = ["-s"];
         type = types.listOf types.str;
         description = lib.mdDoc "Extra flags passed to the chronyd command.";
       };
@@ -144,9 +144,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    meta.maintainers = with lib.maintainers; [ thoughtpolice ];
+    meta.maintainers = with lib.maintainers; [thoughtpolice];
 
-    environment.systemPackages = [ chronyPkg ];
+    environment.systemPackages = [chronyPkg];
 
     users.groups.chrony.gid = config.ids.gids.chrony;
 
@@ -172,9 +172,9 @@ in
     systemd.services.chronyd = {
       description = "chrony NTP daemon";
 
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "time-sync.target" ];
-      before = [ "time-sync.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["time-sync.target"];
+      before = ["time-sync.target"];
       after = [
         "network.target"
         "nss-lookup.target"
@@ -184,7 +184,7 @@ in
         "systemd-timesyncd.service"
       ];
 
-      path = [ chronyPkg ];
+      path = [chronyPkg];
 
       unitConfig.ConditionCapability = "CAP_SYS_TIME";
       serviceConfig = {
@@ -195,7 +195,7 @@ in
         ProcSubset = "pid";
         ProtectProc = "invisible";
         # Access write directories
-        ReadWritePaths = [ "${stateDir}" ];
+        ReadWritePaths = ["${stateDir}"];
         UMask = "0027";
         # Capabilities
         CapabilityBoundingSet = [

@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.services.telegraf;
 
-  settingsFormat = pkgs.formats.toml { };
+  settingsFormat = pkgs.formats.toml {};
   configFile = settingsFormat.generate "config.toml" cfg.extraConfig;
 in
 {
@@ -28,8 +28,8 @@ in
 
       environmentFiles = mkOption {
         type = types.listOf types.path;
-        default = [ ];
-        example = [ "/run/keys/telegraf.env" ];
+        default = [];
+        example = ["/run/keys/telegraf.env"];
         description = lib.mdDoc ''
           File to load as environment file. Environment variables from this file
           will be interpolated into the config file using envsubst with this
@@ -39,12 +39,12 @@ in
       };
 
       extraConfig = mkOption {
-        default = { };
+        default = {};
         description = lib.mdDoc "Extra configuration options for telegraf";
         type = settingsFormat.type;
         example = {
           outputs.influxdb = {
-            urls = [ "http://localhost:8086" ];
+            urls = ["http://localhost:8086"];
             database = "telegraf";
           };
           inputs.statsd = {
@@ -61,18 +61,18 @@ in
     systemd.services.telegraf =
       let
         finalConfigFile =
-          if config.services.telegraf.environmentFiles == [ ] then
+          if config.services.telegraf.environmentFiles == [] then
             configFile
           else
             "/var/run/telegraf/config.toml";
       in
       {
         description = "Telegraf Agent";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network-online.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network-online.target"];
         serviceConfig = {
           EnvironmentFile = config.services.telegraf.environmentFiles;
-          ExecStartPre = lib.optional (config.services.telegraf.environmentFiles != [ ]) (
+          ExecStartPre = lib.optional (config.services.telegraf.environmentFiles != []) (
             pkgs.writeShellScript "pre-start" ''
               umask 077
               ${pkgs.envsubst}/bin/envsubst -i "${configFile}" > /var/run/telegraf/config.toml
@@ -85,7 +85,7 @@ in
           Group = "telegraf";
           Restart = "on-failure";
           # for ping probes
-          AmbientCapabilities = [ "CAP_NET_RAW" ];
+          AmbientCapabilities = ["CAP_NET_RAW"];
         };
       };
 
@@ -95,6 +95,6 @@ in
       description = "telegraf daemon user";
     };
 
-    users.groups.telegraf = { };
+    users.groups.telegraf = {};
   };
 }

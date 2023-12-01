@@ -27,16 +27,16 @@ buildPythonPackage rec {
     ifaddr
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "yeelight/tests.py" ];
+  pytestFlagsArray = ["yeelight/tests.py"];
 
-  pythonImportsCheck = [ "yeelight" ];
+  pythonImportsCheck = ["yeelight"];
 
   meta = with lib; {
     description = "Python library for controlling YeeLight RGB bulbs";
     homepage = "https://gitlab.com/stavros/python-yeelight/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ nyanloutre ];
+    maintainers = with maintainers; [nyanloutre];
   };
 }

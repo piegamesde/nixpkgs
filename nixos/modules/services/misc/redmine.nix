@@ -19,7 +19,7 @@ let
   inherit (lib) optional optionalAttrs optionalString;
 
   cfg = config.services.redmine;
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
   bundle = "${cfg.package}/share/redmine/bin/bundle";
 
   databaseYml = pkgs.writeText "database.yml" ''
@@ -52,7 +52,7 @@ let
       name: source:
       pkgs.stdenv.mkDerivation {
         name = "redmine-${id}-${name}";
-        nativeBuildInputs = [ pkgs.unzip ];
+        nativeBuildInputs = [pkgs.unzip];
         buildCommand = ''
           mkdir -p $out
           cd $out
@@ -124,7 +124,7 @@ in
 
       settings = mkOption {
         type = format.type;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Redmine configuration ({file}`configuration.yml`). Refer to
           <https://guides.rubyonrails.org/action_mailer_basics.html#action-mailer-configuration>
@@ -159,7 +159,7 @@ in
 
       themes = mkOption {
         type = types.attrsOf types.path;
-        default = { };
+        default = {};
         description = lib.mdDoc "Set of themes.";
         example = literalExpression ''
           {
@@ -173,7 +173,7 @@ in
 
       plugins = mkOption {
         type = types.attrsOf types.path;
-        default = { };
+        default = {};
         description = lib.mdDoc "Set of plugins.";
         example = literalExpression ''
           {
@@ -352,7 +352,7 @@ in
     services.mysql = mkIf mysqlLocal {
       enable = true;
       package = mkDefault pkgs.mariadb;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -365,7 +365,7 @@ in
 
     services.postgresql = mkIf pgsqlLocal {
       enable = true;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -404,14 +404,14 @@ in
       after = [
         "network.target"
       ] ++ optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       environment.RAILS_ENV = "production";
       environment.RAILS_CACHE = "${cfg.stateDir}/cache";
       environment.REDMINE_LANG = "en";
       environment.SCHEMA = "${cfg.stateDir}/cache/schema.db";
       path =
         with pkgs;
-        [ ]
+        []
         ++ optional cfg.components.subversion subversion
         ++ optional cfg.components.mercurial mercurial
         ++ optional cfg.components.git git
@@ -492,6 +492,6 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "redmine") { redmine.gid = config.ids.gids.redmine; };
+    users.groups = optionalAttrs (cfg.group == "redmine") {redmine.gid = config.ids.gids.redmine;};
   };
 }

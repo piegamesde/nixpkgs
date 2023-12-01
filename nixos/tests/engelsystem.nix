@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "engelsystem";
-    meta = with pkgs.lib.maintainers; { maintainers = [ talyz ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [talyz];};
 
     nodes.engelsystem =
-      { ... }:
+      {...}:
       {
         services.engelsystem = {
           enable = true;

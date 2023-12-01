@@ -1,13 +1,13 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "containers-ephemeral";
     meta = {
-      maintainers = with lib.maintainers; [ patryk27 ];
+      maintainers = with lib.maintainers; [patryk27];
     };
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         virtualisation.writableStore = true;
 
@@ -20,13 +20,13 @@ import ./make-test-python.nix (
             services.nginx = {
               enable = true;
               virtualHosts.localhost = {
-                root = pkgs.runCommand "localhost" { } ''
+                root = pkgs.runCommand "localhost" {} ''
                   mkdir "$out"
                   echo hello world > "$out/index.html"
                 '';
               };
             };
-            networking.firewall.allowedTCPPorts = [ 80 ];
+            networking.firewall.allowedTCPPorts = [80];
           };
         };
       };

@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     "host"
   ];
 
-  patches = [ ./dont-keep-configure-flags.patch ];
+  patches = [./dont-keep-configure-flags.patch];
 
   nativeBuildInputs = [
     perl
@@ -58,9 +58,9 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional stdenv.isLinux libcap
     ++ lib.optional enableGSSAPI libkrb5
-    ++ lib.optional enablePython (python3.withPackages (ps: with ps; [ ply ]));
+    ++ lib.optional enablePython (python3.withPackages (ps: with ps; [ply]));
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   configureFlags =
     [
@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
   # https://github.com/NixOS/nixpkgs/pull/192962
   doCheck = with stdenv.hostPlatform; !isStatic && !(isAarch64 && isLinux);
   checkTarget = "unit";
-  checkInputs = [ cmocka ] ++ lib.optionals (!stdenv.hostPlatform.isMusl) [ tzdata ];
+  checkInputs = [cmocka] ++ lib.optionals (!stdenv.hostPlatform.isMusl) [tzdata];
   preCheck = lib.optionalString stdenv.hostPlatform.isMusl ''
     # musl doesn't respect TZDIR, skip timezone-related tests
     sed -i '/^ISC_TEST_ENTRY(isc_time_formatISO8601L/d' tests/isc/time_test.c
@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
     description = "Domain name server";
     license = licenses.mpl20;
     changelog = "https://downloads.isc.org/isc/bind9/cur/${lib.versions.majorMinor version}/CHANGES";
-    maintainers = with maintainers; [ globin ];
+    maintainers = with maintainers; [globin];
     platforms = platforms.unix;
 
     outputsToInstall = [

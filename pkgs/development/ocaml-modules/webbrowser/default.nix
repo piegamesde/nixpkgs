@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     ocamlbuild
     topkg
   ];
-  buildInputs = [ topkg ];
+  buildInputs = [topkg];
   propagatedBuildInputs = [
     astring
     bos
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     description = "Open and reload URIs in browsers from OCaml";
     homepage = "https://erratique.ch/software/webbrowser";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     mainProgram = "browse";
     inherit (ocaml.meta) platforms;
   };

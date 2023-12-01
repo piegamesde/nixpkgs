@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     sed -i '/-m64/d;/-m32/d' CMakeLists.txt
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs =
     [
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       opencl-clhpp
       ocl-icd
     ]
-    ++ lib.optionals stdenv.isDarwin [ OpenCL ];
+    ++ lib.optionals stdenv.isDarwin [OpenCL];
 
   # https://github.com/clMathLibraries/clFFT/issues/237
   CXXFLAGS = "-std=c++98";
@@ -57,6 +57,6 @@ stdenv.mkDerivation rec {
     license = licenses.asl20;
     homepage = "http://clmathlibraries.github.io/clFFT/";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ chessai ];
+    maintainers = with maintainers; [chessai];
   };
 }

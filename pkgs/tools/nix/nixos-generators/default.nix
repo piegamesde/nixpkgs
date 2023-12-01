@@ -20,9 +20,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-WecDwDY/hEcDQYzFnccCNa+5Umht0lfjx/d1qGDy/rQ=";
   };
   strictDeps = true;
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ bash ];
-  installFlags = [ "PREFIX=$(out)" ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [bash];
+  installFlags = ["PREFIX=$(out)"];
   postFixup = ''
     wrapProgram $out/bin/nixos-generate \
       --prefix PATH : ${
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "Collection of image builders";
     homepage = "https://github.com/nix-community/nixos-generators";
     license = licenses.mit;
-    maintainers = with maintainers; [ lassulus ];
+    maintainers = with maintainers; [lassulus];
     mainProgram = "nixos-generate";
     platforms = platforms.unix;
   };

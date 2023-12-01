@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
       zstd
     ]
     # gtk-doc is looked for with pkg-config
-    ++ lib.optionals withDevdoc [ gtk-doc ];
+    ++ lib.optionals withDevdoc [gtk-doc];
 
   preConfigure = ''
     ./autogen.sh
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
     (lib.enableFeature withDevdoc "gtk-doc")
   ] ++ lib.optional withStatic "--enable-static";
 
-  patches = [ ./module-dir.patch ] ++ lib.optional withStatic ./enable-static.patch;
+  patches = [./module-dir.patch] ++ lib.optional withStatic ./enable-static.patch;
 
   postInstall = ''
     for prog in rmmod insmod lsmod modinfo modprobe depmod; do
@@ -116,6 +116,6 @@ stdenv.mkDerivation rec {
       gpl2Plus
     ]; # GPLv2+ for tools
     platforms = platforms.linux;
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
   };
 }

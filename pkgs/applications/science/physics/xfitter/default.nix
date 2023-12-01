@@ -83,6 +83,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3;
     homepage = "https://www.xfitter.org/xFitter";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

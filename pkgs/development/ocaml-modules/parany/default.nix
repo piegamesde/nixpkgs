@@ -13,13 +13,13 @@ let
       {
         version = "13.0.1";
         hash = "sha256-OYa0uLsDyzjmXZgWcYUxLhqco4Kp/icfDamNe3En5JQ=";
-        propagatedBuildInputs = [ domainslib ];
+        propagatedBuildInputs = [domainslib];
       }
     else
       {
         version = "12.2.2";
         hash = "sha256-woZ4XJqqoRr/7mDurXYvTbSUUcLBEylzVYBQp1BAOqc=";
-        propagatedBuildInputs = [ cpu ];
+        propagatedBuildInputs = [cpu];
       };
 in
 
@@ -42,7 +42,7 @@ buildDunePackage rec {
   meta = with lib; {
     inherit (src.meta) homepage;
     description = "Generalized map/reduce for multicore computing";
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
     license = licenses.lgpl2;
   };
 }

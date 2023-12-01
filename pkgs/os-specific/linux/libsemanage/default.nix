@@ -65,13 +65,13 @@ stdenv.mkDerivation rec {
   #  1278 |  int i;
   #       |      ^
   # cc1: all warnings being treated as errors
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=clobbered" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-error=clobbered"];
 
-  installTargets = [ "install" ] ++ optionals enablePython [ "install-pywrap" ];
+  installTargets = ["install"] ++ optionals enablePython ["install-pywrap"];
 
   enableParallelBuilding = true;
 
-  meta = removeAttrs libsepol.meta [ "outputsToInstall" ] // {
+  meta = removeAttrs libsepol.meta ["outputsToInstall"] // {
     description = "Policy management tools for SELinux";
     license = lib.licenses.lgpl21;
   };

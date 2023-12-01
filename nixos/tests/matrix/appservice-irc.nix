@@ -1,5 +1,5 @@
 import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
     homeserverUrl = "http://homeserver:8008";
   in
@@ -11,7 +11,7 @@ import ../make-test-python.nix (
 
     nodes = {
       homeserver =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           # We'll switch to this once the config is copied into place
           specialisation.running.configuration = {
@@ -19,7 +19,7 @@ import ../make-test-python.nix (
               enable = true;
               settings = {
                 database.name = "sqlite3";
-                app_service_config_files = [ "/registration.yml" ];
+                app_service_config_files = ["/registration.yml"];
 
                 enable_registration = true;
 
@@ -29,16 +29,16 @@ import ../make-test-python.nix (
                 listeners = [
                   {
                     # The default but tls=false
-                    bind_addresses = [ "0.0.0.0" ];
+                    bind_addresses = ["0.0.0.0"];
                     port = 8008;
                     resources = [
                       {
                         "compress" = true;
-                        "names" = [ "client" ];
+                        "names" = ["client"];
                       }
                       {
                         "compress" = false;
-                        "names" = [ "federation" ];
+                        "names" = ["federation"];
                       }
                     ];
                     tls = false;
@@ -48,12 +48,12 @@ import ../make-test-python.nix (
               };
             };
 
-            networking.firewall.allowedTCPPorts = [ 8008 ];
+            networking.firewall.allowedTCPPorts = [8008];
           };
         };
 
       ircd =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           services.ngircd = {
             enable = true;
@@ -71,11 +71,11 @@ import ../make-test-python.nix (
                 PAM = no
             '';
           };
-          networking.firewall.allowedTCPPorts = [ 6667 ];
+          networking.firewall.allowedTCPPorts = [6667];
         };
 
       appservice =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           services.matrix-appservice-irc = {
             enable = true;
@@ -96,16 +96,16 @@ import ../make-test-python.nix (
             };
           };
 
-          networking.firewall.allowedTCPPorts = [ 8009 ];
+          networking.firewall.allowedTCPPorts = [8009];
         };
 
       client =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           environment.systemPackages = [
             (pkgs.writers.writePython3Bin "do_test"
               {
-                libraries = [ pkgs.python3Packages.matrix-nio ];
+                libraries = [pkgs.python3Packages.matrix-nio];
                 flakeIgnore =
                   [
                     # We don't live in the dark ages anymore.

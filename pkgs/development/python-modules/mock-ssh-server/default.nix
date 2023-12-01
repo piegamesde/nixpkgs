@@ -20,18 +20,18 @@ buildPythonPackage rec {
     hash = "sha256-yJd+WDidW5ouofytAKTlSiZhIQg2cLs8BvEp15qwtjo=";
   };
 
-  propagatedBuildInputs = [ paramiko ];
+  propagatedBuildInputs = [paramiko];
 
   # Tests are running into a timeout on Hydra, they work locally
   doCheck = false;
 
-  pythonImportsCheck = [ "mockssh" ];
+  pythonImportsCheck = ["mockssh"];
 
   meta = with lib; {
     description = "Python mock SSH server for testing purposes";
     homepage = "https://github.com/carletes/mock-ssh-server";
     changelog = "https://github.com/carletes/mock-ssh-server/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

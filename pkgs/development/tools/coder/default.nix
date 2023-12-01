@@ -32,7 +32,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-+AvmJkZCFovE2+5Lg98tUvA7f2kBHUMzhl5IyrEGuy8=";
 
-  tags = [ "embed" ];
+  tags = ["embed"];
 
   ldflags = [
     "-s"
@@ -40,7 +40,7 @@ buildGoModule rec {
     "-X github.com/coder/coder/buildinfo.tag=${version}"
   ];
 
-  subPackages = [ "cmd/..." ];
+  subPackages = ["cmd/..."];
 
   preBuild = ''
     export HOME=$TEMPDIR
@@ -74,7 +74,7 @@ buildGoModule rec {
       --fish <($out/bin/coder completion fish) \
       --zsh <($out/bin/coder completion zsh)
 
-    wrapProgram $out/bin/coder --prefix PATH : ${lib.makeBinPath [ terraform ]}
+    wrapProgram $out/bin/coder --prefix PATH : ${lib.makeBinPath [terraform]}
   '';
 
   # integration tests require network access

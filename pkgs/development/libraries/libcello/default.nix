@@ -13,13 +13,13 @@ stdenv.mkDerivation rec {
     sha256 = "0a1b2x5ni07vd9ridnl7zv7h2s32070wsphjy94qr066b99gdb29";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = {
     homepage = "https://libcello.org/";
     description = "Higher level programming in C";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.MostAwesomeDude ];
+    maintainers = [lib.maintainers.MostAwesomeDude];
     platforms = lib.platforms.unix;
   };
 }

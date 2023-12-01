@@ -9,9 +9,9 @@
 {
   vscode ? vscodeDefault,
   # extensions to be symlinked into the project's extensions folder
-  nixExtensions ? [ ],
+  nixExtensions ? [],
   # extensions to be copied into the project's extensions folder
-  mutableExtensions ? [ ],
+  mutableExtensions ? [],
   vscodeExtsFolderName ? ".vscode-exts",
   user-data-dir ? ''"''${TMP}vscodeWithConfiguration/vscode-data-dir"'',
 }:
@@ -30,7 +30,7 @@ let
   );
 
   #removed not defined extensions
-  rmExtensions = lib.optionalString (nixExtensions ++ mutableExtensions != [ ]) ''
+  rmExtensions = lib.optionalString (nixExtensions ++ mutableExtensions != []) ''
     find ${vscodeExtsFolderName} -mindepth 1 -maxdepth 1 ${
       lib.concatMapStringsSep " " (e: "! -iname ${e.publisher}.${e.name} ") nixExtensions
       +

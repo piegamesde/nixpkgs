@@ -16,7 +16,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-AyHl4zMyFE2/5Cui3Y/SB1yEUuyafDdybFPrafo4Ki0=";
   };
 
-  nativeBuildInputs = [ gtk3 ];
+  nativeBuildInputs = [gtk3];
 
   propagatedBuildInputs = [
     gnome.adwaita-icon-theme
@@ -44,6 +44,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://launchpad.net/humanity/";
     license = licenses.gpl2;
     platforms = platforms.unix;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

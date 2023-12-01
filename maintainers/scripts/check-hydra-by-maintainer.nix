@@ -1,6 +1,6 @@
-{ maintainer }:
+{maintainer}:
 let
-  pkgs = import ./../../default.nix { };
+  pkgs = import ./../../default.nix {};
   maintainer_ = pkgs.lib.maintainers.${maintainer};
   packagesWith =
     cond: return: prefix: set:
@@ -14,17 +14,17 @@ let
                 # Skip packages whose closure fails on evaluation.
                 # This happens for pkgs like `python27Packages.djangoql`
                 # that have disabled Python pkgs as dependencies.
-                builtins.seq pkg.outPath [ (return "${prefix}${name}") ]
+                builtins.seq pkg.outPath [(return "${prefix}${name}")]
               else if
                 pkg.recurseForDerivations or false || pkg.recurseForRelease or false
               # then packagesWith cond return pkg
               then
                 packagesWith cond return "${name}." pkg
               else
-                [ ]
+                []
             );
           in
-          if result.success then result.value else [ ]
+          if result.success then result.value else []
         )
         set
     ));
@@ -51,7 +51,7 @@ let
 in
 pkgs.stdenv.mkDerivation {
   name = "nixpkgs-update-script";
-  buildInputs = [ pkgs.hydra-check ];
+  buildInputs = [pkgs.hydra-check];
   buildCommand = ''
     echo ""
     echo "----------------------------------------------------------------"

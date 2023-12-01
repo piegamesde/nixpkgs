@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
     description = "Odin 2 Synthesizer Plugin";
     homepage = "https://thewavewarden.com/odin2";
     license = licenses.gpl3;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ magnetophon ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [magnetophon];
   };
 }

@@ -23,7 +23,7 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.08";
 
-  buildInputs = [ lwt_ppx ];
+  buildInputs = [lwt_ppx];
 
   propagatedBuildInputs = [
     angstrom-lwt-unix

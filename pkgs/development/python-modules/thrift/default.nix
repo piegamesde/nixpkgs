@@ -14,17 +14,17 @@ buildPythonPackage rec {
     hash = "sha256-K1tkiPze0h+dMSqiPJ/2oBldD2ribdvVrZ4+Jd/BRAg=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   # No tests. Breaks when not disabling.
   doCheck = false;
 
-  pythonImportsCheck = [ "thrift" ];
+  pythonImportsCheck = ["thrift"];
 
   meta = with lib; {
     description = "Python bindings for the Apache Thrift RPC system";
     homepage = "https://thrift.apache.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hbunke ];
+    maintainers = with maintainers; [hbunke];
   };
 }

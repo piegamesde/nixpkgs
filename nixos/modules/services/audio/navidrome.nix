@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.services.navidrome;
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
 in
 {
   options = {
@@ -17,7 +17,7 @@ in
 
       enable = mkEnableOption (lib.mdDoc "Navidrome music server");
 
-      package = mkPackageOptionMD pkgs "navidrome" { };
+      package = mkPackageOptionMD pkgs "navidrome" {};
 
       settings = mkOption rec {
         type = settingsFormat.type;
@@ -39,8 +39,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.navidrome = {
       description = "Navidrome Media Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = ''
           ${cfg.package}/bin/navidrome --configfile ${settingsFormat.generate "navidrome.json" cfg.settings}

@@ -40,7 +40,7 @@ buildGoModule rec {
 
   postInstall = ''
     wrapProgram "$out/bin/ijq" \
-      --prefix PATH : "${lib.makeBinPath [ jq ]}"
+      --prefix PATH : "${lib.makeBinPath [jq]}"
   '';
 
   meta = with lib; {

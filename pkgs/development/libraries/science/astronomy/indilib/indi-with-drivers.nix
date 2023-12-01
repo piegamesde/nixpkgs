@@ -8,6 +8,6 @@
 
 buildEnv {
   name = "${pname}-${version}";
-  paths = [ indilib ] ++ extraDrivers;
+  paths = [indilib] ++ extraDrivers;
   inherit (indilib) meta;
 }

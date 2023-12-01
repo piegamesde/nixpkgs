@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     rustPlatform.cargoSetupHook
   ];
 
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
 
   buildInputs =
     [
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
       --replace /usr/ $out/
   '';
 
-  cmakeFlags = [ "-DAUTOUPDATE=OFF" ];
+  cmakeFlags = ["-DAUTOUPDATE=OFF"];
 
   doCheck = true;
   checkTarget = "run_tests";

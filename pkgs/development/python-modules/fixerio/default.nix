@@ -19,7 +19,7 @@ buildPythonPackage rec {
     sha256 = "009h1mys175xdyznn5bl980vly40544s4ph1zcgqwg2i2ic93gvb";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   nativeCheckInputs = [
     httpretty
@@ -37,7 +37,7 @@ buildPythonPackage rec {
     "test_returns_latest_rates_for_symbols_passed_in_method_if_both"
   ];
 
-  pythonImportsCheck = [ "fixerio" ];
+  pythonImportsCheck = ["fixerio"];
 
   meta = with lib; {
     description = "Python client for Fixer.io";
@@ -46,7 +46,7 @@ buildPythonPackage rec {
       exchange rates published by the European Central Bank.
     '';
     homepage = "https://github.com/amatellanes/fixerio";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

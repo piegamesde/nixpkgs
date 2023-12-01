@@ -12,27 +12,27 @@
   cmdLineToolsVersion ? "8.0",
   toolsVersion ? "26.1.1",
   platformToolsVersion ? "33.0.3",
-  buildToolsVersions ? [ "33.0.1" ],
+  buildToolsVersions ? ["33.0.1"],
   includeEmulator ? false,
   emulatorVersion ? "31.3.14",
-  platformVersions ? [ ],
+  platformVersions ? [],
   includeSources ? false,
   includeSystemImages ? false,
-  systemImageTypes ? [ "google_apis_playstore" ],
+  systemImageTypes ? ["google_apis_playstore"],
   abiVersions ? [
     "armeabi-v7a"
     "arm64-v8a"
   ],
-  cmakeVersions ? [ ],
+  cmakeVersions ? [],
   includeNDK ? false,
   ndkVersion ? "25.1.8937393",
-  ndkVersions ? [ ndkVersion ],
+  ndkVersions ? [ndkVersion],
   useGoogleAPIs ? false,
   useGoogleTVAddOns ? false,
-  includeExtras ? [ ],
+  includeExtras ? [],
   repoJson ? ./repo.json,
   repoXmls ? null,
-  extraLicenses ? [ ],
+  extraLicenses ? [],
 }:
 
 let
@@ -48,9 +48,9 @@ let
   # Uses mkrepo.rb to create a repo spec.
   mkRepoJson =
     {
-      packages ? [ ],
-      images ? [ ],
-      addons ? [ ],
+      packages ? [],
+      images ? [],
+      addons ? [],
     }:
     let
       mkRepoRuby =
@@ -87,7 +87,7 @@ let
     in
     stdenv.mkDerivation {
       name = "androidenv-repo-json";
-      buildInputs = [ mkRepoRuby ];
+      buildInputs = [mkRepoRuby];
       preferLocalBuild = true;
       unpackPhase = "true";
       buildPhase = ''
@@ -103,9 +103,9 @@ let
     if repoXmls != null then
       let
         repoXmlSpec = {
-          packages = repoXmls.packages or [ ];
-          images = repoXmls.images or [ ];
-          addons = repoXmls.addons or [ ];
+          packages = repoXmls.packages or [];
+          images = repoXmls.images or [];
+          addons = repoXmls.addons or [];
         };
       in
       lib.importJSON "${mkRepoJson repoXmlSpec}"
@@ -121,7 +121,7 @@ let
         if (builtins.elemAt path ((builtins.length path) - 1)) == "archives" then
           (builtins.listToAttrs (
             builtins.map
-              (archive: lib.attrsets.nameValuePair archive.os (fetchurl { inherit (archive) url sha1; }))
+              (archive: lib.attrsets.nameValuePair archive.os (fetchurl {inherit (archive) url sha1;}))
               value
           ))
         else
@@ -164,18 +164,18 @@ let
 
   # The list of all license names we're accepting. Put android-sdk-license there
   # by default.
-  licenseNames = lib.lists.unique ([ "android-sdk-license" ] ++ extraLicenses);
+  licenseNames = lib.lists.unique (["android-sdk-license"] ++ extraLicenses);
 in
 rec {
-  deployAndroidPackages = callPackage ./deploy-androidpackages.nix { inherit stdenv lib mkLicenses; };
+  deployAndroidPackages = callPackage ./deploy-androidpackages.nix {inherit stdenv lib mkLicenses;};
   deployAndroidPackage =
     (
       {
         package,
         os ? null,
-        buildInputs ? [ ],
+        buildInputs ? [],
         patchInstructions ? "",
-        meta ? { },
+        meta ? {},
         ...
       }@args:
       let
@@ -189,7 +189,7 @@ rec {
       deployAndroidPackages (
         {
           inherit os buildInputs meta;
-          packages = [ package ];
+          packages = [package];
           patchesInstructions = {
             "${package.name}" = patchInstructions;
           };
@@ -327,7 +327,7 @@ rec {
                   availablePackages
               );
             in
-            lib.optionals (availablePackages != [ ]) (
+            lib.optionals (availablePackages != []) (
               deployAndroidPackages {
                 inherit os;
                 packages = availablePackages;
@@ -389,8 +389,8 @@ rec {
 
   # Function that automatically links all plugins for which multiple versions can coexist
   linkPlugins =
-    { name, plugins }:
-    lib.optionalString (plugins != [ ]) ''
+    {name, plugins}:
+    lib.optionalString (plugins != []) ''
       mkdir -p ${name}
       ${lib.concatMapStrings
         (plugin: ''
@@ -406,7 +406,7 @@ rec {
       plugins,
       rootName ? name,
     }:
-    lib.optionalString (plugins != [ ]) ''
+    lib.optionalString (plugins != []) ''
       mkdir -p ${rootName}
       ${lib.concatMapStrings
         (plugin: ''
@@ -438,7 +438,7 @@ rec {
     '';
 
   linkSystemImages =
-    { images, check }:
+    {images, check}:
     lib.optionalString check ''
       mkdir -p system-images
       ${lib.concatMapStrings

@@ -36,7 +36,7 @@ let
     comment = "A modular ComputerCraft emulator";
     desktopName = "CCEmuX";
     genericName = "ComputerCraft Emulator";
-    categories = [ "Emulator" ];
+    categories = ["Emulator"];
   };
 in
 
@@ -47,8 +47,8 @@ stdenv.mkDerivation rec {
   src = jar;
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jre];
 
   installPhase = ''
     runHook preInstall
@@ -68,8 +68,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A modular ComputerCraft emulator";
     homepage = "https://github.com/CCEmuX/CCEmuX";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.mit;
-    maintainers = with maintainers; [ CrazedProgrammer ];
+    maintainers = with maintainers; [CrazedProgrammer];
   };
 }

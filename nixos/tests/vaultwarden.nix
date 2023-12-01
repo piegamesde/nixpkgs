@@ -1,7 +1,7 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
 # These tests will:
@@ -13,7 +13,7 @@
 #
 # The same tests should work without modification on the official bitwarden server, if we ever package that.
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
 let
   backends = [
@@ -34,12 +34,12 @@ let
     makeTest {
       name = "vaultwarden-${backend}";
       meta = {
-        maintainers = with pkgs.lib.maintainers; [ jjjollyjim ];
+        maintainers = with pkgs.lib.maintainers; [jjjollyjim];
       };
 
       nodes = {
         server =
-          { pkgs, ... }:
+          {pkgs, ...}:
           let
             backendConfig = {
               mysql = {
@@ -56,7 +56,7 @@ let
 
                 services.vaultwarden.config.databaseUrl = "mysql://bitwardenuser:${dbPassword}@localhost/bitwarden";
 
-                systemd.services.vaultwarden.after = [ "mysql.service" ];
+                systemd.services.vaultwarden.after = ["mysql.service"];
               };
 
               postgresql = {
@@ -71,10 +71,10 @@ let
 
                 services.vaultwarden.config.databaseUrl = "postgresql://bitwardenuser:${dbPassword}@localhost/bitwarden";
 
-                systemd.services.vaultwarden.after = [ "postgresql.service" ];
+                systemd.services.vaultwarden.after = ["postgresql.service"];
               };
 
-              sqlite = { };
+              sqlite = {};
             };
           in
           mkMerge [
@@ -89,15 +89,15 @@ let
                 };
               };
 
-              networking.firewall.allowedTCPPorts = [ 80 ];
+              networking.firewall.allowedTCPPorts = [80];
 
               environment.systemPackages =
                 let
                   testRunner =
                     pkgs.writers.writePython3Bin "test-runner"
                       {
-                        libraries = [ pkgs.python3Packages.selenium ];
-                        flakeIgnore = [ "E501" ];
+                        libraries = [pkgs.python3Packages.selenium];
+                        flakeIgnore = ["E501"];
                       }
                       ''
 
@@ -166,7 +166,7 @@ let
             }
           ];
 
-        client = { pkgs, ... }: { environment.systemPackages = [ pkgs.bitwarden-cli ]; };
+        client = {pkgs, ...}: {environment.systemPackages = [pkgs.bitwarden-cli];};
       };
 
       testScript = ''

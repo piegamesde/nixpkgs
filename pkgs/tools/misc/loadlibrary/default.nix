@@ -34,7 +34,7 @@ stdenv_32bit.mkDerivation rec {
     homepage = "https://github.com/taviso/loadlibrary";
     description = "Porting Windows Dynamic Link Libraries to Linux";
     platforms = platforms.linux;
-    maintainers = [ maintainers.eleanor ];
+    maintainers = [maintainers.eleanor];
     license = licenses.gpl2;
   };
 }

@@ -27,7 +27,7 @@ let
   # FHS env, as patchelf will not work
   env = buildFHSEnv {
     name = "left4gore-env-${version}";
-    targetPkgs = _: [ left4gore-unwrapped ];
+    targetPkgs = _: [left4gore-unwrapped];
     runScript = "left4gore";
   };
 in
@@ -48,6 +48,6 @@ stdenvNoCC.mkDerivation {
     homepage = "http://www.left4gore.com";
     description = "Memory patcher which adds the gore back into Left 4 Dead 2";
     license = licenses.unfree; # Probably the best choice
-    maintainers = with maintainers; [ das_j ];
+    maintainers = with maintainers; [das_j];
   };
 }

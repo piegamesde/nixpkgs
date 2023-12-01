@@ -20,7 +20,7 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.03.0";
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     ctypes
     lilv
@@ -30,6 +30,6 @@ buildDunePackage rec {
     homepage = "https://github.com/savonet/ocaml-lilv";
     description = "OCaml bindings for lilv";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

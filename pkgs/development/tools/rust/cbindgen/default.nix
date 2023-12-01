@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optional stdenv.isDarwin Security;
 
-  nativeCheckInputs = [ python3Packages.cython ];
+  nativeCheckInputs = [python3Packages.cython];
 
   checkFlags =
     [
@@ -45,6 +45,6 @@ rustPlatform.buildRustPackage rec {
     description = "A project for generating C bindings from Rust code";
     homepage = "https://github.com/eqrion/cbindgen";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

@@ -29,7 +29,7 @@ let
 
   revertPatch =
     patch:
-    runCommand "revert-${patch.name}" { } ''
+    runCommand "revert-${patch.name}" {} ''
       ${patchutils}/bin/interdiff ${patch} /dev/null > $out
     '';
 in
@@ -45,7 +45,7 @@ mkDerivation rec {
     sha256 = "0la8d036pbscjnbxf8lkrqjfq8a4ywsfwxil452fhlays6mr19h0";
   };
 
-  patches = [ (revertPatch hiDPI) ];
+  patches = [(revertPatch hiDPI)];
 
   postPatch = ''
     for f in *.pro; do

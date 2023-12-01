@@ -18,7 +18,7 @@ let
     {
       extraName ? "",
       # should contain all args but the binary. Can be either a string or list
-      wrapperArgs ? [ ],
+      wrapperArgs ? [],
       # a limited RC script used only to generate the manifest for remote plugins
       manifestRc ? null,
       withPython2 ? false,
@@ -54,8 +54,7 @@ let
           # (lib.intersperse "|" hostProviderViml)
         ]
         ++
-          lib.optionals
-            (packpathDirs.myNeovimPackages.start != [ ] || packpathDirs.myNeovimPackages.opt != [ ])
+          lib.optionals (packpathDirs.myNeovimPackages.start != [] || packpathDirs.myNeovimPackages.opt != [])
             [
               "--add-flags"
               ''--cmd "set packpath^=${vimUtils.packDir packpathDirs}"''
@@ -161,22 +160,22 @@ let
           makeWrapper ${lib.escapeShellArgs finalMakeWrapperArgs} ${wrapperArgsStr}
         '';
 
-      paths = [ neovim ];
+      paths = [neovim];
 
       preferLocalBuild = true;
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
       passthru = {
         inherit providerLuaRc packpathDirs;
         unwrapped = neovim;
         initRc = neovimRcContent;
 
-        tests = callPackage ./tests { };
+        tests = callPackage ./tests {};
       };
 
       meta = neovim.meta // {
         # To prevent builds on hydra
-        hydraPlatforms = [ ];
+        hydraPlatforms = [];
         # prefer wrapper over the package
         priority = (neovim.meta.priority or 0) - 1;
       };

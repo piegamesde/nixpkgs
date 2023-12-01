@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "0lnbkrvcpgz9chnvix79j6fiz36wj6n46brb7b1746182rl1l875";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   sourceRoot = ".";
 
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     description = "A customized version of Apple’s Menlo-Regular font";
     homepage = "https://github.com/andreberg/Meslo-Font/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = with lib.platforms; all;
   };
 }

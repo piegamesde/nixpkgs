@@ -50,7 +50,7 @@ buildPythonPackage rec {
     toolz
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests =
     [
@@ -76,7 +76,7 @@ buildPythonPackage rec {
     homepage = "https://pypi.org/project/ome-zarr";
     changelog = "https://github.com/ome/ome-zarr-py/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd2;
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
     mainProgram = "ome_zarr";
   };
 }

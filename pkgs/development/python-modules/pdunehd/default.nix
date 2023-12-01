@@ -19,17 +19,17 @@ buildPythonPackage rec {
     sha256 = "06p0k82nf89rsakr8d2hdb19dp1wqp9bsf54lwb0qma47iakljjh";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # no tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [ "pdunehd" ];
+  pythonImportsCheck = ["pdunehd"];
 
   meta = with lib; {
     description = "Python wrapper for Dune HD media player API";
     homepage = "https://github.com/valentinalexeev/pdunehd";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

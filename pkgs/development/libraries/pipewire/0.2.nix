@@ -22,7 +22,7 @@
 }:
 
 let
-  fontsConf = makeFontsConf { fontDirectories = [ ]; };
+  fontsConf = makeFontsConf {fontDirectories = [];};
 in
 stdenv.mkDerivation rec {
   pname = "pipewire";
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
   # Workaround build on gcc-10+ and clang11+:
   #  spa/plugins/bluez5/libspa-bluez5.so.p/bluez5-monitor.c.o:(.bss+0x0):
   #    multiple definition of `spa_a2dp_sink_factory'
-  env.NIX_CFLAGS_COMPILE = toString [ "-fcommon" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-fcommon"];
 
   mesonFlags = [
     "-Ddocs=true"
@@ -85,6 +85,6 @@ stdenv.mkDerivation rec {
     homepage = "https://pipewire.org/";
     license = licenses.lgpl21;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

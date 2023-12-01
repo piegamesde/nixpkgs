@@ -19,7 +19,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/swagger" ];
+  subPackages = ["cmd/swagger"];
 
   ldflags = [
     "-s"
@@ -33,7 +33,7 @@ buildGoModule rec {
     homepage = "https://github.com/go-swagger/go-swagger";
     changelog = "https://github.com/go-swagger/go-swagger/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
     mainProgram = "swagger";
   };
 }

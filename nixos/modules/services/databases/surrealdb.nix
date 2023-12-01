@@ -74,12 +74,12 @@ in
   config = mkIf cfg.enable {
 
     # Used to connect to the running service
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.surrealdb = {
       description = "A scalable, distributed, collaborative, document-graph database, for the realtime web ";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       script = ''
         ${cfg.package}/bin/surreal start \

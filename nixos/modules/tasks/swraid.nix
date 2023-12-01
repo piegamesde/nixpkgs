@@ -23,11 +23,11 @@ in
   };
 
   config = {
-    environment.systemPackages = [ pkgs.mdadm ];
+    environment.systemPackages = [pkgs.mdadm];
 
-    services.udev.packages = [ pkgs.mdadm ];
+    services.udev.packages = [pkgs.mdadm];
 
-    systemd.packages = [ pkgs.mdadm ];
+    systemd.packages = [pkgs.mdadm];
 
     boot.initrd.availableKernelModules = lib.mkIf (config.boot.initrd.systemd.enable -> cfg.enable) [
       "md_mod"
@@ -42,12 +42,12 @@ in
     '';
 
     boot.initrd.systemd = lib.mkIf cfg.enable {
-      contents."/etc/mdadm.conf" = lib.mkIf (cfg.mdadmConf != "") { text = cfg.mdadmConf; };
+      contents."/etc/mdadm.conf" = lib.mkIf (cfg.mdadmConf != "") {text = cfg.mdadmConf;};
 
-      packages = [ pkgs.mdadm ];
-      initrdBin = [ pkgs.mdadm ];
+      packages = [pkgs.mdadm];
+      initrdBin = [pkgs.mdadm];
     };
 
-    boot.initrd.services.udev.packages = lib.mkIf cfg.enable [ pkgs.mdadm ];
+    boot.initrd.services.udev.packages = lib.mkIf cfg.enable [pkgs.mdadm];
   };
 }

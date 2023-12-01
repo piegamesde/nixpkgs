@@ -23,7 +23,7 @@ in
 
     listenOptions = mkOption {
       type = types.attrs;
-      default = { };
+      default = {};
       example = {
         credentials = "../credentials.csv";
         readers = "(authenticated)";
@@ -41,8 +41,8 @@ in
     systemd = {
       services.tiddlywiki = {
         description = "TiddlyWiki nodejs server";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
         serviceConfig = {
           Type = "simple";
           Restart = "on-failure";

@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1/4xMetKMDOgZgzz3WMxfHUEpmdAm52RqZvz6i0mLEw=";
   };
 
-  patches = [ ./include-dir.patch ];
+  patches = [./include-dir.patch];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     homepage = "https://eigen.tuxfamily.org";

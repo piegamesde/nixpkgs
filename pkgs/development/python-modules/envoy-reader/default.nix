@@ -48,12 +48,12 @@ buildPythonPackage rec {
       --replace "pyjwt==2.1.0" "pyjwt>=2.1.0"
   '';
 
-  pythonImportsCheck = [ "envoy_reader" ];
+  pythonImportsCheck = ["envoy_reader"];
 
   meta = with lib; {
     description = "Python module to read from Enphase Envoy units";
     homepage = "https://github.com/jesserizzo/envoy_reader";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

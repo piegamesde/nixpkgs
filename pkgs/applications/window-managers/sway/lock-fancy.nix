@@ -45,10 +45,10 @@ stdenv.mkDerivation rec {
   '';
 
   strictDeps = true;
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ bash ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [bash];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   postInstall = ''
     wrapProgram $out/bin/swaylock-fancy \
@@ -60,6 +60,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Big-B/swaylock-fancy";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

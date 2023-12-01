@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "1pji0zdwm3kxjrkbzj7fnxhr8ncrc8pyqnwyrh47fhypgqjv1br1";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libjack2
     libsndfile
@@ -29,13 +29,13 @@ stdenv.mkDerivation rec {
     cp jack_capture $out/bin/
   '';
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     description = "A program for recording soundfiles with jack";
     homepage = "http://archive.notam02.no/arkiv/src";
     license = licenses.gpl2;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
     platforms = lib.platforms.linux;
   };
 }

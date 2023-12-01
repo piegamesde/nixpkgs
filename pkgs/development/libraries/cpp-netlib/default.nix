@@ -19,13 +19,13 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     boost
     openssl
   ];
 
-  cmakeFlags = [ "-DCPP-NETLIB_BUILD_SHARED_LIBS=ON" ];
+  cmakeFlags = ["-DCPP-NETLIB_BUILD_SHARED_LIBS=ON"];
 
   # Most tests make network GET requests to various websites
   doCheck = false;

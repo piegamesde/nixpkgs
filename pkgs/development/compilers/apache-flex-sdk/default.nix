@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
     sha256 = "13iq16dqvgcpb0p35x66hzxsq5pkbr2lbwr766nnqiryinnagz8p";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ jre ];
+  buildInputs = [jre];
 
   dontBuild = true;
 
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Flex SDK for Adobe Flash / ActionScript";
     homepage = "https://flex.apache.org/";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ dywedir ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [dywedir];
   };
 }

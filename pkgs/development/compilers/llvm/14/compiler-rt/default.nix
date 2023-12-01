@@ -23,7 +23,7 @@ let
 
   baseName = "compiler-rt";
 
-  src = runCommand "${baseName}-src-${version}" { } ''
+  src = runCommand "${baseName}-src-${version}" {} ''
     mkdir -p "$out"
     cp -r ${monorepoSrc}/cmake "$out"
     cp -r ${monorepoSrc}/${baseName} "$out"
@@ -64,20 +64,20 @@ stdenv.mkDerivation {
       "-DCOMPILER_RT_BUILD_MEMPROF=OFF"
       "-DCOMPILER_RT_BUILD_ORC=OFF" # may be possible to build with musl if necessary
     ]
-    ++ lib.optionals (useLLVM || bareMetal) [ "-DCOMPILER_RT_BUILD_PROFILE=OFF" ]
+    ++ lib.optionals (useLLVM || bareMetal) ["-DCOMPILER_RT_BUILD_PROFILE=OFF"]
     ++ lib.optionals ((useLLVM && !haveLibc) || bareMetal) [
       "-DCMAKE_C_COMPILER_WORKS=ON"
       "-DCMAKE_CXX_COMPILER_WORKS=ON"
       "-DCOMPILER_RT_BAREMETAL_BUILD=ON"
       "-DCMAKE_SIZEOF_VOID_P=${toString (stdenv.hostPlatform.parsed.cpu.bits / 8)}"
     ]
-    ++ lib.optionals (useLLVM && !haveLibc) [ "-DCMAKE_C_FLAGS=-nodefaultlibs" ]
+    ++ lib.optionals (useLLVM && !haveLibc) ["-DCMAKE_C_FLAGS=-nodefaultlibs"]
     ++ lib.optionals (useLLVM) [
       "-DCOMPILER_RT_BUILD_BUILTINS=ON"
       #https://stackoverflow.com/questions/53633705/cmake-the-c-compiler-is-not-able-to-compile-a-simple-test-program
       "-DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY"
     ]
-    ++ lib.optionals (bareMetal) [ "-DCOMPILER_RT_OS_DIR=baremetal" ]
+    ++ lib.optionals (bareMetal) ["-DCOMPILER_RT_OS_DIR=baremetal"]
     ++ lib.optionals (stdenv.hostPlatform.isDarwin) [
       "-DDARWIN_macosx_OVERRIDE_SDK_VERSION=ON"
       "-DDARWIN_osx_ARCHS=${stdenv.hostPlatform.darwinArch}"

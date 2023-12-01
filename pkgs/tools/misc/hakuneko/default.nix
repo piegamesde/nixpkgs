@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
        "$out/share/applications/hakuneko-desktop.desktop"
   '';
 
-  runtimeDependencies = [ (lib.getLib udev) ];
+  runtimeDependencies = [(lib.getLib udev)];
 
   postFixup = ''
     makeWrapper $out/lib/hakuneko-desktop/hakuneko $out/bin/hakuneko \
@@ -76,9 +76,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Manga & Anime Downloader";
     homepage = "https://sourceforge.net/projects/hakuneko/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unlicense;
-    maintainers = with maintainers; [ nloomans ];
+    maintainers = with maintainers; [nloomans];
     platforms = [
       "x86_64-linux"
       "i686-linux"

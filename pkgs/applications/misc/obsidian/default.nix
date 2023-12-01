@@ -50,8 +50,8 @@ let
     comment = "Knowledge base";
     icon = "obsidian";
     exec = "obsidian %u";
-    categories = [ "Office" ];
-    mimeTypes = [ "x-scheme-handler/obsidian" ];
+    categories = ["Office"];
+    mimeTypes = ["x-scheme-handler/obsidian"];
   };
 
   linux = stdenv.mkDerivation {

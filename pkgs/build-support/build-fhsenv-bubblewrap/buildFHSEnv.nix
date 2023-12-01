@@ -12,11 +12,11 @@
 {
   name ? null,
   profile ? "",
-  targetPkgs ? pkgs: [ ],
-  multiPkgs ? pkgs: [ ],
+  targetPkgs ? pkgs: [],
+  multiPkgs ? pkgs: [],
   extraBuildCommands ? "",
   extraBuildCommandsMulti ? "",
-  extraOutputsToInstall ? [ ],
+  extraOutputsToInstall ? [],
 }@args:
 
 # HOWTO:
@@ -43,7 +43,7 @@ let
 
   # list of packages (usually programs) which are only be installed for the
   # host's architecture
-  targetPaths = targetPkgs pkgs ++ (if multiPkgs == null then [ ] else multiPkgs pkgs);
+  targetPaths = targetPkgs pkgs ++ (if multiPkgs == null then [] else multiPkgs pkgs);
 
   # list of packages which are installed for both x86 and x86_64 on x86_64
   # systems
@@ -72,7 +72,7 @@ let
     bzip2
     xz
   ];
-  baseMultiPkgs = with pkgsi686Linux; [ (toString gcc.cc.lib) ];
+  baseMultiPkgs = with pkgsi686Linux; [(toString gcc.cc.lib)];
 
   ldconfig = writeShellScriptBin "ldconfig" ''
     # due to a glibc bug, 64-bit ldconfig complains about patchelf'd 32-bit libraries, so we're using 32-bit ldconfig
@@ -103,7 +103,7 @@ let
   '';
 
   # Compose /etc for the chroot environment
-  etcPkg = runCommandLocal "${name}-chrootenv-etc" { } ''
+  etcPkg = runCommandLocal "${name}-chrootenv-etc" {} ''
     mkdir -p $out/etc
     cd $out/etc
 

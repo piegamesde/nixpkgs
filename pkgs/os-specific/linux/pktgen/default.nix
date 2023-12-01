@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     lua5_3
     numactl
     which
-  ] ++ lib.optionals withGtk [ gtk2 ];
+  ] ++ lib.optionals withGtk [gtk2];
 
   RTE_SDK = dpdk;
   GUI = lib.optionalString withGtk "true";
@@ -78,6 +78,6 @@ stdenv.mkDerivation rec {
     homepage = "http://dpdk.org/";
     license = licenses.bsdOriginal;
     platforms = platforms.linux;
-    maintainers = [ maintainers.abuibrahim ];
+    maintainers = [maintainers.abuibrahim];
   };
 }

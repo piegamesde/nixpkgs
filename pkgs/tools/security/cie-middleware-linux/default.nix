@@ -33,14 +33,14 @@ let
   gradle = gradle_7;
 
   # Shared libraries needed by the Java application
-  libraries = lib.makeLibraryPath [ ghostscript ];
+  libraries = lib.makeLibraryPath [ghostscript];
 
   # Fixed-output derivation that fetches the Java dependencies
   javaDeps = stdenv.mkDerivation {
     pname = "cie-java-deps";
     inherit src version;
 
-    nativeBuildInputs = [ gradle ];
+    nativeBuildInputs = [gradle];
 
     buildPhase = ''
       # Run the fetchDeps task
@@ -68,7 +68,7 @@ in
 stdenv.mkDerivation {
   inherit pname src version;
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   outputs = [
     "out"
@@ -174,6 +174,6 @@ stdenv.mkDerivation {
     platforms = platforms.unix;
     # Note: fails due to a lot of broken type conversions
     badPlatforms = platforms.darwin;
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
   };
 }

@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "An SMS alerting tool for Prometheus's Alertmanager";
     homepage = "https://github.com/messagebird/sachet";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ govanify ];
+    maintainers = with maintainers; [govanify];
   };
 }

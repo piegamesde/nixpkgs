@@ -28,7 +28,7 @@ let
   update = ".0.6";
   build = "+3";
   repover = "${major}${update}${build}";
-  gradle_ = (gradle_7.override { java = openjdk17_headless; });
+  gradle_ = (gradle_7.override {java = openjdk17_headless;});
 
   makePackage =
     args:
@@ -125,7 +125,7 @@ makePackage {
     cp -r build/modular-sdk $out
   '';
 
-  stripDebugList = [ "." ];
+  stripDebugList = ["."];
 
   postFixup = ''
     # Remove references to bootstrap.
@@ -136,7 +136,7 @@ makePackage {
     done
   '';
 
-  disallowedReferences = [ openjdk17_headless ];
+  disallowedReferences = [openjdk17_headless];
 
   passthru.deps = deps;
 
@@ -144,7 +144,7 @@ makePackage {
     homepage = "http://openjdk.java.net/projects/openjfx/";
     license = licenses.gpl2;
     description = "The next-generation Java client toolkit";
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     platforms = platforms.unix;
   };
 }

@@ -21,7 +21,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "ratelimiter" ];
+  pythonImportsCheck = ["ratelimiter"];
 
   preCheck = ''
     # Uses out-dated options
@@ -38,6 +38,6 @@ buildPythonPackage rec {
     description = "Simple python rate limiting object";
     homepage = "https://github.com/RazerM/ratelimiter";
     license = licenses.asl20;
-    maintainers = with maintainers; [ helkafen ];
+    maintainers = with maintainers; [helkafen];
   };
 }

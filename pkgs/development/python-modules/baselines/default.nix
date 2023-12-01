@@ -52,12 +52,12 @@ buildPythonPackage {
   # fails to create a daemon, probably because of sandboxing
   doCheck = false;
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   meta = with lib; {
     description = "High-quality implementations of reinforcement learning algorithms";
     homepage = "https://github.com/openai/baselines";
     license = licenses.mit;
-    maintainers = with maintainers; [ timokau ];
+    maintainers = with maintainers; [timokau];
   };
 }

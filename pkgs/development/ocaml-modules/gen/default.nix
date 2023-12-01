@@ -21,7 +21,7 @@ buildDunePackage rec {
     hash = "sha256-ZytPPGhmt/uANaSgkgsUBOwyQ9ka5H4J+5CnJpEdrNk=";
   };
 
-  propagatedBuildInputs = [ seq ];
+  propagatedBuildInputs = [seq];
   checkInputs = [
     qcheck
     ounit2

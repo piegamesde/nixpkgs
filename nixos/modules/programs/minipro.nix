@@ -18,17 +18,17 @@ in
         '';
       };
 
-      package = lib.mkPackageOptionMD pkgs "minipro" { };
+      package = lib.mkPackageOptionMD pkgs "minipro" {};
     };
   };
 
   config = lib.mkIf cfg.enable {
-    users.groups.plugdev = { };
-    environment.systemPackages = [ cfg.package ];
-    services.udev.packages = [ cfg.package ];
+    users.groups.plugdev = {};
+    environment.systemPackages = [cfg.package];
+    services.udev.packages = [cfg.package];
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ infinidoge ];
+    maintainers = with lib.maintainers; [infinidoge];
   };
 }

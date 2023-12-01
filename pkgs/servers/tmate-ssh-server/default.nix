@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     description = "tmate SSH Server";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ck3d ];
+    maintainers = with maintainers; [ck3d];
   };
 }

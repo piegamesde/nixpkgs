@@ -25,7 +25,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs =
-    [ aiohttp ]
+    [aiohttp]
     ++ lib.optionals withVoice [
       libopus
       pynacl
@@ -61,6 +61,6 @@ buildPythonPackage rec {
     homepage = "https://discordpy.rtfd.org/";
     changelog = "https://github.com/Rapptz/discord.py/blob/v${version}/docs/whats_new.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ ivar ];
+    maintainers = with maintainers; [ivar];
   };
 }

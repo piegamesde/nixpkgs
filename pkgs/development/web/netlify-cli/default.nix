@@ -5,7 +5,7 @@
   pkgs,
 }:
 let
-  nodePackages = import ./composition.nix { inherit pkgs; };
+  nodePackages = import ./composition.nix {inherit pkgs;};
   sourceInfo = (lib.importJSON ./netlify-cli.json);
 in
 nodePackages.package.override {
@@ -22,6 +22,6 @@ nodePackages.package.override {
   };
   bypassCache = true;
   reconstructLock = true;
-  passthru.tests.test = callPackage ./test.nix { };
-  meta.maintainers = with lib.maintainers; [ roberth ];
+  passthru.tests.test = callPackage ./test.nix {};
+  meta.maintainers = with lib.maintainers; [roberth];
 }

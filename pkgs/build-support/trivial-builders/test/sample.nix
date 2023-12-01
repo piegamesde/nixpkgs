@@ -1,7 +1,7 @@
 {
   pkgs ? import ../../../.. {
-    config = { };
-    overlays = [ ];
+    config = {};
+    overlays = [];
   },
 }:
 let
@@ -25,7 +25,7 @@ in
   path = ./invoke-writeReferencesToFile.nix;
   pathLike.outPath = ./invoke-writeReferencesToFile.nix;
   helloFigletRef = writeText "hi" "hello ${hello} ${figlet}";
-  selfRef = runCommand "self-ref-1" { } "echo $out >$out";
-  selfRef2 = runCommand "self-ref-2" { } ''echo "${figlet}, $out" >$out'';
+  selfRef = runCommand "self-ref-1" {} "echo $out >$out";
+  selfRef2 = runCommand "self-ref-2" {} ''echo "${figlet}, $out" >$out'';
   inherit (pkgs) emptyFile emptyDirectory;
 }

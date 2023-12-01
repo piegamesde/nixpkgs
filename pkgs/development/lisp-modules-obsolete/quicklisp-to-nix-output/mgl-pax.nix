@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "mgl-pax";
   version = "20211209-git";
@@ -31,7 +31,7 @@ rec {
 
   packageName = "mgl-pax";
 
-  asdFilesToKeep = [ "mgl-pax.asd" ];
+  asdFilesToKeep = ["mgl-pax.asd"];
   overrides = x: x;
 }
 /* (SYSTEM mgl-pax DESCRIPTION Exploratory programming tool and documentation

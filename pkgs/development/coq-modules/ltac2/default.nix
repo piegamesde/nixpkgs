@@ -43,7 +43,7 @@ mkCoqDerivation {
 
   meta = with lib; {
     description = "A robust and expressive tactic language for Coq";
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
     license = licenses.lgpl21;
   };
 }

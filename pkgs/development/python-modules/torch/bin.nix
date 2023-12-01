@@ -24,7 +24,7 @@
 }:
 
 let
-  pyVerNoDot = builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion;
+  pyVerNoDot = builtins.replaceStrings ["."] [""] python.pythonVersion;
   srcs = import ./binary-hashes.nix version;
   unsupported = throw "Unsupported system";
   version = "2.0.0";
@@ -76,7 +76,7 @@ buildPythonPackage {
     jinja2
     networkx
     filelock
-  ] ++ lib.optionals stdenv.isx86_64 [ openai-triton ];
+  ] ++ lib.optionals stdenv.isx86_64 [openai-triton];
 
   postInstall = ''
     # ONNX conversion
@@ -102,7 +102,7 @@ buildPythonPackage {
   # The wheel-binary is not stripped to avoid the error of `ImportError: libtorch_cuda_cpp.so: ELF load command address/offset not properly aligned.`.
   dontStrip = true;
 
-  pythonImportsCheck = [ "torch" ];
+  pythonImportsCheck = ["torch"];
 
   meta = with lib; {
     description = "PyTorch: Tensors and Dynamic neural networks in Python with strong GPU acceleration";
@@ -118,14 +118,14 @@ buildPythonPackage {
       issl
       unfreeRedistributable
     ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     platforms = [
       "aarch64-darwin"
       "aarch64-linux"
       "x86_64-darwin"
       "x86_64-linux"
     ];
-    hydraPlatforms = [ ]; # output size 3.2G on 1.11.0
-    maintainers = with maintainers; [ junjihashimoto ];
+    hydraPlatforms = []; # output size 3.2G on 1.11.0
+    maintainers = with maintainers; [junjihashimoto];
   };
 }

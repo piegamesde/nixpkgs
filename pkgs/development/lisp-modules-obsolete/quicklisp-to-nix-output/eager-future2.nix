@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "eager-future2";
   version = "20191130-git";
@@ -19,7 +19,7 @@ rec {
 
   packageName = "eager-future2";
 
-  asdFilesToKeep = [ "eager-future2.asd" ];
+  asdFilesToKeep = ["eager-future2.asd"];
   overrides = x: x;
 }
 /* (SYSTEM eager-future2 DESCRIPTION

@@ -31,7 +31,7 @@ stdenv.mkDerivation (
     nativeBuildInputs = [
       cmake
       llvm.dev
-    ] ++ lib.optionals (withManual || withHTML) [ sphinx ];
+    ] ++ lib.optionals (withManual || withHTML) [sphinx];
 
     buildInputs = [
       libclang
@@ -40,7 +40,7 @@ stdenv.mkDerivation (
       zlib
     ];
 
-    propagatedBuildInputs = [ libclang ];
+    propagatedBuildInputs = [libclang];
 
     cmakeFlags = [
       "-DCLANG_RESOURCE_DIR=${libclang.dev}/"
@@ -63,7 +63,7 @@ stdenv.mkDerivation (
       homepage = "https://github.com/CastXML/CastXML";
       description = "C-family Abstract Syntax Tree XML Output";
       license = licenses.asl20;
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       platforms = platforms.unix;
     };
   }

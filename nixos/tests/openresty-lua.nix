@@ -1,7 +1,7 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   let
-    lualibs = [ pkgs.lua.pkgs.markdown ];
+    lualibs = [pkgs.lua.pkgs.markdown];
 
     getPath = lib: type: "${lib}/share/lua/${pkgs.lua.luaversion}/?.${type}";
     getLuaPath = lib: getPath lib "lua";
@@ -9,11 +9,11 @@ import ./make-test-python.nix (
   in
   {
     name = "openresty-lua";
-    meta = with pkgs.lib.maintainers; { maintainers = [ bbigras ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [bbigras];};
 
     nodes = {
       webserver =
-        { pkgs, lib, ... }:
+        {pkgs, lib, ...}:
         {
           services.nginx = {
             enable = true;
@@ -40,7 +40,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       ''
         url = "http://localhost"
 

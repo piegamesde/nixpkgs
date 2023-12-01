@@ -55,8 +55,8 @@ let
       else
         throw "${pname}-${version} is not supported on ${stdenv.hostPlatform.system}";
 
-    nativeBuildInputs = [ makeWrapper ];
-    buildInputs = [ dpkg ];
+    nativeBuildInputs = [makeWrapper];
+    buildInputs = [dpkg];
 
     unpackPhase = "dpkg-deb -x ${src} ./";
 
@@ -96,19 +96,19 @@ in
 buildFHSEnv {
   name = lightworks.name;
 
-  targetPkgs = pkgs: [ lightworks ];
+  targetPkgs = pkgs: [lightworks];
 
   runScript = "lightworks";
 
   meta = {
     description = "Professional Non-Linear Video Editor";
     homepage = "https://www.lwks.com/";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
     maintainers = with lib.maintainers; [
       antonxy
       vojta001
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -17,7 +17,7 @@ buildGoModule rec {
   };
   vendorHash = "sha256-LMmWhKwuy+HfqkLabTjlTd0f/6DYCGbEzpItQvckE9g=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # Bundle release metadata
   ldflags =
@@ -35,7 +35,7 @@ buildGoModule rec {
       "${lib.concatMapStringsSep " " (attr: "-X ${attr}") attrs}"
     ];
 
-  subPackages = [ "istioctl/cmd/istioctl" ];
+  subPackages = ["istioctl/cmd/istioctl"];
 
   doInstallCheck = true;
   installCheckPhase = ''

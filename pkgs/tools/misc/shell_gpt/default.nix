@@ -36,7 +36,7 @@ python3.pkgs.buildPythonApplication rec {
     "typer"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   doCheck = false;
 
@@ -46,6 +46,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Access ChatGPT from your terminal";
     platforms = platforms.unix;
     license = licenses.mit;
-    maintainers = with maintainers; [ mglolenstine ];
+    maintainers = with maintainers; [mglolenstine];
   };
 }

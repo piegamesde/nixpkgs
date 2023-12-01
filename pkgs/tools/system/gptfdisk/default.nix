@@ -77,6 +77,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2;
     homepage = "https://www.rodsbooks.com/gdisk/";
     platforms = platforms.all;
-    maintainers = [ maintainers.ehmry ];
+    maintainers = [maintainers.ehmry];
   };
 }

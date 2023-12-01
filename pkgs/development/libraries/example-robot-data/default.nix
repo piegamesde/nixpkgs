@@ -21,17 +21,17 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = lib.optionals pythonSupport [ python3Packages.pinocchio ];
+  buildInputs = lib.optionals pythonSupport [python3Packages.pinocchio];
 
-  cmakeFlags = lib.optionals (!pythonSupport) [ "-DBUILD_PYTHON_INTERFACE=OFF" ];
+  cmakeFlags = lib.optionals (!pythonSupport) ["-DBUILD_PYTHON_INTERFACE=OFF"];
 
   meta = with lib; {
     description = "Set of robot URDFs for benchmarking and developed examples.";
     homepage = "https://github.com/Gepetto/example-robot-data";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.unix;
   };
 }

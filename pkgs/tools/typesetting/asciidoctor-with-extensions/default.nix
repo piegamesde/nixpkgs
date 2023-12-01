@@ -22,7 +22,7 @@ bundlerApp rec {
     "asciidoctor-revealjs"
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = lib.optionalString (path != "") (
     lib.concatMapStrings
@@ -41,7 +41,7 @@ bundlerApp rec {
     description = "A faster Asciidoc processor written in Ruby, with many extensions enabled";
     homepage = "https://asciidoctor.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     platforms = platforms.unix;
   };
 }

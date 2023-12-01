@@ -105,11 +105,11 @@ stdenv.mkDerivation rec {
       perlPackages.XMLParser
       m4
     ]
-    ++ lib.optionals stdenv.isLinux [ glib ]
+    ++ lib.optionals stdenv.isLinux [glib]
     # gstreamer plugin discovery requires wrapping
     ++ lib.optional (bluetoothSupport && advancedBluetoothCodecs) wrapGAppsHook;
 
-  propagatedBuildInputs = lib.optionals stdenv.isLinux [ libcap ];
+  propagatedBuildInputs = lib.optionals stdenv.isLinux [libcap];
 
   buildInputs =
     [
@@ -266,7 +266,7 @@ stdenv.mkDerivation rec {
     description = "Sound server for POSIX and Win32 systems";
     homepage = "http://www.pulseaudio.org/";
     license = lib.licenses.lgpl2Plus;
-    maintainers = with lib.maintainers; [ lovek323 ];
+    maintainers = with lib.maintainers; [lovek323];
     platforms = lib.platforms.unix;
 
     longDescription = ''

@@ -14,11 +14,11 @@ mkDerivation {
   meta = with lib; {
     homepage = "https://kde.org/applications/en/games/org.kde.kshisen";
     description = "A solitaire-like game played using the standard set of Mahjong tiles";
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     libkdegames
     libkmahjongg

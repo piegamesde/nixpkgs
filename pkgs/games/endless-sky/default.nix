@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-bohljxAtSVqsfnge6t4LF3pC1s1r99v3hNLKTBquC20=";
   };
 
-  patches = [ ./fixes.patch ];
+  patches = [./fixes.patch];
 
   preBuild = ''
     export AR="${stdenv.cc.targetPrefix}gcc-ar"
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       cc-by-sa-40
       publicDomain
     ];
-    maintainers = with maintainers; [ lheckemann ];
+    maintainers = with maintainers; [lheckemann];
     platforms = platforms.linux; # Maybe other non-darwin Unix
   };
 }

@@ -16,7 +16,7 @@
 }:
 
 let
-  python = python3.withPackages (py: with py; [ numpy ]);
+  python = python3.withPackages (py: with py; [numpy]);
 in
 stdenv.mkDerivation rec {
   pname = "vigra";
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-I${ilmbase.dev}/include/OpenEXR";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     boost
     fftw
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
   preConfigure = ''cmakeFlags+=" -DVIGRANUMPY_INSTALL_DIR=$out/lib/${python.libPrefix}/site-packages"'';
 
   cmakeFlags =
-    [ "-DWITH_OPENEXR=1" ]
+    ["-DWITH_OPENEXR=1"]
     ++ lib.optionals (stdenv.hostPlatform.system == "x86_64-linux") [
       "-DCMAKE_CXX_FLAGS=-fPIC"
       "-DCMAKE_C_FLAGS=-fPIC"
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     description = "Novel computer vision C++ library with customizable algorithms and data structures";
     homepage = "https://hci.iwr.uni-heidelberg.de/vigra";
     license = licenses.mit;
-    maintainers = [ maintainers.viric ];
+    maintainers = [maintainers.viric];
     platforms = platforms.unix;
   };
 }

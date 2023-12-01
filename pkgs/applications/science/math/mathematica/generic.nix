@@ -143,7 +143,7 @@ stdenv.mkDerivation {
           zlib
         ]
       }"
-      "--prefix PATH : ${lib.makeBinPath [ stdenv.cc ]}"
+      "--prefix PATH : ${lib.makeBinPath [stdenv.cc]}"
       # Fix libQt errors - #96490
       "--set USE_WOLFRAM_LD_LIBRARY_PATH 1"
       # Fix xkeyboard config path for Qt

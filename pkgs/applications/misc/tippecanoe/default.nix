@@ -24,9 +24,9 @@ stdenv.mkDerivation (
       sqlite
       zlib
     ];
-    nativeCheckInputs = [ perl ];
+    nativeCheckInputs = [perl];
 
-    makeFlags = [ "PREFIX=$(out)" ];
+    makeFlags = ["PREFIX=$(out)"];
 
     enableParallelBuilding = true;
     doCheck = true;
@@ -40,7 +40,7 @@ stdenv.mkDerivation (
       description = "Build vector tilesets from large collections of GeoJSON features";
       homepage = "https://github.com/felt/tippecanoe";
       license = licenses.bsd2;
-      maintainers = with maintainers; [ sikmir ];
+      maintainers = with maintainers; [sikmir];
       platforms = platforms.unix;
     };
   }

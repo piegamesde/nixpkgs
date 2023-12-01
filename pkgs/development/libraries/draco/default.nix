@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   '';
 
   buildInputs =
-    [ gtest ]
+    [gtest]
     ++ lib.optionals withTranscoder [
       eigen
       ghc_filesystem
@@ -60,14 +60,14 @@ stdenv.mkDerivation rec {
       "-DDRACO_TINYGLTF_PATH=${tinygltf}"
     ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Library for compressing and decompressing 3D geometric meshes and point clouds";
     homepage = "https://google.github.io/draco/";
     changelog = "https://github.com/google/draco/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jansol ];
+    maintainers = with maintainers; [jansol];
     platforms = platforms.all;
   };
 }

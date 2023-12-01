@@ -31,7 +31,7 @@ mkDerivation rec {
     extra-cmake-modules
     kdoctools
   ];
-  buildInputs = [ shared-mime-info ];
+  buildInputs = [shared-mime-info];
 
   propagatedBuildInputs = [
     kconfig

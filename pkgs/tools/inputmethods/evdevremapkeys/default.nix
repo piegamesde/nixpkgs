@@ -26,13 +26,13 @@ python3Packages.buildPythonPackage rec {
   # hase no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "evdevremapkeys" ];
+  pythonImportsCheck = ["evdevremapkeys"];
 
   meta = with lib; {
     homepage = "https://github.com/philipl/evdevremapkeys";
     description = "Daemon to remap events on linux input devices";
     license = licenses.mit;
-    maintainers = [ maintainers.q3k ];
+    maintainers = [maintainers.q3k];
     platforms = platforms.linux;
   };
 }

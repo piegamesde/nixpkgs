@@ -42,12 +42,12 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    openidconnect = [ python-jose ];
+    openidconnect = [python-jose];
     saml = [
       lxml
       python3-saml
     ];
-    azuread = [ cryptography ];
+    azuread = [cryptography];
   };
 
   nativeCheckInputs = [
@@ -65,12 +65,12 @@ buildPythonPackage rec {
       --replace "{posargs:-v --cov=social_core}" "{posargs:-v}"
   '';
 
-  pythonImportsCheck = [ "social_core" ];
+  pythonImportsCheck = ["social_core"];
 
   meta = with lib; {
     description = "Module for social authentication/registration mechanisms";
     homepage = "https://github.com/python-social-auth/social-core";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ n0emis ];
+    maintainers = with maintainers; [n0emis];
   };
 }

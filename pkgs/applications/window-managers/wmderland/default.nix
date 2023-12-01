@@ -20,11 +20,11 @@ stdenv.mkDerivation {
     sha256 = "0npmlnybblp82mfpinjbz7dhwqgpdqc1s63wc1zs8mlcs19pdh98";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeBuildType = "MinSizeRel";
 
-  patches = [ ./0001-remove-flto.patch ];
+  patches = [./0001-remove-flto.patch];
 
   postPatch = ''
     substituteInPlace src/util.cc \
@@ -43,7 +43,7 @@ stdenv.mkDerivation {
 
   passthru = {
     tests.basic = nixosTests.wmderland;
-    providedSessions = [ "wmderland" ];
+    providedSessions = ["wmderland"];
   };
 
   meta = with lib; {
@@ -51,6 +51,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/aesophor/wmderland";
     license = licenses.mit;
     platforms = libX11.meta.platforms;
-    maintainers = with maintainers; [ takagiy ];
+    maintainers = with maintainers; [takagiy];
   };
 }

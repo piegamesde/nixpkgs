@@ -13,7 +13,7 @@ with lib;
 with haskell.lib.compose;
 
 let
-  ldgallery-viewer = pkgs.callPackage ./viewer { inherit CoreServices; };
+  ldgallery-viewer = pkgs.callPackage ./viewer {inherit CoreServices;};
   inherit (haskellPackages) ldgallery-compiler;
 in
 
@@ -25,7 +25,7 @@ justStaticExecutables (
     (oldAttrs: {
       pname = "ldgallery"; # bundled viewer + compiler
 
-      buildTools = (oldAttrs.buildTools or [ ]) ++ [
+      buildTools = (oldAttrs.buildTools or []) ++ [
         makeWrapper
         pandoc
       ];
@@ -42,7 +42,7 @@ justStaticExecutables (
 
         # wrapper for runtime dependencies registration
         wrapProgram "$out/bin/ldgallery" \
-          --prefix PATH : ${lib.makeBinPath [ imagemagick ]}
+          --prefix PATH : ${lib.makeBinPath [imagemagick]}
 
         # bash completion
         mkdir -p "$out/share/bash-completion/completions"

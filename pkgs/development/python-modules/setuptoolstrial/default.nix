@@ -41,6 +41,6 @@ buildPythonPackage rec {
     description = "Setuptools plugin that makes unit tests execute with trial instead of pyunit.";
     homepage = "https://github.com/rutsky/setuptools-trial";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ ryansydnor ];
+    maintainers = with maintainers; [ryansydnor];
   };
 }

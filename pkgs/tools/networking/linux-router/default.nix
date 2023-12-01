@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Ote/arHCU6qiTXdK2RXv9848aeW6rcBsrb6nfxIzQLs=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontBuild = true;
 
@@ -107,7 +107,7 @@ stdenv.mkDerivation rec {
     '';
     changelog = "https://github.com/garywill/linux-router/releases/tag/${version}";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ x3ro ];
+    maintainers = with maintainers; [x3ro];
     platforms = platforms.linux;
   };
 }

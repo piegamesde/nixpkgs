@@ -68,12 +68,12 @@ in
 
       boot.kernelModules = optional governorEnable "cpufreq_${cfg.cpuFreqGovernor}";
 
-      environment.systemPackages = [ cpupower ];
+      environment.systemPackages = [cpupower];
 
       systemd.services.cpufreq = {
         description = "CPU Frequency Setup";
-        after = [ "systemd-modules-load.service" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["systemd-modules-load.service"];
+        wantedBy = ["multi-user.target"];
         path = [
           cpupower
           pkgs.kmod

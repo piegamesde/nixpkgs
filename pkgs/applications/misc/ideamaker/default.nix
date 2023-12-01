@@ -73,16 +73,16 @@ stdenv.mkDerivation rec {
       "Viewer"
       "Engineering"
     ];
-    mimeTypes = [ "application/sla" ];
+    mimeTypes = ["application/sla"];
   };
 
   meta = with lib; {
     homepage = "https://www.raise3d.com/ideamaker/";
     description = "Raise3D's 3D slicer software";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ lovesegfault ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [lovesegfault];
     broken = true; # Segfaults on startup.
   };
 }

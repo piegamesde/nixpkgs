@@ -27,7 +27,7 @@ buildPythonPackage rec {
   # Module doesn't contain tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pydsdl" ];
+  pythonImportsCheck = ["pydsdl"];
 
   meta = with lib; {
     description = "Library to process Cyphal DSDL";
@@ -41,6 +41,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://pydsdl.readthedocs.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ wucke13 ];
+    maintainers = with maintainers; [wucke13];
   };
 }

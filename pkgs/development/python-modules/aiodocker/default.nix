@@ -17,16 +17,16 @@ buildPythonPackage rec {
     sha256 = "RL5Ck4wsBZO88afmoojeFKbdIeCjDo/SwNqUcERH6Ls=";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   # tests require docker daemon
   doCheck = false;
-  pythonImportsCheck = [ "aiodocker" ];
+  pythonImportsCheck = ["aiodocker"];
 
   meta = with lib; {
     description = "Docker API client for asyncio";
     homepage = "https://github.com/aio-libs/aiodocker";
     license = licenses.asl20;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
   };
 }

@@ -24,12 +24,12 @@ python3Packages.buildPythonApplication rec {
       --replace "==" ">="
   '';
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   propagatedBuildInputs =
-    [ wget ]
+    [wget]
     ++ (
       with python3Packages; [
         biopython
@@ -47,7 +47,7 @@ python3Packages.buildPythonApplication rec {
     description = "Fast genome-wide functional annotation through orthology assignment";
     license = licenses.gpl2;
     homepage = "https://github.com/eggnogdb/eggnog-mapper/wiki";
-    maintainers = with maintainers; [ luispedro ];
+    maintainers = with maintainers; [luispedro];
     platforms = platforms.all;
   };
 }

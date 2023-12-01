@@ -42,7 +42,7 @@ in
 
 {
   # same for all gcc's
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   nativeBuildInputs =
     [
@@ -50,13 +50,13 @@ in
       which
       gettext
     ]
-    ++ optionals (perl != null) [ perl ]
-    ++ optionals javaAwtGtk [ pkg-config ]
-    ++ optionals (with stdenv.targetPlatform; isVc4 || isRedox && flex != null) [ flex ]
-    ++ optionals langAda [ gnat-bootstrap ]
+    ++ optionals (perl != null) [perl]
+    ++ optionals javaAwtGtk [pkg-config]
+    ++ optionals (with stdenv.targetPlatform; isVc4 || isRedox && flex != null) [flex]
+    ++ optionals langAda [gnat-bootstrap]
     # The builder relies on GNU sed (for instance, Darwin's `sed' fails with
     # "-i may not be used with stdin"), and `stdenvNative' doesn't provide it.
-    ++ optionals buildPlatform.isDarwin [ gnused ];
+    ++ optionals buildPlatform.isDarwin [gnused];
 
   # For building runtime libs
   # same for all gcc's
@@ -73,7 +73,7 @@ in
           stdenv.cc
         ]
     )
-    ++ optionals targetPlatform.isLinux [ patchelf ];
+    ++ optionals targetPlatform.isLinux [patchelf];
 
   buildInputs =
     [
@@ -81,13 +81,13 @@ in
       mpfr
       libmpc
     ]
-    ++ optionals (lib.versionAtLeast version "10") [ libxcrypt ]
+    ++ optionals (lib.versionAtLeast version "10") [libxcrypt]
     ++ [
       targetPackages.stdenv.cc.bintools # For linking code at run-time
     ]
-    ++ optionals (lib.versionOlder version "5" && cloog != null) [ cloog ]
-    ++ optionals (isl != null) [ isl ]
-    ++ optionals (zlib != null) [ zlib ]
+    ++ optionals (lib.versionOlder version "5" && cloog != null) [cloog]
+    ++ optionals (isl != null) [isl]
+    ++ optionals (zlib != null) [zlib]
     ++ optionals langJava [
       boehmgc
       zip
@@ -100,10 +100,10 @@ in
       ]
       ++ xlibs
     )
-    ++ optionals (langGo && stdenv.hostPlatform.isMusl) [ libucontext ];
+    ++ optionals (langGo && stdenv.hostPlatform.isMusl) [libucontext];
 
   # threadsCross.package after gcc6 so i assume its okay for 4.8 and 4.9 too
   depsTargetTarget =
-    optionals (!crossStageStatic && threadsCross != { } && threadsCross.package != null)
-      [ threadsCross.package ];
+    optionals (!crossStageStatic && threadsCross != {} && threadsCross.package != null)
+      [threadsCross.package];
 }

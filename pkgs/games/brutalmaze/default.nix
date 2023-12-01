@@ -29,6 +29,6 @@ python3Packages.buildPythonApplication rec {
     description = "Minimalist thrilling shoot 'em up game";
     homepage = "https://brutalmaze.rtfd.io";
     license = licenses.agpl3Plus;
-    maintainers = [ maintainers.McSinyx ];
+    maintainers = [maintainers.McSinyx];
   };
 }

@@ -37,7 +37,7 @@ buildPythonPackage rec {
     hash = "sha256-Vj780rP5rJ+YsMWlb3BR9LTKT/nTt0C2H3J0X9sysj8=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     aiofiles
@@ -124,7 +124,7 @@ buildPythonPackage rec {
   # for the same local port
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "sanic" ];
+  pythonImportsCheck = ["sanic"];
 
   meta = with lib; {
     description = "Web server and web framework";

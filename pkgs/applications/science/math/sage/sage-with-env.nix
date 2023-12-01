@@ -29,7 +29,7 @@ assert (!blas.isILP64) && (!lapack.isILP64);
 # executable sage. No tests are run yet and no documentation is built.
 
 let
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     pythonEnv # for patchShebangs
     blas
@@ -68,18 +68,18 @@ let
     if dep == null then
       # propagatedBuildInputs might contain null
       # (although that might be considered a programming error in the derivation)
-      [ ]
+      []
     else
-      [ dep ]
+      [dep]
       ++ (
         if builtins.hasAttr "propagatedBuildInputs" dep then
           lib.unique (builtins.concatLists (map transitiveClosure dep.propagatedBuildInputs))
         else
-          [ ]
+          []
       );
 
   allInputs = lib.remove null (
-    nativeBuildInputs ++ buildInputs ++ pythonEnv.extraLibs ++ [ makeWrapper ]
+    nativeBuildInputs ++ buildInputs ++ pythonEnv.extraLibs ++ [makeWrapper]
   );
   transitiveDeps = lib.unique (builtins.concatLists (map transitiveClosure allInputs));
   # fix differences between spkg and sage names

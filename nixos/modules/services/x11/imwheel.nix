@@ -15,8 +15,8 @@ in
 
       extraOptions = mkOption {
         type = types.listOf types.str;
-        default = [ "--buttons=45" ];
-        example = [ "--debug" ];
+        default = ["--buttons=45"];
+        example = ["--debug"];
         description = lib.mdDoc ''
           Additional command-line arguments to pass to
           {command}`imwheel`.
@@ -25,7 +25,7 @@ in
 
       rules = mkOption {
         type = types.attrsOf types.str;
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             ".*" = '''
@@ -50,7 +50,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.imwheel ];
+    environment.systemPackages = [pkgs.imwheel];
 
     environment.etc."X11/imwheel/imwheelrc".source = pkgs.writeText "imwheelrc" (
       concatStringsSep "\n\n" (
@@ -64,8 +64,8 @@ in
 
     systemd.user.services.imwheel = {
       description = "imwheel service";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      partOf = ["graphical-session.target"];
       serviceConfig = {
         ExecStart =
           "${pkgs.imwheel}/bin/imwheel "

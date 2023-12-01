@@ -64,21 +64,21 @@ stdenv.mkDerivation rec {
       qtbase
       qrencode
     ]
-    ++ lib.optionals withUpnp [ miniupnpc ]
-    ++ lib.optionals withWallet [ db5 ]
-    ++ lib.optionals withZmq [ zeromq ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+    ++ lib.optionals withUpnp [miniupnpc]
+    ++ lib.optionals withWallet [db5]
+    ++ lib.optionals withZmq [zeromq]
+    ++ lib.optionals stdenv.isDarwin [Cocoa];
 
   configureFlags =
     [
       "--with-incompatible-bdb"
       "--with-boost-libdir=${boost.out}/lib"
     ]
-    ++ lib.optionals (!withGui) [ "--with-gui=no" ]
-    ++ lib.optionals (!withUpnp) [ "--without-miniupnpc" ]
-    ++ lib.optionals (!withUtils) [ "--without-utils" ]
-    ++ lib.optionals (!withWallet) [ "--disable-wallet" ]
-    ++ lib.optionals (!withZmq) [ "--disable-zmq" ];
+    ++ lib.optionals (!withGui) ["--with-gui=no"]
+    ++ lib.optionals (!withUpnp) ["--without-miniupnpc"]
+    ++ lib.optionals (!withUtils) ["--without-utils"]
+    ++ lib.optionals (!withWallet) ["--disable-wallet"]
+    ++ lib.optionals (!withZmq) ["--disable-zmq"];
 
   enableParallelBuilding = true;
 

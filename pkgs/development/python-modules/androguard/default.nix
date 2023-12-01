@@ -41,7 +41,7 @@ buildPythonPackage rec {
     sha256 = "1aparxiq11y0hbvkayp92w684nyxyyx7mi0n1x6x51g5z6c58vmy";
   };
 
-  nativeBuildInputs = [ packaging ] ++ lib.optionals withGui [ qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [packaging] ++ lib.optionals withGui [qt5.wrapQtAppsHook];
 
   propagatedBuildInputs =
     [
@@ -88,6 +88,6 @@ buildPythonPackage rec {
     description = "Tool and Python library to interact with Android Files";
     homepage = "https://github.com/androguard/androguard";
     license = licenses.asl20;
-    maintainers = with maintainers; [ pmiddend ];
+    maintainers = with maintainers; [pmiddend];
   };
 }

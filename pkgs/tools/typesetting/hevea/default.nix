@@ -21,14 +21,14 @@ stdenv.mkDerivation rec {
     ocamlbuild
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "A quite complete and fast LATEX to HTML translator";
     homepage = "https://hevea.inria.fr/";
     changelog = "https://github.com/maranget/hevea/raw/v${version}/CHANGES";
     license = licenses.qpl;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = with platforms; unix;
   };
 }

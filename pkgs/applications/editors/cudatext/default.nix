@@ -22,7 +22,7 @@
 
   widgetset ? "qt5",
   # See https://github.com/Alexey-T/CudaText-lexers
-  additionalLexers ? [ "Nix" ],
+  additionalLexers ? ["Nix"],
 }:
 
 assert builtins.elem widgetset [
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional (widgetset == "qt5") qt5.wrapQtAppsHook;
 
   buildInputs =
-    [ libX11 ]
+    [libX11]
     ++ lib.optionals (lib.hasPrefix "gtk" widgetset) [
       pango
       cairo
@@ -142,7 +142,7 @@ stdenv.mkDerivation rec {
     homepage = "https://cudatext.github.io/";
     changelog = "https://cudatext.github.io/history.txt";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.linux;
   };
 }

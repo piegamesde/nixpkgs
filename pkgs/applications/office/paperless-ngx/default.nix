@@ -52,8 +52,8 @@ let
             rev = version;
             sha256 = "sha256-bKrPLbD9zG7DwIYBst1cb+zkDsM8B02wh3D80iortpw=";
           };
-          propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ self.daphne ];
-          pytestFlagsArray = [ "--asyncio-mode=auto" ];
+          propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [self.daphne];
+          pytestFlagsArray = ["--asyncio-mode=auto"];
         }
       );
 
@@ -90,7 +90,7 @@ let
 
     npmDepsHash = "sha256-XTk4DpQAU/rI2XoUvLm0KVjuXFWdz2wb2EAg8EBVEdU=";
 
-    nativeBuildInputs = [ python3 ];
+    nativeBuildInputs = [python3];
 
     postPatch = ''
       cd src-ui
@@ -119,7 +119,7 @@ python.pkgs.buildPythonApplication rec {
 
   inherit version src;
 
-  nativeBuildInputs = [ gettext ];
+  nativeBuildInputs = [gettext];
 
   propagatedBuildInputs =
     with python.pkgs;
@@ -280,7 +280,7 @@ python.pkgs.buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "src" ];
+  pytestFlagsArray = ["src"];
 
   # The tests require:
   # - PATH with runtime binaries

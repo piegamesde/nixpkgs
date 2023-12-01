@@ -36,10 +36,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-tEk7BxAN8jEquJiv89vC0lYrB/sKeZhThBzs09A9NpA=";
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optional withClipboard python3;
+  nativeBuildInputs = [pkg-config] ++ lib.optional withClipboard python3;
 
   buildInputs =
-    [ ncurses ]
+    [ncurses]
     ++ lib.optional stdenv.isLinux openssl
     ++ lib.optional withALSA alsa-lib
     ++ lib.optional withClipboard libxcb
@@ -54,7 +54,7 @@ rustPlatform.buildRustPackage rec {
   buildNoDefaultFeatures = true;
 
   buildFeatures =
-    [ "cursive/pancurses-backend" ]
+    ["cursive/pancurses-backend"]
     ++ lib.optional withALSA "alsa_backend"
     ++ lib.optional withClipboard "share_clipboard"
     ++ lib.optional withCover "cover"
@@ -67,6 +67,6 @@ rustPlatform.buildRustPackage rec {
     description = "Cross-platform ncurses Spotify client written in Rust, inspired by ncmpc and the likes";
     homepage = "https://github.com/hrkfdn/ncspot";
     license = licenses.bsd2;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

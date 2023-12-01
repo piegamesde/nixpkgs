@@ -21,7 +21,7 @@ buildPythonPackage rec {
     pytest-xdist
   ];
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   checkPhase = ''
     cd lazy_import
@@ -32,6 +32,6 @@ buildPythonPackage rec {
     description = "lazy_import provides a set of functions that load modules, and related attributes, in a lazy fashion.";
     homepage = "https://github.com/mnmelo/lazy_import";
     license = licenses.gpl3;
-    maintainers = [ maintainers.marenz ];
+    maintainers = [maintainers.marenz];
   };
 }

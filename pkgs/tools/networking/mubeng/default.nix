@@ -27,7 +27,7 @@ buildGoModule rec {
     description = "Proxy checker and IP rotator";
     homepage = "https://github.com/kitabisa/mubeng";
     changelog = "https://github.com/kitabisa/mubeng/releases/tag/v${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

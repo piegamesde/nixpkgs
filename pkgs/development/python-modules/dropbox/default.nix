@@ -54,8 +54,8 @@ buildPythonPackage rec {
 
   doCheck = true;
 
-  pythonImportsCheck = [ "dropbox" ];
-  nativeBuildInputs = [ sphinxHook ];
+  pythonImportsCheck = ["dropbox"];
+  nativeBuildInputs = [sphinxHook];
 
   # Set SCOPED_USER_DROPBOX_TOKEN environment variable to a valid value.
   disabledTests = [
@@ -84,6 +84,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/dropbox/dropbox-sdk-python";
     changelog = "https://github.com/dropbox/dropbox-sdk-python/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ sfrijters ];
+    maintainers = with maintainers; [sfrijters];
   };
 }

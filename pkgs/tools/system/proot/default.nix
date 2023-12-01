@@ -42,13 +42,13 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  makeFlags = [ "-C src" ];
+  makeFlags = ["-C src"];
 
   postBuild = ''
     make -C doc proot/man.1
   '';
 
-  installFlags = [ "PREFIX=${placeholder "out"}" ];
+  installFlags = ["PREFIX=${placeholder "out"}"];
 
   postInstall = ''
     install -Dm644 doc/proot/man.1 $out/share/man/man1/proot.1

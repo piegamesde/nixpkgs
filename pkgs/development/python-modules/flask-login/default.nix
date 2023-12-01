@@ -37,14 +37,14 @@ buildPythonPackage rec {
     semantic-version
   ];
 
-  disabledTests = lib.optionals (pythonAtLeast "3.10") [ "test_hashable" ];
+  disabledTests = lib.optionals (pythonAtLeast "3.10") ["test_hashable"];
 
-  pythonImportsCheck = [ "flask_login" ];
+  pythonImportsCheck = ["flask_login"];
 
   meta = with lib; {
     description = "User session management for Flask";
     homepage = "https://github.com/maxcountryman/flask-login";
     license = licenses.mit;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

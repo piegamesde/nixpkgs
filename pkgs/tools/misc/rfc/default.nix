@@ -31,7 +31,7 @@ stdenvNoCC.mkDerivation rec {
 
     install -Dm755 -t $out/bin rfc
     wrapProgram $out/bin/rfc \
-      --prefix PATH : ${lib.makeBinPath [ curl ]}
+      --prefix PATH : ${lib.makeBinPath [curl]}
     installManPage man/rfc.1
 
     runHook postInstall
@@ -46,7 +46,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/bfontaine/rfc";
     changelog = "https://github.com/bfontaine/rfc/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
     platforms = platforms.all;
   };
 }

@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [ SDL ] ++ lib.optional stdenv.isLinux alsa-lib;
+  buildInputs = [SDL] ++ lib.optional stdenv.isLinux alsa-lib;
 
   enableParallelBuilding = true;
 
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "http://schismtracker.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ftrvxmtrx ];
+    maintainers = with maintainers; [ftrvxmtrx];
   };
 }

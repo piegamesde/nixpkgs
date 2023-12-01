@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
     description = "Fcitx5 gtk im module and glib based dbus client library";
     homepage = "https://github.com/fcitx/fcitx5-gtk";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ poscat ];
+    maintainers = with maintainers; [poscat];
     platforms = platforms.linux;
   };
 }

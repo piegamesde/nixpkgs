@@ -1,10 +1,10 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "miriway";
 
     meta = {
-      maintainers = with lib.maintainers; [ OPNA2608 ];
+      maintainers = with lib.maintainers; [OPNA2608];
       # Natively running Mir has problems with capturing the first registered libinput device.
       # In our VM  runners on ARM and on some hardware configs (my RPi4, distro-independent), this misses the keyboard.
       # It can be worked around by dis- and reconnecting the affected hardware, but we can't do this in these tests.
@@ -13,7 +13,7 @@ import ./make-test-python.nix (
     };
 
     nodes.machine =
-      { config, ... }:
+      {config, ...}:
       {
         imports = [
           ./common/auto.nix
@@ -62,7 +62,7 @@ import ./make-test-python.nix (
           ];
 
           # To help with OCR
-          etc."xdg/foot/foot.ini".text = lib.generators.toINI { } {
+          etc."xdg/foot/foot.ini".text = lib.generators.toINI {} {
             main = {
               font = "inconsolata:size=16";
             };
@@ -72,7 +72,7 @@ import ./make-test-python.nix (
               regular2 = foreground;
             };
           };
-          etc."xdg/alacritty/alacritty.yml".text = lib.generators.toYAML { } {
+          etc."xdg/alacritty/alacritty.yml".text = lib.generators.toYAML {} {
             font = rec {
               normal.family = "Inconsolata";
               bold.family = normal.family;
@@ -92,13 +92,13 @@ import ./make-test-python.nix (
           };
         };
 
-        fonts.fonts = [ pkgs.inconsolata ];
+        fonts.fonts = [pkgs.inconsolata];
       };
 
     enableOCR = true;
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       ''
         start_all()
         machine.wait_for_unit("multi-user.target")

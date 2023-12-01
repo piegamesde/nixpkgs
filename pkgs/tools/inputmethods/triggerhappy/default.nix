@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     pkg-config
     perl
   ];
-  buildInputs = [ systemd ];
+  buildInputs = [systemd];
 
   makeFlags = [
     "PREFIX=$(out)"

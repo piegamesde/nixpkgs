@@ -28,6 +28,6 @@ buildGoModule rec {
     description = "A modern watch command";
     homepage = "https://github.com/sachaos/viddy";
     license = licenses.mit;
-    maintainers = with maintainers; [ j-hui ];
+    maintainers = with maintainers; [j-hui];
   };
 }

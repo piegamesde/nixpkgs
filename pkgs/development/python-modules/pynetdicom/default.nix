@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-/JWQUtFBW4uqCbs/nUxj1pRBfTCXV4wcqTkqvzpdFrM=";
   };
 
-  propagatedBuildInputs = [ pydicom ];
+  propagatedBuildInputs = [pydicom];
 
   nativeCheckInputs = [
     pyfakefs
@@ -65,13 +65,13 @@ buildPythonPackage rec {
       "pynetdicom/apps/tests/"
     ];
 
-  pythonImportsCheck = [ "pynetdicom" ];
+  pythonImportsCheck = ["pynetdicom"];
 
   meta = with lib; {
     description = "Python implementation of the DICOM networking protocol";
     homepage = "https://github.com/pydicom/pynetdicom";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
     # Tests are not passing on Darwin/Aarch64, thus it's assumed that it doesn't work
     broken = stdenv.isDarwin || stdenv.isAarch64;
   };

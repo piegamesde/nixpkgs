@@ -37,7 +37,7 @@ let
 
     # Requires OpenGL acceleration
     doCheck = false;
-    pythonImportsCheck = [ "imgui" ];
+    pythonImportsCheck = ["imgui"];
   };
   steamos-devkit-script = ''
     #!${python3.interpreter}
@@ -86,7 +86,7 @@ python3.pkgs.buildPythonPackage rec {
     six
   ];
 
-  nativeBuildInputs = [ copyDesktopItems ];
+  nativeBuildInputs = [copyDesktopItems];
 
   postUnpack = ''
     # Find the absolute source root to link correctly to the previous root
@@ -115,7 +115,7 @@ python3.pkgs.buildPythonPackage rec {
 
   # There are no checks for steamos-devkit
   doCheck = false;
-  pythonImportsCheck = [ "devkit_client" ];
+  pythonImportsCheck = ["devkit_client"];
 
   desktopItems = [
     (makeDesktopItem {
@@ -129,6 +129,6 @@ python3.pkgs.buildPythonPackage rec {
     description = "SteamOS Devkit Client";
     homepage = "https://gitlab.steamos.cloud/devkit/steamos-devkit";
     license = licenses.mit;
-    maintainers = with maintainers; [ myaats ];
+    maintainers = with maintainers; [myaats];
   };
 }

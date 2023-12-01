@@ -123,14 +123,14 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-    boot.blacklistedKernelModules = [ "ip_tables" ];
-    environment.systemPackages = [ pkgs.nftables ];
+    boot.blacklistedKernelModules = ["ip_tables"];
+    environment.systemPackages = [pkgs.nftables];
     networking.networkmanager.firewallBackend = mkDefault "nftables";
     systemd.services.nftables = {
       description = "nftables firewall";
-      before = [ "network-pre.target" ];
-      wants = [ "network-pre.target" ];
-      wantedBy = [ "multi-user.target" ];
+      before = ["network-pre.target"];
+      wants = ["network-pre.target"];
+      wantedBy = ["multi-user.target"];
       reloadIfChanged = true;
       serviceConfig =
         let

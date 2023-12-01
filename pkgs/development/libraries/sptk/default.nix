@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-t8XVdKrrewfqefUnEz5xHgRHF0NThNQD1KGPMLOO/o8=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   doCheck = true;
 
@@ -25,6 +25,6 @@ stdenv.mkDerivation rec {
     description = "Suite of speech signal processing tools";
     homepage = "https://github.com/sp-nitech/SPTK";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

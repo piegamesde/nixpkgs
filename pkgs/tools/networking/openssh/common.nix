@@ -3,10 +3,10 @@
   version,
   extraDesc ? "",
   src,
-  extraPatches ? [ ],
-  extraNativeBuildInputs ? [ ],
-  extraConfigureFlags ? [ ],
-  extraMeta ? { },
+  extraPatches ? [],
+  extraNativeBuildInputs ? [],
+  extraConfigureFlags ? [],
+  extraMeta ? {},
 }:
 
 {
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   nativeBuildInputs =
-    [ pkg-config ]
+    [pkg-config]
     # This is not the same as the libkrb5 from the inputs! pkgs.libkrb5 is
     # needed here to access krb5-config in order to cross compile. See:
     # https://github.com/NixOS/nixpkgs/pull/107606
@@ -100,17 +100,17 @@ stdenv.mkDerivation rec {
 
   ${if stdenv.hostPlatform.isStatic then "NIX_LDFLAGS" else null} = [
     "-laudit"
-  ] ++ lib.optionals withKerberos [ "-lkeyutils" ];
+  ] ++ lib.optionals withKerberos ["-lkeyutils"];
 
-  buildFlags = [ "SSH_KEYSIGN=ssh-keysign" ];
+  buildFlags = ["SSH_KEYSIGN=ssh-keysign"];
 
   enableParallelBuilding = true;
 
-  hardeningEnable = [ "pie" ];
+  hardeningEnable = ["pie"];
 
   doCheck = true;
   enableParallelChecking = false;
-  nativeCheckInputs = [ openssl ] ++ lib.optional (!stdenv.isDarwin) hostname;
+  nativeCheckInputs = [openssl] ++ lib.optional (!stdenv.isDarwin) hostname;
   preCheck = lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform) ''
     # construct a dummy HOME
     export HOME=$(realpath ../dummy-home)
@@ -174,8 +174,8 @@ stdenv.mkDerivation rec {
     cp contrib/ssh-copy-id.1 $out/share/man/man1/
   '';
 
-  installTargets = [ "install-nokeys" ];
-  installFlags = [ "sysconfdir=\${out}/etc/ssh" ];
+  installTargets = ["install-nokeys"];
+  installFlags = ["sysconfdir=\${out}/etc/ssh"];
 
   passthru.tests = {
     borgbackup-integration = nixosTests.borgbackup;
@@ -190,7 +190,7 @@ stdenv.mkDerivation rec {
       license = licenses.bsd2;
       platforms = platforms.unix ++ platforms.windows;
       maintainers =
-        (extraMeta.maintainers or [ ])
+        (extraMeta.maintainers or [])
         ++ (
           with maintainers; [
             eelco

@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/libvips/nip2";
     description = "Graphical user interface for VIPS image processing system";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ kovirobi ];
+    maintainers = with maintainers; [kovirobi];
     platforms = platforms.unix;
   };
 }

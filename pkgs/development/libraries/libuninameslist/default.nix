@@ -16,13 +16,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-YLlSe2++DpcptuAxLduTYAY2m9D8JSGDcvzijpAv1rU=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     homepage = "https://github.com/fontforge/libuninameslist/";
     description = "A Library of Unicode names and annotation data";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ erictapen ];
+    maintainers = with maintainers; [erictapen];
     platforms = platforms.all;
   };
 }

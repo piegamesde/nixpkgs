@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
   };
 
   desktopItem = makeDesktopItem {
-    categories = [ "Network" ];
+    categories = ["Network"];
     comment = "The SSH client that works on Desktop and Mobile";
     desktopName = "Termius";
     exec = "termius-app";
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = atomEnv.packages ++ [ libxshmfence ];
+  buildInputs = atomEnv.packages ++ [libxshmfence];
 
   unpackPhase = ''
     runHook preUnpack
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  runtimeDependencies = [ (lib.getLib udev) ];
+  runtimeDependencies = [(lib.getLib udev)];
 
   postFixup = ''
     makeWrapper $out/opt/termius/termius-app $out/bin/termius-app \
@@ -81,12 +81,12 @@ stdenv.mkDerivation rec {
     description = "A cross-platform SSH client with cloud data sync and more";
     homepage = "https://termius.com/";
     downloadPage = "https://termius.com/linux/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     maintainers = with maintainers; [
       Br1ght0ne
       th0rgal
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

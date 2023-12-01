@@ -30,7 +30,7 @@ buildPythonPackage rec {
     sed -i "/^timeout/d" pyproject.toml
   '';
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     jupyter-server-fileid
@@ -38,7 +38,7 @@ buildPythonPackage rec {
     ypy-websocket
   ];
 
-  pythonImportsCheck = [ "jupyter_server_ydoc" ];
+  pythonImportsCheck = ["jupyter_server_ydoc"];
 
   nativeCheckInputs = [
     pytest-jupyter
@@ -54,6 +54,6 @@ buildPythonPackage rec {
     description = "A Jupyter Server Extension Providing Y Documents";
     homepage = "https://github.com/jupyterlab/jupyter_collaboration";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

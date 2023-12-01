@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     echo -java-home ${jre.home} >>conf/sbtopts
   '';
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = lib.optionals stdenv.isLinux [autoPatchelfHook];
 
   buildInputs = lib.optionals stdenv.isLinux [
     stdenv.cc.cc # libstdc++.so.6
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       binaryNativeCode
     ];
     description = "A build tool for Scala, Java and more";
-    maintainers = with maintainers; [ nequissimus ];
+    maintainers = with maintainers; [nequissimus];
     platforms = platforms.unix;
   };
 }

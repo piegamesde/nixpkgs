@@ -34,11 +34,11 @@ let
       hash = "sha256-kY4QHrlj0opEBywe4SpwE4Ck6l6JIzEosx6uuXh+yCQ=";
     };
 
-    nativeBuildInputs = [ hatchling ];
+    nativeBuildInputs = [hatchling];
 
-    buildInputs = [ pytest ];
+    buildInputs = [pytest];
 
-    propagatedBuildInputs = [ jupyter-core ];
+    propagatedBuildInputs = [jupyter-core];
 
     passthru.optional-dependencies = rec {
       client = [
@@ -59,7 +59,7 @@ let
     ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
     passthru.tests = {
-      check = self.overridePythonAttrs (_: { doCheck = false; });
+      check = self.overridePythonAttrs (_: {doCheck = false;});
     };
 
     meta = with lib; {
@@ -67,7 +67,7 @@ let
       description = "pytest plugin for testing Jupyter core libraries and extensions";
       homepage = "https://github.com/jupyter-server/pytest-jupyter";
       license = licenses.bsd3;
-      maintainers = with maintainers; [ ];
+      maintainers = with maintainers; [];
     };
   };
 in

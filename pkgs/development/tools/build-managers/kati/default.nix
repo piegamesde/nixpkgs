@@ -15,7 +15,7 @@ stdenv.mkDerivation {
     sha256 = "0s5dfhgpcbx12b1fqmm8p0jpvrhgrnl9qywv1ksbwhw3pfp7j866";
   };
 
-  patches = [ ./version.patch ];
+  patches = [./version.patch];
 
   installPhase = ''
     install -D ckati $out/bin/ckati
@@ -26,6 +26,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/google/kati";
     platforms = platforms.all;
     license = licenses.asl20;
-    maintainers = with maintainers; [ danielfullmer ];
+    maintainers = with maintainers; [danielfullmer];
   };
 }

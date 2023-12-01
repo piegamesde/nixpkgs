@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "12f5zzyq2w56g95nni65hc0g5p7154033y2f3qmjvd016szn5qnn";
   };
 
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
   patches = [
     # Purity: don't look for library dependencies (of the form `-lfoo') in /lib
     # and /usr/lib. It's a stupid feature anyway. Likewise, when searching for
@@ -30,8 +30,8 @@ stdenv.mkDerivation rec {
     ./glibc-2.33-glob.patch
   ];
 
-  nativeBuildInputs = lib.optionals guileSupport [ pkg-config ];
-  buildInputs = lib.optionals guileSupport [ guile ];
+  nativeBuildInputs = lib.optionals guileSupport [pkg-config];
+  buildInputs = lib.optionals guileSupport [guile];
 
   configureFlags =
     lib.optional guileSupport "--with-guile"
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/make/";
 
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.vrthra ];
+    maintainers = [maintainers.vrthra];
     mainProgram = "make";
     platforms = platforms.all;
   };

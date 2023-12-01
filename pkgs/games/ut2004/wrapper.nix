@@ -30,7 +30,7 @@ let
         chmod +w "$i"
         patchelf \
           --set-interpreter $(cat ${stdenv.cc}/nix-support/dynamic-linker) \
-          --set-rpath "$out/System:${lib.makeLibraryPath [ libstdcxx5 ]}" \
+          --set-rpath "$out/System:${lib.makeLibraryPath [libstdcxx5]}" \
           "$i"
       done
     '';
@@ -41,11 +41,11 @@ let
     desktopName = "Unreal Tournament 2004";
     comment = "A first-person shooter video game developed by Epic Games and Digital Extreme";
     genericName = "First-person shooter";
-    categories = [ "Game" ];
+    categories = ["Game"];
     exec = "ut2004";
   };
 in
-runCommand "ut2004" { nativeBuildInputs = [ makeWrapper ]; } ''
+runCommand "ut2004" {nativeBuildInputs = [makeWrapper];} ''
   mkdir -p $out/bin
   for i in ${game}/System/*-bin; do
     name="$(basename "$i")"

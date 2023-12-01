@@ -39,13 +39,11 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs =
-    [ makeWrapper ]
-    ++ lib.optionals (python != null && lib.versionAtLeast python.version "3.10") [
-      python.pkgs.cython
-    ];
-  buildInputs = [ python ];
+    [makeWrapper]
+    ++ lib.optionals (python != null && lib.versionAtLeast python.version "3.10") [python.pkgs.cython];
+  buildInputs = [python];
 
-  configureFlags = lib.optionals (python == null) [ "--disable-python" ];
+  configureFlags = lib.optionals (python == null) ["--disable-python"];
 
   preBuild = lib.optionalString (python != null && lib.versionAtLeast python.version "3.10") ''
     rm wrappers/python/lhapdf.cpp
@@ -54,7 +52,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   passthru = {
-    pdf_sets = import ./pdf_sets.nix { inherit lib stdenv fetchurl; };
+    pdf_sets = import ./pdf_sets.nix {inherit lib stdenv fetchurl;};
   };
 
   postInstall = ''
@@ -66,6 +64,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2;
     homepage = "http://lhapdf.hepforge.org";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

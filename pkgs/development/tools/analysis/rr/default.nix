@@ -72,12 +72,12 @@ stdenv.mkDerivation rec {
     procps
     capnproto
   ];
-  cmakeFlags = [ "-Ddisable32bit=ON" ];
+  cmakeFlags = ["-Ddisable32bit=ON"];
 
   # we turn on additional warnings due to hardening
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   # FIXME
   #doCheck = true;
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
   # needs GDB to replay programs at runtime
   preFixup = ''
     wrapProgram "$out/bin/rr" \
-      --prefix PATH ":" "${lib.makeBinPath [ gdb ]}";
+      --prefix PATH ":" "${lib.makeBinPath [gdb]}";
   '';
 
   meta = {

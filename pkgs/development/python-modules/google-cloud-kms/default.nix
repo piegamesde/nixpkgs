@@ -38,7 +38,7 @@ buildPythonPackage rec {
   ];
 
   # Disable tests that need credentials
-  disabledTests = [ "test_list_global_key_rings" ];
+  disabledTests = ["test_list_global_key_rings"];
 
   pythonImportsCheck = [
     "google.cloud.kms"
@@ -50,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/python-kms";
     changelog = "https://github.com/googleapis/python-kms/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

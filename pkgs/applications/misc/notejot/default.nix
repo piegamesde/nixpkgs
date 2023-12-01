@@ -42,13 +42,13 @@ stdenv.mkDerivation rec {
     libgee
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://github.com/lainsce/notejot";
     description = "Stupidly-simple notes app";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.linux;
     mainProgram = "io.github.lainsce.Notejot";
   };

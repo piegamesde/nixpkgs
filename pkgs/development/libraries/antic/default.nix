@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     description = "An algebraic number theory library";
     homepage = "https://github.com/flintlib/antic";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ smasher164 ];
+    maintainers = with maintainers; [smasher164];
     platforms = platforms.unix;
   };
 }

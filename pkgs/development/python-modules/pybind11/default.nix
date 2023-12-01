@@ -43,9 +43,9 @@ buildPythonPackage rec {
     sed -i "/^timeout/d" pyproject.toml
   '';
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = lib.optionals (pythonOlder "3.9") [ libxcrypt ];
-  propagatedBuildInputs = [ setupHook ];
+  nativeBuildInputs = [cmake];
+  buildInputs = lib.optionals (pythonOlder "3.9") [libxcrypt];
+  propagatedBuildInputs = [setupHook];
 
   dontUseCmakeBuildDir = true;
 
@@ -59,7 +59,7 @@ buildPythonPackage rec {
   cmakeFlags = [
     "-DBoost_INCLUDE_DIR=${lib.getDev boost}/include"
     "-DEIGEN3_INCLUDE_DIR=${lib.getDev eigen}/include/eigen3"
-  ] ++ lib.optionals (python.isPy3k && !stdenv.cc.isClang) [ "-DPYBIND11_CXX_STANDARD=-std=c++17" ];
+  ] ++ lib.optionals (python.isPy3k && !stdenv.cc.isClang) ["-DPYBIND11_CXX_STANDARD=-std=c++17"];
 
   postBuild = ''
     # build tests

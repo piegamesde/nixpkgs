@@ -17,13 +17,13 @@ buildPythonPackage rec {
     hash = "sha256-5CkUax7dGYssqTSiBGplZWxdMbDsiUu9YFUSf03q/xc=";
   };
 
-  pythonImportsCheck = [ "sha3" ];
+  pythonImportsCheck = ["sha3"];
 
   meta = {
     changelog = "https://github.com/5afe/pysha3/releases/tag/v${version}";
     description = "SHA-3 (Keccak) for Python 3.9 - 3.11";
     homepage = "https://github.com/5afe/pysha3";
     license = lib.licenses.psfl;
-    maintainers = with lib.maintainers; [ wegank ];
+    maintainers = with lib.maintainers; [wegank];
   };
 }

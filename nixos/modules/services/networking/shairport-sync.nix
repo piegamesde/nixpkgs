@@ -83,13 +83,13 @@ in
         createHome = true;
         home = "/var/lib/shairport-sync";
         group = cfg.group;
-        extraGroups = [ "audio" ] ++ optional config.hardware.pulseaudio.enable "pulse";
+        extraGroups = ["audio"] ++ optional config.hardware.pulseaudio.enable "pulse";
       };
-      groups.${cfg.group} = { };
+      groups.${cfg.group} = {};
     };
 
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ 5000 ];
+      allowedTCPPorts = [5000];
       allowedUDPPortRanges = [
         {
           from = 6001;
@@ -104,7 +104,7 @@ in
         "network.target"
         "avahi-daemon.service"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
@@ -113,6 +113,6 @@ in
       };
     };
 
-    environment.systemPackages = [ pkgs.shairport-sync ];
+    environment.systemPackages = [pkgs.shairport-sync];
   };
 }

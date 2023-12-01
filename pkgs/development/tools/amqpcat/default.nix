@@ -22,18 +22,18 @@ crystal.buildCrystalPackage rec {
   format = "shards";
   shardsFile = ./shards.nix;
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   # Tests require network access
   doCheck = false;
 
-  passthru.tests.version = testers.testVersion { package = amqpcat; };
+  passthru.tests.version = testers.testVersion {package = amqpcat;};
 
   meta = with lib; {
     description = "A CLI tool for publishing to and consuming from AMQP servers";
     homepage = "https://github.com/cloudamqp/amqpcat";
     license = licenses.mit;
-    maintainers = with maintainers; [ aaronjheng ];
+    maintainers = with maintainers; [aaronjheng];
     broken = stdenv.isDarwin; # Linking errors. Hope someone can help fix it.
   };
 }

@@ -19,7 +19,7 @@ buildDunePackage rec {
     yojson
   ];
 
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   doCheck = true;
 

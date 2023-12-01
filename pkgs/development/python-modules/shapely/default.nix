@@ -29,11 +29,11 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [ geos ];
+  buildInputs = [geos];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     rm -r shapely # prevent import of local shapely
@@ -50,13 +50,13 @@ buildPythonPackage rec {
     "test_info_handler"
   ];
 
-  pythonImportsCheck = [ "shapely" ];
+  pythonImportsCheck = ["shapely"];
 
   meta = with lib; {
     changelog = "https://github.com/shapely/shapely/blob/${version}/CHANGES.txt";
     description = "Manipulation and analysis of geometric objects";
     homepage = "https://github.com/shapely/shapely";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ knedlsepp ];
+    maintainers = with maintainers; [knedlsepp];
   };
 }

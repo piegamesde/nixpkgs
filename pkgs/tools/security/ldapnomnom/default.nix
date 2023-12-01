@@ -22,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/lkarlslund/ldapnomnom";
     changelog = "https://github.com/lkarlslund/ldapnomnom/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

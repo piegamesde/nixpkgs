@@ -95,7 +95,7 @@ let
 
           vhosts = mkOption {
             type = types.nullOr (types.listOf types.str);
-            default = [ "localhost" ];
+            default = ["localhost"];
             description = lib.mdDoc "List of virtual hostnames from which to accept requests.";
             example = [
               "localhost"
@@ -168,7 +168,7 @@ let
         extraArgs = mkOption {
           type = types.listOf types.str;
           description = lib.mdDoc "Additional arguments passed to Go Ethereum.";
-          default = [ ];
+          default = [];
         };
 
         package = mkOption {
@@ -188,16 +188,16 @@ in
   options = {
     services.geth = mkOption {
       type = types.attrsOf (types.submodule gethOpts);
-      default = { };
+      default = {};
       description = lib.mdDoc "Specification of one or more geth instances.";
     };
   };
 
   ###### implementation
 
-  config = mkIf (eachGeth != { }) {
+  config = mkIf (eachGeth != {}) {
 
-    environment.systemPackages = flatten (mapAttrsToList (gethName: cfg: [ cfg.package ]) eachGeth);
+    environment.systemPackages = flatten (mapAttrsToList (gethName: cfg: [cfg.package]) eachGeth);
 
     systemd.services =
       mapAttrs'
@@ -210,8 +210,8 @@ in
           (nameValuePair "geth-${gethName}" (
             mkIf cfg.enable {
               description = "Go Ethereum node (${gethName})";
-              wantedBy = [ "multi-user.target" ];
-              after = [ "network.target" ];
+              wantedBy = ["multi-user.target"];
+              after = ["network.target"];
 
               serviceConfig = {
                 DynamicUser = true;

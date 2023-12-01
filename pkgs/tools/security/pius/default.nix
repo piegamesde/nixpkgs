@@ -27,7 +27,7 @@ python3Packages.buildPythonApplication {
     done
   '';
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   meta = {
     homepage = "https://www.phildev.net/pius/";
@@ -44,6 +44,6 @@ python3Packages.buildPythonApplication {
     license = lib.licenses.gpl2;
 
     platforms = lib.platforms.gnu ++ lib.platforms.linux;
-    maintainers = with lib.maintainers; [ kierdavis ];
+    maintainers = with lib.maintainers; [kierdavis];
   };
 }

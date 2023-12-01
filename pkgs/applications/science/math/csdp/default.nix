@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://projects.coin-or.org/Csdp";
     license = lib.licenses.cpl10;
-    maintainers = [ lib.maintainers.roconnor ];
+    maintainers = [lib.maintainers.roconnor];
     description = "A C Library for Semidefinite Programming";
     platforms = lib.platforms.unix;
   };

@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fix-warnings.patch";
       url = "https://github.com/arnholm/codeblocks_sfmirror/commit/56ac0396fad7a5b4bbb40bb8c4b5fe1755078aef.patch";
-      excludes = [ "src/src/environmentsettingsdlg.h" ];
+      excludes = ["src/src/environmentsettingsdlg.h"];
       hash = "sha256-tl4rF9iAf1TzCIbKhVFqcxvr1IiPdwqLYZg0SY5BJ7I=";
     })
     (fetchpatch {
@@ -145,7 +145,7 @@ stdenv.mkDerivation rec {
   preConfigure = "substituteInPlace ./configure --replace /usr/bin/file ${file}/bin/file";
   postConfigure = lib.optionalString stdenv.isLinux "substituteInPlace libtool --replace ldconfig ${stdenv.cc.libc.bin}/bin/ldconfig";
   configureFlags =
-    [ "--enable-pch=no" ]
+    ["--enable-pch=no"]
     ++ lib.optionals contribPlugins [
       (
         "--with-contrib-plugins" + lib.optionalString stdenv.isDarwin "=all,-FileManager,-NassiShneiderman"
@@ -157,7 +157,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    maintainers = [ maintainers.linquize ];
+    maintainers = [maintainers.linquize];
     platforms = platforms.all;
     description = "The open source, cross platform, free C, C++ and Fortran IDE";
     longDescription = ''

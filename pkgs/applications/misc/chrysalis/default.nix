@@ -20,7 +20,7 @@ appimageTools.wrapAppImage rec {
   };
 
   multiPkgs = null;
-  extraPkgs = p: (appimageTools.defaultFhsEnvArgs.multiPkgs p) ++ [ p.glib ];
+  extraPkgs = p: (appimageTools.defaultFhsEnvArgs.multiPkgs p) ++ [p.glib];
 
   # Also expose the udev rules here, so it can be used as:
   #   services.udev.packages = [ pkgs.chrysalis ];
@@ -39,7 +39,7 @@ appimageTools.wrapAppImage rec {
     description = "A graphical configurator for Kaleidoscope-powered keyboards";
     homepage = "https://github.com/keyboardio/Chrysalis";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ aw ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [aw];
+    platforms = ["x86_64-linux"];
   };
 }

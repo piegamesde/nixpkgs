@@ -31,6 +31,6 @@ buildDunePackage rec {
       isc
       lgpl21Only
     ]; # All the files indicate ISC, but there's an LGPL LICENSE file
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

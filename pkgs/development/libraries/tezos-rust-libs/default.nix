@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     llvmPackages_12.llvm
     cargo
   ];
-  propagatedBuildDeps = [ llvmPackages_12.libllvm ];
+  propagatedBuildDeps = [llvmPackages_12.libllvm];
 
   buildPhase = ''
     runHook preBuild

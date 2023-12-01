@@ -7,9 +7,9 @@
 
 symlinkJoin {
   name = "supercollider-with-plugins-${supercollider.version}";
-  paths = [ supercollider ] ++ plugins;
+  paths = [supercollider] ++ plugins;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     for exe in $out/bin/*; do

@@ -11,9 +11,9 @@
   checkinstall,
   fsTranslation ? false,
   # Features provided by this package.
-  debProvides ? [ ],
+  debProvides ? [],
   # Features required by this package.
-  debRequires ? [ ],
+  debRequires ? [],
   ...
 }@args:
 
@@ -98,7 +98,7 @@ vmTools.runInLinuxImage (
           eval "$postInstall"
         '';
 
-        meta = (if args ? meta then args.meta else { }) // {
+        meta = (if args ? meta then args.meta else {}) // {
           description = "Deb package for ${diskImage.fullName}";
         };
       }

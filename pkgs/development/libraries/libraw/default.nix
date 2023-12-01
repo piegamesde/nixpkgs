@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  propagatedBuildInputs = [ lcms2 ];
+  propagatedBuildInputs = [lcms2];
 
   nativeBuildInputs = [
     autoreconfHook

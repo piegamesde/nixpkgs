@@ -18,14 +18,14 @@
   wayland-scanner,
 }:
 let
-  source = import ./source.nix { inherit lib fetchFromGitHub wayland; };
+  source = import ./source.nix {inherit lib fetchFromGitHub wayland;};
 in
 stdenv.mkDerivation {
   pname = "xdg-desktop-portal-hyprland";
   inherit (source) src version meta;
 
   strictDeps = true;
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     makeWrapper
     meson
@@ -44,11 +44,11 @@ stdenv.mkDerivation {
     wayland-protocols
   ];
 
-  mesonFlags = [ "-Dsd-bus-provider=libsystemd" ];
+  mesonFlags = ["-Dsd-bus-provider=libsystemd"];
 
   postInstall = ''
     wrapProgram $out/libexec/xdg-desktop-portal-hyprland --prefix PATH ":" ${
-      lib.makeBinPath [ hyprland-share-picker ]
+      lib.makeBinPath [hyprland-share-picker]
     }
   '';
 }

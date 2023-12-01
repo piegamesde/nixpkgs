@@ -133,10 +133,10 @@ stdenv.mkDerivation (
       # to $lib as binutils does not build target libraries. Let's make our
       # life slightly simpler by installing everything into $out for
       # cross-binutils.
-      ++ lib.optionals (targetPlatform == hostPlatform) [ "lib" ];
+      ++ lib.optionals (targetPlatform == hostPlatform) ["lib"];
 
     strictDeps = true;
-    depsBuildBuild = [ buildPackages.stdenv.cc ];
+    depsBuildBuild = [buildPackages.stdenv.cc];
     # texinfo was removed here in https://github.com/NixOS/nixpkgs/pull/210132
     # to reduce rebuilds during stdenv bootstrap.  Please don't add it back without
     # checking the impact there first.
@@ -145,14 +145,14 @@ stdenv.mkDerivation (
         bison
         perl
       ]
-      ++ lib.optionals targetPlatform.isiOS [ autoreconfHook ]
+      ++ lib.optionals targetPlatform.isiOS [autoreconfHook]
       ++ lib.optionals buildPlatform.isDarwin [
         autoconf269
         automake
         gettext
         libtool
       ]
-      ++ lib.optionals targetPlatform.isVc4 [ flex ];
+      ++ lib.optionals targetPlatform.isVc4 [flex];
 
     buildInputs = [
       zlib
@@ -250,7 +250,7 @@ stdenv.mkDerivation (
         # path to force users to declare their use of these libraries.
         "--with-lib-path=:"
       ]
-      ++ lib.optionals withAllTargets [ "--enable-targets=all" ]
+      ++ lib.optionals withAllTargets ["--enable-targets=all"]
       ++ lib.optionals enableGold [
         "--enable-gold"
         "--enable-plugins"

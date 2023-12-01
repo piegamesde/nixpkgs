@@ -47,7 +47,7 @@ rec {
 
       # Additional JDK/JREs to be registered as toolchains.
       # See https://docs.gradle.org/current/userguide/toolchains.html
-      javaToolchains ? [ ],
+      javaToolchains ? [],
     }:
 
     stdenv.mkDerivation rec {
@@ -65,7 +65,7 @@ rec {
         makeWrapper
         unzip
       ];
-      buildInputs = [ java ];
+      buildInputs = [java];
 
       installPhase =
         with builtins;
@@ -77,7 +77,7 @@ rec {
             property = " -Porg.gradle.java.installations.fromEnv='${concatStringsSep "," varNames}'";
           };
           varDefs = concatStringsSep "\n" (
-            map (x: "  --set ${x} \\") ([ "JAVA_HOME ${java}" ] ++ toolchain.varDefs)
+            map (x: "  --set ${x} \\") (["JAVA_HOME ${java}"] ++ toolchain.varDefs)
           );
         in
         ''

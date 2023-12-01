@@ -13,7 +13,7 @@ mkDerivation {
     description = "KDE simple image scanning application";
     homepage = "https://apps.kde.org/skanlite";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ polendri ];
+    maintainers = with maintainers; [polendri];
   };
 
   nativeBuildInputs = [

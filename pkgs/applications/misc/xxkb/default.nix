@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     description = "A keyboard layout indicator and switcher";
     homepage = "http://xxkb.sourceforge.net/";
     license = licenses.artistic2;
-    maintainers = with maintainers; [ rasendubi ];
+    maintainers = with maintainers; [rasendubi];
     platforms = platforms.linux;
   };
 }

@@ -19,7 +19,7 @@ buildPythonPackage rec {
       --replace "msgpack<1.0.0" "msgpack"
   '';
 
-  propagatedBuildInputs = [ msgpack ];
+  propagatedBuildInputs = [msgpack];
 
   # Tests fail because absent in package
   doCheck = false;

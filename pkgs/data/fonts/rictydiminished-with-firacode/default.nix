@@ -51,6 +51,6 @@ stdenv.mkDerivation rec {
     description = "The best Japanese programming font meets the awesome ligatures of Firacode";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ mt-caret ];
+    maintainers = with maintainers; [mt-caret];
   };
 }

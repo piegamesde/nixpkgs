@@ -54,9 +54,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Command line internet speedtest tool by Ookla";
     homepage = "https://www.speedtest.net/apps/cli";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ kranzes ];
+    maintainers = with maintainers; [kranzes];
     platforms = lib.attrNames srcs;
   };
 }

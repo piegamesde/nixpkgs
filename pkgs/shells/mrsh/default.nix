@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
   ];
-  buildInputs = [ readline ];
+  buildInputs = [readline];
 
   doCheck = true;
 
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "A minimal POSIX shell";
     homepage = "https://mrsh.sh";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
     platforms = platforms.unix;
   };
 

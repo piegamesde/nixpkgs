@@ -18,15 +18,15 @@ buildPythonPackage rec {
   };
 
   doCheck = false;
-  pythonImportsCheck = [ "shared_secret_authenticator" ];
+  pythonImportsCheck = ["shared_secret_authenticator"];
 
-  buildInputs = [ matrix-synapse ];
-  propagatedBuildInputs = [ twisted ];
+  buildInputs = [matrix-synapse];
+  propagatedBuildInputs = [twisted];
 
   meta = with lib; {
     description = "Shared Secret Authenticator password provider module for Matrix Synapse";
     homepage = "https://github.com/devture/matrix-synapse-shared-secret-auth";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ sumnerevans ];
+    maintainers = with maintainers; [sumnerevans];
   };
 }

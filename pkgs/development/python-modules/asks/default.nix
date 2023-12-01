@@ -40,12 +40,12 @@ buildPythonPackage rec {
     trio
   ];
 
-  pythonImportsCheck = [ "asks" ];
+  pythonImportsCheck = ["asks"];
 
   meta = {
     description = "Async requests-like HTTP library for Python";
     homepage = "https://github.com/theelous3/asks";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

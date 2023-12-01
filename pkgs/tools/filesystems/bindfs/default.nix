@@ -16,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XyxQpwuNWMAluB+/Nk+tQy0VSTZjDOACPMiLqo1codA=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = if stdenv.isDarwin then [ fuse ] else [ fuse3 ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = if stdenv.isDarwin then [fuse] else [fuse3];
   postFixup = ''
     ln -s $out/bin/bindfs $out/bin/mount.fuse.bindfs
   '';

@@ -15,17 +15,17 @@ buildPythonPackage rec {
     hash = "sha256-AuER0dxqUKu47ta/McPkjtiwgw0eoqG3jGF2XCUT/dg=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   # tests are very targeted at individual linux distributions
   doCheck = false;
 
-  pythonImportsCheck = [ "distro" ];
+  pythonImportsCheck = ["distro"];
 
   meta = with lib; {
     homepage = "https://github.com/nir0s/distro";
     description = "Linux Distribution - a Linux OS platform information API.";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

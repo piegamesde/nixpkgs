@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-l7Wg+G795i4QFI94NHcPDnvJMYcfQONUkIJeyX2bZos=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libGLU
     ftgl

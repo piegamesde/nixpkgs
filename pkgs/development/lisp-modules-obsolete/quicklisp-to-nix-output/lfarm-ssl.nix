@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "lfarm-ssl";
   version = "lfarm-20150608-git";
@@ -29,7 +29,7 @@ rec {
 
   packageName = "lfarm-ssl";
 
-  asdFilesToKeep = [ "lfarm-ssl.asd" ];
+  asdFilesToKeep = ["lfarm-ssl.asd"];
   overrides = x: x;
 }
 /* (SYSTEM lfarm-ssl DESCRIPTION SSL support for lfarm SHA256

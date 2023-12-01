@@ -29,7 +29,7 @@ stdenv.mkDerivation (
         m4. This means that ACR is faster, smaller and easy to use.
       '';
       license = lib.licenses.gpl2Plus;
-      maintainers = with lib.maintainers; [ AndersonTorres ];
+      maintainers = with lib.maintainers; [AndersonTorres];
       platforms = lib.platforms.all;
     };
   }

@@ -26,7 +26,7 @@
   wrapQtAppsHook,
 }:
 let
-  source = import ./source.nix { inherit fetchFromGitHub; };
+  source = import ./source.nix {inherit fetchFromGitHub;};
 in
 stdenv.mkDerivation rec {
   inherit (source) src;
@@ -78,6 +78,6 @@ stdenv.mkDerivation rec {
     description = "Full-featured 2D animation creation software";
     homepage = "https://opentoonz.github.io/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ chkno ];
+    maintainers = with lib.maintainers; [chkno];
   };
 }

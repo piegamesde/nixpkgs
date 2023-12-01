@@ -72,7 +72,7 @@ buildPythonPackage rec {
       })
     ];
 
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  nativeBuildInputs = [pythonRelaxDepsHook];
 
   # setuptools is necessary since pkg_resources is required at runtime.
   propagatedBuildInputs = [
@@ -127,7 +127,7 @@ buildPythonPackage rec {
     export BOKEH_CDN_VERSION=${bokeh.version}
   '';
 
-  pythonRelaxDeps = [ "protobuf" ];
+  pythonRelaxDeps = ["protobuf"];
 
   disabledTestPaths = [
     # Tests that try to get chatty over sockets or spin up servers, not possible in the nix build environment.
@@ -247,15 +247,15 @@ buildPythonPackage rec {
 
   # Disable test that fails on darwin due to issue with python3Packages.psutil:
   # https://github.com/giampaolo/psutil/issues/1219
-  disabledTests = lib.optionals stdenv.isDarwin [ "test_tpu_system_stats" ];
+  disabledTests = lib.optionals stdenv.isDarwin ["test_tpu_system_stats"];
 
-  pythonImportsCheck = [ "wandb" ];
+  pythonImportsCheck = ["wandb"];
 
   meta = with lib; {
     description = "A CLI and library for interacting with the Weights and Biases API";
     homepage = "https://github.com/wandb/wandb";
     changelog = "https://github.com/wandb/wandb/raw/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

@@ -51,7 +51,7 @@ buildGoModule rec {
     CoreGraphics
     MediaToolbox
   ];
-  tags = [ "production" ];
+  tags = ["production"];
   ldflags = [
     "-s"
     "-w"

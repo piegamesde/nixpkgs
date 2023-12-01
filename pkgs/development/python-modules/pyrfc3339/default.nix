@@ -15,8 +15,8 @@ buildPythonPackage rec {
     sha256 = "06jv7ar7lpvvk0dixzwdr3wgm0g1lipxs429s2z7knwwa7hwpf41";
   };
 
-  propagatedBuildInputs = [ pytz ];
-  buildInputs = [ nose ];
+  propagatedBuildInputs = [pytz];
+  buildInputs = [nose];
 
   meta = with lib; {
     description = "Generate and parse RFC 3339 timestamps";

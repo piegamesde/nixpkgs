@@ -1,12 +1,12 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../../.. {inherit system config;},
   lib ? pkgs.lib,
 }:
 
 let
-  inherit (import ./common.nix { inherit pkgs lib; }) mkTestName mariadbPackages;
+  inherit (import ./common.nix {inherit pkgs lib;}) mkTestName mariadbPackages;
 
   makeTest = import ./../make-test-python.nix;
 
@@ -17,11 +17,11 @@ let
     }:
     makeTest {
       name = "${name}-backup";
-      meta = with pkgs.lib.maintainers; { maintainers = [ rvl ]; };
+      meta = with pkgs.lib.maintainers; {maintainers = [rvl];};
 
       nodes = {
         master =
-          { pkgs, ... }:
+          {pkgs, ...}:
           {
             services.mysql = {
               inherit package;
@@ -78,4 +78,4 @@ let
       '';
     };
 in
-lib.mapAttrs (_: package: makeBackupTest { inherit package; }) mariadbPackages
+lib.mapAttrs (_: package: makeBackupTest {inherit package;}) mariadbPackages

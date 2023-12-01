@@ -29,7 +29,7 @@ let
       version = builtins.toString version;
       src = fetchzip {
         url = "https://extensions.gnome.org/extension-data/${
-          builtins.replaceStrings [ "@" ] [ "" ] uuid
+          builtins.replaceStrings ["@"] [""] uuid
         }.v${builtins.toString version}.shell-extension.zip";
         inherit sha256;
         stripRoot = false;
@@ -54,7 +54,7 @@ let
         longDescription = description;
         homepage = link;
         license = lib.licenses.gpl2Plus; # https://wiki.gnome.org/Projects/GnomeShell/Extensions/Review#Licensing
-        maintainers = with lib.maintainers; [ piegames ];
+        maintainers = with lib.maintainers; [piegames];
       };
       passthru = {
         extensionPortalSlug = pname;

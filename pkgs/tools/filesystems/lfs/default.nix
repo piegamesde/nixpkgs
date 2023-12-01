@@ -21,6 +21,6 @@ rustPlatform.buildRustPackage rec {
     description = "Get information on your mounted disks";
     homepage = "https://github.com/Canop/lfs";
     license = licenses.mit;
-    maintainers = with maintainers; [ koral ];
+    maintainers = with maintainers; [koral];
   };
 }

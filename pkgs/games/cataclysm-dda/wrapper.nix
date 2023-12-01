@@ -18,9 +18,9 @@ else
   symlinkJoin {
     name = unwrapped.name + "-with-mods";
 
-    paths = [ unwrapped ] ++ mods;
+    paths = [unwrapped] ++ mods;
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     postBuild = ''
       if [ -x $out/bin/cataclysm ]; then

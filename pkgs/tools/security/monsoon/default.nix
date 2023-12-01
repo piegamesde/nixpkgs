@@ -29,6 +29,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/RedTeamPentesting/monsoon";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

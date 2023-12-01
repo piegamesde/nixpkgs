@@ -20,7 +20,7 @@ let
       }
       + "/v2";
 
-    subPackages = [ "packr2" ];
+    subPackages = ["packr2"];
 
     vendorSha256 = "12yq121b0bn8z12091fyqhhz421kgx4z1nskrkvbxlhyc47bwyrp";
 
@@ -30,7 +30,7 @@ let
       description = "The simple and easy way to embed static files into Go binaries";
       homepage = "https://github.com/gobuffalo/packr";
       license = licenses.mit;
-      maintainers = with maintainers; [ mmahut ];
+      maintainers = with maintainers; [mmahut];
 
       # golang.org/x/sys needs to be updated due to:
       #
@@ -52,7 +52,7 @@ let
       sha256 = "1x78yq2yg0r82h7a67078llni85gk9nbd2ismlbqgppap7fcpyai";
     };
 
-    subPackages = [ "packr" ];
+    subPackages = ["packr"];
 
     vendorSha256 = "0m3yj8ww4a16j56p8d8w0sdnyx0g2bkd8zg0l4d8vb72mvg5asga";
 
@@ -62,7 +62,7 @@ let
       description = "The simple and easy way to embed static files into Go binaries";
       homepage = "https://github.com/gobuffalo/packr";
       license = licenses.mit;
-      maintainers = with maintainers; [ mmahut ];
+      maintainers = with maintainers; [mmahut];
 
       # golang.org/x/sys needs to be updated due to:
       #

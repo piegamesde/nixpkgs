@@ -39,9 +39,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = unstableGitUpdater {
-      url = "https://github.com/elementary/file-roller-contract.git";
-    };
+    updateScript = unstableGitUpdater {url = "https://github.com/elementary/file-roller-contract.git";};
   };
 
   meta = with lib; {

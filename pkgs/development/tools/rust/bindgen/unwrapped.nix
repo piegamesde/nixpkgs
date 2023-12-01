@@ -9,7 +9,7 @@
 }:
 let
   # bindgen hardcodes rustfmt outputs that use nightly features
-  rustfmt-nightly = rustfmt.override { asNightly = true; };
+  rustfmt-nightly = rustfmt.override {asNightly = true;};
 in
 rustPlatform.buildRustPackage rec {
   pname = "rust-bindgen-unwrapped";
@@ -23,14 +23,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "Kz6Y+4F9Yu5oKYI9LgZKLh0AkQTwerPS4A758TZrkoc=";
 
-  buildInputs = [ clang.cc.lib ];
+  buildInputs = [clang.cc.lib];
 
   preConfigure = ''
     export LIBCLANG_PATH="${clang.cc.lib}/lib"
   '';
 
   doCheck = true;
-  nativeCheckInputs = [ clang ];
+  nativeCheckInputs = [clang];
 
   RUSTFMT = "${rustfmt-nightly}/bin/rustfmt";
 
@@ -50,7 +50,7 @@ rustPlatform.buildRustPackage rec {
       rust ffi declarations.
     '';
     homepage = "https://github.com/rust-lang/rust-bindgen";
-    license = with licenses; [ bsd3 ];
+    license = with licenses; [bsd3];
     maintainers = with maintainers; [
       johntitor
       ralith

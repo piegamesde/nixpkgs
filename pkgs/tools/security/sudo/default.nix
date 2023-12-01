@@ -60,9 +60,9 @@ stdenv.mkDerivation rec {
     installFlags="sudoers_uid=$(id -u) sudoers_gid=$(id -g) sysconfdir=$out/etc rundir=$TMPDIR/dummy vardir=$TMPDIR/dummy DESTDIR=/"
   '';
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ groff ];
-  buildInputs = [ pam ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
+  nativeBuildInputs = [groff];
+  buildInputs = [pam];
 
   enableParallelBuilding = true;
 

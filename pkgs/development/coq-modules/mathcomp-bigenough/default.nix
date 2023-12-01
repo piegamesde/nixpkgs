@@ -35,7 +35,7 @@ mkCoqDerivation {
       ]
       null;
 
-  propagatedBuildInputs = [ mathcomp.ssreflect ];
+  propagatedBuildInputs = [mathcomp.ssreflect];
 
   meta = {
     description = "A small library to do epsilon - N reasonning";

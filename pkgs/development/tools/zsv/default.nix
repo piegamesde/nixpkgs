@@ -17,17 +17,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-P4xgWmNPBmuB87jsQvoyuRFCYkD4n/mTd04ZPfaf5ZE=";
   };
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
-  buildInputs = [ jq ];
+  buildInputs = [jq];
 
-  configureFlags = [ "--jq-prefix=${jq.lib}" ];
+  configureFlags = ["--jq-prefix=${jq.lib}"];
 
   meta = with lib; {
     description = "World's fastest (simd) CSV parser, with an extensible CLI";
     homepage = "https://github.com/liquidaty/zsv";
     license = licenses.mit;
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [marsam];
     platforms = platforms.all;
   };
 }

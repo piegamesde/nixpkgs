@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
   ];
 
   enableParallelBuilding = true;
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   strictDeps = true;
 
@@ -109,8 +109,8 @@ stdenv.mkDerivation rec {
       vte
       gtk2
     ]
-    ++ lib.optionals rubyBindings [ ruby ]
-    ++ lib.optionals luaBindings [ lua ];
+    ++ lib.optionals rubyBindings [ruby]
+    ++ lib.optionals luaBindings [lua];
 
   propagatedBuildInputs = [
     # radare2 exposes r_lib which depends on these libraries

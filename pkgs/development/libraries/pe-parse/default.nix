@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   doInstallCheck = true;
   installCheckPhase = ''
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "A principled, lightweight parser for Windows portable executable files";
     homepage = "https://github.com/trailofbits/pe-parse";
     license = licenses.mit;
-    maintainers = with maintainers; [ arturcygan ];
+    maintainers = with maintainers; [arturcygan];
     mainProgram = "dump-pe";
     platforms = platforms.unix;
   };

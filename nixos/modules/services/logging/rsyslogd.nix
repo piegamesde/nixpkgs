@@ -71,8 +71,8 @@ in
 
       extraParams = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "-m 0" ];
+        default = [];
+        example = ["-m 0"];
         description = lib.mdDoc ''
           Additional parameters passed to {command}`rsyslogd`.
         '';
@@ -84,14 +84,14 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ pkgs.rsyslog ];
+    environment.systemPackages = [pkgs.rsyslog];
 
     systemd.services.syslog = {
       description = "Syslog Daemon";
 
-      requires = [ "syslog.socket" ];
+      requires = ["syslog.socket"];
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = "${pkgs.rsyslog}/sbin/rsyslogd ${toString cfg.extraParams} -f ${syslogConf} -n";

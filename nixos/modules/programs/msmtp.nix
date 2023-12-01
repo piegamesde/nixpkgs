@@ -11,7 +11,7 @@ let
   cfg = config.programs.msmtp;
 in
 {
-  meta.maintainers = with maintainers; [ pacien ];
+  meta.maintainers = with maintainers; [pacien];
 
   options = {
     programs.msmtp = {
@@ -27,7 +27,7 @@ in
 
       defaults = mkOption {
         type = types.attrs;
-        default = { };
+        default = {};
         example = {
           aliases = "/etc/aliases";
           port = 587;
@@ -41,7 +41,7 @@ in
 
       accounts = mkOption {
         type = with types; attrsOf attrs;
-        default = { };
+        default = {};
         example = {
           "default" = {
             host = "smtp.example";
@@ -76,7 +76,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.msmtp ];
+    environment.systemPackages = [pkgs.msmtp];
 
     services.mail.sendmailSetuidWrapper = mkIf cfg.setSendmail {
       program = "sendmail";
@@ -96,7 +96,7 @@ in
           else if v == false then
             "off"
           else
-            generators.mkValueStringDefault { } v;
+            generators.mkValueStringDefault {} v;
         mkKeyValueString = k: v: "${k} ${mkValueString v}";
         mkInnerSectionString = attrs: concatStringsSep "\n" (mapAttrsToList mkKeyValueString attrs);
         mkAccountString = name: attrs: ''

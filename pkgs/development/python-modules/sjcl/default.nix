@@ -22,16 +22,16 @@ buildPythonPackage rec {
     sha256 = "1v8rc55v28v8cl7nxcavj34am005wi63zcvwnbc6pyfbv4ss30ab";
   };
 
-  propagatedBuildInputs = [ pycryptodome ];
+  propagatedBuildInputs = [pycryptodome];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "sjcl" ];
+  pythonImportsCheck = ["sjcl"];
 
   meta = with lib; {
     description = ''Decrypt and encrypt messages compatible to the "Stanford Javascript Crypto Library (SJCL)" message format. This is a wrapper around pycrypto.'';
     homepage = "https://github.com/berlincode/sjcl";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ binsky ];
+    maintainers = with maintainers; [binsky];
   };
 }

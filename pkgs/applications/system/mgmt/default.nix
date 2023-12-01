@@ -54,7 +54,7 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   vendorHash = "sha256-Dtqy4TILN+7JXiHKHDdjzRTsT8jZYG5sPudxhd8znXY=";
 
@@ -62,6 +62,6 @@ buildGoModule rec {
     description = "Next generation distributed, event-driven, parallel config management!";
     homepage = "https://mgmtconfig.com";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
   };
 }

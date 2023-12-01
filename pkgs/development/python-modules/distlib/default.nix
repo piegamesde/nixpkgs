@@ -16,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-FLrS2bBNOjYSesl/MLEqGSaPIRBj2PjuT0cQiJbhG0Y=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   postFixup = lib.optionalString (!stdenv.targetPlatform.isWindows) ''
     find $out -name '*.exe' -delete
@@ -40,6 +40,6 @@ buildPythonPackage rec {
     description = "Low-level components of distutils2/packaging";
     homepage = "https://distlib.readthedocs.io";
     license = licenses.psfl;
-    maintainers = with maintainers; [ lnl7 ];
+    maintainers = with maintainers; [lnl7];
   };
 }

@@ -21,7 +21,7 @@ mkDerivation {
   meta = with lib; {
     homepage = "https://community.kde.org/KTp/Setting_up_KAccounts";
     description = "Online account providers";
-    maintainers = with maintainers; [ kennyballou ];
+    maintainers = with maintainers; [kennyballou];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

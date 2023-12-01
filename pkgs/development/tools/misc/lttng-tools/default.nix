@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jZTclbYIz3AhawEgOj+CQrl6Iy2y4jQhovQ3CNoI8zc=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     popt
     libuuid
@@ -40,6 +40,6 @@ stdenv.mkDerivation rec {
       gpl2Only
     ];
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

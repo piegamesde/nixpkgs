@@ -27,13 +27,13 @@ stdenv.mkDerivation (
       export mandir=/share/man
     '';
 
-    passthru.updateScript = unstableGitUpdater { };
+    passthru.updateScript = unstableGitUpdater {};
 
     meta = with lib; {
       description = "EDID decoder and conformance tester";
       homepage = "https://git.linuxtv.org/edid-decode.git";
-      license = with licenses; [ mit ];
-      maintainers = with maintainers; [ Madouura ];
+      license = with licenses; [mit];
+      maintainers = with maintainers; [Madouura];
       platforms = platforms.all;
     };
   }

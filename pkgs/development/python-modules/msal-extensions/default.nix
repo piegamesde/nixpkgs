@@ -22,7 +22,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     msal
     portalocker
-  ] ++ lib.optionals isPy27 [ pathlib2 ];
+  ] ++ lib.optionals isPy27 [pathlib2];
 
   # upstream doesn't update this requirement probably because they use pip
   postPatch = ''
@@ -37,6 +37,6 @@ buildPythonPackage rec {
     description = "The Microsoft Authentication Library Extensions (MSAL-Extensions) for Python";
     homepage = "https://github.com/AzureAD/microsoft-authentication-extensions-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

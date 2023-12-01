@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/QuoSecGmbH/grap/";
     license = licenses.mit;
-    maintainers = [ maintainers.s1341 ];
+    maintainers = [maintainers.s1341];
     platforms = platforms.linux;
   };
 }

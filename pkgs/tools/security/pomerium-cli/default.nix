@@ -25,7 +25,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-eATNBUQNspDdksF06VHIzwzEJfaFBlJt9OtONxH49s4=";
 
-  subPackages = [ "cmd/pomerium-cli" ];
+  subPackages = ["cmd/pomerium-cli"];
 
   ldflags =
     let
@@ -49,7 +49,7 @@ buildGoModule rec {
           setVars
       );
     in
-    [ "${varFlags}" ];
+    ["${varFlags}"];
 
   installPhase = ''
     runHook preInstall
@@ -63,7 +63,7 @@ buildGoModule rec {
     homepage = "https://pomerium.io";
     description = "Client-side helper for Pomerium authenticating reverse proxy";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lukegb ];
+    maintainers = with maintainers; [lukegb];
     platforms = platforms.unix;
   };
 }

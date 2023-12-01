@@ -28,8 +28,8 @@ stdenv.mkDerivation rec {
     zlib
     libtirpc
   ];
-  env.NIX_CFLAGS_COMPILE = toString [ "-I${libtirpc.dev}/include/tirpc" ];
-  NIX_LDFLAGS = [ "-ltirpc" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-I${libtirpc.dev}/include/tirpc"];
+  NIX_LDFLAGS = ["-ltirpc"];
 
   patches =
     [
@@ -58,6 +58,6 @@ stdenv.mkDerivation rec {
     homepage = "https://dbench.samba.org/";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

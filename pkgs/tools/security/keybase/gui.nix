@@ -135,7 +135,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.keybase.io/";
     description = "The Keybase official GUI";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     maintainers = with maintainers; [
       avaq
       rvolosatovs
@@ -144,7 +144,7 @@ stdenv.mkDerivation rec {
       Br1ght0ne
       shofius
     ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.bsd3;
   };
 }

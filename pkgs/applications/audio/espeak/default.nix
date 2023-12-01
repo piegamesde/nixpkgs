@@ -15,10 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "0n86gwh9pw0jqqpdz7mxggllfr8k0r7pc67ayy7w5z6z79kig6mz";
   };
 
-  nativeBuildInputs = [ unzip ];
-  buildInputs = [ portaudio ];
+  nativeBuildInputs = [unzip];
+  buildInputs = [portaudio];
 
-  patches = [ ./gcc6.patch ];
+  patches = [./gcc6.patch];
 
   prePatch =
     ''

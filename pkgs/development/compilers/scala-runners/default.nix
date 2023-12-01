@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
     description = "An alternative implementation of the Scala distribution's runners";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ hrhino ];
+    maintainers = with maintainers; [hrhino];
   };
 }

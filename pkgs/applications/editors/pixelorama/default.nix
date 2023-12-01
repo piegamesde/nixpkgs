@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-RFE7K8NMl0COzFEhUqWhhYd5MGBsCDJf0T5daPu/4DI=";
   };
 
-  nativeBuildInputs = [ godot-headless ];
+  nativeBuildInputs = [godot-headless];
 
   buildPhase = ''
     runHook preBuild
@@ -61,6 +61,6 @@ stdenv.mkDerivation rec {
       "i686-linux"
       "x86_64-linux"
     ];
-    maintainers = with maintainers; [ felschr ];
+    maintainers = with maintainers; [felschr];
   };
 }

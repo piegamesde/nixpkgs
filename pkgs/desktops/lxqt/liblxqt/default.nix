@@ -41,7 +41,7 @@ mkDerivation rec {
   ];
 
   # convert name of wrapped binary, e.g. .lxqt-whatever-wrapped to the original name, e.g. lxqt-whatever so binaries can find their resources
-  patches = [ ./fix-application-path.patch ];
+  patches = [./fix-application-path.patch];
 
   postPatch = ''
     # https://github.com/NixOS/nixpkgs/issues/119766
@@ -51,7 +51,7 @@ mkDerivation rec {
     sed -i "s|\''${POLKITQT-1_POLICY_FILES_INSTALL_DIR}|''${out}/share/polkit-1/actions|" CMakeLists.txt
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Core utility library for all LXQt components";

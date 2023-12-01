@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     "LINK=${stdenv.cc.targetPrefix}cc"
     "CFLAGS=-O2"
   ];
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   installPhase = ''
     mkdir -p $out/include/dlx $out/share/dlx/{examples,doc} $out/bin

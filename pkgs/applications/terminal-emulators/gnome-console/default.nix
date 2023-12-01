@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-console"; };
+    updateScript = gnome.updateScript {packageName = "gnome-console";};
   };
 
   passthru.tests.test = nixosTests.terminal-emulators.kgx;
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     description = "Simple user-friendly terminal emulator for the GNOME desktop";
     homepage = "https://gitlab.gnome.org/GNOME/console";
     license = licenses.gpl3Plus;
-    maintainers = teams.gnome.members ++ (with maintainers; [ zhaofengli ]);
+    maintainers = teams.gnome.members ++ (with maintainers; [zhaofengli]);
     platforms = platforms.unix;
   };
 }

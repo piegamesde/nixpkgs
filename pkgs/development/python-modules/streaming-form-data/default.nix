@@ -21,9 +21,9 @@ buildPythonPackage rec {
     sha256 = "1wnak8gwkc42ihgf0g9r7r858hxbqav2xdgqa8azid8v2ff6iq4d";
   };
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
-  propagatedBuildInputs = [ requests-toolbelt ];
+  propagatedBuildInputs = [requests-toolbelt];
 
   nativeCheckInputs = [
     numpy
@@ -34,12 +34,12 @@ buildPythonPackage rec {
     make test
   '';
 
-  pythonImportsCheck = [ "streaming_form_data" ];
+  pythonImportsCheck = ["streaming_form_data"];
 
   meta = with lib; {
     description = "Streaming parser for multipart/form-data";
     homepage = "https://github.com/siddhantgoel/streaming-form-data";
     license = licenses.mit;
-    maintainers = with maintainers; [ zhaofengli ];
+    maintainers = with maintainers; [zhaofengli];
   };
 }

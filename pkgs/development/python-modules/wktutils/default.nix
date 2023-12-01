@@ -54,12 +54,12 @@ buildPythonPackage rec {
   # Module doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [ "WKTUtils" ];
+  pythonImportsCheck = ["WKTUtils"];
 
   meta = with lib; {
     description = "Collection of tools for handling WKTs";
     homepage = "https://github.com/asfadmin/Discovery-WKTUtils";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

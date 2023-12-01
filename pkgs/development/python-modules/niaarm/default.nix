@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-5XOE3c7amvhw1KrX1hcmTxneYNvAuiHz+OZLb/yhB+I=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     niapy
@@ -38,15 +38,15 @@ buildPythonPackage rec {
       "test_text_mining"
     ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "niaarm" ];
+  pythonImportsCheck = ["niaarm"];
 
   meta = with lib; {
     description = "A minimalistic framework for Numerical Association Rule Mining";
     homepage = "https://github.com/firefly-cpp/NiaARM";
     changelog = "https://github.com/firefly-cpp/NiaARM/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ firefly-cpp ];
+    maintainers = with maintainers; [firefly-cpp];
   };
 }

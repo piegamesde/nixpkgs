@@ -21,6 +21,6 @@ buildGoModule {
     description = "An interactive Vim-like console client for MPD";
     homepage = "https://ambientsound.github.io/pms/";
     license = licenses.mit;
-    maintainers = with maintainers; [ deejayem ];
+    maintainers = with maintainers; [deejayem];
   };
 }

@@ -32,7 +32,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-ZsXPA4KyKbc/bwkidyHNDg62mE8KlE+yIssOBZLmHVg=";
 
-  nativeBuildInputs = [ nodejs_18 ];
+  nativeBuildInputs = [nodejs_18];
 
   postPatch = ''
     # Since we're using node2nix packages, the NODE_INSTALL hook isn't needed in the makefile
@@ -81,6 +81,6 @@ buildGoModule rec {
     description = "Alert dashboard for Prometheus Alertmanager";
     homepage = "https://karma-dashboard.io/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nukaduka ];
+    maintainers = with maintainers; [nukaduka];
   };
 }

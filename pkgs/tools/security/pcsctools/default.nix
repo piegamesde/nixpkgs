@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/scriptor \
-      --set PERL5LIB "${with perlPackages; makePerlPath [ pcscperl ]}"
+      --set PERL5LIB "${with perlPackages; makePerlPath [pcscperl]}"
     wrapProgram $out/bin/gscriptor \
       --set PERL5LIB "${
         with perlPackages;
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
         ]
       }"
     wrapProgram $out/bin/ATR_analysis \
-      --set PERL5LIB "${with perlPackages; makePerlPath [ pcscperl ]}"
+      --set PERL5LIB "${with perlPackages; makePerlPath [pcscperl]}"
     wrapProgram $out/bin/pcsc_scan \
       --prefix PATH : "$out/bin:${
         lib.makeBinPath [
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
     description = "Tools used to test a PC/SC driver, card or reader";
     homepage = "https://pcsc-tools.apdu.fr/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.linux;
   };
 }

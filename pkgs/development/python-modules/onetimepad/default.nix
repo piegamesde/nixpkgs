@@ -18,12 +18,12 @@ buildPythonPackage rec {
   # upstream has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "onetimepad" ];
+  pythonImportsCheck = ["onetimepad"];
 
   meta = {
     description = "A hacky implementation of one-time pad";
     homepage = "https://jailuthra.in/onetimepad";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

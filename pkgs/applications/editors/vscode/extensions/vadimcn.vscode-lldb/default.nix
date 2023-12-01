@@ -33,7 +33,7 @@ let
   };
 
   # need to build a custom version of lldb and llvm for enhanced rust support
-  lldb = (import ./lldb.nix { inherit fetchFromGitHub runCommand llvmPackages; });
+  lldb = (import ./lldb.nix {inherit fetchFromGitHub runCommand llvmPackages;});
 
   adapter = rustPlatform.buildRustPackage {
     pname = "${pname}-adapter";
@@ -41,11 +41,11 @@ let
 
     cargoSha256 = "sha256-Lpo2jaDMaZGwSrpQBvBCscVbWi2Db1Cx1Tv84v1H4Es=";
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     buildAndTestSubdir = "adapter";
 
-    buildFeatures = [ "weak-linkage" ];
+    buildFeatures = ["weak-linkage"];
 
     cargoBuildFlags = [
       "--lib"
@@ -64,8 +64,8 @@ let
       (
         old: {
           inherit src version;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ libsecret ];
+          nativeBuildInputs = [pkg-config];
+          buildInputs = [libsecret];
           dontNpmInstall = true;
         }
       )
@@ -90,7 +90,7 @@ stdenv.mkDerivation {
     makeWrapper
   ];
 
-  patches = [ ./cmake-build-extension-only.patch ];
+  patches = [./cmake-build-extension-only.patch];
 
   postConfigure = ''
     cp -r ${nodeDeps}/lib/{node_modules,package-lock.json} .
@@ -101,7 +101,7 @@ stdenv.mkDerivation {
       # Do not append timestamp to version.
       "-DVERSION_SUFFIX="
     ];
-  makeFlags = [ "vsix_bootstrap" ];
+  makeFlags = ["vsix_bootstrap"];
 
   installPhase = ''
     ext=$out/$installPrefix
@@ -137,8 +137,8 @@ stdenv.mkDerivation {
   meta = {
     description = "A native debugger extension for VSCode based on LLDB";
     homepage = "https://github.com/vadimcn/vscode-lldb";
-    license = [ lib.licenses.mit ];
-    maintainers = [ lib.maintainers.nigelgbanks ];
+    license = [lib.licenses.mit];
+    maintainers = [lib.maintainers.nigelgbanks];
     platforms = lib.platforms.all;
   };
 }

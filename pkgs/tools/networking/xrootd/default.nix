@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  passthru.tests = lib.optionalAttrs enableTests { test-runner = callPackage ./test-runner.nix { }; };
+  passthru.tests = lib.optionalAttrs enableTests {test-runner = callPackage ./test-runner.nix {};};
 
   nativeBuildInputs = [
     cmake
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
       systemd
       voms
     ]
-    ++ lib.optionals enableTests [ cppunit ];
+    ++ lib.optionals enableTests [cppunit];
 
   preConfigure = ''
     patchShebangs genversion.sh
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
       install -m 644 -t "$out/lib/systemd/system" ../packaging/common/*.service ../packaging/common/*.socket
     '';
 
-  cmakeFlags = lib.optionals enableTests [ "-DENABLE_TESTS=TRUE" ];
+  cmakeFlags = lib.optionals enableTests ["-DENABLE_TESTS=TRUE"];
 
   postFixup = lib.optionalString (externalEtc != null) ''
     mv "$out"/etc{,.orig}
@@ -101,6 +101,6 @@ stdenv.mkDerivation rec {
     homepage = "https://xrootd.slac.stanford.edu";
     license = licenses.lgpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ShamrockLee ];
+    maintainers = with maintainers; [ShamrockLee];
   };
 }

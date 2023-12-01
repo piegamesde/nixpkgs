@@ -24,7 +24,7 @@ buildPythonPackage rec {
     sed -i "/--cov/d" pytest.ini
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   checkInputs = [
     factory_boy
@@ -38,7 +38,7 @@ buildPythonPackage rec {
     echo > src/tld/tests/test_commands.py
   '';
 
-  pythonImportsCheck = [ "tld" ];
+  pythonImportsCheck = ["tld"];
 
   meta = with lib; {
     description = "Extracts the top level domain (TLD) from the URL given";
@@ -51,6 +51,6 @@ buildPythonPackage rec {
       mpl11
       gpl2Only
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

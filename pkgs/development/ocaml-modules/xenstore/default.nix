@@ -20,19 +20,19 @@ buildDunePackage rec {
     hash = "sha256-1Mnqtt5zHeRdYJHvhdQNjN8d4yxUEKD2cpwtoc7DGC0=";
   };
 
-  buildInputs = [ ppx_cstruct ];
+  buildInputs = [ppx_cstruct];
   propagatedBuildInputs = [
     cstruct
     lwt
   ];
 
   doCheck = true;
-  checkInputs = [ ounit2 ];
+  checkInputs = [ounit2];
 
   meta = with lib; {
     description = "Xenstore protocol in pure OCaml";
     license = licenses.lgpl21Only;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
     homepage = "https://github.com/mirage/ocaml-xenstore";
   };
 }

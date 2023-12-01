@@ -21,9 +21,9 @@ stdenv.mkDerivation rec {
     export SASSC_VERSION=${version}
   '';
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  buildInputs = [ libsass ];
+  buildInputs = [libsass];
 
   meta = with lib; {
     description = "A front-end for libsass";

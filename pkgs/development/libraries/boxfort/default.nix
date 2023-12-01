@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     patchShebangs ci/isdir.py
   '';
 
-  nativeCheckInputs = with python3Packages; [ cram ];
+  nativeCheckInputs = with python3Packages; [cram];
 
   doCheck = true;
 

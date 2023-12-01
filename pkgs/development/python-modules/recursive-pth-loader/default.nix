@@ -1,4 +1,4 @@
-{ stdenv, python }:
+{stdenv, python}:
 
 stdenv.mkDerivation {
   pname = "python-recursive-pth-loader";
@@ -6,7 +6,7 @@ stdenv.mkDerivation {
 
   dontUnpack = true;
 
-  buildInputs = [ python ];
+  buildInputs = [python];
 
   patchPhase = "cat ${./sitecustomize.py} > sitecustomize.py";
 

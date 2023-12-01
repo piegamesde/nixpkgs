@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "trivial-indent";
   version = "20210531-git";
 
   description = "A very simple library to allow indentation hints for SWANK.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/trivial-indent/2021-05-31/trivial-indent-20210531-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "trivial-indent";
 
-  asdFilesToKeep = [ "trivial-indent.asd" ];
+  asdFilesToKeep = ["trivial-indent.asd"];
   overrides = x: x;
 }
 /* (SYSTEM trivial-indent DESCRIPTION

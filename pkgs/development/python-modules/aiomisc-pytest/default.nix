@@ -21,13 +21,13 @@ buildPythonPackage rec {
     hash = "sha256-LDeMQbB4wFdgJ95r9/vFN6fmkoXSPq9NRXONXQ3lbdM=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  propagatedBuildInputs = [ aiomisc ];
+  propagatedBuildInputs = [aiomisc];
 
-  pythonImportsCheck = [ "aiomisc_pytest" ];
+  pythonImportsCheck = ["aiomisc_pytest"];
 
   # Module has no tests
   doCheck = false;
@@ -36,6 +36,6 @@ buildPythonPackage rec {
     description = "Pytest integration for aiomisc";
     homepage = "https://github.com/aiokitchen/aiomisc";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

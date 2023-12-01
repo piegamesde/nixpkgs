@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
   ];
 
   # Remove this patch after version 016
-  patches = [ ./libnl-fix.patch ];
+  patches = [./libnl-fix.patch];
 
   postPatch = ''
     sed -e "s@/usr\(/lib/ntrack/modules/\)@$out&@" -i common/ntrack.c

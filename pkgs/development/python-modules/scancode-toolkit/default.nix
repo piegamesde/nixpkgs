@@ -124,9 +124,9 @@ buildPythonPackage rec {
     typecode-libmagic
     urlpy
     xmltodict
-  ] ++ lib.optionals (pythonOlder "3.9") [ zipp ] ++ lib.optionals (pythonOlder "3.7") [ typing ];
+  ] ++ lib.optionals (pythonOlder "3.9") [zipp] ++ lib.optionals (pythonOlder "3.7") [typing];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -143,7 +143,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [ "scancode" ];
+  pythonImportsCheck = ["scancode"];
 
   # takes a long time and doesn't appear to do anything
   dontStrip = true;
@@ -155,6 +155,6 @@ buildPythonPackage rec {
       asl20
       cc-by-40
     ];
-    maintainers = [ ];
+    maintainers = [];
   };
 }

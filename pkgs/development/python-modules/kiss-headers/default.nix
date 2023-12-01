@@ -18,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-xPjw/uJTmvmQZDrI3i1KTUeAZuDF1mc13hvFBl8Erh0=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -34,12 +34,12 @@ buildPythonPackage rec {
     "tests/test_with_http_request.py"
   ];
 
-  pythonImportsCheck = [ "kiss_headers" ];
+  pythonImportsCheck = ["kiss_headers"];
 
   meta = with lib; {
     description = "Python package for HTTP/1.1 style headers";
     homepage = "https://github.com/Ousret/kiss-headers";
     license = licenses.mit;
-    maintainers = with maintainers; [ wolfangaukang ];
+    maintainers = with maintainers; [wolfangaukang];
   };
 }

@@ -1,4 +1,4 @@
-{ lib }:
+{lib}:
 
 let
   defaultSourceType = tname: {
@@ -12,9 +12,9 @@ lib.mapAttrs (tname: tset: defaultSourceType tname // tset) {
     isSource = true;
   };
 
-  binaryNativeCode = { };
+  binaryNativeCode = {};
 
-  binaryBytecode = { };
+  binaryBytecode = {};
 
-  binaryFirmware = { };
+  binaryFirmware = {};
 }

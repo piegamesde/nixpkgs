@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
 
   with lib;
 
@@ -8,10 +8,10 @@ import ./make-test-python.nix (
   in
   {
     name = "bazarr";
-    meta.maintainers = with maintainers; [ d-xo ];
+    meta.maintainers = with maintainers; [d-xo];
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         services.bazarr = {
           enable = true;

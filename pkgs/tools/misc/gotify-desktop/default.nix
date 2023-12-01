@@ -20,9 +20,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-opSXndOjdmYG5DJ3CDUHWhN6O7AQp4Cleldzq1Hfr1o=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   meta = with lib; {
     description = "Small Gotify daemon to send messages as desktop notifications";

@@ -18,7 +18,7 @@ buildPythonApplication rec {
     hash = "sha256-apHd26XnOz5nak+Kz8PJPsonQfTWDyPz7Mi/tWf7zwM=";
   };
 
-  propagatedBuildInputs = [ python-telegram ];
+  propagatedBuildInputs = [python-telegram];
 
   doCheck = false; # No tests
 
@@ -26,6 +26,6 @@ buildPythonApplication rec {
     description = "Terminal client for telegram";
     homepage = "https://github.com/paul-nameless/tg";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

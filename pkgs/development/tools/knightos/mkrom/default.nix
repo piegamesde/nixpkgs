@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     libxslt.bin
   ];
 
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
   installTargets = [
     "install"
     "install_man"
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     homepage = "https://knightos.org/";
     description = "Packages KnightOS distribution files into a ROM";
     license = licenses.mit;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.all;
   };
 }

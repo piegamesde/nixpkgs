@@ -15,7 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-uO8lBZonjk+mlFYoNSaz+GIN/W9yf8VL9OQ7MKfsMgI=";
   });
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   doCheck = false;
 
@@ -24,6 +24,6 @@ buildPythonPackage rec {
     description = "A Python module to bypass Cloudflare's anti-bot page";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ WeebSorceress ];
+    maintainers = with maintainers; [WeebSorceress];
   };
 }

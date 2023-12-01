@@ -41,7 +41,7 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    detect_mimetype = [ python-magic ];
+    detect_mimetype = [python-magic];
     encryption = [
       python-olm
       unpaddedbase64
@@ -49,7 +49,7 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   checkInputs = [
     pytest-asyncio
@@ -66,7 +66,7 @@ buildPythonPackage rec {
       "mautrix/client/state_store/tests/store_test.py"
     ];
 
-  pythonImportsCheck = [ "mautrix" ];
+  pythonImportsCheck = ["mautrix"];
 
   meta = with lib; {
     description = "Asyncio Matrix framework";

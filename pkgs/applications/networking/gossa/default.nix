@@ -31,6 +31,6 @@ buildGoModule rec {
     homepage = "https://github.com/pldubouilh/gossa";
     description = "A fast and simple multimedia fileserver";
     license = licenses.mit;
-    maintainers = with maintainers; [ dsymbol ];
+    maintainers = with maintainers; [dsymbol];
   };
 }

@@ -24,7 +24,7 @@ stdenv.mkDerivation {
 
   unpackCmd = "${dpkg}/bin/dpkg-deb -x $src debcontents";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -41,7 +41,7 @@ stdenv.mkDerivation {
     # - make libcrypto.so available at runtime for hardware AES
     wrapProgram $out/bin/jitsi-videobridge \
       --set VIDEOBRIDGE_GC_TYPE G1GC \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ openssl ]}
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [openssl]}
     runHook postInstall
   '';
 

@@ -35,7 +35,7 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    protobuf = [ protobuf ];
+    protobuf = [protobuf];
   };
 
   nativeCheckInputs = [
@@ -79,13 +79,13 @@ buildPythonPackage rec {
     rm tests/conformance/test_conformance.py
   '';
 
-  pythonImportsCheck = [ "google.cloud.storage" ];
+  pythonImportsCheck = ["google.cloud.storage"];
 
   meta = with lib; {
     description = "Google Cloud Storage API client library";
     homepage = "https://github.com/googleapis/python-storage";
     changelog = "https://github.com/googleapis/python-storage/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

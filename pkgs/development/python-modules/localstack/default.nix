@@ -55,7 +55,7 @@ buildPythonPackage rec {
     tailer
   ];
 
-  pythonImportsCheck = [ "localstack" ];
+  pythonImportsCheck = ["localstack"];
 
   # Test suite requires boto, which has been removed from nixpkgs
   # Just do minimal test, buildPythonPackage maps checkPhase
@@ -68,6 +68,6 @@ buildPythonPackage rec {
     description = "A fully functional local Cloud stack";
     homepage = "https://github.com/localstack/localstack";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

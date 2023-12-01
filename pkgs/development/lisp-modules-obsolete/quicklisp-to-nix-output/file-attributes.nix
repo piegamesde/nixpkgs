@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "file-attributes";
   version = "20210807-git";
@@ -22,7 +22,7 @@ rec {
 
   packageName = "file-attributes";
 
-  asdFilesToKeep = [ "file-attributes.asd" ];
+  asdFilesToKeep = ["file-attributes.asd"];
   overrides = x: x;
 }
 /* (SYSTEM file-attributes DESCRIPTION

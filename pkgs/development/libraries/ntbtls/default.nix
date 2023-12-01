@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnupg.org/software/ntbtls/";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ joachifm ];
+    maintainers = with maintainers; [joachifm];
   };
 }

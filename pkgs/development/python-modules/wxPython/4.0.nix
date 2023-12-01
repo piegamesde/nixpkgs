@@ -61,7 +61,7 @@ buildPythonPackage rec {
           OpenGL
         ]
       else
-        [ gtk3 ]
+        [gtk3]
     );
 
   propagatedBuildInputs = [

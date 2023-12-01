@@ -36,6 +36,6 @@ stdenv.mkDerivation rec {
     description = "Peer-to-peer VPN";
     homepage = "https://www.ntop.org/products/n2n/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ malte-v ];
+    maintainers = with maintainers; [malte-v];
   };
 }

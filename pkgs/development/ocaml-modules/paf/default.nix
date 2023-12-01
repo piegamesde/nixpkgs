@@ -66,7 +66,7 @@ buildDunePackage rec {
   meta = {
     description = "HTTP/AF and MirageOS";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.sternenseemann ];
+    maintainers = [lib.maintainers.sternenseemann];
     homepage = "https://github.com/dinosaure/paf-le-chien";
   };
 }

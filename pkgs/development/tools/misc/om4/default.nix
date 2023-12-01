@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     flex
   ];
 
-  configureFlags = [ "--enable-m4" ];
+  configureFlags = ["--enable-m4"];
 
   meta = with lib; {
     description = "Portable OpenBSD m4 macro processor";
@@ -36,6 +36,6 @@ stdenv.mkDerivation rec {
     ];
     mainProgram = "m4";
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

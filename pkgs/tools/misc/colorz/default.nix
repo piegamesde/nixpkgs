@@ -1,4 +1,4 @@
-{ lib, python3Packages }:
+{lib, python3Packages}:
 
 python3Packages.buildPythonApplication rec {
   pname = "colorz";
@@ -22,6 +22,6 @@ python3Packages.buildPythonApplication rec {
     description = "Color scheme generator";
     homepage = "https://github.com/metakirby5/colorz";
     license = licenses.mit;
-    maintainers = with maintainers; [ skykanin ];
+    maintainers = with maintainers; [skykanin];
   };
 }

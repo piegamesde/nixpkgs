@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "1ipvwmcsigzmxlg7j22cxpvdcgqckkmfpsnvzy18nbybd5ars9l5";
   };
 
-  buildInputs = [ zsh ];
+  buildInputs = [zsh];
 
   installPhase = ''
     install -D zthrottle $out/bin/zthrottle
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     description = "A program that throttles a pipeline, only letting a line through at most every $1 seconds.";
     homepage = "https://github.com/anko/zthrottle";
     license = licenses.unlicense;
-    maintainers = [ maintainers.ckie ];
+    maintainers = [maintainers.ckie];
     platforms = platforms.unix;
   };
 }

@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-MzlSU5x2lb6PJZ/iNAi2aebfuClBprlfHMIG/4OPmuc=";
   };
 
-  nativeBuildInputs = [ zig ];
+  nativeBuildInputs = [zig];
 
   dontConfigure = true;
 
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests.version = testers.testVersion { package = zf; };
+  passthru.tests.version = testers.testVersion {package = zf;};
 
   meta = with lib; {
     homepage = "https://github.com/natecraddock/zf";

@@ -33,7 +33,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   preBuild = ''
     substituteInPlace Makefile \
@@ -67,7 +67,7 @@ stdenv.mkDerivation {
       "i686-linux"
     ];
     homepage = "https://github.com/Bumblebee-Project/bbswitch";
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     license = licenses.gpl2Plus;
   };
 }

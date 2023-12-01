@@ -19,7 +19,7 @@ let
     in
     builtins.concatStringsSep "" [
       (builtins.elemAt splitTS 0)
-      (builtins.replaceStrings [ "-" ] [ ":" ] (builtins.elemAt splitTS 1))
+      (builtins.replaceStrings ["-"] [":"] (builtins.elemAt splitTS 1))
     ];
 in
 buildGoModule rec {
@@ -37,11 +37,11 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   CGO_ENABLED = 0;
 
-  tags = [ "kqueue" ];
+  tags = ["kqueue"];
 
   ldflags =
     let

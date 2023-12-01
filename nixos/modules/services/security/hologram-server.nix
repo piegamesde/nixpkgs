@@ -127,8 +127,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.hologram-server = {
       description = "Provide EC2 instance credentials to machines outside of EC2";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = "${pkgs.hologram}/bin/hologram-server --debug --conf ${cfgFile}";

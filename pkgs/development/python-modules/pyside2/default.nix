@@ -25,7 +25,7 @@ disabledIf (pythonAtLeast "3.11") (
       sha256 = "0cwvw6695215498rsbm2xzkwaxdr3w7zfvy4kc62c01k6pxs881r";
     };
 
-    patches = [ ./dont_ignore_optional_modules.patch ];
+    patches = [./dont_ignore_optional_modules.patch];
 
     postPatch = ''
       cd sources/pyside2
@@ -64,7 +64,7 @@ disabledIf (pythonAtLeast "3.11") (
           qt3d
         ]
       )
-      ++ (with python.pkgs; [ setuptools ])
+      ++ (with python.pkgs; [setuptools])
       ++ (lib.optionals (python.pythonOlder "3.9")
         [
           # see similar issue: 202262
@@ -73,7 +73,7 @@ disabledIf (pythonAtLeast "3.11") (
         ]
       );
 
-    propagatedBuildInputs = [ shiboken2 ];
+    propagatedBuildInputs = [shiboken2];
 
     dontWrapQtApps = true;
 
@@ -87,7 +87,7 @@ disabledIf (pythonAtLeast "3.11") (
       description = "LGPL-licensed Python bindings for Qt";
       license = licenses.lgpl21;
       homepage = "https://wiki.qt.io/Qt_for_Python";
-      maintainers = with maintainers; [ gebner ];
+      maintainers = with maintainers; [gebner];
     };
   }
 )

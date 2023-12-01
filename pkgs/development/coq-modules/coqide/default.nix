@@ -15,7 +15,7 @@ mkCoqDerivation rec {
   inherit version;
 
   inherit (coq) src;
-  release."${coq.version}" = { };
+  release."${coq.version}" = {};
 
   defaultVersion = if lib.versions.isGe "8.14" coq.version then coq.version else null;
 
@@ -64,6 +64,6 @@ mkCoqDerivation rec {
     homepage = "https://coq.inria.fr";
     description = "The CoqIDE user interface for the Coq proof assistant";
     license = licenses.lgpl21Plus;
-    maintainers = [ maintainers.Zimmi48 ];
+    maintainers = [maintainers.Zimmi48];
   };
 }

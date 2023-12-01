@@ -9,7 +9,7 @@ with lib;
 
 let
 
-  dhcpcd = if !config.boot.isContainer then pkgs.dhcpcd else pkgs.dhcpcd.override { udev = null; };
+  dhcpcd = if !config.boot.isContainer then pkgs.dhcpcd else pkgs.dhcpcd.override {udev = null;};
 
   cfg = config.networking.dhcpcd;
 
@@ -23,7 +23,7 @@ let
   # interfaces that are part of a bridge, bond or sit device.
   ignoredInterfaces =
     map (i: i.name) (
-      filter (i: if i.useDHCP != null then !i.useDHCP else i.ipv4.addresses != [ ]) interfaces
+      filter (i: if i.useDHCP != null then !i.useDHCP else i.ipv4.addresses != []) interfaces
     )
     ++ mapAttrsToList (i: _: i) config.networking.sits
     ++ concatLists (attrValues (mapAttrs (n: v: v.interfaces) config.networking.bridges))
@@ -55,7 +55,7 @@ let
       null
   );
 
-  staticIPv6Addresses = map (i: i.name) (filter (i: i.ipv6.addresses != [ ]) interfaces);
+  staticIPv6Addresses = map (i: i.name) (filter (i: i.ipv6.addresses != []) interfaces);
 
   noIPv6rs = concatStringsSep "\n" (
     map
@@ -109,7 +109,7 @@ let
       noipv6
     ''}
 
-    ${optionalString (config.networking.enableIPv6 && cfg.IPv6rs == null && staticIPv6Addresses != [ ])
+    ${optionalString (config.networking.enableIPv6 && cfg.IPv6rs == null && staticIPv6Addresses != [])
       noIPv6rs}
     ${optionalString (config.networking.enableIPv6 && cfg.IPv6rs == false) ''
       noipv6rs
@@ -162,7 +162,7 @@ in
 
     networking.dhcpcd.denyInterfaces = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Disable the DHCP client for any interface whose name matches
         any of the shell glob patterns in this list. The purpose of
@@ -266,11 +266,11 @@ in
       {
         description = "DHCP Client";
 
-        wantedBy = [ "multi-user.target" ] ++ optional (!hasDefaultGatewaySet) "network-online.target";
-        wants = [ "network.target" ];
-        before = [ "network-online.target" ];
+        wantedBy = ["multi-user.target"] ++ optional (!hasDefaultGatewaySet) "network-online.target";
+        wants = ["network.target"];
+        before = ["network-online.target"];
 
-        restartTriggers = [ exitHook ];
+        restartTriggers = [exitHook];
 
         # Stopping dhcpcd during a reconfiguration is undesirable
         # because it brings down the network interfaces configured by
@@ -299,9 +299,9 @@ in
       isSystemUser = true;
       group = "dhcpcd";
     };
-    users.groups.dhcpcd = { };
+    users.groups.dhcpcd = {};
 
-    environment.systemPackages = [ dhcpcd ];
+    environment.systemPackages = [dhcpcd];
 
     environment.etc."dhcpcd.exit-hook".source = exitHook;
 

@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     description = "Ultra fast grep with interactive query UI";
     homepage = "https://github.com/Genivia/ugrep";
     changelog = "https://github.com/Genivia/ugrep/releases/tag/v${version}";
-    maintainers = with maintainers; [ numkem ];
+    maintainers = with maintainers; [numkem];
     license = licenses.bsd3;
     platforms = platforms.all;
   };

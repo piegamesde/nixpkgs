@@ -53,7 +53,7 @@ stdenv.mkDerivation (
       lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
         "-DPROTOBUF_PROTOC_EXECUTABLE=${buildPackages.protobuf}/bin/protoc";
 
-    env.NIX_CFLAGS_COMPILE = toString [ "-DTM_VERSION=${finalAttrs.version}" ];
+    env.NIX_CFLAGS_COMPILE = toString ["-DTM_VERSION=${finalAttrs.version}"];
 
     postInstall = ''
       installManPage ../docs/man/tilemaker.1
@@ -70,7 +70,7 @@ stdenv.mkDerivation (
       homepage = "https://tilemaker.org/";
       changelog = "https://github.com/systemed/tilemaker/blob/v${version}/CHANGELOG.md";
       license = licenses.free; # FTWPL
-      maintainers = with maintainers; [ sikmir ];
+      maintainers = with maintainers; [sikmir];
       platforms = platforms.unix;
     };
   }

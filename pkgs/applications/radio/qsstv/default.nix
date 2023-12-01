@@ -50,6 +50,6 @@ mkDerivation rec {
     homepage = "http://users.telenet.be/on4qz/";
     platforms = platforms.linux;
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ hax404 ];
+    maintainers = with lib.maintainers; [hax404];
   };
 }

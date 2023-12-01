@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-mn3/etXA5dkL+IsyxwD4/XjU/t4/roYFVyqQxlLOoOI=";
   };
 
-  patches = [ ./pep-621.patch ];
+  patches = [./pep-621.patch];
 
   postPatch = ''
     sed -i "/^addopts/d" pyproject.toml
@@ -43,16 +43,16 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  propagatedBuildInputs = [ shapely ];
+  propagatedBuildInputs = [shapely];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "preprocess_cancellation" ];
+  pythonImportsCheck = ["preprocess_cancellation"];
 
   meta = with lib; {
     description = "Klipper GCode Preprocessor for Object Cancellation";
     homepage = "https://github.com/kageurufu/cancelobject-preprocessor";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ zhaofengli ];
+    maintainers = with maintainers; [zhaofengli];
   };
 }

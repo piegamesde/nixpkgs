@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 
   src = fetchurl {
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -DEKHO_DATA_PATH=\"$out/share/ekho-data\""
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libsndfile

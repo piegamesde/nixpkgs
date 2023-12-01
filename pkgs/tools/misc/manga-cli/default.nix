@@ -18,7 +18,7 @@ stdenvNoCC.mkDerivation {
     sha256 = "sha256-AnpOEgOBt2a9jtPNvfBnETGtc5Q1WBmSRFDvQB7uBE4=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -40,6 +40,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/7USTIN/manga-cli";
     description = "Bash script for reading mangas via the terminal by scraping manganato";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ baitinq ];
+    maintainers = with maintainers; [baitinq];
   };
 }

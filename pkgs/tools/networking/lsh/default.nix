@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.lysator.liu.se/~nisse/lsh/";
     license = lib.licenses.gpl2Plus;
 
-    maintainers = [ ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [];
+    platforms = ["x86_64-linux"];
   };
 }

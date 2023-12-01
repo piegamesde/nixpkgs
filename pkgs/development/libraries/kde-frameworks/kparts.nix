@@ -16,7 +16,7 @@
 
 mkDerivation {
   pname = "kparts";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     kconfig
     kcoreaddons

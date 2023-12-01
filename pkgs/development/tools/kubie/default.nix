@@ -20,9 +20,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-D3RjlYMD/UHfYxUMvZVSiRHOPmcLVGgsRVghoaMn9AM=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [Security];
 
   postInstall = ''
     installShellCompletion completion/kubie.bash
@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Shell independent context and namespace switcher for kubectl";
     homepage = "https://github.com/sbstp/kubie";
-    license = with licenses; [ zlib ];
-    maintainers = with maintainers; [ illiusdope ];
+    license = with licenses; [zlib];
+    maintainers = with maintainers; [illiusdope];
   };
 }

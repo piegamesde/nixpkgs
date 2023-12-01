@@ -29,12 +29,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pyeight" ];
+  pythonImportsCheck = ["pyeight"];
 
   meta = with lib; {
     description = "Python library to interface with the Eight Sleep API";
     homepage = "https://github.com/mezz64/pyEight";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

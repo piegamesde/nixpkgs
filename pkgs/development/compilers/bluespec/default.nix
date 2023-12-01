@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
   ];
 
   # https://github.com/B-Lang-org/bsc/pull/278
-  patches = [ ./libstp_stub_makefile.patch ];
+  patches = [./libstp_stub_makefile.patch];
 
   postUnpack = ''
     tar -C $sourceRoot/ -xf ${yices-src}
@@ -138,7 +138,7 @@ stdenv.mkDerivation rec {
     description = "Toolchain for the Bluespec Hardware Definition Language";
     homepage = "https://github.com/B-Lang-org/bsc";
     license = lib.licenses.bsd3;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     mainProgram = "bsc";
     # darwin fails at https://github.com/B-Lang-org/bsc/pull/35#issuecomment-583731562
     # aarch64 fails, as GHC fails with "ghc: could not execute: opt"

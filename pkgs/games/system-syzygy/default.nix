@@ -15,7 +15,7 @@ let
     exec = "@out@/bin/syzygy";
     comment = "A puzzle game";
     desktopName = "System Syzygy";
-    categories = [ "Game" ];
+    categories = ["Game"];
   };
 in
 rustPlatform.buildRustPackage rec {
@@ -29,8 +29,8 @@ rustPlatform.buildRustPackage rec {
     sha256 = "07mzwx8ql33q865snnw4gm3dgf0mnm60lnq1f5fgas2yjy9g9vwa";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ SDL2 ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [SDL2];
 
   cargoLock = {
     lockFile = ./Cargo.lock;
@@ -55,6 +55,6 @@ rustPlatform.buildRustPackage rec {
     description = "A story and a puzzle game, where you solve a variety of puzzle";
     homepage = "https://mdsteele.games/syzygy";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.marius851000 ];
+    maintainers = [maintainers.marius851000];
   };
 }

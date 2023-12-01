@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
   # librosie.so is dlopen'ed , so we disable ELF patching to preserve RUNPATH .
   dontPatchELF = true;
 
-  makeFlags = [ "DESTDIR=${placeholder "out"}" ];
+  makeFlags = ["DESTDIR=${placeholder "out"}"];
 
   buildInputs = [
     libbsd
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     homepage = "https://rosie-lang.org";
     description = "Tools for searching using parsing expression grammars";
     license = licenses.mit;
-    maintainers = with maintainers; [ kovirobi ];
+    maintainers = with maintainers; [kovirobi];
     platforms = with platforms; linux ++ darwin;
   };
 }

@@ -29,9 +29,9 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.08";
   duneVersion = "3";
 
-  nativeCheckInputs = [ bppsuite ];
-  checkInputs = [ alcotest ];
-  nativeBuildInputs = [ menhir ];
+  nativeCheckInputs = [bppsuite];
+  checkInputs = [alcotest];
+  nativeBuildInputs = [menhir];
   propagatedBuildInputs = [
     angstrom-unix
     biocaml
@@ -54,7 +54,7 @@ buildDunePackage rec {
     description = "Algorithms and datastructures for phylogenetics";
     homepage = "https://github.com/biocaml/phylogenetics";
     license = licenses.cecill-b;
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
     mainProgram = "phylosim";
   };
 }

@@ -8,8 +8,8 @@
   pname,
   version,
   zipHash,
-  meta ? { },
-  passthru ? { },
+  meta ? {},
+  passthru ? {},
   ...
 }@args:
 stdenvNoCC.mkDerivation (
@@ -22,7 +22,7 @@ stdenvNoCC.mkDerivation (
       hash = zipHash;
     };
 
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [unzip];
 
     installPhase = ''
       cp -R "." "$out"

@@ -18,7 +18,7 @@ stdenv.mkDerivation (
       hash = "sha256-8ceFwQFHhJ1qEXJtzoDXU0XRgudaAfsoWq7LYgGEqsM=";
     };
 
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
 
     buildInputs = [
       libX11
@@ -26,7 +26,7 @@ stdenv.mkDerivation (
       libXrandr
     ];
 
-    makeFlags = [ "prefix=$(out)" ];
+    makeFlags = ["prefix=$(out)"];
 
     meta = with lib; {
       homepage = "https://www.uninformativ.de/git/bevelbar/file/README.html";

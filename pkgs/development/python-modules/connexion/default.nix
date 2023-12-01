@@ -59,7 +59,7 @@ buildPythonPackage rec {
     testfixtures
   ];
 
-  pythonImportsCheck = [ "connexion" ];
+  pythonImportsCheck = ["connexion"];
 
   disabledTests =
     [
@@ -72,6 +72,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/spec-first/connexion";
     changelog = "https://github.com/spec-first/connexion/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ elohmeier ];
+    maintainers = with maintainers; [elohmeier];
   };
 }

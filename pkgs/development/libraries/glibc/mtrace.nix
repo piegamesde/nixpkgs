@@ -1,4 +1,4 @@
-{ glibc, perl }:
+{glibc, perl}:
 
 # Small wrapper which only exposes `mtrace(3)` from `glibc`. This can't be placed
 # into `glibc` itself because it depends on Perl which would mean that the final
@@ -27,12 +27,12 @@ glibc.overrideAttrs (
     '';
 
     # Perl checked during configure
-    nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ perl ];
+    nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [perl];
     # Perl shebang used for `mtrace`.
-    buildInputs = oldAttrs.buildInputs ++ [ perl ];
+    buildInputs = oldAttrs.buildInputs ++ [perl];
 
     # Reset a few things declared by `pkgs.glibc`.
-    outputs = [ "out" ];
+    outputs = ["out"];
     separateDebugInfo = false;
 
     meta = oldAttrs.meta // {

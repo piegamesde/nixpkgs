@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
     "--enable-post-processing"
   ];
 
-  makeFlagsArray = [ "BORINGSSL_LIBS=-L${lib.getLib boringssl}/lib" ];
+  makeFlagsArray = ["BORINGSSL_LIBS=-L${lib.getLib boringssl}/lib"];
 
   outputs = [
     "out"
@@ -101,6 +101,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/meetecho/janus-gateway/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
   };
 }

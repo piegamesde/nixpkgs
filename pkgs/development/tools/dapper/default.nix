@@ -25,6 +25,6 @@ buildGoModule rec {
     homepage = "https://github.com/rancher/dapper";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ kuznero ];
+    maintainers = with maintainers; [kuznero];
   };
 }

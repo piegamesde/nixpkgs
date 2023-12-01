@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  buildInputs = [ gtest ];
+  buildInputs = [gtest];
 
   doCheck = true;
 

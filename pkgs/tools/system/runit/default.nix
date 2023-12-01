@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "065s8w62r6chjjs6m9hapcagy33m75nlnxb69vg0f4ngn061dl3g";
   };
 
-  patches = [ ./fix-ar-ranlib.patch ];
+  patches = [./fix-ar-ranlib.patch];
 
   outputs = [
     "out"
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     description = "UNIX init scheme with service supervision";
     license = licenses.bsd3;
     homepage = "http://smarden.org/runit";
-    maintainers = with maintainers; [ joachifm ];
+    maintainers = with maintainers; [joachifm];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

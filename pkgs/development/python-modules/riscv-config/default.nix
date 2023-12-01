@@ -27,7 +27,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/riscv/riscv-config";
     description = "RISC-V configuration validator";
-    maintainers = with maintainers; [ genericnerdyusername ];
+    maintainers = with maintainers; [genericnerdyusername];
     license = licenses.bsd3;
   };
 }

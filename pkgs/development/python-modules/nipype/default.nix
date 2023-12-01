@@ -58,9 +58,9 @@ buildPythonPackage rec {
       --replace "/usr/bin/env bash" "${bash}/bin/bash"
   '';
 
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  nativeBuildInputs = [pythonRelaxDepsHook];
 
-  pythonRelaxDeps = [ "traits" ];
+  pythonRelaxDeps = ["traits"];
 
   propagatedBuildInputs = [
     click
@@ -101,12 +101,12 @@ buildPythonPackage rec {
   checkPhase = ''
     LC_ALL="en_US.UTF-8" pytest nipype/tests -k 'not display and not test_no_et_multiproc'
   '';
-  pythonImportsCheck = [ "nipype" ];
+  pythonImportsCheck = ["nipype"];
 
   meta = with lib; {
     homepage = "https://nipy.org/nipype/";
     description = "Neuroimaging in Python: Pipelines and Interfaces";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ashgillman ];
+    maintainers = with maintainers; [ashgillman];
   };
 }

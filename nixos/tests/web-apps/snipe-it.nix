@@ -7,18 +7,18 @@
    Scenarios NOT covered by this test (but perhaps in the future):
    - Sending and receiving emails
 */
-{ pkgs, ... }:
+{pkgs, ...}:
 let
   siteName = "NixOS Snipe-IT Test Instance";
 in
 {
   name = "snipe-it";
 
-  meta.maintainers = with pkgs.lib.maintainers; [ yayayayaka ];
+  meta.maintainers = with pkgs.lib.maintainers; [yayayayaka];
 
   nodes = {
     snipeit =
-      { ... }:
+      {...}:
       {
         services.snipe-it = {
           enable = true;
@@ -43,7 +43,7 @@ in
   };
 
   testScript =
-    { nodes }:
+    {nodes}:
     let
       backupPath = "${nodes.snipeit.services.snipe-it.dataDir}/storage/app/backups";
 
@@ -88,7 +88,7 @@ in
 
 
       # Login page should now contain the configured site name
-      ${checkLoginPage { }}
+      ${checkLoginPage {}}
 
       with subtest("Test Backup and restore"):
           snipeit.succeed("snipe-it snipeit:backup")
@@ -100,7 +100,7 @@ in
           snipeit.succeed("snipe-it migrate:fresh --force")
 
           # Login page should disappear
-          ${checkLoginPage { shouldSucceed = false; }}
+          ${checkLoginPage {shouldSucceed = false;}}
 
           # Restore the state
           snipeit.succeed(
@@ -110,6 +110,6 @@ in
           )
 
           # Login page should be back again
-          ${checkLoginPage { }}
+          ${checkLoginPage {}}
     '';
 }

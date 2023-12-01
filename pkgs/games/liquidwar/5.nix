@@ -12,11 +12,11 @@ stdenv.mkDerivation rec {
     sha256 = "2tCqhN1BbK0FVCHtm0DfOe+ueNPfdZwFg8ZMVPfy/18=";
   };
 
-  buildInputs = [ allegro ];
+  buildInputs = [allegro];
 
   configureFlags = lib.optional stdenv.isx86_64 "--disable-asm";
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   env.NIX_CFLAGS_COMPILE = toString [
     # Workaround build failure on -fno-common toolchains like upstream
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "The classic version of a quick tactics game LiquidWar";
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

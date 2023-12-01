@@ -26,7 +26,7 @@ stdenv.mkDerivation {
     qtquick1
     qtmultimedia
   ] ++ lib.optional stdenv.isDarwin utmp;
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
   patches = [
     (fetchpatch {
@@ -41,7 +41,7 @@ stdenv.mkDerivation {
       --replace '$$[QT_INSTALL_QML]' "/$qtQmlPrefix/"
   '';
 
-  installFlags = [ "INSTALL_ROOT=$(out)" ];
+  installFlags = ["INSTALL_ROOT=$(out)"];
 
   dontWrapQtApps = true;
 
@@ -50,6 +50,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/Swordfish90/qmltermwidget";
     license = lib.licenses.gpl2;
     platforms = with lib.platforms; linux ++ darwin;
-    maintainers = with lib.maintainers; [ skeidel ];
+    maintainers = with lib.maintainers; [skeidel];
   };
 }

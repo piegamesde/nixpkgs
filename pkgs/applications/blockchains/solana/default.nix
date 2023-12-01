@@ -86,7 +86,7 @@ rustPlatform.buildRustPackage rec {
       openssl
       rustPlatform.bindgenHook
     ]
-    ++ lib.optionals stdenv.isLinux [ udev ]
+    ++ lib.optionals stdenv.isLinux [udev]
     ++ lib.optionals stdenv.isDarwin [
       libcxx
       IOKit
@@ -124,5 +124,5 @@ rustPlatform.buildRustPackage rec {
     platforms = platforms.unix;
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 }

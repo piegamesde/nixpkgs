@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/notandy/ympd";
     description = "Standalone MPD Web GUI written in C, utilizing Websockets and Bootstrap/JS";
-    maintainers = [ maintainers.siddharthist ];
+    maintainers = [maintainers.siddharthist];
     platforms = platforms.unix;
     license = licenses.gpl2Plus;
   };

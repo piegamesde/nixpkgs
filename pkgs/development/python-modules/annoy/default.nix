@@ -19,17 +19,17 @@ buildPythonPackage rec {
     hash = "sha256-5nv7uDfRMG2kVVyIOGDHshXLMqhk5AAiKS1YR60foLs=";
   };
 
-  nativeBuildInputs = [ h5py ];
+  nativeBuildInputs = [h5py];
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
-  pythonImportsCheck = [ "annoy" ];
+  pythonImportsCheck = ["annoy"];
 
   meta = with lib; {
     description = "Approximate Nearest Neighbors in C++/Python optimized for memory usage and loading/saving to disk";
     homepage = "https://github.com/spotify/annoy";
     changelog = "https://github.com/spotify/annoy/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ timokau ];
+    maintainers = with maintainers; [timokau];
   };
 }

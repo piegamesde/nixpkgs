@@ -46,17 +46,17 @@ stdenv.mkDerivation {
     ./gnu-install-dirs.patch
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = lib.optional withLibunwind libunwind;
 
   cmakeFlags =
-    lib.optionals standalone [ "-DLLVM_ENABLE_LIBCXX=ON" ]
-    ++ lib.optionals (standalone && withLibunwind) [ "-DLIBCXXABI_USE_LLVM_UNWINDER=ON" ]
+    lib.optionals standalone ["-DLLVM_ENABLE_LIBCXX=ON"]
+    ++ lib.optionals (standalone && withLibunwind) ["-DLIBCXXABI_USE_LLVM_UNWINDER=ON"]
     ++ lib.optionals stdenv.hostPlatform.isWasm [
       "-DLIBCXXABI_ENABLE_THREADS=OFF"
       "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
     ]
-    ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ];
+    ++ lib.optionals (!enableShared) ["-DLIBCXXABI_ENABLE_SHARED=OFF"];
 
   preInstall = lib.optionalString stdenv.isDarwin ''
     for file in lib/*.dylib; do
@@ -101,6 +101,6 @@ stdenv.mkDerivation {
       mit
       ncsa
     ];
-    maintainers = llvm_meta.maintainers ++ [ lib.maintainers.vlstill ];
+    maintainers = llvm_meta.maintainers ++ [lib.maintainers.vlstill];
   };
 }

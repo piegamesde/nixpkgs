@@ -14,7 +14,7 @@ in
   options.snapraid = with types; {
     enable = mkEnableOption (lib.mdDoc "SnapRAID");
     dataDisks = mkOption {
-      default = { };
+      default = {};
       example = {
         d1 = "/mnt/disk1/";
         d2 = "/mnt/disk2/";
@@ -24,7 +24,7 @@ in
       type = attrsOf str;
     };
     parityFiles = mkOption {
-      default = [ ];
+      default = [];
       example = [
         "/mnt/diskp/snapraid.parity"
         "/mnt/diskq/snapraid.2-parity"
@@ -37,7 +37,7 @@ in
       type = listOf str;
     };
     contentFiles = mkOption {
-      default = [ ];
+      default = [];
       example = [
         "/var/snapraid.content"
         "/mnt/disk1/snapraid.content"
@@ -47,7 +47,7 @@ in
       type = listOf str;
     };
     exclude = mkOption {
-      default = [ ];
+      default = [];
       example = [
         "*.unrecoverable"
         "/tmp/"
@@ -120,7 +120,7 @@ in
       ];
 
       environment = {
-        systemPackages = with pkgs; [ snapraid ];
+        systemPackages = with pkgs; [snapraid];
 
         etc."snapraid.conf" = {
           text =
@@ -133,7 +133,7 @@ in
             concatStringsSep "\n" (
               map prependData ((mapAttrsToList (name: value: name + " " + value)) dataDisks)
               ++
-                zipListsWith (a: b: a + b) ([ "parity " ] ++ map (i: toString i + "-parity ") (range 2 6))
+                zipListsWith (a: b: a + b) (["parity "] ++ map (i: toString i + "-parity ") (range 2 6))
                   parityFiles
               ++ map prependContent contentFiles
               ++ map prependExclude exclude
@@ -224,7 +224,7 @@ in
                 contentDirs = map dirOf contentFiles;
               in
               unique (attrValues dataDisks ++ parityFiles ++ contentDirs);
-          } // optionalAttrs touchBeforeSync { ExecStartPre = "${pkgs.snapraid}/bin/snapraid touch"; };
+          } // optionalAttrs touchBeforeSync {ExecStartPre = "${pkgs.snapraid}/bin/snapraid touch";};
         };
       };
     };

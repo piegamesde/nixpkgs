@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-yoS/lIDDntMRLpIMFs49jyiYaY9iiW86V3FBKGIqVao=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     zlib
@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
       lgpl3
     ];
     platforms = platforms.linux;
-    maintainers = [ maintainers.GabrielDougherty ];
+    maintainers = [maintainers.GabrielDougherty];
   };
 }

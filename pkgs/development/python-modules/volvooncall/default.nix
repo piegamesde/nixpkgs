@@ -40,7 +40,7 @@ buildPythonPackage rec {
       })
     ];
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   passthru.optional-dependencies = {
     console = [
@@ -60,12 +60,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ passthru.optional-dependencies.mqtt;
 
-  pythonImportsCheck = [ "volvooncall" ];
+  pythonImportsCheck = ["volvooncall"];
 
   meta = with lib; {
     description = "Retrieve information from the Volvo On Call web service";
     homepage = "https://github.com/molobrakos/volvooncall";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -25,7 +25,7 @@ buildGoModule rec {
     description = "Command-line tool to download nicovideo.jp livestreams";
     homepage = "https://github.com/himananiito/livedl";
     license = licenses.mit;
-    maintainers = with maintainers; [ wakira ];
+    maintainers = with maintainers; [wakira];
     platforms = platforms.linux ++ platforms.darwin;
     broken = stdenv.isDarwin; # build fails with go > 1.17
   };

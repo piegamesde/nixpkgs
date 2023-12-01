@@ -17,7 +17,7 @@ stdenv.mkDerivation (
       hash = "sha256-CWYVPpmPIZZTsqXKh+Ft3SlQ4C9yjUof1mJ8Acn5kmM=";
     };
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
     meta = with lib; {
       homepage = "https://github.com/LoliGothick/mitama-cpp-result";
@@ -29,7 +29,7 @@ stdenv.mkDerivation (
         (like Result and Option in Programming Language Rust).
       '';
       license = licenses.mit;
-      maintainers = with maintainers; [ ken-matsui ];
+      maintainers = with maintainers; [ken-matsui];
       platforms = platforms.unix;
     };
   }

@@ -17,11 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-g7Q78XsQhawVxd69tCFU8Ti5KCNLIURzWJgfadDW/hs=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "cppy" ];
+  pythonImportsCheck = ["cppy"];
 
   meta = {
     description = "C++ headers for C extension development";

@@ -33,13 +33,13 @@ buildPythonPackage rec {
     export PYTHONPATH="atest:utest/helpers:$PYTHONPATH"
   '';
 
-  pythonImportsCheck = [ "robotlibcore" ];
+  pythonImportsCheck = ["robotlibcore"];
 
   meta = {
     changelog = "https://github.com/robotframework/PythonLibCore/blob/${src.rev}/docs/PythonLibCore-${version}.rst";
     description = "Tools to ease creating larger test libraries for Robot Framework using Python";
     homepage = "https://github.com/robotframework/PythonLibCore";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

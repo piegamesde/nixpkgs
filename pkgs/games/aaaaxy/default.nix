@@ -63,7 +63,7 @@ buildGoModule rec {
       --replace 'sh scripts/run-timedemo.sh' "$testing_infra/scripts/run-timedemo.sh"
   '';
 
-  makeFlags = [ "BUILDTYPE=release" ];
+  makeFlags = ["BUILDTYPE=release"];
 
   buildPhase = ''
     runHook preBuild
@@ -93,7 +93,7 @@ buildGoModule rec {
     description = "A nonlinear 2D puzzle platformer taking place in impossible spaces";
     homepage = "https://divverent.github.io/aaaaxy/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
     platforms = platforms.linux;
   };
 }

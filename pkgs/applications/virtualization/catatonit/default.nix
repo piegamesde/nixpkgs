@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = lib.optionals (!stdenv.hostPlatform.isMusl) [
     glibc
     glibc.static
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     description = "A container init that is so simple it's effectively brain-dead";
     homepage = "https://github.com/openSUSE/catatonit";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ erosennin ] ++ teams.podman.members;
+    maintainers = with maintainers; [erosennin] ++ teams.podman.members;
     platforms = platforms.linux;
   };
 }

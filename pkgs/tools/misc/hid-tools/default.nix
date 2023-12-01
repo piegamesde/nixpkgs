@@ -26,7 +26,7 @@ python3.pkgs.buildPythonPackage rec {
     pyudev
   ];
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [pytestCheckHook];
 
   # Tests require /dev/uhid
   doCheck = false;

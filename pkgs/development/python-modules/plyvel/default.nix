@@ -16,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-zZGOCzFpCrzT0gKodCyvlRqy/hVz3nr3HDhFaEf5ICs=";
   };
 
-  buildInputs = [ pkgs.leveldb ] ++ lib.optional isPy3k pytest;
+  buildInputs = [pkgs.leveldb] ++ lib.optional isPy3k pytest;
 
   # no tests for python2
   doCheck = isPy3k;

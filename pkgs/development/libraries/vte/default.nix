@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
     pcre2
     zlib
     icu
-  ] ++ lib.optionals systemdSupport [ systemd ];
+  ] ++ lib.optionals systemdSupport [systemd];
 
   propagatedBuildInputs =
     assert (gtkVersion == "3" || gtkVersion == "4"); [
@@ -86,8 +86,8 @@ stdenv.mkDerivation rec {
     ];
 
   mesonFlags =
-    [ "-Ddocs=true" ]
-    ++ lib.optionals (!systemdSupport) [ "-D_systemd=false" ]
+    ["-Ddocs=true"]
+    ++ lib.optionals (!systemdSupport) ["-D_systemd=false"]
     ++ lib.optionals (gtkVersion == "4") [
       "-Dgtk3=false"
       "-Dgtk4=true"

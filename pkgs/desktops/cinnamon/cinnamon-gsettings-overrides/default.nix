@@ -7,7 +7,7 @@
   gtk3,
   gsettings-desktop-schemas,
   extraGSettingsOverrides ? "",
-  extraGSettingsOverridePackages ? [ ],
+  extraGSettingsOverridePackages ? [],
   mint-artwork,
 
   muffin,
@@ -54,7 +54,7 @@ let
 in
 
 # TODO: Having https://github.com/NixOS/nixpkgs/issues/54150 would supersede this
-runCommand "cinnamon-gsettings-overrides" { preferLocalBuild = true; } ''
+runCommand "cinnamon-gsettings-overrides" {preferLocalBuild = true;} ''
   data_dir="$out/share/gsettings-schemas/nixos-gsettings-overrides"
   schema_dir="$data_dir/glib-2.0/schemas"
 

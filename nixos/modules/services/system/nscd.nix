@@ -93,7 +93,7 @@ in
       group = cfg.group;
     };
 
-    users.groups.${cfg.group} = { };
+    users.groups.${cfg.group} = {};
 
     systemd.services.nscd = {
       description = "Name Service Cache Daemon" + lib.optionalString cfg.enableNsncd " (nsncd)";
@@ -106,7 +106,7 @@ in
         "nss-lookup.target"
         "nss-user-lookup.target"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       requiredBy = [
         "nss-lookup.target"
         "nss-user-lookup.target"

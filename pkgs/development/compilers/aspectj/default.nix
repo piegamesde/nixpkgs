@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   src =
     let
-      versionSnakeCase = builtins.replaceStrings [ "." ] [ "_" ] version;
+      versionSnakeCase = builtins.replaceStrings ["."] ["_"] version;
     in
     fetchurl {
       url = "https://github.com/eclipse/org.aspectj/releases/download/V${versionSnakeCase}/aspectj-${version}.jar";
@@ -20,12 +20,12 @@ stdenv.mkDerivation rec {
     };
 
   inherit jre;
-  buildInputs = [ jre ];
+  buildInputs = [jre];
 
   meta = {
     homepage = "https://www.eclipse.org/aspectj/";
     description = "A seamless aspect-oriented extension to the Java programming language";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     platforms = lib.platforms.unix;
     license = lib.licenses.epl10;
   };

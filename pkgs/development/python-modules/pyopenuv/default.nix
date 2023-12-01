@@ -37,7 +37,7 @@ buildPythonPackage rec {
       })
     ];
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -57,13 +57,13 @@ buildPythonPackage rec {
       "examples/"
     ];
 
-  pythonImportsCheck = [ "pyopenuv" ];
+  pythonImportsCheck = ["pyopenuv"];
 
   meta = with lib; {
     description = "Python API to retrieve data from openuv.io";
     homepage = "https://github.com/bachya/pyopenuv";
     changelog = "https://github.com/bachya/pyopenuv/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://naim94a.github.io/udpt";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ makefu ];
+    maintainers = with lib.maintainers; [makefu];
     mainProgram = "udpt-rs";
   };
 }

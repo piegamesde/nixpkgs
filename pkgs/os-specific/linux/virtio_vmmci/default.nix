@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "An OpenBSD VMM Control Interface (vmmci) for Linux";
     homepage = "https://github.com/voutilad/virtio_vmmci";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ qbit ];
+    maintainers = with maintainers; [qbit];
     platforms = platforms.linux;
   };
 

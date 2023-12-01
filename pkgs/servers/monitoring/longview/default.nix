@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
         --replace /etc/linode /run/longview
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs =
     [
       perl
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.linode.com/longview";
     description = "Collects all of your system-level metrics and sends them to Linode";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.rvl ];
+    maintainers = [maintainers.rvl];
     inherit version;
     platforms = [
       "x86_64-linux"

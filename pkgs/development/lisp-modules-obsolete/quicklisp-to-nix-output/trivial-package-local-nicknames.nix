@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "trivial-package-local-nicknames";
   version = "20200610-git";
 
   description = "Portability library for package-local nicknames";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/trivial-package-local-nicknames/2020-06-10/trivial-package-local-nicknames-20200610-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "trivial-package-local-nicknames";
 
-  asdFilesToKeep = [ "trivial-package-local-nicknames.asd" ];
+  asdFilesToKeep = ["trivial-package-local-nicknames.asd"];
   overrides = x: x;
 }
 /* (SYSTEM trivial-package-local-nicknames DESCRIPTION

@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "varjo";
   version = "release-quicklisp-92f9c75b-git";
@@ -28,7 +28,7 @@ rec {
 
   packageName = "varjo";
 
-  asdFilesToKeep = [ "varjo.asd" ];
+  asdFilesToKeep = ["varjo.asd"];
   overrides = x: x;
 }
 /* (SYSTEM varjo DESCRIPTION Common Lisp -> GLSL Compiler SHA256

@@ -31,7 +31,7 @@ stdenv.mkDerivation {
     '';
     license = licenses.agpl3;
     homepage = "https://github.com/wltb/ff_instagram";
-    maintainers = with maintainers; [ das_j ];
+    maintainers = with maintainers; [das_j];
     platforms = platforms.all;
   };
 }

@@ -26,16 +26,16 @@ buildPythonPackage rec {
     numpy
   ];
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
   checkPhase = "nosetests";
 
-  pythonImportsCheck = [ "colormath" ];
+  pythonImportsCheck = ["colormath"];
 
   meta = with lib; {
     description = "Color math and conversion library";
     homepage = "https://github.com/gtaylor/python-colormath";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ jonathanreeve ];
+    maintainers = with maintainers; [jonathanreeve];
   };
 }

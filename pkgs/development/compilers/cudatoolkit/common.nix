@@ -4,7 +4,7 @@ args@{
   url ? "",
   name ? "",
   developerProgram ? false,
-  runPatches ? [ ],
+  runPatches ? [],
   autoPatchelfHook,
   autoAddOpenGLRunpathHook,
   addOpenGLRunpath,
@@ -64,7 +64,7 @@ backendStdenv.mkDerivation rec {
         inherit (args) name sha256;
       }
     else
-      fetchurl { inherit (args) url sha256; };
+      fetchurl {inherit (args) url sha256;};
 
   outputs = [
     "out"
@@ -81,8 +81,8 @@ backendStdenv.mkDerivation rec {
       autoPatchelfHook
       autoAddOpenGLRunpathHook
     ]
-    ++ lib.optionals (lib.versionOlder version "11") [ libsForQt5.wrapQtAppsHook ]
-    ++ lib.optionals (lib.versionAtLeast version "11.8") [ qt6Packages.wrapQtAppsHook ];
+    ++ lib.optionals (lib.versionOlder version "11") [libsForQt5.wrapQtAppsHook]
+    ++ lib.optionals (lib.versionAtLeast version "11.8") [qt6Packages.wrapQtAppsHook];
   buildInputs =
     lib.optionals (lib.versionOlder version "11") [
       libsForQt5.qt5.qtwebengine
@@ -344,7 +344,7 @@ backendStdenv.mkDerivation rec {
   meta = with lib; {
     description = "A compiler for NVIDIA GPUs, math libraries, and tools";
     homepage = "https://developer.nvidia.com/cuda-toolkit";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     license = licenses.unfree;
   };
 }

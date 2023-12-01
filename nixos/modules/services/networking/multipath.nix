@@ -20,7 +20,7 @@ let
 
   addCheckDesc =
     desc: elemType: check:
-    types.addCheck elemType check // { description = "${elemType.description} (with check: ${desc})"; };
+    types.addCheck elemType check // {description = "${elemType.description} (with check: ${desc})";};
   hexChars = stringToCharacters "0123456789abcdef";
   isHexString = s: all (c: elem c hexChars) (stringToCharacters (toLower s));
   hexStr = addCheckDesc "hexadecimal string" types.str isHexString;
@@ -39,7 +39,7 @@ in
     };
 
     devices = mkOption {
-      default = [ ];
+      default = [];
       example = literalExpression ''
         [
           {
@@ -631,9 +631,9 @@ in
         }
       '';
 
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     boot.kernelModules = [
       "dm-multipath"
       "dm-service-time"

@@ -21,15 +21,15 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-SQ0anSl/MrSEyfcLbzma3RT2iDqVa0wrcYAmIMysyew=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = [openssl] ++ lib.optionals stdenv.isDarwin [Security];
 
   meta = with lib; {
     description = "Twitch chat in the terminal";
     homepage = "https://github.com/Xithrius/twitch-tui";
     changelog = "https://github.com/Xithrius/twitch-tui/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ maintainers.taha ];
+    maintainers = [maintainers.taha];
   };
 }

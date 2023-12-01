@@ -25,9 +25,9 @@ buildPythonPackage rec {
     hash = "sha256-l7cCt+zX+qOujS6noc1/p7mELqrHae3eiKQNXBxLm7o=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ pkgs.libxml2 ];
+  buildInputs = [pkgs.libxml2];
 
   propagatedBuildInputs = [
     chardet
@@ -39,14 +39,14 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "html5_parser" ];
+  pythonImportsCheck = ["html5_parser"];
 
-  pytestFlagsArray = [ "test/*.py" ];
+  pytestFlagsArray = ["test/*.py"];
 
   meta = with lib; {
     description = "Fast C based HTML 5 parsing for python";
     homepage = "https://html5-parser.readthedocs.io";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

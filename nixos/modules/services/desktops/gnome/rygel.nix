@@ -49,11 +49,11 @@ with lib;
 
   ###### implementation
   config = mkIf config.services.gnome.rygel.enable {
-    environment.systemPackages = [ pkgs.gnome.rygel ];
+    environment.systemPackages = [pkgs.gnome.rygel];
 
-    services.dbus.packages = [ pkgs.gnome.rygel ];
+    services.dbus.packages = [pkgs.gnome.rygel];
 
-    systemd.packages = [ pkgs.gnome.rygel ];
+    systemd.packages = [pkgs.gnome.rygel];
 
     environment.etc."rygel.conf".source = "${pkgs.gnome.rygel}/etc/rygel.conf";
   };

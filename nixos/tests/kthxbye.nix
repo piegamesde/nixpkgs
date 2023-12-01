@@ -1,14 +1,14 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
   {
     name = "kthxbye";
 
-    meta = with lib.maintainers; { maintainers = [ nukaduka ]; };
+    meta = with lib.maintainers; {maintainers = [nukaduka];};
 
     nodes.server =
-      { ... }:
+      {...}:
       {
-        environment.systemPackages = with pkgs; [ prometheus-alertmanager ];
+        environment.systemPackages = with pkgs; [prometheus-alertmanager];
         services.prometheus = {
           enable = true;
 
@@ -22,7 +22,7 @@ import ./make-test-python.nix (
             {
               job_name = "prometheus";
               scrape_interval = "5s";
-              static_configs = [ { targets = [ "localhost:9090" ]; } ];
+              static_configs = [{targets = ["localhost:9090"];}];
             }
           ];
 
@@ -41,7 +41,7 @@ import ./make-test-python.nix (
             ''
           ];
 
-          alertmanagers = [ { static_configs = [ { targets = [ "localhost:9093" ]; } ]; } ];
+          alertmanagers = [{static_configs = [{targets = ["localhost:9093"];}];}];
 
           alertmanager = {
             enable = true;
@@ -50,12 +50,12 @@ import ./make-test-python.nix (
               receiver = "test";
               group_wait = "5s";
               group_interval = "5s";
-              group_by = [ "..." ];
+              group_by = ["..."];
             };
             configuration.receivers = [
               {
                 name = "test";
-                webhook_configs = [ { url = "http://localhost:1234"; } ];
+                webhook_configs = [{url = "http://localhost:1234";}];
               }
             ];
           };

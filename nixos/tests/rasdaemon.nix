@@ -1,13 +1,13 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "rasdaemon";
-    meta = with pkgs.lib.maintainers; { maintainers = [ evils ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [evils];};
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        imports = [ ../modules/profiles/minimal.nix ];
+        imports = [../modules/profiles/minimal.nix];
         hardware.rasdaemon = {
           enable = true;
           # should be enabled by default, just making sure

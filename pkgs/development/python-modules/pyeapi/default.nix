@@ -24,9 +24,9 @@ buildPythonPackage rec {
     sha256 = "13chya6wix5jb82k67gr44bjx35gcdwz80nsvpv0gvzs6shn4d7b";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ netaddr ];
+  propagatedBuildInputs = [netaddr];
 
   nativeCheckInputs = [
     mock
@@ -44,7 +44,7 @@ buildPythonPackage rec {
       name = "fix-collection-usage-2.patch";
       url = "https://github.com/arista-eosplus/pyeapi/commit/cc9c584e4a3167e3c1624cccb6bc0d9c9bcdbc1c.patch";
       hash = "sha256-EY0i1Skm1llEQAAzvrb2yelhhLBkqKAFJB5ObAIxAYo=";
-      excludes = [ ".github/workflows/ci.yml" ];
+      excludes = [".github/workflows/ci.yml"];
     })
     (fetchpatch {
       name = "fix-collection-usage-3.patch";
@@ -53,14 +53,14 @@ buildPythonPackage rec {
     })
   ];
 
-  pytestFlagsArray = [ "test/unit" ];
+  pytestFlagsArray = ["test/unit"];
 
-  pythonImportsCheck = [ "pyeapi" ];
+  pythonImportsCheck = ["pyeapi"];
 
   meta = with lib; {
     description = "Client for Arista eAPI";
     homepage = "https://github.com/arista-eosplus/pyeapi";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
   };
 }

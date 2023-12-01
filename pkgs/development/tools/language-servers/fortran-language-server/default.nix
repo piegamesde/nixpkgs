@@ -14,12 +14,12 @@ buildPythonApplication rec {
   };
 
   checkPhase = "$out/bin/fortls --help 1>/dev/null";
-  pythonImportsCheck = [ "fortls" ];
+  pythonImportsCheck = ["fortls"];
 
   meta = with lib; {
     description = "FORTRAN Language Server for the Language Server Protocol";
     homepage = "https://pypi.org/project/fortran-language-server/";
-    license = [ licenses.mit ];
-    maintainers = [ maintainers.sheepforce ];
+    license = [licenses.mit];
+    maintainers = [maintainers.sheepforce];
   };
 }

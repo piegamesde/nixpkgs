@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     description = "switch user and group id and exec";
     homepage = "https://github.com/ncopa/su-exec";
     license = licenses.mit;
-    maintainers = with maintainers; [ zimbatm ];
+    maintainers = with maintainers; [zimbatm];
     platforms = platforms.linux;
   };
 }

@@ -31,23 +31,23 @@ in
 
       polkitPolicyOwners = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = literalExpression ''["user1" "user2" "user3"]'';
         description = lib.mdDoc ''
           A list of users who should be able to integrate 1Password with polkit-based authentication mechanisms.
         '';
       };
 
-      package = mkPackageOptionMD pkgs "1Password GUI" { default = [ "_1password-gui" ]; };
+      package = mkPackageOptionMD pkgs "1Password GUI" {default = ["_1password-gui"];};
     };
   };
 
   config =
     let
-      package = cfg.package.override { polkitPolicyOwners = cfg.polkitPolicyOwners; };
+      package = cfg.package.override {polkitPolicyOwners = cfg.polkitPolicyOwners;};
     in
     mkIf cfg.enable {
-      environment.systemPackages = [ package ];
+      environment.systemPackages = [package];
       users.groups.onepassword.gid = config.ids.gids.onepassword;
 
       security.wrappers = {

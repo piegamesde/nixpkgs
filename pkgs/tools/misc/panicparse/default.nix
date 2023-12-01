@@ -17,12 +17,12 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-ZHUxzGqsGX1c4mBA4TBO2+WnGDhwAOGi0uYQx+3OgL8=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Crash your app in style (Golang)";
     homepage = "https://github.com/maruel/panicparse";
     license = licenses.asl20;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

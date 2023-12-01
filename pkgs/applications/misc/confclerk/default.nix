@@ -15,8 +15,8 @@ mkDerivation rec {
     sha256 = "0l5i4d6lymh0k6gzihs41x4i8v1dz0mrwpga096af0vchpvlcarg";
   };
 
-  buildInputs = [ qtbase ];
-  nativeBuildInputs = [ qmake ];
+  buildInputs = [qtbase];
+  nativeBuildInputs = [qmake];
 
   postInstall = ''
     mkdir -p $out/bin
@@ -27,7 +27,7 @@ mkDerivation rec {
     description = "Offline conference schedule viewer";
     homepage = "http://www.toastfreeware.priv.at/confclerk";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
     platforms = lib.platforms.linux;
   };
 }

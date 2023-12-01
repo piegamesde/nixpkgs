@@ -36,7 +36,7 @@ let
     "ssh-askpass-sublime"
   ];
   primaryBinary = "sublime_merge";
-  primaryBinaryAliases = [ "smerge" ];
+  primaryBinaryAliases = ["smerge"];
   downloadUrl =
     arch: "https://download.sublimetext.com/sublime_merge_build_${buildVersion}_${arch}.tar.xz";
   versionUrl = "https://www.sublimemerge.com/${if dev then "dev" else "download"}";
@@ -136,7 +136,7 @@ stdenv.mkDerivation (rec {
 
   ${primaryBinary} = binaryPackage;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase =
     ''
@@ -198,9 +198,9 @@ stdenv.mkDerivation (rec {
   meta = with lib; {
     description = "Git client from the makers of Sublime Text";
     homepage = "https://www.sublimemerge.com";
-    maintainers = with maintainers; [ zookatron ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    maintainers = with maintainers; [zookatron];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 })

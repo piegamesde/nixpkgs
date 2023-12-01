@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   pname = "shopify-cli";
   version = (import ./gemset.nix).shopify-cli.version;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontUnpack = true;
 
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     makeWrapper ${rubyEnv}/bin/shopify $out/bin/shopify
     wrapProgram $out/bin/shopify \
-      --prefix PATH : ${lib.makeBinPath [ ruby ]}
+      --prefix PATH : ${lib.makeBinPath [ruby]}
   '';
 
   passthru.updateScript = bundlerUpdateScript "shopify-cli";
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "CLI which helps you build against the Shopify platform faster";
     homepage = "https://github.com/Shopify/shopify-cli";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
     mainProgram = "shopify";
     platforms = ruby.meta.platforms;
   };

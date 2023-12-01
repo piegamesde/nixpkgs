@@ -16,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-u2jwVOC9QM2JHsdAVBuEpqqdiBAVs+IWnpp48A5Xk28=";
   };
 
-  nativeBuildInputs = [ (python39.withPackages (pp: with pp; [ fontforge ])) ];
+  nativeBuildInputs = [(python39.withPackages (pp: with pp; [fontforge]))];
 
   buildPhase = ''
     local _d=""
@@ -41,6 +41,6 @@ stdenv.mkDerivation {
       licenses.mit
     ];
     platforms = platforms.all;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

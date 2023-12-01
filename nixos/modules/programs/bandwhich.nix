@@ -11,7 +11,7 @@ let
   cfg = config.programs.bandwhich;
 in
 {
-  meta.maintainers = with maintainers; [ Br1ght0ne ];
+  meta.maintainers = with maintainers; [Br1ght0ne];
 
   options = {
     programs.bandwhich = {
@@ -27,7 +27,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ bandwhich ];
+    environment.systemPackages = with pkgs; [bandwhich];
     security.wrappers.bandwhich = {
       owner = "root";
       group = "root";

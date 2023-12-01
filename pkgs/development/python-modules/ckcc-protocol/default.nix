@@ -28,12 +28,12 @@ buildPythonPackage rec {
 
   # Project has no tests
   doCheck = false;
-  pythonImportsCheck = [ "ckcc" ];
+  pythonImportsCheck = ["ckcc"];
 
   meta = with lib; {
     description = "Communicate with your Coldcard using Python";
     homepage = "https://github.com/Coldcard/ckcc-protocol";
     license = licenses.mit;
-    maintainers = [ maintainers.hkjn ];
+    maintainers = [maintainers.hkjn];
   };
 }

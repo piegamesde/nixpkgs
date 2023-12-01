@@ -29,7 +29,7 @@ buildPythonPackage rec {
     substituteInPlace requirements.txt --replace "==" ">="
   '';
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     beautifulsoup4
@@ -37,14 +37,14 @@ buildPythonPackage rec {
     jinja2
   ];
 
-  pythonImportsCheck = [ "reqif" ];
+  pythonImportsCheck = ["reqif"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Python library for ReqIF format";
     homepage = "https://github.com/strictdoc-project/reqif";
     license = licenses.asl20;
-    maintainers = with maintainers; [ yuu ];
+    maintainers = with maintainers; [yuu];
   };
 }

@@ -41,7 +41,7 @@ in
 stdenv.mkDerivation rec {
   pname = "mame";
   version = "0.252";
-  srcVersion = builtins.replaceStrings [ "." ] [ "" ] version;
+  srcVersion = builtins.replaceStrings ["."] [""] version;
 
   src = fetchFromGitHub {
     owner = "mamedev";
@@ -133,7 +133,7 @@ stdenv.mkDerivation rec {
       --subst-var-by mamePath "$out/opt/mame"
   '';
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=use-after-free" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-error=use-after-free"];
 
   desktopItems = [
     (makeDesktopItem {
@@ -224,7 +224,7 @@ stdenv.mkDerivation rec {
       bsd3
       gpl2Plus
     ];
-    maintainers = with maintainers; [ thiagokokada ];
+    maintainers = with maintainers; [thiagokokada];
     platforms = platforms.unix;
     broken = stdenv.isDarwin;
   };

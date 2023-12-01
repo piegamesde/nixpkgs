@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     glib
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "Library to read freedesktop.org menu files";
     homepage = "https://blog.lxde.org/tag/menu-cache/";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.ttuegel ];
+    maintainers = [maintainers.ttuegel];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

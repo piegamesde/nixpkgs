@@ -13,7 +13,7 @@ let
     chown sogo:sogo /etc/sogo/sogo.conf
     chmod 640 /etc/sogo/sogo.conf
 
-    ${if (cfg.configReplaces != { }) then
+    ${if (cfg.configReplaces != {}) then
       ''
         # Insert secrets
         ${concatStringsSep "\n" (
@@ -69,7 +69,7 @@ in
         specified file.
       '';
       type = attrsOf str;
-      default = { };
+      default = {};
       example = {
         LDAP_BINDPW = "/var/lib/secrets/sogo/ldappw";
       };
@@ -83,7 +83,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.sogo ];
+    environment.systemPackages = [pkgs.sogo];
 
     environment.etc."sogo/sogo.conf.raw".text = ''
       {
@@ -111,8 +111,8 @@ in
         "openldap.service"
         "dovecot2.service"
       ];
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ config.environment.etc."sogo/sogo.conf.raw".source ];
+      wantedBy = ["multi-user.target"];
+      restartTriggers = [config.environment.etc."sogo/sogo.conf.raw".source];
 
       environment.LDAPTLS_CACERT = "/etc/ssl/certs/ca-certificates.crt";
 
@@ -151,7 +151,7 @@ in
     systemd.services.sogo-tmpwatch = {
       description = "SOGo tmpwatch";
 
-      startAt = [ "hourly" ];
+      startAt = ["hourly"];
       script = ''
         SOGOSPOOL=/var/lib/sogo/spool
 
@@ -199,9 +199,9 @@ in
         "dovecot2.service"
         "sogo.service"
       ];
-      restartTriggers = [ config.environment.etc."sogo/sogo.conf.raw".source ];
+      restartTriggers = [config.environment.etc."sogo/sogo.conf.raw".source];
 
-      startAt = [ "minutely" ];
+      startAt = ["minutely"];
 
       serviceConfig = {
         Type = "oneshot";
@@ -292,7 +292,7 @@ in
     };
 
     # User and group
-    users.groups.sogo = { };
+    users.groups.sogo = {};
     users.users.sogo = {
       group = "sogo";
       isSystemUser = true;

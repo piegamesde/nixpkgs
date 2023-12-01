@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Az3POgdvDOVaaRtzLlISDODhAKbefpGx5KgwO3dttqs=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     SDL2
@@ -37,9 +37,9 @@ stdenv.mkDerivation rec {
   configureFlags = lib.optional enableFb "--enable-fb";
   dontAddPrefix = true;
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  installFlags = [ "PREFIX=${placeholder "out"}" ];
+  installFlags = ["PREFIX=${placeholder "out"}"];
 
   passthru.tests.test = nixosTests.terminal-emulators.ctx;
 
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       a vector graphics protocol.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.unix;
   };
 }

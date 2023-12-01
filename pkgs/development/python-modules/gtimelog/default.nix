@@ -25,7 +25,7 @@ buildPythonPackage rec {
     sha256 = "0qv2kv7vc3qqlzxsisgg31cmrkkqgnmxspbj10c5fhdmwzzwi0i9";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     glibcLocales
     gobject-introspection
@@ -45,7 +45,7 @@ buildPythonPackage rec {
     ./runtests
   '';
 
-  pythonImportsCheck = [ "gtimelog" ];
+  pythonImportsCheck = ["gtimelog"];
 
   preFixup = ''
     wrapProgram $out/bin/gtimelog \
@@ -70,6 +70,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://gtimelog.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
   };
 }

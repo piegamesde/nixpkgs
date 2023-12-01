@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-0n1LysLGOU9njeqLTQ1RHG4Yp/Lriq7rin3mAa63fEI=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     django
@@ -35,12 +35,12 @@ buildPythonPackage rec {
   # Test raises django.core.exceptions.ImproperlyConfigured
   doCheck = false;
 
-  pythonImportsCheck = [ "rest_framework_simplejwt" ];
+  pythonImportsCheck = ["rest_framework_simplejwt"];
 
   meta = with lib; {
     description = "JSON Web Token authentication plugin for Django REST Framework";
     homepage = "https://github.com/davesque/django-rest-framework-simplejwt";
     license = licenses.mit;
-    maintainers = with maintainers; [ arnoldfarkas ];
+    maintainers = with maintainers; [arnoldfarkas];
   };
 }

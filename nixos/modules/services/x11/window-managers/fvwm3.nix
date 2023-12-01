@@ -33,6 +33,6 @@ in
       '';
     };
 
-    environment.systemPackages = [ fvwm3 ];
+    environment.systemPackages = [fvwm3];
   };
 }

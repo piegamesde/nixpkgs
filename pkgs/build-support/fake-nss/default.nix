@@ -7,8 +7,8 @@
   symlinkJoin,
   writeTextDir,
   runCommand,
-  extraPasswdLines ? [ ],
-  extraGroupLines ? [ ],
+  extraPasswdLines ? [],
+  extraGroupLines ? [],
 }:
 symlinkJoin {
   name = "fake-nss";
@@ -26,7 +26,7 @@ symlinkJoin {
     (writeTextDir "etc/nsswitch.conf" ''
       hosts: files dns
     '')
-    (runCommand "var-empty" { } ''
+    (runCommand "var-empty" {} ''
       mkdir -p $out/var/empty
     '')
   ];

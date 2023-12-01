@@ -49,8 +49,8 @@ python3Packages.buildPythonApplication rec {
   meta = {
     homepage = "https://github.com/autokey/autokey";
     description = "Desktop automation utility for Linux and X11";
-    license = with lib.licenses; [ gpl3 ];
-    maintainers = with lib.maintainers; [ pneumaticat ];
+    license = with lib.licenses; [gpl3];
+    maintainers = with lib.maintainers; [pneumaticat];
     platforms = lib.platforms.linux;
   };
 }

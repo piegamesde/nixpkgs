@@ -17,7 +17,7 @@
   pkg-config,
   gcc,
   lib,
-  ghcjsDepOverrides ? (_: _: { }),
+  ghcjsDepOverrides ? (_: _: {}),
   haskell,
   linkFarm,
   buildPackages,
@@ -32,7 +32,7 @@ let
       happy = bootPkgs.happy_1_19_12;
     };
     bootPkgs = bootPkgs.extend (
-      lib.foldr lib.composeExtensions (_: _: { }) [
+      lib.foldr lib.composeExtensions (_: _: {}) [
         (
           self: _:
           import stage0 {
@@ -41,7 +41,7 @@ let
           }
         )
 
-        (callPackage ./common-overrides.nix { inherit haskellLib fetchpatch buildPackages; })
+        (callPackage ./common-overrides.nix {inherit haskellLib fetchpatch buildPackages;})
         ghcjsDepOverrides
       ]
     );
@@ -134,6 +134,6 @@ stdenv.mkDerivation {
     # https://github.com/NixOS/nixpkgs/pull/137066#issuecomment-922335563
     hydraPlatforms = lib.platforms.none;
 
-    maintainers = with lib.maintainers; [ obsidian-systems-maintenance ];
+    maintainers = with lib.maintainers; [obsidian-systems-maintenance];
   };
 }

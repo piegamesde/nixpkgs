@@ -24,7 +24,7 @@ in
       servers = mkOption {
         type = types.attrsOf (
           types.submodule (
-            { ... }:
+            {...}:
             {
               options = {
                 enable = mkEnableOption (mdDoc "Coqui TTS server");
@@ -61,7 +61,7 @@ in
 
                 extraArgs = mkOption {
                   type = types.listOf types.str;
-                  default = [ ];
+                  default = [];
                   description = mdDoc ''
                     Extra arguments to pass to the server commandline.
                   '';
@@ -70,7 +70,7 @@ in
             }
           )
         );
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             english = {
@@ -104,16 +104,16 @@ in
         escapeShellArgs
         ;
     in
-    mkIf (cfg.servers != { }) {
+    mkIf (cfg.servers != {}) {
       systemd.services =
         mapAttrs'
           (
             server: options:
             nameValuePair "tts-${server}" {
               description = "Coqui TTS server instance ${server}";
-              after = [ "network-online.target" ];
-              wantedBy = [ "multi-user.target" ];
-              path = with pkgs; [ espeak-ng ];
+              after = ["network-online.target"];
+              wantedBy = ["multi-user.target"];
+              path = with pkgs; [espeak-ng];
               environment.HOME = "/var/lib/tts";
               serviceConfig = {
                 DynamicUser = true;

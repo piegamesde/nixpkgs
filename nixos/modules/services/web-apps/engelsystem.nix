@@ -112,7 +112,7 @@ in
           };
         }
       ];
-      ensureDatabases = [ "engelsystem" ];
+      ensureDatabases = ["engelsystem"];
     };
 
     environment.etc."engelsystem/config.php".source = pkgs.writeText "config.php" ''
@@ -161,7 +161,7 @@ in
     };
 
     systemd.services."engelsystem-init" = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "oneshot";
       };
@@ -182,7 +182,7 @@ in
         '';
     };
     systemd.services."engelsystem-migrate" = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "oneshot";
         User = "engelsystem";
@@ -196,7 +196,7 @@ in
         "mysql.service"
       ];
     };
-    systemd.services."phpfpm-engelsystem".after = [ "engelsystem-migrate.service" ];
+    systemd.services."phpfpm-engelsystem".after = ["engelsystem-migrate.service"];
 
     users.users.engelsystem = {
       isSystemUser = true;
@@ -204,6 +204,6 @@ in
       home = "/var/lib/engelsystem/storage";
       group = "engelsystem";
     };
-    users.groups.engelsystem = { };
+    users.groups.engelsystem = {};
   };
 }

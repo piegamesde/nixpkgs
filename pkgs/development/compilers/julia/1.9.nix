@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     openssl
   ];
 
-  buildInputs = [ libxml2 ];
+  buildInputs = [libxml2];
 
   dontUseCmakeConfigure = true;
 

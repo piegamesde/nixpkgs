@@ -25,12 +25,12 @@ buildPythonPackage rec {
     markdown
   ];
   doCheck = false; # there's no test
-  pythonImportsCheck = [ "formbox" ];
+  pythonImportsCheck = ["formbox"];
 
   meta = with lib; {
     description = "A script to format mbox as HTML/XML";
     homepage = "https://sr.ht/~cnx/formbox";
     license = licenses.agpl3Plus;
-    maintainers = [ maintainers.McSinyx ];
+    maintainers = [maintainers.McSinyx];
   };
 }

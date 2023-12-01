@@ -27,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-+MSNX+CFmIQII+SFjM2TQKCgRMOTdsOIVAP8ur4WjQY=";
   };
 
-  patches = [ ./secret.patch ];
+  patches = [./secret.patch];
 
   propagatedBuildInputs = [
     aiofiles
@@ -52,6 +52,6 @@ buildPythonPackage rec {
     description = "An Etebase (EteSync 2.0) server so you can run your own";
     changelog = "https://github.com/etesync/server/blob/${version}/ChangeLog.md";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ felschr ];
+    maintainers = with maintainers; [felschr];
   };
 }

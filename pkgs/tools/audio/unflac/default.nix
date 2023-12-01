@@ -19,9 +19,9 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-QqLjz1X4uVpxhYXb/xIBwuLUhRaqwz2GDUPjBTS4ut0=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   postFixup = ''
-    wrapProgram $out/bin/unflac --prefix PATH : "${lib.makeBinPath [ ffmpeg ]}"
+    wrapProgram $out/bin/unflac --prefix PATH : "${lib.makeBinPath [ffmpeg]}"
   '';
 
   meta = with lib; {
@@ -29,6 +29,6 @@ buildGoModule rec {
     homepage = "https://sr.ht/~ft/unflac/";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ felipeqq2 ];
+    maintainers = with maintainers; [felipeqq2];
   };
 }

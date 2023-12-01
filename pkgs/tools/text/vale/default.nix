@@ -8,7 +8,7 @@ buildGoModule rec {
   pname = "vale";
   version = "2.25.2";
 
-  subPackages = [ "cmd/vale" ];
+  subPackages = ["cmd/vale"];
   outputs = [
     "out"
     "data"
@@ -41,6 +41,6 @@ buildGoModule rec {
     homepage = "https://vale.sh/";
     description = "A syntax-aware linter for prose built with speed and extensibility in mind";
     license = licenses.mit;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

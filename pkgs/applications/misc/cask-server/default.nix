@@ -31,6 +31,6 @@ mkDerivation rec {
       lgpl21Plus
       cc0
     ];
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

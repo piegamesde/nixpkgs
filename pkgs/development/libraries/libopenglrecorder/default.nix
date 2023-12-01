@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     description = "Library allowing Optional async readback OpenGL frame buffer with optional audio recording";
     homepage = "https://github.com/Benau/libopenglrecorder";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = with platforms; windows ++ linux;
   };
 }

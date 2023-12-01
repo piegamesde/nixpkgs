@@ -42,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://python-future.org";
     downloadPage = "https://github.com/PythonCharmers/python-future/releases";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ prikhi ];
+    maintainers = with lib.maintainers; [prikhi];
   };
 }

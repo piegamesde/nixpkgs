@@ -89,7 +89,7 @@ in
 
       plugins = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         example = literalExpression "[ pkgs.logstash-contrib ]";
         description = lib.mdDoc "The paths to find other logstash plugins in.";
       };
@@ -205,8 +205,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.logstash = {
       description = "Logstash Daemon";
-      wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.bash ];
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.bash];
       serviceConfig = {
         ExecStartPre = ''${pkgs.coreutils}/bin/mkdir -p "${cfg.dataDir}" ; ${pkgs.coreutils}/bin/chmod 700 "${cfg.dataDir}"'';
         ExecStart = concatStringsSep " " (

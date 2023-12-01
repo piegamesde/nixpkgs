@@ -16,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5P8V6oH05voSXAgwBDclSxdxdMalrfaNpElkar4IUZ0=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ adoptopenjdk-bin ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [adoptopenjdk-bin];
 
   dontUnpack = true;
   installPhase = ''
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "An algorithm specification language with model checking tools";
     homepage = "http://lamport.azurewebsites.net/tla/tla.html";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [

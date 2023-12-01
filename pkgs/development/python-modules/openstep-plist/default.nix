@@ -23,13 +23,13 @@ buildPythonPackage rec {
     setuptools-scm
     cython
   ];
-  nativeCheckInputs = [ pytestCheckHook ];
-  pythonImportsCheck = [ "openstep_plist" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pythonImportsCheck = ["openstep_plist"];
 
   meta = {
     description = "Parser for the 'old style' OpenStep property list format also known as ASCII plist";
     homepage = "https://github.com/fonttools/openstep-plist";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.BarinovMaxim ];
+    maintainers = [lib.maintainers.BarinovMaxim];
   };
 }

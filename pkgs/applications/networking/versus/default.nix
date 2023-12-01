@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Benchmark multiple API endpoints against each other";
     homepage = "https://github.com/INFURA/versus";
     license = licenses.mit;
-    maintainers = with maintainers; [ mmahut ];
+    maintainers = with maintainers; [mmahut];
   };
 }

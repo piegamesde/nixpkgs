@@ -33,7 +33,7 @@ mkDerivation rec {
       })
     ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     qtscript
@@ -44,7 +44,7 @@ mkDerivation rec {
     quazip
   ];
 
-  cmakeFlags = [ "-DROUTINO_XML_PATH=${routino}/share/routino" ];
+  cmakeFlags = ["-DROUTINO_XML_PATH=${routino}/share/routino"];
 
   qtWrapperArgs = [
     "--suffix PATH : ${

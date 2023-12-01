@@ -20,21 +20,21 @@ buildPythonPackage rec {
     hash = "sha256-oF5LBuDK4kqsAcKwidju+wFjigjy4CNbJ6bfWpGO1yQ=";
   };
 
-  propagatedBuildInputs = [ marshmallow ];
+  propagatedBuildInputs = [marshmallow];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace setup.cfg \
       --replace "--cov=marshmallow_polyfield" ""
   '';
 
-  pythonImportsCheck = [ "marshmallow" ];
+  pythonImportsCheck = ["marshmallow"];
 
   meta = with lib; {
     description = "Extension to Marshmallow to allow for polymorphic fields";
     homepage = "https://github.com/Bachmann1234/marshmallow-polyfield";
     license = licenses.asl20;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

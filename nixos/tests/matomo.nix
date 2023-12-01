@@ -1,10 +1,10 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
 
 let
@@ -14,7 +14,7 @@ let
       name = "matomo";
 
       nodes.machine =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         {
           services.matomo = {
             package = package;

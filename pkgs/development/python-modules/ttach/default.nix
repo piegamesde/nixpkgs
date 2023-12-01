@@ -20,15 +20,15 @@ buildPythonPackage rec {
     hash = "sha256-R6QO+9hv0eI7dZW5iJf096+LU1q+vnmOpveurgZemPc=";
   };
 
-  propagatedBuildInputs = [ torch ];
+  propagatedBuildInputs = [torch];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pythonImportsCheck = [ "ttach" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pythonImportsCheck = ["ttach"];
 
   meta = with lib; {
     description = "Image Test Time Augmentation with PyTorch";
     homepage = "https://github.com/qubvel/ttach";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ cfhammill ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [cfhammill];
   };
 }

@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     sha256 = "17sqsx57ymrimm5jfmcyrp7b0nzi41bcvpxsqckmwbhl19g6c17d";
   };
 
-  patches = [ ./xmlcatalog_patch.patch ];
+  patches = [./xmlcatalog_patch.patch];
 
   nativeBuildInputs = [
     autoconf
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     homepage = "https://wiki.lxde.org/en/LXSession";
     description = "Classic LXDE session manager";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.shamilton ];
+    maintainers = [maintainers.shamilton];
     platforms = platforms.linux;
   };
 }

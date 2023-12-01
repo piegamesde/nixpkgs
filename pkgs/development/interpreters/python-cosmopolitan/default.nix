@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   ];
 
   # slashes are significant because upstream uses o/$(MODE)/foo.o
-  buildFlags = [ "o//third_party/python" ];
+  buildFlags = ["o//third_party/python"];
   checkTarget = "o//third_party/python/test";
   enableParallelBuilding = true;
 

@@ -16,12 +16,12 @@ buildPythonPackage rec {
     repo = pname;
   };
 
-  propagatedBuildInputs = [ pyparsing ];
+  propagatedBuildInputs = [pyparsing];
 
   meta = with lib; {
     description = "Python library for translating ASN.1 into other forms";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
   };
 }

@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "02m6w04xhgv2yx69yxph8giw0sp39s9lvvlffslyna46fnr64qvb";
   };
 
-  patches = [ ./insert_utillinux_path_hooks.patch ];
+  patches = [./insert_utillinux_path_hooks.patch];
 
   postPatch = ''
     substituteInPlace src/mtcrypt.c \
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
       lgpl21
       lgpl3
     ];
-    maintainers = with maintainers; [ netali ];
+    maintainers = with maintainers; [netali];
     platforms = platforms.linux;
   };
 }

@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       --replace 'all: $(MMLGUI_BIN) test' 'all: $(MMLGUI_BIN)'
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     [
@@ -53,9 +53,9 @@ stdenv.mkDerivation rec {
       Cocoa
     ];
 
-  nativeCheckInputs = [ cppunit ];
+  nativeCheckInputs = [cppunit];
 
-  makeFlags = [ "RELEASE=1" ];
+  makeFlags = ["RELEASE=1"];
 
   enableParallelBuilding = true;
 
@@ -71,13 +71,13 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { url = "https://github.com/superctr/mmlgui.git"; };
+  passthru.updateScript = unstableGitUpdater {url = "https://github.com/superctr/mmlgui.git";};
 
   meta = with lib; {
     homepage = "https://github.com/superctr/mmlgui";
     description = "MML (Music Macro Language) editor and compiler GUI, powered by the ctrmml framework";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = platforms.all;
   };
 }

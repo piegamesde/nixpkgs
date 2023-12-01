@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
   ffcallAvailable = stdenv.isLinux && (libffcall != null);
 
   buildInputs =
-    [ libsigsegv ]
+    [libsigsegv]
     ++ lib.optional (gettext != null) gettext
     ++ lib.optional (ncurses != null) ncurses
     ++ lib.optional (pcre != null) pcre
@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
   '';
 
   configureFlags =
-    [ "builddir" ]
+    ["builddir"]
     ++ lib.optional (!dllSupport) "--without-dynamic-modules"
     ++ lib.optional (readline != null) "--with-readline"
     # --with-dynamic-ffi can only exist with --with-ffcall - foreign.d does not compile otherwise
@@ -118,7 +118,7 @@ stdenv.mkDerivation rec {
   #   ../src/charstrg.d:319:10: fatal error: uniwidth.h: No such file or directory
   enableParallelBuilding = false;
 
-  postInstall = lib.optionalString (withModules != [ ]) (
+  postInstall = lib.optionalString (withModules != []) (
     ''./clisp-link add "$out"/lib/clisp*/base "$(dirname "$out"/lib/clisp*/base)"/full''
     + lib.concatMapStrings (x: " " + x) withModules
   );

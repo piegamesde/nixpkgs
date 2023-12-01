@@ -14,9 +14,9 @@ buildPythonPackage rec {
     inherit pname version;
     hash = "sha256-32ZtQwTat3Ti3J/rIIuxrI1x6lzuwS9MmeujD71kL/I=";
   };
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   checkPhase = ''
     pytest tests
@@ -26,6 +26,6 @@ buildPythonPackage rec {
     description = "A pure-Python robots.txt parser with support for modern conventions";
     homepage = "https://github.com/scrapy/protego";
     license = licenses.bsd3;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

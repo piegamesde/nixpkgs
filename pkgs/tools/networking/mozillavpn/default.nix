@@ -145,14 +145,14 @@ stdenv.mkDerivation {
     "--prefix"
     "PATH"
     ":"
-    (lib.makeBinPath [ wireguard-tools ])
+    (lib.makeBinPath [wireguard-tools])
   ];
 
   meta = {
     description = "Client for the Mozilla VPN service";
     homepage = "https://vpn.mozilla.org/";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ andersk ];
+    maintainers = with lib.maintainers; [andersk];
     platforms = lib.platforms.linux;
   };
 }

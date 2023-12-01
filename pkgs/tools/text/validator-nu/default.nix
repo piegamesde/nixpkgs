@@ -71,7 +71,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Helps you catch problems in your HTML/CSS/SVG";
     homepage = "https://validator.github.io/validator/";
     license = licenses.mit;
-    maintainers = with maintainers; [ andersk ];
+    maintainers = with maintainers; [andersk];
     mainProgram = "vnu";
     sourceProvenance = with sourceTypes; [
       binaryBytecode

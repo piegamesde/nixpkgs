@@ -51,7 +51,7 @@ assert enableQt -> qwt != null;
       qwt
     ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-unused";
 

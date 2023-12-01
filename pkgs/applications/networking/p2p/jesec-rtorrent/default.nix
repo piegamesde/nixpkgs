@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     inherit libtorrent;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     curl
@@ -37,13 +37,13 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional jsonRpcSupport nlohmann_json ++ lib.optional xmlRpcSupport xmlrpc_c;
 
   cmakeFlags =
-    [ "-DUSE_RUNTIME_CA_DETECTION=NO" ]
+    ["-DUSE_RUNTIME_CA_DETECTION=NO"]
     ++ lib.optional (!jsonRpcSupport) "-DUSE_JSONRPC=NO"
     ++ lib.optional (!xmlRpcSupport) "-DUSE_XMLRPC=NO";
 
   doCheck = true;
 
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
 
   prePatch = ''
     substituteInPlace src/main.cc \

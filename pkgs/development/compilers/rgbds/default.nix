@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
     flex
     pkg-config
   ];
-  buildInputs = [ libpng ];
+  buildInputs = [libpng];
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-fno-lto";
-  installFlags = [ "PREFIX=${placeholder "out"}" ];
+  installFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     homepage = "https://rgbds.gbdev.io/";

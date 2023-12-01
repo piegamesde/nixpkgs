@@ -26,13 +26,13 @@ stdenv.mkDerivation rec {
     libxslt.bin
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     homepage = "https://knightos.org/";
     description = "Converts image formats supported by stb_image to the KnightOS image format";
     license = licenses.mit;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.all;
   };
 }

@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "float-features";
   version = "20210228-git";
@@ -18,7 +18,7 @@ rec {
 
   packageName = "float-features";
 
-  asdFilesToKeep = [ "float-features.asd" ];
+  asdFilesToKeep = ["float-features.asd"];
   overrides = x: x;
 }
 /* (SYSTEM float-features DESCRIPTION

@@ -120,7 +120,7 @@ in
 
     listMasters = mkOption {
       type = listOf str;
-      example = [ "postmaster@sympa.example.org" ];
+      example = ["postmaster@sympa.example.org"];
       description = lib.mdDoc ''
         The list of the email addresses of the listmasters
         (users authorized to perform global server commands).
@@ -140,7 +140,7 @@ in
     domains = mkOption {
       type = attrsOf (
         submodule (
-          { name, config, ... }:
+          {name, config, ...}:
           {
             options = {
               webHost = mkOption {
@@ -166,7 +166,7 @@ in
                     bool
                   ]
                 );
-                default = { };
+                default = {};
                 example = {
                   default_max_list_members = 3;
                 };
@@ -330,7 +330,7 @@ in
           bool
         ]
       );
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           default_home = "lists";
@@ -347,7 +347,7 @@ in
     settingsFile = mkOption {
       type = attrsOf (
         submodule (
-          { name, config, ... }:
+          {name, config, ...}:
           {
             options = {
               enable = mkOption {
@@ -372,7 +372,7 @@ in
           }
         )
       );
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           "list_data/lists.example.org/help" = {
@@ -404,15 +404,15 @@ in
           db_type = cfg.database.type;
           db_name = cfg.database.name;
         }
-        // (optionalAttrs (cfg.database.host != null) { db_host = cfg.database.host; })
+        // (optionalAttrs (cfg.database.host != null) {db_host = cfg.database.host;})
         // (optionalAttrs mysqlLocal {
           db_host = "localhost"; # use unix domain socket
         })
         // (optionalAttrs pgsqlLocal {
           db_host = "/run/postgresql"; # use unix domain socket
         })
-        // (optionalAttrs (cfg.database.port != null) { db_port = cfg.database.port; })
-        // (optionalAttrs (cfg.database.user != null) { db_user = cfg.database.user; })
+        // (optionalAttrs (cfg.database.port != null) {db_port = cfg.database.port;})
+        // (optionalAttrs (cfg.database.user != null) {db_user = cfg.database.user;})
         // (optionalAttrs (cfg.mta.type == "postfix") {
           sendmail_aliases = "${dataDir}/sympa_transport";
           aliases_program = "${pkgs.postfix}/bin/postmap";
@@ -428,17 +428,16 @@ in
 
     services.sympa.settingsFile =
       {
-        "virtual.sympa" = mkDefault { source = virtual; };
-        "transport.sympa" = mkDefault { source = transport; };
-        "etc/list_aliases.tt2" = mkDefault { source = listAliases; };
+        "virtual.sympa" = mkDefault {source = virtual;};
+        "transport.sympa" = mkDefault {source = transport;};
+        "etc/list_aliases.tt2" = mkDefault {source = listAliases;};
       }
       // (flip mapAttrs' cfg.domains (
-        fqdn: domain:
-        nameValuePair "etc/${fqdn}/robot.conf" (mkDefault { source = robotConfig fqdn domain; })
+        fqdn: domain: nameValuePair "etc/${fqdn}/robot.conf" (mkDefault {source = robotConfig fqdn domain;})
       ));
 
     environment = {
-      systemPackages = [ pkg ];
+      systemPackages = [pkg];
     };
 
     users.users.${user} = {
@@ -449,7 +448,7 @@ in
       isSystemUser = true;
     };
 
-    users.groups.${group} = { };
+    users.groups.${group} = {};
 
     assertions = [
       {
@@ -503,8 +502,8 @@ in
     systemd.services.sympa = {
       description = "Sympa mailing list manager";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
       wants = sympaSubServices;
       before = sympaSubServices;
       serviceConfig = sympaServiceConfig "sympa_msg";
@@ -529,28 +528,28 @@ in
     };
     systemd.services.sympa-archive = {
       description = "Sympa mailing list manager (archiving)";
-      bindsTo = [ "sympa.service" ];
+      bindsTo = ["sympa.service"];
       serviceConfig = sympaServiceConfig "archived";
     };
     systemd.services.sympa-bounce = {
       description = "Sympa mailing list manager (bounce processing)";
-      bindsTo = [ "sympa.service" ];
+      bindsTo = ["sympa.service"];
       serviceConfig = sympaServiceConfig "bounced";
     };
     systemd.services.sympa-bulk = {
       description = "Sympa mailing list manager (message distribution)";
-      bindsTo = [ "sympa.service" ];
+      bindsTo = ["sympa.service"];
       serviceConfig = sympaServiceConfig "bulk";
     };
     systemd.services.sympa-task = {
       description = "Sympa mailing list manager (task management)";
-      bindsTo = [ "sympa.service" ];
+      bindsTo = ["sympa.service"];
       serviceConfig = sympaServiceConfig "task_manager";
     };
 
     systemd.services.wwsympa = mkIf usingNginx {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "sympa.service" ];
+      wantedBy = ["multi-user.target"];
+      after = ["sympa.service"];
       serviceConfig = {
         Type = "forking";
         PIDFile = "/run/sympa/wwsympa.pid";
@@ -605,13 +604,13 @@ in
       enable = true;
       recipientDelimiter = "+";
       config = {
-        virtual_alias_maps = [ "hash:${dataDir}/virtual.sympa" ];
+        virtual_alias_maps = ["hash:${dataDir}/virtual.sympa"];
         virtual_mailbox_maps = [
           "hash:${dataDir}/transport.sympa"
           "hash:${dataDir}/sympa_transport"
           "hash:${dataDir}/virtual.sympa"
         ];
-        virtual_mailbox_domains = [ "hash:${dataDir}/transport.sympa" ];
+        virtual_mailbox_domains = ["hash:${dataDir}/transport.sympa"];
         transport_maps = [
           "hash:${dataDir}/transport.sympa"
           "hash:${dataDir}/sympa_transport"
@@ -648,7 +647,7 @@ in
     services.mysql = optionalAttrs mysqlLocal {
       enable = true;
       package = mkDefault pkgs.mariadb;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -661,7 +660,7 @@ in
 
     services.postgresql = optionalAttrs pgsqlLocal {
       enable = true;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;

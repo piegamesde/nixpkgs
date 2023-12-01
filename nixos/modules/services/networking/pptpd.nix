@@ -87,8 +87,8 @@ with lib;
 
         ppp-pptpd-wrapped = pkgs.stdenv.mkDerivation {
           name = "ppp-pptpd-wrapped";
-          phases = [ "installPhase" ];
-          nativeBuildInputs = with pkgs; [ makeWrapper ];
+          phases = ["installPhase"];
+          nativeBuildInputs = with pkgs; [makeWrapper];
           installPhase = ''
             mkdir -p $out/bin
             makeWrapper ${pkgs.ppp}/bin/pppd $out/bin/pppd \
@@ -100,8 +100,8 @@ with lib;
       {
         description = "pptpd server";
 
-        requires = [ "network-online.target" ];
-        wantedBy = [ "multi-user.target" ];
+        requires = ["network-online.target"];
+        wantedBy = ["multi-user.target"];
 
         preStart = ''
           mkdir -p -m 700 /etc/ppp-pptpd

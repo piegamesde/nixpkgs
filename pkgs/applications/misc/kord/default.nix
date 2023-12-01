@@ -22,13 +22,13 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-xhWSycTe72HW3E9meTo4wjOCHDcNq6fUPT6nqHoW9vE=";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ alsa-lib ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [alsa-lib];
 
   meta = with lib; {
     description = "A music theory binary and library for Rust";
     homepage = "https://github.com/twitchax/kord";
-    maintainers = with maintainers; [ kidsan ];
-    license = with licenses; [ mit ];
+    maintainers = with maintainers; [kidsan];
+    license = with licenses; [mit];
   };
 }

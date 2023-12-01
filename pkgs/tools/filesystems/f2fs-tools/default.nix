@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     libuuid
   ];
 
-  patches = [ ./f2fs-tools-cross-fix.patch ];
+  patches = [./f2fs-tools-cross-fix.patch];
 
   meta = with lib; {
     homepage = "https://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs-tools.git/";

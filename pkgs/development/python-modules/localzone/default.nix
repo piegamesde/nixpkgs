@@ -23,7 +23,7 @@ buildPythonPackage rec {
     sphinx
   ];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   checkPhase = ''
     pytest
@@ -33,6 +33,6 @@ buildPythonPackage rec {
     description = "A simple DNS library for managing zone files";
     homepage = "https://localzone.iomaestro.com";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ flyfloh ];
+    maintainers = with maintainers; [flyfloh];
   };
 }

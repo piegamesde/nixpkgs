@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://panthema.net/2013/disk-filltest";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ caadar ];
+    maintainers = with maintainers; [caadar];
     platforms = platforms.all;
   };
 }

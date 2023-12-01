@@ -15,9 +15,9 @@ stdenv.mkDerivation rec {
     sha256 = "0k45jas6p3cyldgyir1314ja3174sayn2h2ly3z9b4dl3368pk77";
   };
 
-  patches = [ (import ./fix-const-weights-clang-patch.nix fetchpatch) ];
+  patches = [(import ./fix-const-weights-clang-patch.nix fetchpatch)];
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   preConfigure = "patchShebangs configure";
 
@@ -26,6 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gecode.org";
     description = "Toolkit for developing constraint-based systems";
     platforms = platforms.all;
-    maintainers = [ maintainers.manveru ];
+    maintainers = [maintainers.manveru];
   };
 }

@@ -18,9 +18,9 @@ buildGoModule rec {
 
   vendorSha256 = null; # vendorSha256 = "";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  patches = [ ./staticfiles-directory.patch ];
+  patches = [./staticfiles-directory.patch];
 
   meta = with lib; {
     description = "A tool to manage network booting of machines";
@@ -31,7 +31,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/ns1/waitron";
     license = licenses.asl20;
-    maintainers = with maintainers; [ guibert ];
+    maintainers = with maintainers; [guibert];
     platforms = platforms.linux;
     broken = true; # vendor isn't reproducible with go > 1.17: nix-build -A $name.go-modules --check
   };

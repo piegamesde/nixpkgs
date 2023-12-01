@@ -40,6 +40,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.bsd3;
 
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.sprock ];
+    maintainers = [lib.maintainers.sprock];
   };
 }

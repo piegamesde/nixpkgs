@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
 
   dontDisableStatic = true;
 
-  patches = [ ./autotools-define-conflict-debian-fix.patch ];
+  patches = [./autotools-define-conflict-debian-fix.patch];
 
   meta = {
     description = "Hash algorithms library";

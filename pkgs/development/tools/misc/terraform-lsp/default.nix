@@ -28,6 +28,6 @@ buildGoModule rec {
     description = "Language Server Protocol for Terraform";
     homepage = "https://github.com/juliosueiras/terraform-lsp";
     license = licenses.mit;
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [marsam];
   };
 }

@@ -26,12 +26,12 @@ python3.pkgs.buildPythonApplication rec {
 
   format = "pyproject";
 
-  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
+  nativeBuildInputs = with python3.pkgs; [poetry-core];
 
   meta = with lib; {
     homepage = "https://github.com/siddhantgoel/beancount-ing-diba";
     description = "Beancount Importers for ING-DiBa (Germany) CSV Exports";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
   };
 }

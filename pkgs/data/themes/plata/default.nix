@@ -58,9 +58,9 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional telegramSupport zip;
 
-  buildInputs = [ gtk_engines ];
+  buildInputs = [gtk_engines];
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
   postPatch = "patchShebangs .";
 
@@ -103,6 +103,6 @@ stdenv.mkDerivation rec {
       cc-by-sa-40
     ];
     platforms = platforms.linux;
-    maintainers = [ maintainers.tadfisher ];
+    maintainers = [maintainers.tadfisher];
   };
 }

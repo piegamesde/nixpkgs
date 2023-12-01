@@ -21,9 +21,9 @@ buildDunePackage rec {
     substituteInPlace src/dune --replace "printbox" "printbox-text"
   '';
 
-  nativeBuildInputs = [ reason ];
+  nativeBuildInputs = [reason];
 
-  propagatedBuildInputs = [ printbox-text ];
+  propagatedBuildInputs = [printbox-text];
 
   meta = with lib; {
     description = "Native Reason + JSOO cross-platform performance benchmarking tools";
@@ -39,7 +39,7 @@ buildDunePackage rec {
       Outputs a JSON performance report, and compare it with previous iterations - and fail if a regression is detected.
     '';
     homepage = "https://github.com/bryphe/reperf";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.mit;
   };
 }

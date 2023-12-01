@@ -19,13 +19,13 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-u6C19QA3gMzBZIRoNDnfu1p8zkirSQKjNSQrSb8+qvs=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ];
+  buildInputs = lib.optionals stdenv.isDarwin [CoreServices];
 
   meta = with lib; {
     description = "Static site generator written in Rust";
     homepage = "https://github.com/cobalt-org/cobalt.rs/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ethancedwards8 ];
+    maintainers = with maintainers; [ethancedwards8];
     platforms = platforms.unix;
   };
 }

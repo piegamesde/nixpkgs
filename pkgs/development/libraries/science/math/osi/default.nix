@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
 
   # Compile errors
   env.NIX_CFLAGS_COMPILE = "-Wno-cast-qual";
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   enableParallelBuilding = true;
 
@@ -62,6 +62,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/coin-or/Osi";
     license = licenses.epl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

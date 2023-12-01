@@ -1,4 +1,4 @@
-{ dotnetenv }:
+{dotnetenv}:
 
 {
   name,
@@ -8,7 +8,7 @@
   targets ? "ReBuild",
   verbosity ? "detailed",
   options ? "/p:Configuration=Debug;Platform=Win32",
-  assemblyInputs ? [ ],
+  assemblyInputs ? [],
   preBuild ? "",
   namespace,
   mainClassName,
@@ -34,7 +34,7 @@ dotnetenv.buildSolution {
   name = "${name}-wrapper";
   src = ./Wrapper;
   slnFile = "Wrapper.sln";
-  assemblyInputs = [ application ];
+  assemblyInputs = [application];
   preBuild = ''
         addRuntimeDeps()
         {

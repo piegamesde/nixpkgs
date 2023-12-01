@@ -23,18 +23,18 @@ buildPythonPackage rec {
     sed -i "/'pep8\|flake8\|pep8-naming',/d" setup.py
   '';
 
-  checkInputs = [ mock ];
+  checkInputs = [mock];
 
   checkPhase = ''
     ${python.interpreter} setup.py test
   '';
 
-  pythonImportsCheck = [ "cron_descriptor" ];
+  pythonImportsCheck = ["cron_descriptor"];
 
   meta = with lib; {
     description = "Library that converts cron expressions into human readable strings";
     homepage = "https://github.com/Salamek/cron-descriptor";
     license = licenses.mit;
-    maintainers = with maintainers; [ phaer ];
+    maintainers = with maintainers; [phaer];
   };
 }

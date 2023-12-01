@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.networking.networkmanager;
 
-  delegateWireless = config.networking.wireless.enable == true && cfg.unmanaged != [ ];
+  delegateWireless = config.networking.wireless.enable == true && cfg.unmanaged != [];
 
   enableIwd = cfg.wifi.backend == "iwd";
 
@@ -43,7 +43,7 @@ let
         firewall-backend = cfg.firewallBackend;
       })
       (mkSection "keyfile" {
-        unmanaged-devices = if cfg.unmanaged == [ ] then null else lib.concatStringsSep ";" cfg.unmanaged;
+        unmanaged-devices = if cfg.unmanaged == [] then null else lib.concatStringsSep ";" cfg.unmanaged;
       })
       (mkSection "logging" {
         audit = config.security.audit.enable;
@@ -144,7 +144,7 @@ let
   packages = [
     pkgs.modemmanager
     pkgs.networkmanager
-  ] ++ cfg.plugins ++ lib.optionals (!delegateWireless && !enableIwd) [ pkgs.wpa_supplicant ];
+  ] ++ cfg.plugins ++ lib.optionals (!delegateWireless && !enableIwd) [pkgs.wpa_supplicant];
 in
 {
 
@@ -182,7 +182,7 @@ in
               ]
             )
           );
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Configuration for the [connection] section of NetworkManager.conf.
           Refer to
@@ -212,7 +212,7 @@ in
 
       unmanaged = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           List of interfaces that will not be managed by NetworkManager.
           Interface name can be specified here, but if you need more fidelity,
@@ -241,7 +241,7 @@ in
             };
           in
           types.listOf networkManagerPluginPackage;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           List of NetworkManager plug-ins to enable.
           Some plug-ins are enabled by the NetworkManager module by default.
@@ -289,7 +289,7 @@ in
 
       appendNameservers = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           A list of name servers that should be appended
           to the ones configured in NetworkManager or received by DHCP.
@@ -298,7 +298,7 @@ in
 
       insertNameservers = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           A list of name servers that should be inserted before
           the ones configured in NetworkManager or received by DHCP.
@@ -385,7 +385,7 @@ in
             };
           }
         );
-        default = [ ];
+        default = [];
         example = literalExpression ''
           [ {
                 source = pkgs.writeText "upHook" '''
@@ -479,7 +479,7 @@ in
 
     assertions = [
       {
-        assertion = config.networking.wireless.enable == true -> cfg.unmanaged != [ ];
+        assertion = config.networking.wireless.enable == true -> cfg.unmanaged != [];
         message = ''
           You can not use networking.networkmanager with networking.wireless.
           Except if you mark some interfaces as <literal>unmanaged</literal> by NetworkManager.
@@ -506,7 +506,7 @@ in
       // optionalAttrs cfg.enableFccUnlock {
         "ModemManager/fcc-unlock.d".source = "${pkgs.modemmanager}/share/ModemManager/fcc-unlock.available.d/*";
       }
-      // optionalAttrs (cfg.appendNameservers != [ ] || cfg.insertNameservers != [ ]) {
+      // optionalAttrs (cfg.appendNameservers != [] || cfg.insertNameservers != []) {
         "NetworkManager/dispatcher.d/02overridedns".source = overrideNameserversScript;
       }
       // listToAttrs (
@@ -534,7 +534,7 @@ in
       nm-openvpn = {
         uid = config.ids.uids.nm-openvpn;
         group = "nm-openvpn";
-        extraGroups = [ "networkmanager" ];
+        extraGroups = ["networkmanager"];
       };
       nm-iodine = {
         isSystemUser = true;
@@ -553,10 +553,10 @@ in
     ];
 
     systemd.services.NetworkManager = {
-      wantedBy = [ "network.target" ];
-      restartTriggers = [ configFile ];
+      wantedBy = ["network.target"];
+      restartTriggers = [configFile];
 
-      aliases = [ "dbus-org.freedesktop.NetworkManager.service" ];
+      aliases = ["dbus-org.freedesktop.NetworkManager.service"];
 
       serviceConfig = {
         StateDirectory = "NetworkManager";
@@ -565,13 +565,13 @@ in
     };
 
     systemd.services.NetworkManager-wait-online = {
-      wantedBy = [ "network-online.target" ];
+      wantedBy = ["network-online.target"];
     };
 
-    systemd.services.ModemManager.aliases = [ "dbus-org.freedesktop.ModemManager1.service" ];
+    systemd.services.ModemManager.aliases = ["dbus-org.freedesktop.ModemManager1.service"];
 
     systemd.services.NetworkManager-dispatcher = {
-      wantedBy = [ "network.target" ];
+      wantedBy = ["network.target"];
       restartTriggers = [
         configFile
         overrideNameserversScript
@@ -583,12 +583,12 @@ in
         pkgs.util-linux
         pkgs.coreutils
       ];
-      aliases = [ "dbus-org.freedesktop.nm-dispatcher.service" ];
+      aliases = ["dbus-org.freedesktop.nm-dispatcher.service"];
     };
 
     # Turn off NixOS' network management when networking is managed entirely by NetworkManager
     networking = mkMerge [
-      (mkIf (!delegateWireless) { useDHCP = false; })
+      (mkIf (!delegateWireless) {useDHCP = false;})
 
       {
         networkmanager.plugins = with pkgs; [
@@ -602,9 +602,9 @@ in
         ];
       }
 
-      (mkIf cfg.enableStrongSwan { networkmanager.plugins = [ pkgs.networkmanager_strongswan ]; })
+      (mkIf cfg.enableStrongSwan {networkmanager.plugins = [pkgs.networkmanager_strongswan];})
 
-      (mkIf enableIwd { wireless.iwd.enable = true; })
+      (mkIf enableIwd {wireless.iwd.enable = true;})
 
       {
         networkmanager.connectionConfig = {
@@ -621,7 +621,7 @@ in
       }
     ];
 
-    boot.kernelModules = [ "ctr" ];
+    boot.kernelModules = ["ctr"];
 
     security.polkit.enable = true;
     security.polkit.extraConfig = polkitConf;

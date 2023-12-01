@@ -16,7 +16,7 @@ buildPythonPackage rec {
     cd "${pname}"
   '';
 
-  pythonImportsCheck = [ "gruut_lang_${lang}" ];
+  pythonImportsCheck = ["gruut_lang_${lang}"];
 
   doCheck = false;
 

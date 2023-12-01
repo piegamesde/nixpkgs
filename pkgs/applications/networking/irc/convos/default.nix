@@ -21,7 +21,7 @@ perlPackages.buildPerlPackage rec {
     sha256 = "sha256-i8lDK5/Whi5uo2/Qqh5jgJGLuuHn7kdrfvr+9Ktzp/8=";
   };
 
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optionals stdenv.isDarwin [ shortenPerlShebang ];
+  nativeBuildInputs = [makeWrapper] ++ lib.optionals stdenv.isDarwin [shortenPerlShebang];
 
   buildInputs = with perlPackages; [
     CryptPassphrase
@@ -49,9 +49,9 @@ perlPackages.buildPerlPackage rec {
     EV
   ];
 
-  propagatedBuildInputs = [ openssl ];
+  propagatedBuildInputs = [openssl];
 
-  nativeCheckInputs = with perlPackages; [ TestDeep ];
+  nativeCheckInputs = with perlPackages; [TestDeep];
 
   postPatch = ''
     patchShebangs script/convos
@@ -116,6 +116,6 @@ perlPackages.buildPerlPackage rec {
     homepage = "https://convos.chat";
     description = "Convos is the simplest way to use IRC in your browser";
     license = lib.licenses.artistic2;
-    maintainers = with lib.maintainers; [ sgo ];
+    maintainers = with lib.maintainers; [sgo];
   };
 }

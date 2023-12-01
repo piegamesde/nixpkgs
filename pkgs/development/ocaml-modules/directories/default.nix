@@ -32,6 +32,6 @@ buildDunePackage rec {
       macOS.
     '';
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ bcc32 ];
+    maintainers = with lib.maintainers; [bcc32];
   };
 }

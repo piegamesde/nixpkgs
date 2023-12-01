@@ -27,13 +27,13 @@ crystal.buildCrystalPackage rec {
   # with mint's shard.lock file in the current directory
   shardsFile = ./shards.nix;
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   meta = with lib; {
     description = "A refreshing language for the front-end web";
     homepage = "https://mint-lang.com/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ manveru ];
+    maintainers = with maintainers; [manveru];
     platforms = [
       "x86_64-linux"
       "i686-linux"

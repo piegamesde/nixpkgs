@@ -40,7 +40,7 @@ buildPythonPackage rec {
 
   # Tests cannot import pyfftw. pyfftw works fine though.
   doCheck = false;
-  pythonImportsCheck = [ "pyfftw" ];
+  pythonImportsCheck = ["pyfftw"];
 
   meta = with lib; {
     description = "A pythonic wrapper around FFTW, the FFT library, presenting a unified interface for all the supported transforms";
@@ -49,6 +49,6 @@ buildPythonPackage rec {
       bsd2
       bsd3
     ];
-    maintainers = with maintainers; [ fridh ];
+    maintainers = with maintainers; [fridh];
   };
 }

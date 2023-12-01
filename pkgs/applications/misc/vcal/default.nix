@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "0jrm0jzqxb1xjp24hwbzlxsh22gjssay9gj4zszljzdm68r5afvc";
   };
 
-  nativeBuildInputs = [ perl ]; # for pod2man
+  nativeBuildInputs = [perl]; # for pod2man
 
   dontUnpack = true;
   dontBuild = true;
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     description = "Parser for VCalendar and ICalendar files, usable from the command line";
     homepage = "https://waynemorrison.com/software/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

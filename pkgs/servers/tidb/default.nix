@@ -24,12 +24,12 @@ buildGoModule rec {
     "-X github.com/pingcap/tidb/util/versioninfo.TiDBEdition=Community"
   ];
 
-  subPackages = [ "tidb-server" ];
+  subPackages = ["tidb-server"];
 
   meta = with lib; {
     description = "An open-source, cloud-native, distributed, MySQL-Compatible database for elastic scale and real-time analytics";
     homepage = "https://pingcap.com";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

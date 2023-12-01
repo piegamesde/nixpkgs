@@ -21,5 +21,5 @@ in
     );
   };
 
-  config = mkIf cfg.enable { services.udev.packages = [ pkgs.uhk-udev-rules ]; };
+  config = mkIf cfg.enable {services.udev.packages = [pkgs.uhk-udev-rules];};
 }

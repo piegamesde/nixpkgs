@@ -1,4 +1,4 @@
-{ fetchMaven }:
+{fetchMaven}:
 
 {
   mavenDoxiaSinkApi_1_0_alpha6 =

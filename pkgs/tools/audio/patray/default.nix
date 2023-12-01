@@ -28,7 +28,7 @@ python3.pkgs.buildPythonApplication rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [ qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [qt5.wrapQtAppsHook];
   postFixup = ''
     wrapQtApp $out/bin/patray
   '';
@@ -37,6 +37,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Yet another tray pulseaudio frontend";
     homepage = "https://github.com/pohmelie/patray";
     license = licenses.mit;
-    maintainers = with maintainers; [ domenkozar ];
+    maintainers = with maintainers; [domenkozar];
   };
 }

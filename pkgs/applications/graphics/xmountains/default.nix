@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     description = "X11 based fractal landscape generator";
     homepage = "https://spbooth.github.io/xmountains";
     license = licenses.hpndSellVariant;
-    maintainers = with maintainers; [ djanatyn ];
+    maintainers = with maintainers; [djanatyn];
   };
 }

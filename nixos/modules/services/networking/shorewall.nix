@@ -32,7 +32,7 @@ in
       };
       configs = lib.mkOption {
         type = types.attrsOf types.lines;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           This option defines the Shorewall configs.
           The attribute name defines the name of the config,
@@ -47,10 +47,10 @@ in
     systemd.services.firewall.enable = false;
     systemd.services.shorewall = {
       description = "Shorewall IPv4 Firewall";
-      after = [ "ipset.target" ];
-      before = [ "network-pre.target" ];
-      wants = [ "network-pre.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["ipset.target"];
+      before = ["network-pre.target"];
+      wants = ["network-pre.target"];
+      wantedBy = ["multi-user.target"];
       reloadIfChanged = true;
       restartTriggers = lib.attrValues cfg.configs;
       serviceConfig = {
@@ -69,9 +69,9 @@ in
     };
     environment = {
       etc =
-        lib.mapAttrs' (name: conf: lib.nameValuePair "shorewall/${name}" { source = conf; })
+        lib.mapAttrs' (name: conf: lib.nameValuePair "shorewall/${name}" {source = conf;})
           cfg.configs;
-      systemPackages = [ cfg.package ];
+      systemPackages = [cfg.package];
     };
   };
 }

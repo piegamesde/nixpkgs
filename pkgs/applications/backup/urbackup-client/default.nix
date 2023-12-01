@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     zstd
   ];
 
-  configureFlags = [ "--enable-embedded-cryptopp" ];
+  configureFlags = ["--enable-embedded-cryptopp"];
 
   meta = with lib; {
     description = "An easy to setup Open Source client/server backup system";
@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.urbackup.org/index.html";
     license = licenses.agpl3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.mgttlinger ];
+    maintainers = [maintainers.mgttlinger];
   };
 }

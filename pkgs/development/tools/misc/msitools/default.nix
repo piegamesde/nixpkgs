@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
       # Tools
       gpl2Plus
     ];
-    maintainers = with maintainers; [ PlushBeaver ];
+    maintainers = with maintainers; [PlushBeaver];
     platforms = platforms.unix;
   };
 }

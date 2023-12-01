@@ -64,13 +64,13 @@ stdenv.mkDerivation rec {
   # lz4 unbundling broken for llvm, use internal version
   propagatedBuildInputs = lib.optional (!stdenv.cc.isClang) lz4;
 
-  buildInputs = lib.optionals enablePython [ python3 ];
+  buildInputs = lib.optionals enablePython [python3];
 
   meta = {
     homepage = "https://github.com/flann-lib/flann";
     license = lib.licenses.bsd3;
     description = "Fast approximate nearest neighbor searches in high dimensional spaces";
-    maintainers = with lib.maintainers; [ viric ];
+    maintainers = with lib.maintainers; [viric];
     platforms = with lib.platforms; linux ++ darwin;
   };
 }

@@ -25,7 +25,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd pinniped \
@@ -38,6 +38,6 @@ buildGoModule rec {
     description = "Tool to securely log in to your Kubernetes clusters";
     homepage = "https://pinniped.dev/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bpaulin ];
+    maintainers = with maintainers; [bpaulin];
   };
 }

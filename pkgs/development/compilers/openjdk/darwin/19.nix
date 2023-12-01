@@ -42,7 +42,7 @@ let
       curlOpts = "-H Referer:https://www.azul.com/downloads/zulu/";
     };
 
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [unzip];
 
     installPhase = ''
       mkdir -p $out

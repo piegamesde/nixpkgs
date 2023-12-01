@@ -20,14 +20,14 @@ buildPythonPackage rec {
     hash = "sha256-WuIW6hROQkjMfbCLUouECIrp4s6oCd2/N79hsrTbVTk=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "meteocalc" ];
+  pythonImportsCheck = ["meteocalc"];
 
   meta = with lib; {
     description = "Module for calculation of meteorological variables";
     homepage = "https://github.com/malexer/meteocalc";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

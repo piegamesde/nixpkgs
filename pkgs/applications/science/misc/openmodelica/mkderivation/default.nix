@@ -27,7 +27,7 @@ let
   # getAttrDef is just a getAttr with default fallback
   getAttrDef =
     attr: default: x:
-    attrByPath [ attr ] default x;
+    attrByPath [attr] default x;
 
   # getAttr-like helper for optional append to string:
   # "Hello" + appendByAttr "a" " " {a = "world";} = "Hello world"
@@ -72,7 +72,7 @@ let
   # Tell OpenModelica where built dependencies are located.
   configureFlags =
     lib.optional ifDeps "--with-openmodelicahome=${joinedDeps}"
-    ++ getAttrDef "configureFlags" [ ] pkg;
+    ++ getAttrDef "configureFlags" [] pkg;
 
   # Our own configurePhase that accounts for omautoconf
   configurePhase = ''
@@ -116,7 +116,7 @@ stdenv.mkDerivation (
     src = fetchgit (import ./src-main.nix);
     version = "1.18.0";
 
-    nativeBuildInputs = getAttrDef "nativeBuildInputs" [ ] pkg ++ [
+    nativeBuildInputs = getAttrDef "nativeBuildInputs" [] pkg ++ [
       autoconf
       automake
       libtool
@@ -124,10 +124,10 @@ stdenv.mkDerivation (
       autoreconfHook
     ];
 
-    buildInputs = getAttrDef "buildInputs" [ ] pkg ++ lib.optional ifDeps joinedDeps;
+    buildInputs = getAttrDef "buildInputs" [] pkg ++ lib.optional ifDeps joinedDeps;
 
     dontUseCmakeConfigure = true;
 
-    hardeningDisable = [ "format" ];
+    hardeningDisable = ["format"];
   }
 )

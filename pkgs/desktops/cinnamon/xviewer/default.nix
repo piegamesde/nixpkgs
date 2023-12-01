@@ -70,6 +70,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxmint/xviewer";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ tu-maurice ] ++ teams.cinnamon.members;
+    maintainers = with maintainers; [tu-maurice] ++ teams.cinnamon.members;
   };
 }

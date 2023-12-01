@@ -27,6 +27,6 @@ build-idris-package {
     description = "Electron bindings for Idris";
     homepage = "https://github.com/jheiling/idris-electron";
     license = lib.licenses.unlicense;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

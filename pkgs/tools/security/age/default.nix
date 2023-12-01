@@ -45,7 +45,7 @@ buildGoModule rec {
     "-X main.Version=${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   preInstall = ''
     installManPage doc/*.1
@@ -65,6 +65,6 @@ buildGoModule rec {
     homepage = "https://age-encryption.org/";
     description = "Modern encryption tool with small explicit keys";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ tazjin ];
+    maintainers = with maintainers; [tazjin];
   };
 }

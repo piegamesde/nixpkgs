@@ -54,7 +54,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-eRfXUnyzOfVSEiwjLCaNbETUPXVU2Ed2VUNM9FjS5YE=";
 
-  postInstall = lib.optionalString (bins != [ ]) ''
+  postInstall = lib.optionalString (bins != []) ''
     wrapProgram $out/bin/dwm-status --prefix "PATH" : "${lib.makeBinPath bins}"
   '';
 
@@ -62,8 +62,8 @@ rustPlatform.buildRustPackage rec {
     description = "Highly performant and configurable DWM status service";
     homepage = "https://github.com/Gerschtli/dwm-status";
     changelog = "https://github.com/Gerschtli/dwm-status/blob/master/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ gerschtli ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [gerschtli];
     mainProgram = pname;
     platforms = platforms.linux;
   };

@@ -50,7 +50,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "osqp" ];
+  pythonImportsCheck = ["osqp"];
 
   disabledTests = [
     # Test are failing due to scipy update (removal of scipy.random in 1.9.0)
@@ -90,6 +90,6 @@ buildPythonPackage rec {
     homepage = "https://osqp.org/";
     downloadPage = "https://github.com/oxfordcontrol/osqp-python/releases";
     license = licenses.asl20;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

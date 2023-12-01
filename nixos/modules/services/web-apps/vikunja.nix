@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.services.vikunja;
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
   configFile = format.generate "config.yaml" cfg.settings;
   useMysql = cfg.database.type == "mysql";
   usePostgresql = cfg.database.type == "postgres";
@@ -31,7 +31,7 @@ in
     };
     environmentFiles = mkOption {
       type = types.listOf types.path;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         List of environment files set in the vikunja systemd service.
         For example passwords should be set in one of these files.
@@ -68,7 +68,7 @@ in
 
     settings = mkOption {
       type = format.type;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Vikunja configuration. Refer to
         <https://vikunja.io/docs/config-options/>
@@ -132,9 +132,9 @@ in
       after = [
         "network.target"
       ] ++ lib.optional usePostgresql "postgresql.service" ++ lib.optional useMysql "mysql.service";
-      wantedBy = [ "multi-user.target" ];
-      path = [ cfg.package-api ];
-      restartTriggers = [ configFile ];
+      wantedBy = ["multi-user.target"];
+      path = [cfg.package-api];
+      restartTriggers = [configFile];
 
       serviceConfig = {
         Type = "simple";

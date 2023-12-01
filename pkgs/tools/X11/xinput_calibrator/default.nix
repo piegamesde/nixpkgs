@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/tias/xinput_calibrator";
     description = "A generic touchscreen calibration program for X.Org";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.flosse ];
+    maintainers = [lib.maintainers.flosse];
     platforms = lib.platforms.linux;
   };
 }

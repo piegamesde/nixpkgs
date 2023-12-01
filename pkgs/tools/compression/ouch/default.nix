@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
     zstd
   ];
 
-  buildFeatures = [ "zstd/pkg-config" ];
+  buildFeatures = ["zstd/pkg-config"];
 
   postInstall = ''
     installManPage artifacts/*.1

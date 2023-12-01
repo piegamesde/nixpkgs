@@ -32,9 +32,9 @@ buildLuarocksPackage {
   rockspecDir = "lua";
 
   extraVariables.LUA_LIBDIR = "${lua}/lib";
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ AppKit ];
+  buildInputs = lib.optionals stdenv.isDarwin [AppKit];
 
   fixupPhase = ''
     find $out -name nfd_zenity.so -execdir mv {} nfd.so \;
@@ -46,6 +46,6 @@ buildLuarocksPackage {
     description = "A tiny, neat lua library that portably invokes native file open and save dialogs.";
     homepage = "https://github.com/Alloyed/nativefiledialog/tree/master/lua";
     license = lib.licenses.zlib;
-    maintainers = [ lib.maintainers.scoder12 ];
+    maintainers = [lib.maintainers.scoder12];
   };
 }

@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     "-DWITH_SQLITE3=YES"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     sqlite
     boost
@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.linphone.org/BC/public/external/soci";
     license = licenses.boost;
     platforms = platforms.all;
-    maintainers = with maintainers; [ thibaultlemaire ];
+    maintainers = with maintainers; [thibaultlemaire];
   };
 }

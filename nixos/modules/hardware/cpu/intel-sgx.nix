@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{config, lib, ...}:
 with lib;
 let
   cfg = config.hardware.cpu.intel.sgx;
@@ -53,7 +53,7 @@ in
       ];
 
       users.groups = optionalAttrs (cfg.provision.group == defaultPrvGroup) {
-        "${cfg.provision.group}" = { };
+        "${cfg.provision.group}" = {};
       };
 
       services.udev.extraRules = with cfg.provision; ''

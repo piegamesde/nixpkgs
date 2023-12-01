@@ -34,12 +34,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ eth-hash.optional-dependencies.pycryptodome;
 
-  pythonImportsCheck = [ "eth_utils" ];
+  pythonImportsCheck = ["eth_utils"];
 
   meta = {
     description = "Common utility functions for codebases which interact with ethereum";
     homepage = "https://github.com/ethereum/eth-utils";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ SuperSandro2000 ];
+    maintainers = with lib.maintainers; [SuperSandro2000];
   };
 }

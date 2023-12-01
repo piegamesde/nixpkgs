@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.pcre.org/";
     description = "Perl Compatible Regular Expressions";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ttuegel ];
+    maintainers = with maintainers; [ttuegel];
     platforms = platforms.all;
   };
 }

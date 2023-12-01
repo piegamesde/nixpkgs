@@ -16,13 +16,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-icvGQi6FNSZXNGs2oLiUKu6rrVsWcXh1r91kycGjnwY=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "Public domain cross-platform semantic versioning in C99";
     homepage = "https://github.com/uael/sv";
     license = licenses.unlicense;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

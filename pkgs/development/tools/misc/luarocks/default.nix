@@ -46,7 +46,7 @@ stdenv.mkDerivation (
 
     # Manually written ./configure does not support --build= or --host=:
     #   Error: Unknown flag: --build=x86_64-unknown-linux-gnu
-    configurePlatforms = [ ];
+    configurePlatforms = [];
 
     preConfigure = ''
       lua -e "" || {
@@ -88,7 +88,7 @@ stdenv.mkDerivation (
                   --suffix LUA_CPATH ";" "$(echo "$out"/share/lua/*/)?/init.lua" \
                   --suffix PATH : ${
                     lib.makeBinPath (
-                      [ unzip ]
+                      [unzip]
                       ++ lib.optionals (finalAttrs.pname == "luarocks-nix") [
                         file
                         nix-prefetch-git
@@ -122,12 +122,10 @@ stdenv.mkDerivation (
       export LUA_PATH="src/?.lua;''${LUA_PATH:-}"
     '';
 
-    disallowedReferences = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      lua.luaOnBuild
-    ];
+    disallowedReferences = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [lua.luaOnBuild];
 
     passthru = {
-      updateScript = nix-update-script { };
+      updateScript = nix-update-script {};
     };
 
     meta = with lib; {

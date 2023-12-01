@@ -16,7 +16,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-rPeGRcyNK45Y7OvtzaIH93IIzexBf/jM1SzYP0phQ1o=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
+  nativeBuildInputs = with python3.pkgs; [poetry-core];
 
   propagatedBuildInputs = with python3.pkgs; [
     colorama
@@ -25,19 +25,19 @@ python3.pkgs.buildPythonApplication rec {
     types-setuptools
   ];
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace 'types-setuptools = "^57.4.0"' 'types-setuptools = "*"'
   '';
 
-  pythonImportsCheck = [ "beautysh" ];
+  pythonImportsCheck = ["beautysh"];
 
   meta = with lib; {
     description = "Tool for beautifying Bash scripts";
     homepage = "https://github.com/lovesegfault/beautysh";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withMpi mpi
     ++ lib.optional stdenv.isDarwin llvmPackages.openmp;
 
-  propagatedBuildInputs = with python3.pkgs; [ numpy ];
+  propagatedBuildInputs = with python3.pkgs; [numpy];
 
   cmakeFlags = [
     "-Dwith-python=${if withPython then "ON" else "OFF"}"

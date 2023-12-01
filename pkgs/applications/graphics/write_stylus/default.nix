@@ -70,9 +70,9 @@ mkDerivation rec {
   meta = with lib; {
     homepage = "http://www.styluslabs.com/";
     description = "Write is a word processor for handwriting";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     platforms = platforms.linux;
     license = lib.licenses.unfree;
-    maintainers = with maintainers; [ oyren ];
+    maintainers = with maintainers; [oyren];
   };
 }

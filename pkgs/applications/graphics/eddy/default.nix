@@ -43,6 +43,6 @@ python3Packages.buildPythonApplication rec {
     description = "Graphical editor for the specification and visualization of Graphol ontologies";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ koslambrou ];
+    maintainers = with maintainers; [koslambrou];
   };
 }

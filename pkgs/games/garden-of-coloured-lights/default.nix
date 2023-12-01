@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     autoconf
     automake
   ];
-  buildInputs = [ allegro ];
+  buildInputs = [allegro];
 
   prePatch = ''
     noInline='s/inline //'
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Old-school vertical shoot-em-up / bullet hell";
     homepage = "https://garden.sourceforge.net/drupal/";
-    maintainers = with maintainers; [ Profpatsch ];
+    maintainers = with maintainers; [Profpatsch];
     license = licenses.gpl3;
   };
 }

@@ -16,16 +16,16 @@ buildPythonPackage rec {
     hash = "sha256-JeO6Tz0zzKwz7iuXdZlYSNSemzGLehRkd/tdUveG/Io=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ doit ];
+  propagatedBuildInputs = [doit];
 
-  pythonImportsCheck = [ "pydevtool" ];
+  pythonImportsCheck = ["pydevtool"];
 
   meta = with lib; {
     homepage = "https://github.com/pydoit/pydevtool";
     description = "CLI dev tools powered by pydoit";
     license = licenses.mit;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

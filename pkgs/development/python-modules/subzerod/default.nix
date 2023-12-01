@@ -18,17 +18,17 @@ buildPythonPackage rec {
     hash = "sha256-/7g8Upj9Hb4m83JXLI3X2lqa9faCt42LVxh+V9WpI68=";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "subzerod" ];
+  pythonImportsCheck = ["subzerod"];
 
   meta = with lib; {
     description = "Python module to help with the enumeration of subdomains";
     homepage = "https://github.com/sanderfoobar/subzerod";
-    license = with licenses; [ wtfpl ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [wtfpl];
+    maintainers = with maintainers; [fab];
   };
 }

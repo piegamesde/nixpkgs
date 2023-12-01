@@ -41,13 +41,13 @@ buildPythonPackage rec {
       --replace "--flake8" ""
   '';
 
-  pythonImportsCheck = [ "dask_image" ];
+  pythonImportsCheck = ["dask_image"];
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);
     description = "Distributed image processing";
     homepage = "https://github.com/dask/dask-image";
     license = licenses.bsdOriginal;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

@@ -54,6 +54,6 @@ stdenv.mkDerivation rec {
     homepage = "https://git.sr.ht/~adnano/wmenu";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ eken ];
+    maintainers = with maintainers; [eken];
   };
 }

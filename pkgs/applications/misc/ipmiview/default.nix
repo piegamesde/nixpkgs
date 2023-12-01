@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
           libXi
         ]
       }" ./jre/lib/libawt_xawt.so
-      patchelf --set-rpath "${lib.makeLibraryPath [ freetype ]}" ./jre/lib/libfontmanager.so
+      patchelf --set-rpath "${lib.makeLibraryPath [freetype]}" ./jre/lib/libfontmanager.so
       patchelf --set-rpath "${gcc.cc}/lib:$out/jre/lib/jli" --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" ./jre/bin/java
       patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" ./BMCSecurity/${stunnelBinary}
 
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     exec = "IPMIView";
     desktopName = name;
     genericName = "Supermicro BMC manager";
-    categories = [ "Network" ];
+    categories = ["Network"];
   };
 
   installPhase = ''
@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
       binaryNativeCode
     ];
     license = licenses.unfree;
-    maintainers = with maintainers; [ vlaci ];
+    maintainers = with maintainers; [vlaci];
     platforms = [
       "x86_64-linux"
       "i686-linux"

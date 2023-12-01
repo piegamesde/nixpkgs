@@ -23,7 +23,7 @@ let
   cursesDeps = [
     gettext
     ncurses
-  ] ++ optionals stdenv.isDarwin [ CoreFoundation ];
+  ] ++ optionals stdenv.isDarwin [CoreFoundation];
 
   tilesDeps = [
     SDL2
@@ -31,7 +31,7 @@ let
     SDL2_mixer
     SDL2_ttf
     freetype
-  ] ++ optionals stdenv.isDarwin [ Cocoa ];
+  ] ++ optionals stdenv.isDarwin [Cocoa];
 
   patchDesktopFile = ''
     substituteInPlace $out/share/applications/org.cataclysmdda.CataclysmDDA.desktop \
@@ -55,7 +55,7 @@ in
 stdenv.mkDerivation {
   pname = "cataclysm-dda";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = cursesDeps ++ optionals tiles tilesDeps;
 
@@ -69,7 +69,7 @@ stdenv.mkDerivation {
       "LANGUAGES=all"
       (if useXdgDir then "USE_XDG_DIR=1" else "USE_HOME_DIR=1")
     ]
-    ++ optionals (!debug) [ "RELEASE=1" ]
+    ++ optionals (!debug) ["RELEASE=1"]
     ++ optionals tiles [
       "TILES=1"
       "SOUND=1"

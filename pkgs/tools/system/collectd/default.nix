@@ -38,8 +38,8 @@ stdenv.mkDerivation rec {
     autoreconfHook
   ];
   buildInputs =
-    [ libtool ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.ApplicationServices ]
+    [libtool]
+    ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.ApplicationServices]
     ++ plugins.buildInputs;
 
   configureFlags =
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       "--disable-werror"
     ]
     ++ plugins.configureFlags
-    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "--with-fp-layout=nothing" ];
+    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) ["--with-fp-layout=nothing"];
 
   # do not create directories in /var during installPhase
   postConfigure = ''
@@ -72,6 +72,6 @@ stdenv.mkDerivation rec {
     homepage = "https://collectd.org";
     license = licenses.gpl2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
   };
 }

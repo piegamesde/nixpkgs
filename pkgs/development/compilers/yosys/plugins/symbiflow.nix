@@ -46,8 +46,8 @@ let
   static_gtest = gtest.overrideAttrs (
     old: {
       dontDisableStatic = true;
-      disableHardening = [ "pie" ];
-      cmakeFlags = old.cmakeFlags ++ [ "-DBUILD_SHARED_LIBS=OFF" ];
+      disableHardening = ["pie"];
+      cmakeFlags = old.cmakeFlags ++ ["-DBUILD_SHARED_LIBS=OFF"];
     }
   );
 in
@@ -74,7 +74,7 @@ lib.genAttrs plugins (
 
     # xdc has an incorrect path to a test which has yet to be patched
     doCheck = plugin != "xdc";
-    nativeCheckInputs = [ static_gtest ];
+    nativeCheckInputs = [static_gtest];
 
     # A Makefile rule tries to wget-fetch a yosys script from github.
     # Link the script from our yosys sources in preBuild instead, so that
@@ -89,7 +89,7 @@ lib.genAttrs plugins (
       ln -s ${static_gtest}/lib source/third_party/googletest/build/lib
     '';
 
-    makeFlags = [ "PLUGIN_LIST=${plugin}" ];
+    makeFlags = ["PLUGIN_LIST=${plugin}"];
 
     buildFlags = [
       "YOSYS_PLUGINS_DIR=\${out}/share/yosys/plugins/"

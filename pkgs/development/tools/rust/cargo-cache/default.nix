@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     Security
   ];
 
-  checkFlagsArray = [ "offline_tests" ];
+  checkFlagsArray = ["offline_tests"];
 
   meta = with lib; {
     description = "Manage cargo cache (\${CARGO_HOME}, ~/.cargo/), print sizes of dirs and remove dirs selectively";
@@ -34,6 +34,6 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ Br1ght0ne ];
+    maintainers = with maintainers; [Br1ght0ne];
   };
 }

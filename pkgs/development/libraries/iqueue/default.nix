@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   };
 
   doCheck = true;
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libbsd
     microsoft_gsl
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/twosigma/iqueue";
     description = "Indexed queue";
     license = licenses.asl20;
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ maintainers.catern ];
+    platforms = ["x86_64-linux"];
+    maintainers = [maintainers.catern];
   };
 }

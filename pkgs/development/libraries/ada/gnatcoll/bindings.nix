@@ -21,16 +21,16 @@ let
   # omit python (2.7), no need to introduce a
   # dependency on an EOL package for no reason
   libsFor = {
-    iconv = [ libiconv ];
-    gmp = [ gmp ];
-    lzma = [ xz ];
-    readline = [ readline ];
+    iconv = [libiconv];
+    gmp = [gmp];
+    lzma = [xz];
+    readline = [readline];
     python3 = [
       python3
       ncurses
     ];
-    syslog = [ ];
-    zlib = [ zlib ];
+    syslog = [];
+    zlib = [zlib];
   };
 in
 
@@ -54,12 +54,12 @@ stdenv.mkDerivation rec {
   # propagate since gprbuild needs to find referenced .gpr files
   # and all dependency C libraries when statically linking a
   # downstream executable.
-  propagatedBuildInputs = [ gnatcoll-core ] ++ libsFor."${component}" or [ ];
+  propagatedBuildInputs = [gnatcoll-core] ++ libsFor."${component}" or [];
 
   # explicit flag for GPL acceptance because upstreams
   # allows a gcc runtime exception for all bindings
   # except for readline (since it is GPL w/o exceptions)
-  buildFlags = lib.optionals (component == "readline") [ "--accept-gpl" ];
+  buildFlags = lib.optionals (component == "readline") ["--accept-gpl"];
 
   buildPhase = ''
     runHook preBuild
@@ -78,6 +78,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/AdaCore/gnatcoll-bindings";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

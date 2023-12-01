@@ -8,7 +8,7 @@
 # - VLAN 2 is the connection between the router and the client
 
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "systemd-networkd-ipv6-prefix-delegation";
     meta = with lib.maintainers; {
@@ -29,13 +29,13 @@ import ./make-test-python.nix (
       # this example. That being said we can't use it (yet) as networkd doesn't
       # implement the serving side of DHCPv6. We will use ISC Kea for that task.
       isp =
-        { lib, pkgs, ... }:
+        {lib, pkgs, ...}:
         {
-          virtualisation.vlans = [ 1 ];
+          virtualisation.vlans = [1];
           networking = {
             useDHCP = false;
             firewall.enable = false;
-            interfaces.eth1 = lib.mkForce { }; # Don't use scripted networking
+            interfaces.eth1 = lib.mkForce {}; # Don't use scripted networking
           };
 
           systemd.network = {
@@ -44,7 +44,7 @@ import ./make-test-python.nix (
             networks = {
               "eth1" = {
                 matchConfig.Name = "eth1";
-                address = [ "2001:DB8::1/64" ];
+                address = ["2001:DB8::1/64"];
                 networkConfig.IPForward = true;
               };
             };
@@ -53,8 +53,8 @@ import ./make-test-python.nix (
           # Since we want to program the routes that we delegate to the "customer"
           # into our routing table we must provide kea with the required capability.
           systemd.services.kea-dhcp6-server.serviceConfig = {
-            AmbientCapabilities = [ "CAP_NET_ADMIN" ];
-            CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
+            AmbientCapabilities = ["CAP_NET_ADMIN"];
+            CapabilityBoundingSet = ["CAP_NET_ADMIN"];
           };
 
           services = {
@@ -69,7 +69,7 @@ import ./make-test-python.nix (
             kea.dhcp6 = {
               enable = true;
               settings = {
-                interfaces-config.interfaces = [ "eth1" ];
+                interfaces-config.interfaces = ["eth1"];
                 subnet6 = [
                   {
                     interface = "eth1";
@@ -81,7 +81,7 @@ import ./make-test-python.nix (
                         delegated-len = 48;
                       }
                     ];
-                    pools = [ { pool = "2001:DB8:0000:0000:FFFF::-2001:DB8:0000:0000:FFFF::FFFF"; } ];
+                    pools = [{pool = "2001:DB8:0000:0000:FFFF::-2001:DB8:0000:0000:FFFF::FFFF";}];
                   }
                 ];
 
@@ -275,20 +275,20 @@ import ./make-test-python.nix (
             # verify connectivity from the client to the router.
             "01-lo" = {
               name = "lo";
-              addresses = [ { addressConfig.Address = "FD42::1/128"; } ];
+              addresses = [{addressConfig.Address = "FD42::1/128";}];
             };
           };
         };
 
         # make the network-online target a requirement, we wait for it in our test script
-        systemd.targets.network-online.wantedBy = [ "multi-user.target" ];
+        systemd.targets.network-online.wantedBy = ["multi-user.target"];
       };
 
       # This is the client behind the router. We should be receving router
       # advertisements for both the ULA and the delegated prefix.
       # All we have to do is boot with the default (networkd) configuration.
       client = {
-        virtualisation.vlans = [ 2 ];
+        virtualisation.vlans = [2];
         systemd.services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL = "debug";
         networking = {
           useNetworkd = true;
@@ -296,7 +296,7 @@ import ./make-test-python.nix (
         };
 
         # make the network-online target a requirement, we wait for it in our test script
-        systemd.targets.network-online.wantedBy = [ "multi-user.target" ];
+        systemd.targets.network-online.wantedBy = ["multi-user.target"];
       };
     };
 

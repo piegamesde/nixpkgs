@@ -27,7 +27,7 @@
   version,
   sha256,
   fetchSubmodules ? false,
-  extraPatches ? [ ],
+  extraPatches ? [],
   extraPostInstall ? "",
   ...
 }:
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [
-      (curl.override { inherit openssl; })
+      (curl.override {inherit openssl;})
       cyrus_sasl
       libaio
       libedit
@@ -109,6 +109,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.percona.com/software/percona-xtrabackup";
     license = licenses.lgpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ izorkin ];
+    maintainers = with maintainers; [izorkin];
   };
 }

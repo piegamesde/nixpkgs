@@ -17,6 +17,6 @@ buildPythonPackage rec {
     description = "Makes entry_points specified in setup.py load more quickly";
     homepage = "https://github.com/ninjaaron/fast-entry_points";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ nixy ];
+    maintainers = with maintainers; [nixy];
   };
 }

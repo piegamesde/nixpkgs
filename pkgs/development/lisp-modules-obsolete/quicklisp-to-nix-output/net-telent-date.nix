@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "net-telent-date";
   version = "net-telent-date_0.42";
 
   description = "System lacks description";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/net-telent-date/2010-10-06/net-telent-date_0.42.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "net-telent-date";
 
-  asdFilesToKeep = [ "net-telent-date.asd" ];
+  asdFilesToKeep = ["net-telent-date.asd"];
   overrides = x: x;
 }
 /* (SYSTEM net-telent-date DESCRIPTION System lacks description SHA256

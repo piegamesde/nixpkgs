@@ -39,12 +39,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "dremel3dpy" ];
+  pythonImportsCheck = ["dremel3dpy"];
 
   meta = with lib; {
     description = "Module for interacting with Dremel 3D printers";
     homepage = "https://github.com/godely/dremel3dpy";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

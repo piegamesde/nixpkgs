@@ -65,7 +65,7 @@ stdenvNoCC.mkDerivation rec {
     mainProgram = "UTM";
     license = licenses.apsl20;
     platforms = platforms.darwin; # 11.3 is the minimum supported version as of UTM 4.
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ rrbutani ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    maintainers = with maintainers; [rrbutani];
   };
 }

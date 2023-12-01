@@ -61,7 +61,7 @@ python3.pkgs.buildPythonApplication rec {
       ]
     );
 
-  pythonImportsCheck = [ "conan" ];
+  pythonImportsCheck = ["conan"];
 
   pytestFlagsArray = [
     "-n"
@@ -93,6 +93,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://conan.io";
     changelog = "https://github.com/conan-io/conan/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ HaoZeke ];
+    maintainers = with maintainers; [HaoZeke];
   };
 }

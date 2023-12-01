@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Pei1ej0TDLKIHqUtOqnOH+7bG1e32qTrN/dRQE+Q/CI=";
   };
 
-  nativeBuildInputs = [ validatePkgConfig ];
+  nativeBuildInputs = [validatePkgConfig];
 
   buildInputs = lib.optional stdenv.isDarwin libiconv;
 
@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
       mpl11
     ];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

@@ -21,13 +21,13 @@ buildPythonPackage rec {
     hash = "sha256-EQm9+b3nqbMqUAejAsh4MD/2UYi2QiWsdKMomkxUi90=";
   };
 
-  patches = [ ./use-template-for-taskwarrior-install-path.patch ];
+  patches = [./use-template-for-taskwarrior-install-path.patch];
   postPatch = ''
     substituteInPlace taskw/warrior.py \
       --replace '@@taskwarrior@@' '${pkgs.taskwarrior}'
   '';
 
-  buildInputs = [ pkgs.taskwarrior ];
+  buildInputs = [pkgs.taskwarrior];
 
   propagatedBuildInputs = [
     six
@@ -36,12 +36,12 @@ buildPythonPackage rec {
     pytz
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     homepage = "https://github.com/ralphbean/taskw";
     description = "Python bindings for your taskwarrior database";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ pierron ];
+    maintainers = with maintainers; [pierron];
   };
 }

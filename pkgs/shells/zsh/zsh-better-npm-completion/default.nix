@@ -25,6 +25,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/lukechilds/zsh-better-npm-completion";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ maintainers.gerschtli ];
+    maintainers = [maintainers.gerschtli];
   };
 }

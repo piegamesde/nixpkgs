@@ -74,6 +74,6 @@ stdenv.mkDerivation rec {
       "aarch64-linux"
       "x86_64-darwin"
     ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
   };
 }

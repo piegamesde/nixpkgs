@@ -14,11 +14,11 @@ let
   wrapper =
     {
       installManPages ? true,
-      configure ? { availablePlugins, ... }:
+      configure ? {availablePlugins, ...}:
         {
           # Do not include PHP by default, because it bloats the closure, doesn't
           # build on Darwin, and there are no official PHP scripts.
-          plugins = builtins.attrValues (builtins.removeAttrs availablePlugins [ "php" ]);
+          plugins = builtins.attrValues (builtins.removeAttrs availablePlugins ["php"]);
         },
     }:
 
@@ -26,7 +26,7 @@ let
       perlInterpreter = perlPackages.perl;
       availablePlugins =
         let
-          simplePlugin = name: { pluginFile = "${weechat.${name}}/lib/weechat/plugins/${name}.so"; };
+          simplePlugin = name: {pluginFile = "${weechat.${name}}/lib/weechat/plugins/${name}.so";};
         in
         rec {
           python = (simplePlugin "python") // {
@@ -68,11 +68,11 @@ let
           php = simplePlugin "php";
         };
 
-      config = configure { inherit availablePlugins; };
+      config = configure {inherit availablePlugins;};
 
       plugins = config.plugins or (builtins.attrValues availablePlugins);
 
-      pluginsDir = runCommand "weechat-plugins" { } ''
+      pluginsDir = runCommand "weechat-plugins" {} ''
         mkdir -p $out/plugins
         for plugin in ${lib.concatMapStringsSep " " (p: p.pluginFile) plugins} ; do
           ln -s $plugin $out/plugins
@@ -81,12 +81,12 @@ let
 
       init =
         let
-          init = builtins.replaceStrings [ "\n" ] [ ";" ] (config.init or "");
+          init = builtins.replaceStrings ["\n"] [";"] (config.init or "");
 
           mkScript = drv: lib.forEach drv.scripts (script: "/script load ${drv}/share/${script}");
 
           scripts = builtins.concatStringsSep ";" (
-            lib.foldl (scripts: drv: scripts ++ mkScript drv) [ ] (config.scripts or [ ])
+            lib.foldl (scripts: drv: scripts ++ mkScript drv) [] (config.scripts or [])
           );
         in
         "${scripts};${init}";
@@ -110,18 +110,18 @@ let
     in
     buildEnv {
       name = "weechat-bin-env-${weechat.version}";
-      extraOutputsToInstall = lib.optionals installManPages [ "man" ];
+      extraOutputsToInstall = lib.optionals installManPages ["man"];
       paths = [
         (mkWeechat "weechat")
         (mkWeechat "weechat-headless")
-        (runCommand "weechat-out-except-bin" { } ''
+        (runCommand "weechat-out-except-bin" {} ''
           mkdir $out
           ln -sf ${weechat}/include $out/include
           ln -sf ${weechat}/lib $out/lib
           ln -sf ${weechat}/share $out/share
         '')
       ];
-      meta = builtins.removeAttrs weechat.meta [ "outputsToInstall" ];
+      meta = builtins.removeAttrs weechat.meta ["outputsToInstall"];
     };
 in
 lib.makeOverridable wrapper

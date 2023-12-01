@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     sha256 = "131jpcwyyzgzjn9lx4k1zn95pd68pjw4i41jfzcp9z9fnazyln5n";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontBuild = true;
 
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
       gnugrep
       gnused
       libnotify
-      (pass.withExtensions (ext: [ ext.pass-otp ]))
+      (pass.withExtensions (ext: [ext.pass-otp]))
       pwgen
       rofi
       util-linux

@@ -51,7 +51,7 @@ mkDerivation rec {
     xdg-user-dirs
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/lxqt/lxqt-session";

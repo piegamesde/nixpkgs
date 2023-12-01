@@ -42,7 +42,7 @@ buildGoModule rec {
     description = "Flexible SQL exporter for Prometheus";
     homepage = "https://github.com/justwatchcom/sql_exporter";
     license = licenses.mit;
-    maintainers = with maintainers; [ justinas ];
+    maintainers = with maintainers; [justinas];
     platforms = platforms.unix;
   };
 }

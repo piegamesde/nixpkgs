@@ -15,19 +15,19 @@ let
   getManualUrl =
     name: "https://docs.trafficserver.apache.org/en/latest/admin-guide/files/${name}.en.html";
 
-  yaml = pkgs.formats.yaml { };
+  yaml = pkgs.formats.yaml {};
 
   mkYamlConf =
     name: cfg:
     if cfg != null then
-      { "trafficserver/${name}.yaml".source = yaml.generate "${name}.yaml" cfg; }
+      {"trafficserver/${name}.yaml".source = yaml.generate "${name}.yaml" cfg;}
     else
-      { "trafficserver/${name}.yaml".text = ""; };
+      {"trafficserver/${name}.yaml".text = "";};
 
   mkRecordLines =
     path: value:
     if isAttrs value then
-      lib.mapAttrsToList (n: v: mkRecordLines (path ++ [ n ]) v) value
+      lib.mapAttrsToList (n: v: mkRecordLines (path ++ [n]) v) value
     else if isInt value then
       "CONFIG ${concatStringsSep "." path} INT ${toString value}"
     else if isFloat value then
@@ -35,7 +35,7 @@ let
     else
       "CONFIG ${concatStringsSep "." path} STRING ${toString value}";
 
-  mkRecordsConfig = cfg: concatStringsSep "\n" (flatten (mkRecordLines [ ] cfg));
+  mkRecordsConfig = cfg: concatStringsSep "\n" (flatten (mkRecordLines [] cfg));
   mkPluginConfig = cfg: concatStringsSep "\n" (map (p: "${p.path} ${p.arg}") cfg);
 in
 {
@@ -93,7 +93,7 @@ in
       type = types.nullOr yaml.type;
       default = lib.importJSON ./logging.json;
       defaultText = literalMD "upstream defaults";
-      example = { };
+      example = {};
       description = lib.mdDoc ''
         Configure logs.
 
@@ -117,7 +117,7 @@ in
     };
 
     plugins = mkOption {
-      default = [ ];
+      default = [];
 
       description = lib.mdDoc ''
         Controls run-time loadable plugins available to Traffic Server, as
@@ -167,7 +167,7 @@ in
             };
         in
         valueType;
-      default = { };
+      default = {};
       example = {
         proxy.config.proxy_name = "my_server";
       };
@@ -296,14 +296,14 @@ in
       // (mkYamlConf "sni" cfg.sni)
       // (mkYamlConf "strategies" cfg.strategies);
 
-    environment.systemPackages = [ pkgs.trafficserver ];
-    systemd.packages = [ pkgs.trafficserver ];
+    environment.systemPackages = [pkgs.trafficserver];
+    systemd.packages = [pkgs.trafficserver];
 
     # Traffic Server does privilege handling independently of systemd, and
     # therefore should be started as root
     systemd.services.trafficserver = {
       enable = true;
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
 
     # These directories can't be created by systemd because:
@@ -329,6 +329,6 @@ in
       isSystemUser = true;
       inherit group;
     };
-    users.groups.trafficserver = { };
+    users.groups.trafficserver = {};
   };
 }

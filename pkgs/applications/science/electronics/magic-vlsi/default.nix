@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-cS3KaIVwGN/mMfRKjJxzdY6DeNV7tw2fATIHrFBV0fY=";
   };
 
-  nativeBuildInputs = [ python3 ];
+  nativeBuildInputs = [python3];
   buildInputs = [
     cairo
     libX11
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-Wno-implicit-function-declaration";
 
-  patches = [ ./0001-strip-bin-prefix.patch ];
+  patches = [./0001-strip-bin-prefix.patch];
 
   meta = with lib; {
     description = "VLSI layout tool written in Tcl";

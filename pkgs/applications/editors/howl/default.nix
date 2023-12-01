@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   sourceRoot = "./howl-${version}/src";
 
   # The Makefile uses "/usr/local" if not explicitly overridden
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   nativeBuildInputs = [
     makeWrapper
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     homepage = "https://howl.io/";
     description = "A general purpose, fast and lightweight editor with a keyboard-centric minimalistic user interface";
     license = licenses.mit;
-    maintainers = with maintainers; [ pacien ];
+    maintainers = with maintainers; [pacien];
 
     # LuaJIT and Howl builds fail for x86_64-darwin and aarch64-linux respectively
     platforms = [

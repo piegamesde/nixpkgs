@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-  buildInputs = [ rpmextract ];
+  buildInputs = [rpmextract];
 
   sourceRoot = ".";
 
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
     description = "Official OpenCL runtime for Intel CPUs";
     homepage = "https://software.intel.com/en-us/articles/opencl-drivers";
     license = lib.licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ lib.maintainers.kierdavis ];
+    platforms = ["x86_64-linux"];
+    maintainers = [lib.maintainers.kierdavis];
   };
 }

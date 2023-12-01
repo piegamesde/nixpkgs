@@ -11,7 +11,7 @@ let
   cfg = config.services.prometheus.exporters.unpoller;
 
   configFile = pkgs.writeText "prometheus-unpoller-exporter.json" (
-    generators.toJSON { } {
+    generators.toJSON {} {
       poller = {
         inherit (cfg.log) debug quiet;
       };

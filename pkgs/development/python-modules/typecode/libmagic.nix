@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   sourceRoot = "source/builtins/typecode_libmagic-linux";
 
-  propagatedBuildInputs = [ plugincode ];
+  propagatedBuildInputs = [plugincode];
 
   preBuild = ''
     pushd src/typecode_libmagic
@@ -35,13 +35,13 @@ buildPythonPackage rec {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "typecode_libmagic" ];
+  pythonImportsCheck = ["typecode_libmagic"];
 
   meta = with lib; {
     description = "A ScanCode Toolkit plugin to provide pre-built binary libraries and utilities and their locations";
     homepage = "https://github.com/nexB/scancode-plugins/tree/main/builtins/typecode_libmagic-linux";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

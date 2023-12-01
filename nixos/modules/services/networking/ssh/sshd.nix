@@ -34,16 +34,16 @@ let
     else if isList v then
       concatStringsSep "," v
     else
-      throw "unsupported type ${builtins.typeOf v}: ${(lib.generators.toPretty { }) v}";
+      throw "unsupported type ${builtins.typeOf v}: ${(lib.generators.toPretty {}) v}";
 
   # dont use the "=" operator
   settingsFormat =
     (pkgs.formats.keyValue {
-      mkKeyValue = lib.generators.mkKeyValueDefault { mkValueString = mkValueStringSshd; } " ";
+      mkKeyValue = lib.generators.mkKeyValueDefault {mkValueString = mkValueStringSshd;} " ";
     });
 
   configFile = settingsFormat.generate "config" cfg.settings;
-  sshconf = pkgs.runCommand "sshd.conf-validated" { nativeBuildInputs = [ validationPackage ]; } ''
+  sshconf = pkgs.runCommand "sshd.conf-validated" {nativeBuildInputs = [validationPackage];} ''
     cat ${configFile} - >$out <<EOL
     ${cfg.extraConfig}
     EOL
@@ -62,7 +62,7 @@ let
     options.openssh.authorizedKeys = {
       keys = mkOption {
         type = types.listOf types.singleLineStr;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           A list of verbatim OpenSSH public keys that should be added to the
           user's authorized keys. The keys are added to a file that the SSH
@@ -80,7 +80,7 @@ let
 
       keyFiles = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           A list of files each containing one OpenSSH public key that should be
           added to the user's authorized keys. The contents of the files are
@@ -329,7 +329,7 @@ in
 
       sftpFlags = mkOption {
         type = with types; listOf str;
-        default = [ ];
+        default = [];
         example = [
           "-f AUTHPRIV"
           "-l INFO"
@@ -341,7 +341,7 @@ in
 
       ports = mkOption {
         type = types.listOf types.port;
-        default = [ 22 ];
+        default = [22];
         description = lib.mdDoc ''
           Specifies on which ports the SSH daemon listens.
         '';
@@ -378,7 +378,7 @@ in
               };
             }
           );
-        default = [ ];
+        default = [];
         example = [
           {
             addr = "192.168.3.1";
@@ -445,7 +445,7 @@ in
 
       authorizedKeysFiles = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Specify the rules for which files to read on the host.
 
@@ -481,14 +481,14 @@ in
 
       settings = mkOption {
         description = lib.mdDoc "Configuration for `sshd_config(5)`.";
-        default = { };
+        default = {};
         example = literalExpression ''
           {
                     UseDns = true;
                     PasswordAuthentication = false;
                   }'';
         type = types.submodule (
-          { name, ... }:
+          {name, ...}:
           {
             freeformType = settingsFormat.type;
             options = {
@@ -641,7 +641,7 @@ in
       };
     };
 
-    users.users = mkOption { type = with types; attrsOf (submodule userOptions); };
+    users.users = mkOption {type = with types; attrsOf (submodule userOptions);};
   };
 
   ###### implementation
@@ -653,7 +653,7 @@ in
       group = "sshd";
       description = "SSH privilege separation user";
     };
-    users.groups.sshd = { };
+    users.groups.sshd = {};
 
     services.openssh.moduliFile = mkDefault "${cfgc.package}/etc/ssh/moduli";
     services.openssh.sftpServerExecutable = mkDefault "${cfgc.package}/libexec/sftp-server";
@@ -668,7 +668,7 @@ in
         service = {
           description = "SSH Daemon";
           wantedBy = optional (!cfg.startWhenNeeded) "multi-user.target";
-          after = [ "network.target" ];
+          after = ["network.target"];
           stopIfChanged = false;
           path = [
             cfgc.package
@@ -736,9 +736,9 @@ in
 
           sockets.sshd = {
             description = "SSH Socket";
-            wantedBy = [ "sockets.target" ];
+            wantedBy = ["sockets.target"];
             socketConfig.ListenStream =
-              if cfg.listenAddresses != [ ] then
+              if cfg.listenAddresses != [] then
                 map (l: "${l.addr}:${toString (if l.port != null then l.port else 22)}") cfg.listenAddresses
               else
                 cfg.ports;
@@ -755,7 +755,7 @@ in
           services.sshd = service;
         };
 
-    networking.firewall.allowedTCPPorts = if cfg.openFirewall then cfg.ports else [ ];
+    networking.firewall.allowedTCPPorts = if cfg.openFirewall then cfg.ports else [];
 
     security.pam.services.sshd = {
       startSession = true;
@@ -785,7 +785,7 @@ in
 
       ${concatMapStrings
         (
-          { port, addr, ... }:
+          {port, addr, ...}:
           ''
             ListenAddress ${addr}${optionalString (port != null) (":" + toString port)}
           ''
@@ -820,7 +820,7 @@ in
         }
       ]
       ++ forEach cfg.listenAddresses (
-        { addr, ... }:
+        {addr, ...}:
         {
           assertion = addr != null;
           message = "addr must be specified in each listenAddresses entry";

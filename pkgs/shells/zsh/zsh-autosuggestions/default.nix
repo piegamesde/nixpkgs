@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  buildInputs = [ zsh ];
+  buildInputs = [zsh];
 
   installPhase = ''
     install -D zsh-autosuggestions.zsh \
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/zsh-users/zsh-autosuggestions";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ maintainers.loskutov ];
+    maintainers = [maintainers.loskutov];
   };
 }

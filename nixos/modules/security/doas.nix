@@ -79,7 +79,7 @@ in
     };
 
     extraRules = mkOption {
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Define specific rules to be set in the
         {file}`/etc/doas.conf` file. More specific rules should
@@ -165,7 +165,7 @@ in
 
               setEnv = mkOption {
                 type = with types; listOf str;
-                default = [ ];
+                default = [];
                 description = lib.mdDoc ''
                   Keep or set the specified variables. Variables may also be
                   removed with a leading '-' or set using
@@ -184,13 +184,13 @@ in
 
               users = mkOption {
                 type = with types; listOf (either str int);
-                default = [ ];
+                default = [];
                 description = lib.mdDoc "The usernames / UIDs this rule should apply for.";
               };
 
               groups = mkOption {
                 type = with types; listOf (either str int);
-                default = [ ];
+                default = [];
                 description = lib.mdDoc "The groups / GIDs this rule should apply for.";
               };
 
@@ -251,7 +251,7 @@ in
 
     security.doas.extraRules = mkOrder 600 [
       {
-        groups = [ "wheel" ];
+        groups = ["wheel"];
         noPass = !cfg.wheelNeedsPassword;
       }
     ];
@@ -263,7 +263,7 @@ in
       source = "${doas}/bin/doas";
     };
 
-    environment.systemPackages = [ doas ];
+    environment.systemPackages = [doas];
 
     security.pam.services.doas = {
       allowNullPassword = true;
@@ -297,5 +297,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ cole-h ];
+  meta.maintainers = with maintainers; [cole-h];
 }

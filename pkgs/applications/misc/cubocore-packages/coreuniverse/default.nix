@@ -35,7 +35,7 @@ mkDerivation rec {
     description = "Shows information about apps from the C Suite";
     homepage = "https://gitlab.com/cubocore/coreapps/coreuniverse";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dan4ik605743 ];
+    maintainers = with maintainers; [dan4ik605743];
     platforms = platforms.linux;
   };
 }

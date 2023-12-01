@@ -29,7 +29,7 @@ let
       description = "GeoIP data for sing-box";
       homepage = "https://github.com/SagerNet/sing-geoip";
       license = licenses.gpl3Plus;
-      maintainers = with maintainers; [ linsui ];
+      maintainers = with maintainers; [linsui];
     };
   };
 in
@@ -39,7 +39,7 @@ stdenvNoCC.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ generator ];
+  nativeBuildInputs = [generator];
 
   buildPhase = ''
     runHook preBuild

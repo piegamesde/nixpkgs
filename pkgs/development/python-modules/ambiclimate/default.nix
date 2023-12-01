@@ -24,12 +24,12 @@ buildPythonPackage rec {
   # tests are not present
   doCheck = false;
 
-  pythonImportsCheck = [ "ambiclimate" ];
+  pythonImportsCheck = ["ambiclimate"];
 
   meta = with lib; {
     description = "Python library to communicate with ambiclimate";
     homepage = "https://github.com/Danielhiversen/pyAmbiclimate";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

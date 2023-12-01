@@ -28,9 +28,9 @@ buildPythonPackage rec {
   # https://github.com/hylang/hy/blob/1.0a4/get_version.py#L9-L10
   HY_VERSION = version;
 
-  propagatedBuildInputs = [ funcparserlib ] ++ lib.optionals (pythonOlder "3.9") [ astor ];
+  propagatedBuildInputs = [funcparserlib] ++ lib.optionals (pythonOlder "3.9") [astor];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     # For test_bin_hy
@@ -42,7 +42,7 @@ buildPythonPackage rec {
     "test_macro_require"
   ];
 
-  pythonImportsCheck = [ "hy" ];
+  pythonImportsCheck = ["hy"];
 
   passthru = {
     tests.version = testers.testVersion {
@@ -54,10 +54,10 @@ buildPythonPackage rec {
     #   hy.withPackages (ps: with ps; [ hyrule requests ])
     withPackages =
       python-packages:
-      (python.withPackages (ps: (python-packages ps) ++ [ ps.hy ])).overrideAttrs (
+      (python.withPackages (ps: (python-packages ps) ++ [ps.hy])).overrideAttrs (
         old: {
           name = "${hy.name}-env";
-          meta = lib.mergeAttrs (builtins.removeAttrs hy.meta [ "license" ]) { mainProgram = "hy"; };
+          meta = lib.mergeAttrs (builtins.removeAttrs hy.meta ["license"]) {mainProgram = "hy";};
         }
       );
   };

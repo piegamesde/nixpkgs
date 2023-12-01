@@ -31,7 +31,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  propagatedBuildInputs = [ catalogue ];
+  propagatedBuildInputs = [catalogue];
 
   nativeCheckInputs = [
     mock
@@ -42,7 +42,7 @@ buildPythonPackage rec {
     tornado
   ];
 
-  pythonImportsCheck = [ "srsly" ];
+  pythonImportsCheck = ["srsly"];
 
   meta = with lib; {
     changelog = "https://github.com/explosion/srsly/releases/tag/v${version}";

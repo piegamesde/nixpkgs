@@ -36,7 +36,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
   checkPhase = ''
     ${python.interpreter} test.py --with-hg "${mercurial}/bin/hg" -v
@@ -46,7 +46,7 @@ buildPythonPackage rec {
     description = "Mercurial Python library";
     homepage = "http://selenic.com/repo/python-hglib";
     license = licenses.mit;
-    maintainers = with maintainers; [ dfoxfranke ];
+    maintainers = with maintainers; [dfoxfranke];
     platforms = platforms.all;
   };
 }

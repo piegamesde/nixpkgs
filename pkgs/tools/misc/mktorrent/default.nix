@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
     "USE_LONG_OPTIONS=1"
   ] ++ lib.optional stdenv.isi686 "USE_LARGE_FILES=1" ++ lib.optional stdenv.isLinux "CFLAGS=-lgcc_s";
 
-  installFlags = [ "PREFIX=${placeholder "out"}" ];
+  installFlags = ["PREFIX=${placeholder "out"}"];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   meta = with lib; {
     description = "Command line utility to create BitTorrent metainfo files";

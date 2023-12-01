@@ -123,15 +123,15 @@ let
 in
 
 {
-  ZenTest = attrs: { meta.mainProgram = "zentest"; };
+  ZenTest = attrs: {meta.mainProgram = "zentest";};
 
   atk = attrs: {
-    dependencies = attrs.dependencies ++ [ "gobject-introspection" ];
+    dependencies = attrs.dependencies ++ ["gobject-introspection"];
     nativeBuildInputs = [
       rake
       bundler
       pkg-config
-    ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+    ] ++ lib.optionals stdenv.isDarwin [DarwinTools];
     propagatedBuildInputs = [
       gobject-introspection
       wrapGAppsHook
@@ -157,7 +157,7 @@ in
     };
 
   cairo = attrs: {
-    nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+    nativeBuildInputs = [pkg-config] ++ lib.optionals stdenv.isDarwin [DarwinTools];
     buildInputs = [
       gtk2
       pcre2
@@ -167,7 +167,7 @@ in
   };
 
   cairo-gobject = attrs: {
-    nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+    nativeBuildInputs = [pkg-config] ++ lib.optionals stdenv.isDarwin [DarwinTools];
     buildInputs = [
       cairo
       pcre2
@@ -185,29 +185,29 @@ in
   };
 
   cld3 = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ protobuf ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [protobuf];
   };
 
-  cocoapods-acknowledgements = attrs: { dependencies = attrs.dependencies ++ [ "cocoapods" ]; };
+  cocoapods-acknowledgements = attrs: {dependencies = attrs.dependencies ++ ["cocoapods"];};
 
-  cocoapods-deploy = attrs: { dependencies = [ "cocoapods" ]; };
+  cocoapods-deploy = attrs: {dependencies = ["cocoapods"];};
 
-  cocoapods-disable-podfile-validations = attrs: { dependencies = [ "cocoapods" ]; };
+  cocoapods-disable-podfile-validations = attrs: {dependencies = ["cocoapods"];};
 
-  cocoapods-generate = attrs: { dependencies = attrs.dependencies ++ [ "cocoapods" ]; };
+  cocoapods-generate = attrs: {dependencies = attrs.dependencies ++ ["cocoapods"];};
 
-  cocoapods-git_url_rewriter = attrs: { dependencies = [ "cocoapods" ]; };
+  cocoapods-git_url_rewriter = attrs: {dependencies = ["cocoapods"];};
 
-  cocoapods-keys = attrs: { dependencies = attrs.dependencies ++ [ "cocoapods" ]; };
+  cocoapods-keys = attrs: {dependencies = attrs.dependencies ++ ["cocoapods"];};
 
-  cocoapods-open = attrs: { dependencies = [ "cocoapods" ]; };
+  cocoapods-open = attrs: {dependencies = ["cocoapods"];};
 
-  cocoapods-try-release-fix = attrs: { dependencies = [ "cocoapods" ]; };
+  cocoapods-try-release-fix = attrs: {dependencies = ["cocoapods"];};
 
-  curb = attrs: { buildInputs = [ curl ]; };
+  curb = attrs: {buildInputs = [curl];};
 
-  curses = attrs: { buildInputs = [ ncurses ]; };
+  curses = attrs: {buildInputs = [ncurses];};
 
   dep-selector-libgecode = attrs: {
     USE_SYSTEM_GECODE = true;
@@ -217,12 +217,12 @@ in
     '';
   };
 
-  digest-sha3 = attrs: { hardeningDisable = [ "format" ]; };
+  digest-sha3 = attrs: {hardeningDisable = ["format"];};
 
   rdiscount = attrs: {
     # Use discount from nixpkgs instead of vendored version
     dontBuild = false;
-    buildInputs = [ discount ];
+    buildInputs = [discount];
     patches =
       [
         # Adapted from Debian:
@@ -283,11 +283,11 @@ in
     '';
   };
 
-  do_sqlite3 = attrs: { buildInputs = [ sqlite ]; };
+  do_sqlite3 = attrs: {buildInputs = [sqlite];};
 
   eventmachine = attrs: {
     dontBuild = false;
-    buildInputs = [ openssl ];
+    buildInputs = [openssl];
     postPatch = ''
       substituteInPlace ext/em.cpp \
         --replace 'if (bind (' 'if (::bind ('
@@ -295,23 +295,23 @@ in
   };
 
   exif = attrs: {
-    buildFlags = [ "--with-exif-dir=${libexif}" ];
-    buildInputs = [ libexif ];
+    buildFlags = ["--with-exif-dir=${libexif}"];
+    buildInputs = [libexif];
   };
 
   ffi = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ libffi ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [libffi];
   };
 
-  fiddle = attrs: { buildInputs = [ libffi ]; };
+  fiddle = attrs: {buildInputs = [libffi];};
 
   gdk_pixbuf2 = attrs: {
     nativeBuildInputs = [
       pkg-config
       bundler
       rake
-    ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+    ] ++ lib.optionals stdenv.isDarwin [DarwinTools];
     propagatedBuildInputs = [
       gobject-introspection
       wrapGAppsHook
@@ -320,13 +320,13 @@ in
   };
 
   gpgme = attrs: {
-    buildInputs = [ gpgme ];
-    nativeBuildInputs = [ pkg-config ];
-    buildFlags = [ "--use-system-libraries" ];
+    buildInputs = [gpgme];
+    nativeBuildInputs = [pkg-config];
+    buildFlags = ["--use-system-libraries"];
   };
 
   gio2 = attrs: {
-    nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+    nativeBuildInputs = [pkg-config] ++ lib.optionals stdenv.isDarwin [DarwinTools];
     buildInputs =
       [
         gtk2
@@ -341,7 +341,7 @@ in
       ];
   };
 
-  gitlab-markup = attrs: { meta.priority = 1; };
+  gitlab-markup = attrs: {meta.priority = 1;};
 
   gitlab-pg_query =
     attrs:
@@ -357,7 +357,7 @@ in
       '';
     };
 
-  parser = attrs: { meta.mainProgram = "ruby-parse"; };
+  parser = attrs: {meta.mainProgram = "ruby-parse";};
 
   pg_query =
     attrs:
@@ -385,10 +385,10 @@ in
       '';
     };
 
-  prettier = attrs: { meta.mainProgram = "rbprettier"; };
+  prettier = attrs: {meta.mainProgram = "rbprettier";};
 
   glib2 = attrs: {
-    nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+    nativeBuildInputs = [pkg-config] ++ lib.optionals stdenv.isDarwin [DarwinTools];
     buildInputs = [
       gtk2
       pcre2
@@ -406,7 +406,7 @@ in
         libselinux
         libsepol
       ]
-      ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+      ++ lib.optionals stdenv.isDarwin [DarwinTools];
     propagatedBuildInputs = [
       atk
       gdk-pixbuf
@@ -428,7 +428,7 @@ in
     nativeBuildInputs = [
       pkg-config
       pcre2
-    ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+    ] ++ lib.optionals stdenv.isDarwin [DarwinTools];
     propagatedBuildInputs = [
       gobject-introspection
       wrapGAppsHook
@@ -446,13 +446,13 @@ in
 
   grpc = attrs: {
     nativeBuildInputs =
-      [ pkg-config ]
+      [pkg-config]
       ++ lib.optional stdenv.isDarwin cctools
       ++
         lib.optional (lib.versionAtLeast attrs.version "1.53.0" && stdenv.isDarwin && stdenv.isAarch64)
           autoSignDarwinBinariesHook;
-    buildInputs = [ openssl ];
-    hardeningDisable = [ "format" ];
+    buildInputs = [openssl];
+    hardeningDisable = ["format"];
     env.NIX_CFLAGS_COMPILE = toString [
       "-Wno-error=stringop-overflow"
       "-Wno-error=implicit-fallthrough"
@@ -479,11 +479,11 @@ in
       '';
   };
 
-  hitimes = attrs: { buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ]; };
+  hitimes = attrs: {buildInputs = lib.optionals stdenv.isDarwin [CoreServices];};
 
-  iconv = attrs: { buildFlags = lib.optional stdenv.isDarwin "--with-iconv-dir=${libiconv}"; };
+  iconv = attrs: {buildFlags = lib.optional stdenv.isDarwin "--with-iconv-dir=${libiconv}";};
 
-  idn-ruby = attrs: { buildInputs = [ libidn ]; };
+  idn-ruby = attrs: {buildInputs = [libidn];};
 
   # disable bundle install as it can't install anything in addition to what is
   # specified in pkgs/applications/misc/jekyll/Gemfile anyway. Also do chmod_R
@@ -506,7 +506,7 @@ in
       v8
       python2
     ];
-    buildFlags = [ "--with-system-v8=true" ];
+    buildFlags = ["--with-system-v8=true"];
     dontBuild = false;
     # The gem includes broken symlinks which are ignored during unpacking, but
     # then fail during build. Since the content is missing anyway, touching the
@@ -525,7 +525,7 @@ in
     # Requires Python 2. Project is abandoned.
   };
 
-  execjs = attrs: { propagatedBuildInputs = [ v8 ]; };
+  execjs = attrs: {propagatedBuildInputs = [v8];};
 
   libxml-ruby = attrs: {
     buildFlags =
@@ -589,7 +589,7 @@ in
   };
 
   magic = attrs: {
-    buildInputs = [ file ];
+    buildInputs = [file];
     postInstall = ''
       installPath=$(cat $out/nix-support/gem-meta/install-path)
       sed -e 's@ENV\["MAGIC_LIB"\] ||@ENV\["MAGIC_LIB"\] || "${file}/lib/libmagic.so" ||@' -i $installPath/lib/magic/api.rb
@@ -609,7 +609,7 @@ in
     '';
   };
 
-  msgpack = attrs: { buildInputs = [ msgpack ]; };
+  msgpack = attrs: {buildInputs = [msgpack];};
 
   mysql = attrs: {
     buildInputs = [
@@ -628,7 +628,7 @@ in
   };
 
   ncursesw = attrs: {
-    buildInputs = [ ncurses ];
+    buildInputs = [ncurses];
     buildFlags = [
       "--with-cflags=-I${ncurses.dev}/include"
       "--with-ldflags=-L${ncurses.out}/lib"
@@ -656,7 +656,7 @@ in
 
   openssl = attrs: {
     # https://github.com/ruby/openssl/issues/369
-    buildInputs = [ openssl_1_1 ];
+    buildInputs = [openssl_1_1];
   };
 
   opus-ruby = attrs: {
@@ -684,7 +684,7 @@ in
       pcre2
       xorg.libpthreadstubs
       xorg.libXdmcp
-    ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+    ] ++ lib.optionals stdenv.isDarwin [DarwinTools];
     buildInputs =
       [
         libdatrie
@@ -702,32 +702,32 @@ in
     ];
   };
 
-  patron = attrs: { buildInputs = [ curl ]; };
+  patron = attrs: {buildInputs = [curl];};
 
-  pcaprub = attrs: { buildInputs = [ libpcap ]; };
+  pcaprub = attrs: {buildInputs = [libpcap];};
 
-  pg = attrs: { buildFlags = [ "--with-pg-config=${postgresql}/bin/pg_config" ]; };
+  pg = attrs: {buildFlags = ["--with-pg-config=${postgresql}/bin/pg_config"];};
 
-  psych = attrs: { buildInputs = [ libyaml ]; };
+  psych = attrs: {buildInputs = [libyaml];};
 
-  puma = attrs: { buildInputs = [ openssl ]; };
+  puma = attrs: {buildInputs = [openssl];};
 
-  "pygments.rb" = attrs: { buildInputs = [ python3 ]; };
+  "pygments.rb" = attrs: {buildInputs = [python3];};
 
-  rack = attrs: { meta.mainProgram = "rackup"; };
+  rack = attrs: {meta.mainProgram = "rackup";};
 
-  railties = attrs: { meta.mainProgram = "rails"; };
+  railties = attrs: {meta.mainProgram = "rails";};
 
-  rainbow = attrs: { buildInputs = [ rainbow_rake ]; };
+  rainbow = attrs: {buildInputs = [rainbow_rake];};
 
   rbczmq =
-    { ... }:
+    {...}:
     {
       buildInputs = [
         zeromq
         czmq
       ];
-      buildFlags = [ "--with-system-libs" ];
+      buildFlags = ["--with-system-libs"];
     };
 
   rbnacl =
@@ -750,37 +750,37 @@ in
         '';
       };
 
-  re2 = attrs: { buildInputs = [ re2 ]; };
+  re2 = attrs: {buildInputs = [re2];};
 
-  rest-client = attrs: { meta.mainProgram = "restclient"; };
+  rest-client = attrs: {meta.mainProgram = "restclient";};
 
   rmagick = attrs: {
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
     buildInputs = [
       imagemagick
       which
     ];
   };
 
-  rouge = attrs: { meta.mainProgram = "rougify"; };
+  rouge = attrs: {meta.mainProgram = "rougify";};
 
-  rpam2 = attrs: { buildInputs = [ linux-pam ]; };
+  rpam2 = attrs: {buildInputs = [linux-pam];};
 
-  rspec-core = attrs: { meta.mainProgram = "rspec"; };
+  rspec-core = attrs: {meta.mainProgram = "rspec";};
 
   ruby-libvirt = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ libvirt ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [libvirt];
     buildFlags = [
       "--with-libvirt-include=${libvirt}/include"
       "--with-libvirt-lib=${libvirt}/lib"
     ];
   };
 
-  ruby-lxc = attrs: { buildInputs = [ lxc ]; };
+  ruby-lxc = attrs: {buildInputs = [lxc];};
 
   ruby-terminfo = attrs: {
-    buildInputs = [ ncurses ];
+    buildInputs = [ncurses];
     buildFlags = [
       "--with-cflags=-I${ncurses.dev}/include"
       "--with-ldflags=-L${ncurses.out}/lib"
@@ -815,7 +815,7 @@ in
   sassc =
     attrs:
     {
-      nativeBuildInputs = [ rake ];
+      nativeBuildInputs = [rake];
       dontBuild = false;
       SASS_LIBSASS_PATH = toString libsass;
       postPatch = ''
@@ -825,7 +825,7 @@ in
     }
     // (lib.optionalAttrs stdenv.isDarwin {
       # https://github.com/NixOS/nixpkgs/issues/19098
-      buildFlags = [ "--disable-lto" ];
+      buildFlags = ["--disable-lto"];
     });
 
   scrypt =
@@ -837,19 +837,19 @@ in
       '';
     };
 
-  semian = attrs: { buildInputs = [ openssl ]; };
+  semian = attrs: {buildInputs = [openssl];};
 
-  sequel_pg = attrs: { buildInputs = [ postgresql ]; };
+  sequel_pg = attrs: {buildInputs = [postgresql];};
 
-  snappy = attrs: { buildInputs = [ args.snappy ]; };
+  snappy = attrs: {buildInputs = [args.snappy];};
 
   sqlite3 =
     attrs:
     if lib.versionAtLeast attrs.version "1.5.0" then
       {
-        nativeBuildInputs = [ pkg-config ];
-        buildInputs = [ sqlite ];
-        buildFlags = [ "--enable-system-libraries" ];
+        nativeBuildInputs = [pkg-config];
+        buildInputs = [sqlite];
+        buildFlags = ["--enable-system-libraries"];
       }
     else
       {
@@ -867,21 +867,21 @@ in
     '';
   };
 
-  taglib-ruby = attrs: { buildInputs = [ taglib ]; };
+  taglib-ruby = attrs: {buildInputs = [taglib];};
 
-  timfel-krb5-auth = attrs: { buildInputs = [ libkrb5 ]; };
+  timfel-krb5-auth = attrs: {buildInputs = [libkrb5];};
 
   tiny_tds = attrs: {
     nativeBuildInputs = [
       pkg-config
       openssl
     ];
-    buildInputs = [ freetds ];
+    buildInputs = [freetds];
   };
 
-  treetop = attrs: { meta.mainProgram = "tt"; };
+  treetop = attrs: {meta.mainProgram = "tt";};
 
-  typhoeus = attrs: { buildInputs = [ curl ]; };
+  typhoeus = attrs: {buildInputs = [curl];};
 
   tzinfo =
     attrs:
@@ -908,7 +908,7 @@ in
     ];
   };
 
-  whois = attrs: { meta.mainProgram = "whoisrb"; };
+  whois = attrs: {meta.mainProgram = "whoisrb";};
 
   xapian-ruby = attrs: {
     # use the system xapian
@@ -930,7 +930,7 @@ in
     '';
   };
 
-  zlib = attrs: { buildInputs = [ zlib ]; };
+  zlib = attrs: {buildInputs = [zlib];};
 
-  zookeeper = attrs: { buildInputs = lib.optionals stdenv.isDarwin [ cctools ]; };
+  zookeeper = attrs: {buildInputs = lib.optionals stdenv.isDarwin [cctools];};
 }

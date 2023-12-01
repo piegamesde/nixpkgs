@@ -21,6 +21,6 @@ rustPlatform.buildRustPackage rec {
     description = "Execute a command whenever a device is adb-connected";
     homepage = "https://github.com/rom1v/autoadb";
     license = licenses.asl20;
-    maintainers = with maintainers; [ shawn8901 ];
+    maintainers = with maintainers; [shawn8901];
   };
 }

@@ -59,13 +59,13 @@ let
             sha256 = "sha256-SmwaUjOjjZulg/wgNmR/F5b8rhYA2wkKAjHIOxjcQdQ=";
           })
         ]
-      ++ lib.optionals stdenv.hostPlatform.isStatic [ ./static-executables-have-no-rpath.patch ];
+      ++ lib.optionals stdenv.hostPlatform.isStatic [./static-executables-have-no-rpath.patch];
 
     nativeBuildInputs =
       let
         protobufVersion = "${lib.versions.major version}_${lib.versions.minor version}";
       in
-      [ cmake ]
+      [cmake]
       ++
         lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
           [
@@ -83,8 +83,8 @@ let
     # a stub cmake/CMakeLists.txt still exists for compatibility with previous build assumptions
     cmakeDir = "../cmake";
     cmakeFlags =
-      [ "-Dprotobuf_ABSL_PROVIDER=package" ]
-      ++ lib.optionals (!stdenv.targetPlatform.isStatic) [ "-Dprotobuf_BUILD_SHARED_LIBS=ON" ]
+      ["-Dprotobuf_ABSL_PROVIDER=package"]
+      ++ lib.optionals (!stdenv.targetPlatform.isStatic) ["-Dprotobuf_BUILD_SHARED_LIBS=ON"]
       # Tests fail to build on 32-bit platforms; fixed in 3.22
       # https://github.com/protocolbuffers/protobuf/issues/10418
       ++
@@ -96,7 +96,7 @@ let
 
     passthru = {
       tests = {
-        pythonProtobuf = python3.pkgs.protobuf.override (_: { protobuf = self; });
+        pythonProtobuf = python3.pkgs.protobuf.override (_: {protobuf = self;});
       };
     };
 
@@ -110,7 +110,7 @@ let
       license = lib.licenses.bsd3;
       platforms = lib.platforms.unix;
       homepage = "https://developers.google.com/protocol-buffers/";
-      maintainers = with lib.maintainers; [ jonringer ];
+      maintainers = with lib.maintainers; [jonringer];
       mainProgram = "protoc";
     };
   };

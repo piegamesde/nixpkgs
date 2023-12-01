@@ -16,15 +16,15 @@ stdenv.mkDerivation rec {
     sha256 = "0g09k6wim58hngxncq2brr7mwjm92j3famp0vs4b3p48wr65vcjx";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     freetype
     gtk
   ];
 
-  patches = [ ./Makefile.patch ];
+  patches = [./Makefile.patch];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = {
     description = "Bitmap Font Editor";
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://sofia.nmsu.edu/~mleisher/Software/gbdfed/";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.linquize ];
+    maintainers = [lib.maintainers.linquize];
     platforms = lib.platforms.all;
   };
 }

@@ -25,17 +25,17 @@ python3Packages.buildPythonApplication rec {
     pynput
   ];
 
-  nativeCheckInputs = [ xvfb-run ];
+  nativeCheckInputs = [xvfb-run];
   checkPhase = ''
     xvfb-run python setup.py test
   '';
 
-  pythonImportsCheck = [ "keepmenu" ];
+  pythonImportsCheck = ["keepmenu"];
 
   meta = with lib; {
     homepage = "https://github.com/firecat53/keepmenu";
     description = "Dmenu/Rofi frontend for Keepass databases";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ elliot ];
+    maintainers = with maintainers; [elliot];
   };
 }

@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "R7RS Scheme scripting engine";
     homepage = "https://practical-scheme.net/gauche/";
-    maintainers = with maintainers; [ mnacamura ];
+    maintainers = with maintainers; [mnacamura];
     license = licenses.bsd3;
     platforms = platforms.unix;
   };

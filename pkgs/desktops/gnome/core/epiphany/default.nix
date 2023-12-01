@@ -82,13 +82,13 @@ stdenv.mkDerivation rec {
     p11-kit
     sqlite
     webkitgtk_6_0
-  ] ++ lib.optionals withPantheon [ pantheon.granite7 ];
+  ] ++ lib.optionals withPantheon [pantheon.granite7];
 
   # Tests need an X display
-  mesonFlags = [ "-Dunit_tests=disabled" ] ++ lib.optionals withPantheon [ "-Dgranite=enabled" ];
+  mesonFlags = ["-Dunit_tests=disabled"] ++ lib.optionals withPantheon ["-Dgranite=enabled"];
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = pname; };
+    updateScript = gnome.updateScript {packageName = pname;};
   };
 
   meta = with lib; {

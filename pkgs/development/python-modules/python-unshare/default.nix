@@ -22,6 +22,6 @@ buildPythonPackage {
     homepage = "https://github.com/thetincho/python-unshare";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

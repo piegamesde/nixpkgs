@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-JR23Wic4DMoTMLG5cXAMXl3MDJDlpHYiKF8BQO3+Oi8=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = [
     neon
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  configureFlags = [ "--sysconfdir=/etc" ];
+  configureFlags = ["--sysconfdir=/etc"];
 
   meta = {
     homepage = "https://savannah.nongnu.org/projects/davfs2";
@@ -56,6 +56,6 @@ stdenv.mkDerivation rec {
     '';
 
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
   };
 }

@@ -1,14 +1,14 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "trivial-garbage";
   version = "20200925-git";
 
-  parasites = [ "trivial-garbage/tests" ];
+  parasites = ["trivial-garbage/tests"];
 
   description = "Portable finalizers, weak hash-tables and weak pointers.";
 
-  deps = [ args."rt" ];
+  deps = [args."rt"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/trivial-garbage/2020-09-25/trivial-garbage-20200925-git.tgz";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "trivial-garbage";
 
-  asdFilesToKeep = [ "trivial-garbage.asd" ];
+  asdFilesToKeep = ["trivial-garbage.asd"];
   overrides = x: x;
 }
 /* (SYSTEM trivial-garbage DESCRIPTION

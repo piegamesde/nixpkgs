@@ -55,11 +55,11 @@ buildPythonPackage rec {
     pythonRelaxDepsHook
   ];
 
-  pythonRelaxDeps = [ "loguru" ];
+  pythonRelaxDeps = ["loguru"];
 
-  propagatedBuildInputs = [ loguru ] ++ lib.optionals stdenv.isLinux [ jeepney ];
+  propagatedBuildInputs = [loguru] ++ lib.optionals stdenv.isLinux [jeepney];
 
-  nativeCheckInputs = [ pytest ] ++ lib.optionals stdenv.isLinux [ dbus ];
+  nativeCheckInputs = [pytest] ++ lib.optionals stdenv.isLinux [dbus];
 
   checkPhase =
     if stdenv.isDarwin then
@@ -84,7 +84,7 @@ buildPythonPackage rec {
   # org.freedesktop.Notifications was not provided by any .service files
   doCheck = false;
 
-  pythonImportsCheck = [ "notifypy" ];
+  pythonImportsCheck = ["notifypy"];
 
   meta = with lib; {
     description = "Cross-platform desktop notification library for Python";

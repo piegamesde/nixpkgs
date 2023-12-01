@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       --subst-var-by mosh-client "$out/bin/mosh-client"
   '';
 
-  configureFlags = [ "--enable-completion" ] ++ lib.optional withUtempter "--with-utempter";
+  configureFlags = ["--enable-completion"] ++ lib.optional withUtempter "--with-utempter";
 
   postInstall = ''
     wrapProgram $out/bin/mosh --prefix PERL5LIB : $PERL5LIB

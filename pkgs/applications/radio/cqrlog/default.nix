@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
 
   # Adds the possiblity to change the lazarus directory,
   # otherwise, we would get error : "directory lcl not found"
-  patches = [ ./fix-makefile-lazarusdir.patch ];
+  patches = [./fix-makefile-lazarusdir.patch];
 
   postPatch = ''
     substituteInPlace Makefile \
@@ -103,7 +103,7 @@ stdenv.mkDerivation rec {
     description = "Linux logging program for amateur radio operators";
     homepage = "https://www.cqrlog.com/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ shamilton ];
+    maintainers = with maintainers; [shamilton];
     platforms = platforms.linux;
   };
 }

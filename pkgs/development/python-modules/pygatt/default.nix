@@ -22,9 +22,9 @@ buildPythonPackage rec {
     sha256 = "1zdfxidiw0l8n498sy0l33n90lz49n25x889cx6jamjr7frlcihd";
   };
 
-  propagatedBuildInputs = [ pyserial ];
+  propagatedBuildInputs = [pyserial];
 
-  passthru.optional-dependencies.GATTTOOL = [ pexpect ];
+  passthru.optional-dependencies.GATTTOOL = [pexpect];
 
   nativeBuildInputs =
     [
@@ -44,7 +44,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "'enum-compat'" ""
   '';
 
-  pythonImportsCheck = [ "pygatt" ];
+  pythonImportsCheck = ["pygatt"];
 
   meta = with lib; {
     description = "Python wrapper the BGAPI for accessing Bluetooth LE Devices";
@@ -53,6 +53,6 @@ buildPythonPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -25,7 +25,7 @@ buildPythonPackage rec {
     azure-mgmt-core
     msrest
     msrestazure
-  ] ++ lib.optionals (!isPy3k) [ azure-mgmt-nspkg ];
+  ] ++ lib.optionals (!isPy3k) [azure-mgmt-nspkg];
 
   # has no tests
   doCheck = false;
@@ -34,6 +34,6 @@ buildPythonPackage rec {
     description = "This is the Microsoft Azure IoTHub Management Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxwilson ];
+    maintainers = with maintainers; [maxwilson];
   };
 }

@@ -1,10 +1,10 @@
-{ config, lib, ... }:
+{config, lib, ...}:
 
 with lib;
 
 {
   meta = {
-    maintainers = [ maintainers.joachifm ];
+    maintainers = [maintainers.joachifm];
   };
 
   imports = [
@@ -138,14 +138,14 @@ with lib;
 
     (mkIf config.security.protectKernelImage {
       # Disable hibernation (allows replacing the running kernel)
-      boot.kernelParams = [ "nohibernate" ];
+      boot.kernelParams = ["nohibernate"];
       # Prevent replacing the running kernel image w/o reboot
       boot.kernel.sysctl."kernel.kexec_load_disabled" = mkDefault true;
     })
 
-    (mkIf (!config.security.allowSimultaneousMultithreading) { boot.kernelParams = [ "nosmt" ]; })
+    (mkIf (!config.security.allowSimultaneousMultithreading) {boot.kernelParams = ["nosmt"];})
 
-    (mkIf config.security.forcePageTableIsolation { boot.kernelParams = [ "pti=on" ]; })
+    (mkIf config.security.forcePageTableIsolation {boot.kernelParams = ["pti=on"];})
 
     (mkIf (config.security.virtualisation.flushL1DataCache != null) {
       boot.kernelParams = [

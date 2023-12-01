@@ -15,16 +15,16 @@ buildPythonPackage rec {
     hash = "sha256-Zo0JhCw8+nSx9u2r2wBYpkwE+c8XuTiD5tqBHhIErU0=";
   };
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
-  pythonImportsCheck = [ "pyworld" ];
+  pythonImportsCheck = ["pyworld"];
 
   meta = with lib; {
     description = "PyWorld is a Python wrapper for WORLD vocoder";
     homepage = "https://github.com/JeremyCCHsu/Python-Wrapper-for-World-Vocoder";
     license = licenses.mit;
-    maintainers = [ maintainers.mic92 ];
+    maintainers = [maintainers.mic92];
   };
 }

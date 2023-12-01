@@ -32,7 +32,7 @@ stdenv.mkDerivation (
       sha256 = "1zd850nn7nvkkhasrv7kn17kzgslr5ry933v6db62s4lr0zzlbv8";
     };
 
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
 
     buildInputs =
       [
@@ -47,7 +47,7 @@ stdenv.mkDerivation (
         libX11
         libGL
       ]
-      ++ lib.optionals stdenv.isDarwin [ OpenGL ];
+      ++ lib.optionals stdenv.isDarwin [OpenGL];
 
     configureFlags = [
       "--enable-ILU"
@@ -91,9 +91,9 @@ stdenv.mkDerivation (
       homepage = "https://openil.sourceforge.net/";
       description = "An image library which can can load, save, convert, manipulate, filter and display a wide variety of image formats";
       license = licenses.lgpl2;
-      pkgConfigModules = [ "IL" ];
+      pkgConfigModules = ["IL"];
       platforms = platforms.mesaPlatforms;
-      maintainers = with maintainers; [ ];
+      maintainers = with maintainers; [];
     };
   }
 )

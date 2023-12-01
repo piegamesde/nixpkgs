@@ -38,16 +38,16 @@ stdenv.mkDerivation (
         })
       ];
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
     buildInputs = lib.optionals (!stdenv.isDarwin) [
       libXmu
       libXi
       libXext
     ];
-    propagatedBuildInputs = if stdenv.isDarwin then [ OpenGL ] else [ libGLU ]; # GL/glew.h includes GL/glu.h
+    propagatedBuildInputs = if stdenv.isDarwin then [OpenGL] else [libGLU]; # GL/glew.h includes GL/glu.h
 
     cmakeDir = "cmake";
-    cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ] ++ lib.optional enableEGL "-DGLEW_EGL=ON";
+    cmakeFlags = ["-DBUILD_SHARED_LIBS=ON"] ++ lib.optional enableEGL "-DGLEW_EGL=ON";
 
     postInstall = ''
       moveToOutput lib/cmake "''${!outputDev}"
@@ -78,7 +78,7 @@ stdenv.mkDerivation (
         mit
         gpl2Only
       ]; # For full details, see https://github.com/nigels-com/glew#copyright-and-licensing
-      pkgConfigModules = [ "glew" ];
+      pkgConfigModules = ["glew"];
       platforms = with platforms; if enableEGL then subtractLists darwin mesaPlatforms else mesaPlatforms;
     };
   }

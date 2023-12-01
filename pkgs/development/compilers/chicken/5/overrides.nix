@@ -5,11 +5,11 @@
   chickenEggs,
 }:
 let
-  addToBuildInputs = pkg: old: { buildInputs = (old.buildInputs or [ ]) ++ lib.toList pkg; };
+  addToBuildInputs = pkg: old: {buildInputs = (old.buildInputs or []) ++ lib.toList pkg;};
   addToPropagatedBuildInputs = pkg: old: {
-    propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ lib.toList pkg;
+    propagatedBuildInputs = (old.propagatedBuildInputs or []) ++ lib.toList pkg;
   };
-  addPkgConfig = old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ]; };
+  addPkgConfig = old: {nativeBuildInputs = (old.nativeBuildInputs or []) ++ [pkgs.pkg-config];};
   addToBuildInputsWithPkgConfig = pkg: old: (addPkgConfig old) // (addToBuildInputs pkg old);
   addToPropagatedBuildInputsWithPkgConfig =
     pkg: old: (addPkgConfig old) // (addToPropagatedBuildInputs pkg old);
@@ -30,7 +30,7 @@ in
       pkgs.allegro5
       pkgs.libglvnd
     ]
-    ++ lib.optionals stdenv.isDarwin [ pkgs.darwin.apple_sdk.frameworks.OpenGL ]
+    ++ lib.optionals stdenv.isDarwin [pkgs.darwin.apple_sdk.frameworks.OpenGL]
   );
   breadline = addToBuildInputs pkgs.readline;
   blas = addToBuildInputsWithPkgConfig pkgs.blas;
@@ -71,13 +71,13 @@ in
   magic = addToBuildInputs pkgs.file;
   mdh = addToBuildInputs pkgs.pcre;
   nanomsg = addToBuildInputs pkgs.nanomsg;
-  ncurses = addToBuildInputsWithPkgConfig [ pkgs.ncurses ];
+  ncurses = addToBuildInputsWithPkgConfig [pkgs.ncurses];
   opencl = addToBuildInputs (
     [
       pkgs.opencl-headers
       pkgs.ocl-icd
     ]
-    ++ lib.optionals stdenv.isDarwin [ pkgs.darwin.apple_sdk.frameworks.OpenCL ]
+    ++ lib.optionals stdenv.isDarwin [pkgs.darwin.apple_sdk.frameworks.OpenCL]
   );
   opengl =
     old:

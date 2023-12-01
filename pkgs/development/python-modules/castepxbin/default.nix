@@ -25,12 +25,12 @@ buildPythonPackage rec {
     pymatgen
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "A collection of readers for CASTEP binary outputs";
     homepage = "https://github.com/zhubonan/castepxbin";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

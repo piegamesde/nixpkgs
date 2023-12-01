@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
     description = "Mail filtering utility";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

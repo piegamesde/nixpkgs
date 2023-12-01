@@ -8,7 +8,7 @@
 {
   pname = "pastel-console";
 
-  nativeBuildInputs = [ reason ];
+  nativeBuildInputs = [reason];
 
   propagatedBuildInputs = [
     console

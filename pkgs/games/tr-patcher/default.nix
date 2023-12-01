@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "0va7nbmlgf3p2nc0z2b9n1285y4q5rpyjr4w93rdnx38wrhinxnw";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     install -Dm644 lib/tr-patcher-all.jar $out/lib/tr-patcher.jar
@@ -36,9 +36,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Allow to update dependancies of the Tamriel-Data mod for morrowind";
     homepage = "https://gitlab.com/bmwinger/tr-patcher";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.gpl3;
-    maintainers = [ maintainers.marius851000 ];
+    maintainers = [maintainers.marius851000];
     platforms = platforms.linux;
   };
 }

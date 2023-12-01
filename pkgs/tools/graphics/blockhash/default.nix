@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     pkg-config
     wafHook
   ];
-  buildInputs = [ imagemagick ];
+  buildInputs = [imagemagick];
 
   strictDeps = true;
 
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       Fan Gu and Xiamu Niu.
     '';
     license = licenses.mit;
-    maintainers = [ maintainers.infinisil ];
+    maintainers = [maintainers.infinisil];
     platforms = platforms.unix;
   };
 }

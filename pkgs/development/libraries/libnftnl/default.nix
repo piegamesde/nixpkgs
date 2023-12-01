@@ -15,8 +15,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-lm3gqBIMilPbhZiJdJNov7LLoMTwtMGjDSZOzMRfEiY=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libmnl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libmnl];
 
   meta = with lib; {
     description = "A userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem";

@@ -1,10 +1,10 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
 
 let
@@ -88,12 +88,12 @@ in
 {
   basic = makeTest {
     name = "systemd-repart";
-    meta.maintainers = with maintainers; [ nikstur ];
+    meta.maintainers = with maintainers; [nikstur];
 
     nodes.machine =
-      { config, pkgs, ... }:
+      {config, pkgs, ...}:
       {
-        imports = [ common ];
+        imports = [common];
 
         boot.initrd.systemd.enable = true;
 
@@ -106,7 +106,7 @@ in
       };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       ''
         ${useDiskImage nodes.machine}
 
@@ -120,12 +120,12 @@ in
 
   after-initrd = makeTest {
     name = "systemd-repart-after-initrd";
-    meta.maintainers = with maintainers; [ nikstur ];
+    meta.maintainers = with maintainers; [nikstur];
 
     nodes.machine =
-      { config, pkgs, ... }:
+      {config, pkgs, ...}:
       {
-        imports = [ common ];
+        imports = [common];
 
         systemd.repart.enable = true;
         systemd.repart.partitions = {
@@ -136,7 +136,7 @@ in
       };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       ''
         ${useDiskImage nodes.machine}
 

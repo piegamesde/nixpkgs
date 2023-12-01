@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "Minimal Markdown Documentation";
     homepage = "https://github.com/ryantm/mmdoc";
     license = licenses.cc0;
-    maintainers = with maintainers; [ ryantm ];
+    maintainers = with maintainers; [ryantm];
     platforms = platforms.unix;
   };
 }

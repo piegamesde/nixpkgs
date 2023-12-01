@@ -132,7 +132,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.tmpfiles.rules = [
       "d '${cfg.dataDir}' 0700 zookeeper - - -"
@@ -141,8 +141,8 @@ in
 
     systemd.services.zookeeper = {
       description = "Zookeeper Daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         ExecStart = ''
           ${cfg.jre}/bin/java \
@@ -167,6 +167,6 @@ in
       description = "Zookeeper daemon user";
       home = cfg.dataDir;
     };
-    users.groups.zookeeper = { };
+    users.groups.zookeeper = {};
   };
 }

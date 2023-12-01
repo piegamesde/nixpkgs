@@ -33,7 +33,7 @@ buildPythonApplication rec {
     inherit sha256;
   };
 
-  patches = [ ./remove-update-check.patch ];
+  patches = [./remove-update-check.patch];
 
   # remove need for git history
   prePatch = ''
@@ -59,7 +59,7 @@ buildPythonApplication rec {
     $out/bin/linode-cli --skip-config --version | grep ${version} > /dev/null
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   postInstall = ''
     installShellCompletion --cmd linode-cli --bash <($out/bin/linode-cli --skip-config completion bash)
   '';
@@ -70,6 +70,6 @@ buildPythonApplication rec {
     description = "The Linode Command Line Interface";
     homepage = "https://github.com/linode/linode-cli";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ryantm ];
+    maintainers = with maintainers; [ryantm];
   };
 }

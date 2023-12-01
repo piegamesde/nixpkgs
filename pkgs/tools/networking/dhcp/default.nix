@@ -41,9 +41,9 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [ openldap ];
+  buildInputs = [openldap];
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   configureFlags =
     [
@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
     "-Wno-error=stringop-overflow=8"
   ];
 
-  installFlags = [ "DESTDIR=\${out}" ];
+  installFlags = ["DESTDIR=\${out}"];
 
   postInstall =
     ''

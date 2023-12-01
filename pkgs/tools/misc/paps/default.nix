@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     pkg-config
     intltool
   ];
-  buildInputs = [ pango ];
+  buildInputs = [pango];
 
   preConfigure = ''
     ./autogen.sh
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Pango to PostScript converter";
     homepage = "https://github.com/dov/paps";
     license = licenses.lgpl2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

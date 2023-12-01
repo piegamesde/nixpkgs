@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/libiconv/";
     license = lib.licenses.lgpl2Plus;
 
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "iconv";
 
     # This library is not needed on GNU platforms.

@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-29L7XkcUnUdS0Oqg2saMxJzyDUbfT44yb/yPGLKvTqU=";
   };
 
-  patches = [ ./remove-runtime-dep-on-openssl-headers.patch ];
+  patches = [./remove-runtime-dep-on-openssl-headers.patch];
 
   preConfigure =
     ''
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isDarwin perlPackages.perl;
 
   configureFlags =
-    [ (lib.withFeatureAs withOpenssl "ssl" "openssl") ]
+    [(lib.withFeatureAs withOpenssl "ssl" "openssl")]
     ++ lib.optionals stdenv.isDarwin
       [
         # https://lists.gnu.org/archive/html/bug-wget/2021-01/msg00076.html
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl3Plus;
     homepage = "https://www.gnu.org/software/wget/";
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
     platforms = platforms.all;
   };
 }

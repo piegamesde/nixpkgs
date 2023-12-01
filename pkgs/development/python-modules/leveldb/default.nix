@@ -21,6 +21,6 @@ buildPythonPackage rec {
       "i686-linux"
     ];
     license = licenses.bsd3;
-    maintainers = [ maintainers.aanderse ];
+    maintainers = [maintainers.aanderse];
   };
 }

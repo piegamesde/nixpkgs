@@ -24,6 +24,6 @@ buildPythonPackage rec {
     description = "Jinja2 pluralize filters";
     homepage = "https://github.com/audreyr/jinja2_pluralize";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ dzabraev ];
+    maintainers = with maintainers; [dzabraev];
   };
 }

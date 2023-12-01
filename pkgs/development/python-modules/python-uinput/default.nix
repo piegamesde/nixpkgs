@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "033zqiypjz0nigav6vz0s57pbzikvds55mxphrdpkdbpdikjnfcr";
   };
 
-  buildInputs = [ udev ];
+  buildInputs = [udev];
 
   NIX_CFLAGS_LINK = "-ludev";
 
@@ -22,6 +22,6 @@ buildPythonPackage rec {
     description = "Pythonic API to Linux uinput kernel module";
     homepage = "https://tjjr.fi/sw/python-uinput/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

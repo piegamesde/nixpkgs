@@ -1,4 +1,4 @@
-{ lib, fetchzip }:
+{lib, fetchzip}:
 
 let
   rev = "e764ba00b9c34524e3ff3ffd19a44fa2a5c296a5";
@@ -16,6 +16,6 @@ fetchzip {
     description = "Blob emoji from blobs.gg repacked as APNG";
     homepage = "https://blobs.gg";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mvs ];
+    maintainers = with maintainers; [mvs];
   };
 }

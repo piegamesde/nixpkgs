@@ -21,7 +21,7 @@ rofi-unwrapped.overrideAttrs (
       sha256 = "sha256-ddKLV7NvqgTQl5YlAEyBK0oalcJsLASK4z3qArQPUDQ=";
     };
 
-    nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ wayland-scanner ];
+    nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [wayland-scanner];
     buildInputs = oldAttrs.buildInputs ++ [
       wayland
       wayland-protocols
@@ -31,7 +31,7 @@ rofi-unwrapped.overrideAttrs (
       description = "Window switcher, run dialog and dmenu replacement for Wayland";
       homepage = "https://github.com/lbonn/rofi";
       license = licenses.mit;
-      maintainers = with maintainers; [ bew ];
+      maintainers = with maintainers; [bew];
       platforms = with platforms; linux;
     };
   }

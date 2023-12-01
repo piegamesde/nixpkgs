@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "xsubseq";
   version = "20170830-git";
 
   description = ''Efficient way to manage "subseq"s in Common Lisp'';
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/xsubseq/2017-08-30/xsubseq-20170830-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "xsubseq";
 
-  asdFilesToKeep = [ "xsubseq.asd" ];
+  asdFilesToKeep = ["xsubseq.asd"];
   overrides = x: x;
 }
 /* (SYSTEM xsubseq DESCRIPTION Efficient way to manage "subseq"s in Common Lisp

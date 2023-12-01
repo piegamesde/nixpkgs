@@ -29,6 +29,6 @@ rustPlatform.buildRustPackage {
     description = "Multi-profile Nix-flake deploy tool";
     homepage = "https://github.com/serokell/deploy-rs";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ teutat3s ];
+    maintainers = with maintainers; [teutat3s];
   };
 }

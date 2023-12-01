@@ -360,7 +360,7 @@ stdenv.mkDerivation {
       waylandpp.bin
     ];
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   cmakeFlags =
     [

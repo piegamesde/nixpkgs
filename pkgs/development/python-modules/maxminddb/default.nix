@@ -20,7 +20,7 @@ buildPythonPackage rec {
     sha256 = "e37707ec4fab115804670e0fb7aedb4b57075a8b6f80052bdc648d3c005184e5";
   };
 
-  buildInputs = [ libmaxminddb ];
+  buildInputs = [libmaxminddb];
 
   nativeCheckInputs = [
     nose
@@ -34,6 +34,6 @@ buildPythonPackage rec {
     description = "Reader for the MaxMind DB format";
     homepage = "https://github.com/maxmind/MaxMind-DB-Reader-python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

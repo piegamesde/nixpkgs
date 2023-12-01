@@ -9,10 +9,10 @@ import ./make-test-python.nix (
   in
   {
     name = "systemd-shutdown";
-    meta = with pkgs.lib.maintainers; { maintainers = [ das_j ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [das_j];};
 
     nodes.machine = {
-      imports = [ ../modules/profiles/minimal.nix ];
+      imports = [../modules/profiles/minimal.nix];
       systemd.shutdownRamfs.contents."/etc/systemd/system-shutdown/shutdown-message".source = pkgs.writeShellScript "shutdown-message" ''
         echo "${msg}"
       '';

@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     sha256 = "12g5cjx34ys6ix6ivahsbr3bbbi1fmjwdfdk382z6q71w3pyxxzf";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = with perlPackages; [
     perl
     ConfigIniFiles
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
     description = "A policy-driven snapshot management tool for ZFS filesystems";
     homepage = "https://github.com/jimsalterjrs/sanoid";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ lopsided98 ];
+    maintainers = with maintainers; [lopsided98];
     platforms = platforms.all;
   };
 }

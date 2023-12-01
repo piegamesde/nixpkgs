@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "0bcm20hqxqnq1j0zghb9i7z9frri6bbf7rmrv5g8dd626sq07vyv";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     liblaxjson
     freeimage
@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
     ]; # fails on Darwin and AArch64
     homepage = "https://github.com/andrewrk/rucksack";
     license = licenses.mit;
-    maintainers = [ maintainers.andrewrk ];
+    maintainers = [maintainers.andrewrk];
   };
 }

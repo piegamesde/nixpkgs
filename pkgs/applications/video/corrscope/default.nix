@@ -22,10 +22,10 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
     sha256 = "sha256-pS7upOYZAjgR3lWxny8TNZEj3Rrbg+L90ANZWFO9UPQ=";
   };
 
-  pythonRelaxDeps = [ "attrs" ];
+  pythonRelaxDeps = ["attrs"];
 
   nativeBuildInputs =
-    [ wrapQtAppsHook ]
+    [wrapQtAppsHook]
     ++ (
       with python3Packages; [
         poetry-core
@@ -57,7 +57,7 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
 
   preFixup = ''
     makeWrapperArgs+=(
-      --prefix PATH : ${lib.makeBinPath [ ffmpeg ]}
+      --prefix PATH : ${lib.makeBinPath [ffmpeg]}
       "''${qtWrapperArgs[@]}"
     )
   '';
@@ -81,7 +81,7 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
     '';
     homepage = "https://github.com/corrscope/corrscope";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = platforms.all;
     mainProgram = "corr";
   };

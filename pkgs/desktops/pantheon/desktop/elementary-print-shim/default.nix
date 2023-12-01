@@ -28,10 +28,10 @@ stdenv.mkDerivation rec {
     vala
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

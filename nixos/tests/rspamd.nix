@@ -1,10 +1,10 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
 
 let
@@ -119,7 +119,7 @@ in
         ];
         workers.controller2 = {
           type = "controller";
-          bindSockets = [ "0.0.0.0:11335" ];
+          bindSockets = ["0.0.0.0:11335"];
           extraConfig = ''
             static_dir = "''${WWWDIR}";
             secure_ip = null;
@@ -270,7 +270,7 @@ in
   postfixIntegration = makeTest {
     name = "rspamd-postfix-integration";
     nodes.machine = {
-      environment.systemPackages = with pkgs; [ msmtp ];
+      environment.systemPackages = with pkgs; [msmtp];
       environment.etc."tests/gtube.eml".text = ''
         From: Sheep1<bah@example.com>
         To: Sheep2<tester@example.com>
@@ -293,7 +293,7 @@ in
       };
       services.postfix = {
         enable = true;
-        destination = [ "example.com" ];
+        destination = ["example.com"];
       };
       services.rspamd = {
         enable = true;

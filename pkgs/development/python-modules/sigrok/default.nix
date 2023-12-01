@@ -16,12 +16,12 @@
 # build libsigrok plus its Python bindings. Unfortunately it does not appear
 # to be possible to build them separately, at least not easily.
 toPythonModule (
-  (libsigrok.override { inherit python; }).overrideAttrs (
+  (libsigrok.override {inherit python;}).overrideAttrs (
     orig: {
       pname = "${python.libPrefix}-sigrok";
 
       patches =
-        orig.patches or [ ]
+        orig.patches or []
         ++ [
           # Makes libsigrok install the bindings into site-packages properly (like
           # we expect) instead of making a version-specific *.egg subdirectory.
@@ -29,7 +29,7 @@ toPythonModule (
         ];
 
       nativeBuildInputs =
-        orig.nativeBuildInputs or [ ]
+        orig.nativeBuildInputs or []
         ++ [
           autoreconfHook
           setuptools
@@ -41,11 +41,11 @@ toPythonModule (
           pythonCatchConflictsHook
         ];
 
-      buildInputs = orig.buildInputs or [ ] ++ [
+      buildInputs = orig.buildInputs or [] ++ [
         pygobject3 # makes headers available the configure script checks for
       ];
 
-      propagatedBuildInputs = orig.propagatedBuildInputs or [ ] ++ [
+      propagatedBuildInputs = orig.propagatedBuildInputs or [] ++ [
         pygobject3
         numpy
       ];
@@ -64,7 +64,7 @@ toPythonModule (
 
       meta = orig.meta // {
         description = "Python bindings for libsigrok";
-        maintainers = orig.meta.maintainers ++ [ lib.maintainers.sternenseemann ];
+        maintainers = orig.meta.maintainers ++ [lib.maintainers.sternenseemann];
       };
     }
   )

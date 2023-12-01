@@ -38,7 +38,7 @@ buildPythonPackage rec {
       --replace 'rich = "^10.1.0"' 'rich = ">=10.1.0"'
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiodns
@@ -57,12 +57,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "surepy" ];
+  pythonImportsCheck = ["surepy"];
 
   meta = with lib; {
     description = "Python library to interact with the Sure Petcare API";
     homepage = "https://github.com/benleb/surepy";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

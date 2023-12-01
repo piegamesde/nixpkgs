@@ -22,8 +22,8 @@ stdenv.mkDerivation (
 
     enableParallelBuilding = true;
     strictDeps = true;
-    nativeBuildInputs = [ protobuf ];
-    buildInputs = [ protobuf ];
+    nativeBuildInputs = [protobuf];
+    buildInputs = [protobuf];
 
     makeFlags = [
       "PREFIX=$(out)"
@@ -31,7 +31,7 @@ stdenv.mkDerivation (
     ];
 
     doCheck = true;
-    nativeCheckInputs = [ protobuf ];
+    nativeCheckInputs = [protobuf];
     checkPhase = ''
       runHook preCheck
 
@@ -55,7 +55,7 @@ stdenv.mkDerivation (
       changelog = "https://github.com/grpc/grpc-web/blob/${finalAttrs.version}/CHANGELOG.md";
       description = "gRPC web support for Google's protocol buffers";
       license = licenses.asl20;
-      maintainers = with maintainers; [ jk ];
+      maintainers = with maintainers; [jk];
       platforms = platforms.unix;
     };
   }

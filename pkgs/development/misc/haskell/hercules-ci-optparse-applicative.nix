@@ -32,5 +32,5 @@ mkDerivation {
   homepage = "https://github.com/hercules-ci/optparse-applicative";
   description = "Utilities and combinators for parsing command line options (fork)";
   license = lib.licenses.bsd3;
-  maintainers = with lib.maintainers; [ roberth ];
+  maintainers = with lib.maintainers; [roberth];
 }

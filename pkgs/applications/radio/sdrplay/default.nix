@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "1a25c7rsdkcjxr7ffvx2lwj7fxdbslg9qhr8ghaq1r53rcrqgzmf";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
   buildInputs = [
     udev
@@ -60,9 +60,9 @@ stdenv.mkDerivation rec {
       }.pdf
     '';
     homepage = "https://www.sdrplay.com/downloads/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = [ maintainers.pmenke ];
+    maintainers = [maintainers.pmenke];
     platforms = platforms.linux;
   };
 }

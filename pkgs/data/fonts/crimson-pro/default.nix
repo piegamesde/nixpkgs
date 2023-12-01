@@ -35,6 +35,6 @@ stdenv.mkDerivation {
     description = "A professionally produced redesign of Crimson by Jacques Le Bailly";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ncfavier ];
+    maintainers = with maintainers; [ncfavier];
   };
 }

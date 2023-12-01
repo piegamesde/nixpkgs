@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-MJ1Ym/yBm28V0uXoWRs8DG9pNiT1Bg7qwGek2ad1fek=";
   };
 
-  NIX_LDFLAGS = lib.optionalString stdenv.isLinux [ "-lgcc_s" ];
+  NIX_LDFLAGS = lib.optionalString stdenv.isLinux ["-lgcc_s"];
 
   buildInputs = [
     openssl
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.joedog.org/siege-home/";
     changelog = "https://github.com/JoeDog/siege/blob/v${version}/ChangeLog";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.unix;
   };
 }

@@ -1,4 +1,4 @@
-{ lib }:
+{lib}:
 with builtins;
 with lib;
 recursiveUpdate lib (rec {
@@ -89,8 +89,8 @@ recursiveUpdate lib (rec {
       loop =
         (
           vv: v: l:
-          if l == [ ] then
-            vv ++ [ v ]
+          if l == [] then
+            vv ++ [v]
           else
             let
               hd = head l;
@@ -105,13 +105,13 @@ recursiveUpdate lib (rec {
                     hd
                   ]
                 )
-                [ ]
+                []
                 tl
             else
-              loop vv (v ++ [ hd ]) tl
+              loop vv (v ++ [hd]) tl
         );
     in
-    loop [ ] [ ] l;
+    loop [] [] l;
 
   pred = {
     # Predicate intersection, union, and complement
@@ -144,7 +144,7 @@ recursiveUpdate lib (rec {
      the first branch such as `b` is true
   */
 
-  switch-if = c: d: (findFirst (getAttr "cond") { } c).out or d;
+  switch-if = c: d: (findFirst (getAttr "cond") {} c).out or d;
 
   /* Usage:
      ```nix
@@ -237,5 +237,5 @@ recursiveUpdate lib (rec {
      ```
   */
   overrideCoqDerivation =
-    f: drv: (drv.override (args: { mkCoqDerivation = drv_: (args.mkCoqDerivation drv_).override f; }));
+    f: drv: (drv.override (args: {mkCoqDerivation = drv_: (args.mkCoqDerivation drv_).override f;}));
 })

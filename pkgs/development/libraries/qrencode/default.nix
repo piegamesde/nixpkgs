@@ -25,16 +25,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2kSO1PUqumvLDNSMrA3VG4aSvMxM0SdDFAL8pvgXHo4=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libiconv
     libpng
-  ] ++ lib.optionals stdenv.isDarwin [ libobjc ];
+  ] ++ lib.optionals stdenv.isDarwin [libobjc];
 
-  configureFlags = [ "--with-tests" ];
+  configureFlags = ["--with-tests"];
 
-  nativeCheckInputs = [ SDL2 ];
+  nativeCheckInputs = [SDL2];
 
   doCheck = true;
 

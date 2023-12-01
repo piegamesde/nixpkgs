@@ -21,19 +21,19 @@ buildDunePackage {
     re
   ];
 
-  propagatedBuildInputs = [ atdgen-runtime ];
+  propagatedBuildInputs = [atdgen-runtime];
 
   doCheck = true;
   nativeCheckInputs = [
     atd
-    (python3.withPackages (ps: [ ps.jsonschema ]))
+    (python3.withPackages (ps: [ps.jsonschema]))
   ];
   checkInputs = [
     alcotest
     atdgen-codec-runtime
   ];
 
-  meta = (builtins.removeAttrs atd.meta [ "mainProgram" ]) // {
+  meta = (builtins.removeAttrs atd.meta ["mainProgram"]) // {
     description = "Generates efficient JSON serializers, deserializers and validators";
   };
 }

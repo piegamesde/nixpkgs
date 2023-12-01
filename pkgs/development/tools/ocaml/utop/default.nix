@@ -34,7 +34,7 @@ let
         version = "2.9.2";
         sha256 = "sha256-kvFBCe69TRQIWvZV47SH7ISus9k8afGRw5WLKzKqw08=";
         duneVersion = "2";
-        propagatedBuildInputs = [ lambda-term ];
+        propagatedBuildInputs = [lambda-term];
       };
 in
 
@@ -65,7 +65,7 @@ buildDunePackage rec {
         pname = "utop-runtime-env";
         inherit version;
 
-        buildInputs = [ findlib ] ++ propagatedBuildInputs;
+        buildInputs = [findlib] ++ propagatedBuildInputs;
 
         dontUnpack = true;
 
@@ -105,7 +105,7 @@ buildDunePackage rec {
     '';
     homepage = "https://github.com/diml/utop";
     license = lib.licenses.bsd3;
-    platforms = ocaml.meta.platforms or [ ];
-    maintainers = [ lib.maintainers.gal_bolle ];
+    platforms = ocaml.meta.platforms or [];
+    maintainers = [lib.maintainers.gal_bolle];
   };
 }

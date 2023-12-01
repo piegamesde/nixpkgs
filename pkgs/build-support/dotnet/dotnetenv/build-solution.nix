@@ -11,7 +11,7 @@
   targets ? "ReBuild",
   verbosity ? "detailed",
   options ? "/p:Configuration=Debug;Platform=Win32",
-  assemblyInputs ? [ ],
+  assemblyInputs ? [],
   preBuild ? "",
   modifyPublicMain ? false,
   mainClassFile ? null,
@@ -22,7 +22,7 @@ assert modifyPublicMain -> mainClassFile != null;
 stdenv.mkDerivation {
   inherit name src;
 
-  buildInputs = [ dotnetfx ];
+  buildInputs = [dotnetfx];
 
   preConfigure = ''
     cd ${baseDir}

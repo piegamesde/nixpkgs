@@ -20,16 +20,16 @@ buildPythonPackage rec {
     hash = "sha256-9az7kD7nKqMF2b3/eFgF+pOKKIYLvTy2sf4TSJfHRnA=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "tests/unit-tests/" ];
+  pytestFlagsArray = ["tests/unit-tests/"];
 
-  pythonImportsCheck = [ "teamcity" ];
+  pythonImportsCheck = ["teamcity"];
 
   meta = with lib; {
     description = "Python unit test reporting to TeamCity";
     homepage = "https://github.com/JetBrains/teamcity-messages";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

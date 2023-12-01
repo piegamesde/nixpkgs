@@ -26,17 +26,17 @@ buildPythonPackage rec {
   '';
 
   doCheck = true;
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
   checkPhase = ''
     pytest
   '';
 
-  propagatedBuildInputs = [ systemd ];
+  propagatedBuildInputs = [systemd];
 
   meta = with lib; {
     description = "journalwatch is a tool to find error messages in the systemd journal.";
     homepage = "https://github.com/The-Compiler/journalwatch";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ florianjacob ];
+    maintainers = with maintainers; [florianjacob];
   };
 }

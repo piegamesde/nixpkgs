@@ -17,12 +17,12 @@ buildPythonPackage rec {
 
   # Project has no tests
   doCheck = false;
-  pythonImportsCheck = [ "pydanfossair" ];
+  pythonImportsCheck = ["pydanfossair"];
 
   meta = with lib; {
     description = "Python interface for Danfoss Air HRV systems";
     homepage = "https://github.com/JonasPed/pydanfoss-air";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

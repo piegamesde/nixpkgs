@@ -24,16 +24,16 @@ buildDunePackage rec {
     sha256 = "1i47wqnd9iy6ndbi9zfahpb592gahp6im26rgpwch13vgzk3kifd";
   };
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     lapack
     blas
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Accelerate ];
+  ] ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.Accelerate];
 
   meta = with lib; {
     homepage = "https://mmottl.github.io/lacaml";
     description = "OCaml bindings for BLAS and LAPACK";
     license = licenses.lgpl21Plus;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
   };
 }

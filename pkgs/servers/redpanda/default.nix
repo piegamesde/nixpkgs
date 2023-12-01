@@ -15,7 +15,7 @@ let
     rev = "v${version}";
     sha256 = "sha256-RiGHEJnvNaNFdTSyabnHAB6n1hpL1T0zOZNCV8w8Pe8=";
   };
-  server = callPackage ./server.nix { inherit src version; };
+  server = callPackage ./server.nix {inherit src version;};
 in
 buildGoModule rec {
   pname = "redpanda-rpk";
@@ -30,7 +30,7 @@ buildGoModule rec {
     ''-X "github.com/redpanda-data/redpanda/src/go/rpk/pkg/cli/cmd/container/common.tag=v${version}"''
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     for shell in bash fish zsh; do

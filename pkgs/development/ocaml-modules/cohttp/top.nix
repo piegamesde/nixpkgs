@@ -10,7 +10,7 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ cohttp ];
+  propagatedBuildInputs = [cohttp];
 
   doCheck = true;
 

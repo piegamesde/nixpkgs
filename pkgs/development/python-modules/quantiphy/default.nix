@@ -27,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-oSWq/D1EX6mxUDElfujyOSEtql0csAm72u2B5RuQddE=";
   };
 
-  nativeBuildInputs = [ flitBuildHook ];
+  nativeBuildInputs = [flitBuildHook];
 
   propagatedBuildInputs = [
     quantiphy-eval
@@ -42,13 +42,13 @@ buildPythonPackage rec {
     voluptuous
   ];
 
-  pythonImportsCheck = [ "quantiphy" ];
+  pythonImportsCheck = ["quantiphy"];
 
   meta = with lib; {
     description = "Module for physical quantities (numbers with units)";
     homepage = "https://quantiphy.readthedocs.io";
     changelog = "https://github.com/KenKundert/quantiphy/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ jpetrucciani ];
+    maintainers = with maintainers; [jpetrucciani];
   };
 }

@@ -41,9 +41,9 @@ let
         "armv7l-linux"
         "aarch64-linux"
       ]
-      ++ optionals (versionAtLeast version "11.0.0") [ "aarch64-darwin" ]
-      ++ optionals (versionOlder version "19.0.0") [ "i686-linux" ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      ++ optionals (versionAtLeast version "11.0.0") ["aarch64-darwin"]
+      ++ optionals (versionOlder version "19.0.0") ["i686-linux"];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     knownVulnerabilities =
       optional (versionOlder version "22.0.0")
         "Electron version ${version} is EOL";
@@ -70,8 +70,8 @@ let
       aarch64-linux = "linux-arm64";
       x86_64-darwin = "darwin-x64";
     }
-    // lib.optionalAttrs (lib.versionAtLeast version "11.0.0") { aarch64-darwin = "darwin-arm64"; }
-    // lib.optionalAttrs (lib.versionOlder version "19.0.0") { i686-linux = "linux-ia32"; };
+    // lib.optionalAttrs (lib.versionAtLeast version "11.0.0") {aarch64-darwin = "darwin-arm64";}
+    // lib.optionalAttrs (lib.versionOlder version "19.0.0") {i686-linux = "linux-ia32";};
 
   get = as: platform: as.${platform.system} or (throw "Unsupported system: ${platform.system}");
 
@@ -95,10 +95,10 @@ let
         libdrm
         mesa
       ]
-      ++ optionals (versionOlder version "10.0.0") [ libXScrnSaver ]
-      ++ optionals (versionAtLeast version "11.0.0") [ libxkbcommon ]
-      ++ optionals (versionAtLeast version "12.0.0") [ libxshmfence ]
-      ++ optionals (versionAtLeast version "17.0.0") [ libglvnd ]
+      ++ optionals (versionOlder version "10.0.0") [libXScrnSaver]
+      ++ optionals (versionAtLeast version "11.0.0") [libxkbcommon]
+      ++ optionals (versionAtLeast version "12.0.0") [libxshmfence]
+      ++ optionals (versionAtLeast version "17.0.0") [libglvnd]
     );
 
   linux = {

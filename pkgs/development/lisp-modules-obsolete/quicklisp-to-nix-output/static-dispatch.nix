@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "static-dispatch";
   version = "20211209-git";
 
-  parasites = [ "static-dispatch/test" ];
+  parasites = ["static-dispatch/test"];
 
   description = "Static generic function dispatch for Common Lisp.";
 
@@ -32,7 +32,7 @@ rec {
 
   packageName = "static-dispatch";
 
-  asdFilesToKeep = [ "static-dispatch.asd" ];
+  asdFilesToKeep = ["static-dispatch.asd"];
   overrides = x: x;
 }
 /* (SYSTEM static-dispatch DESCRIPTION

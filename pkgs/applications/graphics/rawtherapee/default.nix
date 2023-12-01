@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
     wrapGAppsHook
-  ] ++ lib.optionals stdenv.isDarwin [ makeWrapper ];
+  ] ++ lib.optionals stdenv.isDarwin [makeWrapper];
 
   buildInputs =
     [
@@ -62,8 +62,8 @@ stdenv.mkDerivation rec {
       lensfun
       librsvg
     ]
-    ++ lib.optionals stdenv.isLinux [ libcanberra-gtk3 ]
-    ++ lib.optionals stdenv.isDarwin [ gtk-mac-integration ];
+    ++ lib.optionals stdenv.isLinux [libcanberra-gtk3]
+    ++ lib.optionals stdenv.isDarwin [gtk-mac-integration];
 
   cmakeFlags =
     [

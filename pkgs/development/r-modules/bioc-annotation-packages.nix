@@ -3,16 +3,16 @@
 #
 # Rscript generate-r-packages.R bioc-annotation >new && mv new bioc-annotation-packages.nix
 
-{ self, derive }:
+{self, derive}:
 let
-  derive2 = derive { biocVersion = "3.16"; };
+  derive2 = derive {biocVersion = "3.16";};
 in
 with self; {
   AHCytoBands = derive2 {
     name = "AHCytoBands";
     version = "0.99.1";
     sha256 = "0svxxhj3mh5gqik45ikcxnlhnma8n1c0rv8pycj2034cb9ms1dbv";
-    depends = [ ];
+    depends = [];
   };
   AHEnsDbs = derive2 {
     name = "AHEnsDbs";
@@ -27,55 +27,55 @@ with self; {
     name = "AHLRBaseDbs";
     version = "1.5.0";
     sha256 = "0dhh6a05a4m76h7gdg7yyya9aylls8ii8n14zkgyx9mhh9drhqq7";
-    depends = [ AnnotationHub ];
+    depends = [AnnotationHub];
   };
   AHMeSHDbs = derive2 {
     name = "AHMeSHDbs";
     version = "1.5.0";
     sha256 = "1g3b9skkdnqbvrrz0jcclhy99abaaiwwasr7j4r4kvla5n9kbyrg";
-    depends = [ AnnotationHub ];
+    depends = [AnnotationHub];
   };
   AHPathbankDbs = derive2 {
     name = "AHPathbankDbs";
     version = "0.99.5";
     sha256 = "10wcrglm521xcrfbzc39dkbjvg1pkz0zq70vgnh68akiwmdirp89";
-    depends = [ AnnotationHub ];
+    depends = [AnnotationHub];
   };
   AHPubMedDbs = derive2 {
     name = "AHPubMedDbs";
     version = "1.5.0";
     sha256 = "071z6m2301njdwiq0x0dw61k7ckyimj81jacy25y9chclys8j5cq";
-    depends = [ AnnotationHub ];
+    depends = [AnnotationHub];
   };
   AHWikipathwaysDbs = derive2 {
     name = "AHWikipathwaysDbs";
     version = "0.99.4";
     sha256 = "0vz3p9sx36bwzl9rq0ffh7klbq13pv2yhgjq1cjk7ll8z226c0q4";
-    depends = [ AnnotationHub ];
+    depends = [AnnotationHub];
   };
   BSgenome_Alyrata_JGI_v1 = derive2 {
     name = "BSgenome.Alyrata.JGI.v1";
     version = "1.0.1";
     sha256 = "062ap94m6s4w8clg1zlj223wmgbmq19yhksx9fcdcqrxr5kbfv85";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Amellifera_BeeBase_assembly4 = derive2 {
     name = "BSgenome.Amellifera.BeeBase.assembly4";
     version = "1.4.0";
     sha256 = "02zs16q441zcbfp7xvv1gny5nn02ivfr8md1wh5s5rpnj6sdl6kj";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Amellifera_NCBI_AmelHAv3_1 = derive2 {
     name = "BSgenome.Amellifera.NCBI.AmelHAv3.1";
     version = "1.5.0";
     sha256 = "1cglml4rlqr5hmf4dx51grx6s25h6xc3lqv569nx2sl4gdz28s47";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Amellifera_UCSC_apiMel2 = derive2 {
     name = "BSgenome.Amellifera.UCSC.apiMel2";
     version = "1.4.0";
     sha256 = "1967w7aly7qydykk7rar712kvgsav3zjr4kirybkj17nwiynd74g";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Amellifera_UCSC_apiMel2_masked = derive2 {
     name = "BSgenome.Amellifera.UCSC.apiMel2.masked";
@@ -90,25 +90,25 @@ with self; {
     name = "BSgenome.Aofficinalis.NCBI.V1";
     version = "1.0.0";
     sha256 = "0n6m5jnpiz6bv46b7s396qkxha2d8271j747j50v2zb6a7wd0rjr";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Athaliana_TAIR_04232008 = derive2 {
     name = "BSgenome.Athaliana.TAIR.04232008";
     version = "1.3.1000";
     sha256 = "0dsbjfh2yf0v3zmbypn9p3alvwhfw2qyr5vivyj7x9ablylb6qxc";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Athaliana_TAIR_TAIR9 = derive2 {
     name = "BSgenome.Athaliana.TAIR.TAIR9";
     version = "1.3.1000";
     sha256 = "0n45sn80c5nchfj1wzbcaicfyg66id2zhr5xm3w238idkbj05l00";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Btaurus_UCSC_bosTau3 = derive2 {
     name = "BSgenome.Btaurus.UCSC.bosTau3";
     version = "1.4.0";
     sha256 = "0vh3664q7pynfw763pwg2h74h0ncmi5nslvj7y5bj1q7pvf03zpc";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Btaurus_UCSC_bosTau3_masked = derive2 {
     name = "BSgenome.Btaurus.UCSC.bosTau3.masked";
@@ -123,7 +123,7 @@ with self; {
     name = "BSgenome.Btaurus.UCSC.bosTau4";
     version = "1.4.0";
     sha256 = "1z86qdpmilwrnjysn8qgxj3g7pqp9hwr25cpiabyczd216wy3zy5";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Btaurus_UCSC_bosTau4_masked = derive2 {
     name = "BSgenome.Btaurus.UCSC.bosTau4.masked";
@@ -138,7 +138,7 @@ with self; {
     name = "BSgenome.Btaurus.UCSC.bosTau6";
     version = "1.4.0";
     sha256 = "0waaf9wfmdl5jbi3la64vsiqb83lyw9fqg3sn90bf1q7k3k617p3";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Btaurus_UCSC_bosTau6_masked = derive2 {
     name = "BSgenome.Btaurus.UCSC.bosTau6.masked";
@@ -153,13 +153,13 @@ with self; {
     name = "BSgenome.Btaurus.UCSC.bosTau8";
     version = "1.4.2";
     sha256 = "16wjy1aw9nvx03r7w8yh5w7sw3pn8i9nczd0n0728l6nnyqxlsz6";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Btaurus_UCSC_bosTau9 = derive2 {
     name = "BSgenome.Btaurus.UCSC.bosTau9";
     version = "1.4.2";
     sha256 = "0vx9z101faybqqdqfk306m7m3j490svmx7bn7knh5if66g0mzi7g";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Btaurus_UCSC_bosTau9_masked = derive2 {
     name = "BSgenome.Btaurus.UCSC.bosTau9.masked";
@@ -174,37 +174,37 @@ with self; {
     name = "BSgenome.Carietinum.NCBI.v1";
     version = "1.0.0";
     sha256 = "1asyyb1p1bzc7dv9s2igjxrf9f144vvz2xbv9qxg15w9qzzx7r33";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Celegans_UCSC_ce10 = derive2 {
     name = "BSgenome.Celegans.UCSC.ce10";
     version = "1.4.0";
     sha256 = "1zaym97jk4npxk14ifvwz2rvhm4zx9xgs33r9vvx9rlynp0gydrk";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Celegans_UCSC_ce11 = derive2 {
     name = "BSgenome.Celegans.UCSC.ce11";
     version = "1.4.2";
     sha256 = "0d4bxfglpqiv1f0n6imdgz101g9383hfj3ra91268wryzlm0yk5w";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Celegans_UCSC_ce2 = derive2 {
     name = "BSgenome.Celegans.UCSC.ce2";
     version = "1.4.0";
     sha256 = "1x7nvisz7mjrpqlsiw4an04f8hksygzn96p5ld0388hljg78dax8";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Celegans_UCSC_ce6 = derive2 {
     name = "BSgenome.Celegans.UCSC.ce6";
     version = "1.4.0";
     sha256 = "0mqzb353xv2c3m3vkb315dkmnxkgczp7ndnknyhpgjlybyf715v9";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Cfamiliaris_UCSC_canFam2 = derive2 {
     name = "BSgenome.Cfamiliaris.UCSC.canFam2";
     version = "1.4.0";
     sha256 = "052p2lsm1ny0rjvhgd56w6z4nrqfc74vh0q7cmqz55xkhk01h7hm";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Cfamiliaris_UCSC_canFam2_masked = derive2 {
     name = "BSgenome.Cfamiliaris.UCSC.canFam2.masked";
@@ -219,7 +219,7 @@ with self; {
     name = "BSgenome.Cfamiliaris.UCSC.canFam3";
     version = "1.4.0";
     sha256 = "1ir092yh1h03ag1lnj2rh5hjp2mqrw7fcyb6mqyjm0h8g1pmpicr";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Cfamiliaris_UCSC_canFam3_masked = derive2 {
     name = "BSgenome.Cfamiliaris.UCSC.canFam3.masked";
@@ -234,31 +234,31 @@ with self; {
     name = "BSgenome.Cjacchus.UCSC.calJac3";
     version = "1.4.2";
     sha256 = "1s1srg6lr3dndbpv83bqlxz5lhyhxh431yrd919yl4fwmr5rvx0z";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Cjacchus_UCSC_calJac4 = derive2 {
     name = "BSgenome.Cjacchus.UCSC.calJac4";
     version = "1.5.0";
     sha256 = "0hfrcsarcm65hqr6032aar1rz09pvj22wj5dlmy459cqrpgr5prf";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_CneoformansVarGrubiiKN99_NCBI_ASM221672v1 = derive2 {
     name = "BSgenome.CneoformansVarGrubiiKN99.NCBI.ASM221672v1";
     version = "1.0.0";
     sha256 = "0hmxpm9mj8ahmpk2xp0qgsblvjz7wjcdmsz41ab5s404ggiylx79";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Creinhardtii_JGI_v5_6 = derive2 {
     name = "BSgenome.Creinhardtii.JGI.v5.6";
     version = "1.5.0";
     sha256 = "0px1p3hgbpk3pvmg77knqxwmh1jd8jjf763kzxf0725pnl9dca2v";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Dmelanogaster_UCSC_dm2 = derive2 {
     name = "BSgenome.Dmelanogaster.UCSC.dm2";
     version = "1.4.0";
     sha256 = "1vnqbm1123zmpn1iwyygr1p4js0j6vifyz7iwzgkiw543yb1mwnl";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Dmelanogaster_UCSC_dm2_masked = derive2 {
     name = "BSgenome.Dmelanogaster.UCSC.dm2.masked";
@@ -273,7 +273,7 @@ with self; {
     name = "BSgenome.Dmelanogaster.UCSC.dm3";
     version = "1.4.0";
     sha256 = "19bm3lkhhkag3gnwp419211fh0cnr0x6fa0r1lr0ycwrikxdxsv8";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Dmelanogaster_UCSC_dm3_masked = derive2 {
     name = "BSgenome.Dmelanogaster.UCSC.dm3.masked";
@@ -288,25 +288,25 @@ with self; {
     name = "BSgenome.Dmelanogaster.UCSC.dm6";
     version = "1.4.1";
     sha256 = "1bhj0rdgf7lspw4xby9y9mf7v7jxxz8001bc8vw8kf04rjsx6060";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Drerio_UCSC_danRer10 = derive2 {
     name = "BSgenome.Drerio.UCSC.danRer10";
     version = "1.4.2";
     sha256 = "1grlxihdx65fwgb9gbp1jibbqan9a5667w4jgswhg0qsia608lzs";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Drerio_UCSC_danRer11 = derive2 {
     name = "BSgenome.Drerio.UCSC.danRer11";
     version = "1.4.2";
     sha256 = "08a928mqzv2jxngjcs4yr6ni1b9z9al6jdngwi438j8hm41cwk4v";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Drerio_UCSC_danRer5 = derive2 {
     name = "BSgenome.Drerio.UCSC.danRer5";
     version = "1.4.0";
     sha256 = "1mxmy4ika192xvlrsynyvnb7kvcvbsl89g39q53vrkibhml1q0v5";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Drerio_UCSC_danRer5_masked = derive2 {
     name = "BSgenome.Drerio.UCSC.danRer5.masked";
@@ -321,7 +321,7 @@ with self; {
     name = "BSgenome.Drerio.UCSC.danRer6";
     version = "1.4.0";
     sha256 = "0h2chcpdi2vy29fg43r6q37vvb7p4d4cpnszlsmiy7ax358sd5ji";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Drerio_UCSC_danRer6_masked = derive2 {
     name = "BSgenome.Drerio.UCSC.danRer6.masked";
@@ -336,7 +336,7 @@ with self; {
     name = "BSgenome.Drerio.UCSC.danRer7";
     version = "1.4.0";
     sha256 = "17x3hj08jag05y8q4aziy455jy15dpwkdbh97v3byzcda0kpwbpg";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Drerio_UCSC_danRer7_masked = derive2 {
     name = "BSgenome.Drerio.UCSC.danRer7.masked";
@@ -351,19 +351,19 @@ with self; {
     name = "BSgenome.Dvirilis.Ensembl.dvircaf1";
     version = "1.4.3";
     sha256 = "0dwqshpx3mm9k9p3x53hc62czpvqs6v2jw5i977x0y4hfig0zv8m";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Ecoli_NCBI_20080805 = derive2 {
     name = "BSgenome.Ecoli.NCBI.20080805";
     version = "1.3.1000";
     sha256 = "1l7mjyys1kaq4mbia9jamyw6sd0ij1wypwxvwy8aksan3gcfnh27";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Gaculeatus_UCSC_gasAcu1 = derive2 {
     name = "BSgenome.Gaculeatus.UCSC.gasAcu1";
     version = "1.4.0";
     sha256 = "1w0jpv58kbjvjlsprn5g4nd3g6jhiyw3k6mlfnpnffcbdh27cq0k";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Gaculeatus_UCSC_gasAcu1_masked = derive2 {
     name = "BSgenome.Gaculeatus.UCSC.gasAcu1.masked";
@@ -378,7 +378,7 @@ with self; {
     name = "BSgenome.Ggallus.UCSC.galGal3";
     version = "1.4.0";
     sha256 = "1bgw45nizdm1kq0624asr4ky61cm8pmrq32574phvvq1jjpg4isp";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Ggallus_UCSC_galGal3_masked = derive2 {
     name = "BSgenome.Ggallus.UCSC.galGal3.masked";
@@ -393,7 +393,7 @@ with self; {
     name = "BSgenome.Ggallus.UCSC.galGal4";
     version = "1.4.0";
     sha256 = "1qfl046akdf43azigprc13sssgbmxdz9dmlrvy13ag8fgfkjxign";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Ggallus_UCSC_galGal4_masked = derive2 {
     name = "BSgenome.Ggallus.UCSC.galGal4.masked";
@@ -408,43 +408,43 @@ with self; {
     name = "BSgenome.Ggallus.UCSC.galGal5";
     version = "1.4.2";
     sha256 = "0gi82xr2b3fn3wi608nmqp3cgjx63rm82wy24p9l0s1qqh2z3jdb";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Ggallus_UCSC_galGal6 = derive2 {
     name = "BSgenome.Ggallus.UCSC.galGal6";
     version = "1.4.2";
     sha256 = "00b0awki35xkfjsvv9x1h0sykg5jbf36a37hj4spw028bkg8k7v2";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Gmax_NCBI_Gmv40 = derive2 {
     name = "BSgenome.Gmax.NCBI.Gmv40";
     version = "4.0";
     sha256 = "0w6pa6pcjmxy9zj21m4c585s7fihy3hcg0ysbjkizlsskmlva0dr";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Hsapiens_1000genomes_hs37d5 = derive2 {
     name = "BSgenome.Hsapiens.1000genomes.hs37d5";
     version = "0.99.1";
     sha256 = "1cg0g5fqmsvwyw2p9hp2yy4ilk21jkbbrnpgqvb5c36ihjwvc7sr";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Hsapiens_NCBI_GRCh38 = derive2 {
     name = "BSgenome.Hsapiens.NCBI.GRCh38";
     version = "1.3.1000";
     sha256 = "0y75qdq578fh6420vbvsbwmdw8jvr3g06qli2h3vj3pxmjykh9c1";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Hsapiens_NCBI_T2T_CHM13v2_0 = derive2 {
     name = "BSgenome.Hsapiens.NCBI.T2T.CHM13v2.0";
     version = "1.5.0";
     sha256 = "080zq71fl1cx7sxi2il5v0mfj79hw93qy3fr1514fax8vslh5lfz";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Hsapiens_UCSC_hg17 = derive2 {
     name = "BSgenome.Hsapiens.UCSC.hg17";
     version = "1.3.1000";
     sha256 = "1q8p0zp5xpp22znwnygl3jhc159db4q3kkpj5wfij5a6z19zs1w3";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Hsapiens_UCSC_hg17_masked = derive2 {
     name = "BSgenome.Hsapiens.UCSC.hg17.masked";
@@ -459,7 +459,7 @@ with self; {
     name = "BSgenome.Hsapiens.UCSC.hg18";
     version = "1.3.1000";
     sha256 = "1bd7hn4ksgpyhnbjb9qdqfz5cg6x5lsizbls55v9s9hnvfzq3yi6";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Hsapiens_UCSC_hg18_masked = derive2 {
     name = "BSgenome.Hsapiens.UCSC.hg18.masked";
@@ -474,7 +474,7 @@ with self; {
     name = "BSgenome.Hsapiens.UCSC.hg19";
     version = "1.4.3";
     sha256 = "06lx7q7i52lg3vkjkqy492z9ianzgi4nhs9m1jrxjjb4hgbnbyjv";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Hsapiens_UCSC_hg19_masked = derive2 {
     name = "BSgenome.Hsapiens.UCSC.hg19.masked";
@@ -498,13 +498,13 @@ with self; {
     name = "BSgenome.Hsapiens.UCSC.hg38.dbSNP151.major";
     version = "0.0.9999";
     sha256 = "0290fk7jvlcb1mh6nlyqagqskfh0dvaysj1d6s15bgygnlm3r726";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Hsapiens_UCSC_hg38_dbSNP151_minor = derive2 {
     name = "BSgenome.Hsapiens.UCSC.hg38.dbSNP151.minor";
     version = "0.0.9999";
     sha256 = "1xw8vckhsak35r942yyvlrpbhb2w4vzah8wfgmn3vyj1zklk3913";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Hsapiens_UCSC_hg38_masked = derive2 {
     name = "BSgenome.Hsapiens.UCSC.hg38.masked";
@@ -520,43 +520,43 @@ with self; {
     name = "BSgenome.Hsapiens.UCSC.hs1";
     version = "1.4.4";
     sha256 = "1y5rxlms9fj20fz32l56i5j1c4fzly5zzvlxz01fs46qimnfb3ms";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Mdomestica_UCSC_monDom5 = derive2 {
     name = "BSgenome.Mdomestica.UCSC.monDom5";
     version = "1.4.2";
     sha256 = "16kzb66kjpmf9j92pwh98ah5rhrnfyzdpr0rk659zham6dzga9ck";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Mfascicularis_NCBI_5_0 = derive2 {
     name = "BSgenome.Mfascicularis.NCBI.5.0";
     version = "1.4.2";
     sha256 = "1lrdj7aibx4i60hpbaqgk3qir9zjs67mxdgp5jmgmw7gf2nwyn3x";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Mfascicularis_NCBI_6_0 = derive2 {
     name = "BSgenome.Mfascicularis.NCBI.6.0";
     version = "1.5.0";
     sha256 = "0zl73jkg56jrvqyqvp67jx63dl8li6pypkgn1dqj959qzdzc57j0";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Mfuro_UCSC_musFur1 = derive2 {
     name = "BSgenome.Mfuro.UCSC.musFur1";
     version = "1.4.1";
     sha256 = "0c0569a1k36sk0vzf7afhnfm0n2nwcdp3dc88s1hghpg7lwi9g9j";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Mmulatta_UCSC_rheMac10 = derive2 {
     name = "BSgenome.Mmulatta.UCSC.rheMac10";
     version = "1.4.2";
     sha256 = "06ja5fn3sgk2lmfwf7m5sqcz0dq732v8y4vhc2cnbbvhpyax0mbd";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Mmulatta_UCSC_rheMac2 = derive2 {
     name = "BSgenome.Mmulatta.UCSC.rheMac2";
     version = "1.4.0";
     sha256 = "15vswd1fq7a7g1dkm0wzkmclih8z373nfzjyc3zrn9l0nawdv9jj";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Mmulatta_UCSC_rheMac2_masked = derive2 {
     name = "BSgenome.Mmulatta.UCSC.rheMac2.masked";
@@ -571,7 +571,7 @@ with self; {
     name = "BSgenome.Mmulatta.UCSC.rheMac3";
     version = "1.4.0";
     sha256 = "0r3v4p567rxcczwqi7zdz7pmdiffgrq83j488libdb4s0hdg5jmi";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Mmulatta_UCSC_rheMac3_masked = derive2 {
     name = "BSgenome.Mmulatta.UCSC.rheMac3.masked";
@@ -586,13 +586,13 @@ with self; {
     name = "BSgenome.Mmulatta.UCSC.rheMac8";
     version = "1.4.2";
     sha256 = "18z6vl89jkjzvppz3r93b2s32l17hz6pfp36wv5wvhm0c0rhnhmw";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Mmusculus_UCSC_mm10 = derive2 {
     name = "BSgenome.Mmusculus.UCSC.mm10";
     version = "1.4.3";
     sha256 = "1vprkywr72nqf847vzmgymylcdb45g4hy30fwx6fzwddkyzh5xnw";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Mmusculus_UCSC_mm10_masked = derive2 {
     name = "BSgenome.Mmusculus.UCSC.mm10.masked";
@@ -607,13 +607,13 @@ with self; {
     name = "BSgenome.Mmusculus.UCSC.mm39";
     version = "1.4.3";
     sha256 = "0rpxdaa5w0p841kl5h6ngb49zr9q33ad0zgnw9xdpp1vfh0l47xm";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Mmusculus_UCSC_mm8 = derive2 {
     name = "BSgenome.Mmusculus.UCSC.mm8";
     version = "1.4.0";
     sha256 = "1al34aa11d6kr0cr4xrabix1xmqc96zzgik5p4yc8r0rba3n100a";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Mmusculus_UCSC_mm8_masked = derive2 {
     name = "BSgenome.Mmusculus.UCSC.mm8.masked";
@@ -628,7 +628,7 @@ with self; {
     name = "BSgenome.Mmusculus.UCSC.mm9";
     version = "1.4.0";
     sha256 = "1birqw30g2azimxpnjfzmkphan7x131yy8b9h85lfz5fjdg7841i";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Mmusculus_UCSC_mm9_masked = derive2 {
     name = "BSgenome.Mmusculus.UCSC.mm9.masked";
@@ -643,25 +643,25 @@ with self; {
     name = "BSgenome.Osativa.MSU.MSU7";
     version = "0.99.2";
     sha256 = "1rppki62c916drc24jd2j1cmbhn3x316z16123gc654wj1c5s9vi";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Ppaniscus_UCSC_panPan1 = derive2 {
     name = "BSgenome.Ppaniscus.UCSC.panPan1";
     version = "1.4.3";
     sha256 = "0schlki35jmv678hgxv7jmrcmbv2wixqhpk18awpr2pwq2j1ahmc";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Ppaniscus_UCSC_panPan2 = derive2 {
     name = "BSgenome.Ppaniscus.UCSC.panPan2";
     version = "1.4.3";
     sha256 = "0jbxfix328qzsd94vjh7dlnzpygkdwbglcn4d1pdivm43ggww10a";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Ptroglodytes_UCSC_panTro2 = derive2 {
     name = "BSgenome.Ptroglodytes.UCSC.panTro2";
     version = "1.4.0";
     sha256 = "14yvajlldr3qhclg9n2j48q60rgbz6x1ypgzd6dgf4c6jxl90p0q";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Ptroglodytes_UCSC_panTro2_masked = derive2 {
     name = "BSgenome.Ptroglodytes.UCSC.panTro2.masked";
@@ -676,7 +676,7 @@ with self; {
     name = "BSgenome.Ptroglodytes.UCSC.panTro3";
     version = "1.4.0";
     sha256 = "1vbfx0zrj4rcwcsm1q09xdiv0mmrycj8223lnxqb8nr5r017f7gm";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Ptroglodytes_UCSC_panTro3_masked = derive2 {
     name = "BSgenome.Ptroglodytes.UCSC.panTro3.masked";
@@ -691,19 +691,19 @@ with self; {
     name = "BSgenome.Ptroglodytes.UCSC.panTro5";
     version = "1.4.2";
     sha256 = "0wxciajcyf0hr6g6zcji125jm18nnspwvnv5x3jibjvxzx55gcds";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Ptroglodytes_UCSC_panTro6 = derive2 {
     name = "BSgenome.Ptroglodytes.UCSC.panTro6";
     version = "1.4.2";
     sha256 = "1l1fqnw1iqb2a7kvyvb0m1vdvq6cxs6py92yvbaf4zwklmgmdq0b";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Rnorvegicus_UCSC_rn4 = derive2 {
     name = "BSgenome.Rnorvegicus.UCSC.rn4";
     version = "1.4.0";
     sha256 = "1aww2bxyqbb81iln3vgrb0659r82v9yv1z41k9r3zws8b7k7df6x";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Rnorvegicus_UCSC_rn4_masked = derive2 {
     name = "BSgenome.Rnorvegicus.UCSC.rn4.masked";
@@ -718,7 +718,7 @@ with self; {
     name = "BSgenome.Rnorvegicus.UCSC.rn5";
     version = "1.4.0";
     sha256 = "1s92983m73bi08ihvyd8c17yx29hz5xxrnrs2if8fda4asw1f3f0";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Rnorvegicus_UCSC_rn5_masked = derive2 {
     name = "BSgenome.Rnorvegicus.UCSC.rn5.masked";
@@ -733,43 +733,43 @@ with self; {
     name = "BSgenome.Rnorvegicus.UCSC.rn6";
     version = "1.4.1";
     sha256 = "1lyvf7l5vyrsmjhn5kz0lrj784hd0b0bcrwb4lavd3p5g38b3mmm";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Rnorvegicus_UCSC_rn7 = derive2 {
     name = "BSgenome.Rnorvegicus.UCSC.rn7";
     version = "1.4.3";
     sha256 = "0bgmgxk5rq6m42z0mcpvq9i7r8rid3ws80jx5g9kkklv5kglfidy";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Scerevisiae_UCSC_sacCer1 = derive2 {
     name = "BSgenome.Scerevisiae.UCSC.sacCer1";
     version = "1.4.0";
     sha256 = "1smx3zdmllrx5f1a7hv1w3jc59jwvkd2n37hz6hgb80da7lajn2b";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Scerevisiae_UCSC_sacCer2 = derive2 {
     name = "BSgenome.Scerevisiae.UCSC.sacCer2";
     version = "1.4.0";
     sha256 = "1ilz326qx1ikapmsz00hg5g6i637qm9kwc21z93q890h7sgaz4k0";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Scerevisiae_UCSC_sacCer3 = derive2 {
     name = "BSgenome.Scerevisiae.UCSC.sacCer3";
     version = "1.4.0";
     sha256 = "1pnd394xfy413nvxq3hrlv33girj8f9kzdzi9gx232lm12av6hxm";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Sscrofa_UCSC_susScr11 = derive2 {
     name = "BSgenome.Sscrofa.UCSC.susScr11";
     version = "1.4.2";
     sha256 = "0m7c2r74qp3rjnkxxyz18gd8xjk2f3cp1cr07bwd8v60mvgdn8cq";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Sscrofa_UCSC_susScr3 = derive2 {
     name = "BSgenome.Sscrofa.UCSC.susScr3";
     version = "1.4.0";
     sha256 = "0l70arnpshiviq3xj61fw87dhf8sggq6k1yryagbhdb40d5cq8lq";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Sscrofa_UCSC_susScr3_masked = derive2 {
     name = "BSgenome.Sscrofa.UCSC.susScr3.masked";
@@ -784,13 +784,13 @@ with self; {
     name = "BSgenome.Tgondii.ToxoDB.7.0";
     version = "0.99.1";
     sha256 = "1naxnls0r1r6csfs88mmjnfa7nmsgjx5lngn1ln4llragjrqnngm";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Tguttata_UCSC_taeGut1 = derive2 {
     name = "BSgenome.Tguttata.UCSC.taeGut1";
     version = "1.4.0";
     sha256 = "0v8g4q64pj4mxr8wzyxm9w2d2lyzq1qzl5yvh2dvwpqnghicj10v";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Tguttata_UCSC_taeGut1_masked = derive2 {
     name = "BSgenome.Tguttata.UCSC.taeGut1.masked";
@@ -805,31 +805,31 @@ with self; {
     name = "BSgenome.Tguttata.UCSC.taeGut2";
     version = "1.4.2";
     sha256 = "1ikbd5q77l2zmbmbm511s41h00627zi0gq31cm4qr3k1cvlz8617";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Vvinifera_URGI_IGGP12Xv0 = derive2 {
     name = "BSgenome.Vvinifera.URGI.IGGP12Xv0";
     version = "0.1";
     sha256 = "1m8mqkiqs7291hccb8pfyf2yxpky45qr6j3d9wkvp9x3ra3h0yxf";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Vvinifera_URGI_IGGP12Xv2 = derive2 {
     name = "BSgenome.Vvinifera.URGI.IGGP12Xv2";
     version = "0.1";
     sha256 = "1saavsi75gw33jphhm3qb5psyfrv850ss4cmqr4i7aw1kc0fvs1j";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   BSgenome_Vvinifera_URGI_IGGP8X = derive2 {
     name = "BSgenome.Vvinifera.URGI.IGGP8X";
     version = "0.1";
     sha256 = "0v0hi2pbbi5ynd92bvbv4bzr7bgv48kvyz62hdv7k9gh7s5pg0id";
-    depends = [ BSgenome ];
+    depends = [BSgenome];
   };
   CTCF = derive2 {
     name = "CTCF";
     version = "0.99.11";
     sha256 = "06gy1f71p01h6yfj5xmvlgz6n7sg7rpkc3723y51h30ir6xrzbrg";
-    depends = [ ];
+    depends = [];
   };
   ChemmineDrugs = derive2 {
     name = "ChemmineDrugs";
@@ -845,7 +845,7 @@ with self; {
     name = "DO.db";
     version = "2.9";
     sha256 = "10bqqa124l61ivzy4mdd3z3ar9a6537qbxw23pc4y9w8a6dwnavn";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   ENCODExplorerData = derive2 {
     name = "ENCODExplorerData";
@@ -861,43 +861,43 @@ with self; {
     name = "EnsDb.Hsapiens.v75";
     version = "2.99.0";
     sha256 = "0jx6rf6v0j8yr07q3c1h7s121901dc400nm6xaiv4i7kb5czjn9c";
-    depends = [ ensembldb ];
+    depends = [ensembldb];
   };
   EnsDb_Hsapiens_v79 = derive2 {
     name = "EnsDb.Hsapiens.v79";
     version = "2.99.0";
     sha256 = "0k94iml0417m3k086d0bzd83fndyb2kn7pimsfzcdmafgy6sxwgg";
-    depends = [ ensembldb ];
+    depends = [ensembldb];
   };
   EnsDb_Hsapiens_v86 = derive2 {
     name = "EnsDb.Hsapiens.v86";
     version = "2.99.0";
     sha256 = "1gp7xrzddpvmh2vrcp571wyy00skxgxfl39ksj4h0hm1qay0fb2m";
-    depends = [ ensembldb ];
+    depends = [ensembldb];
   };
   EnsDb_Mmusculus_v75 = derive2 {
     name = "EnsDb.Mmusculus.v75";
     version = "2.99.0";
     sha256 = "00c92l6ii2p3hila8xpblmidx8pmy11x1xh4gnwsq3f3rn1q200g";
-    depends = [ ensembldb ];
+    depends = [ensembldb];
   };
   EnsDb_Mmusculus_v79 = derive2 {
     name = "EnsDb.Mmusculus.v79";
     version = "2.99.0";
     sha256 = "1zpmq7v55if6q9r0h883q9k8l70ym20b01m9hxf121wb256rl9f7";
-    depends = [ ensembldb ];
+    depends = [ensembldb];
   };
   EnsDb_Rnorvegicus_v75 = derive2 {
     name = "EnsDb.Rnorvegicus.v75";
     version = "2.99.0";
     sha256 = "02sx9l1p67ihkn0dfzbi08cpp8x4k2mjdqn7hvzfiaibsbqp70bb";
-    depends = [ ensembldb ];
+    depends = [ensembldb];
   };
   EnsDb_Rnorvegicus_v79 = derive2 {
     name = "EnsDb.Rnorvegicus.v79";
     version = "2.99.0";
     sha256 = "1ki2hrn0a55f3ipxny0hpgl5ld9pjkhcwmvvqwwd99f3sqbxf3br";
-    depends = [ ensembldb ];
+    depends = [ensembldb];
   };
   EpiTxDb_Hs_hg38 = derive2 {
     name = "EpiTxDb.Hs.hg38";
@@ -1015,19 +1015,19 @@ with self; {
     name = "GO.db";
     version = "3.16.0";
     sha256 = "13iv94wl2adqrwvcmicrxiz3jmji6v4znvhkkgmsx053icnq2lj6";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   GeneSummary = derive2 {
     name = "GeneSummary";
     version = "0.99.4";
     sha256 = "0fliy0z1byh7zlf7k3lklarrd2l2rl3sgliqsxnn4sviskv2rlxz";
-    depends = [ ];
+    depends = [];
   };
   GenomeInfoDbData = derive2 {
     name = "GenomeInfoDbData";
     version = "1.2.9";
     sha256 = "1yj5vhd05d2alh9cgvq5jz9sl754g8zfhpf9kyiyvvyfisd72fp6";
-    depends = [ ];
+    depends = [];
   };
   GenomicState = derive2 {
     name = "GenomicState";
@@ -1049,7 +1049,7 @@ with self; {
     name = "HDO.db";
     version = "0.99.1";
     sha256 = "14ngyxailmxrbxqqi9m7mchqcvchmbg7zm34i8a927b20s6z4z61";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   Homo_sapiens = derive2 {
     name = "Homo.sapiens";
@@ -1086,25 +1086,25 @@ with self; {
     name = "Hspec";
     version = "0.99.1";
     sha256 = "18paxil1976g7c7zyh02wxqj55ndbnshl27z0jhlzc2dwzagx7mb";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   HuExExonProbesetLocation = derive2 {
     name = "HuExExonProbesetLocation";
     version = "1.15.0";
     sha256 = "0rpn9wh97gh9h795krfqnydxnliqnwgvp33xwqa4g8px3c34nmw1";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   HuExExonProbesetLocationHg18 = derive2 {
     name = "HuExExonProbesetLocationHg18";
     version = "0.0.2";
     sha256 = "14lbmcb0166rgv25d24g7kng5nvddynvmszfk5mq1yl1spbh7j9g";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   HuExExonProbesetLocationHg19 = derive2 {
     name = "HuExExonProbesetLocationHg19";
     version = "0.0.3";
     sha256 = "0h240v2wc2c935bxws6xpha4c0hw89bm821w1c1digwhd04kbyxh";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   HuO22_db = derive2 {
     name = "HuO22.db";
@@ -1128,73 +1128,73 @@ with self; {
     name = "IlluminaHumanMethylation27kanno.ilmn12.hg19";
     version = "0.6.0";
     sha256 = "0idy6xn3x5c640d47q52na03s29pj4l38dpxy8q9mh6hy8g29vp3";
-    depends = [ minfi ];
+    depends = [minfi];
   };
   IlluminaHumanMethylation27kmanifest = derive2 {
     name = "IlluminaHumanMethylation27kmanifest";
     version = "0.4.0";
     sha256 = "1kvz6z7g61zdrc1i93wsk1zv5mwcswfkxkl114644q09djwbz1fx";
-    depends = [ minfi ];
+    depends = [minfi];
   };
   IlluminaHumanMethylation450kanno_ilmn12_hg19 = derive2 {
     name = "IlluminaHumanMethylation450kanno.ilmn12.hg19";
     version = "0.6.1";
     sha256 = "1272n72fvj4agszd9cv8l9h9qr2pzmd0rbvdz83x7x03cdddf9rn";
-    depends = [ minfi ];
+    depends = [minfi];
   };
   IlluminaHumanMethylation450kmanifest = derive2 {
     name = "IlluminaHumanMethylation450kmanifest";
     version = "0.4.0";
     sha256 = "0qx75xwifrbkqmbkd8dhf44c34ibmbivqh7y8rvgrsizmi5ybcj1";
-    depends = [ minfi ];
+    depends = [minfi];
   };
   IlluminaHumanMethylation450kprobe = derive2 {
     name = "IlluminaHumanMethylation450kprobe";
     version = "2.0.6";
     sha256 = "1iah0rw7d8qvgwvn6n2l4cln39ky010gqpd9shml45m48m6whiia";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   IlluminaHumanMethylationEPICanno_ilm10b2_hg19 = derive2 {
     name = "IlluminaHumanMethylationEPICanno.ilm10b2.hg19";
     version = "0.6.0";
     sha256 = "0sfdx0lpiw3l4passx93pjfswd0iv3hxdc7ciazh53baib3xpv2d";
-    depends = [ minfi ];
+    depends = [minfi];
   };
   IlluminaHumanMethylationEPICanno_ilm10b3_hg19 = derive2 {
     name = "IlluminaHumanMethylationEPICanno.ilm10b3.hg19";
     version = "0.6.0";
     sha256 = "1rdkvbpbz8a8bd9ipycfmgn8a3x519abhwywka21ii9ziv3s6ah6";
-    depends = [ minfi ];
+    depends = [minfi];
   };
   IlluminaHumanMethylationEPICanno_ilm10b4_hg19 = derive2 {
     name = "IlluminaHumanMethylationEPICanno.ilm10b4.hg19";
     version = "0.6.0";
     sha256 = "0687b4k8hwfc18qgdd9ypv1skp37jd204fszba0gmrv3dc92i09c";
-    depends = [ minfi ];
+    depends = [minfi];
   };
   IlluminaHumanMethylationEPICmanifest = derive2 {
     name = "IlluminaHumanMethylationEPICmanifest";
     version = "0.3.0";
     sha256 = "0alhjda5g186z8b1nsmnpfswrlj7prdz8mkwx60wkkl6hkcnk6p3";
-    depends = [ minfi ];
+    depends = [minfi];
   };
   JASPAR2018 = derive2 {
     name = "JASPAR2018";
     version = "1.1.1";
     sha256 = "1iq5b51ryah2ccdx16yyigfa2jiapcpm94l6vgvd4v7b94jjp8l7";
-    depends = [ ];
+    depends = [];
   };
   JASPAR2020 = derive2 {
     name = "JASPAR2020";
     version = "0.99.10";
     sha256 = "0nrp63z7q2ivv5h87f7inpp2qll2dfgj4227l4rbnzii38a2vfdr";
-    depends = [ ];
+    depends = [];
   };
   JASPAR2022 = derive2 {
     name = "JASPAR2022";
     version = "0.99.7";
     sha256 = "0sayaxsazcsbwdkisjfmkc01piahkqi9xks3rfj60cf56wrjlbpa";
-    depends = [ BiocFileCache ];
+    depends = [BiocFileCache];
   };
   JazaeriMetaData_db = derive2 {
     name = "JazaeriMetaData.db";
@@ -1218,13 +1218,13 @@ with self; {
     name = "LowMACAAnnotation";
     version = "0.99.3";
     sha256 = "0ri301ci54s8wwkah1jccy5h44xg8yjk08j5b15qmdsm25hli4wm";
-    depends = [ ];
+    depends = [];
   };
   LymphoSeqDB = derive2 {
     name = "LymphoSeqDB";
     version = "0.99.2";
     sha256 = "1cdyn2imjh4zr23szndc4vwyiacxs1jsp14gil2dyq9aifa25qr7";
-    depends = [ ];
+    depends = [];
   };
   MafDb_1Kgenomes_phase1_GRCh38 = derive2 {
     name = "MafDb.1Kgenomes.phase1.GRCh38";
@@ -1451,7 +1451,7 @@ with self; {
     name = "MoExExonProbesetLocation";
     version = "1.15.0";
     sha256 = "0bvj3bji4bwwmxjz4b57n1aqypdibdmry30rfwmlxss1hav96sl7";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   Mu15v1_db = derive2 {
     name = "Mu15v1.db";
@@ -1506,7 +1506,7 @@ with self; {
     name = "Orthology.eg.db";
     version = "3.16.0";
     sha256 = "0m696d1pwnaiymv4c9wmhl05jgwa64n98xvv4czyg1wjxxdly9z7";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   PANTHER_db = derive2 {
     name = "PANTHER.db";
@@ -1523,7 +1523,7 @@ with self; {
     name = "PFAM.db";
     version = "3.16.0";
     sha256 = "035k1vappczks14jms7azl9bvgg1z67svbng8b7v4qmr9slsm0l0";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   POCRCannotation_db = derive2 {
     name = "POCRCannotation.db";
@@ -1557,7 +1557,7 @@ with self; {
     name = "RaExExonProbesetLocation";
     version = "1.15.0";
     sha256 = "1vvcc5zlpgbnqak4y2xywyd82j3s61wvhhp2ap0nni14sdxrl3hd";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   Rattus_norvegicus = derive2 {
     name = "Rattus.norvegicus";
@@ -1576,13 +1576,13 @@ with self; {
     name = "RmiR.Hs.miRNA";
     version = "1.0.7";
     sha256 = "0pybw908mlfrskwhnhc0bfaaqw2z13kvr10apf68s74zs0ss57b4";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   RmiR_hsa = derive2 {
     name = "RmiR.hsa";
     version = "1.0.5";
     sha256 = "1c663vxjxgrs4p9wfbg0zli5qqbvq6hp11kzbqrn70ndkpsbnb3z";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   RnAgilentDesign028282_db = derive2 {
     name = "RnAgilentDesign028282.db";
@@ -2129,7 +2129,7 @@ with self; {
     name = "UniProtKeywords";
     version = "0.99.4";
     sha256 = "0rs3y7kw77nwbvil4kvmjjlvjdsdyd8rdc0qb1ghm3bvisycgnyh";
-    depends = [ ];
+    depends = [];
   };
   XtraSNPlocs_Hsapiens_dbSNP144_GRCh37 = derive2 {
     name = "XtraSNPlocs.Hsapiens.dbSNP144.GRCh37";
@@ -2179,37 +2179,37 @@ with self; {
     name = "agcdf";
     version = "2.18.0";
     sha256 = "07hq41dwqs7yy2sck8p7zl3v9x4bgl35kkycpazz5ql2g5zy6b7j";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   agprobe = derive2 {
     name = "agprobe";
     version = "2.18.0";
     sha256 = "1vnawamcpz16na8nmlq2czfxcr325fwdnngxl65mmnbd0f4lmy3k";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   alternativeSplicingEvents_hg19 = derive2 {
     name = "alternativeSplicingEvents.hg19";
     version = "1.1.0";
     sha256 = "0q90nw3ds66zbyn3ch19lq1qimd1hz1s3jyyd6zi3v10p5s8bm0y";
-    depends = [ AnnotationHub ];
+    depends = [AnnotationHub];
   };
   alternativeSplicingEvents_hg38 = derive2 {
     name = "alternativeSplicingEvents.hg38";
     version = "1.1.0";
     sha256 = "18qabggvs9mcg8fwd6prdca8lfxn9r9i0493l667n8jl9vy2pbfc";
-    depends = [ AnnotationHub ];
+    depends = [AnnotationHub];
   };
   anopheles_db0 = derive2 {
     name = "anopheles.db0";
     version = "3.16.0";
     sha256 = "0mmhbm5hzz739jv0028wna03zk6lphiwac5qhg55w8y19kclkvc2";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   arabidopsis_db0 = derive2 {
     name = "arabidopsis.db0";
     version = "3.16.0";
     sha256 = "1gir9xvfx7zccj3y3k6g9bli330pmlwc6gn8ajf513a2w4gl0z4q";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   ath1121501_db = derive2 {
     name = "ath1121501.db";
@@ -2224,25 +2224,25 @@ with self; {
     name = "ath1121501cdf";
     version = "2.18.0";
     sha256 = "1naq8f8dwgbmndx178nm2pw6hjx5ljx0w1wb4dfjifnl4bs5rqcc";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   ath1121501probe = derive2 {
     name = "ath1121501probe";
     version = "2.18.0";
     sha256 = "0a2nd8zhp3ybis780l3rrmwcxskbl3a111g8w6m8qfwsw5vnlqg1";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   barley1cdf = derive2 {
     name = "barley1cdf";
     version = "2.18.0";
     sha256 = "0rbij5cqr2sz33y5waybv85nrcgf70iwj5gk13g0xn9p1l1zxyn2";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   barley1probe = derive2 {
     name = "barley1probe";
     version = "2.18.0";
     sha256 = "1kh5r748b4vkmvlfaclmrh07ypbrzgxn90liqfz1rwkabh6rfk71";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   bovine_db = derive2 {
     name = "bovine.db";
@@ -2257,37 +2257,37 @@ with self; {
     name = "bovine.db0";
     version = "3.16.0";
     sha256 = "02abx3ygnh1pnks8rbf2k86a1kzkbv7vfykkln22anvf2a41qd0d";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   bovinecdf = derive2 {
     name = "bovinecdf";
     version = "2.18.0";
     sha256 = "13mf0yy0dypkm5n2ghl04xm6ayb9bn9qijqhgynksghi7s2k34mb";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   bovineprobe = derive2 {
     name = "bovineprobe";
     version = "2.18.0";
     sha256 = "0i4afa5dksnir2nfrfh2cynjm59sm6vfaqa9wyag8cxg7c2nlm1i";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   bsubtiliscdf = derive2 {
     name = "bsubtiliscdf";
     version = "2.18.0";
     sha256 = "1rihrjim37b49rhqr4nxga8sp67qri9xqlqc141mhbngh6cw3iyl";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   bsubtilisprobe = derive2 {
     name = "bsubtilisprobe";
     version = "2.18.0";
     sha256 = "0k99hvgaswn96x4yanvr9cy8bdy69sd5q7yp6dj9synxj7s1fcw9";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   cMAP = derive2 {
     name = "cMAP";
     version = "1.15.1";
     sha256 = "0pzizm27rgcaic7wsh52z30v1jwarmz4cwh1mksbygp63k54mwiv";
-    depends = [ ];
+    depends = [];
   };
   canine_db = derive2 {
     name = "canine.db";
@@ -2302,7 +2302,7 @@ with self; {
     name = "canine.db0";
     version = "3.16.0";
     sha256 = "0cn1czv87dmmc706n7l8995pv1xa57f8agx5xdfdba3d50snwh7p";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   canine2_db = derive2 {
     name = "canine2.db";
@@ -2317,25 +2317,25 @@ with self; {
     name = "canine2cdf";
     version = "2.18.0";
     sha256 = "077cmmnhjdk0vxjzm1kqf3q5kgx6chwkm59dr4s5dy019rqb6sqr";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   canine2probe = derive2 {
     name = "canine2probe";
     version = "2.18.0";
     sha256 = "1l849a1dqy4kpcsxs0lvb48ag81i0f0ys0w4757rw4kp8ry59z4b";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   caninecdf = derive2 {
     name = "caninecdf";
     version = "2.18.0";
     sha256 = "1f7pf3y4ccmj6681haqk8ds3dlzkv99s22m2r462dnnf38n17l3p";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   canineprobe = derive2 {
     name = "canineprobe";
     version = "2.18.0";
     sha256 = "1y70rbxlbgx58vaxp1ry5jngvzz9prcbgd2ji00074ilx4k2cxn2";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   celegans_db = derive2 {
     name = "celegans.db";
@@ -2350,13 +2350,13 @@ with self; {
     name = "celeganscdf";
     version = "2.18.0";
     sha256 = "0a6w0a48azg0i21j3aqb7fnxck3ff9w3gsi89bnlfh0zx6pknx7p";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   celegansprobe = derive2 {
     name = "celegansprobe";
     version = "2.18.0";
     sha256 = "05k7si3f8pzkyb8jv0r2vkavbrqxsn4nawl92gcphfsylrwcddqb";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   chicken_db = derive2 {
     name = "chicken.db";
@@ -2371,43 +2371,43 @@ with self; {
     name = "chicken.db0";
     version = "3.16.0";
     sha256 = "1r3svjlr536q3zicq7k0wvw6szpdj81h3bjb3f4a0f3rlxzrakif";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   chickencdf = derive2 {
     name = "chickencdf";
     version = "2.18.0";
     sha256 = "09hhim5s9xj7n2b5rhn1svf5qly2mn0rr2v2ls25hfzyrqcbxlz1";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   chickenprobe = derive2 {
     name = "chickenprobe";
     version = "2.18.0";
     sha256 = "1fdsiwfyg7fwslrr7xs3gny7sw24bzg5k1fvlyzb1477sgj0pid3";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   chimp_db0 = derive2 {
     name = "chimp.db0";
     version = "3.16.0";
     sha256 = "04lzica0hgq7xrdspzidfnjgjg9cxhy2wjcz4vndlx519jlwdrny";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   chromhmmData = derive2 {
     name = "chromhmmData";
     version = "0.99.2";
     sha256 = "13g6x7lzmkz9qv7yr6ps8gsgilgr048lc7y0y7xsfa9ws3n08fzj";
-    depends = [ ];
+    depends = [];
   };
   citruscdf = derive2 {
     name = "citruscdf";
     version = "2.18.0";
     sha256 = "1326mj1xf3k4v5iyyn46whx24qfng0x3cv6rvckdr1ycc1v887dn";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   citrusprobe = derive2 {
     name = "citrusprobe";
     version = "2.18.0";
     sha256 = "0bf1wic136cxwgs4j13wsyqasnyvr0jw1hzg6qizndmy7g8hrb87";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   clariomdhumanprobeset_db = derive2 {
     name = "clariomdhumanprobeset.db";
@@ -2485,19 +2485,19 @@ with self; {
     name = "cottoncdf";
     version = "2.18.0";
     sha256 = "0xfwwla941fbxddykgizpar8dh8q459src7kc5wyrsd3swp3zyp5";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   cottonprobe = derive2 {
     name = "cottonprobe";
     version = "2.18.0";
     sha256 = "04mfjd3a7ikif4pv46s6h9dj2s912w8ihg4yyiii7s3jlmvy62ah";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   cyp450cdf = derive2 {
     name = "cyp450cdf";
     version = "2.18.0";
     sha256 = "1mbqn9940sxc0ksvykdk3i4jvnkv9q91igwn1rwmv2z18hz18qf0";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   drosgenome1_db = derive2 {
     name = "drosgenome1.db";
@@ -2512,13 +2512,13 @@ with self; {
     name = "drosgenome1cdf";
     version = "2.18.0";
     sha256 = "02x6kcnzayx3adz5kjrmfcly36j6j5xwwknd16nskh9050g8xg1y";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   drosgenome1probe = derive2 {
     name = "drosgenome1probe";
     version = "2.18.0";
     sha256 = "1vzf8197nkbdqdpafpafxlkcy61d6mwd7wcbakdhq5493dwhdi98";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   drosophila2_db = derive2 {
     name = "drosophila2.db";
@@ -2533,13 +2533,13 @@ with self; {
     name = "drosophila2cdf";
     version = "2.18.0";
     sha256 = "1w8k5br8nl7m5l4r05af8nc2wwnlpxxl8ncvvhqx5annlb2ynrg3";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   drosophila2probe = derive2 {
     name = "drosophila2probe";
     version = "2.18.0";
     sha256 = "1b8wnkyg0p7cffs3ka7by295jsys1sx2gpbj2j63239f0dylpl0i";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   ecoli2_db = derive2 {
     name = "ecoli2.db";
@@ -2554,55 +2554,55 @@ with self; {
     name = "ecoli2cdf";
     version = "2.18.0";
     sha256 = "1rkxrwadq9kg9685z9pg6rgc4bblkx5p3c6snsl4gv2k188dva9r";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   ecoli2probe = derive2 {
     name = "ecoli2probe";
     version = "2.18.0";
     sha256 = "11q4ka0ncjapahic49xdl9919vm9frrwlqgj101krgkg262lfm8n";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   ecoliK12_db0 = derive2 {
     name = "ecoliK12.db0";
     version = "3.16.0";
     sha256 = "17khj10g2nsim40w9c6wc79hx5xx4g2n0hnvigsxm3l0a38vsz12";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   ecoliSakai_db0 = derive2 {
     name = "ecoliSakai.db0";
     version = "3.16.0";
     sha256 = "09n18nv2v4c7j472ygzpv808p473gfnifh9vnzm79ifjiixvzx4w";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   ecoliasv2cdf = derive2 {
     name = "ecoliasv2cdf";
     version = "2.18.0";
     sha256 = "16i6has9qgmzakcy24racc1h9j331wndv5c87qp5r1zrai61zyav";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   ecoliasv2probe = derive2 {
     name = "ecoliasv2probe";
     version = "2.18.0";
     sha256 = "1hfrnal170cdigc2fmnynb75jjsiq77p4x6ws9gah558hvx87nk3";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   ecolicdf = derive2 {
     name = "ecolicdf";
     version = "2.18.0";
     sha256 = "18g5prjykn356k35m131ifn128k5mhij2x26balqav0azigzjqsn";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   ecoliprobe = derive2 {
     name = "ecoliprobe";
     version = "2.18.0";
     sha256 = "17g5zxfzsak7a0w51irc0w1w2i5ngdkx9db6rhv1fyp8mfjgaphd";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   excluderanges = derive2 {
     name = "excluderanges";
     version = "0.99.8";
     sha256 = "19pdwlhqlz420yss371bsqhkx8c7wxr0sv4wsycnc0mlplwq4bsf";
-    depends = [ GenomicRanges ];
+    depends = [GenomicRanges];
   };
   fitCons_UCSC_hg19 = derive2 {
     name = "fitCons.UCSC.hg19";
@@ -2621,37 +2621,37 @@ with self; {
     name = "fly.db0";
     version = "3.16.0";
     sha256 = "1mjd1g0pazhzgwiwll71fhqcisilc5wqz7dnl8ypxd7v7915w8jr";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   geneplast_data = derive2 {
     name = "geneplast.data";
     version = "0.99.6";
     sha256 = "1vq2l828d25lsmmac6079vip8bbvqhiyr1x58s467cwcl1mgayrk";
-    depends = [ ];
+    depends = [];
   };
   geneplast_data_string_v91 = derive2 {
     name = "geneplast.data.string.v91";
     version = "0.99.6";
     sha256 = "0mc26d0sgmpmfmqsqinqv5k6vhg0hlc8hsjkcnvf369yav224nq1";
-    depends = [ ];
+    depends = [];
   };
   genomewidesnp5Crlmm = derive2 {
     name = "genomewidesnp5Crlmm";
     version = "1.0.6";
     sha256 = "06dmwnjy3gb53y6nr02dmp22qzfl5d63wppazrabcqbzwimhnvp8";
-    depends = [ ];
+    depends = [];
   };
   genomewidesnp6Crlmm = derive2 {
     name = "genomewidesnp6Crlmm";
     version = "1.0.7";
     sha256 = "16qcxa32fmbdcv5dck0grsnqyfcqql7wpxa1l6andv9hrvabv2jx";
-    depends = [ ];
+    depends = [];
   };
   gp53cdf = derive2 {
     name = "gp53cdf";
     version = "2.18.0";
     sha256 = "11p69rxia8bqajix3jg34vnhczyxgpq50k5kdh878h7bn0mpg6bj";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   grasp2db = derive2 {
     name = "grasp2db";
@@ -2670,7 +2670,7 @@ with self; {
     name = "gwascatData";
     version = "0.99.6";
     sha256 = "1xhmzl06vivq8x01h60q3c4vql67wjgjfs35j4ifmixp1qhicgga";
-    depends = [ data_table ];
+    depends = [data_table];
   };
   h10kcod_db = derive2 {
     name = "h10kcod.db";
@@ -2694,7 +2694,7 @@ with self; {
     name = "hapmap370k";
     version = "1.0.1";
     sha256 = "0n6rmrqcbl665a1l6jxk1gn6518x4gxadzy5dc9k9v01cbh3qzmw";
-    depends = [ ];
+    depends = [];
   };
   hcg110_db = derive2 {
     name = "hcg110.db";
@@ -2709,13 +2709,13 @@ with self; {
     name = "hcg110cdf";
     version = "2.18.0";
     sha256 = "1208b5sn9cdsvz4wa29ha5vp9mpvafkq0adj7nlzs4yav2z26van";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hcg110probe = derive2 {
     name = "hcg110probe";
     version = "2.18.0";
     sha256 = "0avr5dmm86b81fli5zb2vp6ax8imqxvc5bzsksq574a8rn6xf1dq";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgfocus_db = derive2 {
     name = "hgfocus.db";
@@ -2730,13 +2730,13 @@ with self; {
     name = "hgfocuscdf";
     version = "2.18.0";
     sha256 = "0vxgz3wwjf4qqzpsa8d03s7p2az9xbzlkxkdj0czcj67nmq467ya";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgfocusprobe = derive2 {
     name = "hgfocusprobe";
     version = "2.18.0";
     sha256 = "0fizkj2g1imslxk43ibf52nj8jzsfryq7h2pzhvqw5n9vnpinrc2";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgu133a_db = derive2 {
     name = "hgu133a.db";
@@ -2760,49 +2760,49 @@ with self; {
     name = "hgu133a2cdf";
     version = "2.18.0";
     sha256 = "0lqllzvp0w3s46kjvpvjn1snz63im33m3hhvnkl3knb86k6pn3za";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgu133a2frmavecs = derive2 {
     name = "hgu133a2frmavecs";
     version = "1.2.0";
     sha256 = "1qy2z6z135q8xncjqn1n31xg8az9wnwrz78cis57lzav9r0fw853";
-    depends = [ ];
+    depends = [];
   };
   hgu133a2probe = derive2 {
     name = "hgu133a2probe";
     version = "2.18.0";
     sha256 = "0ais6f92kmjmzywsdqvxcd5fs6y7kf0ip9wm62szhahyl9chwj9k";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgu133acdf = derive2 {
     name = "hgu133acdf";
     version = "2.18.0";
     sha256 = "10aa0vz4hpb26k5jrz56s2f8zszvwc7axj03zzrn3q0wgrw68nc6";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgu133afrmavecs = derive2 {
     name = "hgu133afrmavecs";
     version = "1.5.0";
     sha256 = "1dh37ilc1df4i67k1by22r1r4d7iqy77f3hvnd470fwmcg07mkj6";
-    depends = [ ];
+    depends = [];
   };
   hgu133aprobe = derive2 {
     name = "hgu133aprobe";
     version = "2.18.0";
     sha256 = "15r9zy4g9p86344zf0w7m0vfln8js19kmr68vq670kncf6j6ypbn";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgu133atagcdf = derive2 {
     name = "hgu133atagcdf";
     version = "2.18.0";
     sha256 = "0rbnhzwbv6nbkssdgsibjpnqfads7x9rpgy2n7qy02mkr6kysndg";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgu133atagprobe = derive2 {
     name = "hgu133atagprobe";
     version = "2.18.0";
     sha256 = "1qxrdi0rjj8kcl8rl3lack5ky25n39hj5a91scd0fy32zvnazmk6";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgu133b_db = derive2 {
     name = "hgu133b.db";
@@ -2817,13 +2817,13 @@ with self; {
     name = "hgu133bcdf";
     version = "2.18.0";
     sha256 = "0dlg45pf35cff48704laryrxgwr0p31njki6c74ibxacpxmvwzv3";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgu133bprobe = derive2 {
     name = "hgu133bprobe";
     version = "2.18.0";
     sha256 = "1i8v1fbjfnzv556551kbj13q9i0lvzjgvzq8xapmwph8y86bfcx3";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgu133plus2_db = derive2 {
     name = "hgu133plus2.db";
@@ -2838,19 +2838,19 @@ with self; {
     name = "hgu133plus2cdf";
     version = "2.18.0";
     sha256 = "03n9vmclv2ri6n88lsz8yzgsrz33vfclj468jv01h3is2gq09x99";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgu133plus2frmavecs = derive2 {
     name = "hgu133plus2frmavecs";
     version = "1.5.0";
     sha256 = "1r3g4hqxxm3l054kx33bsl9qkd46mkd4d266pm0jgqih6mv5640c";
-    depends = [ ];
+    depends = [];
   };
   hgu133plus2probe = derive2 {
     name = "hgu133plus2probe";
     version = "2.18.0";
     sha256 = "1xdg6x6iv9xi0vdlfl4c65zvqs2946yd2bhr9nqhhyqp6h8ghsdc";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgu219_db = derive2 {
     name = "hgu219.db";
@@ -2865,13 +2865,13 @@ with self; {
     name = "hgu219cdf";
     version = "2.18.0";
     sha256 = "14kbn7r84hp4vssxl8pfs7zlg34mdm4qf1m2dw7agrixmdblnz0d";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgu219probe = derive2 {
     name = "hgu219probe";
     version = "2.18.0";
     sha256 = "0sy5q95yppyg8bvwc6prznqzl01xrbl0ic22rj2s8wwsrppsm3m5";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgu95a_db = derive2 {
     name = "hgu95a.db";
@@ -2886,19 +2886,19 @@ with self; {
     name = "hgu95acdf";
     version = "2.18.0";
     sha256 = "1mxac5vd0vzn3k8357lf0j1476q3b7nx6nr54n6j84qi2nx1wknr";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgu95aprobe = derive2 {
     name = "hgu95aprobe";
     version = "2.18.0";
     sha256 = "0sig3g5qmigv7vgcr3rpkn2cmcn2ljp0arhilni7yqsnzqn1dbma";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgu95av2 = derive2 {
     name = "hgu95av2";
     version = "2.2.0";
     sha256 = "181bady90v89yx2gzwahhcl63aiypcx33pkfnjxkyq45qgb18bqi";
-    depends = [ ];
+    depends = [];
   };
   hgu95av2_db = derive2 {
     name = "hgu95av2.db";
@@ -2913,13 +2913,13 @@ with self; {
     name = "hgu95av2cdf";
     version = "2.18.0";
     sha256 = "1zp1y5awnkprkmk01rmn881y50bslfi8s33i8bws39am5xma0jfl";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgu95av2probe = derive2 {
     name = "hgu95av2probe";
     version = "2.18.0";
     sha256 = "0hv0asd44b69h3n87j5ffi9i87w12iad74754wzxgfxihb0yn58g";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgu95b_db = derive2 {
     name = "hgu95b.db";
@@ -2934,13 +2934,13 @@ with self; {
     name = "hgu95bcdf";
     version = "2.18.0";
     sha256 = "10inx0p0155ii4464la0amww91ynyqqh59zyl1lfhnvkl38k6ylj";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgu95bprobe = derive2 {
     name = "hgu95bprobe";
     version = "2.18.0";
     sha256 = "1y8i2cn0zh2jkyi9j8giv5i4dag2c7jd5zyaza72nsyj4qhgmccg";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgu95c_db = derive2 {
     name = "hgu95c.db";
@@ -2955,13 +2955,13 @@ with self; {
     name = "hgu95ccdf";
     version = "2.18.0";
     sha256 = "1mai2l81mwg3irncvddlcbcx24nvfk0gcx4h1r3mfg47smx1n3rd";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgu95cprobe = derive2 {
     name = "hgu95cprobe";
     version = "2.18.0";
     sha256 = "0glbyjk0mfllfzwfj5hszmy4pwd5ghkb1lrzh215zzxyvnyb47fd";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgu95d_db = derive2 {
     name = "hgu95d.db";
@@ -2976,13 +2976,13 @@ with self; {
     name = "hgu95dcdf";
     version = "2.18.0";
     sha256 = "0s60ibk6qsfqibhns2kidglvxkigia31yzr49b03kcazmwm4xqc0";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgu95dprobe = derive2 {
     name = "hgu95dprobe";
     version = "2.18.0";
     sha256 = "0mlj28c82b21010rhj2pzpmv2wf3fis4dwsi7q7292bza2sxxi6g";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgu95e_db = derive2 {
     name = "hgu95e.db";
@@ -2997,13 +2997,13 @@ with self; {
     name = "hgu95ecdf";
     version = "2.18.0";
     sha256 = "02y97vbhxn3c31q1i2z5l6jv51z8bk8p7vp1kb2y8rkmsw171brv";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hgu95eprobe = derive2 {
     name = "hgu95eprobe";
     version = "2.18.0";
     sha256 = "1daflz4s99xb0v91ckb96bzjqmgm334xsngz18l2bd6r8nkxhgzb";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hguDKFZ31_db = derive2 {
     name = "hguDKFZ31.db";
@@ -3108,13 +3108,13 @@ with self; {
     name = "hivprtplus2cdf";
     version = "2.18.0";
     sha256 = "1jv4qzajikz7x4vq87wzn7hf6hx9r4c2gkjhfp93kqzwzddmigf4";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hpAnnot = derive2 {
     name = "hpAnnot";
     version = "1.1.0";
     sha256 = "1rnvmwyjq6vd6bh8a8y8gsw07kd4184h1a02i6aapp0szfghq9bp";
-    depends = [ ];
+    depends = [];
   };
   hs25kresogen_db = derive2 {
     name = "hs25kresogen.db";
@@ -3129,7 +3129,7 @@ with self; {
     name = "hspeccdf";
     version = "0.99.1";
     sha256 = "07azl9zpg552ic7li14p6n09ba3jbqqclwffjfpd2vc249x0n4fw";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hta20probeset_db = derive2 {
     name = "hta20probeset.db";
@@ -3162,19 +3162,19 @@ with self; {
     name = "hthgu133acdf";
     version = "2.18.0";
     sha256 = "1a5b421lx0nxy3mrrxjxifwjpnv289c5q2a89xhnkwlcfhqlzqrp";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hthgu133afrmavecs = derive2 {
     name = "hthgu133afrmavecs";
     version = "1.3.0";
     sha256 = "0466xgi67r5rpp7cs06ib0cr6vvx8d881g5l96b8sh9948pbn4ss";
-    depends = [ ];
+    depends = [];
   };
   hthgu133aprobe = derive2 {
     name = "hthgu133aprobe";
     version = "2.18.0";
     sha256 = "0fanrxa21h961zsgzjrv4mzv8psd3h9sjxrzr126ca8qfqghvkc3";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hthgu133b_db = derive2 {
     name = "hthgu133b.db";
@@ -3189,13 +3189,13 @@ with self; {
     name = "hthgu133bcdf";
     version = "2.18.0";
     sha256 = "0v12g1xsmycxhapzl6i5m7jq683k05y9yaq1asxvwls0viph6dv0";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hthgu133bprobe = derive2 {
     name = "hthgu133bprobe";
     version = "2.18.0";
     sha256 = "1cqv6zwdxgc27x1h6y6lqzdysx40bbiy1ywcxky4yc611l1lxbv5";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hthgu133plusa_db = derive2 {
     name = "hthgu133plusa.db";
@@ -3228,13 +3228,13 @@ with self; {
     name = "hthgu133pluspmcdf";
     version = "2.18.0";
     sha256 = "0bslylkmgrq9v1giz87kcikmxbs8yawpylxi0s1n6q4rcc2yg61y";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hthgu133pluspmprobe = derive2 {
     name = "hthgu133pluspmprobe";
     version = "2.18.0";
     sha256 = "0ifgrw6b5cr4fj88n4r0skzw6vj4c88bjlahjbik4jfi738qwqp7";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   htmg430a_db = derive2 {
     name = "htmg430a.db";
@@ -3249,13 +3249,13 @@ with self; {
     name = "htmg430acdf";
     version = "2.18.0";
     sha256 = "1m854lnr82gyx8hbbd5h66s46jh41s7mp1ymjm9fh32jw2pak1i9";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   htmg430aprobe = derive2 {
     name = "htmg430aprobe";
     version = "2.18.0";
     sha256 = "1alhk7h7a8d49plgaxw95nffwga51asrgwzf4zj52al8brymays8";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   htmg430b_db = derive2 {
     name = "htmg430b.db";
@@ -3270,13 +3270,13 @@ with self; {
     name = "htmg430bcdf";
     version = "2.18.0";
     sha256 = "1a0r50z47sb8dyq0x43nibh3whq1gi3nggphybwmrd70nr2y09zh";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   htmg430bprobe = derive2 {
     name = "htmg430bprobe";
     version = "2.18.0";
     sha256 = "1qaw0213fvpn222hnpbm6hgi2cc69sv6bl72y3h85f50sl4rf8i9";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   htmg430pm_db = derive2 {
     name = "htmg430pm.db";
@@ -3291,13 +3291,13 @@ with self; {
     name = "htmg430pmcdf";
     version = "2.18.0";
     sha256 = "1ayd1xarlwh7jm3dmaq9j49z4fi2qsrz48jy37xfg9q1wwawvwyw";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   htmg430pmprobe = derive2 {
     name = "htmg430pmprobe";
     version = "2.18.0";
     sha256 = "02cg12fnn3nbgra7f2lwabi750ws943372p5xc78bjxf9ypql4i5";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   htrat230pm_db = derive2 {
     name = "htrat230pm.db";
@@ -3312,13 +3312,13 @@ with self; {
     name = "htrat230pmcdf";
     version = "2.18.0";
     sha256 = "0b0gwa32as2l5m951y01dk8i16yl995221dg7ycq97kq4jb5dmdx";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   htrat230pmprobe = derive2 {
     name = "htrat230pmprobe";
     version = "2.18.0";
     sha256 = "0xpyj6c8j4icx25yk570b4gnfqz8zrsp8wlsw8424xvkviz0wv4y";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   htratfocus_db = derive2 {
     name = "htratfocus.db";
@@ -3333,13 +3333,13 @@ with self; {
     name = "htratfocuscdf";
     version = "2.18.0";
     sha256 = "0jqn7y17sjn2cg8lidsbyzwpjygjs553gaw72g6v2kxj7j0fhfx9";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   htratfocusprobe = derive2 {
     name = "htratfocusprobe";
     version = "2.18.0";
     sha256 = "1yxpb9pq4gbmq8s6szlbnc70ngqgi5gwqxx3far673gm5czdlfzi";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hu35ksuba_db = derive2 {
     name = "hu35ksuba.db";
@@ -3354,13 +3354,13 @@ with self; {
     name = "hu35ksubacdf";
     version = "2.18.0";
     sha256 = "1aw41anp99r0m0c54yibvh3nzswi5wnqv9z7dwi5396sd5sniy81";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hu35ksubaprobe = derive2 {
     name = "hu35ksubaprobe";
     version = "2.18.0";
     sha256 = "0dnsch3wdcgffbg1ypnnmsxlrclk9wji11skcs1gih2f7wi4pk05";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hu35ksubb_db = derive2 {
     name = "hu35ksubb.db";
@@ -3375,13 +3375,13 @@ with self; {
     name = "hu35ksubbcdf";
     version = "2.18.0";
     sha256 = "0anzhbn7ad5yv3qd4vwxaag809yb9saqwx6575iwc9ha5w8hwv2m";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hu35ksubbprobe = derive2 {
     name = "hu35ksubbprobe";
     version = "2.18.0";
     sha256 = "0wml8g7nizljjfxq6xbbld3b2lsl1p8rzdmdqg5h81ncg7xhxy7c";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hu35ksubc_db = derive2 {
     name = "hu35ksubc.db";
@@ -3396,13 +3396,13 @@ with self; {
     name = "hu35ksubccdf";
     version = "2.18.0";
     sha256 = "0fycaw7sngcj50qh8vw594g7i0fw9nmfh1lw72bc3i8jd5y08npi";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hu35ksubcprobe = derive2 {
     name = "hu35ksubcprobe";
     version = "2.18.0";
     sha256 = "1s22447qznyrlwpa98wric7xv2aj1qchd5wgq1zgwhg3gcj9lvmb";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hu35ksubd_db = derive2 {
     name = "hu35ksubd.db";
@@ -3417,13 +3417,13 @@ with self; {
     name = "hu35ksubdcdf";
     version = "2.18.0";
     sha256 = "1ws1mfgi1bndlwhr049bssj6cmd819klp1vwnqppklggs081y22v";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hu35ksubdprobe = derive2 {
     name = "hu35ksubdprobe";
     version = "2.18.0";
     sha256 = "1vivxdpg6wn29jwfnw7brcqav1xbr62llqk13dgj10x0gvjmv26w";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hu6800_db = derive2 {
     name = "hu6800.db";
@@ -3438,43 +3438,43 @@ with self; {
     name = "hu6800cdf";
     version = "2.18.0";
     sha256 = "1anddmc7j8x79nrglzmyzdvpwhy8aq6b87hqh7gr40g3d6hxjg06";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hu6800probe = derive2 {
     name = "hu6800probe";
     version = "2.18.0";
     sha256 = "1fnkwifpzv0rkb9f5b789f2r5vvz9riwiip5wmyanw2gzdyc2vr0";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hu6800subacdf = derive2 {
     name = "hu6800subacdf";
     version = "2.18.0";
     sha256 = "0ckywgdz9n9xz162jw6phj3qwdkiwjb4ya86a3imgb71k3w181wz";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hu6800subbcdf = derive2 {
     name = "hu6800subbcdf";
     version = "2.18.0";
     sha256 = "1bqgcp17pj3r78n6lqr307r1snxb3vxpmr7h64qbq8jmwrlxgs60";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hu6800subccdf = derive2 {
     name = "hu6800subccdf";
     version = "2.18.0";
     sha256 = "1xir2k62whqf39g7g5rm646nz6hxq83nldrrc3cyzch85723a55p";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hu6800subdcdf = derive2 {
     name = "hu6800subdcdf";
     version = "2.18.0";
     sha256 = "1caiyyna5ffnnx85h9f62h2fwd42wwi187g9igspcy8mn2hakpfw";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   huex_1_0_st_v2frmavecs = derive2 {
     name = "huex.1.0.st.v2frmavecs";
     version = "1.1.0";
     sha256 = "0fnadflyg615v7w071jilg42w8w5fvnac7rm0wg33klvzx9c9knx";
-    depends = [ ];
+    depends = [];
   };
   huex10stprobeset_db = derive2 {
     name = "huex10stprobeset.db";
@@ -3498,7 +3498,7 @@ with self; {
     name = "hugene.1.0.st.v1frmavecs";
     version = "1.1.0";
     sha256 = "0jwk5mm37fil3h9h1hrc4bm3sxfdzywbmsqm1blvrvb5q6jgl50a";
-    depends = [ ];
+    depends = [];
   };
   hugene10stprobeset_db = derive2 {
     name = "hugene10stprobeset.db";
@@ -3522,13 +3522,13 @@ with self; {
     name = "hugene10stv1cdf";
     version = "2.18.0";
     sha256 = "1drsclrcf344z4m61qxd1a1lg2qrd2h7s3y6kk7xcy76s2mqjx2f";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hugene10stv1probe = derive2 {
     name = "hugene10stv1probe";
     version = "2.18.0";
     sha256 = "1cn6hdw1mj0i4f0syvx8g1r02bbki994y3s9hrdps3kvcbaw6brd";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   hugene11stprobeset_db = derive2 {
     name = "hugene11stprobeset.db";
@@ -3588,91 +3588,91 @@ with self; {
     name = "human.db0";
     version = "3.16.0";
     sha256 = "1gjikb5rp6qh5cv90hylhjkna4kp084mxawqv0x1z5kl8lx8dfgk";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   human1mduov3bCrlmm = derive2 {
     name = "human1mduov3bCrlmm";
     version = "1.0.4";
     sha256 = "1p7qpzk6svafgdafljhh4k0z7pcs78qmwwfd80r0a1yhkssmp0v9";
-    depends = [ ];
+    depends = [];
   };
   human1mv1cCrlmm = derive2 {
     name = "human1mv1cCrlmm";
     version = "1.0.3";
     sha256 = "1qlph3qrjv52ddzlj8pwa93zzh70x4mbdrdr7q9pan427lpck9gx";
-    depends = [ ];
+    depends = [];
   };
   human370quadv3cCrlmm = derive2 {
     name = "human370quadv3cCrlmm";
     version = "1.0.3";
     sha256 = "1chjx9vsmqz2whslw1l7jn7nfn7zx6pcjfmqqm9mh81i74rzrdik";
-    depends = [ ];
+    depends = [];
   };
   human370v1cCrlmm = derive2 {
     name = "human370v1cCrlmm";
     version = "1.0.2";
     sha256 = "1fhvgc6phhy8fqrl8bwjyskjl95bwlc08jyrkhsivml3ngbsfdf7";
-    depends = [ ];
+    depends = [];
   };
   human550v3bCrlmm = derive2 {
     name = "human550v3bCrlmm";
     version = "1.0.4";
     sha256 = "01a7dchjdl5x3jy6q4f13vlpj5d5l0gn1rf7qpnqrsa33q7fkk0q";
-    depends = [ ];
+    depends = [];
   };
   human610quadv1bCrlmm = derive2 {
     name = "human610quadv1bCrlmm";
     version = "1.0.3";
     sha256 = "0x8pvpzwhy46r8k9spb9vdanzwd3kcslib2aa97ziamm9rdgpnq4";
-    depends = [ ];
+    depends = [];
   };
   human650v3aCrlmm = derive2 {
     name = "human650v3aCrlmm";
     version = "1.0.3";
     sha256 = "05zpb18b5zcfpv9jhfjqq5la47cn7dwfr46dvph0z4hgxrj7qiwb";
-    depends = [ ];
+    depends = [];
   };
   human660quadv1aCrlmm = derive2 {
     name = "human660quadv1aCrlmm";
     version = "1.0.3";
     sha256 = "0gz9r08jdmc8zg9fpr8xs51krvbmi6g2ni7aaxq3yzzyv3ip04xx";
-    depends = [ ];
+    depends = [];
   };
   humanCHRLOC = derive2 {
     name = "humanCHRLOC";
     version = "2.1.6";
     sha256 = "1mxj7h8qjalax9hjxqydykldl3spavnpr5x9ar74784wabsllhgi";
-    depends = [ ];
+    depends = [];
   };
   humancytosnp12v2p1hCrlmm = derive2 {
     name = "humancytosnp12v2p1hCrlmm";
     version = "1.0.1";
     sha256 = "1b29yqsxj8w50zd2giwn1rnz65cd8npf5zgfwbssja36zibds82q";
-    depends = [ ];
+    depends = [];
   };
   humanomni1quadv1bCrlmm = derive2 {
     name = "humanomni1quadv1bCrlmm";
     version = "1.0.3";
     sha256 = "1ahb2rbp9zgaaq7fr41ncd0nnrgpvkagg2ppjmn3kqv7ghjyaiq6";
-    depends = [ ];
+    depends = [];
   };
   humanomni25quadv1bCrlmm = derive2 {
     name = "humanomni25quadv1bCrlmm";
     version = "1.0.2";
     sha256 = "1rhpqj9y57fxzbycyi8spwv0cfqrrsndzsi2lcnf4mfqwklq9hfh";
-    depends = [ ];
+    depends = [];
   };
   humanomni5quadv1bCrlmm = derive2 {
     name = "humanomni5quadv1bCrlmm";
     version = "1.0.0";
     sha256 = "1g4brwdvyxbdkd56i8iy4hhcs8ji82xqdk4wfyn8pkjbb5a183v9";
-    depends = [ ];
+    depends = [];
   };
   humanomniexpress12v1bCrlmm = derive2 {
     name = "humanomniexpress12v1bCrlmm";
     version = "1.0.1";
     sha256 = "0kfx3yjq7mwg97m94sw7w26k0v4523sxjvp2g0p3fmrgqjm6xvf6";
-    depends = [ ];
+    depends = [];
   };
   hwgcod_db = derive2 {
     name = "hwgcod.db";
@@ -3868,37 +3868,37 @@ with self; {
     name = "maizecdf";
     version = "2.18.0";
     sha256 = "0yfz5gjhsq4wz6j63s1b1hxjz03gsmrlfs2cdc8smq6azp3zdid4";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   maizeprobe = derive2 {
     name = "maizeprobe";
     version = "2.18.0";
     sha256 = "01h5dv5i0zaqlphkii9ipxy9wswv1srgprrpr5vmi01c9d98qsk0";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   malaria_db0 = derive2 {
     name = "malaria.db0";
     version = "3.16.0";
     sha256 = "0mgwrhlcac6vxvb9b8m9xx1v2yav04sdgw649vkaq7a8kbzwywas";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   medicagocdf = derive2 {
     name = "medicagocdf";
     version = "2.18.0";
     sha256 = "1clz679cc887x98c6jk93cphijkbg5r2nd9idrj5901yvh6p9n5q";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   medicagoprobe = derive2 {
     name = "medicagoprobe";
     version = "2.18.0";
     sha256 = "0w6j1pfkvb3npc8srpjifq2ywnqxhc9q090jqzmkx22x36cw9cl5";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   metaboliteIDmapping = derive2 {
     name = "metaboliteIDmapping";
     version = "1.0.0";
     sha256 = "0nflpvla3wn8i2gaja5wwjkxk0jich95f5ws3rnhh2a6rx3xi3ql";
-    depends = [ AnnotationHub ];
+    depends = [AnnotationHub];
   };
   mgu74a_db = derive2 {
     name = "mgu74a.db";
@@ -3913,13 +3913,13 @@ with self; {
     name = "mgu74acdf";
     version = "2.18.0";
     sha256 = "187k8y1dnnyw926h090gmkk1081sa91fn113lysll3460dqn3ylg";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mgu74aprobe = derive2 {
     name = "mgu74aprobe";
     version = "2.18.0";
     sha256 = "0813s2w5s9ahaqn91mkwzfckclv5jdphq17j2qwyzd4xqyxrmsbi";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mgu74av2_db = derive2 {
     name = "mgu74av2.db";
@@ -3934,13 +3934,13 @@ with self; {
     name = "mgu74av2cdf";
     version = "2.18.0";
     sha256 = "1cw5q8vkmd80g0dxv38qdki39h255bssf27yf0lf0jig9ra5w34n";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mgu74av2probe = derive2 {
     name = "mgu74av2probe";
     version = "2.18.0";
     sha256 = "02wf1xymaxd3hfyrbwxfw12klzf5c28md0h45rf41vzia0mkvr2z";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mgu74b_db = derive2 {
     name = "mgu74b.db";
@@ -3955,13 +3955,13 @@ with self; {
     name = "mgu74bcdf";
     version = "2.18.0";
     sha256 = "0sivgn6srmak7k6p8sj382lsanc34xj5b6182ggnp872y8v6zx5b";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mgu74bprobe = derive2 {
     name = "mgu74bprobe";
     version = "2.18.0";
     sha256 = "0igrdbp2hmn550rcfvrscmvykbpm9sbnfa29walv1v57jy6wl7fl";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mgu74bv2_db = derive2 {
     name = "mgu74bv2.db";
@@ -3976,13 +3976,13 @@ with self; {
     name = "mgu74bv2cdf";
     version = "2.18.0";
     sha256 = "05w0dh194lncda9qdkmg52znjrnlnjc15fzplw147nyablq5m109";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mgu74bv2probe = derive2 {
     name = "mgu74bv2probe";
     version = "2.18.0";
     sha256 = "1kn4549s0kj0jpg7yx4lkc8gvxdfm7p21b6yy52ymhfgbv431sl6";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mgu74c_db = derive2 {
     name = "mgu74c.db";
@@ -3997,13 +3997,13 @@ with self; {
     name = "mgu74ccdf";
     version = "2.18.0";
     sha256 = "01dbsxmv7r1r2n348gcdpkxqmciqyrf3s0handp3hl33s6pd8xbj";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mgu74cprobe = derive2 {
     name = "mgu74cprobe";
     version = "2.18.0";
     sha256 = "0ib5iyyp6mms5cszarczs82y2779d3cssz7hih1wm0vddbby40km";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mgu74cv2_db = derive2 {
     name = "mgu74cv2.db";
@@ -4018,13 +4018,13 @@ with self; {
     name = "mgu74cv2cdf";
     version = "2.18.0";
     sha256 = "18k1kahfwix3cs6kh2aml2mi39l3vjr526ajksljjk46n0bsf1r2";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mgu74cv2probe = derive2 {
     name = "mgu74cv2probe";
     version = "2.18.0";
     sha256 = "0rx2cigsi4bnm48vl0bbfh6k3k3cs8nv0x7k7j9vq5z9dniyzqf6";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mguatlas5k_db = derive2 {
     name = "mguatlas5k.db";
@@ -4106,31 +4106,31 @@ with self; {
     name = "mirbase.db";
     version = "1.2.0";
     sha256 = "0l7ah1ia7q1h16av2v1qa9nqpr0604z5dlrq37kd0aiz8dcxyddk";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mirna102xgaincdf = derive2 {
     name = "mirna102xgaincdf";
     version = "2.18.0";
     sha256 = "03q71dq6b0plivj5bgpgx0pnqdwfgplakyk5ggj4w7kqwmr5k17i";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mirna10cdf = derive2 {
     name = "mirna10cdf";
     version = "2.18.0";
     sha256 = "146gc1dx071vawn29k2m31zpi3wdwykss4qh8znpmbp5qcja4hyb";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mirna10probe = derive2 {
     name = "mirna10probe";
     version = "2.18.0";
     sha256 = "0f6jfzmj9h4g60lnkdi65grl3ncn19qnrwcxsdhqgiw3ll19cbj7";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mirna20cdf = derive2 {
     name = "mirna20cdf";
     version = "2.18.0";
     sha256 = "05yvi7jibj8fiak7z03gjv07xagpda3gy19namyy4iiq3w7ya2fj";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mm24kresogen_db = derive2 {
     name = "mm24kresogen.db";
@@ -4154,13 +4154,13 @@ with self; {
     name = "moe430acdf";
     version = "2.18.0";
     sha256 = "0n4dc2racw68nmfz6arl7f0yh9f3mlkvilsl694zrxw2ysbq1d70";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   moe430aprobe = derive2 {
     name = "moe430aprobe";
     version = "2.18.0";
     sha256 = "1paiwgjzlq4c04wy8fpnnxj7n5asiw6z2mz0rjrifja9lgyilq50";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   moe430b_db = derive2 {
     name = "moe430b.db";
@@ -4175,13 +4175,13 @@ with self; {
     name = "moe430bcdf";
     version = "2.18.0";
     sha256 = "0yl5pkqj37188k2yvvsqhnhm2vx523r11sry976bwzcadlicfhvb";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   moe430bprobe = derive2 {
     name = "moe430bprobe";
     version = "2.18.0";
     sha256 = "1nziw3pj4picz0aazblpqkbw82wq3vdajh9i78yfvlz1bwb2vpfi";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   moex10stprobeset_db = derive2 {
     name = "moex10stprobeset.db";
@@ -4205,7 +4205,7 @@ with self; {
     name = "mogene.1.0.st.v1frmavecs";
     version = "1.1.0";
     sha256 = "00lyakg7dhsm3jkh011mfq1vy439mds64zpm6fgyq592x3k9w2ah";
-    depends = [ ];
+    depends = [];
   };
   mogene10stprobeset_db = derive2 {
     name = "mogene10stprobeset.db";
@@ -4229,13 +4229,13 @@ with self; {
     name = "mogene10stv1cdf";
     version = "2.18.0";
     sha256 = "1zhq08zsghck39ly7ymcjanzgw3xy1hqw435hwcrrlipv6i4lbmj";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mogene10stv1probe = derive2 {
     name = "mogene10stv1probe";
     version = "2.18.0";
     sha256 = "1qjnsf6cv23gnqdpcy1xqxy807y91fnaiyh95hg99v932pvika6a";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mogene11stprobeset_db = derive2 {
     name = "mogene11stprobeset.db";
@@ -4295,7 +4295,7 @@ with self; {
     name = "mouse.db0";
     version = "3.16.0";
     sha256 = "0nr2s573najg1n8jl73040cglqmgb169rv9mhk8zmcc4zqgfaa0k";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mouse4302_db = derive2 {
     name = "mouse4302.db";
@@ -4310,19 +4310,19 @@ with self; {
     name = "mouse4302cdf";
     version = "2.18.0";
     sha256 = "1mpyma4x8zfs2fmmx57xw4cfs2cf9lhw71nc3icl72d7vmwidswc";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mouse4302frmavecs = derive2 {
     name = "mouse4302frmavecs";
     version = "1.5.0";
     sha256 = "04clwkfz1gqqwrnqbavkka3hv480w6vi6c4q947qqnhw8j5jjp7s";
-    depends = [ ];
+    depends = [];
   };
   mouse4302probe = derive2 {
     name = "mouse4302probe";
     version = "2.18.0";
     sha256 = "11mn9j98m3xfk5sn9cb2r92zckm6acplc66c5xn44nazf29pf9n1";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mouse430a2_db = derive2 {
     name = "mouse430a2.db";
@@ -4337,25 +4337,25 @@ with self; {
     name = "mouse430a2cdf";
     version = "2.18.0";
     sha256 = "0530znylp4xqld8kak84d6lnc8r62p413d4kkn4j99kmmvx3l9rn";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mouse430a2frmavecs = derive2 {
     name = "mouse430a2frmavecs";
     version = "1.3.0";
     sha256 = "0bb9fqz4kkw78dw9mbkn1pp6wp7lmyqpcg8gdjg9j9aichbqbnh8";
-    depends = [ ];
+    depends = [];
   };
   mouse430a2probe = derive2 {
     name = "mouse430a2probe";
     version = "2.18.0";
     sha256 = "1f7a6mvcpv57h7kfj1qzkcwh7mdl2w9z6ysmrgan9037rd0652sz";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mouseCHRLOC = derive2 {
     name = "mouseCHRLOC";
     version = "2.1.6";
     sha256 = "0xylgnz43xmjnqdwv7pn034wfs61va21lvcpn9igdik2s42ykpp2";
-    depends = [ ];
+    depends = [];
   };
   mpedbarray_db = derive2 {
     name = "mpedbarray.db";
@@ -4397,13 +4397,13 @@ with self; {
     name = "mu11ksubacdf";
     version = "2.18.0";
     sha256 = "09xm3ah3zlssclblx663rlwrnmx3niabd5nf7zf7krhbpgcwhyim";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mu11ksubaprobe = derive2 {
     name = "mu11ksubaprobe";
     version = "2.18.0";
     sha256 = "1p3kc06h83ivh06a8qqcbpgbsbdfp9nnwvqfxr6d1gdn15qcp96k";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mu11ksubb_db = derive2 {
     name = "mu11ksubb.db";
@@ -4418,13 +4418,13 @@ with self; {
     name = "mu11ksubbcdf";
     version = "2.18.0";
     sha256 = "1dajsq041pg3g9c5j3sd0w6gypqpdva91rb4a7ni990nk45mg23k";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mu11ksubbprobe = derive2 {
     name = "mu11ksubbprobe";
     version = "2.18.0";
     sha256 = "139kbrlxlw0r4z2iyy4qqcc70sb6nmsn0h7v33k5j6r52qz4hjxh";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mu19ksuba_db = derive2 {
     name = "mu19ksuba.db";
@@ -4439,7 +4439,7 @@ with self; {
     name = "mu19ksubacdf";
     version = "2.18.0";
     sha256 = "0c1nhvnnn8v07m6rci2cml6i86rs77b1xnw7jmyndfl458vjlp09";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mu19ksubb_db = derive2 {
     name = "mu19ksubb.db";
@@ -4454,7 +4454,7 @@ with self; {
     name = "mu19ksubbcdf";
     version = "2.18.0";
     sha256 = "1waizab2dn74y8b1w27l1yg29gi00v16fij1jm2yhik5cnjhhhk4";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mu19ksubc_db = derive2 {
     name = "mu19ksubc.db";
@@ -4469,31 +4469,31 @@ with self; {
     name = "mu19ksubccdf";
     version = "2.18.0";
     sha256 = "063v3fn06p1znwrdxn26lz7qz9sfzk10hgabimxw3rz5x0580d4l";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mu6500subacdf = derive2 {
     name = "mu6500subacdf";
     version = "2.18.0";
     sha256 = "15y7x1jgzzc366dapa5gy44m98zpn8mfghjxh12k3k9ryd59lxn9";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mu6500subbcdf = derive2 {
     name = "mu6500subbcdf";
     version = "2.18.0";
     sha256 = "0a0w5yldgjvj8pyw7ygn685pj95qdfm34c0sqvgqf7w7g5wm4jvk";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mu6500subccdf = derive2 {
     name = "mu6500subccdf";
     version = "2.18.0";
     sha256 = "1pflw5cpk7ssrg5kjq81gj9z5jafd2mlm6sv4czxbmjpb6038d01";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mu6500subdcdf = derive2 {
     name = "mu6500subdcdf";
     version = "2.18.0";
     sha256 = "0xq4bgkv6iaivz696lz9rrz53dh8gd9zjvqdnz9c06pg7scfv6r1";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   mwgcod_db = derive2 {
     name = "mwgcod.db";
@@ -4517,13 +4517,13 @@ with self; {
     name = "nugohs1a520180cdf";
     version = "3.4.0";
     sha256 = "1gpa769y27bs4ncicld4994sn6l1h738m1cbv27g58k58r930m1i";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   nugohs1a520180probe = derive2 {
     name = "nugohs1a520180probe";
     version = "3.4.0";
     sha256 = "1zyy4w7c2hx790kxa5bv94nijhmk5fb22ps19jbwwqf7r0d2ffhn";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   nugomm1a520177_db = derive2 {
     name = "nugomm1a520177.db";
@@ -4538,103 +4538,103 @@ with self; {
     name = "nugomm1a520177cdf";
     version = "3.4.0";
     sha256 = "0skd5b76si0vydzk5qhg4f1a1j655alxflm9sqci8fi8safwj96a";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   nugomm1a520177probe = derive2 {
     name = "nugomm1a520177probe";
     version = "3.4.0";
     sha256 = "1n70k0mhv146983myjgk1cgkr9rmmcpqdv8wpkcr320qcvgf9bn7";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   oligoData = derive2 {
     name = "oligoData";
     version = "1.8.0";
     sha256 = "1d1yfms3jv2c4s255xnh8yxwijrj35skw3nxds7l46y88lg3qn8y";
-    depends = [ oligo ];
+    depends = [oligo];
   };
   ontoProcData = derive2 {
     name = "ontoProcData";
     version = "0.99.9901";
     sha256 = "16wwh539hdm89f1vxqfgjmlbqwadnr4xqap80annsqgfn90mi8rk";
-    depends = [ ];
+    depends = [];
   };
   org_Ag_eg_db = derive2 {
     name = "org.Ag.eg.db";
     version = "3.16.0";
     sha256 = "07p8v4ls2s2svd0r276nn4w125iimcq78395r9pmx9x0vw2a6xvj";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   org_At_tair_db = derive2 {
     name = "org.At.tair.db";
     version = "3.16.0";
     sha256 = "15xgqgnd4qmnhx9fd95g40zr07iiw97jkjhmp1whdc5cvd2bhjwm";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   org_Bt_eg_db = derive2 {
     name = "org.Bt.eg.db";
     version = "3.16.0";
     sha256 = "12smyjq1bl1s4j06r3klqbm491in4ndjqnk7j6vydyjrz9jwkdcs";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   org_Ce_eg_db = derive2 {
     name = "org.Ce.eg.db";
     version = "3.16.0";
     sha256 = "0sa4g769wddw4gk3p8103x48hggn6hab28pnsm7idginz5gygc70";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   org_Cf_eg_db = derive2 {
     name = "org.Cf.eg.db";
     version = "3.16.0";
     sha256 = "0w75s2zqvq1rxgvbcnif01fmyj5ajvx9m7jfdb86al8jm3pcd61x";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   org_Dm_eg_db = derive2 {
     name = "org.Dm.eg.db";
     version = "3.16.0";
     sha256 = "1ss1sd9g0lzqa7il4wkchlwqxyrc0wirkdxzd18fmqij7wvwa0pb";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   org_Dr_eg_db = derive2 {
     name = "org.Dr.eg.db";
     version = "3.16.0";
     sha256 = "1vxnf0b5v0lc963vqrzhccya895fhbzzarfwm54gwd7zj9r7chy0";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   org_EcK12_eg_db = derive2 {
     name = "org.EcK12.eg.db";
     version = "3.16.0";
     sha256 = "1n9l2y213187fnbxsyyq51rkl9ck895gymbnacg5krj668h08g6j";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   org_EcSakai_eg_db = derive2 {
     name = "org.EcSakai.eg.db";
     version = "3.16.0";
     sha256 = "0rmis6gx2gwkjli9xp3vwrppp22kdlpxpywx38r0cfkxsaaaq9pi";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   org_Gg_eg_db = derive2 {
     name = "org.Gg.eg.db";
     version = "3.16.0";
     sha256 = "1rdyxwfxiamr1x4zxngjc57a5zpdycjnq5b9xxx9wih8md8ij5aq";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   org_Hs_eg_db = derive2 {
     name = "org.Hs.eg.db";
     version = "3.16.0";
     sha256 = "02ic79qb6b3vp50g44736gkmlx1hsjhfadj7dp463fqdzbg6ybid";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   org_Mm_eg_db = derive2 {
     name = "org.Mm.eg.db";
     version = "3.16.0";
     sha256 = "030wpxzp4lf3fs6wxp1vwrlclxjsq8i507wwvnbhkl9lcys5f0x0";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   org_Mmu_eg_db = derive2 {
     name = "org.Mmu.eg.db";
     version = "3.16.0";
     sha256 = "0sm147m9xp4xdzga2kk8d5zdfgb3qzxz57hhb093ph1a4hyczl64";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   org_Mxanthus_db = derive2 {
     name = "org.Mxanthus.db";
@@ -4651,43 +4651,43 @@ with self; {
     name = "org.Pt.eg.db";
     version = "3.16.0";
     sha256 = "1jwma50lw8c0axr2hs1ij5wn26sl129gk7rcrrk2h1lh21zx48n0";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   org_Rn_eg_db = derive2 {
     name = "org.Rn.eg.db";
     version = "3.16.0";
     sha256 = "1wvnd2f9nv0bgqan63b0v40mv1y8j1jcf30hxlfx72r0isdpf4fh";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   org_Sc_sgd_db = derive2 {
     name = "org.Sc.sgd.db";
     version = "3.16.0";
     sha256 = "03b8m4p865kzhjj8zyhmc0ic0n4jyjdl4h8a8xny10b7xs6l0v9f";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   org_Ss_eg_db = derive2 {
     name = "org.Ss.eg.db";
     version = "3.16.0";
     sha256 = "1v793yxdszxg7hsj0f60qjxlflmpqjywcwmxrvizjzb9d76y6zrk";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   org_Xl_eg_db = derive2 {
     name = "org.Xl.eg.db";
     version = "3.16.0";
     sha256 = "0j2xv59d65gin2v6d2gfsly6wyj9bmjpnld75qzlc7sqapa51li6";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   paeg1acdf = derive2 {
     name = "paeg1acdf";
     version = "2.18.0";
     sha256 = "127pgxxp5wp3hgmafbzdzsk4gqnllq1m1gcsfyzkvpkvmbn4aa9n";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   paeg1aprobe = derive2 {
     name = "paeg1aprobe";
     version = "2.18.0";
     sha256 = "0hbyd402wf9nzy2g93nhnf2zsi9jvhgfk0llxlyfk0kqxs0y4byy";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   pd_081229_hg18_promoter_medip_hx1 = derive2 {
     name = "pd.081229.hg18.promoter.medip.hx1";
@@ -7135,31 +7135,31 @@ with self; {
     name = "pig.db0";
     version = "3.16.0";
     sha256 = "0aj1xafsx1dg4w6mmfaaj87izgjfs8akj4dm5x7qzcmvxcd6sx7c";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   plasmodiumanophelescdf = derive2 {
     name = "plasmodiumanophelescdf";
     version = "2.18.0";
     sha256 = "1vs36091djinn3g6rjhmy9xfdyi58365zbcjc9mf50adnp2i5fq9";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   plasmodiumanophelesprobe = derive2 {
     name = "plasmodiumanophelesprobe";
     version = "2.18.0";
     sha256 = "03hfq51nrpmx8ihc48jiih6bk99irrgal9x7i7mgcv8xd508gcsy";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   poplarcdf = derive2 {
     name = "poplarcdf";
     version = "2.18.0";
     sha256 = "0j28czs936j2wgwp63qbwl1mjcflcrx7ir88jzxkkw7411ch1gl1";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   poplarprobe = derive2 {
     name = "poplarprobe";
     version = "2.18.0";
     sha256 = "1pi6lhkk3lr49qs0yfpxm80nm1zqn4syykydymah2208r6qnkgv2";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   porcine_db = derive2 {
     name = "porcine.db";
@@ -7174,25 +7174,25 @@ with self; {
     name = "porcinecdf";
     version = "2.18.0";
     sha256 = "1ywbgh5nk3bba0mhmbbmvry0j9m9vk7qmsacl5nx1cjd7kp68csv";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   porcineprobe = derive2 {
     name = "porcineprobe";
     version = "2.18.0";
     sha256 = "16q865wjrfcm5ffqwjdk762yq1ixa93jlvfg7xbhsvajvvw5dxdy";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   primeviewcdf = derive2 {
     name = "primeviewcdf";
     version = "2.18.0";
     sha256 = "0qj3l2iabpl2d79pr258cbqar4hdpjkbwf829bnwrmabkaq92z48";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   primeviewprobe = derive2 {
     name = "primeviewprobe";
     version = "2.18.0";
     sha256 = "0kw04789ihxnw874qcdj5ypwj6npya2v3p893ahjwhys5wrivmqg";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   r10kcod_db = derive2 {
     name = "r10kcod.db";
@@ -7207,7 +7207,7 @@ with self; {
     name = "rGenomeTracksData";
     version = "0.99.0";
     sha256 = "1b9g8409b0b6nrskzhm7zrr61la885b8vkp0v1qf72jclbq762ka";
-    depends = [ AnnotationHub ];
+    depends = [AnnotationHub];
   };
   rae230a_db = derive2 {
     name = "rae230a.db";
@@ -7222,13 +7222,13 @@ with self; {
     name = "rae230acdf";
     version = "2.18.0";
     sha256 = "1f62gw18mhmrm4sqc3kazsm5zd4m73f99xzxbakqhvr5sbdqh28k";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   rae230aprobe = derive2 {
     name = "rae230aprobe";
     version = "2.18.0";
     sha256 = "0gkpaa53znqsmi3366wfmqz6q3d1cq3ymag09gkpdmssrp1rh9qh";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   rae230b_db = derive2 {
     name = "rae230b.db";
@@ -7243,13 +7243,13 @@ with self; {
     name = "rae230bcdf";
     version = "2.18.0";
     sha256 = "1j2i49cp042nk3rkf8q6gxcnwd5cihz1nyg8r6yndkja51r41pi8";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   rae230bprobe = derive2 {
     name = "rae230bprobe";
     version = "2.18.0";
     sha256 = "1smqs93fks4rd5g9kk7cacnpsnj4rjr0d6fl2i01mdiihfi3csny";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   raex10stprobeset_db = derive2 {
     name = "raex10stprobeset.db";
@@ -7291,13 +7291,13 @@ with self; {
     name = "ragene10stv1cdf";
     version = "2.18.0";
     sha256 = "0fm2yj6nn3v1wiscjb53hm4ylh5cgxvs7qgc9sbsbpv7agr0bzng";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   ragene10stv1probe = derive2 {
     name = "ragene10stv1probe";
     version = "2.18.0";
     sha256 = "0cb3a908hixcakl41ay4yyfm9r97ln8gjidn4rs1hr7qaplfj1mh";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   ragene11stprobeset_db = derive2 {
     name = "ragene11stprobeset.db";
@@ -7357,7 +7357,7 @@ with self; {
     name = "rat.db0";
     version = "3.16.0";
     sha256 = "18c7im1l50z7gzj5i9aj3h9pqvnrrazqimigp49nh6ssxlpy51rc";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   rat2302_db = derive2 {
     name = "rat2302.db";
@@ -7372,7 +7372,7 @@ with self; {
     name = "rat2302cdf";
     version = "2.18.0";
     sha256 = "1748rc6yypd7y8wgr1qg632pcsxx0fkxjz6b3z4fhblgdllhy9wk";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   rat2302frmavecs = derive2 {
     name = "rat2302frmavecs";
@@ -7387,31 +7387,31 @@ with self; {
     name = "rat2302probe";
     version = "2.18.0";
     sha256 = "1zwjgbcb9d4ib6z1iyjz8x11lq0b5gqs08y6j3idb5wf3i2p521v";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   ratCHRLOC = derive2 {
     name = "ratCHRLOC";
     version = "2.1.6";
     sha256 = "0mgk6lwvvdwjzjh4r1q1q6nfnx4vqx9iy6gmbrb9f31jf30hqnsb";
-    depends = [ ];
+    depends = [];
   };
   rattoxfxcdf = derive2 {
     name = "rattoxfxcdf";
     version = "2.18.0";
     sha256 = "0q84lfaxnnj2zbm5q8xswa1md15fjj4i0djnqr835ixzn7px4yqn";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   rattoxfxprobe = derive2 {
     name = "rattoxfxprobe";
     version = "2.18.0";
     sha256 = "1kp159553rkcn9yh6x3yph3yjz2ja21wi9j5ax03qnhwlsl1x8ik";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   reactome_db = derive2 {
     name = "reactome.db";
     version = "1.82.0";
     sha256 = "0l6k7jy0gz8wsv69apw4nk6lbr0ppbfpyjppk81hqn22pzi17w42";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   rgu34a_db = derive2 {
     name = "rgu34a.db";
@@ -7426,13 +7426,13 @@ with self; {
     name = "rgu34acdf";
     version = "2.18.0";
     sha256 = "08z9f16xp1m2mwl9vlmbffxl4zyyl8cgzf6wp66rrm32lvl0nbwq";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   rgu34aprobe = derive2 {
     name = "rgu34aprobe";
     version = "2.18.0";
     sha256 = "1gjxyq9128jgv3ic386f84rajgf3wz7yi2dja80y0ff4m0a48dlh";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   rgu34b_db = derive2 {
     name = "rgu34b.db";
@@ -7447,13 +7447,13 @@ with self; {
     name = "rgu34bcdf";
     version = "2.18.0";
     sha256 = "1iw0jydcjizkxybpbimcc9m8rjl4xm3jx431nvr28h14948jhrg3";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   rgu34bprobe = derive2 {
     name = "rgu34bprobe";
     version = "2.18.0";
     sha256 = "097q0994fbn05b6iprncynpka9zm9ayh1pmjya44lj4ahfmflgiq";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   rgu34c_db = derive2 {
     name = "rgu34c.db";
@@ -7468,13 +7468,13 @@ with self; {
     name = "rgu34ccdf";
     version = "2.18.0";
     sha256 = "0v6glasybwg73synvlq6rf3fw4wckavp09waf3g3hya4qzy45r1x";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   rgu34cprobe = derive2 {
     name = "rgu34cprobe";
     version = "2.18.0";
     sha256 = "00v9hbq5vc6ah4gws196isglicxj1dpzp1a0vv4pkl2ph59hkf1q";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   rguatlas4k_db = derive2 {
     name = "rguatlas4k.db";
@@ -7516,19 +7516,19 @@ with self; {
     name = "rhesus.db0";
     version = "3.16.0";
     sha256 = "0zz6aarirvd31x6cnya097ckjvww3g5wx135wg4041f33cqisq55";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   rhesuscdf = derive2 {
     name = "rhesuscdf";
     version = "2.18.0";
     sha256 = "0q2alkxm80wkzaf0q80df27q30qkswybavz05x6ywsihbs9h0nb8";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   rhesusprobe = derive2 {
     name = "rhesusprobe";
     version = "2.18.0";
     sha256 = "0fd8pvwvpcmx41k80nbccjxllh39fvjf7l9dr8facisl1x7gsfil";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   ri16cod_db = derive2 {
     name = "ri16cod.db";
@@ -7543,13 +7543,13 @@ with self; {
     name = "ricecdf";
     version = "2.18.0";
     sha256 = "07lsw9rklk2rsvbkcj1ci8hg2x68k3qpkx9yw0cmd7rg5fvydgns";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   riceprobe = derive2 {
     name = "riceprobe";
     version = "2.18.0";
     sha256 = "0w6qvszdmnipn3v2bld46x7my2a9hni0jbxd0y1d6xcrrgs951ra";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   rnu34_db = derive2 {
     name = "rnu34.db";
@@ -7564,13 +7564,13 @@ with self; {
     name = "rnu34cdf";
     version = "2.18.0";
     sha256 = "1snb89530zxdbsfs1vgw30b1wdc5sdr1q46bmvz5m9g57gyficr0";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   rnu34probe = derive2 {
     name = "rnu34probe";
     version = "2.18.0";
     sha256 = "1rzjha1v453fxiwqs2zgwcbrvz6w96biz2jny0hrh5s86d5f6xpb";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   rta10probeset_db = derive2 {
     name = "rta10probeset.db";
@@ -7603,13 +7603,13 @@ with self; {
     name = "rtu34cdf";
     version = "2.18.0";
     sha256 = "10f5wnvk820c8brl2qqs7mv6jcn1v6pmz680kvlpyz9s2sz16936";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   rtu34probe = derive2 {
     name = "rtu34probe";
     version = "2.18.0";
     sha256 = "0mcp9lmc65j3ds73gyak72pkshnx6km0d2cm324yaxlp9bqzfchw";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   rwgcod_db = derive2 {
     name = "rwgcod.db";
@@ -7624,49 +7624,49 @@ with self; {
     name = "saureuscdf";
     version = "2.18.0";
     sha256 = "0vmm3fy10dzzmaq22ah4fb0k3fs1gdbhnsi8mxz7xgp27dcan29j";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   saureusprobe = derive2 {
     name = "saureusprobe";
     version = "2.18.0";
     sha256 = "0s5ma3hh7ncsi4dq33r3hwffk85x3gvjbm5cslppbsd0r0bjwkia";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   scAnnotatR_models = derive2 {
     name = "scAnnotatR.models";
     version = "0.99.10";
     sha256 = "1mj23jyakx5bss4v8lb66ri67ajcxk9kzfp8ya8vsbhkx5npqgl4";
-    depends = [ ];
+    depends = [];
   };
   soybeancdf = derive2 {
     name = "soybeancdf";
     version = "2.18.0";
     sha256 = "1dlwxdslm827661z6f4z2hwr7wpwqfzvizhvv63p86ll7l6gs3s8";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   soybeanprobe = derive2 {
     name = "soybeanprobe";
     version = "2.18.0";
     sha256 = "06dpwqad7q3wyq0bsgpwkw8kx1gq5fy1s1lw632xrvgcid2fsmf8";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   sugarcanecdf = derive2 {
     name = "sugarcanecdf";
     version = "2.18.0";
     sha256 = "0wghc6wr7iwkql63m3wibjjdcdpqd53z0g5rxdh553sjb0ca2n7z";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   sugarcaneprobe = derive2 {
     name = "sugarcaneprobe";
     version = "2.18.0";
     sha256 = "17zrydd8xd7m61bp750xlpcak0m3zgl0mvknz9s7mv2a35kp02ih";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   synaptome_data = derive2 {
     name = "synaptome.data";
     version = "0.99.6";
     sha256 = "00cqgx06wysz0qyicwnxlc8hpqkj5rwqlyfzsvy7agvcjjkarwg5";
-    depends = [ AnnotationHub ];
+    depends = [AnnotationHub];
   };
   synaptome_db = derive2 {
     name = "synaptome.db";
@@ -7687,55 +7687,55 @@ with self; {
     name = "targetscan.Hs.eg.db";
     version = "0.6.1";
     sha256 = "1p14jyhn1d2m6kww9vsb96263g8crnrff7qgyiz46pp9ww8mvxf4";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   targetscan_Mm_eg_db = derive2 {
     name = "targetscan.Mm.eg.db";
     version = "0.6.1";
     sha256 = "0ad6vxpwn9x82qcrpwcy1lwg0q3ik4vabxn01k6gwmbpvydz9cf5";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   test1cdf = derive2 {
     name = "test1cdf";
     version = "2.18.0";
     sha256 = "0nmkrp4b2p09pg8ndcnfv5y7w94xah6fa5pff60dp1s2s8dcgcr4";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   test2cdf = derive2 {
     name = "test2cdf";
     version = "2.18.0";
     sha256 = "0hr8y7s0vvg6dzridwj2qh4kmsn24lq7km28pipn9m4iyis0i2hw";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   test3cdf = derive2 {
     name = "test3cdf";
     version = "2.18.0";
     sha256 = "0954g4qk52f53c34gl4x5dmpcm1dia5dl6vyr20vxz6ffpmqdb4h";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   test3probe = derive2 {
     name = "test3probe";
     version = "2.18.0";
     sha256 = "005s4sags80zkd6hvndqlcr6vxsbxgbdwilsrrjbwpw27w9yvymg";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   tomatocdf = derive2 {
     name = "tomatocdf";
     version = "2.18.0";
     sha256 = "1ldq5pxzh2vms5nbhn3aiy55hx2x3zbzy9wlbf2v2wczwlzbiinm";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   tomatoprobe = derive2 {
     name = "tomatoprobe";
     version = "2.18.0";
     sha256 = "1aj8zmpla9b9p7pj0qnp2jqrj7azp1nmfvjcbka5ns5vrnvfpf92";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   u133aaofav2cdf = derive2 {
     name = "u133aaofav2cdf";
     version = "2.18.0";
     sha256 = "052hs4lwllq0p0fsx5d1ixqhrdl889k14z10kahpsjn60746qarm";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   u133x3p_db = derive2 {
     name = "u133x3p.db";
@@ -7750,61 +7750,61 @@ with self; {
     name = "u133x3pcdf";
     version = "2.18.0";
     sha256 = "05bdb5bz1ffv7dhbzn0s5ybygah72zvhz8zcj8bn9dg0k40yqsrb";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   u133x3pprobe = derive2 {
     name = "u133x3pprobe";
     version = "2.18.0";
     sha256 = "0xzm6dkf78mp1yhdl3w0hg36saxgb4sxnq0dsvzjmfaca74ir2qy";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   vitisviniferacdf = derive2 {
     name = "vitisviniferacdf";
     version = "2.18.0";
     sha256 = "027nn1fr5zixnlikw4pi704kdfrfm388j5qr30y9bsky445fn7g4";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   vitisviniferaprobe = derive2 {
     name = "vitisviniferaprobe";
     version = "2.18.0";
     sha256 = "1ggz1s37dwvrkhj4vx2civyhap7bgqsshy33lk14z4fjsayfi39a";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   wheatcdf = derive2 {
     name = "wheatcdf";
     version = "2.18.0";
     sha256 = "1gmbrdilqvm54h6nkb1cm01ki8aipiywd4qj8gpwlm2hqrimr8kr";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   wheatprobe = derive2 {
     name = "wheatprobe";
     version = "2.18.0";
     sha256 = "1fifi3pvzdrg356idwz0kx7qlf5mssdxlyvwpn3cjgw0z7n7cnw8";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   worm_db0 = derive2 {
     name = "worm.db0";
     version = "3.16.0";
     sha256 = "06wn3nw6614awmf7z7r2kq02347bbmpq8ydzbpsrfniq14jly6m4";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   xenopus_db0 = derive2 {
     name = "xenopus.db0";
     version = "3.16.0";
     sha256 = "146zg2x69m3hzyqbjzadilaqskzfxvjblw0c4pjgv6akf3vi3xn3";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   xenopuslaeviscdf = derive2 {
     name = "xenopuslaeviscdf";
     version = "2.18.0";
     sha256 = "1bcz1hr7gxw6ac4qvw0giph6hfcf5i9b11s274ypq512qc1d32iq";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   xenopuslaevisprobe = derive2 {
     name = "xenopuslaevisprobe";
     version = "2.18.0";
     sha256 = "0prb14zn2gvgxq8w0y21x1ng51cn3bgjhkppf7zkmnq1xkzvq0pw";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   xlaevis_db = derive2 {
     name = "xlaevis.db";
@@ -7819,55 +7819,55 @@ with self; {
     name = "xlaevis2cdf";
     version = "2.18.0";
     sha256 = "1w7f6z5f0mfgblfjy840dxj3y1l9zz8fp4s8q6zd580nwaa50g78";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   xlaevis2probe = derive2 {
     name = "xlaevis2probe";
     version = "2.18.0";
     sha256 = "0vrhbzi3myh10v7r5a6jqiinllns3n40nxs097px7g80x8ajkmb2";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   xtropicaliscdf = derive2 {
     name = "xtropicaliscdf";
     version = "2.18.0";
     sha256 = "03plnc0dya0dgmvay3hyw5yi91ris6gl643chmjil7p8vn9lb5as";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   xtropicalisprobe = derive2 {
     name = "xtropicalisprobe";
     version = "2.18.0";
     sha256 = "02z376zy7bqdghbfqqs6h62icfzq26k4aap5ks4hb745i4hrpgif";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   ye6100subacdf = derive2 {
     name = "ye6100subacdf";
     version = "2.18.0";
     sha256 = "0pkiw0lh4p2ng0rf9n0d589yasdx7mbw0srn5drdqyr5qwi9wfis";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   ye6100subbcdf = derive2 {
     name = "ye6100subbcdf";
     version = "2.18.0";
     sha256 = "1169hv56981b915rlr5w5sn6ppyjd8as7f4k1hbjzadrdrl3glwp";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   ye6100subccdf = derive2 {
     name = "ye6100subccdf";
     version = "2.18.0";
     sha256 = "0mhr4zd33gfvvivc17k7fb6nvmhq6h3q0xbx2zl09zd6qk09kizm";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   ye6100subdcdf = derive2 {
     name = "ye6100subdcdf";
     version = "2.18.0";
     sha256 = "11b1fflgc34lrj4yf1p7way5n83cm9c7znsbxpzlwddwyy8qib30";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   yeast_db0 = derive2 {
     name = "yeast.db0";
     version = "3.16.0";
     sha256 = "0ibc6lzax4f3ym049s3cgg0fqhab7vlnk3xs2javvnx2vmizsi54";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   yeast2_db = derive2 {
     name = "yeast2.db";
@@ -7882,13 +7882,13 @@ with self; {
     name = "yeast2cdf";
     version = "2.18.0";
     sha256 = "0c68val9x8bfnv4xx0vag9dxwsx5q8dzbj0dpha3nshh12jw48w9";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   yeast2probe = derive2 {
     name = "yeast2probe";
     version = "2.18.0";
     sha256 = "125nif693qcmxc0nnnz917f9avggcdr8g9rfvx2qdc54a2l7vdb7";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   ygs98_db = derive2 {
     name = "ygs98.db";
@@ -7903,19 +7903,19 @@ with self; {
     name = "ygs98cdf";
     version = "2.18.0";
     sha256 = "0j04biahbm2l31aayddp0z9rh3jq1ydxf3h8pxr3pvq2vjj1q2mh";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   ygs98frmavecs = derive2 {
     name = "ygs98frmavecs";
     version = "1.3.0";
     sha256 = "1xrm1209xnknwvad7nvg1a0mbxz15z12yd4x5bia3cq03zcmzf9m";
-    depends = [ ];
+    depends = [];
   };
   ygs98probe = derive2 {
     name = "ygs98probe";
     version = "2.18.0";
     sha256 = "0awf6z4j2vb2jk9a9j2r512yd3m31660y68pasa9mp488m270a3q";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   zebrafish_db = derive2 {
     name = "zebrafish.db";
@@ -7930,19 +7930,19 @@ with self; {
     name = "zebrafish.db0";
     version = "3.16.0";
     sha256 = "186z99zsw023wq8l94l781lh7szrx72bxkg1f0ldq0lz5j3k99cn";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   zebrafishcdf = derive2 {
     name = "zebrafishcdf";
     version = "2.18.0";
     sha256 = "0sq1xqhblbilvaiabhqyl9gxdj3jg576vgq8v0cls1zvvx0isrx0";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   zebrafishprobe = derive2 {
     name = "zebrafishprobe";
     version = "2.18.0";
     sha256 = "1pb8z2rdhq11hq391xyi236scyafbp56kbhhwsnha36yygz5drw0";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
   };
   LRBase_Ath_eg_db = derive2 {
     name = "LRBase.Ath.eg.db";
@@ -8098,511 +8098,511 @@ with self; {
     name = "MeSH.AOR.db";
     version = "1.15.1";
     sha256 = "1d33krs3xs0pa14gm7haiaglnlx5z41m6gx92gg8ckfpblyz49q2";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Aca_eg_db = derive2 {
     name = "MeSH.Aca.eg.db";
     version = "1.15.1";
     sha256 = "195hs3x0sfs4s5kry452r0fhnq19ayv82j4dr1394zr104r17kb1";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Aga_PEST_eg_db = derive2 {
     name = "MeSH.Aga.PEST.eg.db";
     version = "1.15.1";
     sha256 = "1kyjhnfv3b0jxdali2v1wdqd1zkl9vsf2z9ba6dkhlm1hghsnv63";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Ame_eg_db = derive2 {
     name = "MeSH.Ame.eg.db";
     version = "1.15.1";
     sha256 = "1szzcnf5fwaqpj2ra2b1xics971lwg3rnzdria8j3yl705zxnl3g";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Aml_eg_db = derive2 {
     name = "MeSH.Aml.eg.db";
     version = "1.15.1";
     sha256 = "1pgfhm5qhm9d7s0sr4iij7272m2i6y9di51r137mrmpc5fcc1mmx";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Ana_eg_db = derive2 {
     name = "MeSH.Ana.eg.db";
     version = "1.15.1";
     sha256 = "117sz11lg3kl90v7bkai3acyvcxjggar8fpgyac99369pinkqikp";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Ani_FGSC_eg_db = derive2 {
     name = "MeSH.Ani.FGSC.eg.db";
     version = "1.15.1";
     sha256 = "1hwhvm7ip3kjdb31glasixqzwja37352x70id18n2bfbjgq4x3r2";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Ath_eg_db = derive2 {
     name = "MeSH.Ath.eg.db";
     version = "1.15.1";
     sha256 = "12dmbr6aynxyfg0cv5jrshj27rmk89apbpsg1zxf7cmqkkvq8bcv";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Bfl_eg_db = derive2 {
     name = "MeSH.Bfl.eg.db";
     version = "1.15.1";
     sha256 = "1y6r6hillawafxgxvkcffg8bx125ra6b4f9cclcz1n3qzqfnjj0s";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Bsu_168_eg_db = derive2 {
     name = "MeSH.Bsu.168.eg.db";
     version = "1.15.1";
     sha256 = "0d363769blvq0hm3yzbff007sn3sq8fb4gay8qgrcj2jrnnd4wp4";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Bta_eg_db = derive2 {
     name = "MeSH.Bta.eg.db";
     version = "1.15.1";
     sha256 = "0g9m2y209gl6nyn05j4fznnh21raz8xwj1if7zb1aixxzykqi313";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Cal_SC5314_eg_db = derive2 {
     name = "MeSH.Cal.SC5314.eg.db";
     version = "1.15.1";
     sha256 = "1z3id2838fd14x9nib931cmjb0x339hq1izdr3gq8kc4yfvl40r5";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Cbr_eg_db = derive2 {
     name = "MeSH.Cbr.eg.db";
     version = "1.15.1";
     sha256 = "0fbg3sv5addw9ad586nyh0vbwfdnjzwqnqxa8jz8plpmjn043wl0";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Cel_eg_db = derive2 {
     name = "MeSH.Cel.eg.db";
     version = "1.15.1";
     sha256 = "19hp0f0vqlzdqbn9qs839b8sflbcww02k7fzsmyzpqd38kvhwf2w";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Cfa_eg_db = derive2 {
     name = "MeSH.Cfa.eg.db";
     version = "1.15.1";
     sha256 = "19jjdp5cq1pisgk7nxwi8cdzjk44bbh02fjy027f50i6dnj75i7i";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Cin_eg_db = derive2 {
     name = "MeSH.Cin.eg.db";
     version = "1.15.1";
     sha256 = "0y53q8q1ca93ri6msnjzj3m6rqangidfvvchirgk9pa4k67dh534";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Cja_eg_db = derive2 {
     name = "MeSH.Cja.eg.db";
     version = "1.15.1";
     sha256 = "0jsbncm9ggi63fjng8nl08bhzajgjrckfq2ngqbcnmf8p1gzg60a";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Cpo_eg_db = derive2 {
     name = "MeSH.Cpo.eg.db";
     version = "1.15.1";
     sha256 = "1w47fmy9akwxxsvdx7d1s0qdzafxyghl6lh33cy5jcb4bj525635";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Cre_eg_db = derive2 {
     name = "MeSH.Cre.eg.db";
     version = "1.15.1";
     sha256 = "0bq8r70vv55shfgdx94qiympk0vf9rf7xr467bps82ks0kklzr7v";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Dan_eg_db = derive2 {
     name = "MeSH.Dan.eg.db";
     version = "1.15.1";
     sha256 = "1k5dfwm5fn4zghaphsjs0f7jzjcdcay1afm2c09qyh7xv9m1cpry";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Dda_3937_eg_db = derive2 {
     name = "MeSH.Dda.3937.eg.db";
     version = "1.15.1";
     sha256 = "0idh5djnz1wwxp09xpjwac4dhz6kvwp1l0j92195b0xwv4n11pzk";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Ddi_AX4_eg_db = derive2 {
     name = "MeSH.Ddi.AX4.eg.db";
     version = "1.15.1";
     sha256 = "0aprxgrlz7hnk31fr6vqpprahjn07r48dnva9gszgyp740mx1m1d";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Der_eg_db = derive2 {
     name = "MeSH.Der.eg.db";
     version = "1.15.1";
     sha256 = "0wbv1f5bsb3xl8rj1qndb0n77rmg2s9m5nl2f95naqaf3hfypsmd";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Dgr_eg_db = derive2 {
     name = "MeSH.Dgr.eg.db";
     version = "1.15.1";
     sha256 = "07zzwf4aqpkvjmbbvzc6bq662frxblsx4l0ljna70gr4xb218swl";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Dme_eg_db = derive2 {
     name = "MeSH.Dme.eg.db";
     version = "1.15.1";
     sha256 = "1fls5b3w6n2n9vy4fsvri74f6r2qmlrx8vlrgqmb7plxdp35q0jw";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Dmo_eg_db = derive2 {
     name = "MeSH.Dmo.eg.db";
     version = "1.15.1";
     sha256 = "0fphjwbxnymf30ccppjyfgwz0pv5n1lwzm7h05lppk7a7f8ys665";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Dpe_eg_db = derive2 {
     name = "MeSH.Dpe.eg.db";
     version = "1.15.1";
     sha256 = "0921dxba9crqml8in0hwnwlzcqvjhhi94mllbmksp8cwka48rzs8";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Dre_eg_db = derive2 {
     name = "MeSH.Dre.eg.db";
     version = "1.15.1";
     sha256 = "087pcpbskgc59c04bn3201d4agy9vsma0r1wsf60zxr3l491yn6v";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Dse_eg_db = derive2 {
     name = "MeSH.Dse.eg.db";
     version = "1.15.1";
     sha256 = "0drqyd131l7vr9v899hjvva4d5mmv7fbhmflgz49i2iy3360xz32";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Dsi_eg_db = derive2 {
     name = "MeSH.Dsi.eg.db";
     version = "1.15.1";
     sha256 = "0i3j3392d690xkg7cfzqnw0s09q8mpiq2wfpifkk0hbxnc5aahwd";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Dvi_eg_db = derive2 {
     name = "MeSH.Dvi.eg.db";
     version = "1.15.1";
     sha256 = "168jy0v39j2fpy59s3dpz0xs3axmnc7kb1dv88b5j1xccymkd3gl";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Dya_eg_db = derive2 {
     name = "MeSH.Dya.eg.db";
     version = "1.15.1";
     sha256 = "1ibbh07nczp75f0x2mnq5mnli6fgg7mn2aqk434l3iwjx686mcpj";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Eca_eg_db = derive2 {
     name = "MeSH.Eca.eg.db";
     version = "1.15.1";
     sha256 = "1b16fqx56sl1ask5hk3krw2p7ph5q9wg78zygbd1pbx04q95469r";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Eco_K12_MG1655_eg_db = derive2 {
     name = "MeSH.Eco.K12.MG1655.eg.db";
     version = "1.15.1";
     sha256 = "0p3gf9hwr3hrzlczwr7lhwxnl46iqfz66dvz38h7c02bjlpjjdjd";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Eco_O157_H7_Sakai_eg_db = derive2 {
     name = "MeSH.Eco.O157.H7.Sakai.eg.db";
     version = "1.15.1";
     sha256 = "0wda4hkzwfvkn51fchzpwgc5p9964yyfjg8bpvk2331zx9lsvgs2";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Gga_eg_db = derive2 {
     name = "MeSH.Gga.eg.db";
     version = "1.15.1";
     sha256 = "0d72haww3zi1x06qllwnlsrwkwivn6z8ws9nkrnb24vn3saxv41b";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Gma_eg_db = derive2 {
     name = "MeSH.Gma.eg.db";
     version = "1.15.1";
     sha256 = "1xbwkxn351yhjbc529y4fkj366a3pnk1b8s3h1ys5w8czz3szfn3";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Hsa_eg_db = derive2 {
     name = "MeSH.Hsa.eg.db";
     version = "1.15.1";
     sha256 = "1cgfwp8hk40af0d5rzi3vsmvx22jp1nwsgyld1mzkry2i8ilbzyj";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Laf_eg_db = derive2 {
     name = "MeSH.Laf.eg.db";
     version = "1.15.1";
     sha256 = "1r2bnakd47gq95s47rywhak7csz77zphml0zfrchi189kh01prg4";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Lma_eg_db = derive2 {
     name = "MeSH.Lma.eg.db";
     version = "1.15.1";
     sha256 = "1x3rjw2hvzxaq68abyh8b9bw1zizkrqxj6pgd5d6ggcl8l0x1fnz";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Mdo_eg_db = derive2 {
     name = "MeSH.Mdo.eg.db";
     version = "1.15.1";
     sha256 = "156dc2vssa8x0a0985fhyx7h5vaw4d3ingz0s09181ai9fxqc1jx";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Mes_eg_db = derive2 {
     name = "MeSH.Mes.eg.db";
     version = "1.15.1";
     sha256 = "0a3gdmpp9y6s6aw7lyh7j25dahgmkb0azg7g57073fqwhgivs2mx";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Mga_eg_db = derive2 {
     name = "MeSH.Mga.eg.db";
     version = "1.15.1";
     sha256 = "1gil8g9h8qyd0b4qmqrk7dakvjqwlychzld0wv20z7hipqas975d";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Miy_eg_db = derive2 {
     name = "MeSH.Miy.eg.db";
     version = "1.15.1";
     sha256 = "1p1f6vk1f360zx4wkzcyczi4p4x6mgf4pfrvhslz4kn6xg0cnm73";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Mml_eg_db = derive2 {
     name = "MeSH.Mml.eg.db";
     version = "1.15.1";
     sha256 = "16372gs4nh9cr18xy4nzssjmdarxbkx7c6208s4vx6232mbc1azl";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Mmu_eg_db = derive2 {
     name = "MeSH.Mmu.eg.db";
     version = "1.15.1";
     sha256 = "1557vn9sy1a2picwj27gkajqp8qlqza0yqf69czimd1myskdicps";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Mtr_eg_db = derive2 {
     name = "MeSH.Mtr.eg.db";
     version = "1.15.1";
     sha256 = "1gi2v9x0jja6ambdljp9m11g6yhd3wcfcjblgx58i42ix5h5mviw";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Nle_eg_db = derive2 {
     name = "MeSH.Nle.eg.db";
     version = "1.15.1";
     sha256 = "1vplci90jb1cihwbxqkynqk9frr7j09gh80q020dhm24f3rwlfqk";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Oan_eg_db = derive2 {
     name = "MeSH.Oan.eg.db";
     version = "1.15.1";
     sha256 = "1fmwfmws100qmg3wy25qg0s36nk81rwf6b1csvqg4vfy9p0r2pdw";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Ocu_eg_db = derive2 {
     name = "MeSH.Ocu.eg.db";
     version = "1.15.1";
     sha256 = "019ydfl6dqymn8yk2n101rdrmyv82ypcbvwmslimdhnlk3bzrj3a";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Oni_eg_db = derive2 {
     name = "MeSH.Oni.eg.db";
     version = "1.15.1";
     sha256 = "1jadbca3c3xw24p8zvrd3q7ijjrrfjxkf1bw08ay3a9gazqyv0rh";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Osa_eg_db = derive2 {
     name = "MeSH.Osa.eg.db";
     version = "1.15.1";
     sha256 = "028lw4xjd1v7afp1l0xizswciy1hxhllrf9ij328si5a0kb3dxwc";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_PCR_db = derive2 {
     name = "MeSH.PCR.db";
     version = "1.15.1";
     sha256 = "1hdk3s3ixh1haqp70ww547cbnwhllk6fhc4fgriidw0jivbkawx1";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Pab_eg_db = derive2 {
     name = "MeSH.Pab.eg.db";
     version = "1.15.1";
     sha256 = "00hy436bbk7jza00dv2xgnbji3k72x405n88pgd8d9rgj7cmqvjp";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Pae_PAO1_eg_db = derive2 {
     name = "MeSH.Pae.PAO1.eg.db";
     version = "1.15.1";
     sha256 = "04pprh5m431cpk4whfsiqb8fglda82jk4d06nhlz9k9nd5x9np82";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Pfa_3D7_eg_db = derive2 {
     name = "MeSH.Pfa.3D7.eg.db";
     version = "1.15.1";
     sha256 = "1a0q8xyhfvjvdsxq5hgh255q3rg823l1b8nyswnkai3sl3hq3szd";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Pto_eg_db = derive2 {
     name = "MeSH.Pto.eg.db";
     version = "1.15.1";
     sha256 = "0z4l55029lrmvysj26vn97c690yyhji46axvxsdjvzwp8llhwy3m";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Ptr_eg_db = derive2 {
     name = "MeSH.Ptr.eg.db";
     version = "1.15.1";
     sha256 = "1h1ci6y0hjii1r6gp24y2m7qqn8d0r954swbc9crb0i2mfak7l1a";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Rno_eg_db = derive2 {
     name = "MeSH.Rno.eg.db";
     version = "1.15.1";
     sha256 = "1rfxbfz72xazay0rszhjvxxqry532dx72kkp5vd0pi44536kly49";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Sce_S288c_eg_db = derive2 {
     name = "MeSH.Sce.S288c.eg.db";
     version = "1.15.1";
     sha256 = "100fcybyv4lsnxj23ndchhn25i2bfppk6w0y2lfnrla1vn8p5nnp";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Sco_A32_eg_db = derive2 {
     name = "MeSH.Sco.A32.eg.db";
     version = "1.15.1";
     sha256 = "1y5nh82hbwh7higzg0fv4rkvxl2p988w7aznygaq5z3g1q15l9sp";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Sil_eg_db = derive2 {
     name = "MeSH.Sil.eg.db";
     version = "1.15.1";
     sha256 = "09vj1ix13kxyb330s69nnig07a7cwyz7nasvv5kv83cnc27df92m";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Spu_eg_db = derive2 {
     name = "MeSH.Spu.eg.db";
     version = "1.15.1";
     sha256 = "0gmpcabxs0d61krhyllyrb92x0xgr67jv2wc8qbjv8m8vpiynnxh";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Ssc_eg_db = derive2 {
     name = "MeSH.Ssc.eg.db";
     version = "1.15.1";
     sha256 = "05ybk27chnxf3mqvngfzlrmnlpjdraqzd0qcsj6zmhsyx6j20qh5";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Syn_eg_db = derive2 {
     name = "MeSH.Syn.eg.db";
     version = "1.15.1";
     sha256 = "1rkc9gv9an0zan04qalmyvry380yhf2vx8scfvck9jwkq5x05w97";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Tbr_9274_eg_db = derive2 {
     name = "MeSH.Tbr.9274.eg.db";
     version = "1.15.1";
     sha256 = "1nak2sz25l8mc3f60h84519wm7lb8iamj9116mbf4b6ybdp0k4gd";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Tgo_ME49_eg_db = derive2 {
     name = "MeSH.Tgo.ME49.eg.db";
     version = "1.15.1";
     sha256 = "16j9wiv0lgik94yp7vqgcc5lykjynn07sbvvq2llcyvr6n3l3gwy";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Tgu_eg_db = derive2 {
     name = "MeSH.Tgu.eg.db";
     version = "1.15.1";
     sha256 = "0j0ygcrfx2df2q597wkkiqg9264n2v7bsh3kfvra9ma3wdxqlipd";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Vvi_eg_db = derive2 {
     name = "MeSH.Vvi.eg.db";
     version = "1.15.1";
     sha256 = "0dnhjs43v9q42w82km5vvs8p8zniljvskiv946psy2z8l27q6srj";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Xla_eg_db = derive2 {
     name = "MeSH.Xla.eg.db";
     version = "1.15.1";
     sha256 = "1n3kmkqgb8nnm13jrhn6dzpjcqgddf7k68vsm52bkg7dh3dfcn8v";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Xtr_eg_db = derive2 {
     name = "MeSH.Xtr.eg.db";
     version = "1.15.1";
     sha256 = "19waylyzyga4zqygar6509gq36a8z36fbpz55msb0zsin24s0y82";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_Zma_eg_db = derive2 {
     name = "MeSH.Zma.eg.db";
     version = "1.15.1";
     sha256 = "0plldymwirg8hyj9yv5jw4ldrlnvf5dx60gymb8rgmmxvrmhay66";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   MeSH_db = derive2 {
     name = "MeSH.db";
     version = "1.15.1";
     sha256 = "0ixlxcakcc9f6d3dzxfdda4nh5gnivqvbi9dw7c85c0145dgnpzx";
-    depends = [ MeSHDbi ];
+    depends = [MeSHDbi];
     broken = true;
   };
   SNPlocs_Hsapiens_dbSNP_20101109 = derive2 {
@@ -8683,28 +8683,28 @@ with self; {
     name = "greengenes13.5MgDb";
     version = "2.0.0";
     sha256 = "0j4pd653vlfpd9gq6gi459lra8xhyknjrzadkx9d3zjy0hcwpj7r";
-    depends = [ ];
+    depends = [];
     broken = true;
   };
   org_Pf_plasmo_db = derive2 {
     name = "org.Pf.plasmo.db";
     version = "3.14.0";
     sha256 = "1fs68n9xyia6v9jj8a91asmrirnh2xkqcgrjbzk7x6ss0rlwcl7w";
-    depends = [ AnnotationDbi ];
+    depends = [AnnotationDbi];
     broken = true;
   };
   ribosomaldatabaseproject11_5MgDb = derive2 {
     name = "ribosomaldatabaseproject11.5MgDb";
     version = "1.00.0";
     sha256 = "04ppa4k8p54bmkq3jm41h0v4lb5hz95cmnakfzmqfml00ir04mxp";
-    depends = [ ];
+    depends = [];
     broken = true;
   };
   silva128_1MgDb = derive2 {
     name = "silva128.1MgDb";
     version = "1.00.0";
     sha256 = "0pwwxxa55d3919rbczg5iskd03ignimk80m52kfi930b1kdg9qc2";
-    depends = [ ];
+    depends = [];
     broken = true;
   };
 }

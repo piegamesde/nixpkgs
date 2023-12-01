@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-cxV2dAzGnIzJiCRdq8vN/Cl4AQeJqjmiCAahijIJQ9k=";
   };
 
-  nativeBuildInputs = [ which ];
+  nativeBuildInputs = [which];
 
   buildInputs = [
     SDL2
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/chernandezba/zesarux";
     description = " ZX Second-Emulator And Released for UniX";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.unix;
   };
 }

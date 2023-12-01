@@ -16,8 +16,8 @@ buildNimPackage rec {
     hash = "sha256-y7yzY1PcodIK2kC9409FuTpLn0TsWHGiEPnrULrob+k=";
   };
 
-  propagatedNativeBuildInputs = [ pkg-config ];
-  propagatedBuildInputs = [ getdns ];
+  propagatedNativeBuildInputs = [pkg-config];
+  propagatedBuildInputs = [getdns];
 
   doCheck = true;
   checkPhase = "nim c tests/test_example_synchronous";
@@ -26,6 +26,6 @@ buildNimPackage rec {
   meta = {
     inherit (getdns.meta) homepage license platforms;
     description = "Nim wrapper over the getdns library";
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
   };
 }

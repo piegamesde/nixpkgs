@@ -10,15 +10,15 @@
 attrsOrig@{
   pname,
   version,
-  nativeBuildInputs ? [ ],
-  xBuildFiles ? [ ],
-  xBuildFlags ? [ "/p:Configuration=Release" ],
-  outputFiles ? [ "bin/Release/*" ],
-  dllFiles ? [ "*.dll" ],
-  exeFiles ? [ "*.exe" ],
+  nativeBuildInputs ? [],
+  xBuildFiles ? [],
+  xBuildFlags ? ["/p:Configuration=Release"],
+  outputFiles ? ["bin/Release/*"],
+  dllFiles ? ["*.dll"],
+  exeFiles ? ["*.exe"],
   # Additional arguments to pass to the makeWrapper function, which wraps
   # generated binaries.
-  makeWrapperArgs ? [ ],
+  makeWrapperArgs ? [],
   ...
 }:
 let
@@ -121,4 +121,4 @@ let
     '';
   };
 in
-stdenv.mkDerivation (attrs // (builtins.removeAttrs attrsOrig [ "nativeBuildInputs" ]))
+stdenv.mkDerivation (attrs // (builtins.removeAttrs attrsOrig ["nativeBuildInputs"]))

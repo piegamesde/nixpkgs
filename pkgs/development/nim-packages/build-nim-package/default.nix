@@ -7,14 +7,14 @@
 
 {
   strictDeps ? true,
-  depsBuildBuild ? [ ],
-  nativeBuildInputs ? [ ],
+  depsBuildBuild ? [],
+  nativeBuildInputs ? [],
   configurePhase ? null,
   buildPhase ? null,
   checkPhase ? null,
   installPhase ? null,
   enableParallelBuilding ? true,
-  meta ? { },
+  meta ? {},
   ...
 }@attrs:
 
@@ -22,8 +22,8 @@ stdenv.mkDerivation (
   attrs
   // {
     inherit strictDeps enableParallelBuilding;
-    depsBuildBuild = [ nim_builder ] ++ depsBuildBuild;
-    nativeBuildInputs = [ nim ] ++ nativeBuildInputs;
+    depsBuildBuild = [nim_builder] ++ depsBuildBuild;
+    nativeBuildInputs = [nim] ++ nativeBuildInputs;
 
     configurePhase =
       if (configurePhase == null) then
@@ -68,7 +68,7 @@ stdenv.mkDerivation (
 
     meta = meta // {
       platforms = meta.platforms or nim.meta.platforms;
-      maintainers = (meta.maintainers or [ ]) ++ [ lib.maintainers.ehmry ];
+      maintainers = (meta.maintainers or []) ++ [lib.maintainers.ehmry];
     };
   }
 )

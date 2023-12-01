@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Prometheus exporter for Network UPS Tools";
     homepage = "https://github.com/DRuggeri/nut_exporter";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jhh ];
+    maintainers = with maintainers; [jhh];
   };
 }

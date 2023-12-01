@@ -27,17 +27,17 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  propagatedBuildInputs = [ marisa-trie ];
+  propagatedBuildInputs = [marisa-trie];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "language_data" ];
+  pythonImportsCheck = ["language_data"];
 
   meta = with lib; {
     description = "Supplement module for langcodes";
     homepage = "https://github.com/rspeer/language_data";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

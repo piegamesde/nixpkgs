@@ -30,14 +30,14 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  cmakeFlags = [ "-DCMAKE_CTEST_ARGUMENTS=--exclude-regex;'big|datatype-md5'" ];
+  cmakeFlags = ["-DCMAKE_CTEST_ARGUMENTS=--exclude-regex;'big|datatype-md5'"];
 
   doCheck = true;
 
   meta = with lib; {
     homepage = "https://github.com/Washington-University/CiftiLib";
     description = "Library for reading and writing CIFTI files";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = platforms.linux;
     license = licenses.bsd2;
   };

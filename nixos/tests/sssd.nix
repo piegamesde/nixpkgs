@@ -1,10 +1,10 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   {
     name = "sssd";
-    meta = with pkgs.lib.maintainers; { maintainers = [ bbigras ]; };
-    nodes.machine = { pkgs, ... }: { services.sssd.enable = true; };
+    meta = with pkgs.lib.maintainers; {maintainers = [bbigras];};
+    nodes.machine = {pkgs, ...}: {services.sssd.enable = true;};
 
     testScript = ''
       start_all()

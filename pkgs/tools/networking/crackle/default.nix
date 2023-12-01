@@ -17,7 +17,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-Dy4s/hr9ySrogltyk2GVsuAvwNF5+b6CDjaD+2FaPHA=";
   };
 
-  buildInputs = [ libpcap ];
+  buildInputs = [libpcap];
 
   installFlags = [
     "DESTDIR=$(out)"
@@ -28,7 +28,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Crack and decrypt BLE encryption";
     homepage = "https://github.com/mikeryan/crackle";
-    maintainers = with maintainers; [ fortuneteller2k ];
+    maintainers = with maintainers; [fortuneteller2k];
     license = licenses.bsd2;
   };
 }

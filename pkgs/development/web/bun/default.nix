@@ -21,8 +21,8 @@ stdenvNoCC.mkDerivation rec {
       or (throw "Unsupported system: ${stdenvNoCC.hostPlatform.system}");
 
   strictDeps = true;
-  nativeBuildInputs = [ unzip ] ++ lib.optionals stdenvNoCC.isLinux [ autoPatchelfHook ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [unzip] ++ lib.optionals stdenvNoCC.isLinux [autoPatchelfHook];
+  buildInputs = [openssl];
 
   dontConfigure = true;
   dontBuild = true;
@@ -75,7 +75,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://bun.sh";
     changelog = "https://github.com/Jarred-Sumner/bun/releases/tag/bun-v${version}";
     description = "Incredibly fast JavaScript runtime, bundler, transpiler and package manager – all in one";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     longDescription = ''
       All in one fast & easy-to-use tool. Instead of 1,000 node_modules for development, you only need bun.
     '';

@@ -38,12 +38,12 @@ let
     ];
   };
 
-  nixos-rebuild = pkgs.nixos-rebuild.override { nix = config.nix.package.out; };
+  nixos-rebuild = pkgs.nixos-rebuild.override {nix = config.nix.package.out;};
 
   nixos-generate-config = makeProg {
     name = "nixos-generate-config";
     src = ./nixos-generate-config.pl;
-    perl = "${pkgs.perl.withPackages (p: [ p.FileSlurp ])}/bin/perl";
+    perl = "${pkgs.perl.withPackages (p: [p.FileSlurp])}/bin/perl";
     system = pkgs.stdenv.hostPlatform.system;
     detectvirt = "${config.systemd.package}/bin/systemd-detect-virt";
     btrfs = "${pkgs.btrfs-progs}/bin/btrfs";
@@ -102,7 +102,7 @@ in
     desktopConfiguration = mkOption {
       internal = true;
       type = types.listOf types.lines;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Text to preseed the desktop configuration that `nixos-generate-config`
         saves to `/etc/nixos/configuration.nix`.
@@ -243,7 +243,7 @@ in
       nixos-enter
     ] ++ lib.optional (nixos-option != null) nixos-option;
 
-    documentation.man.man-db.skipPackages = [ nixos-version ];
+    documentation.man.man-db.skipPackages = [nixos-version];
 
     system.build = {
       inherit

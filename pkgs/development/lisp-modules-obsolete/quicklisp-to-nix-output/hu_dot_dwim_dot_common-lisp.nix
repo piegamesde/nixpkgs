@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "hu_dot_dwim_dot_common-lisp";
   version = "stable-git";
 
   description = "A redefinition of the standard Common Lisp package that includes a number of renames and shadows.";
 
-  deps = [ args."hu_dot_dwim_dot_asdf" ];
+  deps = [args."hu_dot_dwim_dot_asdf"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/hu.dwim.common-lisp/2021-02-28/hu.dwim.common-lisp-stable-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "hu.dwim.common-lisp";
 
-  asdFilesToKeep = [ "hu.dwim.common-lisp.asd" ];
+  asdFilesToKeep = ["hu.dwim.common-lisp.asd"];
   overrides = x: x;
 }
 /* (SYSTEM hu.dwim.common-lisp DESCRIPTION

@@ -21,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-2smgsR5f2fzmutr4EjhyrFWrO9odTba0ux+0B6k3+9Y=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -31,12 +31,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pypoolstation" ];
+  pythonImportsCheck = ["pypoolstation"];
 
   meta = with lib; {
     description = "Python library to interact the the Poolstation platform";
     homepage = "https://github.com/cibernox/PyPoolstation";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

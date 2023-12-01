@@ -10,7 +10,7 @@
 mkCoqDerivation rec {
   pname = "coq-lsp";
   owner = "ejgallego";
-  namePrefix = [ ];
+  namePrefix = [];
 
   useDune = true;
 
@@ -33,7 +33,7 @@ mkCoqDerivation rec {
       ]
       null;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -43,7 +43,7 @@ mkCoqDerivation rec {
   '';
 
   propagatedBuildInputs =
-    [ serapi ]
+    [serapi]
     ++ (
       with coq.ocamlPackages; [
         camlp-streams

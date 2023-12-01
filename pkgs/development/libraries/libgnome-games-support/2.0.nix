@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     vala
   ];
 
-  buildInputs = [ libintl ];
+  buildInputs = [libintl];
 
   propagatedBuildInputs = [
     # Required by libgnome-games-support-2.pc

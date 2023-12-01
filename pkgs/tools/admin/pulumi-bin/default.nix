@@ -8,7 +8,7 @@
 }:
 
 let
-  data = import ./data.nix { };
+  data = import ./data.nix {};
 in
 stdenv.mkDerivation {
   pname = "pulumi";
@@ -35,18 +35,18 @@ stdenv.mkDerivation {
     '';
 
   nativeBuildInputs =
-    [ installShellFiles ]
+    [installShellFiles]
     ++ lib.optionals stdenv.isLinux [
       autoPatchelfHook
       makeWrapper
     ];
-  buildInputs = [ stdenv.cc.cc.libgcc or null ];
+  buildInputs = [stdenv.cc.cc.libgcc or null];
 
   meta = with lib; {
     homepage = "https://pulumi.io/";
     description = "Pulumi is a cloud development platform that makes creating cloud programs easy and productive";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = with licenses; [ asl20 ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    license = with licenses; [asl20];
     platforms = builtins.attrNames data.pulumiPkgs;
     maintainers = with maintainers; [
       ghuntley

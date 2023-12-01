@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   nativeBuildInputs =
-    [ which ]
+    [which]
     ++ (
       with ocamlPackages; [
         ocaml
@@ -53,6 +53,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.bsd2;
     inherit (ocamlPackages.ocaml.meta) platforms;
-    maintainers = [ maintainers.jirkamarsik ];
+    maintainers = [maintainers.jirkamarsik];
   };
 }

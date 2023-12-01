@@ -48,8 +48,8 @@ stdenv.mkDerivation rec {
       sed -i 's/-lpam/-lpam -laudit/' configure
     '';
 
-  nativeBuildInputs = [ bison ];
-  buildInputs = [ ] ++ lib.optional withPAM pam ++ lib.optional (!withPAM) libxcrypt;
+  nativeBuildInputs = [bison];
+  buildInputs = [] ++ lib.optional withPAM pam ++ lib.optional (!withPAM) libxcrypt;
 
   meta = with lib; {
     description = "Executes the given command as another user";

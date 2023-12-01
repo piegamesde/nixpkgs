@@ -29,7 +29,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/accurics/terrascan";
     changelog = "https://github.com/tenable/terrascan/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

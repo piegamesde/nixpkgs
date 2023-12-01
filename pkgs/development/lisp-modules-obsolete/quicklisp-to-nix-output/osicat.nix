@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "osicat";
   version = "20211209-git";
 
-  parasites = [ "osicat/tests" ];
+  parasites = ["osicat/tests"];
 
   description = "A lightweight operating system interface";
 
@@ -25,7 +25,7 @@ rec {
 
   packageName = "osicat";
 
-  asdFilesToKeep = [ "osicat.asd" ];
+  asdFilesToKeep = ["osicat.asd"];
   overrides = x: x;
 }
 /* (SYSTEM osicat DESCRIPTION A lightweight operating system interface SHA256

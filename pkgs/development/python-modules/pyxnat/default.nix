@@ -33,16 +33,16 @@ buildPythonPackage rec {
       --replace "future>=0.16" ""
   '';
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
   checkPhase = "nosetests pyxnat/tests";
   doCheck = false; # requires a docker container running an XNAT server
 
-  pythonImportsCheck = [ "pyxnat" ];
+  pythonImportsCheck = ["pyxnat"];
 
   meta = with lib; {
     homepage = "https://pyxnat.github.io/pyxnat";
     description = "Python API to XNAT";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

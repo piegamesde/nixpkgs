@@ -57,7 +57,7 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  patches = [ ./tg_owt.patch ];
+  patches = [./tg_owt.patch];
 
   postPatch = lib.optionalString stdenv.isLinux ''
     substituteInPlace src/modules/desktop_capture/linux/egl_dmabuf.cc \

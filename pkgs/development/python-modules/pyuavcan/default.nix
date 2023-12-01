@@ -40,7 +40,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   # check at least that import works, as tests fail
-  pythonImportsCheck = [ "pyuavcan" ];
+  pythonImportsCheck = ["pyuavcan"];
 
   meta = with lib; {
     description = "A full-featured implementation of the UAVCAN protocol stack";
@@ -51,7 +51,7 @@ buildPythonPackage rec {
       CLI tool for basic diagnostics and shell script automation.
     '';
     homepage = "https://pyuavcan.readthedocs.io";
-    maintainers = with maintainers; [ wucke13 ];
+    maintainers = with maintainers; [wucke13];
     license = licenses.mit;
   };
 }

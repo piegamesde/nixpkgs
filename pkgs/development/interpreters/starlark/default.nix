@@ -27,6 +27,6 @@ buildGoModule rec {
     homepage = "https://github.com/google/starlark-go";
     description = "An interpreter for Starlark, implemented in Go";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ aaronjheng ];
+    maintainers = with maintainers; [aaronjheng];
   };
 }

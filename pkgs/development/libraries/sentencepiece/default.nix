@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-RxzysZsfTdhAtJCO3JOa/bSBNnHBRWkqBdwBa8sB74I=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = lib.optionals withGPerfTools [ gperftools ];
+  buildInputs = lib.optionals withGPerfTools [gperftools];
 
   outputs = [
     "bin"
@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
     description = "Unsupervised text tokenizer for Neural Network-based text generation";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ pashashocky ];
+    maintainers = with maintainers; [pashashocky];
   };
 }

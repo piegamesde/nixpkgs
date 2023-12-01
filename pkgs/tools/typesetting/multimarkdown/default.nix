@@ -59,8 +59,8 @@ stdenv.mkDerivation rec {
       - glossary entries (LaTeX only)
       - document metadata (e.g. title, author, date, etc.)
     '';
-    license = with licenses; [ mit ];
+    license = with licenses; [mit];
     platforms = platforms.all;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
   };
 }

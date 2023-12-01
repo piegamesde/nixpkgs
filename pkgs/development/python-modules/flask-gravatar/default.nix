@@ -28,19 +28,19 @@ buildPythonPackage rec {
      --replace "--cov=flask_gravatar --cov-report=term-missing" ""
   '';
 
-  propagatedBuildInputs = [ flask ];
+  propagatedBuildInputs = [flask];
 
   nativeCheckInputs = [
     pytestCheckHook
     pygments
   ];
 
-  pythonImportsCheck = [ "flask_gravatar" ];
+  pythonImportsCheck = ["flask_gravatar"];
 
   meta = with lib; {
     homepage = "https://github.com/zzzsochi/Flask-Gravatar";
     description = "Small and simple integration of gravatar into flask";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

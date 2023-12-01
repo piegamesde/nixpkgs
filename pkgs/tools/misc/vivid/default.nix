@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = [ maintainers.dtzWill ];
+    maintainers = [maintainers.dtzWill];
     platforms = platforms.unix;
   };
 }

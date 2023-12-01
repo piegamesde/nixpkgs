@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-jcIXzAZO9SxC/0apdjAVv1GmBTbdlasfXr1/Tj9adNc=";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -34,13 +34,13 @@ buildPythonPackage rec {
     "test_async_error_from_api"
   ];
 
-  pythonImportsCheck = [ "smhi" ];
+  pythonImportsCheck = ["smhi"];
 
   meta = with lib; {
     description = "Python library for accessing SMHI open forecast data";
     homepage = "https://github.com/joysoftware/pypi_smhi";
     changelog = "https://github.com/joysoftware/pypi_smhi/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

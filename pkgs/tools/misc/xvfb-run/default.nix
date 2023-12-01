@@ -73,6 +73,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Convenience script to run a virtualized X-Server";
     platforms = platforms.linux;
     license = licenses.gpl2;
-    maintainers = [ maintainers.artturin ];
+    maintainers = [maintainers.artturin];
   };
 }

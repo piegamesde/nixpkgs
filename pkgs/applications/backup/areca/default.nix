@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     attr
   ];
 
-  patches = [ ./fix-javah-bug.diff ];
+  patches = [./fix-javah-bug.diff];
 
   postPatch = ''
     substituteInPlace build.xml --replace "/usr/lib/java/swt.jar" "${swt}/jars/swt.jar"
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     # Builds fine but fails to launch.
     broken = true;
     license = licenses.gpl2;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = with platforms; linux;
   };
 }

@@ -14,7 +14,7 @@ mkDerivation rec {
   pname = "radeon-profile";
   version = "20200824";
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
   buildInputs = [
     qtbase
     qtcharts

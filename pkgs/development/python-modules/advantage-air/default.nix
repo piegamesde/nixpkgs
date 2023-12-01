@@ -19,17 +19,17 @@ buildPythonPackage rec {
     hash = "sha256-4rRR9IxzH5EiYfWzWYeyCwoLB2LetBVyH7L3nkvp+gA=";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   # No tests
   doCheck = false;
 
-  pythonImportsCheck = [ "advantage_air" ];
+  pythonImportsCheck = ["advantage_air"];
 
   meta = with lib; {
     description = "API helper for Advantage Air's MyAir and e-zone API";
     homepage = "https://github.com/Bre77/advantage_air";
     license = licenses.mit;
-    maintainers = with maintainers; [ jamiemagee ];
+    maintainers = with maintainers; [jamiemagee];
   };
 }

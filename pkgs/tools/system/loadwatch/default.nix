@@ -22,7 +22,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Run a program using only idle cycles";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ woffs ];
+    maintainers = with maintainers; [woffs];
     platforms = platforms.all;
   };
 }

@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  cmakeFlags = [ "-DFLTK_MATH_LIBRARY=${stdenv.cc.libc}/lib/libm.so" ];
+  cmakeFlags = ["-DFLTK_MATH_LIBRARY=${stdenv.cc.libc}/lib/libm.so"];
 
   meta = with lib; {
     description = "High quality software synthesizer based on ZynAddSubFX";
@@ -74,6 +74,6 @@ stdenv.mkDerivation rec {
     homepage = "https://yoshimi.github.io/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
   };
 }

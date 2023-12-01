@@ -5,7 +5,7 @@
 }:
 with lib;
 let
-  json = formats.json { };
+  json = formats.json {};
 in
 rec {
 

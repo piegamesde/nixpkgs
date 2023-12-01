@@ -27,6 +27,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/dstosberg/odt2txt";
     platforms = lib.platforms.all;
     license = lib.licenses.gpl2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -133,13 +133,13 @@ in
         isSystemUser = true;
       };
     };
-    users.groups = optionalAttrs (cfg.group == "infinoted") { infinoted = { }; };
+    users.groups = optionalAttrs (cfg.group == "infinoted") {infinoted = {};};
 
     systemd.services.infinoted = {
       description = "Gobby Dedicated Server";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         Type = "simple";

@@ -31,6 +31,6 @@ buildPythonPackage rec {
     homepage = "https://webhelpers.readthedocs.org/en/latest/";
     description = "Web Helpers";
     license = licenses.free;
-    maintainers = with maintainers; [ domenkozar ];
+    maintainers = with maintainers; [domenkozar];
   };
 }

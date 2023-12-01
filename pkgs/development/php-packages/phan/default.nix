@@ -6,7 +6,7 @@
   makeWrapper,
 }:
 let
-  php' = php.withExtensions ({ enabled, all }: enabled ++ [ all.ast ]);
+  php' = php.withExtensions ({enabled, all}: enabled ++ [all.ast]);
 in
 mkDerivation rec {
   pname = "phan";
@@ -19,7 +19,7 @@ mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -38,6 +38,6 @@ mkDerivation rec {
     '';
     license = licenses.mit;
     homepage = "https://github.com/phan/phan";
-    maintainers = [ maintainers.apeschar ];
+    maintainers = [maintainers.apeschar];
   };
 }

@@ -145,7 +145,7 @@ let
     exec "$BAZEL_REAL" "$@"
   '';
 
-  workspaceDir = runLocal "our_workspace" { } (
+  workspaceDir = runLocal "our_workspace" {} (
     ''
       mkdir $out
       cp ${WORKSPACE} $out/WORKSPACE

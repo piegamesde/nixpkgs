@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     libintl
   ];
 
-  configureFlags = [ "--enable-gtk3" ];
+  configureFlags = ["--enable-gtk3"];
 
   meta = with lib; {
     homepage = "https://wiki.lxde.org/en/LXTask";
@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

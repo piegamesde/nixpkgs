@@ -26,7 +26,7 @@ buildGoModule rec {
   };
   vendorHash = "sha256-xkb1XXNY+ZO+GtYyLpOQftcyq6rj3bJu5HCeGJYsMDQ=";
 
-  outputs = [ "out" ] ++ bins;
+  outputs = ["out"] ++ bins;
 
   ldflags = [
     "-s"
@@ -48,6 +48,6 @@ buildGoModule rec {
     description = "Docker and OCI Registry Client in Go and tooling using those libraries";
     homepage = "https://github.com/regclient/regclient";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -1,13 +1,13 @@
 # Miscellaneous small tests that don't warrant their own VM run.
 
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   rec {
     name = "privacyidea";
-    meta = with pkgs.lib.maintainers; { maintainers = [ ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [];};
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
         virtualisation.cores = 2;
 

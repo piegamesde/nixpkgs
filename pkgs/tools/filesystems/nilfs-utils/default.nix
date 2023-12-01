@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XqViUvPj2BHO3bGs9xBO3VpRq9XqnwBptHvMwBOntqo=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = [
     libuuid
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
   # According to upstream, libmount should be detected automatically but the
   # build system fails to do this. This is likely a bug with their build system
   # hence it is explicitly enabled here.
-  configureFlags = [ "--with-libmount" ];
+  configureFlags = ["--with-libmount"];
 
   installFlags = [
     "sysconfdir=${placeholder "out"}/etc"
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "NILFS utilities";
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux;
     license = with licenses; [
       gpl2

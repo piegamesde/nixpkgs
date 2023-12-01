@@ -57,12 +57,12 @@ buildPythonPackage rec {
   # models, which doesn't work in the sandbox.
   doCheck = false;
 
-  pythonImportsCheck = [ "pytorch_lightning" ];
+  pythonImportsCheck = ["pytorch_lightning"];
 
   meta = with lib; {
     description = "Lightweight PyTorch wrapper for machine learning researchers";
     homepage = "https://pytorch-lightning.readthedocs.io";
     license = licenses.asl20;
-    maintainers = with maintainers; [ tbenst ];
+    maintainers = with maintainers; [tbenst];
   };
 }

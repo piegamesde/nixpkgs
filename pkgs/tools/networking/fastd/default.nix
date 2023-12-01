@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     libsodium
     libuecc
     openssl
-  ] ++ lib.optionals (stdenv.isLinux) [ libmnl ];
+  ] ++ lib.optionals (stdenv.isLinux) [libmnl];
 
   # some options are only available on x86
   mesonFlags = lib.optionals (!stdenv.hostPlatform.isx86) [
@@ -55,6 +55,6 @@ stdenv.mkDerivation rec {
       bsd3
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
   };
 }

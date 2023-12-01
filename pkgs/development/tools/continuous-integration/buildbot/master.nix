@@ -49,7 +49,7 @@ let
       dontBuild = true;
       doCheck = false;
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
 
       propagatedBuildInputs = plugins ++ package.propagatedBuildInputs;
 

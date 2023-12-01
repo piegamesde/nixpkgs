@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     "--sysconfdir=/etc"
   ] ++ optional extraOnly "--with-extra-only" ++ optional withGtk3 "--with-gtk=3";
 
-  installFlags = [ "sysconfdir=${placeholder "out"}/etc" ];
+  installFlags = ["sysconfdir=${placeholder "out"}/etc"];
 
   # libfm-extra is pulled in by menu-cache and thus leads to a collision for libfm
   postInstall = optionalString (!extraOnly) ''
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     homepage = "https://blog.lxde.org/category/pcmanfm/";
     license = licenses.lgpl21Plus;
     description = "A glib-based library for file management";
-    maintainers = [ maintainers.ttuegel ];
+    maintainers = [maintainers.ttuegel];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

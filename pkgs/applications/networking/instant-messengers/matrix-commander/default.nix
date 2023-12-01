@@ -57,6 +57,6 @@ buildPythonApplication rec {
     homepage = "https://github.com/8go/matrix-commander";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.seb314 ];
+    maintainers = [maintainers.seb314];
   };
 }

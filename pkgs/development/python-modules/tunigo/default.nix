@@ -12,7 +12,7 @@ buildPythonPackage rec {
   pname = "tunigo";
   version = "1.0.0";
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   src = fetchFromGitHub {
     owner = "trygveaa";

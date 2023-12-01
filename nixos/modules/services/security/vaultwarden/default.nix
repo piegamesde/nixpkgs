@@ -72,7 +72,7 @@ let
     )
   );
 
-  vaultwarden = cfg.package.override { inherit (cfg) dbBackend; };
+  vaultwarden = cfg.package.override {inherit (cfg) dbBackend;};
 in
 {
   imports = [
@@ -121,7 +121,7 @@ in
           ]
         )
       );
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           DOMAIN = "https://bitwarden.example.com";
@@ -242,16 +242,16 @@ in
       inherit group;
       isSystemUser = true;
     };
-    users.groups.vaultwarden = { };
+    users.groups.vaultwarden = {};
 
     systemd.services.vaultwarden = {
-      aliases = [ "bitwarden_rs.service" ];
-      after = [ "network.target" ];
-      path = with pkgs; [ openssl ];
+      aliases = ["bitwarden_rs.service"];
+      after = ["network.target"];
+      path = with pkgs; [openssl];
       serviceConfig = {
         User = user;
         Group = group;
-        EnvironmentFile = [ configFile ] ++ optional (cfg.environmentFile != null) cfg.environmentFile;
+        EnvironmentFile = [configFile] ++ optional (cfg.environmentFile != null) cfg.environmentFile;
         ExecStart = "${vaultwarden}/bin/vaultwarden";
         LimitNOFILE = "1048576";
         PrivateTmp = "true";
@@ -263,19 +263,19 @@ in
         StateDirectoryMode = "0700";
         Restart = "always";
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
 
     systemd.services.backup-vaultwarden = mkIf (cfg.backupDir != null) {
-      aliases = [ "backup-bitwarden_rs.service" ];
+      aliases = ["backup-bitwarden_rs.service"];
       description = "Backup vaultwarden";
       environment = {
         DATA_FOLDER = "/var/lib/bitwarden_rs";
         BACKUP_FOLDER = cfg.backupDir;
       };
-      path = with pkgs; [ sqlite ];
+      path = with pkgs; [sqlite];
       # if both services are started at the same time, vaultwarden fails with "database is locked"
-      before = [ "vaultwarden.service" ];
+      before = ["vaultwarden.service"];
       serviceConfig = {
         SyslogIdentifier = "backup-vaultwarden";
         Type = "oneshot";
@@ -283,18 +283,18 @@ in
         Group = mkDefault group;
         ExecStart = "${pkgs.bash}/bin/bash ${./backup.sh}";
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
 
     systemd.timers.backup-vaultwarden = mkIf (cfg.backupDir != null) {
-      aliases = [ "backup-bitwarden_rs.timer" ];
+      aliases = ["backup-bitwarden_rs.timer"];
       description = "Backup vaultwarden on time";
       timerConfig = {
         OnCalendar = mkDefault "23:00";
         Persistent = "true";
         Unit = "backup-vaultwarden.service";
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
   };
 

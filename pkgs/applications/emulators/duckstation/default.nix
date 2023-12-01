@@ -41,7 +41,7 @@ stdenv.mkDerivation {
     pkg-config
     qttools
     wrapQtAppsHook
-  ] ++ lib.optionals enableWayland [ extra-cmake-modules ];
+  ] ++ lib.optionals enableWayland [extra-cmake-modules];
 
   buildInputs =
     [
@@ -59,7 +59,7 @@ stdenv.mkDerivation {
       wayland
     ];
 
-  cmakeFlags = [ "-DUSE_DRMKMS=ON" ] ++ lib.optionals enableWayland [ "-DUSE_WAYLAND=ON" ];
+  cmakeFlags = ["-DUSE_DRMKMS=ON"] ++ lib.optionals enableWayland ["-DUSE_WAYLAND=ON"];
 
   desktopItems = [
     (makeDesktopItem {

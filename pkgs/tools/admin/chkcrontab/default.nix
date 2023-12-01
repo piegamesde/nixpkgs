@@ -1,4 +1,4 @@
-{ python3, lib }:
+{python3, lib}:
 
 with python3.pkgs;
 
@@ -14,7 +14,7 @@ buildPythonApplication rec {
   meta = with lib; {
     description = "A tool to detect crontab errors";
     license = licenses.asl20;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
     homepage = "https://github.com/lyda/chkcrontab";
   };
 }

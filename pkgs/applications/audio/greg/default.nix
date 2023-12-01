@@ -27,6 +27,6 @@ buildPythonApplication rec {
     homepage = "https://github.com/manolomartinez/greg";
     description = "A command-line podcast aggregator";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ edwtjo ];
+    maintainers = with maintainers; [edwtjo];
   };
 }

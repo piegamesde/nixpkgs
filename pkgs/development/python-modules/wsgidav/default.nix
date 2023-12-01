@@ -29,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-1S3Zi92YRcu/PKNWJIn2ayr5Wbc+/+E7irFBQpMrKW8=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     defusedxml
@@ -46,13 +46,13 @@ buildPythonPackage rec {
     webtest
   ];
 
-  pythonImportsCheck = [ "wsgidav" ];
+  pythonImportsCheck = ["wsgidav"];
 
   meta = with lib; {
     description = "Generic and extendable WebDAV server based on WSGI";
     homepage = "https://wsgidav.readthedocs.io/";
     changelog = "https://github.com/mar10/wsgidav/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

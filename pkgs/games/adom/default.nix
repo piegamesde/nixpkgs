@@ -75,10 +75,10 @@ stdenv.mkDerivation rec {
     description = "A rogue-like game with nice graphical interface";
     homepage = "http://adom.de/";
     license = licenses.unfreeRedistributable;
-    maintainers = [ maintainers.smironov ];
+    maintainers = [maintainers.smironov];
 
     # Please, notify me (smironov) if you need the x86 version
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     broken = true; # at 2022-09-30, failed download.
   };
 }

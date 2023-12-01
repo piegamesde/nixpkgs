@@ -21,16 +21,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-iLEIGuVB9ykNcwbXk/donDdBuMvitM54Ax6bszVGaO0=";
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ pkg-config ];
+  nativeBuildInputs = lib.optionals stdenv.isLinux [pkg-config];
 
-  buildInputs =
-    lib.optionals stdenv.isLinux [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = lib.optionals stdenv.isLinux [openssl] ++ lib.optionals stdenv.isDarwin [Security];
 
   meta = with lib; {
     description = "An article extractor in Rust";
     homepage = "https://github.com/hipstermojo/paperoni";
     license = licenses.mit;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

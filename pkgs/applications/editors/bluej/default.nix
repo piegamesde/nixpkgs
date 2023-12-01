@@ -16,13 +16,13 @@ stdenv.mkDerivation rec {
     # download, but that is actually a graphical installer that is much harder
     # to unpack than the deb.
     url = "https://www.bluej.org/download/files/BlueJ-linux-${
-      builtins.replaceStrings [ "." ] [ "" ] version
+      builtins.replaceStrings ["."] [""] version
     }.deb";
     sha256 = "sha256-OarqmptxZc7xEEYeoCVqHXkAvfzfSYx5nUp/iWPyoqw=";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook ];
-  buildInputs = [ glib ];
+  nativeBuildInputs = [wrapGAppsHook];
+  buildInputs = [glib];
 
   sourceRoot = ".";
   preUnpack = ''
@@ -65,9 +65,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A simple integrated development environment for Java";
     homepage = "https://www.bluej.org/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.gpl2ClasspathPlus;
-    maintainers = with maintainers; [ chvp ];
+    maintainers = with maintainers; [chvp];
     platforms = platforms.unix;
   };
 }

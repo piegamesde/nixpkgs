@@ -45,9 +45,9 @@ mkDerivation rec {
     s2geometry
   ];
 
-  cmakeFlags = [ "-DFLAVOR=kirigami" ];
+  cmakeFlags = ["-DFLAVOR=kirigami"];
 
-  pythonPath = with python3.pkgs; [ gpxpy ];
+  pythonPath = with python3.pkgs; [gpxpy];
 
   preInstall = ''
     buildPythonPath "$pythonPath"
@@ -59,7 +59,7 @@ mkDerivation rec {
     homepage = "https://github.com/rinigus/pure-maps";
     changelog = "https://github.com/rinigus/pure-maps/blob/${src.rev}/NEWS.md";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.Thra11 ];
+    maintainers = [maintainers.Thra11];
     platforms = platforms.linux;
   };
 }

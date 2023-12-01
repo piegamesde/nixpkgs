@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-kzGgqFDTeKL6Pfjram7pqVcIm8Avxsvpn1qFrcpd8dw=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     gtk3
@@ -27,13 +27,13 @@ stdenv.mkDerivation rec {
     libsoup
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Gtklock module adding power controls to the lockscreen";
     homepage = "https://github.com/jovanlanik/gtklock-powerbar-module";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = with maintainers; [aleksana];
     platforms = platforms.linux;
   };
 }

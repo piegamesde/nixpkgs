@@ -27,9 +27,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Widevine CDM";
     homepage = "https://www.widevine.com";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ jlamur ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [jlamur];
+    platforms = ["x86_64-linux"];
   };
 }

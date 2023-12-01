@@ -98,7 +98,7 @@ buildPythonPackage rec {
       "test_with_file_descriptor_safety"
     ];
 
-  pythonImportsCheck = [ "celery" ];
+  pythonImportsCheck = ["celery"];
 
   passthru.tests = {
     inherit (nixosTests) sourcehut;
@@ -108,6 +108,6 @@ buildPythonPackage rec {
     description = "Distributed task queue";
     homepage = "https://github.com/celery/celery/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -60,6 +60,6 @@ mkDerivation rec {
     homepage = "https://mandelbulber.com";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ kovirobi ];
+    maintainers = with maintainers; [kovirobi];
   };
 }

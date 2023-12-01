@@ -17,7 +17,7 @@ lilypond.overrideAttrs (
         ./update.sh
         "unstable"
       ];
-      supportedFeatures = [ "commit" ];
+      supportedFeatures = ["commit"];
     };
   }
 )

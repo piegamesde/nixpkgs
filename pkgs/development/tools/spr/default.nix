@@ -23,6 +23,6 @@ rustPlatform.buildRustPackage rec {
     description = "Submit pull requests for individual, amendable, rebaseable commits to GitHub";
     homepage = "https://github.com/getcord/spr";
     license = licenses.mit;
-    maintainers = with maintainers; [ sven-of-cord ];
+    maintainers = with maintainers; [sven-of-cord];
   };
 }

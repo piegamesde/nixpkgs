@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional enableX11 libX11;
 
   postFixup = lib.optionalString enableX11 ''
-    patchelf --set-rpath "$(patchelf --print-rpath $out/lib/dri/iHD_drv_video.so):${lib.makeLibraryPath [ libX11 ]}" \
+    patchelf --set-rpath "$(patchelf --print-rpath $out/lib/dri/iHD_drv_video.so):${lib.makeLibraryPath [libX11]}" \
       $out/lib/dri/iHD_drv_video.so
   '';
 
@@ -87,6 +87,6 @@ stdenv.mkDerivation rec {
       mit
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

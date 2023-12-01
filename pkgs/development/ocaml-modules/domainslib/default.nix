@@ -18,15 +18,15 @@ buildDunePackage rec {
     hash = "sha256-rty+9DUhTUEcN7BPl8G6Q/G/MJ6z/UAn0RPkG8hACwA=";
   };
 
-  propagatedBuildInputs = [ lockfree ];
+  propagatedBuildInputs = [lockfree];
 
   doCheck = true;
-  checkInputs = [ mirage-clock-unix ];
+  checkInputs = [mirage-clock-unix];
 
   meta = {
     homepage = "https://github.com/ocaml-multicore/domainslib";
     description = "Nested-parallel programming";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

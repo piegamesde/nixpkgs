@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches = [ ./use-system-libraries.patch ];
+  patches = [./use-system-libraries.patch];
 
   postPatch = ''
     # remove vendored libraries
@@ -96,6 +96,6 @@ stdenv.mkDerivation rec {
     homepage = "https://havenprotocol.org/";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ kim0 ];
+    maintainers = with maintainers; [kim0];
   };
 }

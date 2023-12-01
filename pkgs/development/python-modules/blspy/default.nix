@@ -61,7 +61,7 @@ buildPythonPackage rec {
     pybind11
   ];
 
-  pythonImportsCheck = [ "blspy" ];
+  pythonImportsCheck = ["blspy"];
 
   # Note: upstream testsuite is just a single test.py script outside of any framework
   doCheck = false;

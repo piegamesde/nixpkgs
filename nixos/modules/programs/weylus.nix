@@ -24,7 +24,7 @@ in
 
     users = mkOption {
       type = listOf str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         To enable stylus and multi-touch support, the user you're going to use must be added to this list.
         These users can synthesize input events system-wide, even when another user is logged in - untrusted users should not be added.
@@ -50,6 +50,6 @@ in
 
     users.groups.uinput.members = cfg.users;
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

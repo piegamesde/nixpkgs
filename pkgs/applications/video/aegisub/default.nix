@@ -56,7 +56,7 @@ assert pulseaudioSupport -> (libpulseaudio != null);
 assert portaudioSupport -> (portaudio != null);
 
 let
-  luajit52 = luajit.override { enable52Compat = true; };
+  luajit52 = luajit.override {enable52Compat = true;};
   inherit (lib) optional;
   inherit (darwin.apple_sdk.frameworks)
     CoreText
@@ -131,7 +131,7 @@ stdenv.mkDerivation rec {
     "relro"
   ];
 
-  patches = lib.optionals (!useBundledLuaJIT) [ ./remove-bundled-luajit.patch ];
+  patches = lib.optionals (!useBundledLuaJIT) [./remove-bundled-luajit.patch];
 
   # error: unknown type name 'NSUInteger'
   postPatch = ''

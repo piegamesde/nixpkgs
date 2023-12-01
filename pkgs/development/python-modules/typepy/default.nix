@@ -28,13 +28,13 @@ buildPythonPackage rec {
     packaging
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  checkInputs = [ tcolorpy ];
+  nativeCheckInputs = [pytestCheckHook];
+  checkInputs = [tcolorpy];
 
   meta = with lib; {
     homepage = "https://github.com/thombashi/typepy";
     description = "A library for variable type checker/validator/converter at a run time";
-    maintainers = with maintainers; [ genericnerdyusername ];
+    maintainers = with maintainers; [genericnerdyusername];
     license = licenses.mit;
   };
 }

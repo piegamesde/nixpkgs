@@ -18,9 +18,9 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-lFaiv9bgzu6XVcQuLXWoWsKl0cylfrF5rC0i3qj+zU0=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [Security];
 
   cargoHash = "sha256-hksSyVdsGe/Ha3F5orL4W/k2nzFCuMqQjBgsT1jiWLw=";
 
@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     homepage = "https://github.com/tummychow/git-absorb";
     description = "git commit --fixup, but automatic";
-    license = [ licenses.bsd3 ];
-    maintainers = [ maintainers.marsam ];
+    license = [licenses.bsd3];
+    maintainers = [maintainers.marsam];
   };
 }

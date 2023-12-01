@@ -33,7 +33,7 @@ buildPythonPackage rec {
     django-appconf
   ];
 
-  pythonImportsCheck = [ "compressor" ];
+  pythonImportsCheck = ["compressor"];
 
   doCheck = false; # missing package django-sekizai
 
@@ -49,6 +49,6 @@ buildPythonPackage rec {
     description = "Compresses linked and inline JavaScript or CSS into single cached files";
     homepage = "https://django-compressor.readthedocs.org/en/latest/";
     license = licenses.mit;
-    maintainers = with maintainers; [ desiderius ];
+    maintainers = with maintainers; [desiderius];
   };
 }

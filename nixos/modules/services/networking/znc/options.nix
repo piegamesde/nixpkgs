@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{lib, config, ...}:
 
 with lib;
 
@@ -43,7 +43,7 @@ let
 
       modules = mkOption {
         type = types.listOf types.str;
-        default = [ "simple_away" ];
+        default = ["simple_away"];
         example = literalExpression ''[ "simple_away" "sasl" ]'';
         description = lib.mdDoc ''
           ZNC network modules to load.
@@ -52,8 +52,8 @@ let
 
       channels = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "nixos" ];
+        default = [];
+        example = ["nixos"];
         description = lib.mdDoc ''
           IRC channels to join.
         '';
@@ -157,7 +157,7 @@ in
         };
 
         networks = mkOption {
-          default = { };
+          default = {};
           type = with types; attrsOf (submodule networkOpts);
           description = lib.mdDoc ''
             IRC networks to connect the user to.
@@ -269,12 +269,12 @@ in
                 LoadModule = mkDefault net.modules;
                 Server = mkDefault "${net.server} ${optionalString net.useSSL "+"}${toString net.port} ${net.password}";
                 Chan =
-                  optionalAttrs net.hasBitlbeeControlChannel { "&bitlbee" = mkDefault { }; }
-                  // listToAttrs (map (n: nameValuePair "#${n}" (mkDefault { })) net.channels);
+                  optionalAttrs net.hasBitlbeeControlChannel {"&bitlbee" = mkDefault {};}
+                  // listToAttrs (map (n: nameValuePair "#${n}" (mkDefault {})) net.channels);
                 extraConfig = if net.extraConf == "" then mkDefault null else net.extraConf;
               })
               c.networks;
-          extraConfig = [ c.passBlock ];
+          extraConfig = [c.passBlock];
         };
         extraConfig = optional (c.extraZncConf != "") c.extraZncConf;
       };

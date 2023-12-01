@@ -39,7 +39,7 @@ stdenv.mkDerivation {
     "--disable-sysinstall"
   ] ++ lib.optional dedicatedServer "--enable-dedicated";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     [
@@ -59,7 +59,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "http://armagetronad.org";
     description = "A multiplayer networked arcade racing game in 3D similar to Tron";
-    maintainers = with maintainers; [ numinit ];
+    maintainers = with maintainers; [numinit];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

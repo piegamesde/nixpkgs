@@ -1,18 +1,18 @@
-{ lib, home-assistant }:
+{lib, home-assistant}:
 
 let
   # some components' tests have additional dependencies
   extraCheckInputs = with home-assistant.python.pkgs; {
-    alexa = [ av ];
-    bluetooth = [ pyswitchbot ];
-    bthome = [ xiaomi-ble ];
-    camera = [ av ];
-    cloud = [ mutagen ];
-    config = [ pydispatcher ];
-    generic = [ av ];
-    google_translate = [ mutagen ];
-    google_sheets = [ oauth2client ];
-    govee_ble = [ ibeacon-ble ];
+    alexa = [av];
+    bluetooth = [pyswitchbot];
+    bthome = [xiaomi-ble];
+    camera = [av];
+    cloud = [mutagen];
+    config = [pydispatcher];
+    generic = [av];
+    google_translate = [mutagen];
+    google_sheets = [oauth2client];
+    govee_ble = [ibeacon-ble];
     hassio = [
       bellows
       zha-quirks
@@ -38,9 +38,9 @@ let
       zigpy-zigate
       zigpy-znp
     ];
-    lovelace = [ pychromecast ];
-    mopeka = [ pyswitchbot ];
-    nest = [ av ];
+    lovelace = [pychromecast];
+    mopeka = [pyswitchbot];
+    nest = [av];
     onboarding = [
       pymetno
       radios
@@ -54,22 +54,22 @@ let
       zigpy-zigate
       zigpy-znp
     ];
-    raspberry_pi = [ rpi-bad-power ];
-    shelly = [ pyswitchbot ];
+    raspberry_pi = [rpi-bad-power];
+    shelly = [pyswitchbot];
     tilt_ble = [
       govee-ble
       ibeacon-ble
     ];
-    tomorrowio = [ pyclimacell ];
-    version = [ aioaseko ];
-    xiaomi_miio = [ arrow ];
-    voicerss = [ mutagen ];
-    yandextts = [ mutagen ];
-    zha = [ pydeconz ];
-    zwave_js = [ homeassistant-pyozw ];
+    tomorrowio = [pyclimacell];
+    version = [aioaseko];
+    xiaomi_miio = [arrow];
+    voicerss = [mutagen];
+    yandextts = [mutagen];
+    zha = [pydeconz];
+    zwave_js = [homeassistant-pyozw];
   };
 
-  extraDisabledTestPaths = { };
+  extraDisabledTestPaths = {};
 
   extraDisabledTests = {
     vesync = [
@@ -123,19 +123,19 @@ lib.listToAttrs (
             nativeCheckInputs =
               old.nativeCheckInputs
               ++ home-assistant.getPackages component home-assistant.python.pkgs
-              ++ extraCheckInputs.${component} or [ ];
+              ++ extraCheckInputs.${component} or [];
 
-            disabledTests = old.disabledTests or [ ] ++ extraDisabledTests.${component} or [ ];
-            disabledTestPaths = old.disabledTestPaths or [ ] ++ extraDisabledTestPaths.${component} or [ ];
+            disabledTests = old.disabledTests or [] ++ extraDisabledTests.${component} or [];
+            disabledTestPaths = old.disabledTestPaths or [] ++ extraDisabledTestPaths.${component} or [];
 
             # components are more often racy than the core
             dontUsePytestXdist = true;
 
             pytestFlagsArray =
               lib.remove "tests" old.pytestFlagsArray
-              ++ [ "--numprocesses=2" ]
-              ++ extraPytestFlagsArray.${component} or [ ]
-              ++ [ "tests/components/${component}" ];
+              ++ ["--numprocesses=2"]
+              ++ extraPytestFlagsArray.${component} or []
+              ++ ["tests/components/${component}"];
 
             preCheck =
               old.preCheck
@@ -151,7 +151,7 @@ lib.listToAttrs (
                   '';
 
             meta = old.meta // {
-              broken = lib.elem component [ ];
+              broken = lib.elem component [];
               # upstream only tests on Linux, so do we.
               platforms = lib.platforms.linux;
             };

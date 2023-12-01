@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-FnCyiGWouCpXu23+p/FuL6QUXS81SRC7FzgLMsm5R2M=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libao
     json_c
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     curl
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   CC = "gcc";
   CFLAGS = "-std=c99";

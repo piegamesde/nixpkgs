@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   {
     name = "shiori";
-    meta.maintainers = with lib.maintainers; [ minijackson ];
+    meta.maintainers = with lib.maintainers; [minijackson];
 
-    nodes.machine = { ... }: { services.shiori.enable = true; };
+    nodes.machine = {...}: {services.shiori.enable = true;};
 
     testScript =
       let

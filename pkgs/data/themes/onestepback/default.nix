@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   sourceRoot = ".";
 
@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.vide.memoire.free.fr/perso/OneStepBack";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

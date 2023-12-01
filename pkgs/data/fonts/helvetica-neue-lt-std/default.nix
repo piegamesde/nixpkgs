@@ -38,6 +38,6 @@ stdenvNoCC.mkDerivation {
     '';
     license = licenses.unfree;
     platforms = platforms.all;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

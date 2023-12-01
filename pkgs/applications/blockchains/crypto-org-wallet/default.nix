@@ -15,7 +15,7 @@ let
     sha256 = "12076hf8dlz0hg1pb2ixwlslrh8gi6s1iawnvhnn6vz4jmjvq356";
   };
 
-  appimageContents = appimageTools.extractType2 { inherit name src; };
+  appimageContents = appimageTools.extractType2 {inherit name src;};
 in
 appimageTools.wrapType2 rec {
   inherit name src;
@@ -33,7 +33,7 @@ appimageTools.wrapType2 rec {
     description = "Crypto.org Chain desktop wallet (Beta)";
     homepage = "https://github.com/crypto-com/chain-desktop-wallet";
     license = licenses.asl20;
-    maintainers = with maintainers; [ th0rgal ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [th0rgal];
+    platforms = ["x86_64-linux"];
   };
 }

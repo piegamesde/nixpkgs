@@ -16,14 +16,14 @@ stdenv.mkDerivation rec {
     sha256 = "1nrkzpqklfpqsccji4ans40rj88l80cv7dpxwx4g577xrvk13a0f";
   };
 
-  nativeBuildInputs = [ premake5 ];
+  nativeBuildInputs = [premake5];
 
   patches = [
     ./fix-aarch64.patch
     ./move-makefiles.patch
   ];
 
-  buildFlags = lib.optionals stdenv.isAarch64 [ "config=release_arm" ];
+  buildFlags = lib.optionals stdenv.isAarch64 ["config=release_arm"];
 
   installPhase = ''
     mkdir -p $out/bin

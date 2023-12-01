@@ -87,7 +87,7 @@ let
 
     runCommand name
       {
-        nativeBuildInputs = [ python3 ];
+        nativeBuildInputs = [python3];
         inherit buildCommandPython;
       }
       ''
@@ -105,7 +105,7 @@ let
         hash = "sha256-d4qG3fKyxkfN91AplRYqARFz+aRr+R37BpE450bPxi0=";
         passthru = {
           inherit src version; # For update script
-          updateScript = unstableGitUpdater { url = "${test-firmware.meta.homepage}.git"; };
+          updateScript = unstableGitUpdater {url = "${test-firmware.meta.homepage}.git";};
         };
       };
     in
@@ -209,7 +209,7 @@ stdenv.mkDerivation (
       libcbor
       libqmi
       xz # for liblzma
-    ] ++ lib.optionals haveDell [ libsmbios ] ++ lib.optionals haveFlashrom [ flashrom ];
+    ] ++ lib.optionals haveDell [libsmbios] ++ lib.optionals haveFlashrom [flashrom];
 
     mesonFlags =
       [
@@ -236,9 +236,9 @@ stdenv.mkDerivation (
         "-Dplugin_dell=disabled"
         "-Dplugin_synaptics_mst=disabled"
       ]
-      ++ lib.optionals (!haveRedfish) [ "-Dplugin_redfish=disabled" ]
-      ++ lib.optionals (!haveFlashrom) [ "-Dplugin_flashrom=disabled" ]
-      ++ lib.optionals (!haveMSR) [ "-Dplugin_msr=disabled" ];
+      ++ lib.optionals (!haveRedfish) ["-Dplugin_redfish=disabled"]
+      ++ lib.optionals (!haveFlashrom) ["-Dplugin_flashrom=disabled"]
+      ++ lib.optionals (!haveMSR) ["-Dplugin_msr=disabled"];
 
     # TODO: wrapGAppsHook wraps efi capsule even though it is not ELF
     dontWrapGApps = true;
@@ -250,7 +250,7 @@ stdenv.mkDerivation (
     # Fontconfig error: Cannot load default config file
     FONTCONFIG_FILE =
       let
-        fontsConf = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
+        fontsConf = makeFontsConf {fontDirectories = [freefont_ttf];};
       in
       fontsConf;
 
@@ -354,10 +354,10 @@ stdenv.mkDerivation (
           "pki/fwupd-metadata/LVFS-CA.pem"
           "grub.d/35_fwupd"
         ]
-        ++ lib.optionals haveDell [ "fwupd/remotes.d/dell-esrt.conf" ]
-        ++ lib.optionals haveRedfish [ "fwupd/redfish.conf" ]
-        ++ lib.optionals haveMSR [ "fwupd/msr.conf" ]
-        ++ lib.optionals isx86 [ "fwupd/thunderbolt.conf" ];
+        ++ lib.optionals haveDell ["fwupd/remotes.d/dell-esrt.conf"]
+        ++ lib.optionals haveRedfish ["fwupd/redfish.conf"]
+        ++ lib.optionals haveMSR ["fwupd/msr.conf"]
+        ++ lib.optionals isx86 ["fwupd/thunderbolt.conf"];
 
       # DisabledPlugins key in fwupd/daemon.conf
       defaultDisabledPlugins = [
@@ -403,7 +403,7 @@ stdenv.mkDerivation (
 
     meta = with lib; {
       homepage = "https://fwupd.org/";
-      maintainers = with maintainers; [ ];
+      maintainers = with maintainers; [];
       license = licenses.lgpl21Plus;
       platforms = platforms.linux;
     };

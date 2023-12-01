@@ -22,7 +22,7 @@
   leveldb,
   snappy,
   cudaSupport ? config.cudaSupport or false,
-  cudaPackages ? { },
+  cudaPackages ? {},
   cudnnSupport ? cudaSupport,
   ncclSupport ? false,
   pythonSupport ? false,
@@ -87,11 +87,11 @@ stdenv.mkDerivation rec {
           "-DCUDA_HOST_COMPILER=${cudatoolkit.cc}/bin/cc"
         ]
       else
-        [ "-DCPU_ONLY=ON" ]
+        ["-DCPU_ONLY=ON"]
     )
-    ++ [ "-DUSE_NCCL=${toggle ncclSupport}" ]
-    ++ [ "-DUSE_LEVELDB=${toggle leveldbSupport}" ]
-    ++ [ "-DUSE_LMDB=${toggle lmdbSupport}" ];
+    ++ ["-DUSE_NCCL=${toggle ncclSupport}"]
+    ++ ["-DUSE_LEVELDB=${toggle leveldbSupport}"]
+    ++ ["-DUSE_LMDB=${toggle lmdbSupport}"];
 
   buildInputs =
     [
@@ -152,10 +152,10 @@ stdenv.mkDerivation rec {
     "bin"
     "out"
   ];
-  propagatedBuildOutputs = [ ]; # otherwise propagates out -> bin cycle
+  propagatedBuildOutputs = []; # otherwise propagates out -> bin cycle
 
   patches =
-    [ ./darwin.patch ]
+    [./darwin.patch]
     ++ lib.optional pythonSupport (
       substituteAll {
         src = ./python.patch;
@@ -213,7 +213,7 @@ stdenv.mkDerivation rec {
       Center (BVLC) and by community contributors.
     '';
     homepage = "http://caffe.berkeleyvision.org/";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     broken = pythonSupport && (python.isPy310);
     license = licenses.bsd2;
     platforms = platforms.linux ++ platforms.darwin;

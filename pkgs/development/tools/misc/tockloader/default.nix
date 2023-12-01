@@ -1,4 +1,4 @@
-{ lib, python3 }:
+{lib, python3}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "tockloader";
@@ -32,6 +32,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/tock/tockloader";
     changelog = "https://github.com/tock/tockloader/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

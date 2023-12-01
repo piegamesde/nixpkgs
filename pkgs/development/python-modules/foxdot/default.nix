@@ -17,10 +17,10 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs =
-    [ tkinter ]
+    [tkinter]
     # we currently build SuperCollider only on Linux
     # but FoxDot is totally usable on macOS with the official SuperCollider binary
-    ++ lib.optionals stdenv.isLinux [ supercollider ];
+    ++ lib.optionals stdenv.isLinux [supercollider];
 
   # Requires a running SuperCollider instance
   doCheck = false;
@@ -29,6 +29,6 @@ buildPythonPackage rec {
     description = "Live coding music with SuperCollider";
     homepage = "https://foxdot.org/";
     license = licenses.cc-by-sa-40;
-    maintainers = with maintainers; [ mrmebelman ];
+    maintainers = with maintainers; [mrmebelman];
   };
 }

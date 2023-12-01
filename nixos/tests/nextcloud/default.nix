@@ -1,7 +1,7 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../../.. {inherit system config;},
 }:
 
 with pkgs.lib;
@@ -35,7 +35,7 @@ foldl
           };
     }
   )
-  { }
+  {}
   [
     25
     26

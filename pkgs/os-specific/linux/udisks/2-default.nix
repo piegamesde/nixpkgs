@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   # pkg-config had to be in both to find gtk-doc and gobject-introspection
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     autoreconfHook
     which
@@ -141,7 +141,7 @@ stdenv.mkDerivation rec {
     "INTROSPECTION_TYPELIBDIR=$(out)/lib/girepository-1.0"
   ];
 
-  installFlags = [ "sysconfdir=${placeholder "out"}/etc" ];
+  installFlags = ["sysconfdir=${placeholder "out"}/etc"];
 
   enableParallelBuilding = true;
 
@@ -156,7 +156,7 @@ stdenv.mkDerivation rec {
       lgpl2Plus
       gpl2Plus
     ]; # lgpl2Plus for the library, gpl2Plus for the tools & daemon
-    maintainers = teams.freedesktop.members ++ (with maintainers; [ johnazoidberg ]);
+    maintainers = teams.freedesktop.members ++ (with maintainers; [johnazoidberg]);
     platforms = platforms.linux;
   };
 }

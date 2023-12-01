@@ -14,11 +14,11 @@ stdenv.mkDerivation rec {
     sha256 = "0jrc84lkc7xb53rb8dbswxrxj21ndj1iiclmk3r9wkp6xm55w6j8";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   doCheck = !stdenv.isFreeBSD;
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   postInstall = ''
     chmod +x $out/lib/libminiupnpc${stdenv.hostPlatform.extensions.sharedLibrary}

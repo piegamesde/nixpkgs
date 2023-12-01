@@ -14,9 +14,9 @@ buildPythonPackage rec {
     hash = "sha256-HhCX30G8dfV0WZ/++J6LIO/xvfyRkdPtJkzC2ulUKdA=";
   };
 
-  propagatedBuildInputs = [ psutil ];
+  propagatedBuildInputs = [psutil];
 
-  pythonImportsCheck = [ "pidfile" ];
+  pythonImportsCheck = ["pidfile"];
 
   # no tests on the github mirror of the source code
   # see this: https://github.com/mosquito/python-pidfile/issues/7
@@ -25,7 +25,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python context manager for managing pid files";
     homepage = "https://github.com/mosquito/python-pidfile";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ lom ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [lom];
   };
 }

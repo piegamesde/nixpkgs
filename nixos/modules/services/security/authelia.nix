@@ -8,12 +8,12 @@
 let
   cfg = config.services.authelia;
 
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
   configFile = format.generate "config.yml" cfg.settings;
 
   autheliaOpts =
     with lib;
-    { name, ... }:
+    {name, ...}:
     {
       options = {
         enable = mkEnableOption (mdDoc "Authelia instance");
@@ -56,7 +56,7 @@ let
 
             https://www.authelia.com/configuration/methods/secrets/
           '';
-          default = { };
+          default = {};
           type = types.submodule {
             options = {
               manual = mkOption {
@@ -125,7 +125,7 @@ let
             If you provide the raw secret rather than the location of a secret file that secret will be preserved in the nix store.
             For more details: https://www.authelia.com/configuration/methods/secrets/
           '';
-          default = { };
+          default = {};
         };
 
         settings = mkOption {
@@ -136,7 +136,7 @@ let
 
             https://github.com/authelia/authelia/blob/master/config.template.yml
           '';
-          default = { };
+          default = {};
           example = ''
             {
               theme = "light";
@@ -249,7 +249,7 @@ let
 
         settingsFiles = mkOption {
           type = types.listOf types.path;
-          default = [ ];
+          default = [];
           example = [
             "/etc/authelia/config.yml"
             "/etc/authelia/access-control.yml"
@@ -268,7 +268,7 @@ in
   options.services.authelia.instances =
     with lib;
     mkOption {
-      default = { };
+      default = {};
       type = types.attrsOf (types.submodule autheliaOpts);
       description = mdDoc ''
         Multi-domain protection currently requires multiple instances of Authelia.
@@ -319,7 +319,7 @@ in
           configArg = "--config ${
             builtins.concatStringsSep "," (
               lib.concatLists [
-                [ configFile ]
+                [configFile]
                 instance.settingsFiles
               ]
             )
@@ -327,8 +327,8 @@ in
         in
         {
           description = "Authelia authentication and authorization server";
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
+          wantedBy = ["multi-user.target"];
+          after = ["network.target"];
           environment =
             (lib.filterAttrs (_: v: v != null) {
               AUTHELIA_JWT_SECRET_FILE = instance.secrets.jwtSecretFile;
@@ -432,8 +432,7 @@ in
       systemd.services = lib.mkMerge (
         map
           (
-            instance:
-            lib.mkIf instance.enable { "authelia-${instance.name}" = mkInstanceServiceConfig instance; }
+            instance: lib.mkIf instance.enable {"authelia-${instance.name}" = mkInstanceServiceConfig instance;}
           )
           instances
       );

@@ -81,7 +81,7 @@ in
 
       loadDumps = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "Configuration dumps that should be loaded on the first startup";
         example = literalExpression "[ ./myejabberd.dump ]";
       };
@@ -97,7 +97,7 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     users.users = optionalAttrs (cfg.user == "ejabberd") {
       ejabberd = {
@@ -108,12 +108,12 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "ejabberd") { ejabberd.gid = config.ids.gids.ejabberd; };
+    users.groups = optionalAttrs (cfg.group == "ejabberd") {ejabberd.gid = config.ids.gids.ejabberd;};
 
     systemd.services.ejabberd = {
       description = "ejabberd server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       path = [
         pkgs.findutils
         pkgs.coreutils
@@ -156,6 +156,6 @@ in
       "d '${cfg.spoolDir}' 0700 ${cfg.user} ${cfg.group} -"
     ];
 
-    security.pam.services.ejabberd = { };
+    security.pam.services.ejabberd = {};
   };
 }

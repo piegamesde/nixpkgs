@@ -29,12 +29,12 @@ buildPythonPackage rec {
     ${python.interpreter} -m unittest
   '';
 
-  pythonImportsCheck = [ "nose2" ];
+  pythonImportsCheck = ["nose2"];
 
   meta = with lib; {
     description = "Test runner for Python";
     homepage = "https://github.com/nose-devs/nose2";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

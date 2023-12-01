@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-7dtw6GZ7l0fbTxRxMWH4yRj9Zqz9KB3acmwnF/8LALg=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     gtk3
@@ -27,13 +27,13 @@ stdenv.mkDerivation rec {
     accountsservice
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Gtklock module adding user info to the lockscreen";
     homepage = "https://github.com/jovanlanik/gtklock-powerbar-module";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = with maintainers; [aleksana];
     platforms = platforms.linux;
   };
 }

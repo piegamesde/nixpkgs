@@ -3,11 +3,11 @@ let
     {
       pkgs,
       lib,
-      extraSettings ? { },
+      extraSettings ? {},
     }:
     {
       name = "opensearch";
-      meta.maintainers = with pkgs.lib.maintainers; [ shyim ];
+      meta.maintainers = with pkgs.lib.maintainers; [shyim];
 
       nodes.machine = lib.mkMerge [
         {
@@ -30,7 +30,7 @@ let
   );
 in
 {
-  opensearch = opensearchTest { };
+  opensearch = opensearchTest {};
   opensearchCustomPathAndUser = opensearchTest {
     extraSettings = {
       services.opensearch.dataDir = "/var/opensearch_test";
@@ -48,7 +48,7 @@ in
         ];
       };
       users = {
-        groups.open_search = { };
+        groups.open_search = {};
         users.open_search = {
           description = "OpenSearch daemon user";
           group = "open_search";

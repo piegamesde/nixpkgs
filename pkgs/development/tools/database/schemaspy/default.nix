@@ -33,7 +33,7 @@ let
       maven
       git
     ];
-    buildInputs = [ jre ];
+    buildInputs = [jre];
 
     buildPhase = ''
       mvn package -Dmaven.test.skip=true -Dmaven.repo.local=$out/.m2 -Dmaven.wagon.rto=5000
@@ -55,7 +55,7 @@ in
 stdenv.mkDerivation rec {
   inherit version pname src;
 
-  buildInputs = [ maven ];
+  buildInputs = [maven];
 
   nativeBuildInputs = [
     makeWrapper
@@ -65,10 +65,10 @@ stdenv.mkDerivation rec {
 
     # springframework boot gets angry about 1970 sources
     # fix from https://github.com/nix-community/mavenix/issues/25
-    (ensureNewerSourcesHook { year = "1980"; })
+    (ensureNewerSourcesHook {year = "1980";})
   ];
 
-  wrappedPath = lib.makeBinPath [ graphviz ];
+  wrappedPath = lib.makeBinPath [graphviz];
 
   buildPhase = ''
     VERSION=${version}
@@ -89,6 +89,6 @@ stdenv.mkDerivation rec {
     homepage = "https://schemaspy.org";
     description = "Document your database simply and easily";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ jraygauthier ];
+    maintainers = with maintainers; [jraygauthier];
   };
 }

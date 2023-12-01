@@ -4,7 +4,7 @@
   crossSystem,
   config,
   overlays,
-  crossOverlays ? [ ],
+  crossOverlays ? [],
 }:
 
 assert crossSystem == localSystem;
@@ -184,7 +184,7 @@ in
 [
 
   (
-    { }:
+    {}:
     {
       __raw = true;
 
@@ -207,8 +207,8 @@ in
 
           name = "trivial-bootstrap-tools";
           builder = bashExe;
-          args = [ ./trivial-bootstrap.sh ];
-          buildInputs = [ make ];
+          args = [./trivial-bootstrap.sh];
+          buildInputs = [make];
           mkdir = "/bin/mkdir";
           ln = "/bin/ln";
         }
@@ -222,7 +222,7 @@ in
   )
 
   (
-    { bootstrapTools, ... }:
+    {bootstrapTools, ...}:
     rec {
       __raw = true;
 
@@ -247,7 +247,7 @@ in
         shell = "${bootstrapTools}/bin/bash";
         fetchurlBoot = null;
         cc = null;
-        overrides = self: super: { };
+        overrides = self: super: {};
       };
     }
   )
@@ -260,7 +260,7 @@ in
     stdenv = import ../generic {
       name = "stdenv-freebsd-boot-0";
       inherit config;
-      initialPath = [ prevStage.bootstrapTools ];
+      initialPath = [prevStage.bootstrapTools];
       inherit (prevStage.stdenv)
         buildPlatform
         hostPlatform

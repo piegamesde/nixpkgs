@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   version = "3.493";
 
   src = fetchurl {
-    url = "http://www.iozone.org/src/current/iozone${lib.replaceStrings [ "." ] [ "_" ] version}.tgz";
+    url = "http://www.iozone.org/src/current/iozone${lib.replaceStrings ["."] ["_"] version}.tgz";
     hash = "sha256-Y0wSNgC0u0LoJ0g/oVsq+uba2ikHt4SxTgFBWTPUMZg=";
   };
 

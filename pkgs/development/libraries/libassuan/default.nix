@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   ];
   outputBin = "dev"; # libassuan-config
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   buildInputs = [
     npth
     gettext
@@ -54,6 +54,6 @@ stdenv.mkDerivation rec {
     homepage = "http://gnupg.org";
     license = licenses.lgpl2Plus;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

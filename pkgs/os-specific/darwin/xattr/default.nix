@@ -80,7 +80,7 @@ buildPythonPackage rec {
       licenses.psfl
       licenses.mit
     ]; # see $doc/share/xattr/OpenSourceLicenses
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
     homepage = "https://opensource.apple.com/source/python_modules/";
     platforms = lib.platforms.darwin;
   };

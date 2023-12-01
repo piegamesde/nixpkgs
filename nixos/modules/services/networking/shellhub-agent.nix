@@ -19,7 +19,7 @@ in
 
       enable = mkEnableOption (lib.mdDoc "ShellHub Agent daemon");
 
-      package = mkPackageOptionMD pkgs "shellhub-agent" { };
+      package = mkPackageOptionMD pkgs "shellhub-agent" {};
 
       preferredHostname = mkOption {
         type = types.str;
@@ -75,9 +75,9 @@ in
     systemd.services.shellhub-agent = {
       description = "ShellHub Agent";
 
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "local-fs.target" ];
-      wants = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["local-fs.target"];
+      wants = ["network-online.target"];
       after = [
         "local-fs.target"
         "network.target"

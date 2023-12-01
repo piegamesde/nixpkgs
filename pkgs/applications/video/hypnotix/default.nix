@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
 
   dontWrapGApps = true;
 
-  buildInputs = [ cinnamon.xapp ];
+  buildInputs = [cinnamon.xapp];
 
   pythonPath = with python3.pkgs; [
     cinemagoer

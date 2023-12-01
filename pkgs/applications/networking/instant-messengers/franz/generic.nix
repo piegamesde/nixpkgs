@@ -35,7 +35,7 @@
   version,
   src,
   meta,
-  extraBuildInputs ? [ ],
+  extraBuildInputs ? [],
   ...
 }@args:
 let

@@ -55,12 +55,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -"];
 
     systemd.services.lidarr = {
       description = "Lidarr";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "simple";
@@ -71,7 +71,7 @@ in
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ 8686 ]; };
+    networking.firewall = mkIf cfg.openFirewall {allowedTCPPorts = [8686];};
 
     users.users = mkIf (cfg.user == "lidarr") {
       lidarr = {

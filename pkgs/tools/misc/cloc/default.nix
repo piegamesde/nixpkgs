@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sourceRoot=$(echo */Unix)
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = with perlPackages; [
     perl
     AlgorithmDiff
@@ -42,6 +42,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/AlDanial/cloc";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ rycee ];
+    maintainers = with lib.maintainers; [rycee];
   };
 }

@@ -27,25 +27,25 @@
 
 let
   mirror = "mirror://kde";
-  srcs = import ./srcs.nix { inherit fetchurl mirror; };
+  srcs = import ./srcs.nix {inherit fetchurl mirror;};
 
   mkDerivation =
     args:
     let
       inherit (args) pname;
       inherit (srcs.${pname}) src version;
-      mkDerivation = libsForQt5.callPackage ({ mkDerivation }: mkDerivation) { };
+      mkDerivation = libsForQt5.callPackage ({mkDerivation}: mkDerivation) {};
     in
     mkDerivation (
       args
       // {
         inherit pname version src;
 
-        outputs = args.outputs or [ "out" ];
+        outputs = args.outputs or ["out"];
 
         meta =
           let
-            meta = args.meta or { };
+            meta = args.meta or {};
           in
           meta
           // {
@@ -58,29 +58,29 @@ let
   packages =
     self:
     let
-      callPackage = self.newScope { inherit mkDerivation; };
+      callPackage = self.newScope {inherit mkDerivation;};
     in
     {
       # libraries
-      mauikit = callPackage ./mauikit.nix { };
-      mauikit-accounts = callPackage ./mauikit-accounts.nix { };
-      mauikit-calendar = callPackage ./mauikit-calendar { };
-      mauikit-filebrowsing = callPackage ./mauikit-filebrowsing.nix { };
-      mauikit-imagetools = callPackage ./mauikit-imagetools.nix { };
-      mauikit-texteditor = callPackage ./mauikit-texteditor.nix { };
-      mauiman = callPackage ./mauiman.nix { };
+      mauikit = callPackage ./mauikit.nix {};
+      mauikit-accounts = callPackage ./mauikit-accounts.nix {};
+      mauikit-calendar = callPackage ./mauikit-calendar {};
+      mauikit-filebrowsing = callPackage ./mauikit-filebrowsing.nix {};
+      mauikit-imagetools = callPackage ./mauikit-imagetools.nix {};
+      mauikit-texteditor = callPackage ./mauikit-texteditor.nix {};
+      mauiman = callPackage ./mauiman.nix {};
 
       # applications
-      booth = callPackage ./booth.nix { };
-      buho = callPackage ./buho.nix { };
-      clip = callPackage ./clip.nix { };
-      communicator = callPackage ./communicator.nix { };
-      index = callPackage ./index.nix { };
-      nota = callPackage ./nota.nix { };
-      pix = callPackage ./pix.nix { };
-      shelf = callPackage ./shelf.nix { };
-      station = callPackage ./station.nix { };
-      vvave = callPackage ./vvave.nix { };
+      booth = callPackage ./booth.nix {};
+      buho = callPackage ./buho.nix {};
+      clip = callPackage ./clip.nix {};
+      communicator = callPackage ./communicator.nix {};
+      index = callPackage ./index.nix {};
+      nota = callPackage ./nota.nix {};
+      pix = callPackage ./pix.nix {};
+      shelf = callPackage ./shelf.nix {};
+      station = callPackage ./station.nix {};
+      vvave = callPackage ./vvave.nix {};
     };
 in
 lib.makeScope libsForQt5.newScope packages

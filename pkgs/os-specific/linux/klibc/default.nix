@@ -24,10 +24,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-cfgWoNOr46uotGMZrlyhR+eno4QBs/XiYgJfTcCMR10=";
   };
 
-  patches = [ ./no-reinstall-kernel-headers.patch ];
+  patches = [./no-reinstall-kernel-headers.patch];
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ perl ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
+  nativeBuildInputs = [perl];
   strictDeps = true;
 
   hardeningDisable = [
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Minimalistic libc subset for initramfs usage";
     homepage = "https://kernel.org/pub/linux/libs/klibc/";
-    maintainers = with lib.maintainers; [ fpletz ];
+    maintainers = with lib.maintainers; [fpletz];
     license = lib.licenses.bsd3;
     platforms = lib.platforms.linux;
   };

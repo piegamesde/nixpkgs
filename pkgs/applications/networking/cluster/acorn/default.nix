@@ -32,6 +32,6 @@ buildGoModule rec {
     changelog = "https://github.com/acorn-io/${pname}/releases/tag/v${version}";
     description = "A simple application deployment framework for Kubernetes";
     license = licenses.asl20;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
   };
 }

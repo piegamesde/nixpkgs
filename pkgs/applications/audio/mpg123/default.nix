@@ -36,18 +36,18 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional withConplay "conplay";
 
   nativeBuildInputs = lib.optionals (!libOnly) (
-    lib.optionals withConplay [ makeWrapper ] ++ lib.optionals (withPulse || withJack) [ pkg-config ]
+    lib.optionals withConplay [makeWrapper] ++ lib.optionals (withPulse || withJack) [pkg-config]
   );
 
   buildInputs = lib.optionals (!libOnly) (
-    lib.optionals withConplay [ perl ]
-    ++ lib.optionals withAlsa [ alsa-lib ]
-    ++ lib.optionals withPulse [ libpulseaudio ]
+    lib.optionals withConplay [perl]
+    ++ lib.optionals withAlsa [alsa-lib]
+    ++ lib.optionals withPulse [libpulseaudio]
     ++ lib.optionals withCoreAudio [
       AudioUnit
       AudioToolbox
     ]
-    ++ lib.optionals withJack [ jack ]
+    ++ lib.optionals withJack [jack]
   );
 
   configureFlags =
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
           ++ lib.optional withPulse "pulse"
           ++ lib.optional withAlsa "alsa"
           ++ lib.optional withCoreAudio "coreaudio"
-          ++ [ "dummy" ]
+          ++ ["dummy"]
         )
       }"
     ]
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
     description = "Fast console MPEG Audio Player and decoder library";
     homepage = "https://mpg123.org";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ ftrvxmtrx ];
+    maintainers = with maintainers; [ftrvxmtrx];
     platforms = platforms.all;
   };
 }

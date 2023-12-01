@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     "DESTDIR=$(out)"
   ];
 
-  patches = [ ./nixos.patch ];
+  patches = [./nixos.patch];
 
   postPatch = ''
     substituteAllInPlace src/strangle.sh
@@ -44,8 +44,8 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/torkel104/libstrangle";
     description = "Frame rate limiter for Linux/OpenGL";
     license = licenses.gpl3;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ aske ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [aske];
     mainProgram = "strangle";
   };
 }

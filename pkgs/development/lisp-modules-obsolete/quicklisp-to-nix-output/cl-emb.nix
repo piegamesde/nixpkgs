@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-emb";
   version = "20190521-git";
 
   description = "A templating system for Common Lisp";
 
-  deps = [ args."cl-ppcre" ];
+  deps = [args."cl-ppcre"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-emb/2019-05-21/cl-emb-20190521-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "cl-emb";
 
-  asdFilesToKeep = [ "cl-emb.asd" ];
+  asdFilesToKeep = ["cl-emb.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-emb DESCRIPTION A templating system for Common Lisp SHA256

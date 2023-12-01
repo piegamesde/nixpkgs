@@ -19,9 +19,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "1nlzhkhk1y0jhj6n3wn4dm783ldsxn7dk0d2xjx6ylczf9z3gp12";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   postInstall = ''
-    wrapProgram $out/bin/wg-bond --set PATH ${lib.makeBinPath [ wireguard-tools ]}
+    wrapProgram $out/bin/wg-bond --set PATH ${lib.makeBinPath [wireguard-tools]}
   '';
 
   meta = with lib; {
@@ -29,6 +29,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://gitlab.com/cab404/wg-bond";
     changelog = "https://gitlab.com/cab404/wg-bond/-/releases#v${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ cab404 ];
+    maintainers = with maintainers; [cab404];
   };
 }

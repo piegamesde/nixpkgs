@@ -26,7 +26,7 @@ stdenv.mkDerivation {
     description = "Show mouse refresh rate under linux + evdev";
     homepage = "https://git.sr.ht/~iank/evhz";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ Tungsten842 ];
+    maintainers = with maintainers; [Tungsten842];
     platforms = platforms.linux;
   };
 }

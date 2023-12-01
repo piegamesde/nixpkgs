@@ -21,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-uja79vWhPYOhhTUBIh+XpS4GnrYJy0/XpDXXQjnyHWM=";
   };
 
-  propagatedBuildInputs = [ trio ];
+  propagatedBuildInputs = [trio];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -43,12 +43,12 @@ buildPythonPackage rec {
     "tests/test_socketserver.py"
   ];
 
-  pythonImportsCheck = [ "siosocks" ];
+  pythonImportsCheck = ["siosocks"];
 
   meta = with lib; {
     description = "Python socks 4/5 client/server library/framework";
     homepage = "https://github.com/pohmelie/siosocks";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

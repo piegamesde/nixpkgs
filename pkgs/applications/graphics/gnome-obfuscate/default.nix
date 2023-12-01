@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     glib
     gtk4
     libadwaita
-  ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
+  ] ++ lib.optionals stdenv.isDarwin [Foundation];
 
   postPatch = ''
     patchShebangs build-aux/meson_post_install.py
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     description = "Censor private information";
     homepage = "https://gitlab.gnome.org/World/obfuscate";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
   };
 }

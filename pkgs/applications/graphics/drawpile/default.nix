@@ -60,7 +60,7 @@ let
     libsodium # ext-auth support
   ] ++ optional withSystemd systemd;
 
-  kisDeps = [ qtx11extras ];
+  kisDeps = [qtx11extras];
 
   boolToFlag = bool: if bool then "ON" else "OFF";
 in
@@ -75,10 +75,10 @@ mkDerivation rec {
     sha256 = "sha256-HjGsaa2BYRNxaQP9e8Z7BkVlIKByC/ta92boGbYHRWQ=";
   };
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
 
   buildInputs =
-    [ karchive ]
+    [karchive]
     ++ optionals buildClient clientDeps
     ++ optionals buildServer serverDeps
     ++ optionals enableKisTablet kisDeps;
@@ -98,7 +98,7 @@ mkDerivation rec {
     homepage = "https://drawpile.net/";
     downloadPage = "https://drawpile.net/download/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.unix;
     broken = stdenv.isDarwin;
   };

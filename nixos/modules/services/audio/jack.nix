@@ -43,7 +43,7 @@ in
 
         extraOptions = mkOption {
           type = types.listOf types.str;
-          default = [ "-dalsa" ];
+          default = ["-dalsa"];
           example = literalExpression ''
             [ "-dalsa" "--device" "hw:1" ];
           '';
@@ -145,8 +145,8 @@ in
     })
 
     (mkIf loopback {
-      boot.kernelModules = [ "snd-aloop" ];
-      boot.kernelParams = [ "snd-aloop.index=${toString cfg.loopback.index}" ];
+      boot.kernelModules = ["snd-aloop"];
+      boot.kernelParams = ["snd-aloop.index=${toString cfg.loopback.index}"];
       sound.extraConfig = cfg.loopback.config;
     })
 
@@ -224,7 +224,7 @@ in
 
       users.users.jackaudio = {
         group = "jackaudio";
-        extraGroups = [ "audio" ];
+        extraGroups = ["audio"];
         description = "JACK Audio system service user";
         isSystemUser = true;
       };
@@ -243,10 +243,10 @@ in
           value = "unlimited";
         }
       ];
-      users.groups.jackaudio = { };
+      users.groups.jackaudio = {};
 
       environment = {
-        systemPackages = [ cfg.jackd.package ];
+        systemPackages = [cfg.jackd.package];
         etc."alsa/conf.d/50-jack.conf".source = "${pkgs.alsa-plugins}/etc/alsa/conf.d/50-jack.conf";
         variables.JACK_PROMISCUOUS_SERVER = "jackaudio";
       };
@@ -265,8 +265,8 @@ in
           ExecStart = "${cfg.jackd.package}/bin/jackd ${lib.escapeShellArgs cfg.jackd.extraOptions}";
           LimitRTPRIO = 99;
           LimitMEMLOCK = "infinity";
-        } // optionalAttrs umaskNeeded { UMask = "007"; };
-        path = [ cfg.jackd.package ];
+        } // optionalAttrs umaskNeeded {UMask = "007";};
+        path = [cfg.jackd.package];
         environment = {
           JACK_PROMISCUOUS_SERVER = "jackaudio";
           JACK_NO_AUDIO_RESERVATION = "1";
@@ -287,18 +287,18 @@ in
           LimitRTPRIO = 99;
           LimitMEMLOCK = "infinity";
         };
-        path = [ cfg.jackd.package ];
+        path = [cfg.jackd.package];
         environment = {
           JACK_PROMISCUOUS_SERVER = "jackaudio";
           HOME = "/var/lib/jack";
         };
-        wantedBy = [ "jack.service" ];
-        partOf = [ "jack.service" ];
-        after = [ "jack.service" ];
+        wantedBy = ["jack.service"];
+        partOf = ["jack.service"];
+        after = ["jack.service"];
         restartIfChanged = false;
       };
     })
   ];
 
-  meta.maintainers = [ ];
+  meta.maintainers = [];
 }

@@ -19,14 +19,14 @@ buildPythonPackage {
     sha256 = "1l8zgr8awg27lhlkpa2dsvghrb7b12jl1bkgpzg5q7pg8nizl9mx";
   };
 
-  nativeBuildInputs = [ pytest-runner ];
+  nativeBuildInputs = [pytest-runner];
 
   nativeCheckInputs = [
     pytest
     pytestCheckHook
   ];
 
-  propagatedBuildInputs = [ scipy ];
+  propagatedBuildInputs = [scipy];
 
   meta = with lib; {
     homepage = "https://github.com/carsonfarmer/fastpair";

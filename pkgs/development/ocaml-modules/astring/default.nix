@@ -38,7 +38,7 @@ stdenv.mkDerivation {
     ocamlbuild
     topkg
   ];
-  buildInputs = [ topkg ];
+  buildInputs = [topkg];
 
   strictDeps = true;
 
@@ -60,6 +60,6 @@ stdenv.mkDerivation {
       immutability.
     '';
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ sternenseemann ];
+    maintainers = with lib.maintainers; [sternenseemann];
   };
 }

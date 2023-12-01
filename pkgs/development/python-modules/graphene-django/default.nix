@@ -74,6 +74,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/graphql-python/graphene-django";
     changelog = "https://github.com/graphql-python/graphene-django/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "A free MUD client for macOS, Linux and Windows";
     homepage = "https://tintin.mudhalla.net/index.php";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ abathur ];
+    maintainers = with maintainers; [abathur];
     mainProgram = "tt++";
     platforms = platforms.unix;
   };

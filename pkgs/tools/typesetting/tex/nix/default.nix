@@ -7,10 +7,10 @@ rec {
       rootFile,
       generatePDF ? true, # generate PDF, not DVI
       generatePS ? false, # generate PS in addition to DVI
-      extraFiles ? [ ],
+      extraFiles ? [],
       compressBlanksInIndex ? true,
-      packages ? [ ],
-      texPackages ? { },
+      packages ? [],
+      texPackages ? {},
       copySources ? false,
     }:
 
@@ -21,7 +21,7 @@ rec {
         pkgs.texlive.combine
           # always include basic stuff you need for LaTeX
           (
-            { inherit (pkgs.texlive) scheme-basic; } // texPackages
+            {inherit (pkgs.texlive) scheme-basic;} // texPackages
           );
     in
 
@@ -46,7 +46,7 @@ rec {
             x.key
             (baseNameOf (toString x.key))
           ])
-          (findLaTeXIncludes { inherit rootFile; });
+          (findLaTeXIncludes {inherit rootFile;});
 
       buildInputs = [
         tex
@@ -59,13 +59,13 @@ rec {
   # \input{}), images (e.g. \includegraphics{}), bibliographies, and
   # so on.
   findLaTeXIncludes =
-    { rootFile }:
+    {rootFile}:
 
     builtins.genericClosure {
-      startSet = [ { key = rootFile; } ];
+      startSet = [{key = rootFile;}];
 
       operator =
-        { key, ... }:
+        {key, ...}:
 
         let
 
@@ -103,39 +103,39 @@ rec {
                     ""
                   ]
                 else
-                  [ "" ];
+                  [""];
               fn = pkgs.lib.findFirst (fn: builtins.pathExists fn) null (
                 map (ext: dirOf key + ("/" + dep.name + ext)) exts
               );
             in
-            if fn != null then [ { key = fn; } ] ++ xs else xs;
+            if fn != null then [{key = fn;}] ++ xs else xs;
         in
-        pkgs.lib.foldr foundDeps [ ] deps;
+        pkgs.lib.foldr foundDeps [] deps;
     };
 
   findLhs2TeXIncludes =
-    { lib, rootFile }:
+    {lib, rootFile}:
 
     builtins.genericClosure {
-      startSet = [ { key = rootFile; } ];
+      startSet = [{key = rootFile;}];
 
       operator =
-        { key, ... }:
+        {key, ...}:
 
         let
 
           deps = import (
-            pkgs.runCommand "lhs2tex-includes" { src = key; }
+            pkgs.runCommand "lhs2tex-includes" {src = key;}
               "${pkgs.stdenv.bash}/bin/bash ${./find-lhs2tex-includes.sh}"
           );
         in
-        pkgs.lib.concatMap (x: lib.optionals (builtins.pathExists x) [ { key = x; } ]) (
+        pkgs.lib.concatMap (x: lib.optionals (builtins.pathExists x) [{key = x;}]) (
           map (x: dirOf key + ("/" + x)) deps
         );
     };
 
   dot2pdf =
-    { dotGraph }:
+    {dotGraph}:
 
     pkgs.stdenv.mkDerivation {
       name = "pdf";
@@ -148,7 +148,7 @@ rec {
     };
 
   dot2ps =
-    { dotGraph }:
+    {dotGraph}:
 
     pkgs.stdenv.mkDerivation {
       name = "ps";
@@ -181,7 +181,7 @@ rec {
             x.key
             (baseNameOf (toString x.key))
           ])
-          (findLhs2TeXIncludes { rootFile = source; });
+          (findLhs2TeXIncludes {rootFile = source;});
     };
 
   animateDot =
@@ -217,7 +217,7 @@ rec {
   # Convert a Postscript file to a PNG image, trimming it so that
   # there is no unnecessary surrounding whitespace.
   postscriptToPNG =
-    { postscript }:
+    {postscript}:
 
     pkgs.stdenv.mkDerivation {
       name = "png";
@@ -254,12 +254,12 @@ rec {
     {
       preamble ? null,
       body,
-      packages ? [ ],
+      packages ? [],
     }:
 
     postscriptToPNG {
       postscript = runLaTeX {
-        rootFile = wrapSimpleTeX { inherit body preamble; };
+        rootFile = wrapSimpleTeX {inherit body preamble;};
         inherit packages;
         generatePDF = false;
         generatePS = true;
@@ -271,18 +271,16 @@ rec {
     {
       preamble ? null,
       body,
-      packages ? [ ],
+      packages ? [],
     }:
 
     runLaTeX {
-      rootFile = wrapSimpleTeX { inherit body preamble; };
+      rootFile = wrapSimpleTeX {inherit body preamble;};
       inherit packages;
     };
 
   # Some tools (like dot) need a fontconfig configuration file.
   # This should be extended to allow the called to add additional
   # fonts.
-  fontsConf = pkgs.makeFontsConf {
-    fontDirectories = [ "${pkgs.ghostscript}/share/ghostscript/fonts" ];
-  };
+  fontsConf = pkgs.makeFontsConf {fontDirectories = ["${pkgs.ghostscript}/share/ghostscript/fonts"];};
 }

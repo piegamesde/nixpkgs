@@ -27,11 +27,11 @@ buildGoModule rec {
   };
   vendorHash = "sha256-swMvJe+Dz/kwPIStPlQ7d6U/UwXSMcJ3eONxjzebXCc=";
 
-  patches = [ ./use-our-libbpf.patch ];
+  patches = [./use-our-libbpf.patch];
 
   enableParallelBuilding = true;
   # needed to build bpf libs
-  hardeningDisable = [ "stackprotector" ];
+  hardeningDisable = ["stackprotector"];
 
   nativeBuildInputs = [
     pkg-config
@@ -116,7 +116,7 @@ buildGoModule rec {
       # pkg/ebpf/c/*
       gpl2Plus
     ];
-    maintainers = with maintainers; [ jk ];
+    maintainers = with maintainers; [jk];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

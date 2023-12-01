@@ -17,7 +17,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-eSwHiJ5SP/Nennalv4QFTgVnM6oan/DWDZRqtk0o6Z0=";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   postPatch = ''
     substituteInPlace Makefile --replace 'rm abstime.h' ""
@@ -27,7 +27,7 @@ stdenv.mkDerivation {
   #   ld: mmix-config.o:(.bss+0x600): multiple definition of `buffer'; /build/ccDuGrwH.o:(.bss+0x20): first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  nativeBuildInputs = [ tetex ];
+  nativeBuildInputs = [tetex];
   enableParallelBuilding = true;
 
   makeFlags = [
@@ -50,7 +50,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "MMIX simulator and assembler";
     homepage = "https://www-cs-faculty.stanford.edu/~knuth/mmix-news.html";
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.unix;
     license = licenses.publicDomain;
   };

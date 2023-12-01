@@ -29,7 +29,7 @@ buildPythonPackage rec {
     rev = "v${version}";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     django-picklefield
@@ -41,9 +41,9 @@ buildPythonPackage rec {
 
   # fixes empty version string
   # analog to https://github.com/NixOS/nixpkgs/pull/171200
-  patches = [ ./pep-621.patch ];
+  patches = [./pep-621.patch];
 
-  pythonImportsCheck = [ "django_q" ];
+  pythonImportsCheck = ["django_q"];
 
   preCheck = ''
     ${pkgs.redis}/bin/redis-server &
@@ -74,6 +74,6 @@ buildPythonPackage rec {
     description = "A multiprocessing distributed task queue for Django";
     homepage = "https://django-q.readthedocs.org";
     license = licenses.mit;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

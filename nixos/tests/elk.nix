@@ -4,8 +4,8 @@
 
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
 let
@@ -27,7 +27,7 @@ let
         };
         nodes = {
           one =
-            { pkgs, lib, ... }:
+            {pkgs, lib, ...}:
             {
               # Not giving the machine at least 2060MB results in elasticsearch failing with the following error:
               #
@@ -44,7 +44,7 @@ let
               virtualisation.memorySize = 3000;
 
               # For querying JSON objects returned from elasticsearch and kibana.
-              environment.systemPackages = [ pkgs.jq ];
+              environment.systemPackages = [pkgs.jq];
 
               services = {
 
@@ -71,7 +71,7 @@ let
 
                   inputs.log = {
                     enabled = true;
-                    paths = [ "/var/lib/filebeat/test" ];
+                    paths = ["/var/lib/filebeat/test"];
                   };
 
                   settings = {
@@ -95,16 +95,16 @@ let
                     ];
                     enabled = true;
                     period = "5s";
-                    processes = [ ".*" ];
+                    processes = [".*"];
                     cpu.metrics = [
                       "percentages"
                       "normalized_percentages"
                     ];
-                    core.metrics = [ "percentages" ];
+                    core.metrics = ["percentages"];
                   };
                   settings = {
                     output.elasticsearch = {
-                      hosts = [ "127.0.0.1:9200" ];
+                      hosts = ["127.0.0.1:9200"];
                     };
                   };
                 };
@@ -289,7 +289,7 @@ let
                 )
           '';
       })
-      { inherit pkgs system; };
+      {inherit pkgs system;};
 in
 {
   # We currently only package upstream binaries.

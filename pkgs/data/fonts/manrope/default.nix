@@ -35,6 +35,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://www.gent.media/manrope";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
   };
 }

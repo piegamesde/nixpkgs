@@ -28,9 +28,9 @@ let
       hash = "sha256-F1lpg4ASw3ImvhC8XA8Ya4qpcbGY6fg8PYJt8sJj4cs=";
     };
 
-    nativeBuildInputs = [ hatchling ];
+    nativeBuildInputs = [hatchling];
 
-    propagatedBuildInputs = [ terminado ];
+    propagatedBuildInputs = [terminado];
 
     doCheck = false; # infinite recursion
 
@@ -41,7 +41,7 @@ let
     ] ++ pytest-jupyter.optional-dependencies.server;
 
     passthru.tests = {
-      check = self.overridePythonAttrs (_: { doCheck = true; });
+      check = self.overridePythonAttrs (_: {doCheck = true;});
     };
 
     meta = with lib; {
@@ -49,7 +49,7 @@ let
       description = "A Jupyter Server Extension Providing Support for Terminals";
       homepage = "https://github.com/jupyter-server/jupyter_server_terminals";
       license = licenses.bsd3;
-      maintainers = with maintainers; [ ];
+      maintainers = with maintainers; [];
     };
   };
 in

@@ -28,7 +28,7 @@ stdenv.mkDerivation (
     ];
 
     # Configure stage fails on aarch64-darwin otherwise, due to either clang 11 or gfortran 10.
-    hardeningDisable = lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ "stackprotector" ];
+    hardeningDisable = lib.optionals (stdenv.isDarwin && stdenv.isAarch64) ["stackprotector"];
 
     cmakeFlags =
       [
@@ -90,9 +90,9 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "Linear Algebra PACKage";
       homepage = "http://www.netlib.org/lapack/";
-      maintainers = with maintainers; [ markuskowa ];
+      maintainers = with maintainers; [markuskowa];
       license = licenses.bsd3;
-      pkgConfigModules = [ "lapack" ];
+      pkgConfigModules = ["lapack"];
       platforms = platforms.all;
     };
   }

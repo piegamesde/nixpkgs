@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-7g4ZRkyu0TIOUw68dSPP4RyIRyeq1GgUMYFVSQB8/1I=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     libpcap
     pixiewps
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/t6x/reaver-wps-fork-t6x";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ nico202 ];
+    maintainers = with maintainers; [nico202];
   };
 }

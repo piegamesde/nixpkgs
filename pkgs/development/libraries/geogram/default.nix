@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     doxygen
   ];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   patches = [
     # See https://github.com/BrunoLevy/geogram/pull/76
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
     make doc-devkit-full
   '';
 
-  nativeCheckInputs = [ python3Packages.robotframework ];
+  nativeCheckInputs = [python3Packages.robotframework];
 
   doCheck = true;
 
@@ -131,6 +131,6 @@ stdenv.mkDerivation rec {
       "x86_64-darwin"
       "aarch64-darwin"
     ];
-    maintainers = with maintainers; [ tmarkus ];
+    maintainers = with maintainers; [tmarkus];
   };
 }

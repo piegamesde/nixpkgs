@@ -18,14 +18,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-rk9LIliZnMr/uF+JgXzpXwqFno8WSNhb5BoCeeUlUlU=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   outputs = [
     "out"
     "dev"
   ];
 
-  buildInputs = [ openssl ]; # s2n-config has find_dependency(LibCrypto).
+  buildInputs = [openssl]; # s2n-config has find_dependency(LibCrypto).
 
   cmakeFlags =
     [
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
         "-DS2N_NO_PQ=ON"
       ];
 
-  propagatedBuildInputs = [ openssl ]; # s2n-config has find_dependency(LibCrypto).
+  propagatedBuildInputs = [openssl]; # s2n-config has find_dependency(LibCrypto).
 
   postInstall = ''
     # Glob for 'shared' or 'static' subdir
@@ -57,6 +57,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/aws/s2n-tls";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A simple text widget for X resembling the watch(1) command";
     license = licenses.mit;
-    maintainers = with maintainers; [ somasis ];
+    maintainers = with maintainers; [somasis];
     platforms = platforms.unix;
     broken = stdenv.isDarwin;
   };

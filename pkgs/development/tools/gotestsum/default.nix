@@ -25,7 +25,7 @@ buildGoModule rec {
     "-X gotest.tools/gotestsum/cmd.version=${version}"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     homepage = "https://github.com/gotestyourself/gotestsum";
@@ -33,6 +33,6 @@ buildGoModule rec {
     description = "A human friendly `go test` runner";
     platforms = platforms.linux ++ platforms.darwin;
     license = licenses.asl20;
-    maintainers = with maintainers; [ endocrimes ];
+    maintainers = with maintainers; [endocrimes];
   };
 }

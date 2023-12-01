@@ -53,7 +53,7 @@ buildDunePackage rec {
     sha256 = "sha256-oJ5SL7qNM5izoEpr+nTjbT+YmmNIoy7QgSNse3wNIA4=";
   };
 
-  nativeBuildInputs = [ makeWrapper ] ++ runtimeInputs;
+  nativeBuildInputs = [makeWrapper] ++ runtimeInputs;
   buildInputs = [
     curly
     fmt
@@ -70,8 +70,8 @@ buildDunePackage rec {
     astring
     fpath
   ];
-  nativeCheckInputs = [ odoc ];
-  checkInputs = [ alcotest ] ++ runtimeInputs;
+  nativeCheckInputs = [odoc];
+  checkInputs = [alcotest] ++ runtimeInputs;
   doCheck = true;
 
   postPatch = ''
@@ -95,6 +95,6 @@ buildDunePackage rec {
     description = "Release dune packages in opam";
     homepage = "https://github.com/ocamllabs/dune-release";
     license = licenses.isc;
-    maintainers = with maintainers; [ sternenseemann ];
+    maintainers = with maintainers; [sternenseemann];
   };
 }

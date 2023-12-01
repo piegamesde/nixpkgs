@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "0ywccb6bs1389zjfmc9zwdvdsvlpm7vg957whh6b5a96yvcf8bdr";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs =
     lib.optional enableWX wxGTK32
@@ -31,14 +31,14 @@ stdenv.mkDerivation rec {
     inherit enableWX enableXWin;
   };
 
-  cmakeFlags = [ "-DBUILD_TEST=ON" ];
+  cmakeFlags = ["-DBUILD_TEST=ON"];
 
   doCheck = true;
 
   meta = with lib; {
     description = "Cross-platform scientific graphics plotting library";
     homepage = "https://plplot.org";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = platforms.unix;
     license = licenses.lgpl2;
   };

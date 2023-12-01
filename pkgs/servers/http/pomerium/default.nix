@@ -55,10 +55,10 @@ buildGoModule rec {
     doDist = false;
   };
 
-  subPackages = [ "cmd/pomerium" ];
+  subPackages = ["cmd/pomerium"];
 
   # patch pomerium to allow use of external envoy
-  patches = [ ./external-envoy.diff ];
+  patches = [./external-envoy.diff];
 
   ldflags =
     let
@@ -85,7 +85,7 @@ buildGoModule rec {
           setVars
       );
     in
-    [ "${varFlags}" ];
+    ["${varFlags}"];
 
   preBuild = ''
     # Replace embedded envoy with nothing.
@@ -128,7 +128,7 @@ buildGoModule rec {
     homepage = "https://pomerium.io";
     description = "Authenticating reverse proxy";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lukegb ];
+    maintainers = with maintainers; [lukegb];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

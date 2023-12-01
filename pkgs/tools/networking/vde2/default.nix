@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     MACOSX_DEPLOYMENT_TARGET=10.16
   '';
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = [
     libpcap

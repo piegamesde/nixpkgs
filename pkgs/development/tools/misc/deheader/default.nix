@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dYTHvFWlt3aM/fdZFge7GBdd9bfCrEcp7ULJuBl71Xs=";
   };
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   nativeBuildInputs = [
     xmlto
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     homepage = "http://catb.org/~esr/deheader";
     changelog = "https://gitlab.com/esr/deheader/-/blob/master/NEWS.adoc";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
 
     platforms = platforms.linux;
   };

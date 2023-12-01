@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     description = "Clutter-GTK";
     homepage = "http://www.clutter-project.org/";
     license = lib.licenses.lgpl2Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 }

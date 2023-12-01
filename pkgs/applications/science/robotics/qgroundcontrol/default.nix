@@ -39,13 +39,13 @@ stdenv.mkDerivation rec {
   gstInputs = with gst_all_1; [
     gstreamer
     gst-plugins-base
-    (gst-plugins-good.override { qt5Support = true; })
+    (gst-plugins-good.override {qt5Support = true;})
     gst-plugins-bad
     gst-libav
     wayland
   ];
 
-  buildInputs = [ SDL2 ] ++ gstInputs ++ qtInputs;
+  buildInputs = [SDL2] ++ gstInputs ++ qtInputs;
   nativeBuildInputs = [
     pkg-config
     qmake
@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
     homepage = "http://qgroundcontrol.com/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ lopsided98 ];
+    maintainers = with maintainers; [lopsided98];
     mainProgram = "QGroundControl";
   };
 }

@@ -14,14 +14,14 @@ tcl.mkTclDerivation rec {
     sha256 = "sha256-6E4reideyCxKqp0bH5eG2+Q1jIFekXU5/+f2Z/9Lw7Q=";
   };
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  configureFlags = [ "--with-ssl-dir=${openssl.dev}" ];
+  configureFlags = ["--with-ssl-dir=${openssl.dev}"];
 
   meta = {
     homepage = "https://core.tcl-lang.org/tcltls/index";
     description = "An OpenSSL / RSA-bsafe Tcl extension";
-    maintainers = [ lib.maintainers.agbrooks ];
+    maintainers = [lib.maintainers.agbrooks];
     license = lib.licenses.tcltk;
     platforms = lib.platforms.unix;
   };

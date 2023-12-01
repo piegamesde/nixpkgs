@@ -17,7 +17,7 @@ buildGoModule {
 
   vendorSha256 = "sha256-RxdiZ3NN+EWVCiBPI0VIDuRI1/h4rnU4KCNn2WwZL7Q=";
 
-  subPackages = [ "cmd/govulncheck" ];
+  subPackages = ["cmd/govulncheck"];
 
   preCheck = ''
     # test all paths
@@ -67,7 +67,7 @@ buildGoModule {
       example, a dependency with a Windows-specific vulnerability will not be
       reported for a Linux build.
     '';
-    license = with licenses; [ bsd3 ];
+    license = with licenses; [bsd3];
     maintainers = with maintainers; [
       jk
       SuperSandro2000

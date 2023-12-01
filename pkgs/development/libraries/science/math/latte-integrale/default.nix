@@ -15,7 +15,7 @@ stdenv.mkDerivation (
 
     src = fetchurl {
       url = "https://github.com/latte-int/latte/releases/download/version_${
-        lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version
+        lib.replaceStrings ["."] ["_"] finalAttrs.version
       }/latte-int-${finalAttrs.version}.tar.gz";
       sha256 = "sha256-AGwQ6+XVv9ybFZy6YmSkQyhh/nY84F/oIWJKt9P8IXA=";
     };
@@ -25,7 +25,7 @@ stdenv.mkDerivation (
         # C++17 compat
         (fetchpatch {
           url = "https://github.com/latte-int/latte/commit/6dbf7f07d5c9e1f3afe793f782d191d4465088ae.patch";
-          excludes = [ "code/latte/sqlite/IntegrationDB.h" ];
+          excludes = ["code/latte/sqlite/IntegrationDB.h"];
           sha256 = "sha256-i7c11y54OLuJ0m7PBnhEoAzJzxC842JU7A6TOtTz06k=";
         })
       ];
@@ -40,7 +40,7 @@ stdenv.mkDerivation (
       description = "Software for counting lattice points and integration over convex polytopes";
       homepage = "https://www.math.ucdavis.edu/~latte/";
       license = lib.licenses.gpl2;
-      maintainers = with lib.maintainers; [ amesgen ];
+      maintainers = with lib.maintainers; [amesgen];
       platforms = lib.platforms.unix;
     };
   }

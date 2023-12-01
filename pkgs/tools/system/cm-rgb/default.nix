@@ -55,6 +55,6 @@ buildPythonApplication rec {
     homepage = "https://github.com/gfduszynski/cm-rgb";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -26,7 +26,7 @@ buildPythonPackage rec {
     requests
     future
     botocore
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  ] ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   meta = {
     description = "AWS X-Ray SDK for the Python programming language";

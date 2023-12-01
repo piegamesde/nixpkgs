@@ -27,15 +27,15 @@ buildPythonPackage rec {
     taglib
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "taglib" ];
+  pythonImportsCheck = ["taglib"];
 
   meta = with lib; {
     description = "Python bindings for the Taglib audio metadata library";
     homepage = "https://github.com/supermihi/pytaglib";
     changelog = "https://github.com/supermihi/pytaglib/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ mrkkrp ];
+    maintainers = with maintainers; [mrkkrp];
   };
 }

@@ -30,7 +30,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     dictdiffer
@@ -51,13 +51,13 @@ buildPythonPackage rec {
       --replace "dvc-objects==" "dvc-objects>="
   '';
 
-  pythonImportsCheck = [ "dvc_data" ];
+  pythonImportsCheck = ["dvc_data"];
 
   meta = with lib; {
     description = "DVC's data management subsystem";
     homepage = "https://github.com/iterative/dvc-data";
     changelog = "https://github.com/iterative/dvc-data/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

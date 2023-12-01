@@ -49,7 +49,7 @@ in
       };
       extraPackages = mkOption {
         type = with types; listOf package;
-        default = with pkgs; [ ];
+        default = with pkgs; [];
         description = lib.mdDoc "Extra packages to be used with VMware host.";
         example = "with pkgs; [ ntfs3g ]";
       };
@@ -67,7 +67,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    boot.extraModulePackages = [ config.boot.kernelPackages.vmware ];
+    boot.extraModulePackages = [config.boot.kernelPackages.vmware];
     boot.extraModprobeConfig = "alias char-major-10-229 fuse";
     boot.kernelModules = [
       "vmw_pvscsi"
@@ -77,8 +77,8 @@ in
       "fuse"
     ];
 
-    environment.systemPackages = [ cfg.package ] ++ cfg.extraPackages;
-    services.printing.drivers = [ cfg.package ];
+    environment.systemPackages = [cfg.package] ++ cfg.extraPackages;
+    services.printing.drivers = [cfg.package];
 
     environment.etc."vmware/config".text = ''
       ${builtins.readFile "${cfg.package}/etc/vmware/config"}
@@ -137,9 +137,9 @@ in
       description = "VMware Authentication Daemon";
       serviceConfig = {
         Type = "forking";
-        ExecStart = [ "${cfg.package}/bin/vmware-authdlauncher" ];
+        ExecStart = ["${cfg.package}/bin/vmware-authdlauncher"];
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
 
     systemd.services."vmware-networks-configuration" = {
@@ -147,32 +147,32 @@ in
       unitConfig.ConditionPathExists = "!/etc/vmware/networking";
       serviceConfig = {
         UMask = "0077";
-        ExecStart = [ "${cfg.package}/bin/vmware-networks --postinstall vmware-player,0,1" ];
+        ExecStart = ["${cfg.package}/bin/vmware-networks --postinstall vmware-player,0,1"];
         Type = "oneshot";
         RemainAfterExit = "yes";
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
 
     systemd.services."vmware-networks" = {
       description = "VMware Networks";
-      after = [ "vmware-networks-configuration.service" ];
-      requires = [ "vmware-networks-configuration.service" ];
+      after = ["vmware-networks-configuration.service"];
+      requires = ["vmware-networks-configuration.service"];
       serviceConfig = {
         Type = "forking";
-        ExecCondition = [ "${pkgs.kmod}/bin/modprobe vmnet" ];
-        ExecStart = [ "${cfg.package}/bin/vmware-networks --start" ];
-        ExecStop = [ "${cfg.package}/bin/vmware-networks --stop" ];
+        ExecCondition = ["${pkgs.kmod}/bin/modprobe vmnet"];
+        ExecStart = ["${cfg.package}/bin/vmware-networks --start"];
+        ExecStop = ["${cfg.package}/bin/vmware-networks --stop"];
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
 
     systemd.services."vmware-usbarbitrator" = {
       description = "VMware USB Arbitrator";
       serviceConfig = {
-        ExecStart = [ "${cfg.package}/bin/vmware-usbarbitrator -f" ];
+        ExecStart = ["${cfg.package}/bin/vmware-usbarbitrator -f"];
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
   };
 }

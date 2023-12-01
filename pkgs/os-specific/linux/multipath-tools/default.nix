@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
     # skip test attempting to access /sys/dev/block
     substituteInPlace tests/Makefile --replace ' devt ' ' '
   '';
-  nativeCheckInputs = [ cmocka ];
+  nativeCheckInputs = [cmocka];
 
   passthru.tests = {
     inherit (nixosTests) iscsi-multipath-root;

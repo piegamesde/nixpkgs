@@ -10,7 +10,7 @@ let
 
   cfg = config.services.prosody-filer;
 
-  settingsFormat = pkgs.formats.toml { };
+  settingsFormat = pkgs.formats.toml {};
   configFile = settingsFormat.generate "prosody-filer.toml" cfg.settings;
 in
 {
@@ -53,12 +53,12 @@ in
       isSystemUser = true;
     };
 
-    users.groups.prosody-filer = { };
+    users.groups.prosody-filer = {};
 
     systemd.services.prosody-filer = {
       description = "Prosody file upload server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         User = "prosody-filer";

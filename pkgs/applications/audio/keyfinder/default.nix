@@ -21,7 +21,7 @@ mkDerivation rec {
     owner = "ibsh";
   };
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
   buildInputs = [
     libav_0_8
     libkeyfinder

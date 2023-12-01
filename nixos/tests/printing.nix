@@ -18,13 +18,13 @@ import ./make-test-python.nix (
     };
 
     nodes.server =
-      { ... }:
+      {...}:
       {
         services.printing = {
           enable = true;
           stateless = true;
           startWhenNeeded = socket;
-          listenAddresses = [ "*:631" ];
+          listenAddresses = ["*:631"];
           defaultShared = true;
           extraConf = ''
             <Location />
@@ -33,7 +33,7 @@ import ./make-test-python.nix (
             </Location>
           '';
         };
-        networking.firewall.allowedTCPPorts = [ 631 ];
+        networking.firewall.allowedTCPPorts = [631];
         # Add a HP Deskjet printer connected via USB to the server.
         hardware.printers.ensurePrinters = [
           {
@@ -45,7 +45,7 @@ import ./make-test-python.nix (
       };
 
     nodes.client =
-      { ... }:
+      {...}:
       {
         services.printing.enable = true;
         services.printing.startWhenNeeded = socket;

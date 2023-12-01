@@ -32,7 +32,7 @@ buildPythonPackage rec {
       --replace 'addopts = "--capture no --cov ./withings_api --cov-report html:build/coverage_report --cov-report term --cov-report xml:build/coverage.xml"' '''
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     arrow
@@ -50,6 +50,6 @@ buildPythonPackage rec {
     description = "Library for the Withings Health API";
     homepage = "https://github.com/vangorra/python_withings_api";
     license = licenses.mit;
-    maintainers = with maintainers; [ kittywitch ];
+    maintainers = with maintainers; [kittywitch];
   };
 }

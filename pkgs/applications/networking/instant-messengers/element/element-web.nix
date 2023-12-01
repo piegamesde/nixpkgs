@@ -21,7 +21,7 @@ let
 in
 stdenv.mkDerivation (
   finalAttrs:
-  builtins.removeAttrs pinData [ "hashes" ]
+  builtins.removeAttrs pinData ["hashes"]
   // {
     pname = "element-web";
 

@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-FaopviBJOmO0lXoJcdKNdtsoaJ8JrFEJGyO1aNBv+Pg=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "CAN userspace utilities and tools (for use with Linux SocketCAN)";

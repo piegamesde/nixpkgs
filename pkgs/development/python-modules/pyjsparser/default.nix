@@ -27,16 +27,16 @@ let
     doCheck = false;
 
     passthru.tests = {
-      check = pyjsparser.overridePythonAttrs (_: { doCheck = true; });
+      check = pyjsparser.overridePythonAttrs (_: {doCheck = true;});
     };
 
-    pythonImportsCheck = [ "pyjsparser" ];
+    pythonImportsCheck = ["pyjsparser"];
 
     meta = with lib; {
       description = "Fast javascript parser (based on esprima.js)";
       homepage = "https://github.com/PiotrDabkowski/pyjsparser";
       license = licenses.mit;
-      maintainers = with maintainers; [ onny ];
+      maintainers = with maintainers; [onny];
     };
   };
 in

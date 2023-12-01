@@ -38,12 +38,12 @@ buildPythonPackage rec {
   # no tests in repo
   doCheck = false;
 
-  pythonImportsCheck = [ "nix-kernel" ];
+  pythonImportsCheck = ["nix-kernel"];
 
   meta = with lib; {
     description = "Simple jupyter kernel for nix-repl";
     homepage = "https://github.com/GTrunSec/nix-kernel";
     license = licenses.mit;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

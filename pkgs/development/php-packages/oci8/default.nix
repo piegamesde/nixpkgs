@@ -23,8 +23,8 @@ buildPecl {
 
   inherit (versionData) version sha256;
 
-  buildInputs = [ oracle-instantclient ];
-  configureFlags = [ "--with-oci8=shared,instantclient,${oracle-instantclient.lib}/lib" ];
+  buildInputs = [oracle-instantclient];
+  configureFlags = ["--with-oci8=shared,instantclient,${oracle-instantclient.lib}/lib"];
 
   postPatch = ''
     sed -i -e 's|OCISDKMANINC=`.*$|OCISDKMANINC="${oracle-instantclient.dev}/include"|' config.m4

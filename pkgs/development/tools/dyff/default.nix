@@ -24,7 +24,7 @@ buildGoModule rec {
     "internal/cmd"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # test fails with the injected version
   postPatch = ''

@@ -13,7 +13,7 @@ stdenv.mkDerivation {
   pname = "bash-supergenpass";
   version = "unstable-2020-02-03";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   src = fetchFromGitHub {
     owner = "lanzz";
@@ -51,7 +51,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/lanzz/bash-supergenpass";
     license = licenses.mit;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     mainProgram = "supergenpass";
     platforms = platforms.all;
   };

@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Program for analysing NGS data";
     homepage = "http://www.popgen.dk/angsd";
-    maintainers = [ maintainers.bzizou ];
+    maintainers = [maintainers.bzizou];
     license = licenses.gpl2;
   };
 }

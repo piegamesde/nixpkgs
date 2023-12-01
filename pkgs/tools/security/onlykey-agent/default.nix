@@ -28,7 +28,7 @@ let
           pname = "lib-agent";
           sha256 = "sha256-MwtufyJVPWuK7bbX+9Kv6wEi/zq4ftXrfjrMOYpcIfc=";
         };
-        propagatedBuildInputs = oa.propagatedBuildInputs or [ ] ++ [
+        propagatedBuildInputs = oa.propagatedBuildInputs or [] ++ [
           bech32
           cryptography
           docutils
@@ -39,12 +39,12 @@ let
 
         # turn off testing because I can't get it to work
         doCheck = false;
-        pythonImportsCheck = [ "libagent" ];
+        pythonImportsCheck = ["libagent"];
 
         meta = oa.meta // {
           description = "Using OnlyKey as hardware SSH and GPG agent";
           homepage = "https://github.com/trustcrypto/onlykey-agent/tree/ledger";
-          maintainers = with lib.maintainers; [ kalbasit ];
+          maintainers = with lib.maintainers; [kalbasit];
         };
       }
     );
@@ -72,12 +72,12 @@ python3Packages.buildPythonApplication rec {
 
   # no tests
   doCheck = false;
-  pythonImportsCheck = [ "onlykey_agent" ];
+  pythonImportsCheck = ["onlykey_agent"];
 
   meta = with lib; {
     description = " The OnlyKey agent is essentially middleware that lets you use OnlyKey as a hardware SSH/GPG device.";
     homepage = "https://github.com/trustcrypto/onlykey-agent";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
   };
 }

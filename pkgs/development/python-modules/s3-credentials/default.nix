@@ -39,7 +39,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "s3_credentials" ];
+  pythonImportsCheck = ["s3_credentials"];
 
   disabledTests =
     [
@@ -51,6 +51,6 @@ buildPythonPackage rec {
     description = "Python CLI utility for creating credentials for accessing S3 buckets";
     homepage = "https://github.com/simonw/s3-credentials";
     license = licenses.asl20;
-    maintainers = with maintainers; [ techknowlogick ];
+    maintainers = with maintainers; [techknowlogick];
   };
 }

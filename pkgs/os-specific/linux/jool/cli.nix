@@ -10,7 +10,7 @@
 }:
 
 let
-  sourceAttrs = (import ./source.nix) { inherit fetchFromGitHub; };
+  sourceAttrs = (import ./source.nix) {inherit fetchFromGitHub;};
 in
 
 stdenv.mkDerivation {
@@ -54,6 +54,6 @@ stdenv.mkDerivation {
     description = "Fairly compliant SIIT and Stateful NAT64 for Linux - CLI tools";
     platforms = platforms.linux;
     license = licenses.gpl2;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
   };
 }

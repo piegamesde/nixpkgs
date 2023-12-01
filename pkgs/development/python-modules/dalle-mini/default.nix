@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   format = "setuptools";
 
-  buildInputs = [ jaxlib ];
+  buildInputs = [jaxlib];
 
   propagatedBuildInputs = [
     einops
@@ -41,12 +41,12 @@ buildPythonPackage rec {
 
   doCheck = false; # no upstream tests
 
-  pythonImportsCheck = [ "dalle_mini" ];
+  pythonImportsCheck = ["dalle_mini"];
 
   meta = with lib; {
     description = "Generate images from a text prompt";
     homepage = "https://github.com/borisdayma/dalle-mini";
     license = licenses.asl20;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
   };
 }

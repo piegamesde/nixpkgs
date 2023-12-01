@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     lapack
     libxml2
     plfit
-  ] ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
+  ] ++ lib.optionals stdenv.cc.isClang [llvmPackages.openmp];
 
   cmakeFlags = [
     "-DIGRAPH_USE_INTERNAL_BLAS=OFF"

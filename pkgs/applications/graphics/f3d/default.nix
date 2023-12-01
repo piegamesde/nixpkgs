@@ -21,10 +21,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-od8Wu8+HyQb8qTA6C4kiw5hNI2WPBs/EMt321BJDZoc=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs =
-    [ vtk_9 ]
+    [vtk_9]
     ++ lib.optionals stdenv.isDarwin [
       Cocoa
       OpenGL
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     description = "Fast and minimalist 3D viewer using VTK";
     homepage = "https://f3d-app.github.io/f3d";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = with platforms; unix;
   };
 }

@@ -200,7 +200,7 @@ in
 
     config = mkOption {
       type = configType;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         LimeSurvey configuration. Refer to
         <https://manual.limesurvey.org/Optional_settings>
@@ -268,7 +268,7 @@ in
     services.mysql = mkIf mysqlLocal {
       enable = true;
       package = mkDefault pkgs.mariadb;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -293,7 +293,7 @@ in
     services.httpd = {
       enable = true;
       adminAddr = mkDefault cfg.virtualHost.adminAddr;
-      extraModules = [ "proxy_fcgi" ];
+      extraModules = ["proxy_fcgi"];
       virtualHosts.${cfg.virtualHost.hostName} = mkMerge [
         cfg.virtualHost
         {
@@ -339,8 +339,8 @@ in
     ];
 
     systemd.services.limesurvey-init = {
-      wantedBy = [ "multi-user.target" ];
-      before = [ "phpfpm-limesurvey.service" ];
+      wantedBy = ["multi-user.target"];
+      before = ["phpfpm-limesurvey.service"];
       after = optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
       environment.DBENGINE = "${cfg.database.dbEngine}";
       environment.LIMESURVEY_CONFIG = limesurveyConfig;

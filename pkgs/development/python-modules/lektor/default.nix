@@ -68,7 +68,7 @@ buildPythonPackage rec {
     typing-inspect
     watchdog
     werkzeug
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  ] ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   nativeCheckInputs = [
     pytest-click
@@ -80,7 +80,7 @@ buildPythonPackage rec {
     cp -r lektor/translations "$out/${python.sitePackages}/lektor/"
   '';
 
-  pythonImportsCheck = [ "lektor" ];
+  pythonImportsCheck = ["lektor"];
 
   disabledTests =
     [
@@ -93,6 +93,6 @@ buildPythonPackage rec {
     homepage = "https://www.getlektor.com/";
     changelog = "https://github.com/lektor/lektor/blob/v${version}/CHANGES.md";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

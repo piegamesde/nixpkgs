@@ -20,7 +20,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Information gathering tool for DNS, ports and more";
     homepage = "https://github.com/edoardottt/scilla";
-    license = with licenses; [ gpl3Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Plus];
+    maintainers = with maintainers; [fab];
   };
 }

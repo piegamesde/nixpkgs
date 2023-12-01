@@ -5,7 +5,7 @@
 }:
 
 appleDerivation {
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   patchPhase = ''
     substituteInPlace mk/bsd.prog.mk \

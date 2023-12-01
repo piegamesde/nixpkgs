@@ -13,7 +13,7 @@
 
 let
   excludedTests =
-    [ "reimport_from_subinterpreter" ]
+    ["reimport_from_subinterpreter"]
     # cython's testsuite is not working very well with libc++
     # We are however optimistic about things outside of testsuite still working
     ++ lib.optionals (stdenv.cc.isClang or false) [
@@ -23,7 +23,7 @@ let
     # Some tests in the test suite isn't working on aarch64. Disable them for
     # now until upstream finds a workaround.
     # Upstream issue here: https://github.com/cython/cython/issues/2308
-    ++ lib.optionals stdenv.isAarch64 [ "numpy_memoryview" ]
+    ++ lib.optionals stdenv.isAarch64 ["numpy_memoryview"]
     ++ lib.optionals stdenv.isi686 [
       "future_division"
       "overflow_check_longlong"
@@ -39,7 +39,7 @@ buildPythonPackage rec {
     hash = "sha256-GQloj117Uhpgw5bSC7qeR6Gy0nhL+whUAeHh59KaKag=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   nativeCheckInputs = [
     gdb
@@ -92,6 +92,6 @@ buildPythonPackage rec {
     description = "An optimising static compiler for both the Python programming language and the extended Cython programming language";
     homepage = "https://cython.org";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fridh ];
+    maintainers = with lib.maintainers; [fridh];
   };
 }

@@ -27,7 +27,7 @@ buildGoModule rec {
     "-X main.distribution=nixpkgs"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   preBuild = ''
     make -C c/ladspa/

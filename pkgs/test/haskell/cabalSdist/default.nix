@@ -5,7 +5,7 @@
 }:
 
 let
-  localRaw = haskellPackages.callPackage ./local/generated.nix { };
+  localRaw = haskellPackages.callPackage ./local/generated.nix {};
 in
 lib.recurseIntoAttrs rec {
 
@@ -18,7 +18,7 @@ lib.recurseIntoAttrs rec {
 
   assumptionLocalHasDirectReference =
     runCommand "localHasDirectReference"
-      { drvPath = builtins.unsafeDiscardOutputDependency localRaw.drvPath; }
+      {drvPath = builtins.unsafeDiscardOutputDependency localRaw.drvPath;}
       ''
         grep ${./local} $drvPath >/dev/null
         touch $out
@@ -26,7 +26,7 @@ lib.recurseIntoAttrs rec {
 
   localHasNoDirectReference =
     runCommand "localHasNoDirectReference"
-      { drvPath = builtins.unsafeDiscardOutputDependency localFromCabalSdist.drvPath; }
+      {drvPath = builtins.unsafeDiscardOutputDependency localFromCabalSdist.drvPath;}
       ''
         grep -v ${./local} $drvPath >/dev/null
         touch $out

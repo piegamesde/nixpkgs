@@ -47,7 +47,7 @@ with lib;
 
       extraLocaleSettings = mkOption {
         type = types.attrsOf types.str;
-        default = { };
+        default = {};
         example = {
           LC_MESSAGES = "en_US.UTF-8";
           LC_TIME = "de_DE.UTF-8";
@@ -119,14 +119,14 @@ with lib;
 
     environment.systemPackages =
       # We increase the priority a little, so that plain glibc in systemPackages can't win.
-      optional (config.i18n.supportedLocales != [ ]) (lib.setPrio (-1) config.i18n.glibcLocales);
+      optional (config.i18n.supportedLocales != []) (lib.setPrio (-1) config.i18n.glibcLocales);
 
     environment.sessionVariables = {
       LANG = config.i18n.defaultLocale;
       LOCALE_ARCHIVE = "/run/current-system/sw/lib/locale/locale-archive";
     } // config.i18n.extraLocaleSettings;
 
-    systemd.globalEnvironment = mkIf (config.i18n.supportedLocales != [ ]) {
+    systemd.globalEnvironment = mkIf (config.i18n.supportedLocales != []) {
       LOCALE_ARCHIVE = "${config.i18n.glibcLocales}/lib/locale/locale-archive";
     };
 

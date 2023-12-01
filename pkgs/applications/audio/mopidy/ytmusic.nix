@@ -31,12 +31,12 @@ python.pkgs.buildPythonApplication rec {
   };
 
   propagatedBuildInputs = [
-    (mopidy.override { pythonPackages = python.pkgs; })
+    (mopidy.override {pythonPackages = python.pkgs;})
     python.pkgs.ytmusicapi
     python.pkgs.pytube
   ];
 
-  pythonImportsCheck = [ "mopidy_ytmusic" ];
+  pythonImportsCheck = ["mopidy_ytmusic"];
 
   # has no tests
   doCheck = false;
@@ -46,6 +46,6 @@ python.pkgs.buildPythonApplication rec {
     description = "Mopidy extension for playing music from YouTube Music";
     homepage = "https://github.com/OzymandiasTheGreat/mopidy-ytmusic";
     license = licenses.asl20;
-    maintainers = [ maintainers.nickhu ];
+    maintainers = [maintainers.nickhu];
   };
 }

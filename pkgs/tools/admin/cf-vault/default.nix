@@ -22,6 +22,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/jacobbednarz/cf-vault/";
     license = licenses.mit;
-    maintainers = with maintainers; [ viraptor ];
+    maintainers = with maintainers; [viraptor];
   };
 }

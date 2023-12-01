@@ -8,7 +8,7 @@
 let
   cfg = config.services.xmrig;
 
-  json = pkgs.formats.json { };
+  json = pkgs.formats.json {};
   configFile = json.generate "config.json" cfg.settings;
 in
 
@@ -28,7 +28,7 @@ with lib;
       };
 
       settings = mkOption {
-        default = { };
+        default = {};
         type = json.type;
         example = literalExpression ''
           {
@@ -56,11 +56,11 @@ with lib;
   };
 
   config = mkIf cfg.enable {
-    boot.kernelModules = [ "msr" ];
+    boot.kernelModules = ["msr"];
 
     systemd.services.xmrig = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       description = "XMRig Mining Software Service";
       serviceConfig = {
         ExecStartPre = "${cfg.package}/bin/xmrig --config=${configFile} --dry-run";
@@ -74,5 +74,5 @@ with lib;
     };
   };
 
-  meta = with lib; { maintainers = with maintainers; [ ratsclub ]; };
+  meta = with lib; {maintainers = with maintainers; [ratsclub];};
 }

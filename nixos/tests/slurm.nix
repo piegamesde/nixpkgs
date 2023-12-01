@@ -1,17 +1,17 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
   let
     slurmconfig = {
       services.slurm = {
         controlMachine = "control";
-        nodeName = [ "node[1-3] CPUs=1 State=UNKNOWN" ];
-        partitionName = [ "debug Nodes=node[1-3] Default=YES MaxTime=INFINITE State=UP" ];
+        nodeName = ["node[1-3] CPUs=1 State=UNKNOWN"];
+        partitionName = ["debug Nodes=node[1-3] Default=YES MaxTime=INFINITE State=UP"];
         extraConfig = ''
           AccountingStorageHost=dbd
           AccountingStorageType=accounting_storage/slurmdbd
         '';
       };
-      environment.systemPackages = [ mpitest ];
+      environment.systemPackages = [mpitest];
       networking.firewall.enable = false;
       systemd.tmpfiles.rules = [
         "f /etc/munge/munge.key 0400 munge munge - mungeverryweakkeybuteasytointegratoinatest"
@@ -46,7 +46,7 @@ import ./make-test-python.nix (
           }
         '';
       in
-      pkgs.runCommand "mpitest" { } ''
+      pkgs.runCommand "mpitest" {} ''
         mkdir -p $out/bin
         ${pkgs.openmpi}/bin/mpicc ${mpitestC} -o $out/bin/mpitest
       '';
@@ -54,14 +54,14 @@ import ./make-test-python.nix (
   {
     name = "slurm";
 
-    meta.maintainers = [ lib.maintainers.markuskowa ];
+    meta.maintainers = [lib.maintainers.markuskowa];
 
     nodes =
       let
         computeNode =
-          { ... }:
+          {...}:
           {
-            imports = [ slurmconfig ];
+            imports = [slurmconfig];
             # TODO slurmd port and slurmctld port should be configurations and
             # automatically allowed by the  firewall.
             services.slurm = {
@@ -72,25 +72,25 @@ import ./make-test-python.nix (
       {
 
         control =
-          { ... }:
+          {...}:
           {
-            imports = [ slurmconfig ];
+            imports = [slurmconfig];
             services.slurm = {
               server.enable = true;
             };
           };
 
         submit =
-          { ... }:
+          {...}:
           {
-            imports = [ slurmconfig ];
+            imports = [slurmconfig];
             services.slurm = {
               enableStools = true;
             };
           };
 
         dbd =
-          { pkgs, ... }:
+          {pkgs, ...}:
           let
             passFile = pkgs.writeText "dbdpassword" "password123";
           in
@@ -110,7 +110,7 @@ import ./make-test-python.nix (
                 CREATE USER 'slurm'@'localhost' IDENTIFIED BY 'password123';
                 GRANT ALL PRIVILEGES ON slurm_acct_db.* TO 'slurm'@'localhost';
               '';
-              ensureDatabases = [ "slurm_acct_db" ];
+              ensureDatabases = ["slurm_acct_db"];
               ensureUsers = [
                 {
                   ensurePermissions = {

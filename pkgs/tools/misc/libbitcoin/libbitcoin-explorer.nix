@@ -45,7 +45,7 @@ stdenv.mkDerivation {
     description = "Bitcoin command line tool";
     homepage = "https://github.com/libbitcoin/libbitcoin-explorer";
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ asymmetric ];
+    maintainers = with maintainers; [asymmetric];
 
     # AGPL with a lesser clause
     license = licenses.agpl3;

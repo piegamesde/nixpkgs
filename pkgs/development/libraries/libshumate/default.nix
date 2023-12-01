@@ -53,9 +53,9 @@ stdenv.mkDerivation rec {
     gtk4
   ];
 
-  nativeCheckInputs = [ xvfb-run ];
+  nativeCheckInputs = [xvfb-run];
 
-  mesonFlags = [ "-Ddemos=true" ];
+  mesonFlags = ["-Ddemos=true"];
 
   doCheck = !stdenv.isDarwin;
 

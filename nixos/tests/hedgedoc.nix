@@ -1,13 +1,13 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "hedgedoc";
 
-    meta = with lib.maintainers; { maintainers = [ willibutz ]; };
+    meta = with lib.maintainers; {maintainers = [willibutz];};
 
     nodes = {
       hedgedocSqlite =
-        { ... }:
+        {...}:
         {
           services = {
             hedgedoc = {
@@ -18,9 +18,9 @@ import ./make-test-python.nix (
         };
 
       hedgedocPostgres =
-        { ... }:
+        {...}:
         {
-          systemd.services.hedgedoc.after = [ "postgresql.service" ];
+          systemd.services.hedgedoc.after = ["postgresql.service"];
           services = {
             hedgedoc = {
               enable = true;

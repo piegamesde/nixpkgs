@@ -55,14 +55,14 @@ with lib;
 
   config = mkIf config.services.gnome.gnome-keyring.enable {
 
-    environment.systemPackages = [ pkgs.gnome.gnome-keyring ];
+    environment.systemPackages = [pkgs.gnome.gnome-keyring];
 
     services.dbus.packages = [
       pkgs.gnome.gnome-keyring
       pkgs.gcr
     ];
 
-    xdg.portal.extraPortals = [ pkgs.gnome.gnome-keyring ];
+    xdg.portal.extraPortals = [pkgs.gnome.gnome-keyring];
 
     security.pam.services.login.enableGnomeKeyring = true;
 

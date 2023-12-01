@@ -16,9 +16,9 @@ lib.appendToName "with-packages" (
 
     inherit (idris) name;
 
-    paths = paths ++ [ idris ];
+    paths = paths ++ [idris];
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     postBuild = ''
       wrapProgram $out/bin/idris \

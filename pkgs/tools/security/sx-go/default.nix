@@ -30,7 +30,7 @@ buildGoModule rec {
       })
     ];
 
-  buildInputs = [ libpcap ];
+  buildInputs = [libpcap];
 
   postFixup = ''
     # Rename binary to avoid conflict with sx
@@ -41,6 +41,6 @@ buildGoModule rec {
     description = "Command-line network scanner";
     homepage = "https://github.com/v-byte-cpu/sx";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

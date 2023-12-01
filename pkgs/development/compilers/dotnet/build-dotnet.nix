@@ -61,7 +61,7 @@ stdenv.mkDerivation (
     inherit pname version;
 
     # Some of these dependencies are `dlopen()`ed.
-    nativeBuildInputs = [ makeWrapper ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
+    nativeBuildInputs = [makeWrapper] ++ lib.optional stdenv.isLinux autoPatchelfHook;
 
     buildInputs = [
       stdenv.cc.cc
@@ -147,18 +147,16 @@ stdenv.mkDerivation (
           null;
 
       tests = {
-        version = testers.testVersion { package = finalAttrs.finalPackage; };
+        version = testers.testVersion {package = finalAttrs.finalPackage;};
 
-        smoke-test =
-          runCommand "dotnet-sdk-smoke-test" { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
-            ''
-              HOME=$(pwd)/fake-home
-              dotnet new console
-              dotnet build
-              output="$(dotnet run)"
-              # yes, older SDKs omit the comma
-              [[ "$output" =~ Hello,?\ World! ]] && touch "$out"
-            '';
+        smoke-test = runCommand "dotnet-sdk-smoke-test" {nativeBuildInputs = [finalAttrs.finalPackage];} ''
+          HOME=$(pwd)/fake-home
+          dotnet new console
+          dotnet build
+          output="$(dotnet run)"
+          # yes, older SDKs omit the comma
+          [[ "$output" =~ Hello,?\ World! ]] && touch "$out"
+        '';
       };
     };
 

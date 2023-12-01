@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "net_dot_didierverna_dot_asdf-flv";
   version = "asdf-flv-version-2.1";
 
   description = "ASDF extension to provide support for file-local variables.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/asdf-flv/2016-04-21/asdf-flv-version-2.1.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "net.didierverna.asdf-flv";
 
-  asdFilesToKeep = [ "net.didierverna.asdf-flv.asd" ];
+  asdFilesToKeep = ["net.didierverna.asdf-flv.asd"];
   overrides = x: x;
 }
 /* (SYSTEM net.didierverna.asdf-flv DESCRIPTION

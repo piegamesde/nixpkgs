@@ -1,5 +1,5 @@
 # Nixpkgs/NixOS option handling.
-{ lib }:
+{lib}:
 
 let
   inherit (lib)
@@ -76,7 +76,7 @@ rec {
       # Whether the option can be set only once
       readOnly ? null,
     }@attrs:
-    attrs // { _type = "option"; };
+    attrs // {_type = "option";};
 
   /* Creates an Option attribute set for a boolean value option i.e an
      option to be toggled on or off:
@@ -155,7 +155,7 @@ rec {
     }:
     let
       name' = if isList name then last name else name;
-      default' = if isList default then default else [ default ];
+      default' = if isList default then default else [default];
       defaultPath = concatStringsSep "." default';
       defaultValue = attrByPath default' (throw "${defaultPath} cannot be found in pkgs") pkgs;
     in
@@ -176,7 +176,7 @@ rec {
     let
       option = mkPackageOption pkgs name extra;
     in
-    option // { description = lib.mdDoc option.description; };
+    option // {description = lib.mdDoc option.description;};
 
   /* This option accepts anything, but it does not produce any result.
 
@@ -214,7 +214,7 @@ rec {
     else if all isList list then
       concatLists list
     else if all isAttrs list then
-      foldl' lib.mergeAttrs { } list
+      foldl' lib.mergeAttrs {} list
     else if all isBool list then
       foldl' lib.or false list
     else if all isString list then
@@ -224,10 +224,10 @@ rec {
     else
       throw "Cannot merge definitions of `${showOption loc}'. Definition values:${showDefs defs}";
 
-  mergeOneOption = mergeUniqueOption { message = ""; };
+  mergeOneOption = mergeUniqueOption {message = "";};
 
   mergeUniqueOption =
-    { message }:
+    {message}:
     loc: defs:
     if length defs == 1 then
       (head defs).value
@@ -242,7 +242,7 @@ rec {
   # "Merge" option definitions by checking that they all have the same value.
   mergeEqualOption =
     loc: defs:
-    if defs == [ ] then
+    if defs == [] then
       abort "This case should never happen."
     # Return early if we only have one element
     # This also makes it work for functions, because the foldl' below would try
@@ -291,7 +291,7 @@ rec {
 
   # Generate documentation template from the list of option declaration like
   # the set generated with filterOptionSets.
-  optionAttrSetToDocList = optionAttrSetToDocList' [ ];
+  optionAttrSetToDocList = optionAttrSetToDocList' [];
 
   optionAttrSetToDocList' =
     _: options:
@@ -329,12 +329,12 @@ rec {
             let
               ss = opt.type.getSubOptions opt.loc;
             in
-            if ss != { } then optionAttrSetToDocList' opt.loc ss else [ ];
+            if ss != {} then optionAttrSetToDocList' opt.loc ss else [];
           subOptionsVisible = docOption.visible && opt.visible or null != "shallow";
         in
         # To find infinite recursion in NixOS option docs:
         # builtins.trace opt.loc
-        [ docOption ] ++ optionals subOptionsVisible subOptions
+        [docOption] ++ optionals subOptionsVisible subOptions
       )
       (collect isOption options);
 
@@ -361,7 +361,7 @@ rec {
     else if isList x then
       map scrubOptionValue x
     else if isAttrs x then
-      mapAttrs (n: v: scrubOptionValue v) (removeAttrs x [ "_args" ])
+      mapAttrs (n: v: scrubOptionValue v) (removeAttrs x ["_args"])
     else
       x;
 
@@ -481,7 +481,7 @@ rec {
         let
           # Pretty print the value for display, if successful
           prettyEval = builtins.tryEval (
-            lib.generators.toPretty { } (
+            lib.generators.toPretty {} (
               lib.generators.withRecursion
                 {
                   depthLimit = 10;

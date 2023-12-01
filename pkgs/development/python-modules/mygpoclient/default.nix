@@ -36,7 +36,7 @@ buildPythonPackage rec {
       to the gpodder.net web services.
     '';
     homepage = "https://github.com/gpodder/mygpoclient";
-    license = with licenses; [ gpl3 ];
-    maintainers = with maintainers; [ skeidel ];
+    license = with licenses; [gpl3];
+    maintainers = with maintainers; [skeidel];
   };
 }

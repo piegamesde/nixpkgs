@@ -48,10 +48,10 @@ let
           sha256 = "06yyf90605aq6ppfiz83mqkdmnaq5418axp9jgsjyjq78b00xb29";
         })
       ];
-      buildInputs = old.buildInputs ++ [ libuninameslist ];
+      buildInputs = old.buildInputs ++ [libuninameslist];
     }
   );
-  scfbuild-with-fontforge-20201107 = scfbuild.override (old: { fontforge = fontforge-20201107; });
+  scfbuild-with-fontforge-20201107 = scfbuild.override (old: {fontforge = fontforge-20201107;});
 in
 stdenv.mkDerivation rec {
   pname = "openmoji";
@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     license = licenses.cc-by-sa-40;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
     homepage = "https://openmoji.org/";
     downloadPage = "https://github.com/hfg-gmuend/openmoji/releases";

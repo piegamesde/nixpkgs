@@ -27,12 +27,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "furl" ];
+  pythonImportsCheck = ["furl"];
 
   meta = with lib; {
     description = "Python library that makes parsing and manipulating URLs easy";
     homepage = "https://github.com/gruns/furl";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ vanzef ];
+    maintainers = with maintainers; [vanzef];
   };
 }

@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-wS59gf+qBgWzrIwiwplKjhipzxxZKHobdyKiKJyVLsU=";
   };
 
-  propagatedBuildInputs = [ cffi ];
+  propagatedBuildInputs = [cffi];
 
   # https://github.com/xattr/xattr/issues/43
   doCheck = false;
@@ -28,13 +28,13 @@ buildPythonPackage rec {
     ${python.pythonForBuild.interpreter} -m compileall -f xattr
   '';
 
-  pythonImportsCheck = [ "xattr" ];
+  pythonImportsCheck = ["xattr"];
 
   meta = with lib; {
     description = "Python wrapper for extended filesystem attributes";
     homepage = "https://github.com/xattr/xattr";
     changelog = "https://github.com/xattr/xattr/blob/v${version}/CHANGES.txt";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

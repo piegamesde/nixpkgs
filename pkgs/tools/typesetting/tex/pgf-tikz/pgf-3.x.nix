@@ -33,7 +33,7 @@ stdenvNoCC.mkDerivation (
       description = "A Portable Graphic Format for TeX - version ${finalAttrs.version}";
       branch = lib.versions.major version;
       license = licenses.gpl2Plus;
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       platforms = platforms.unix;
     };
   }

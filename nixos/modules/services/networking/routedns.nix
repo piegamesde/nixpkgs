@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.services.routedns;
-  settingsFormat = pkgs.formats.toml { };
+  settingsFormat = pkgs.formats.toml {};
 in
 {
   options.services.routedns = {
@@ -64,9 +64,9 @@ in
   config = mkIf cfg.enable {
     systemd.services.routedns = {
       description = "RouteDNS - DNS stub resolver, proxy and router";
-      after = [ "network.target" ]; # in case a bootstrap resolver is used, this might fail a few times until the respective server is actually reachable
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network.target" ];
+      after = ["network.target"]; # in case a bootstrap resolver is used, this might fail a few times until the respective server is actually reachable
+      wantedBy = ["multi-user.target"];
+      wants = ["network.target"];
       startLimitIntervalSec = 30;
       startLimitBurst = 5;
       serviceConfig = {
@@ -81,5 +81,5 @@ in
       };
     };
   };
-  meta.maintainers = with maintainers; [ jsimonetti ];
+  meta.maintainers = with maintainers; [jsimonetti];
 }

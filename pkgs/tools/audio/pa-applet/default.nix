@@ -50,7 +50,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ domenkozar ];
+    maintainers = with maintainers; [domenkozar];
     platforms = platforms.linux;
   };
 }

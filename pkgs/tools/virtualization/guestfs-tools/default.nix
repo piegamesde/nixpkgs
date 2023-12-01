@@ -90,9 +90,9 @@ stdenv.mkDerivation rec {
     patchShebangs ocaml-dep.sh.in ocaml-link.sh.in run.in
   '';
 
-  makeFlags = [ "LIBGUESTFS_PATH=${libguestfs-with-appliance}/lib/guestfs" ];
+  makeFlags = ["LIBGUESTFS_PATH=${libguestfs-with-appliance}/lib/guestfs"];
 
-  installFlags = [ "BASH_COMPLETIONS_DIR=${placeholder "out"}/share/bash-completion/completions" ];
+  installFlags = ["BASH_COMPLETIONS_DIR=${placeholder "out"}/share/bash-completion/completions"];
 
   enableParallelBuilding = true;
 
@@ -124,7 +124,7 @@ stdenv.mkDerivation rec {
       lgpl21Plus
     ];
     homepage = "https://libguestfs.org/";
-    maintainers = with maintainers; [ thiagokokada ];
+    maintainers = with maintainers; [thiagokokada];
     platforms = platforms.linux;
   };
 }

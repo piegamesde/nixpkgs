@@ -37,7 +37,7 @@ stdenv.mkDerivation {
 
   preferLocalBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   passthru.unwrapped = gnvim-unwrapped;
 

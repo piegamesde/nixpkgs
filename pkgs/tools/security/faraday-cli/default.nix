@@ -38,13 +38,13 @@ python3.pkgs.buildPythonApplication rec {
   # Tests requires credentials
   doCheck = false;
 
-  pythonImportsCheck = [ "faraday_cli" ];
+  pythonImportsCheck = ["faraday_cli"];
 
   meta = with lib; {
     description = "Command Line Interface for Faraday";
     homepage = "https://github.com/infobyte/faraday-cli";
     changelog = "https://github.com/infobyte/faraday-cli/releases/tag/${version}";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [fab];
   };
 }

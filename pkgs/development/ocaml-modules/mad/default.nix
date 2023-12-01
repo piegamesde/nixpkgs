@@ -17,13 +17,13 @@ buildDunePackage rec {
     sha256 = "sha256-iJjANV2M68v3C3db1n9Y8V6yJKuDBDSjtMteamndN7U=";
   };
 
-  buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [ libmad ];
+  buildInputs = [dune-configurator];
+  propagatedBuildInputs = [libmad];
 
   meta = with lib; {
     homepage = "https://github.com/savonet/ocaml-mad";
     description = "Bindings for the mad library which provides functions for encoding wave audio files into mp3";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

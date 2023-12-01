@@ -45,7 +45,7 @@
   jackaudioSupport ? false,
   libjack2,
   cudaSupport ? config.cudaSupport or false,
-  cudaPackages ? { },
+  cudaPackages ? {},
   hipSupport ? false,
   hip, # comes with a significantly larger closure size
   colladaSupport ? true,
@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
     makeWrapper
     python310Packages.wrapPython
     llvmPackages.llvm.dev
-  ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
+  ] ++ lib.optionals cudaSupport [addOpenGLRunpath];
   buildInputs =
     [
       boost
@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
       fftw
       jemalloc
       alembic
-      (opensubdiv.override { inherit cudaSupport; })
+      (opensubdiv.override {inherit cudaSupport;})
       tbb
       gmp
       pugixml
@@ -222,7 +222,7 @@ stdenv.mkDerivation rec {
       "-DWITH_IMAGE_OPENJPEG=ON"
       "-DWITH_OPENCOLLADA=${if colladaSupport then "ON" else "OFF"}"
     ]
-    ++ lib.optionals stdenv.hostPlatform.isAarch64 [ "-DWITH_CYCLES_EMBREE=OFF" ]
+    ++ lib.optionals stdenv.hostPlatform.isAarch64 ["-DWITH_CYCLES_EMBREE=OFF"]
     ++ lib.optionals stdenv.isDarwin [
       "-DWITH_CYCLES_OSL=OFF" # requires LLVM
       "-DWITH_OPENVDB=OFF" # OpenVDB currently doesn't build on darwin
@@ -275,7 +275,7 @@ stdenv.mkDerivation rec {
     # They comment two licenses: GPLv2 and Blender License, but they
     # say: "We've decided to cancel the BL offering for an indefinite period."
     # OptiX, enabled with cudaSupport, is non-free.
-    license = with licenses; [ gpl2Plus ] ++ optional cudaSupport unfree;
+    license = with licenses; [gpl2Plus] ++ optional cudaSupport unfree;
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"

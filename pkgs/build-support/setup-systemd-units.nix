@@ -28,7 +28,7 @@
 # `setupSystemdUnits`.
 }:
 let
-  static = runCommand "systemd-static" { } ''
+  static = runCommand "systemd-static" {} ''
     mkdir -p $out
     ${lib.concatStringsSep "\n" (
       lib.mapAttrsToList (nm: file: "ln -sv ${file.path or file} $out/${nm}") units
@@ -51,7 +51,7 @@ let
           mv -T "$unitDir/${unit}.wants/.${name}.tmp" \
             "$unitDir/${unit}.wants/${name}"
         '')
-        file.wanted-by or [ ]
+        file.wanted-by or []
     )}
     unitsToStart+=("${name}")
   '';

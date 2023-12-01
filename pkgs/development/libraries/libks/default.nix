@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Foundational support for signalwire C products";
     homepage = "https://github.com/signalwire/libks";
-    maintainers = with lib.maintainers; [ misuzu ];
+    maintainers = with lib.maintainers; [misuzu];
     platforms = platforms.unix;
     license = licenses.mit;
   };

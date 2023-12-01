@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     blas
     lapack
     gzip
-  ] ++ (lib.optionals withMPI [ mpi ]);
+  ] ++ (lib.optionals withMPI [mpi]);
 
   configurePhase = ''
     cd src
@@ -98,6 +98,6 @@ stdenv.mkDerivation rec {
     homepage = "https://lammps.sandia.gov";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

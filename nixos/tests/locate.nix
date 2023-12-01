@@ -1,15 +1,15 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
   let
     inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
   in
   {
     name = "locate";
-    meta.maintainers = with pkgs.lib.maintainers; [ chkno ];
+    meta.maintainers = with pkgs.lib.maintainers; [chkno];
 
     nodes = rec {
       a = {
-        environment.systemPackages = with pkgs; [ sshfs ];
+        environment.systemPackages = with pkgs; [sshfs];
         virtualisation.fileSystems = {
           "/ssh" = {
             device = "alice@b:/";
@@ -32,7 +32,7 @@ import ./make-test-python.nix (
         services.openssh.enable = true;
         users.users.alice = {
           isNormalUser = true;
-          openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
+          openssh.authorizedKeys.keys = [snakeOilPublicKey];
         };
       };
     };

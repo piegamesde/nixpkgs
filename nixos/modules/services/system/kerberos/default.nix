@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{config, lib, ...}:
 
 let
   inherit (lib)
@@ -30,7 +30,7 @@ let
                 "modify"
               ]
             ))
-            (types.enum [ "all" ]);
+            (types.enum ["all"]);
         default = "all";
         description = lib.mdDoc "The changes the principal is allowed to make.";
       };
@@ -87,7 +87,7 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ kerberos ];
+    environment.systemPackages = [kerberos];
     assertions = [
       {
         assertion = length (attrNames cfg.realms) <= 1;

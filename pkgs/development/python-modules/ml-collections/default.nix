@@ -47,12 +47,12 @@ buildPythonPackage rec {
   # nix-build environment, eg. re module names and __file__ attributes.
   doCheck = false;
 
-  pythonImportsCheck = [ "ml_collections" ];
+  pythonImportsCheck = ["ml_collections"];
 
   meta = with lib; {
     description = "ML Collections is a library of Python collections designed for ML usecases.";
     homepage = "https://github.com/google/ml_collections";
     license = licenses.asl20;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

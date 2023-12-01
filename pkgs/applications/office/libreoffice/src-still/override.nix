@@ -23,5 +23,5 @@ attrs: {
     '';
   configureFlags = attrs.configureFlags;
 
-  patches = attrs.patches or [ ];
+  patches = attrs.patches or [];
 }

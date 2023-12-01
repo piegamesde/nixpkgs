@@ -28,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-OsabgO2B2PRhU3DVvkK+f9VLOMqctl4nyCETxLtzwNs=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     ipython
@@ -43,12 +43,12 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [ "cdcs" ];
+  pythonImportsCheck = ["cdcs"];
 
   meta = with lib; {
     description = "Python client for performing REST calls to configurable data curation system (CDCS) databases";
     homepage = "https://github.com/usnistgov/pycdcs";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

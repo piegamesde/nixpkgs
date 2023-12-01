@@ -19,8 +19,8 @@ stdenv.mkDerivation rec {
     "--enable-oggsplt-symlink"
     "--enable-flacsplt-symlink"
   ];
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libmp3splt ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libmp3splt];
 
   outputs = [
     "out"
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     description = "Utility to split mp3, ogg vorbis and FLAC files without decoding";
     homepage = "https://sourceforge.net/projects/mp3splt/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.bosu ];
+    maintainers = [maintainers.bosu];
     platforms = platforms.unix;
   };
 }

@@ -15,7 +15,7 @@ let
 
   mysqldOptions = "--user=${cfg.user} --datadir=${cfg.dataDir} --basedir=${cfg.package}";
 
-  format = pkgs.formats.ini { listsAsDuplicateKeys = true; };
+  format = pkgs.formats.ini {listsAsDuplicateKeys = true;};
   configFile = format.generate "my.cnf" cfg.settings;
 in
 
@@ -144,7 +144,7 @@ in
 
       settings = mkOption {
         type = format.type;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           MySQL configuration. Refer to
           <https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html>,
@@ -195,7 +195,7 @@ in
             };
           }
         );
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           List of database names and their initial schemas that should be used to create databases on the first startup
           of MySQL. The schema attribute is optional: If not specified, an empty database is created.
@@ -216,7 +216,7 @@ in
 
       ensureDatabases = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Ensures that the specified databases exist.
           This option will never delete existing databases, especially not when the value of this
@@ -241,7 +241,7 @@ in
               };
               ensurePermissions = mkOption {
                 type = types.attrsOf types.str;
-                default = { };
+                default = {};
                 description = lib.mdDoc ''
                   Permissions to ensure for the user, specified as attribute set.
                   The attribute names specify the database and tables to grant the permissions for,
@@ -264,7 +264,7 @@ in
             };
           }
         );
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Ensures that the specified users exist and have at least the ensured permissions.
           The MySQL users will be identified using Unix socket authentication. This authenticates the Unix user with the
@@ -361,7 +361,7 @@ in
           "mysql"
         ];
       })
-      (mkIf (!isMariaDB) { plugin-load-add = "auth_socket.so"; })
+      (mkIf (!isMariaDB) {plugin-load-add = "auth_socket.so";})
     ];
 
     users.users = optionalAttrs (cfg.user == "mysql") {
@@ -372,18 +372,18 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "mysql") { mysql.gid = config.ids.gids.mysql; };
+    users.groups = optionalAttrs (cfg.group == "mysql") {mysql.gid = config.ids.gids.mysql;};
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     environment.etc."my.cnf".source = cfg.configFile;
 
     systemd.services.mysql = {
       description = "MySQL Server";
 
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ cfg.configFile ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      restartTriggers = [cfg.configFile];
 
       unitConfig.RequiresMountsFor = cfg.dataDir;
 
@@ -519,7 +519,7 @@ in
               rm ${cfg.dataDir}/mysql_init
           fi
 
-          ${optionalString (cfg.ensureDatabases != [ ]) ''
+          ${optionalString (cfg.ensureDatabases != []) ''
             (
             ${concatMapStrings
               (database: ''
@@ -561,7 +561,7 @@ in
           RuntimeDirectory = "mysqld";
           RuntimeDirectoryMode = "0755";
           # Access write directories
-          ReadWritePaths = [ cfg.dataDir ];
+          ReadWritePaths = [cfg.dataDir];
           # Capabilities
           CapabilityBoundingSet = "";
           # Security

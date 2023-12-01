@@ -80,7 +80,7 @@ in
     };
 
     nginx = mkOption {
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Configuration for nginx reverse proxy.
       '';
@@ -109,9 +109,9 @@ in
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
-        meta.maintainers = with lib.maintainers; [ fliegendewurst ];
+        meta.maintainers = with lib.maintainers; [fliegendewurst];
 
-        users.groups.trilium = { };
+        users.groups.trilium = {};
         users.users.trilium = {
           description = "Trilium User";
           group = "trilium";
@@ -120,7 +120,7 @@ in
         };
 
         systemd.services.trilium-server = {
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
           environment.TRILIUM_DATA_DIR = cfg.dataDir;
           serviceConfig = {
             ExecStart = "${pkgs.trilium-server}/bin/trilium-server";

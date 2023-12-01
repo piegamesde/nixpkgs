@@ -16,7 +16,7 @@ buildGoModule rec {
     sha256 = "sha256-o2t542q6UGjWdhJkcAm34kGhPUGNsvZKf940T+vydoE=";
   };
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   vendorHash = "sha256-ElV5edbe1LQWbA1NKv52/rLZJeOLBahE4YBKg9OA7YY=";
 
@@ -26,6 +26,6 @@ buildGoModule rec {
     description = "Go symbol recovery tool";
     homepage = "https://github.com/mandiant/GoReSym";
     license = licenses.mit;
-    maintainers = with maintainers; [ thehedgeh0g ];
+    maintainers = with maintainers; [thehedgeh0g];
   };
 }

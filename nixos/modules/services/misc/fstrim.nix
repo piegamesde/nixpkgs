@@ -34,7 +34,7 @@ in
 
   config = mkIf cfg.enable {
 
-    systemd.packages = [ pkgs.util-linux ];
+    systemd.packages = [pkgs.util-linux];
 
     systemd.timers.fstrim = {
       timerConfig = {
@@ -43,9 +43,9 @@ in
           cfg.interval
         ];
       };
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
     };
   };
 
-  meta.maintainers = with maintainers; [ ];
+  meta.maintainers = with maintainers; [];
 }

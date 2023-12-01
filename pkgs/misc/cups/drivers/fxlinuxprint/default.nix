@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     dpkg
     autoPatchelfHook
   ];
-  buildInputs = [ cups ];
+  buildInputs = [cups];
 
   sourceRoot = ".";
   unpackCmd = "dpkg-deb -x $curSrc/fxlinuxprint_${version}_${debPlatform}.deb .";
@@ -57,9 +57,9 @@ stdenv.mkDerivation rec {
       DocuPrint 3205 d/3208 d/3505 d/3508 d/4405 d/4408 d
     '';
     homepage = "https://onlinesupport.fujixerox.com";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ delan ];
+    maintainers = with maintainers; [delan];
     platforms = platforms.linux;
   };
 }

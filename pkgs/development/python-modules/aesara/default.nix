@@ -70,7 +70,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [ "aesara" ];
+  pythonImportsCheck = ["aesara"];
 
   disabledTestPaths = [
     # Don't run the most compute-intense tests
@@ -93,7 +93,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/aesara-devs/aesara";
     changelog = "https://github.com/aesara-devs/aesara/releases/tag/rel-${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ Etjean ];
+    maintainers = with maintainers; [Etjean];
     broken = (stdenv.isLinux && stdenv.isAarch64);
   };
 }

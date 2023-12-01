@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     else
       releasePath;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     openjdk
     gtk2
@@ -99,9 +99,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Optimization solver for mathematical programming";
     homepage = "https://www.ibm.com/be-en/marketplace/ibm-ilog-cplex";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ bfortz ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [bfortz];
   };
 }

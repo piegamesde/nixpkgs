@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   let
     port = 3142;
@@ -7,11 +7,11 @@ import ./make-test-python.nix (
   in
   with lib; {
     name = "calibre-web";
-    meta.maintainers = with pkgs.lib.maintainers; [ pborzenkov ];
+    meta.maintainers = with pkgs.lib.maintainers; [pborzenkov];
 
     nodes = {
       customized =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           services.calibre-web = {
             enable = true;
@@ -24,7 +24,7 @@ import ./make-test-python.nix (
               };
             };
           };
-          environment.systemPackages = [ pkgs.calibre ];
+          environment.systemPackages = [pkgs.calibre];
         };
     };
     testScript = ''

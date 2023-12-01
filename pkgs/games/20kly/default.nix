@@ -24,7 +24,7 @@ python3Packages.buildPythonApplication rec {
         "LIGHTYEARS_DIR = \"$out/share\""
   '';
 
-  propagatedBuildInputs = with python3Packages; [ pygame ];
+  propagatedBuildInputs = with python3Packages; [pygame];
 
   buildPhase = ''
     python -O -m compileall .
@@ -40,6 +40,6 @@ python3Packages.buildPythonApplication rec {
     description = "A steampunk-themed strategy game where you have to manage a steam supply network";
     homepage = "http://jwhitham.org.uk/20kly/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

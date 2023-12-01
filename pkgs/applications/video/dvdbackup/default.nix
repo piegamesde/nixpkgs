@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   ];
 
   # see https://bugs.launchpad.net/dvdbackup/+bug/1869226
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
   patches = [
     (fetchpatch {
       url = "https://git.slackbuilds.org/slackbuilds/plain/multimedia/dvdbackup/patches/dvdbackup-dvdread-6.1.patch";
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "A tool to rip video DVDs from the command line";
     homepage = "https://dvdbackup.sourceforge.net/";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ lib.maintainers.bradediger ];
+    maintainers = [lib.maintainers.bradediger];
     platforms = lib.platforms.linux;
   };
 }

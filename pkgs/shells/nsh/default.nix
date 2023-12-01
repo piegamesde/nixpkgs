@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage rec {
       licenses.cc0 # or
       licenses.mit
     ];
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 
   passthru = {

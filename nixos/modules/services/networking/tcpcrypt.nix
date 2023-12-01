@@ -42,8 +42,8 @@ in
     systemd.services.tcpcrypt = {
       description = "tcpcrypt";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       path = [
         pkgs.iptables

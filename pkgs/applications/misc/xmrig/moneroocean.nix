@@ -22,7 +22,7 @@ xmrig.overrideAttrs (
       homepage = "https://github.com/MoneroOcean/xmrig";
       license = licenses.gpl3Plus;
       platforms = platforms.unix;
-      maintainers = with maintainers; [ j0hax ];
+      maintainers = with maintainers; [j0hax];
     };
   }
 )

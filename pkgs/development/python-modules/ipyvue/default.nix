@@ -18,15 +18,15 @@ buildPythonPackage rec {
     hash = "sha256-hBqNvg6dKx6P5Yo17nUA9ztmvQjz+ChNFWnD2OOPp3U=";
   };
 
-  propagatedBuildInputs = [ ipywidgets ];
+  propagatedBuildInputs = [ipywidgets];
 
   doCheck = false; # No tests in package or GitHub
-  pythonImportsCheck = [ "ipyvue" ];
+  pythonImportsCheck = ["ipyvue"];
 
   meta = with lib; {
     description = "Jupyter widgets base for Vue libraries.";
     homepage = "https://github.com/mariobuikhuizen/ipyvuetify";
     license = licenses.mit;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

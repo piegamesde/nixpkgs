@@ -11,7 +11,7 @@ with lib;
 let
   luks = config.boot.initrd.luks;
   kernelPackages = config.boot.kernelPackages;
-  defaultPrio = (mkOptionDefault { }).priority;
+  defaultPrio = (mkOptionDefault {}).priority;
 
   commonFunctions = ''
     die() {
@@ -502,7 +502,7 @@ let
         }
       ''}
 
-      ${optionalString (luks.fido2Support && fido2luksCredentials != [ ]) ''
+      ${optionalString (luks.fido2Support && fido2luksCredentials != []) ''
 
         open_with_hardware() {
           local passsphrase
@@ -539,7 +539,7 @@ let
       ${if
         (luks.yubikeySupport && (dev.yubikey != null))
         || (luks.gpgSupport && (dev.gpgCard != null))
-        || (luks.fido2Support && fido2luksCredentials != [ ])
+        || (luks.fido2Support && fido2luksCredentials != [])
       then
         ''
           open_with_hardware
@@ -677,7 +677,7 @@ in
     };
 
     boot.initrd.luks.devices = mkOption {
-      default = { };
+      default = {};
       example = {
         luksroot.device = "/dev/disk/by-uuid/430e9eff-d852-4f68-aa3b-2fa3599ebe08";
       };
@@ -692,7 +692,7 @@ in
         with types;
         attrsOf (
           submodule (
-            { name, ... }:
+            {name, ...}:
             {
               options = {
 
@@ -857,7 +857,7 @@ in
                   };
 
                   credentials = mkOption {
-                    default = [ ];
+                    default = [];
                     example = [
                       "f1d00200d8dc783f7fb1e10ace8da27f8312d72692abfca2f7e4960a73f48e82e1f7571f6ebfcee9fb434f9886ccc8fcc52a6614d8d2"
                     ];
@@ -994,8 +994,8 @@ in
 
                 crypttabExtraOpts = mkOption {
                   type = with types; listOf singleLineStr;
-                  default = [ ];
-                  example = [ "_netdev" ];
+                  default = [];
+                  example = ["_netdev"];
                   visible = false;
                   description = lib.mdDoc ''
                     Only used with systemd stage 1.
@@ -1036,7 +1036,7 @@ in
     };
   };
 
-  config = mkIf (luks.devices != { } || luks.forceLuksSupportInInitrd) {
+  config = mkIf (luks.devices != {} || luks.forceLuksSupportInInitrd) {
 
     assertions = [
       {
@@ -1125,12 +1125,12 @@ in
       ++ luks.cryptoModules
       # workaround until https://marc.info/?l=linux-crypto-vger&m=148783562211457&w=4 is merged
       # remove once 'modprobe --show-depends xts' shows ecb as a dependency
-      ++ (if builtins.elem "xts" luks.cryptoModules then [ "ecb" ] else [ ]);
+      ++ (if builtins.elem "xts" luks.cryptoModules then ["ecb"] else []);
 
     # copy the cryptsetup binary and it's dependencies
     boot.initrd.extraUtilsCommands =
       let
-        pbkdf2-sha512 = pkgs.runCommandCC "pbkdf2-sha512" { buildInputs = [ pkgs.openssl ]; } ''
+        pbkdf2-sha512 = pkgs.runCommandCC "pbkdf2-sha512" {buildInputs = [pkgs.openssl];} ''
           mkdir -p "$out/bin"
           cc -O3 -lcrypto ${./pbkdf2-sha512.c} -o "$out/bin/pbkdf2-sha512"
           strip -s "$out/bin/pbkdf2-sha512"
@@ -1225,6 +1225,6 @@ in
       commonFunctions + preCommands + concatStrings (mapAttrsToList openCommand postLVM) + postCommands
     );
 
-    environment.systemPackages = [ pkgs.cryptsetup ];
+    environment.systemPackages = [pkgs.cryptsetup];
   };
 }

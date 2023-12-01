@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     openssl
     libyaml
     postgresql
-  ] ++ lib.optionals stdenv.isLinux [ systemd ];
+  ] ++ lib.optionals stdenv.isLinux [systemd];
 
   cmakeFlags = [
     "-DFLB_METRICS=ON"
@@ -42,13 +42,13 @@ stdenv.mkDerivation rec {
 
   # _FORTIFY_SOURCE requires compiling with optimization (-O)
   env.NIX_CFLAGS_COMPILE = toString (
-    lib.optionals stdenv.cc.isGNU [ "-O" ]
+    lib.optionals stdenv.cc.isGNU ["-O"]
     # Workaround build failure on -fno-common toolchains:
     #   ld: /monkey/mk_tls.h:81: multiple definition of `mk_tls_server_timeout';
     #     flb_config.c.o:include/monkey/mk_tls.h:81: first defined here
     # TODO: drop when upstream gets a fix for it:
     #   https://github.com/fluent/fluent-bit/issues/5537
-    ++ lib.optionals stdenv.isDarwin [ "-fcommon" ]
+    ++ lib.optionals stdenv.isDarwin ["-fcommon"]
   );
 
   outputs = [

@@ -23,17 +23,17 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   # Circular dependency: napari
   doCheck = false;
 
-  pythonImportsCheck = [ "napari_plugin_engine" ];
+  pythonImportsCheck = ["napari_plugin_engine"];
 
   meta = with lib; {
     description = "First generation napari plugin engine";
     homepage = "https://github.com/napari/napari-plugin-engine";
     license = licenses.mit;
-    maintainers = with maintainers; [ SomeoneSerge ];
+    maintainers = with maintainers; [SomeoneSerge];
   };
 }

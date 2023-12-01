@@ -80,12 +80,12 @@ buildPythonPackage rec {
     "test_now"
   ];
 
-  pythonImportsCheck = [ "toggl" ];
+  pythonImportsCheck = ["toggl"];
 
   meta = with lib; {
     description = "Command line tool and set of Python wrapper classes for interacting with toggl's API";
     homepage = "https://toggl.uhlir.dev/";
     license = licenses.mit;
-    maintainers = with maintainers; [ mmahut ];
+    maintainers = with maintainers; [mmahut];
   };
 }

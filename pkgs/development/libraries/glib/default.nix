@@ -81,7 +81,7 @@ stdenv.mkDerivation (
     };
 
     patches =
-      lib.optionals stdenv.isDarwin [ ./darwin-compilation.patch ]
+      lib.optionals stdenv.isDarwin [./darwin-compilation.patch]
       ++ lib.optionals stdenv.hostPlatform.isMusl [
         ./quark_init_on_demand.patch
         ./gobject_init_on_demand.patch
@@ -309,7 +309,7 @@ stdenv.mkDerivation (
       getSchemaDataDirPath = pkg: makeSchemaDataDirPath pkg pkg.name;
 
       tests = {
-        withChecks = finalAttrs.finalPackage.overrideAttrs (_: { doCheck = true; });
+        withChecks = finalAttrs.finalPackage.overrideAttrs (_: {doCheck = true;});
         pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
       };
 
@@ -320,7 +320,7 @@ stdenv.mkDerivation (
       };
 
       mkHardcodeGsettingsPatch =
-        { src, glib-schema-to-var }:
+        {src, glib-schema-to-var}:
         builtins.trace
           "glib.mkHardcodeGsettingsPatch is deprecated, please use makeHardcodeGsettingsPatch instead"
           (

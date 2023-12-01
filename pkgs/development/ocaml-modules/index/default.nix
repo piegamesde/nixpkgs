@@ -30,7 +30,7 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.08";
   duneVersion = "3";
 
-  buildInputs = [ stdlib-shims ];
+  buildInputs = [stdlib-shims];
   propagatedBuildInputs = [
     cmdliner
     fmt
@@ -55,6 +55,6 @@ buildDunePackage rec {
     description = "A platform-agnostic multi-level index";
     homepage = "https://github.com/mirage/index";
     license = licenses.mit;
-    maintainers = with maintainers; [ vbgl ];
+    maintainers = with maintainers; [vbgl];
   };
 }

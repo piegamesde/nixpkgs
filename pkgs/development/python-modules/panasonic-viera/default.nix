@@ -28,12 +28,12 @@ buildPythonPackage rec {
   # upstream has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "panasonic_viera" ];
+  pythonImportsCheck = ["panasonic_viera"];
 
   meta = {
     description = "Library to control Panasonic Viera TVs";
     homepage = "https://github.com/florianholzapfel/panasonic-viera";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

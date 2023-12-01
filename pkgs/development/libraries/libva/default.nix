@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     "out"
   ];
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     meson
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ libdrm ]
+    [libdrm]
     ++ lib.optionals (!minimal) [
       libva-minimal
       libX11
@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
     homepage = "https://01.org/linuxmedia/vaapi";
     changelog = "https://raw.githubusercontent.com/intel/libva/${version}/NEWS";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
     platforms = platforms.unix;
   };
 }

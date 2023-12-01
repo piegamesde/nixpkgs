@@ -37,7 +37,7 @@ in
     };
     constLabels = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "label1=value1"
         "label2=value2"
@@ -65,14 +65,14 @@ in
     ]
     ++ [
       (mkIf config.services.nginx.enable {
-        after = [ "nginx.service" ];
-        requires = [ "nginx.service" ];
+        after = ["nginx.service"];
+        requires = ["nginx.service"];
       })
     ]
   );
   imports = [
-    (mkRenamedOptionModule [ "telemetryEndpoint" ] [ "telemetryPath" ])
-    (mkRemovedOptionModule [ "insecure" ] ''
+    (mkRenamedOptionModule ["telemetryEndpoint"] ["telemetryPath"])
+    (mkRemovedOptionModule ["insecure"] ''
       This option was replaced by 'prometheus.exporters.nginx.sslVerify'.
     '')
     ({

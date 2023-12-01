@@ -27,8 +27,8 @@ buildGoModule rec {
     homepage = "https://github.com/AidenPearce369/ADReaper";
     # Upstream doesn't have a license yet
     # https://github.com/AidenPearce369/ADReaper/issues/2
-    license = with licenses; [ unfree ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [unfree];
+    maintainers = with maintainers; [fab];
     mainProgram = "ADReaper";
   };
 }

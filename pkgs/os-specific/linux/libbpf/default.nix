@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/vt6IA1o0gjFtXUWhEKIZ1DUWIN2LOvrhLfFzJBACGY=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     elfutils
     zlib

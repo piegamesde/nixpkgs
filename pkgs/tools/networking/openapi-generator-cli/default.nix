@@ -14,7 +14,7 @@ let
 
     jarfilename = "${pname}-${version}.jar";
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     src = fetchurl {
       url = "mirror://maven/org/openapitools/${pname}/${version}/${jarfilename}";
@@ -37,12 +37,12 @@ let
     meta = with lib; {
       description = "Allows generation of API client libraries (SDK generation), server stubs and documentation automatically given an OpenAPI Spec";
       homepage = "https://github.com/OpenAPITools/openapi-generator";
-      sourceProvenance = with sourceTypes; [ binaryBytecode ];
+      sourceProvenance = with sourceTypes; [binaryBytecode];
       license = licenses.asl20;
-      maintainers = [ maintainers.shou ];
+      maintainers = [maintainers.shou];
     };
 
-    passthru.tests.example = callPackage ./example.nix { openapi-generator-cli = this; };
+    passthru.tests.example = callPackage ./example.nix {openapi-generator-cli = this;};
   };
 in
 this

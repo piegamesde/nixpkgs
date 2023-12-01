@@ -18,7 +18,7 @@
   rev,
   sha256,
   version,
-  patches ? [ ],
+  patches ? [],
 }:
 
 stdenv.mkDerivation {
@@ -34,10 +34,10 @@ stdenv.mkDerivation {
 
   inherit patches;
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   strictDeps = true;
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     pkg-config
     asciidoc
@@ -83,6 +83,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/geommer/yabar";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

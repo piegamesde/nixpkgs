@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.services.prometheus.xmpp-alerts;
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   configFile = settingsFormat.generate "prometheus-xmpp-alerts.yml" cfg.settings;
 in
 {
@@ -35,7 +35,7 @@ in
 
     settings = mkOption {
       type = settingsFormat.type;
-      default = { };
+      default = {};
 
       description = lib.mdDoc ''
         Configuration for prometheus xmpp-alerts, see
@@ -47,9 +47,9 @@ in
 
   config = mkIf cfg.enable {
     systemd.services.prometheus-xmpp-alerts = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
       serviceConfig = {
         ExecStart = "${pkgs.prometheus-xmpp-alerts}/bin/prometheus-xmpp-alerts --config ${configFile}";
         Restart = "on-failure";
@@ -67,7 +67,7 @@ in
           "AF_INET"
           "AF_INET6"
         ];
-        SystemCallFilter = [ "@system-service" ];
+        SystemCallFilter = ["@system-service"];
       };
     };
   };

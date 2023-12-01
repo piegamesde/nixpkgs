@@ -1,4 +1,4 @@
-{ pkgs, makeInstalledTest, ... }:
+{pkgs, makeInstalledTest, ...}:
 
 makeInstalledTest {
   tested = pkgs.gnomeExtensions.gsconnect;

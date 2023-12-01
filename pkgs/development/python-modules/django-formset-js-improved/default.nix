@@ -18,11 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-bOM24ldXk9WeV0jl6LIJB3BJ5hVWLA1PJTBBnJBoprU=";
   };
 
-  buildInputs = [ django ];
+  buildInputs = [django];
 
-  propagatedBuildInputs = [ django-jquery-js ];
+  propagatedBuildInputs = [django-jquery-js];
 
-  pythonImportsCheck = [ "djangoformsetjs" ];
+  pythonImportsCheck = ["djangoformsetjs"];
 
   doCheck = false; # no tests
 
@@ -30,6 +30,6 @@ buildPythonPackage rec {
     description = "A wrapper for a JavaScript formset helper";
     homepage = "https://github.com/pretix/django-formset-js";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

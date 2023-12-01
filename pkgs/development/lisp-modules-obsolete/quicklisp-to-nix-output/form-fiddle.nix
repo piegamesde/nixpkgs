@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "form-fiddle";
   version = "20190710-git";
@@ -18,7 +18,7 @@ rec {
 
   packageName = "form-fiddle";
 
-  asdFilesToKeep = [ "form-fiddle.asd" ];
+  asdFilesToKeep = ["form-fiddle.asd"];
   overrides = x: x;
 }
 /* (SYSTEM form-fiddle DESCRIPTION

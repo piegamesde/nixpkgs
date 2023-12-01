@@ -29,6 +29,6 @@ build-idris-package {
     description = "Little web server written in Idris";
     homepage = "https://github.com/ericqweinstein/wyvern";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

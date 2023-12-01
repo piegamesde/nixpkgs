@@ -12,7 +12,7 @@ openvpn.overrideAttrs (
   oldAttrs:
   let
     fetchMullvadPatch =
-      { commit, sha256 }:
+      {commit, sha256}:
       fetchpatch {
         url = "https://github.com/mullvad/openvpn/commit/${commit}.patch";
         inherit sha256;
@@ -27,19 +27,19 @@ openvpn.overrideAttrs (
       sha256 = "sha256-dfAETfRJQwVVynuZWit3qyTylG/cNmgwG47cI5hqX34=";
     };
 
-    buildInputs = oldAttrs.buildInputs or [ ] ++ [ iproute2 ];
+    buildInputs = oldAttrs.buildInputs or [] ++ [iproute2];
 
-    configureFlags = oldAttrs.configureFlags or [ ] ++ [
+    configureFlags = oldAttrs.configureFlags or [] ++ [
       "--enable-iproute2"
       "IPROUTE=${iproute2}/sbin/ip"
     ];
 
-    nativeBuildInputs = oldAttrs.nativeBuildInputs or [ ] ++ [
+    nativeBuildInputs = oldAttrs.nativeBuildInputs or [] ++ [
       autoconf
       automake
     ];
 
-    patches = oldAttrs.patches or [ ] ++ [
+    patches = oldAttrs.patches or [] ++ [
       # look at compare to find the relevant commits
       # https://github.com/OpenVPN/openvpn/compare/release/2.5...mullvad:mullvad-patches
       # used openvpn version is the latest tag ending with -mullvad
@@ -81,10 +81,10 @@ openvpn.overrideAttrs (
       })
     ];
 
-    meta = oldAttrs.meta or { } // {
+    meta = oldAttrs.meta or {} // {
       description = "OpenVPN with Mullvad-specific patches applied";
       homepage = "https://github.com/mullvad/openvpn";
-      maintainers = with lib; [ maintainers.cole-h ];
+      maintainers = with lib; [maintainers.cole-h];
     };
   }
 )

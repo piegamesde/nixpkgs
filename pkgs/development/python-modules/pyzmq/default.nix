@@ -22,16 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-IW9dfbtnFmdZ5ZsEebyoK4rPm+1gFbUmuOsQFD+wjnc=";
   };
 
-  buildInputs = [ zeromq ];
+  buildInputs = [zeromq];
 
-  propagatedBuildInputs = [ py ];
+  propagatedBuildInputs = [py];
 
   nativeCheckInputs = [
     pytestCheckHook
     tornado
   ];
 
-  pythonImportsCheck = [ "zmq" ];
+  pythonImportsCheck = ["zmq"];
 
   pytestFlagsArray = [
     "$out/${python.sitePackages}/zmq/tests/" # Folder with tests
@@ -61,6 +61,6 @@ buildPythonPackage rec {
       bsd3 # or
       lgpl3Only
     ];
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

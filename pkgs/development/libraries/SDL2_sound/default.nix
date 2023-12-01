@@ -33,9 +33,9 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  cmakeFlags = [ "-DSDLSOUND_DECODER_MIDI=1" ];
+  cmakeFlags = ["-DSDLSOUND_DECODER_MIDI=1"];
 
   buildInputs =
     [

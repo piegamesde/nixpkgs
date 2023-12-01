@@ -7,7 +7,7 @@
 }:
 let
   cfg = config.services.kanidm;
-  settingsFormat = pkgs.formats.toml { };
+  settingsFormat = pkgs.formats.toml {};
   # Remove null values, so we can document optional values that don't end up in the generated TOML file.
   filterConfig = lib.converge (lib.filterAttrsRecursive (_: v: v != null));
   serverConfigFile = settingsFormat.generate "server.toml" (filterConfig cfg.serverSettings);
@@ -34,11 +34,11 @@ let
             lib.filter (p: !lib.hasPrefix (builtins.toString newPath) (builtins.toString p))
               merged;
           # If a prefix of the new path is already in the list, do not add it
-          filteredNew = if hasPrefixInList filteredPaths newPath then [ ] else [ newPath ];
+          filteredNew = if hasPrefixInList filteredPaths newPath then [] else [newPath];
         in
         filteredPaths ++ filteredNew
       )
-      [ ];
+      [];
 
   defaultServiceConfig = {
     BindReadOnlyPaths = [
@@ -48,7 +48,7 @@ let
       "-/etc/hosts"
       "-/etc/localtime"
     ];
-    CapabilityBoundingSet = [ ];
+    CapabilityBoundingSet = [];
     # ProtectClock= adds DeviceAllow=char-rtc r
     DeviceAllow = "";
     # Implies ProtectSystem=strict, which re-mounts all paths
@@ -72,7 +72,7 @@ let
     ProtectKernelModules = true;
     ProtectKernelTunables = true;
     ProtectProc = "invisible";
-    RestrictAddressFamilies = [ ];
+    RestrictAddressFamilies = [];
     RestrictNamespaces = true;
     RestrictRealtime = true;
     RestrictSUIDSGID = true;
@@ -163,7 +163,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Settings for Kanidm, see
         [the documentation](https://github.com/kanidm/kanidm/blob/master/kanidm_book/src/server_configuration.md)
@@ -262,12 +262,12 @@ in
       }
     ];
 
-    environment.systemPackages = lib.mkIf cfg.enableClient [ pkgs.kanidm ];
+    environment.systemPackages = lib.mkIf cfg.enableClient [pkgs.kanidm];
 
     systemd.services.kanidm = lib.mkIf cfg.enableServer {
       description = "kanidm identity management daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = lib.mkMerge [
         # Merge paths and ignore existing prefixes needs to sidestep mkMerge
         (
@@ -283,8 +283,8 @@ in
           User = "kanidm";
           Group = "kanidm";
 
-          AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-          CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+          AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
+          CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
           # This would otherwise override the CAP_NET_BIND_SERVICE capability.
           PrivateUsers = lib.mkForce false;
           # Port needs to be exposed to the host network
@@ -301,8 +301,8 @@ in
 
     systemd.services.kanidm-unixd = lib.mkIf cfg.enablePam {
       description = "Kanidm PAM daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       restartTriggers = [
         unixConfigFile
         clientConfigFile
@@ -343,12 +343,12 @@ in
 
     systemd.services.kanidm-unixd-tasks = lib.mkIf cfg.enablePam {
       description = "Kanidm PAM home management daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network.target"
         "kanidm-unixd.service"
       ];
-      partOf = [ "kanidm-unixd.service" ];
+      partOf = ["kanidm-unixd.service"];
       restartTriggers = [
         unixConfigFile
         clientConfigFile
@@ -383,7 +383,7 @@ in
         PrivateUsers = false;
         # Need access to home directories
         ProtectHome = false;
-        RestrictAddressFamilies = [ "AF_UNIX" ];
+        RestrictAddressFamilies = ["AF_UNIX"];
         TemporaryFileSystem = "/:ro";
       };
       environment.RUST_LOG = "info";
@@ -394,17 +394,17 @@ in
       (lib.mkIf options.services.kanidm.clientSettings.isDefined {
         "kanidm/config".source = clientConfigFile;
       })
-      (lib.mkIf cfg.enablePam { "kanidm/unixd".source = unixConfigFile; })
+      (lib.mkIf cfg.enablePam {"kanidm/unixd".source = unixConfigFile;})
     ];
 
-    system.nssModules = lib.mkIf cfg.enablePam [ pkgs.kanidm ];
+    system.nssModules = lib.mkIf cfg.enablePam [pkgs.kanidm];
 
     system.nssDatabases.group = lib.optional cfg.enablePam "kanidm";
     system.nssDatabases.passwd = lib.optional cfg.enablePam "kanidm";
 
     users.groups = lib.mkMerge [
-      (lib.mkIf cfg.enableServer { kanidm = { }; })
-      (lib.mkIf cfg.enablePam { kanidm-unixd = { }; })
+      (lib.mkIf cfg.enableServer {kanidm = {};})
+      (lib.mkIf cfg.enablePam {kanidm-unixd = {};})
     ];
     users.users = lib.mkMerge [
       (lib.mkIf cfg.enableServer {
@@ -412,7 +412,7 @@ in
           description = "Kanidm server";
           isSystemUser = true;
           group = "kanidm";
-          packages = with pkgs; [ kanidm ];
+          packages = with pkgs; [kanidm];
         };
       })
       (lib.mkIf cfg.enablePam {

@@ -13,13 +13,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-YFCFRDGeq2h/UXKme/NnnCuFdtw2Vim6Y3SbytaItGc=";
   };
 
-  makeFlags = [ "INSTALL_DIR=$(out)" ];
+  makeFlags = ["INSTALL_DIR=$(out)"];
 
   meta = with lib; {
     description = "Disk information utility; displays everything 'df' does and more";
     homepage = "https://gentoo.com/di/";
     license = licenses.zlib;
-    maintainers = with maintainers; [ manveru ];
+    maintainers = with maintainers; [manveru];
     platforms = platforms.all;
   };
 }

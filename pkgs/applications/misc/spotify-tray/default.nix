@@ -32,13 +32,13 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   meta = with lib; {
     homepage = "https://github.com/tsmetana/spotify-tray";
     description = "Adds a tray icon to the Spotify Linux client application.";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ Enzime ];
+    maintainers = with maintainers; [Enzime];
   };
 }

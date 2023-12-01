@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     python3.pkgs.cython
   ];
 
-  configureFlags = lib.optionals (!enablePython) [ "--without-cython" ];
+  configureFlags = lib.optionals (!enablePython) ["--without-cython"];
 
   postFixup = lib.optionalString enablePython ''
     moveToOutput "lib/${python3.libPrefix}" "$py"
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     description = "A library to handle Apple Property List format in binary or XML";
     homepage = "https://github.com/libimobiledevice/libplist";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ infinisil ];
+    maintainers = with maintainers; [infinisil];
     platforms = platforms.unix;
   };
 }

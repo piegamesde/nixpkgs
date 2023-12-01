@@ -20,7 +20,7 @@ stdenv.mkDerivation {
     sha256 = "6d3ac84f83bb045213903d9d5340c0447c8fe41671d1dcdeae5c40b66d62ccbf";
   };
 
-  buildInputs = [ qt48 ];
+  buildInputs = [qt48];
   nativeBuildInputs = [
     flex
     qmake4Hook

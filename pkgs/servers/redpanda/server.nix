@@ -30,17 +30,17 @@
 }:
 let
   pname = "redpanda";
-  pythonPackages = p: with p; [ jinja2 ];
-  seastar = callPackage ./seastar.nix { };
-  base64 = callPackage ./base64.nix { };
-  hdr-histogram = callPackage ./hdr-histogram.nix { };
+  pythonPackages = p: with p; [jinja2];
+  seastar = callPackage ./seastar.nix {};
+  base64 = callPackage ./base64.nix {};
+  hdr-histogram = callPackage ./hdr-histogram.nix {};
   kafka-codegen-venv = python3.withPackages (
     ps: [
       ps.jinja2
       ps.jsonschema
     ]
   );
-  rapidjson = callPackage ./rapidjson.nix { };
+  rapidjson = callPackage ./rapidjson.nix {};
 in
 llvmPackages_14.stdenv.mkDerivation rec {
   inherit pname version src;
@@ -50,7 +50,7 @@ llvmPackages_14.stdenv.mkDerivation rec {
     export CCACHE_DIR=$TMPDIR/sccache-redpanda
     mkdir -p $CCACHE_DIR
   '';
-  patches = [ ./redpanda.patch ];
+  patches = [./redpanda.patch];
   postPatch = ''
     # Fix 'error: use of undeclared identifier 'roaring'; did you mean 'Roaring
     #      qualified reference to 'Roaring' is a constructor name rather than a type in this context'

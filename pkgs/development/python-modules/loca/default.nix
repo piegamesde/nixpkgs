@@ -19,12 +19,12 @@ buildPythonPackage rec {
   };
 
   doCheck = false; # all checks are static analyses
-  pythonImportsCheck = [ "loca" ];
+  pythonImportsCheck = ["loca"];
 
   meta = with lib; {
     description = "Local locations";
     homepage = "https://pypi.org/project/loca";
     license = licenses.lgpl3Plus;
-    maintainers = [ maintainers.McSinyx ];
+    maintainers = [maintainers.McSinyx];
   };
 }

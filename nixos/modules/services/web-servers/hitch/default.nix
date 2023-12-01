@@ -63,7 +63,7 @@ with lib; {
 
       pem-files = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "PEM files to use";
       };
 
@@ -99,8 +99,8 @@ with lib; {
 
     systemd.services.hitch = {
       description = "Hitch";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       preStart =
         ''
           ${pkgs.hitch}/sbin/hitch -t --config ${hitchConfig}
@@ -119,12 +119,12 @@ with lib; {
       };
     };
 
-    environment.systemPackages = [ pkgs.hitch ];
+    environment.systemPackages = [pkgs.hitch];
 
     users.users.hitch = {
       group = "hitch";
       isSystemUser = true;
     };
-    users.groups.hitch = { };
+    users.groups.hitch = {};
   };
 }

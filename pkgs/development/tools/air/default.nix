@@ -23,12 +23,12 @@ buildGoModule rec {
     "-X=main.airVersion=${version}"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Live reload for Go apps";
     homepage = "https://github.com/cosmtrek/air";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ Gonzih ];
+    maintainers = with maintainers; [Gonzih];
   };
 }

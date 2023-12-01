@@ -87,7 +87,7 @@ in
 
   config = lib.mkIf (cfg.wireless.enable || cfg.lcd.enable) {
     environment.systemPackages =
-      [ ]
+      []
       ++ lib.optional cfg.wireless.enable pkgs.ltunify
       ++ lib.optional cfg.wireless.enableGraphical pkgs.solaar;
 
@@ -96,7 +96,7 @@ in
       # out into a dedicated derivation
 
       packages =
-        [ ]
+        []
         ++ lib.optional cfg.wireless.enable pkgs.logitech-udev-rules
         ++ lib.optional cfg.lcd.enable pkgs.g15daemon;
 
@@ -115,7 +115,7 @@ in
 
     systemd.services."${daemon}" = lib.mkIf cfg.lcd.enable {
       description = "Logitech LCD Support Daemon";
-      documentation = [ "man:g15daemon(1)" ];
+      documentation = ["man:g15daemon(1)"];
       wantedBy = lib.mkIf (!cfg.lcd.startWhenNeeded) "multi-user.target";
 
       serviceConfig = {

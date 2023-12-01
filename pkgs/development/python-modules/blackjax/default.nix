@@ -44,20 +44,20 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  disabledTestPaths = [ "tests/test_benchmarks.py" ];
+  nativeCheckInputs = [pytestCheckHook];
+  disabledTestPaths = ["tests/test_benchmarks.py"];
   disabledTests =
     [
       # too slow
       "test_adaptive_tempered_smc"
     ];
 
-  pythonImportsCheck = [ "blackjax" ];
+  pythonImportsCheck = ["blackjax"];
 
   meta = with lib; {
     homepage = "https://blackjax-devs.github.io/blackjax";
     description = "Sampling library designed for ease of use, speed and modularity";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

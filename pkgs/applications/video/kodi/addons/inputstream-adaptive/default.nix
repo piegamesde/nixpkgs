@@ -36,9 +36,9 @@ buildKodiBinaryAddon rec {
     "-DBENTO4_URL=${bento4}"
   ];
 
-  extraNativeBuildInputs = [ gtest ];
+  extraNativeBuildInputs = [gtest];
 
-  extraBuildInputs = [ expat ];
+  extraBuildInputs = [expat];
 
   extraRuntimeDependencies = [
     glib

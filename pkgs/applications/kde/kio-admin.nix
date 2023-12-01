@@ -11,7 +11,7 @@
 mkDerivation {
   pname = "kio-admin";
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     qtbase
     kio
@@ -24,6 +24,6 @@ mkDerivation {
     homepage = "https://invent.kde.org/system/kio-admin";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ k900 ];
+    maintainers = with maintainers; [k900];
   };
 }

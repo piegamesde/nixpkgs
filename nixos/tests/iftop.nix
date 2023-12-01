@@ -1,20 +1,20 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   with lib;
 
   {
     name = "iftop";
-    meta.maintainers = with pkgs.lib.maintainers; [ ma27 ];
+    meta.maintainers = with pkgs.lib.maintainers; [ma27];
 
     nodes = {
       withIftop = {
-        imports = [ ./common/user-account.nix ];
+        imports = [./common/user-account.nix];
         programs.iftop.enable = true;
       };
       withoutIftop = {
-        imports = [ ./common/user-account.nix ];
-        environment.systemPackages = [ pkgs.iftop ];
+        imports = [./common/user-account.nix];
+        environment.systemPackages = [pkgs.iftop];
       };
     };
 

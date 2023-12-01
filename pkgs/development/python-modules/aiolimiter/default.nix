@@ -25,9 +25,9 @@ buildPythonPackage rec {
     hash = "sha256-4wByVZoOLhrXFx9oK19GBmRcjGoJolQ3Gwx9vQV/n8s=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -50,12 +50,12 @@ buildPythonPackage rec {
       --replace " --cov=aiolimiter --cov-config=tox.ini --cov-report term-missing" ""
   '';
 
-  pythonImportsCheck = [ "aiolimiter" ];
+  pythonImportsCheck = ["aiolimiter"];
 
   meta = with lib; {
     description = "Implementation of a rate limiter for asyncio";
     homepage = "https://github.com/mjpieters/aiolimiter";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

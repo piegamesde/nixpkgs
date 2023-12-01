@@ -27,7 +27,7 @@ buildGoModule rec {
     description = "Wireguard overlay mesh network manager";
     homepage = "https://github.com/costela/wesher";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ tylerjl ];
+    maintainers = with maintainers; [tylerjl];
     platforms = platforms.linux;
   };
 }

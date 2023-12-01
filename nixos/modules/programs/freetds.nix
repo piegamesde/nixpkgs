@@ -20,7 +20,7 @@ in
 
     environment.freetds = mkOption {
       type = types.attrsOf types.str;
-      default = { };
+      default = {};
       example = literalExpression ''
         { MYDATABASE = '''
             host = 10.0.2.100

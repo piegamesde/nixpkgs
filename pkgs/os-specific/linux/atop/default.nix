@@ -20,14 +20,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-lwBYoZt5w0RPlx+FRXKg5jiR3C1fcDf/g3VwhUzg2h4=";
   };
 
-  nativeBuildInputs = lib.optionals withAtopgpu [ python3.pkgs.wrapPython ];
+  nativeBuildInputs = lib.optionals withAtopgpu [python3.pkgs.wrapPython];
 
   buildInputs = [
     zlib
     ncurses
-  ] ++ lib.optionals withAtopgpu [ python3 ];
+  ] ++ lib.optionals withAtopgpu [python3];
 
-  pythonPath = lib.optionals withAtopgpu [ python3.pkgs.pynvml ];
+  pythonPath = lib.optionals withAtopgpu [python3.pkgs.pynvml];
 
   makeFlags = [
     "DESTDIR=$(out)"
@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     platforms = platforms.linux;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     description = "Console system performance monitor";
     longDescription = ''
       Atop is an ASCII full-screen performance monitor that is capable of reporting the activity of

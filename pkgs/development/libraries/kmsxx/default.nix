@@ -30,7 +30,7 @@ stdenv.mkDerivation {
     meson
     ninja
     pkg-config
-  ] ++ lib.optionals withPython [ cmake ];
+  ] ++ lib.optionals withPython [cmake];
   buildInputs =
     [
       libdrm
@@ -52,7 +52,7 @@ stdenv.mkDerivation {
     description = "C++11 library, utilities and python bindings for Linux kernel mode setting";
     homepage = "https://github.com/tomba/kmsxx";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

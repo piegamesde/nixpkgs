@@ -23,9 +23,9 @@ stdenv.mkDerivation (
     version = "5.4.3";
 
     outputs =
-      [ "out" ]
-      ++ lib.optionals (buildTests || buildBenchmarks) [ "test" ]
-      ++ lib.optionals buildBenchmarks [ "benchmark" ];
+      ["out"]
+      ++ lib.optionals (buildTests || buildBenchmarks) ["test"]
+      ++ lib.optionals buildBenchmarks ["benchmark"];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -67,7 +67,7 @@ stdenv.mkDerivation (
         "-DCMAKE_MATRICES_DIR=/build/source/matrices"
         "-Dpython=python3"
       ]
-      ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ];
+      ++ lib.optionals buildBenchmarks ["-DBUILD_CLIENTS_BENCHMARKS=ON"];
 
     # We have to manually generate the matrices
     postPatch = lib.optionalString (buildTests || buildBenchmarks) ''
@@ -142,7 +142,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "ROCm SPARSE implementation";
       homepage = "https://github.com/ROCmSoftwarePlatform/rocSPARSE";
-      license = with licenses; [ mit ];
+      license = with licenses; [mit];
       maintainers = teams.rocm.members;
       platforms = platforms.linux;
       broken = versions.minor finalAttrs.version != versions.minor hip.version;

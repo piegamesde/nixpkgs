@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-UIUavFdBuSiaUsNaibPjRMURMLLK5UjNHVoyNSIRNQ4=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   # some tests require a running podman service
   doCheck = false;
@@ -27,6 +27,6 @@ buildGoModule rec {
     description = "Podman task driver for Nomad";
     platforms = platforms.linux;
     license = licenses.mpl20;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

@@ -16,13 +16,13 @@ stdenv.mkDerivation rec {
   pname = "drgeo";
   version = "1.1.0";
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   src = fetchurl {
     url = "mirror://sourceforge/ofset/${pname}-${version}.tar.gz";
     sha256 = "05i2czgzhpzi80xxghinvkyqx4ym0gm9f38fz53idjhigiivp4wc";
   };
-  patches = [ ./struct.patch ];
+  patches = [./struct.patch];
 
   nativeBuildInputs = [
     pkg-config

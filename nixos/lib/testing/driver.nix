@@ -17,8 +17,8 @@ let
   testDriver = hostPkgs.callPackage ../test-driver {
     inherit (config) enableOCR extraPythonPackages;
     qemu_pkg = config.qemu.package;
-    imagemagick_light = hostPkgs.imagemagick_light.override { inherit (hostPkgs) libtiff; };
-    tesseract4 = hostPkgs.tesseract4.override { enableLanguages = [ "eng" ]; };
+    imagemagick_light = hostPkgs.imagemagick_light.override {inherit (hostPkgs) libtiff;};
+    tesseract4 = hostPkgs.tesseract4.override {enableLanguages = ["eng"];};
   };
 
   vlans = map (m: m.virtualisation.vlans) (lib.attrValues config.nodes);
@@ -58,10 +58,8 @@ let
     hostPkgs.runCommand "nixos-test-driver-${config.name}"
       {
         # inherit testName; TODO (roberth): need this?
-        nativeBuildInputs = [
-          hostPkgs.makeWrapper
-        ] ++ lib.optionals (!config.skipTypeCheck) [ hostPkgs.mypy ];
-        buildInputs = [ testDriver ];
+        nativeBuildInputs = [hostPkgs.makeWrapper] ++ lib.optionals (!config.skipTypeCheck) [hostPkgs.mypy];
+        buildInputs = [testDriver];
         testScript = config.testScriptString;
         preferLocalBuild = true;
         passthru = config.passthru;
@@ -162,7 +160,7 @@ in
         p: [ p.numpy ]
       '';
       type = types.functionTo (types.listOf types.package);
-      default = ps: [ ];
+      default = ps: [];
     };
 
     extraDriverArgs = mkOption {
@@ -172,7 +170,7 @@ in
         They become part of [{option}`driver`](#test-opt-driver) via `wrapProgram`.
       '';
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
     };
 
     skipLint = mkOption {

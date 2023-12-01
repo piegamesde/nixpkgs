@@ -18,8 +18,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-cwrTHj/WFDZ9Ez2FhjpRhEx9aC5xBnh7HR/9T+zUpZc=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [openssl];
 
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=${if enableStatic then "OFF" else "ON"}"
@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
     homepage = "https://openquantumsafe.org";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

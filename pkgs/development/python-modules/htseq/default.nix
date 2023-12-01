@@ -21,7 +21,7 @@ buildPythonPackage rec {
     sha256 = "0y7vh249sljqjnv81060w4xkdx6f1y5zdqkh38yk926x6v9riijm";
   };
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
   propagatedBuildInputs = [
     numpy
     pysam
@@ -39,7 +39,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://htseq.readthedocs.io/";
     description = "A framework to work with high-throughput sequencing data";
-    maintainers = with maintainers; [ unode ];
+    maintainers = with maintainers; [unode];
     platforms = platforms.unix;
   };
 }

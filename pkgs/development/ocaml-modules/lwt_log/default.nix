@@ -18,12 +18,12 @@ buildDunePackage rec {
     sha256 = "sha256-ODTD3KceEnrEzD01CeuNg4BNKOtKZEpYaDIB+RIte1U=";
   };
 
-  propagatedBuildInputs = [ lwt ];
+  propagatedBuildInputs = [lwt];
 
   meta = {
     description = "Lwt logging library (deprecated)";
     homepage = "https://github.com/aantron/lwt_log";
     license = lib.licenses.lgpl21;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

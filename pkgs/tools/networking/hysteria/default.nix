@@ -35,6 +35,6 @@ buildGoModule rec {
     homepage = "https://github.com/HyNetwork/hysteria";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ oluceps ];
+    maintainers = with maintainers; [oluceps];
   };
 }

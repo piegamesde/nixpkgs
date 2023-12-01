@@ -21,7 +21,7 @@ let
       hash = "sha256-tq0pf4kH3g+i/hzL0m/a84f19Hxydf7fjM6J+ZRGz5c=";
     };
 
-    nativeBuildInputs = [ flit-core ];
+    nativeBuildInputs = [flit-core];
 
     nativeCheckInputs = [
       pytestCheckHook
@@ -31,9 +31,9 @@ let
     # Prevent circular dependency with pytest
     doCheck = false;
 
-    pythonImportsCheck = [ "packaging" ];
+    pythonImportsCheck = ["packaging"];
 
-    passthru.tests = packaging.overridePythonAttrs (_: { doCheck = true; });
+    passthru.tests = packaging.overridePythonAttrs (_: {doCheck = true;});
 
     meta = with lib; {
       description = "Core utilities for Python packages";

@@ -1,9 +1,9 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   {
     name = "robustirc-bridge";
-    meta = with pkgs.lib.maintainers; { maintainers = [ hax404 ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [hax404];};
 
     nodes = {
       bridge = {

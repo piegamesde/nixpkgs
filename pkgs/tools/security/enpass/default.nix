@@ -83,7 +83,7 @@ let
     meta = with lib; {
       description = "A well known password manager";
       homepage = "https://www.enpass.io/";
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
       license = licenses.unfree;
       platforms = [
         "x86_64-linux"
@@ -95,8 +95,8 @@ let
       ];
     };
 
-    nativeBuildInputs = [ makeWrapper ];
-    buildInputs = [ dpkg ];
+    nativeBuildInputs = [makeWrapper];
+    buildInputs = [dpkg];
 
     unpackPhase = "dpkg -X $src .";
     installPhase = ''
@@ -138,4 +138,4 @@ let
     };
   };
 in
-(package // { refresh = updater; })
+(package // {refresh = updater;})

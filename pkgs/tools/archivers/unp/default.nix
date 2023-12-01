@@ -8,7 +8,7 @@
   gzip,
   file,
   # extractors which are added to unp’s PATH
-  extraBackends ? [ ],
+  extraBackends ? [],
 }:
 
 let
@@ -21,8 +21,8 @@ in
 stdenv.mkDerivation {
   pname = "unp";
   version = "2.0-pre9";
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ perl ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [perl];
 
   src = fetchurl {
     url = "mirror://debian/pool/main/u/unp/unp_2.0~pre9.tar.xz";
@@ -48,8 +48,8 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Command line tool for unpacking archives easily";
     homepage = "https://packages.qa.debian.org/u/unp.html";
-    license = with licenses; [ gpl2 ];
-    maintainers = [ maintainers.timor ];
+    license = with licenses; [gpl2];
+    maintainers = [maintainers.timor];
     platforms = platforms.all;
   };
 }

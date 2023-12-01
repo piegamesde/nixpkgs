@@ -54,7 +54,7 @@
 }:
 
 let
-  python = python2.withPackages (pp: [ pp.pygtk ]);
+  python = python2.withPackages (pp: [pp.pygtk]);
 in
 stdenv.mkDerivation (
   finalAttrs: {
@@ -91,7 +91,7 @@ stdenv.mkDerivation (
       gettext
       makeWrapper
       gtk-doc
-    ] ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ];
+    ] ++ lib.optionals stdenv.isDarwin [desktopToDarwinBundle];
 
     buildInputs =
       [
@@ -136,7 +136,7 @@ stdenv.mkDerivation (
         Cocoa
         gtk-mac-integration-gtk2
       ]
-      ++ lib.optionals stdenv.isLinux [ libgudev ]
+      ++ lib.optionals stdenv.isLinux [libgudev]
       ++ lib.optionals withPython [
         python
         # Duplicated here because python.withPackages does not expose the dev output with pkg-config files
@@ -144,7 +144,7 @@ stdenv.mkDerivation (
       ];
 
     # needed by gimp-2.0.pc
-    propagatedBuildInputs = [ gegl ];
+    propagatedBuildInputs = [gegl];
 
     configureFlags =
       [
@@ -198,7 +198,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "The GNU Image Manipulation Program";
       homepage = "https://www.gimp.org/";
-      maintainers = with maintainers; [ jtojnar ];
+      maintainers = with maintainers; [jtojnar];
       license = licenses.gpl3Plus;
       platforms = platforms.unix;
       mainProgram = "gimp";

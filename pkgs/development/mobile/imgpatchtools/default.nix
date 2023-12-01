@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/erfanoabdi/imgpatchtools";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ yana ];
+    maintainers = with maintainers; [yana];
     platforms = platforms.linux;
   };
 }

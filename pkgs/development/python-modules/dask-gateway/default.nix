@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   sourceRoot = "source/dask-gateway";
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     aiohttp
@@ -34,12 +34,12 @@ buildPythonPackage rec {
   # tests requires cluster for testing
   doCheck = false;
 
-  pythonImportsCheck = [ "dask_gateway" ];
+  pythonImportsCheck = ["dask_gateway"];
 
   meta = with lib; {
     description = "A client library for interacting with a dask-gateway server";
     homepage = "https://gateway.dask.org/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

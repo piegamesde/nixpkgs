@@ -116,7 +116,7 @@ let
     MediaPlayer
     Accelerate
     ;
-  luaEnv = lua.withPackages (ps: with ps; [ luasocket ]);
+  luaEnv = lua.withPackages (ps: with ps; [luasocket]);
 in
 stdenv.mkDerivation (
   finalAttrs: {
@@ -182,9 +182,9 @@ stdenv.mkDerivation (
         pkg-config
         python3
       ]
-      ++ lib.optionals stdenv.isDarwin [ xcbuild.xcrun ]
-      ++ lib.optionals swiftSupport [ swift ]
-      ++ lib.optionals waylandSupport [ wayland-scanner ];
+      ++ lib.optionals stdenv.isDarwin [xcbuild.xcrun]
+      ++ lib.optionals swiftSupport [swift]
+      ++ lib.optionals waylandSupport [wayland-scanner];
 
     buildInputs =
       [
@@ -195,16 +195,16 @@ stdenv.mkDerivation (
         libuchardet
         luaEnv
       ]
-      ++ lib.optionals alsaSupport [ alsa-lib ]
-      ++ lib.optionals archiveSupport [ libarchive ]
-      ++ lib.optionals bluraySupport [ libbluray ]
-      ++ lib.optionals bs2bSupport [ libbs2b ]
-      ++ lib.optionals cacaSupport [ libcaca ]
+      ++ lib.optionals alsaSupport [alsa-lib]
+      ++ lib.optionals archiveSupport [libarchive]
+      ++ lib.optionals bluraySupport [libbluray]
+      ++ lib.optionals bs2bSupport [libbs2b]
+      ++ lib.optionals cacaSupport [libcaca]
       ++ lib.optionals cddaSupport [
         libcdio
         libcdio-paranoia
       ]
-      ++ lib.optionals cmsSupport [ lcms2 ]
+      ++ lib.optionals cmsSupport [lcms2]
       ++ lib.optionals drmSupport [
         libdrm
         mesa
@@ -213,21 +213,21 @@ stdenv.mkDerivation (
         libdvdnav
         libdvdnav.libdvdread
       ]
-      ++ lib.optionals jackaudioSupport [ libjack2 ]
-      ++ lib.optionals javascriptSupport [ mujs ]
-      ++ lib.optionals libpngSupport [ libpng ]
-      ++ lib.optionals openalSupport [ openalSoft ]
-      ++ lib.optionals pipewireSupport [ pipewire ]
-      ++ lib.optionals pulseSupport [ libpulseaudio ]
-      ++ lib.optionals rubberbandSupport [ rubberband ]
-      ++ lib.optionals screenSaverSupport [ libXScrnSaver ]
-      ++ lib.optionals sdl2Support [ SDL2 ]
-      ++ lib.optionals sixelSupport [ libsixel ]
-      ++ lib.optionals speexSupport [ speex ]
-      ++ lib.optionals theoraSupport [ libtheora ]
-      ++ lib.optionals vaapiSupport [ libva ]
-      ++ lib.optionals vapoursynthSupport [ vapoursynth ]
-      ++ lib.optionals vdpauSupport [ libvdpau ]
+      ++ lib.optionals jackaudioSupport [libjack2]
+      ++ lib.optionals javascriptSupport [mujs]
+      ++ lib.optionals libpngSupport [libpng]
+      ++ lib.optionals openalSupport [openalSoft]
+      ++ lib.optionals pipewireSupport [pipewire]
+      ++ lib.optionals pulseSupport [libpulseaudio]
+      ++ lib.optionals rubberbandSupport [rubberband]
+      ++ lib.optionals screenSaverSupport [libXScrnSaver]
+      ++ lib.optionals sdl2Support [SDL2]
+      ++ lib.optionals sixelSupport [libsixel]
+      ++ lib.optionals speexSupport [speex]
+      ++ lib.optionals theoraSupport [libtheora]
+      ++ lib.optionals vaapiSupport [libva]
+      ++ lib.optionals vapoursynthSupport [vapoursynth]
+      ++ lib.optionals vdpauSupport [libvdpau]
       ++ lib.optionals vulkanSupport [
         libplacebo
         shaderc
@@ -248,11 +248,11 @@ stdenv.mkDerivation (
         libXrandr
         libXpresent
       ]
-      ++ lib.optionals xineramaSupport [ libXinerama ]
-      ++ lib.optionals xvSupport [ libXv ]
-      ++ lib.optionals zimgSupport [ zimg ]
-      ++ lib.optionals stdenv.isLinux [ nv-codec-headers ]
-      ++ lib.optionals stdenv.isDarwin [ libiconv ]
+      ++ lib.optionals xineramaSupport [libXinerama]
+      ++ lib.optionals xvSupport [libXv]
+      ++ lib.optionals zimgSupport [zimg]
+      ++ lib.optionals stdenv.isLinux [nv-codec-headers]
+      ++ lib.optionals stdenv.isDarwin [libiconv]
       ++ lib.optionals stdenv.isDarwin [
         CoreFoundation
         Cocoa

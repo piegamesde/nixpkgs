@@ -56,8 +56,8 @@ resholve.mkDerivation rec {
         xrandr
       ];
       fix = {
-        "$lib" = [ "lib/libshlist/liblist.sh" ];
-        "$XRANDR" = [ "xrandr" ];
+        "$lib" = ["lib/libshlist/liblist.sh"];
+        "$XRANDR" = ["xrandr"];
       };
       keep = {
         /* has a whole slate of *flag variables that it sets to either
@@ -80,7 +80,7 @@ resholve.mkDerivation rec {
     };
   };
 
-  nativeBuildInputs = [ help2man ];
+  nativeBuildInputs = [help2man];
 
   makeFlags = [
     "DESTDIR=$(out)"
@@ -91,7 +91,7 @@ resholve.mkDerivation rec {
     description = "POSIX Shell script to quickly manage 2-monitors display";
     homepage = "https://github.com/Ventto/mons.git";
     license = licenses.mit;
-    maintainers = with maintainers; [ thiagokokada ];
+    maintainers = with maintainers; [thiagokokada];
     platforms = platforms.unix;
   };
 }

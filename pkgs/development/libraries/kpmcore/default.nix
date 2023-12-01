@@ -20,9 +20,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-ZJ179jHCLEB0kFMWfCe+U6c7k7yZ3MztwqAcUd25t40=";
   };
 
-  patches = [ ./nixostrustedprefix.patch ];
+  patches = [./nixostrustedprefix.patch];
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
 
   buildInputs = [
     qca-qt5

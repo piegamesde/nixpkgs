@@ -41,8 +41,8 @@ let
     pname = "kklib";
     inherit version;
     src = "${src}/kklib";
-    patches = [ ./kklib-mimalloc-macos-fix.diff ];
-    nativeBuildInputs = [ cmake ];
+    patches = [./kklib-mimalloc-macos-fix.diff];
+    nativeBuildInputs = [cmake];
     outputs = [
       "out"
       "dev"
@@ -65,7 +65,7 @@ mkDerivation rec {
   inherit version src;
   isLibrary = false;
   isExecutable = true;
-  libraryToolDepends = [ hpack ];
+  libraryToolDepends = [hpack];
   executableHaskellDepends = [
     array
     base

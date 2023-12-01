@@ -42,8 +42,8 @@ let
       penlight
       vstruct
     ]
-    ++ lib.optionals (lib.versionOlder lua.luaversion "5.2") [ bit32 ]
-    ++ lib.optionals (lib.versionOlder lua.luaversion "5.3") [ compat53 ]
+    ++ lib.optionals (lib.versionOlder lua.luaversion "5.2") [bit32]
+    ++ lib.optionals (lib.versionOlder lua.luaversion "5.3") [compat53]
   );
 in
 
@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-framework AppKit";
 
-  FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ gentium ]; };
+  FONTCONFIG_FILE = makeFontsConf {fontDirectories = [gentium];};
 
   enableParallelBuilding = true;
 

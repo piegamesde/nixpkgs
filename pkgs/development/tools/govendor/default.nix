@@ -21,6 +21,6 @@ buildGoPackage rec {
     homepage = "https://github.com/kardianos/govendor";
     description = "Go vendor tool that works with the standard vendor file";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ zimbatm ];
+    maintainers = with maintainers; [zimbatm];
   };
 }

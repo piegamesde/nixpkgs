@@ -111,7 +111,7 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
           vmtouch
         ]
       }"
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libmediainfo ]}"
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [libmediainfo]}"
       --prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0"
       "''${qtWrapperArgs[@]}"
     )
@@ -122,6 +122,6 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
     homepage = "https://www.damonlynch.net/rapid/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jfrankenau ];
+    maintainers = with maintainers; [jfrankenau];
   };
 }

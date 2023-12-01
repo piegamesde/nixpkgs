@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-7t1CoLus3rPba9paapM7+H3qpdsw7FlzJsSHFwM/2Lk=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     meson
     pkg-config
@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.freedesktop.org/emersion/libdisplay-info";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pedrohlc ];
+    maintainers = with maintainers; [pedrohlc];
   };
 }

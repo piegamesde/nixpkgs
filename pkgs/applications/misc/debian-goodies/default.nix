@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
       --replace "curl" "${curl}/bin/curl"
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   buildInputs = [
     perl
@@ -64,6 +64,6 @@ stdenv.mkDerivation rec {
     homepage = "https://salsa.debian.org/debian/debian-goodies";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

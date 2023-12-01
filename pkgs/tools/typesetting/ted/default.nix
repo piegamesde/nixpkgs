@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     pushd $out/share/Ted/examples
     for f in rtf2*.sh
     do
-        makeWrapper "$PWD/$f" "$out/bin/$f" --prefix PATH : $out/bin:${lib.makeBinPath [ ghostscript ]}
+        makeWrapper "$PWD/$f" "$out/bin/$f" --prefix PATH : $out/bin:${lib.makeBinPath [ghostscript]}
     done
     popd
 
@@ -113,6 +113,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2;
     platforms = platforms.all;
     broken = stdenv.isDarwin;
-    maintainers = with maintainers; [ obadz ];
+    maintainers = with maintainers; [obadz];
   };
 }

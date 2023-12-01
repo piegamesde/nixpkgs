@@ -19,17 +19,17 @@ buildPythonPackage rec {
     hash = "sha256-FgcLngS11U9eBNV/8jllwdrm89tCmthA1sUaFDovk6U=";
   };
 
-  nativeCheckInputs = [ pyyaml ];
+  nativeCheckInputs = [pyyaml];
   checkPhase = ''
     ${python.interpreter} -m unittest test
   '';
 
-  pythonImportsCheck = [ "irctokens" ];
+  pythonImportsCheck = ["irctokens"];
 
   meta = with lib; {
     description = "RFC1459 and IRCv3 protocol tokeniser library for python3";
     license = licenses.mit;
     homepage = "https://github.com/jesopo/irctokens";
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

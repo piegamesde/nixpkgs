@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2elDrO+WaaRYdTrG40Ez00qSsNVQjXE6GdOJbWPfugE=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = [ hidapi ];
+  buildInputs = [hidapi];
 
   makeFlags = [
     "DIR_VERSION=${version}"
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "Tool to control USB HID relays";
     homepage = "https://github.com/darrylb123/usbrelay";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ wentasah ];
+    maintainers = with maintainers; [wentasah];
     platforms = platforms.linux;
   };
 }

@@ -1,12 +1,12 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../../.. {inherit system config;},
   lib ? pkgs.lib,
 }:
 
 let
-  inherit (import ./common.nix { inherit pkgs lib; }) mkTestName mariadbPackages;
+  inherit (import ./common.nix {inherit pkgs lib;}) mkTestName mariadbPackages;
 
   makeTest = import ./../make-test-python.nix;
 
@@ -32,7 +32,7 @@ let
       nodes =
         let
           mkGaleraNode =
-            { id, method }:
+            {id, method}:
             let
               address = "192.168.1.${toString id}";
               isFirstClusterNode = id == 1 || id == 4;
@@ -43,7 +43,7 @@ let
                   isSystemUser = true;
                   group = "testusers";
                 };
-                groups.testusers = { };
+                groups.testusers = {};
               };
 
               networking = {
@@ -64,7 +64,7 @@ let
                   4567
                   4568
                 ];
-                firewall.allowedUDPPorts = [ 4567 ];
+                firewall.allowedUDPPorts = [4567];
               };
               systemd.services.mysql = with pkgs; {
                 path = with pkgs; [
@@ -86,7 +86,7 @@ let
               services.mysql = {
                 enable = true;
                 package = mariadbPackage;
-                ensureDatabases = lib.mkIf isFirstClusterNode [ "testdb" ];
+                ensureDatabases = lib.mkIf isFirstClusterNode ["testdb"];
                 ensureUsers = lib.mkIf isFirstClusterNode [
                   {
                     name = "testuser";
@@ -269,4 +269,4 @@ let
       '';
     };
 in
-lib.mapAttrs (_: mariadbPackage: makeGaleraTest { inherit mariadbPackage; }) mariadbPackages
+lib.mapAttrs (_: mariadbPackage: makeGaleraTest {inherit mariadbPackage;}) mariadbPackages

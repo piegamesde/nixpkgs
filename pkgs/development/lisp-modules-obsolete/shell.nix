@@ -1,4 +1,4 @@
-with import ../../../default.nix { };
+with import ../../../default.nix {};
 let
   openssl_lib_marked = import ./openssl-lib-marked.nix;
   self = rec {
@@ -20,7 +20,7 @@ let
       lispPackages.quicklisp-to-nix
       lispPackages.quicklisp-to-nix-system-info
     ];
-    CPATH = lib.makeSearchPath "include" [ libfixposix ];
+    CPATH = lib.makeSearchPath "include" [libfixposix];
     LD_LIBRARY_PATH =
       lib.makeLibraryPath [
         cairo

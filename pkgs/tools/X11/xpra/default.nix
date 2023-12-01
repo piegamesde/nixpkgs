@@ -63,7 +63,7 @@ let
     EndSection
   '';
 
-  nvencHeaders = runCommand "nvenc-headers" { inherit nvidia_x11; } ''
+  nvencHeaders = runCommand "nvenc-headers" {inherit nvidia_x11;} ''
     mkdir -p $out/include $out/lib/pkgconfig
     cp ${nv-codec-headers-10}/include/ffnvcodec/nvEncodeAPI.h $out/include
     substituteAll ${./nvenc.pc} $out/lib/pkgconfig/nvenc.pc

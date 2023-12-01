@@ -48,7 +48,7 @@ buildPythonPackage rec {
 
   # Add $out/share/jupyter to the list of paths that are used to search for
   # various exporter templates
-  patches = [ ./templates.patch ];
+  patches = [./templates.patch];
 
   postPatch = ''
     substituteAllInPlace ./nbconvert/exporters/templateexporter.py
@@ -57,7 +57,7 @@ buildPythonPackage rec {
     cp ${style-css} share/templates/classic/static/style.css
   '';
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     beautifulsoup4
@@ -74,7 +74,7 @@ buildPythonPackage rec {
     pygments
     tinycss2
     traitlets
-  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  ] ++ lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -102,6 +102,6 @@ buildPythonPackage rec {
     description = "Converting Jupyter Notebooks";
     homepage = "https://jupyter.org/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ fridh ];
+    maintainers = with lib.maintainers; [fridh];
   };
 }

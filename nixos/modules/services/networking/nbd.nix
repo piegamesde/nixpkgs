@@ -32,7 +32,7 @@ let
           group = "root";
           port = cfg.server.listenPort;
         }
-        // (optionalAttrs (cfg.server.listenAddress != null) { listenaddr = cfg.server.listenAddress; })
+        // (optionalAttrs (cfg.server.listenAddress != null) {listenaddr = cfg.server.listenAddress;})
       );
   };
   exportSections =
@@ -54,11 +54,11 @@ let
       )
       cfg.server.exports;
   serverConfig = pkgs.writeText "nbd-server-config" ''
-    ${lib.generators.toINI { } genericSection}
-    ${lib.generators.toINI { } exportSections}
+    ${lib.generators.toINI {} genericSection}
+    ${lib.generators.toINI {} exportSections}
   '';
   splitLists = partition (path: hasPrefix "/dev/" path) (
-    mapAttrsToList (_: { path, ... }: path) cfg.server.exports
+    mapAttrsToList (_: {path, ...}: path) cfg.server.exports
   );
   allowedDevices = splitLists.right;
   boundPaths = splitLists.wrong;
@@ -88,7 +88,7 @@ in
 
         exports = mkOption {
           description = lib.mdDoc "Files or block devices to make available over the network.";
-          default = { };
+          default = {};
           type =
             with types;
             attrsOf (
@@ -144,12 +144,12 @@ in
       }
     ];
 
-    boot.kernelModules = [ "nbd" ];
+    boot.kernelModules = ["nbd"];
 
     systemd.services.nbd-server = {
-      after = [ "network-online.target" ];
-      before = [ "multi-user.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network-online.target"];
+      before = ["multi-user.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.nbd}/bin/nbd-server -C ${serverConfig}";
         Type = "forking";

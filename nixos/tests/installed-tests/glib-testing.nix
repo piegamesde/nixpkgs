@@ -1,3 +1,3 @@
-{ pkgs, makeInstalledTest, ... }:
+{pkgs, makeInstalledTest, ...}:
 
-makeInstalledTest { tested = pkgs.glib-testing; }
+makeInstalledTest {tested = pkgs.glib-testing;}

@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       "--disable-werror"
     ];
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   enableParallelBuilding = true;
 

@@ -50,13 +50,13 @@ stdenv.mkDerivation rec {
   ];
 
   # Fix hardcoded paths to /bin/mkdir
-  patches = [ ./makefile-mkdir.patch ];
+  patches = [./makefile-mkdir.patch];
 
   preConfigure = ''
     ./autogen.sh
   '';
 
-  configureFlags = [ "--disable-appindicator" ];
+  configureFlags = ["--disable-appindicator"];
 
   preFixup = "gappsWrapperArgs+=(--prefix PATH : ${encfs}/bin)";
 
@@ -68,6 +68,6 @@ stdenv.mkDerivation rec {
     description = "EncFS manager and mounter with GNOME3 integration";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.spacefrogg ];
+    maintainers = [maintainers.spacefrogg];
   };
 }

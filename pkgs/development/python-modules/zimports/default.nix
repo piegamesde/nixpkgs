@@ -32,14 +32,14 @@ buildPythonPackage rec {
     tomli
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "zimports" ];
+  pythonImportsCheck = ["zimports"];
 
   meta = with lib; {
     description = "Python import rewriter";
     homepage = "https://github.com/sqlalchemyorg/zimports";
     license = licenses.mit;
-    maintainers = with maintainers; [ timokau ];
+    maintainers = with maintainers; [timokau];
   };
 }

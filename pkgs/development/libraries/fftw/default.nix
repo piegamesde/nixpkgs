@@ -39,7 +39,7 @@ stdenv.mkDerivation (
     ] ++ lib.optional withDoc "info"; # it's dev-doc only
     outputBin = "dev"; # fftw-wisdom
 
-    nativeBuildInputs = [ gfortran ];
+    nativeBuildInputs = [gfortran];
 
     buildInputs =
       lib.optionals stdenv.cc.isClang
@@ -73,7 +73,7 @@ stdenv.mkDerivation (
 
     enableParallelBuilding = true;
 
-    nativeCheckInputs = [ perl ];
+    nativeCheckInputs = [perl];
 
     passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
@@ -81,7 +81,7 @@ stdenv.mkDerivation (
       description = "Fastest Fourier Transform in the West library";
       homepage = "http://www.fftw.org/";
       license = licenses.gpl2Plus;
-      maintainers = [ maintainers.spwhitt ];
+      maintainers = [maintainers.spwhitt];
       pkgConfigModules = [
         {
           "single" = "fftw3f";

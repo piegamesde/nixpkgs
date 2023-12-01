@@ -17,7 +17,7 @@ python3Packages.buildPythonApplication {
 
   format = "other";
 
-  nativeBuildInputs = [ python3Packages.wrapPython ];
+  nativeBuildInputs = [python3Packages.wrapPython];
 
   pythonPath = with python3Packages; [
     pycryptodome
@@ -40,6 +40,6 @@ python3Packages.buildPythonApplication {
     homepage = "https://github.com/andry08/ArubaOTP-seed-extractor";
     description = "Extract TOTP seed instead of using ArubaOTP app";
     license = licenses.mit;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

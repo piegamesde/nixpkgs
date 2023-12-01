@@ -18,7 +18,7 @@
 stdenv.mkDerivation rec {
   pname = "opencascade-occt";
   version = "7.6.2";
-  commit = "V${builtins.replaceStrings [ "." ] [ "_" ] version}";
+  commit = "V${builtins.replaceStrings ["."] ["_"] version}";
 
   src = fetchurl {
     name = "occt-${commit}.tar.gz";

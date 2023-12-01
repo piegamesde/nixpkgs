@@ -55,15 +55,15 @@ buildGoModule rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
 
-    tests.version = testers.testVersion { package = dsq; };
+    tests.version = testers.testVersion {package = dsq;};
   };
 
   meta = with lib; {
     description = "Commandline tool for running SQL queries against JSON, CSV, Excel, Parquet, and more";
     homepage = "https://github.com/multiprocessio/dsq";
     license = licenses.asl20;
-    maintainers = with maintainers; [ liff ];
+    maintainers = with maintainers; [liff];
   };
 }

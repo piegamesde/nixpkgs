@@ -18,12 +18,12 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-FYjlOYB0L4l6gF8hYtJroV1qMQD0ZmKWXBarjyConRs=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://github.com/loov/goda";
     description = "Go Dependency Analysis toolkit";
-    maintainers = with maintainers; [ michaeladler ];
+    maintainers = with maintainers; [michaeladler];
     license = licenses.mit;
     mainProgram = "goda";
   };

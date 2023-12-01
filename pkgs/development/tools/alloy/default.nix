@@ -9,7 +9,7 @@
 
 let
   generic =
-    { version, sha256 }:
+    {version, sha256}:
     stdenv.mkDerivation rec {
       pname = "alloy${lib.versions.major version}";
       inherit version;
@@ -33,7 +33,7 @@ let
         ];
       };
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
 
       buildCommand = ''
         jar=$out/share/alloy/${pname}.jar
@@ -60,10 +60,10 @@ let
         '';
         homepage = "http://alloytools.org/";
         downloadPage = "http://alloytools.org/download.html";
-        sourceProvenance = with sourceTypes; [ binaryBytecode ];
+        sourceProvenance = with sourceTypes; [binaryBytecode];
         license = licenses.mit;
         platforms = platforms.unix;
-        maintainers = with maintainers; [ notbandali ];
+        maintainers = with maintainers; [notbandali];
       };
     };
 in

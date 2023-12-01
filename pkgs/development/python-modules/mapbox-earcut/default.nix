@@ -29,11 +29,11 @@ buildPythonPackage rec {
     pybind11
   ];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "mapbox_earcut" ];
+  pythonImportsCheck = ["mapbox_earcut"];
 
   meta = with lib; {
     homepage = "https://github.com/skogler/mapbox_earcut_python";
@@ -45,6 +45,6 @@ buildPythonPackage rec {
       library, which provides very fast and quite robust triangulation of 2D
       polygons.
     '';
-    maintainers = with maintainers; [ friedelino ];
+    maintainers = with maintainers; [friedelino];
   };
 }

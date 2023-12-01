@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "1ha5s6d3y7s9aq9f4zmn9p88109c3mrj36z2w68jhiw5xrxws833";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gtk2
     SDL
@@ -39,8 +39,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://segaretro.org/Gens/GS";
     description = "A Genesis/Mega Drive emulator";
-    platforms = [ "i686-linux" ];
+    platforms = ["i686-linux"];
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.eelco ];
+    maintainers = [maintainers.eelco];
   };
 }

@@ -17,13 +17,13 @@ buildGoModule rec {
     sha256 = "sha256-kebN1OLMOrBKBz4aBV0VYm+LmLm6S0mKnVgG2u5I+d4=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   postInstall = ''
-    wrapProgram $out/bin/dnsname --prefix PATH : ${lib.makeBinPath [ dnsmasq ]}
+    wrapProgram $out/bin/dnsname --prefix PATH : ${lib.makeBinPath [dnsmasq]}
   '';
 
   vendorSha256 = null;
-  subPackages = [ "plugins/meta/dnsname" ];
+  subPackages = ["plugins/meta/dnsname"];
 
   doCheck = false; # NOTE: requires root privileges
 
@@ -32,6 +32,6 @@ buildGoModule rec {
     homepage = "https://github.com/containers/dnsname";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mikroskeem ];
+    maintainers = with maintainers; [mikroskeem];
   };
 }

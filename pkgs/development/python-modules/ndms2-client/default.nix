@@ -18,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-cM36xNLymg5Xph3bvbUGdAEmMABJ9y3/w/U8re6ZfB4=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ndms2_client" ];
+  pythonImportsCheck = ["ndms2_client"];
 
   meta = with lib; {
     description = "Keenetic NDMS 2.x and 3.x client";
     homepage = "https://github.com/foxel/python_ndms2_client";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

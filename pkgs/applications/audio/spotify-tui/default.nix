@@ -81,13 +81,13 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-aZJ6Q/rvqrv+wvQw2eKFPnSROhI5vXPvr5pu1hwtZKA=";
 
   nativeBuildInputs =
-    [ installShellFiles ]
+    [installShellFiles]
     ++ lib.optionals stdenv.isLinux [
       pkg-config
       python3
     ];
   buildInputs =
-    [ ]
+    []
     ++ lib.optionals stdenv.isLinux [
       openssl
       libxcb
@@ -109,7 +109,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/Rigellute/spotify-tui";
     changelog = "https://github.com/Rigellute/spotify-tui/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ jwijenbergh ];
+    maintainers = with maintainers; [jwijenbergh];
     mainProgram = "spt";
   };
 }

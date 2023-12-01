@@ -47,7 +47,7 @@ buildPythonApplication rec {
       --replace ", 'lpr', " ", '${cups}/bin/lpr', "
   '';
 
-  nativeBuildInputs = [ wrapQtAppsHook ];
+  nativeBuildInputs = [wrapQtAppsHook];
 
   propagatedBuildInputs = [
     enamlx
@@ -96,6 +96,6 @@ buildPythonApplication rec {
     homepage = "https://www.codelv.com/projects/inkcut/";
     description = "Control 2D plotters, cutters, engravers, and CNC machines";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ raboof ];
+    maintainers = with maintainers; [raboof];
   };
 }

@@ -39,7 +39,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pyipma" ];
+  pythonImportsCheck = ["pyipma"];
 
   disabledTestPaths = [
     # Tests require network access
@@ -52,7 +52,7 @@ buildPythonPackage rec {
     description = "Library to retrieve information from Instituto Português do Mar e Atmosfera";
     homepage = "https://github.com/dgomes/pyipma";
     changelog = "https://github.com/dgomes/pyipma/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

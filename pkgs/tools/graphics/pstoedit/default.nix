@@ -26,13 +26,13 @@ stdenv.mkDerivation rec {
   #
   # Turn on "-rdb" option (REALLYDELAYBIND) by default to ensure compatibility with gs-9.22
   #
-  patches = [ ./pstoedit-gs-9.22-compat.patch ];
+  patches = [./pstoedit-gs-9.22-compat.patch];
 
   outputs = [
     "out"
     "dev"
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       zlib
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     description = "Translates PostScript and PDF graphics into other vector formats";
     homepage = "https://sourceforge.net/projects/pstoedit/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.marcweber ];
+    maintainers = [maintainers.marcweber];
     platforms = platforms.unix;
   };
 }

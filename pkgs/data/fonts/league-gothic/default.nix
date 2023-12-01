@@ -39,7 +39,7 @@ stdenvNoCC.mkDerivation (
       '';
       homepage = "https://www.theleagueofmoveabletype.com/league-gothic";
       license = lib.licenses.ofl;
-      maintainers = with lib.maintainers; [ minijackson ];
+      maintainers = with lib.maintainers; [minijackson];
     };
   }
 )

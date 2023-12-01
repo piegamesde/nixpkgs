@@ -53,6 +53,6 @@ stdenv.mkDerivation {
     description = "A tool to read the contents of ISO7816 smart cards";
     license = licenses.gpl3Plus;
     platforms = with platforms; linux ++ darwin;
-    maintainers = with maintainers; [ embr ];
+    maintainers = with maintainers; [embr];
   };
 }

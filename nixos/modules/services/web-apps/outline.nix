@@ -403,7 +403,7 @@ in
     };
 
     debugOutput = lib.mkOption {
-      type = lib.types.nullOr (lib.types.enum [ "http" ]);
+      type = lib.types.nullOr (lib.types.enum ["http"]);
       default = null;
       description = lib.mdDoc "Set this to `http` log HTTP requests.";
     };
@@ -576,7 +576,7 @@ in
       };
     };
 
-    users.groups = lib.optionalAttrs (cfg.group == defaultUser) { ${defaultUser} = { }; };
+    users.groups = lib.optionalAttrs (cfg.group == defaultUser) {${defaultUser} = {};};
 
     systemd.tmpfiles.rules = [
       "f ${cfg.secretKeyFile} 0600 ${cfg.user} ${cfg.group} -"
@@ -592,7 +592,7 @@ in
           ensurePermissions."DATABASE outline" = "ALL PRIVILEGES";
         }
       ];
-      ensureDatabases = [ "outline" ];
+      ensureDatabases = ["outline"];
     };
 
     services.redis.servers.outline = lib.mkIf (cfg.redisUrl == "local") {
@@ -618,9 +618,9 @@ in
       in
       {
         description = "Outline wiki and knowledge base";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         after =
-          [ "networking.target" ]
+          ["networking.target"]
           ++ lib.optional (cfg.databaseUrl == "local") "postgresql.service"
           ++ lib.optional (cfg.redisUrl == "local") "redis-outline.service";
         requires =
@@ -664,7 +664,7 @@ in
             RATE_LIMITER_DURATION_WINDOW = builtins.toString cfg.rateLimiter.durationWindow;
           }
 
-          (lib.mkIf (cfg.slackAuthentication != null) { SLACK_CLIENT_ID = cfg.slackAuthentication.clientId; })
+          (lib.mkIf (cfg.slackAuthentication != null) {SLACK_CLIENT_ID = cfg.slackAuthentication.clientId;})
 
           (lib.mkIf (cfg.googleAuthentication != null) {
             GOOGLE_CLIENT_ID = cfg.googleAuthentication.clientId;

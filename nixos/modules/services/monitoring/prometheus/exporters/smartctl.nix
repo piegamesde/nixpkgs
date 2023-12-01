@@ -25,7 +25,7 @@ in
   extraOpts = {
     devices = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = literalExpression ''
         [ "/dev/sda", "/dev/nvme0n1" ];
       '';
@@ -66,7 +66,7 @@ in
       PrivateDevices = lib.mkForce false;
       ProtectProc = "invisible";
       ProcSubset = "pid";
-      SupplementaryGroups = [ "disk" ];
+      SupplementaryGroups = ["disk"];
       SystemCallFilter = [
         "@system-service"
         "~@privileged"

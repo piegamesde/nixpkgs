@@ -45,7 +45,7 @@ buildGoModule rec {
     description = "Prometheus exporter for sending continual ICMP/UDP pings";
     homepage = "https://github.com/SuperQ/smokeping_prober";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lukegb ];
+    maintainers = with maintainers; [lukegb];
     platforms = platforms.unix;
   };
 }

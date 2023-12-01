@@ -18,7 +18,7 @@ buildGoModule rec {
   };
   vendorHash = "sha256-xydewlruZvtWHm0IvVWuvv31+Z7/PLVC9gTZcQLaowk=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   # upstream have helpfully moved the bash completion script to a separate
   # repo which receives no releases or even tags
@@ -27,7 +27,7 @@ buildGoModule rec {
     sha256 = "06w26kpnjd3f2wdjhb4pp0kaq2gb9kf87v7pjd9n2g7s7qhdqyhy";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -44,7 +44,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "The official command line client for Cloud Foundry";
     homepage = "https://github.com/cloudfoundry/cli";
-    maintainers = with maintainers; [ ris ];
+    maintainers = with maintainers; [ris];
     mainProgram = "cf";
     license = licenses.asl20;
   };

@@ -165,7 +165,7 @@ let
 
         extraConfig = mkOption {
           type = types.attrs;
-          default = { };
+          default = {};
           example = literalExpression ''
             {
                      "alternative_estimate_fee" = "whatthefee-disabled";
@@ -194,7 +194,7 @@ let
 
         extraCmdLineOptions = mkOption {
           type = types.listOf types.str;
-          default = [ ];
+          default = [];
           example = [
             "-workers=1"
             "-dbcache=0"
@@ -214,14 +214,14 @@ in
   options = {
     services.blockbook-frontend = mkOption {
       type = types.attrsOf (types.submodule blockbookOpts);
-      default = { };
+      default = {};
       description = lib.mdDoc "Specification of one or more blockbook-frontend instances.";
     };
   };
 
   # implementation
 
-  config = mkIf (eachBlockbook != { }) {
+  config = mkIf (eachBlockbook != {}) {
 
     systemd.services =
       mapAttrs'
@@ -248,8 +248,8 @@ in
             in
             {
               description = "blockbook-frontend-${blockbookName} daemon";
-              after = [ "network.target" ];
-              wantedBy = [ "multi-user.target" ];
+              after = ["network.target"];
+              wantedBy = ["multi-user.target"];
               preStart = ''
                 ln -sf ${cfg.templateDir} ${cfg.dataDir}/static/
                 ln -sf ${cfg.cssDir} ${cfg.dataDir}/static/
@@ -309,8 +309,8 @@ in
         )
         eachBlockbook;
 
-    users.groups = mapAttrs' (instanceName: cfg: (nameValuePair "${cfg.group}" { })) eachBlockbook;
+    users.groups = mapAttrs' (instanceName: cfg: (nameValuePair "${cfg.group}" {})) eachBlockbook;
   };
 
-  meta.maintainers = with maintainers; [ _1000101 ];
+  meta.maintainers = with maintainers; [_1000101];
 }

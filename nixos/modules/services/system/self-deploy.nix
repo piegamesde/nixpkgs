@@ -56,7 +56,7 @@ in
     nixArgs = lib.mkOption {
       type = lib.types.attrs;
 
-      default = { };
+      default = {};
 
       description = lib.mdDoc ''
         Arguments to `nix-build` passed as `--argstr` or `--arg` depending on
@@ -145,9 +145,9 @@ in
     systemd.services.self-deploy = {
       inherit (cfg) startAt;
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
-      requires = lib.mkIf (!(isPathType cfg.repository)) [ "network-online.target" ];
+      requires = lib.mkIf (!(isPathType cfg.repository)) ["network-online.target"];
 
       environment.GIT_SSH_COMMAND =
         lib.mkIf (cfg.sshKeyFile != null)
@@ -163,7 +163,7 @@ in
           gzip
           nix
         ]
-        ++ lib.optionals (cfg.switchCommand == "boot") [ systemd ];
+        ++ lib.optionals (cfg.switchCommand == "boot") [systemd];
 
       script = ''
         if [ ! -e ${repositoryDirectory} ]; then
@@ -176,7 +176,7 @@ in
         ${gitWithRepo} checkout FETCH_HEAD
 
         nix-build${renderNixArgs cfg.nixArgs} ${
-          lib.cli.toGNUCommandLineShell { } {
+          lib.cli.toGNUCommandLineShell {} {
             attr = cfg.nixAttribute;
             out-link = outPath;
           }

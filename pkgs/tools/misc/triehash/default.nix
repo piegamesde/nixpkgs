@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-LxVcYj2WKHbhNu5x/DFkxQPOYrVkNvwiE/qcODq52Lc=";
   };
 
-  nativeBuildInputs = [ perlPackages.perl ];
+  nativeBuildInputs = [perlPackages.perl];
 
   postPatch = ''
     patchShebangs triehash.pl
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/julian-klode/triehash";
     description = "Order-preserving minimal perfect hash function generator";
     license = with licenses; mit;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = perlPackages.perl.meta.platforms;
   };
 }

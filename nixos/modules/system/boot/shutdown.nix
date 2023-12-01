@@ -14,7 +14,7 @@ with lib;
   systemd.services.save-hwclock = {
     description = "Save Hardware Clock";
 
-    wantedBy = [ "shutdown.target" ];
+    wantedBy = ["shutdown.target"];
 
     unitConfig = {
       DefaultDependencies = false;

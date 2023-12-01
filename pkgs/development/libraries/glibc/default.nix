@@ -17,7 +17,7 @@ let
   ];
 in
 
-(callPackage ./common.nix { inherit stdenv; } {
+(callPackage ./common.nix {inherit stdenv;} {
   inherit
     withLinuxHeaders
     withGd
@@ -66,7 +66,7 @@ in
         "stackprotector"
       ];
 
-      env = (previousAttrs.env or { }) // {
+      env = (previousAttrs.env or {}) // {
         NIX_CFLAGS_COMPILE =
           (previousAttrs.env.NIX_CFLAGS_COMPILE or "")
           + lib.concatStringsSep " " (
@@ -112,8 +112,8 @@ in
       # gcc.libgcc, since the path will be embedded in the resulting binary.
       #
       makeFlags =
-        (previousAttrs.makeFlags or [ ])
-        ++ lib.optionals (stdenv.cc.cc ? libgcc) [ "user-defined-trusted-dirs=${stdenv.cc.cc.libgcc}/lib" ];
+        (previousAttrs.makeFlags or [])
+        ++ lib.optionals (stdenv.cc.cc ? libgcc) ["user-defined-trusted-dirs=${stdenv.cc.cc.libgcc}/lib"];
 
       postInstall =
         (
@@ -195,10 +195,10 @@ in
       separateDebugInfo = true;
 
       passthru =
-        (previousAttrs.passthru or { })
-        // lib.optionalAttrs (stdenv.cc.cc ? libgcc) { inherit (stdenv.cc.cc) libgcc; };
+        (previousAttrs.passthru or {})
+        // lib.optionalAttrs (stdenv.cc.cc ? libgcc) {inherit (stdenv.cc.cc) libgcc;};
 
-      meta = (previousAttrs.meta or { }) // {
+      meta = (previousAttrs.meta or {}) // {
         description = "The GNU C Library";
       };
     }

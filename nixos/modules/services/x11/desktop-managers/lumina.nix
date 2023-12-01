@@ -29,7 +29,7 @@ in
 
   config = mkIf cfg.enable {
 
-    services.xserver.displayManager.sessionPackages = [ pkgs.lumina.lumina ];
+    services.xserver.displayManager.sessionPackages = [pkgs.lumina.lumina];
 
     environment.systemPackages = pkgs.lumina.preRequisitePackages ++ pkgs.lumina.corePackages;
 

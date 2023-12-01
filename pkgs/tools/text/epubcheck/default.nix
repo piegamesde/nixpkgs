@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-X4/aIcGd/heNjpTurRHYcawcoZW/utTxYHcUtktsH8o=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontBuild = true;
 
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/w3c/epubcheck";
     description = "Validation tool for EPUB";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = with licenses; [
       asl20
       bsd3
@@ -47,6 +47,6 @@ stdenv.mkDerivation rec {
       w3c
     ];
     platforms = platforms.all;
-    maintainers = with maintainers; [ eadwu ];
+    maintainers = with maintainers; [eadwu];
   };
 }

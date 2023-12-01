@@ -27,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-3EKtWomzgtQlYgCQjahOEDo/yaPtprsp5WPQs/tVChU=";
   };
 
-  nativeBuildInputs = [ pbr ];
+  nativeBuildInputs = [pbr];
 
   PBR_VERSION = version;
 
@@ -44,13 +44,13 @@ buildPythonPackage rec {
     time-machine
   ];
 
-  pythonImportsCheck = [ "bimmer_connected" ];
+  pythonImportsCheck = ["bimmer_connected"];
 
   meta = with lib; {
     changelog = "https://github.com/bimmerconnected/bimmer_connected/releases/tag/${version}";
     description = "Library to read data from the BMW Connected Drive portal";
     homepage = "https://github.com/bimmerconnected/bimmer_connected";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

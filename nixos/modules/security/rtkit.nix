@@ -31,17 +31,17 @@ with lib;
     security.polkit.enable = true;
 
     # To make polkit pickup rtkit policies
-    environment.systemPackages = [ pkgs.rtkit ];
+    environment.systemPackages = [pkgs.rtkit];
 
-    systemd.packages = [ pkgs.rtkit ];
+    systemd.packages = [pkgs.rtkit];
 
-    services.dbus.packages = [ pkgs.rtkit ];
+    services.dbus.packages = [pkgs.rtkit];
 
     users.users.rtkit = {
       isSystemUser = true;
       group = "rtkit";
       description = "RealtimeKit daemon";
     };
-    users.groups.rtkit = { };
+    users.groups.rtkit = {};
   };
 }

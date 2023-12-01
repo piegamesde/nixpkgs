@@ -16,12 +16,12 @@ buildPythonPackage {
     sha256 = "1mknxvsq0lr1ffm8amzm3w2prn043c6ghqgpxlkw83r988p5fn57";
   };
 
-  propagatedBuildInputs = [ pymaging ];
+  propagatedBuildInputs = [pymaging];
 
   meta = with lib; {
     description = "Pure Python imaging library with Python 2.6, 2.7, 3.1+ support";
     homepage = "https://github.com/ojii/pymaging-png/";
     license = licenses.mit;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
   };
 }

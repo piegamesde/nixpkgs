@@ -16,8 +16,8 @@ qtModule {
     qtbase
     qtdeclarative
   ];
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = lib.optionals stdenv.isLinux [ bluez ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = lib.optionals stdenv.isLinux [bluez];
   propagatedBuildInputs = lib.optionals stdenv.isDarwin [
     IOBluetooth
     PCSC

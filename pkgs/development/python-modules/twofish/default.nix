@@ -16,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "1yihp2n42amrxw0wk9f66llpb3w5kwhgkcdg9krkzcik1nsqp7dh";
   };
 
-  propagatedBuildInputs = [ javaobj-py3 ];
+  propagatedBuildInputs = [javaobj-py3];
 
   # No tests implemented
   doCheck = false;
@@ -25,6 +25,6 @@ buildPythonPackage rec {
     description = "Bindings for the Twofish implementation by Niels Ferguson";
     homepage = "https://github.com/keybase/python-twofish";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ kamadorueda ];
+    maintainers = with lib.maintainers; [kamadorueda];
   };
 }

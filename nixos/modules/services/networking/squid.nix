@@ -165,16 +165,16 @@ in
       createHome = true;
     };
 
-    users.groups.squid = { };
+    users.groups.squid = {};
 
     systemd.services.squid = {
       description = "Squid caching proxy";
-      documentation = [ "man:squid(8)" ];
+      documentation = ["man:squid(8)"];
       after = [
         "network.target"
         "nss-lookup.target"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       preStart = ''
         mkdir -p "/var/log/squid"
         chown squid:squid "/var/log/squid"

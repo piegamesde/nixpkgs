@@ -17,9 +17,9 @@ buildPythonPackage rec {
     sha256 = "4224373bacce55f955a878bf9cfa763c1e360858e330072059e10bad68531159";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   # To prevent infinite recursion with pytest
   doCheck = false;
@@ -28,6 +28,6 @@ buildPythonPackage rec {
     description = "Plugin and hook calling mechanisms for Python";
     homepage = "https://github.com/pytest-dev/pluggy";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

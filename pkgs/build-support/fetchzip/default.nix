@@ -16,13 +16,13 @@
   # Optionally move the contents of the unpacked tree up one level.
   stripRoot ? true,
   url ? "",
-  urls ? [ ],
+  urls ? [],
   extraPostFetch ? "",
   postFetch ? "",
   name ? "source",
   pname ? "",
   version ? "",
-  nativeBuildInputs ? [ ],
+  nativeBuildInputs ? [],
   # Allows to set the extension for the intermediate downloaded
   # file. This can be used as a hint for the unpackCmdHooks to select
   # an appropriate unpacking tool.
@@ -50,7 +50,7 @@ lib.warnIf (extraPostFetch != "")
             inherit pname version;
           }
         else
-          { inherit name; }
+          {inherit name;}
       )
       // {
         recursiveHash = true;

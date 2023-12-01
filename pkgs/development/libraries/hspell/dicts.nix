@@ -1,4 +1,4 @@
-{ stdenv, hspell }:
+{stdenv, hspell}:
 
 let
   dict =
@@ -11,7 +11,7 @@ let
           patchPhase
           nativeBuildInputs
           ;
-        buildFlags = [ variant ];
+        buildFlags = [variant];
 
         meta =
           hspell.meta
@@ -19,9 +19,9 @@ let
             broken = true;
             description = "${variant} Hebrew dictionary";
           }
-          // (if a ? meta then a.meta else { });
+          // (if a ? meta then a.meta else {});
       }
-      // (removeAttrs a [ "meta" ])
+      // (removeAttrs a ["meta"])
     );
 in
 {

@@ -28,14 +28,14 @@ stdenv.mkDerivation rec {
     python3.pkgs.wrapPython
     makeWrapper
   ];
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   installPhase = ''
     install -Dm0755 brutespray.py $out/bin/brutespray
     patchShebangs $out/bin
     patchPythonScript $out/bin/brutespray
     wrapProgram $out/bin/brutespray \
-      --prefix PATH : ${lib.makeBinPath [ medusa ]}
+      --prefix PATH : ${lib.makeBinPath [medusa]}
 
     mkdir -p $out/share/brutespray
     cp -r wordlist/ $out/share/brutespray/wordlist
@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
       directly from Nmap output.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

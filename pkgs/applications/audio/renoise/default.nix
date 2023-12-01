@@ -18,7 +18,7 @@
 # Note: Renoise creates an individual build for each license which screws somewhat with the
 # use of functions like requireFile as the hash will be different for every user.
 let
-  urlVersion = lib.replaceStrings [ "." ] [ "_" ];
+  urlVersion = lib.replaceStrings ["."] ["_"];
 in
 
 stdenv.mkDerivation rec {
@@ -96,9 +96,9 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Modern tracker-based DAW";
     homepage = "https://www.renoise.com/";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
-    maintainers = [ ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [];
+    platforms = ["x86_64-linux"];
   };
 }

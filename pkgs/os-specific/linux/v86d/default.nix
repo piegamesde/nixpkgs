@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     "--with-x86emu"
   ];
 
-  hardeningDisable = [ "stackprotector" ];
+  hardeningDisable = ["stackprotector"];
 
   makeFlags = [
     "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/source"
@@ -40,13 +40,13 @@ stdenv.mkDerivation rec {
     ./configure $configureFlags
   '';
 
-  buildInputs = [ klibc ];
+  buildInputs = [klibc];
 
   meta = with lib; {
     description = "A daemon to run x86 code in an emulated environment";
     homepage = "https://github.com/mjanusz/v86d";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ codyopel ];
+    maintainers = with maintainers; [codyopel];
     platforms = [
       "i686-linux"
       "x86_64-linux"

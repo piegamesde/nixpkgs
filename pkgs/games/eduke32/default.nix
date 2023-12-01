@@ -28,7 +28,7 @@ let
     comment = "Duke Nukem 3D port";
     desktopName = "Enhanced Duke Nukem 3D";
     genericName = "Duke Nukem 3D port";
-    categories = [ "Game" ];
+    categories = ["Game"];
   };
 
   wrapper = "eduke32-wrapper";
@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
     '';
 
   makeFlags =
-    [ "SDLCONFIG=${SDL2}/bin/sdl2-config" ]
+    ["SDLCONFIG=${SDL2}/bin/sdl2-config"]
     ++ lib.optionals stdenv.isDarwin
       [
         # broken, see: https://github.com/NixOS/nixpkgs/issues/19098

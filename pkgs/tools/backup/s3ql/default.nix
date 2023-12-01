@@ -18,7 +18,7 @@ python3Packages.buildPythonApplication rec {
   };
 
   nativeCheckInputs =
-    [ which ]
+    [which]
     ++ (
       with python3Packages; [
         cython
@@ -53,7 +53,7 @@ python3Packages.buildPythonApplication rec {
     description = "A full-featured file system for online data storage";
     homepage = "https://github.com/s3ql/s3ql/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ rushmorem ];
+    maintainers = with maintainers; [rushmorem];
     platforms = platforms.linux;
   };
 }

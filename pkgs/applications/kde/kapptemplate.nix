@@ -24,7 +24,7 @@ mkDerivation {
     description = "KDE App Code Template Generator";
     license = licenses.gpl2;
     homepage = "https://kde.org/applications/en/development/org.kde.kapptemplate";
-    maintainers = [ maintainers.shamilton ];
+    maintainers = [maintainers.shamilton];
     platforms = platforms.linux;
   };
 }

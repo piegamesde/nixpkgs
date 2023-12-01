@@ -26,7 +26,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "cvss" ];
+  pythonImportsCheck = ["cvss"];
 
   disabledTests = [
     # Tests require additional data
@@ -44,7 +44,7 @@ buildPythonPackage rec {
     description = "Library for CVSS2/3";
     homepage = "https://github.com/RedHatProductSecurity/cvss";
     changelog = "https://github.com/RedHatProductSecurity/cvss/releases/tag/v${version}";
-    license = with licenses; [ lgpl3Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [lgpl3Plus];
+    maintainers = with maintainers; [fab];
   };
 }

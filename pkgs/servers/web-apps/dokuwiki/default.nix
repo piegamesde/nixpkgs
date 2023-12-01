@@ -60,8 +60,8 @@ stdenv.mkDerivation rec {
     combine =
       {
         basePackage ? dokuwiki,
-        plugins ? [ ],
-        templates ? [ ],
+        plugins ? [],
+        templates ? [],
         localConfig ? null,
         pluginsConfig ? null,
         aclConfig ? null,
@@ -106,6 +106,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2;
     homepage = "https://www.dokuwiki.org";
     platforms = platforms.all;
-    maintainers = with maintainers; [ _1000101 ];
+    maintainers = with maintainers; [_1000101];
   };
 }

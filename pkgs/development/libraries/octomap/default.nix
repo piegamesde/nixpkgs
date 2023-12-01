@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "source/octomap";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   env.NIX_CFLAGS_COMPILE =
     toString
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     description = "A probabilistic, flexible, and compact 3D mapping library for robotic systems";
     homepage = "https://octomap.github.io/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ lopsided98 ];
+    maintainers = with maintainers; [lopsided98];
     platforms = platforms.unix;
   };
 }

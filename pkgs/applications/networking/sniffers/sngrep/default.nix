@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/irontec/sngrep";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ jorise ];
+    maintainers = with maintainers; [jorise];
   };
 }

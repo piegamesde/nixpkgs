@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
   };
 
   # For pthread_cancel
-  cmakeFlags = [ "-DCMAKE_EXE_LINKER_FLAGS=-lgcc_s" ];
+  cmakeFlags = ["-DCMAKE_EXE_LINKER_FLAGS=-lgcc_s"];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     zlib
     SDL
@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     description = "Atari ST/STE/TT/Falcon emulator";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

@@ -20,13 +20,13 @@ stdenv.mkDerivation rec {
   };
 
   # CMake does not set CMAKE_LIBRARY_ARCHITECTURE variable in Nix, which breaks architecture-independent library path generation
-  patches = [ ./fix-install-path.patch ];
+  patches = [./fix-install-path.patch];
 
-  buildInputs = lib.optionals enableUnicodeHelp [ icu.dev ];
+  buildInputs = lib.optionals enableUnicodeHelp [icu.dev];
   cmakeFlags = [
     "-DCXXOPTS_BUILD_EXAMPLES=OFF"
   ] ++ lib.optional enableUnicodeHelp "-DCXXOPTS_USE_UNICODE_HELP=TRUE";
-  nativeBuildInputs = [ cmake ] ++ lib.optionals enableUnicodeHelp [ pkg-config ];
+  nativeBuildInputs = [cmake] ++ lib.optionals enableUnicodeHelp [pkg-config];
 
   doCheck = true;
 
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jarro2783/cxxopts";
     description = "Lightweight C++ GNU-style option parser library";
     license = licenses.mit;
-    maintainers = [ maintainers.spease ];
+    maintainers = [maintainers.spease];
     platforms = platforms.all;
   };
 }

@@ -56,12 +56,12 @@ buildPythonPackage rec {
     "test_variables"
   ];
 
-  pythonImportsCheck = [ "stack_data" ];
+  pythonImportsCheck = ["stack_data"];
 
   meta = with lib; {
     description = "Extract data from stack frames and tracebacks";
     homepage = "https://github.com/alexmojaki/stack_data/";
     license = licenses.mit;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

@@ -49,7 +49,7 @@ rustPlatform.buildRustPackage rec {
     gtk3-x11
   ];
 
-  cargoTestFlags = [ "--all" ];
+  cargoTestFlags = ["--all"];
 
   checkFlags = [
     # Requires a game dump of Breath of the Wild
@@ -70,7 +70,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/NiceneNerd/ukmm";
     changelog = "https://github.com/NiceneNerd/ukmm/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
     platforms = platforms.linux;
   };
 }

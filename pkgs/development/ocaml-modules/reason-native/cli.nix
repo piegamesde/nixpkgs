@@ -8,7 +8,7 @@
 {
   pname = "cli";
 
-  nativeBuildInputs = [ reason ];
+  nativeBuildInputs = [reason];
 
   buildInputs = [
     re

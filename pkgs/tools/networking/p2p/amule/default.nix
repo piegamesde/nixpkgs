@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
   # find them.
   postInstall = lib.optionalString monolithic ''
     wrapProgram $out/bin/amule \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libupnp ]}
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [libupnp]}
   '';
 
   meta = with lib; {
@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://github.com/amule-project/amule";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
     # Undefined symbols for architecture arm64: "_FSFindFolder"
     broken = stdenv.isDarwin;

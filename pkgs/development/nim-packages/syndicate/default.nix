@@ -24,6 +24,6 @@ buildNimPackage rec {
   meta = src.meta // {
     description = "Nim implementation of the Syndicated Actor model";
     license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
   };
 }

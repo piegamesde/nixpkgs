@@ -47,7 +47,7 @@ buildPythonPackage rec {
     werkzeug
   ];
 
-  pythonImportsCheck = [ "authlib" ];
+  pythonImportsCheck = ["authlib"];
   disabledTestPaths = [
     # Django tests require a running instance
     "tests/django/"
@@ -61,6 +61,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/lepture/authlib";
     changelog = "https://github.com/lepture/authlib/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
   };
 }

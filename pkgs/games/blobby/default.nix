@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     description = "A blobby volleyball game";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     homepage = "https://blobbyvolley.de/";
     downloadPage = "https://sourceforge.net/projects/blobby/files/Blobby%20Volley%202%20%28Linux%29/";
     mainProgram = "blobby";

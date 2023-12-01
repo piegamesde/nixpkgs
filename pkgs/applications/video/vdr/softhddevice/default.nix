@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     xorg.libX11
   ];
 
-  makeFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = ["DESTDIR=$(out)"];
 
   postPatch = ''
     substituteInPlace softhddev.c \
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     inherit (src.meta) homepage;
     description = "VDR SoftHDDevice Plug-in";
-    maintainers = [ maintainers.ck3d ];
+    maintainers = [maintainers.ck3d];
     license = licenses.gpl2;
     inherit (vdr.meta) platforms;
   };

@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     description = "A small daemon for disabling trackpads while typing";
     homepage = "https://github.com/BlueDragonX/dispad";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ zimbatm ];
+    maintainers = with maintainers; [zimbatm];
     platforms = platforms.linux;
   };
 }

@@ -52,7 +52,7 @@ buildPythonPackage rec {
       "test_exception_header_forwarded"
     ];
 
-  pythonImportsCheck = [ "flask_restful" ];
+  pythonImportsCheck = ["flask_restful"];
 
   meta = with lib; {
     description = "Framework for creating REST APIs";
@@ -62,6 +62,6 @@ buildPythonPackage rec {
       REST API.
     '';
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

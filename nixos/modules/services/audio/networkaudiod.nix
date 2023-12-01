@@ -19,7 +19,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.packages = [ pkgs.networkaudiod ];
-    systemd.services.networkaudiod.wantedBy = [ "multi-user.target" ];
+    systemd.packages = [pkgs.networkaudiod];
+    systemd.services.networkaudiod.wantedBy = ["multi-user.target"];
   };
 }

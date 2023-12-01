@@ -16,23 +16,23 @@ buildPythonPackage rec {
     sha256 = "1q4l71b2h9q756x4pjynp6kczr2d8c1jvbdp982hf7xzv7w5gxqg";
   };
 
-  patches = [ ./libasyncns-fix-res-consts.patch ];
+  patches = [./libasyncns-fix-res-consts.patch];
 
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace resquery.c \
       --replace '<arpa/nameser.h>' '<arpa/nameser_compat.h>'
   '';
 
-  buildInputs = [ libasyncns ];
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [libasyncns];
+  nativeBuildInputs = [pkg-config];
   doCheck = false; # requires network access
 
-  pythonImportsCheck = [ "libasyncns" ];
+  pythonImportsCheck = ["libasyncns"];
 
   meta = with lib; {
     description = "libasyncns-python is a python binding for the asynchronous name service query library";
     license = licenses.lgpl21;
-    maintainers = [ maintainers.mic92 ];
+    maintainers = [maintainers.mic92];
     homepage = "https://launchpad.net/libasyncns-python";
   };
 }

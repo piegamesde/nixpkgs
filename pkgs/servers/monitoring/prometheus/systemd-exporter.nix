@@ -26,7 +26,7 @@ buildGoModule rec {
     description = "Exporter for systemd unit metrics";
     homepage = "https://github.com/povilasv/systemd_exporter";
     license = licenses.asl20;
-    maintainers = with maintainers; [ chkno ];
+    maintainers = with maintainers; [chkno];
     platforms = platforms.unix;
   };
 }

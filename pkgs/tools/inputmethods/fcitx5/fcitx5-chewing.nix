@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Chewing wrapper for Fcitx5";
     homepage = "https://github.com/fcitx/fcitx5-chewing";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ xrelkd ];
+    maintainers = with maintainers; [xrelkd];
     platforms = platforms.linux;
   };
 }

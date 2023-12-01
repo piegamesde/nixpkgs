@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-dbi";
   version = "20211020-git";
@@ -21,7 +21,7 @@ rec {
 
   packageName = "cl-dbi";
 
-  asdFilesToKeep = [ "cl-dbi.asd" ];
+  asdFilesToKeep = ["cl-dbi.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-dbi DESCRIPTION System lacks description SHA256

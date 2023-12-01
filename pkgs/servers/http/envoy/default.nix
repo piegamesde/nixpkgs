@@ -72,10 +72,10 @@ buildBazelPackage rec {
     patchelf
   ];
 
-  buildInputs = [ linuxHeaders ];
+  buildInputs = [linuxHeaders];
 
   # external/com_github_grpc_grpc/src/core/ext/transport/binder/transport/binder_transport.cc:756:29: error: format not a string literal and no format arguments [-Werror=format-security]
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   fetchAttrs = {
     sha256 =
@@ -141,7 +141,7 @@ buildBazelPackage rec {
   removeRulesCC = false;
   removeLocalConfigCc = true;
   removeLocal = false;
-  bazelTargets = [ "//source/exe:envoy-static" ];
+  bazelTargets = ["//source/exe:envoy-static"];
   bazelBuildFlags =
     [
       "-c opt"
@@ -165,7 +165,7 @@ buildBazelPackage rec {
         "--define=tcmalloc=disabled"
       ]
     );
-  bazelFetchFlags = [ "--define=wasm=${wasmRuntime}" ];
+  bazelFetchFlags = ["--define=wasm=${wasmRuntime}"];
 
   passthru.tests = {
     envoy = nixosTests.envoy;
@@ -177,7 +177,7 @@ buildBazelPackage rec {
     homepage = "https://envoyproxy.io";
     description = "Cloud-native edge and service proxy";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lukegb ];
+    maintainers = with maintainers; [lukegb];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

@@ -23,10 +23,10 @@ else
       ocaml
       findlib
     ];
-    buildInputs = [ ncurses ];
+    buildInputs = [ncurses];
     strictDeps = true;
 
-    buildFlags = [ "release" ];
+    buildFlags = ["release"];
     makeFlags = [
       "PREFIX=${placeholder "out"}"
       "LIBDIR=$(OCAMLFIND_DESTDIR)"
@@ -34,7 +34,7 @@ else
 
     dontAddPrefix = true;
     dontAddStaticConfigureFlags = true;
-    configurePlatforms = [ ];
+    configurePlatforms = [];
 
     meta = with lib; {
       homepage = "https://dune.build/";

@@ -27,9 +27,9 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [ libisoburn ];
+  buildInputs = [libisoburn];
 
-  qmakeFlags = [ "VERSION=${version}" ];
+  qmakeFlags = ["VERSION=${version}"];
 
   meta = with lib; {
     description = "A libisoburn wrapper class for Qt";

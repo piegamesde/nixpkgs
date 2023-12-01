@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/gsl-lite/gsl-lite";
     changelog = "https://github.com/gsl-lite/gsl-lite/blob/${src.rev}/CHANGES.txt";
     license = licenses.mit;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
     platforms = platforms.all;
   };
 }

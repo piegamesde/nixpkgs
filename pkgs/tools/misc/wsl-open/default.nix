@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-amqkDXdgIqGjRZMkltwco0UAI++G0RY/MxLXwtlxogE=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   installPhase = ''
     install -m0755 -D wsl-open.sh $out/bin/wsl-open
@@ -28,6 +28,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/4U6U57/wsl-open";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

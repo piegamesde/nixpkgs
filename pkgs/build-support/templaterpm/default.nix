@@ -11,7 +11,7 @@ stdenv.mkDerivation {
   pname = "nix-template-rpm";
   version = "0.1";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     python
     toposort
@@ -29,8 +29,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "Create templates of nix expressions from RPM .spec files";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

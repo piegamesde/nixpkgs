@@ -15,15 +15,15 @@ buildOctavePackage rec {
     sha256 = "sha256-p9SDTXkIwnrkNXeVhzAHks7EL4NdwBokrH2j9hqAJqQ=";
   };
 
-  requiredOctavePackages = [ instrument-control ];
+  requiredOctavePackages = [instrument-control];
 
-  propagatedBuildInputs = [ arduino-core-unwrapped ];
+  propagatedBuildInputs = [arduino-core-unwrapped];
 
   meta = with lib; {
     name = "Octave Arduino Toolkit";
     homepage = "https://octave.sourceforge.io/arduino/index.html";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ KarlJoad ];
+    maintainers = with maintainers; [KarlJoad];
     description = "Basic Octave implementation of the matlab arduino extension, allowing communication to a programmed arduino board to control its hardware";
   };
 }

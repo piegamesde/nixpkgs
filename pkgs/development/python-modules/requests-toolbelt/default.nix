@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-YuCff/XMvakncqKfOUpJw61ssYHVaLEzdiayq7Yopj0=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   nativeCheckInputs = [
     betamax
@@ -37,12 +37,12 @@ buildPythonPackage rec {
     "test_x509_pem"
   ];
 
-  pythonImportsCheck = [ "requests_toolbelt" ];
+  pythonImportsCheck = ["requests_toolbelt"];
 
   meta = with lib; {
     description = "Toolbelt of useful classes and functions to be used with requests";
     homepage = "http://toolbelt.rtfd.org";
     license = licenses.asl20;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
   };
 }

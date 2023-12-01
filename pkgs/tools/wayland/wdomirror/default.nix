@@ -60,6 +60,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/progandy/wdomirror";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jpas ];
+    maintainers = with maintainers; [jpas];
   };
 }

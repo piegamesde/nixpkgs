@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--disable-bench"
     "--with-boost-libdir=${boost.out}/lib"
-  ] ++ lib.optionals (!doCheck) [ "--enable-tests=no" ];
+  ] ++ lib.optionals (!doCheck) ["--enable-tests=no"];
 
   # Always check during Hydra builds
   doCheck = true;
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       RPC daemon and CLI client only.
     '';
     homepage = "https://particl.io/";
-    maintainers = with maintainers; [ demyanrogozhin ];
+    maintainers = with maintainers; [demyanrogozhin];
     license = licenses.mit;
     platforms = platforms.unix;
   };

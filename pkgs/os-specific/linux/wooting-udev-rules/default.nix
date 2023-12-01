@@ -1,11 +1,11 @@
-{ lib, stdenv }:
+{lib, stdenv}:
 
 stdenv.mkDerivation rec {
   pname = "wooting-udev-rules";
   version = "20210525";
 
   # Source: https://wooting.helpscoutdocs.com/article/68-wootility-configuring-device-access-for-wootility-under-linux-udev-rules
-  src = [ ./wooting.rules ];
+  src = [./wooting.rules];
 
   dontUnpack = true;
 
@@ -18,6 +18,6 @@ stdenv.mkDerivation rec {
     description = "udev rules that give NixOS permission to communicate with Wooting keyboards";
     platforms = platforms.linux;
     license = "unknown";
-    maintainers = with maintainers; [ davidtwco ];
+    maintainers = with maintainers; [davidtwco];
   };
 }

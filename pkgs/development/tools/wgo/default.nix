@@ -22,12 +22,12 @@ buildGoModule rec {
     "-w"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Live reload for Go apps";
     homepage = "https://github.com/bokwoon95/wgo";
     license = licenses.mit;
-    maintainers = with maintainers; [ bokwoon95 ];
+    maintainers = with maintainers; [bokwoon95];
   };
 }

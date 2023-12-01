@@ -17,12 +17,12 @@ buildPythonPackage rec {
   };
 
   doCheck = false; # no tests
-  pythonImportsCheck = [ "connection_pool" ];
+  pythonImportsCheck = ["connection_pool"];
 
   meta = with lib; {
     description = "Thread-safe connection pool";
     homepage = "https://github.com/zhouyl/ConnectionPool";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ veprbl ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [veprbl];
   };
 }

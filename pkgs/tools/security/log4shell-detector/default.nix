@@ -16,9 +16,9 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-N81x9hq473LfM+bQIQLWizCAsVc/pzyB84PV7/N5jk4=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ zstandard ];
+  propagatedBuildInputs = with python3.pkgs; [zstandard];
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [pytestCheckHook];
 
   installPhase = ''
     runHook preInstall
@@ -32,6 +32,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Detector for Log4Shell exploitation attempts";
     homepage = "https://github.com/Neo23x0/log4shell-detector";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -28,9 +28,9 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ psutil ];
+  propagatedBuildInputs = [psutil];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   unittestFlagsArray = [
     "-s"
@@ -42,6 +42,6 @@ buildPythonPackage rec {
     description = "Python module to generate and modify perf";
     homepage = "https://pyperf.readthedocs.io/";
     license = licenses.mit;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

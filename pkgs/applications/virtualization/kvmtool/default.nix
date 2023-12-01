@@ -15,14 +15,14 @@ stdenv.mkDerivation {
     sha256 = "sha256-wPhqjVpc6I9UOdb6lmzGh797sdvJ5q4dap2ssg8OY5E=";
   };
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isAarch64 [ dtc ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isAarch64 [dtc];
 
   enableParallelBuilding = true;
 
   makeFlags =
-    [ "prefix=${placeholder "out"}" ]
+    ["prefix=${placeholder "out"}"]
     ++ lib.optionals stdenv.hostPlatform.isAarch64 (
-      [ "LIBFDT_DIR=${dtc}/lib" ]
+      ["LIBFDT_DIR=${dtc}/lib"]
       ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
         "CROSS_COMPILE=aarch64-unknown-linux-gnu-"
         "ARCH=arm64"
@@ -33,7 +33,7 @@ stdenv.mkDerivation {
     description = "A lightweight tool for hosting KVM guests";
     homepage = "https://git.kernel.org/pub/scm/linux/kernel/git/will/kvmtool.git/tree/README";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

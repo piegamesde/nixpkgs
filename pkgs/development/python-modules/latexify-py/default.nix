@@ -19,22 +19,22 @@ buildPythonPackage rec {
     hash = "sha256-b0/cKMfIONVd6A5AYRyLx/qsFVpUjeAsadQyu/mPYxo=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
-  propagatedBuildInputs = [ dill ];
+  propagatedBuildInputs = [dill];
 
   preCheck = ''
     cd src
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "latexify" ];
+  pythonImportsCheck = ["latexify"];
 
   meta = with lib; {
     description = "Generates LaTeX math description from Python functions";
     homepage = "https://github.com/google/latexify_py";
     license = licenses.asl20;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

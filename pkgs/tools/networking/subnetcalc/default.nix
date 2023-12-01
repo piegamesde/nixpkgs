@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.uni-due.de/~be0001/subnetcalc/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ atila ];
+    maintainers = with maintainers; [atila];
     platforms = platforms.unix;
   };
 }

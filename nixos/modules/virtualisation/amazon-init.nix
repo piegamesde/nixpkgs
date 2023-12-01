@@ -89,9 +89,9 @@ in
       inherit script;
       description = "Reconfigure the system from EC2 userdata on startup";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "multi-user.target" ];
-      requires = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["multi-user.target"];
+      requires = ["network-online.target"];
 
       restartIfChanged = false;
       unitConfig.X-StopOnRemoval = false;

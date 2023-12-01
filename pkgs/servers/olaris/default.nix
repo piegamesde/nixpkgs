@@ -54,7 +54,7 @@ buildGoModule rec {
       --bash <($out/bin/olaris-server completion bash) \
       --fish <($out/bin/olaris-server completion fish) \
       --zsh <($out/bin/olaris-server completion zsh)
-      wrapProgram $out/bin/olaris-server --prefix PATH : ${lib.makeBinPath [ ffmpeg ]}
+      wrapProgram $out/bin/olaris-server --prefix PATH : ${lib.makeBinPath [ffmpeg]}
   '';
 
   meta = with lib; {
@@ -62,6 +62,6 @@ buildGoModule rec {
     homepage = "https://gitlab.com/olaris/olaris-server";
     changelog = "https://gitlab.com/olaris/olaris-server/-/releases/v${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
   };
 }

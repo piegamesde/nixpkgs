@@ -35,6 +35,6 @@ buildGoModule rec {
       pass-through to standard make.
     '';
     license = licenses.mit;
-    maintainers = [ maintainers.gabesoft ];
+    maintainers = [maintainers.gabesoft];
   };
 }

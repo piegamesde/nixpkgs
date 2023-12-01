@@ -115,7 +115,7 @@ qtModule {
       gperf
       ninja
       pkg-config
-      (python3.withPackages (ps: with ps; [ html5lib ]))
+      (python3.withPackages (ps: with ps; [html5lib]))
       which
       gn
       nodejs
@@ -136,7 +136,7 @@ qtModule {
 
   # ninja builds some components with -Wno-format,
   # which cannot be set at the same time as -Wformat-security
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   patches = [
     # removes macOS 12+ dependencies
@@ -207,8 +207,8 @@ qtModule {
       "-DQT_FEATURE_webengine_sanitizer=ON"
       "-DQT_FEATURE_webengine_kerberos=ON"
     ]
-    ++ lib.optionals stdenv.isLinux [ "-DQT_FEATURE_webengine_webrtc_pipewire=ON" ]
-    ++ lib.optionals enableProprietaryCodecs [ "-DQT_FEATURE_webengine_proprietary_codecs=ON" ]
+    ++ lib.optionals stdenv.isLinux ["-DQT_FEATURE_webengine_webrtc_pipewire=ON"]
+    ++ lib.optionals enableProprietaryCodecs ["-DQT_FEATURE_webengine_proprietary_codecs=ON"]
     ++ lib.optionals stdenv.isDarwin [
       "-DCMAKE_OSX_DEPLOYMENT_TARGET=${stdenv.targetPlatform.darwinSdkVersion}"
     ];
@@ -309,13 +309,13 @@ qtModule {
     ];
 
   buildInputs =
-    [ cups ]
+    [cups]
     ++ lib.optionals stdenv.isDarwin [
       libpm
       sandbox
     ];
 
-  requiredSystemFeatures = [ "big-parallel" ];
+  requiredSystemFeatures = ["big-parallel"];
 
   preConfigure = ''
     export NINJAFLAGS="-j$NIX_BUILD_CORES"

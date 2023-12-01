@@ -87,11 +87,11 @@ mkDerivation rec {
   RCC = "${qtbase.dev}/bin/rcc";
   UIC = "${qtbase.dev}/bin/uic";
 
-  configureFlags = [ "--enable-libusb" ];
+  configureFlags = ["--enable-libusb"];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  qtWrapperArgs = [ "--prefix LD_LIBRARY_PATH : $out/lib" ];
+  qtWrapperArgs = ["--prefix LD_LIBRARY_PATH : $out/lib"];
 
   postInstall = ''
     mkdir -p "$out/lib"
@@ -131,7 +131,7 @@ mkDerivation rec {
     '';
     homepage = "https://digitalbitbox.com/";
     license = licenses.mit;
-    maintainers = with maintainers; [ vidbina ];
+    maintainers = with maintainers; [vidbina];
     platforms = platforms.linux;
   };
 }

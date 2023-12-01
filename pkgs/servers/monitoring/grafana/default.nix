@@ -36,7 +36,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-b965ODZM0DgF8ZNrqa+Pwq8NE2qjePI9pBe2TgOVqwQ=";
 
-  nativeBuildInputs = [ wire ];
+  nativeBuildInputs = [wire];
 
   preBuild = ''
     # Generate DI code that's required to compile the package.

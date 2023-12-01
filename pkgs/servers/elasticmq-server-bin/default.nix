@@ -23,7 +23,7 @@ let
     # don't do anything?
     unpackPhase = "${jdk}/bin/jar xf $src favicon.png";
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     installPhase = ''
       mkdir -p $out/bin $out/share/elasticmq-server
@@ -38,10 +38,10 @@ let
     meta = with lib; {
       homepage = "https://github.com/softwaremill/elasticmq";
       description = "Message queueing system with Java, Scala and Amazon SQS-compatible interfaces";
-      sourceProvenance = with sourceTypes; [ binaryBytecode ];
+      sourceProvenance = with sourceTypes; [binaryBytecode];
       license = licenses.asl20;
       platforms = platforms.unix;
-      maintainers = with maintainers; [ peterromfeldhk ];
+      maintainers = with maintainers; [peterromfeldhk];
     };
   };
 in

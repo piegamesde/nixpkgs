@@ -27,6 +27,6 @@ build-idris-package {
     description = "Idris library to interact with the DOM";
     homepage = "https://github.com/pierrebeaucamp/idris-dom";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

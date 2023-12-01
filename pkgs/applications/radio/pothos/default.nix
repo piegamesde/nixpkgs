@@ -85,6 +85,6 @@ mkDerivation rec {
     homepage = "https://github.com/pothosware/PothosCore/wiki";
     license = licenses.boost;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

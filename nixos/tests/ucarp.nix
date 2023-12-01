@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   let
     addrShared = "192.168.0.1";
@@ -42,7 +42,7 @@ import ./make-test-python.nix (
   in
   {
     name = "ucarp";
-    meta.maintainers = with lib.maintainers; [ oxzi ];
+    meta.maintainers = with lib.maintainers; [oxzi];
 
     nodes = {
       hostA = mkUcarpHost addrHostA;

@@ -1,4 +1,4 @@
-{ lib }:
+{lib}:
 let
   inherit (builtins)
     head
@@ -32,7 +32,7 @@ rec {
       arg = (merger init (defaultMergeArg init x));
       # now add the function with composed args already applied to the final attrs
       base =
-        (setAttrMerge "passthru" { } (f arg) (
+        (setAttrMerge "passthru" {} (f arg) (
           z:
           z
           // {
@@ -43,7 +43,7 @@ rec {
                   "passthru"
                   "args"
                 ]
-                { }
+                {}
                 z
               )
               // x;
@@ -70,9 +70,9 @@ rec {
     if cond then
       val
     else if builtins.isList val then
-      [ ]
+      []
     else if builtins.isAttrs val then
-      { }
+      {}
     # else if builtins.isString val then ""
     else if val == true || val == false then
       false
@@ -86,20 +86,20 @@ rec {
       true
     else if name == "false" then
       false
-    else if (elem name (attrByPath [ "flags" ] [ ] attrSet)) then
+    else if (elem name (attrByPath ["flags"] [] attrSet)) then
       true
     else
-      attrByPath [ name ] false attrSet;
+      attrByPath [name] false attrSet;
 
   # Input : attrSet, [ [name default] ... ], name
   # Output : its value or default.
   getValue =
     attrSet: argList: name:
-    (attrByPath [ name ]
+    (attrByPath [name]
       (
         if checkFlag attrSet name then
           true
-        else if argList == [ ] then
+        else if argList == [] then
           null
         else
           let
@@ -144,17 +144,17 @@ rec {
   uniqList =
     {
       inputList,
-      acc ? [ ],
+      acc ? [],
     }:
     let
       go =
         xs: acc:
-        if xs == [ ] then
-          [ ]
+        if xs == [] then
+          []
         else
           let
             x = head xs;
-            y = if elem x acc then [ ] else [ x ];
+            y = if elem x acc then [] else [x];
           in
           y ++ go (tail xs) (y ++ acc);
     in
@@ -163,17 +163,17 @@ rec {
   uniqListExt =
     {
       inputList,
-      outputList ? [ ],
+      outputList ? [],
       getter ? (x: x),
       compare ? (x: y: x == y),
     }:
-    if inputList == [ ] then
+    if inputList == [] then
       outputList
     else
       let
         x = head inputList;
         isX = y: (compare (getter y) (getter x));
-        newOutputList = outputList ++ (if any isX outputList then [ ] else [ x ]);
+        newOutputList = outputList ++ (if any isX outputList then [] else [x]);
       in
       uniqListExt {
         outputList = newOutputList;
@@ -183,7 +183,7 @@ rec {
 
   condConcat =
     name: list: checker:
-    if list == [ ] then
+    if list == [] then
       name
     else if checker (head list) then
       condConcat (name + (head (tail list))) (tail (tail list)) checker
@@ -191,11 +191,11 @@ rec {
       condConcat name (tail (tail list)) checker;
 
   lazyGenericClosure =
-    { startSet, operator }:
+    {startSet, operator}:
     let
       work =
         list: doneKeys: result:
-        if list == [ ] then
+        if list == [] then
           result
         else
           let
@@ -205,18 +205,18 @@ rec {
           if elem key doneKeys then
             work (tail list) doneKeys result
           else
-            work (tail list ++ operator x) ([ key ] ++ doneKeys) ([ x ] ++ result);
+            work (tail list ++ operator x) ([key] ++ doneKeys) ([x] ++ result);
     in
-    work startSet [ ] [ ];
+    work startSet [] [];
 
   innerModifySumArgs =
     f: x: a: b:
     if b == null then (f a b) // x else innerModifySumArgs f x (a // b);
-  modifySumArgs = f: x: innerModifySumArgs f x { };
+  modifySumArgs = f: x: innerModifySumArgs f x {};
 
   innerClosePropagation =
     acc: xs:
-    if xs == [ ] then
+    if xs == [] then
       acc
     else
       let
@@ -227,19 +227,19 @@ rec {
         innerClosePropagation acc ys
       else
         let
-          acc' = [ y ] ++ acc;
+          acc' = [y] ++ acc;
         in
         innerClosePropagation acc' (
           uniqList {
             inputList =
-              (maybeAttrNullable "propagatedBuildInputs" [ ] y)
-              ++ (maybeAttrNullable "propagatedNativeBuildInputs" [ ] y)
+              (maybeAttrNullable "propagatedBuildInputs" [] y)
+              ++ (maybeAttrNullable "propagatedNativeBuildInputs" [] y)
               ++ ys;
             acc = acc';
           }
         );
 
-  closePropagationSlow = list: (uniqList { inputList = (innerClosePropagation [ ] list); });
+  closePropagationSlow = list: (uniqList {inputList = (innerClosePropagation [] list);});
 
   # This is an optimisation of lib.closePropagation which avoids the O(n^2) behavior
   # Using a list of derivations, it generates the full closure of the propagatedXXXBuildInputs
@@ -261,7 +261,7 @@ rec {
         operator =
           item:
           if !builtins.isAttrs item.val then
-            [ ]
+            []
           else
             builtins.concatMap
               (
@@ -274,9 +274,9 @@ rec {
                     }
                   ]
                 else
-                  [ ]
+                  []
               )
-              ((item.val.propagatedBuildInputs or [ ]) ++ (item.val.propagatedNativeBuildInputs or [ ]));
+              ((item.val.propagatedBuildInputs or []) ++ (item.val.propagatedNativeBuildInputs or []));
       }
     );
 
@@ -286,7 +286,7 @@ rec {
   mapAttrsFlatten = f: r: map (attr: f attr r.${attr}) (attrNames r);
 
   # attribute set containing one attribute
-  nvs = name: value: listToAttrs [ (nameValuePair name value) ];
+  nvs = name: value: listToAttrs [(nameValuePair name value)];
   # adds / replaces an attribute of an attribute set
   setAttr =
     set: name: v:
@@ -325,7 +325,7 @@ rec {
         "buildInputs"
         "propagatedBuildInputs"
       ],
-      overrideSnd ? [ "buildPhase" ],
+      overrideSnd ? ["buildPhase"],
     }:
     attrs1: attrs2:
     foldr
@@ -364,9 +364,9 @@ rec {
     let
       mergeAttrBy2 = {
         mergeAttrBy = lib.mergeAttrs;
-      } // (maybeAttr "mergeAttrBy" { } x) // (maybeAttr "mergeAttrBy" { } y);
+      } // (maybeAttr "mergeAttrBy" {} x) // (maybeAttr "mergeAttrBy" {} y);
     in
-    foldr lib.mergeAttrs { } [
+    foldr lib.mergeAttrs {} [
       x
       y
       (mapAttrs
@@ -389,8 +389,8 @@ rec {
         )
       )
     ];
-  mergeAttrsByFuncDefaults = foldl mergeAttrByFunc { inherit mergeAttrBy; };
-  mergeAttrsByFuncDefaultsClean = list: removeAttrs (mergeAttrsByFuncDefaults list) [ "mergeAttrBy" ];
+  mergeAttrsByFuncDefaults = foldl mergeAttrByFunc {inherit mergeAttrBy;};
+  mergeAttrsByFuncDefaultsClean = list: removeAttrs (mergeAttrsByFuncDefaults list) ["mergeAttrBy"];
 
   # sane defaults (same name as attr name so that inherit can be used)
   mergeAttrBy = # { buildInputs = concatList; [...]; passthru = mergeAttr; [..]; }

@@ -78,6 +78,6 @@ stdenv.mkDerivation rec {
     homepage = "https://thiefmd.com";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ wolfangaukang ];
+    maintainers = with maintainers; [wolfangaukang];
   };
 }

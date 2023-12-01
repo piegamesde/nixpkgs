@@ -17,7 +17,7 @@ stdenvNoCC.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -33,9 +33,9 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "The Flix Programming Language";
     homepage = "https://github.com/flix/flix";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
-    maintainers = with maintainers; [ athas ];
+    maintainers = with maintainers; [athas];
     inherit (jre.meta) platforms;
   };
 }

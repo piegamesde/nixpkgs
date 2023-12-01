@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     "-DSDL2_INCLUDE_DIR=${lib.getDev SDL2}/include/SDL2"
   ];
 
-  patches = [ ./wadlocation.patch ];
+  patches = [./wadlocation.patch];
 
   postPatch = ''
     substituteInPlace src/sdl/i_system.c \
@@ -87,6 +87,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.srb2.org/";
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ zeratax ];
+    maintainers = with maintainers; [zeratax];
   };
 }

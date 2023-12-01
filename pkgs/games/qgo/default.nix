@@ -28,7 +28,7 @@ mkDerivation {
     '';
     homepage = "https://github.com/pzorin/qgo";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ zalakain ];
+    maintainers = with maintainers; [zalakain];
   };
 
   src = fetchFromGitHub {
@@ -38,11 +38,11 @@ mkDerivation {
     sha256 = "1xzkayclmhsi07p9mnbf8185jw8n5ikxp2mik3x8qz1i6rmrfl5b";
   };
 
-  patches = [ ./fix-paths.patch ];
+  patches = [./fix-paths.patch];
   postPatch = ''
     sed -i 's|@out@|'"''${out}"'|g' src/src.pro src/defines.h
   '';
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
   buildInputs = [
     qtbase
     qtmultimedia

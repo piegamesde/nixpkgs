@@ -21,11 +21,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-U2pTvTk6oc6PV4W4XBKLzsaqSTb7Oqyw2Ponc9H0xs8=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ bzip2 ];
+  buildInputs = [bzip2];
 
-  nativeCheckInputs = lib.optionals stdenv.isDarwin [ rustup ];
+  nativeCheckInputs = lib.optionals stdenv.isDarwin [rustup];
 
   meta = with lib; {
     description = "A tool for building final distributable artifacts and uploading them to an archive";
@@ -35,6 +35,6 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

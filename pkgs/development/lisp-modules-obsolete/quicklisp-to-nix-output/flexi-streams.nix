@@ -1,14 +1,14 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "flexi-streams";
   version = "20210807-git";
 
-  parasites = [ "flexi-streams-test" ];
+  parasites = ["flexi-streams-test"];
 
   description = "Flexible bivalent streams for Common Lisp";
 
-  deps = [ args."trivial-gray-streams" ];
+  deps = [args."trivial-gray-streams"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/flexi-streams/2021-08-07/flexi-streams-20210807-git.tgz";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "flexi-streams";
 
-  asdFilesToKeep = [ "flexi-streams.asd" ];
+  asdFilesToKeep = ["flexi-streams.asd"];
   overrides = x: x;
 }
 /* (SYSTEM flexi-streams DESCRIPTION Flexible bivalent streams for Common Lisp

@@ -17,9 +17,9 @@ buildPythonApplication rec {
     sha256 = "0j8d8jizivnfx8lpc4w6sbqj5hq35nfz0vdg7ld80sc5cs7jr3ws";
   };
 
-  nativeBuildInputs = [ pytest ];
-  buildInputs = [ ncurses ];
-  propagatedBuildInputs = [ pillow ];
+  nativeBuildInputs = [pytest];
+  buildInputs = [ncurses];
+  propagatedBuildInputs = [pillow];
 
   checkPhase = "py.test";
 
@@ -27,6 +27,6 @@ buildPythonApplication rec {
     description = "Terminal Mandelbrot fractal viewer";
     homepage = "https://github.com/Tenchi2xh/Almonds";
     license = licenses.mit;
-    maintainers = with maintainers; [ infinisil ];
+    maintainers = with maintainers; [infinisil];
   };
 }

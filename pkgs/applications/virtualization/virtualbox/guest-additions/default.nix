@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
   KERN_DIR = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
   KERN_INCL = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/source/include";
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types -Wno-error=implicit-function-declaration";
 
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     patchelf
     makeWrapper
   ];
-  buildInputs = [ cdrkit ] ++ kernel.moduleBuildDependencies;
+  buildInputs = [cdrkit] ++ kernel.moduleBuildDependencies;
 
   prePatch = ''
     substituteInPlace src/vboxguest-${version}/vboxvideo/vbox_ttm.c \
@@ -181,7 +181,7 @@ stdenv.mkDerivation rec {
       (library: ''
         for i in $(grep -F ${lib.escapeShellArg library.name} -l -r $out/{lib,bin}); do
           origRpath=$(patchelf --print-rpath "$i")
-          patchelf --set-rpath "$origRpath:${lib.makeLibraryPath [ library.pkg ]}" "$i"
+          patchelf --set-rpath "$origRpath:${lib.makeLibraryPath [library.pkg]}" "$i"
         done
       '')
       dlopenLibs;
@@ -193,9 +193,9 @@ stdenv.mkDerivation rec {
       This add-on provides support for dynamic resizing of the X Display, shared
       host/guest clipboard support and guest OpenGL support.
     '';
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = "GPL";
-    maintainers = [ lib.maintainers.sander ];
+    maintainers = [lib.maintainers.sander];
     platforms = [
       "i686-linux"
       "x86_64-linux"

@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   env.NIX_CFLAGS_COMPILE = toString (

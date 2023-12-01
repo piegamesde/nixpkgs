@@ -58,7 +58,7 @@ in
     system.build.openstackImage = import ../../../lib/make-single-disk-zfs-image.nix {
       inherit lib config;
       inherit (cfg) contents format name;
-      pkgs = import ../../../.. { inherit (pkgs) system; }; # ensure we use the regular qemu-kvm package
+      pkgs = import ../../../.. {inherit (pkgs) system;}; # ensure we use the regular qemu-kvm package
 
       configFile = pkgs.writeText "configuration.nix" ''
         { modulesPath, ... }: {

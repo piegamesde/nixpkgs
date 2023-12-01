@@ -62,6 +62,6 @@ stdenv.mkDerivation rec {
     homepage = "http://splix.ap2c.org";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jfrankenau ];
+    maintainers = with maintainers; [jfrankenau];
   };
 }

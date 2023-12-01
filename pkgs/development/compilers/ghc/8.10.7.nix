@@ -144,7 +144,7 @@ let
   libDeps =
     platform:
     lib.optional enableTerminfo ncurses
-    ++ [ libffi ]
+    ++ [libffi]
     ++ lib.optional (!enableIntegerSimple) gmp
     ++ lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows) libiconv;
 
@@ -375,13 +375,13 @@ stdenv.mkDerivation (
             "--with-iconv-includes=${libiconv}/include"
             "--with-iconv-libraries=${libiconv}/lib"
           ]
-      ++ lib.optionals (targetPlatform != hostPlatform) [ "--enable-bootstrap-with-devel-snapshot" ]
+      ++ lib.optionals (targetPlatform != hostPlatform) ["--enable-bootstrap-with-devel-snapshot"]
       ++ lib.optionals useLdGold [
         "CFLAGS=-fuse-ld=gold"
         "CONF_GCC_LINKER_OPTS_STAGE1=-fuse-ld=gold"
         "CONF_GCC_LINKER_OPTS_STAGE2=-fuse-ld=gold"
       ]
-      ++ lib.optionals (disableLargeAddressSpace) [ "--disable-large-address-space" ];
+      ++ lib.optionals (disableLargeAddressSpace) ["--disable-large-address-space"];
 
     # Make sure we never relax`$PATH` and hooks support for compatibility.
     strictDeps = true;
@@ -401,8 +401,8 @@ stdenv.mkDerivation (
         bootPkgs.happy
         bootPkgs.hscolour
       ]
-      ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ]
-      ++ lib.optionals enableDocs [ sphinx ];
+      ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [autoSignDarwinBinariesHook]
+      ++ lib.optionals enableDocs [sphinx];
 
     # For building runtime libs
     depsBuildTarget = toolsForTarget;
@@ -417,12 +417,12 @@ stdenv.mkDerivation (
 
     # required, because otherwise all symbols from HSffi.o are stripped, and
     # that in turn causes GHCi to abort
-    stripDebugFlags = [ "-S" ] ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols";
+    stripDebugFlags = ["-S"] ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols";
 
     checkTarget = "test";
 
     hardeningDisable =
-      [ "format" ]
+      ["format"]
       # In nixpkgs, musl based builds currently enable `pie` hardening by default
       # (see `defaultHardeningFlags` in `make-derivation.nix`).
       # But GHC cannot currently produce outputs that are ready for `-pie` linking.
@@ -434,7 +434,7 @@ stdenv.mkDerivation (
 
     # big-parallel allows us to build with more than 2 cores on
     # Hydra which already warrants a significant speedup
-    requiredSystemFeatures = [ "big-parallel" ];
+    requiredSystemFeatures = ["big-parallel"];
 
     postInstall = ''
       # Install the bash completion file.
@@ -458,7 +458,7 @@ stdenv.mkDerivation (
     meta = {
       homepage = "http://haskell.org/ghc";
       description = "The Glasgow Haskell Compiler";
-      maintainers = with lib.maintainers; [ guibou ] ++ lib.teams.haskell.members;
+      maintainers = with lib.maintainers; [guibou] ++ lib.teams.haskell.members;
       timeout = 24 * 3600;
       inherit (ghc.meta) license platforms;
     };

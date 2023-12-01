@@ -19,7 +19,7 @@ stdenv.mkDerivation {
     sha256 = "1ziv5r57jzg2qg61izvkkyq1bz4p5nb6652dzwykfj3l2r3db4bi";
   };
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   dontBuild = true;
 
@@ -32,6 +32,6 @@ stdenv.mkDerivation {
     description = "A program that compares two Nix expressions and determines which attributes changed";
     homepage = "https://github.com/FRidh/niff";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.fridh ];
+    maintainers = [lib.maintainers.fridh];
   };
 }

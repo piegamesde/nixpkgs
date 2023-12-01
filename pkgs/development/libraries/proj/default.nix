@@ -77,7 +77,7 @@ stdenv.mkDerivation (
 
     passthru.tests = {
       python = python3.pkgs.pyproj;
-      proj = callPackage ./tests.nix { proj = finalAttrs.finalPackage; };
+      proj = callPackage ./tests.nix {proj = finalAttrs.finalPackage;};
     };
 
     meta = with lib; {
@@ -86,7 +86,7 @@ stdenv.mkDerivation (
       homepage = "https://proj.org/";
       license = licenses.mit;
       platforms = platforms.unix;
-      maintainers = with maintainers; [ dotlambda ];
+      maintainers = with maintainers; [dotlambda];
     };
   }
 )

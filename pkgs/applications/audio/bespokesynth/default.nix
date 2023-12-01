@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
 
   cmakeBuildType = "Release";
 
-  cmakeFlags = lib.optionals enableVST2 [ "-DBESPOKE_VST2_SDK_LOCATION=${vst-sdk}/VST2_SDK" ];
+  cmakeFlags = lib.optionals enableVST2 ["-DBESPOKE_VST2_SDK_LOCATION=${vst-sdk}/VST2_SDK"];
 
   nativeBuildInputs = [
     python3
@@ -143,7 +143,7 @@ stdenv.mkDerivation rec {
           --prefix PATH : '${
             lib.makeBinPath [
               gnome.zenity
-              (python3.withPackages (ps: with ps; [ jedi ]))
+              (python3.withPackages (ps: with ps; [jedi]))
             ]
           }' \
           --prefix LD_LIBRARY_PATH : '${
@@ -159,7 +159,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Software modular synth with controllers support, scripting and VST";
     homepage = "https://github.com/awwbees/BespokeSynth";
-    license = with licenses; [ gpl3Plus ] ++ lib.optional enableVST2 unfree;
+    license = with licenses; [gpl3Plus] ++ lib.optional enableVST2 unfree;
     maintainers = with maintainers; [
       astro
       tobiasBora

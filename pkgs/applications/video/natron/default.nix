@@ -47,7 +47,7 @@ let
       url = "https://github.com/wdas/SeExpr/archive/rel-${version}.tar.gz";
       sha256 = "1ackh0xs4ip7mk34bam8zd4qdymkdk0dgv8x0f2mf6gbyzzyh7lp";
     };
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
     buildInputs = [
       libpng
       flex
@@ -58,8 +58,8 @@ let
     {
       pluginName,
       sha256,
-      nativeBuildInputs ? [ ],
-      buildInputs ? [ ],
+      nativeBuildInputs ? [],
+      buildInputs ? [],
       preConfigure ? "",
       postPatch ? "",
     }:
@@ -98,7 +98,7 @@ let
     ({
       pluginName = "arena";
       sha256 = "tUb6myG03mRieUAfgRZfv5Ap+cLvbpNrLMYCGTiAq8c=";
-      nativeBuildInputs = [ pkg-config ];
+      nativeBuildInputs = [pkg-config];
       buildInputs = [
         pango
         librsvg
@@ -121,7 +121,7 @@ let
     ({
       pluginName = "io";
       sha256 = "OQg6a5wNy9TFFySjmgd1subvXRxY/ZnSOCkaoUo+ZaA=";
-      nativeBuildInputs = [ pkg-config ];
+      nativeBuildInputs = [pkg-config];
       buildInputs = [
         libpng
         ffmpeg
@@ -139,7 +139,7 @@ let
     ({
       pluginName = "misc";
       sha256 = "XkdQyWI9ilF6IoP3yuHulNUZRPLX1m4lq/+RbXsrFEQ=";
-      buildInputs = [ libGL ];
+      buildInputs = [libGL];
       postPatch = ''
         cp '${inpainth}' CImg/Inpaint/inpaint.h
         patch -p0 -dCImg < CImg/Inpaint/inpaint.h.patch # taken from the Makefile; it gets skipped if the file already exists
@@ -198,7 +198,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://natron.fr/";
     license = lib.licenses.gpl2;
-    maintainers = [ maintainers.puffnfresh ];
+    maintainers = [maintainers.puffnfresh];
     platforms = platforms.linux;
     broken = true; # Last evaluated on Hydra on 2021-05-18
   };

@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   enableParallelBuilding = true;
 

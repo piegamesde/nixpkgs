@@ -20,19 +20,19 @@ buildPythonPackage rec {
     sha256 = "10wwkam3dw0nqr3v9xzigx1zjlrnrhzr7jvihddvzi84vjb6j443";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   nativeCheckInputs = [
     pytestCheckHook
     responses
   ];
 
-  pythonImportsCheck = [ "twitch" ];
+  pythonImportsCheck = ["twitch"];
 
   meta = with lib; {
     description = "Python wrapper for the Twitch API";
     homepage = "https://github.com/tsifrer/python-twitch-client";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

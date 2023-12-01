@@ -20,25 +20,25 @@ lib.makeOverridable (
     comment ? null,
     icon ? null,
     # we don't support the Hidden key - if you don't need something, just don't install it
-    onlyShowIn ? [ ],
-    notShowIn ? [ ],
+    onlyShowIn ? [],
+    notShowIn ? [],
     dbusActivatable ? null,
     tryExec ? null,
     exec ? null,
     path ? null,
     terminal ? null,
-    actions ? { }, # An attrset of [internal name] -> { name, exec?, icon? }
-    mimeTypes ? [ ], # The spec uses "MimeType" as singular, use plural here to signify list-ness
-    categories ? [ ],
-    implements ? [ ],
-    keywords ? [ ],
+    actions ? {}, # An attrset of [internal name] -> { name, exec?, icon? }
+    mimeTypes ? [], # The spec uses "MimeType" as singular, use plural here to signify list-ness
+    categories ? [],
+    implements ? [],
+    keywords ? [],
     startupNotify ? null,
     startupWMClass ? null,
     url ? null,
     prefersNonDefaultGPU ? null,
     # not supported until version 1.5, which is not supported by our desktop-file-utils as of 2022-02-23
     # , singleMainWindow ? null
-    extraConfig ? { }, # Additional values to be added literally to the final item, e.g. vendor extensions
+    extraConfig ? {}, # Additional values to be added literally to the final item, e.g. vendor extensions
   }:
   let
     # There are multiple places in the FDO spec that make "boolean" values actually tristate,
@@ -61,7 +61,7 @@ lib.makeOverridable (
         throw "makeDesktopItem: value for ${key} must be a list!"
       else if builtins.any (item: lib.hasInfix ";" item) value then
         throw "makeDesktopItem: values in ${key} list must not contain semicolons!"
-      else if value == [ ] then
+      else if value == [] then
         null
       else
         builtins.concatStringsSep ";" value;
@@ -131,7 +131,7 @@ lib.makeOverridable (
     renderAction = name: attrs: renderSection "Desktop Action ${name}" (preprocessAction attrs);
     actionsRendered = lib.mapAttrsToList renderAction actions;
 
-    content = [ mainSectionRendered ] ++ actionsRendered;
+    content = [mainSectionRendered] ++ actionsRendered;
   in
   writeTextFile {
     name = "${name}.desktop";

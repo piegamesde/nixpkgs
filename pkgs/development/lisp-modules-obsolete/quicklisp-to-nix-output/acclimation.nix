@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "acclimation";
   version = "20200925-git";
 
   description = "Library supporting internationalization";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/acclimation/2020-09-25/acclimation-20200925-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "acclimation";
 
-  asdFilesToKeep = [ "acclimation.asd" ];
+  asdFilesToKeep = ["acclimation.asd"];
   overrides = x: x;
 }
 /* (SYSTEM acclimation DESCRIPTION Library supporting internationalization

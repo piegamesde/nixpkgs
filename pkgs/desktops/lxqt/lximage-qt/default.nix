@@ -47,7 +47,7 @@ mkDerivation rec {
     menu-cache
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/lxqt/lximage-qt";

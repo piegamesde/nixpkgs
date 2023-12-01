@@ -21,7 +21,7 @@ buildDotnetModule rec {
   dotnet-sdk = dotnetCorePackages.sdk_7_0;
   dotnet-runtime = dotnetCorePackages.runtime_7_0;
 
-  runtimeDeps = [ gtk3 ];
+  runtimeDeps = [gtk3];
   buildInputs = runtimeDeps;
 
   # How-to update deps:
@@ -85,7 +85,7 @@ buildDotnetModule rec {
     homepage = "https://www.pinta-project.com/";
     description = "Drawing/editing program modeled after Paint.NET";
     license = licenses.mit;
-    maintainers = with maintainers; [ thiagokokada ];
+    maintainers = with maintainers; [thiagokokada];
     platforms = with platforms; linux;
     mainProgram = "pinta";
   };

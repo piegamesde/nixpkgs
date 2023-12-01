@@ -310,9 +310,9 @@ in
 
   config = mkIf cfg.enable {
 
-    services.xserver.modules = [ pkgs.xorg.xf86inputlibinput ];
+    services.xserver.modules = [pkgs.xorg.xf86inputlibinput];
 
-    environment.systemPackages = [ pkgs.xorg.xf86inputlibinput ];
+    environment.systemPackages = [pkgs.xorg.xf86inputlibinput];
 
     environment.etc =
       let
@@ -324,7 +324,7 @@ in
         };
       };
 
-    services.udev.packages = [ pkgs.libinput.out ];
+    services.udev.packages = [pkgs.libinput.out];
 
     services.xserver.inputClassSections = [
       (mkX11ConfigForDevice "mouse" "Pointer")

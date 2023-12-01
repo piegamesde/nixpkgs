@@ -46,10 +46,9 @@ let
       };
     };
   };
-  hostPortToString = { host, port }: "${host}:${builtins.toString port}";
+  hostPortToString = {host, port}: "${host}:${builtins.toString port}";
   localRemoteToString =
-    { local, remote }:
-    utils.escapeSystemdExecArg "${hostPortToString local}:${hostPortToString remote}";
+    {local, remote}: utils.escapeSystemdExecArg "${hostPortToString local}:${hostPortToString remote}";
   commonOptions = {
     enable = mkOption {
       description = mdDoc "Whether to enable this `wstunnel` instance.";
@@ -57,7 +56,7 @@ let
       default = true;
     };
 
-    package = mkPackageOptionMD pkgs "wstunnel" { };
+    package = mkPackageOptionMD pkgs "wstunnel" {};
 
     autoStart = mkOption {
       description = mdDoc "Whether this tunnel server should be started automatically.";
@@ -68,7 +67,7 @@ let
     extraArgs = mkOption {
       description = mdDoc ''Extra command line arguments to pass to `wstunnel`. Attributes of the form `argName = true;` will be translated to `--argName`, and `argName = "value"` to `--argName=value`.'';
       type = with types; attrsOf (either str bool);
-      default = { };
+      default = {};
       example = {
         "someNewOption" = true;
         "someNewOptionWithValue" = "someValue";
@@ -90,7 +89,7 @@ let
   };
 
   serverSubmodule =
-    { config, ... }:
+    {config, ...}:
     {
       options = commonOptions // {
         listen = mkOption {
@@ -146,7 +145,7 @@ let
       };
     };
   clientSubmodule =
-    { config, ... }:
+    {config, ...}:
     {
       options = commonOptions // {
         connectTo = mkOption {
@@ -166,7 +165,7 @@ let
         localToRemote = mkOption {
           description = mdDoc "Local hosts and ports to listen on, plus the hosts and ports on remote to forward traffic to. Setting a local port to a value less than 1024 will additionally give the process the required CAP_NET_BIND_SERVICE capability.";
           type = types.listOf (types.submodule localRemoteSubmodule);
-          default = [ ];
+          default = [];
           example = [
             {
               local = {
@@ -269,7 +268,7 @@ let
         customHeaders = mkOption {
           description = mdDoc "Custom HTTP headers to send during the upgrade request.";
           type = types.attrsOf types.str;
-          default = { };
+          default = {};
           example = {
             "X-Some-Header" = "some-value";
           };
@@ -325,7 +324,7 @@ let
           DynamicUser = true;
           SupplementaryGroups = optional (serverCfg.useACMEHost != null) certConfig.group;
           PrivateTmp = true;
-          AmbientCapabilities = optionals (serverCfg.listen.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
+          AmbientCapabilities = optionals (serverCfg.listen.port < 1024) ["CAP_NET_BIND_SERVICE"];
           NoNewPrivileges = true;
           RestrictNamespaces = "uts ipc pid user cgroup";
           ProtectSystem = "strict";
@@ -385,13 +384,13 @@ let
         DynamicUser = true;
         PrivateTmp = true;
         AmbientCapabilities =
-          (optionals (clientCfg.soMark != null) [ "CAP_NET_ADMIN" ])
+          (optionals (clientCfg.soMark != null) ["CAP_NET_ADMIN"])
           ++ (optionals
             (
               (clientCfg.dynamicToRemote.port or 1024) < 1024
               || (any (x: x.local.port < 1024) clientCfg.localToRemote)
             )
-            [ "CAP_NET_BIND_SERVICE" ]
+            ["CAP_NET_BIND_SERVICE"]
           );
         NoNewPrivileges = true;
         RestrictNamespaces = "uts ipc pid user cgroup";
@@ -413,7 +412,7 @@ in
     servers = mkOption {
       description = mdDoc "`wstunnel` servers to set up.";
       type = types.attrsOf (types.submodule serverSubmodule);
-      default = { };
+      default = {};
       example = {
         "wg-tunnel" = {
           listen.port = 8080;
@@ -431,7 +430,7 @@ in
     clients = mkOption {
       description = mdDoc "`wstunnel` clients to set up.";
       type = types.attrsOf (types.submodule clientSubmodule);
-      default = { };
+      default = {};
       example = {
         "wg-tunnel" = {
           connectTo = {
@@ -486,7 +485,7 @@ in
       )
       ++ (mapAttrsToList
         (name: clientCfg: {
-          assertion = !(clientCfg.localToRemote == [ ] && clientCfg.dynamicToRemote == null);
+          assertion = !(clientCfg.localToRemote == [] && clientCfg.dynamicToRemote == null);
           message = ''
             Either one of services.wstunnel.clients."${name}".localToRemote or services.wstunnel.clients."${name}".dynamicToRemote must be set.
           '';
@@ -495,5 +494,5 @@ in
       );
   };
 
-  meta.maintainers = with maintainers; [ alyaeanyx ];
+  meta.maintainers = with maintainers; [alyaeanyx];
 }

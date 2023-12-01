@@ -21,7 +21,7 @@ buildGoModule rec {
     homepage = "https://github.com/sassoftware/relic";
     description = "A service and a tool for adding digital signatures to operating system packages for Linux and Windows";
     license = licenses.asl20;
-    maintainers = with maintainers; [ strager ];
+    maintainers = with maintainers; [strager];
     platforms = platforms.unix;
   };
 }

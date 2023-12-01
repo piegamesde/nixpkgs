@@ -47,6 +47,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.unix-ag.uni-kl.de/~bloch/acng/";
     license = licenses.bsdOriginal;
     platforms = platforms.linux;
-    maintainers = [ maintainers.makefu ];
+    maintainers = [maintainers.makefu];
   };
 }

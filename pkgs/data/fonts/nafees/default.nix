@@ -34,7 +34,7 @@ stdenv.mkDerivation {
     })
   ];
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   sourceRoot = ".";
 
@@ -63,6 +63,6 @@ stdenv.mkDerivation {
     # font exception, and some not-for-resale language.
     license = "unknown";
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ bergey ];
+    maintainers = with lib.maintainers; [bergey];
   };
 }

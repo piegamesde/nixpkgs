@@ -24,7 +24,7 @@ mkDerivation rec {
     python3
   ];
 
-  buildInputs = [ ctags ];
+  buildInputs = [ctags];
 
   strictDeps = true;
 
@@ -48,6 +48,6 @@ mkDerivation rec {
     homepage = "http://gede.dexar.se";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ juliendehos ];
+    maintainers = with maintainers; [juliendehos];
   };
 }

@@ -28,12 +28,12 @@ python3.pkgs.buildPythonApplication rec {
     attrs
   ];
 
-  pythonImportsCheck = [ "calcure" ];
+  pythonImportsCheck = ["calcure"];
 
   meta = with lib; {
     description = "Modern TUI calendar and task manager with minimal and customizable UI";
     homepage = "https://github.com/anufrievroman/calcure";
     license = licenses.mit;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

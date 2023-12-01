@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     (lib.mesonEnable "introspection" withIntrospection)
   ];
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     meson
@@ -129,7 +129,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "An OpenType text shaping engine";
     homepage = "https://harfbuzz.github.io/";
-    maintainers = [ maintainers.eelco ];
+    maintainers = [maintainers.eelco];
     license = licenses.mit;
     platforms = platforms.unix;
   };

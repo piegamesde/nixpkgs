@@ -44,7 +44,7 @@ let
       copyDesktopItems
     ];
 
-    buildInputs = atomEnv.packages ++ [ libxshmfence ];
+    buildInputs = atomEnv.packages ++ [libxshmfence];
 
     desktopItems = [
       (makeDesktopItem {
@@ -53,7 +53,7 @@ let
         icon = "trilium";
         comment = meta.description;
         desktopName = "Trilium Notes";
-        categories = [ "Office" ];
+        categories = ["Office"];
       })
     ];
 
@@ -89,7 +89,7 @@ let
     inherit pname version meta;
 
     src = fetchurl darwinSource;
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [unzip];
 
     installPhase = ''
       mkdir -p $out/Applications

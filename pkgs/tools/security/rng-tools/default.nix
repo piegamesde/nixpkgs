@@ -48,9 +48,9 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ openssl ]
-    ++ lib.optionals stdenv.hostPlatform.isMusl [ argp-standalone ]
-    ++ lib.optionals withJitterEntropy [ jitterentropy ]
+    [openssl]
+    ++ lib.optionals stdenv.hostPlatform.isMusl [argp-standalone]
+    ++ lib.optionals withJitterEntropy [jitterentropy]
     ++ lib.optionals withNistBeacon [
       curl
       jansson
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       libp11
       libp11.passthru.openssl
     ]
-    ++ lib.optionals withRtlsdr [ rtl-sdr ];
+    ++ lib.optionals withRtlsdr [rtl-sdr];
 
   enableParallelBuilding = true;
 
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
   preCheck = "patchShebangs tests/*.sh";
-  nativeCheckInputs = [ psmisc ]; # rngtestjitter.sh needs killall
+  nativeCheckInputs = [psmisc]; # rngtestjitter.sh needs killall
 
   doInstallCheck = true;
   installCheckPhase = ''

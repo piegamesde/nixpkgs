@@ -41,8 +41,8 @@ buildPythonPackage rec {
       grpcio
       grpcio-status
     ];
-    grpcgcp = [ grpcio-gcp ];
-    grpcio-gcp = [ grpcio-gcp ];
+    grpcgcp = [grpcio-gcp];
+    grpcio-gcp = [grpcio-gcp];
   };
 
   nativeCheckInputs = [
@@ -71,7 +71,7 @@ buildPythonPackage rec {
     "test_exception_with_error_code"
   ];
 
-  pythonImportsCheck = [ "google.api_core" ];
+  pythonImportsCheck = ["google.api_core"];
 
   meta = with lib; {
     description = "Core Library for Google Client Libraries";
@@ -82,6 +82,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/python-api-core";
     changelog = "https://github.com/googleapis/python-api-core/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

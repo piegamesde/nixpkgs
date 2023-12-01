@@ -47,7 +47,7 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     security.wrappers.i3lock = mkIf cfg.u2fSupport {
       setuid = true;

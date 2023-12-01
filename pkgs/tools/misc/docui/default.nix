@@ -22,7 +22,7 @@ buildGoModule rec {
     description = "TUI Client for Docker";
     homepage = "https://github.com/skanehira/docui";
     license = licenses.mit;
-    maintainers = with maintainers; [ aethelz ];
+    maintainers = with maintainers; [aethelz];
     broken = stdenv.isDarwin;
   };
 }

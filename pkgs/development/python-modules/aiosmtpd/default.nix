@@ -27,7 +27,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     atpublic
     attrs
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  ] ++ lib.optionals (pythonOlder "3.8") [typing-extensions];
 
   nativeCheckInputs = [
     pytest-mock
@@ -44,7 +44,7 @@ buildPythonPackage rec {
     "test_byclient"
   ];
 
-  pythonImportsCheck = [ "aiosmtpd" ];
+  pythonImportsCheck = ["aiosmtpd"];
 
   meta = with lib; {
     description = "Asyncio based SMTP server";
@@ -54,6 +54,6 @@ buildPythonPackage rec {
       standard library's smtpd.py module.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ eadwu ];
+    maintainers = with maintainers; [eadwu];
   };
 }

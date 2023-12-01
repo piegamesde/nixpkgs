@@ -76,7 +76,7 @@ rec {
           };
 
           # docker/runc already include these patches / are not applicable
-          patches = [ ];
+          patches = [];
         }
       );
 
@@ -92,7 +92,7 @@ rec {
             hash = containerdHash;
           };
 
-          buildInputs = oldAttrs.buildInputs ++ lib.optionals withSeccomp [ libseccomp ];
+          buildInputs = oldAttrs.buildInputs ++ lib.optionals withSeccomp [libseccomp];
         }
       );
 
@@ -145,7 +145,7 @@ rec {
             installShellFiles
           ];
           buildInputs =
-            [ sqlite ]
+            [sqlite]
             ++ lib.optional withLvm lvm2
             ++ lib.optional withBtrfs btrfs-progs
             ++ lib.optional withSystemd systemd
@@ -282,7 +282,7 @@ rec {
             patchShebangs man scripts/build/
             substituteInPlace ./scripts/build/.variables --replace "set -eu" ""
           ''
-          + lib.optionalString (plugins != [ ]) ''
+          + lib.optionalString (plugins != []) ''
             substituteInPlace ./cli-plugins/manager/manager_unix.go --replace /usr/libexec/docker/cli-plugins \
                 "${pluginsRef}/libexec/docker/cli-plugins"
           '';
@@ -352,7 +352,7 @@ rec {
         passthru = {
           # Exposed for tarsum build on non-linux systems (build-support/docker/default.nix)
           inherit moby-src;
-          tests = lib.optionals (!clientOnly) { inherit (nixosTests) docker; };
+          tests = lib.optionals (!clientOnly) {inherit (nixosTests) docker;};
         };
 
         meta = with lib; {

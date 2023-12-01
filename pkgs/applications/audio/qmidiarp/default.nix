@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     alsa-lib
     lv2
     libjack2
-  ] ++ (with qt5; [ qttools ]);
+  ] ++ (with qt5; [qttools]);
 
   meta = with lib; {
     description = "An advanced MIDI arpeggiator";
@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://qmidiarp.sourceforge.net";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ sjfloat ];
+    maintainers = with maintainers; [sjfloat];
   };
 }

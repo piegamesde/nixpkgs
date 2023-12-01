@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "iolib_dot_common-lisp";
   version = "iolib-v0.8.4";
@@ -19,7 +19,7 @@ rec {
 
   packageName = "iolib.common-lisp";
 
-  asdFilesToKeep = [ "iolib.common-lisp.asd" ];
+  asdFilesToKeep = ["iolib.common-lisp.asd"];
   overrides = x: x;
 }
 /* (SYSTEM iolib.common-lisp DESCRIPTION Slightly modified Common Lisp. SHA256

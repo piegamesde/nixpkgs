@@ -20,8 +20,8 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.02";
 
-  nativeBuildInputs = [ camlp4 ];
-  propagatedBuildInputs = [ camlp4 ];
+  nativeBuildInputs = [camlp4];
+  propagatedBuildInputs = [camlp4];
 
   preBuild = "rm META.lwt_camlp4";
 
@@ -29,6 +29,6 @@ buildDunePackage rec {
     description = "Camlp4 syntax extension for Lwt (deprecated)";
     license = lib.licenses.lgpl21;
     inherit (src.meta) homepage;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

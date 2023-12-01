@@ -15,9 +15,9 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "14r8fri4byyzavzdifpga6118hxqjwpzd11xxj28s16zxcanq16m";
   };
 
-  buildInputs = [ xorg.xcursorgen ];
+  buildInputs = [xorg.xcursorgen];
 
-  propagatedBuildInputs = [ hicolor-icon-theme ];
+  propagatedBuildInputs = [hicolor-icon-theme];
 
   dontDropIconThemeCache = true;
 
@@ -53,6 +53,6 @@ stdenvNoCC.mkDerivation rec {
     description = "A style neutral scalable cursor theme";
     platforms = platforms.all;
     license = licenses.cc-by-sa-30;
-    maintainers = with maintainers; [ cstrahan ];
+    maintainers = with maintainers; [cstrahan];
   };
 }

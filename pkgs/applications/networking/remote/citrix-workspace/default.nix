@@ -1,13 +1,13 @@
-{ lib, callPackage }:
+{lib, callPackage}:
 
 # For detailed information about the Citrix source-tarball, please refer to the OEM
 # reference guide: https://developer-docs.citrix.com/projects/workspace-app-for-linux-oem-guide/en/latest/
 
 let
-  inherit (callPackage ./sources.nix { }) supportedVersions unsupportedVersions;
-  mkCitrix = callPackage ./generic.nix { };
+  inherit (callPackage ./sources.nix {}) supportedVersions unsupportedVersions;
+  mkCitrix = callPackage ./generic.nix {};
 
-  toAttrName = x: "citrix_workspace_${builtins.replaceStrings [ "." ] [ "_" ] x}";
+  toAttrName = x: "citrix_workspace_${builtins.replaceStrings ["."] ["_"] x}";
 
   unsupported = lib.listToAttrs (
     map

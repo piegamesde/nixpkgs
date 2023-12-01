@@ -27,7 +27,7 @@ buildPythonPackage rec {
     zeroconf
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # mock data order mismatch

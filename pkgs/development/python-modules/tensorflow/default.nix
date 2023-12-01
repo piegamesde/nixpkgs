@@ -69,7 +69,7 @@
   # it would also make the default tensorflow package unfree. See
   # https://groups.google.com/a/tensorflow.org/forum/#!topic/developers/iRCt5m4qUz0
   cudaSupport ? false,
-  cudaPackages ? { },
+  cudaPackages ? {},
   cudaCapabilities ? cudaPackages.cudaFlags.cudaCapabilities,
   mklSupport ? false,
   mkl,
@@ -151,7 +151,7 @@ let
   # Needed for _some_ system libraries, grep INCLUDEDIR.
   includes_joined = symlinkJoin {
     name = "tensorflow-deps-merged";
-    paths = [ jsoncpp ];
+    paths = [jsoncpp];
   };
 
   tfFeature = x: if x then "1" else "0";
@@ -266,7 +266,7 @@ let
     else
       _bazel-build;
 
-  _bazel-build = buildBazelPackage.override { inherit stdenv; } {
+  _bazel-build = buildBazelPackage.override {inherit stdenv;} {
     name = "${pname}-${version}";
     bazel = bazel_5;
 
@@ -303,12 +303,12 @@ let
         giflib
         grpc
         # Necessary to fix the "`GLIBCXX_3.4.30' not found" error
-        (icu.override { inherit stdenv; })
+        (icu.override {inherit stdenv;})
         jsoncpp
         libjpeg_turbo
         libpng
         lmdb-core
-        (pybind11.overridePythonAttrs (_: { inherit stdenv; }))
+        (pybind11.overridePythonAttrs (_: {inherit stdenv;}))
         snappy
         sqlite
       ]
@@ -316,12 +316,12 @@ let
         cudatoolkit
         cudnn
       ]
-      ++ lib.optionals mklSupport [ mkl ]
+      ++ lib.optionals mklSupport [mkl]
       ++ lib.optionals stdenv.isDarwin [
         Foundation
         Security
       ]
-      ++ lib.optionals (!stdenv.isDarwin) [ nsync ];
+      ++ lib.optionals (!stdenv.isDarwin) [nsync];
 
     # arbitrarily set to the current latest bazel version, overly careful
     TF_IGNORE_MAX_BAZEL_VERSION = true;
@@ -419,15 +419,15 @@ let
       '';
 
     # https://github.com/tensorflow/tensorflow/pull/39470
-    env.NIX_CFLAGS_COMPILE = toString [ "-Wno-stringop-truncation" ];
+    env.NIX_CFLAGS_COMPILE = toString ["-Wno-stringop-truncation"];
 
     preConfigure =
       let
         opt_flags =
-          [ ]
-          ++ lib.optionals sse42Support [ "-msse4.2" ]
-          ++ lib.optionals avx2Support [ "-mavx2" ]
-          ++ lib.optionals fmaSupport [ "-mfma" ];
+          []
+          ++ lib.optionals sse42Support ["-msse4.2"]
+          ++ lib.optionals avx2Support ["-mavx2"]
+          ++ lib.optionals fmaSupport ["-mfma"];
       in
       ''
         patchShebangs configure
@@ -452,7 +452,7 @@ let
       runHook postConfigure
     '';
 
-    hardeningDisable = [ "format" ];
+    hardeningDisable = ["format"];
 
     bazelBuildFlags =
       [
@@ -467,7 +467,7 @@ let
         # workaround for https://github.com/bazelbuild/bazel/issues/15359
         "--spawn_strategy=sandboxed"
       ]
-      ++ lib.optionals (mklSupport) [ "--config=mkl" ];
+      ++ lib.optionals (mklSupport) ["--config=mkl"];
 
     bazelTargets = [
       "//tensorflow/tools/pip_package:build_pip_package //tensorflow/tools/lib_package:libtensorflow"
@@ -528,7 +528,7 @@ let
         done
       '';
 
-      requiredSystemFeatures = [ "big-parallel" ];
+      requiredSystemFeatures = ["big-parallel"];
     };
 
     meta =
@@ -538,7 +538,7 @@ let
         description = "Computation using data flow graphs for scalable machine learning";
         homepage = "http://tensorflow.org";
         license = licenses.asl20;
-        maintainers = with maintainers; [ abbradar ];
+        maintainers = with maintainers; [abbradar];
         platforms = with platforms; linux ++ darwin;
         broken = !(xlaSupport -> cudaSupport);
       }
@@ -578,7 +578,7 @@ buildPythonPackage {
     rm $out/bin/tensorboard
   '';
 
-  setupPyGlobalFlags = [ "--project_name ${pname}" ];
+  setupPyGlobalFlags = ["--project_name ${pname}"];
 
   # tensorflow/tools/pip_package/setup.py
   propagatedBuildInputs = [
@@ -599,9 +599,9 @@ buildPythonPackage {
     termcolor
     typing-extensions
     wrapt
-  ] ++ lib.optionals withTensorboard [ tensorboard ];
+  ] ++ lib.optionals withTensorboard [tensorboard];
 
-  nativeBuildInputs = lib.optionals cudaSupport [ addOpenGLRunpath ];
+  nativeBuildInputs = lib.optionals cudaSupport [addOpenGLRunpath];
 
   postFixup = lib.optionalString cudaSupport ''
     find $out -type f \( -name '*.so' -or -name '*.so.*' \) | while read lib; do

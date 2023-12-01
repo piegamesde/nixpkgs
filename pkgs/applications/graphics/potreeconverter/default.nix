@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     description = "Create multi res point cloud to use with potree";
     homepage = "https://github.com/potree/PotreeConverter";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
     platforms = with platforms; linux;
   };
 }

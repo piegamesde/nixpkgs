@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-R9gZqiHYKexXXjbAkKu9YqhZnzC/VAMSDzBYT/mF5v0=";
   };
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
   nativeCheckInputs = [
     aiofiles
@@ -35,7 +35,7 @@ buildPythonPackage rec {
     export CYTHONIZE=1
   '';
 
-  pythonImportsCheck = [ "aiocsv" ];
+  pythonImportsCheck = ["aiocsv"];
 
   disabledTestPaths =
     [
@@ -46,7 +46,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for for asynchronous CSV reading/writing";
     homepage = "https://github.com/MKuranowski/aiocsv";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

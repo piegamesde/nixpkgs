@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
     python3Packages.pycairo
   ];
 
-  patches = [ ./sconstruct-env-fixes.patch ];
+  patches = [./sconstruct-env-fixes.patch];
 
   preBuild = ''
     patchShebangs .

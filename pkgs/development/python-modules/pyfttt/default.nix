@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "10iq7c9c832ssl2xrvf62xf7znfvqzax6sq8ppsibq6wpb8dlnj5";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # tests need a server to run against
   doCheck = false;
@@ -22,7 +22,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Package for sending events to the IFTTT Webhooks Channel";
     homepage = "https://github.com/briandconnelly/pyfttt";
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     license = licenses.bsd2;
   };
 }

@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/decompals/WiBo";
     license = licenses.mit;
-    maintainers = with maintainers; [ r-burns ];
-    platforms = [ "i686-linux" ];
+    maintainers = with maintainers; [r-burns];
+    platforms = ["i686-linux"];
   };
 }

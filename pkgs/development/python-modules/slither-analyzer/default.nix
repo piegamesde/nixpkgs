@@ -27,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-Co3BFdLmSIMqlZVEPJHYH/Cf7oKYSZ+Ktbnd5RZGmfE=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   propagatedBuildInputs = [
     crytic-compile
@@ -38,7 +38,7 @@ buildPythonPackage rec {
 
   postFixup = lib.optionalString withSolc ''
     wrapProgram $out/bin/slither \
-      --prefix PATH : "${lib.makeBinPath [ solc ]}"
+      --prefix PATH : "${lib.makeBinPath [solc]}"
   '';
 
   # No Python tests

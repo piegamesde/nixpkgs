@@ -38,7 +38,7 @@ let
     pkgs.runCommand "checked-blackbox-exporter.conf"
       {
         preferLocalBuild = true;
-        buildInputs = [ pkgs.buildPackages.prometheus-blackbox-exporter ];
+        buildInputs = [pkgs.buildPackages.prometheus-blackbox-exporter];
       }
       ''
         ln -s ${coerceConfigFile file} $out
@@ -72,7 +72,7 @@ in
     in
     {
       serviceConfig = {
-        AmbientCapabilities = [ "CAP_NET_RAW" ]; # for ping probes
+        AmbientCapabilities = ["CAP_NET_RAW"]; # for ping probes
         ExecStart = ''
           ${pkgs.prometheus-blackbox-exporter}/bin/blackbox_exporter \
             --web.listen-address ${cfg.listenAddress}:${toString cfg.port} \

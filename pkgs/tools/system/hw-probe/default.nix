@@ -70,11 +70,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-WlLSgjVLqGGtwCyyUn9X3XbE2Yhz6LD245+U2JgGd+k=";
   };
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   makeWrapperArgs =
     let
@@ -154,6 +154,6 @@ stdenv.mkDerivation rec {
       lgpl21
       bsdOriginal
     ];
-    maintainers = with maintainers; [ rehno-lindeque ];
+    maintainers = with maintainers; [rehno-lindeque];
   };
 }

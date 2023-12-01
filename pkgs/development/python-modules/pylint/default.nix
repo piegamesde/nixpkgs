@@ -35,7 +35,7 @@ buildPythonPackage rec {
     hash = "sha256-xNCGf4CsxEKScIn6dl2Ka31P6bhMo5fTs9TIQz+vPiM=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs =
     [
@@ -46,8 +46,8 @@ buildPythonPackage rec {
       platformdirs
       tomlkit
     ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-    ++ lib.optionals (pythonOlder "3.9") [ typing-extensions ];
+    ++ lib.optionals (pythonOlder "3.11") [tomli]
+    ++ lib.optionals (pythonOlder "3.9") [typing-extensions];
 
   nativeCheckInputs = [
     gitpython
@@ -116,6 +116,6 @@ buildPythonPackage rec {
       - epylint: Emacs and Flymake compatible Pylint
     '';
     license = licenses.gpl1Plus;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

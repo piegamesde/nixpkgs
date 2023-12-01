@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   };
 
   # patch systemd service to pass necessary environments and use absolute paths
-  patches = [ ./systemd-service.patch ];
+  patches = [./systemd-service.patch];
 
   nativeBuildInputs = [
     meson
@@ -48,6 +48,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/j-lentz/iwgtk/blob/v${version}/CHANGELOG";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

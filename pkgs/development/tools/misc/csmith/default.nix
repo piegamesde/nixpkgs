@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
   buildInputs =
-    [ libbsd ]
+    [libbsd]
     ++ (
       with perlPackages; [
         perl
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       Csmith has found bugs in every tool that it has tested, and has been used
       to find and report more than 400 previously unknown compiler bugs.
     '';
-    maintainers = [ maintainers.dtzWill ];
+    maintainers = [maintainers.dtzWill];
     platforms = platforms.all;
   };
 }

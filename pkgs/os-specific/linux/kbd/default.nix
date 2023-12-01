@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     "--disable-nls"
   ];
 
-  patches = [ ./search-paths.patch ];
+  patches = [./search-paths.patch];
 
   postPatch = ''
     # Renaming keymaps with name clashes, because loadkeys just picks
@@ -86,6 +86,6 @@ stdenv.mkDerivation rec {
     description = "Linux keyboard tools and keyboard maps";
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ davidak ];
+    maintainers = with maintainers; [davidak];
   };
 }

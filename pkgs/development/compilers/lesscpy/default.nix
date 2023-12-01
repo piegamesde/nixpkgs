@@ -13,8 +13,8 @@ python3Packages.buildPythonApplication rec {
     sha256 = "1bbjag13kawnjdn7q4flfrkd0a21rgn9ycfqsgfdmg658jsx1ipk";
   };
 
-  checkInputs = with python3Packages; [ pytestCheckHook ];
-  pythonImportsCheck = [ "lesscpy" ];
+  checkInputs = with python3Packages; [pytestCheckHook];
+  pythonImportsCheck = ["lesscpy"];
   propagatedBuildInputs = with python3Packages; [
     ply
     six
@@ -26,6 +26,6 @@ python3Packages.buildPythonApplication rec {
     description = "Python LESS Compiler";
     homepage = "https://github.com/lesscpy/lesscpy";
     license = licenses.mit;
-    maintainers = with maintainers; [ s1341 ];
+    maintainers = with maintainers; [s1341];
   };
 }

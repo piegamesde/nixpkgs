@@ -44,7 +44,7 @@
     description = "Tool to work with Signal Backup files";
     homepage = "https://github.com/bepaald/signalbackup-tools";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.malo ];
+    maintainers = [maintainers.malo];
     platforms = platforms.all;
   };
 }

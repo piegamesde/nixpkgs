@@ -21,15 +21,15 @@ stdenv.mkDerivation rec {
     sha256 = "1ha46i0nbibq0pl0pjwcqiyny4hj8lp1bnl4dpxm64zjw9lb2zha";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
-    [ libsndfile ]
+    [libsndfile]
     ++ optionals stdenv.isDarwin [
       ApplicationServices
       CoreServices
     ];
 
-  configureFlags = [ "--disable-fftw" ];
+  configureFlags = ["--disable-fftw"];
 
   outputs = [
     "bin"
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "Sample Rate Converter for audio";
     homepage = "http://www.mega-nerd.com/SRC/index.html";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     platforms = platforms.all;
   };
 }

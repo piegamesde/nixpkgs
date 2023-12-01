@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LfmWJ5rha2Bttf9Yefk9v63giY258aPoL3+EX6opMKI=";
   };
 
-  nativeBuildInputs = [ ocaml ];
+  nativeBuildInputs = [ocaml];
   buildInputs = lib.optional (lib.versionOlder ocaml.version "4.07") ncurses;
 
   patches = [
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
 
   dontAddPrefix = true;
   dontAddStaticConfigureFlags = true;
-  configurePlatforms = [ ];
+  configurePlatforms = [];
 
   configureFlags = [
     "-bindir"
@@ -93,6 +93,6 @@ stdenv.mkDerivation rec {
       vbmithr
     ];
     mainProgram = "ocamlfind";
-    platforms = ocaml.meta.platforms or [ ];
+    platforms = ocaml.meta.platforms or [];
   };
 }

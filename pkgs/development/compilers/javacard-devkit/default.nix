@@ -12,7 +12,7 @@
 stdenv.mkDerivation rec {
   pname = "javacard-devkit";
   version = "2.2.2";
-  uscoreVersion = builtins.replaceStrings [ "." ] [ "_" ] version;
+  uscoreVersion = builtins.replaceStrings ["."] ["_"] version;
 
   src = requireFile {
     name = "java_card_kit-${uscoreVersion}-linux.zip";
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     makeWrapper
     autoPatchelfHook
   ];
-  buildInputs = [ pcsclite ];
+  buildInputs = [pcsclite];
 
   zipPrefix = "java_card_kit-${uscoreVersion}";
 
@@ -75,9 +75,9 @@ stdenv.mkDerivation rec {
       For more details, please refer to the documentation by Oracle
     '';
     homepage = "https://www.oracle.com/technetwork/java/embedded/javacard/overview/index.html";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.unfree;
-    maintainers = [ lib.maintainers.ekleog ];
+    maintainers = [lib.maintainers.ekleog];
     platforms = [
       "i686-linux"
       "x86_64-linux"

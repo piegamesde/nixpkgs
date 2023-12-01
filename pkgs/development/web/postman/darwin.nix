@@ -34,7 +34,7 @@ stdenvNoCC.mkDerivation {
     name = "${pname}-${version}.zip";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   # Postman is notarized on macOS. Running the fixup phase will change the shell scripts embedded
   # in the bundle, which causes the notarization check to fail on macOS 13+.

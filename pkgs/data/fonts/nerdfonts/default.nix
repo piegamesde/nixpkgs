@@ -5,7 +5,7 @@
   unzip,
   # To select only certain fonts, put a list of strings to `fonts`: every key in
   # ./shas.nix is an optional font
-  fonts ? [ ],
+  fonts ? [],
   # Whether to enable Windows font variants, their internal font name is limited
   # to 31 characters
   enableWindowsFonts ? false,
@@ -17,13 +17,13 @@ let
   fontsShas = import ./shas.nix;
   knownFonts = builtins.attrNames fontsShas;
   selectedFonts =
-    if (fonts == [ ]) then
+    if (fonts == []) then
       knownFonts
     else
       let
         unknown = lib.subtractLists knownFonts fonts;
       in
-      if (unknown != [ ]) then throw "Unknown font(s): ${lib.concatStringsSep " " unknown}" else fonts;
+      if (unknown != []) then throw "Unknown font(s): ${lib.concatStringsSep " " unknown}" else fonts;
   selectedFontsShas = lib.attrsets.genAttrs selectedFonts (fName: fontsShas."${fName}");
   srcs =
     lib.attrsets.mapAttrsToList
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
   inherit version;
   inherit srcs;
   pname = "nerdfonts";
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
   sourceRoot = ".";
   unpackCmd = "unzip -o $curSrc";
   buildPhase = ''
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://nerdfonts.com/";
     license = licenses.mit;
-    maintainers = with maintainers; [ doronbehar ];
-    hydraPlatforms = [ ]; # 'Output limit exceeded' on Hydra
+    maintainers = with maintainers; [doronbehar];
+    hydraPlatforms = []; # 'Output limit exceeded' on Hydra
   };
 }

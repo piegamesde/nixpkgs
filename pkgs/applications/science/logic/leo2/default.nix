@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     camlp4
     perl
   ];
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   patches = [
     (fetchpatch {
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
       --replace '+camlp4' "${camlp4}/lib/ocaml/${ocaml.version}/site-lib/camlp4"
   '';
 
-  buildFlags = [ "opt" ];
+  buildFlags = ["opt"];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-reserved-user-defined-literal";
 
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A high-performance typed higher order prover";
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.unix;
     license = licenses.bsd3;
     homepage = "http://www.leoprover.org/";

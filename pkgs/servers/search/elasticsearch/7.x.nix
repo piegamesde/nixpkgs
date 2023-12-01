@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     sha256 = shas.${stdenv.hostPlatform.system} or (throw "Unknown architecture");
   };
 
-  patches = [ ./es-home-6.x.patch ];
+  patches = [./es-home-6.x.patch];
 
   postPatch = ''
     substituteInPlace bin/elasticsearch-env --replace \
@@ -45,9 +45,7 @@ stdenv.mkDerivation rec {
       "ES_CLASSPATH=\"\$ES_CLASSPATH:$out/\$additional_classpath_directory/*\""
   '';
 
-  nativeBuildInputs = [
-    makeWrapper
-  ] ++ lib.optional (!stdenv.hostPlatform.isDarwin) autoPatchelfHook;
+  nativeBuildInputs = [makeWrapper] ++ lib.optional (!stdenv.hostPlatform.isDarwin) autoPatchelfHook;
 
   buildInputs = [
     jre_headless
@@ -55,7 +53,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  runtimeDependencies = [ zlib ];
+  runtimeDependencies = [zlib];
 
   installPhase = ''
     mkdir -p $out

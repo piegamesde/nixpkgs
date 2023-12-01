@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   let
 
@@ -11,13 +11,13 @@ import ./make-test-python.nix (
 
   {
     name = "udisks2";
-    meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [eelco];};
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
         services.udisks2.enable = true;
-        imports = [ ./common/user-account.nix ];
+        imports = [./common/user-account.nix];
 
         security.polkit.extraConfig = ''
           polkit.addRule(function(action, subject) {

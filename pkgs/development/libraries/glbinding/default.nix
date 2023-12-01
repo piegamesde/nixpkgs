@@ -17,13 +17,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xmEXZ1ssXzrElqd6D1zooFxLEyspsF4Dau3d9+1/2yw=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ libGLU ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [libGLU];
 
   meta = with lib; {
     homepage = "https://github.com/cginternals/glbinding/";
     description = "A C++ binding for the OpenGL API, generated using the gl.xml specification";
     license = licenses.mit;
-    maintainers = [ maintainers.mt-caret ];
+    maintainers = [maintainers.mt-caret];
   };
 }

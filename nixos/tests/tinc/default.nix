@@ -1,5 +1,5 @@
 import ../make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
   let
     snakeoil-keys = import ./snakeoil-keys.nix;
 
@@ -16,11 +16,11 @@ import ../make-test-python.nix (
       name:
       {
         subnet,
-        extraConfig ? { },
+        extraConfig ? {},
       }:
       lib.mkMerge [
         {
-          subnets = [ { address = subnet; } ];
+          subnets = [{address = subnet;}];
           settings = {
             Ed25519PublicKey = snakeoil-keys.${name}.ed25519Public;
           };
@@ -30,7 +30,7 @@ import ../make-test-python.nix (
       ];
 
     makeTincNode =
-      { config, ... }:
+      {config, ...}:
       name: extraConfig:
       lib.mkMerge [
         {
@@ -78,24 +78,24 @@ import ../make-test-python.nix (
           # interface.
           # See: https://github.com/NixOS/nixpkgs/issues/27070
           systemd.services."tinc.myNetwork" = {
-            after = [ "network-addresses-tinc.myNetwork.service" ];
-            requires = [ "network-addresses-tinc.myNetwork.service" ];
+            after = ["network-addresses-tinc.myNetwork.service"];
+            requires = ["network-addresses-tinc.myNetwork.service"];
           };
 
-          networking.firewall.allowedTCPPorts = [ 655 ];
-          networking.firewall.allowedUDPPorts = [ 655 ];
+          networking.firewall.allowedTCPPorts = [655];
+          networking.firewall.allowedUDPPorts = [655];
         }
         extraConfig
       ];
   in
   {
     name = "tinc";
-    meta.maintainers = with lib.maintainers; [ minijackson ];
+    meta.maintainers = with lib.maintainers; [minijackson];
 
     nodes = {
 
       static =
-        { ... }@args:
+        {...}@args:
         makeTincNode args "static" {
           virtualisation.vlans = [
             1
@@ -117,9 +117,9 @@ import ../make-test-python.nix (
           ];
         };
 
-      dynamic1 = { ... }@args: makeTincNode args "dynamic1" { virtualisation.vlans = [ 1 ]; };
+      dynamic1 = {...}@args: makeTincNode args "dynamic1" {virtualisation.vlans = [1];};
 
-      dynamic2 = { ... }@args: makeTincNode args "dynamic2" { virtualisation.vlans = [ 2 ]; };
+      dynamic2 = {...}@args: makeTincNode args "dynamic2" {virtualisation.vlans = [2];};
     };
 
     testScript = ''

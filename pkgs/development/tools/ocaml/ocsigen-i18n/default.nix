@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     ocaml
     findlib
   ];
-  buildInputs = with ocamlPackages; [ ppx_tools ];
+  buildInputs = with ocamlPackages; [ppx_tools];
 
   dontStrip = true;
 
@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/besport/ocsigen-i18n";
     description = "I18n made easy for web sites written with eliom";
     license = lib.licenses.lgpl21;
-    maintainers = [ lib.maintainers.gal_bolle ];
+    maintainers = [lib.maintainers.gal_bolle];
   };
 }

@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     libX11
     gtk2
   ] ++ lib.optional (libusb-compat-0_1 != null) libusb-compat-0_1;
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   enableParallelBuilding = true;
 

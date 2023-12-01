@@ -35,6 +35,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/dfaker/VR-reversal";
     license = licenses.unlicense;
     platforms = platforms.all;
-    maintainers = with maintainers; [ schnusch ];
+    maintainers = with maintainers; [schnusch];
   };
 }

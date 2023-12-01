@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-puO8E7tSLqB0oq/NlzEZqQgIZKm7ZUb4HhR0XuI9dco=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     boost172
     asio
@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
     description = "C++ implementation of Raft core logic as a replication library";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ wheelsandmetal ];
+    maintainers = with maintainers; [wheelsandmetal];
   };
 }

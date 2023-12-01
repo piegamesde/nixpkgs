@@ -30,7 +30,7 @@ buildPythonPackage rec {
     protobuf
   ];
 
-  pythonImportsCheck = [ "grpc_testing" ];
+  pythonImportsCheck = ["grpc_testing"];
 
   # Module has no tests
   doCheck = false;
@@ -38,7 +38,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Testing utilities for gRPC Python";
     homepage = "https://grpc.io/";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

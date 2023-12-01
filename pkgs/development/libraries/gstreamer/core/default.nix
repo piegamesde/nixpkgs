@@ -44,7 +44,7 @@ stdenv.mkDerivation (
         hash = "sha256-sq/nNgOSHGCLpIlp27fXQ3dnRL/l2AWeziQRN7f4jiE=";
       };
 
-    depsBuildBuild = [ pkg-config ];
+    depsBuildBuild = [pkg-config];
 
     strictDeps = true;
     nativeBuildInputs =
@@ -64,7 +64,7 @@ stdenv.mkDerivation (
       ++ lib.optionals stdenv.isLinux [
         libcap # for setcap binary
       ]
-      ++ lib.optionals enableDocumentation [ hotdoc ];
+      ++ lib.optionals enableDocumentation [hotdoc];
 
     buildInputs =
       [
@@ -81,7 +81,7 @@ stdenv.mkDerivation (
         CoreServices
       ];
 
-    propagatedBuildInputs = [ glib ];
+    propagatedBuildInputs = [glib];
 
     mesonFlags =
       [
@@ -123,7 +123,7 @@ stdenv.mkDerivation (
       description = "Open source multimedia framework";
       homepage = "https://gstreamer.freedesktop.org";
       license = licenses.lgpl2Plus;
-      pkgConfigModules = [ "gstreamer-controller-1.0" ];
+      pkgConfigModules = ["gstreamer-controller-1.0"];
       platforms = platforms.unix;
       maintainers = with maintainers; [
         ttuegel

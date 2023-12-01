@@ -47,7 +47,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs =
     [
-      (curl.override { inherit openssl; })
+      (curl.override {inherit openssl;})
       zlib
     ]
     ++ lib.optionals stdenv.isDarwin [
@@ -57,9 +57,9 @@ rustPlatform.buildRustPackage rec {
       xz
     ];
 
-  buildFeatures = [ "no-self-update" ];
+  buildFeatures = ["no-self-update"];
 
-  checkFeatures = [ ];
+  checkFeatures = [];
 
   patches = lib.optionals stdenv.isLinux [
     (runCommand "0001-dynamically-patchelf-binaries.patch"
@@ -116,6 +116,6 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = [ maintainers.mic92 ];
+    maintainers = [maintainers.mic92];
   };
 }

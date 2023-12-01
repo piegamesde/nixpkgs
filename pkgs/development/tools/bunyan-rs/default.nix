@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ netcrns ];
+    maintainers = with maintainers; [netcrns];
     mainProgram = "bunyan";
   };
 }

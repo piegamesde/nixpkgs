@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-pSjptDfiPlaToXe1yHyk9MQMC9PqcVSjqAmWLD11iOM=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     mpi
     perl
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     description = "Parallel file system I/O performance test";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ bzizou ];
+    maintainers = with maintainers; [bzizou];
   };
 }

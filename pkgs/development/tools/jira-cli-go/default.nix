@@ -44,10 +44,10 @@ buildGoModule rec {
       command = "jira version";
       inherit version;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   postInstall = ''
     installShellCompletion --cmd jira \
       --bash <($out/bin/jira completion bash) \

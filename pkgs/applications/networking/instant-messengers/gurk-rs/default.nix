@@ -32,9 +32,9 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ protobuf ];
+  nativeBuildInputs = [protobuf];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Cocoa ];
+  buildInputs = lib.optionals stdenv.isDarwin [Cocoa];
 
   NIX_LDFLAGS = lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
     "-framework"
@@ -47,6 +47,6 @@ rustPlatform.buildRustPackage rec {
     description = "Signal Messenger client for terminal";
     homepage = "https://github.com/boxdot/gurk-rs";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ devhell ];
+    maintainers = with maintainers; [devhell];
   };
 }

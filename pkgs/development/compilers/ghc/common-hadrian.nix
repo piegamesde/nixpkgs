@@ -93,16 +93,16 @@
     # enough for us, we'll need to resort to defining a "nixpkgs" flavour
     # in hadrianUserSettings and using that instead.
     transformers =
-      lib.optionals useLLVM [ "llvm" ]
+      lib.optionals useLLVM ["llvm"]
       ++ lib.optionals (!enableShared) [
         "no_dynamic_libs"
         "no_dynamic_ghc"
       ]
-      ++ lib.optionals (!enableProfiledLibs) [ "no_profiled_libs" ]
+      ++ lib.optionals (!enableProfiledLibs) ["no_profiled_libs"]
       # While split sections are now enabled by default in ghc 8.8 for windows,
       # they seem to lead to `too many sections` errors when building base for
       # profiling.
-      ++ lib.optionals (!stdenv.targetPlatform.isWindows) [ "split_sections" ];
+      ++ lib.optionals (!stdenv.targetPlatform.isWindows) ["split_sections"];
   in
   baseFlavour + lib.concatMapStrings (t: "+${t}") transformers,
 
@@ -165,7 +165,7 @@ assert !enableNativeBignum -> gmp != null;
 
 let
   src = (if rev != null then fetchgit else fetchurl) (
-    { inherit url sha256; } // lib.optionalAttrs (rev != null) { inherit rev; }
+    {inherit url sha256;} // lib.optionalAttrs (rev != null) {inherit rev;}
   );
 
   inherit (stdenv) buildPlatform hostPlatform targetPlatform;
@@ -180,8 +180,8 @@ let
     # documentation) makes the GHC RTS able to load static libraries, which may
     # be needed for TemplateHaskell. This solution was described in
     # https://www.tweag.io/blog/2020-09-30-bazel-static-haskell
-    lib.optionals enableRelocatedStaticLibs [ "*.*.ghc.*.opts += -fPIC -fexternal-dynamic-refs" ]
-    ++ lib.optionals targetPlatform.useAndroidPrebuilt [ "*.*.ghc.c.opts += -optc-std=gnu99" ];
+    lib.optionals enableRelocatedStaticLibs ["*.*.ghc.*.opts += -fPIC -fexternal-dynamic-refs"]
+    ++ lib.optionals targetPlatform.useAndroidPrebuilt ["*.*.ghc.c.opts += -optc-std=gnu99"];
 
   # GHC's build system hadrian built from the GHC-to-build's source tree
   # using our bootstrap GHC.
@@ -195,7 +195,7 @@ let
   libDeps =
     platform:
     lib.optional enableTerminfo ncurses
-    ++ lib.optionals (!targetPlatform.isGhcjs) [ libffi ]
+    ++ lib.optionals (!targetPlatform.isGhcjs) [libffi]
     # Bindist configure script fails w/o elfutils in linker search path
     # https://gitlab.haskell.org/ghc/ghc/-/issues/22081
     ++ lib.optional enableDwarf elfutils
@@ -399,13 +399,13 @@ stdenv.mkDerivation (
             "--with-iconv-includes=${libiconv}/include"
             "--with-iconv-libraries=${libiconv}/lib"
           ]
-      ++ lib.optionals (targetPlatform != hostPlatform) [ "--enable-bootstrap-with-devel-snapshot" ]
+      ++ lib.optionals (targetPlatform != hostPlatform) ["--enable-bootstrap-with-devel-snapshot"]
       ++ lib.optionals useLdGold [
         "CFLAGS=-fuse-ld=gold"
         "CONF_GCC_LINKER_OPTS_STAGE1=-fuse-ld=gold"
         "CONF_GCC_LINKER_OPTS_STAGE2=-fuse-ld=gold"
       ]
-      ++ lib.optionals (disableLargeAddressSpace) [ "--disable-large-address-space" ]
+      ++ lib.optionals (disableLargeAddressSpace) ["--disable-large-address-space"]
       ++ lib.optionals enableDwarf [
         "--enable-dwarf-unwind"
         "--with-libdw-includes=${lib.getDev elfutils}/include"
@@ -433,8 +433,8 @@ stdenv.mkDerivation (
         # Python is used in a few scripts invoked by hadrian to generate e.g. rts headers.
         python3
       ]
-      ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ]
-      ++ lib.optionals enableDocs [ sphinx ];
+      ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [autoSignDarwinBinariesHook]
+      ++ lib.optionals enableDocs [sphinx];
 
     # For building runtime libs
     depsBuildTarget = toolsForTarget;
@@ -467,12 +467,12 @@ stdenv.mkDerivation (
 
     # required, because otherwise all symbols from HSffi.o are stripped, and
     # that in turn causes GHCi to abort
-    stripDebugFlags = [ "-S" ] ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols";
+    stripDebugFlags = ["-S"] ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols";
 
     checkTarget = "test";
 
     hardeningDisable =
-      [ "format" ]
+      ["format"]
       # In nixpkgs, musl based builds currently enable `pie` hardening by default
       # (see `defaultHardeningFlags` in `make-derivation.nix`).
       # But GHC cannot currently produce outputs that are ready for `-pie` linking.
@@ -484,7 +484,7 @@ stdenv.mkDerivation (
 
     # big-parallel allows us to build with more than 2 cores on
     # Hydra which already warrants a significant speedup
-    requiredSystemFeatures = [ "big-parallel" ];
+    requiredSystemFeatures = ["big-parallel"];
 
     outputs = [
       "out"
@@ -525,7 +525,7 @@ stdenv.mkDerivation (
     meta = {
       homepage = "http://haskell.org/ghc";
       description = "The Glasgow Haskell Compiler";
-      maintainers = with lib.maintainers; [ guibou ] ++ lib.teams.haskell.members;
+      maintainers = with lib.maintainers; [guibou] ++ lib.teams.haskell.members;
       timeout = 24 * 3600;
       inherit (ghc.meta) license platforms;
     };

@@ -22,19 +22,19 @@ buildPythonPackage rec {
     hash = "sha256-wz6agxPKQvWobRIiYKYU2og33tzswd0qG1hawPCh1qI=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   nativeCheckInputs = [
     pytestCheckHook
     responses
   ];
 
-  pythonImportsCheck = [ "herepy" ];
+  pythonImportsCheck = ["herepy"];
 
   meta = with lib; {
     description = "Library that provides a Python interface to the HERE APIs";
     homepage = "https://github.com/abdullahselek/HerePy";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

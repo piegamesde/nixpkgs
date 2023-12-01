@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  subPackages = [ "cmd/trickster" ];
+  subPackages = ["cmd/trickster"];
 
   preBuild =
     let
@@ -53,7 +53,7 @@ buildGoModule rec {
     '';
     homepage = "https://trickstercache.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ _1000101 ];
+    maintainers = with maintainers; [_1000101];
     platforms = platforms.linux;
   };
 }

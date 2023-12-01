@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-xv35oFawFLVXZS3Eum6RCo8LcVvHftfv+UvJYYmIDx4=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installManPage docs/man/kestrel.1
@@ -30,6 +30,6 @@ rustPlatform.buildRustPackage rec {
     longDescription = "\n      Kestrel is a data-at-rest file encryption program\n      that lets you encrypt files to anyone with a public key.\n    ";
     homepage = "https://getkestrel.com";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

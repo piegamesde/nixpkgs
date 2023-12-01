@@ -13,7 +13,7 @@
   imagemagick,
   zopfli,
   buildPackages,
-  variants ? [ ],
+  variants ? [],
 }:
 let
   notoLongDescription = ''
@@ -32,7 +32,7 @@ rec {
   mkNoto =
     {
       pname,
-      variants ? [ ],
+      variants ? [],
       longDescription ? notoLongDescription,
     }:
     stdenvNoCC.mkDerivation rec {
@@ -46,7 +46,7 @@ rec {
         hash = "sha256-tIzn9xBDVFT7h9+p2NltA0v0mvB1OH9rX9+eXvIPhv0=";
       };
 
-      _variants = map (variant: builtins.replaceStrings [ " " ] [ "" ] variant) variants;
+      _variants = map (variant: builtins.replaceStrings [" "] [""] variant) variants;
 
       installPhase =
         ''
@@ -58,7 +58,7 @@ rec {
           local out_font=$out/share/fonts/noto
         ''
         + (
-          if _variants == [ ] then
+          if _variants == [] then
             ''
               for folder in $(ls -d fonts/*/); do
                 if [[ -d "$folder"unhinted/variable-ttf ]]; then
@@ -84,7 +84,7 @@ rec {
             ''
         );
 
-      passthru.updateScript = gitUpdater { rev-prefix = "noto-monthly-release-"; };
+      passthru.updateScript = gitUpdater {rev-prefix = "noto-monthly-release-";};
 
       meta = with lib; {
         description = "Beautiful and free fonts for many languages";
@@ -115,7 +115,7 @@ rec {
         owner = "googlefonts";
         repo = "noto-cjk";
         inherit rev sha256;
-        sparseCheckout = [ "${typeface}/Variable/OTC" ];
+        sparseCheckout = ["${typeface}/Variable/OTC"];
       };
 
       installPhase = ''
@@ -148,7 +148,7 @@ rec {
       };
     };
 
-  noto-fonts = mkNoto { pname = "noto-fonts"; };
+  noto-fonts = mkNoto {pname = "noto-fonts";};
 
   noto-fonts-lgc-plus = mkNoto {
     pname = "noto-fonts-lgc-plus";

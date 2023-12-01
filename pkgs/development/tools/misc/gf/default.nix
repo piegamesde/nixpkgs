@@ -8,7 +8,7 @@
   gdb,
   freetype,
   freetypeSupport ? true,
-  extensions ? [ ],
+  extensions ? [],
 }:
 
 stdenv.mkDerivation rec {
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     gdb
   ] ++ lib.optional freetypeSupport freetype;
 
-  patches = [ ./build-use-optional-freetype-with-pkg-config.patch ];
+  patches = [./build-use-optional-freetype-with-pkg-config.patch];
 
   postPatch = lib.forEach extensions (
     ext: ''
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
   '';
 
   postFixup = ''
-    wrapProgram $out/bin/gf2 --prefix PATH : ${lib.makeBinPath [ gdb ]}
+    wrapProgram $out/bin/gf2 --prefix PATH : ${lib.makeBinPath [gdb]}
   '';
 
   meta = with lib; {
@@ -65,6 +65,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/nakst/gf";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ _0xd61 ];
+    maintainers = with maintainers; [_0xd61];
   };
 }

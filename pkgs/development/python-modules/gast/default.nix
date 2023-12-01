@@ -26,7 +26,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "gast" ];
+  pythonImportsCheck = ["gast"];
 
   meta = with lib; {
     description = "Compatibility layer between the AST of various Python versions";

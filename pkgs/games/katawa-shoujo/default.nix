@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
       comment = meta.description;
       exec = name;
       icon = name;
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -198,11 +198,11 @@ stdenv.mkDerivation rec {
     # https://www.katawa-shoujo.com/about.php
     # November 2022: Update, is it still ND?
     # https://ks.renai.us/viewtopic.php?f=13&p=248149#p248149
-    license = with licenses; [ cc-by-nc-nd-30 ];
-    maintainers = with maintainers; [ OPNA2608 ];
+    license = with licenses; [cc-by-nc-nd-30];
+    maintainers = with maintainers; [OPNA2608];
     # Building Ren'Py6 from source would allow more, but too much of a hassle
     platforms = platforms.x86;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     # Needs different srcDetails & installPhase
     broken = stdenv.hostPlatform.isWindows;
   };

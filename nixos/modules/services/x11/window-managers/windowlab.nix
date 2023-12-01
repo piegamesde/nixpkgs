@@ -23,6 +23,6 @@ in
         }
       ];
     };
-    environment.systemPackages = [ pkgs.windowlab ];
+    environment.systemPackages = [pkgs.windowlab];
   };
 }

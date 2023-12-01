@@ -31,16 +31,16 @@ buildPythonPackage rec {
     protobuf
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "tests/test_handshakes_offline.py" ];
+  pytestFlagsArray = ["tests/test_handshakes_offline.py"];
 
-  pythonImportsCheck = [ "consonance" ];
+  pythonImportsCheck = ["consonance"];
 
   meta = with lib; {
     description = "WhatsApp's handshake implementation using Noise Protocol";
     homepage = "https://github.com/tgalal/consonance";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -10,7 +10,7 @@
     rev = version;
     inherit sha256;
   },
-  patches ? [ ],
+  patches ? [],
 }:
 assert (sha256 == null) -> (src != null);
 let
@@ -91,10 +91,10 @@ let
         "doc"
       ];
 
-    hardeningEnable = lib.optionals (!stdenv.isDarwin) [ "pie" ];
+    hardeningEnable = lib.optionals (!stdenv.isDarwin) ["pie"];
 
     nativeBuildInputs =
-      [ pkg-config ]
+      [pkg-config]
       ++ lib.optionals atLeast24 [
         autoconf-archive
         autoreconfHook
@@ -106,8 +106,8 @@ let
         (lib.getBin lowdown)
         mdbook
       ]
-      ++ lib.optionals (atLeast213 && enableDocumentation) [ mdbook-linkcheck ]
-      ++ lib.optionals stdenv.isLinux [ util-linuxMinimal ];
+      ++ lib.optionals (atLeast213 && enableDocumentation) [mdbook-linkcheck]
+      ++ lib.optionals stdenv.isLinux [util-linuxMinimal];
 
     buildInputs =
       [
@@ -121,18 +121,18 @@ let
         sqlite
         xz
       ]
-      ++ lib.optionals stdenv.isDarwin [ Security ]
+      ++ lib.optionals stdenv.isDarwin [Security]
       ++ lib.optionals atLeast24 [
         gtest
         libarchive
         lowdown
       ]
-      ++ lib.optionals (atLeast24 && stdenv.isx86_64) [ libcpuid ]
-      ++ lib.optionals atLeast214 [ rapidcheck ]
-      ++ lib.optionals withLibseccomp [ libseccomp ]
-      ++ lib.optionals withAWS [ aws-sdk-cpp ];
+      ++ lib.optionals (atLeast24 && stdenv.isx86_64) [libcpuid]
+      ++ lib.optionals atLeast214 [rapidcheck]
+      ++ lib.optionals withLibseccomp [libseccomp]
+      ++ lib.optionals withAWS [aws-sdk-cpp];
 
-    propagatedBuildInputs = [ boehmgc ] ++ lib.optionals (atLeast27) [ nlohmann_json ];
+    propagatedBuildInputs = [boehmgc] ++ lib.optionals (atLeast27) [nlohmann_json];
 
     NIX_LDFLAGS = lib.optionals (!atLeast24) [
       # https://github.com/NixOS/nix/commit/3e85c57a6cbf46d5f0fe8a89b368a43abd26daba
@@ -181,15 +181,15 @@ let
         "--sysconfdir=${confDir}"
         "--enable-gc"
       ]
-      ++ lib.optionals (!enableDocumentation) [ "--disable-doc-gen" ]
+      ++ lib.optionals (!enableDocumentation) ["--disable-doc-gen"]
       ++
         lib.optionals (!atLeast24)
           [
             # option was removed in 2.4
             "--disable-init-state"
           ]
-      ++ lib.optionals atLeast214 [ "CXXFLAGS=-I${lib.getDev rapidcheck}/extras/gtest/include" ]
-      ++ lib.optionals stdenv.isLinux [ "--with-sandbox-shell=${busybox-sandbox-shell}/bin/busybox" ]
+      ++ lib.optionals atLeast214 ["CXXFLAGS=-I${lib.getDev rapidcheck}/extras/gtest/include"]
+      ++ lib.optionals stdenv.isLinux ["--with-sandbox-shell=${busybox-sandbox-shell}/bin/busybox"]
       ++ lib.optionals (atLeast210 && stdenv.isLinux && stdenv.hostPlatform.isStatic) [
         "--enable-embedded-sandbox-shell"
       ]
@@ -200,14 +200,14 @@ let
             && stdenv.hostPlatform ? nix
             && stdenv.hostPlatform.nix ? system
           )
-          [ "--with-system=${stdenv.hostPlatform.nix.system}" ]
+          ["--with-system=${stdenv.hostPlatform.nix.system}"]
       ++
         lib.optionals (!withLibseccomp)
           [
             # RISC-V support in progress https://github.com/seccomp/libseccomp/pull/50
             "--disable-seccomp-sandboxing"
           ]
-      ++ lib.optionals (atLeast210 && stdenv.cc.isGNU && !enableStatic) [ "--enable-lto" ];
+      ++ lib.optionals (atLeast210 && stdenv.cc.isGNU && !enableStatic) ["--enable-lto"];
 
     makeFlags =
       [
@@ -220,7 +220,7 @@ let
       ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) "PRECOMPILE_HEADERS=0"
       ++ lib.optional (stdenv.hostPlatform.isDarwin) "PRECOMPILE_HEADERS=1";
 
-    installFlags = [ "sysconfdir=$(out)/etc" ];
+    installFlags = ["sysconfdir=$(out)/etc"];
 
     doInstallCheck = true;
     installCheckTarget = if atLeast210 then "installcheck" else null;
@@ -272,7 +272,7 @@ let
         artturin
       ];
       platforms = platforms.unix;
-      outputsToInstall = [ "out" ] ++ optional enableDocumentation "man";
+      outputsToInstall = ["out"] ++ optional enableDocumentation "man";
     };
   };
 in

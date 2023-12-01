@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     description = "Web server which allows users to develop web applications using C++";
     platforms = platforms.linux;
     license = licenses.lgpl21;
-    maintainers = [ maintainers.juliendehos ];
+    maintainers = [maintainers.juliendehos];
   };
 }

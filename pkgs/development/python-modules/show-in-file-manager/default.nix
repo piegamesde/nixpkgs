@@ -33,6 +33,6 @@ buildPythonPackage rec {
       something with them.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

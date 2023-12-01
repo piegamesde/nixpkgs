@@ -56,9 +56,9 @@ buildPythonPackage rec {
     usb-devices
   ];
 
-  pythonImportsCheck = [ "bluetooth_adapters" ];
+  pythonImportsCheck = ["bluetooth_adapters"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Tools to enumerate and find Bluetooth Adapters";

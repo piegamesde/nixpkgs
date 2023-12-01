@@ -31,13 +31,13 @@ stdenv.mkDerivation rec {
     exiv2
   ];
 
-  cmakeFlags = [ "-DPREFER_QT_5=OFF" ];
+  cmakeFlags = ["-DPREFER_QT_5=OFF"];
 
   meta = with lib; {
     description = "Homebrew lightweight image viewer";
     homepage = "https://github.com/BLumia/pineapple-pictures";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ rewine ];
+    maintainers = with maintainers; [rewine];
   };
 }

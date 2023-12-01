@@ -63,6 +63,6 @@ stdenv.mkDerivation rec {
     description = "The Vampire Theorem Prover";
     platforms = platforms.unix;
     license = licenses.bsd3;
-    maintainers = with maintainers; [ gebner ];
+    maintainers = with maintainers; [gebner];
   };
 }

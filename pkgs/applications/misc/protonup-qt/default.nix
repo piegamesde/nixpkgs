@@ -10,7 +10,7 @@ let
     url = "https://github.com/DavidoTek/ProtonUp-Qt/releases/download/v${version}/ProtonUp-Qt-${version}-x86_64.AppImage";
     sha256 = "sha256-eDi13DYS4Rtj3ouuhRoET1Ctc4D7p50khqXNOSBIvto=";
   };
-  appimageContents = appimageTools.extractType2 { inherit pname version src; };
+  appimageContents = appimageTools.extractType2 {inherit pname version src;};
 in
 appimageTools.wrapType2 rec {
   inherit pname version src;
@@ -29,9 +29,9 @@ appimageTools.wrapType2 rec {
     homepage = "https://davidotek.github.io/protonup-qt/";
     description = "Install and manage Proton-GE and Luxtorpeda for Steam and Wine-GE for Lutris with this graphical user interface.";
     license = licenses.gpl3;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     mainProgram = "protonup-qt";
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ michaelBelsanti ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [michaelBelsanti];
   };
 }

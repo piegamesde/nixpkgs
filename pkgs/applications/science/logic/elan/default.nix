@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage rec {
     openssl
   ] ++ lib.optional stdenv.isDarwin libiconv;
 
-  buildFeatures = [ "no-self-update" ];
+  buildFeatures = ["no-self-update"];
 
   patches =
     lib.optionals stdenv.isLinux
@@ -89,6 +89,6 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ gebner ];
+    maintainers = with maintainers; [gebner];
   };
 }

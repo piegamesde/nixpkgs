@@ -46,12 +46,12 @@ mkDerivation rec {
     plasma-framework
   ];
 
-  pathsToLink = [ "/etc/xdg/peruse.knsrc" ];
+  pathsToLink = ["/etc/xdg/peruse.knsrc"];
 
   meta = with lib; {
     description = "A comic book reader";
     homepage = "https://peruse.kde.org";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

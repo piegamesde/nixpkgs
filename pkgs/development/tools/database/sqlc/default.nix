@@ -21,12 +21,12 @@ buildGoModule {
   proxyVendor = true;
   vendorHash = "sha256-gDePB+IZSyVIILDAj+O0Q8hgL0N/0Mwp1Xsrlh3B914=";
 
-  subPackages = [ "cmd/sqlc" ];
+  subPackages = ["cmd/sqlc"];
 
   meta = {
     description = "Generate type-safe code from SQL";
     homepage = "https://sqlc.dev/";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.adisbladis ];
+    maintainers = [lib.maintainers.adisbladis];
   };
 }

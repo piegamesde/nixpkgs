@@ -25,6 +25,6 @@ build-idris-package {
     description = "Idris Hash Array Mapped Trie";
     homepage = "https://github.com/bamboo/idris-hamt";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

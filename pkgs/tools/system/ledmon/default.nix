@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/intel/ledmon";
     description = "Enclosure LED Utilities";
     platforms = platforms.linux;
-    license = with licenses; [ gpl2 ];
-    maintainers = with lib.maintainers; [ sorki ];
+    license = with licenses; [gpl2];
+    maintainers = with lib.maintainers; [sorki];
   };
 }

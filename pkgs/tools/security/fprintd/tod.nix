@@ -6,7 +6,7 @@
   libfprint-tod,
 }:
 
-(fprintd.override { libfprint = libfprint-tod; }).overrideAttrs (
+(fprintd.override {libfprint = libfprint-tod;}).overrideAttrs (
   oldAttrs: rec {
     pname = "fprintd-tod";
     version = "1.90.9";
@@ -19,7 +19,7 @@
       sha256 = "sha256-rOTVThHOY/Q2IIu2RGiv26UE2V/JFfWWnfKZQfKl5Mg=";
     };
 
-    patches = oldAttrs.patches or [ ] ++ [
+    patches = oldAttrs.patches or [] ++ [
       (fetchpatch {
         name = "use-more-idiomatic-correct-embedded-shell-scripting";
         url = "https://gitlab.freedesktop.org/libfprint/fprintd/-/commit/f4256533d1ffdc203c3f8c6ee42e8dcde470a93f.patch";
@@ -50,7 +50,7 @@
       description = "fprintd built with libfprint-tod to support Touch OEM Drivers";
       license = lib.licenses.gpl2Plus;
       platforms = lib.platforms.linux;
-      maintainers = with lib.maintainers; [ hmenke ];
+      maintainers = with lib.maintainers; [hmenke];
     };
   }
 )

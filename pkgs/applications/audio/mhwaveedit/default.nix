@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     libpulseaudio
   ];
 
-  configureFlags = [ "--with-default-ladspa-path=${ladspaPlugins}/lib/ladspa" ];
+  configureFlags = ["--with-default-ladspa-path=${ladspaPlugins}/lib/ladspa"];
 
   postInstall = ''
     wrapProgram $out/bin/mhwaveedit \
@@ -61,6 +61,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/magnush/mhwaveedit";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
   };
 }

@@ -43,14 +43,14 @@ stdenv.mkDerivation rec {
     substituteInPlace src/preferences.vala --replace 'var dir_strings = Environment.get_system_data_dirs()' "string[] dir_strings = { \"$out/share\" }"
   '';
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = with lib; {
     homepage = "https://github.com/HugLifeTiZ/xfce4-namebar-plugin";
     description = "Plugin which integrates titlebar and window controls into the xfce4-panel";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    maintainers = with maintainers; [] ++ teams.xfce.members;
     # Does not build with vala 0.48 or later
     # libxfce4panel-2.0.vapi:92.3-92.41: error: overriding method `Xfce.PanelPlugin.remote_event' is incompatible
     # with base method `bool Xfce.PanelPluginProvider.remote_event (string, GLib.Value, uint)': too few parameters.

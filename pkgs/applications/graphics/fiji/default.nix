@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     makeWrapper
     copyDesktopItems
   ];
-  buildInputs = [ stdenv.cc.cc.lib ];
+  buildInputs = [stdenv.cc.cc.lib];
 
   desktopItems = [
     (makeDesktopItem {
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       exec = "fiji %F";
       tryExec = "fiji";
       icon = "fiji";
-      mimeTypes = [ "image/*" ];
+      mimeTypes = ["image/*"];
       comment = "Scientific Image Analysis";
       desktopName = "Fiji Is Just ImageJ";
       genericName = "Fiji Is Just ImageJ";
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     chmod +x $out/bin/.fiji-launcher-hack
 
     makeWrapper $out/bin/.fiji-launcher-hack $out/bin/fiji \
-      --prefix PATH : ${lib.makeBinPath [ jdk11 ]} \
+      --prefix PATH : ${lib.makeBinPath [jdk11]} \
       --set JAVA_HOME ${jdk11.home}
 
     ln $out/fiji/images/icon.png $out/share/pixmaps/fiji.png
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://imagej.net/software/fiji/";
     description = "batteries-included distribution of ImageJ2, bundling a lot of plugins which facilitate scientific image analysis";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     sourceProvenance = with sourceTypes; [
       binaryBytecode
       binaryNativeCode
@@ -85,6 +85,6 @@ stdenv.mkDerivation rec {
       bsd2
       publicDomain
     ];
-    maintainers = with maintainers; [ zane ];
+    maintainers = with maintainers; [zane];
   };
 }

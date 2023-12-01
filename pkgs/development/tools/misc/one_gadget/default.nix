@@ -7,7 +7,7 @@
 bundlerApp {
   pname = "one_gadget";
   gemdir = ./.;
-  exes = [ "one_gadget" ];
+  exes = ["one_gadget"];
 
   passthru.updateScript = bundlerUpdateScript "one_gadget";
 

@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     librevenge
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     description = "A library for importing and exporting WordPerfect documents";

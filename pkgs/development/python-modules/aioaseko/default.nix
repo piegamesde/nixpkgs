@@ -21,19 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-nJRVNBYfBcLYnBsTpQZYMHYWh0+hQObVKJ7sOXFwDjc=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "aioaseko" ];
+  pythonImportsCheck = ["aioaseko"];
 
   meta = with lib; {
     description = "Module to interact with the Aseko Pool Live API";
     homepage = "https://github.com/milanmeu/aioaseko";
-    license = with licenses; [ lgpl3Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [lgpl3Plus];
+    maintainers = with maintainers; [fab];
   };
 }

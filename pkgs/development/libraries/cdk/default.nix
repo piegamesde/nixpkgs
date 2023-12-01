@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-A8z6Icn8PWHd0P2hnaVFNZBVu+71ociC37n/SPN0avI=";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   enableParallelBuilding = true;
 
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     homepage = "https://invisible-island.net/cdk/";
     changelog = "https://invisible-island.net/cdk/CHANGES";
     license = licenses.mit;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
   };
 }

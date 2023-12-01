@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     patch interfaces/cc/aspell.h < ${./clang.patch}
   '';
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
   buildInputs = [
     ncurses
     perl
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.tests = {
-    uses-curses = runCommand "${pname}-curses" { buildInputs = [ glibc ]; } ''
+    uses-curses = runCommand "${pname}-curses" {buildInputs = [glibc];} ''
       if ! ldd ${aspell}/bin/aspell | grep -q ${ncurses}
       then
         echo "Test failure: It does not look like aspell picked up the curses dependency."
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
     description = "Spell checker for many languages";
     homepage = "http://aspell.net/";
     license = lib.licenses.lgpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with lib.platforms; all;
   };
 }

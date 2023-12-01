@@ -34,10 +34,10 @@ stdenv.mkDerivation rec {
   # Fix linkage issues on X11 (https://github.com/NixOS/nixpkgs/issues/142583)
   patches = lib.optional (!waylandSupport) ./x11.patch;
 
-  propagatedBuildInputs = [ libGL ];
+  propagatedBuildInputs = [libGL];
 
   nativeBuildInputs =
-    [ cmake ]
+    [cmake]
     ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
     ++ lib.optional waylandSupport extra-cmake-modules;
 
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
       ];
 
   cmakeFlags =
-    [ "-DBUILD_SHARED_LIBS=ON" ]
+    ["-DBUILD_SHARED_LIBS=ON"]
     ++ lib.optionals (!stdenv.isDarwin) [
       "-DCMAKE_C_FLAGS=-D_GLFW_GLX_LIBRARY='\"${lib.getLib libGL}/lib/libGL.so.1\"'"
     ]

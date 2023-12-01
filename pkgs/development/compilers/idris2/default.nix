@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     makeWrapper
     clang
     platformChez
-  ] ++ lib.optionals stdenv.isDarwin [ zsh ];
+  ] ++ lib.optionals stdenv.isDarwin [zsh];
   buildInputs = [
     platformChez
     gmp
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     patchShebangs --build tests
   '';
 
-  makeFlags = [ "PREFIX=$(out)" ] ++ lib.optional stdenv.isDarwin "OS=";
+  makeFlags = ["PREFIX=$(out)"] ++ lib.optional stdenv.isDarwin "OS=";
 
   # The name of the main executable of pkgs.chez is `scheme`
   buildFlags = [
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     gambit
     nodejs
   ]; # racket ];
-  checkFlags = [ "INTERACTIVE=" ];
+  checkFlags = ["INTERACTIVE="];
 
   # TODO: Move this into its own derivation, such that this can be changed
   #       without having to recompile idris2 every time.
@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
     '';
 
   # Run package tests
-  passthru.tests = callPackage ./tests.nix { inherit pname; };
+  passthru.tests = callPackage ./tests.nix {inherit pname;};
 
   meta = {
     description = "A purely functional programming language with first class types";

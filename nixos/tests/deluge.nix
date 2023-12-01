@@ -1,8 +1,8 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "deluge";
-    meta = with pkgs.lib.maintainers; { maintainers = [ flokli ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [flokli];};
 
     nodes = {
       simple = {

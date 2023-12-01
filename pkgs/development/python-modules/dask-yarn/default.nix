@@ -32,13 +32,13 @@ buildPythonPackage rec {
     skein
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export HOME=$TMPDIR
   '';
 
-  pythonImportsCheck = [ "dask_yarn" ];
+  pythonImportsCheck = ["dask_yarn"];
 
   disabledTests = [
     # skein.exceptions.DriverError: Failed to start java process
@@ -61,7 +61,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://yarn.dask.org/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ illustris ];
+    maintainers = with maintainers; [illustris];
     broken = stdenv.isDarwin;
   };
 }

@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
   ];
 
   # Avoid "-O5 -march=native"
-  makeFlags = [ "OPTIM_FLAGS=" ];
+  makeFlags = ["OPTIM_FLAGS="];
 
   installPhase = ''
     mkdir -p $out/bin

@@ -10,8 +10,8 @@ stdenv.mkDerivation rec {
   pname = "cstore_fdw";
   version = "unstable-2022-03-08";
 
-  nativeBuildInputs = [ protobufc ];
-  buildInputs = [ postgresql ];
+  nativeBuildInputs = [protobufc];
+  buildInputs = [postgresql];
 
   src = fetchFromGitHub {
     owner = "citusdata";
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     broken = versionAtLeast postgresql.version "14";
     description = "Columnar storage for PostgreSQL";
     homepage = "https://github.com/citusdata/cstore_fdw";
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
     platforms = postgresql.meta.platforms;
     license = licenses.asl20;
   };

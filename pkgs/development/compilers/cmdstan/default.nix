@@ -20,13 +20,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-VFZ8YOJMGKlROYsmfiQxAgYvz4zPMdzfRfAgStbRSJg=";
   };
 
-  nativeBuildInputs = [ stanc ];
+  nativeBuildInputs = [stanc];
 
-  buildFlags = [ "build" ];
+  buildFlags = ["build"];
   enableParallelBuilding = true;
 
   doCheck = true;
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
 
   CXXFLAGS = lib.optionalString stdenv.isDarwin "-D_BOOST_LGAMMA";
 
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://mc-stan.org/interfaces/cmdstan.html";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.unix;
   };
 }

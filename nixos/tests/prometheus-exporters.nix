@@ -1,11 +1,11 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
 let
-  inherit (import ../lib/testing-python.nix { inherit system pkgs; }) makeTest;
+  inherit (import ../lib/testing-python.nix {inherit system pkgs;}) makeTest;
   inherit (pkgs.lib)
     concatStringsSep
     maintainers
@@ -189,11 +189,11 @@ let
     collectd = {
       exporterConfig = {
         enable = true;
-        extraFlags = [ "--web.collectd-push-path /collectd" ];
+        extraFlags = ["--web.collectd-push-path /collectd"];
       };
       exporterTest =
         let
-          postData = replaceStrings [ "\n" ] [ "" ] ''
+          postData = replaceStrings ["\n"] [""] ''
             [{
               "values":[23],
               "dstypes":["gauge"],
@@ -255,7 +255,7 @@ let
     dovecot = {
       exporterConfig = {
         enable = true;
-        scopes = [ "global" ];
+        scopes = ["global"];
         socketPath = "/var/run/dovecot2/old-stats";
         user = "root"; # <- don't use user root in production
       };
@@ -337,7 +337,7 @@ let
         enable = true;
       };
       metricProvider = {
-        systemd.services.prometheus-jitsi-exporter.after = [ "jitsi-videobridge2.service" ];
+        systemd.services.prometheus-jitsi-exporter.after = ["jitsi-videobridge2.service"];
         services.jitsi-videobridge = {
           enable = true;
           apis = [
@@ -374,7 +374,7 @@ let
         );
       };
       metricProvider = {
-        systemd.services.prometheus-json-exporter.after = [ "nginx.service" ];
+        systemd.services.prometheus-json-exporter.after = ["nginx.service"];
         services.nginx = {
           enable = true;
           virtualHosts.localhost.locations."/".extraConfig = ''
@@ -449,7 +449,7 @@ let
       metricProvider = {
         services.knot = {
           enable = true;
-          extraArgs = [ "-v" ];
+          extraArgs = ["-v"];
           extraConfig = ''
             server:
               listen: 127.0.0.1@53
@@ -521,11 +521,11 @@ let
         enable = true;
         lndTlsPath = "/var/lib/lnd/tls.cert";
         lndMacaroonDir = "/var/lib/lnd";
-        extraFlags = [ "--lnd.network=regtest" ];
+        extraFlags = ["--lnd.network=regtest"];
       };
       metricProvider = {
         systemd.services.prometheus-lnd-exporter.serviceConfig.RestartSec = 15;
-        systemd.services.prometheus-lnd-exporter.after = [ "lnd.service" ];
+        systemd.services.prometheus-lnd-exporter.after = ["lnd.service"];
         services.bitcoind.regtest = {
           enable = true;
           extraConfig = ''
@@ -533,7 +533,7 @@ let
             zmqpubrawblock=tcp://127.0.0.1:28332
             zmqpubrawtx=tcp://127.0.0.1:28333
           '';
-          extraCmdlineOptions = [ "-regtest" ];
+          extraCmdlineOptions = ["-regtest"];
         };
         systemd.services.lnd = {
           serviceConfig.ExecStart = ''
@@ -552,8 +552,8 @@ let
               --readonlymacaroonpath=/var/lib/lnd/readonly.macaroon
           '';
           serviceConfig.StateDirectory = "lnd";
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
+          wantedBy = ["multi-user.target"];
+          after = ["network.target"];
         };
         # initialize wallet, creates macaroon needed by exporter
         systemd.services.lnd.postStart = ''
@@ -604,8 +604,8 @@ let
       metricProvider = {
         services.postfix.enable = true;
         systemd.services.prometheus-mail-exporter = {
-          after = [ "postfix.service" ];
-          requires = [ "postfix.service" ];
+          after = ["postfix.service"];
+          requires = ["postfix.service"];
           serviceConfig = {
             ExecStartPre = [
               "${pkgs.writeShellScript "create-maildir" ''
@@ -622,7 +622,7 @@ let
           isSystemUser = true;
           group = "mailexporter";
         };
-        users.groups.mailexporter = { };
+        users.groups.mailexporter = {};
       };
       exporterTest = ''
         wait_for_unit("postfix.service")
@@ -637,7 +637,7 @@ let
     mikrotik = {
       exporterConfig = {
         enable = true;
-        extraFlags = [ "-timeout=1s" ];
+        extraFlags = ["-timeout=1s"];
         configuration = {
           devices = [
             {
@@ -714,8 +714,8 @@ let
             passfile = (pkgs.writeText "pwfile" "snakeoilpw");
           in
           {
-            requiredBy = [ "prometheus-nextcloud-exporter.service" ];
-            before = [ "prometheus-nextcloud-exporter.service" ];
+            requiredBy = ["prometheus-nextcloud-exporter.service"];
+            before = ["prometheus-nextcloud-exporter.service"];
             serviceConfig.ExecStart = ''
               ${pkgs.coreutils}/bin/install -o nextcloud-exporter -m 0400 ${passfile} /var/nextcloud-pwfile
             '';
@@ -767,7 +767,7 @@ let
             {
               name = "filelogger";
               source = {
-                files = [ "/var/log/nginx/filelogger.access.log" ];
+                files = ["/var/log/nginx/filelogger.access.log"];
               };
             }
             {
@@ -776,7 +776,7 @@ let
                 syslog = {
                   listen_address = "udp://127.0.0.1:10000";
                   format = "rfc3164";
-                  tags = [ "nginx" ];
+                  tags = ["nginx"];
                 };
               };
             }
@@ -869,9 +869,9 @@ let
               };
             };
             "olcDatabase={2}monitor".attrs = {
-              objectClass = [ "olcDatabaseConfig" ];
+              objectClass = ["olcDatabaseConfig"];
               olcDatabase = "{2}monitor";
-              olcAccess = [ "to dn.subtree=cn=monitor by users read" ];
+              olcAccess = ["to dn.subtree=cn=monitor by users read"];
             };
           };
           declarativeContents."dc=example" = ''
@@ -899,10 +899,10 @@ let
       exporterConfig = {
         enable = true;
         group = "openvpn";
-        statusPaths = [ "/run/openvpn-test" ];
+        statusPaths = ["/run/openvpn-test"];
       };
       metricProvider = {
-        users.groups.openvpn = { };
+        users.groups.openvpn = {};
         services.openvpn.servers.test = {
           config = ''
             dev tun
@@ -979,7 +979,7 @@ let
             # Remove nix store path from process name
             {
               name = "{{.Matches.Wrapped}} {{ .Matches.Args }}";
-              cmdline = [ "^/nix/store[^ ]*/(?P<Wrapped>[^ /]*) (?P<Args>.*)" ];
+              cmdline = ["^/nix/store[^ ]*/(?P<Wrapped>[^ /]*) (?P<Args>.*)"];
             }
           ];
       };
@@ -1072,7 +1072,7 @@ let
         # Mock rtl_433 binary to return a dummy metric stream.
         nixpkgs.overlays = [
           (self: super: {
-            rtl_433 = self.runCommand "rtl_433" { } ''
+            rtl_433 = self.runCommand "rtl_433" {} ''
               mkdir -p "$out/bin"
               cat <<EOF > "$out/bin/rtl_433"
               #!/bin/sh
@@ -1135,7 +1135,7 @@ let
     smartctl = {
       exporterConfig = {
         enable = true;
-        devices = [ "/dev/vda" ];
+        devices = ["/dev/vda"];
       };
       exporterTest = ''
         wait_until_succeeds(
@@ -1147,7 +1147,7 @@ let
     smokeping = {
       exporterConfig = {
         enable = true;
-        hosts = [ "127.0.0.1" ];
+        hosts = ["127.0.0.1"];
       };
       exporterTest = ''
         wait_for_unit("prometheus-smokeping-exporter.service")
@@ -1184,12 +1184,12 @@ let
       exporterConfig = {
         configuration.jobs.points = {
           interval = "1m";
-          connections = [ "postgres://prometheus-sql-exporter@/data?host=/run/postgresql&sslmode=disable" ];
+          connections = ["postgres://prometheus-sql-exporter@/data?host=/run/postgresql&sslmode=disable"];
           queries = {
             points = {
-              labels = [ "name" ];
+              labels = ["name"];
               help = "Amount of points accumulated per person";
-              values = [ "amount" ];
+              values = ["amount"];
               query = "SELECT SUM(amount) as amount, name FROM points GROUP BY name";
             };
           };
@@ -1213,7 +1213,7 @@ let
             GRANT SELECT ON points TO "prometheus-sql-exporter";
           '';
         };
-        systemd.services.prometheus-sql-exporter.after = [ "postgresql.service" ];
+        systemd.services.prometheus-sql-exporter.after = ["postgresql.service"];
       };
       exporterTest = ''
         wait_for_unit("prometheus-sql-exporter.service")
@@ -1247,7 +1247,7 @@ let
         modemAddress = "localhost";
       };
       metricProvider = {
-        systemd.services.prometheus-surfboard-exporter.after = [ "nginx.service" ];
+        systemd.services.prometheus-surfboard-exporter.after = ["nginx.service"];
         services.nginx = {
           enable = true;
           virtualHosts.localhost.locations."/cgi-bin/status".extraConfig = ''
@@ -1268,9 +1268,9 @@ let
       exporterConfig = {
         enable = true;
 
-        extraFlags = [ "--systemd.collector.enable-restart-count" ];
+        extraFlags = ["--systemd.collector.enable-restart-count"];
       };
-      metricProvider = { };
+      metricProvider = {};
       exporterTest = ''
         wait_for_unit("prometheus-systemd-exporter.service")
         wait_for_open_port(9558)
@@ -1309,7 +1309,7 @@ let
     unpoller = {
       nodeName = "unpoller";
       exporterConfig.enable = true;
-      exporterConfig.controllers = [ { } ];
+      exporterConfig.controllers = [{}];
       exporterTest = ''
         wait_until_succeeds(
             'journalctl -eu prometheus-unpoller-exporter.service -o cat | grep "Connection Error"'
@@ -1329,7 +1329,7 @@ let
           localControlSocketPath = "/run/unbound/unbound.ctl";
         };
         systemd.services.prometheus-unbound-exporter.serviceConfig = {
-          SupplementaryGroups = [ "unbound" ];
+          SupplementaryGroups = ["unbound"];
         };
       };
       exporterTest = ''
@@ -1346,14 +1346,14 @@ let
       };
 
       metricProvider = {
-        systemd.services.prometheus-nginx-exporter.after = [ "v2ray.service" ];
+        systemd.services.prometheus-nginx-exporter.after = ["v2ray.service"];
         services.v2ray = {
           enable = true;
           config = {
-            stats = { };
+            stats = {};
             api = {
               tag = "api";
-              services = [ "StatsService" ];
+              services = ["StatsService"];
             };
             inbounds = [
               {
@@ -1372,10 +1372,10 @@ let
               }
             ];
             outbounds = [
-              { protocol = "freedom"; }
+              {protocol = "freedom";}
               {
                 protocol = "freedom";
-                settings = { };
+                settings = {};
                 tag = "api";
               }
             ];
@@ -1384,7 +1384,7 @@ let
               settings = {
                 rules = [
                   {
-                    inboundTag = [ "api" ];
+                    inboundTag = ["api"];
                     outboundTag = "api";
                     type = "field";
                   }
@@ -1408,7 +1408,7 @@ let
         group = "varnish";
       };
       metricProvider = {
-        systemd.services.prometheus-varnish-exporter.after = [ "varnish.service" ];
+        systemd.services.prometheus-varnish-exporter.after = ["varnish.service"];
         services.varnish = {
           enable = true;
           config = ''
@@ -1453,7 +1453,7 @@ let
               inherit (snakeoil.peer1) publicKey;
             };
           };
-          systemd.services.prometheus-wireguard-exporter.after = [ "wireguard-wg0.service" ];
+          systemd.services.prometheus-wireguard-exporter.after = ["wireguard-wg0.service"];
         };
         exporterTest = ''
           wait_for_unit("prometheus-wireguard-exporter.service")
@@ -1469,7 +1469,7 @@ let
         enable = true;
       };
       metricProvider = {
-        boot.supportedFilesystems = [ "zfs" ];
+        boot.supportedFilesystems = ["zfs"];
         networking.hostId = "7327ded7";
       };
       exporterTest = ''
@@ -1492,8 +1492,8 @@ mapAttrs
         name = "prometheus-${exporter}-exporter";
 
         nodes.${nodeName} = mkMerge [
-          { services.prometheus.exporters.${exporter} = testConfig.exporterConfig; }
-          testConfig.metricProvider or { }
+          {services.prometheus.exporters.${exporter} = testConfig.exporterConfig;}
+          testConfig.metricProvider or {}
         ];
 
         testScript = ''
@@ -1512,7 +1512,7 @@ mapAttrs
           ${nodeName}.shutdown()
         '';
 
-        meta = with maintainers; { maintainers = [ willibutz ]; };
+        meta = with maintainers; {maintainers = [willibutz];};
       }
     ))
   )

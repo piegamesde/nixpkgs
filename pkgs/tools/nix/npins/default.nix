@@ -30,8 +30,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-NDu4nl4Os7Mgal8gBHC6bsZ2Z+Fqt0PlGdLHiPd/8T4=";
 
-  buildInputs = lib.optional stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ Security ]);
-  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = lib.optional stdenv.isDarwin (with darwin.apple_sdk.frameworks; [Security]);
+  nativeBuildInputs = [makeWrapper];
 
   # (Almost) all tests require internet
   doCheck = false;
@@ -44,8 +44,8 @@ rustPlatform.buildRustPackage rec {
     description = "Simple and convenient dependency pinning for Nix";
     homepage = "https://github.com/andir/npins";
     license = licenses.eupl12;
-    maintainers = with maintainers; [ piegames ];
+    maintainers = with maintainers; [piegames];
   };
 
-  passthru.mkSource = callPackage ./source.nix { };
+  passthru.mkSource = callPackage ./source.nix {};
 }

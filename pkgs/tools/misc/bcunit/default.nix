@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
   pname = "bcunit";
   version = "linphone-4.4.1";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   src = fetchFromGitLab {
     domain = "gitlab.linphone.org";
     owner = "public";

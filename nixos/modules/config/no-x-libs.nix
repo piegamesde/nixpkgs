@@ -1,7 +1,7 @@
 # This module gets rid of all dependencies on X11 client libraries
 # (including fontconfig).
 
-{ config, lib, ... }:
+{config, lib, ...}:
 
 with lib;
 
@@ -30,17 +30,17 @@ with lib;
       const (
         super: {
           beam = super.beam_nox;
-          cairo = super.cairo.override { x11Support = false; };
-          dbus = super.dbus.override { x11Support = false; };
-          ffmpeg_4 = super.ffmpeg_4.override { ffmpegVariant = "headless"; };
-          ffmpeg_5 = super.ffmpeg_5.override { ffmpegVariant = "headless"; };
+          cairo = super.cairo.override {x11Support = false;};
+          dbus = super.dbus.override {x11Support = false;};
+          ffmpeg_4 = super.ffmpeg_4.override {ffmpegVariant = "headless";};
+          ffmpeg_5 = super.ffmpeg_5.override {ffmpegVariant = "headless";};
           # dep of graphviz, libXpm is optional for Xpm support
-          gd = super.gd.override { withXorg = false; };
-          gobject-introspection = super.gobject-introspection.override { x11Support = false; };
-          gpsd = super.gpsd.override { guiSupport = false; };
+          gd = super.gd.override {withXorg = false;};
+          gobject-introspection = super.gobject-introspection.override {x11Support = false;};
+          gpsd = super.gpsd.override {guiSupport = false;};
           graphviz = super.graphviz-nox;
           gst_all_1 = super.gst_all_1 // {
-            gst-plugins-base = super.gst_all_1.gst-plugins-base.override { enableX11 = false; };
+            gst-plugins-base = super.gst_all_1.gst-plugins-base.override {enableX11 = false;};
           };
           imagemagick = super.imagemagick.override {
             libX11Support = false;
@@ -51,24 +51,24 @@ with lib;
             libXtSupport = false;
           };
           libdevil = super.libdevil-nox;
-          libextractor = super.libextractor.override { gtkSupport = false; };
+          libextractor = super.libextractor.override {gtkSupport = false;};
           libva = super.libva-minimal;
-          limesuite = super.limesuite.override { withGui = false; };
-          mc = super.mc.override { x11Support = false; };
+          limesuite = super.limesuite.override {withGui = false;};
+          mc = super.mc.override {x11Support = false;};
           mpv-unwrapped = super.mpv-unwrapped.override {
             sdl2Support = false;
             x11Support = false;
           };
-          msmtp = super.msmtp.override { withKeyring = false; };
-          neofetch = super.neofetch.override { x11Support = false; };
-          networkmanager-fortisslvpn = super.networkmanager-fortisslvpn.override { withGnome = false; };
-          networkmanager-iodine = super.networkmanager-iodine.override { withGnome = false; };
-          networkmanager-l2tp = super.networkmanager-l2tp.override { withGnome = false; };
-          networkmanager-openconnect = super.networkmanager-openconnect.override { withGnome = false; };
-          networkmanager-openvpn = super.networkmanager-openvpn.override { withGnome = false; };
-          networkmanager-sstp = super.networkmanager-vpnc.override { withGnome = false; };
-          networkmanager-vpnc = super.networkmanager-vpnc.override { withGnome = false; };
-          pango = super.pango.override { x11Support = false; };
+          msmtp = super.msmtp.override {withKeyring = false;};
+          neofetch = super.neofetch.override {x11Support = false;};
+          networkmanager-fortisslvpn = super.networkmanager-fortisslvpn.override {withGnome = false;};
+          networkmanager-iodine = super.networkmanager-iodine.override {withGnome = false;};
+          networkmanager-l2tp = super.networkmanager-l2tp.override {withGnome = false;};
+          networkmanager-openconnect = super.networkmanager-openconnect.override {withGnome = false;};
+          networkmanager-openvpn = super.networkmanager-openvpn.override {withGnome = false;};
+          networkmanager-sstp = super.networkmanager-vpnc.override {withGnome = false;};
+          networkmanager-vpnc = super.networkmanager-vpnc.override {withGnome = false;};
+          pango = super.pango.override {x11Support = false;};
           pinentry = super.pinentry.override {
             enabledFlavors = [
               "curses"
@@ -82,14 +82,14 @@ with lib;
             spiceSupport = false;
             sdlSupport = false;
           };
-          qrencode = super.qrencode.overrideAttrs (_: { doCheck = false; });
+          qrencode = super.qrencode.overrideAttrs (_: {doCheck = false;});
           qt5 = super.qt5.overrideScope (
-            const (super': { qtbase = super'.qtbase.override { withGtk3 = false; }; })
+            const (super': {qtbase = super'.qtbase.override {withGtk3 = false;};})
           );
-          stoken = super.stoken.override { withGTK3 = false; };
+          stoken = super.stoken.override {withGTK3 = false;};
           # translateManpages -> perlPackages.po4a -> texlive-combined-basic -> texlive-core-big -> libX11
-          util-linux = super.util-linux.override { translateManpages = false; };
-          vim-full = super.vim-full.override { guiSupport = false; };
+          util-linux = super.util-linux.override {translateManpages = false;};
+          vim-full = super.vim-full.override {guiSupport = false;};
           zbar = super.zbar.override {
             enableVideo = false;
             withXorg = false;

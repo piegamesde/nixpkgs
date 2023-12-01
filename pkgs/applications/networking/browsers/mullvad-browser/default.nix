@@ -73,9 +73,9 @@ let
       stdenv.cc.libc
       zlib
     ]
-    ++ lib.optionals libnotifySupport [ libnotify ]
-    ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
-    ++ lib.optionals mediaSupport [ ffmpeg ]
+    ++ lib.optionals libnotifySupport [libnotify]
+    ++ lib.optionals pulseaudioSupport [libpulseaudio]
+    ++ lib.optionals mediaSupport [ffmpeg]
   );
 
   tag = "mullvad-browser-102.9.0esr-12.0-2-build1";
@@ -90,7 +90,7 @@ let
   };
 
   distributionIni = writeText "distribution.ini" (
-    lib.generators.toINI { } {
+    lib.generators.toINI {} {
       # Some light branding indicating this build uses our distro preferences
       Global = {
         id = "nixos";
@@ -100,7 +100,7 @@ let
     }
   );
 
-  policiesJson = writeText "policies.json" (builtins.toJSON { policies.DisableAppUpdate = true; });
+  policiesJson = writeText "policies.json" (builtins.toJSON {policies.DisableAppUpdate = true;});
 in
 stdenv.mkDerivation rec {
   pname = "mullvad-browser";
@@ -240,7 +240,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.mullvad.net/en/browser";
     changelog = "https://github.com/mullvad/mullvad-browser/releases/tag/${tag}";
     platforms = attrNames srcs;
-    maintainers = with maintainers; [ felschr ];
+    maintainers = with maintainers; [felschr];
     # MPL2.0+, GPL+, &c.  While it's not entirely clear whether
     # the compound is "libre" in a strict sense (some components place certain
     # restrictions on redistribution), it's free enough for our purposes.
@@ -250,6 +250,6 @@ stdenv.mkDerivation rec {
       lgpl3Plus
       free
     ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
   };
 }

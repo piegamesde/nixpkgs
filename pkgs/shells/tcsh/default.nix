@@ -19,7 +19,7 @@ stdenv.mkDerivation (
 
     strictDeps = true;
 
-    depsBuildBuild = [ buildPackages.stdenv.cc ];
+    depsBuildBuild = [buildPackages.stdenv.cc];
 
     buildInputs = [
       libxcrypt
@@ -44,7 +44,7 @@ stdenv.mkDerivation (
         - job control
       '';
       license = lib.licenses.bsd2;
-      maintainers = with lib.maintainers; [ AndersonTorres ];
+      maintainers = with lib.maintainers; [AndersonTorres];
       platforms = lib.platforms.unix;
     };
   }

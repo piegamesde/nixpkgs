@@ -46,7 +46,7 @@ let
       dotnet-sdk
     ];
 
-    hardeningDisable = [ "strictoverflow" ];
+    hardeningDisable = ["strictoverflow"];
 
     preConfigure = ''
       export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
@@ -71,8 +71,8 @@ let
     nugetDeps = ./deps.nix;
 
     # include platform-specific dbgshim binary in nugetDeps
-    dotnetFlags = [ "-p:UseDbgShimDependency=true" ];
-    executables = [ ];
+    dotnetFlags = ["-p:UseDbgShimDependency=true"];
+    executables = [];
 
     # this passes RID down to dotnet build command
     # and forces dotnet to include binary dependencies in the output (libdbgshim)
@@ -85,8 +85,8 @@ stdenv.mkDerivation rec {
   # include source here so that autoPatchelfHook can do it's job
   src = managed;
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
-  buildInputs = lib.optionals stdenv.isLinux [ stdenv.cc.cc.lib ];
+  nativeBuildInputs = lib.optionals stdenv.isLinux [autoPatchelfHook];
+  buildInputs = lib.optionals stdenv.isLinux [stdenv.cc.cc.lib];
   installPhase = ''
     mkdir -p $out/share/netcoredbg $out/bin
     cp ${unmanaged}/* $out/share/netcoredbg

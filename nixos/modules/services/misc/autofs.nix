@@ -75,7 +75,7 @@ in
 
   config = mkIf cfg.enable {
 
-    boot.kernelModules = [ "autofs4" ];
+    boot.kernelModules = ["autofs4"];
 
     systemd.services.autofs = {
       description = "Automounts filesystems on demand";
@@ -85,8 +85,8 @@ in
         "sssd.service"
         "network-online.target"
       ];
-      wants = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         # There should be only one autofs service managed by systemd, so this should be safe.

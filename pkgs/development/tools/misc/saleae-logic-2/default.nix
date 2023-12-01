@@ -18,7 +18,7 @@ let
     comment = "Software for Saleae logic analyzers";
     desktopName = "Saleae Logic";
     genericName = "Logic analyzer";
-    categories = [ "Development" ];
+    categories = ["Development"];
   };
 in
 appimageTools.wrapType2 {
@@ -26,7 +26,7 @@ appimageTools.wrapType2 {
 
   extraInstallCommands =
     let
-      appimageContents = appimageTools.extractType2 { inherit name src; };
+      appimageContents = appimageTools.extractType2 {inherit name src;};
     in
     ''
       mkdir -p $out/etc/udev/rules.d
@@ -73,7 +73,7 @@ appimageTools.wrapType2 {
     homepage = "https://www.saleae.com/";
     description = "Software for Saleae logic analyzers";
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     maintainers = with maintainers; [
       j-hui
       newam

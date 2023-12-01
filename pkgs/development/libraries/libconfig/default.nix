@@ -22,13 +22,13 @@ stdenv.mkDerivation rec {
     lib.optional (stdenv.hostPlatform.isWindows || stdenv.hostPlatform.isStatic) "--disable-examples"
     ++ lib.optional (!doCheck) "--disable-tests";
 
-  cmakeFlags = lib.optionals (!doCheck) [ "-DBUILD_TESTS:BOOL=OFF" ];
+  cmakeFlags = lib.optionals (!doCheck) ["-DBUILD_TESTS:BOOL=OFF"];
 
   meta = with lib; {
     homepage = "http://www.hyperrealm.com/libconfig";
     description = "A simple library for processing structured configuration files";
     license = licenses.lgpl3;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
     platforms = platforms.all;
   };
 }

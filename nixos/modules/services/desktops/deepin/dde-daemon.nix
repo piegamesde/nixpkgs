@@ -27,14 +27,14 @@ with lib;
 
   config = mkIf config.services.deepin.dde-daemon.enable {
 
-    environment.systemPackages = [ pkgs.deepin.dde-daemon ];
+    environment.systemPackages = [pkgs.deepin.dde-daemon];
 
-    services.dbus.packages = [ pkgs.deepin.dde-daemon ];
+    services.dbus.packages = [pkgs.deepin.dde-daemon];
 
-    services.udev.packages = [ pkgs.deepin.dde-daemon ];
+    services.udev.packages = [pkgs.deepin.dde-daemon];
 
-    systemd.packages = [ pkgs.deepin.dde-daemon ];
+    systemd.packages = [pkgs.deepin.dde-daemon];
 
-    environment.pathsToLink = [ "/lib/deepin-daemon" ];
+    environment.pathsToLink = ["/lib/deepin-daemon"];
   };
 }

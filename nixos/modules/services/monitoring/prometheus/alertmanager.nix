@@ -13,7 +13,7 @@ let
 
   checkedConfig =
     file:
-    pkgs.runCommand "checked-config" { buildInputs = [ cfg.package ]; } ''
+    pkgs.runCommand "checked-config" {buildInputs = [cfg.package];} ''
       ln -s ${file} $out
       amtool check-config $out
     '';
@@ -162,7 +162,7 @@ in
 
       clusterPeers = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Initial peers for HA cluster.
         '';
@@ -170,7 +170,7 @@ in
 
       extraFlags = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Extra commandline options when launching the Alertmanager.
         '';
@@ -203,8 +203,8 @@ in
       networking.firewall.allowedTCPPorts = optional cfg.openFirewall cfg.port;
 
       systemd.services.alertmanager = {
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network-online.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network-online.target"];
         preStart = ''
           ${lib.getBin pkgs.envsubst}/bin/envsubst -o "/tmp/alert-manager-substituted.yaml" \
                                                    -i "${alertmanagerYml}"

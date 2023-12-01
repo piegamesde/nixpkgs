@@ -21,7 +21,7 @@ buildGoModule rec {
     homepage = "https://github.com/timewarrior-synchronize/timew-sync-server";
     description = "Server component of timewarrior synchronization application";
     license = licenses.mit;
-    maintainers = [ maintainers.joachimschmidt557 ];
+    maintainers = [maintainers.joachimschmidt557];
     platforms = platforms.linux;
   };
 }

@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     sha256 = "P7PONA/NfbVNh8iT5pv8Kx9uTUsnkGX/5m2snw/RK00=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs =
     [
@@ -57,9 +57,9 @@ stdenv.mkDerivation rec {
       gobject-introspection
     ];
 
-  buildInputs = [ libgcrypt ];
+  buildInputs = [libgcrypt];
 
-  propagatedBuildInputs = [ glib ];
+  propagatedBuildInputs = [glib];
 
   nativeCheckInputs = [
     python3

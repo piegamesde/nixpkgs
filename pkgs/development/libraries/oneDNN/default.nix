@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # Tests fail on some Hydra builders, because they do not support SSE4.2.
   doCheck = false;

@@ -107,7 +107,7 @@ stdenv.mkDerivation rec {
       "--with-systemd"
       "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
     ]
-    ++ lib.optionals withOpenldap [ "--with-openldap" ]
+    ++ lib.optionals withOpenldap ["--with-openldap"]
     ++ lib.optionals withBdb [
       "--with-db-inc=${lib.getDev db}/include"
       "--with-db-lib=${lib.getLib db}/lib"
@@ -116,7 +116,7 @@ stdenv.mkDerivation rec {
       "--with-netsnmp-inc=${lib.getDev net-snmp}/include"
       "--with-netsnmp-lib=${lib.getLib net-snmp}/lib"
     ]
-    ++ lib.optionals (!withCockpit) [ "--disable-cockpit" ]
+    ++ lib.optionals (!withCockpit) ["--disable-cockpit"]
     ++ lib.optionals withAsan [
       "--enable-asan"
       "--enable-debug"
@@ -142,6 +142,6 @@ stdenv.mkDerivation rec {
     description = "Enterprise-class Open Source LDAP server for Linux";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.ners ];
+    maintainers = [maintainers.ners];
   };
 }

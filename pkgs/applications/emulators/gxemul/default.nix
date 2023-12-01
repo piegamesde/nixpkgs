@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ecRDfG+MqQT0bTOsNgYqZf3PSpKiSEeOQIqxEpXPjoM=";
   };
 
-  buildInputs = [ libX11 ];
+  buildInputs = [libX11];
 
   patches =
     [
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       unmodified "guest" operating systems to run.
     '';
     license = licenses.bsd3;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.unix;
   };
 }

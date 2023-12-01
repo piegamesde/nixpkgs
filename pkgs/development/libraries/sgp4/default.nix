@@ -16,13 +16,13 @@ stdenv.mkDerivation {
     hash = "sha256-gfJQOLhys5wKzZCxFVqbo+5l7jPeGPzrvYsdZKPSCJc=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "Simplified perturbations models library";
     homepage = "https://github.com/dnwrnr/sgp4";
     license = licenses.asl20;
-    maintainers = with maintainers; [ alexwinter ];
+    maintainers = with maintainers; [alexwinter];
     platforms = platforms.unix;
   };
 }

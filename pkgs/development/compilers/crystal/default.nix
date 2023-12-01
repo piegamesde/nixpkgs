@@ -94,7 +94,7 @@ let
         sha256,
         binary,
         doCheck ? true,
-        extraBuildInputs ? [ ],
+        extraBuildInputs ? [],
         buildFlags ? [
           "all"
           "docs"
@@ -208,7 +208,7 @@ let
               zlib
               libxml2
               openssl
-            ] ++ extraBuildInputs ++ lib.optionals stdenv.isDarwin [ libiconv ];
+            ] ++ extraBuildInputs ++ lib.optionals stdenv.isDarwin [libiconv];
 
             makeFlags = [
               "CRYSTAL_CONFIG_VERSION=${version}"
@@ -280,7 +280,7 @@ let
             '';
 
             passthru.buildBinary = binary;
-            passthru.buildCrystalPackage = callPackage ./build-package.nix { crystal = compiler; };
+            passthru.buildCrystalPackage = callPackage ./build-package.nix {crystal = compiler;};
 
             meta = with lib; {
               inherit (binary.meta) platforms;
@@ -313,7 +313,7 @@ rec {
     version = "1.2.2";
     sha256 = "sha256-nyOXhsutVBRdtJlJHe2dALl//BUXD1JeeQPgHU4SwiU=";
     binary = binaryCrystal_1_2;
-    extraBuildInputs = [ libatomic_ops ];
+    extraBuildInputs = [libatomic_ops];
   };
 
   crystal_1_7 = generic {

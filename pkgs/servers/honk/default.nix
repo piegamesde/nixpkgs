@@ -16,9 +16,9 @@ buildGoModule rec {
   };
   vendorHash = null;
 
-  buildInputs = [ sqlite ];
-  nativeBuildInputs = [ installShellFiles ];
-  subPackages = [ "." ];
+  buildInputs = [sqlite];
+  nativeBuildInputs = [installShellFiles];
+  subPackages = ["."];
 
   postPatch = ''
     substituteInPlace honk.go --replace \
@@ -45,6 +45,6 @@ buildGoModule rec {
     description = "An ActivityPub server with minimal setup and support costs.";
     homepage = "https://humungus.tedunangst.com/r/honk";
     license = licenses.isc;
-    maintainers = with maintainers; [ huyngo ];
+    maintainers = with maintainers; [huyngo];
   };
 }

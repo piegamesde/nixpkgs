@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-9VOJeRvyudZSCaUZ1J9gHMEoWXEnEhCZPxvfYGRKzj0=";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "A cross platform, fast, compression and decompression tool";
@@ -28,6 +28,6 @@ rustPlatform.buildRustPackage rec {
       unlicense # or
       mit
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

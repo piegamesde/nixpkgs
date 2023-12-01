@@ -30,7 +30,7 @@ stdenvNoCC.mkDerivation {
       --replace 'thisdir="$(cd "$(dirname "$(readlink -f "''${BASH_SOURCE[0]}")")" && pwd)"' 'thisdir="$(pwd)"'
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   doInstallCheck = true;
 
@@ -59,6 +59,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/ChaoticWeg/discord.sh";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
   };
 }

@@ -25,8 +25,8 @@ crystal.buildCrystalPackage rec {
 
   format = "shards";
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ bash ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [bash];
 
   shardsFile = ./shards.nix;
 

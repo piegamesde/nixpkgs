@@ -16,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "698442a170f02923f8ea55f18526b56c17178162e44304f896a8a5fd65ab4457";
   };
 
-  propagatedBuildInputs = [ pillow ];
+  propagatedBuildInputs = [pillow];
 
   meta = with lib; {
     description = "A library for building interactive maps";

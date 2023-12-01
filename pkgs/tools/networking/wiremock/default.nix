@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p "$out"/{share/wiremock,bin}
@@ -29,9 +29,9 @@ stdenv.mkDerivation rec {
   meta = {
     description = "A flexible tool for building mock APIs";
     homepage = "https://wiremock.org/";
-    maintainers = with lib.maintainers; [ bobvanderlinden ];
+    maintainers = with lib.maintainers; [bobvanderlinden];
     platforms = jre.meta.platforms;
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.asl20;
   };
 }

@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "0sf4pns0245009z6mbxpx7kqy4kwl69bc95wz9v23wgappsvxgy1";
   };
 
-  patches = [ ./use-gcc.patch ];
+  patches = [./use-gcc.patch];
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.gpl2Plus;
 
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.gnu ++ lib.platforms.linux; # arbitrary choice
   };
 }

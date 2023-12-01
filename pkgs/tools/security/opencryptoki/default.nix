@@ -49,14 +49,14 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  installFlags = [ "DESTDIR=${placeholder "out"}" ];
+  installFlags = ["DESTDIR=${placeholder "out"}"];
 
   meta = with lib; {
     changelog = "https://github.com/opencryptoki/opencryptoki/blob/${src.rev}/ChangeLog";
     description = "PKCS#11 implementation for Linux";
     homepage = "https://github.com/opencryptoki/opencryptoki";
     license = licenses.cpl10;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

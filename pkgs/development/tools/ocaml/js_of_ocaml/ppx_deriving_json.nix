@@ -16,5 +16,5 @@ buildDunePackage {
     ppxlib
   ];
 
-  meta = builtins.removeAttrs js_of_ocaml-compiler.meta [ "mainProgram" ];
+  meta = builtins.removeAttrs js_of_ocaml-compiler.meta ["mainProgram"];
 }

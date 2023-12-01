@@ -31,12 +31,12 @@ buildGoModule rec {
     rm internal/git/git_test.go
   '';
 
-  passthru.tests.version = testers.testVersion { package = svu; };
+  passthru.tests.version = testers.testVersion {package = svu;};
 
   meta = with lib; {
     description = "Semantic Version Util";
     homepage = "https://github.com/caarlos0/svu";
-    maintainers = with maintainers; [ caarlos0 ];
+    maintainers = with maintainers; [caarlos0];
     license = licenses.mit;
   };
 }

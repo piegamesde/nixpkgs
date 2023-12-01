@@ -41,7 +41,7 @@
   enableCublas ? enableCuda,
   enableCudnn ? false, # NOTE: CUDNN has a large impact on closure size so we disable it by default
   enableCufft ? enableCuda,
-  cudaPackages ? { },
+  cudaPackages ? {},
   symlinkJoin,
   nvidia-optical-flow-sdk,
 
@@ -127,11 +127,11 @@ let
         name = platform: "ippicv_2019_${platform}_general_20180723.tgz";
       in
       if stdenv.hostPlatform.system == "x86_64-linux" then
-        { ${name "lnx_intel64"} = "c0bd78adb4156bbf552c1dfe90599607"; }
+        {${name "lnx_intel64"} = "c0bd78adb4156bbf552c1dfe90599607";}
       else if stdenv.hostPlatform.system == "i686-linux" then
-        { ${name "lnx_ia32"} = "4f38432c30bfd6423164b7a24bbc98a0"; }
+        {${name "lnx_ia32"} = "4f38432c30bfd6423164b7a24bbc98a0";}
       else if stdenv.hostPlatform.system == "x86_64-darwin" then
-        { ${name "mac_intel64"} = "fe6b2bb75ae0e3f19ad3ae1a31dfa4a2"; }
+        {${name "mac_intel64"} = "fe6b2bb75ae0e3f19ad3ae1a31dfa4a2";}
       else
         throw "ICV is not available for this platform (or not yet supported by this package)";
     dst = ".cache/ippicv";
@@ -243,7 +243,7 @@ let
   withOpenblas = (enableBlas && blas.provider.pname == "openblas");
   #multithreaded openblas conflicts with opencv multithreading, which manifest itself in hung tests
   #https://github.com/xianyi/OpenBLAS/wiki/Faq/4bded95e8dc8aadc70ce65267d1093ca7bdefc4c#multi-threaded
-  openblas_ = blas.provider.override { singleThreaded = true; };
+  openblas_ = blas.provider.override {singleThreaded = true;};
 
   inherit (cudaPackages) backendStdenv cudaFlags cudaVersion;
   inherit (cudaFlags) cudaCapabilities;
@@ -382,11 +382,11 @@ stdenv.mkDerivation {
       doxygen
       graphviz-nox
     ]
-    ++ lib.optionals enableCuda [ cuda-redist ];
+    ++ lib.optionals enableCuda [cuda-redist];
 
   propagatedBuildInputs =
     lib.optional enablePython pythonPackages.numpy
-    ++ lib.optionals enableCuda [ nvidia-optical-flow-sdk ];
+    ++ lib.optionals enableCuda [nvidia-optical-flow-sdk];
 
   nativeBuildInputs =
     [
@@ -399,7 +399,7 @@ stdenv.mkDerivation {
       pythonPackages.wheel
       pythonPackages.setuptools
     ]
-    ++ lib.optionals enableCuda [ cuda-native-redist ];
+    ++ lib.optionals enableCuda [cuda-native-redist];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString enableEXR "-I${ilmbase.dev}/include/OpenEXR";
 
@@ -472,8 +472,8 @@ stdenv.mkDerivation {
       "-DWITH_OPENCL=OFF"
       "-DWITH_LAPACK=OFF"
     ]
-    ++ lib.optionals (!stdenv.isDarwin) [ "-DOPENCL_LIBRARY=${ocl-icd}/lib/libOpenCL.so" ]
-    ++ lib.optionals enablePython [ "-DOPENCV_SKIP_PYTHON_LOADER=ON" ];
+    ++ lib.optionals (!stdenv.isDarwin) ["-DOPENCL_LIBRARY=${ocl-icd}/lib/libOpenCL.so"]
+    ++ lib.optionals enablePython ["-DOPENCV_SKIP_PYTHON_LOADER=ON"];
 
   postBuild = lib.optionalString enableDocs ''
     make doxygen
@@ -527,8 +527,8 @@ stdenv.mkDerivation {
       {
         inherit (gst_all_1) gst-plugins-bad;
       }
-      // lib.optionalAttrs (!stdenv.isDarwin) { inherit qimgv; }
-      // lib.optionalAttrs (!enablePython) { pythonEnabled = pythonPackages.opencv4; }
+      // lib.optionalAttrs (!stdenv.isDarwin) {inherit qimgv;}
+      // lib.optionalAttrs (!enablePython) {pythonEnabled = pythonPackages.opencv4;}
       // lib.optionalAttrs (stdenv.buildPlatform != "x86_64-darwin") {
         opencv4-tests = callPackage ./tests.nix {
           inherit
@@ -542,13 +542,13 @@ stdenv.mkDerivation {
           inherit opencv4;
         };
       };
-  } // lib.optionalAttrs enablePython { pythonPath = [ ]; };
+  } // lib.optionalAttrs enablePython {pythonPath = [];};
 
   meta = with lib; {
     description = "Open Computer Vision Library with more than 500 algorithms";
     homepage = "https://opencv.org/";
     license = with licenses; if enableUnfree then unfree else bsd3;
-    maintainers = with maintainers; [ basvandijk ];
+    maintainers = with maintainers; [basvandijk];
     platforms = with platforms; linux ++ darwin;
   };
 }

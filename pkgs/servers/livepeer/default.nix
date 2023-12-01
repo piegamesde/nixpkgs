@@ -22,9 +22,9 @@ buildGoModule rec {
   };
 
   # livepeer_cli has a vendoring problem
-  subPackages = [ "cmd/livepeer" ];
+  subPackages = ["cmd/livepeer"];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     ffmpeg
@@ -35,6 +35,6 @@ buildGoModule rec {
     description = "Official Go implementation of the Livepeer protocol";
     homepage = "https://livepeer.org";
     license = licenses.mit;
-    maintainers = with maintainers; [ elitak ];
+    maintainers = with maintainers; [elitak];
   };
 }

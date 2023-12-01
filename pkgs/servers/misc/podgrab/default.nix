@@ -32,6 +32,6 @@ buildGoModule rec {
     description = "A self-hosted podcast manager to download episodes as soon as they become live";
     homepage = "https://github.com/akhilrex/podgrab";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

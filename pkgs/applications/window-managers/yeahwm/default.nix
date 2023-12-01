@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://phrat.de/index.html";
     license = licenses.isc;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     platforms = libX11.meta.platforms;
   };
 }

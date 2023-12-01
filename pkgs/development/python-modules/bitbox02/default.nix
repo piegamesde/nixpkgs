@@ -32,12 +32,12 @@ buildPythonPackage rec {
 
   # does not contain tests
   doCheck = false;
-  pythonImportsCheck = [ "bitbox02" ];
+  pythonImportsCheck = ["bitbox02"];
 
   meta = with lib; {
     description = "Firmware code of the BitBox02 hardware wallet";
     homepage = "https://github.com/digitalbitbox/bitbox02-firmware/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

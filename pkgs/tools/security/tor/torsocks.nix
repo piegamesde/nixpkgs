@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "0x0wpcigf22sjxg7bm0xzqihmsrz51hl4v8xf91qi4qnmr4ny1hb";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   patches = lib.optional stdenv.isDarwin (
     fetchurl {
@@ -47,6 +47,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/dgoulet/torsocks";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ thoughtpolice ];
+    maintainers = with lib.maintainers; [thoughtpolice];
   };
 }

@@ -13,7 +13,7 @@ let
   configFile = pkgs.writeTextFile {
     name = "knot.conf";
     text = (concatMapStringsSep "\n" (file: "include: ${file}") cfg.keyFiles) + "\n" + cfg.extraConfig;
-    checkPhase = lib.optionalString (cfg.keyFiles == [ ]) ''
+    checkPhase = lib.optionalString (cfg.keyFiles == []) ''
       ${cfg.package}/bin/knotc --config=$out conf-check
     '';
   };
@@ -22,7 +22,7 @@ let
 
   knot-cli-wrappers = pkgs.stdenv.mkDerivation {
     name = "knot-cli-wrappers";
-    nativeBuildInputs = [ pkgs.makeWrapper ];
+    nativeBuildInputs = [pkgs.makeWrapper];
     buildCommand = ''
       mkdir -p $out/bin
       makeWrapper ${cfg.package}/bin/knotc "$out/bin/knotc" \
@@ -46,7 +46,7 @@ in
 
       extraArgs = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           List of additional command line parameters for knotd
         '';
@@ -54,7 +54,7 @@ in
 
       keyFiles = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           A list of files containing additional configuration
           to be included using the include directive. This option
@@ -85,7 +85,7 @@ in
   };
 
   config = mkIf config.services.knot.enable {
-    users.groups.knot = { };
+    users.groups.knot = {};
     users.users.knot = {
       isSystemUser = true;
       group = "knot";
@@ -95,9 +95,9 @@ in
     systemd.services.knot = {
       unitConfig.Documentation = "man:knotd(8) man:knot.conf(5) man:knotc(8) https://www.knot-dns.cz/docs/${cfg.package.version}/html/";
       description = cfg.package.meta.description;
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         Type = "notify";
@@ -106,8 +106,8 @@ in
         User = "knot";
         Group = "knot";
 
-        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+        AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
+        CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
         DeviceAllow = "";
         DevicePolicy = "closed";
         LockPersonality = true;
@@ -148,6 +148,6 @@ in
       };
     };
 
-    environment.systemPackages = [ knot-cli-wrappers ];
+    environment.systemPackages = [knot-cli-wrappers];
   };
 }

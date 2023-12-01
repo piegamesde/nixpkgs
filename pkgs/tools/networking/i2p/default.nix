@@ -32,7 +32,7 @@ stdenv.mkDerivation (
       gettext
       which
     ];
-    patches = [ ./i2p.patch ];
+    patches = [./i2p.patch];
 
     buildPhase = ''
       export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8"
@@ -76,7 +76,7 @@ stdenv.mkDerivation (
         "x86_64-linux"
         "i686-linux"
       ];
-      maintainers = with maintainers; [ joelmo ];
+      maintainers = with maintainers; [joelmo];
     };
   }
 )

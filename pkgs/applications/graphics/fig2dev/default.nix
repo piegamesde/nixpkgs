@@ -21,12 +21,12 @@ stdenv.mkDerivation rec {
     sha256 = "1jv8rg71dsy00lpg434r5zqs5qrg8mxqvv2gpcjjvmzsm551d2j1";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ libpng ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [libpng];
 
   GSEXE = "${ghostscript}/bin/gs";
 
-  configureFlags = [ "--enable-transfig" ];
+  configureFlags = ["--enable-transfig"];
 
   postInstall = ''
     wrapProgram $out/bin/fig2ps2tex \
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
           ]
         }
     wrapProgram $out/bin/pic2tpic \
-        --set PATH ${lib.makeBinPath [ gnused ]}
+        --set PATH ${lib.makeBinPath [gnused]}
   '';
 
   meta = with lib; {
@@ -47,6 +47,6 @@ stdenv.mkDerivation rec {
     homepage = "https://mcj.sourceforge.net/";
     license = licenses.xfig;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ lesuisse ];
+    maintainers = with maintainers; [lesuisse];
   };
 }

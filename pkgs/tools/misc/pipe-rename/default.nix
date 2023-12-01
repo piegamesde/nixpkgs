@@ -16,7 +16,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-X4wmhyWpjq4EyAVsfdeP76NSC9tcZjZ6woCsRvw0Gzo=";
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
 
   preCheck = ''
     patchShebangs tests/editors/env-editor.py
@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     description = "Rename your files using your favorite text editor";
     homepage = "https://github.com/marcusbuffet/pipe-rename";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "renamer";
   };
 }

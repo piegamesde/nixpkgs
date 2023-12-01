@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0MsPp6y4r/uZB2SplKV+SAiJoxIs2jgOQmQoQQ2ZKwI=";
   };
 
-  nativeBuildInputs = [ python3Packages.wrapPython ];
+  nativeBuildInputs = [python3Packages.wrapPython];
 
   pythonPath = with python3Packages; [
     configparser
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     description = "Fix for Intel CPU throttling issues";
     homepage = "https://github.com/erpalma/throttled";
     license = licenses.mit;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ michaelpj ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [michaelpj];
   };
 }

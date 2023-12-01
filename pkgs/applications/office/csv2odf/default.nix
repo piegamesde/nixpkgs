@@ -27,6 +27,6 @@ python3.pkgs.buildPythonApplication rec {
       template file that you can design in your office application of choice.
     '';
     license = licenses.gpl3;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
   };
 }

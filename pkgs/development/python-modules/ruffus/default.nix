@@ -19,7 +19,7 @@ buildPythonPackage rec {
     sha256 = "0fnzpchwwqsy5h18fs0n90s51w25n0dx0l74j0ka6lvhjl5sxn4c";
   };
 
-  propagatedBuildInputs = [ gevent ];
+  propagatedBuildInputs = [gevent];
 
   nativeCheckInputs = [
     hostname
@@ -37,12 +37,12 @@ buildPythonPackage rec {
     done
     popd
   '';
-  pythonImportsCheck = [ "ruffus" ];
+  pythonImportsCheck = ["ruffus"];
 
   meta = with lib; {
     description = "Light-weight Python Computational Pipeline Management";
     homepage = "http://www.ruffus.org.uk";
     license = licenses.mit;
-    maintainers = [ maintainers.kiwi ];
+    maintainers = [maintainers.kiwi];
   };
 }

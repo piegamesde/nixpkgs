@@ -32,7 +32,7 @@ multiStdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  makeFlags = [ "PREFIX=${wineWowPackages.stable}" ];
+  makeFlags = ["PREFIX=${wineWowPackages.stable}"];
 
   buildPhase = ''
     runHook preBuild
@@ -57,7 +57,7 @@ multiStdenv.mkDerivation rec {
       gpl2
       lgpl21
     ];
-    maintainers = with maintainers; [ lovesegfault ];
+    maintainers = with maintainers; [lovesegfault];
     platforms = platforms.linux;
   };
 }

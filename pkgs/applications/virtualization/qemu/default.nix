@@ -95,7 +95,7 @@
   hostCpuOnly ? false,
   hostCpuTargets ? (
     if hostCpuOnly then
-      (lib.optional stdenv.isx86_64 "i386-softmmu" ++ [ "${stdenv.hostPlatform.qemuArch}-softmmu" ])
+      (lib.optional stdenv.isx86_64 "i386-softmmu" ++ ["${stdenv.hostPlatform.qemuArch}-softmmu"])
     else
       null
   ),
@@ -121,7 +121,7 @@ stdenv.mkDerivation rec {
     sha256 = "u2DwNBUxGB1sw5ad0ZoBPQQnqH+RgZOXDZrbkRMeVtA=";
   };
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ] ++ lib.optionals hexagonSupport [ pkg-config ];
+  depsBuildBuild = [buildPackages.stdenv.cc] ++ lib.optionals hexagonSupport [pkg-config];
 
   nativeBuildInputs =
     [
@@ -138,9 +138,9 @@ stdenv.mkDerivation rec {
       python3Packages.sphinx
       python3Packages.sphinx-rtd-theme
     ]
-    ++ lib.optionals gtkSupport [ wrapGAppsHook ]
-    ++ lib.optionals hexagonSupport [ glib ]
-    ++ lib.optionals stdenv.isDarwin [ sigtool ];
+    ++ lib.optionals gtkSupport [wrapGAppsHook]
+    ++ lib.optionals hexagonSupport [glib]
+    ++ lib.optionals stdenv.isDarwin [sigtool];
 
   buildInputs =
     [
@@ -157,7 +157,7 @@ stdenv.mkDerivation rec {
       curl
       libslirp
     ]
-    ++ lib.optionals ncursesSupport [ ncurses ]
+    ++ lib.optionals ncursesSupport [ncurses]
     ++ lib.optionals stdenv.isDarwin [
       CoreServices
       Cocoa
@@ -166,15 +166,15 @@ stdenv.mkDerivation rec {
       setfile
       vmnet
     ]
-    ++ lib.optionals seccompSupport [ libseccomp ]
-    ++ lib.optionals numaSupport [ numactl ]
-    ++ lib.optionals alsaSupport [ alsa-lib ]
-    ++ lib.optionals pulseSupport [ libpulseaudio ]
+    ++ lib.optionals seccompSupport [libseccomp]
+    ++ lib.optionals numaSupport [numactl]
+    ++ lib.optionals alsaSupport [alsa-lib]
+    ++ lib.optionals pulseSupport [libpulseaudio]
     ++ lib.optionals sdlSupport [
       SDL2
       SDL2_image
     ]
-    ++ lib.optionals jackSupport [ libjack2 ]
+    ++ lib.optionals jackSupport [libjack2]
     ++ lib.optionals gtkSupport [
       gtk3
       gettext
@@ -184,20 +184,20 @@ stdenv.mkDerivation rec {
       libjpeg
       libpng
     ]
-    ++ lib.optionals smartcardSupport [ libcacard ]
+    ++ lib.optionals smartcardSupport [libcacard]
     ++ lib.optionals spiceSupport [
       spice-protocol
       spice
     ]
-    ++ lib.optionals usbredirSupport [ usbredir ]
+    ++ lib.optionals usbredirSupport [usbredir]
     ++ lib.optionals stdenv.isLinux [
       libaio
       libcap_ng
       libcap
       attr
     ]
-    ++ lib.optionals xenSupport [ xen ]
-    ++ lib.optionals cephSupport [ ceph ]
+    ++ lib.optionals xenSupport [xen]
+    ++ lib.optionals cephSupport [ceph]
     ++ lib.optionals glusterfsSupport [
       glusterfs
       libuuid
@@ -207,15 +207,15 @@ stdenv.mkDerivation rec {
       libepoxy
       libdrm
     ]
-    ++ lib.optionals virglSupport [ virglrenderer ]
-    ++ lib.optionals libiscsiSupport [ libiscsi ]
-    ++ lib.optionals smbdSupport [ samba ]
-    ++ lib.optionals uringSupport [ liburing ]
-    ++ lib.optionals canokeySupport [ canokey-qemu ];
+    ++ lib.optionals virglSupport [virglrenderer]
+    ++ lib.optionals libiscsiSupport [libiscsi]
+    ++ lib.optionals smbdSupport [samba]
+    ++ lib.optionals uringSupport [liburing]
+    ++ lib.optionals canokeySupport [canokey-qemu];
 
   dontUseMesonConfigure = true; # meson's configurePhase isn't compatible with qemu build
 
-  outputs = [ "out" ] ++ lib.optional guestAgentSupport "ga";
+  outputs = ["out"] ++ lib.optional guestAgentSupport "ga";
   # On aarch64-linux we would shoot over the Hydra's 2G output limit.
   separateDebugInfo = !(stdenv.isAarch64 && stdenv.isLinux);
 
@@ -328,7 +328,7 @@ stdenv.mkDerivation rec {
 
   # tests can still timeout on slower systems
   inherit doCheck;
-  nativeCheckInputs = [ socat ];
+  nativeCheckInputs = [socat];
   preCheck =
     ''
       # time limits are a little meagre for a build machine that's
@@ -370,12 +370,12 @@ stdenv.mkDerivation rec {
   passthru = {
     qemu-system-i386 = "bin/qemu-system-i386";
     tests = {
-      qemu-tests = qemu.override { doCheck = true; };
+      qemu-tests = qemu.override {doCheck = true;};
     };
   };
 
   # Builds in ~3h with 2 cores, and ~20m with a big-parallel builder.
-  requiredSystemFeatures = [ "big-parallel" ];
+  requiredSystemFeatures = ["big-parallel"];
 
   meta = with lib; {
     homepage = "http://www.qemu.org/";

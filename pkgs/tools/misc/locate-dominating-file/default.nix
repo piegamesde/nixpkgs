@@ -60,7 +60,7 @@ resholve.mkDerivation {
   '';
 
   solutions.default = {
-    scripts = [ "bin/locate-dominating-file" ];
+    scripts = ["bin/locate-dominating-file"];
     interpreter = "${bash}/bin/bash";
     inputs = [
       coreutils
@@ -72,7 +72,7 @@ resholve.mkDerivation {
     homepage = "https://github.com/roman/locate-dominating-file";
     description = "Program that looks up in a directory hierarchy for a given filename";
     license = licenses.mit;
-    maintainers = [ maintainers.roman ];
+    maintainers = [maintainers.roman];
     platforms = platforms.all;
   };
 }

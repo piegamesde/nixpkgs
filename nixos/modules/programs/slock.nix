@@ -24,7 +24,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.slock ];
+    environment.systemPackages = [pkgs.slock];
     security.wrappers.slock = {
       setuid = true;
       owner = "root";

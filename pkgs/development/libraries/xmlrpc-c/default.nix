@@ -20,14 +20,14 @@ stdenv.mkDerivation rec {
     libxml2
   ];
 
-  configureFlags = [ "--enable-libxml2-backend" ];
+  configureFlags = ["--enable-libxml2-backend"];
 
   # Build and install the "xmlrpc" tool (like the Debian package)
   postInstall = ''
     (cd tools/xmlrpc && make && make install)
   '';
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     description = "A lightweight RPC library based on XML and HTTP";
@@ -36,6 +36,6 @@ stdenv.mkDerivation rec {
     # "ABYSS Web Server License" and "Python 1.5.2 License"
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

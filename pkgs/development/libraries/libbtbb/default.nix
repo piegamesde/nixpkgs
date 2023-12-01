@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "1byv8174xam7siakr1p0523x97wkh0fmwmq341sd3g70qr2g767d";
   };
 
-  nativeBuildInputs = [ cmake ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
+  nativeBuildInputs = [cmake] ++ lib.optionals stdenv.isDarwin [CoreServices];
 
   # https://github.com/greatscottgadgets/libbtbb/issues/63
   postPatch = ''
@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     description = "Bluetooth baseband decoding library";
     homepage = "https://github.com/greatscottgadgets/libbtbb";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
   };
 }

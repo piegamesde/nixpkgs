@@ -7,7 +7,7 @@
 with lib;
 let
   cfg = config.services.seafile;
-  settingsFormat = pkgs.formats.ini { };
+  settingsFormat = pkgs.formats.ini {};
 
   ccnetConf = settingsFormat.generate "ccnet.conf" cfg.ccnetSettings;
 
@@ -60,7 +60,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Configuration for ccnet, see
         <https://manual.seafile.com/config/ccnet-conf/>
@@ -92,7 +92,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Configuration for seafile-server, see
         <https://manual.seafile.com/config/seafile-conf/>
@@ -153,7 +153,7 @@ in
     environment.etc."seafile/seahub_settings.py".source = seahubSettings;
 
     systemd.targets.seafile = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       description = "Seafile components";
     };
 
@@ -185,14 +185,14 @@ in
       {
         seaf-server = {
           description = "Seafile server";
-          partOf = [ "seafile.target" ];
-          after = [ "network.target" ];
-          wantedBy = [ "seafile.target" ];
+          partOf = ["seafile.target"];
+          after = ["network.target"];
+          wantedBy = ["seafile.target"];
           restartTriggers = [
             ccnetConf
             seafileConf
           ];
-          path = [ pkgs.sqlite ];
+          path = [pkgs.sqlite];
           serviceConfig = securityOptions // {
             User = "seafile";
             Group = "seafile";
@@ -245,14 +245,14 @@ in
 
         seahub = {
           description = "Seafile Server Web Frontend";
-          wantedBy = [ "seafile.target" ];
-          partOf = [ "seafile.target" ];
+          wantedBy = ["seafile.target"];
+          partOf = ["seafile.target"];
           after = [
             "network.target"
             "seaf-server.service"
           ];
-          requires = [ "seaf-server.service" ];
-          restartTriggers = [ seahubSettings ];
+          requires = ["seaf-server.service"];
+          restartTriggers = [seahubSettings];
           environment = {
             PYTHONPATH = "${pkgs.seahub.pythonPath}:${pkgs.seahub}/thirdpart:${pkgs.seahub}";
             DJANGO_SETTINGS_MODULE = "seahub.settings";

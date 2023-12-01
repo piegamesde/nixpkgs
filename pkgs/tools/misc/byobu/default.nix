@@ -14,7 +14,7 @@
 }:
 
 let
-  pythonEnv = python3.withPackages (ps: with ps; [ snack ]);
+  pythonEnv = python3.withPackages (ps: with ps; [snack]);
 in
 stdenv.mkDerivation rec {
   version = "5.133";
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     perl
     gettext

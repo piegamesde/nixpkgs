@@ -15,7 +15,7 @@ buildGoPackage rec {
 
   goPackagePath = "github.com/IzakMarais/reporter";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   src = fetchFromGitHub {
     inherit rev;
@@ -26,13 +26,13 @@ buildGoPackage rec {
 
   postInstall = ''
     wrapProgram $out/bin/grafana-reporter \
-      --prefix PATH : ${makeBinPath [ tetex ]}
+      --prefix PATH : ${makeBinPath [tetex]}
   '';
 
   meta = {
     description = "PDF report generator from a Grafana dashboard";
     homepage = "https://github.com/IzakMarais/reporter";
     license = licenses.mit;
-    maintainers = with maintainers; [ disassembler ];
+    maintainers = with maintainers; [disassembler];
   };
 }

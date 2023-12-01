@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     "KERNELPATH=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
   ];
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   preBuild = ''
     sed -i -e "s,INSTALL_MOD_DIR=,INSTALL_MOD_PATH=$out INSTALL_MOD_DIR=," \

@@ -18,8 +18,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OJizLQeWE2D28s822zYDa3GaIw5HZGklioDzIkPoRfo=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = lib.optionals useGTK [ gtk2 ] ++ lib.optional stdenv.isDarwin Carbon;
+  nativeBuildInputs = [pkg-config];
+  buildInputs = lib.optionals useGTK [gtk2] ++ lib.optional stdenv.isDarwin Carbon;
 
   preBuild = ''
     export NIX_LDFLAGS_BEFORE="-rpath $out/lib"

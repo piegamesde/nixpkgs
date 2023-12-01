@@ -40,14 +40,14 @@ stdenvNoCC.mkDerivation (
     passthru.extraWrapperArgs = [
       "--set"
       "FONTCONFIG_FILE"
-      (toString (makeFontsConf { fontDirectories = [ "${finalAttrs.finalPackage}/share/fonts" ]; }))
+      (toString (makeFontsConf {fontDirectories = ["${finalAttrs.finalPackage}/share/fonts"];}))
     ];
 
     meta = with lib; {
       description = "Feature-rich minimalist proximity-based UI for MPV player";
       homepage = "https://github.com/tomasklaen/uosc";
       license = licenses.gpl3Only;
-      maintainers = with lib.maintainers; [ apfelkuchen6 ];
+      maintainers = with lib.maintainers; [apfelkuchen6];
     };
   }
 )

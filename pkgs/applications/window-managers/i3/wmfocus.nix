@@ -35,13 +35,13 @@ rustPlatform.buildRustPackage rec {
   # For now, this is the only available featureset. This is also why the file is
   # in the i3 folder, even though it might be useful for more than just i3
   # users.
-  buildFeatures = [ "i3" ];
+  buildFeatures = ["i3"];
 
   meta = with lib; {
     description = "Visually focus windows by label";
     homepage = "https://github.com/svenstaro/wmfocus";
     license = licenses.mit;
-    maintainers = with maintainers; [ synthetica ];
+    maintainers = with maintainers; [synthetica];
     platforms = platforms.linux;
   };
 }

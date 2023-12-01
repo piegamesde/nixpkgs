@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin $out/include
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     ncurses
     glib
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     homepage = "https://vwm.sourceforge.net/";
     description = "Dynamic window manager for the console";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

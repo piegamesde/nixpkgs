@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   nativeBuildInputs =
-    [ rsync ]
+    [rsync]
     ++ (
       with ocamlPackages; [
         ocaml

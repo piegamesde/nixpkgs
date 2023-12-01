@@ -10,7 +10,7 @@ attrs@{
   cmake,
   pkg-config,
   buildInputs,
-  drvParams ? { },
+  drvParams ? {},
   ...
 }:
 stdenv.mkDerivation (
@@ -20,7 +20,7 @@ stdenv.mkDerivation (
       url = "mirror://sourceforge/cdemu/${pname}-${version}.tar.xz";
       sha256 = pkgSha256;
     };
-    nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [
+    nativeBuildInputs = (attrs.nativeBuildInputs or []) ++ [
       pkg-config
       cmake
     ];
@@ -48,7 +48,7 @@ stdenv.mkDerivation (
       homepage = "https://cdemu.sourceforge.io/";
       license = licenses.gpl2Plus;
       platforms = platforms.linux;
-      maintainers = with lib.maintainers; [ bendlas ];
+      maintainers = with lib.maintainers; [bendlas];
     };
   }
   // drvParams

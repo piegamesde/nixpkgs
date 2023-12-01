@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
     "-fallow-argument-mismatch"
   ];
 
-  NIX_CFLAGS = [ "-Wno-return-type" ];
+  NIX_CFLAGS = ["-Wno-return-type"];
 
   # Workaround build failure on -fno-common toolchains:
   # ld: libpacklib.a(kedit.o):kuip/klink1.h:11: multiple definition of `klnkaddr';
@@ -128,7 +128,7 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "x86_64-darwin"
     ];
-    maintainers = with lib.maintainers; [ veprbl ];
+    maintainers = with lib.maintainers; [veprbl];
     license = lib.licenses.gpl2;
   };
 }

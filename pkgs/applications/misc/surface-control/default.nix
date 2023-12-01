@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     pkg-config
     installShellFiles
   ];
-  buildInputs = [ udev ];
+  buildInputs = [udev];
 
   postInstall = ''
     installShellCompletion \
@@ -47,7 +47,7 @@ rustPlatform.buildRustPackage rec {
     description = "Control various aspects of Microsoft Surface devices on Linux from the Command-Line";
     homepage = "https://github.com/linux-surface/surface-control";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

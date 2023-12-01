@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     libffi
   ];
 
-  nativeCheckInputs = with python3Packages; [ cram ];
+  nativeCheckInputs = with python3Packages; [cram];
 
   doCheck = true;
 

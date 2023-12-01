@@ -17,7 +17,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-xz6N7/LS3wOymh9tet8OLgsSaretzuMU4hQd+LeUPJ4=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
+  nativeBuildInputs = with python3.pkgs; [poetry-core];
 
   propagatedBuildInputs = with python3.pkgs; [
     click
@@ -67,12 +67,12 @@ python3.pkgs.buildPythonApplication rec {
     "urllib3"
   ];
 
-  pythonImportsCheck = [ "skjold" ];
+  pythonImportsCheck = ["skjold"];
 
   meta = with lib; {
     description = "Tool to Python dependencies against security advisory databases";
     homepage = "https://github.com/twu/skjold";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

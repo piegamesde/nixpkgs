@@ -31,7 +31,7 @@ buildPythonPackage rec {
     sed -i '/addopts/d' setup.cfg
   '';
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   nativeCheckInputs = [
     anyio
@@ -43,12 +43,12 @@ buildPythonPackage rec {
     trio-asyncio
   ];
 
-  pythonImportsCheck = [ "pytest_aio" ];
+  pythonImportsCheck = ["pytest_aio"];
 
   meta = with lib; {
     homepage = "https://github.com/klen/pytest-aio";
     description = "Pytest plugin for aiohttp support";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

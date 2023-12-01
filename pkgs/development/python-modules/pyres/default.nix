@@ -46,7 +46,7 @@ buildPythonPackage rec {
     description = "Python resque clone";
     homepage = "https://github.com/binarydud/pyres";
     license = licenses.mit;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
     broken = true; # not compatible with latest redis
   };
 }

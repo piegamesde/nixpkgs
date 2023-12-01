@@ -24,12 +24,12 @@ buildPythonPackage rec {
     six
     enum-compat
     ifaddr
-  ] ++ lib.optionals (pythonOlder "3.5") [ typing ];
+  ] ++ lib.optionals (pythonOlder "3.5") [typing];
 
   meta = with lib; {
     description = "A pure python implementation of multicast DNS service discovery";
     homepage = "https://github.com/jstasiak/python-zeroconf";
     license = licenses.lgpl21;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

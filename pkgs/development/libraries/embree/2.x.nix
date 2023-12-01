@@ -25,7 +25,7 @@ stdenv.mkDerivation {
     sha256 = "0q3r724r58j4b6cbyy657fsb78z7a2c7d5mwdp7552skynsn2mn9";
   };
 
-  cmakeFlags = [ "-DEMBREE_TUTORIALS=OFF" ];
+  cmakeFlags = ["-DEMBREE_TUTORIALS=OFF"];
 
   nativeBuildInputs = [
     cmake
@@ -44,8 +44,8 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "High performance ray tracing kernels from Intel";
     homepage = "https://embree.github.io/";
-    maintainers = with maintainers; [ hodapp ];
+    maintainers = with maintainers; [hodapp];
     license = licenses.asl20;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

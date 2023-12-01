@@ -26,7 +26,7 @@ python3Packages.buildPythonApplication rec {
       --replace "/opt/metasploit-framework" "${metasploit}/bin"
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   propagatedBuildInputs = with python3Packages; [
     pexpect
@@ -69,6 +69,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/trustedsec/social-engineer-toolkit";
     mainProgram = "setoolkit";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
   };
 }

@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
     installShellFiles
   ];
 
-  buildInputs = [ scons ];
+  buildInputs = [scons];
 
   runtimeDependencies =
     [
@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   # Options from 'godot/SConstruct' and 'godot/platform/linuxbsd/detect.py'
-  sconsFlags = [ "production=true" ];
+  sconsFlags = ["production=true"];
   preConfigure = ''
     sconsFlags+=" ${
       lib.concatStringsSep " " (lib.mapAttrsToList (k: v: "${k}=${builtins.toJSON v}") options)

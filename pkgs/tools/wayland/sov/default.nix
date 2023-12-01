@@ -42,8 +42,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "An overlay that shows schemas for all workspaces to make navigation in sway easier.";
     homepage = "https://github.com/milgra/sov";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ travisdavis-ops ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [travisdavis-ops];
     platforms = platforms.linux;
   };
 }

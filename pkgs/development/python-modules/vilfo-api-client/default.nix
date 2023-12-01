@@ -26,7 +26,7 @@ buildPythonPackage rec {
       --replace "get-mac" "getmac"
   '';
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
@@ -41,12 +41,12 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [ "vilfo" ];
+  pythonImportsCheck = ["vilfo"];
 
   meta = with lib; {
     description = "Simple wrapper client for the Vilfo router API";
     homepage = "https://github.com/ManneW/vilfo-api-client-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

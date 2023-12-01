@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/benmcollins/libjwt";
     description = "JWT C Library";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ pnotequalnp ];
+    maintainers = with maintainers; [pnotequalnp];
     platforms = platforms.all;
   };
 }

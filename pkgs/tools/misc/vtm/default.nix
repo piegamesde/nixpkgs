@@ -16,16 +16,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-7ECYbw51MXhYsbQxnuS4QUr5HN0cIUqgMx7V7D/kYTg=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  cmakeFlags = [ "../src" ];
+  cmakeFlags = ["../src"];
 
   meta = {
     homepage = "https://vtm.netxs.online/";
     description = "Terminal multiplexer with window manager and session sharing";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ ahuzik ];
+    maintainers = with lib.maintainers; [ahuzik];
     # never built on aarch64-linux since first introduction in nixpkgs
     broken = stdenv.isLinux && stdenv.isAarch64;
   };

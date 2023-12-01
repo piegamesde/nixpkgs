@@ -33,12 +33,12 @@ buildPythonPackage rec {
   ];
 
   # test_cli asserts on exact quoting style of output
-  disabledTests = [ "test_cli" ];
+  disabledTests = ["test_cli"];
 
   meta = with lib; {
     description = "Click command line utilities";
     homepage = "https://github.com/hjacobs/python-clickclick/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ elohmeier ];
+    maintainers = with maintainers; [elohmeier];
   };
 }

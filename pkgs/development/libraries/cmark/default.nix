@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/7TzaZYP8lndkfRPgCpBbazUBytVLXxqWHYktIsGox0=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags =
     # Link the executable with the shared library on system with shared libraries.
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "CommonMark parsing and rendering library and program in C";
     homepage = "https://github.com/commonmark/cmark";
     changelog = "https://github.com/commonmark/cmark/raw/${version}/changelog.txt";
-    maintainers = [ maintainers.michelk ];
+    maintainers = [maintainers.michelk];
     platforms = platforms.all;
     license = licenses.bsd2;
   };

@@ -30,7 +30,7 @@ let
     set: onlyDry:
     let
       set' =
-        mapAttrs (_: v: if isString v then (noDepEntry v) // { supportsDryActivation = false; } else v)
+        mapAttrs (_: v: if isString v then (noDepEntry v) // {supportsDryActivation = false;} else v)
           set;
       withHeadlines = addAttributeName set';
       # When building a dry activation script, this replaces all activation scripts
@@ -44,7 +44,7 @@ let
           (
             a: v:
             if onlyDry && !v.supportsDryActivation then
-              v // { text = "#### Activation script snippet ${a} does not support dry activation."; }
+              v // {text = "#### Activation script snippet ${a} does not support dry activation.";}
             else
               v
           )
@@ -104,7 +104,7 @@ let
         {
           deps = mkOption {
             type = types.listOf types.str;
-            default = [ ];
+            default = [];
             description = lib.mdDoc "List of dependencies. The script will run after these.";
           };
           text = mkOption {
@@ -127,7 +127,7 @@ let
           };
         };
     in
-    either str (submodule { options = scriptOptions; });
+    either str (submodule {options = scriptOptions;});
 in
 
 {
@@ -137,7 +137,7 @@ in
   options = {
 
     system.activationScripts = mkOption {
-      default = { };
+      default = {};
 
       example = literalExpression ''
         { stdio.text =
@@ -161,19 +161,19 @@ in
       '';
 
       type = types.attrsOf (scriptType true);
-      apply = set: set // { script = systemActivationScript set false; };
+      apply = set: set // {script = systemActivationScript set false;};
     };
 
     system.dryActivationScript = mkOption {
       description = lib.mdDoc "The shell script that is to be run when dry-activating a system.";
       readOnly = true;
       internal = true;
-      default = systemActivationScript (removeAttrs config.system.activationScripts [ "script" ]) true;
+      default = systemActivationScript (removeAttrs config.system.activationScripts ["script"]) true;
       defaultText = literalMD "generated activation script";
     };
 
     system.userActivationScripts = mkOption {
-      default = { };
+      default = {};
 
       example = literalExpression ''
         { plasmaSetup = {
@@ -287,7 +287,7 @@ in
         script = config.system.userActivationScripts.script;
         unitConfig.ConditionUser = "!@system";
         serviceConfig.Type = "oneshot";
-        wantedBy = [ "default.target" ];
+        wantedBy = ["default.target"];
       };
     };
   };

@@ -21,7 +21,7 @@ mkDerivation rec {
     sha256 = "sha256-HYNkpgkiRtA1ZsiFkmYk3MT3fKgs2d2neSExVXBbsPc=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     qtbase
@@ -30,13 +30,13 @@ mkDerivation rec {
     wcslib
   ];
 
-  cmakeFlags = [ "-DBUILD_TESTER=${if withTester then "on" else "off"}" ];
+  cmakeFlags = ["-DBUILD_TESTER=${if withTester then "on" else "off"}"];
 
   meta = with lib; {
     homepage = "https://github.com/rlancaste/stellarsolver";
     description = "Astrometric plate solving library";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ hjones2199 ];
+    maintainers = with maintainers; [hjones2199];
     platforms = platforms.unix;
   };
 }

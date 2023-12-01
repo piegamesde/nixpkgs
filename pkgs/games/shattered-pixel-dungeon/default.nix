@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
       binaryBytecode # deps
     ];
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
     # https://github.com/NixOS/nixpkgs/pull/99885#issuecomment-740065005
     broken = stdenv.isDarwin;

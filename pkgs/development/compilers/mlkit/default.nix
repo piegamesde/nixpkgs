@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/melsman/mlkit/blob/v${version}/NEWS.md";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ athas ];
+    maintainers = with maintainers; [athas];
   };
 }

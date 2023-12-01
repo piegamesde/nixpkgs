@@ -46,7 +46,7 @@ llvmPackages.stdenv.mkDerivation rec {
     openblas
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "C++ based language for image processing and computational photography";

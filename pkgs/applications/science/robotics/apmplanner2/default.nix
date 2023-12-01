@@ -45,9 +45,9 @@ mkDerivation rec {
     qtquickcontrols2
   ];
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
-  qmakeFlags = [ "apm_planner.pro" ];
+  qmakeFlags = ["apm_planner.pro"];
 
   # this ugly hack is necessary, as `bin/apmplanner2` needs the contents of `share/APMPlanner2` inside of `bin/`
   preFixup = ''
@@ -64,6 +64,6 @@ mkDerivation rec {
     '';
     homepage = "https://ardupilot.org/planner2/";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ wucke13 ];
+    maintainers = with lib.maintainers; [wucke13];
   };
 }

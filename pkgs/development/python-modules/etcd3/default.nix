@@ -47,12 +47,12 @@ buildPythonPackage rec {
     pifpaf -e PYTHON run etcd --cluster
   '';
 
-  pythonImportsCheck = [ "etcd3" ];
+  pythonImportsCheck = ["etcd3"];
 
   meta = with lib; {
     description = "Python client for the etcd API v3";
     homepage = "https://github.com/kragniz/python-etcd3";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

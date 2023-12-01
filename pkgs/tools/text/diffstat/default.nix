@@ -26,6 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "https://invisible-island.net/diffstat/";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

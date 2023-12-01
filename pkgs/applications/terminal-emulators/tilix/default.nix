@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   };
 
   # Default upstream else LDC fails to link
-  mesonBuildType = [ "debugoptimized" ];
+  mesonBuildType = ["debugoptimized"];
 
   nativeBuildInputs = [
     desktop-file-utils
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     description = "Tiling terminal emulator following the Gnome Human Interface Guidelines";
     homepage = "https://gnunn1.github.io/tilix-web";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ midchildan ];
+    maintainers = with maintainers; [midchildan];
     platforms = platforms.linux;
   };
 }

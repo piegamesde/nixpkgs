@@ -18,19 +18,19 @@ buildPythonPackage rec {
     sha256 = "07iwmnchvpw156j23yfccg4c32izbwm8b02bjr1xgmcwzbq21ks9";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   nativeCheckInputs = [
     pytest-cov
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "brottsplatskartan" ];
+  pythonImportsCheck = ["brottsplatskartan"];
 
   meta = with lib; {
     description = "Python API wrapper for brottsplatskartan.se";
     homepage = "https://github.com/chrillux/brottsplatskartan";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

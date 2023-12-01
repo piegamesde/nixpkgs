@@ -13,12 +13,12 @@ buildDunePackage rec {
 
   dontAddPrefix = true;
 
-  buildInputs = [ dune-action-plugin ];
+  buildInputs = [dune-action-plugin];
 
   meta = with lib; {
     inherit (dune_2.meta) homepage;
     description = "Embed build information inside executables";
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
     license = licenses.mit;
   };
 }

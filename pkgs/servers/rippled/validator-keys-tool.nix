@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "1irm8asp6plk9xw3ksf4fqnim8h0vj3h96w638lx71pga1h4zvmy";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     openssl
     boost
@@ -30,9 +30,9 @@ stdenv.mkDerivation rec {
     rippled
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  cmakeFlags = [ "-Dep_procs=1" ];
+  cmakeFlags = ["-Dep_procs=1"];
 
   installPhase = ''
     runHook preInstall
@@ -48,6 +48,6 @@ stdenv.mkDerivation rec {
       rmcgibbo
     ];
     license = licenses.isc;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

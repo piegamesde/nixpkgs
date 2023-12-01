@@ -40,13 +40,13 @@ stdenv.mkDerivation rec {
     libxslt
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     description = "Stand alone tray";
     homepage = "https://github.com/kolbusa/stalonetray";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
   };
 }

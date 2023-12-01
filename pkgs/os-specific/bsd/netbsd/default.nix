@@ -28,10 +28,10 @@ let
       cvsRoot = ":pserver:anoncvs@anoncvs.NetBSD.org:/cvsroot";
       module = "src/${path}";
       inherit sha256;
-      tag = "netbsd-${lib.replaceStrings [ "." ] [ "-" ] version}-RELEASE";
+      tag = "netbsd-${lib.replaceStrings ["."] ["-"] version}-RELEASE";
     };
 
-  netbsdSetupHook = makeSetupHook { name = "netbsd-setup-hook"; } ./setup-hook.sh;
+  netbsdSetupHook = makeSetupHook {name = "netbsd-setup-hook";} ./setup-hook.sh;
 
   defaultMakeFlags = [
     "MKSOFTFLOAT=${
@@ -42,7 +42,7 @@ let
     }"
   ];
 in
-makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
+makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: {}) (_: {}) (
   self:
   let
     inherit (self) mkDerivation;
@@ -77,7 +77,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
           inherit (attrs) version;
           src = fetchNetBSD attrs.path attrs.version attrs.sha256;
 
-          extraPaths = [ ];
+          extraPaths = [];
 
           nativeBuildInputs = with buildPackages.netbsd; [
             bsdSetupHook
@@ -132,14 +132,14 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
           # TODO should CC wrapper set this?
           CPP = "${stdenv'.cc.targetPrefix}cpp";
         }
-        // lib.optionalAttrs stdenv'.isDarwin { MKRELRO = "no"; }
+        // lib.optionalAttrs stdenv'.isDarwin {MKRELRO = "no";}
         // lib.optionalAttrs (stdenv'.cc.isClang or false) {
           HAVE_LLVM = lib.versions.major (lib.getVersion stdenv'.cc.cc);
         }
         // lib.optionalAttrs (stdenv'.cc.isGNU or false) {
           HAVE_GCC = lib.versions.major (lib.getVersion stdenv'.cc.cc);
         }
-        // lib.optionalAttrs (stdenv'.isx86_32) { USE_SSP = "no"; }
+        // lib.optionalAttrs (stdenv'.isx86_32) {USE_SSP = "no";}
         // lib.optionalAttrs (attrs.headersOnly or false) {
           installPhase = "includesPhase";
           dontBuild = true;
@@ -169,7 +169,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       sha256 = "0fh0nrnk18m613m5blrliq2aydciv51qhc0ihsj4k63incwbk90n";
       version = "9.2";
 
-      buildInputs = with self; [ ];
+      buildInputs = with self; [];
       nativeBuildInputs = with buildPackages.netbsd; [
         bsdSetupHook
         netbsdSetupHook
@@ -202,13 +202,13 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         runHook postInstall
       '';
 
-      extraPaths = with self; [ make.src ] ++ make.extraPaths;
+      extraPaths = with self; [make.src] ++ make.extraPaths;
     };
 
     compat = mkDerivation (
       let
         version = "9.2";
-        commonDeps = [ zlib ];
+        commonDeps = [zlib];
       in
       {
         path = "tools/compat";
@@ -229,7 +229,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
           "host"
         ];
         configureFlags =
-          [ "--cache-file=config.cache" ]
+          ["--cache-file=config.cache"]
           ++ lib.optionals stdenv.hostPlatform.isMusl
             [
               # We include this header in our musl package only for legacy
@@ -376,7 +376,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
           # fts header is needed. glibc already has this header, but musl doesn't,
           # so make sure pkgsMusl.netbsd.install still builds in case you want to
           # remove it!
-          ++ [ fts ];
+          ++ [fts];
         installPhase = ''
           runHook preInstall
 
@@ -452,7 +452,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
     # breaks stdenv.  Work around that with a hook that will point
     # NetBSD's build system and NetBSD stat without including it in
     # PATH.
-    statHook = makeSetupHook { name = "netbsd-stat-hook"; } (
+    statHook = makeSetupHook {name = "netbsd-stat-hook";} (
       writeText "netbsd-stat-hook-impl" ''
         makeFlagsArray+=(TOOL_STAT=${self.stat}/bin/stat)
       ''
@@ -560,7 +560,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       path = "usr.sbin/mtree";
       version = "9.2";
       sha256 = "04p7w540vz9npvyb8g8hcf2xa05phn1y88hsyrcz3vwanvpc0yv9";
-      extraPaths = with self; [ mknod.src ];
+      extraPaths = with self; [mknod.src];
     };
 
     mknod = mkDerivation {
@@ -573,7 +573,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       path = "usr.bin/getent";
       sha256 = "1qngywcmm0y7nl8h3n8brvkxq4jw63szbci3kc1q6a6ndhycbbvr";
       version = "9.2";
-      patches = [ ./getent.patch ];
+      patches = [./getent.patch];
     };
 
     getconf = mkDerivation {
@@ -586,7 +586,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       path = "usr.bin/locale";
       version = "9.2";
       sha256 = "0kk6v9k2bygq0wf9gbinliqzqpzs9bgxn0ndyl2wcv3hh2bmsr9p";
-      patches = [ ./locale.patch ];
+      patches = [./locale.patch];
       env.NIX_CFLAGS_COMPILE = "-DYESSTR=__YESSTR -DNOSTR=__NOSTR";
     };
 
@@ -630,7 +630,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         nbperf
         rsync
       ];
-      makeFlags = defaultMakeFlags ++ [ "TOOLDIR=$(out)" ];
+      makeFlags = defaultMakeFlags ++ ["TOOLDIR=$(out)"];
       extraPaths = with self; [
         libterminfo.src
         (fetchNetBSD "usr.bin/tic" "9.2" "1mwdfg7yx1g43ss378qsgl5rqhsxskqvsd2mqvrn38qw54i8v5i1")
@@ -657,7 +657,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       path = "usr.bin/config";
       version = "9.2";
       sha256 = "1yz3n4hncdkk6kp595fh2q5lg150vpqg8iw2dccydkyw4y3hgsjj";
-      env.NIX_CFLAGS_COMPILE = toString [ "-DMAKE_BOOTSTRAP" ];
+      env.NIX_CFLAGS_COMPILE = toString ["-DMAKE_BOOTSTRAP"];
       nativeBuildInputs = with buildPackages.netbsd; [
         bsdSetupHook
         netbsdSetupHook
@@ -669,7 +669,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         rsync
       ];
       buildInputs = with self; compatIfNeeded;
-      extraPaths = with self; [ cksum.src ];
+      extraPaths = with self; [cksum.src];
     };
     ##
     ## END COMMAND LINE TOOLS
@@ -709,11 +709,11 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         makeFlags=''${makeFlags/INCSDIR/INCSDIR0}
       '';
 
-      extraPaths = with self; [ common ];
+      extraPaths = with self; [common];
       headersOnly = true;
       noCC = true;
       meta.platforms = lib.platforms.netbsd;
-      makeFlags = defaultMakeFlags ++ [ "RPCGEN_CPP=${buildPackages.stdenv.cc.cc}/bin/cpp" ];
+      makeFlags = defaultMakeFlags ++ ["RPCGEN_CPP=${buildPackages.stdenv.cc.cc}/bin/cpp"];
     };
 
     common = fetchNetBSD "common" "9.2" "1pfylz9r3ap5wnwwbwczbfjb1m5qdyspzbnmxmcdkpzz2zgj64b9";
@@ -738,7 +738,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
 
       CONFIG = "GENERIC";
 
-      propagatedBuildInputs = with self; [ include ];
+      propagatedBuildInputs = with self; [include];
       nativeBuildInputs = with buildPackages.netbsd; [
         bsdSetupHook
         netbsdSetupHook
@@ -762,10 +762,10 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         # multiple header dirs, see above
         + self.include.postConfigure;
 
-      makeFlags = defaultMakeFlags ++ [ "FIRMWAREDIR=$(out)/libdata/firmware" ];
-      hardeningDisable = [ "pic" ];
+      makeFlags = defaultMakeFlags ++ ["FIRMWAREDIR=$(out)/libdata/firmware"];
+      hardeningDisable = ["pic"];
       MKKMOD = "no";
-      env.NIX_CFLAGS_COMPILE = toString [ "-Wa,--no-warn" ];
+      env.NIX_CFLAGS_COMPILE = toString ["-Wa,--no-warn"];
 
       postBuild = ''
         make -C arch/$MACHINE/compile/$CONFIG $makeFlags
@@ -776,7 +776,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       '';
 
       meta.platforms = lib.platforms.netbsd;
-      extraPaths = with self; [ common ];
+      extraPaths = with self; [common];
 
       installPhase = "includesPhase";
       dontBuild = true;
@@ -837,7 +837,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         statHook
         rsync
       ];
-      buildInputs = with self; [ headers ];
+      buildInputs = with self; [headers];
       SHLIBINSTALLDIR = "$(out)/lib";
     };
 
@@ -851,7 +851,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       ];
       propagatedBuildInputs = with self; compatIfNeeded;
       SHLIBINSTALLDIR = "$(out)/lib";
-      makeFlags = defaultMakeFlags ++ [ "LIBDO.terminfo=${self.libterminfo}/lib" ];
+      makeFlags = defaultMakeFlags ++ ["LIBDO.terminfo=${self.libterminfo}/lib"];
       postPatch = ''
         sed -i '1i #undef bool_t' $COMPONENT_PATH/el.h
         substituteInPlace $COMPONENT_PATH/config.h \
@@ -904,7 +904,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       path = "lib/libcurses";
       version = "9.2";
       sha256 = "0pd0dggl3w4bv5i5h0s1wrc8hr66n4hkv3zlklarwfdhc692fqal";
-      buildInputs = with self; [ libterminfo ];
+      buildInputs = with self; [libterminfo];
       env.NIX_CFLAGS_COMPILE =
         toString [
           "-D__scanflike(a,b)="
@@ -914,7 +914,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         ++ lib.optional stdenv.isDarwin "-D__strong_alias(a,b)=";
       propagatedBuildInputs = with self; compatIfNeeded;
       MKDOC = "no"; # missing vfontedpr
-      makeFlags = defaultMakeFlags ++ [ "LIBDO.terminfo=${self.libterminfo}/lib" ];
+      makeFlags = defaultMakeFlags ++ ["LIBDO.terminfo=${self.libterminfo}/lib"];
       postPatch = lib.optionalString (!stdenv.isDarwin) ''
         substituteInPlace $COMPONENT_PATH/printw.c \
           --replace "funopen(win, NULL, __winwrite, NULL, NULL)" NULL \
@@ -941,7 +941,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       path = "lib/librpcsvc";
       version = "9.2";
       sha256 = "1q34pfiyjbrgrdqm46jwrsqms49ly6z3b0xh1wg331zga900vq5n";
-      makeFlags = defaultMakeFlags ++ [ "INCSDIR=$(out)/include/rpcsvc" ];
+      makeFlags = defaultMakeFlags ++ ["INCSDIR=$(out)/include/rpcsvc"];
       meta.platforms = lib.platforms.netbsd;
       nativeBuildInputs = with buildPackages.netbsd; [
         bsdSetupHook
@@ -960,7 +960,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       version = "9.2";
       sha256 = "07f8mpjcqh5kig5z5sp97fg55mc4dz6aa1x5g01nv2pvbmqczxc6";
       meta.platforms = lib.platforms.netbsd;
-      extraPaths = with self; [ libc.src ] ++ libc.extraPaths;
+      extraPaths = with self; [libc.src] ++ libc.extraPaths;
       postPatch = ''
         sed -i 's,/usr\(/include/sys/syscall.h\),${self.headers}\1,g' \
           $BSDSRCDIR/lib/{libc,librt}/sys/Makefile.inc
@@ -980,9 +980,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       path = "lib/libpci";
       version = "9.2";
       sha256 = "+IOEO1Bw3/H3iCp3uk3bwsFZbvCqN5Ciz70irnPl8E8=";
-      env.NIX_CFLAGS_COMPILE = toString [ "-I." ];
+      env.NIX_CFLAGS_COMPILE = toString ["-I."];
       meta.platforms = lib.platforms.netbsd;
-      extraPaths = with self; [ sys.src ];
+      extraPaths = with self; [sys.src];
     };
 
     libpthread-headers = mkDerivation {
@@ -1001,7 +1001,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       installPhase = null;
       noCC = false;
       dontBuild = false;
-      buildInputs = with self; [ headers ];
+      buildInputs = with self; [headers];
       SHLIBINSTALLDIR = "$(out)/lib";
       extraPaths = with self; [
         common
@@ -1016,7 +1016,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       version = "9.2";
       sha256 = "1am74s74mf1ynwz3p4ncjkg63f78a1zjm983q166x4sgzps15626";
       meta.platforms = lib.platforms.netbsd;
-      extraPaths = with self; [ libc.src ];
+      extraPaths = with self; [libc.src];
     };
 
     libm = mkDerivation {
@@ -1025,7 +1025,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       sha256 = "1apwfr26shdmbqqnmg7hxf7bkfxw44ynqnnnghrww9bnhqdnsy92";
       SHLIBINSTALLDIR = "$(out)/lib";
       meta.platforms = lib.platforms.netbsd;
-      extraPaths = with self; [ sys.src ];
+      extraPaths = with self; [sys.src];
     };
 
     i18n_module = mkDerivation {
@@ -1033,7 +1033,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       version = "9.2";
       sha256 = "0w6y5v3binm7gf2kn7y9jja8k18rhnyl55cvvfnfipjqdxvxd9jd";
       meta.platforms = lib.platforms.netbsd;
-      extraPaths = with self; [ libc.src ];
+      extraPaths = with self; [libc.src];
     };
 
     csu = mkDerivation {
@@ -1057,7 +1057,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         statHook
         rsync
       ];
-      buildInputs = with self; [ headers ];
+      buildInputs = with self; [headers];
       extraPaths = with self; [
         sys.src
         ld_elf_so.src
@@ -1077,7 +1077,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         "BINDIR=$(out)/libexec"
         "CLIBOBJ=${self.libc}/lib"
       ];
-      extraPaths = with self; [ libc.src ] ++ libc.extraPaths;
+      extraPaths = with self; [libc.src] ++ libc.extraPaths;
     };
 
     _mainLibcExtraPaths = with self; [
@@ -1132,7 +1132,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       SHLIBINSTALLDIR = "$(out)/lib";
       MKPICINSTALL = "yes";
       NLSDIR = "$(out)/share/nls";
-      makeFlags = defaultMakeFlags ++ [ "FILESDIR=$(out)/var/db" ];
+      makeFlags = defaultMakeFlags ++ ["FILESDIR=$(out)/var/db"];
       postInstall = ''
         pushd ${self.headers}
         find . -type d -exec mkdir -p $out/\{} \;
@@ -1186,7 +1186,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       noCC = true;
       version = "9.2";
       sha256 = "0svfc0byk59ri37pyjslv4c4rc7zw396r73mr593i78d39q5g3ad";
-      makeFlags = defaultMakeFlags ++ [ "BINDIR=$(out)/share" ];
+      makeFlags = defaultMakeFlags ++ ["BINDIR=$(out)/share"];
     };
 
     misc = mkDerivation {
@@ -1194,7 +1194,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       noCC = true;
       version = "9.2";
       sha256 = "1j2cdssdx6nncv8ffj7f7ybl7m9hadjj8vm8611skqdvxnjg6nbc";
-      makeFlags = defaultMakeFlags ++ [ "BINDIR=$(out)/share" ];
+      makeFlags = defaultMakeFlags ++ ["BINDIR=$(out)/share"];
     };
 
     man = mkDerivation {

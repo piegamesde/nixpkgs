@@ -56,7 +56,7 @@ buildPythonPackage rec {
       importlib-metadata
       typing-extensions
     ]
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+    ++ lib.optionals (pythonOlder "3.9") [importlib-resources];
 
   passthru.optional-dependencies = {
     format = [
@@ -81,19 +81,19 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [ twisted ];
+  nativeCheckInputs = [twisted];
 
   checkPhase = ''
     export JSON_SCHEMA_TEST_SUITE=json
     trial jsonschema
   '';
 
-  pythonImportsCheck = [ "jsonschema" ];
+  pythonImportsCheck = ["jsonschema"];
 
   meta = with lib; {
     description = "An implementation of JSON Schema validation for Python";
     homepage = "https://github.com/python-jsonschema/jsonschema";
     license = licenses.mit;
-    maintainers = with maintainers; [ domenkozar ];
+    maintainers = with maintainers; [domenkozar];
   };
 }

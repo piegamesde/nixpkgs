@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "binomial-heap";
   version = "20130420-git";
 
   description = "A compact binomial heap implementation.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/binomial-heap/2013-04-20/binomial-heap-20130420-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "binomial-heap";
 
-  asdFilesToKeep = [ "binomial-heap.asd" ];
+  asdFilesToKeep = ["binomial-heap.asd"];
   overrides = x: x;
 }
 /* (SYSTEM binomial-heap DESCRIPTION A compact binomial heap implementation.

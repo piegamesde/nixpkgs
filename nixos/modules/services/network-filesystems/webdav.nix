@@ -8,7 +8,7 @@
 with lib;
 let
   cfg = config.services.webdav;
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
 in
 {
   options = {
@@ -29,7 +29,7 @@ in
 
       settings = mkOption {
         type = format.type;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Attrset that is converted and passed as config file. Available options
           can be found at
@@ -88,21 +88,21 @@ in
       };
     };
 
-    users.groups = mkIf (cfg.group == "webdav") { webdav.gid = config.ids.gids.webdav; };
+    users.groups = mkIf (cfg.group == "webdav") {webdav.gid = config.ids.gids.webdav;};
 
     systemd.services.webdav = {
       description = "WebDAV server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.webdav}/bin/webdav -c ${cfg.configFile}";
         Restart = "on-failure";
         User = cfg.user;
         Group = cfg.group;
-        EnvironmentFile = mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
+        EnvironmentFile = mkIf (cfg.environmentFile != null) [cfg.environmentFile];
       };
     };
   };
 
-  meta.maintainers = with maintainers; [ pmy ];
+  meta.maintainers = with maintainers; [pmy];
 }

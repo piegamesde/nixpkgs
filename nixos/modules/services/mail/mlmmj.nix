@@ -87,7 +87,7 @@ in
 
       mailLists = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "The collection of hosted maillists";
       };
 
@@ -147,7 +147,7 @@ in
       transport = concatMapLines (transport cfg.listDomain) cfg.mailLists;
     };
 
-    environment.systemPackages = [ pkgs.mlmmj ];
+    environment.systemPackages = [pkgs.mlmmj];
 
     system.activationScripts.mlmmj = ''
       ${pkgs.coreutils}/bin/mkdir -p ${stateDir} ${spoolDir}/${cfg.listDomain}
@@ -169,7 +169,7 @@ in
     systemd.timers.mlmmj-maintd = {
       description = "mlmmj maintenance timer";
       timerConfig.OnUnitActiveSec = cfg.maintInterval;
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
     };
   };
 }

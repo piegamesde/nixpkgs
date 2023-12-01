@@ -21,12 +21,12 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-0osWLXrpz6/CnCK1mfwnwqk+OsZLxO2JxbgRnqMhLeE=";
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+  nativeBuildInputs = [pkg-config] ++ lib.optionals stdenv.isDarwin [DarwinTools];
 
   buildInputs = [
     libusb1
     openssl
-  ] ++ lib.optionals stdenv.isDarwin [ AppKit ];
+  ] ++ lib.optionals stdenv.isDarwin [AppKit];
 
   meta = with lib; {
     description = "CLI tool for on-chip debugging and flashing of ARM chips";

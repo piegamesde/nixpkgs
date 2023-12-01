@@ -15,7 +15,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-fPY12kValxbJORi9xNyxzwkGpD9F9u3M1+aa9IlSiaE=";
   };
 
-  nativeBuildInputs = [ python3Packages.setuptools-scm ];
+  nativeBuildInputs = [python3Packages.setuptools-scm];
 
   propagatedBuildInputs = with python3Packages; [
     intelhex
@@ -34,6 +34,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://github.com/JelmerT/cc2538-bsl";
     description = "Flash TI SimpleLink chips (CC2538, CC13xx, CC26xx) over serial";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ lorenz ];
+    maintainers = with maintainers; [lorenz];
   };
 }

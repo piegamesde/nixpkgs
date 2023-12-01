@@ -42,7 +42,7 @@ buildPythonPackage rec {
     elasticsearch
     dominate
   ];
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
   # Circular dependency
   disabledTests = [
     "test_normal_from_file"
@@ -57,7 +57,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/thombashi/pytablewriter";
     description = "A library to write a table in various formats";
-    maintainers = with maintainers; [ genericnerdyusername ];
+    maintainers = with maintainers; [genericnerdyusername];
     license = licenses.mit;
   };
 }

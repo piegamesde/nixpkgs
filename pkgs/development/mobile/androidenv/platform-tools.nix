@@ -9,7 +9,7 @@
 
 deployAndroidPackage {
   inherit package os;
-  nativeBuildInputs = lib.optionals (os == "linux") [ autoPatchelfHook ];
+  nativeBuildInputs = lib.optionals (os == "linux") [autoPatchelfHook];
   buildInputs = lib.optionals (os == "linux") [
     pkgs.glibc
     pkgs.stdenv.cc.cc.lib

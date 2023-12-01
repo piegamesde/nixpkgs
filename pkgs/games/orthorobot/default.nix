@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
       comment = "Robot game";
       desktopName = "Orthorobot";
       genericName = "orthorobot";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Recharge the robot";
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
     platforms = platforms.linux;
     license = licenses.free;
     downloadPage = "https://stabyourself.net/orthorobot/";

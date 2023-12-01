@@ -67,7 +67,7 @@ buildPythonPackage rec {
     ")
   '';
 
-  pythonImportsCheck = [ "oslo_concurrency" ];
+  pythonImportsCheck = ["oslo_concurrency"];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

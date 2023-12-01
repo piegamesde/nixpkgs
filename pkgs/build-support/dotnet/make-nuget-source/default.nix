@@ -8,7 +8,7 @@
 {
   name,
   description ? "",
-  deps ? [ ],
+  deps ? [],
 }:
 
 let

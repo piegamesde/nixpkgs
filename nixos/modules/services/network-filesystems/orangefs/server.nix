@@ -125,7 +125,7 @@ in
 
       BMIModules = mkOption {
         type = with types; listOf str;
-        default = [ "bmi_tcp" ];
+        default = ["bmi_tcp"];
         example = [
           "bmi_tcp"
           "bmi_ib"
@@ -147,7 +147,7 @@ in
 
       servers = mkOption {
         type = with types; attrsOf types.str;
-        default = { };
+        default = {};
         example = {
           node1 = "tcp://node1:3334";
           node2 = "tcp://node2:3334";
@@ -160,7 +160,7 @@ in
           These options will create the `<FileSystem>` sections of config file.
         '';
         default = {
-          orangefs = { };
+          orangefs = {};
         };
         example = literalExpression ''
           {
@@ -177,7 +177,7 @@ in
           with types;
           attrsOf (
             submodule (
-              { ... }:
+              {...}:
               {
                 options = {
                   id = mkOption {
@@ -226,14 +226,14 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.orangefs ];
+    environment.systemPackages = [pkgs.orangefs];
 
     # orangefs daemon will run as user
     users.users.orangefs = {
       isSystemUser = true;
       group = "orangfs";
     };
-    users.groups.orangefs = { };
+    users.groups.orangefs = {};
 
     # To format the file system the config file is needed.
     environment.etc."orangefs/server.conf" = {
@@ -243,9 +243,9 @@ in
     };
 
     systemd.services.orangefs-server = {
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["network-online.target"];
+      after = ["network-online.target"];
 
       serviceConfig = {
         # Run as "simple" in foreground mode.

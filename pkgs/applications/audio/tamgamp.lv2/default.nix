@@ -18,14 +18,14 @@ stdenv.mkDerivation rec {
     sha256 = "0dqsnim7v79rx13bkkh143gqz0xg26cpf6ya3mrwwprpf5hns2bp";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     lv2
     zita-resampler
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   enableParallelBuilding = true;
 
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       - VOX AC-30 Brilliant channel
       - VOX AC-30 normal channel
     '';
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.linux;
     license = licenses.lgpl3Plus;
   };

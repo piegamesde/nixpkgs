@@ -31,7 +31,7 @@ in
   config = mkIf (cfg.screenrc != "") {
     environment.etc.screenrc.text = cfg.screenrc;
 
-    environment.systemPackages = [ pkgs.screen ];
-    security.pam.services.screen = { };
+    environment.systemPackages = [pkgs.screen];
+    security.pam.services.screen = {};
   };
 }

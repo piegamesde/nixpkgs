@@ -50,10 +50,9 @@ let
     '';
   };
 
-  nvimAutoDisableWrap = makeNeovimConfig { };
+  nvimAutoDisableWrap = makeNeovimConfig {};
 
-  wrapNeovim2 =
-    suffix: config: wrapNeovimUnstable neovim-unwrapped (config // { extraName = suffix; });
+  wrapNeovim2 = suffix: config: wrapNeovimUnstable neovim-unwrapped (config // {extraName = suffix;});
 
   nmt = fetchFromGitLab {
     owner = "rycee";
@@ -66,7 +65,7 @@ let
   # $VIMRUNTIME/ftplugin/vim.tex sources $VIMRUNTIME/ftplugin/initex.vim which sets b:did_ftplugin
   # we save b:did_ftplugin's value in a `plugin_was_loaded_too_late` file
   texFtplugin =
-    (pkgs.runCommandLocal "tex-ftplugin" { } ''
+    (pkgs.runCommandLocal "tex-ftplugin" {} ''
       mkdir -p $out/ftplugin
       echo 'call system("echo ". exists("b:did_ftplugin") . " > plugin_was_loaded_too_late")' >> $out/ftplugin/tex.vim
       echo ':q!' >> $out/ftplugin/tex.vim
@@ -80,7 +79,7 @@ let
     neovim-drv: buildCommand:
     runCommandLocal "test-${neovim-drv.name}"
       ({
-        nativeBuildInputs = [ ];
+        nativeBuildInputs = [];
         meta.platforms = neovim-drv.meta.platforms;
       })
       (
@@ -113,7 +112,7 @@ pkgs.recurseIntoAttrs (rec {
   nvim_via_override = neovim.override {
     extraName = "-via-override";
     configure = {
-      packages.foo.start = [ vimPlugins.ale ];
+      packages.foo.start = [vimPlugins.ale];
       customRC = ''
         :help ale
       '';
@@ -130,7 +129,7 @@ pkgs.recurseIntoAttrs (rec {
     extraName = "-with-plug";
     configure.packages.plugins = with pkgs.vimPlugins; {
       start = [
-        (base16-vim.overrideAttrs (old: { pname = old.pname + "-unique-for-tests-please-dont-use"; }))
+        (base16-vim.overrideAttrs (old: {pname = old.pname + "-unique-for-tests-please-dont-use";}))
       ];
     };
     configure.customRC = ''
@@ -147,7 +146,7 @@ pkgs.recurseIntoAttrs (rec {
   nvim_with_ftplugin = neovim.override {
     extraName = "-with-ftplugin";
     configure.packages.plugins = {
-      start = [ texFtplugin ];
+      start = [texFtplugin];
     };
   };
 
@@ -189,7 +188,7 @@ pkgs.recurseIntoAttrs (rec {
   nvim_with_gitsigns_plugin = neovim.override {
     extraName = "-with-gitsigns-plugin";
     configure.packages.plugins = {
-      start = [ vimPlugins.gitsigns-nvim ];
+      start = [vimPlugins.gitsigns-nvim];
     };
   };
   checkHelpLuaPackages = runTest nvim_with_gitsigns_plugin ''
@@ -237,12 +236,12 @@ pkgs.recurseIntoAttrs (rec {
   # plugin is not registered.
   test_nvim_with_remote_plugin = neovim.override {
     extraName = "-remote";
-    configure.packages.foo.start = with vimPlugins; [ deoplete-nvim ];
+    configure.packages.foo.start = with vimPlugins; [deoplete-nvim];
   };
 
   nvimWithLuaPackages = wrapNeovim2 "-with-lua-packages" (
     makeNeovimConfig {
-      extraLuaPackages = ps: [ ps.mpack ];
+      extraLuaPackages = ps: [ps.mpack];
       customRC = ''
         lua require("mpack")
       '';
@@ -259,9 +258,7 @@ pkgs.recurseIntoAttrs (rec {
     extraName = "-with-opt-plugin";
     configure.packages.opt-plugins = with pkgs.vimPlugins; {
       opt = [
-        (dashboard-nvim.overrideAttrs (
-          old: { pname = old.pname + "-unique-for-tests-please-dont-use-opt"; }
-        ))
+        (dashboard-nvim.overrideAttrs (old: {pname = old.pname + "-unique-for-tests-please-dont-use-opt";}))
       ];
     };
     configure.customRC = ''

@@ -1,12 +1,12 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
 
   {
     name = "zoneminder";
-    meta.maintainers = with lib.maintainers; [ danielfullmer ];
+    meta.maintainers = with lib.maintainers; [danielfullmer];
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
         services.zoneminder = {
           enable = true;

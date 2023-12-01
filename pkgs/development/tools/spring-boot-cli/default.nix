@@ -51,9 +51,9 @@ stdenv.mkDerivation rec {
       a command line tool that runs “spring scripts”.
     '';
     homepage = "https://spring.io/projects/spring-boot";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ moaxcp ];
+    maintainers = with maintainers; [moaxcp];
   };
 }

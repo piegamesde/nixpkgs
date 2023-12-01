@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
   # The tests use cmake's findPackage to find the installed version of
   # pangolin, which isn't what we want (or available).
   doCheck = false;
-  cmakeFlags = [ "-DBUILD_TESTS=OFF" ];
+  cmakeFlags = ["-DBUILD_TESTS=OFF"];
 
   meta = {
     description = "A lightweight portable rapid development library for managing OpenGL display / interaction and abstracting video input";
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/stevenlovegrove/Pangolin";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.expipiplus1 ];
+    maintainers = [lib.maintainers.expipiplus1];
     platforms = lib.platforms.all;
   };
 }

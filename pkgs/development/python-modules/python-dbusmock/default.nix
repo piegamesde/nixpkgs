@@ -15,7 +15,7 @@
 let
   # Cannot just add it to path in preCheck since that attribute will be passed to
   # mkDerivation even with doCheck = false, causing a dependency cycle.
-  pbap-client = runCommand "pbap-client" { } ''
+  pbap-client = runCommand "pbap-client" {} ''
     mkdir -p "$out/bin"
     ln -s "${bluez.test}/test/pbap-client" "$out/bin/pbap-client"
   '';
@@ -33,9 +33,9 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ dbus-python ];
+  propagatedBuildInputs = [dbus-python];
 
   nativeCheckInputs = [
     dbus
@@ -79,7 +79,7 @@ buildPythonPackage rec {
     description = "Mock D-Bus objects for tests";
     homepage = "https://github.com/martinpitt/python-dbusmock";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ callahad ];
+    maintainers = with maintainers; [callahad];
     platforms = platforms.linux;
   };
 }

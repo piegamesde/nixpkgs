@@ -17,14 +17,14 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-UMC1puEM0PhIu+lJouOj81tI/E6fz1PzPN0FU7TNwTg=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/share
     cp -ra application bin etc library modules public $out
     cp -ra doc $out/share
 
-    wrapProgram $out/bin/icingacli --prefix PATH : "${lib.makeBinPath [ php ]}"
+    wrapProgram $out/bin/icingacli --prefix PATH : "${lib.makeBinPath [php]}"
   '';
 
   meta = with lib; {
@@ -35,7 +35,7 @@ stdenvNoCC.mkDerivation rec {
     '';
     homepage = "https://www.icinga.com/products/icinga-web-2/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ das_j ];
+    maintainers = with maintainers; [das_j];
     mainProgram = "icingacli";
     platforms = platforms.all;
   };

@@ -61,13 +61,13 @@ stdenv.mkDerivation rec {
       libdbi
       libdbiDrivers
     ]
-    ++ lib.optionals postgresSupport [ postgresql ];
+    ++ lib.optionals postgresSupport [postgresql];
 
   meta = with lib; {
     homepage = "https://wammu.eu/gammu/";
     description = "Command line utility and library to control mobile phones";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.coroa ];
+    maintainers = [maintainers.coroa];
   };
 }

@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace cc "$CC" --replace strip "$STRIP"
   '';
 
-  buildInputs = [ xorg.libX11 ];
+  buildInputs = [xorg.libX11];
   env.NIX_CFLAGS_COMPILE = "-Wno-format-security";
 
   installPhase =
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     '';
 
   meta = with lib; {
-    maintainers = [ maintainers.kmein ];
+    maintainers = [maintainers.kmein];
     homepage = "https://astrolog.org/astrolog.htm";
     description = "Freeware astrology program";
     platforms = platforms.linux;

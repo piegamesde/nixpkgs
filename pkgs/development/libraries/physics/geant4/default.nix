@@ -85,17 +85,15 @@ lib.warnIf (enableQT != false) "geant4: enableQT is deprecated, please use enabl
         "-DXQuartzGL_INCLUDE_DIR=${libGL.dev}/include"
         "-DXQuartzGL_gl_LIBRARY=${libGL}/lib/libGL.dylib"
       ]
-      ++ lib.optionals (enableMultiThreading && enablePython) [
-        "-DGEANT4_BUILD_TLS_MODEL=global-dynamic"
-      ]
+      ++ lib.optionals (enableMultiThreading && enablePython) ["-DGEANT4_BUILD_TLS_MODEL=global-dynamic"]
       ++ lib.optionals enableInventor [
         "-DINVENTOR_INCLUDE_DIR=${coin3d}/include"
         "-DINVENTOR_LIBRARY_RELEASE=${coin3d}/lib/libCoin.so"
       ];
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
-    propagatedNativeBuildInputs = lib.optionals enableQt [ wrapQtAppsHook ];
+    propagatedNativeBuildInputs = lib.optionals enableQt [wrapQtAppsHook];
     dontWrapQtApps = true; # no binaries
 
     buildInputs =
@@ -121,7 +119,7 @@ lib.warnIf (enableQT != false) "geant4: enableQT is deprecated, please use enabl
       xercesc
       zlib
       libGL
-    ] ++ lib.optionals enableXM [ motif ] ++ lib.optionals enableQt [ qtbase ];
+    ] ++ lib.optionals enableXM [motif] ++ lib.optionals enableQt [qtbase];
 
     postFixup =
       ''
@@ -135,9 +133,9 @@ lib.warnIf (enableQT != false) "geant4: enableQT is deprecated, please use enabl
     setupHook = ./geant4-hook.sh;
 
     passthru = {
-      data = callPackage ./datasets.nix { };
+      data = callPackage ./datasets.nix {};
 
-      tests = callPackage ./tests.nix { };
+      tests = callPackage ./tests.nix {};
 
       inherit enableQt;
     };

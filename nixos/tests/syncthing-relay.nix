@@ -1,15 +1,15 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
   {
     name = "syncthing-relay";
-    meta.maintainers = with pkgs.lib.maintainers; [ delroth ];
+    meta.maintainers = with pkgs.lib.maintainers; [delroth];
 
     nodes.machine = {
-      environment.systemPackages = [ pkgs.jq ];
+      environment.systemPackages = [pkgs.jq];
       services.syncthing.relay = {
         enable = true;
         providedBy = "nixos-test";
-        pools = [ ]; # Don't connect to any pool while testing.
+        pools = []; # Don't connect to any pool while testing.
         port = 12345;
         statusPort = 12346;
       };

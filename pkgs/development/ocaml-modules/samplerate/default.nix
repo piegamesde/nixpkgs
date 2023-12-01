@@ -19,13 +19,13 @@ buildDunePackage rec {
     sha256 = "0h0i9v9p9n2givv3wys8qrfi1i7vp8kq7lnkf14s7d3m4r8x4wrp";
   };
 
-  buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [ libsamplerate ];
+  buildInputs = [dune-configurator];
+  propagatedBuildInputs = [libsamplerate];
 
   meta = with lib; {
     homepage = "https://github.com/savonet/ocaml-samplerate";
     description = "Interface for libsamplerate";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

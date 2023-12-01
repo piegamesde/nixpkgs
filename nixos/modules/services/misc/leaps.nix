@@ -51,8 +51,8 @@ in
 
     systemd.services.leaps = {
       description = "leaps service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         User = "leaps";

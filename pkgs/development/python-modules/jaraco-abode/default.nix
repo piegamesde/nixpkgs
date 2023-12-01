@@ -68,7 +68,7 @@ buildPythonPackage rec {
     jaraco_itertools
   ];
 
-  pythonImportsCheck = [ "jaraco.abode" ];
+  pythonImportsCheck = ["jaraco.abode"];
 
   nativeCheckInputs = [
     pytestCheckHook

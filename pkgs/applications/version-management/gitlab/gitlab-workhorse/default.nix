@@ -22,8 +22,8 @@ buildGoModule rec {
   sourceRoot = "source/workhorse";
 
   vendorSha256 = "sha256-/snYfip1f0TCVoPk80thanYpbYsGjEd+CAcxIt289As=";
-  buildInputs = [ git ];
-  ldflags = [ "-X main.Version=${version}" ];
+  buildInputs = [git];
+  ldflags = ["-X main.Version=${version}"];
   doCheck = false;
 
   meta = with lib; {

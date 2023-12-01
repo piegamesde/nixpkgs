@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-geometry";
   version = "20160531-git";
@@ -18,7 +18,7 @@ rec {
 
   packageName = "cl-geometry";
 
-  asdFilesToKeep = [ "cl-geometry.asd" ];
+  asdFilesToKeep = ["cl-geometry.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-geometry DESCRIPTION Library for two dimensional geometry. SHA256

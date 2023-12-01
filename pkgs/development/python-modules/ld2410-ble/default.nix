@@ -29,7 +29,7 @@ buildPythonPackage rec {
       --replace " --cov=ld2410_ble --cov-report=term-missing:skip-covered" ""
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     async-timeout
@@ -37,15 +37,15 @@ buildPythonPackage rec {
     bleak-retry-connector
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ld2410_ble" ];
+  pythonImportsCheck = ["ld2410_ble"];
 
   meta = with lib; {
     description = "Library for the LD2410B modules from HiLinks";
     homepage = "https://github.com/930913/ld2410-ble";
     changelog = "https://github.com/930913/ld2410-ble/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

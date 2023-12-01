@@ -2,7 +2,7 @@
 
 let
   importTest =
-    { ... }:
+    {...}:
     {
       services.logrotate.settings.import = {
         olddir = false;
@@ -11,15 +11,15 @@ let
 in
 
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   rec {
     name = "logrotate";
-    meta = with pkgs.lib.maintainers; { maintainers = [ martinetd ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [martinetd];};
 
     nodes = {
-      defaultMachine = { ... }: { };
+      defaultMachine = {...}: {};
       failingMachine =
-        { ... }:
+        {...}:
         {
           services.logrotate.configFile = pkgs.writeText "logrotate.conf" ''
             # self-written config file
@@ -27,9 +27,9 @@ import ./make-test-python.nix (
           '';
         };
       machine =
-        { config, ... }:
+        {config, ...}:
         {
-          imports = [ importTest ];
+          imports = [importTest];
 
           services.logrotate.settings = {
             # remove default frequency header and add another

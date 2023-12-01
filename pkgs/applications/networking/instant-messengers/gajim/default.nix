@@ -37,7 +37,7 @@
   enableOmemoPluginDependencies ? true,
   enableAppIndicator ? true,
   libappindicator-gtk3,
-  extraPythonPackages ? ps: [ ],
+  extraPythonPackages ? ps: [],
 }:
 
 python3.pkgs.buildPythonApplication rec {

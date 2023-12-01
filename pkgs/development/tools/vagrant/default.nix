@@ -61,7 +61,7 @@ buildRubyGem rec {
 
   doInstallCheck = true;
   dontBuild = false;
-  src = fetchurl { inherit url sha256; };
+  src = fetchurl {inherit url sha256;};
 
   patches = [
     ./unofficial-installation-nowarn.patch
@@ -84,7 +84,7 @@ buildRubyGem rec {
     let
       pathAdditions = lib.makeSearchPath "bin" (
         map (x: lib.getBin x) (
-          [ libarchive ]
+          [libarchive]
           ++ lib.optionals withLibvirt [
             libguestfs
             qemu
@@ -128,7 +128,7 @@ buildRubyGem rec {
     description = "A tool for building complete development environments";
     homepage = "https://www.vagrantup.com/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = with platforms; linux ++ darwin;
   };
 }

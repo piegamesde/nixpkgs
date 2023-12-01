@@ -23,15 +23,15 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     glib
     meson
     ninja
     pkg-config
-  ] ++ lib.optionals withIntrospection [ gobject-introspection ];
+  ] ++ lib.optionals withIntrospection [gobject-introspection];
 
-  mesonFlags = [ (lib.mesonBool "introspection" withIntrospection) ];
+  mesonFlags = [(lib.mesonBool "introspection" withIntrospection)];
 
   preInstall = ''
     # Meson installs the schemas to share/glib-2.0/schemas
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = pname; };
+    updateScript = gnome.updateScript {packageName = pname;};
   };
 
   meta = with lib; {

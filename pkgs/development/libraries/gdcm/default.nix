@@ -34,16 +34,16 @@ stdenv.mkDerivation rec {
       "-DCMAKE_INSTALL_BINDIR=bin"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
     ]
-    ++ lib.optionals enableVTK [ "-DGDCM_USE_VTK=ON" ]
+    ++ lib.optionals enableVTK ["-DGDCM_USE_VTK=ON"]
     ++ lib.optionals enablePython [
       "-DGDCM_WRAP_PYTHON:BOOL=ON"
       "-DGDCM_INSTALL_PYTHONMODULE_DIR=${placeholder "out"}/${python.sitePackages}"
     ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs =
-    lib.optionals enableVTK [ vtk ]
+    lib.optionals enableVTK [vtk]
     ++ lib.optionals stdenv.isDarwin [
       ApplicationServices
       Cocoa
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
       bsd3
       asl20
     ];
-    maintainers = with maintainers; [ tfmoraes ];
+    maintainers = with maintainers; [tfmoraes];
     platforms = platforms.all;
   };
 }

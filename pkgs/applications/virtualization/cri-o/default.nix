@@ -84,7 +84,7 @@ buildGoModule rec {
       Kubernetes Container Runtime Interface
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ ] ++ teams.podman.members;
+    maintainers = with maintainers; [] ++ teams.podman.members;
     platforms = platforms.linux;
   };
 }

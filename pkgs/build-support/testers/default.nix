@@ -33,7 +33,7 @@
 
   # See https://nixos.org/manual/nixpkgs/unstable/#tester-testEqualDerivation
   # or doc/builders/testers.chapter.md
-  testEqualDerivation = callPackage ./test-equal-derivation.nix { };
+  testEqualDerivation = callPackage ./test-equal-derivation.nix {};
 
   # See https://nixos.org/manual/nixpkgs/unstable/#tester-testEqualContents
   # or doc/builders/testers.chapter.md
@@ -43,36 +43,35 @@
       actual,
       expected,
     }:
-    runCommand "equal-contents-${lib.strings.toLower assertion}" { inherit assertion actual expected; }
-      ''
-        echo "Checking:"
-        echo "$assertion"
-        if ! diff -U5 -r "$actual" "$expected" --color=always
+    runCommand "equal-contents-${lib.strings.toLower assertion}" {inherit assertion actual expected;} ''
+      echo "Checking:"
+      echo "$assertion"
+      if ! diff -U5 -r "$actual" "$expected" --color=always
+      then
+        echo
+        echo 'Contents must be equal, but were not!'
+        echo
+        echo "+: expected,   at $expected"
+        echo "-: unexpected, at $actual"
+        exit 1
+      else
+        find "$expected" -type f -executable > expected-executables | sort
+        find "$actual" -type f -executable > actual-executables | sort
+        if ! diff -U0 actual-executables expected-executables --color=always
         then
           echo
-          echo 'Contents must be equal, but were not!'
+          echo "Contents must be equal, but some files' executable bits don't match"
           echo
-          echo "+: expected,   at $expected"
-          echo "-: unexpected, at $actual"
+          echo "+: make this file executable in the actual contents"
+          echo "-: make this file non-executable in the actual contents"
           exit 1
         else
-          find "$expected" -type f -executable > expected-executables | sort
-          find "$actual" -type f -executable > actual-executables | sort
-          if ! diff -U0 actual-executables expected-executables --color=always
-          then
-            echo
-            echo "Contents must be equal, but some files' executable bits don't match"
-            echo
-            echo "+: make this file executable in the actual contents"
-            echo "-: make this file non-executable in the actual contents"
-            exit 1
-          else
-            echo "expected $expected and actual $actual match."
-            echo 'OK'
-            touch $out
-          fi
+          echo "expected $expected and actual $actual match."
+          echo 'OK'
+          touch $out
         fi
-      '';
+      fi
+    '';
 
   # See https://nixos.org/manual/nixpkgs/unstable/#tester-testVersion
   # or doc/builders/testers.chapter.md
@@ -84,7 +83,7 @@
     }:
     runCommand "${package.name}-test-version"
       {
-        nativeBuildInputs = [ package ];
+        nativeBuildInputs = [package];
         meta.timeout = 60;
       }
       ''
@@ -114,7 +113,7 @@
       # It's safe to discard the context, because we don't access the path.
       salt = builtins.unsafeDiscardStringContext (lib.substring 0 12 (baseNameOf drvPath));
       # New derivation incorporating the original drv hash in the name
-      salted = f (args // { name = "${args.name or "source"}-salted-${salt}"; });
+      salted = f (args // {name = "${args.name or "source"}-salted-${salt}";});
       # Make sure we did change the derivation. If the fetcher ignores `name`,
       # `invalidateFetcherByDrvHash` doesn't work.
       checked =
@@ -135,7 +134,7 @@
         (import ../../../nixos/lib/testing-python.nix {
           inherit (stdenv.hostPlatform) system;
           inherit pkgs;
-          extraConfigurations = [ ({ lib, ... }: { config.nixpkgs.pkgs = lib.mkDefault pkgs; }) ];
+          extraConfigurations = [({lib, ...}: {config.nixpkgs.pkgs = lib.mkDefault pkgs;})];
         });
     in
     test:
@@ -145,7 +144,7 @@
     in
     nixosTesting.simpleTest calledTest;
 
-  hasPkgConfigModule = callPackage ./hasPkgConfigModule/tester.nix { };
+  hasPkgConfigModule = callPackage ./hasPkgConfigModule/tester.nix {};
 
-  testMetaPkgConfig = callPackage ./testMetaPkgConfig/tester.nix { };
+  testMetaPkgConfig = callPackage ./testMetaPkgConfig/tester.nix {};
 }

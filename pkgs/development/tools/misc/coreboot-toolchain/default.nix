@@ -35,10 +35,10 @@ let
           fetchSubmodules = false;
           leaveDotGit = true;
           postFetch = ''
-            PATH=${lib.makeBinPath [ getopt ]}:$PATH ${stdenv.shell} $out/util/crossgcc/buildgcc -W > $out/.crossgcc_version
+            PATH=${lib.makeBinPath [getopt]}:$PATH ${stdenv.shell} $out/util/crossgcc/buildgcc -W > $out/.crossgcc_version
             rm -rf $out/.git
           '';
-          allowedRequisites = [ ];
+          allowedRequisites = [];
         };
 
         nativeBuildInputs = [
@@ -63,7 +63,7 @@ let
           mkdir -p util/crossgcc/tarballs
 
           ${lib.concatMapStringsSep "\n" (file: "ln -s ${file.archive} util/crossgcc/tarballs/${file.name}") (
-            callPackage ./stable.nix { }
+            callPackage ./stable.nix {}
           )}
 
           patchShebangs util/genbuild_h/genbuild_h.sh
@@ -84,7 +84,7 @@ let
             lgpl2Plus
             gpl3Plus
           ];
-          maintainers = with maintainers; [ felixsinger ];
+          maintainers = with maintainers; [felixsinger];
           platforms = platforms.linux;
         };
       }
@@ -92,7 +92,7 @@ let
 in
 
 lib.listToAttrs (
-  map (arch: lib.nameValuePair arch (common arch { })) [
+  map (arch: lib.nameValuePair arch (common arch {})) [
     "i386"
     "x64"
     "arm"

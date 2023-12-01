@@ -43,12 +43,12 @@ buildPythonPackage rec {
     --replace "pyspnego[kerberos]" "pyspnego"
   '';
 
-  pythonImportsCheck = [ "requests_kerberos" ];
+  pythonImportsCheck = ["requests_kerberos"];
 
   meta = with lib; {
     description = "An authentication handler for using Kerberos with Python Requests";
     homepage = "https://github.com/requests/requests-kerberos";
     license = licenses.isc;
-    maintainers = with maintainers; [ catern ];
+    maintainers = with maintainers; [catern];
   };
 }

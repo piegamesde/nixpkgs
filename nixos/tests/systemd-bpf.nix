@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
   {
     name = "systemd-bpf";
-    meta = with lib.maintainers; { maintainers = [ veehaitch ]; };
+    meta = with lib.maintainers; {maintainers = [veehaitch];};
     nodes = {
       node1 = {
-        virtualisation.vlans = [ 1 ];
+        virtualisation.vlans = [1];
         networking = {
           useNetworkd = true;
           useDHCP = false;
@@ -20,7 +20,7 @@ import ./make-test-python.nix (
       };
 
       node2 = {
-        virtualisation.vlans = [ 1 ];
+        virtualisation.vlans = [1];
         networking = {
           useNetworkd = true;
           useDHCP = false;

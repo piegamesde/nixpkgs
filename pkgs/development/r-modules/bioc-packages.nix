@@ -3,9 +3,9 @@
 #
 # Rscript generate-r-packages.R bioc >new && mv new bioc-packages.nix
 
-{ self, derive }:
+{self, derive}:
 let
-  derive2 = derive { biocVersion = "3.16"; };
+  derive2 = derive {biocVersion = "3.16";};
 in
 with self; {
   ABSSeq = derive2 {
@@ -192,7 +192,7 @@ with self; {
     name = "AMOUNTAIN";
     version = "1.24.0";
     sha256 = "0zzl5dv64yhdivsm2pgsfjikygib9pkfiv34h1lnmqrj6yivvvw8";
-    depends = [ ];
+    depends = [];
   };
   ANCOMBC = derive2 {
     name = "ANCOMBC";
@@ -283,19 +283,19 @@ with self; {
     name = "ARRmNormalization";
     version = "1.38.0";
     sha256 = "14mffjsy7cwpa2xf8zdqwdk6mnfj3lf06y8s59ndh531b45nw5wc";
-    depends = [ ARRmData ];
+    depends = [ARRmData];
   };
   ASAFE = derive2 {
     name = "ASAFE";
     version = "1.24.0";
     sha256 = "1q4i33rw1qb8bnvkl06izl4nyl9lzgwy8rwrmvbrz1c384pmy8yj";
-    depends = [ ];
+    depends = [];
   };
   ASEB = derive2 {
     name = "ASEB";
     version = "1.42.0";
     sha256 = "1kr6l2ma7wzy8i9dn86zx927yvx1l4bnkxhv97ra3sh5vr6m8ywa";
-    depends = [ ];
+    depends = [];
   };
   ASGSCA = derive2 {
     name = "ASGSCA";
@@ -549,7 +549,7 @@ with self; {
     name = "AffyRNADegradation";
     version = "1.44.0";
     sha256 = "1n6x2c0h6xmcll7mxq4n1y8ahqfmba8ppdcrjk9hf3nh5wngprkz";
-    depends = [ affy ];
+    depends = [affy];
   };
   AgiMicroRna = derive2 {
     name = "AgiMicroRna";
@@ -875,13 +875,13 @@ with self; {
     name = "BAC";
     version = "1.58.0";
     sha256 = "00dkhns9n1x4wmlxjcw75h7iwwk37zlv1c2fi0g1mmsw1xvdjzp6";
-    depends = [ ];
+    depends = [];
   };
   BADER = derive2 {
     name = "BADER";
     version = "1.36.0";
     sha256 = "1hkvmfik4m2yw5xg4k2g551l27i64blbsdvp1kmvvyix66p53hsr";
-    depends = [ ];
+    depends = [];
   };
   BAGS = derive2 {
     name = "BAGS";
@@ -975,7 +975,7 @@ with self; {
     name = "BCRANK";
     version = "1.60.0";
     sha256 = "01ibjaym2kyv4x0fwv8mk5mq550lm1pqgrq40spmyrgb4vnwkh0h";
-    depends = [ Biostrings ];
+    depends = [Biostrings];
   };
   BDMMAcorrect = derive2 {
     name = "BDMMAcorrect";
@@ -1033,13 +1033,13 @@ with self; {
     name = "BGmix";
     version = "1.58.0";
     sha256 = "0r4cxrjvf3qr5514lsw1s53h4by3djb9ipkz7bi979w343dn9xfx";
-    depends = [ KernSmooth ];
+    depends = [KernSmooth];
   };
   BHC = derive2 {
     name = "BHC";
     version = "1.50.0";
     sha256 = "0ryd9lg8pywqlxj802y9jad5nxy40ivnzdq2ldldypwyalgk9ahm";
-    depends = [ ];
+    depends = [];
   };
   BLMA = derive2 {
     name = "BLMA";
@@ -1308,7 +1308,7 @@ with self; {
     name = "BayesKnockdown";
     version = "1.24.0";
     sha256 = "1r4d3h6fvn946czpf81prqwycvkgmzlcypy8dl54diagvdp3dr9y";
-    depends = [ Biobase ];
+    depends = [Biobase];
   };
   BayesSpace = derive2 {
     name = "BayesSpace";
@@ -1343,7 +1343,7 @@ with self; {
     name = "BeadDataPackR";
     version = "1.50.0";
     sha256 = "0309cvc9aq4nb06zysb7jvzd844pvw6jbjiqwhar6fg01cx255j0";
-    depends = [ ];
+    depends = [];
   };
   BgeeCall = derive2 {
     name = "BgeeCall";
@@ -1621,13 +1621,13 @@ with self; {
     name = "Biobase";
     version = "2.58.0";
     sha256 = "0rp541nphbcya6kbk1nzrrb05g5m6pxb3yqz5cj873di9vsqlyfv";
-    depends = [ BiocGenerics ];
+    depends = [BiocGenerics];
   };
   BiocBaseUtils = derive2 {
     name = "BiocBaseUtils";
     version = "1.0.0";
     sha256 = "0p6siidrx8q6qr36fc67hzi091m2zwik3zngj27yllbfz6sn5k69";
-    depends = [ ];
+    depends = [];
   };
   BiocCheck = derive2 {
     name = "BiocCheck";
@@ -1689,7 +1689,7 @@ with self; {
     name = "BiocGenerics";
     version = "0.44.0";
     sha256 = "17dhr7vaph8dnvyklszyas7y8i64mxqxhnfhb6q3l47gq5if8645";
-    depends = [ ];
+    depends = [];
   };
   BiocIO = derive2 {
     name = "BiocIO";
@@ -1841,7 +1841,7 @@ with self; {
     name = "BiocVersion";
     version = "3.16.0";
     sha256 = "1djp23y131dyx4g22f9r7an177bq0mky94bvpqvc8b14166g0ynw";
-    depends = [ ];
+    depends = [];
   };
   BiocWorkflowTools = derive2 {
     name = "BiocWorkflowTools";
@@ -1964,13 +1964,13 @@ with self; {
     name = "BufferedMatrix";
     version = "1.62.0";
     sha256 = "08b8pm1vkwvkbv3dqldb9h1n7aiwih7dw66w8ag1xjp0sn9v9d7d";
-    depends = [ ];
+    depends = [];
   };
   BufferedMatrixMethods = derive2 {
     name = "BufferedMatrixMethods";
     version = "1.62.0";
     sha256 = "1b0c0dick3gxdlrfjgx4dpgaqry5rd9gmpvdinfs94f9bfp89xyf";
-    depends = [ BufferedMatrix ];
+    depends = [BufferedMatrix];
   };
   BumpyMatrix = derive2 {
     name = "BumpyMatrix";
@@ -2197,7 +2197,7 @@ with self; {
     name = "CFAssay";
     version = "1.32.0";
     sha256 = "0lm7281d7gvdlkk35195zi2kjs0xj7jnr3gwkjgrvn6qhi0dk2vr";
-    depends = [ ];
+    depends = [];
   };
   CGEN = derive2 {
     name = "CGEN";
@@ -2329,13 +2329,13 @@ with self; {
     name = "CMA";
     version = "1.56.0";
     sha256 = "13qdhg5w1yga5sb4vack2srx5ly126g740wbxb55cg1kyqnzs1pd";
-    depends = [ Biobase ];
+    depends = [Biobase];
   };
   CNAnorm = derive2 {
     name = "CNAnorm";
     version = "1.44.3";
     sha256 = "1xzlxqmipyky86gh169njil8jvha0rnz9cgby1grzwlm5kjqqxsa";
-    depends = [ DNAcopy ];
+    depends = [DNAcopy];
   };
   CNEr = derive2 {
     name = "CNEr";
@@ -2404,7 +2404,7 @@ with self; {
     name = "CNTools";
     version = "1.54.0";
     sha256 = "18rl79i66z8d3addinp76krnyp9hzvprrihrksvcjkvrrl14adaz";
-    depends = [ genefilter ];
+    depends = [genefilter];
   };
   CNVMetrics = derive2 {
     name = "CNVMetrics";
@@ -2638,19 +2638,19 @@ with self; {
     name = "CONSTANd";
     version = "1.6.0";
     sha256 = "1mkzmjqsm9kqlabw50d8jn0jqx2iad1wn10il4j473bhamanwqg4";
-    depends = [ ];
+    depends = [];
   };
   CORREP = derive2 {
     name = "CORREP";
     version = "1.64.0";
     sha256 = "07pr5v8sqzlvag1yapaz01pl54c8ab1gdq2hinhwv2kiyyxpkq11";
-    depends = [ e1071 ];
+    depends = [e1071];
   };
   COSNet = derive2 {
     name = "COSNet";
     version = "1.32.0";
     sha256 = "1w1rh8c7nwxwi9szkij1k675dp0rg0li2ppzskkwpxm6vddyspm8";
-    depends = [ ];
+    depends = [];
   };
   COTAN = derive2 {
     name = "COTAN";
@@ -2724,7 +2724,7 @@ with self; {
     name = "CSSP";
     version = "1.36.0";
     sha256 = "1hnpg6ba73h5r83g8ziiwcai8blan5piir8n1r7rnf6ixr20f352";
-    depends = [ ];
+    depends = [];
   };
   CSSQ = derive2 {
     name = "CSSQ";
@@ -2836,7 +2836,7 @@ with self; {
     name = "CausalR";
     version = "1.30.0";
     sha256 = "0nxiwnln696v3hw1m19whpajzqfb6y0c9dn3v154l7n84v0j5wd2";
-    depends = [ igraph ];
+    depends = [igraph];
   };
   CeTF = derive2 {
     name = "CeTF";
@@ -2911,7 +2911,7 @@ with self; {
     name = "CellMapper";
     version = "1.24.0";
     sha256 = "172bmzk5g18slvym5w557c9wy7irb0mp81kanwn1csk0va3cl9pc";
-    depends = [ S4Vectors ];
+    depends = [S4Vectors];
   };
   CellMixS = derive2 {
     name = "CellMixS";
@@ -3518,7 +3518,7 @@ with self; {
     name = "Clonality";
     version = "1.46.0";
     sha256 = "13fnw8l11gzvsn95kcskd0q064nay04x9q12h7wb2n9wbmi7s4av";
-    depends = [ DNAcopy ];
+    depends = [DNAcopy];
   };
   CluMSID = derive2 {
     name = "CluMSID";
@@ -3928,7 +3928,7 @@ with self; {
     name = "DART";
     version = "1.46.0";
     sha256 = "08nmnnvz4iy70jsd0cnp41mzh2l9mccxnf62lbrhm95kxpsyaxvj";
-    depends = [ igraph ];
+    depends = [igraph];
   };
   DECIPHER = derive2 {
     name = "DECIPHER";
@@ -4025,7 +4025,7 @@ with self; {
     name = "DEGseq";
     version = "1.52.0";
     sha256 = "15x3hb767j1s9snx3zk2vbyz3nvb33gsilpkidcncswj140h9cr6";
-    depends = [ qvalue ];
+    depends = [qvalue];
   };
   DEP = derive2 {
     name = "DEP";
@@ -4210,7 +4210,7 @@ with self; {
     name = "DFP";
     version = "1.56.0";
     sha256 = "1pkg4461ib1iplcrlwkwrqzdzqixj2rhwwfkhjw87z4rx04hz3gf";
-    depends = [ Biobase ];
+    depends = [Biobase];
   };
   DIAlignR = derive2 {
     name = "DIAlignR";
@@ -4359,7 +4359,7 @@ with self; {
     name = "DNAcopy";
     version = "1.72.3";
     sha256 = "1kxzrny19dqd9pqj27vzr15i071sl8ivznpfd6zlqhcymlcsq7nw";
-    depends = [ ];
+    depends = [];
   };
   DNAfusion = derive2 {
     name = "DNAfusion";
@@ -4474,7 +4474,7 @@ with self; {
     name = "DeMAND";
     version = "1.28.0";
     sha256 = "1x0hyna6qgz5w9y7j95wyyrvg7rx8pdpyp9dzmic7q0hycjmg33n";
-    depends = [ KernSmooth ];
+    depends = [KernSmooth];
   };
   DeMixT = derive2 {
     name = "DeMixT";
@@ -4701,7 +4701,7 @@ with self; {
     name = "DiffLogo";
     version = "2.22.0";
     sha256 = "0n6nyw0vb0hvi9awpx6igdgdsfd91fs520aspbxlb33jcd3x0aaz";
-    depends = [ cba ];
+    depends = [cba];
   };
   DifferentialRegulation = derive2 {
     name = "DifferentialRegulation";
@@ -4742,7 +4742,7 @@ with self; {
     name = "Director";
     version = "1.24.0";
     sha256 = "0bnvagsqm5cm8l2g18fyavaf7s93hwfi75zmggxiy46xqn7s1718";
-    depends = [ htmltools ];
+    depends = [htmltools];
   };
   DirichletMultinomial = derive2 {
     name = "DirichletMultinomial";
@@ -4836,7 +4836,7 @@ with self; {
     name = "DriverNet";
     version = "1.38.0";
     sha256 = "0sryp2w0lzalqhk2aizj0lrbxj60illfzg6vzg8isqzv9ic4gnqd";
-    depends = [ ];
+    depends = [];
   };
   DropletUtils = derive2 {
     name = "DropletUtils";
@@ -4908,7 +4908,7 @@ with self; {
     name = "DynDoc";
     version = "1.76.0";
     sha256 = "0w8x997npnphd91s3nc9f0s4vb94ikszw5mrpf5lfv3n25sqgvhb";
-    depends = [ ];
+    depends = [];
   };
   EBImage = derive2 {
     name = "EBImage";
@@ -4950,7 +4950,7 @@ with self; {
     name = "EBSeqHMM";
     version = "1.32.0";
     sha256 = "1k6c2qc7xvv3f094zddjdbjj4hlfxsv04gf5b0zdphmrhbhb8r9m";
-    depends = [ EBSeq ];
+    depends = [EBSeq];
   };
   EBarrays = derive2 {
     name = "EBarrays";
@@ -5182,7 +5182,7 @@ with self; {
     name = "EmpiricalBrownsMethod";
     version = "1.26.0";
     sha256 = "1vws49a204xkwixdvp5l62in7vxbpf4qsfcnm34zkc4kx5hval9j";
-    depends = [ ];
+    depends = [];
   };
   EnhancedVolcano = derive2 {
     name = "EnhancedVolcano";
@@ -5639,7 +5639,7 @@ with self; {
     name = "FScanR";
     version = "1.8.0";
     sha256 = "1i0w5ai5si9a4m3s96grm75wwdx5g2ah4vg0q95sgjj68gx4ln2c";
-    depends = [ ];
+    depends = [];
   };
   FamAgg = derive2 {
     name = "FamAgg";
@@ -5927,7 +5927,7 @@ with self; {
     name = "GEM";
     version = "1.24.0";
     sha256 = "0lbs7igiq8v0y66pbr0jvxcadp7ni47mjynag7m352k87633nann";
-    depends = [ ggplot2 ];
+    depends = [ggplot2];
   };
   GENESIS = derive2 {
     name = "GENESIS";
@@ -6039,7 +6039,7 @@ with self; {
     name = "GEWIST";
     version = "1.42.0";
     sha256 = "1hkqv11apwhvg89ky792m6y0aml6hmxbqkk622r4zr1snkc6ggxw";
-    depends = [ car ];
+    depends = [car];
   };
   GGPA = derive2 {
     name = "GGPA";
@@ -6086,7 +6086,7 @@ with self; {
     name = "GLAD";
     version = "2.62.0";
     sha256 = "0gb52ic5r6nkgm2ynm174vcvbmkbhhjgv71lsmxpxzcsb6rr7qj6";
-    depends = [ aws ];
+    depends = [aws];
   };
   GMRP = derive2 {
     name = "GMRP";
@@ -6346,7 +6346,7 @@ with self; {
     name = "GSAR";
     version = "1.32.1";
     sha256 = "0429kdwkknc5l7wq5akfy81qic3yrymchpbm7nbyzchrr6rhjs5b";
-    depends = [ igraph ];
+    depends = [igraph];
   };
   GSCA = derive2 {
     name = "GSCA";
@@ -6398,7 +6398,7 @@ with self; {
     name = "GSEAlm";
     version = "1.58.0";
     sha256 = "0xzywh8824xiggwgw88x2x83z75wwrajiv7qk7hgp1zw2mg2k15y";
-    depends = [ Biobase ];
+    depends = [Biobase];
   };
   GSEAmining = derive2 {
     name = "GSEAmining";
@@ -6653,7 +6653,7 @@ with self; {
     name = "GeneExpressionSignature";
     version = "1.44.0";
     sha256 = "16cgfw2fdggkzklb13qf7mravbjymg6yazl7q6iqdrkwlhpxl0f7";
-    depends = [ Biobase ];
+    depends = [Biobase];
   };
   GeneGA = derive2 {
     name = "GeneGA";
@@ -7183,7 +7183,7 @@ with self; {
     name = "GraphAlignment";
     version = "1.62.0";
     sha256 = "004ivwdz8xdpvdakc9i32skh9f7rj8d5mf3r1ap2n1al53ymbjlj";
-    depends = [ ];
+    depends = [];
   };
   GraphPAC = derive2 {
     name = "GraphPAC";
@@ -7283,13 +7283,13 @@ with self; {
     name = "HELP";
     version = "1.56.0";
     sha256 = "1j5wa3w32rsj4pzvx4dyg43m2kqmnxxyrd2gaplnq9riwgmqgs0j";
-    depends = [ Biobase ];
+    depends = [Biobase];
   };
   HEM = derive2 {
     name = "HEM";
     version = "1.70.0";
     sha256 = "03m1ciknphvh6vf0jl2n53jjqdggjaakvfpyx6ba0zspa88pw2lk";
-    depends = [ Biobase ];
+    depends = [Biobase];
   };
   HGC = derive2 {
     name = "HGC";
@@ -7312,7 +7312,7 @@ with self; {
     name = "HIBAG";
     version = "1.34.1";
     sha256 = "1nzq896qzcggm1ah7nkrbzp3dmb3mrz2pslw3xj6c60a9bbsi6kx";
-    depends = [ RcppParallel ];
+    depends = [RcppParallel];
   };
   HIPPO = derive2 {
     name = "HIPPO";
@@ -7346,7 +7346,7 @@ with self; {
     name = "HMMcopy";
     version = "1.40.0";
     sha256 = "0p1jn2lyvwy9kx83kmpxjma0fcar8gngp3hmv35qc2qa0ns6ji5v";
-    depends = [ data_table ];
+    depends = [data_table];
   };
   HPAStainR = derive2 {
     name = "HPAStainR";
@@ -7471,7 +7471,7 @@ with self; {
     name = "Heatplus";
     version = "3.6.0";
     sha256 = "0zbjw9f616dz1fpp6q6whbmlrf2gypq8pp9i66c376cs2aifp1si";
-    depends = [ RColorBrewer ];
+    depends = [RColorBrewer];
   };
   HelloRanges = derive2 {
     name = "HelloRanges";
@@ -7686,13 +7686,13 @@ with self; {
     name = "HilbertVis";
     version = "1.56.0";
     sha256 = "15xql3rq1g2p0ih1ahjv2y9rwfrzrhj9f4sp7qrrhha9izas4v6d";
-    depends = [ lattice ];
+    depends = [lattice];
   };
   HilbertVisGUI = derive2 {
     name = "HilbertVisGUI";
     version = "1.56.0";
     sha256 = "1x4clsjdg95wn4n65jyh1fyhnamma1897mq9jg16akvg7d48q60m";
-    depends = [ HilbertVis ];
+    depends = [HilbertVis];
   };
   HubPub = derive2 {
     name = "HubPub";
@@ -7815,7 +7815,7 @@ with self; {
     name = "IMPCdata";
     version = "1.34.0";
     sha256 = "1gasv2i11sfdsinpg46b1lmjc8g864wzjg3791zx43ls1qnslgdh";
-    depends = [ rjson ];
+    depends = [rjson];
   };
   INDEED = derive2 {
     name = "INDEED";
@@ -7832,7 +7832,7 @@ with self; {
     name = "INPower";
     version = "1.34.0";
     sha256 = "07sjr0z3m1jchlxc1pqp97l4mydskbkh1xw41cwsw39r9ssimpni";
-    depends = [ mvtnorm ];
+    depends = [mvtnorm];
   };
   INSPEcT = derive2 {
     name = "INSPEcT";
@@ -7979,7 +7979,7 @@ with self; {
     name = "ISoLDE";
     version = "1.26.0";
     sha256 = "07xw0cg121xcv85d4ah67a38x3y8h6gxx8zwrwqffp86vfzqwcgl";
-    depends = [ ];
+    depends = [];
   };
   ITALICS = derive2 {
     name = "ITALICS";
@@ -8034,7 +8034,7 @@ with self; {
     name = "Icens";
     version = "1.70.0";
     sha256 = "13ygc467nqh0235sf1ags1ihv7pg2yriva6qi7z46c534vxv6b8n";
-    depends = [ survival ];
+    depends = [survival];
   };
   IdeoViz = derive2 {
     name = "IdeoViz";
@@ -8145,7 +8145,7 @@ with self; {
     name = "Informeasure";
     version = "1.8.0";
     sha256 = "0ywffwxl3nx7w7p54ixlr058l92s2d17mrnfj9ngqxl7w3g16vfp";
-    depends = [ entropy ];
+    depends = [entropy];
   };
   IntEREst = derive2 {
     name = "IntEREst";
@@ -8343,7 +8343,7 @@ with self; {
     name = "KBoost";
     version = "1.6.0";
     sha256 = "1w7m30dpjwbkgvvhvllgycnrzalah4lnan08xpr3cyx7nbr0pbsb";
-    depends = [ ];
+    depends = [];
   };
   KCsmart = derive2 {
     name = "KCsmart";
@@ -8478,13 +8478,13 @@ with self; {
     name = "LBE";
     version = "1.66.0";
     sha256 = "00460w36ayf0b9ln7v42i3wwmxyfy1hdm0snc01gaxf5276mvrai";
-    depends = [ ];
+    depends = [];
   };
   LEA = derive2 {
     name = "LEA";
     version = "3.10.2";
     sha256 = "01w8s03ncscd17zpmqz7vjblz6kcag0mlgn7xhcjd0ghbfb7zkrf";
-    depends = [ ];
+    depends = [];
   };
   LOBSTAHS = derive2 {
     name = "LOBSTAHS";
@@ -8512,13 +8512,13 @@ with self; {
     name = "LPE";
     version = "1.72.0";
     sha256 = "06wmkwx633a3jjqhcp586x9jqic51sxyy11l8zhipzvj07fcsy70";
-    depends = [ ];
+    depends = [];
   };
   LPEadj = derive2 {
     name = "LPEadj";
     version = "1.58.0";
     sha256 = "0cm8hdwfs0nrxyf6z1xwfjkpxawlh9mszmng4jakppcr9rl843ir";
-    depends = [ LPE ];
+    depends = [LPE];
   };
   LRBaseDbi = derive2 {
     name = "LRBaseDbi";
@@ -8888,7 +8888,7 @@ with self; {
     name = "MANOR";
     version = "1.70.0";
     sha256 = "16b30bmyzml97cjdbh6h9ky5c4h5ws2a3g2xkxnd55sd3jg64jgx";
-    depends = [ GLAD ];
+    depends = [GLAD];
   };
   MAST = derive2 {
     name = "MAST";
@@ -8925,7 +8925,7 @@ with self; {
     name = "MBAmethyl";
     version = "1.32.0";
     sha256 = "06jhcv8nw21qnzbf9law4dvrgga47di02q3124sf5v365zasnzr5";
-    depends = [ ];
+    depends = [];
   };
   MBCB = derive2 {
     name = "MBCB";
@@ -9408,7 +9408,7 @@ with self; {
     name = "MPFE";
     version = "1.34.0";
     sha256 = "0xr4cpvr83c7mmcbm99bbgg05qd20y5vha73m4if4d8ba1l7k2mv";
-    depends = [ ];
+    depends = [];
   };
   MPRAnalyze = derive2 {
     name = "MPRAnalyze";
@@ -9724,7 +9724,7 @@ with self; {
     name = "MVCClass";
     version = "1.72.0";
     sha256 = "1yzb7m7vk50f9x1g8yb95wlmpccj3n4qgczz46lvhsk7hkifybzq";
-    depends = [ ];
+    depends = [];
   };
   MWASTools = derive2 {
     name = "MWASTools";
@@ -9801,25 +9801,25 @@ with self; {
     name = "MantelCorr";
     version = "1.68.0";
     sha256 = "0d42m4zbc6pzfph2ydb11rcxq7h64fvv286zx1vh2scvi8j9655a";
-    depends = [ ];
+    depends = [];
   };
   MassArray = derive2 {
     name = "MassArray";
     version = "1.50.0";
     sha256 = "0jxlnl466dgbn0817h5vk5h52cblyq1r48pvk9v76dzdc86llskx";
-    depends = [ ];
+    depends = [];
   };
   MassSpecWavelet = derive2 {
     name = "MassSpecWavelet";
     version = "1.64.1";
     sha256 = "0p8cd4r3c8va5gybs1vlm3kn7jcg1xg529hvvg27fybb3g91nvqg";
-    depends = [ ];
+    depends = [];
   };
   MatrixGenerics = derive2 {
     name = "MatrixGenerics";
     version = "1.10.0";
     sha256 = "05a83gh5bvgadi2msgql5nmcgr8zp398rhdbmiqna608hqbymyq9";
-    depends = [ matrixStats ];
+    depends = [matrixStats];
   };
   MatrixQCvis = derive2 {
     name = "MatrixQCvis";
@@ -9879,7 +9879,7 @@ with self; {
     name = "MeasurementError.cor";
     version = "1.70.0";
     sha256 = "1j6scmghs6mmi0wyfxy6hsf363r90wy7njq1334xaq4crbj3kag9";
-    depends = [ ];
+    depends = [];
   };
   Melissa = derive2 {
     name = "Melissa";
@@ -9908,7 +9908,7 @@ with self; {
     name = "Mergeomics";
     version = "1.26.0";
     sha256 = "1svw7jk4xv0xm66qr5w2m2fz9k4ifd8dv52b5157p5apv45jdd45";
-    depends = [ ];
+    depends = [];
   };
   MesKit = derive2 {
     name = "MesKit";
@@ -10080,7 +10080,7 @@ with self; {
     name = "MetaboCoreUtils";
     version = "1.6.0";
     sha256 = "14y53snkyis1njx0vr7hy9jmn4lbw72k14x74spmsslcik2zadav";
-    depends = [ MsCoreUtils ];
+    depends = [MsCoreUtils];
   };
   MetaboSignal = derive2 {
     name = "MetaboSignal";
@@ -10228,7 +10228,7 @@ with self; {
     name = "MiChip";
     version = "1.52.0";
     sha256 = "1ichljymsal8mnanqck89243lwpf184r47jknd56ksvpn2s6a0ja";
-    depends = [ Biobase ];
+    depends = [Biobase];
   };
   MiPP = derive2 {
     name = "MiPP";
@@ -10376,7 +10376,7 @@ with self; {
     name = "ModCon";
     version = "1.6.0";
     sha256 = "1whwmf7qma0xz8bjqww6vr2idazgqlykd5mmf0xzryr1xdfbk54h";
-    depends = [ data_table ];
+    depends = [data_table];
   };
   Modstrings = derive2 {
     name = "Modstrings";
@@ -10629,7 +10629,7 @@ with self; {
     name = "MultiMed";
     version = "2.20.0";
     sha256 = "09snrrgifz5wl9a0av87rccq8fh1d03h38i6x2lfmpak5m1vc270";
-    depends = [ ];
+    depends = [];
   };
   MungeSumstats = derive2 {
     name = "MungeSumstats";
@@ -10772,7 +10772,7 @@ with self; {
     name = "NTW";
     version = "1.48.0";
     sha256 = "0vx5swxmw76vba5wwl1qjyyb2dm7vg9wa7jsky93knhdl0s2fli9";
-    depends = [ mvtnorm ];
+    depends = [mvtnorm];
   };
   NanoMethViz = derive2 {
     name = "NanoMethViz";
@@ -10885,7 +10885,7 @@ with self; {
     name = "NeighborNet";
     version = "1.16.0";
     sha256 = "04yxkrc2qscx9ckday90b6hmar4zfqjdan0phmpgv622spnk16f3";
-    depends = [ graph ];
+    depends = [graph];
   };
   NetActivity = derive2 {
     name = "NetActivity";
@@ -10904,7 +10904,7 @@ with self; {
     name = "NetPathMiner";
     version = "1.34.2";
     sha256 = "1rccjw6gvjv63w6f4ywy1x4d6iiqgv66grjgbnx3jc6qf6cacmlk";
-    depends = [ igraph ];
+    depends = [igraph];
   };
   NetSAM = derive2 {
     name = "NetSAM";
@@ -11017,7 +11017,7 @@ with self; {
     name = "NuPoP";
     version = "2.6.3";
     sha256 = "1wxr0ixgdxmsscd2l1wqzi8w5z4njfzzq9n2vvlwb5nkk0b41ky4";
-    depends = [ ];
+    depends = [];
   };
   NxtIRFcore = derive2 {
     name = "NxtIRFcore";
@@ -11229,7 +11229,7 @@ with self; {
     name = "OSAT";
     version = "1.46.0";
     sha256 = "1w86yf0bxrrfmmqknw59z2p2a0gfpnf54r139isd3irk0jhwwk50";
-    depends = [ ];
+    depends = [];
   };
   OTUbase = derive2 {
     name = "OTUbase";
@@ -11306,7 +11306,7 @@ with self; {
     name = "OmicCircos";
     version = "1.36.0";
     sha256 = "0lqv04hjc2z3qnq4ijd9iym3mlbvxrhrxpaxdhs6w9dd32b8n8mh";
-    depends = [ GenomicRanges ];
+    depends = [GenomicRanges];
   };
   OmicsLonDA = derive2 {
     name = "OmicsLonDA";
@@ -11376,7 +11376,7 @@ with self; {
     name = "OncoScore";
     version = "1.26.0";
     sha256 = "01qrlifbhfnq5liyiqa05pwjcr659v2i32ns2g6hc2crcf7nf5zz";
-    depends = [ biomaRt ];
+    depends = [biomaRt];
   };
   OncoSimulR = derive2 {
     name = "OncoSimulR";
@@ -11552,7 +11552,7 @@ with self; {
     name = "PCAN";
     version = "1.26.0";
     sha256 = "0ya9s06dxrwzw0d4r08h5nddklyw3qbgwffbinwy84vgipkki0cz";
-    depends = [ BiocParallel ];
+    depends = [BiocParallel];
   };
   PCAtools = derive2 {
     name = "PCAtools";
@@ -11773,7 +11773,7 @@ with self; {
     name = "PROPER";
     version = "1.30.0";
     sha256 = "1fx832vinc5rfb52g2f62480sga3lh6hslz19v6whjadrqaxi1kv";
-    depends = [ edgeR ];
+    depends = [edgeR];
   };
   PROPS = derive2 {
     name = "PROPS";
@@ -11790,7 +11790,7 @@ with self; {
     name = "PROcess";
     version = "1.74.0";
     sha256 = "1vnj82yhc949hbn6crbqq6jk919b7fc43vrr4bbqls0czdajs42l";
-    depends = [ Icens ];
+    depends = [Icens];
   };
   PSEA = derive2 {
     name = "PSEA";
@@ -11873,13 +11873,13 @@ with self; {
     name = "Path2PPI";
     version = "1.28.0";
     sha256 = "1psnkgi565gyv7jskpfjcsyvnlgarmqpa1ywzg9z6cfplfly550c";
-    depends = [ igraph ];
+    depends = [igraph];
   };
   PathNet = derive2 {
     name = "PathNet";
     version = "1.38.0";
     sha256 = "02371m21xh684hcrbhfdk9hg1jgcdgrnbn1h6vv7avaz6rc07iki";
-    depends = [ ];
+    depends = [];
   };
   PathoStat = derive2 {
     name = "PathoStat";
@@ -12236,7 +12236,7 @@ with self; {
     name = "ProtGenerics";
     version = "1.30.0";
     sha256 = "1k5pg0zbhz9mjsl5i3j33p7qv2adax2lf7yqv6qz229fxxaxs5li";
-    depends = [ ];
+    depends = [];
   };
   ProteoDisco = derive2 {
     name = "ProteoDisco";
@@ -12481,13 +12481,13 @@ with self; {
     name = "R4RNA";
     version = "1.26.0";
     sha256 = "13zscbrarxma3p49yfgvpj4rrycra4cnnlcxw8032g4y5v75jzpd";
-    depends = [ Biostrings ];
+    depends = [Biostrings];
   };
   RAREsim = derive2 {
     name = "RAREsim";
     version = "1.2.0";
     sha256 = "1r4am6k9q922wxxjdq84lbhvxql6padrgh811s73r99lfsxwfxg9";
-    depends = [ nloptr ];
+    depends = [nloptr];
   };
   RBGL = derive2 {
     name = "RBGL";
@@ -12511,7 +12511,7 @@ with self; {
     name = "RBioinf";
     version = "1.58.0";
     sha256 = "11sfsbbkz482m8jiz21czmhp2ha06ii9h1b6ww8gaka9y0pm8pgc";
-    depends = [ graph ];
+    depends = [graph];
   };
   RCAS = derive2 {
     name = "RCAS";
@@ -12550,7 +12550,7 @@ with self; {
     name = "RCASPAR";
     version = "1.44.0";
     sha256 = "0v233p8lfgscqsi9d5sszbqhihqd44gs1rnvf8g8nh3090rc8asn";
-    depends = [ ];
+    depends = [];
   };
   RCM = derive2 {
     name = "RCM";
@@ -12643,7 +12643,7 @@ with self; {
     name = "REBET";
     version = "1.16.0";
     sha256 = "18a201k2zdin3k5g5vpwlq8n6z2h6z7849zcz8rf3yzlfmbs2mx1";
-    depends = [ ASSET ];
+    depends = [ASSET];
   };
   REDseq = derive2 {
     name = "REDseq";
@@ -12734,7 +12734,7 @@ with self; {
     name = "RGSEA";
     version = "1.32.0";
     sha256 = "1psrm5qd7kk1h01rb73mf0zi159lpd59awfhslkxaq8b1ifck7ny";
-    depends = [ BiocGenerics ];
+    depends = [BiocGenerics];
   };
   RGraph2js = derive2 {
     name = "RGraph2js";
@@ -12837,7 +12837,7 @@ with self; {
     name = "RLMM";
     version = "1.60.0";
     sha256 = "1kqxvrjfqf0l98nlj5fx36gh3n5gnxsks0gxpg9b5civjnmaxilv";
-    depends = [ MASS ];
+    depends = [MASS];
   };
   RLSeq = derive2 {
     name = "RLSeq";
@@ -12922,7 +12922,7 @@ with self; {
     name = "RNASeqPower";
     version = "1.38.0";
     sha256 = "1f8jiljxacqjj0vf2v01fclhl3i0w7xddxcs6ajxzlmmpqs19b8a";
-    depends = [ ];
+    depends = [];
   };
   RNASeqR = derive2 {
     name = "RNASeqR";
@@ -13068,7 +13068,7 @@ with self; {
     name = "ROC";
     version = "1.74.0";
     sha256 = "00pw6xmxjzprbx8wskq6gbyqkfak764vic5yxrzs6wpram352vmv";
-    depends = [ knitr ];
+    depends = [knitr];
   };
   ROCpAI = derive2 {
     name = "ROCpAI";
@@ -13128,13 +13128,13 @@ with self; {
     name = "RProtoBufLib";
     version = "2.10.0";
     sha256 = "07d5skr8cp0hyjbs7whw4h8scrf2w4hyn0wzj3khqdss53zmmr2m";
-    depends = [ ];
+    depends = [];
   };
   RRHO = derive2 {
     name = "RRHO";
     version = "1.38.0";
     sha256 = "1fng44mhqxjq4xczw7hj32v09l1dl58azfd8cgc9jg1j2d5whjs6";
-    depends = [ VennDiagram ];
+    depends = [VennDiagram];
   };
   RSVSim = derive2 {
     name = "RSVSim";
@@ -13151,7 +13151,7 @@ with self; {
     name = "RSeqAn";
     version = "1.18.0";
     sha256 = "0fjcwm3fw13yv3vdawwdbmbqws3n47f5s10rcvllm3wrbb1zrwb6";
-    depends = [ Rcpp ];
+    depends = [Rcpp];
   };
   RTCA = derive2 {
     name = "RTCA";
@@ -13238,7 +13238,7 @@ with self; {
     name = "RTNduals";
     version = "1.22.0";
     sha256 = "0m3h0rkix48pr4jywvm0h1pbqlv62gdzq3safwgqpgb7m0pg6d08";
-    depends = [ RTN ];
+    depends = [RTN];
   };
   RTNsurvival = derive2 {
     name = "RTNsurvival";
@@ -13419,7 +13419,7 @@ with self; {
     name = "Rbowtie";
     version = "1.38.0";
     sha256 = "1kbpqhidj2bwhp9gxqx2qjaby6fc2dfrnnyjkciswgxckis6h2pc";
-    depends = [ ];
+    depends = [];
   };
   Rbowtie2 = derive2 {
     name = "Rbowtie2";
@@ -13434,7 +13434,7 @@ with self; {
     name = "Rbwa";
     version = "1.2.0";
     sha256 = "0s6a4miawnsicysq9g8k0c5aycrq5bnx8pq07hsd86pbbmw57nhx";
-    depends = [ ];
+    depends = [];
   };
   Rcade = derive2 {
     name = "Rcade";
@@ -13518,7 +13518,7 @@ with self; {
     name = "Rdisop";
     version = "1.58.0";
     sha256 = "0109isvqjf18y5nryw98kvc4m5jq63jvlxlvdm7sqqikcq6irraj";
-    depends = [ Rcpp ];
+    depends = [Rcpp];
   };
   ReQON = derive2 {
     name = "ReQON";
@@ -13595,13 +13595,13 @@ with self; {
     name = "ReadqPCR";
     version = "1.44.0";
     sha256 = "1ss2mz31v2hps9hs34iz6cswynizw2qy64jzy72fgk4zi7a37wkv";
-    depends = [ Biobase ];
+    depends = [Biobase];
   };
   RedeR = derive2 {
     name = "RedeR";
     version = "2.2.1";
     sha256 = "16daz3m82r7sawpzv387jxi4xyam9h5dfrklzp4n52qb5v67n8aq";
-    depends = [ igraph ];
+    depends = [igraph];
   };
   RedisParam = derive2 {
     name = "RedisParam";
@@ -13752,13 +13752,13 @@ with self; {
     name = "Rgraphviz";
     version = "2.42.0";
     sha256 = "0blymdax10zzg2lpj4hgvyh9c01b1qaivrc0gx95swji37zkqnwm";
-    depends = [ graph ];
+    depends = [graph];
   };
   Rhdf5lib = derive2 {
     name = "Rhdf5lib";
     version = "1.20.0";
     sha256 = "0zxgpc2krfwqzm8c05cdlfs3dyyf5ll43ff9mw8xzj89wcmlcfx7";
-    depends = [ ];
+    depends = [];
   };
   Rhisat2 = derive2 {
     name = "Rhisat2";
@@ -13774,7 +13774,7 @@ with self; {
     name = "Rhtslib";
     version = "2.0.0";
     sha256 = "1ri76wwv44hgxji2bmlqi6v8gbvhr72q0d6nlgpfgfwb9sgvz62h";
-    depends = [ zlibbioc ];
+    depends = [zlibbioc];
   };
   RiboCrypt = derive2 {
     name = "RiboCrypt";
@@ -14006,7 +14006,7 @@ with self; {
     name = "Rsubread";
     version = "2.12.3";
     sha256 = "0lhmva8yghlbb44h1fvbcqfp8zvdn4pd4nwyd2drh6b271f8qjdd";
-    depends = [ Matrix ];
+    depends = [Matrix];
   };
   Rtpca = derive2 {
     name = "Rtpca";
@@ -14036,7 +14036,7 @@ with self; {
     name = "S4Vectors";
     version = "0.36.2";
     sha256 = "131cg5fzrqgyp4kv260yn8hpr0zv5mxjhdnpl50ydgc2k0l43d38";
-    depends = [ BiocGenerics ];
+    depends = [BiocGenerics];
   };
   SAIGEgds = derive2 {
     name = "SAIGEgds";
@@ -14176,7 +14176,7 @@ with self; {
     name = "SCBN";
     version = "1.16.0";
     sha256 = "1lan5anf451dmb19sra79d4w2qi9kk7xw3zijswlbhfnd4fv9kgz";
-    depends = [ ];
+    depends = [];
   };
   SCFA = derive2 {
     name = "SCFA";
@@ -14407,7 +14407,7 @@ with self; {
     name = "SLqPCR";
     version = "1.64.0";
     sha256 = "0s3gs5q5h4vrjaqwdr6gjfsl1pj286sim2cx9abvjj9hpcjk08vx";
-    depends = [ ];
+    depends = [];
   };
   SMAD = derive2 {
     name = "SMAD";
@@ -14425,7 +14425,7 @@ with self; {
     name = "SMAP";
     version = "1.62.0";
     sha256 = "152lrwn5rr9vlkgj22sgzg0winnhzvvlg6nvzd717bjngjjfj8nq";
-    depends = [ ];
+    depends = [];
   };
   SMITE = derive2 {
     name = "SMITE";
@@ -14454,13 +14454,13 @@ with self; {
     name = "SNAGEE";
     version = "1.38.0";
     sha256 = "1hbcibv4yhk7hw4w41nq85szk41vrfyfv7cv4qzn0xhv3cacivj1";
-    depends = [ SNAGEEdata ];
+    depends = [SNAGEEdata];
   };
   SNPRelate = derive2 {
     name = "SNPRelate";
     version = "1.32.2";
     sha256 = "1ib0va8n19ygi52qgx2fgdswqdgpfgcd89wcp4rsq10w87nxvalx";
-    depends = [ gdsfmt ];
+    depends = [gdsfmt];
   };
   SNPediaR = derive2 {
     name = "SNPediaR";
@@ -14521,7 +14521,7 @@ with self; {
     name = "SPIA";
     version = "2.50.0";
     sha256 = "1zrjjlji7whpvgpznslswxs6nj29n40x02z0v62j1x7r0y4rkn7b";
-    depends = [ KEGGgraph ];
+    depends = [KEGGgraph];
   };
   SPIAT = derive2 {
     name = "SPIAT";
@@ -14660,7 +14660,7 @@ with self; {
     name = "SQUADD";
     version = "1.48.0";
     sha256 = "174gbzjjvyz0m4ldr0blg82xd7r3av7frzw199ignhflyxy6brsx";
-    depends = [ RColorBrewer ];
+    depends = [RColorBrewer];
   };
   SRAdb = derive2 {
     name = "SRAdb";
@@ -14774,7 +14774,7 @@ with self; {
     name = "SamSPECTRAL";
     version = "1.52.0";
     sha256 = "1sphi1y61abx428624nrk8srlcp405ssqzzxwrpjrd325gj5ry5q";
-    depends = [ ];
+    depends = [];
   };
   Scale4C = derive2 {
     name = "Scale4C";
@@ -15127,7 +15127,7 @@ with self; {
     name = "SpacePAC";
     version = "1.36.0";
     sha256 = "0pbbqadais7lvkiz1cj1gpx35l28nb5mm53nmkif4jbd9a2p7lh5";
-    depends = [ iPAC ];
+    depends = [iPAC];
   };
   Spaniel = derive2 {
     name = "Spaniel";
@@ -15349,7 +15349,7 @@ with self; {
     name = "SplicingFactory";
     version = "1.6.0";
     sha256 = "1l92i96n7pgwrrl4ywwmbpl1al5x3lamn9wrplclkh0l8yx8c033";
-    depends = [ SummarizedExperiment ];
+    depends = [SummarizedExperiment];
   };
   SplicingGraphs = derive2 {
     name = "SplicingGraphs";
@@ -15532,7 +15532,7 @@ with self; {
     name = "Summix";
     version = "2.4.0";
     sha256 = "0da94002spi4hv6a42aahdcazq66lf2nf4r6l2zg3hqxw0v6kph9";
-    depends = [ nloptr ];
+    depends = [nloptr];
   };
   SwathXtend = derive2 {
     name = "SwathXtend";
@@ -16322,7 +16322,7 @@ with self; {
     name = "Travel";
     version = "1.6.0";
     sha256 = "074v9hl4gzy8081mlas3mjaplchjrmk2bl4f5nkdjclh46xf3wgg";
-    depends = [ Rcpp ];
+    depends = [Rcpp];
   };
   TreeAndLeaf = derive2 {
     name = "TreeAndLeaf";
@@ -16384,7 +16384,7 @@ with self; {
     name = "TypeInfo";
     version = "1.64.0";
     sha256 = "0f5jm3pgrq3qawd42295n5x6qm5j2kl4xgj2l7jxwy6pd1hlnwmw";
-    depends = [ ];
+    depends = [];
   };
   UCell = derive2 {
     name = "UCell";
@@ -17000,7 +17000,7 @@ with self; {
     name = "a4Reporting";
     version = "1.46.0";
     sha256 = "09q8ng5kp47bqpj7m2y2112fkjxcnhzxk9v80hqksm8h1df46riv";
-    depends = [ xtable ];
+    depends = [xtable];
   };
   aCGH = derive2 {
     name = "aCGH";
@@ -17042,7 +17042,7 @@ with self; {
     name = "acde";
     version = "1.28.0";
     sha256 = "1d47hbna68qm517afk1wb0w9gb8j52p7nqh5axcc6h76zppsc1sp";
-    depends = [ boot ];
+    depends = [boot];
   };
   adSplit = derive2 {
     name = "adSplit";
@@ -17089,7 +17089,7 @@ with self; {
     name = "affxparser";
     version = "1.70.0";
     sha256 = "0p42rpyh96aph9jr8kiyjvv860jn7m7ji2nrib2vr2nl0jyaxqjs";
-    depends = [ ];
+    depends = [];
   };
   affy = derive2 {
     name = "affy";
@@ -17142,7 +17142,7 @@ with self; {
     name = "affycomp";
     version = "1.74.0";
     sha256 = "18bxnjcl7cbgwm3yf58608ghwnpci94xgil11zmbpgzgrpv9pkrs";
-    depends = [ Biobase ];
+    depends = [Biobase];
   };
   affycoretools = derive2 {
     name = "affycoretools";
@@ -17174,7 +17174,7 @@ with self; {
     name = "affyio";
     version = "1.68.0";
     sha256 = "1bdcz9sz4khs7p4ddryc4ir0fwcjrkwqka8y0c9n36ykiv4myfib";
-    depends = [ zlibbioc ];
+    depends = [zlibbioc];
   };
   affylmGUI = derive2 {
     name = "affylmGUI";
@@ -17211,7 +17211,7 @@ with self; {
     name = "agilp";
     version = "3.30.0";
     sha256 = "15cw004g1vxfwvf939018vmlv9gym4r473jissamkygqdv78hcr0";
-    depends = [ ];
+    depends = [];
   };
   airpart = derive2 {
     name = "airpart";
@@ -17405,7 +17405,7 @@ with self; {
     name = "annotationTools";
     version = "1.72.0";
     sha256 = "1z5vgblhi1kj2n9d4kbqgvwnm48372q0szgjshch8g39dypijvhd";
-    depends = [ Biobase ];
+    depends = [Biobase];
   };
   annotatr = derive2 {
     name = "annotatr";
@@ -17701,7 +17701,7 @@ with self; {
     name = "awst";
     version = "1.6.0";
     sha256 = "0dvzkqpjv7whns9q8zj6n2nyvnaw2ib7i53vf049n94x52vh9x15";
-    depends = [ SummarizedExperiment ];
+    depends = [SummarizedExperiment];
   };
   bacon = derive2 {
     name = "bacon";
@@ -17867,7 +17867,7 @@ with self; {
     name = "basilisk.utils";
     version = "1.10.0";
     sha256 = "0gh29w8arg0glawprwshaixv07y756c4lx21h8jjbqlsrbspp8fw";
-    depends = [ dir_expiry ];
+    depends = [dir_expiry];
   };
   batchelor = derive2 {
     name = "batchelor";
@@ -18617,7 +18617,7 @@ with self; {
     name = "bridge";
     version = "1.62.0";
     sha256 = "02rf15f3r1kazxml8mk9mi1zxgglsdfrpbg7ny9w0s65f413grg8";
-    depends = [ rama ];
+    depends = [rama];
   };
   bsseq = derive2 {
     name = "bsseq";
@@ -18755,7 +18755,7 @@ with self; {
     name = "calm";
     version = "1.12.0";
     sha256 = "16ab0hxfk9m3jplwrf5ybxikz7ai54l7xmgv2kcc98ima8lbaml6";
-    depends = [ mgcv ];
+    depends = [mgcv];
   };
   canceR = derive2 {
     name = "canceR";
@@ -18936,7 +18936,7 @@ with self; {
     name = "ccrepe";
     version = "1.34.0";
     sha256 = "1xnlsf0gird9ya0gd2xqjy6c85q5yrbaxv2kg31cn0wdlg55dgfh";
-    depends = [ infotheo ];
+    depends = [infotheo];
   };
   ceRNAnetsim = derive2 {
     name = "ceRNAnetsim";
@@ -19258,7 +19258,7 @@ with self; {
     name = "chopsticks";
     version = "1.64.0";
     sha256 = "1kc9a0ir7wz338c5y0lrrn74ik3i4fnh2m3ag5z2kx2xaxp4w90i";
-    depends = [ survival ];
+    depends = [survival];
   };
   chromDraw = derive2 {
     name = "chromDraw";
@@ -19412,7 +19412,7 @@ with self; {
     name = "cisPath";
     version = "1.38.0";
     sha256 = "0g3sl12hrh9asghm3ylz1l1v4hlcrsz47jpihqgkh829w0dz67rf";
-    depends = [ ];
+    depends = [];
   };
   cleanUpdTSeq = derive2 {
     name = "cleanUpdTSeq";
@@ -19525,7 +19525,7 @@ with self; {
     name = "clustComp";
     version = "1.26.0";
     sha256 = "0zpyxy7zba8j8zx3zr3ph4xvn6q6jp8lv3x99760aw98ccjm6l3h";
-    depends = [ sm ];
+    depends = [sm];
   };
   clusterExperiment = derive2 {
     name = "clusterExperiment";
@@ -19594,7 +19594,7 @@ with self; {
     name = "clusterStab";
     version = "1.70.0";
     sha256 = "0kmmb33mq0rgzp83rih8hb7gv51djfn6iak0b2b9806jx3c1cw5y";
-    depends = [ Biobase ];
+    depends = [Biobase];
   };
   clustifyr = derive2 {
     name = "clustifyr";
@@ -19681,7 +19681,7 @@ with self; {
     name = "coGPS";
     version = "1.42.0";
     sha256 = "12dxim7dd6nh3pgyn5yg4xkmvv5wpxy202qnarliv2smgs5f9w30";
-    depends = [ ];
+    depends = [];
   };
   coMET = derive2 {
     name = "coMET";
@@ -20147,7 +20147,7 @@ with self; {
     name = "copa";
     version = "1.66.0";
     sha256 = "1jznqf2n8c2w9d36xp2qwbyfap7kyp4qs3d8bpb8s75hi9yzr04z";
-    depends = [ Biobase ];
+    depends = [Biobase];
   };
   copynumber = derive2 {
     name = "copynumber";
@@ -20529,7 +20529,7 @@ with self; {
     name = "ctc";
     version = "1.72.0";
     sha256 = "098a65fk9la639sqihhsghhgb3hyzv35j6akph908zwq5grsv0c5";
-    depends = [ amap ];
+    depends = [amap];
   };
   ctsGE = derive2 {
     name = "ctsGE";
@@ -20724,7 +20724,7 @@ with self; {
     name = "daMA";
     version = "1.70.0";
     sha256 = "062nxfry9w674ja3q9zs4df2hvf4wws9jdqpy84g6nb0309vbhqf";
-    depends = [ MASS ];
+    depends = [MASS];
   };
   dada2 = derive2 {
     name = "dada2";
@@ -21211,7 +21211,7 @@ with self; {
     name = "diffGeneAnalysis";
     version = "1.80.0";
     sha256 = "0k0zd15jlffphg6m3c5jfnn5iilmb1g9sdgjzar4m6yyfzl1m51w";
-    depends = [ minpack_lm ];
+    depends = [minpack_lm];
   };
   diffHic = derive2 {
     name = "diffHic";
@@ -21329,7 +21329,7 @@ with self; {
     name = "dir.expiry";
     version = "1.6.0";
     sha256 = "1ix31jcfi3dg12pa0sz4k4izwc9rsydy6krl7f949lkam2g7s5f8";
-    depends = [ filelock ];
+    depends = [filelock];
   };
   discordant = derive2 {
     name = "discordant";
@@ -21385,13 +21385,13 @@ with self; {
     name = "divergence";
     version = "1.14.0";
     sha256 = "1khxmngdqsvn77hfiyz732q4z268qwk0r9ydmipz25lnddb25p7m";
-    depends = [ SummarizedExperiment ];
+    depends = [SummarizedExperiment];
   };
   dks = derive2 {
     name = "dks";
     version = "1.44.0";
     sha256 = "1vg6xlw5ia6r1xycd5hrh6s2nxrkrgi34dsd1kfzhkf11d40ydfh";
-    depends = [ cubature ];
+    depends = [cubature];
   };
   dmrseq = derive2 {
     name = "dmrseq";
@@ -21566,7 +21566,7 @@ with self; {
     name = "ecolitk";
     version = "1.70.0";
     sha256 = "0xvlqfb061a53vqfalz1byrrmc24mdqasm3img1i35izqvxz90bi";
-    depends = [ Biobase ];
+    depends = [Biobase];
   };
   edge = derive2 {
     name = "edge";
@@ -22284,13 +22284,13 @@ with self; {
     name = "fabia";
     version = "2.44.0";
     sha256 = "1fjysjnanjpaywcb4jk8n66mjc3ffn4jscvwqfkpjh7d757xc716";
-    depends = [ Biobase ];
+    depends = [Biobase];
   };
   factDesign = derive2 {
     name = "factDesign";
     version = "1.74.0";
     sha256 = "1wimcf0xnrpfahda9lj90xqcnq76yw7swbgasrdinay37a3dv0ki";
-    depends = [ Biobase ];
+    depends = [Biobase];
   };
   factR = derive2 {
     name = "factR";
@@ -22438,7 +22438,7 @@ with self; {
     name = "fdrame";
     version = "1.70.0";
     sha256 = "1p382fak15w2ny5kbvlwdl8iyi28y1avrsl0xk0ds4a0njljxp06";
-    depends = [ ];
+    depends = [];
   };
   fedup = derive2 {
     name = "fedup";
@@ -22754,7 +22754,7 @@ with self; {
     name = "flowPeaks";
     version = "1.44.0";
     sha256 = "0n3sbb9acvj5srrlxv58n858s9nns62y0pj46pplx5gv7i8hxbcp";
-    depends = [ ];
+    depends = [];
   };
   flowPloidy = derive2 {
     name = "flowPloidy";
@@ -22774,7 +22774,7 @@ with self; {
     name = "flowPlots";
     version = "1.46.0";
     sha256 = "1vqx2qww5y5p1mcv99qlm1k077gnd4dwmi83ax31rz5kqip2g7b0";
-    depends = [ ];
+    depends = [];
   };
   flowSpecs = derive2 {
     name = "flowSpecs";
@@ -22916,7 +22916,7 @@ with self; {
     name = "fmrs";
     version = "1.8.0";
     sha256 = "1nw7ibbqw30p9mj3vi7pd3ixry6fwai02mg3rys48bld0aipw21l";
-    depends = [ survival ];
+    depends = [survival];
   };
   fobitools = derive2 {
     name = "fobitools";
@@ -23039,7 +23039,7 @@ with self; {
     name = "garfield";
     version = "1.26.0";
     sha256 = "0cm2lg9qsnlp60i3rc2c4d6xc73r285rznkgdkw646c62s48lhs8";
-    depends = [ ];
+    depends = [];
   };
   gcapc = derive2 {
     name = "gcapc";
@@ -23063,7 +23063,7 @@ with self; {
     name = "gcatest";
     version = "1.28.2";
     sha256 = "1f2bp16x7ji9sh5kk150w57gqpbrisrb0xlkjv8wnd63j0vnng3l";
-    depends = [ lfa ];
+    depends = [lfa];
   };
   gcrma = derive2 {
     name = "gcrma";
@@ -23082,7 +23082,7 @@ with self; {
     name = "gdsfmt";
     version = "1.34.1";
     sha256 = "1sx7yw44djrnc6km8fip3w3vclkgz5s0w6ibp8lpvmjcay8nv2sx";
-    depends = [ ];
+    depends = [];
   };
   geNetClassifier = derive2 {
     name = "geNetClassifier";
@@ -23185,7 +23185,7 @@ with self; {
     name = "geneRecommender";
     version = "1.70.0";
     sha256 = "0iki40fg9mdkj131sc3f4wj6b4mz0jidpbzyxskcdm4l81ar8amv";
-    depends = [ Biobase ];
+    depends = [Biobase];
   };
   geneRxCluster = derive2 {
     name = "geneRxCluster";
@@ -23270,7 +23270,7 @@ with self; {
     name = "genoCN";
     version = "1.50.0";
     sha256 = "1m53f6yd692rsrhhr1kq4mwv13kmjlkq8cvcbkn736vbpq07j743";
-    depends = [ ];
+    depends = [];
   };
   genomation = derive2 {
     name = "genomation";
@@ -23602,7 +23602,7 @@ with self; {
     name = "globalSeq";
     version = "1.26.0";
     sha256 = "0l4n755v8gxxrxqgzhks4yz06rr3m703zaaavh0fyryk2mnijpip";
-    depends = [ ];
+    depends = [];
   };
   globaltest = derive2 {
     name = "globaltest";
@@ -23718,7 +23718,7 @@ with self; {
     name = "gpls";
     version = "1.70.0";
     sha256 = "0kxk22l9rm4kxlf0mr4zb01nr2vlia1g4xq9fsd6fdn6d535k1ci";
-    depends = [ ];
+    depends = [];
   };
   gpuMagic = derive2 {
     name = "gpuMagic";
@@ -23775,7 +23775,7 @@ with self; {
     name = "graph";
     version = "1.76.0";
     sha256 = "1hdbxjvgkxb9m341i9qbskb41g2z8qifkhgkpj2xb20s2dnxn3cc";
-    depends = [ BiocGenerics ];
+    depends = [BiocGenerics];
   };
   graphite = derive2 {
     name = "graphite";
@@ -24060,7 +24060,7 @@ with self; {
     name = "hpar";
     version = "1.40.0";
     sha256 = "1dls59d2ysk8ngk5c6nx7xqgc2iygbdlzf88gccf2wm8zhy8m3f4";
-    depends = [ ];
+    depends = [];
   };
   hummingbird = derive2 {
     name = "hummingbird";
@@ -24114,13 +24114,13 @@ with self; {
     name = "hypergraph";
     version = "1.70.0";
     sha256 = "1jvnvzjivjwqxh19c3g37kpyl6i6mxw99ma3ypjjgxzx898nsg45";
-    depends = [ graph ];
+    depends = [graph];
   };
   iASeq = derive2 {
     name = "iASeq";
     version = "1.42.0";
     sha256 = "1v7ax7847ygdy6mxwbg6awy52dms0nirbyn1z0cwsjssvi4q4hd5";
-    depends = [ ];
+    depends = [];
   };
   iBBiG = derive2 {
     name = "iBBiG";
@@ -24208,13 +24208,13 @@ with self; {
     name = "iChip";
     version = "1.52.0";
     sha256 = "1c3l24v0hm2dnidg8l9v6gqwrm51pqhw3mjg4x1a4vy1rq3j6jrj";
-    depends = [ limma ];
+    depends = [limma];
   };
   iClusterPlus = derive2 {
     name = "iClusterPlus";
     version = "1.34.3";
     sha256 = "0d7qsdjry5avflrvgjj287xqn9dr54pqiqvpgywzdmdwn82m0dfp";
-    depends = [ ];
+    depends = [];
   };
   iGC = derive2 {
     name = "iGC";
@@ -24332,7 +24332,7 @@ with self; {
     name = "iSeq";
     version = "1.50.0";
     sha256 = "1h0da0298g2lvvqbys3jh2acjjzh1dvivfpl07g319nafxkfsi1q";
-    depends = [ ];
+    depends = [];
   };
   iasva = derive2 {
     name = "iasva";
@@ -24349,7 +24349,7 @@ with self; {
     name = "ibh";
     version = "1.46.0";
     sha256 = "0kxqpb9711yxg5xz2mhpwjw9nwixmfzzy6qql1sifi4mp6bh2fzf";
-    depends = [ simpIntLists ];
+    depends = [simpIntLists];
   };
   icetea = derive2 {
     name = "icetea";
@@ -24480,7 +24480,7 @@ with self; {
     name = "illuminaio";
     version = "0.40.0";
     sha256 = "1cw526mbhh0czkwk99qnr6hfwi4k4xi2bm5p14kw9sr00if59x12";
-    depends = [ base64 ];
+    depends = [base64];
   };
   imageHTS = derive2 {
     name = "imageHTS";
@@ -24561,7 +24561,7 @@ with self; {
     name = "impute";
     version = "1.72.3";
     sha256 = "1qq80za9bkg0wqnlckvahnjz08xacwvpnflwnrmwr2xg0ifkis38";
-    depends = [ ];
+    depends = [];
   };
   infercnv = derive2 {
     name = "infercnv";
@@ -24878,7 +24878,7 @@ with self; {
     name = "lapmix";
     version = "1.64.0";
     sha256 = "0rhdzvbhsvnhlqd1bkbi9p8fqpc0lvm6jw4923dlmv68lxlfy9sb";
-    depends = [ Biobase ];
+    depends = [Biobase];
   };
   ldblock = derive2 {
     name = "ldblock";
@@ -24940,13 +24940,13 @@ with self; {
     name = "lfa";
     version = "1.28.2";
     sha256 = "0z8aa2435f7v2l6zwv47v2a6p9hal156dsh8v1iri233d1qx7fax";
-    depends = [ corpcor ];
+    depends = [corpcor];
   };
   limma = derive2 {
     name = "limma";
     version = "3.54.2";
     sha256 = "1qch34znld9i8sy1xwpy23z2zs07nj39wkfmgfi7qw141vn6gr8b";
-    depends = [ ];
+    depends = [];
   };
   limmaGUI = derive2 {
     name = "limmaGUI";
@@ -25063,19 +25063,19 @@ with self; {
     name = "logitT";
     version = "1.56.0";
     sha256 = "1mi2psbmz1cd5ms084wpljiv8kh1fdpwkaasj1j4axcw5wds7bqd";
-    depends = [ affy ];
+    depends = [affy];
   };
   lpNet = derive2 {
     name = "lpNet";
     version = "2.30.0";
     sha256 = "148kvxav3mqxa7z6m8wp8qxlv1w7ladw7za1d7qaly7hbpll21yy";
-    depends = [ lpSolve ];
+    depends = [lpSolve];
   };
   lpsymphony = derive2 {
     name = "lpsymphony";
     version = "1.26.3";
     sha256 = "0iqc6km4pw50li2q35km8jpa0p3i6a6way910wcz56yd2jjbjyz5";
-    depends = [ ];
+    depends = [];
   };
   lumi = derive2 {
     name = "lumi";
@@ -25165,7 +25165,7 @@ with self; {
     name = "maCorrPlot";
     version = "1.68.0";
     sha256 = "07z6amr19dg2i5zvz86xs7f5nk82b5qj9slv69r9pbiifn6pci9d";
-    depends = [ lattice ];
+    depends = [lattice];
   };
   maPredictDSC = derive2 {
     name = "maPredictDSC";
@@ -25201,7 +25201,7 @@ with self; {
     name = "maanova";
     version = "1.68.2";
     sha256 = "1rcxvv0vcvksswjd3vry68nmvrbh05p5pica48bwcar93jh70bx9";
-    depends = [ Biobase ];
+    depends = [Biobase];
   };
   macat = derive2 {
     name = "macat";
@@ -25242,7 +25242,7 @@ with self; {
     name = "magrene";
     version = "1.0.0";
     sha256 = "1r7pri63lwr7hkqn2wkz782sgnx1v7z0fkd5x6yim141hm1y9xii";
-    depends = [ BiocParallel ];
+    depends = [BiocParallel];
   };
   maigesPack = derive2 {
     name = "maigesPack";
@@ -25295,7 +25295,7 @@ with self; {
     name = "marray";
     version = "1.76.0";
     sha256 = "1bad4cjxv22h6vxxn86mxp7xvxhhzj81pikxq3h3hc2a858qfkgs";
-    depends = [ limma ];
+    depends = [limma];
   };
   martini = derive2 {
     name = "martini";
@@ -25352,7 +25352,7 @@ with self; {
     name = "matchBox";
     version = "1.40.0";
     sha256 = "0s7pmrbbzy87xf2596m6ix14p02dfr8db0jgx5vzidfvplh7rwsx";
-    depends = [ ];
+    depends = [];
   };
   matter = derive2 {
     name = "matter";
@@ -25506,7 +25506,7 @@ with self; {
     name = "metaCCA";
     version = "1.26.0";
     sha256 = "1jvzp9fzggvavg4jbmmyb6cibgll0yglmc3nsfgygsh7z20yss36";
-    depends = [ ];
+    depends = [];
   };
   metaMS = derive2 {
     name = "metaMS";
@@ -25548,7 +25548,7 @@ with self; {
     name = "metabinR";
     version = "1.0.0";
     sha256 = "1qyy2l5y18v1jg54lk7sv9f1wcmrzbff4yk921m9gn4jcxdn59l9";
-    depends = [ rJava ];
+    depends = [rJava];
   };
   metabolomicsWorkbenchR = derive2 {
     name = "metabolomicsWorkbenchR";
@@ -25643,13 +25643,13 @@ with self; {
     name = "metahdep";
     version = "1.56.0";
     sha256 = "1fyphlk6v5va7yr7ihb4yman0sd3jywscqx6an6zv1jkwvp9hpd1";
-    depends = [ ];
+    depends = [];
   };
   metapod = derive2 {
     name = "metapod";
     version = "1.6.0";
     sha256 = "06ala1qz9bfq7nnj92m0c5r85kk7h4zrljjh0hgrap5sjlsm09bb";
-    depends = [ Rcpp ];
+    depends = [Rcpp];
   };
   metapone = derive2 {
     name = "metapone";
@@ -26006,7 +26006,7 @@ with self; {
     name = "mgsa";
     version = "1.46.0";
     sha256 = "1h559i80hd8ajvimj3qs9c2yayl4cz8kr7irn4184wcql61dq5md";
-    depends = [ gplots ];
+    depends = [gplots];
   };
   miQC = derive2 {
     name = "miQC";
@@ -26022,7 +26022,7 @@ with self; {
     name = "miRBaseConverter";
     version = "1.22.0";
     sha256 = "1srx066gsqcngngjpac29wnqf4n5r297h5wbbgjdvkkvyc7fhvwy";
-    depends = [ ];
+    depends = [];
   };
   miRLAB = derive2 {
     name = "miRLAB";
@@ -26065,7 +26065,7 @@ with self; {
     name = "miRNApath";
     version = "1.58.0";
     sha256 = "0h6q3p29pvzfk8ggb97akbh0lmawypwp9rs4bmnj52599ws4x3n1";
-    depends = [ ];
+    depends = [];
   };
   miRNAtap = derive2 {
     name = "miRNAtap";
@@ -26131,7 +26131,7 @@ with self; {
     name = "miRmine";
     version = "1.20.0";
     sha256 = "1mn9cjx6hqgqsmjg3rjkdyfs0d4ji12k5s2mw2rc87bwcl3d0rai";
-    depends = [ SummarizedExperiment ];
+    depends = [SummarizedExperiment];
   };
   miRspongeR = derive2 {
     name = "miRspongeR";
@@ -26230,7 +26230,7 @@ with self; {
     name = "microRNA";
     version = "1.56.0";
     sha256 = "002wagng2zqa2cl8140im2fzbic6mqr2mp6qbaqk5ary5m8c0bkq";
-    depends = [ Biostrings ];
+    depends = [Biostrings];
   };
   microbiome = derive2 {
     name = "microbiome";
@@ -26443,7 +26443,7 @@ with self; {
     name = "minet";
     version = "3.56.0";
     sha256 = "1xknyc2m03dyqrnx6np2y2lr41w06arl114f6cncl6wsnanqxzrz";
-    depends = [ infotheo ];
+    depends = [infotheo];
   };
   minfi = derive2 {
     name = "minfi";
@@ -26827,7 +26827,7 @@ with self; {
     name = "motifcounter";
     version = "1.22.0";
     sha256 = "0vsjnp19c8wscb3n2wkqvmssx052fr8wcfb6y67393mq1pqa719m";
-    depends = [ Biostrings ];
+    depends = [Biostrings];
   };
   motifmatchr = derive2 {
     name = "motifmatchr";
@@ -27123,7 +27123,7 @@ with self; {
     name = "multiscan";
     version = "1.58.0";
     sha256 = "1fj9fap9nz3cr9hvdhjnw4qbv684vsqjaf29sjcjvsay5f919gfy";
-    depends = [ Biobase ];
+    depends = [Biobase];
   };
   multtest = derive2 {
     name = "multtest";
@@ -27198,7 +27198,7 @@ with self; {
     name = "muscle";
     version = "3.40.0";
     sha256 = "14dqhmvfdcm8fn27ih5q654rla4qgikj4761lhhnhzyvhqvnmglk";
-    depends = [ Biostrings ];
+    depends = [Biostrings];
   };
   musicatk = derive2 {
     name = "musicatk";
@@ -27529,7 +27529,7 @@ with self; {
     name = "netbiov";
     version = "1.31.0";
     sha256 = "0ldpbq8d7hq6sa5qcc5qh23plczg35170v3fifyz6a47vghr5ff9";
-    depends = [ igraph ];
+    depends = [igraph];
   };
   netboost = derive2 {
     name = "netboost";
@@ -27718,7 +27718,7 @@ with self; {
     name = "nuCpos";
     version = "1.16.3";
     sha256 = "14anlg6a7b3qw2k39q273p5396v3nqlask0gz92h170z24gjyc1s";
-    depends = [ ];
+    depends = [];
   };
   nucleR = derive2 {
     name = "nucleR";
@@ -27772,7 +27772,7 @@ with self; {
     name = "occugene";
     version = "1.58.0";
     sha256 = "13hv71w25jzlf0fs5wx400m1zh4l4vxlvv42vidiyggj894ky5a3";
-    depends = [ ];
+    depends = [];
   };
   octad = derive2 {
     name = "octad";
@@ -28300,7 +28300,7 @@ with self; {
     name = "paircompviz";
     version = "1.36.0";
     sha256 = "1nrxn494is198j1yc3janhf8d1vh772k5k5x3qfs75wcz1vwcihh";
-    depends = [ Rgraphviz ];
+    depends = [Rgraphviz];
   };
   pairkat = derive2 {
     name = "pairkat";
@@ -28400,7 +28400,7 @@ with self; {
     name = "parody";
     version = "1.56.0";
     sha256 = "12i5g4ai7a0p81kvqvz1qw099cy3g71n69pij8w760r3jn0c9ilw";
-    depends = [ ];
+    depends = [];
   };
   pathRender = derive2 {
     name = "pathRender";
@@ -28619,7 +28619,7 @@ with self; {
     name = "pepXMLTab";
     version = "1.32.0";
     sha256 = "13bwyxlf8nx86ldzj01qlfba6yh75pzb1kjkpi7p7hs1b0yvb5xp";
-    depends = [ XML ];
+    depends = [XML];
   };
   periodicDNA = derive2 {
     name = "periodicDNA";
@@ -28644,7 +28644,7 @@ with self; {
     name = "pgca";
     version = "1.22.0";
     sha256 = "0bcq1qks87jjgd2bwpds6xvcvidcvl9pq53mi0dafihgd0s2ycfn";
-    depends = [ ];
+    depends = [];
   };
   phantasus = derive2 {
     name = "phantasus";
@@ -28844,7 +28844,7 @@ with self; {
     name = "pickgene";
     version = "1.70.0";
     sha256 = "0f6p41ryssw50il1hys6nhm818yzm4ppbksqm0mm7v6knk0mywzi";
-    depends = [ MASS ];
+    depends = [MASS];
   };
   pipeComp = derive2 {
     name = "pipeComp";
@@ -29014,7 +29014,7 @@ with self; {
     name = "pmm";
     version = "1.30.0";
     sha256 = "1yma0zpas34wh8axmq3q8hv3gp5vq9zsjvkbmzqd8mnvmkd4pbkg";
-    depends = [ lme4 ];
+    depends = [lme4];
   };
   pmp = derive2 {
     name = "pmp";
@@ -29190,7 +29190,7 @@ with self; {
     name = "preprocessCore";
     version = "1.60.2";
     sha256 = "0ikxikmz9dy09g726q1wygymm6z2imlgfiizkgh1cl4s0m35fbbd";
-    depends = [ ];
+    depends = [];
   };
   primirTSS = derive2 {
     name = "primirTSS";
@@ -29459,7 +29459,7 @@ with self; {
     name = "proteinProfiles";
     version = "1.38.0";
     sha256 = "0a4nwd9dabl3l8bx9fq4dfmqnvmhf8lj832kiswbdb0p8q3dhqvb";
-    depends = [ ];
+    depends = [];
   };
   psichomics = derive2 {
     name = "psichomics";
@@ -29816,7 +29816,7 @@ with self; {
     name = "quantsmooth";
     version = "1.64.0";
     sha256 = "1adwws3brb01d4g6yidipnd8akkiyc3gpdr876hy57qnmcq8xipp";
-    depends = [ quantreg ];
+    depends = [quantreg];
   };
   qusage = derive2 {
     name = "qusage";
@@ -29956,13 +29956,13 @@ with self; {
     name = "rRDP";
     version = "1.32.0";
     sha256 = "1fpj6syb1k8kababm7bzgkr2qqqx83vnfm9dnr577yfxldbpfjb6";
-    depends = [ Biostrings ];
+    depends = [Biostrings];
   };
   rSWeeP = derive2 {
     name = "rSWeeP";
     version = "1.10.0";
     sha256 = "16r6qfphaiwjvwmfxbaxdlfmc5bjyx2n7anlsavfgvh00jp31hm2";
-    depends = [ pracma ];
+    depends = [pracma];
   };
   rScudo = derive2 {
     name = "rScudo";
@@ -30026,7 +30026,7 @@ with self; {
     name = "rama";
     version = "1.72.0";
     sha256 = "0i6crxnzhwxnc55xh2rv36jfwh4bd30alw1f05ixdrxwqwsslbpy";
-    depends = [ ];
+    depends = [];
   };
   ramr = derive2 {
     name = "ramr";
@@ -30067,19 +30067,19 @@ with self; {
     name = "randPack";
     version = "1.44.0";
     sha256 = "15afb49v7fjhlmnm9g2vnjcql288qsxlc0vyyki4m9w24kn8pvsa";
-    depends = [ Biobase ];
+    depends = [Biobase];
   };
   randRotation = derive2 {
     name = "randRotation";
     version = "1.10.0";
     sha256 = "1siw6y3izcaw84pccxa1lklcl9y16hay4vn1nippqv47bd1ynawv";
-    depends = [ Rdpack ];
+    depends = [Rdpack];
   };
   rawrr = derive2 {
     name = "rawrr";
     version = "1.6.1";
     sha256 = "06z294b659yly7jshb1dcaqdxjf8sxnq95qhzcxn2w2hz3v6lfz0";
-    depends = [ ];
+    depends = [];
   };
   rbsurv = derive2 {
     name = "rbsurv";
@@ -30427,7 +30427,7 @@ with self; {
     name = "rhdf5filters";
     version = "1.10.1";
     sha256 = "14rkr0fisy7qrvjikpnwxwag79205hdxy6nkpwz501li4fr1rbnp";
-    depends = [ Rhdf5lib ];
+    depends = [Rhdf5lib];
   };
   riboSeqR = derive2 {
     name = "riboSeqR";
@@ -30553,7 +30553,7 @@ with self; {
     name = "rnaseqcomp";
     version = "1.28.0";
     sha256 = "1znbydb4pdmchrwr94r87v3k6zmdh6f2d5vrs3wvs4ak343k86x4";
-    depends = [ RColorBrewer ];
+    depends = [RColorBrewer];
   };
   roar = derive2 {
     name = "roar";
@@ -30791,7 +30791,7 @@ with self; {
     name = "sagenhaft";
     version = "1.68.0";
     sha256 = "0hh9gkv07qrlnarrj7h579dhisyq01c5jjl3rvq5w086wfy9154m";
-    depends = [ SparseM ];
+    depends = [SparseM];
   };
   sampleClassifier = derive2 {
     name = "sampleClassifier";
@@ -31883,7 +31883,7 @@ with self; {
     name = "semisup";
     version = "1.22.0";
     sha256 = "1wn2a86rdvh8p37iifhmsq149j135dyp1h0xr86xfj88ffzj0y9n";
-    depends = [ VGAM ];
+    depends = [VGAM];
   };
   seq2pathway = derive2 {
     name = "seq2pathway";
@@ -31953,7 +31953,7 @@ with self; {
     name = "seqLogo";
     version = "1.64.0";
     sha256 = "1xlxi1iaqj7iabzbx15j6pk4551dyj6pa6a6qf5ffr3v7k2pmznp";
-    depends = [ ];
+    depends = [];
   };
   seqPattern = derive2 {
     name = "seqPattern";
@@ -31971,7 +31971,7 @@ with self; {
     name = "seqTools";
     version = "1.32.0";
     sha256 = "0ya3y3zam68zyw7ky2k8nswk4zd8c0fhihyg6qdw43aicisykms2";
-    depends = [ zlibbioc ];
+    depends = [zlibbioc];
   };
   seqbias = derive2 {
     name = "seqbias";
@@ -32144,7 +32144,7 @@ with self; {
     name = "sigPathway";
     version = "1.66.2";
     sha256 = "0k86hlz7zbbw7559bd2sl59pr441kihgwvg8nr75mj8d50n783sy";
-    depends = [ ];
+    depends = [];
   };
   siggenes = derive2 {
     name = "siggenes";
@@ -32306,7 +32306,7 @@ with self; {
     name = "similaRpeak";
     version = "1.30.0";
     sha256 = "0ncx8r62lvj0711f37szd9998cfpq5nsw6nq00xvkd781p3jf0gn";
-    depends = [ R6 ];
+    depends = [R6];
   };
   simpleSeg = derive2 {
     name = "simpleSeg";
@@ -32533,7 +32533,7 @@ with self; {
     name = "sizepower";
     version = "1.68.0";
     sha256 = "10wsvs54qdvwhpy865dlpjwzq7l1cnsg8hq1vs1jp36vspwwxzrg";
-    depends = [ ];
+    depends = [];
   };
   skewr = derive2 {
     name = "skewr";
@@ -32889,7 +32889,7 @@ with self; {
     name = "spikeLI";
     version = "2.58.0";
     sha256 = "1wv6xybjf7m9rlylr2dbh5d9kx5vxc0l72y0581fj7l9352qgznh";
-    depends = [ ];
+    depends = [];
   };
   spiky = derive2 {
     name = "spiky";
@@ -32960,7 +32960,7 @@ with self; {
     name = "splots";
     version = "1.64.0";
     sha256 = "0malaw94s55qh7x7x98s472vnr2rgylgfvkrf0113h2l1v92nhmy";
-    depends = [ RColorBrewer ];
+    depends = [RColorBrewer];
   };
   spqn = derive2 {
     name = "spqn";
@@ -33080,13 +33080,13 @@ with self; {
     name = "staRank";
     version = "1.40.0";
     sha256 = "1f92yc538dvyqyxswrqwf1c0r8kaj45wpcpikrs9vr1g0s072lv5";
-    depends = [ cellHTS2 ];
+    depends = [cellHTS2];
   };
   stageR = derive2 {
     name = "stageR";
     version = "1.20.0";
     sha256 = "1layvv9akzijw2br9jzw6cwxn2rimha4m48fm8wn465n1nqcns0m";
-    depends = [ SummarizedExperiment ];
+    depends = [SummarizedExperiment];
   };
   standR = derive2 {
     name = "standR";
@@ -33335,7 +33335,7 @@ with self; {
     name = "swfdr";
     version = "1.24.0";
     sha256 = "0svvmssp4jlhcs8agihpc4hlar83d5czrlp7l5xlzf4cagzx2nv9";
-    depends = [ ];
+    depends = [];
   };
   switchBox = derive2 {
     name = "switchBox";
@@ -33361,7 +33361,7 @@ with self; {
     name = "synapsis";
     version = "1.4.0";
     sha256 = "127yx1a56r0fh8n9ir2zlhxs2fj47pfdxn8dssdmns0d77rhnnvc";
-    depends = [ EBImage ];
+    depends = [EBImage];
   };
   synapter = derive2 {
     name = "synapter";
@@ -34281,7 +34281,7 @@ with self; {
     name = "twilight";
     version = "1.74.0";
     sha256 = "1lia4q637ngh47zlr5g18isp9acrb4d9g1fzck2akldqa0pnn66r";
-    depends = [ Biobase ];
+    depends = [Biobase];
   };
   twoddpcr = derive2 {
     name = "twoddpcr";
@@ -34339,7 +34339,7 @@ with self; {
     name = "tximport";
     version = "1.26.1";
     sha256 = "1r67q4nb2bx9nqycyr2gnfmh4gizl0c7l510vmlcdvplv3yi73yn";
-    depends = [ ];
+    depends = [];
   };
   uSORT = derive2 {
     name = "uSORT";
@@ -34460,7 +34460,7 @@ with self; {
     name = "vbmp";
     version = "1.66.0";
     sha256 = "1gfvk1g9q73p9z91zasblya1w218yhzawp6dgyf0lnldx36kpvc9";
-    depends = [ ];
+    depends = [];
   };
   velociraptor = derive2 {
     name = "velociraptor";
@@ -34707,7 +34707,7 @@ with self; {
     name = "widgetTools";
     version = "1.76.0";
     sha256 = "1p93dzf7w9z1ria0f8n32aymam9abxyg50ngnh7s6a8n24mvvjy5";
-    depends = [ ];
+    depends = [];
   };
   wiggleplotr = derive2 {
     name = "wiggleplotr";
@@ -34814,7 +34814,7 @@ with self; {
     name = "xmapbridge";
     version = "1.56.0";
     sha256 = "0wxr3db2daj4xlr9df6iqwm00m71kln7rhqnq2ckdsricblanhs7";
-    depends = [ ];
+    depends = [];
   };
   yamss = derive2 {
     name = "yamss";
@@ -34913,7 +34913,7 @@ with self; {
     name = "zlibbioc";
     version = "1.44.0";
     sha256 = "0c75mf0iw6bgwrn3zxpz1dz03aw7p6a1mfhssk6i1mp24avic9lb";
-    depends = [ ];
+    depends = [];
   };
   ABAEnrichment = derive2 {
     name = "ABAEnrichment";
@@ -35177,7 +35177,7 @@ with self; {
     name = "GCSFilesystem";
     version = "1.6.0";
     sha256 = "0qk8xyg06f71y4r1q1zpcj89irh9i6cd9z6nqlx635x8if84sh6d";
-    depends = [ ];
+    depends = [];
     broken = true;
   };
   GeneAnswers = derive2 {
@@ -35437,7 +35437,7 @@ with self; {
     name = "Rgin";
     version = "1.15.0";
     sha256 = "1x5zj2d5rvsr2xh0ifpnrys9v91dal1xxhv5mmk16rs8wzwqpqba";
-    depends = [ RcppEigen ];
+    depends = [RcppEigen];
     broken = true;
   };
   RmiR = derive2 {
@@ -35627,7 +35627,7 @@ with self; {
     name = "clonotypeR";
     version = "1.34.0";
     sha256 = "15nnj6c23bcnln1xsmxs7f13m13lvn6did7lvp7ij8gcb0vg2g6q";
-    depends = [ ];
+    depends = [];
     broken = true;
   };
   ctgGEM = derive2 {
@@ -35703,7 +35703,7 @@ with self; {
     name = "gaia";
     version = "2.39.0";
     sha256 = "023mw2dy6dni7h7a1ild1y6l741kp9bmjzzfyi70jipji1jig4pa";
-    depends = [ ];
+    depends = [];
     broken = true;
   };
   genphen = derive2 {
@@ -35744,14 +35744,14 @@ with self; {
     name = "gprege";
     version = "1.39.0";
     sha256 = "12yjyb7a7jc86hdi3a3cavqxfzkhmds1m2vigzw5ihhx6028pa78";
-    depends = [ ];
+    depends = [];
     broken = true;
   };
   inveRsion = derive2 {
     name = "inveRsion";
     version = "1.43.0";
     sha256 = "0h2q10xf4x22hy7780w4pvq488921wzjngly8qcc97sa8iacssk3";
-    depends = [ haplo_stats ];
+    depends = [haplo_stats];
     broken = true;
   };
   iteremoval = derive2 {
@@ -35927,7 +35927,7 @@ with self; {
     name = "tspair";
     version = "1.53.0";
     sha256 = "04xxrm313mnknhc38vl1sx6hic2g1x1xaa5772qlc7ip957hz85k";
-    depends = [ Biobase ];
+    depends = [Biobase];
     broken = true;
   };
 }

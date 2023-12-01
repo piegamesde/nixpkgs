@@ -24,9 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-T7LOaT+yaM2ukAN0z6GpFkHiLZUU0eweYtp0cFCST3Y=";
   };
 
-  nativeBuildInputs = [ jupyter-packaging ];
+  nativeBuildInputs = [jupyter-packaging];
 
-  setupPyBuildFlags = [ "--skip-npm" ];
+  setupPyBuildFlags = ["--skip-npm"];
 
   propagatedBuildInputs = [
     ipywidgets
@@ -47,6 +47,6 @@ buildPythonPackage rec {
     description = "Widgets to help facilitate reuse of large datasets across different widgets";
     homepage = "https://github.com/vidartf/ipydatawidgets";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

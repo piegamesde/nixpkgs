@@ -15,13 +15,13 @@
   generation,
   version,
   sha256,
-  extraMeta ? { },
+  extraMeta ? {},
   callPackage,
   ...
 }:
 
 let
-  libPath = lib.makeLibraryPath [ stdenv.cc.cc ];
+  libPath = lib.makeLibraryPath [stdenv.cc.cc];
   binPath = lib.makeBinPath [
     bash
     getopt
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     url = "mirror://apache/cassandra/${version}/apache-cassandra-${version}-bin.tar.gz";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -113,7 +113,7 @@ stdenv.mkDerivation rec {
         nixos = assert test.testPackage.version == version; test;
       };
 
-    updateScript = callPackage ./update-script.nix { inherit generation; };
+    updateScript = callPackage ./update-script.nix {inherit generation;};
   };
 
   meta =
@@ -123,7 +123,7 @@ stdenv.mkDerivation rec {
       description = "A massively scalable open source NoSQL database";
       platforms = platforms.unix;
       license = licenses.asl20;
-      maintainers = [ maintainers.roberth ];
+      maintainers = [maintainers.roberth];
     }
     // extraMeta;
 }

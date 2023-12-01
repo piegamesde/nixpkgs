@@ -1,13 +1,13 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "turbovnc-headless-server";
     meta = {
-      maintainers = with lib.maintainers; [ nh2 ];
+      maintainers = with lib.maintainers; [nh2];
     };
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
 
         environment.systemPackages = with pkgs; [

@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     url = "http://www.linuxhardware.org/xsensors/xsensors-${version}.tar.gz";
     sha256 = "1siplsfgvcxamyqf44h71jx6jdfmvhfm7mh0y1q8ps4zs6pj2zwh";
   };
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gtk2
     lm_sensors
@@ -26,6 +26,6 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ cstrahan ];
+    maintainers = with maintainers; [cstrahan];
   };
 }

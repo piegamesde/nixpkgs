@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  setupHook = [ ./setup-hook.sh ];
+  setupHook = [./setup-hook.sh];
 
   meta = {
     homepage = "http://ocsigen.org/eliom/";
@@ -82,6 +82,6 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.lgpl21;
 
-    maintainers = [ lib.maintainers.gal_bolle ];
+    maintainers = [lib.maintainers.gal_bolle];
   };
 }

@@ -66,7 +66,7 @@ buildPythonPackage rec {
     "--prefix PYTHONPATH : $out/lib/${python.libPrefix}/site-packages"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -87,7 +87,7 @@ buildPythonPackage rec {
     "test_locking_multiprocess"
   ];
 
-  pythonImportsCheck = [ "maestral" ];
+  pythonImportsCheck = ["maestral"];
 
   passthru.tests.maestral = nixosTests.maestral;
 

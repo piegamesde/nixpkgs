@@ -29,12 +29,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "crownstone_uart" ];
+  pythonImportsCheck = ["crownstone_uart"];
 
   meta = with lib; {
     description = "Python module for communicating with Crownstone USB dongles";
     homepage = "https://github.com/crownstone/crownstone-lib-python-uart";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

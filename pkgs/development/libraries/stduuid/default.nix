@@ -17,12 +17,12 @@ stdenv.mkDerivation {
     hash = "sha256-MhpKv+gH3QxiaQMx5ImiQjDGrbKUFaaoBLj5Voh78vg=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = {
     description = "A C++17 cross-platform implementation for UUIDs";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.shlevy ];
+    maintainers = [lib.maintainers.shlevy];
     homepage = "https://github.com/mariusbancila/stduuid";
     platforms = lib.platforms.all;
   };

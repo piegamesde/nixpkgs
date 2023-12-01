@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-R175CKb3uErjBNe73HEFMI+bNmmuH2nWGraCSh5bXwc=";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
   buildInputs = [
     jdk
     ib-tws
@@ -166,9 +166,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Automation Controller for the Trader Work Station of Interactive Brokers";
     homepage = "https://github.com/ib-controller/ib-controller";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

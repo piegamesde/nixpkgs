@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-PD7R1vcb3FKd4hfpViKyvfCExJ5H1Xo2HPYden5zpxQ=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   # Tests use nix(1), which tries (and fails) to set up /nix/var inside the
   # sandbox

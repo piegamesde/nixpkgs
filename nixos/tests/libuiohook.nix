@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "libuiohook";
-    meta = with lib.maintainers; { maintainers = [ anoa ]; };
+    meta = with lib.maintainers; {maintainers = [anoa];};
 
     nodes.client =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         user = nodes.client.config.users.users.alice;
       in
@@ -15,13 +15,13 @@ import ./make-test-python.nix (
           ./common/x11.nix
         ];
 
-        environment.systemPackages = [ pkgs.libuiohook.test ];
+        environment.systemPackages = [pkgs.libuiohook.test];
 
         test-support.displayManager.auto.user = user.name;
       };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         user = nodes.client.config.users.users.alice;
       in

@@ -29,7 +29,7 @@ mkDerivation rec {
   buildInputs = [
     qtbase
     sqlcipher
-  ] ++ lib.optionals stdenv.isDarwin [ qtmacextras ];
+  ] ++ lib.optionals stdenv.isDarwin [qtmacextras];
 
   nativeBuildInputs = [
     cmake
@@ -37,13 +37,13 @@ mkDerivation rec {
     wrapGAppsHook
   ];
 
-  cmakeFlags = [ "-Dsqlcipher=1" ];
+  cmakeFlags = ["-Dsqlcipher=1"];
 
   meta = with lib; {
     description = "DB Browser for SQLite";
     homepage = "https://sqlitebrowser.org/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.unix;
   };
 }

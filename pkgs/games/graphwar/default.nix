@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     copyDesktopItems
     makeWrapper
   ];
-  buildInputs = [ jdk ];
+  buildInputs = [jdk];
 
   buildPhase = ''
     runHook preBuild
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       name = "graphwar";
       exec = "graphwar";
       desktopName = "Graphwar";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -65,6 +65,6 @@ stdenv.mkDerivation rec {
     description = "An artillery game in which you must hit your enemies using mathematical functions";
     license = licenses.gpl3Plus;
     platforms = jdk.meta.platforms;
-    maintainers = with maintainers; [ yrd ];
+    maintainers = with maintainers; [yrd];
   };
 }

@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     libX11
     libXt
   ];
-  configureFlags = [ "--with-x" ];
+  configureFlags = ["--with-x"];
 
   patches =
     [
@@ -40,6 +40,6 @@ stdenv.mkDerivation rec {
     description = "Graphical front-end for command-line debuggers";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ emilytrau ];
+    maintainers = with lib.maintainers; [emilytrau];
   };
 }

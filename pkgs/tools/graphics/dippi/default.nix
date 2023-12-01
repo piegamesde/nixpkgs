@@ -60,6 +60,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/cassidyjames/dippi";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

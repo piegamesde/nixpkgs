@@ -1,3 +1,3 @@
-{ pkgs, makeInstalledTest, ... }:
+{pkgs, makeInstalledTest, ...}:
 
-makeInstalledTest { tested = pkgs.colord; }
+makeInstalledTest {tested = pkgs.colord;}

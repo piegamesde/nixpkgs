@@ -1,15 +1,15 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
 
 let
   common_meta = {
-    maintainers = [ maintainers.viraptor ];
+    maintainers = [maintainers.viraptor];
   };
 in
 {
@@ -18,7 +18,7 @@ in
     meta = common_meta;
 
     nodes.machine =
-      { config, pkgs, ... }:
+      {config, pkgs, ...}:
       {
         services.gemstash = {
           enable = true;
@@ -39,7 +39,7 @@ in
     meta = common_meta;
 
     nodes.machine =
-      { config, pkgs, ... }:
+      {config, pkgs, ...}:
       {
         services.gemstash = {
           enable = true;

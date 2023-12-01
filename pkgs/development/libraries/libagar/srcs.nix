@@ -1,4 +1,4 @@
-{ fetchurl }:
+{fetchurl}:
 rec {
   version = "1.5.0";
 

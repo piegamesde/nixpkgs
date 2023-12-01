@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     description = "Deep packet inspection swiss-army knife";
     homepage = "https://github.com/rixed/junkie";
     license = lib.licenses.agpl3Plus;
-    maintainers = [ lib.maintainers.rixed ];
+    maintainers = [lib.maintainers.rixed];
     platforms = lib.platforms.unix;
     longDescription = ''
       Junkie is a network sniffer like Tcpdump or Wireshark, but designed to

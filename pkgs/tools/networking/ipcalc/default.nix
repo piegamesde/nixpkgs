@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     ronn
   ];
 
-  buildInputs = [ geoip ];
+  buildInputs = [geoip];
 
   mesonFlags = [
     "-Duse_geoip=${if withGeo then "en" else "dis"}abled"
@@ -61,6 +61,6 @@ stdenv.mkDerivation rec {
     description = "Simple IP network calculator";
     homepage = "https://gitlab.com/ipcalc/ipcalc";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

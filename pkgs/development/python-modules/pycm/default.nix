@@ -29,7 +29,7 @@ buildPythonPackage rec {
     seaborn
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     # Remove a trivial dependency on the author's `art` Python ASCII art library
@@ -41,14 +41,14 @@ buildPythonPackage rec {
   '';
 
   # https://github.com/sepandhaghighi/pycm/issues/488
-  pytestFlagsArray = [ "Test" ];
+  pytestFlagsArray = ["Test"];
 
-  pythonImportsCheck = [ "pycm" ];
+  pythonImportsCheck = ["pycm"];
 
   meta = with lib; {
     description = "Multiclass confusion matrix library";
     homepage = "https://pycm.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

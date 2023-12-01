@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     description = "A music related metadata searchengine";
     homepage = "https://github.com/sahib/glyr";
     license = licenses.lgpl3;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
     mainProgram = "glyrc";
     platforms = platforms.unix;
   };

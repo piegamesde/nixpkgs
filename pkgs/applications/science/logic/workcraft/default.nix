@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-iqHdyyZX3AcBAjPTpZAiJi0IHhEDWBtKp0e2LAdWGsQ=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontConfigure = true;
 
@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
     description = "Framework for interpreted graph modeling, verification and synthesis";
     platforms = lib.platforms.linux;
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ timor ];
+    maintainers = with lib.maintainers; [timor];
   };
 }

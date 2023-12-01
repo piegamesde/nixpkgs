@@ -32,14 +32,14 @@ buildPythonPackage rec {
     jupyter-ui-poll
   ];
 
-  nativeCheckImports = [ pytestCheckHook ];
-  pythonImportsCheck = [ "ipyniivue" ];
+  nativeCheckImports = [pytestCheckHook];
+  pythonImportsCheck = ["ipyniivue"];
 
   meta = with lib; {
     description = "Show a nifti image in a webgl 2.0 canvas within a jupyter notebook cell";
     homepage = "https://github.com/niivue/ipyniivue";
     changelog = "https://github.com/niivue/ipyniivue/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

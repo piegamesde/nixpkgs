@@ -10,7 +10,7 @@ rec {
   # Copy configuration files to avoid having the entire sources in the system closure
   copyFile =
     filePath:
-    pkgs.runCommand (builtins.unsafeDiscardStringContext (builtins.baseNameOf filePath)) { } ''
+    pkgs.runCommand (builtins.unsafeDiscardStringContext (builtins.baseNameOf filePath)) {} ''
       cp ${filePath} $out
     '';
 
@@ -74,8 +74,8 @@ rec {
       trim = s: removeSuffix "/" (removePrefix "/" s);
       normalizedPath = strings.normalizePath s;
     in
-    replaceStrings [ "/" ] [ "-" ] (
-      replacePrefix "." (strings.escapeC [ "." ] ".") (
+    replaceStrings ["/"] ["-"] (
+      replacePrefix "." (strings.escapeC ["."] ".") (
         strings.escapeC (stringToCharacters " !\"#$%&'()*+,;<=>=@[\\]^`{|}~-") (
           if normalizedPath == "/" then normalizedPath else trim normalizedPath
         )
@@ -180,7 +180,7 @@ rec {
         else if isList item then
           imap0 (index: item: recurse (prefix + "[${toString index}]") item) item
         else
-          [ ];
+          [];
     in
     listToAttrs (flatten (recurse "" item));
 
@@ -291,8 +291,8 @@ rec {
     lib.filter (x: !(builtins.elem (lib.getName x) namesToRemove)) packages;
 
   systemdUtils = {
-    lib = import ./systemd-lib.nix { inherit lib config pkgs; };
-    unitOptions = import ./systemd-unit-options.nix { inherit lib systemdUtils; };
-    types = import ./systemd-types.nix { inherit lib systemdUtils pkgs; };
+    lib = import ./systemd-lib.nix {inherit lib config pkgs;};
+    unitOptions = import ./systemd-unit-options.nix {inherit lib systemdUtils;};
+    types = import ./systemd-types.nix {inherit lib systemdUtils pkgs;};
   };
 }

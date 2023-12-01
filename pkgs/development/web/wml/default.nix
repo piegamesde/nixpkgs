@@ -30,7 +30,7 @@ perlPackages.buildPerlPackage {
     sed -i '/p2_mp4h\/doc/d' Makefile.in
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = with perlPackages; [
     perl
     TermReadKey
@@ -51,7 +51,7 @@ perlPackages.buildPerlPackage {
   #   ld: iselect_browse.o:(.bss+0x2020): multiple definition of `Line'; iselect_main.o:(.bss+0x100000): first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   postPatch = ''
     substituteInPlace wml_frontend/wml.src \
@@ -81,7 +81,7 @@ perlPackages.buildPerlPackage {
 
   enableParallelBuilding = false;
 
-  installTargets = [ "install" ];
+  installTargets = ["install"];
 
   meta = with lib; {
     homepage = "https://www.shlomifish.org/open-source/projects/website-meta-language/";

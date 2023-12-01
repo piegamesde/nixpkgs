@@ -20,16 +20,16 @@ buildPythonPackage rec {
     hash = "sha256-WfZHX3e7w33PfNdIUZwOxgci6R5jyhFOaIIcDFSkZUk=";
   };
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "opt_einsum" ];
+  pythonImportsCheck = ["opt_einsum"];
 
   meta = with lib; {
     description = "Optimizing NumPy's einsum function with order optimization and GPU support";
     homepage = "https://github.com/dgasmith/opt_einsum";
     license = licenses.mit;
-    maintainers = with maintainers; [ teh ];
+    maintainers = with maintainers; [teh];
   };
 }

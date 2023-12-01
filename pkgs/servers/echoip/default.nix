@@ -18,7 +18,7 @@ buildGoModule {
 
   vendorSha256 = "sha256-lXYpkeGpBK+WGHqyLxJz7kS3t7a55q55QQLTqtxzroc=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     install -D html/* -t $out/share/echoip/html

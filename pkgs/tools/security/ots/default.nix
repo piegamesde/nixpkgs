@@ -27,6 +27,6 @@ buildGoModule rec {
     homepage = "https://ots.sniptt.com";
     changelog = "https://github.com/sniptt-official/ots/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ elliot ];
+    maintainers = with maintainers; [elliot];
   };
 }

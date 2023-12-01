@@ -33,8 +33,8 @@ in
       };
 
       params = mkOption {
-        default = [ ];
-        example = [ "console=ttyS0,115200" ];
+        default = [];
+        example = ["console=ttyS0,115200"];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           Parameters added to the Memtest86+ command line. As of memtest86+ 5.01
@@ -71,7 +71,7 @@ in
     (mkIf (cfg.enable && efiSupport) {
       assertions = [
         {
-          assertion = cfg.params == [ ];
+          assertion = cfg.params == [];
           message = "Parameters are not available for MemTest86";
         }
       ];

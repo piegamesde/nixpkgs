@@ -47,13 +47,13 @@ buildPythonPackage rec {
     "test_relog_after_session_down"
   ];
 
-  pythonImportsCheck = [ "pykeyatome" ];
+  pythonImportsCheck = ["pykeyatome"];
 
   meta = with lib; {
     description = "Python module to get data from Atome Key";
     homepage = "https://github.com/jugla/pyKeyAtome";
     changelog = "https://github.com/jugla/pyKeyAtome/releases/tag/V${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

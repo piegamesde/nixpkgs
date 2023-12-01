@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage rec {
   };
 
   # Cargo.lock is outdated
-  cargoPatches = [ ./update-cargo-lock.diff ];
+  cargoPatches = [./update-cargo-lock.diff];
 
   cargoSha256 = "sha256-ah8IjShmivS6IWL3ku/4/j+WNr/LdUnh1YJnPdaFdcM=";
 
@@ -40,7 +40,7 @@ rustPlatform.buildRustPackage rec {
     pandoc
   ];
   buildInputs =
-    [ zlib ]
+    [zlib]
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       Security

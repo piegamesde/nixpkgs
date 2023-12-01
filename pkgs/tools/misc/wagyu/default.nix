@@ -28,6 +28,6 @@ rustPlatform.buildRustPackage rec {
       mit
       asl20
     ];
-    maintainers = [ maintainers.offline ];
+    maintainers = [maintainers.offline];
   };
 }

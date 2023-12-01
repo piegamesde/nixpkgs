@@ -27,7 +27,7 @@
   enableRustcDev ? true,
   version,
   sha256,
-  patches ? [ ],
+  patches ? [],
   fd,
   ripgrep,
   wezterm,
@@ -65,14 +65,14 @@ stdenv.mkDerivation rec {
   #
   # Running `strip -S` when cross compiling can harm the cross rlibs.
   # See: https://github.com/NixOS/nixpkgs/pull/56540#issuecomment-471624656
-  stripDebugList = [ "bin" ];
+  stripDebugList = ["bin"];
 
   # The Rust pkg-config crate does not support prefixed pkg-config executables[1],
   # but it does support checking these idiosyncratic PKG_CONFIG_${TRIPLE}
   # environment variables.
   # [1]: https://github.com/rust-lang/pkg-config-rs/issues/53
   "PKG_CONFIG_${
-    builtins.replaceStrings [ "-" ] [ "_" ] (rust.toRustTarget stdenv.buildPlatform)
+    builtins.replaceStrings ["-"] ["_"] (rust.toRustTarget stdenv.buildPlatform)
   }" = "${pkgsBuildHost.stdenv.cc.targetPrefix}pkg-config";
 
   NIX_LDFLAGS = toString (
@@ -164,7 +164,7 @@ stdenv.mkDerivation rec {
     ++ optionals stdenv.targetPlatform.isMusl [
       "${setTarget}.musl-root=${pkgsBuildTarget.targetPackages.stdenv.cc.libc}"
     ]
-    ++ optionals (rust.IsNoStdTarget stdenv.targetPlatform) [ "--disable-docs" ]
+    ++ optionals (rust.IsNoStdTarget stdenv.targetPlatform) ["--disable-docs"]
     ++
       optionals (stdenv.isDarwin && stdenv.isx86_64)
         [
@@ -239,7 +239,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ optionals stdenv.isDarwin [
       libiconv
       Security
@@ -275,20 +275,20 @@ stdenv.mkDerivation rec {
       rm $out/lib/rustlib/uninstall.sh
     '';
 
-  configurePlatforms = [ ];
+  configurePlatforms = [];
 
   enableParallelBuilding = true;
 
   setupHooks = ./setup-hook.sh;
 
-  requiredSystemFeatures = [ "big-parallel" ];
+  requiredSystemFeatures = ["big-parallel"];
 
   passthru = {
     llvm = llvmShared;
     inherit llvmPackages;
     tests = {
       inherit fd ripgrep wezterm;
-    } // lib.optionalAttrs stdenv.hostPlatform.isLinux { inherit firefox thunderbird; };
+    } // lib.optionalAttrs stdenv.hostPlatform.isLinux {inherit firefox thunderbird;};
   };
 
   meta = with lib; {

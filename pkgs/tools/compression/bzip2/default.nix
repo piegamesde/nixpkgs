@@ -26,7 +26,7 @@ stdenv.mkDerivation (
       sha256 = "sha256-q1oDF27hBtPw+pDjgdpHjdrkBZGBU8yiSOaCzQxKImk=";
     };
 
-    patchFlags = [ "-p0" ];
+    patchFlags = ["-p0"];
 
     patches = [
       (fetchurl {
@@ -49,7 +49,7 @@ stdenv.mkDerivation (
     '';
 
     strictDeps = true;
-    nativeBuildInputs = [ autoreconfHook ];
+    nativeBuildInputs = [autoreconfHook];
 
     outputs = [
       "bin"
@@ -76,9 +76,9 @@ stdenv.mkDerivation (
       homepage = "https://www.sourceware.org/bzip2";
       changelog = "https://sourceware.org/git/?p=bzip2.git;a=blob;f=CHANGES;hb=HEAD";
       license = licenses.bsdOriginal;
-      pkgConfigModules = [ "bzip2" ];
+      pkgConfigModules = ["bzip2"];
       platforms = platforms.all;
-      maintainers = with maintainers; [ mic92 ];
+      maintainers = with maintainers; [mic92];
     };
   }
 )

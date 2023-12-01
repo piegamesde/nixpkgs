@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-H0x2ryTpB1k0h8kE7166GZO+s47Tha+CrbJahY8tZY0=";
   };
 
-  buildInputs = [ lmdb ];
+  buildInputs = [lmdb];
 
   nativeCheckInputs = [
     cffi

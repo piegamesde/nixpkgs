@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "1xdra6i4p8jkv943ygjw646qx8df27f7p5852kc06vjx608krzzr";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libmnl
     libnfnetlink

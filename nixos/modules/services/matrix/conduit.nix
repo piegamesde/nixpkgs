@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.services.matrix-conduit;
 
-  format = pkgs.formats.toml { };
+  format = pkgs.formats.toml {};
   configFile = format.generate "conduit.toml" cfg.settings;
 in
 {
@@ -24,7 +24,7 @@ in
     extraEnvironment = mkOption {
       type = types.attrsOf types.str;
       description = lib.mdDoc "Extra Environment variables to pass to the conduit server.";
-      default = { };
+      default = {};
       example = {
         RUST_BACKTRACE = "yes";
       };
@@ -77,7 +77,7 @@ in
           };
           global.trusted_servers = mkOption {
             type = types.listOf types.str;
-            default = [ "matrix.org" ];
+            default = ["matrix.org"];
             description = lib.mdDoc "Servers trusted with signing server keys.";
           };
           global.address = mkOption {
@@ -109,7 +109,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Generates the conduit.toml configuration file. Refer to
         <https://gitlab.com/famedly/conduit/-/blob/master/conduit-example.toml>
@@ -122,10 +122,10 @@ in
   config = mkIf cfg.enable {
     systemd.services.conduit = {
       description = "Conduit Matrix Server";
-      documentation = [ "https://gitlab.com/famedly/conduit/" ];
-      wantedBy = [ "multi-user.target" ];
+      documentation = ["https://gitlab.com/famedly/conduit/"];
+      wantedBy = ["multi-user.target"];
       environment = lib.mkMerge ([
-        { CONDUIT_CONFIG = configFile; }
+        {CONDUIT_CONFIG = configFile;}
         cfg.extraEnvironment
       ]);
       serviceConfig = {

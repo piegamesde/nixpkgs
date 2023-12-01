@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     configureFlagsArray+=("BIN_BASH=${bash}/bin/bash")
   '';
 
-  patches = [ ./patches/0001-make-cargo-work-with-nix-build-on-linux.patch ];
+  patches = [./patches/0001-make-cargo-work-with-nix-build-on-linux.patch];
 
   doCheck = true;
   preCheck = ''

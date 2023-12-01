@@ -30,8 +30,8 @@ rustPlatform.buildRustPackage rec {
   PROTOC = "${protobuf}/bin/protoc";
   PROTOC_INCLUDE = "${protobuf}/include";
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = lib.optionals stdenv.isDarwin [ Security ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = lib.optionals stdenv.isDarwin [Security];
 
   postInstall = ''
     wrapProgram "$out/bin/pict-rs" \
@@ -51,7 +51,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A simple image hosting service";
     homepage = "https://git.asonix.dog/asonix/pict-rs";
-    license = with licenses; [ agpl3Plus ];
-    maintainers = with maintainers; [ happysalada ];
+    license = with licenses; [agpl3Plus];
+    maintainers = with maintainers; [happysalada];
   };
 }

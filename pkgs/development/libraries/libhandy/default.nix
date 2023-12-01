@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     "out"
     "dev"
     "devdoc"
-  ] ++ lib.optionals enableGlade [ "glade" ];
+  ] ++ lib.optionals enableGlade ["glade"];
   outputBin = "dev";
 
   src = fetchurl {
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0RqizT5XCsbQ79ukbRcxR8EfRYJkV+kkwFmQuy4N+a0=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs =
     [
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     gdk-pixbuf
     gtk3
-  ] ++ lib.optionals enableGlade [ glade ];
+  ] ++ lib.optionals enableGlade [glade];
 
   nativeCheckInputs = [
     xvfb-run
@@ -120,9 +120,9 @@ stdenv.mkDerivation rec {
     // lib.optionalAttrs (!enableGlade) {
       glade =
         let
-          libhandyWithGlade = libhandy.override { enableGlade = true; };
+          libhandyWithGlade = libhandy.override {enableGlade = true;};
         in
-        runCommand "${libhandy.name}-glade" { } ''
+        runCommand "${libhandy.name}-glade" {} ''
           cp -r "${libhandyWithGlade.glade}" "$out"
           chmod -R +w "$out"
           sed -e "s#${libhandyWithGlade.out}#${libhandy.out}#g" -e "s#${libhandyWithGlade.glade}#$out#g" -i $(find "$out" -type f)

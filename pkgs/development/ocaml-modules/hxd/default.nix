@@ -32,7 +32,7 @@ buildDunePackage rec {
     description = "Hexdump in OCaml";
     homepage = "https://github.com/dinosaure/hxd";
     license = licenses.mit;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
     mainProgram = "hxd.xxd";
   };
 }

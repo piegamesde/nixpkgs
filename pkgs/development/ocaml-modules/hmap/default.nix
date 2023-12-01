@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     findlib
     topkg
   ];
-  buildInputs = [ topkg ];
+  buildInputs = [topkg];
 
   strictDeps = true;
 
@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
     description = "Heterogeneous value maps for OCaml";
     homepage = "https://erratique.ch/software/hmap";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.pmahoney ];
+    maintainers = [lib.maintainers.pmahoney];
   };
 }

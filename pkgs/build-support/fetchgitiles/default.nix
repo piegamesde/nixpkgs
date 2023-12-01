@@ -1,4 +1,4 @@
-{ fetchzip, lib }:
+{fetchzip, lib}:
 
 {
   url,

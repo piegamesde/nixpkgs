@@ -12,7 +12,7 @@ let
       testName,
       code,
       want,
-      packages ? [ ],
+      packages ? [],
     }:
     let
       packageString = builtins.concatStringsSep " " (map (p: "--package " + p) packages);
@@ -25,7 +25,7 @@ let
       # is not the case with pure nix environments. Thus, we need to include zsh
       # when we build for darwin in tests. While this is impure, this is also what
       # we find in real darwin hosts.
-      nativeBuildInputs = lib.optionals stdenv.isDarwin [ zsh ];
+      nativeBuildInputs = lib.optionals stdenv.isDarwin [zsh];
 
       buildCommand = ''
         set -eo pipefail
@@ -65,7 +65,7 @@ in
   # Data.Vect.Sort is available via --package contrib
   use-contrib = testCompileAndRun {
     testName = "use-contrib";
-    packages = [ "contrib" ];
+    packages = ["contrib"];
     code = ''
       module Main
 

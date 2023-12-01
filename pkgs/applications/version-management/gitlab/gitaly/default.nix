@@ -43,9 +43,9 @@ let
       "-X ${gitaly_package}/internal/version.moduleVersion=${version}"
     ];
 
-    tags = [ "static,system_libgit2" ];
+    tags = ["static,system_libgit2"];
 
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
     buildInputs = [
       rubyEnv.wrappedRuby
       libgit2
@@ -103,7 +103,7 @@ buildGoModule (
     meta = with lib; {
       homepage = "https://gitlab.com/gitlab-org/gitaly";
       description = "A Git RPC service for handling all the git calls made by GitLab";
-      platforms = platforms.linux ++ [ "x86_64-darwin" ];
+      platforms = platforms.linux ++ ["x86_64-darwin"];
       maintainers = with maintainers; [
         roblabla
         globin

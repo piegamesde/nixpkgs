@@ -91,6 +91,6 @@ stdenv.mkDerivation {
       epson
     ];
     platforms = platforms.linux;
-    maintainers = [ maintainers.nphilou ];
+    maintainers = [maintainers.nphilou];
   };
 }

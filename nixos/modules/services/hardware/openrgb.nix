@@ -40,17 +40,17 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
-    services.udev.packages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
+    services.udev.packages = [cfg.package];
 
     boot.kernelModules =
-      [ "i2c-dev" ]
-      ++ lib.optionals (cfg.motherboard == "amd") [ "i2c-piix" ]
-      ++ lib.optionals (cfg.motherboard == "intel") [ "i2c-i801" ];
+      ["i2c-dev"]
+      ++ lib.optionals (cfg.motherboard == "amd") ["i2c-piix"]
+      ++ lib.optionals (cfg.motherboard == "intel") ["i2c-i801"];
 
     systemd.services.openrgb = {
       description = "OpenRGB server daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/openrgb --server --server-port ${toString cfg.server.port}";
@@ -59,5 +59,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ jonringer ];
+  meta.maintainers = with lib.maintainers; [jonringer];
 }

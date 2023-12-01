@@ -1,12 +1,12 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "ulogd";
 
-    meta = with lib; { maintainers = with maintainers; [ p-h ]; };
+    meta = with lib; {maintainers = with maintainers; [p-h];};
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
         networking.firewall.enable = false;
         networking.nftables.enable = true;
@@ -46,7 +46,7 @@ import ./make-test-python.nix (
           };
         };
 
-        environment.systemPackages = with pkgs; [ tcpdump ];
+        environment.systemPackages = with pkgs; [tcpdump];
       };
 
     testScript = ''

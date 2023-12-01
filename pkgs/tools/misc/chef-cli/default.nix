@@ -10,7 +10,7 @@ bundlerApp {
   gemdir = ./.;
   inherit ruby;
 
-  exes = [ "chef-cli" ];
+  exes = ["chef-cli"];
 
   passthru.updateScript = bundlerUpdateScript "chef-cli";
 
@@ -18,6 +18,6 @@ bundlerApp {
     description = "The Chef Infra Client is a powerful agent that applies your configurations on remote Linux, macOS, Windows and cloud-based systems";
     homepage = "https://chef.io/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dylanmtaylor ];
+    maintainers = with maintainers; [dylanmtaylor];
   };
 }

@@ -57,7 +57,7 @@ buildPythonPackage {
 
   nativeBuildInputs = [
     bootstrapped-pip
-    (pipInstallHook.override { pip = null; })
+    (pipInstallHook.override {pip = null;})
     (setuptoolsBuildHook.override {
       setuptools = null;
       wheel = null;
@@ -68,7 +68,7 @@ buildPythonPackage {
     export SETUPTOOLS_INSTALL_WINDOWS_SPECIFIC_FILES=0
   '';
 
-  pipInstallFlags = [ "--ignore-installed" ];
+  pipInstallFlags = ["--ignore-installed"];
 
   # Adds setuptools to nativeBuildInputs causing infinite recursion.
   catchConflicts = false;
@@ -80,9 +80,9 @@ buildPythonPackage {
     description = "Utilities to facilitate the installation of Python packages";
     homepage = "https://github.com/pypa/setuptools";
     changelog = "https://setuptools.pypa.io/en/stable/history.html#v${
-      replaceStrings [ "." ] [ "-" ] version
+      replaceStrings ["."] ["-"] version
     }";
-    license = with licenses; [ mit ];
+    license = with licenses; [mit];
     platforms = python.meta.platforms;
     priority = 10;
     maintainers = teams.python.members;

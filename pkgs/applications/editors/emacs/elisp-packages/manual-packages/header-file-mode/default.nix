@@ -30,6 +30,6 @@ trivialBuild {
     '';
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ aidalgol ];
+    maintainers = with lib.maintainers; [aidalgol];
   };
 }

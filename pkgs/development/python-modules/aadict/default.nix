@@ -16,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "013pn9ii6mkql6khgdvsd1gi7zmya418fhclm5fp7dfvann2hwx7";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
   nativeCheckInputs = [
     nose
     coverage
@@ -25,7 +25,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/metagriffin/aadict";
     description = "An auto-attribute dict (and a couple of other useful dict functions).";
-    maintainers = with maintainers; [ glittershark ];
+    maintainers = with maintainers; [glittershark];
     license = licenses.gpl3;
   };
 }

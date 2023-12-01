@@ -37,7 +37,7 @@ buildPythonPackage rec {
     hash = "sha256-RjU762VyDPy86Cvmr8hfPkqLtmntB3F6tf2OAgqmnK4=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     pandas
@@ -114,12 +114,12 @@ buildPythonPackage rec {
       "test_plotting" # Fatal Python error: Illegal instruction
     ];
 
-  pythonImportsCheck = [ "pandas" ];
+  pythonImportsCheck = ["pandas"];
 
   meta = with lib; {
     description = "Type annotations for Pandas";
     homepage = "https://github.com/pandas-dev/pandas-stubs";
     license = licenses.mit;
-    maintainers = with maintainers; [ malo ];
+    maintainers = with maintainers; [malo];
   };
 }

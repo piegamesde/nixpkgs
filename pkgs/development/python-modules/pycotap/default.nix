@@ -17,6 +17,6 @@ buildPythonPackage rec {
     description = "Test runner for unittest that outputs TAP results to stdout";
     homepage = "https://el-tramo.be/pycotap";
     license = licenses.mit;
-    maintainers = with maintainers; [ mwolfe ];
+    maintainers = with maintainers; [mwolfe];
   };
 }

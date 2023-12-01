@@ -8,17 +8,17 @@
 
 let
   cfg = config.services.lldap;
-  format = pkgs.formats.toml { };
+  format = pkgs.formats.toml {};
 in
 {
   options.services.lldap = with lib; {
     enable = mkEnableOption (mdDoc "lldap");
 
-    package = mkPackageOptionMD pkgs "lldap" { };
+    package = mkPackageOptionMD pkgs "lldap" {};
 
     environment = mkOption {
       type = with types; attrsOf str;
-      default = { };
+      default = {};
       example = {
         LLDAP_JWT_SECRET_FILE = "/run/lldap/jwt_secret";
         LLDAP_LDAP_USER_PASS_FILE = "/run/lldap/user_password";
@@ -43,7 +43,7 @@ in
         Refer to <https://github.com/lldap/lldap/blob/main/lldap_config.docker_template.toml> for supported values.
       '';
 
-      default = { };
+      default = {};
 
       type = types.submodule {
         freeformType = format.type;
@@ -110,8 +110,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.lldap = {
       description = "Lightweight LDAP server (lldap)";
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${lib.getExe cfg.package} run --config-file ${format.generate "lldap_config.toml" cfg.settings}";
         StateDirectory = "lldap";

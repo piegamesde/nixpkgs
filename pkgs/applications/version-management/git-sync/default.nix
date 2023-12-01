@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8rCwpmHV6wgFCLzPJOKzwN5mG8uD5KIlGFwcgQD+SK4=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontBuild = true;
 
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
         gnugrep
         gnused
       ]
-      ++ lib.optionals stdenv.isLinux [ inotify-tools ]
+      ++ lib.optionals stdenv.isLinux [inotify-tools]
     );
 
   postFixup = ''
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "A script to automatically synchronize a git repository";
     homepage = "https://github.com/simonthum/git-sync";
-    maintainers = with lib.maintainers; [ imalison ];
+    maintainers = with lib.maintainers; [imalison];
     license = lib.licenses.cc0;
     platforms = with lib.platforms; unix;
   };

@@ -9,12 +9,12 @@ with lib;
 
 let
   cfg = config.services.dgraph;
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
   configFile = settingsFormat.generate "config.json" cfg.settings;
-  dgraphWithNode = pkgs.runCommand "dgraph" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
+  dgraphWithNode = pkgs.runCommand "dgraph" {nativeBuildInputs = [pkgs.makeWrapper];} ''
     mkdir -p $out/bin
     makeWrapper ${cfg.package}/bin/dgraph $out/bin/dgraph \
-      --prefix PATH : "${lib.makeBinPath [ pkgs.nodejs ]}" \
+      --prefix PATH : "${lib.makeBinPath [pkgs.nodejs]}" \
   '';
   securityOptions = {
     NoNewPrivileges = true;
@@ -67,11 +67,11 @@ in
     services.dgraph = {
       enable = mkEnableOption (lib.mdDoc "Dgraph native GraphQL database with a graph backend");
 
-      package = lib.mkPackageOptionMD pkgs "dgraph" { };
+      package = lib.mkPackageOptionMD pkgs "dgraph" {};
 
       settings = mkOption {
         type = settingsFormat.type;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Contents of the dgraph config. For more details see https://dgraph.io/docs/deploy/config
         '';
@@ -120,8 +120,8 @@ in
 
     systemd.services.dgraph-zero = {
       description = "Dgraph native GraphQL database with a graph backend. Zero controls node clustering";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         StateDirectory = "dgraph-zero";
@@ -138,8 +138,8 @@ in
         "network.target"
         "dgraph-zero.service"
       ];
-      requires = [ "dgraph-zero.service" ];
-      wantedBy = [ "multi-user.target" ];
+      requires = ["dgraph-zero.service"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         StateDirectory = "dgraph-alpha";
@@ -157,5 +157,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ happysalada ];
+  meta.maintainers = with lib.maintainers; [happysalada];
 }

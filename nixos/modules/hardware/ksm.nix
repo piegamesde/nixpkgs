@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{config, lib, ...}:
 
 with lib;
 
@@ -35,7 +35,7 @@ in
   config = mkIf cfg.enable {
     systemd.services.enable-ksm = {
       description = "Enable Kernel Same-Page Merging";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       script =
         ''
           echo 1 > /sys/kernel/mm/ksm/run

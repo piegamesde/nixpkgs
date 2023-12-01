@@ -1,15 +1,15 @@
 import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "stratis";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ nickcao ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [nickcao];};
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         services.stratis.enable = true;
-        virtualisation.emptyDiskImages = [ 2048 ];
+        virtualisation.emptyDiskImages = [2048];
       };
 
     testScript =

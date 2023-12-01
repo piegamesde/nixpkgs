@@ -24,6 +24,6 @@ stdenv.mkDerivation rec {
     homepage = "https://tracker.debian.org/pkg/base-files";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.mkg20001 ];
+    maintainers = [maintainers.mkg20001];
   };
 }

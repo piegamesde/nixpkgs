@@ -48,13 +48,13 @@ stdenv.mkDerivation rec {
     qttools
   ];
 
-  propagatedBuildInputs = [ openbabel ];
+  propagatedBuildInputs = [openbabel];
 
-  qtWrapperArgs = [ "--prefix PATH : ${openbabel}/bin" ];
+  qtWrapperArgs = ["--prefix PATH : ${openbabel}/bin"];
 
   meta = with lib; {
     description = "Molecule editor and visualizer";
-    maintainers = with maintainers; [ sheepforce ];
+    maintainers = with maintainers; [sheepforce];
     homepage = "https://github.com/OpenChemistry/avogadroapp";
     platforms = platforms.mesaPlatforms;
     license = licenses.bsd3;

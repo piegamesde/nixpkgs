@@ -50,7 +50,7 @@ mkDerivation rec {
   meta = with lib; {
     description = "3D-printer parts placer and plate generator";
     homepage = "https://github.com/Rhoban/Plater";
-    maintainers = with maintainers; [ lovesegfault ];
+    maintainers = with maintainers; [lovesegfault];
     platforms = platforms.linux;
     license = licenses.cc-by-nc-30;
   };

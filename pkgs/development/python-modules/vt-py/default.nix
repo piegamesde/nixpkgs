@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-O95W/J5y7qcR6PSzNQwOl0W19CyXifbq8okquESFSqM=";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -36,13 +36,13 @@ buildPythonPackage rec {
       --replace "'pytest-runner'" ""
   '';
 
-  pythonImportsCheck = [ "vt" ];
+  pythonImportsCheck = ["vt"];
 
   meta = with lib; {
     description = "Python client library for VirusTotal";
     homepage = "https://virustotal.github.io/vt-py/";
     changelog = "https://github.com/VirusTotal/vt-py/releases/tag//${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

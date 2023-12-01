@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "hunchensocket";
   version = "20210531-git";
 
-  parasites = [ "hunchensocket-tests" ];
+  parasites = ["hunchensocket-tests"];
 
   description = "WebSockets for Hunchentoot";
 
@@ -40,7 +40,7 @@ rec {
 
   packageName = "hunchensocket";
 
-  asdFilesToKeep = [ "hunchensocket.asd" ];
+  asdFilesToKeep = ["hunchensocket.asd"];
   overrides = x: x;
 }
 /* (SYSTEM hunchensocket DESCRIPTION WebSockets for Hunchentoot SHA256

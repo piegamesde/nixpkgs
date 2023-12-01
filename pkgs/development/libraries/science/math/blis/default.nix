@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--enable-cblas"
     "--blas-int-size=${blasIntSize}"
-  ] ++ lib.optionals withOpenMP [ "--enable-threading=openmp" ] ++ [ withArchitecture ];
+  ] ++ lib.optionals withOpenMP ["--enable-threading=openmp"] ++ [withArchitecture];
 
   postPatch = ''
     patchShebangs configure build/flatten-headers.py
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     description = "BLAS-compatible linear algebra library";
     homepage = "https://github.com/flame/blis";
     license = licenses.bsd3;
-    maintainers = [ ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [];
+    platforms = ["x86_64-linux"];
   };
 }

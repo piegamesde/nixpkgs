@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     qtWrapperArgs+=(
-      --prefix PATH : "${lib.makeBinPath [ unzip ]}"
+      --prefix PATH : "${lib.makeBinPath [unzip]}"
     )
   '';
 

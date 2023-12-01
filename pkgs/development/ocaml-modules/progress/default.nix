@@ -38,6 +38,6 @@ buildDunePackage rec {
     description = "Progress bar library for OCaml";
     homepage = "https://github.com/CraigFe/progress";
     license = licenses.mit;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

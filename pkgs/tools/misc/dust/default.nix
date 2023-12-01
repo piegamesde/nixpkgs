@@ -25,9 +25,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-weg1etimlSenKP6UNuO8iM7gbH3+7XP98xYE4VlHhhs=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ AppKit ];
+  buildInputs = lib.optionals stdenv.isDarwin [AppKit];
 
   doCheck = false;
 

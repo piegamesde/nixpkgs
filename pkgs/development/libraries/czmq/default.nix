@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   };
 
   # Needs to be propagated for the .pc file to work
-  propagatedBuildInputs = [ zeromq ];
+  propagatedBuildInputs = [zeromq];
 
   meta = with lib; {
     homepage = "http://czmq.zeromq.org/";

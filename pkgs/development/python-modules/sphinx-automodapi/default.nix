@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-olD9LIyFCNEu287wQIRqoabfrdcdyZpNc69jq/e1304=";
   };
 
-  propagatedBuildInputs = [ sphinx ];
+  propagatedBuildInputs = [sphinx];
 
   # https://github.com/astropy/sphinx-automodapi/issues/155
   testInventory = fetchurl {
@@ -49,12 +49,12 @@ buildPythonPackage rec {
     graphviz
   ];
 
-  pythonImportsCheck = [ "sphinx_automodapi" ];
+  pythonImportsCheck = ["sphinx_automodapi"];
 
   meta = with lib; {
     description = "Sphinx extension for generating API documentation";
     homepage = "https://github.com/astropy/sphinx-automodapi";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ lovesegfault ];
+    maintainers = with maintainers; [lovesegfault];
   };
 }

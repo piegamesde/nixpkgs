@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "1Gxh4IMtytQCuPS+BWOc5AgjEBxa43ebYfDsxLSPeY0=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = [
     babashka
@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.tests = {
-    simple = runCommand "${pname}-test" { } ''
+    simple = runCommand "${pname}-test" {} ''
       [ $(${obb}/bin/obb -e '(+ 1 2)') = '3' ]
       touch $out
     '';
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
     description = "Ad-hoc ClojureScript scripting of Mac applications via Apple's Open Scripting Architecture";
     homepage = "https://github.com/babashka/obb";
     license = licenses.epl10;
-    maintainers = with maintainers; [ willcohen ];
+    maintainers = with maintainers; [willcohen];
     platforms = platforms.darwin;
   };
 }

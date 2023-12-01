@@ -21,7 +21,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace '= "^' '= ">='
   '';
 
-  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
+  nativeBuildInputs = with python3.pkgs; [poetry-core];
 
   propagatedBuildInputs = with python3.pkgs; [
     click
@@ -38,7 +38,7 @@ python3.pkgs.buildPythonApplication rec {
     pysigma-pipeline-windows
   ];
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [pytestCheckHook];
 
   disabledTests = [
     "test_plugin_list"
@@ -49,13 +49,13 @@ python3.pkgs.buildPythonApplication rec {
     "test_plugin_uninstall"
   ];
 
-  pythonImportsCheck = [ "sigma.cli" ];
+  pythonImportsCheck = ["sigma.cli"];
 
   meta = with lib; {
     description = "Sigma command line interface";
     homepage = "https://github.com/SigmaHQ/sigma-cli";
-    license = with licenses; [ lgpl21Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [lgpl21Plus];
+    maintainers = with maintainers; [fab];
     mainProgram = "sigma";
   };
 }

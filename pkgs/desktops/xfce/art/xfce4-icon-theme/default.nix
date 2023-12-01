@@ -35,13 +35,13 @@ stdenv.mkDerivation rec {
 
   dontDropIconThemeCache = true;
 
-  passthru.updateScript = httpTwoLevelsUpdater { url = "https://archive.xfce.org/src/art/${pname}"; };
+  passthru.updateScript = httpTwoLevelsUpdater {url = "https://archive.xfce.org/src/art/${pname}";};
 
   meta = with lib; {
     homepage = "https://www.xfce.org/";
     description = "Icons for Xfce";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ eelco ] ++ teams.xfce.members;
+    maintainers = with maintainers; [eelco] ++ teams.xfce.members;
   };
 }

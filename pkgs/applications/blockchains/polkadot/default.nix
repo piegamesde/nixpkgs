@@ -45,7 +45,7 @@ rustPlatform.buildRustPackage rec {
     SystemConfiguration
   ];
 
-  nativeBuildInputs = [ rustPlatform.bindgenHook ];
+  nativeBuildInputs = [rustPlatform.bindgenHook];
 
   preBuild = ''
     export SUBSTRATE_CLI_GIT_COMMIT_HASH=$(cat .git_commit)

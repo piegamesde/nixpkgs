@@ -24,8 +24,8 @@ in
 
       listenStreams = mkOption {
         type = types.listOf types.str;
-        default = [ "564" ];
-        example = [ "192.168.16.1:564" ];
+        default = ["564"];
+        example = ["192.168.16.1:564"];
         description = lib.mdDoc ''
           Sockets to listen for clients on.
           See {command}`man 5 systemd.socket` for socket syntax.
@@ -55,15 +55,15 @@ in
     systemd = {
       sockets.u9fs = {
         description = "U9fs Listening Socket";
-        wantedBy = [ "sockets.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["sockets.target"];
+        after = ["network.target"];
         inherit (cfg) listenStreams;
         socketConfig.Accept = "yes";
       };
       services."u9fs@" = {
         description = "9P Protocol Server";
         reloadIfChanged = true;
-        requires = [ "u9fs.socket" ];
+        requires = ["u9fs.socket"];
         serviceConfig = {
           ExecStart = "-${pkgs.u9fs}/bin/u9fs ${cfg.extraArgs}";
           StandardInput = "socket";

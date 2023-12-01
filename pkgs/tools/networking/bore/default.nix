@@ -31,9 +31,9 @@ rustPlatform.buildRustPackage rec {
     "--all-targets"
     "--workspace"
   ];
-  checkFeatures = [ "std" ];
+  checkFeatures = ["std"];
 
-  nativeBuildInputs = [ installShellFiles ] ++ lib.optional stdenv.isDarwin llvmPackages.libclang;
+  nativeBuildInputs = [installShellFiles] ++ lib.optional stdenv.isDarwin llvmPackages.libclang;
 
   buildInputs = lib.optionals stdenv.isDarwin [
     Libsystem
@@ -57,6 +57,6 @@ rustPlatform.buildRustPackage rec {
     description = "DNS query tool";
     homepage = "https://crates.io/crates/bore";
     license = licenses.isc;
-    maintainers = [ maintainers.delan ];
+    maintainers = [maintainers.delan];
   };
 }

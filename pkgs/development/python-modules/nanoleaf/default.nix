@@ -19,12 +19,12 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace 'gitVersion' '"${version}"'
   '';
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   meta = with lib; {
     description = "A python interface for Nanoleaf Aurora lighting";
     homepage = "https://github.com/software-2/nanoleaf";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

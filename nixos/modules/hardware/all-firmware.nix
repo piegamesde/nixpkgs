@@ -115,7 +115,7 @@ in
           libreelec-dvb-firmware
         ]
         ++ optional pkgs.stdenv.hostPlatform.isAarch raspberrypiWirelessFirmware
-        ++ optionals (versionOlder config.boot.kernelPackages.kernel.version "4.13") [ rtl8723bs-firmware ];
+        ++ optionals (versionOlder config.boot.kernelPackages.kernel.version "4.13") [rtl8723bs-firmware];
       hardware.wirelessRegulatoryDatabase = true;
     })
     (mkIf cfg.enableAllFirmware {
@@ -142,6 +142,6 @@ in
           facetimehd-firmware
         ];
     })
-    (mkIf cfg.wirelessRegulatoryDatabase { hardware.firmware = [ pkgs.wireless-regdb ]; })
+    (mkIf cfg.wirelessRegulatoryDatabase {hardware.firmware = [pkgs.wireless-regdb];})
   ];
 }

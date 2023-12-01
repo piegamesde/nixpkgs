@@ -14,13 +14,13 @@ let
     sha256 = "sha256-wMWO8eRH8O93m4/HaRTdG3DhyCvHWw+s3sAtN+VLBeY=";
   };
 
-  appimageContents = appimageTools.extractType2 { inherit pname src version; };
+  appimageContents = appimageTools.extractType2 {inherit pname src version;};
 in
 appimageTools.wrapType2 {
   inherit pname src version;
 
   multiPkgs = null;
-  extraPkgs = pkgs: appimageTools.defaultFhsEnvArgs.multiPkgs pkgs ++ [ pkgs.bash ];
+  extraPkgs = pkgs: appimageTools.defaultFhsEnvArgs.multiPkgs pkgs ++ [pkgs.bash];
 
   extraInstallCommands = ''
     ln -s $out/bin/${pname}-${version} $out/bin/${pname}
@@ -36,8 +36,8 @@ appimageTools.wrapType2 {
       accessible and performant websites in a fraction of the time it takes with other browsers.
     '';
     homepage = "https://polypane.app/";
-    maintainers = with maintainers; [ zoedsoupe ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [zoedsoupe];
+    platforms = ["x86_64-linux"];
     changelog = "https://polypane.app/docs/changelog/";
     license = licenses.unfree;
   };

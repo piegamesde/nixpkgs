@@ -10,7 +10,7 @@ with lib;
 let
 
   cfg = config.services.go-autoconfig;
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
   configFile = format.generate "config.yml" cfg.settings;
 in
 {
@@ -20,13 +20,13 @@ in
       enable = mkEnableOption (mdDoc "IMAP/SMTP autodiscover feature for mail clients");
 
       settings = mkOption {
-        default = { };
+        default = {};
         description = mdDoc ''
           Configuration for go-autoconfig. See
           <https://github.com/L11R/go-autoconfig/blob/master/config.yml>
           for more information.
         '';
-        type = types.submodule { freeformType = format.type; };
+        type = types.submodule {freeformType = format.type;};
         example = literalExpression ''
           {
             service_addr = ":1323";
@@ -49,9 +49,9 @@ in
 
     systemd = {
       services.go-autoconfig = {
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         description = "IMAP/SMTP autodiscover server";
-        after = [ "network.target" ];
+        after = ["network.target"];
         serviceConfig = {
           ExecStart = "${pkgs.go-autoconfig}/bin/go-autoconfig -config ${configFile}";
           Restart = "on-failure";
@@ -62,5 +62,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ onny ];
+  meta.maintainers = with lib.maintainers; [onny];
 }

@@ -40,7 +40,7 @@ rustPlatform.buildRustPackage rec {
   ];
   cargoTestFlags = cargoBuildFlags;
 
-  buildInputs = [ libsodium ];
+  buildInputs = [libsodium];
 
   postInstall = ''
     installManPage docs/man/ratmand.1

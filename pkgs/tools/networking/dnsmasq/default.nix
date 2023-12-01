@@ -19,8 +19,8 @@ let
       "-DHAVE_IDN"
       "-DHAVE_DNSSEC"
     ]
-    ++ lib.optionals dbusSupport [ "-DHAVE_DBUS" ]
-    ++ lib.optionals stdenv.isLinux [ "-DHAVE_CONNTRACK" ]
+    ++ lib.optionals dbusSupport ["-DHAVE_DBUS"]
+    ++ lib.optionals stdenv.isLinux ["-DHAVE_CONNTRACK"]
   );
 in
 stdenv.mkDerivation rec {
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     "PKG_CONFIG=${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config"
   ];
 
-  hardeningEnable = [ "pie" ];
+  hardeningEnable = ["pie"];
 
   postBuild = lib.optionalString stdenv.isLinux ''
     make -C contrib/lease-tools
@@ -84,11 +84,11 @@ stdenv.mkDerivation rec {
       END
     '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     nettle
     libidn
-  ] ++ lib.optionals dbusSupport [ dbus ] ++ lib.optionals stdenv.isLinux [ libnetfilter_conntrack ];
+  ] ++ lib.optionals dbusSupport [dbus] ++ lib.optionals stdenv.isLinux [libnetfilter_conntrack];
 
   passthru.tests = {
     prometheus-exporter = nixosTests.prometheus-exporters.dnsmasq;

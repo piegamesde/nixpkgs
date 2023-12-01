@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-zi8uXEJHkKqW0J2suT2bv9wLfrYknJy3U4RS6Ox3zUg=";
   };
 
-  nativeBuildInputs = [ lzip ];
+  nativeBuildInputs = [lzip];
 
-  configureFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  configureFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   doCheck = true;
 
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     '';
     license = lib.licenses.gpl3Plus;
     homepage = "https://www.gnu.org/software/ed/";
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 }

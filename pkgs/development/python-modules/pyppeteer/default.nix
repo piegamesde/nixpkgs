@@ -30,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-izMaWtJdkLHMQbyq7o7n46xB8dOHXZ5uO0UXt+twjL4=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     appdirs
@@ -81,12 +81,12 @@ buildPythonPackage rec {
     "TestPDF"
   ];
 
-  pythonImportsCheck = [ "pyppeteer" ];
+  pythonImportsCheck = ["pyppeteer"];
 
   meta = with lib; {
     description = "Headless chrome/chromium automation library (unofficial port of puppeteer)";
     homepage = "https://github.com/pyppeteer/pyppeteer";
     license = licenses.mit;
-    maintainers = with maintainers; [ kmein ];
+    maintainers = with maintainers; [kmein];
   };
 }

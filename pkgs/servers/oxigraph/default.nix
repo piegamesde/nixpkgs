@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-VGXnUdJDbD8bGdXRbIkC4wgAmSUK2gh/XEYLaPfaaLg=";
 
-  nativeBuildInputs = [ rustPlatform.bindgenHook ];
+  nativeBuildInputs = [rustPlatform.bindgenHook];
   buildInputs = lib.optionals stdenv.isDarwin [
     IOKit
     Security
@@ -43,7 +43,7 @@ rustPlatform.buildRustPackage rec {
       "aarch64-linux"
       "aarch64-darwin"
     ];
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
     license = with licenses; [
       asl20
       mit

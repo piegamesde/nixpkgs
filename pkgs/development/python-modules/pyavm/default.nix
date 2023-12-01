@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-gV78ypvYwohHmdjP3lN5F97PfmxuV91tvw5gsYeZ7i8=";
   };
 
-  propagatedBuildInputs = [ astropy-helpers ];
+  propagatedBuildInputs = [astropy-helpers];
 
   nativeCheckInputs = [
     astropy
@@ -31,12 +31,12 @@ buildPythonPackage rec {
     substituteInPlace setup.cfg --replace "auto_use = True" "auto_use = False"
   '';
 
-  pythonImportsCheck = [ "pyavm" ];
+  pythonImportsCheck = ["pyavm"];
 
   meta = with lib; {
     description = "Simple pure-python AVM meta-data handling";
     homepage = "https://astrofrog.github.io/pyavm/";
     license = licenses.mit;
-    maintainers = with maintainers; [ smaret ];
+    maintainers = with maintainers; [smaret];
   };
 }

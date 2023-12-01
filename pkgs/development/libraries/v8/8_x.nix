@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  patches = [ ./darwin.patch ];
+  patches = [./darwin.patch];
 
   src = v8Src;
 

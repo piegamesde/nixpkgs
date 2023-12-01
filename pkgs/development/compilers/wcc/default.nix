@@ -36,7 +36,7 @@ stdenv.mkDerivation {
     sed -i -e '/stropts.h>/d' src/wsh/include/libwitch/wsh.h
   '';
 
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   preInstall = ''
     mkdir -p $out/usr/bin
@@ -60,7 +60,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/endrazine/wcc";
     description = "Witchcraft compiler collection: tools to convert and script ELF files";
     license = licenses.mit;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ orivej ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [orivej];
   };
 }

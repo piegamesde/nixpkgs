@@ -16,7 +16,7 @@ buildGoModule rec {
     hash = "sha256-4dOkSnurg2Sk36Z2WNjPaO092IiRlzc9oWM6sQ+wUwM=";
   };
 
-  buildInputs = [ olm ];
+  buildInputs = [olm];
 
   vendorSha256 = "sha256-48C9aaOe148emSsxzfKFKtnXyC39IFO8Ge7d+rIhDac=";
 

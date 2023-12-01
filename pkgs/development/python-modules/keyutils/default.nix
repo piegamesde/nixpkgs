@@ -23,7 +23,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace '"pytest-runner"' ""
   '';
 
-  buildInputs = [ keyutils ];
+  buildInputs = [keyutils];
   nativeCheckInputs = [
     pytest
     pytest-runner
@@ -33,6 +33,6 @@ buildPythonPackage rec {
     description = "A set of python bindings for keyutils";
     homepage = "https://github.com/sassoftware/python-keyutils";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ primeos ];
+    maintainers = with lib.maintainers; [primeos];
   };
 }

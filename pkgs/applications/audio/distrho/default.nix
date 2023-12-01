@@ -16,7 +16,7 @@
 }:
 
 let
-  rpathLibs = [ fftwFloat ];
+  rpathLibs = [fftwFloat];
 in
 stdenv.mkDerivation rec {
   pname = "distrho-ports";
@@ -103,7 +103,7 @@ stdenv.mkDerivation rec {
       lgpl3Only
       mit
     ];
-    maintainers = [ maintainers.goibhniu ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.goibhniu];
+    platforms = ["x86_64-linux"];
   };
 }

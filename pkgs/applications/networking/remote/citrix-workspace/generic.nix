@@ -55,14 +55,14 @@
   prefix,
   hash,
 
-  extraCerts ? [ ],
+  extraCerts ? [],
 }:
 
 let
   openssl' = symlinkJoin {
     name = "openssl-backwards-compat";
-    nativeBuildInputs = [ makeWrapper ];
-    paths = [ (lib.getLib openssl) ];
+    nativeBuildInputs = [makeWrapper];
+    paths = [(lib.getLib openssl)];
     postBuild = ''
       ln -sf $out/lib/libcrypto.so $out/lib/libcrypto.so.1.0.0
       ln -sf $out/lib/libssl.so $out/lib/libssl.so.1.0.0
@@ -272,7 +272,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     license = licenses.unfree;
     description = "Citrix Workspace";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     platforms = platforms.linux;
     maintainers = with maintainers; [
       pmenke

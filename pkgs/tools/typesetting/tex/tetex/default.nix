@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     ed
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   # fixes "error: conflicting types for 'calloc'", etc.
   preBuild = lib.optionalString stdenv.isDarwin ''
@@ -84,8 +84,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A full-featured (La)TeX distribution";
     homepage = "http://www.tug.org/tetex/";
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     platforms = platforms.unix;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

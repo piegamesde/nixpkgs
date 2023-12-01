@@ -33,6 +33,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/agdsn/agdsn-zsh-config";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fugi ];
+    maintainers = with maintainers; [fugi];
   };
 }

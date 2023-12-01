@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     description = "An Asciidoc-based literate programming tool, written in Python";
     platforms = platforms.linux;
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
   };
 }

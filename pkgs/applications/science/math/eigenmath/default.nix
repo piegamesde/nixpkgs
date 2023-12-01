@@ -40,13 +40,13 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   passthru = {
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   meta = with lib; {
     description = "Computer algebra system written in C";
     homepage = "https://georgeweigt.github.io";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

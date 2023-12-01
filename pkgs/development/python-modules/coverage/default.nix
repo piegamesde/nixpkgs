@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   # No tests in archive
   doCheck = false;
-  nativeCheckInputs = [ mock ];
+  nativeCheckInputs = [mock];
 
   meta = {
     description = "Code coverage measurement for python";

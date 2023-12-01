@@ -18,6 +18,6 @@ stdenv.mkDerivation rec {
       Library of OpenCORE Framework implementation of Adaptive Multi Rate Narrowband and Wideband (AMR-NB and AMR-WB) speech codec.
           Library of VisualOn implementation of Adaptive Multi Rate Wideband (AMR-WB)'';
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.kiloreux ];
+    maintainers = [lib.maintainers.kiloreux];
   };
 }

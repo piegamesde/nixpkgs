@@ -15,7 +15,7 @@ in
 
 let
   upsOptions =
-    { name, config, ... }:
+    {name, config, ...}:
     {
       options = {
         # This can be inferred from the UPS model by looking at
@@ -68,7 +68,7 @@ let
         };
 
         directives = mkOption {
-          default = [ ];
+          default = [];
           type = types.listOf types.str;
           description = lib.mdDoc ''
             List of configuration directives for this UPS.
@@ -95,7 +95,7 @@ let
           ++ (optional (config.maxStartDelay != null) "maxstartdelay = ${toString config.maxStartDelay}")
         );
 
-        summary = concatStringsSep "\n      " ([ "[${name}]" ] ++ config.directives);
+        summary = concatStringsSep "\n      " (["[${name}]"] ++ config.directives);
       };
     };
 in
@@ -163,7 +163,7 @@ in
       };
 
       ups = mkOption {
-        default = { };
+        default = {};
         # see nut/etc/ups.conf.sample
         description = lib.mdDoc ''
           This is where you configure all the UPSes that this system will be
@@ -177,12 +177,12 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ pkgs.nut ];
+    environment.systemPackages = [pkgs.nut];
 
     systemd.services.upsmon = {
       description = "Uninterruptible Power Supplies (Monitor)";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig.Type = "forking";
       script = "${pkgs.nut}/sbin/upsmon";
       environment.NUT_CONFPATH = "/etc/nut/";
@@ -195,7 +195,7 @@ in
         "network.target"
         "upsmon.service"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig.Type = "forking";
       # TODO: replace 'root' by another username.
       script = "${pkgs.nut}/sbin/upsd -u root";
@@ -205,8 +205,8 @@ in
 
     systemd.services.upsdrv = {
       description = "Uninterruptible Power Supplies (Register all UPS)";
-      after = [ "upsd.service" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["upsd.service"];
+      wantedBy = ["multi-user.target"];
       # TODO: replace 'root' by another username.
       script = "${pkgs.nut}/bin/upsdrvctl -u root start";
       serviceConfig = {

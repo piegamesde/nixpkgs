@@ -33,11 +33,11 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "source/picoloop";
 
-  makeFlags = [ "-f Makefile.PatternPlayer_debian_RtAudio_sdl20" ];
+  makeFlags = ["-f Makefile.PatternPlayer_debian_RtAudio_sdl20"];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-I${SDL2.dev}/include/SDL2" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-I${SDL2.dev}/include/SDL2"];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   patchPhase = ''
     substituteInPlace SDL_GUI.cpp \

@@ -26,6 +26,6 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/keaston/cp437";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jb55 ];
+    maintainers = with maintainers; [jb55];
   };
 }

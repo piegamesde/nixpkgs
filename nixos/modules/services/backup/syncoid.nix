@@ -110,7 +110,7 @@ in
   options.services.syncoid = {
     enable = mkEnableOption (lib.mdDoc "Syncoid ZFS synchronization service");
 
-    package = lib.mkPackageOptionMD pkgs "sanoid" { };
+    package = lib.mkPackageOptionMD pkgs "sanoid" {};
 
     interval = mkOption {
       type = types.str;
@@ -204,8 +204,8 @@ in
 
     commonArgs = mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "--no-sync-snap" ];
+      default = [];
+      example = ["--no-sync-snap"];
       description = lib.mdDoc ''
         Arguments to add to every syncoid command, unless disabled for that
         command. See
@@ -216,7 +216,7 @@ in
 
     service = mkOption {
       type = types.attrs;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Systemd configuration common to all syncoid services.
       '';
@@ -225,7 +225,7 @@ in
     commands = mkOption {
       type = types.attrsOf (
         types.submodule (
-          { name, ... }:
+          {name, ...}:
           {
             options = {
               source = mkOption {
@@ -313,7 +313,7 @@ in
 
               service = mkOption {
                 type = types.attrs;
-                default = { };
+                default = {};
                 description = lib.mdDoc ''
                   Systemd configuration specific to this syncoid service.
                 '';
@@ -321,8 +321,8 @@ in
 
               extraArgs = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
-                example = [ "--sshport 2222" ];
+                default = [];
+                example = ["--sshport 2222"];
                 description = lib.mdDoc "Extra syncoid arguments for this command.";
               };
             };
@@ -335,7 +335,7 @@ in
           }
         )
       );
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           "pool/test".target = "root@target:pool/test";
@@ -359,7 +359,7 @@ in
           createHome = false;
         };
       };
-      groups = mkIf (cfg.group == "syncoid") { syncoid = { }; };
+      groups = mkIf (cfg.group == "syncoid") {syncoid = {};};
     };
 
     systemd.services =
@@ -370,10 +370,10 @@ in
             mkMerge [
               {
                 description = "Syncoid ZFS synchronization from ${c.source} to ${c.target}";
-                after = [ "zfs.target" ];
+                after = ["zfs.target"];
                 startAt = cfg.interval;
                 # syncoid may need zpool to get feature@extensible_dataset
-                path = [ "/run/booted-system/sw/bin/" ];
+                path = ["/run/booted-system/sw/bin/"];
                 serviceConfig = {
                   ExecStartPre =
                     (map (buildAllowCommand c.localSourceAllow) (localDatasetName c.source))
@@ -382,7 +382,7 @@ in
                     (map (buildUnallowCommand c.localSourceAllow) (localDatasetName c.source))
                     ++ (map (buildUnallowCommand c.localTargetAllow) (localDatasetName c.target));
                   ExecStart = lib.escapeShellArgs (
-                    [ "${cfg.package}/bin/syncoid" ]
+                    ["${cfg.package}/bin/syncoid"]
                     ++ optionals c.useCommonArgs cfg.commonArgs
                     ++ optional c.recursive "-r"
                     ++ optionals (c.sshKey != null) [
@@ -402,7 +402,7 @@ in
                   );
                   User = cfg.user;
                   Group = cfg.group;
-                  StateDirectory = [ "syncoid" ];
+                  StateDirectory = ["syncoid"];
                   StateDirectoryMode = "700";
                   # Prevent SSH control sockets of different syncoid services from interfering
                   PrivateTmp = true;
@@ -415,7 +415,7 @@ in
                   # systemd-analyze security | grep syncoid-'*'
                   AmbientCapabilities = "";
                   CapabilityBoundingSet = "";
-                  DeviceAllow = [ "/dev/zfs" ];
+                  DeviceAllow = ["/dev/zfs"];
                   LockPersonality = true;
                   MemoryDenyWriteExecute = true;
                   NoNewPrivileges = true;
@@ -442,7 +442,7 @@ in
                   RestrictSUIDSGID = true;
                   RootDirectory = "/run/syncoid/${escapeUnitName name}";
                   RootDirectoryStartOnly = true;
-                  BindPaths = [ "/dev/zfs" ];
+                  BindPaths = ["/dev/zfs"];
                   BindReadOnlyPaths = [
                     builtins.storeDir
                     "/etc"
@@ -450,10 +450,10 @@ in
                     "/bin/sh"
                   ];
                   # Avoid useless mounting of RootDirectory= in the own RootDirectory= of ExecStart='s mount namespace.
-                  InaccessiblePaths = [ "-+/run/syncoid/${escapeUnitName name}" ];
+                  InaccessiblePaths = ["-+/run/syncoid/${escapeUnitName name}"];
                   MountAPIVFS = true;
                   # Create RootDirectory= in the host's mount namespace.
-                  RuntimeDirectory = [ "syncoid/${escapeUnitName name}" ];
+                  RuntimeDirectory = ["syncoid/${escapeUnitName name}"];
                   RuntimeDirectoryMode = "700";
                   SystemCallFilter = [
                     "@system-service"

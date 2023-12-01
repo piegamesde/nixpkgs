@@ -26,16 +26,16 @@ buildPythonPackage rec {
   ];
 
   # In the git repo, supervise_api lives inside a python subdir
-  patchFlags = [ "-p2" ];
+  patchFlags = ["-p2"];
 
   propagatedBuildInputs = lib.optional (!isPy3k) whichcraft;
 
-  nativeCheckInputs = [ util-linux ];
+  nativeCheckInputs = [util-linux];
 
   meta = {
     description = "An API for running processes safely and securely";
     homepage = "https://github.com/catern/supervise";
     license = lib.licenses.lgpl3;
-    maintainers = with lib.maintainers; [ catern ];
+    maintainers = with lib.maintainers; [catern];
   };
 }

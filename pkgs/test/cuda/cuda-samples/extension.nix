@@ -20,5 +20,5 @@ let
     .${prev.cudaVersion};
 in
 {
-  cuda-samples = final.callPackage ./generic.nix { inherit sha256; };
+  cuda-samples = final.callPackage ./generic.nix {inherit sha256;};
 }

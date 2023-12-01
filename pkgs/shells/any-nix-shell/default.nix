@@ -18,8 +18,8 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ bash ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [bash];
   installPhase = ''
     mkdir -p $out/bin
     cp -r bin $out
@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     description = "fish and zsh support for nix-shell";
     license = licenses.mit;
     homepage = "https://github.com/haslersn/any-nix-shell";
-    maintainers = with maintainers; [ haslersn ];
+    maintainers = with maintainers; [haslersn];
   };
 }

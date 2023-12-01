@@ -1,11 +1,11 @@
 # Test powerdns-admin
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
 let
   defaultConfig = ''
@@ -25,7 +25,7 @@ let
       };
 
       nodes.server =
-        { pkgs, config, ... }:
+        {pkgs, config, ...}:
         mkMerge (
           [
             {
@@ -37,9 +37,7 @@ let
               # It's insecure to have secrets in the world-readable nix store, but this is just a test
               environment.etc."powerdns-admin/secret".text = "secret key";
               environment.etc."powerdns-admin/salt".text = "salt";
-              environment.systemPackages = [
-                (pkgs.writeShellScriptBin "run-test" config.system.build.testScript)
-              ];
+              environment.systemPackages = [(pkgs.writeShellScriptBin "run-test" config.system.build.testScript)];
             }
           ]
           ++ configs
@@ -61,14 +59,14 @@ let
           '';
         };
         systemd.services.powerdns-admin = {
-          after = [ "mysql.service" ];
+          after = ["mysql.service"];
           serviceConfig.BindPaths = "/run/mysqld";
         };
 
         services.mysql = {
           enable = true;
           package = pkgs.mariadb;
-          ensureDatabases = [ "powerdnsadmin" ];
+          ensureDatabases = ["powerdnsadmin"];
           ensureUsers = [
             {
               name = "powerdnsadmin";
@@ -87,13 +85,13 @@ let
           '';
         };
         systemd.services.powerdns-admin = {
-          after = [ "postgresql.service" ];
+          after = ["postgresql.service"];
           serviceConfig.BindPaths = "/run/postgresql";
         };
 
         services.postgresql = {
           enable = true;
-          ensureDatabases = [ "powerdnsadmin" ];
+          ensureDatabases = ["powerdnsadmin"];
           ensureUsers = [
             {
               name = "powerdnsadmin";

@@ -21,7 +21,7 @@ let
     if lapackImplementation == "mkl" then
       lapackProvider
     else
-      lapackProvider.override { blas64 = isILP64; };
+      lapackProvider.override {blas64 = isILP64;};
 in
 
 assert isILP64 -> lapackImplementation == "mkl" || lapackProvider'.blas64;
@@ -35,7 +35,7 @@ stdenv.mkDerivation {
     "dev"
   ];
 
-  meta = (lapackProvider'.meta or { }) // {
+  meta = (lapackProvider'.meta or {}) // {
     description = "${lib.getName lapackProvider'} with just the LAPACK C and FORTRAN ABI";
   };
 

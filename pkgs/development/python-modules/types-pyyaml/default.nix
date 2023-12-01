@@ -18,12 +18,12 @@ buildPythonPackage rec {
   # Module doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [ "yaml-stubs" ];
+  pythonImportsCheck = ["yaml-stubs"];
 
   meta = with lib; {
     description = "Typing stubs for PyYAML";
     homepage = "https://github.com/python/typeshed";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dnr ];
+    maintainers = with maintainers; [dnr];
   };
 }

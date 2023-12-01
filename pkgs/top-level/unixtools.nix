@@ -57,7 +57,7 @@ let
 
   # more is unavailable in darwin
   # so we just use less
-  more_compat = runCommand "more-${pkgs.less.name}" { } ''
+  more_compat = runCommand "more-${pkgs.less.name}" {} ''
     mkdir -p $out/bin
     ln -s ${pkgs.less}/bin/less $out/bin/more
   '';
@@ -178,7 +178,7 @@ let
 
       # watch is the only command from procps that builds currently on
       # Darwin. Unfortunately no other implementations exist currently!
-      darwin = pkgs.callPackage ../os-specific/linux/procps-ng { };
+      darwin = pkgs.callPackage ../os-specific/linux/procps-ng {};
     };
     write = {
       linux = pkgs.util-linux;

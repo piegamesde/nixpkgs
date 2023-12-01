@@ -8,7 +8,7 @@
 
 mkDerivation {
   pname = "kpty";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     kcoreaddons
     ki18n

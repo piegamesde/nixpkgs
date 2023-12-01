@@ -20,7 +20,7 @@ buildGoModule rec {
   vendorHash = "sha256-w8eWWyKEedEopQyliKKDNOn00KDlcrZHXK/8LMFvx7o=";
   proxyVendor = true;
 
-  subPackages = [ "cmd/dagger" ];
+  subPackages = ["cmd/dagger"];
 
   ldflags = [
     "-s"

@@ -21,7 +21,7 @@
 let
   version = "2022.3.0";
 
-  aruco = callPackage ./aruco.nix { };
+  aruco = callPackage ./aruco.nix {};
 
   # license.txt inside the zip file is MIT
   xplaneSdk = fetchzip {
@@ -80,7 +80,7 @@ mkDerivation {
       };
       desktopName = name;
       genericName = "Head tracking software";
-      categories = [ "Utility" ];
+      categories = ["Utility"];
     })
   ];
 
@@ -89,6 +89,6 @@ mkDerivation {
     description = "Head tracking software for MS Windows, Linux, and Apple OSX";
     changelog = "https://github.com/opentrack/opentrack/releases/tag/${version}";
     license = licenses.isc;
-    maintainers = with maintainers; [ zaninime ];
+    maintainers = with maintainers; [zaninime];
   };
 }

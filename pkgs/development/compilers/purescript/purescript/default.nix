@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
   passthru = {
     updateScript = ./update.sh;
     tests = {
-      minimal-module = pkgs.callPackage ./test-minimal-module { };
+      minimal-module = pkgs.callPackage ./test-minimal-module {};
     };
   };
 
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     description = "A strongly-typed functional programming language that compiles to JavaScript";
     homepage = "https://www.purescript.org/";
     license = licenses.bsd3;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     maintainers = with maintainers; [
       justinwoo
       mbbx6spp

@@ -70,7 +70,7 @@ buildPerlPackage rec {
     YAMLTiny
   ];
   # TODO: TermReadKey was temporarily removed from propagatedBuildInputs to unfreeze the build
-  buildInputs = [ bash ];
+  buildInputs = [bash];
   LC_ALL = "en_US.UTF-8";
   SGML_CATALOG_FILES = "${docbook_xml_dtd_412}/xml/dtd/docbook/catalog.xml";
   preConfigure = ''
@@ -99,6 +99,6 @@ buildPerlPackage rec {
   meta = {
     description = "Tools for helping translation of documentation";
     homepage = "https://po4a.org";
-    license = with lib.licenses; [ gpl2Only ];
+    license = with lib.licenses; [gpl2Only];
   };
 }

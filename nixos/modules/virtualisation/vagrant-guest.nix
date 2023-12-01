@@ -1,6 +1,6 @@
 # Minimal configuration that vagrant depends on
 
-{ config, pkgs, ... }:
+{config, pkgs, ...}:
 let
   # Vagrant uses an insecure shared private key by default, but we
   # don't use the authorizedKeys attribute under users because it should be
@@ -46,9 +46,9 @@ in
 
   systemd.services.install-vagrant-ssh-key = {
     description = "Vagrant SSH key install (if needed)";
-    after = [ "fs.target" ];
-    wants = [ "fs.target" ];
-    wantedBy = [ "multi-user.target" ];
+    after = ["fs.target"];
+    wants = ["fs.target"];
+    wantedBy = ["multi-user.target"];
     serviceConfig = {
       ExecStart = "${install-vagrant-ssh-key}/bin/install-vagrant-ssh-key";
       User = "vagrant";

@@ -21,7 +21,7 @@ buildDunePackage rec {
     hash = "sha256-HGtO5iO3lxuVa707MDIhw0pgDZLHt9qY+Rd24sFkags=";
   };
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
 
   propagatedBuildInputs = [
     SDL2
@@ -33,6 +33,6 @@ buildDunePackage rec {
     description = "SDL2_mixer bindings to go with Tsdl";
     homepage = "https://github.com/sanette/tsdl-mixer";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

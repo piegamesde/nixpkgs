@@ -1,7 +1,7 @@
 {
   pkgsFun ? import ../..,
   lib ? import ../../lib,
-  supportedSystems ? [ "x86_64-linux" ],
+  supportedSystems ? ["x86_64-linux"],
   allowUnfree ? false,
 }:
 
@@ -91,7 +91,7 @@ let
       "haskellPackages"
       "bindings-levmar"
     ]
-  ] ++ lib.optionals allowUnfree [ "magma" ];
+  ] ++ lib.optionals allowUnfree ["magma"];
   blas64Users = [
     "rspamd"
     "sundials"
@@ -119,7 +119,7 @@ let
       "haskellPackages"
       "bindings-levmar"
     ]
-  ] ++ lib.optionals allowUnfree [ "magma" ];
+  ] ++ lib.optionals allowUnfree ["magma"];
   blasProviders =
     system:
     [
@@ -154,12 +154,12 @@ in
     mapListToAttrs supportedSystems (
       system':
       let
-        system = lib.systems.elaborate { system = system'; };
+        system = lib.systems.elaborate {system = system';};
       in
       mapListToAttrs (blasProviders system) (
         provider:
         let
-          isILP64 = builtins.elem provider ([ "mkl64" ] ++ lib.optional system.is64bit "openblas");
+          isILP64 = builtins.elem provider (["mkl64"] ++ lib.optional system.is64bit "openblas");
           pkgs = pkgsFun {
             config = {
               inherit allowUnfree;

@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "1jrdb6yyb5jwwj27c1r0nr2y2ihqjln8ynj61mpkvp144c1cm5bg";
   };
 
-  patches = [ ./spinlocks.patch ];
+  patches = [./spinlocks.patch];
 
   buildInputs = [
     libauto

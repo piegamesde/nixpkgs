@@ -15,7 +15,7 @@ buildOctavePackage rec {
     sha256 = "sha256-ECysYOJMF4gPiCFung9hFSlyyO60X3MGirQ9FlYDix8=";
   };
 
-  requiredOctavePackages = [ matgeom ];
+  requiredOctavePackages = [matgeom];
 
   meta = with lib; {
     homepage = "https://octave.sourceforge.io/geometry/index.html";
@@ -23,7 +23,7 @@ buildOctavePackage rec {
       gpl3Plus
       boost
     ];
-    maintainers = with maintainers; [ KarlJoad ];
+    maintainers = with maintainers; [KarlJoad];
     description = "Library for extending MatGeom functionality";
   };
 }

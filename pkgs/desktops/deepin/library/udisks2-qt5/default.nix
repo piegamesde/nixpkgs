@@ -25,9 +25,9 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [ udisks ];
+  buildInputs = [udisks];
 
-  qmakeFlags = [ "VERSION=${version}" ];
+  qmakeFlags = ["VERSION=${version}"];
 
   meta = with lib; {
     description = "UDisks2 D-Bus interfaces binding for Qt5";

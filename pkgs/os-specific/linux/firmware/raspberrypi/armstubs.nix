@@ -18,7 +18,7 @@ stdenv.mkDerivation {
     hash = "sha512-KMHgj73eXHT++IE8DbCsFeJ87ngc9R3XxMUJy4Z3s4/MtMeB9zblADHkyJqz9oyeugeJTrDtuVETPBRo7M4Y8A==";
   };
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-march=armv8-a+crc" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-march=armv8-a+crc"];
 
   preConfigure = ''
     cd armstubs
@@ -61,6 +61,6 @@ stdenv.mkDerivation {
       "armv7l-linux"
       "aarch64-linux"
     ];
-    maintainers = with maintainers; [ samueldr ];
+    maintainers = with maintainers; [samueldr];
   };
 }

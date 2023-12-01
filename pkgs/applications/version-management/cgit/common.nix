@@ -3,7 +3,7 @@
   version,
   src,
   gitSrc,
-  buildInputs ? [ ],
+  buildInputs ? [],
   homepage,
   description,
   maintainers,
@@ -113,7 +113,7 @@ stdenv.mkDerivation {
     done
   '';
 
-  stripDebugList = [ "cgit" ];
+  stripDebugList = ["cgit"];
 
   enableParallelBuilding = true;
 
@@ -121,6 +121,6 @@ stdenv.mkDerivation {
     inherit homepage description;
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
-    maintainers = maintainers ++ (with lib.maintainers; [ qyliss ]);
+    maintainers = maintainers ++ (with lib.maintainers; [qyliss]);
   };
 }

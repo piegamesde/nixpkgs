@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.services.xrdp;
-  confDir = pkgs.runCommand "xrdp.conf" { preferLocalBuild = true; } ''
+  confDir = pkgs.runCommand "xrdp.conf" {preferLocalBuild = true;} ''
     mkdir $out
 
     cp ${cfg.package}/etc/xrdp/{km-*,xrdp,sesman,xrdp_keyboard}.ini $out
@@ -115,7 +115,7 @@ in
 
   config = mkIf cfg.enable {
 
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.port];
 
     # xrdp can run X11 program even if "services.xserver.enable = false"
     xdg = {
@@ -129,10 +129,10 @@ in
 
     systemd = {
       services.xrdp = {
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
         description = "xrdp daemon";
-        requires = [ "xrdp-sesman.service" ];
+        requires = ["xrdp-sesman.service"];
         preStart = ''
           # prepare directory for unix sockets (the sockets will be owned by loggedinuser:xrdp)
           mkdir -p /tmp/.xrdp || true
@@ -164,8 +164,8 @@ in
       };
 
       services.xrdp-sesman = {
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
         description = "xrdp session manager";
         restartIfChanged = false; # do not restart on "nixos-rebuild switch". like "display-manager", it can have many interactive programs as children
         serviceConfig = {
@@ -180,7 +180,7 @@ in
       isSystemUser = true;
       group = "xrdp";
     };
-    users.groups.xrdp = { };
+    users.groups.xrdp = {};
 
     security.pam.services.xrdp-sesman = {
       allowNullPassword = true;

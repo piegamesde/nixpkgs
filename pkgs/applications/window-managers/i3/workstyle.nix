@@ -23,6 +23,6 @@ rustPlatform.buildRustPackage rec {
     description = "Sway workspaces with style";
     homepage = "https://github.com/pierrechevalier83/workstyle";
     license = licenses.mit;
-    maintainers = with maintainers; [ FlorianFranzen ];
+    maintainers = with maintainers; [FlorianFranzen];
   };
 }

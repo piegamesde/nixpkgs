@@ -21,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-90WwgqPHsHbuQUY49cSQblN1jfoLydiG0dm1aMF/NCA=";
   };
 
-  propagatedBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [setuptools];
 
   prePatch = ''
     substituteInPlace snap7/common.py \
@@ -40,6 +40,6 @@ buildPythonPackage rec {
     description = "Python wrapper for the snap7 PLC communication library";
     homepage = "https://github.com/gijzelaerr/python-snap7";
     license = licenses.mit;
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
   };
 }

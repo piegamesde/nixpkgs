@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   src = fetch pname "0qg3fgc7wj34hdkqn21y03zcmsdd01szhhm1hfki63iifrm3y2v9";
 
-  patches = [ ./gnu-install-dirs.patch ];
+  patches = [./gnu-install-dirs.patch];
 
   postPatch = ''
     substituteInPlace MachO/CMakeLists.txt --replace \
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     tar -xf "${libunwind.src}" --wildcards -C libunwind/include --strip-components=2 "libunwind-*/include/"
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libllvm
     libxml2

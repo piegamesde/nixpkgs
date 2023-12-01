@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "keepalived";
 
     nodes = {
       node1 =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           networking.firewall.extraCommands = "iptables -A INPUT -p vrrp -j ACCEPT";
           services.keepalived.enable = true;
@@ -13,13 +13,13 @@ import ./make-test-python.nix (
             interface = "eth1";
             state = "MASTER";
             priority = 50;
-            virtualIps = [ { addr = "192.168.1.200"; } ];
+            virtualIps = [{addr = "192.168.1.200";}];
             virtualRouterId = 1;
           };
-          environment.systemPackages = [ pkgs.tcpdump ];
+          environment.systemPackages = [pkgs.tcpdump];
         };
       node2 =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           networking.firewall.extraCommands = "iptables -A INPUT -p vrrp -j ACCEPT";
           services.keepalived.enable = true;
@@ -27,10 +27,10 @@ import ./make-test-python.nix (
             interface = "eth1";
             state = "MASTER";
             priority = 100;
-            virtualIps = [ { addr = "192.168.1.200"; } ];
+            virtualIps = [{addr = "192.168.1.200";}];
             virtualRouterId = 1;
           };
-          environment.systemPackages = [ pkgs.tcpdump ];
+          environment.systemPackages = [pkgs.tcpdump];
         };
     };
 

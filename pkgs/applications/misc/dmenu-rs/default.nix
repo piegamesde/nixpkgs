@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
   # dynamic build and plugin support. Generating it with make and checking it
   # in to nixpkgs here was the easiest way to supply it to rustPlatform.
   # See: https://github.com/Shizcow/dmenu-rs/issues/34#issuecomment-757415584
-  cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
+  cargoDeps = rustPlatform.importCargoLock {lockFile = ./Cargo.lock;};
 
   # Fix a bug in the makefile when installing.
   # See https://github.com/Shizcow/dmenu-rs/pull/50
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-hmXApWg8qngc1vHkHUnB7Lt7wQUOyCSsBmn4HC1j53M=";
       };
     in
-    [ fix-broken-make-install-patch ];
+    [fix-broken-make-install-patch];
 
   # Copy the Cargo.lock stored here in nixpkgs into the build directory.
   postPatch = ''
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
 
   cargoRoot = "src";
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   # Running make test requires an X11 server. It also runs dmenu, which then
   # hangs on user input. It was too hard to figure out how to run these tests
@@ -79,8 +79,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A pixel perfect port of dmenu, rewritten in Rust with extensive plugin support";
     homepage = "https://github.com/Shizcow/dmenu-rs";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ benjaminedwardwebb ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [benjaminedwardwebb];
     platforms = platforms.linux;
     broken = (stdenv.isLinux && stdenv.isAarch64);
   };

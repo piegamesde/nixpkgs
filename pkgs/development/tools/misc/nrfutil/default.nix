@@ -51,6 +51,6 @@ buildPythonApplication rec {
     homepage = "https://github.com/NordicSemiconductor/pc-nrfutil";
     license = licenses.unfreeRedistributable;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ gebner ];
+    maintainers = with maintainers; [gebner];
   };
 }

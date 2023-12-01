@@ -31,12 +31,12 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    fast = [ ujson ];
+    fast = [ujson];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "tests/*.py" ];
+  pytestFlagsArray = ["tests/*.py"];
 
   disabledTests =
     [
@@ -44,12 +44,12 @@ buildPythonPackage rec {
       "test_invalid_country_code"
     ];
 
-  pythonImportsCheck = [ "ripe.atlas.sagan" ];
+  pythonImportsCheck = ["ripe.atlas.sagan"];
 
   meta = with lib; {
     description = "A parsing library for RIPE Atlas measurements results";
     homepage = "https://github.com/RIPE-NCC/ripe-atlas-sagan";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ raitobezarius ];
+    maintainers = with maintainers; [raitobezarius];
   };
 }

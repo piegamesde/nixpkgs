@@ -117,7 +117,7 @@ in
     extensions = lib.mkOption {
       # NOTE(RaitoBezarius): this is not enough to validate: extensions."osRelease" = drv; those are picked up by cue validation.
       type = lib.types.attrsOf lib.types.anything; # <namespace>: { ...namespace-specific fields }
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         User-defined data that extends the bootspec document.
 

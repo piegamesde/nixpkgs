@@ -22,7 +22,7 @@ buildNimPackage rec {
     src.meta
     // {
       description = "Math vector library for graphical things";
-      license = [ licenses.mit ];
-      maintainers = [ maintainers.ehmry ];
+      license = [licenses.mit];
+      maintainers = [maintainers.ehmry];
     };
 }

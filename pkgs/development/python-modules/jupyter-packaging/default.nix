@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-nZsrY7l//WeovFORwypCG8QVsmSjLJnk2NjdMdqunPQ=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     deprecation
@@ -53,12 +53,12 @@ buildPythonPackage rec {
     "test_ensure_with_skip_npm"
   ];
 
-  pythonImportsCheck = [ "jupyter_packaging" ];
+  pythonImportsCheck = ["jupyter_packaging"];
 
   meta = with lib; {
     description = "Jupyter Packaging Utilities";
     homepage = "https://github.com/jupyter/jupyter-packaging";
     license = licenses.bsd3;
-    maintainers = [ maintainers.elohmeier ];
+    maintainers = [maintainers.elohmeier];
   };
 }

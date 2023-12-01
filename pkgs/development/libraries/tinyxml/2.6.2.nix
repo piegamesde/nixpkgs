@@ -31,11 +31,11 @@ stdenv.mkDerivation {
 
   preConfigure = "export LD=${stdenv.cc.targetPrefix}c++";
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-mmacosx-version-min=10.9";
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
   buildPhase = ''
     # use STL (xbmc requires it)
     sed '1i#define TIXML_USE_STL 1' -i tinyxml.h

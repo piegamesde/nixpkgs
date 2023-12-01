@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Tool to detect potentially hard-coded credentials";
     homepage = "https://github.com/ynori7/credential-detector";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

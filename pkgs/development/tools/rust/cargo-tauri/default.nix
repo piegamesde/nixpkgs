@@ -44,7 +44,7 @@ rustPlatform.buildRustPackage rec {
       CoreServices
       Security
     ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     description = "Build smaller, faster, and more secure desktop applications with a web frontend";
@@ -53,6 +53,6 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

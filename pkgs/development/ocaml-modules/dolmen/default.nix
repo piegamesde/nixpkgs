@@ -18,7 +18,7 @@ buildDunePackage rec {
     sha256 = "133l23mwxa9xy340izvk4zp5jqjz2cwsm2innsgs2kg85pd39c41";
   };
 
-  nativeBuildInputs = [ menhir ];
+  nativeBuildInputs = [menhir];
   propagatedBuildInputs = [
     menhirLib
     fmt
@@ -30,7 +30,7 @@ buildDunePackage rec {
   meta = {
     description = "An OCaml library providing clean and flexible parsers for input languages";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     homepage = "https://github.com/Gbury/dolmen";
   };
 }

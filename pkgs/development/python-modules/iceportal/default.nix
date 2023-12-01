@@ -24,9 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-edG4tF5nYaEOCcbunetYNL9moi9vA75IOkorDuLEx1c=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ httpx ];
+  propagatedBuildInputs = [httpx];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -34,13 +34,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "iceportal" ];
+  pythonImportsCheck = ["iceportal"];
 
   meta = with lib; {
     description = "Library for getting data from the ICE Portal";
     homepage = "https://github.com/home-assistant-ecosystem/python-iceportal";
     changelog = "https://github.com/home-assistant-ecosystem/python-iceportal/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

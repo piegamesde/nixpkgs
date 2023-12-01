@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Expressive, simple, dynamic programming language";
     homepage = "https://oaklang.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ tejasag ];
+    maintainers = with maintainers; [tejasag];
   };
 }

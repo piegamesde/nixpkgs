@@ -12,7 +12,7 @@
   grubPackage,
 }:
 let
-  timeshift-wrapper = callPackage ./wrapper.nix { };
+  timeshift-wrapper = callPackage ./wrapper.nix {};
 in
 (timeshift-wrapper timeshift-unwrapped ([
   rsync

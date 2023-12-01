@@ -15,8 +15,8 @@ stdenv.mkDerivation rec {
     sha256 = "0ayiwfjdh1946asah861ah9269s5xkc8p5fv1wnxs9znyaxs4zzs";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ perl ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [perl];
 
   # Make sure the Flex-generated files are newer than the `.l' files, so that
   # Flex isn't needed to recompile them.
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://www.dwheeler.com/sloccount/";
 
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.all;
   };
 }

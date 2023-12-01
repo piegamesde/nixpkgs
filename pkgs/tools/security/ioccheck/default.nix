@@ -52,7 +52,7 @@ buildPythonApplication rec {
     hash = "sha256-qf5tHIpbj/BfrzUST+EzohKh1hUg09KwF+vT0tj1+FE=";
   };
 
-  nativeBuildInputs = with py.pkgs; [ poetry-core ];
+  nativeBuildInputs = with py.pkgs; [poetry-core];
 
   propagatedBuildInputs = with py.pkgs; [
     backoff
@@ -69,7 +69,7 @@ buildPythonApplication rec {
     vt-py
   ];
 
-  nativeCheckInputs = with py.pkgs; [ pytestCheckHook ];
+  nativeCheckInputs = with py.pkgs; [pytestCheckHook];
 
   postPatch = ''
     # Can be removed with the next release
@@ -81,12 +81,12 @@ buildPythonApplication rec {
       --replace 'tabulate = "^0.8.9"' 'tabulate = "*"'
   '';
 
-  pythonImportsCheck = [ "ioccheck" ];
+  pythonImportsCheck = ["ioccheck"];
 
   meta = with lib; {
     description = "Tool for researching IOCs";
     homepage = "https://github.com/ranguli/ioccheck";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

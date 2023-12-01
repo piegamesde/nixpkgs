@@ -25,6 +25,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/martin-cs/symfpu";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ shadaj ];
+    maintainers = with maintainers; [shadaj];
   };
 }

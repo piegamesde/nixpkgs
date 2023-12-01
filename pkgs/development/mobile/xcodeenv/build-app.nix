@@ -82,7 +82,7 @@ let
 in
 stdenv.mkDerivation (
   {
-    name = lib.replaceStrings [ " " ] [ "" ] name; # iOS app names can contain spaces, but in the Nix store this is not allowed
+    name = lib.replaceStrings [" "] [""] name; # iOS app names can contain spaces, but in the Nix store this is not allowed
     buildPhase = ''
       # Be sure that the Xcode wrapper has priority over everything else.
       # When using buildInputs this does not seem to be the case.

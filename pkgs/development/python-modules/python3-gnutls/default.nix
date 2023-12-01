@@ -36,13 +36,13 @@ buildPythonPackage rec {
     })
   ];
 
-  pythonImportsCheck = [ "gnutls" ];
+  pythonImportsCheck = ["gnutls"];
 
   meta = with lib; {
     description = "Python wrapper for the GnuTLS library";
     homepage = "https://github.com/AGProjects/python3-gnutls";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ chanley ];
+    maintainers = with maintainers; [chanley];
     longDescription = ''
       This package provides a high level object oriented wrapper around libgnutls,
       as well as low level bindings to the GnuTLS types and functions via ctypes.

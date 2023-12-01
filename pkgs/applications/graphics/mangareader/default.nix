@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     kconfigwidgets
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Qt manga reader for local files";
@@ -53,6 +53,6 @@ stdenv.mkDerivation rec {
       gpl3Plus
       cc-by-nc-sa-40
     ];
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

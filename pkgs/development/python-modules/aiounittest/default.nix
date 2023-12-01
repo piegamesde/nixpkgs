@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-7lDOI1SHPpRZLTHRTmfbKlZH18T73poJdFyVmb+HKms=";
   };
 
-  propagatedBuildInputs = [ wrapt ];
+  propagatedBuildInputs = [wrapt];
 
   nativeCheckInputs = [
     nose
@@ -31,12 +31,12 @@ buildPythonPackage rec {
     nosetests
   '';
 
-  pythonImportsCheck = [ "aiounittest" ];
+  pythonImportsCheck = ["aiounittest"];
 
   meta = with lib; {
     description = "Test asyncio code more easily";
     homepage = "https://github.com/kwarunek/aiounittest";
     license = licenses.mit;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

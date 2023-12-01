@@ -42,7 +42,7 @@ perlPackages.buildPerlPackage {
     description = "A sentence based license detector";
     homepage = "http://ninka.turingmachine.org/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.vrthra ];
+    maintainers = [maintainers.vrthra];
     platforms = platforms.all;
   };
 }

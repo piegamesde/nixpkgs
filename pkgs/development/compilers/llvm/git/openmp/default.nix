@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   pname = "openmp";
   inherit version;
 
-  src = runCommand "${pname}-src-${version}" { } ''
+  src = runCommand "${pname}-src-${version}" {} ''
     mkdir -p "$out"
     cp -r ${monorepoSrc}/cmake "$out"
     cp -r ${monorepoSrc}/${pname} "$out"
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     pkg-config
     lit
   ];
-  buildInputs = [ (if stdenv.buildPlatform == stdenv.hostPlatform then llvm else targetLlvm) ];
+  buildInputs = [(if stdenv.buildPlatform == stdenv.hostPlatform then llvm else targetLlvm)];
 
   # Unsup:Pass:XFail:Fail
   # 26:267:16:8

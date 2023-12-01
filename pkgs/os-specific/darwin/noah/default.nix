@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "0bivfsgb56kndz61lzjgdcnqlhjikqw89ma0h6f6radyvfzy0vis";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ Hypervisor ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [Hypervisor];
 
   meta = with lib; {
     description = "Bash on Ubuntu on macOS";
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
       licenses.mit
       licenses.gpl2
     ];
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
     platforms = platforms.darwin;
     # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;

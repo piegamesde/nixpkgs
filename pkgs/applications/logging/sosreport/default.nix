@@ -20,7 +20,7 @@ buildPythonPackage rec {
     sha256 = "sha256-xbL/4CmDnygiL/u3Jsa6fAkO4YfklDzuFMsxSGy1Ra4=";
   };
 
-  nativeBuildInputs = [ gettext ];
+  nativeBuildInputs = [gettext];
 
   propagatedBuildInputs = [
     magic
@@ -36,12 +36,12 @@ buildPythonPackage rec {
     export PYTHONPATH=$PWD/tests:$PYTHONPATH
   '';
 
-  pythonImportsCheck = [ "sos" ];
+  pythonImportsCheck = ["sos"];
 
   meta = with lib; {
     description = "Unified tool for collecting system logs and other debug information";
     homepage = "https://github.com/sosreport/sos";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

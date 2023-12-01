@@ -62,9 +62,9 @@ python3.pkgs.buildPythonApplication rec {
     setuptools
   ];
 
-  buildInputs = [ libsndfile ];
+  buildInputs = [libsndfile];
 
-  nativeCheckInputs = with python3.pkgs; [ twisted ] ++ bins;
+  nativeCheckInputs = with python3.pkgs; [twisted] ++ bins;
 
   makeWrapperArgs = [
     "--prefix"
@@ -105,7 +105,7 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     homepage = "https://github.com/whipper-team/whipper";
     description = "A CD ripper aiming for accuracy over speed";
-    maintainers = with maintainers; [ emily ];
+    maintainers = with maintainers; [emily];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

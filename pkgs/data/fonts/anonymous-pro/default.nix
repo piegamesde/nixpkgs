@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url = "https://www.marksimonson.com/assets/content/fonts/AnonymousPro-${
-      lib.replaceStrings [ "." ] [ "_" ] version
+      lib.replaceStrings ["."] ["_"] version
     }.zip";
     hash = "sha256-FhyzV4By8XKN9EyukAknzml/7lUuV6Evnt6Ht3H6TUU=";
   };
@@ -34,7 +34,7 @@ stdenvNoCC.mkDerivation rec {
       most Western and Central European Latin-based languages, plus
       Greek and Cyrillic. It is designed by Mark Simonson.
     '';
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     license = licenses.ofl;
     platforms = platforms.all;
   };

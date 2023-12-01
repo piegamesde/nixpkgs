@@ -36,6 +36,6 @@ else
       license = lib.licenses.lgpl21;
       branch = "0.8.2";
       inherit (ocaml.meta) platforms;
-      maintainers = [ lib.maintainers.maggesi ];
+      maintainers = [lib.maintainers.maggesi];
     };
   }

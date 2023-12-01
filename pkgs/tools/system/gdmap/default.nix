@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     ./set_flags.patch
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   NIX_LDFLAGS = "-lm";
 
@@ -42,6 +42,6 @@ stdenv.mkDerivation rec {
     description = "Recursive rectangle map of disk usage";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

@@ -20,17 +20,17 @@ buildPythonPackage rec {
     hash = "sha256-fssPknJn1tLtzb+2SFyZjfdhUdD8jqkwlInoi5uaplk=";
   };
 
-  propagatedBuildInputs = [ pamqp ];
+  propagatedBuildInputs = [pamqp];
 
   # Tests assume rabbitmq server running
   doCheck = false;
 
-  pythonImportsCheck = [ "aioamqp" ];
+  pythonImportsCheck = ["aioamqp"];
 
   meta = with lib; {
     description = "AMQP implementation using asyncio";
     homepage = "https://github.com/polyconseil/aioamqp";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

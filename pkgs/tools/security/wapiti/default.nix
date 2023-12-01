@@ -133,7 +133,7 @@ python3.pkgs.buildPythonApplication rec {
       "tests/attack/test_mod_ssl.py"
     ];
 
-  pythonImportsCheck = [ "wapitiCore" ];
+  pythonImportsCheck = ["wapitiCore"];
 
   meta = with lib; {
     description = "Web application vulnerability scanner";
@@ -147,7 +147,7 @@ python3.pkgs.buildPythonApplication rec {
     '';
     homepage = "https://wapiti-scanner.github.io/";
     changelog = "https://github.com/wapiti-scanner/wapiti/blob/${version}/doc/ChangeLog_Wapiti";
-    license = with licenses; [ gpl2Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl2Only];
+    maintainers = with maintainers; [fab];
   };
 }

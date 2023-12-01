@@ -62,7 +62,7 @@ buildPythonPackage rec {
       --replace "crytic-compile==0.2.2" "crytic-compile>=0.2.2"
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export PATH=${yices}/bin:${z3}/bin:$PATH
@@ -122,7 +122,7 @@ buildPythonPackage rec {
     "test_integration_resume"
   ];
 
-  pythonImportsCheck = [ "manticore" ];
+  pythonImportsCheck = ["manticore"];
 
   meta = with lib; {
     # m.c.manticore:WARNING: Manticore is only supported on Linux. Proceed at your own risk!
@@ -132,6 +132,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/trailofbits/manticore/releases/tag/${version}";
     license = licenses.agpl3Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ arturcygan ];
+    maintainers = with maintainers; [arturcygan];
   };
 }

@@ -60,7 +60,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  buildInputs = [ qpdf ];
+  buildInputs = [qpdf];
 
   nativeBuildInputs = [
     pybind11
@@ -84,9 +84,9 @@ buildPythonPackage rec {
     lxml
     packaging
     pillow
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  ] ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
-  pythonImportsCheck = [ "pikepdf" ];
+  pythonImportsCheck = ["pikepdf"];
 
   meta = with lib; {
     homepage = "https://github.com/pikepdf/pikepdf";

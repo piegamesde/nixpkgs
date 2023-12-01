@@ -39,13 +39,13 @@ buildPythonApplication rec {
     pygobject3
   ];
 
-  pythonImportsCheck = [ "gnome_extensions_cli" ];
+  pythonImportsCheck = ["gnome_extensions_cli"];
 
   meta = with lib; {
     homepage = "https://github.com/essembeh/gnome-extensions-cli";
     description = "Command line tool to manage your GNOME Shell extensions";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dylanmtaylor ];
+    maintainers = with maintainers; [dylanmtaylor];
     platforms = platforms.linux;
   };
 }

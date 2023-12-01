@@ -31,7 +31,7 @@ let
       url = "http://www.steinberg.net/en/company/developers.html";
       sha256 = "0r29fv6yhm2m5yznn8m4my7fq01w1lpphax4sshagy6b1dgjlv3w";
     };
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [unzip];
     installPhase = "cp -r . $out";
     meta.license = lib.licenses.unfree;
   };
@@ -43,8 +43,8 @@ let
 
   wine-xembed = wine-wow64.overrideDerivation (
     oldAttrs: {
-      patchFlags = [ "-p2" ];
-      patches = [ "${airwave-src}/fix-xembed-wine-windows.patch" ];
+      patchFlags = ["-p2"];
+      patches = ["${airwave-src}/fix-xembed-wine-windows.patch"];
     }
   );
 in
@@ -83,9 +83,9 @@ multiStdenv.mkDerivation {
   dontPatchELF = true;
 
   # Cf. https://github.com/phantom-code/airwave/issues/57
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  cmakeFlags = [ "-DVSTSDK_PATH=${vst-sdk}/VST2_SDK" ];
+  cmakeFlags = ["-DVSTSDK_PATH=${vst-sdk}/VST2_SDK"];
 
   postInstall = ''
     mv $out/bin $out/libexec
@@ -107,8 +107,8 @@ multiStdenv.mkDerivation {
     '';
     homepage = "https://github.com/phantom-code/airwave";
     license = licenses.mit;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ michalrus ];
-    hydraPlatforms = [ ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [michalrus];
+    hydraPlatforms = [];
   };
 }

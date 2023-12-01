@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-2uyMA2nIOPkc5+qImFn3eUVq2AxHu3Xj91TpkKswjao=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     glib
@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A simple but powerful and fast bulk file renamer";
     homepage = "https://github.com/qarmin/szyszka";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ kranzes ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [kranzes];
   };
 }

@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "lisp-namespace";
   version = "20211020-git";
 
   description = "Provides LISP-N --- extensible namespaces in Common Lisp.";
 
-  deps = [ args."alexandria" ];
+  deps = [args."alexandria"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/lisp-namespace/2021-10-20/lisp-namespace-20211020-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "lisp-namespace";
 
-  asdFilesToKeep = [ "lisp-namespace.asd" ];
+  asdFilesToKeep = ["lisp-namespace.asd"];
   overrides = x: x;
 }
 /* (SYSTEM lisp-namespace DESCRIPTION

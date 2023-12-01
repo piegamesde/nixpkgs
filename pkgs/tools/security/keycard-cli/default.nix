@@ -20,8 +20,8 @@ buildGoModule rec {
 
   vendorHash = "sha256-3XzWOiZF2WNs2pdumYN9bphvBKY+rrjuT+wWhB2pwT0=";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ pcsclite ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [pcsclite];
 
   ldflags = [
     "-s"
@@ -33,7 +33,7 @@ buildGoModule rec {
     description = "A command line tool and shell to manage keycards";
     homepage = "https://keycard.status.im";
     license = licenses.mpl20;
-    maintainers = [ maintainers.zimbatm ];
+    maintainers = [maintainers.zimbatm];
     broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/keycard-cli.x86_64-darwin
   };
 }

@@ -34,9 +34,9 @@ stdenv.mkDerivation {
       systemd
     ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  cmakeFlags = lib.optionals stdenv.isLinux [ "-DSYSTEMD=1" ];
+  cmakeFlags = lib.optionals stdenv.isLinux ["-DSYSTEMD=1"];
 
   postInstall = "$out/bin/toxvpn -h";
 

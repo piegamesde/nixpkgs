@@ -33,22 +33,22 @@ buildPythonPackage rec {
     --replace poetry.masonry.api poetry.core.masonry.api
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  checkInputs = [ beautifulsoup4 ];
+  checkInputs = [beautifulsoup4];
 
   checkPhase = ''
     export DJANGO_SETTINGS_MODULE=tests.settings.dev
     ${python.interpreter} -m django test
   '';
 
-  pythonImportsCheck = [ "pattern_library" ];
+  pythonImportsCheck = ["pattern_library"];
 
   meta = with lib; {
     description = "UI pattern libraries for Django templates";
     homepage = "https://github.com/torchbox/django-pattern-library/";
     changelog = "https://github.com/torchbox/django-pattern-library/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ sephi ];
+    maintainers = with maintainers; [sephi];
   };
 }

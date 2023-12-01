@@ -21,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-3FMNIhIZrstPKTfHVmN+K28UR2G26HZ5S/JtXmaFk1c=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     h2
@@ -32,12 +32,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "aioapns" ];
+  pythonImportsCheck = ["aioapns"];
 
   meta = with lib; {
     description = "An efficient APNs Client Library for Python/asyncio";
     homepage = "https://github.com/Fatal1ty/aioapns";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

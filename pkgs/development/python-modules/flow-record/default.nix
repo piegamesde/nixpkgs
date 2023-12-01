@@ -35,19 +35,19 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [ msgpack ];
+  propagatedBuildInputs = [msgpack];
 
   passthru.optional-dependencies = {
     compression = [
       lz4
       zstandard
     ];
-    elastic = [ elasticsearch ];
+    elastic = [elasticsearch];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "flow.record" ];
+  pythonImportsCheck = ["flow.record"];
 
   disabledTestPaths =
     [
@@ -55,13 +55,13 @@ buildPythonPackage rec {
       "tests/test_rdump.py"
     ];
 
-  disabledTests = [ "test_rdump_fieldtype_path_json" ];
+  disabledTests = ["test_rdump_fieldtype_path_json"];
 
   meta = with lib; {
     description = "Library for defining and creating structured data";
     homepage = "https://github.com/fox-it/flow.record";
     changelog = "https://github.com/fox-it/flow.record/releases/tag/${version}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

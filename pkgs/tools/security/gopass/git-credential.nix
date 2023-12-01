@@ -19,9 +19,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-BXzXpG1Dy25IBf8EzgzOnFcbEvQGVhO8jgR/t6IKgPw=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   ldflags = [
     "-s"
@@ -32,13 +32,13 @@ buildGoModule rec {
 
   postFixup = ''
     wrapProgram $out/bin/git-credential-gopass \
-      --prefix PATH : "${lib.makeBinPath [ gopass ]}"
+      --prefix PATH : "${lib.makeBinPath [gopass]}"
   '';
 
   meta = with lib; {
     description = "Manage git credentials using gopass";
     homepage = "https://github.com/gopasspw/git-credential-gopass";
     license = licenses.mit;
-    maintainers = with maintainers; [ benneti ];
+    maintainers = with maintainers; [benneti];
   };
 }

@@ -21,7 +21,7 @@ mkXfceDerivation {
   odd-unstable = false;
   sha256 = "sha256-F2mp3b1HBvI2lvwGzuE9QsqotLWgsP0NRyORrTV9FJs=";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     gettext
@@ -47,6 +47,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "Alternate application launcher for Xfce";
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    maintainers = with maintainers; [] ++ teams.xfce.members;
   };
 }

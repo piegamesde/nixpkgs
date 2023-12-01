@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "World class backgammon application";
     homepage = "http://www.gnubg.org/";
     license = licenses.gpl3;
-    maintainers = [ maintainers.ehmry ];
+    maintainers = [maintainers.ehmry];
     platforms = platforms.linux;
   };
 }

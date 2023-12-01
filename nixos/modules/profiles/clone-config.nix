@@ -47,7 +47,7 @@ let
     in
     {
       nixos = map relocateNixOS partitionedModuleFiles.nixos;
-      others = [ ]; # TODO: copy the modules to the install-device repository.
+      others = []; # TODO: copy the modules to the install-device repository.
     };
 
   # A dummy /etc/nixos/configuration.nix in the booted CD that
@@ -80,8 +80,8 @@ in
     };
 
     installer.cloneConfigIncludes = mkOption {
-      default = [ ];
-      example = [ "./nixos/modules/hardware/network/rt73.nix" ];
+      default = [];
+      example = ["./nixos/modules/hardware/network/rt73.nix"];
       description = lib.mdDoc ''
         List of modules used to re-build this installation device profile.
       '';

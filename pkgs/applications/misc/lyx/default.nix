@@ -54,13 +54,13 @@ mkDerivation rec {
   doCheck = true;
 
   # python is run during runtime to do various tasks
-  qtWrapperArgs = [ " --prefix PATH : ${python3}/bin" ];
+  qtWrapperArgs = [" --prefix PATH : ${python3}/bin"];
 
   meta = with lib; {
     description = "WYSIWYM frontend for LaTeX, DocBook";
     homepage = "http://www.lyx.org";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.vcunat ];
+    maintainers = [maintainers.vcunat];
     platforms = platforms.linux;
   };
 }

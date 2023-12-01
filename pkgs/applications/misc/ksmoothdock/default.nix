@@ -41,7 +41,7 @@ mkDerivation rec {
     description = "A cool desktop panel for KDE Plasma 5";
     license = licenses.mit;
     homepage = "https://dangvd.github.io/ksmoothdock/";
-    maintainers = with maintainers; [ shamilton ];
+    maintainers = with maintainers; [shamilton];
     platforms = platforms.linux;
   };
 }

@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "0nwnk3hfhgvf5xr0xipbh6smfnya22wphc5rj0vgi5d0zr5cwrk5";
   };
 
-  buildInputs = [ libgcrypt ];
+  buildInputs = [libgcrypt];
 
   preConfigure = ''
     sed -e s@/usr/@$out/@g -i Makefile

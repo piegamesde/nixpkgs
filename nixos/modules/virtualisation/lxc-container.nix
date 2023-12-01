@@ -9,7 +9,7 @@ with lib;
 
 let
   templateSubmodule =
-    { ... }:
+    {...}:
     {
       options = {
         enable = mkEnableOption (lib.mdDoc "this template");
@@ -29,18 +29,18 @@ let
         properties = mkOption {
           description = lib.mdDoc "Additional properties";
           type = types.attrs;
-          default = { };
+          default = {};
         };
       };
     };
 
-  toYAML = name: data: pkgs.writeText name (generators.toYAML { } data);
+  toYAML = name: data: pkgs.writeText name (generators.toYAML {} data);
 
   cfg = config.virtualisation.lxc;
   templates =
-    if cfg.templates != { } then
+    if cfg.templates != {} then
       let
-        list = mapAttrsToList (name: value: { inherit name; } // value) (
+        list = mapAttrsToList (name: value: {inherit name;} // value) (
           filterAttrs (name: value: value.enable) cfg.templates
         );
       in
@@ -67,8 +67,8 @@ let
       }
     else
       {
-        files = [ ];
-        properties = { };
+        files = [];
+        properties = {};
       };
 in
 {
@@ -83,7 +83,7 @@ in
       templates = mkOption {
         description = lib.mdDoc "Templates for LXD";
         type = types.attrsOf (types.submodule (templateSubmodule));
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             # create /etc/hostname on container creation. also requires networking.hostName = "" to be set

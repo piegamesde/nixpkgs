@@ -26,7 +26,7 @@
   zeromq,
 }:
 
-rustPlatform.buildRustPackage.override { inherit stdenv; } rec {
+rustPlatform.buildRustPackage.override {inherit stdenv;} rec {
   pname = "zcash";
   version = "5.4.2";
 
@@ -63,7 +63,7 @@ rustPlatform.buildRustPackage.override { inherit stdenv; } rec {
     tl-expected
     utf8cpp
     zeromq
-  ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  ] ++ lib.optionals stdenv.isDarwin [Security];
 
   # Use the stdenv default phases (./configure; make) instead of the
   # ones from buildRustPackage.

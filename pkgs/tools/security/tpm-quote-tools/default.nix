@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     patchelf \
-      --set-rpath "${lib.makeLibraryPath [ openssl ]}:$(patchelf --print-rpath $out/bin/tpm_mkaik)" \
+      --set-rpath "${lib.makeLibraryPath [openssl]}:$(patchelf --print-rpath $out/bin/tpm_mkaik)" \
       $out/bin/tpm_mkaik
   '';
 
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://tpmquotetools.sourceforge.net/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ak ];
+    maintainers = with maintainers; [ak];
     platforms = platforms.linux;
   };
 }

@@ -26,9 +26,9 @@ buildPythonPackage rec {
     hash = "sha256-sBzVTst5Tp2oZZ+Xsg3M7uAMbucL6idlpYwHvib3EaY=";
   };
 
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  nativeBuildInputs = [pythonRelaxDepsHook];
 
-  pythonRelaxDeps = [ "lightning-utilities" ];
+  pythonRelaxDeps = ["lightning-utilities"];
 
   propagatedBuildInputs = [
     lightning-utilities
@@ -62,6 +62,6 @@ buildPythonPackage rec {
     description = "High-performance data loading and augmentation library in PyTorch";
     homepage = "https://rising.rtfd.io";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

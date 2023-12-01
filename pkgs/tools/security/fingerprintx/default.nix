@@ -30,6 +30,6 @@ buildGoModule rec {
     homepage = "https://github.com/praetorian-inc/fingerprintx";
     changelog = "https://github.com/praetorian-inc/fingerprintx/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

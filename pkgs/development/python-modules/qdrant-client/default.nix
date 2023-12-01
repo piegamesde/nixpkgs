@@ -29,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-rpNTV3VBTND39iW/kve0aG1KJzAIl1whmhH+e6RbOhw=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     numpy
@@ -42,9 +42,9 @@ buildPythonPackage rec {
     h2
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "qdrant_client" ];
+  pythonImportsCheck = ["qdrant_client"];
 
   disabledTests = [
     # Tests require network access
@@ -62,6 +62,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/qdrant/qdrant-client";
     changelog = "https://github.com/qdrant/qdrant-client/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
   };
 }

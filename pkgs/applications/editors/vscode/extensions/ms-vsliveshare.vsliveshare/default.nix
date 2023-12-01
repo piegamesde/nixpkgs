@@ -38,7 +38,7 @@ let
     util-linux # libuuid
   ];
 in
-((vscode-utils.override { stdenv = gccStdenv; }).buildVscodeMarketplaceExtension {
+((vscode-utils.override {stdenv = gccStdenv;}).buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "vsliveshare";
     publisher = "ms-vsliveshare";
@@ -48,7 +48,7 @@ in
 }).overrideAttrs
   (
     {
-      buildInputs ? [ ],
+      buildInputs ? [],
       ...
     }:
     {
@@ -70,7 +70,7 @@ in
           lib.maintainers.jraygauthier
           lib.maintainers.V
         ];
-        platforms = [ "x86_64-linux" ];
+        platforms = ["x86_64-linux"];
       };
     }
   )

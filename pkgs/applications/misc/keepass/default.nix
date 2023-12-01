@@ -14,7 +14,7 @@
   coreutils,
   unixtools,
   glib,
-  plugins ? [ ],
+  plugins ? [],
 }:
 let
   inherit (builtins)
@@ -42,7 +42,7 @@ buildDotnetPackage rec {
     makeWrapper
     unzip
   ];
-  buildInputs = [ icoutils ];
+  buildInputs = [icoutils];
 
   patches = [
     (substituteAll {
@@ -68,8 +68,7 @@ buildDotnetPackage rec {
       patchTemplate = readFile ./keepass-plugins.patch;
       loadTemplate = readFile ./keepass-plugins-load.patch;
       loads = lib.concatStrings (
-        map (p: replaceStrings [ "$PATH$" ] [ (unsafeDiscardStringContext (toString p)) ] loadTemplate)
-          plugins
+        map (p: replaceStrings ["$PATH$"] [(unsafeDiscardStringContext (toString p))] loadTemplate) plugins
       );
     in
     replaceStrings
@@ -83,7 +82,7 @@ buildDotnetPackage rec {
       ]
       patchTemplate;
 
-  passAsFile = [ "pluginLoadPathsPatch" ];
+  passAsFile = ["pluginLoadPathsPatch"];
   postPatch = ''
     sed -i 's/\r*$//' KeePass/Forms/MainForm.cs
     patch -p1 <$pluginLoadPathsPatchPath
@@ -108,8 +107,8 @@ buildDotnetPackage rec {
     icon = "keepass";
     desktopName = "Keepass";
     genericName = "Password manager";
-    categories = [ "Utility" ];
-    mimeTypes = [ "application/x-keepass2" ];
+    categories = ["Utility"];
+    mimeTypes = ["application/x-keepass2"];
   };
 
   outputFiles = [
@@ -117,8 +116,8 @@ buildDotnetPackage rec {
     "Build/KeePassLib/Release/*"
     "Ext/KeePass.config.xml" # contains <PreferUserConfiguration>true</PreferUserConfiguration>
   ];
-  dllFiles = [ "KeePassLib.dll" ];
-  exeFiles = [ "KeePass.exe" ];
+  dllFiles = ["KeePassLib.dll"];
+  exeFiles = ["KeePass.exe"];
 
   # plgx plugin like keefox requires mono to compile at runtime
   # after loading. It is brought into plugins bin/ directory using
@@ -126,7 +125,7 @@ buildDotnetPackage rec {
   # is found and does not pollute output path.
   binPaths = lib.concatStringsSep ":" (map (x: x + "/bin") plugins);
 
-  dynlibPath = lib.makeLibraryPath [ gtk2 ];
+  dynlibPath = lib.makeLibraryPath [gtk2];
 
   postInstall =
     let

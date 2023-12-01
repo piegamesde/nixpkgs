@@ -14,16 +14,16 @@ buildPythonPackage rec {
     hash = "sha256-FnUk43c1jtHxN05hwmjw16S/fb0EbGVve0EM3hYWGxo=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Tests not included in archive.
   doCheck = false;
 
-  pythonImportsCheck = [ "editables" ];
+  pythonImportsCheck = ["editables"];
 
   meta = with lib; {
     description = "Editable installations";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     homepage = "https://github.com/pfmoore/editables";
     license = licenses.mit;
   };

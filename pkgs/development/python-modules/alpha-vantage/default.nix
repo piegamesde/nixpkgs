@@ -39,12 +39,12 @@ buildPythonPackage rec {
     "test_alpha_vantage/test_integration_alphavantage_async.py"
   ];
 
-  pythonImportsCheck = [ "alpha_vantage" ];
+  pythonImportsCheck = ["alpha_vantage"];
 
   meta = with lib; {
     description = "Python module for the Alpha Vantage API";
     homepage = "https://github.com/RomelTorres/alpha_vantage";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

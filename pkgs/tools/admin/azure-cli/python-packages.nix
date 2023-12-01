@@ -74,7 +74,7 @@ let
             --replace "msal-extensions>=0.3.1,<0.4" "msal-extensions" \
             --replace "packaging>=20.9,<22.0" "packaging"
         '';
-        nativeCheckInputs = with self; [ pytest ];
+        nativeCheckInputs = with self; [pytest];
         doCheck = stdenv.isLinux;
         # ignore tests that does network call, or assume powershell
         checkPhase = ''
@@ -106,7 +106,7 @@ let
           portalocker
         ];
 
-        nativeCheckInputs = [ py.pkgs.pytest ];
+        nativeCheckInputs = [py.pkgs.pytest];
         # ignore flaky test
         checkPhase = ''
           cd azure
@@ -114,9 +114,7 @@ let
         '';
       };
 
-      antlr4-python3-runtime = super.antlr4-python3-runtime.override (
-        _: { antlr4 = super.pkgs.antlr4_9; }
-      );
+      antlr4-python3-runtime = super.antlr4-python3-runtime.override (_: {antlr4 = super.pkgs.antlr4_9;});
 
       azure-batch =
         overrideAzureMgmtPackage super.azure-batch "13.0.0" "zip"
@@ -445,7 +443,7 @@ let
             hash = "sha256-Q1gGq7EZ/JvYjD7y0mp3kEy15QKZI84UQTdlIBoQLMs=";
             extension = "zip";
           };
-          propagatedBuildInputs = with super; oldAttrs.propagatedBuildInputs ++ [ azure-mgmt-core ];
+          propagatedBuildInputs = with super; oldAttrs.propagatedBuildInputs ++ [azure-mgmt-core];
         }
       );
 
@@ -502,8 +500,8 @@ let
             msrestazure
             cryptography
           ];
-          pythonNamespaces = [ "azure" ];
-          pythonImportsCheck = [ ];
+          pythonNamespaces = ["azure"];
+          pythonImportsCheck = [];
         }
       );
 

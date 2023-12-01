@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional (!noUnicode) "--enable-unicode";
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   postInstall = ''
     sed -e 's/@[-a-zA-Z_]*@//g' -i $out/bin/ecl-config

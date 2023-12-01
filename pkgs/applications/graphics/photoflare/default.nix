@@ -28,14 +28,14 @@ mkDerivation rec {
     graphicsmagick
   ];
 
-  qmakeFlags = [ "PREFIX=${placeholder "out"}" ];
+  qmakeFlags = ["PREFIX=${placeholder "out"}"];
 
   env.NIX_CFLAGS_COMPILE = "-I${graphicsmagick}/include/GraphicsMagick";
 
   meta = with lib; {
     description = "A cross-platform image editor with a powerful features and a very friendly graphical user interface";
     homepage = "https://photoflare.io";
-    maintainers = [ maintainers.omgbebebe ];
+    maintainers = [maintainers.omgbebebe];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

@@ -13,7 +13,7 @@
   LocalAuthentication,
 }:
 let
-  sources = callPackage ../sources.nix { };
+  sources = callPackage ../sources.nix {};
   generated = swiftpm2nix.helpers ./generated;
 
   # On Darwin, we only want ncurses in the linker search path, because headers
@@ -70,7 +70,7 @@ stdenv.mkDerivation {
 
   # Canary to verify output of our Swift toolchain does not depend on the Swift
   # compiler itself. (Only its 'lib' output.)
-  disallowedRequisites = [ swift.swift ];
+  disallowedRequisites = [swift.swift];
 
   meta = {
     description = "Language Server Protocol implementation for Swift and C-based languages";

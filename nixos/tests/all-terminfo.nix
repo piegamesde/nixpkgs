@@ -1,8 +1,8 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   rec {
     name = "all-terminfo";
-    meta = with pkgs.lib.maintainers; { maintainers = [ jkarlson ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [jkarlson];};
 
     nodes.machine =
       {

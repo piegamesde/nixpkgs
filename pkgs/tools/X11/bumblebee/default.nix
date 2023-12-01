@@ -48,10 +48,10 @@
 
 let
   nvidia_x11s =
-    [ nvidia_x11 ]
+    [nvidia_x11]
     ++ lib.optional nvidia_x11.useGLVND libglvnd
     ++ lib.optionals (nvidia_x11_i686 != null) (
-      [ nvidia_x11_i686 ] ++ lib.optional nvidia_x11_i686.useGLVND libglvnd_i686
+      [nvidia_x11_i686] ++ lib.optional nvidia_x11_i686.useGLVND libglvnd_i686
     );
 
   nvidiaLibs = lib.makeLibraryPath nvidia_x11s;
@@ -63,7 +63,7 @@ let
 
   xmodules = lib.concatStringsSep "," (
     map (x: "${x.out or x}/lib/xorg/modules") (
-      [ xorgserver ] ++ lib.optional (!useNvidia) xf86videonouveau
+      [xorgserver] ++ lib.optional (!useNvidia) xf86videonouveau
     )
   );
 
@@ -162,7 +162,7 @@ stdenv.mkDerivation rec {
       "CONF_MODPATH_NVIDIA=${nvidia_x11.bin}/lib/xorg/modules"
     ];
 
-  CFLAGS = [ ''-DX_MODULE_APPENDS=\"${xmodules}\"'' ];
+  CFLAGS = [''-DX_MODULE_APPENDS=\"${xmodules}\"''];
 
   postInstall = ''
     wrapProgram "$out/sbin/bumblebeed" \
@@ -176,7 +176,7 @@ stdenv.mkDerivation rec {
     description = "Daemon for managing Optimus videocards (power-on/off, spawns xservers)";
     homepage = "https://github.com/Bumblebee-Project/Bumblebee";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     platforms = platforms.linux;
   };
 }

@@ -103,15 +103,15 @@ in
 
   ###### implementation
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     # Note: the following options are also declared in virtualisation.lxc, but
     # the latter can't be simply enabled to reuse the formers, because it
     # does a bunch of unrelated things.
-    systemd.tmpfiles.rules = [ "d /var/lib/lxc/rootfs 0755 root root -" ];
+    systemd.tmpfiles.rules = ["d /var/lib/lxc/rootfs 0755 root root -"];
 
     security.apparmor = {
-      packages = [ cfg.lxcPackage ];
+      packages = [cfg.lxcPackage];
       policies = {
         "bin.lxc-start".profile = ''
           include ${cfg.lxcPackage}/etc/apparmor.d/usr.bin.lxc-start
@@ -128,7 +128,7 @@ in
 
     systemd.sockets.lxd = {
       description = "LXD UNIX socket";
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
 
       socketConfig = {
         ListenStream = "/var/lib/lxd/unix.socket";
@@ -141,7 +141,7 @@ in
     systemd.services.lxd = {
       description = "LXD Container Management Daemon";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network-online.target"
         (mkIf config.virtualisation.lxc.lxcfs.enable "lxcfs.service")
@@ -151,9 +151,9 @@ in
         "lxd.socket"
         (mkIf config.virtualisation.lxc.lxcfs.enable "lxcfs.service")
       ];
-      documentation = [ "man:lxd(1)" ];
+      documentation = ["man:lxd(1)"];
 
-      path = [ pkgs.util-linux ] ++ optional cfg.zfsSupport config.boot.zfs.package;
+      path = [pkgs.util-linux] ++ optional cfg.zfsSupport config.boot.zfs.package;
 
       serviceConfig = {
         ExecStart = "@${cfg.package}/bin/lxd lxd --group lxd";
@@ -179,7 +179,7 @@ in
       };
     };
 
-    users.groups.lxd = { };
+    users.groups.lxd = {};
 
     users.users.root = {
       subUidRanges = [
@@ -212,6 +212,6 @@ in
       "xt_comment"
       "xt_CHECKSUM"
       "xt_MASQUERADE"
-    ] ++ optionals (!config.networking.nftables.enable) [ "iptable_mangle" ];
+    ] ++ optionals (!config.networking.nftables.enable) ["iptable_mangle"];
   };
 }

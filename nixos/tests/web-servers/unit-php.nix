@@ -1,11 +1,11 @@
 import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
     testdir = pkgs.writeTextDir "www/info.php" "<?php phpinfo();";
   in
   {
     name = "unit-php-test";
-    meta.maintainers = with pkgs.lib.maintainers; [ izorkin ];
+    meta.maintainers = with pkgs.lib.maintainers; [izorkin];
 
     nodes.machine =
       {

@@ -10,7 +10,7 @@ stdenv.mkDerivation {
 
   pname = "fasm";
 
-  nativeBuildInputs = [ fasm-bin ];
+  nativeBuildInputs = [fasm-bin];
 
   buildPhase = ''
     fasm source/Linux${lib.optionalString isx86_64 "/x64"}/fasm.asm fasm

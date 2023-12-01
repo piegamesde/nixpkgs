@@ -50,8 +50,8 @@ in
 
         mtrFlags = mkOption {
           type = with types; listOf str;
-          default = [ ];
-          example = [ "-G1" ];
+          default = [];
+          example = ["-G1"];
           description = lib.mdDoc "Additional flags to pass to MTR.";
         };
       };
@@ -66,15 +66,15 @@ in
           -schedule '@every ${toString cfg.interval}s' \
           -bind ${escapeShellArg cfg.address}:${toString cfg.port} \
           -- \
-          ${escapeShellArgs (cfg.mtrFlags ++ [ cfg.target ])}
+          ${escapeShellArgs (cfg.mtrFlags ++ [cfg.target])}
       '';
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "network.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["network.target"];
+      after = ["network.target"];
       serviceConfig = {
         Restart = "on-failure";
         # Hardening
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         DynamicUser = true;
         LockPersonality = true;
         ProcSubset = "pid";
@@ -96,5 +96,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ jakubgs ];
+  meta.maintainers = with maintainers; [jakubgs];
 }

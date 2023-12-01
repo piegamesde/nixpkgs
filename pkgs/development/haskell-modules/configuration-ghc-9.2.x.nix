@@ -1,4 +1,4 @@
-{ pkgs, haskellLib }:
+{pkgs, haskellLib}:
 
 with haskellLib;
 
@@ -91,6 +91,6 @@ self: super: {
 
   # https://github.com/fpco/inline-c/pull/131
   inline-c-cpp =
-    (if isDarwin then appendConfigureFlags [ "--ghc-option=-fcompact-unwind" ] else x: x)
+    (if isDarwin then appendConfigureFlags ["--ghc-option=-fcompact-unwind"] else x: x)
       super.inline-c-cpp;
 }

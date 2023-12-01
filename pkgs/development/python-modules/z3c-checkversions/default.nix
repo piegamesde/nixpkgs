@@ -18,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-rn4kl8Pn6YNqbE+VD6L8rVBQHkQqXSD47ZIy77+ashE=";
   };
 
-  propagatedBuildInputs = [ zc-buildout ];
+  propagatedBuildInputs = [zc-buildout];
 
-  nativeCheckInputs = [ zope_testrunner ];
+  nativeCheckInputs = [zope_testrunner];
 
   checkPhase = ''
     ${python.interpreter} -m zope.testrunner --test-path=src []

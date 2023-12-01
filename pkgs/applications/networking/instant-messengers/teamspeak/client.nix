@@ -69,7 +69,7 @@ let
     comment = "The TeamSpeak voice communication tool";
     desktopName = "TeamSpeak";
     genericName = "TeamSpeak";
-    categories = [ "Network" ];
+    categories = ["Network"];
   };
 
   fakeLess = writeShellScriptBin "less" "cat";
@@ -155,7 +155,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "The TeamSpeak voice communication tool";
     homepage = "https://teamspeak.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = {
       fullName = "Teamspeak client license";
       url = "https://www.teamspeak.com/en/privacy-and-terms/";

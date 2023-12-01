@@ -1,14 +1,14 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
     port = 81;
   in
   {
     name = "keter";
-    meta = with pkgs.lib.maintainers; { maintainers = [ jappie ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [jappie];};
 
     nodes.machine =
-      { config, pkgs, ... }:
+      {config, pkgs, ...}:
       {
         services.keter = {
           enable = true;

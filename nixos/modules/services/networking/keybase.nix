@@ -43,9 +43,9 @@ in
         Restart = "on-failure";
         PrivateTmp = true;
       };
-      wantedBy = [ "default.target" ];
+      wantedBy = ["default.target"];
     };
 
-    environment.systemPackages = [ pkgs.keybase ];
+    environment.systemPackages = [pkgs.keybase];
   };
 }

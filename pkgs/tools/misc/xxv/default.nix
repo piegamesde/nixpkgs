@@ -27,8 +27,8 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "0pmpvlmy4pw252is34r9af1ysrp78xs8pz8cw4rys9s4fh2hmhjb";
 
   buildInputs =
-    lib.optionals useNcurses [ ncurses ]
-    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ Security ]);
+    lib.optionals useNcurses [ncurses]
+    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [Security]);
 
   # I'm picking pancurses for Windows simply because that's the example given in Cursive's
   # documentation for picking an alternative backend. We could just as easily pick crossterm.
@@ -41,7 +41,7 @@ rustPlatform.buildRustPackage rec {
       XXV is a terminal hex viewer with a text user interface, written in 100% safe Rust.
     '';
     homepage = "https://chrisvest.github.io/xxv/";
-    license = with licenses; [ gpl3 ];
-    maintainers = with maintainers; [ lilyball ];
+    license = with licenses; [gpl3];
+    maintainers = with maintainers; [lilyball];
   };
 }

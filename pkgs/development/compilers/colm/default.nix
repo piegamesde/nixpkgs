@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "0f76iri173l2wja2v7qrwmf958cqwh5g9x4bhj2z8wknmlla6gz4";
   };
 
-  patches = [ ./cross-compile.patch ];
+  patches = [./cross-compile.patch];
 
   nativeBuildInputs = [
     makeWrapper
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.colm.net/open-source/colm";
     license = licenses.gpl2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

@@ -21,7 +21,7 @@ buildPythonApplication rec {
     sha256 = "sha256-CJpbBuRzEjWb8hsh3HMW4bZA7nyDAwjrERCS5uGdwn8=";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook ];
+  nativeBuildInputs = [wrapGAppsHook];
   propagatedBuildInputs = [
     pychromecast
     bottle
@@ -39,7 +39,7 @@ buildPythonApplication rec {
   strictDeps = false;
 
   preFixup = ''
-    gappsWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ ffmpeg ]})
+    gappsWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ffmpeg]})
   '';
 
   # no tests
@@ -48,7 +48,7 @@ buildPythonApplication rec {
   meta = with lib; {
     description = "A native Linux GUI for Chromecasting local files";
     homepage = "https://github.com/keredson/gnomecast";
-    license = with licenses; [ gpl3 ];
+    license = with licenses; [gpl3];
     broken = stdenv.isDarwin;
   };
 }

@@ -1,4 +1,4 @@
-{ racket }:
+{racket}:
 
 racket.overrideAttrs (
   oldAttrs: rec {

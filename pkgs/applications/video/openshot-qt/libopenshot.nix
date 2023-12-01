@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     sed -i 's/{UNITTEST++_INCLUDE_DIR}/ENV{UNITTEST++_INCLUDE_DIR}/g' tests/CMakeLists.txt
   '';
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ alsa-lib ] ++ [
+  nativeBuildInputs = lib.optionals stdenv.isLinux [alsa-lib] ++ [
     cmake
     doxygen
     pkg-config
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     qtbase
     qtmultimedia
     zeromq
-  ] ++ lib.optionals stdenv.isDarwin [ llvmPackages.openmp ];
+  ] ++ lib.optionals stdenv.isDarwin [llvmPackages.openmp];
 
   dontWrapQtApps = true;
 
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
       to the world. API currently supports C++, Python, and Ruby.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.unix;
   };
 

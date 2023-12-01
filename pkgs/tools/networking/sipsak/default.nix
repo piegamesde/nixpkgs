@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
   pname = "sipsak";
   version = "4.1.2.1";
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     openssl
     c-ares
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/sipwise/sipsak";
     description = "SIP Swiss army knife";
     license = lib.licenses.gpl2;
-    maintainers = with maintainers; [ sheenobu ];
+    maintainers = with maintainers; [sheenobu];
     platforms = with platforms; unix;
   };
 }

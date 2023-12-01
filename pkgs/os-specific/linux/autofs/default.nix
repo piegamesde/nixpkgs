@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       (fetchpatch {
         url = "https://src.fedoraproject.org/rpms/autofs/raw/cc745af5e42396d540d5b3b92fae486e232bf6bd/f/autofs-5.1.7-use-default-stack-size-for-threads.patch";
         sha256 = "sha256-6ETDFbW7EhHR03xFWF+6OJBgn9NX3WW3bGhTNGodaOc=";
-        excludes = [ "CHANGELOG" ];
+        excludes = ["CHANGELOG"];
       })
     ];
 
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
   '';
 
   # configure script is not finding the right path
-  env.NIX_CFLAGS_COMPILE = toString [ "-I${libtirpc.dev}/include/tirpc" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-I${libtirpc.dev}/include/tirpc"];
 
   installPhase = ''
     make install SUBDIRS="lib daemon modules man" # all but samples
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
     description = "Kernel-based automounter";
     homepage = "https://www.kernel.org/pub/linux/daemons/autofs/";
     license = lib.licenses.gpl2Plus;
-    executables = [ "automount" ];
+    executables = ["automount"];
     platforms = lib.platforms.linux;
   };
 }

@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
       certificates and keys to the destinations of your choice.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
   };
 }

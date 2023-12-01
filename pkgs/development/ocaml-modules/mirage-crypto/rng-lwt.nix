@@ -18,7 +18,7 @@ buildDunePackage rec {
 
   doCheck = true;
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     mirage-crypto
     mirage-crypto-rng

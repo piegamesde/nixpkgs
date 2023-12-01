@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-fuse-meta-fs";
   version = "20190710-git";
@@ -30,7 +30,7 @@ rec {
 
   packageName = "cl-fuse-meta-fs";
 
-  asdFilesToKeep = [ "cl-fuse-meta-fs.asd" ];
+  asdFilesToKeep = ["cl-fuse-meta-fs.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-fuse-meta-fs DESCRIPTION

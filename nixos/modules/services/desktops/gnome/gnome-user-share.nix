@@ -48,8 +48,8 @@ with lib;
 
   config = mkIf config.services.gnome.gnome-user-share.enable {
 
-    environment.systemPackages = [ pkgs.gnome.gnome-user-share ];
+    environment.systemPackages = [pkgs.gnome.gnome-user-share];
 
-    systemd.packages = [ pkgs.gnome.gnome-user-share ];
+    systemd.packages = [pkgs.gnome.gnome-user-share];
   };
 }

@@ -35,7 +35,7 @@ in
 
       plugins = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           A list of plugin paths to pass into fluentd. It will make plugins defined in ruby files
           there available in your config.
@@ -49,7 +49,7 @@ in
   config = mkIf cfg.enable {
     systemd.services.fluentd = with pkgs; {
       description = "Fluentd Daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/fluentd -c ${pkgs.writeText "fluentd.conf" cfg.config} ${pluginArgs}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";

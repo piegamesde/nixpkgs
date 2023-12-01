@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
     installShellFiles
     pkg-config
     ronn
-  ] ++ lib.optionals stdenv.isDarwin [ curl ];
+  ] ++ lib.optionals stdenv.isDarwin [curl];
 
   buildInputs =
     [

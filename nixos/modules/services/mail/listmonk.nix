@@ -8,18 +8,18 @@
 with lib;
 let
   cfg = config.services.listmonk;
-  tomlFormat = pkgs.formats.toml { };
+  tomlFormat = pkgs.formats.toml {};
   cfgFile = tomlFormat.generate "listmonk.toml" cfg.settings;
   # Escaping is done according to https://www.postgresql.org/docs/current/sql-syntax-lexical.html#SQL-SYNTAX-CONSTANTS
   setDatabaseOption =
     key: value:
     "UPDATE settings SET value = '${
-      lib.replaceStrings [ "'" ] [ "''" ] (builtins.toJSON value)
+      lib.replaceStrings ["'"] ["''"] (builtins.toJSON value)
     }' WHERE key = '${key}';";
   updateDatabaseConfigSQL = pkgs.writeText "update-database-config.sql" (
     concatStringsSep "\n" (
       mapAttrsToList setDatabaseOption (
-        if (cfg.database.settings != null) then cfg.database.settings else { }
+        if (cfg.database.settings != null) then cfg.database.settings else {}
       )
     )
   );
@@ -47,7 +47,7 @@ let
     options = {
       "app.notify_emails" = mkOption {
         type = listOf str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "Administrator emails for system notifications";
       };
 
@@ -64,7 +64,7 @@ let
 
       "privacy.domain_blocklist" = mkOption {
         type = listOf str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "E-mail addresses with these domains are disallowed from subscribing.";
       };
 
@@ -124,13 +124,13 @@ let
               ];
           }
         );
-        default = [ ];
+        default = [];
         description = lib.mdDoc "List of bounce mailboxes";
       };
 
       messengers = mkOption {
         type = listOf str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "List of messengers, see: <https://github.com/knadh/listmonk/blob/master/models/settings.go#L64-L74> for options.";
       };
     };
@@ -162,9 +162,9 @@ in
           '';
         };
       };
-      package = mkPackageOptionMD pkgs "listmonk" { };
+      package = mkPackageOptionMD pkgs "listmonk" {};
       settings = mkOption {
-        type = types.submodule { freeformType = tomlFormat.type; };
+        type = types.submodule {freeformType = tomlFormat.type;};
         description = lib.mdDoc ''
           Static settings set in the config.toml, see <https://github.com/knadh/listmonk/blob/master/config.toml.sample> for details.
           You can set secrets using the secretFile option with environment variables following <https://listmonk.app/docs/configuration/#environment-variables>.
@@ -208,16 +208,16 @@ in
         }
       ];
 
-      ensureDatabases = [ "listmonk" ];
+      ensureDatabases = ["listmonk"];
     };
 
     systemd.services.listmonk = {
       description = "Listmonk - newsletter and mailing list manager";
-      after = [ "network.target" ] ++ optional cfg.database.createLocally "postgresql.service";
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"] ++ optional cfg.database.createLocally "postgresql.service";
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "exec";
-        EnvironmentFile = mkIf (cfg.secretFile != null) [ cfg.secretFile ];
+        EnvironmentFile = mkIf (cfg.secretFile != null) [cfg.secretFile];
         ExecStartPre = [
           # StateDirectory cannot be used when DynamicUser = true is set this way.
           # Indeed, it will try to create all the folders and realize one of them already exist.
@@ -230,7 +230,7 @@ in
 
         Restart = "on-failure";
 
-        StateDirectory = [ "listmonk" ];
+        StateDirectory = ["listmonk"];
 
         User = "listmonk";
         Group = "listmonk";

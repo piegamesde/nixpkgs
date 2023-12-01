@@ -48,7 +48,7 @@ stdenv.mkDerivation (
       cmake
       perl
     ];
-    buildInputs = [ zstd ];
+    buildInputs = [zstd];
 
     cmakeFlags =
       [
@@ -89,7 +89,7 @@ stdenv.mkDerivation (
       # A derivation that provides gcc and g++ commands, but that
       # will end up calling ccache for the given cacheDir
       links =
-        { unwrappedCC, extraConfig }:
+        {unwrappedCC, extraConfig}:
         stdenv.mkDerivation {
           pname = "ccache-links";
           inherit (finalAttrs) version;
@@ -99,7 +99,7 @@ stdenv.mkDerivation (
             isCcache = true;
           };
           inherit (unwrappedCC) lib;
-          nativeBuildInputs = [ makeWrapper ];
+          nativeBuildInputs = [makeWrapper];
           buildCommand = ''
             mkdir -p $out/bin
 
@@ -130,7 +130,7 @@ stdenv.mkDerivation (
           '';
         };
 
-      updateScript = nix-update-script { };
+      updateScript = nix-update-script {};
     };
 
     meta = with lib; {
@@ -138,7 +138,7 @@ stdenv.mkDerivation (
       homepage = "https://ccache.dev";
       downloadPage = "https://ccache.dev/download.html";
       changelog = "https://ccache.dev/releasenotes.html#_ccache_${
-        builtins.replaceStrings [ "." ] [ "_" ] finalAttrs.version
+        builtins.replaceStrings ["."] ["_"] finalAttrs.version
       }";
       license = licenses.gpl3Plus;
       maintainers = with maintainers; [

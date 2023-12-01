@@ -24,7 +24,7 @@ buildGoModule rec {
     "cmd/uptermd"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     # force go to build for build arch rather than host arch during cross-compiling
@@ -46,6 +46,6 @@ buildGoModule rec {
     description = "Secure terminal-session sharing";
     homepage = "https://upterm.dev";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hax404 ];
+    maintainers = with maintainers; [hax404];
   };
 }

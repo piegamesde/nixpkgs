@@ -19,14 +19,14 @@ stdenv.mkDerivation rec {
     url = "https://baldur.iti.kit.edu/sat-competition-2017/solvers/incremental/glucose-ipasir.zip";
     sha256 = "0xchgady9vwdh8frmc8swz6va53igp2wj1y9sshd0g7549n87wdj";
   };
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   sourceRoot = "sat/glucose4";
-  patches = [ ./0001-Support-shared-library-build.patch ];
+  patches = [./0001-Support-shared-library-build.patch];
 
-  makeFlags = [ "CXX=${stdenv.cc.targetPrefix}c++" ];
+  makeFlags = ["CXX=${stdenv.cc.targetPrefix}c++"];
 
   postBuild = ''
     $CXX -shared -o ${libname} \
@@ -42,6 +42,6 @@ stdenv.mkDerivation rec {
     description = "Shared library providing IPASIR interface to the Glucose SAT solver";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ kini ];
+    maintainers = with maintainers; [kini];
   };
 }

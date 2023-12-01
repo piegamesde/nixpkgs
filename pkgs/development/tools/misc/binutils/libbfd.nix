@@ -30,7 +30,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://www.gnu.org/software/binutils/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ericson2314 ];
+    maintainers = with maintainers; [ericson2314];
     platforms = platforms.unix;
   };
 }

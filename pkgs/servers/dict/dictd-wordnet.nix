@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://wordnet.princeton.edu/";
 
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.all;
   };
 }

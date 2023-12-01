@@ -1,4 +1,4 @@
-{ buildDhallGitHubPackage }:
+{buildDhallGitHubPackage}:
 
 buildDhallGitHubPackage {
   name = "Prelude";

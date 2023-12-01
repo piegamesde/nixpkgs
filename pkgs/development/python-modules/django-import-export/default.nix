@@ -44,13 +44,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "import_export" ];
+  pythonImportsCheck = ["import_export"];
 
   meta = with lib; {
     description = "Django application and library for importing and exporting data with admin integration";
     homepage = "https://github.com/django-import-export/django-import-export";
     changelog = "https://github.com/django-import-export/django-import-export/blob/${version}/docs/changelog.rst";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ sephi ];
+    maintainers = with maintainers; [sephi];
   };
 }

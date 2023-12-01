@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     ronn
   ];
 
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   meta = with lib; {
     homepage = "https://github.com/schlomo/automirror";

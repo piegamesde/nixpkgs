@@ -63,14 +63,14 @@ stdenv.mkDerivation (
       xwayland
     ];
 
-    mesonFlags = [ (lib.mesonEnable "xwayland" true) ];
+    mesonFlags = [(lib.mesonEnable "xwayland" true)];
 
     meta = with lib; {
       homepage = "https://github.com/labwc/labwc";
       description = "A Wayland stacking compositor, similar to Openbox";
       changelog = "https://raw.githubusercontent.com/labwc/labwc/${finalAttrs.version}/NEWS.md";
       license = licenses.gpl2Plus;
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       inherit (wayland.meta) platforms;
     };
   }

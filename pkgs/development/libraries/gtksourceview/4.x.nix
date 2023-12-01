@@ -117,7 +117,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "Source code editing widget for GTK";
       homepage = "https://wiki.gnome.org/Projects/GtkSourceView";
-      pkgConfigModules = [ "gtksourceview-4" ];
+      pkgConfigModules = ["gtksourceview-4"];
       platforms = platforms.unix;
       license = licenses.lgpl21Plus;
       maintainers = teams.gnome.members;

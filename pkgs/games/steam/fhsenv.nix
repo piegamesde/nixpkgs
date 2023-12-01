@@ -7,11 +7,11 @@
   glxinfo-i686,
   steam-runtime-wrapped,
   steam-runtime-wrapped-i686 ? null,
-  extraPkgs ? pkgs: [ ], # extra packages to add to targetPkgs
-  extraLibraries ? pkgs: [ ], # extra packages to add to multiPkgs
+  extraPkgs ? pkgs: [], # extra packages to add to targetPkgs
+  extraLibraries ? pkgs: [], # extra packages to add to multiPkgs
   extraProfile ? "", # string to append to profile
   extraArgs ? "", # arguments to always pass to steam
-  extraEnv ? { }, # Environment variables to pass to Steam
+  extraEnv ? {}, # Environment variables to pass to Steam
   withGameSpecificLibraries ? true, # exclude game specific libraries
 }:
 
@@ -49,8 +49,8 @@ let
     ++ extraPkgs pkgs;
 
   ldPath =
-    lib.optionals stdenv.is64bit [ "/lib64" ]
-    ++ [ "/lib32" ]
+    lib.optionals stdenv.is64bit ["/lib64"]
+    ++ ["/lib32"]
     ++ map (x: "/steamrt/${steam-runtime-wrapped.arch}/" + x) steam-runtime-wrapped.libs
     ++ lib.optionals (steam-runtime-wrapped-i686 != null) (
       map (x: "/steamrt/${steam-runtime-wrapped-i686.arch}/" + x) steam-runtime-wrapped-i686.libs

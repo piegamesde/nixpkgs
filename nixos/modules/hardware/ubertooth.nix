@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.hardware.ubertooth;
 
-  ubertoothPkg = pkgs.ubertooth.override { udevGroup = cfg.group; };
+  ubertoothPkg = pkgs.ubertooth.override {udevGroup = cfg.group;};
 in
 {
   options.hardware.ubertooth = {
@@ -25,9 +25,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ ubertoothPkg ];
+    environment.systemPackages = [ubertoothPkg];
 
-    services.udev.packages = [ ubertoothPkg ];
-    users.groups.${cfg.group} = { };
+    services.udev.packages = [ubertoothPkg];
+    users.groups.${cfg.group} = {};
   };
 }

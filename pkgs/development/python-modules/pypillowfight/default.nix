@@ -33,8 +33,8 @@ buildPythonPackage rec {
   disabled = !isPy3k && !isPyPy;
 
   # This is needed by setup.py regardless of whether tests are enabled.
-  buildInputs = [ nose ];
-  propagatedBuildInputs = [ pillow ];
+  buildInputs = [nose];
+  propagatedBuildInputs = [pillow];
 
   meta = with lib; {
     description = "Library containing various image processing algorithms";

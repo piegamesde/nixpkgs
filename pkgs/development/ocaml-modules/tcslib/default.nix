@@ -21,7 +21,7 @@ buildOasisPackage rec {
     sha256 = "05g6m82blsccq8wx8knxv6a5fzww7hi624jx91f9h87nk2fsplhi";
   };
 
-  buildInputs = [ ounit ];
+  buildInputs = [ounit];
   propagatedBuildInputs = [
     extlib
     num
@@ -31,6 +31,6 @@ buildOasisPackage rec {
     homepage = "https://github.com/tcsprojects/tcslib";
     description = "A multi-purpose library for OCaml";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ mgttlinger ];
+    maintainers = with lib.maintainers; [mgttlinger];
   };
 }

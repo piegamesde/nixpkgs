@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ISb4ojcDvXY/88GbFMrA5V5+SGE6CmE5D+pokDTwotQ=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libssh
     openssl
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "An open-source C implementation of the RPKI/Router Protocol client";
     homepage = "https://github.com/rtrlib/rtrlib";
     license = licenses.mit;
-    maintainers = with maintainers; [ Anillc ];
+    maintainers = with maintainers; [Anillc];
     platforms = platforms.all;
   };
 }

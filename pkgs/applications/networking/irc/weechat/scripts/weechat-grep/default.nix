@@ -21,13 +21,13 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    scripts = [ "grep.py" ];
+    scripts = ["grep.py"];
   };
 
   meta = with lib; {
     description = "Search in Weechat buffers and logs (for Weechat 0.3.*)";
     homepage = "https://github.com/weechat/scripts/blob/master/python/grep.py";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
   };
 }

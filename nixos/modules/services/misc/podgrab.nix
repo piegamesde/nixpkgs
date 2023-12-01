@@ -32,7 +32,7 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.podgrab = {
       description = "Podgrab podcast manager";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       environment = {
         CONFIG = "/var/lib/podgrab/config";
         DATA = "/var/lib/podgrab/data";
@@ -41,7 +41,7 @@ in
       };
       serviceConfig = {
         DynamicUser = true;
-        EnvironmentFile = lib.optionals (cfg.passwordFile != null) [ cfg.passwordFile ];
+        EnvironmentFile = lib.optionals (cfg.passwordFile != null) [cfg.passwordFile];
         ExecStart = "${pkgs.podgrab}/bin/podgrab";
         WorkingDirectory = "${pkgs.podgrab}/share";
         StateDirectory = [
@@ -52,5 +52,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ ambroisie ];
+  meta.maintainers = with lib.maintainers; [ambroisie];
 }

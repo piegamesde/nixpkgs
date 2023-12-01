@@ -27,7 +27,7 @@ python3.pkgs.buildPythonApplication rec {
       youtube-dl
       ytmusicapi
     ]
-    ++ [ mopidy ];
+    ++ [mopidy];
 
   nativeCheckInputs = with python3.pkgs; [
     vcrpy
@@ -47,12 +47,12 @@ python3.pkgs.buildPythonApplication rec {
     "tests/test_youtube.py"
   ];
 
-  pythonImportsCheck = [ "mopidy_youtube" ];
+  pythonImportsCheck = ["mopidy_youtube"];
 
   meta = with lib; {
     description = "Mopidy extension for playing music from YouTube";
     homepage = "https://github.com/natumbri/mopidy-youtube";
     license = licenses.asl20;
-    maintainers = with maintainers; [ spwhitt ];
+    maintainers = with maintainers; [spwhitt];
   };
 }

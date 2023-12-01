@@ -41,12 +41,12 @@ buildPythonPackage {
     certifi
   ];
 
-  pythonImportsCheck = [ "grpclib" ];
+  pythonImportsCheck = ["grpclib"];
 
   meta = with lib; {
     description = "Pure-Python gRPC implementation for asyncio";
     homepage = "https://github.com/vmagamedov/grpclib";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ nikstur ];
+    maintainers = with maintainers; [nikstur];
   };
 }

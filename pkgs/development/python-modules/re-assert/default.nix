@@ -17,7 +17,7 @@ buildPythonPackage rec {
   # No tests in archive
   doCheck = false;
 
-  propagatedBuildInputs = [ regex ];
+  propagatedBuildInputs = [regex];
 
   meta = {
     description = "Show where your regex match assertion failed";

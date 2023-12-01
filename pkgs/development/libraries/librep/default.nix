@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   ];
 
   # ensure libsystem/ctype functions don't get duplicated when using clang
-  configureFlags = lib.optionals stdenv.isDarwin [ "CFLAGS=-std=gnu89" ];
+  configureFlags = lib.optionals stdenv.isDarwin ["CFLAGS=-std=gnu89"];
 
   setupHook = ./setup-hook.sh;
 
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       language but is also suitable for standalone scripts.
     '';
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     platforms = platforms.unix;
   };
 }

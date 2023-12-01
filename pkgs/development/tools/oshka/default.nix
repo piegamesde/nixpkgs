@@ -30,6 +30,6 @@ buildGoModule rec {
     description = "Tool for extracting nested CI/CD supply chains and executing commands";
     homepage = "https://github.com/k1LoW/oshka";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

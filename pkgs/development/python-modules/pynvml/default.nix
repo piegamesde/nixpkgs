@@ -25,7 +25,7 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ cudatoolkit ];
+  propagatedBuildInputs = [cudatoolkit];
 
   doCheck = false; # no tests in PyPi dist
   pythonImportsCheck = [
@@ -37,6 +37,6 @@ buildPythonPackage rec {
     description = "Python bindings for the NVIDIA Management Library";
     homepage = "https://www.nvidia.com";
     license = licenses.bsd3;
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
   };
 }

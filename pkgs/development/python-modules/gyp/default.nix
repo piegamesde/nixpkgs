@@ -22,7 +22,7 @@ buildPythonPackage {
     ./no-xcode.patch
   ];
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   pythonImportsCheck = [
     "gyp"
@@ -33,6 +33,6 @@ buildPythonPackage {
     description = "A tool to generate native build files";
     homepage = "https://gyp.gsrc.io";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ codyopel ];
+    maintainers = with maintainers; [codyopel];
   };
 }

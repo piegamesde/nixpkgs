@@ -19,6 +19,6 @@ buildFishPlugin rec {
     description = "Fish shell plugin to colorize man pages";
     homepage = "https://github.com/PatrickF1/colored_man_pages.fish";
     license = licenses.mit;
-    maintainers = [ maintainers.jocelynthode ];
+    maintainers = [maintainers.jocelynthode];
   };
 }

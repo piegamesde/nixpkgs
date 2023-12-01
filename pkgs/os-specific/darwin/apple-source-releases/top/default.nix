@@ -8,7 +8,7 @@
 }:
 
 appleDerivation {
-  nativeBuildInputs = [ xcbuildHook ];
+  nativeBuildInputs = [xcbuildHook];
   buildInputs = [
     apple_sdk.frameworks.IOKit
     ncurses
@@ -25,6 +25,6 @@ appleDerivation {
   '';
   meta = {
     platforms = lib.platforms.darwin;
-    maintainers = with lib.maintainers; [ matthewbauer ];
+    maintainers = with lib.maintainers; [matthewbauer];
   };
 }

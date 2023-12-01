@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
     python3
     makeWrapper
     wrapGAppsHook
-  ] ++ lib.optionals stdenv.isLinux [ linuxHeaders ];
+  ] ++ lib.optionals stdenv.isLinux [linuxHeaders];
 
   buildInputs =
     [
@@ -182,7 +182,7 @@ stdenv.mkDerivation rec {
   postInstall =
     lib.optionalString stdenv.isLinux ''
       wrapProgram "$out/bin/audacity" \
-        --prefix LD_LIBRARY_PATH : "$out/lib/audacity":${lib.makeLibraryPath [ ffmpeg_4 ]} \
+        --prefix LD_LIBRARY_PATH : "$out/lib/audacity":${lib.makeLibraryPath [ffmpeg_4]} \
         --suffix AUDACITY_MODULES_PATH : "$out/lib/audacity/modules" \
         --suffix AUDACITY_PATH : "$out/share/audacity"
     ''

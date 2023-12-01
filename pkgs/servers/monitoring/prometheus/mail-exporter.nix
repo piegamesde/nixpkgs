@@ -19,7 +19,7 @@ buildGoModule {
 
   vendorSha256 = "1hwahk8v3qnmyn6bwk9l2zpr0k7p2w7zjzxmjwgjyx429g9rzqs0";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installManPage $src/man/mailexporter.1

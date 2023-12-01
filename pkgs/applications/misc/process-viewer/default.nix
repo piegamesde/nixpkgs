@@ -19,11 +19,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-lgVByl+mpCDbhwlC1Eiw9ZkHIDYJsOR06Ds790pXOMc=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [
-    gtk4
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk_11_0.frameworks.Foundation ];
+  buildInputs = [gtk4] ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk_11_0.frameworks.Foundation];
 
   postInstall = ''
     install -Dm644 assets/fr.guillaume_gomez.ProcessViewer.desktop -t $out/share/applications
@@ -35,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     description = "A process viewer GUI in rust";
     homepage = "https://github.com/guillaumegomez/process-viewer";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "process_viewer";
   };
 }

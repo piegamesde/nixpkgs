@@ -18,7 +18,7 @@ stdenvNoCC.mkDerivation rec {
   dontConfigure = true;
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -39,7 +39,7 @@ stdenvNoCC.mkDerivation rec {
     mainProgram = "SwiftBar";
     license = licenses.mit;
     platforms = platforms.darwin;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ ivar ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    maintainers = with maintainers; [ivar];
   };
 }

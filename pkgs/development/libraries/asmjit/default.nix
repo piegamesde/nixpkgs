@@ -34,6 +34,6 @@ stdenv.mkDerivation {
     '';
     homepage = "https://asmjit.com/";
     license = licenses.zlib;
-    maintainers = with maintainers; [ nikstur ];
+    maintainers = with maintainers; [nikstur];
   };
 }

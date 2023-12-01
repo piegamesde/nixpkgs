@@ -3,7 +3,7 @@
 # has additional options that affect the web server as a whole, like
 # the user/group to run under.)
 
-{ lib, config }:
+{lib, config}:
 
 with lib;
 
@@ -11,7 +11,7 @@ with lib;
   options = {
     basicAuth = mkOption {
       type = types.attrsOf types.str;
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           user = "password";
@@ -103,7 +103,7 @@ with lib;
 
     fastcgiParams = mkOption {
       type = types.attrsOf (types.either types.str types.path);
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         FastCGI parameters to override.  Unlike in the Nginx
         configuration file, overriding only some default parameters

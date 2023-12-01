@@ -31,7 +31,7 @@ stdenv.mkDerivation {
     kwindowsystem
   ];
 
-  propagatedBuildInputs = [ hicolor-icon-theme ];
+  propagatedBuildInputs = [hicolor-icon-theme];
 
   dontDropIconThemeCache = true;
 
@@ -47,7 +47,7 @@ stdenv.mkDerivation {
     description = "Icons based on Breeze and Super Flat Remix";
     homepage = "https://gitlab.manjaro.org/artwork/themes/maia";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ mounium ];
+    maintainers = with maintainers; [mounium];
     platforms = platforms.all;
   };
 }

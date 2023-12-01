@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     owner = "ColinIanKing";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   makeFlags = [
     "BINDIR=$(out)/bin"

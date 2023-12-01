@@ -29,7 +29,7 @@ buildPythonPackage rec {
       --replace " --cov=sigma --cov-report term --cov-report xml:cov.xml" ""
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     pysigma
@@ -41,7 +41,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [ "sigma.backends.opensearch" ];
+  pythonImportsCheck = ["sigma.backends.opensearch"];
 
   disabledTests =
     [
@@ -53,7 +53,7 @@ buildPythonPackage rec {
     description = "Library to support OpenSearch for pySigma";
     homepage = "https://github.com/SigmaHQ/pySigma-backend-opensearch";
     changelog = "https://github.com/SigmaHQ/pySigma-backend-opensearch/releases/tag/v${version}";
-    license = with licenses; [ lgpl21Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [lgpl21Only];
+    maintainers = with maintainers; [fab];
   };
 }

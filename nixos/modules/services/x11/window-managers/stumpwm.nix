@@ -24,6 +24,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ pkgs.sbclPackages.stumpwm ];
+    environment.systemPackages = [pkgs.sbclPackages.stumpwm];
   };
 }

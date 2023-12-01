@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   '';
 
   strictDeps = true;
-  nativeBuildInputs = [ python ];
+  nativeBuildInputs = [python];
   buildInputs = [
     slang
     popt
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     unset CPP
   '';
 
-  configureFlags = lib.optionals stdenv.isDarwin [ "--disable-nls" ];
+  configureFlags = lib.optionals stdenv.isDarwin ["--disable-nls"];
 
   makeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
     "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
@@ -63,6 +63,6 @@ stdenv.mkDerivation rec {
 
     license = licenses.lgpl2;
     platforms = platforms.unix;
-    maintainers = [ maintainers.viric ];
+    maintainers = [maintainers.viric];
   };
 }

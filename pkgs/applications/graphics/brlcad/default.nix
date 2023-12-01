@@ -17,11 +17,11 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "BRL-CAD";
     repo = pname;
-    rev = "refs/tags/rel-${lib.replaceStrings [ "." ] [ "-" ] version}";
+    rev = "refs/tags/rel-${lib.replaceStrings ["."] ["-"] version}";
     hash = "sha256-oafu255xElEIk8p4yvNyR2maykUfxQui/L5MkicA+JA=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     fontconfig
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       lgpl21
       bsd2
     ];
-    maintainers = with maintainers; [ GaetanLepage ];
+    maintainers = with maintainers; [GaetanLepage];
     platforms = platforms.linux;
   };
 }

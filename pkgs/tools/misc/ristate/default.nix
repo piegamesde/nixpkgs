@@ -21,6 +21,6 @@ rustPlatform.buildRustPackage rec {
     description = "A river-status client written in Rust";
     homepage = "https://gitlab.com/snakedye/ristate";
     license = licenses.mit;
-    maintainers = with maintainers; [ kranzes ];
+    maintainers = with maintainers; [kranzes];
   };
 }

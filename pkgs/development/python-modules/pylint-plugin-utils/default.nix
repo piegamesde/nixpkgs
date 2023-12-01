@@ -27,9 +27,9 @@ buildPythonPackage rec {
     toml
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pylint_plugin_utils" ];
+  pythonImportsCheck = ["pylint_plugin_utils"];
 
   # https://github.com/PyCQA/pylint-plugin-utils/issues/26
   doCheck = false;
@@ -38,6 +38,6 @@ buildPythonPackage rec {
     description = "Utilities and helpers for writing Pylint plugins";
     homepage = "https://github.com/PyCQA/pylint-plugin-utils";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

@@ -20,7 +20,7 @@
   stdenv,
   wayland,
 
-  mods ? [ ],
+  mods ? [],
   mods-dat ? null,
   versionsJson ? ./versions.json,
   username ? "",
@@ -72,7 +72,7 @@ let
     comment = "A game in which you build and maintain factories.";
     exec = "factorio";
     icon = "factorio";
-    categories = [ "Game" ];
+    categories = ["Game"];
   };
 
   branch = if experimental then "experimental" else "stable";
@@ -93,11 +93,11 @@ let
       f =
         path: name: value:
         if builtins.isAttrs value then
-          if value ? "name" then makeBinDist value else builtins.mapAttrs (f (path ++ [ name ])) value
+          if value ? "name" then makeBinDist value else builtins.mapAttrs (f (path ++ [name])) value
         else
           throw "expected attrset at ${toString path} - got ${toString value}";
     in
-    builtins.mapAttrs (f [ ]) versions;
+    builtins.mapAttrs (f []) versions;
   makeBinDist =
     {
       name,
@@ -111,7 +111,7 @@ let
       inherit version tarDirectory;
       src =
         if !needsAuth then
-          fetchurl { inherit name url sha256; }
+          fetchurl {inherit name url sha256;}
         else
           (lib.overrideDerivation
             (fetchurl {
@@ -212,7 +212,7 @@ let
         version 1.0 in mid 2020.
       '';
       homepage = "https://www.factorio.com/";
-      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
       license = lib.licenses.unfree;
       maintainers = with lib.maintainers; [
         Baughn
@@ -221,7 +221,7 @@ let
         priegger
         lukegb
       ];
-      platforms = [ "x86_64-linux" ];
+      platforms = ["x86_64-linux"];
     };
   };
 
@@ -229,8 +229,8 @@ let
     headless = base;
     demo = base // {
 
-      nativeBuildInputs = [ makeWrapper ];
-      buildInputs = [ libpulseaudio ];
+      nativeBuildInputs = [makeWrapper];
+      buildInputs = [libpulseaudio];
 
       libPath = lib.makeLibraryPath [
         alsa-lib
@@ -256,7 +256,7 @@ let
             --run "$out/share/factorio/update-config.sh"               \
             --argv0 ""                                                 \
             --add-flags "-c \$HOME/.factorio/config.cfg"               \
-            ${lib.optionalString (mods != [ ]) "--add-flags --mod-directory=${modDir}"}
+            ${lib.optionalString (mods != []) "--add-flags --mod-directory=${modDir}"}
 
             # TODO Currently, every time a mod is changed/added/removed using the
             # modlist, a new derivation will take up the entire footprint of the

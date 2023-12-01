@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "inferior-shell";
   version = "20200925-git";
 
-  parasites = [ "inferior-shell/test" ];
+  parasites = ["inferior-shell/test"];
 
   description = "spawn local or remote processes and shell pipes";
 
@@ -41,7 +41,7 @@ rec {
 
   packageName = "inferior-shell";
 
-  asdFilesToKeep = [ "inferior-shell.asd" ];
+  asdFilesToKeep = ["inferior-shell.asd"];
   overrides = x: x;
 }
 /* (SYSTEM inferior-shell DESCRIPTION

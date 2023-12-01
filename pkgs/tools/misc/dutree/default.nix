@@ -26,6 +26,6 @@ rustPlatform.buildRustPackage rec {
     description = "A tool to analyze file system usage written in Rust";
     homepage = "https://github.com/nachoparker/dutree";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

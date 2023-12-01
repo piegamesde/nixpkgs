@@ -38,12 +38,12 @@ buildPythonPackage rec {
     "tests.py"
   ];
 
-  pythonImportsCheck = [ "jsonrpc_websocket" ];
+  pythonImportsCheck = ["jsonrpc_websocket"];
 
   meta = with lib; {
     description = "A JSON-RPC websocket client library for asyncio";
     homepage = "https://github.com/emlove/jsonrpc-websocket";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

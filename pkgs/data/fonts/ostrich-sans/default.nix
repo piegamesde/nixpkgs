@@ -32,7 +32,7 @@ stdenvNoCC.mkDerivation (
       '';
       homepage = "https://www.theleagueofmoveabletype.com/ostrich-sans";
       license = lib.licenses.ofl;
-      maintainers = with lib.maintainers; [ minijackson ];
+      maintainers = with lib.maintainers; [minijackson];
     };
   }
 )

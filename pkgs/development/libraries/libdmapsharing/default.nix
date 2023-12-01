@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     domain = "gitlab.gnome.org";
     owner = "GNOME";
     repo = pname;
-    rev = "${lib.toUpper pname}_${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "${lib.toUpper pname}_${lib.replaceStrings ["."] ["_"] version}";
     sha256 = "tnQ25RR/bAZJKa8vTwzkGK1iPc7CMGFbyX8mBf6TKr4=";
   };
 

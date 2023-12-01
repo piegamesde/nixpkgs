@@ -28,6 +28,6 @@ nodePackages.buildNodePackage rec {
   meta = {
     description = "Historical ripple data";
     homepage = "https://github.com/ripple/ripple-data-api";
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
   };
 }

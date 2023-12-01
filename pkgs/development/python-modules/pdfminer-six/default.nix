@@ -28,7 +28,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     charset-normalizer
     cryptography
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  ] ++ lib.optionals (pythonOlder "3.8") [typing-extensions];
 
   postInstall = ''
     for file in $out/bin/*.py; do
@@ -47,7 +47,7 @@ buildPythonPackage rec {
     "pdfminer.high_level"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   passthru = {
     tests = {

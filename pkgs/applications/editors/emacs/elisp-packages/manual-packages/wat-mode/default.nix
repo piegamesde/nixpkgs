@@ -23,7 +23,7 @@ trivialBuild rec {
     homepage = "https://github.com/devonsparks/wat-mode";
     description = "An Emacs major mode for WebAssembly's text format";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ nagy ];
+    maintainers = with maintainers; [nagy];
     inherit (emacs.meta) platforms;
   };
 }

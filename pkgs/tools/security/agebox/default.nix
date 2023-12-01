@@ -27,6 +27,6 @@ buildGoModule rec {
     changelog = "https://github.com/slok/agebox/releases/tag/v${version}";
     description = "Age based repository file encryption gitops tool";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lesuisse ];
+    maintainers = with maintainers; [lesuisse];
   };
 }

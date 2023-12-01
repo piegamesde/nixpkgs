@@ -43,8 +43,8 @@ in
       };
 
       records = mkOption {
-        default = [ ];
-        example = [ "host.tld" ];
+        default = [];
+        example = ["host.tld"];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           The records to update in CloudFlare.
@@ -56,8 +56,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.cfdyndns = {
       description = "CloudFlare Dynamic DNS Client";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       startAt = "*:0/5";
       serviceConfig = {
         Type = "simple";

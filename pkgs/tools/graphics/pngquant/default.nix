@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
 
   preConfigure = "patchShebangs .";
 
-  configureFlags = lib.optionals (!stdenv.hostPlatform.isx86) [ "--disable-sse" ];
+  configureFlags = lib.optionals (!stdenv.hostPlatform.isx86) ["--disable-sse"];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libpng
     zlib
@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
       hpnd
       bsd2
     ];
-    maintainers = [ maintainers.srapenne ];
+    maintainers = [maintainers.srapenne];
   };
 }

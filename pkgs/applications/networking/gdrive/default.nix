@@ -38,6 +38,6 @@ buildGoModule rec {
     description = "A command line utility for interacting with Google Drive";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ maintainers.rzetterberg ];
+    maintainers = [maintainers.rzetterberg];
   };
 }

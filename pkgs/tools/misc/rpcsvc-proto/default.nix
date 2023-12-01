@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   RPCGEN_CPP = "${stdenv.cc.targetPrefix}cpp";
 
@@ -59,6 +59,6 @@ stdenv.mkDerivation rec {
       `libtirpc` and this package instead.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ ma27 ];
+    maintainers = with maintainers; [ma27];
   };
 }

@@ -27,7 +27,7 @@ let
       icon = "trackma";
       exec = name + " %u";
       type = "Application";
-      categories = [ "Network" ];
+      categories = ["Network"];
     };
 in
 python3.pkgs.buildPythonApplication rec {
@@ -43,12 +43,12 @@ python3.pkgs.buildPythonApplication rec {
   };
 
   nativeBuildInputs =
-    [ copyDesktopItems ]
+    [copyDesktopItems]
     ++ lib.optionals withGTK [
       wrapGAppsHook
       gobject-introspection
     ]
-    ++ lib.optionals withQT [ qt5.wrapQtAppsHook ];
+    ++ lib.optionals withQT [qt5.wrapQtAppsHook];
 
   buildInputs = lib.optionals withGTK [
     glib
@@ -58,16 +58,16 @@ python3.pkgs.buildPythonApplication rec {
   propagatedBuildInputs =
     with python3.pkgs;
     (
-      [ urllib3 ]
-      ++ lib.optionals withQT [ pyqt5 ]
-      ++ lib.optionals withGTK [ pycairo ]
-      ++ lib.optionals withCurses [ urwid ]
+      [urllib3]
+      ++ lib.optionals withQT [pyqt5]
+      ++ lib.optionals withGTK [pycairo]
+      ++ lib.optionals withCurses [urwid]
       ++ lib.optionals stdenv.isLinux [
         dbus-python
         pygobject3
         pyinotify
       ]
-      ++ lib.optionals (withGTK || withQT) [ pillow ]
+      ++ lib.optionals (withGTK || withQT) [pillow]
     );
 
   dontWrapQtApps = true;
@@ -94,7 +94,7 @@ python3.pkgs.buildPythonApplication rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [ "trackma" ];
+  pythonImportsCheck = ["trackma"];
 
   postDist =
     lib.optional (!withQT) "rm $out/bin/trackma-qt"
@@ -108,6 +108,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Open multi-site list manager for Unix-like systems (ex-wMAL)";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ WeebSorceress ];
+    maintainers = with maintainers; [WeebSorceress];
   };
 }

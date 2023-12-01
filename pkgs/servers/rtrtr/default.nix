@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-9wUfgkiQn2Du5UNBOy/+NZkFwqHAQoyqj8xQhIljKFY=";
 
   buildInputs = lib.optional stdenv.isDarwin Security;
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildNoDefaultFeatures = true;
 
@@ -38,6 +38,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/NLnetLabs/rtrtr";
     changelog = "https://github.com/NLnetLabs/rtrtr/blob/v${version}/Changelog.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ steamwalker ];
+    maintainers = with maintainers; [steamwalker];
   };
 }

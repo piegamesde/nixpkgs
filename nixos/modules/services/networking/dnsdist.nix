@@ -41,10 +41,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.packages = [ pkgs.dnsdist ];
+    systemd.packages = [pkgs.dnsdist];
 
     systemd.services.dnsdist = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       startLimitIntervalSec = 0;
       serviceConfig = {

@@ -19,9 +19,9 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  propagatedBuildInputs = [ git ];
+  propagatedBuildInputs = [git];
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   doCheck = !stdenv.isDarwin;
 
@@ -38,7 +38,7 @@ buildGoModule rec {
       even where directory listings are disabled.
     '';
     homepage = "https://github.com/liamg/gitjacker";
-    license = with licenses; [ unlicense ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [unlicense];
+    maintainers = with maintainers; [fab];
   };
 }

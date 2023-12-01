@@ -43,12 +43,10 @@ buildPythonPackage rec {
       filelock
       platformdirs
     ]
-    ++ lib.optionals (pythonOlder "3.7") [ importlib-resources ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+    ++ lib.optionals (pythonOlder "3.7") [importlib-resources]
+    ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
-  patches = lib.optionals (isPy27) [
-    ./0001-Check-base_prefix-and-base_exec_prefix-for-Python-2.patch
-  ];
+  patches = lib.optionals (isPy27) [./0001-Check-base_prefix-and-base_exec_prefix-for-Python-2.patch];
 
   nativeCheckInputs = [
     cython
@@ -86,13 +84,13 @@ buildPythonPackage rec {
       "test_discover_ok"
     ];
 
-  pythonImportsCheck = [ "virtualenv" ];
+  pythonImportsCheck = ["virtualenv"];
 
   meta = with lib; {
     description = "A tool to create isolated Python environments";
     homepage = "http://www.virtualenv.org";
     changelog = "https://github.com/pypa/virtualenv/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ goibhniu ];
+    maintainers = with maintainers; [goibhniu];
   };
 }

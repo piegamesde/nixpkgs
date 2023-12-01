@@ -20,7 +20,7 @@ mkDerivation rec {
     sha256 = "0hx8qid50j9xvg2kpbpqmbdyakgyjn6m373m1cvhp70v2gp1v8l2";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     qtbase
     qttools
@@ -32,7 +32,7 @@ mkDerivation rec {
     description = "Open source EDA software focused on easy of use and portability";
     homepage = "http://caneda.org";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ viric ];
+    maintainers = with lib.maintainers; [viric];
     platforms = with lib.platforms; linux;
   };
 }

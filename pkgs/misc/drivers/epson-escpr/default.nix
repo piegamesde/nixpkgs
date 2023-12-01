@@ -26,9 +26,9 @@ stdenv.mkDerivation {
     sha256 = "sha256:09rscpm557dgaflylr93wcwmyn6fnvr8nc77abwnq97r6hxwrkhk";
   };
 
-  patches = [ ./cups-filter-ppd-dirs.patch ];
+  patches = [./cups-filter-ppd-dirs.patch];
 
-  buildInputs = [ cups ];
+  buildInputs = [cups];
 
   meta = with lib; {
     homepage = "http://download.ebz.epson.net/dsc/search/01/search/";
@@ -52,7 +52,7 @@ stdenv.mkDerivation {
           nssmdns = true;
         };'';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ artuuge ];
+    maintainers = with maintainers; [artuuge];
     platforms = platforms.linux;
   };
 }

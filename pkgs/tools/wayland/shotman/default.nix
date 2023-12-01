@@ -31,11 +31,11 @@ rustPlatform.buildRustPackage rec {
     makeWrapper
   ];
 
-  buildInputs = [ libxkbcommon ];
+  buildInputs = [libxkbcommon];
 
   preFixup = ''
     wrapProgram $out/bin/shotman \
-      --prefix PATH ":" "${lib.makeBinPath [ slurp ]}";
+      --prefix PATH ":" "${lib.makeBinPath [slurp]}";
   '';
 
   meta = with lib; {
@@ -43,6 +43,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://git.sr.ht/~whynothugo/shotman";
     license = licenses.isc;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

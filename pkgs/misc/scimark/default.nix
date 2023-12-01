@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-kcg5vKYp0B7+bC/CmFMO/tMwxf9q6nvuFv0vRSy3MbE=";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   dontConfigure = true;
 
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     homepage = "https://math.nist.gov/scimark2/index.html";
     description = "Scientific and numerical computing benchmark (ANSI C version)";
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     mainProgram = "scimark4";
     platforms = platforms.all;
   };

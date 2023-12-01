@@ -54,8 +54,8 @@ with lib;
 
   config = mkIf config.services.gnome.gnome-online-miners.enable {
 
-    environment.systemPackages = [ pkgs.gnome.gnome-online-miners ];
+    environment.systemPackages = [pkgs.gnome.gnome-online-miners];
 
-    services.dbus.packages = [ pkgs.gnome.gnome-online-miners ];
+    services.dbus.packages = [pkgs.gnome.gnome-online-miners];
   };
 }

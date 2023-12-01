@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     "out"
   ];
   # XXX: Without this, we get a cycle between bin and dev
-  propagatedBuildOutputs = [ ];
+  propagatedBuildOutputs = [];
 
   # Skips a broken test
   postPatch = ''

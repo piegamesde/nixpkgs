@@ -49,6 +49,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/scateu/kalibrate-hackrf";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.mog ];
+    maintainers = [maintainers.mog];
   };
 }

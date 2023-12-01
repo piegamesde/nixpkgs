@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-GTRHysG1zPr6MorGoSKYq8TgAdTH/bU/AxVrP2Ghqec=";
   };
 
-  cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
+  cargoDeps = rustPlatform.importCargoLock {lockFile = ./Cargo.lock;};
 
   nativeBuildInputs = [
     desktop-file-utils
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/marhkb/pods";
     changelog = "https://github.com/marhkb/pods/releases/tag/v${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     platforms = platforms.linux;
   };
 }

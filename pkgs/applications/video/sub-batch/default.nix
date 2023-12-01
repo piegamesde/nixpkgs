@@ -20,17 +20,17 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-tOY3aLpU08Tg/IT+usS2DNO0Q1aD0bvURmNJmHcJkgI=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
-    wrapProgram "$out/bin/sub-batch" --prefix PATH : "${lib.makeBinPath [ alass ]}"
+    wrapProgram "$out/bin/sub-batch" --prefix PATH : "${lib.makeBinPath [alass]}"
   '';
 
   meta = with lib; {
     description = "Match and rename subtitle files to video files and perform other batch operations on subtitle files";
     homepage = "https://github.com/kl/sub-batch";
     license = licenses.mit;
-    maintainers = with maintainers; [ erictapen ];
+    maintainers = with maintainers; [erictapen];
     broken = stdenv.isDarwin;
   };
 }

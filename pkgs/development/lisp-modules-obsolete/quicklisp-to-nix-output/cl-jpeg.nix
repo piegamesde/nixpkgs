@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-jpeg";
   version = "20170630-git";
 
   description = "A self-contained baseline JPEG codec implementation";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-jpeg/2017-06-30/cl-jpeg-20170630-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "cl-jpeg";
 
-  asdFilesToKeep = [ "cl-jpeg.asd" ];
+  asdFilesToKeep = ["cl-jpeg.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-jpeg DESCRIPTION

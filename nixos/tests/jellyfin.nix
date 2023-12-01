@@ -1,15 +1,15 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
 
   {
     name = "jellyfin";
-    meta.maintainers = with lib.maintainers; [ minijackson ];
+    meta.maintainers = with lib.maintainers; [minijackson];
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
         services.jellyfin.enable = true;
-        environment.systemPackages = with pkgs; [ ffmpeg ];
+        environment.systemPackages = with pkgs; [ffmpeg];
       };
 
     # Documentation of the Jellyfin API: https://api.jellyfin.org/
@@ -17,8 +17,8 @@ import ./make-test-python.nix (
     testScript =
       let
         payloads = {
-          auth = pkgs.writeText "auth.json" (builtins.toJSON { Username = "jellyfin"; });
-          empty = pkgs.writeText "empty.json" (builtins.toJSON { });
+          auth = pkgs.writeText "auth.json" (builtins.toJSON {Username = "jellyfin";});
+          empty = pkgs.writeText "empty.json" (builtins.toJSON {});
         };
       in
       ''

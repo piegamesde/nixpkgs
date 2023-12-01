@@ -38,18 +38,18 @@ buildPythonPackage rec {
     zope_interface
   ];
 
-  passthru.optional-dependencies.crypto = [ cryptography ];
+  passthru.optional-dependencies.crypto = [cryptography];
 
   nativeCheckInputs = [
     pytestCheckHook
   ] ++ (lib.flatten (lib.attrValues passthru.optional-dependencies));
 
-  pythonImportsCheck = [ "jwt" ];
+  pythonImportsCheck = ["jwt"];
 
   meta = with lib; {
     description = "JSON Web Token implementation in Python";
     homepage = "https://github.com/jpadilla/pyjwt";
     license = licenses.mit;
-    maintainers = with maintainers; [ prikhi ];
+    maintainers = with maintainers; [prikhi];
   };
 }

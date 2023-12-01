@@ -61,6 +61,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/goodvibes/goodvibes";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

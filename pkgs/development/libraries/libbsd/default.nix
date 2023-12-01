@@ -24,10 +24,10 @@ stdenv.mkDerivation rec {
 
   # darwin changes configure.ac which means we need to regenerate
   # the configure scripts
-  nativeBuildInputs = [ autoreconfHook ];
-  propagatedBuildInputs = [ libmd ];
+  nativeBuildInputs = [autoreconfHook];
+  propagatedBuildInputs = [libmd];
 
-  patches = [ ./darwin.patch ];
+  patches = [./darwin.patch];
 
   passthru.updateScript = gitUpdater {
     # No nicer place to find latest release.
@@ -46,6 +46,6 @@ stdenv.mkDerivation rec {
       mit
     ];
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
   };
 }

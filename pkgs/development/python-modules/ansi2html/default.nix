@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-OLgqKYSCofomE/D5yb6z23Ko+DLurFjrLke/Ms039tU=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
   propagatedBuildInputs = [
     six
     setuptools
@@ -34,12 +34,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "ansi2html" ];
+  pythonImportsCheck = ["ansi2html"];
 
   meta = with lib; {
     description = "Convert text with ANSI color codes to HTML";
     homepage = "https://github.com/ralphbean/ansi2html";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ davidtwco ];
+    maintainers = with maintainers; [davidtwco];
   };
 }

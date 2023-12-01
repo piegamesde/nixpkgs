@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     ./fix-libxcrypt-build.patch
   ] ++ lib.optional stdenv.isFreeBSD ./include-static-dependencies.patch;
 
-  NIX_CFLAGS_LINK = [ "-lcrypt" ];
+  NIX_CFLAGS_LINK = ["-lcrypt"];
 
   outputs = [
     "out"
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
   ];
   outputBin = "dev";
 
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optional stdenv.isFreeBSD autoreconfHook;
+  nativeBuildInputs = [makeWrapper] ++ lib.optional stdenv.isFreeBSD autoreconfHook;
 
   configureFlags =
     [
@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://apr.apache.org/";
     description = "A companion library to APR, the Apache Portable Runtime";
-    maintainers = [ maintainers.eelco ];
+    maintainers = [maintainers.eelco];
     platforms = platforms.unix;
     license = licenses.asl20;
   };

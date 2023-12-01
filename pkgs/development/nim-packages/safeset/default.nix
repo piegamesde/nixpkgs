@@ -22,7 +22,7 @@ buildNimPackage rec {
     src.meta
     // {
       description = "safeset library for nim";
-      license = [ licenses.gpl2 ];
-      maintainers = [ maintainers.marcusramberg ];
+      license = [licenses.gpl2];
+      maintainers = [maintainers.marcusramberg];
     };
 }

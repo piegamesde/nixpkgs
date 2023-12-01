@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "fare-csv";
   version = "20171227-git";
 
   description = "Robust CSV parser and printer";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/fare-csv/2017-12-27/fare-csv-20171227-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "fare-csv";
 
-  asdFilesToKeep = [ "fare-csv.asd" ];
+  asdFilesToKeep = ["fare-csv.asd"];
   overrides = x: x;
 }
 /* (SYSTEM fare-csv DESCRIPTION Robust CSV parser and printer SHA256

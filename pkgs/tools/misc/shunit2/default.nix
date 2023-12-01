@@ -36,7 +36,7 @@ resholve.mkDerivation rec {
     shunit = {
       # Caution: see __SHUNIT_CMD_ECHO_ESC before changing
       interpreter = "${bash}/bin/sh";
-      scripts = [ "bin/shunit2" ];
+      scripts = ["bin/shunit2"];
       inputs = [
         coreutils
         gnused
@@ -58,7 +58,7 @@ resholve.mkDerivation rec {
         ];
         # shunit2 is both bash and zsh compatible, and in
         # some zsh-specific code it uses this non-bash builtin
-        builtin = [ "setopt" ];
+        builtin = ["setopt"];
       };
       fix = {
         # stray absolute path; make it resolve from coreutils
@@ -69,8 +69,8 @@ resholve.mkDerivation rec {
            interpreter, we can pre-test this. But if we go fiddle
            the interpreter later, I guess we _could_ break it.
         */
-        "$__SHUNIT_CMD_ECHO_ESC" = [ "echo -e" ];
-        "$SHUNIT_CMD_TPUT" = [ "tput" ]; # from ncurses
+        "$__SHUNIT_CMD_ECHO_ESC" = ["echo -e"];
+        "$SHUNIT_CMD_TPUT" = ["tput"]; # from ncurses
       };
       keep = {
         # dynamically defined in shunit2:_shunit_mktempFunc

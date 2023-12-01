@@ -1,4 +1,4 @@
-{ lib, python3Packages }:
+{lib, python3Packages}:
 
 let
   pname = "base16-shell-preview";
@@ -9,7 +9,7 @@ python3Packages.buildPythonApplication {
 
   src = python3Packages.fetchPypi {
     inherit version;
-    pname = "${lib.replaceStrings [ "-" ] [ "_" ] pname}";
+    pname = "${lib.replaceStrings ["-"] ["_"] pname}";
     hash = "sha256-retnbxjdjo+NeA1B0+jpM9kToAX/Rh0ze0yNF9AfDiU=";
   };
 
@@ -21,6 +21,6 @@ python3Packages.buildPythonApplication {
     homepage = "https://github.com/nvllsvm/base16-shell-preview";
     description = "Browse and preview Base16 Shell themes in your terminal";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ AndersonTorres ];
+    maintainers = with lib.maintainers; [AndersonTorres];
   };
 }

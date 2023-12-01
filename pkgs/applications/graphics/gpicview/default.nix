@@ -29,13 +29,13 @@ stdenv.mkDerivation rec {
     intltool
   ];
 
-  buildInputs = [ gtk2 ];
+  buildInputs = [gtk2];
 
   meta = with lib; {
     description = "A simple and fast image viewer for X";
     homepage = "https://lxde.sourceforge.net/gpicview/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     platforms = platforms.unix;
   };
 }

@@ -25,7 +25,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Extract urls from text";
     homepage = "https://github.com/mvdan/xurls";
-    maintainers = with maintainers; [ koral ];
+    maintainers = with maintainers; [koral];
     license = licenses.bsd3;
   };
 }

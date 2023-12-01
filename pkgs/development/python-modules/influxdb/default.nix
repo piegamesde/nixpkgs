@@ -52,12 +52,12 @@ buildPythonPackage rec {
     "test_query_with_empty_result"
   ];
 
-  pythonImportsCheck = [ "influxdb" ];
+  pythonImportsCheck = ["influxdb"];
 
   meta = with lib; {
     description = "Python client for InfluxDB";
     homepage = "https://github.com/influxdb/influxdb-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

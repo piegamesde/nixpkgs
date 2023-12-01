@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "Tool for managing dock items";
     homepage = "https://github.com/kcrawford/dockutil";
     license = licenses.asl20;
-    maintainers = with maintainers; [ tboerger ];
+    maintainers = with maintainers; [tboerger];
     platforms = platforms.darwin;
   };
 }

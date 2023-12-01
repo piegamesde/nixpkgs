@@ -11,7 +11,7 @@
   libftdi1,
 
   # Allow selection the hardware targets (SBCs, JTAG Programmers, JTAG Adapters)
-  extraHardwareSupport ? [ ],
+  extraHardwareSupport ? [],
 }:
 
 stdenv.mkDerivation rec {
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ryVHiL6Yhh8r2RA/5uYKd07Jaow3R0Tu+Rl/YEMHWvo=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     hidapi

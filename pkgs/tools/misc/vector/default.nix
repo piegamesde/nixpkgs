@@ -37,7 +37,7 @@
     ]
     # the second feature flag is passed to the rdkafka dependency
     # building on linux fails without this feature flag (both x86_64 and AArch64)
-    ++ lib.optionals enableKafka [ "rdkafka?/gssapi-vendored" ]
+    ++ lib.optionals enableKafka ["rdkafka?/gssapi-vendored"]
     ++ lib.optional stdenv.targetPlatform.isUnix "unix"
   ),
   nix-update-script,
@@ -141,7 +141,7 @@ rustPlatform.buildRustPackage {
 
   passthru = {
     inherit features;
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

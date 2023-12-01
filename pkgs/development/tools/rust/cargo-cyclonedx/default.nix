@@ -24,10 +24,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-NsBY+wb4IAlKOMh5BMvT734z//Wp/s0zimm04v8pqyc=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       Security
       SystemConfiguration
@@ -45,6 +45,6 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/CycloneDX/cyclonedx-rust-cargo";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nikstur ];
+    maintainers = with maintainers; [nikstur];
   };
 }

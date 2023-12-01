@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xfKZXaKzSTnCOC8qt6Zc/eidc1bnrKZOJPw/wwMoCaM=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libnl
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "Netgear Unbrick Utility";
     homepage = "https://github.com/jclehner/nmrpflash";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ dadada ];
+    maintainers = with maintainers; [dadada];
     platforms = platforms.unix;
   };
 }

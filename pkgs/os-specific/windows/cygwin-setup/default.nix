@@ -41,9 +41,9 @@ stdenv.mkDerivation rec {
       mkStatic = flip overrideDerivation (
         o: {
           dontDisableStatic = true;
-          configureFlags = toList (o.configureFlags or [ ]) ++ [ "--enable-static" ];
-          buildInputs = map mkStatic (o.buildInputs or [ ]);
-          propagatedBuildInputs = map mkStatic (o.propagatedBuildInputs or [ ]);
+          configureFlags = toList (o.configureFlags or []) ++ ["--enable-static"];
+          buildInputs = map mkStatic (o.buildInputs or []);
+          propagatedBuildInputs = map mkStatic (o.propagatedBuildInputs or []);
         }
       );
     in
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
       libgcrypt
     ];
 
-  configureFlags = [ "--disable-shared" ];
+  configureFlags = ["--disable-shared"];
 
   dontDisableStatic = true;
 

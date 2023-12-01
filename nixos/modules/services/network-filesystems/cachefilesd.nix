@@ -46,11 +46,11 @@ in
 
   config = mkIf cfg.enable {
 
-    boot.kernelModules = [ "cachefiles" ];
+    boot.kernelModules = ["cachefiles"];
 
     systemd.services.cachefilesd = {
       description = "Local network file caching management daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "exec";
         ExecStart = "${pkgs.cachefilesd}/bin/cachefilesd -n -f ${cfgFile}";
@@ -59,6 +59,6 @@ in
       };
     };
 
-    systemd.tmpfiles.rules = [ "d ${cfg.cacheDir} 0700 root root - -" ];
+    systemd.tmpfiles.rules = ["d ${cfg.cacheDir} 0700 root root - -"];
   };
 }

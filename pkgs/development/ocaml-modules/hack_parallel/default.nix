@@ -20,9 +20,9 @@ buildDunePackage rec {
     sha256 = "0qjlkw35r4q2cm0n2x0i73zvx1xgrp6axaia2nm8zxpm49mid629";
   };
 
-  patches = [ ./hack_parallel.patch ];
+  patches = [./hack_parallel.patch];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   propagatedBuildInputs = [
     core

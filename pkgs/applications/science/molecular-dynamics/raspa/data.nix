@@ -14,7 +14,7 @@ stdenvNoCC.mkDerivation rec {
     "doc"
   ];
 
-  nativeBuildInpuhs = [ gzip ];
+  nativeBuildInpuhs = [gzip];
 
   installPhase = ''
     runHook preInstall

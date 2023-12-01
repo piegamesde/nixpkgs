@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.services.plikd;
 
-  format = pkgs.formats.toml { };
+  format = pkgs.formats.toml {};
   plikdCfg = format.generate "plikd.cfg" cfg.settings;
 in
 {
@@ -26,7 +26,7 @@ in
 
       settings = mkOption {
         type = format.type;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Configuration for plikd, see <https://github.com/root-gg/plik/blob/master/server/plikd.cfg>
           for supported values.
@@ -51,8 +51,8 @@ in
 
     systemd.services.plikd = {
       description = "Plikd file sharing server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "simple";
         ExecStart = "${pkgs.plikd}/bin/plikd --config ${plikdCfg}";
@@ -80,6 +80,6 @@ in
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.settings.ListenPort ]; };
+    networking.firewall = mkIf cfg.openFirewall {allowedTCPPorts = [cfg.settings.ListenPort];};
   };
 }

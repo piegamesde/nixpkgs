@@ -1,6 +1,6 @@
 with builtins;
 let
-  withIndexes = list: genList (idx: (elemAt list idx) // { index = idx; }) (length list);
+  withIndexes = list: genList (idx: (elemAt list idx) // {index = idx;}) (length list);
 
   testLine =
     report:
@@ -13,7 +13,7 @@ let
   testDirective = report: "";
   testYaml = report: "";
 
-  okStr = { result, ... }: if result == "pass" then "ok" else "not ok";
+  okStr = {result, ...}: if result == "pass" then "ok" else "not ok";
 in
 {
   output =

@@ -136,7 +136,7 @@ in
         };
         rules = [
           {
-            apiGroups = [ "" ];
+            apiGroups = [""];
             resources = [
               "endpoints"
               "services"
@@ -149,13 +149,13 @@ in
             ];
           }
           {
-            apiGroups = [ "" ];
-            resources = [ "nodes" ];
-            verbs = [ "get" ];
+            apiGroups = [""];
+            resources = ["nodes"];
+            verbs = ["get"];
           }
           {
-            apiGroups = [ "discovery.k8s.io" ];
-            resources = [ "endpointslices" ];
+            apiGroups = ["discovery.k8s.io"];
+            resources = ["endpointslices"];
             verbs = [
               "list"
               "watch"
@@ -308,7 +308,7 @@ in
                   securityContext = {
                     allowPrivilegeEscalation = false;
                     capabilities = {
-                      drop = [ "all" ];
+                      drop = ["all"];
                     };
                     readOnlyRootFilesystem = true;
                   };

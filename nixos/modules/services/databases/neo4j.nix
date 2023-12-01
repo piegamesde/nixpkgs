@@ -626,7 +626,7 @@ in
 
                 tlsVersions = mkOption {
                   type = types.listOf types.str;
-                  default = [ "TLSv1.2" ];
+                  default = ["TLSv1.2"];
                   description = lib.mdDoc ''
                     Restrict the TLS protocol versions of this policy to those
                     defined here.
@@ -683,7 +683,7 @@ in
             }
           )
         );
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Defines the SSL policies for use with Neo4j connectors. Each attribute
         of this set defines a policy, with the attribute name defining the name
@@ -701,7 +701,7 @@ in
     let
       # Assertion helpers
       policyNameList = attrNames cfg.ssl.policies;
-      validPolicyNameList = [ "legacy" ] ++ policyNameList;
+      validPolicyNameList = ["legacy"] ++ policyNameList;
       validPolicyNameString = concatStringsSep ", " validPolicyNameList;
 
       # Capture various directories left at their default so they can be created.
@@ -729,8 +729,8 @@ in
 
       systemd.services.neo4j = {
         description = "Neo4j Daemon";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
         environment = {
           NEO4J_HOME = "${cfg.directories.home}";
           NEO4J_CONF = "${cfg.directories.home}/conf";
@@ -762,7 +762,7 @@ in
         '';
       };
 
-      environment.systemPackages = [ cfg.package ];
+      environment.systemPackages = [cfg.package];
 
       users.users.neo4j = {
         isSystemUser = true;
@@ -770,7 +770,7 @@ in
         description = "Neo4j daemon user";
         home = cfg.directories.home;
       };
-      users.groups.neo4j = { };
+      users.groups.neo4j = {};
     };
 
   meta = {

@@ -18,7 +18,7 @@ buildGoModule rec {
   vendorSha256 = "sha256-2WUd2RxeOal0lpp/TuGSyfP1ppvG/Vd3bgsSsNO8ejo=";
 
   # Taken from https://github.com/oauth2-proxy/oauth2-proxy/blob/master/Makefile
-  ldflags = [ "-X main.VERSION=${version}" ];
+  ldflags = ["-X main.VERSION=${version}"];
 
   meta = with lib; {
     description = "A reverse proxy that provides authentication with Google, Github, or other providers";

@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-0T3HcfjEApEEWtNZGZcta85dY9d/0mSyRBlrqBQEQwk=";
   };
 
-  nativeCheckInputs = [ pygments ];
+  nativeCheckInputs = [pygments];
 
   checkPhase = ''
     runHook preCheck
@@ -35,6 +35,6 @@ buildPythonPackage rec {
     description = "A fast and complete Python implementation of Markdown";
     homepage = "https://github.com/trentm/python-markdown2";
     license = licenses.mit;
-    maintainers = with maintainers; [ hbunke ];
+    maintainers = with maintainers; [hbunke];
   };
 }

@@ -183,7 +183,7 @@ let
 
   importVariant = f: import (./. + "/src-${variant}/${f}");
 
-  primary-src = importVariant "primary.nix" { inherit fetchurl; };
+  primary-src = importVariant "primary.nix" {inherit fetchurl;};
 
   inherit (primary-src) major minor version;
 
@@ -193,20 +193,18 @@ let
 
   srcs = {
     primary = primary-src;
-    third_party =
-      map (x: ((fetchurl { inherit (x) url sha256 name; }) // { inherit (x) md5name md5; }))
-        (
-          importVariant "download.nix"
-          ++ [
-            (rec {
-              name = "unowinreg.dll";
-              url = "https://dev-www.libreoffice.org/extern/${md5name}";
-              sha256 = "1infwvv1p6i21scywrldsxs22f62x85mns4iq8h6vr6vlx3fdzga";
-              md5 = "185d60944ea767075d27247c3162b3bc";
-              md5name = "${md5}-${name}";
-            })
-          ]
-        );
+    third_party = map (x: ((fetchurl {inherit (x) url sha256 name;}) // {inherit (x) md5name md5;})) (
+      importVariant "download.nix"
+      ++ [
+        (rec {
+          name = "unowinreg.dll";
+          url = "https://dev-www.libreoffice.org/extern/${md5name}";
+          sha256 = "1infwvv1p6i21scywrldsxs22f62x85mns4iq8h6vr6vlx3fdzga";
+          md5 = "185d60944ea767075d27247c3162b3bc";
+          md5name = "${md5}-${name}";
+        })
+      ]
+    );
 
     translations = primary-src.translations;
     help = primary-src.help;
@@ -423,11 +421,11 @@ in
       find -name "*.cmd" -exec sed -i s,/lib:/usr/lib,, {} \;
     '';
 
-  makeFlags = [ "SHELL=${bash}/bin/bash" ];
+  makeFlags = ["SHELL=${bash}/bin/bash"];
 
   enableParallelBuilding = true;
 
-  buildTargets = [ "build-nocheck" ];
+  buildTargets = ["build-nocheck"];
 
   doCheck = true;
 
@@ -664,7 +662,7 @@ in
       kcoreaddons
       kio
     ]
-    ++ optionals (lib.versionAtLeast (lib.versions.majorMinor version) "7.4") [ libwebp ];
+    ++ optionals (lib.versionAtLeast (lib.versions.majorMinor version) "7.4") [libwebp];
 
   passthru = {
     inherit srcs;
@@ -714,16 +712,16 @@ in
     ];
   };
 
-  requiredSystemFeatures = [ "big-parallel" ];
+  requiredSystemFeatures = ["big-parallel"];
 
   meta = with lib; {
     description = "Comprehensive, professional-quality productivity suite, a variant of openoffice.org";
     homepage = "https://libreoffice.org/";
     # at least one jar in dependencies
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
   };
 }).overrideAttrs
-  ((importVariant "override.nix") (args // { inherit kdeIntegration; }))
+  ((importVariant "override.nix") (args // {inherit kdeIntegration;}))

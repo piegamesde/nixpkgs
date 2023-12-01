@@ -18,13 +18,13 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoSha256 = "sha256-6ZhWStZebXSwrej36DXifrsrmR1SWW3PwGUX0hqPwE4=";
-  buildInputs = lib.optionals stdenv.isDarwin [ Foundation ];
+  buildInputs = lib.optionals stdenv.isDarwin [Foundation];
 
   meta = with lib; {
     description = "A simple CLI pomodoro timer using desktop notifications written in Rust";
     homepage = "https://github.com/SanderJSA/Pomodoro";
     license = licenses.mit;
-    maintainers = with maintainers; [ annaaurora ];
+    maintainers = with maintainers; [annaaurora];
     # error: redefinition of module 'ObjectiveC'
     broken = stdenv.isDarwin;
   };

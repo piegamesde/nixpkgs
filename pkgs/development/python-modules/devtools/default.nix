@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-x9dL/FE94OixMAmjnmfzZUcYJBqE5P2AAIFsNJF0Fxo=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     asttokens
@@ -53,13 +53,13 @@ buildPythonPackage rec {
     "test_simple_vars"
   ];
 
-  pythonImportsCheck = [ "devtools" ];
+  pythonImportsCheck = ["devtools"];
 
   meta = with lib; {
     description = "Python's missing debug print command and other development tools";
     homepage = "https://python-devtools.helpmanual.io/";
     changelog = "https://github.com/samuelcolvin/python-devtools/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ jdahm ];
+    maintainers = with maintainers; [jdahm];
   };
 }

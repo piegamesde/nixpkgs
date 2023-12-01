@@ -57,7 +57,7 @@ stdenvNoCC.mkDerivation {
   pname = "phpactor";
   inherit src version;
 
-  buildInputs = [ php ];
+  buildInputs = [php];
 
   dontBuild = true;
 
@@ -76,6 +76,6 @@ stdenvNoCC.mkDerivation {
     description = "Mainly a PHP Language Server";
     homepage = "https://github.com/phpactor/phpactor";
     license = lib.licenses.mit;
-    maintainers = lib.teams.php.members ++ [ lib.maintainers.ryantm ];
+    maintainers = lib.teams.php.members ++ [lib.maintainers.ryantm];
   };
 }

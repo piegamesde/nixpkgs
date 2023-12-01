@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-kplUgrYecymGxz92tEU6H+NNtcN/Ao/tmmqdVo2c7HA=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # The absolute paths set by the Nix CMake build manager confuse
   # Zycore's config generation (which appends them to the package path).

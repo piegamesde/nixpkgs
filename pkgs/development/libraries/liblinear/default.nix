@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "cjlin1";
     repo = "liblinear";
-    rev = "v${builtins.replaceStrings [ "." ] [ "" ] version}";
+    rev = "v${builtins.replaceStrings ["."] [""] version}";
     sha256 = "sha256-mKd6idfr6mIIDEie8DCS+drtfpgKoS/5UXI0JenTxlA=";
   };
 
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     description = "A library for large linear classification";
     homepage = "https://www.csie.ntu.edu.tw/~cjlin/liblinear/";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

@@ -23,7 +23,7 @@ mkDerivation {
     description = "KDE integrated BtTorrent client";
     homepage = "https://apps.kde.org/ktorrent/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ eelco ];
+    maintainers = with maintainers; [eelco];
   };
 
   nativeBuildInputs = [

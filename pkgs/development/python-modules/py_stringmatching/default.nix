@@ -26,15 +26,15 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
-  pythonImportsCheck = [ "py_stringmatching" ];
+  pythonImportsCheck = ["py_stringmatching"];
 
   meta = with lib; {
     description = "Python string matching library including string tokenizers and string similarity measures";
     homepage = "https://github.com/anhaidgroup/py_stringmatching";
     changelog = "https://github.com/anhaidgroup/py_stringmatching/blob/v${version}/CHANGES.txt";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ixxie ];
+    maintainers = with maintainers; [ixxie];
   };
 }

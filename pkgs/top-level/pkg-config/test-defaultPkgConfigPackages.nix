@@ -11,12 +11,12 @@ let
   inherit (lib.strings) escapeNixIdentifier;
 
   allTests = lib.mapAttrs (k: v: if v == null then null else makePkgConfigTestMaybe k v) (
-    builtins.removeAttrs defaultPkgConfigPackages [ "recurseForDerivations" ]
+    builtins.removeAttrs defaultPkgConfigPackages ["recurseForDerivations"]
   );
 
   # nix-build rejects attribute names with periods
   # This will build those regardless.
-  tests-combined = runCommand "pkg-config-checks" { allTests = lib.attrValues allTests; } ''
+  tests-combined = runCommand "pkg-config-checks" {allTests = lib.attrValues allTests;} ''
     touch $out
   '';
 
@@ -48,4 +48,4 @@ let
         package = pkg;
       };
 in
-lib.recurseIntoAttrs allTests // { inherit tests-combined; }
+lib.recurseIntoAttrs allTests // {inherit tests-combined;}

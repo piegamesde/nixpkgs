@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-2fPdvsfuXKaRwkPjsPsBBfP0+yUgYXEUzQNFZfhyvGk=";
   };
 
-  nativeBuildInputs = [ which ];
+  nativeBuildInputs = [which];
 
   makeFlags = [
     "build"
@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/pganalyze/libpg_query/raw/${version}/CHANGELOG.md";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

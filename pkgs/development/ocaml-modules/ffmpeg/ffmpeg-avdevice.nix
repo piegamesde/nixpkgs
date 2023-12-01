@@ -11,7 +11,7 @@
   Cocoa,
   CoreImage,
   ForceFeedback,
-  ffmpeg-base ? callPackage ./base.nix { },
+  ffmpeg-base ? callPackage ./base.nix {},
   ffmpeg-av,
   ffmpeg,
   OpenGL,
@@ -26,9 +26,9 @@ buildDunePackage {
 
   inherit (ffmpeg-base) version src duneVersion;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
-    [ dune-configurator ]
+    [dune-configurator]
     ++ lib.optionals stdenv.isDarwin [
       AppKit
       AudioToolbox

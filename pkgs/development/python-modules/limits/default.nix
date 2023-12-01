@@ -67,7 +67,7 @@ buildPythonPackage rec {
     echo 'def get_versions(): return {"version": "${version}"}' > limits/_version.py
   '';
 
-  pythonImportsCheck = [ "limits" ];
+  pythonImportsCheck = ["limits"];
 
   pytestFlagsArray = [
     # All other tests require a running Docker instance
@@ -80,6 +80,6 @@ buildPythonPackage rec {
     description = "Rate limiting using various strategies and storage backends such as redis & memcached";
     homepage = "https://github.com/alisaifee/limits";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

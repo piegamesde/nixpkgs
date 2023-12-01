@@ -7,7 +7,7 @@
   ncurses,
 }:
 let
-  rubyEnv = ruby.withPackages (ps: with ps; [ ansi ]);
+  rubyEnv = ruby.withPackages (ps: with ps; [ansi]);
 in
 stdenv.mkDerivation rec {
   pname = "taoup";
@@ -72,6 +72,6 @@ stdenv.mkDerivation rec {
     description = "The Tao of Unix Programming (Ruby-powered ANSI colored fortunes)";
     homepage = "https://github.com/globalcitizen/taoup";
     license = lib.licenses.gpl3Only;
-    maintainers = [ lib.maintainers.zakame ];
+    maintainers = [lib.maintainers.zakame];
   };
 }

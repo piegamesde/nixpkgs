@@ -17,14 +17,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-lsUtM6AM/AVjDGP9vSzj7Vxx+3+IS4cr7ctmU4C6Ml8=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     postgresql
     msgpack
     groonga
   ];
 
-  makeFlags = [ "HAVE_MSGPACK=1" ];
+  makeFlags = ["HAVE_MSGPACK=1"];
 
   installPhase = ''
     install -D pgroonga.so -t $out/lib/
@@ -47,6 +47,6 @@ stdenv.mkDerivation rec {
     homepage = "https://pgroonga.github.io/";
     license = licenses.postgresql;
     platforms = postgresql.meta.platforms;
-    maintainers = with maintainers; [ DerTim1 ];
+    maintainers = with maintainers; [DerTim1];
   };
 }

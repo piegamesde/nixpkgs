@@ -62,7 +62,7 @@ buildPythonApplication rec {
     wheezy-template
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # CMake is used to build CMARK, but the build system is still python
   dontUseCmakeConfigure = true;
@@ -115,7 +115,7 @@ buildPythonApplication rec {
   meta = with lib; {
     description = "The tastiest API documentation system";
     homepage = "https://hotdoc.github.io/";
-    license = [ licenses.lgpl21Plus ];
-    maintainers = with maintainers; [ lilyinstarlight ];
+    license = [licenses.lgpl21Plus];
+    maintainers = with maintainers; [lilyinstarlight];
   };
 }

@@ -35,7 +35,7 @@ buildPythonPackage rec {
 
   # does not contain any tests
   doCheck = false;
-  pythonImportsCheck = [ "acme" ];
+  pythonImportsCheck = ["acme"];
 
   sourceRoot = "source/${pname}";
 

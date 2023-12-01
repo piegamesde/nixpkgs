@@ -65,7 +65,7 @@ let
     meta = with lib; {
       homepage = "https://www.libdivecomputer.org";
       description = "A cross-platform and open source library for communication with dive computers from various manufacturers";
-      maintainers = with maintainers; [ mguentner ];
+      maintainers = with maintainers; [mguentner];
       license = licenses.lgpl21;
       platforms = platforms.all;
     };
@@ -82,7 +82,7 @@ let
       hash = "sha256-PfSLFQeCeVNcCVDCZehxyNLQGT6gff5jNxMW8lAaP8c=";
     };
 
-    nativeBuildInputs = [ qmake ];
+    nativeBuildInputs = [qmake];
 
     buildInputs = [
       qtbase
@@ -104,7 +104,7 @@ let
     meta = with lib; {
       inherit (src.meta) homepage;
       description = "QtLocation plugin for Google maps tile API";
-      maintainers = with maintainers; [ orivej ];
+      maintainers = with maintainers; [orivej];
       license = licenses.mit;
       platforms = platforms.all;
     };

@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5jqEdMlHmsD88kT/EGieL7DktppVdfWyJWGRNRKbRc4=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     homepage = "https://upx.github.io/";

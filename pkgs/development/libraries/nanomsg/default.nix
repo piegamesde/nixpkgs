@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # https://github.com/nanomsg/nanomsg/issues/1082
   postPatch = ''

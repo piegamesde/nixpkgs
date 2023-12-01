@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-N9ip8yFUqXmNMKcvQuOyxDI4yF/w1YaoIh0prvS4Xr4=";
   };
 
-  buildInputs = [ raylib ];
+  buildInputs = [raylib];
 
   configurePhase = ''
     runHook preConfigure
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     description = "A collection of games made with raylib ";
     homepage = "https://www.raylib.com/games.html";
     license = licenses.zlib;
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
     inherit (raylib.meta) platforms;
   };
 }

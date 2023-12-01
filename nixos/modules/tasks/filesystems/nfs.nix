@@ -15,7 +15,7 @@ let
 
   rpcMountpoint = "${nfsStateDir}/rpc_pipefs";
 
-  format = pkgs.formats.ini { };
+  format = pkgs.formats.ini {};
 
   idmapdConfFile = format.generate "idmapd.conf" cfg.idmapd.settings;
   nfsConfFile = pkgs.writeText "nfs.conf" cfg.extraConfig;
@@ -33,7 +33,7 @@ in
     services.nfs = {
       idmapd.settings = mkOption {
         type = format.type;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           libnfsidmap configuration. Refer to
           <https://linux.die.net/man/5/idmapd.conf>
@@ -68,8 +68,8 @@ in
 
     services.nfs.idmapd.settings = {
       General = mkMerge [
-        { Pipefs-Directory = rpcMountpoint; }
-        (mkIf (config.networking.domain != null) { Domain = config.networking.domain; })
+        {Pipefs-Directory = rpcMountpoint;}
+        (mkIf (config.networking.domain != null) {Domain = config.networking.domain;})
       ];
       Mapping = {
         Nobody-User = "nobody";
@@ -80,13 +80,13 @@ in
       };
     };
 
-    system.fsPackages = [ pkgs.nfs-utils ];
+    system.fsPackages = [pkgs.nfs-utils];
 
-    boot.initrd.kernelModules = mkIf inInitrd [ "nfs" ];
+    boot.initrd.kernelModules = mkIf inInitrd ["nfs"];
 
-    systemd.packages = [ pkgs.nfs-utils ];
+    systemd.packages = [pkgs.nfs-utils];
 
-    environment.systemPackages = [ pkgs.keyutils ];
+    environment.systemPackages = [pkgs.keyutils];
 
     environment.etc = {
       "idmapd.conf".source = idmapdConfFile;
@@ -95,7 +95,7 @@ in
     };
 
     systemd.services.nfs-blkmap = {
-      restartTriggers = [ nfsConfFile ];
+      restartTriggers = [nfsConfFile];
     };
 
     systemd.targets.nfs-client = {
@@ -106,16 +106,16 @@ in
     };
 
     systemd.services.nfs-idmapd = {
-      restartTriggers = [ idmapdConfFile ];
+      restartTriggers = [idmapdConfFile];
     };
 
     systemd.services.nfs-mountd = {
-      restartTriggers = [ nfsConfFile ];
+      restartTriggers = [nfsConfFile];
       enable = mkDefault false;
     };
 
     systemd.services.nfs-server = {
-      restartTriggers = [ nfsConfFile ];
+      restartTriggers = [nfsConfFile];
       enable = mkDefault false;
     };
 
@@ -127,7 +127,7 @@ in
     };
 
     systemd.services.rpc-gssd = {
-      restartTriggers = [ nfsConfFile ];
+      restartTriggers = [nfsConfFile];
       unitConfig.ConditionPathExists = [
         ""
         "/etc/krb5.keytab"
@@ -135,7 +135,7 @@ in
     };
 
     systemd.services.rpc-statd = {
-      restartTriggers = [ nfsConfFile ];
+      restartTriggers = [nfsConfFile];
 
       preStart = ''
         mkdir -p /var/lib/nfs/{sm,sm.bak}

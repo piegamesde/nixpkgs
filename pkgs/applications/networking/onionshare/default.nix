@@ -56,7 +56,7 @@ let
     homepage = "https://onionshare.org/";
 
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ lourkeur ];
+    maintainers = with maintainers; [lourkeur];
   };
 
   # TODO: package meek https://support.torproject.org/glossary/meek/
@@ -100,7 +100,7 @@ rec {
       obfs4
     ];
 
-    nativeCheckInputs = [ pytestCheckHook ];
+    nativeCheckInputs = [pytestCheckHook];
 
     preCheck = ''
       # Tests use the home directory
@@ -149,7 +149,7 @@ rec {
       pysocks
     ];
 
-    nativeBuildInputs = [ qt5.wrapQtAppsHook ];
+    nativeBuildInputs = [qt5.wrapQtAppsHook];
 
     preFixup = ''
       wrapQtApp $out/bin/onionshare
@@ -157,6 +157,6 @@ rec {
 
     doCheck = false;
 
-    pythonImportsCheck = [ "onionshare" ];
+    pythonImportsCheck = ["onionshare"];
   };
 }

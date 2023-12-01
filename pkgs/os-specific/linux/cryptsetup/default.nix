@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
       "--with-crypto_backend=openssl"
       "--disable-ssh-token"
     ]
-    ++ lib.optionals (!rebuildMan) [ "--disable-asciidoc" ]
+    ++ lib.optionals (!rebuildMan) ["--disable-asciidoc"]
     ++ lib.optionals stdenv.hostPlatform.isStatic [
       "--disable-external-tokens"
       # We have to override this even though we're removing token
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
       "--with-luks2-external-tokens-path=/"
     ];
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optionals rebuildMan [ asciidoctor ];
+  nativeBuildInputs = [pkg-config] ++ lib.optionals rebuildMan [asciidoctor];
   buildInputs = [
     lvm2
     json_c
@@ -96,7 +96,7 @@ stdenv.mkDerivation rec {
     description = "LUKS for dm-crypt";
     changelog = "https://gitlab.com/cryptsetup/cryptsetup/-/raw/v${version}/docs/v${version}-ReleaseNotes";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = with lib.platforms; linux;
   };
 }

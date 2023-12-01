@@ -83,10 +83,10 @@ buildPythonPackage {
     else
       "make CUDA_VERSION=CPU cpuonly";
 
-  nativeBuildInputs = [ setuptools ] ++ lib.optionals torch.cudaSupport [ cuda-native-redist ];
-  buildInputs = lib.optionals torch.cudaSupport [ cuda-redist ];
+  nativeBuildInputs = [setuptools] ++ lib.optionals torch.cudaSupport [cuda-native-redist];
+  buildInputs = lib.optionals torch.cudaSupport [cuda-redist];
 
-  propagatedBuildInputs = [ torch ];
+  propagatedBuildInputs = [torch];
 
   doCheck = false; # tests require CUDA and also GPU access
   nativeCheckInputs = [
@@ -96,12 +96,12 @@ buildPythonPackage {
     scipy
   ];
 
-  pythonImportsCheck = [ "bitsandbytes" ];
+  pythonImportsCheck = ["bitsandbytes"];
 
   meta = with lib; {
     homepage = "https://github.com/TimDettmers/bitsandbytes";
     description = "8-bit CUDA functions for PyTorch";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

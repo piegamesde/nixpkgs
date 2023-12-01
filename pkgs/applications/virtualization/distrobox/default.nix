@@ -20,7 +20,7 @@ stdenvNoCC.mkDerivation rec {
   dontConfigure = true;
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   installPhase = ''
     runHook preInstall
 
@@ -35,7 +35,7 @@ stdenvNoCC.mkDerivation rec {
   # https://github.com/89luca89/distrobox/issues/407
   postFixup = ''
     wrapProgram "$out/bin/distrobox-generate-entry" \
-      --prefix PATH ":" ${lib.makeBinPath [ wget ]}
+      --prefix PATH ":" ${lib.makeBinPath [wget]}
   '';
 
   meta = with lib; {
@@ -48,6 +48,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://distrobox.privatedns.org/";
     license = licenses.gpl3Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ atila ];
+    maintainers = with maintainers; [atila];
   };
 }

@@ -23,7 +23,7 @@
 }:
 
 let
-  colobot-data = callPackage ./data.nix { };
+  colobot-data = callPackage ./data.nix {};
 in
 stdenv.mkDerivation rec {
   pname = "colobot";
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     homepage = "https://colobot.info/";
     description = "Colobot: Gold Edition is a real-time strategy game, where you can program your bots";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
     platforms = platforms.linux;
   };
 }

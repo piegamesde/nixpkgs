@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
   version = "3.7.7";
   pname = "taktuk";
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   src = fetchurl {
     url = "https://gforge.inria.fr/frs/download.php/33412/${pname}-${version}.tar.gz";
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       algorithm.'';
     homepage = "http://taktuk.gforge.inria.fr/";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.bzizou ];
+    maintainers = [lib.maintainers.bzizou];
     platforms = lib.platforms.linux;
   };
 }

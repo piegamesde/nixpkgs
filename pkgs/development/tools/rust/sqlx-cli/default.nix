@@ -38,11 +38,11 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-AbA8L7rkyZfKW0vvjyrcW5eU6jGD+zAqIcEUOJmeqJs=";
 
   doCheck = false;
-  cargoBuildFlags = [ "-p sqlx-cli" ];
+  cargoBuildFlags = ["-p sqlx-cli"];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
-    lib.optionals stdenv.isLinux [ openssl ]
+    lib.optionals stdenv.isLinux [openssl]
     ++ lib.optionals stdenv.isDarwin [
       SystemConfiguration
       CoreFoundation
@@ -59,6 +59,6 @@ rustPlatform.buildRustPackage rec {
     description = "SQLx's associated command-line utility for managing databases, migrations, and enabling offline mode with sqlx::query!() and friends.";
     homepage = "https://github.com/launchbadge/sqlx";
     license = licenses.asl20;
-    maintainers = with maintainers; [ greizgh ];
+    maintainers = with maintainers; [greizgh];
   };
 }

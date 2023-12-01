@@ -18,7 +18,7 @@ buildGoModule rec {
     sha256 = "sha256-vciSmXR3wI3KcnC+Uz36AgI/WUfztA05MJv1InuOjJM=";
   };
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Cocoa ];
+  buildInputs = lib.optionals stdenv.isDarwin [Cocoa];
 
   patches =
     [
@@ -39,6 +39,6 @@ buildGoModule rec {
     description = "Command-line itch.io helper";
     homepage = "https://github.com/itchio/butler";
     license = licenses.mit;
-    maintainers = with maintainers; [ martfont ];
+    maintainers = with maintainers; [martfont];
   };
 }

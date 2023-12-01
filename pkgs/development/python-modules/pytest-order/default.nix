@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-E50lswgmt47rtCci90fqsUxEuIBZ16cdT3nRSgVyaaU=";
   };
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -32,6 +32,6 @@ buildPythonPackage rec {
     description = "Pytest plugin that allows you to customize the order in which your tests are run";
     homepage = "https://github.com/pytest-dev/pytest-order";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.jacg ];
+    maintainers = [lib.maintainers.jacg];
   };
 }

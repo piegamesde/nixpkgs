@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-L5u0xkoza3G1ZHdtJH7ayVOgcVbPWYp7MC3lJd7LsSY=";
   };
 
-  nativeBuildInputs = [ nasm ];
+  nativeBuildInputs = [nasm];
 
   buildInputs = lib.optional stdenv.hostPlatform.isWindows windows.pthreads;
 

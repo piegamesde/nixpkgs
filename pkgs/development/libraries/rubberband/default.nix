@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
         CoreVideo
       ]
     );
-  makeFlags = [ "AR:=$(AR)" ];
+  makeFlags = ["AR:=$(AR)"];
 
   meta = with lib; {
     description = "High quality software library for audio time-stretching and pitch-shifting";

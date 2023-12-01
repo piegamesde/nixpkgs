@@ -16,7 +16,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-iK8XRPT/0PG3szIRkHvUIdgJC1XsuBbDKk25RvwSViQ=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   postInstall = ''
     completions_dir=$(find "target" -name "shell_completions" -type d -printf "%T+\t%p\n" | sort | awk 'NR==1{print $2}')
     installShellCompletion --bash $completions_dir/page.bash
@@ -30,6 +30,6 @@ rustPlatform.buildRustPackage rec {
     description = "Use neovim as pager";
     homepage = "https://github.com/I60R/page";
     license = licenses.mit;
-    maintainers = [ maintainers.s1341 ];
+    maintainers = [maintainers.s1341];
   };
 }

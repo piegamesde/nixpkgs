@@ -38,7 +38,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [ ffmpeg ];
+  buildInputs = [ffmpeg];
 
   preCheck = ''
     # ensure we import the built version
@@ -144,6 +144,6 @@ buildPythonPackage rec {
     description = "Pythonic bindings for FFmpeg/Libav";
     homepage = "https://github.com/mikeboers/PyAV/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

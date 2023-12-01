@@ -28,7 +28,7 @@ buildPythonPackage rec {
     plantuml
   ];
 
-  pythonImportsCheck = [ "pytm" ];
+  pythonImportsCheck = ["pytm"];
 
   meta = with lib; {
     description = "A Pythonic framework for threat modeling";
@@ -37,6 +37,6 @@ buildPythonPackage rec {
       capec
       mit
     ];
-    maintainers = with maintainers; [ wamserma ];
+    maintainers = with maintainers; [wamserma];
   };
 }

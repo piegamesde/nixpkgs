@@ -6,7 +6,7 @@
   nasm,
   openssl_1_1,
   python3,
-  extraCmakeFlags ? [ ],
+  extraCmakeFlags ? [],
 }:
 
 gcc11Stdenv.mkDerivation rec {
@@ -26,7 +26,7 @@ gcc11Stdenv.mkDerivation rec {
       --replace 'ippcpo-config.cmake' 'ippcp-config.cmake'
   '';
 
-  cmakeFlags = [ "-DARCH=intel64" ] ++ extraCmakeFlags;
+  cmakeFlags = ["-DARCH=intel64"] ++ extraCmakeFlags;
 
   nativeBuildInputs = [
     cmake

@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
       ./0001-catch.diff
     ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     homepage = "https://github.com/vietjtnguyen/argagg";
@@ -39,8 +39,8 @@ stdenv.mkDerivation rec {
       pointers into the original command line argument C-strings.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = with platforms; all;
-    badPlatforms = [ "aarch64-darwin" ];
+    badPlatforms = ["aarch64-darwin"];
   };
 }

@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     sha256 = "1590lc4cplxr3lhjqci8fjncy67imn2h14qd2l87chmhjh243qvx";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
   buildInputs = [
     libidn11
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ncbi/sra-tools";
     description = "The SRA Toolkit and SDK from NCBI is a collection of tools and libraries for using data in the INSDC Sequence Read Archives.";
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ thyol ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [thyol];
+    platforms = ["x86_64-linux"];
   };
 }

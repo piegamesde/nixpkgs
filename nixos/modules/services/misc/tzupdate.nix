@@ -34,8 +34,8 @@ in
     # a service to run after you have *internet* access.
     systemd.services.tzupdate = {
       description = "tzupdate timezone update service";
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
 
       serviceConfig = {
         Type = "oneshot";
@@ -47,5 +47,5 @@ in
     };
   };
 
-  meta.maintainers = [ maintainers.michaelpj ];
+  meta.maintainers = [maintainers.michaelpj];
 }

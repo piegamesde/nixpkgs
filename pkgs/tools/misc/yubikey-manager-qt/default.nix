@@ -41,7 +41,7 @@ mkDerivation rec {
     qtquickcontrols2
   ];
 
-  pythonPath = [ (yubikey-manager4.override { python3Packages = python3.pkgs; }) ];
+  pythonPath = [(yubikey-manager4.override {python3Packages = python3.pkgs;})];
 
   postInstall = ''
     # Desktop files
@@ -84,7 +84,7 @@ mkDerivation rec {
     description = "Cross-platform application for configuring any YubiKey over all USB interfaces";
     homepage = "https://developers.yubico.com/yubikey-manager-qt/";
     license = licenses.bsd2;
-    maintainers = [ maintainers.cbley ];
+    maintainers = [maintainers.cbley];
     mainProgram = "ykman-gui";
     platforms = platforms.linux;
   };

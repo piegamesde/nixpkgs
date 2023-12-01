@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "13n8cpml71w6zfm2jz5fa7r1z18qlzk4gv07r6n1in2p5l1xi63f";
   };
 
-  patches = [ ./rsvg-convert.patch ];
+  patches = [./rsvg-convert.patch];
 
   nativeBuildInputs = [
     pkg-config
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
 
   dontDropIconThemeCache = true;
 
-  configureFlags = [ "--enable-png-creation" ];
+  configureFlags = ["--enable-png-creation"];
 
   postInstall = '''${gtk.out}/bin/gtk-update-icon-cache' "$out/share/icons/Tango" '';
 

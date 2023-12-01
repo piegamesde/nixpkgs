@@ -19,9 +19,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-pWf9qIEzuddcwMLtXzzlU+nL8iD0Ey5yj3e7GUzVzSw=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ oniguruma ];
+  buildInputs = [oniguruma];
 
   RUSTONIG_SYSTEM_LIBONIG = true;
 
@@ -29,6 +29,6 @@ rustPlatform.buildRustPackage rec {
     description = "A tool to take all source code in a folder and render them to one image";
     homepage = "https://github.com/sloganking/codevis";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

@@ -16,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "08582jy01j32b3mj8hf6m8687qrcz64zv2m236j24inlkmd94q21";
   };
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   makeFlags = [
     "KERNEL_VERSION=${kernel.version}"
@@ -35,7 +35,7 @@ stdenv.mkDerivation {
       bsd3
       gpl2
     ];
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
     platforms = platforms.linux;
     broken = lib.versionAtLeast kernel.version "4.13";
   };

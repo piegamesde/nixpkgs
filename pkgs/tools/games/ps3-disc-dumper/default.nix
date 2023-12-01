@@ -32,7 +32,7 @@ buildDotnetModule rec {
     homepage = "https://github.com/13xforever/ps3-disc-dumper";
     description = "A handy utility to make decrypted PS3 disc dumps";
     license = licenses.mit;
-    maintainers = with maintainers; [ evanjs ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [evanjs];
+    platforms = ["x86_64-linux"];
   };
 }

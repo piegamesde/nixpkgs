@@ -35,7 +35,7 @@ python3Packages.buildPythonApplication rec {
   disabled = python3Packages.pythonOlder "3.7";
 
   propagatedBuildInputs =
-    [ lark080 ]
+    [lark080]
     ++ (
       with python3Packages; [
         docopt

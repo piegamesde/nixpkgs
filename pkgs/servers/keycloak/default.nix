@@ -9,7 +9,7 @@
   callPackage,
 
   confFile ? null,
-  plugins ? [ ],
+  plugins ? [],
 }:
 
 stdenv.mkDerivation rec {
@@ -78,14 +78,14 @@ stdenv.mkDerivation rec {
 
   passthru = {
     tests = nixosTests.keycloak;
-    plugins = callPackage ./all-plugins.nix { };
+    plugins = callPackage ./all-plugins.nix {};
     enabledPlugins = plugins;
   };
 
   meta = with lib; {
     homepage = "https://www.keycloak.org/";
     description = "Identity and access management for modern applications and services";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
     platforms = jre.meta.platforms;
     maintainers = with maintainers; [

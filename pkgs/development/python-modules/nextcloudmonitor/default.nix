@@ -18,18 +18,18 @@ buildPythonPackage rec {
     hash = "sha256-jyC8oOFr5yVtIJNxVCLNTyFpJTdjHu8t6Xs4il45ysI=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # no tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [ "nextcloudmonitor" ];
+  pythonImportsCheck = ["nextcloudmonitor"];
 
   meta = with lib; {
     changelog = "https://github.com/meichthys/nextcloud_monitor/blob/${src.rev}/README.md#change-log";
     description = "Python wrapper around nextcloud monitor api";
     homepage = "https://github.com/meichthys/nextcloud_monitor";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

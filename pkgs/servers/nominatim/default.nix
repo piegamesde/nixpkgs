@@ -77,6 +77,6 @@ stdenv.mkDerivation rec {
     homepage = "https://nominatim.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.mausch ];
+    maintainers = [maintainers.mausch];
   };
 }

@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   dontBuild = false;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     install -Dm755 main.sh $out/bin/ds
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "DockSTARTer helps you get started with running apps in Docker.";
     homepage = "https://dockstarter.com";
     license = licenses.mit;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
     mainProgram = "ds";
   };
 }

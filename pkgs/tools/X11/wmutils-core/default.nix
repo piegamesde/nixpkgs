@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     xcb-util-cursor
   ];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Set of window manipulation tools";

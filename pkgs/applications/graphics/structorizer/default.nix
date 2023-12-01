@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
       icon = pname;
       exec = pname;
       terminal = false;
-      mimeTypes = [ "application/nsd" ];
+      mimeTypes = ["application/nsd"];
       categories = [
         "Development"
         "Graphics"
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     copyDesktopItems
   ];
 
-  buildInputs = [ jdk11 ];
+  buildInputs = [jdk11];
 
   postPatch = ''
     chmod +x makeStructorizer
@@ -110,6 +110,6 @@ stdenv.mkDerivation rec {
     homepage = "https://structorizer.fisch.lu";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ annaaurora ];
+    maintainers = with maintainers; [annaaurora];
   };
 }

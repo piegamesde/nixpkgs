@@ -15,7 +15,7 @@
   libGLU,
   curl,
   cudaSupport ? config.cudaSupport or false,
-  cudaPackages ? { },
+  cudaPackages ? {},
   enablePython ? false,
   pythonPackages ? null,
   enableGUI ? false,

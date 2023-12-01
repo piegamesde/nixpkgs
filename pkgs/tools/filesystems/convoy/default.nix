@@ -19,13 +19,13 @@ buildGoPackage rec {
     sha256 = "09nygrxd5hril4xcfsvgjg74xxhhimznqq4sdk0f360c5ra0dbhj";
   };
 
-  buildInputs = [ lvm2 ];
+  buildInputs = [lvm2];
 
   meta = with lib; {
     homepage = "https://github.com/rancher/convoy";
     description = "A Docker volume plugin, managing persistent container volumes";
     license = licenses.asl20;
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     platforms = platforms.linux;
   };
 }

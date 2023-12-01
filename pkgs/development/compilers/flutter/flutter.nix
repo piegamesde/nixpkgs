@@ -25,7 +25,7 @@
           )
         )
         // {
-          x86 = [ "jit-release" ];
+          x86 = ["jit-release"];
         }
       );
       linux = lib.optionals stdenv.hostPlatform.isLinux (
@@ -58,12 +58,12 @@
 let
   engineArtifactDirectory =
     let
-      engineArtifacts = callPackage ./engine-artifacts { inherit engineVersion; };
+      engineArtifacts = callPackage ./engine-artifacts {inherit engineVersion;};
     in
-    runCommandLocal "flutter-engine-artifacts-${version}" { } (
+    runCommandLocal "flutter-engine-artifacts-${version}" {} (
       let
         mkCommonArtifactLinkCommand =
-          { artifact }:
+          {artifact}:
           ''
             mkdir -p $out/common
             ${lndir}/bin/lndir -silent ${artifact} $out/common
@@ -85,8 +85,8 @@ let
       in
       ''
         ${builtins.concatStringsSep "\n" (
-          (map (name: mkCommonArtifactLinkCommand { artifact = engineArtifacts.common.${name}; }) (
-            if includedEngineArtifacts ? common then includedEngineArtifacts.common else [ ]
+          (map (name: mkCommonArtifactLinkCommand {artifact = engineArtifacts.common.${name};}) (
+            if includedEngineArtifacts ? common then includedEngineArtifacts.common else []
           ))
           ++ (builtins.foldl'
             (
@@ -115,20 +115,20 @@ let
                         engineArtifacts.platform.${os}.${architecture}.variants.${variant}
                       )
                     )
-                    (map (artifact: mkPlatformArtifactLinkCommand { inherit artifact os architecture; })
+                    (map (artifact: mkPlatformArtifactLinkCommand {inherit artifact os architecture;})
                       engineArtifacts.platform.${os}.${architecture}.base
                     )
                     includedEngineArtifacts.platform.${os}.${architecture}
                   )
                 )
-                [ ]
+                []
                 (builtins.attrNames includedEngineArtifacts.platform.${os})
               )
             )
-            [ ]
+            []
             (
               builtins.attrNames (
-                if includedEngineArtifacts ? platform then includedEngineArtifacts.platform else { }
+                if includedEngineArtifacts ? platform then includedEngineArtifacts.platform else {}
               )
             )
           )
@@ -145,7 +145,7 @@ let
       "cache"
     ];
 
-    buildInputs = [ git ];
+    buildInputs = [git];
 
     preConfigure = ''
       if [ "$(< bin/internal/engine.version)" != '${engineVersion}' ]; then
@@ -213,7 +213,7 @@ let
     '';
 
     doInstallCheck = true;
-    nativeInstallCheckInputs = [ which ];
+    nativeInstallCheckInputs = [which];
     installCheckPhase = ''
       runHook preInstallCheck
 

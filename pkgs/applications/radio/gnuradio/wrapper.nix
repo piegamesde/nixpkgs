@@ -26,11 +26,11 @@
   at-spi2-core,
   atk,
   # For Adding additional GRC blocks
-  extraPackages ? [ ],
+  extraPackages ? [],
   # For Adding additional python packaages
-  extraPythonPackages ? [ ],
+  extraPythonPackages ? [],
   # Allow to add whatever you want to the wrapper
-  extraMakeWrapperArgs ? [ ],
+  extraMakeWrapperArgs ? [],
 }:
 
 let
@@ -38,7 +38,7 @@ let
   # may wish to wrap GR without python support.
   pythonPkgs =
     extraPythonPackages
-    ++ [ (unwrapped.python.pkgs.toPythonModule unwrapped) ]
+    ++ [(unwrapped.python.pkgs.toPythonModule unwrapped)]
     # Add the extraPackages as python modules as well
     ++ (builtins.map unwrapped.python.pkgs.toPythonModule extraPackages)
     ++ lib.flatten (
@@ -56,7 +56,7 @@ let
   pname = unwrapped.pname + "-wrapped";
   inherit (unwrapped) version;
   makeWrapperArgs = builtins.concatStringsSep " " (
-    [ ]
+    []
     # Emulating wrapGAppsHook & wrapQtAppsHook working together
     ++
       lib.optionals ((unwrapped.hasFeature "gnuradio-companion") || (unwrapped.hasFeature "gr-qtgui"))
@@ -118,7 +118,7 @@ let
         at-spi2-core
       ]}"
     ]
-    ++ lib.optionals (extraPackages != [ ]) [
+    ++ lib.optionals (extraPackages != []) [
       "--prefix"
       "GRC_BLOCKS_PATH"
       ":"
@@ -135,7 +135,7 @@ let
               ":"
               "${lib.makeSearchPath unwrapped.qt.qtbase.qtPluginPrefix (
                 builtins.map lib.getBin (
-                  [ unwrapped.qt.qtbase ] ++ lib.optionals stdenv.isLinux [ unwrapped.qt.qtwayland ]
+                  [unwrapped.qt.qtbase] ++ lib.optionals stdenv.isLinux [unwrapped.qt.qtwayland]
                 )
               )}"
               "--prefix"
@@ -143,13 +143,13 @@ let
               ":"
               "${lib.makeSearchPath unwrapped.qt.qtbase.qtQmlPrefix (
                 builtins.map lib.getBin (
-                  [ unwrapped.qt.qtbase ] ++ lib.optionals stdenv.isLinux [ unwrapped.qt.qtwayland ]
+                  [unwrapped.qt.qtbase] ++ lib.optionals stdenv.isLinux [unwrapped.qt.qtwayland]
                 )
               )}"
             ]
           else
             # Add here qt4 related environment for 3.7?
-            [ ]
+            []
         )
     ++ extraMakeWrapperArgs
   );
@@ -166,13 +166,13 @@ let
     if doWrap then
       stdenv.mkDerivation {
         inherit pname version passthru;
-        nativeBuildInputs = [ makeWrapper ];
-        buildInputs = [ xorg.lndir ];
+        nativeBuildInputs = [makeWrapper];
+        buildInputs = [xorg.lndir];
         buildCommand = ''
           mkdir $out
           cd $out
           lndir -silent ${unwrapped}
-          ${lib.optionalString (extraPackages != [ ]) (
+          ${lib.optionalString (extraPackages != []) (
             builtins.concatStringsSep "\n" (
               builtins.map
                 (pkg: ''
@@ -199,6 +199,6 @@ let
         inherit (unwrapped) meta;
       }
     else
-      unwrapped.overrideAttrs (_: { inherit passthru; });
+      unwrapped.overrideAttrs (_: {inherit passthru;});
 in
 self

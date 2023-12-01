@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  buildInputs = [ bash ];
+  buildInputs = [bash];
 
   postPatch = ''
     # make zshrc aware of where zsh-prezto is installed
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     cp -R ./ $out/share/zsh-prezto
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "The configuration framework for Zsh";
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/sorin-ionescu/prezto";
     license = licenses.mit;
-    maintainers = with maintainers; [ holymonson ];
+    maintainers = with maintainers; [holymonson];
     platforms = platforms.unix;
   };
 }

@@ -2,8 +2,8 @@
   nixpkgs ? ../../..,
   system ? builtins.currentSystem,
   pkgs ? import nixpkgs {
-    config = { };
-    overlays = [ ];
+    config = {};
+    overlays = [];
     inherit system;
   },
   libpath ? ../..,

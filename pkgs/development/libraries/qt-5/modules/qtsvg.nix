@@ -1,8 +1,8 @@
-{ qtModule, qtbase }:
+{qtModule, qtbase}:
 
 qtModule {
   pname = "qtsvg";
-  qtInputs = [ qtbase ];
+  qtInputs = [qtbase];
   outputs = [
     "out"
     "dev"

@@ -33,7 +33,7 @@ let
   };
 
   configFile = pkgs.writeText "zabbix_agent.conf" (
-    toKeyValue { listsAsDuplicateKeys = true; } cfg.settings
+    toKeyValue {listsAsDuplicateKeys = true;} cfg.settings
   );
 in
 
@@ -65,7 +65,7 @@ in
 
       extraPackages = mkOption {
         type = types.listOf types.package;
-        default = with pkgs; [ nettools ];
+        default = with pkgs; [nettools];
         defaultText = literalExpression "with pkgs; [ nettools ]";
         example = literalExpression "with pkgs; [ nettools mysql ]";
         description = lib.mdDoc ''
@@ -77,7 +77,7 @@ in
       modules = mkOption {
         type = types.attrsOf types.package;
         description = lib.mdDoc "A set of modules to load.";
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             "dummy.so" = pkgs.stdenv.mkDerivation {
@@ -137,7 +137,7 @@ in
               (listOf str)
             ]
           );
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Zabbix Agent configuration. Refer to
           <https://www.zabbix.com/documentation/current/manual/appendix/config/zabbix_agentd>
@@ -161,17 +161,17 @@ in
         Server = cfg.server;
         ListenPort = cfg.listen.port;
       }
-      (mkIf (cfg.modules != { }) {
+      (mkIf (cfg.modules != {}) {
         LoadModule = builtins.attrNames cfg.modules;
         LoadModulePath = "${moduleEnv}/lib";
       })
 
       # the default value for "ListenIP" is 0.0.0.0 but zabbix agent 2 cannot accept configuration files which
       # explicitly set "ListenIP" to the default value...
-      (mkIf (cfg.listen.ip != "0.0.0.0") { ListenIP = cfg.listen.ip; })
+      (mkIf (cfg.listen.ip != "0.0.0.0") {ListenIP = cfg.listen.ip;})
     ];
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.listen.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {allowedTCPPorts = [cfg.listen.port];};
 
     users.users.${user} = {
       description = "Zabbix Agent daemon user";
@@ -179,12 +179,12 @@ in
       isSystemUser = true;
     };
 
-    users.groups.${group} = { };
+    users.groups.${group} = {};
 
     systemd.services.zabbix-agent = {
       description = "Zabbix Agent";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       # https://www.zabbix.com/documentation/current/manual/config/items/userparameters
       # > User parameters are commands executed by Zabbix agent.

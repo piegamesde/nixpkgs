@@ -36,7 +36,7 @@ buildPythonPackage rec {
     gtk3
     libayatana-appindicator
   ];
-  nativeCheckInputs = [ xvfb-run ];
+  nativeCheckInputs = [xvfb-run];
 
   checkPhase = ''
     rm tests/icon_tests.py # test needs user input
@@ -52,6 +52,6 @@ buildPythonPackage rec {
       lgpl3Plus
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jojosch ];
+    maintainers = with maintainers; [jojosch];
   };
 }

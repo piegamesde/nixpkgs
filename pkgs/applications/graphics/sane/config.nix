@@ -1,8 +1,8 @@
-{ lib, stdenv }:
+{lib, stdenv}:
 
 {
   paths,
-  disabledDefaultBackends ? [ ],
+  disabledDefaultBackends ? [],
 }:
 
 with lib;

@@ -20,7 +20,7 @@ let
   };
 
   appimageContents =
-    runCommand "${pname}-extracted" { nativeBuildInputs = [ appimageTools.appimage-exec ]; }
+    runCommand "${pname}-extracted" {nativeBuildInputs = [appimageTools.appimage-exec];}
       ''
         appimage-exec.sh -x $out ${src}/${pname}-${version}/${pname}
       '';
@@ -39,7 +39,7 @@ let
     type = "Application";
     icon = "jetbrains-toolbox";
     terminal = false;
-    categories = [ "Development" ];
+    categories = ["Development"];
     startupWMClass = "jetbrains-toolbox";
     startupNotify = false;
   };
@@ -66,7 +66,7 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  desktopItems = [ desktopItem ];
+  desktopItems = [desktopItem];
 
   # Disabling the tests, this seems to be very difficult to test this app.
   doCheck = false;
@@ -75,7 +75,7 @@ stdenv.mkDerivation {
     description = "Jetbrains Toolbox";
     homepage = "https://jetbrains.com/";
     license = licenses.unfree;
-    maintainers = with maintainers; [ AnatolyPopov ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [AnatolyPopov];
+    platforms = ["x86_64-linux"];
   };
 }

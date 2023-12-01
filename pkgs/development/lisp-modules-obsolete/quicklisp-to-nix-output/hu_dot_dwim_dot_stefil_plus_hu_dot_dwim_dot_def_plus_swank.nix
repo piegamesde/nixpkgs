@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank";
   version = "hu.dwim.stefil-20200218-darcs";
@@ -27,7 +27,7 @@ rec {
 
   packageName = "hu.dwim.stefil+hu.dwim.def+swank";
 
-  asdFilesToKeep = [ "hu.dwim.stefil+hu.dwim.def+swank.asd" ];
+  asdFilesToKeep = ["hu.dwim.stefil+hu.dwim.def+swank.asd"];
   overrides = x: x;
 }
 /* (SYSTEM hu.dwim.stefil+hu.dwim.def+swank DESCRIPTION

@@ -59,9 +59,9 @@ rec {
       libunistring
       python39.pkgs.jinja2
     ];
-    propagatedBuildInputs = [ gnunet ];
+    propagatedBuildInputs = [gnunet];
 
-    configureFlags = [ "--with-gnunet=${gnunet}" ];
+    configureFlags = ["--with-gnunet=${gnunet}"];
     preConfigure = ''
       ./contrib/gana-update.sh
     '';
@@ -88,7 +88,7 @@ rec {
       '';
       homepage = "https://taler.net/";
       license = licenses.agpl3Plus;
-      maintainers = with maintainers; [ astro ];
+      maintainers = with maintainers; [astro];
       platforms = platforms.linux;
     };
   };
@@ -116,7 +116,7 @@ rec {
       # for ltdl.h
       libtool
     ];
-    propagatedBuildInputs = [ gnunet ];
+    propagatedBuildInputs = [gnunet];
 
     configureFlags = [
       "--with-gnunet=${gnunet}"
@@ -125,7 +125,7 @@ rec {
 
     enableParallelBuilding = true;
 
-    nativeCheckInputs = [ jq ];
+    nativeCheckInputs = [jq];
     doInstallCheck = true;
     checkTarget = "check";
 
@@ -140,7 +140,7 @@ rec {
       '';
       homepage = "https://taler.net/";
       license = licenses.agpl3Plus;
-      maintainers = with maintainers; [ astro ];
+      maintainers = with maintainers; [astro];
       platforms = platforms.linux;
     };
   };

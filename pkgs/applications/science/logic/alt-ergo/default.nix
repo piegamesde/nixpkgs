@@ -24,9 +24,9 @@ let
   alt-ergo-lib = ocamlPackages.buildDunePackage rec {
     pname = "alt-ergo-lib";
     inherit version src configureScript;
-    configureFlags = [ pname ];
-    nativeBuildInputs = [ which ];
-    buildInputs = with ocamlPackages; [ dune-configurator ];
+    configureFlags = [pname];
+    nativeBuildInputs = [which];
+    buildInputs = with ocamlPackages; [dune-configurator];
     propagatedBuildInputs = with ocamlPackages; [
       num
       ocplib-simplex
@@ -44,13 +44,13 @@ let
   alt-ergo-parsers = ocamlPackages.buildDunePackage rec {
     pname = "alt-ergo-parsers";
     inherit version src configureScript;
-    configureFlags = [ pname ];
+    configureFlags = [pname];
     nativeBuildInputs = [
       which
       ocamlPackages.menhir
     ];
     propagatedBuildInputs =
-      [ alt-ergo-lib ]
+      [alt-ergo-lib]
       ++ (
         with ocamlPackages; [
           camlzip
@@ -69,7 +69,7 @@ ocamlPackages.buildDunePackage {
     configureScript
     ;
 
-  configureFlags = [ pname ];
+  configureFlags = [pname];
 
   nativeBuildInputs = [
     which
@@ -84,6 +84,6 @@ ocamlPackages.buildDunePackage {
     description = "High-performance theorem prover and SMT solver";
     homepage = "https://alt-ergo.ocamlpro.com/";
     license = lib.licenses.ocamlpro_nc;
-    maintainers = [ lib.maintainers.thoughtpolice ];
+    maintainers = [lib.maintainers.thoughtpolice];
   };
 }

@@ -1,12 +1,12 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "owncast";
-    meta = with pkgs.lib.maintainers; { maintainers = [ MayNiklas ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [MayNiklas];};
 
     nodes = {
       client =
-        { pkgs, ... }:
+        {pkgs, ...}:
         with pkgs.lib; {
           networking = {
             dhcpcd.enable = false;
@@ -25,7 +25,7 @@ import ./make-test-python.nix (
           };
         };
       server =
-        { pkgs, ... }:
+        {pkgs, ...}:
         with pkgs.lib; {
           networking = {
             dhcpcd.enable = false;
@@ -44,7 +44,7 @@ import ./make-test-python.nix (
               }
             ];
 
-            firewall.allowedTCPPorts = [ 8080 ];
+            firewall.allowedTCPPorts = [8080];
           };
 
           services.owncast = {

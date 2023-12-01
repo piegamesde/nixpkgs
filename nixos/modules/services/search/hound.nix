@@ -37,8 +37,8 @@ in
 
       extraGroups = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "dialout" ];
+        default = [];
+        example = ["dialout"];
         description = lib.mdDoc ''
           List of extra groups that the "hound" user should be a part of.
         '';
@@ -96,7 +96,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    users.groups = optionalAttrs (cfg.group == "hound") { hound.gid = config.ids.gids.hound; };
+    users.groups = optionalAttrs (cfg.group == "hound") {hound.gid = config.ids.gids.hound;};
 
     users.users = optionalAttrs (cfg.user == "hound") {
       hound = {
@@ -111,8 +111,8 @@ in
 
     systemd.services.hound = {
       description = "Hound Code Search";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         User = cfg.user;

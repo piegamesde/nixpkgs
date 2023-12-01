@@ -29,7 +29,7 @@ let
     else
       {
         prePatch = "";
-        extraBuildInputs = [ ];
+        extraBuildInputs = [];
       };
 in
 
@@ -59,6 +59,6 @@ buildPythonPackage rec {
     description = "A server framework for web apps with an Elm frontend";
     homepage = "https://github.com/ensoft/entrance";
     license = licenses.mit;
-    maintainers = with maintainers; [ simonchatts ];
+    maintainers = with maintainers; [simonchatts];
   };
 }

@@ -21,7 +21,7 @@ buildPythonPackage rec {
     sha256 = "1j7skyxldir3mphvnsyhjxmf3cimv4h7n5v58jl2gff4yd0hdw7g";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   patches =
     [
@@ -33,17 +33,17 @@ buildPythonPackage rec {
       })
     ];
 
-  propagatedBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [setuptools];
 
   # Tests require a running NATS server
   doCheck = false;
 
-  pythonImportsCheck = [ "pynats" ];
+  pythonImportsCheck = ["pynats"];
 
   meta = with lib; {
     description = "Python client for NATS messaging system";
     homepage = "https://github.com/Gr1N/nats-python";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

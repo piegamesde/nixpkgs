@@ -16,7 +16,7 @@
 
 let
 
-  pkgs = import ../../../../default.nix { };
+  pkgs = import ../../../../default.nix {};
 
   sbcl = "${pkgs.sbcl}/bin/sbcl --script";
 
@@ -28,6 +28,6 @@ let
 
   sbclWithPackages = pkgs.lispPackages_new.lispWithPackagesInternal sbclPackages;
 
-  sbcl-bt = sbclWithPackages (p: [ p.bordeaux-threads ]);
+  sbcl-bt = sbclWithPackages (p: [p.bordeaux-threads]);
 in
 sbcl-bt

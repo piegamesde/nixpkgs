@@ -3,7 +3,7 @@
 
   nodes = {
     nullConf =
-      { ... }:
+      {...}:
       {
         services.adguardhome = {
           enable = true;
@@ -11,16 +11,16 @@
       };
 
     emptyConf =
-      { lib, ... }:
+      {lib, ...}:
       {
         services.adguardhome = {
           enable = true;
-          settings = { };
+          settings = {};
         };
       };
 
     declarativeConf =
-      { ... }:
+      {...}:
       {
         services.adguardhome = {
           enable = true;
@@ -37,7 +37,7 @@
       };
 
     mixedConf =
-      { ... }:
+      {...}:
       {
         services.adguardhome = {
           enable = true;

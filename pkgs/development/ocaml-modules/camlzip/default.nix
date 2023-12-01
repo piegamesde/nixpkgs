@@ -9,7 +9,7 @@
 
 let
   common = {
-    patches = [ ];
+    patches = [];
     postPatchInit = ''
       cp META-zip META-camlzip
       echo 'directory="../zip"' >> META-camlzip
@@ -36,7 +36,7 @@ let
         download_id = "1037";
         url = "http://forge.ocamlcore.org/frs/download.php/${param.download_id}/camlzip-${param.version}.tar.gz";
         sha256 = "930b70c736ab5a7ed1b05220102310a0a2241564786657abe418e834a538d06b";
-        patches = [ ./makefile_1_05.patch ];
+        patches = [./makefile_1_05.patch];
         postPatchInit = ''
           substitute ${./META} META --subst-var-by VERSION "${param.version}"
         '';
@@ -57,7 +57,7 @@ stdenv.mkDerivation {
     findlib
   ];
 
-  propagatedBuildInputs = [ zlib ];
+  propagatedBuildInputs = [zlib];
 
   strictDeps = true;
 
@@ -92,6 +92,6 @@ stdenv.mkDerivation {
     '';
     license = "LGPL+linking exceptions";
     inherit (ocaml.meta) platforms;
-    maintainers = with maintainers; [ maggesi ];
+    maintainers = with maintainers; [maggesi];
   };
 }

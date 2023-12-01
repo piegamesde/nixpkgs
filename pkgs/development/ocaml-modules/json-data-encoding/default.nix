@@ -19,7 +19,7 @@ buildDunePackage rec {
     hash = "sha256-ticulOKiFNQIZNFOQE9UQOw/wqRfygQwLVIc4kkmwg4=";
   };
 
-  propagatedBuildInputs = [ uri ];
+  propagatedBuildInputs = [uri];
 
   checkInputs = [
     crowbar
@@ -32,6 +32,6 @@ buildDunePackage rec {
     homepage = "https://gitlab.com/nomadic-labs/json-data-encoding";
     description = "Type-safe encoding to and decoding from JSON";
     license = lib.licenses.lgpl3;
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

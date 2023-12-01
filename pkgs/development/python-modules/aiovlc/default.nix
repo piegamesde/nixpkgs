@@ -28,7 +28,7 @@ buildPythonPackage rec {
       " --cov=aiovlc --cov-report=term-missing:skip-covered" ""
   '';
 
-  propagatedBuildInputs = [ click ];
+  propagatedBuildInputs = [click];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -36,13 +36,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aiovlc" ];
+  pythonImportsCheck = ["aiovlc"];
 
   meta = with lib; {
     description = "Python module to control VLC";
     homepage = "https://github.com/MartinHjelmare/aiovlc";
     changelog = "https://github.com/MartinHjelmare/aiovlc/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

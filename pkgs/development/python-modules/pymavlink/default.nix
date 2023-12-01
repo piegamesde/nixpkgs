@@ -26,7 +26,7 @@ buildPythonPackage rec {
   # commit is included.
   doCheck = false;
 
-  pythonImportsCheck = [ "pymavlink" ];
+  pythonImportsCheck = ["pymavlink"];
 
   meta = with lib; {
     description = "Python MAVLink interface and utilities";
@@ -35,6 +35,6 @@ buildPythonPackage rec {
       lgpl3Plus
       mit
     ];
-    maintainers = with maintainers; [ lopsided98 ];
+    maintainers = with maintainers; [lopsided98];
   };
 }

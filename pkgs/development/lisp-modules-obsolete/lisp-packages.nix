@@ -25,10 +25,10 @@ let
       baseName = "quicklisp";
       version = "2021-02-13";
 
-      buildSystems = [ ];
+      buildSystems = [];
 
       description = "The Common Lisp package manager";
-      deps = [ ];
+      deps = [];
       src = pkgs.fetchFromGitHub {
         owner = "quicklisp";
         repo = "quicklisp-client";
@@ -56,7 +56,7 @@ let
       pname = "quicklisp-to-nix-system-info";
       version = "1.0.0";
       src = ./quicklisp-to-nix;
-      nativeBuildInputs = [ sbcl ];
+      nativeBuildInputs = [sbcl];
       buildInputs = [
         lispPackages.quicklisp
         coreutils
@@ -91,7 +91,7 @@ let
       touch = coreutils;
       nix-prefetch-url = nix;
       inherit quicklisp;
-      deps = [ ];
+      deps = [];
       system-info = quicklisp-to-nix-system-info;
       buildPhase = ''
         ${clwrapper}/bin/cl-wrapper.sh "${sbcl}/bin/sbcl" --eval '(load #P"${asdf}/lib/common-lisp/asdf/build/asdf.lisp")' --load $src/ql-to-nix.lisp --eval '(ql-to-nix::dump-image)'
@@ -107,8 +107,8 @@ let
       baseName = "clx-truetype";
       version = "20160825-git";
 
-      buildSystems = [ "clx-truetype" ];
-      parasites = [ "clx-truetype-test" ];
+      buildSystems = ["clx-truetype"];
+      parasites = ["clx-truetype-test"];
 
       description = "clx-truetype is pure common lisp solution for antialiased TrueType font rendering using CLX and XRender extension.";
       deps = with pkgs.lispPackages; [
@@ -131,7 +131,7 @@ let
 
       packageName = "clx-truetype";
 
-      asdFilesToKeep = [ "clx-truetype.asd" ];
+      asdFilesToKeep = ["clx-truetype.asd"];
     };
     cluffer = buildLispPackage rec {
       baseName = "cluffer";
@@ -145,7 +145,7 @@ let
         "cluffer-standard-line"
         "cluffer"
       ];
-      parasites = [ "cluffer-test" ];
+      parasites = ["cluffer-test"];
 
       description = "General purpose text-editor buffer";
       deps = with pkgs.lispPackages; [
@@ -197,10 +197,10 @@ let
         '';
 
         # Prevent nyxt from trying to obtain dependencies as submodules
-        makeFlags = [ "NYXT_SUBMODULES=false" ] ++ x.buildFlags or [ ];
+        makeFlags = ["NYXT_SUBMODULES=false"] ++ x.buildFlags or [];
 
         patches =
-          x.patches or [ ]
+          x.patches or []
           ++ [
             # Work around crash when opening _any_ URL
             # https://github.com/atlas-engineer/nyxt/issues/1781
@@ -303,7 +303,7 @@ let
         "mgl/test"
       ];
       packageName = "mgl";
-      parasites = [ "mgl/test" ];
+      parasites = ["mgl/test"];
       asdFilesToKeep = [
         "mgl.asd"
         "mgl-example.asd"
@@ -342,8 +342,8 @@ let
         "mgl-mat"
         "mgl-mat/test"
       ];
-      parasites = [ "mgl-mat/test" ];
-      asdFilesToKeep = [ "mgl-mat.asd" ];
+      parasites = ["mgl-mat/test"];
+      asdFilesToKeep = ["mgl-mat.asd"];
     };
   };
 in

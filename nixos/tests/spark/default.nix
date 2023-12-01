@@ -1,11 +1,11 @@
 import ../make-test-python.nix (
-  { ... }:
+  {...}:
   {
     name = "spark";
 
     nodes = {
       worker =
-        { nodes, pkgs, ... }:
+        {nodes, pkgs, ...}:
         {
           services.spark.worker = {
             enable = true;
@@ -14,7 +14,7 @@ import ../make-test-python.nix (
           virtualisation.memorySize = 2048;
         };
       master =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         {
           services.spark.master = {
             enable = true;

@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Open Collaboration System for use with DE store websites";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ SohamG ];
+    maintainers = with maintainers; [SohamG];
     platforms = platforms.linux;
   };
 }

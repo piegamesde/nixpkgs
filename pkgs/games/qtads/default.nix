@@ -43,6 +43,6 @@ mkDerivation rec {
     description = "Multimedia interpreter for TADS games";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

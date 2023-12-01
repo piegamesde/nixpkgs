@@ -74,7 +74,7 @@ let
     rev = 144;
     sha256 = "sha256-JfmDIUoDY7dYdMgwwUMgcwNhWxuxsdkv1taw8DXhPY4=";
   };
-  packs = runCommand "gtkradiant-packs" { } ''
+  packs = runCommand "gtkradiant-packs" {} ''
     mkdir -p $out
     ln -s ${q3Pack} $out/Q3Pack
     ln -s ${urtPack} $out/UrTPack
@@ -112,7 +112,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs =
     let
-      python = python3.withPackages (ps: with ps; [ urllib3 ]);
+      python = python3.withPackages (ps: with ps; [urllib3]);
       svn = writeScriptBin "svn" ''
         #!${runtimeShell} -e
         if [ "$1" = checkout ]; then
@@ -154,7 +154,7 @@ stdenv.mkDerivation rec {
       exec = "gtkradiant";
       desktopName = "GtkRadiant";
       comment = meta.description;
-      categories = [ "Development" ];
+      categories = ["Development"];
       icon = "gtkradiant";
       # includes its own splash screen
       startupNotify = false;
@@ -180,7 +180,7 @@ stdenv.mkDerivation rec {
       bsdOriginal
       lgpl21Only
     ];
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
     platforms = platforms.unix;
   };
 }

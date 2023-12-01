@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "trezord";
     meta = with pkgs.lib; {
@@ -10,7 +10,7 @@ import ./make-test-python.nix (
     };
     nodes = {
       machine =
-        { ... }:
+        {...}:
         {
           services.trezord.enable = true;
           services.trezord.emulator.enable = true;

@@ -57,6 +57,6 @@ ocamlPackages.buildDunePackage {
     homepage = "https://soupault.app/";
     changelog = "https://codeberg.org/PataphysicalSociety/soupault/src/branch/main/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ toastal ];
+    maintainers = with lib.maintainers; [toastal];
   };
 }

@@ -28,7 +28,7 @@ let
       sha256 = "175gmkdccy8rnkd95h2zqldqfydyji1hfby8b1qbnl8wz4dh08mz";
     };
 
-    nativeBuildInputs = [ zip ];
+    nativeBuildInputs = [zip];
 
     buildPhase = ''
       sh create_smod.sh
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
     gamenetworkingsockets
   ];
   # TODO(@sternenseemann): set proper rpath via cmake, so we don't need autoPatchelfHook
-  runtimeDependencies = [ xorg.libX11 ];
+  runtimeDependencies = [xorg.libX11];
 
   # make sure soldat{,server} find their game archive,
   # let them write their state and configuration files
@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
       base.meta.license
     ];
     inherit (src.meta) homepage;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
     platforms = [
       "x86_64-linux"
       "i686-linux"

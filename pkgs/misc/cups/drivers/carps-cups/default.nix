@@ -31,12 +31,12 @@ stdenv.mkDerivation {
     install -m 644 carps.usb-quirks $CUPSDATADIR/usb/
   '';
 
-  buildInputs = [ cups ];
+  buildInputs = [cups];
 
   meta = with lib; {
     description = "CUPS Linux drivers for Canon printers";
     homepage = "https://www.canon.com/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ewok ];
+    maintainers = with maintainers; [ewok];
   };
 }

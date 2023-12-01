@@ -28,12 +28,12 @@ buildPythonPackage rec {
   # https://github.com/Cebeerre/pysecuritas/issues/13
   doCheck = false;
 
-  pythonImportsCheck = [ "pysecuritas" ];
+  pythonImportsCheck = ["pysecuritas"];
 
   meta = with lib; {
     description = "Python client to access Securitas Direct Mobile API";
     homepage = "https://github.com/Cebeerre/pysecuritas";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

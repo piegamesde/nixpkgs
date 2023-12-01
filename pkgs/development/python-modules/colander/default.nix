@@ -29,14 +29,14 @@ buildPythonPackage rec {
     iso8601
   ];
 
-  pythonImportsCheck = [ "colander" ];
+  pythonImportsCheck = ["colander"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "A simple schema-based serialization and deserialization library";
     homepage = "https://github.com/Pylons/colander";
     license = licenses.free; # http://repoze.org/LICENSE.txt
-    maintainers = with maintainers; [ domenkozar ];
+    maintainers = with maintainers; [domenkozar];
   };
 }

@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Calculates rank-width and rank-decompositions";
-    license = with licenses; [ gpl2Plus ];
+    license = with licenses; [gpl2Plus];
     maintainers = teams.sage.members;
     platforms = platforms.unix;
   };

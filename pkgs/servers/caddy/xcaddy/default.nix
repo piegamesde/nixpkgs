@@ -8,7 +8,7 @@ buildGoModule rec {
   pname = "xcaddy";
   version = "0.3.3";
 
-  subPackages = [ "cmd/xcaddy" ];
+  subPackages = ["cmd/xcaddy"];
 
   src = fetchFromGitHub {
     owner = "caddyserver";

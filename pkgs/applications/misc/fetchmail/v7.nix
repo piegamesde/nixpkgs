@@ -26,7 +26,7 @@ stdenv.mkDerivation {
     flex
   ];
 
-  configureFlags = [ "--with-ssl=${pkgs.openssl.dev}" ];
+  configureFlags = ["--with-ssl=${pkgs.openssl.dev}"];
 
   postInstall = ''
     cp -a contrib/. $out/share/fetchmail-contrib

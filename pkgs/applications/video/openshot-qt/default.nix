@@ -29,7 +29,7 @@ mkDerivationWith python3.pkgs.buildPythonApplication rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   propagatedBuildInputs = with python3.pkgs; [
     httplib2
@@ -79,7 +79,7 @@ mkDerivationWith python3.pkgs.buildPythonApplication rec {
       Vimeo, Xbox 360, and many other common formats.
     '';
     license = with licenses; gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = with platforms; unix;
   };
 }

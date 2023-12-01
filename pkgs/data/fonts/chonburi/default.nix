@@ -40,6 +40,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ maintainers.toastal ];
+    maintainers = [maintainers.toastal];
   };
 }

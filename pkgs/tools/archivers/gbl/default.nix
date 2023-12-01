@@ -38,10 +38,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-CeGLSseKUe2XudRqZm5Y7o7ZLDtDBg/MFunOGqxFZGM=";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl] ++ lib.optionals stdenv.isDarwin [Security];
 
-  passthru.tests.version = testers.testVersion { package = gbl; };
+  passthru.tests.version = testers.testVersion {package = gbl;};
 
   meta = with lib; {
     description = "GBL Firmware file manipulation";
@@ -51,6 +51,6 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/jonas-schievink/gbl";
     license = licenses.mit;
-    maintainers = [ maintainers.raboof ];
+    maintainers = [maintainers.raboof];
   };
 }

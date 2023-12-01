@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-S6OVKYulhvEPRqNXBsvZ7m2W4cbdnrpZKPAo3SfD+9s=";
   };
 
-  patches = [ ./fix-configure-path.patch ];
+  patches = [./fix-configure-path.patch];
   configureScript = "./configure.sh";
   configureFlags = [
     "--shared"
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   ];
 
   enableParallelBuilding = true;
-  installTargets = [ "install.everything" ];
+  installTargets = ["install.everything"];
 
   doCheck = true;
 
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "Implementation of Markdown markup language in C";
     homepage = "http://www.pell.portland.or.us/~orc/Code/discount/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ shell ];
+    maintainers = with maintainers; [shell];
     mainProgram = "markdown";
     platforms = platforms.unix;
   };

@@ -32,13 +32,13 @@ stdenv.mkDerivation rec {
     sh bootstrap
   '';
 
-  configureFlags = [ "--prefix=${placeholder "out"}" ];
+  configureFlags = ["--prefix=${placeholder "out"}"];
 
   postInstall = ''
     wrapProgram $out/bin/ros \
       --set image `basename $out` \
       --add-flags 'lisp=sbcl-bin/system sbcl-bin.version=system -L sbcl-bin' \
-      --prefix PATH : ${lib.makeBinPath [ sbcl ]} --argv0 ros
+      --prefix PATH : ${lib.makeBinPath [sbcl]} --argv0 ros
   '';
 
   nativeBuildInputs = [
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Lisp implementation installer/manager and launcher";
     license = licenses.mit;
-    maintainers = with maintainers; [ hiro98 ];
+    maintainers = with maintainers; [hiro98];
     platforms = platforms.unix;
     homepage = "https://github.com/roswell/roswell";
     changelog = "https://github.com/roswell/roswell/blob/v${version}/ChangeLog";

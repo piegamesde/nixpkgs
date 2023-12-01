@@ -38,13 +38,13 @@ stdenv.mkDerivation rec {
   ];
 
   # https://github.com/iurie-sw/geonkick/issues/120
-  cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
+  cmakeFlags = ["-DCMAKE_INSTALL_LIBDIR=lib"];
 
   meta = with lib; {
     homepage = "https://gitlab.com/iurie-sw/geonkick";
     description = "A free software percussion synthesizer";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
   };
 }

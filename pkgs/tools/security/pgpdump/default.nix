@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.mew.org/~kazu/proj/pgpdump/en/";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
   };
 }

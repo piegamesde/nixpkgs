@@ -26,7 +26,7 @@ buildPythonPackage rec {
     uvloop
   ];
 
-  pythonImportsCheck = [ "pproxy" ];
+  pythonImportsCheck = ["pproxy"];
   disabledTests = [
     "api_server"
     "api_client"
@@ -44,6 +44,6 @@ buildPythonPackage rec {
     description = "Proxy server that can tunnel among remote servers by regex rules";
     homepage = "https://github.com/qwj/python-proxy";
     license = licenses.mit;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

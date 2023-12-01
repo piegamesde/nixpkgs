@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
     description = "C Library for manipulating module metadata files";
     homepage = "https://github.com/fedora-modularity/libmodulemd";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

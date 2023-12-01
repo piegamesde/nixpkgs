@@ -8,7 +8,7 @@
   fixup_yarn_lock,
   writeText,
   jq,
-  conf ? { },
+  conf ? {},
 }:
 
 let

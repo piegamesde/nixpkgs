@@ -25,12 +25,12 @@ stdenv.mkDerivation rec {
   # directory of the script, which is not writable due to being
   # inside the nix store. This patch changes the script to download
   # the models to the current directory of where it is being run from.
-  patches = [ ./download-models.patch ];
+  patches = [./download-models.patch];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs =
-    [ SDL2 ]
+    [SDL2]
     ++ lib.optionals stdenv.isDarwin [
       Accelerate
       CoreGraphics
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     cp models/download-ggml-model.sh $out/bin/whisper-cpp-download-ggml-model
 
     wrapProgram $out/bin/whisper-cpp-download-ggml-model \
-      --prefix PATH : ${lib.makeBinPath [ wget ]}
+      --prefix PATH : ${lib.makeBinPath [wget]}
 
     runHook postInstall
   '';
@@ -66,6 +66,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ggerganov/whisper.cpp";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

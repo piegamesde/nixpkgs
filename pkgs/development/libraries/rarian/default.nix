@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "aafe886d46e467eb3414e91fa9e42955bd4b618c3e19c42c773026b205a84577";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       libxml2
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
         XMLParser
       ]
     );
-  configureFlags = [ "--with-xml-catalog=${docbook_xml_dtd_42}/xml/dtd/docbook/docbook.cat" ];
+  configureFlags = ["--with-xml-catalog=${docbook_xml_dtd_42}/xml/dtd/docbook/docbook.cat"];
 
   meta = with lib; {
     description = "Documentation metadata library based on the proposed Freedesktop.org spec";

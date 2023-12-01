@@ -27,7 +27,7 @@ stdenv.mkDerivation (
       "man"
     ];
 
-    nativeBuildInputs = lib.optionals buildDocs [ tex ];
+    nativeBuildInputs = lib.optionals buildDocs [tex];
 
     postPatch =
       lib.optionalString (!buildDocs) ''
@@ -59,7 +59,7 @@ stdenv.mkDerivation (
         are used in workstations and PCs.
       '';
       license = licenses.gpl2Plus;
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       platforms = platforms.unix;
     };
   }

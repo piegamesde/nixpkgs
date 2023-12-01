@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     ddccontrol-db
   ];
 
-  configureFlags = [ "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system" ];
+  configureFlags = ["--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"];
 
   prePatch =
     ''
@@ -62,6 +62,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ddccontrol/ddccontrol";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with lib.maintainers; [ pakhfn ];
+    maintainers = with lib.maintainers; [pakhfn];
   };
 }

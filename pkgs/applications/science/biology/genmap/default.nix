@@ -19,10 +19,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-7sIKBRMNzyCrZ/c2nXkknb6a5YsXe6DRE2IFhp6AviY=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   doCheck = true;
-  patches = [ ./gtest.patch ];
+  patches = [./gtest.patch];
   nativeCheckInputs = [
     gtest
     which
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "Ultra-fast computation of genome mappability";
     license = lib.licenses.bsd3;
     homepage = "https://github.com/cpockrandt/genmap";
-    maintainers = with lib.maintainers; [ jbedo ];
+    maintainers = with lib.maintainers; [jbedo];
     platforms = lib.platforms.unix;
   };
 }

@@ -22,7 +22,7 @@
 
 let
   fetchPatchFromAur =
-    { name, sha256 }:
+    {name, sha256}:
     fetchpatch {
       inherit name sha256;
       url = "https://aur.archlinux.org/cgit/aur.git/plain/${name}?h=e6cc6bc80c672aaa1a2260abfe8823da299a192c";
@@ -128,7 +128,7 @@ stdenv.mkDerivation rec {
     description = "a DVD authoring program for personal computers";
     homepage = "https://www.bombono.org/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ symphorien ];
+    maintainers = with maintainers; [symphorien];
     platforms = platforms.linux;
   };
 }

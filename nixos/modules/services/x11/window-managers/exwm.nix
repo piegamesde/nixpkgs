@@ -16,7 +16,7 @@ let
       (exwm-config-default)
     ''}
   '';
-  packages = epkgs: cfg.extraPackages epkgs ++ [ epkgs.exwm ];
+  packages = epkgs: cfg.extraPackages epkgs ++ [epkgs.exwm];
   exwm-emacs = pkgs.emacsWithPackages packages;
 in
 
@@ -44,7 +44,7 @@ in
       };
       extraPackages = mkOption {
         type = types.functionTo (types.listOf types.package);
-        default = epkgs: [ ];
+        default = epkgs: [];
         defaultText = literalExpression "epkgs: []";
         example = literalExpression ''
           epkgs: [
@@ -69,6 +69,6 @@ in
         ${exwm-emacs}/bin/emacs -l ${loadScript}
       '';
     };
-    environment.systemPackages = [ exwm-emacs ];
+    environment.systemPackages = [exwm-emacs];
   };
 }

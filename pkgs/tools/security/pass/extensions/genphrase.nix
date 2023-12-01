@@ -18,11 +18,11 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
-  installTargets = [ "globalinstall" ];
+  installTargets = ["globalinstall"];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   postFixup = ''
     substituteInPlace $out/lib/password-store/extensions/genphrase.bash \
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "Pass extension that generates memorable passwords";
     homepage = "https://github.com/congma/pass-genphrase";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ seqizz ];
+    maintainers = with maintainers; [seqizz];
     platforms = platforms.unix;
   };
 }

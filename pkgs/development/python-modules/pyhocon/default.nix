@@ -38,7 +38,7 @@ buildPythonPackage rec {
       --replace "pyparsing~=2.0" "pyparsing>=2.0"
   '';
 
-  pythonImportsCheck = [ "pyhocon" ];
+  pythonImportsCheck = ["pyhocon"];
 
   disabledTestPaths =
     [
@@ -62,6 +62,6 @@ buildPythonPackage rec {
       any HOCON content into JSON, YAML and properties format.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ chreekat ];
+    maintainers = with maintainers; [chreekat];
   };
 }

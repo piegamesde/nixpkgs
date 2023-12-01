@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-eVnoLG+06UTOkvGhzL/XS4JBrEwbXYZ1fuNTIW7YAfE=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ xlib ];
+  propagatedBuildInputs = with python3Packages; [xlib];
 
   # no tests, no python module to import, no version output to check
   doCheck = false;
@@ -25,6 +25,6 @@ python3Packages.buildPythonApplication rec {
     description = "Paste text into X windows that don't work with selections";
     homepage = "https://github.com/ossobv/xpaste";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

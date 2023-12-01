@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "01zqplp8yb0xnl54963n0zkz66rf3hn2x3i255jlhdhx1c43jba7";
   };
 
-  buildInputs = [ perlPackages.perl ];
+  buildInputs = [perlPackages.perl];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     description = "A command line tool for examining and modifying plugins for the Elder Scrolls game Morrowind by Bethesda Softworks";
     homepage = "https://github.com/john-moonsugar/tes3cmd";
     license = licenses.mit;
-    maintainers = [ maintainers.marius851000 ];
+    maintainers = [maintainers.marius851000];
     platforms = platforms.linux;
   };
 }

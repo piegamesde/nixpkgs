@@ -16,13 +16,13 @@ let
   useMysql = cfg.database.type == "mysql";
   usePostgresql = cfg.database.type == "postgres";
   useSqlite = cfg.database.type == "sqlite3";
-  format = pkgs.formats.ini { };
+  format = pkgs.formats.ini {};
   configFile = pkgs.writeText "app.ini" ''
     APP_NAME = ${cfg.appName}
     RUN_USER = ${cfg.user}
     RUN_MODE = prod
 
-    ${generators.toINI { } cfg.settings}
+    ${generators.toINI {} cfg.settings}
 
     ${optionalString (cfg.extraConfig != null) cfg.extraConfig}
   '';
@@ -426,7 +426,7 @@ in
       };
 
       settings = mkOption {
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Gitea configuration. Refer to <https://docs.gitea.io/en-us/config-cheat-sheet/>
           for details on supported values.
@@ -587,7 +587,7 @@ in
       "cron.update_checker".ENABLED = lib.mkDefault false;
 
       database = mkMerge [
-        { DB_TYPE = cfg.database.type; }
+        {DB_TYPE = cfg.database.type;}
         (mkIf (useMysql || usePostgresql) {
           HOST =
             if cfg.database.socket != null then
@@ -598,8 +598,8 @@ in
           USER = cfg.database.user;
           PASSWD = "#dbpass#";
         })
-        (mkIf useSqlite { PATH = cfg.database.path; })
-        (mkIf usePostgresql { SSL_MODE = "disable"; })
+        (mkIf useSqlite {PATH = cfg.database.path;})
+        (mkIf usePostgresql {SSL_MODE = "disable";})
       ];
 
       repository = {
@@ -621,19 +621,19 @@ in
         INSTALL_LOCK = true;
       };
 
-      mailer = mkIf (cfg.mailerPasswordFile != null) { PASSWD = "#mailerpass#"; };
+      mailer = mkIf (cfg.mailerPasswordFile != null) {PASSWD = "#mailerpass#";};
 
       oauth2 = {
         JWT_SECRET = "#oauth2jwtsecret#";
       };
 
-      lfs = mkIf cfg.lfs.enable { PATH = cfg.lfs.contentDir; };
+      lfs = mkIf cfg.lfs.enable {PATH = cfg.lfs.contentDir;};
     };
 
     services.postgresql = optionalAttrs (usePostgresql && cfg.database.createDatabase) {
       enable = mkDefault true;
 
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -648,7 +648,7 @@ in
       enable = mkDefault true;
       package = mkDefault pkgs.mariadb;
 
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -697,7 +697,7 @@ in
       after = [
         "network.target"
       ] ++ lib.optional usePostgresql "postgresql.service" ++ lib.optional useMysql "mysql.service";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       path = [
         cfg.package
         pkgs.git
@@ -818,7 +818,7 @@ in
         ProtectKernelModules = true;
         ProtectKernelLogs = true;
         ProtectControlGroups = true;
-        RestrictAddressFamilies = [ "AF_UNIX AF_INET AF_INET6" ];
+        RestrictAddressFamilies = ["AF_UNIX AF_INET AF_INET6"];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         RestrictRealtime = true;
@@ -847,7 +847,7 @@ in
       };
     };
 
-    users.groups = mkIf (cfg.group == "gitea") { gitea = { }; };
+    users.groups = mkIf (cfg.group == "gitea") {gitea = {};};
 
     warnings =
       optional (cfg.database.password != "")
@@ -868,8 +868,8 @@ in
 
     systemd.services.gitea-dump = mkIf cfg.dump.enable {
       description = "gitea dump";
-      after = [ "gitea.service" ];
-      path = [ cfg.package ];
+      after = ["gitea.service"];
+      path = [cfg.package];
 
       environment = {
         USER = cfg.user;
@@ -889,8 +889,8 @@ in
 
     systemd.timers.gitea-dump = mkIf cfg.dump.enable {
       description = "Update timer for gitea-dump";
-      partOf = [ "gitea-dump.service" ];
-      wantedBy = [ "timers.target" ];
+      partOf = ["gitea-dump.service"];
+      wantedBy = ["timers.target"];
       timerConfig.OnCalendar = cfg.dump.interval;
     };
   };

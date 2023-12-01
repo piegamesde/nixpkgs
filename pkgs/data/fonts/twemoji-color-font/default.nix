@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
       cc-by-40
       mit
     ];
-    maintainers = [ maintainers.fgaz ];
+    maintainers = [maintainers.fgaz];
   };
 }

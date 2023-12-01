@@ -25,13 +25,13 @@ stdenv.mkDerivation rec {
     ninja
   ];
 
-  buildInputs = [ cairo ];
+  buildInputs = [cairo];
 
   meta = with lib; {
     homepage = "https://gitlab.com/mildlyparallel/pscircle";
     description = "Visualize Linux processes in a form of a radial tree";
     license = licenses.gpl2;
-    maintainers = [ maintainers.ldesgoui ];
+    maintainers = [maintainers.ldesgoui];
     platforms = platforms.linux;
   };
 }

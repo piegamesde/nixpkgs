@@ -80,7 +80,7 @@ in
           starterSuidPath = "/run/wrappers/bin/${cfg.package.projectName}-suid";
         }
       ));
-    environment.systemPackages = [ cfg.packageOverriden ];
+    environment.systemPackages = [cfg.packageOverriden];
     security.wrappers."${cfg.packageOverriden.projectName}-suid" = mkIf cfg.enableSuid {
       setuid = true;
       owner = "root";

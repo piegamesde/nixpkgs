@@ -37,7 +37,7 @@ stdenv.mkDerivation (
     ];
 
     buildInputs =
-      [ the-foundation ]
+      [the-foundation]
       ++ lib.optionals (!enableTUI) [
         fribidi
         harfbuzz
@@ -68,14 +68,14 @@ stdenv.mkDerivation (
     '';
 
     passthru = {
-      updateScript = nix-update-script { };
+      updateScript = nix-update-script {};
     };
 
     meta = with lib; {
       description = "A Beautiful Gemini Client";
       homepage = "https://gmi.skyjake.fi/lagrange/";
       license = licenses.bsd2;
-      maintainers = with maintainers; [ sikmir ];
+      maintainers = with maintainers; [sikmir];
       platforms = platforms.unix;
     };
   }

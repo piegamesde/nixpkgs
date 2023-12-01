@@ -53,12 +53,12 @@ buildPythonPackage rec {
   # Tests require network access
   doCheck = false;
 
-  pythonImportsCheck = [ "patrowl4py" ];
+  pythonImportsCheck = ["patrowl4py"];
 
   meta = with lib; {
     description = "Python API Client for PatrOwl";
     homepage = "https://github.com/Patrowl/Patrowl4py";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

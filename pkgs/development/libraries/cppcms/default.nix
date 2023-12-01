@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-aXAxx9FB/dIVxr5QkLZuIQamO7PlLwnugSDo78bAiiE=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     pcre
     zlib
@@ -28,13 +28,13 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  cmakeFlags = [ "--no-warn-unused-cli" ];
+  cmakeFlags = ["--no-warn-unused-cli"];
 
   meta = with lib; {
     homepage = "http://cppcms.com";
     description = "High Performance C++ Web Framework";
     platforms = platforms.linux;
     license = licenses.mit;
-    maintainers = [ maintainers.juliendehos ];
+    maintainers = [maintainers.juliendehos];
   };
 }

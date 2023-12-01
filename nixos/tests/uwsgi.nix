@@ -1,17 +1,17 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "uwsgi";
-    meta = with pkgs.lib.maintainers; { maintainers = [ lnl7 ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [lnl7];};
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         users.users.hello = {
           isSystemUser = true;
           group = "hello";
         };
-        users.groups.hello = { };
+        users.groups.hello = {};
 
         services.uwsgi = {
           enable = true;
@@ -19,7 +19,7 @@ import ./make-test-python.nix (
             "python3"
             "php"
           ];
-          capabilities = [ "CAP_NET_BIND_SERVICE" ];
+          capabilities = ["CAP_NET_BIND_SERVICE"];
           instance.type = "emperor";
 
           instance.vassals.hello = {
@@ -29,7 +29,7 @@ import ./make-test-python.nix (
             module = "wsgi:application";
             http = ":80";
             cap = "net_bind_service";
-            pythonPackages = self: [ self.flask ];
+            pythonPackages = self: [self.flask];
             chdir = pkgs.writeTextDir "wsgi.py" ''
               from flask import Flask
               import subprocess

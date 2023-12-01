@@ -75,7 +75,7 @@ stdenv.mkDerivation (
       '';
       changelog = "https://github.com/zaps166/QMPlay2/releases/tag/${finalAttrs.version}";
       license = lib.licenses.lgpl3Plus;
-      maintainers = with lib.maintainers; [ AndersonTorres ];
+      maintainers = with lib.maintainers; [AndersonTorres];
       platforms = lib.platforms.linux;
     };
   }

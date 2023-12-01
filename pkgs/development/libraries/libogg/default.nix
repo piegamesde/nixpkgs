@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://xiph.org/ogg/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.ehmry ];
+    maintainers = [maintainers.ehmry];
     platforms = platforms.all;
   };
 }

@@ -34,13 +34,13 @@ stdenv.mkDerivation rec {
   ];
 
   preBuild = "mkdir -p $out";
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
   meta = with lib; {
     homepage = "https://github.com/lvc/abi-dumper";
     description = "Dump ABI of an ELF object containing DWARF debug info";
     license = licenses.lgpl21;
-    maintainers = [ maintainers.bhipple ];
+    maintainers = [maintainers.bhipple];
     platforms = platforms.all;
   };
 }

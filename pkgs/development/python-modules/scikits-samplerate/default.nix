@@ -18,9 +18,9 @@ buildPythonPackage {
     hash = "sha256-7x03Q6VXfP9p8HCk15IDZ9HeqTyi5F1AlGX/otdh8VU=";
   };
 
-  buildInputs = [ libsamplerate ];
+  buildInputs = [libsamplerate];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   preConfigure = ''
     cat > site.cfg << END

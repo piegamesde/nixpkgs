@@ -3,13 +3,13 @@ f:
   system ? builtins.currentSystem,
   pkgs ? import ../.. {
     inherit system;
-    config = { };
-    overlays = [ ];
+    config = {};
+    overlays = [];
   },
   ...
 }@args:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 
 makeTest (
   if pkgs.lib.isFunction f then

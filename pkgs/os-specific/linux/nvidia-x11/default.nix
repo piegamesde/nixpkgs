@@ -29,9 +29,9 @@ let
           kernel,
           libsOnly ? false,
         }:
-        if libsOnly then { } else kernel
+        if libsOnly then {} else kernel
       )
-      { };
+      {};
 
   selectHighestVersion = a: b: if lib.versionOlder a.version b.version then b else a;
 in

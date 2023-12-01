@@ -36,9 +36,9 @@ in
   config = mkIf cfg.enable {
     systemd.user.services.urxvtd = {
       description = "urxvt terminal daemon";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
-      path = [ pkgs.xsel ];
+      wantedBy = ["graphical-session.target"];
+      partOf = ["graphical-session.target"];
+      path = [pkgs.xsel];
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/urxvtd -o";
         Environment = "RXVT_SOCKET=%t/urxvtd-socket";
@@ -47,9 +47,9 @@ in
       };
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     environment.variables.RXVT_SOCKET = "/run/user/$(id -u)/urxvtd-socket";
   };
 
-  meta.maintainers = with lib.maintainers; [ rnhmjoj ];
+  meta.maintainers = with lib.maintainers; [rnhmjoj];
 }

@@ -36,7 +36,7 @@ in
 
       listen = mkOption {
         type = types.listOf types.str;
-        default = [ "0.0.0.0:564" ];
+        default = ["0.0.0.0:564"];
         description = lib.mdDoc ''
           [ "IP:PORT" [,"IP:PORT",...] ]
           List the interfaces and ports that diod should listen on.
@@ -45,7 +45,7 @@ in
 
       exports = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           List the file systems that clients will be allowed to mount. All paths should
           be fully qualified. The exports table can include two types of element:
@@ -72,7 +72,7 @@ in
 
       exportopts = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Establish a default set of export options. These are overridden, not appended
           to, by opts attributes in an "exports" entry.
@@ -149,12 +149,12 @@ in
   };
 
   config = mkIf config.services.diod.enable {
-    environment.systemPackages = [ pkgs.diod ];
+    environment.systemPackages = [pkgs.diod];
 
     systemd.services.diod = {
       description = "diod 9P file server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         ExecStart = "${pkgs.diod}/sbin/diod -f -c ${diodConfig}";
       };

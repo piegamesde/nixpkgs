@@ -5,7 +5,7 @@
 }:
 let
 
-  shticker-book-unwritten-unwrapped = callPackage ./unwrapped.nix { };
+  shticker-book-unwritten-unwrapped = callPackage ./unwrapped.nix {};
 in
 buildFHSEnv {
   name = "shticker_book_unwritten";
@@ -26,7 +26,7 @@ buildFHSEnv {
     description = "Minimal CLI launcher for the Toontown Rewritten MMORPG";
     homepage = "https://github.com/JonathanHelianthicusDoe/shticker_book_unwritten";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.reedrw ];
+    maintainers = [maintainers.reedrw];
     platforms = platforms.linux;
   };
 }

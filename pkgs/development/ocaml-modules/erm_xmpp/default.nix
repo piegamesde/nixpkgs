@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     ocamlbuild
     camlp4
   ];
-  buildInputs = [ camlp4 ];
+  buildInputs = [camlp4];
   propagatedBuildInputs = [
     erm_xml
     mirage-crypto
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/hannesm/xmpp";
     description = "OCaml based XMPP implementation (fork)";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ sternenseemann ];
+    maintainers = with lib.maintainers; [sternenseemann];
     inherit (ocaml.meta) platforms;
   };
 }

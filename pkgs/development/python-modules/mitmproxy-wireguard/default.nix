@@ -30,7 +30,7 @@ buildPythonPackage rec {
   ];
 
   nativeBuildInputs =
-    [ setuptools-rust ]
+    [setuptools-rust]
     ++ (
       with rustPlatform; [
         cargoSetupHook
@@ -47,13 +47,13 @@ buildPythonPackage rec {
   # Module has no tests, only a test client
   doCheck = false;
 
-  pythonImportsCheck = [ "mitmproxy_wireguard" ];
+  pythonImportsCheck = ["mitmproxy_wireguard"];
 
   meta = with lib; {
     description = "WireGuard frontend for mitmproxy";
     homepage = "https://github.com/decathorpe/mitmproxy_wireguard";
     changelog = "https://github.com/decathorpe/mitmproxy_wireguard/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

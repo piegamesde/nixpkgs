@@ -1,16 +1,16 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "pomerium";
-    meta = with lib.maintainers; { maintainers = [ lukegb ]; };
+    meta = with lib.maintainers; {maintainers = [lukegb];};
 
     nodes =
       let
         base =
           myIP:
-          { pkgs, lib, ... }:
+          {pkgs, lib, ...}:
           {
-            virtualisation.vlans = [ 1 ];
+            virtualisation.vlans = [1];
             networking = {
               dhcpcd.enable = false;
               firewall.allowedTCPPorts = [
@@ -38,10 +38,10 @@ import ./make-test-python.nix (
       in
       {
         pomerium =
-          { pkgs, lib, ... }:
+          {pkgs, lib, ...}:
           {
-            imports = [ (base "192.168.1.1") ];
-            environment.systemPackages = with pkgs; [ chromium ];
+            imports = [(base "192.168.1.1")];
+            environment.systemPackages = with pkgs; [chromium];
             services.pomerium = {
               enable = true;
               settings = {
@@ -50,7 +50,7 @@ import ./make-test-python.nix (
                 authenticate_service_url = "http://pom-auth";
 
                 idp_provider = "oidc";
-                idp_scopes = [ "oidc" ];
+                idp_scopes = ["oidc"];
                 idp_client_id = "dummy";
                 idp_provider_url = "http://dummy-oidc";
 
@@ -64,7 +64,7 @@ import ./make-test-python.nix (
                   {
                     from = "https://login.required";
                     to = "http://192.168.1.2";
-                    allowed_domains = [ "my.domain" ];
+                    allowed_domains = ["my.domain"];
                     preserve_host_header = true;
                   }
                 ];
@@ -77,18 +77,18 @@ import ./make-test-python.nix (
             };
           };
         backend =
-          { pkgs, lib, ... }:
+          {pkgs, lib, ...}:
           {
-            imports = [ (base "192.168.1.2") ];
+            imports = [(base "192.168.1.2")];
             services.nginx.enable = true;
             services.nginx.virtualHosts."my.website" = {
-              root = pkgs.runCommand "testdir" { } ''
+              root = pkgs.runCommand "testdir" {} ''
                 mkdir "$out"
                 echo hello world > "$out/index.html"
               '';
             };
             services.nginx.virtualHosts."dummy-oidc" = {
-              root = pkgs.runCommand "testdir" { } ''
+              root = pkgs.runCommand "testdir" {} ''
                 mkdir -p "$out/.well-known"
                 cat <<EOF >"$out/.well-known/openid-configuration"
                   {
@@ -107,7 +107,7 @@ import ./make-test-python.nix (
       };
 
     testScript =
-      { ... }:
+      {...}:
       ''
         backend.wait_for_unit("nginx")
         backend.wait_for_open_port(80)

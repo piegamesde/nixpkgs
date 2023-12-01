@@ -16,7 +16,7 @@ buildPythonPackage rec {
     description = "Remote vanilla PDB (over TCP sockets).";
     homepage = "https://github.com/ionelmc/python-remote-pdb";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
     platforms = platforms.all;
   };
 }

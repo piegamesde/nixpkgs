@@ -36,6 +36,6 @@ stdenvNoCC.mkDerivation rec {
     */
     license = licenses.free;
     platforms = platforms.all;
-    maintainers = with maintainers; [ rlupton20 ];
+    maintainers = with maintainers; [rlupton20];
   };
 }

@@ -7,7 +7,7 @@
 with lib;
 let
   cfg = config.services.karma;
-  yaml = pkgs.formats.yaml { };
+  yaml = pkgs.formats.yaml {};
 in
 {
   options.services.karma = {
@@ -34,7 +34,7 @@ in
 
     environment = mkOption {
       type = with types; attrsOf str;
-      default = { };
+      default = {};
       description = mdDoc ''
         Additional environment variables to provide to karma.
       '';
@@ -54,11 +54,11 @@ in
 
     extraOptions = mkOption {
       type = with types; listOf str;
-      default = [ ];
+      default = [];
       description = mdDoc ''
         Extra command line options.
       '';
-      example = [ "--alertmanager.timeout 10s" ];
+      example = ["--alertmanager.timeout 10s"];
     };
 
     settings = mkOption {
@@ -117,7 +117,7 @@ in
   config = mkIf cfg.enable {
     systemd.services.karma = {
       description = "Alert dashboard for Prometheus Alertmanager";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       environment = cfg.environment;
       serviceConfig = {
         Type = "simple";
@@ -126,6 +126,6 @@ in
         ExecStart = "${pkgs.karma}/bin/karma --config.file ${cfg.configFile} ${concatStringsSep " " cfg.extraOptions}";
       };
     };
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.settings.listen.port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.settings.listen.port];
   };
 }

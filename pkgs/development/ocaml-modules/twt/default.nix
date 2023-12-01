@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   dontStrip = true;
 
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "“The Whitespace Thing” for OCaml";
     homepage = "http://people.csail.mit.edu/mikelin/ocaml+twt/";
     license = licenses.mit;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
     mainProgram = "ocaml+twt";
     inherit (ocaml.meta) platforms;
   };

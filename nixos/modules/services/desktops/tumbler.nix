@@ -27,7 +27,7 @@ in
     )
   ];
 
-  meta = with lib; { maintainers = with maintainers; [ ] ++ teams.pantheon.members; };
+  meta = with lib; {maintainers = with maintainers; [] ++ teams.pantheon.members;};
 
   ###### interface
 
@@ -43,8 +43,8 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = with pkgs.xfce; [ tumbler ];
+    environment.systemPackages = with pkgs.xfce; [tumbler];
 
-    services.dbus.packages = with pkgs.xfce; [ tumbler ];
+    services.dbus.packages = with pkgs.xfce; [tumbler];
   };
 }

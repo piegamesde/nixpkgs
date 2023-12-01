@@ -22,7 +22,7 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = false;
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = [
     coreutils

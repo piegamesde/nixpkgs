@@ -28,7 +28,7 @@ python3Packages.buildPythonApplication {
     sha256 = "sha256-Oda+zQQJE2D3fiNWTzxYvI8cZVHG5JAoV2Wf5Z6IU3M=";
   };
 
-  patches = [ ./0001-setup.py-remove-dbus-python-from-list.patch ];
+  patches = [./0001-setup.py-remove-dbus-python-from-list.patch];
 
   propagatedBuildInputs =
     with python3Packages;
@@ -59,7 +59,7 @@ python3Packages.buildPythonApplication {
   # pulseaudio-dlna shells out to pactl to configure sinks and sources.
   # As pactl might not be in $PATH, add --suffix it (so pactl configured by the
   # user get priority)
-  makeWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ pulseaudio ]}" ];
+  makeWrapperArgs = ["--suffix PATH : ${lib.makeBinPath [pulseaudio]}"];
 
   # upstream has no tests
   checkPhase = ''
@@ -70,7 +70,7 @@ python3Packages.buildPythonApplication {
     description = "A lightweight streaming server which brings DLNA / UPNP and Chromecast support to PulseAudio and Linux";
     homepage = "https://github.com/Cygn/pulseaudio-dlna";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ mog ];
+    maintainers = with maintainers; [mog];
     platforms = platforms.linux;
   };
 }

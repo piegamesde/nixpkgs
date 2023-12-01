@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = lib.optional stdenv.hostPlatform.isStatic "-DCMAKE_SKIP_RPATH=ON";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   propagatedBuildInputs = [
     imath
     zlib
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     description = "A high dynamic-range (HDR) image file format";
     homepage = "https://www.openexr.com";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ paperdigits ];
+    maintainers = with maintainers; [paperdigits];
     platforms = platforms.all;
   };
 }

@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-Orwa7sV56AeznEcq/Xj5qj4PALMxq0CI+ZnXuY4JYE0=";
   };
 
-  nativeBuildInputs = [ wayland-scanner ];
-  buildInputs = [ wayland ];
+  nativeBuildInputs = [wayland-scanner];
+  buildInputs = [wayland];
 
   makeFlags = [
     "DESTDIR=${placeholder "out"}"
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     description = "A command that lists Wayland toplevels";
     homepage = "https://sr.ht/~leon_plickat/lswt";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ edrex ];
+    maintainers = with maintainers; [edrex];
     platforms = platforms.linux;
   };
 }

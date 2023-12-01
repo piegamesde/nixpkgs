@@ -18,9 +18,9 @@ buildPythonApplication rec {
 
   format = "other";
 
-  propagatedBuildInputs = [ python-dateutil ];
+  propagatedBuildInputs = [python-dateutil];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     homepage = "https://github.com/jarun/pdd";
@@ -33,7 +33,7 @@ buildPythonApplication rec {
       program arguments are specified it shows the current date, time and
       timezone.
     '';
-    maintainers = [ maintainers.infinisil ];
+    maintainers = [maintainers.infinisil];
     license = licenses.gpl3;
   };
 }

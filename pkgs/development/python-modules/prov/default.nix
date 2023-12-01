@@ -25,17 +25,17 @@ buildPythonPackage rec {
     rdflib
   ];
 
-  nativeCheckInputs = [ pydot ];
+  nativeCheckInputs = [pydot];
 
   # Multiple tests are out-dated and failing
   doCheck = false;
 
-  pythonImportsCheck = [ "prov" ];
+  pythonImportsCheck = ["prov"];
 
   meta = with lib; {
     description = "Python library for W3C Provenance Data Model (PROV)";
     homepage = "https://github.com/trungdong/prov";
     license = licenses.mit;
-    maintainers = with maintainers; [ ashgillman ];
+    maintainers = with maintainers; [ashgillman];
   };
 }

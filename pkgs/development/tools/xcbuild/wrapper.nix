@@ -34,7 +34,7 @@ let
       ;
   };
 
-  toolchains = callPackage ./toolchains.nix { inherit toolchainName stdenv; };
+  toolchains = callPackage ./toolchains.nix {inherit toolchainName stdenv;};
 
   sdks = callPackage ./sdks.nix {
     inherit
@@ -46,7 +46,7 @@ let
       ;
   };
 
-  platforms = callPackage ./platforms.nix { inherit sdks xcodePlatform stdenv; };
+  platforms = callPackage ./platforms.nix {inherit sdks xcodePlatform stdenv;};
 
   xcconfig = writeText "nix.xcconfig" ''
     SDKROOT=${sdkName}
@@ -124,11 +124,11 @@ in
 
 runCommand "xcodebuild-${xcbuild.version}"
   {
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
     inherit (xcbuild) meta;
 
     # ensure that the toolchain goes in PATH
-    propagatedBuildInputs = [ "${toolchains}/XcodeDefault.xctoolchain" ];
+    propagatedBuildInputs = ["${toolchains}/XcodeDefault.xctoolchain"];
 
     passthru = {
       inherit xcbuild xcrun;

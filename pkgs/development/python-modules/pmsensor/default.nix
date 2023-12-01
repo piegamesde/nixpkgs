@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "7fc03aafb791ca70d847c9ab97cf181bc7d8f7345efb4b0c3f66c07b9c7dee69";
   };
 
-  propagatedBuildInputs = [ pyserial ];
+  propagatedBuildInputs = [pyserial];
 
   # no tests implemented
   doCheck = false;
@@ -28,6 +28,6 @@ buildPythonPackage rec {
     description = "Library to read data from environment sensors";
     homepage = "https://github.com/open-homeautomation/pmsensor";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

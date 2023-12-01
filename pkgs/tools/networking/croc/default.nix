@@ -18,11 +18,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-d6fsy0ROKX91YkFW2aC2A+pO7dmcmMkoz076z1XcZtE=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   passthru = {
     tests = {
-      local-relay = callPackage ./test-local-relay.nix { };
+      local-relay = callPackage ./test-local-relay.nix {};
     };
   };
   meta = with lib; {

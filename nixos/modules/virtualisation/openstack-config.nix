@@ -47,7 +47,7 @@ in
     };
 
     boot.growPartition = true;
-    boot.kernelParams = [ "console=tty1" ];
+    boot.kernelParams = ["console=tty1"];
     boot.loader.grub.device = if (!cfg.efi) then "/dev/vda" else "nodev";
     boot.loader.grub.efiSupport = cfg.efi;
     boot.loader.grub.efiInstallAsRemovable = cfg.efi;
@@ -77,15 +77,15 @@ in
     networking.hostName = mkDefault "";
 
     systemd.services.openstack-init = {
-      path = [ pkgs.wget ];
+      path = [pkgs.wget];
       description = "Fetch Metadata on startup";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       before = [
         "apply-ec2-data.service"
         "amazon-init.service"
       ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
       script = metadataFetcher;
       restartIfChanged = false;
       unitConfig.X-StopOnRemoval = false;

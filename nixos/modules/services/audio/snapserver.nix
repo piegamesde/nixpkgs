@@ -52,21 +52,21 @@ let
   optionString = concatStringsSep " " (
     mapAttrsToList streamToOption cfg.streams
     # global options
-    ++ [ "--stream.bind_to_address=${cfg.listenAddress}" ]
-    ++ [ "--stream.port=${toString cfg.port}" ]
+    ++ ["--stream.bind_to_address=${cfg.listenAddress}"]
+    ++ ["--stream.port=${toString cfg.port}"]
     ++ optionalNull cfg.sampleFormat "--stream.sampleformat=${cfg.sampleFormat}"
     ++ optionalNull cfg.codec "--stream.codec=${cfg.codec}"
     ++ optionalNull cfg.streamBuffer "--stream.stream_buffer=${toString cfg.streamBuffer}"
     ++ optionalNull cfg.buffer "--stream.buffer=${toString cfg.buffer}"
     ++ optional cfg.sendToMuted "--stream.send_to_muted"
     # tcp json rpc
-    ++ [ "--tcp.enabled=${toString cfg.tcp.enable}" ]
+    ++ ["--tcp.enabled=${toString cfg.tcp.enable}"]
     ++ optionals cfg.tcp.enable [
       "--tcp.bind_to_address=${cfg.tcp.listenAddress}"
       "--tcp.port=${toString cfg.tcp.port}"
     ]
     # http json rpc
-    ++ [ "--http.enabled=${toString cfg.http.enable}" ]
+    ++ ["--http.enabled=${toString cfg.http.enable}"]
     ++ optionals cfg.http.enable [
       "--http.bind_to_address=${cfg.http.listenAddress}"
       "--http.port=${toString cfg.http.port}"
@@ -261,7 +261,7 @@ in
                 };
                 query = mkOption {
                   type = attrsOf str;
-                  default = { };
+                  default = {};
                   description = lib.mdDoc ''
                     Key-value pairs that convey additional parameters about a stream.
                   '';
@@ -291,7 +291,7 @@ in
             }
           );
         default = {
-          default = { };
+          default = {};
         };
         description = lib.mdDoc ''
           The definition for an input source.
@@ -328,9 +328,9 @@ in
       );
 
     systemd.services.snapserver = {
-      after = [ "network.target" ];
+      after = ["network.target"];
       description = "Snapserver";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       before = [
         "mpd.service"
         "mopidy.service"
@@ -355,12 +355,12 @@ in
     };
 
     networking.firewall.allowedTCPPorts =
-      optionals cfg.openFirewall [ cfg.port ]
+      optionals cfg.openFirewall [cfg.port]
       ++ optional (cfg.openFirewall && cfg.tcp.enable) cfg.tcp.port
       ++ optional (cfg.openFirewall && cfg.http.enable) cfg.http.port;
   };
 
   meta = {
-    maintainers = with maintainers; [ tobim ];
+    maintainers = with maintainers; [tobim];
   };
 }

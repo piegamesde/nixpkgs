@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
     description = "OpenAL alternative";
     homepage = "https://openal-soft.org/";
     license = licenses.lgpl2;
-    maintainers = with maintainers; [ ftrvxmtrx ];
+    maintainers = with maintainers; [ftrvxmtrx];
     platforms = platforms.unix;
   };
 }

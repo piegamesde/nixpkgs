@@ -40,7 +40,7 @@ let
     lib.genAttrs (attrNames optionSpecs) (
       name:
       mkOption (
-        optionSpecs.${name} // { default = optionSpecs.${name}.default or defaults.${name} or null; }
+        optionSpecs.${name} // {default = optionSpecs.${name}.default or defaults.${name} or null;}
       )
     );
 
@@ -111,7 +111,7 @@ let
     };
     matchers = {
       type = nullOr (listOf str);
-      default = [ ];
+      default = [];
       example = literalExpression ''
         [
           "include cgroup=\"/user.slice/*.service\" parent=\"systemd\""
@@ -134,7 +134,7 @@ let
   schedulerProfileToString =
     name: a: indent:
     concatStringsSep " " (
-      [ "${indent}${name}" ]
+      ["${indent}${name}"]
       ++ (optional (a.nice != null) "nice=${toString a.nice}")
       ++ (optional (a.class != null) "sched=${prioToString a.class a.prio}")
       ++ (optional (a.ioClass != null) "io=${prioToString a.ioClass a.ioPrio}")
@@ -249,8 +249,8 @@ in
       };
 
       assignments = mkOption {
-        type = types.attrsOf (types.submodule { options = schedulerProfile { }; });
-        default = { };
+        type = types.attrsOf (types.submodule {options = schedulerProfile {};});
+        default = {};
         example = literalExpression ''
           {
             nix-builds = {
@@ -268,7 +268,7 @@ in
 
       exceptions = mkOption {
         type = types.listOf str;
-        default = [ ];
+        default = [];
         example = literalExpression ''
           [
             "include descends=\"schedtool\""
@@ -281,12 +281,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
-    services.dbus.packages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
+    services.dbus.packages = [cfg.package];
 
     systemd.services.system76-scheduler = {
       description = "Manage process priorities and CFS scheduler latencies for improved responsiveness on the desktop";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       path = [
         # execsnoop needs those to extract kernel headers:
         pkgs.kmod
@@ -373,6 +373,6 @@ in
   };
 
   meta = {
-    maintainers = [ lib.maintainers.cmm ];
+    maintainers = [lib.maintainers.cmm];
   };
 }

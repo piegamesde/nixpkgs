@@ -1,6 +1,6 @@
 {
   callPackage,
-  attrs ? { },
+  attrs ? {},
   fetchpatch,
 }:
 

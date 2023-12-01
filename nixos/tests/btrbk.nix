@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   let
     privateKey = ''
@@ -17,18 +17,18 @@ import ./make-test-python.nix (
   in
   {
     name = "btrbk";
-    meta = with pkgs.lib; { maintainers = with maintainers; [ symphorien ]; };
+    meta = with pkgs.lib; {maintainers = with maintainers; [symphorien];};
 
     nodes = {
       archive =
-        { ... }:
+        {...}:
         {
-          environment.systemPackages = with pkgs; [ btrfs-progs ];
+          environment.systemPackages = with pkgs; [btrfs-progs];
           # note: this makes the privateKey world readable.
           # don't do it with real ssh keys.
           environment.etc."btrbk_key".text = privateKey;
           services.btrbk = {
-            extraPackages = [ pkgs.lz4 ];
+            extraPackages = [pkgs.lz4];
             instances = {
               remote = {
                 onCalendar = "minutely";
@@ -50,9 +50,9 @@ import ./make-test-python.nix (
         };
 
       main =
-        { ... }:
+        {...}:
         {
-          environment.systemPackages = with pkgs; [ btrfs-progs ];
+          environment.systemPackages = with pkgs; [btrfs-progs];
           services.openssh = {
             enable = true;
             settings = {
@@ -61,7 +61,7 @@ import ./make-test-python.nix (
             };
           };
           services.btrbk = {
-            extraPackages = [ pkgs.lz4 ];
+            extraPackages = [pkgs.lz4];
             sshAccess = [
               {
                 key = publicKey;

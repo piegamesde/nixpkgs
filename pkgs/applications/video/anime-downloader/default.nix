@@ -19,7 +19,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-Uk2mtsSrb8fCD9JCFzvLBzMEB7ViVDrKPSOKy9ALJ6o=";
   };
 
-  nativeBuildInputs = [ qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [qt5.wrapQtAppsHook];
 
   propagatedBuildInputs =
     [
@@ -61,6 +61,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "A simple but powerful anime downloader and streamer";
     license = licenses.unlicense;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ WeebSorceress ];
+    maintainers = with maintainers; [WeebSorceress];
   };
 }

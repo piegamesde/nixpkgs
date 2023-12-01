@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-rdeBlAV3t/si9x488tirUGLZRYAxh13zdRIQe0OPd+A=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     curl
     expat
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     libuuid
   ];
 
-  makeFlags = [ "prefix=${placeholder "out"}" ];
+  makeFlags = ["prefix=${placeholder "out"}"];
 
   meta = with lib; {
     description = "A FUSE filesystem for HTTP directory listings";

@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
   let
     pythonShebang = pkgs.writeScript "python-shebang" ''
       #!/usr/bin/python

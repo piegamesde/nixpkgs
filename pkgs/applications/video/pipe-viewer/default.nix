@@ -36,7 +36,7 @@ let
       TextParsewords
       UnicodeLineBreak
     ]
-    ++ lib.optionals withGtk3 [ FileShareDir ]
+    ++ lib.optionals withGtk3 [FileShareDir]
   );
 in
 buildPerlModule rec {
@@ -50,10 +50,10 @@ buildPerlModule rec {
     hash = "sha256-2Kzo7NYxARPFuOijwf2a3WQxnNumtKRiRhMhjrWA4GY=";
   };
 
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optionals withGtk3 [ wrapGAppsHook ];
+  nativeBuildInputs = [makeWrapper] ++ lib.optionals withGtk3 [wrapGAppsHook];
 
   buildInputs =
-    [ perlEnv ]
+    [perlEnv]
     # Can't be in perlEnv for wrapGAppsHook to work correctly
     ++ lib.optional withGtk3 Gtk3;
 
@@ -66,7 +66,7 @@ buildPerlModule rec {
     substituteInPlace Build.PL --replace 'my $gtk ' 'my $gtk = 1;#'
   '';
 
-  nativeCheckInputs = [ TestPod ];
+  nativeCheckInputs = [TestPod];
 
   dontWrapGApps = true;
   postFixup =
@@ -92,14 +92,14 @@ buildPerlModule rec {
             yt-dlp
           ]
         }" \
-        --suffix PATH : "${lib.makeBinPath [ xdg-utils ]}"
+        --suffix PATH : "${lib.makeBinPath [xdg-utils]}"
     '';
 
   meta = with lib; {
     homepage = "https://github.com/trizen/pipe-viewer";
     description = "CLI+GUI YouTube Client";
     license = licenses.artistic2;
-    maintainers = with maintainers; [ julm ];
+    maintainers = with maintainers; [julm];
     platforms = platforms.all;
   };
 }

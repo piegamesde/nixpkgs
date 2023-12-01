@@ -57,7 +57,7 @@ buildPythonPackage rec {
   ];
 
   # Exclude tests that requires network features
-  pytestFlagsArray = [ "--ignore=integration_tests" ];
+  pytestFlagsArray = ["--ignore=integration_tests"];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -79,7 +79,7 @@ buildPythonPackage rec {
       "test_send_dict"
     ];
 
-  pythonImportsCheck = [ "slack" ];
+  pythonImportsCheck = ["slack"];
 
   meta = with lib; {
     description = "A client for Slack, which supports the Slack Web API and Real Time Messaging (RTM) API";

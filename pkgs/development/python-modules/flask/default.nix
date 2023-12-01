@@ -35,7 +35,7 @@ buildPythonPackage rec {
     werkzeug
   ] ++ lib.optional (pythonOlder "3.10") importlib-metadata;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   passthru.tests = {
     inherit
@@ -46,8 +46,8 @@ buildPythonPackage rec {
       ;
   };
   passthru.optional-dependencies = {
-    dotenv = [ python-dotenv ];
-    async = [ asgiref ];
+    dotenv = [python-dotenv];
+    async = [asgiref];
   };
 
   meta = with lib; {
@@ -61,6 +61,6 @@ buildPythonPackage rec {
       Python web application frameworks.
     '';
     license = licenses.bsd3;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

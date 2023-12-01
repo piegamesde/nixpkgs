@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-vfxzm6oDuIDC0V0EMbMcZY/8NI6Qf+GX5U4Did1Z4R4=";
   };
 
-  nativeBuildInputs = [ pbr ];
+  nativeBuildInputs = [pbr];
 
   propagatedBuildInputs = [
     gitpython
@@ -36,13 +36,13 @@ buildPythonPackage rec {
   #   and this requires Network Connectivity
   doCheck = false;
 
-  pythonImportsCheck = [ "bandit" ];
+  pythonImportsCheck = ["bandit"];
 
   meta = with lib; {
     description = "Security oriented static analyser for python code";
     homepage = "https://bandit.readthedocs.io/";
     changelog = "https://github.com/PyCQA/bandit/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

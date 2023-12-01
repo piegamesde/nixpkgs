@@ -33,7 +33,7 @@ buildGoModule rec {
     "-X main.version=v${version}-nixpkgs"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   preBuild = ''
     rm -rf fixtures
@@ -49,6 +49,6 @@ buildGoModule rec {
     description = "Command output timestamper";
     homepage = "https://github.com/zmwangx/ets/";
     license = licenses.mit;
-    maintainers = with maintainers; [ cameronfyfe ];
+    maintainers = with maintainers; [cameronfyfe];
   };
 }

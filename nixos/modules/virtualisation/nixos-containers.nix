@@ -14,7 +14,7 @@ let
   configurationDirectory = "/etc/${configurationDirectoryName}";
   stateDirectory = "/var/lib/${configurationPrefix}containers";
 
-  nixos-container = pkgs.nixos-container.override { inherit stateDirectory configurationDirectory; };
+  nixos-container = pkgs.nixos-container.override {inherit stateDirectory configurationDirectory;};
 
   # The container's init script, a small wrapper around the regular
   # NixOS stage-2 init script.
@@ -173,11 +173,11 @@ let
       --setenv PATH="$PATH" \
       ${optionalString cfg.ephemeral "--ephemeral"} \
       ${
-        optionalString (cfg.additionalCapabilities != null && cfg.additionalCapabilities != [ ])
+        optionalString (cfg.additionalCapabilities != null && cfg.additionalCapabilities != [])
           ''--capability="${concatStringsSep "," cfg.additionalCapabilities}"''
       } \
       ${
-        optionalString (cfg.tmpfs != null && cfg.tmpfs != [ ])
+        optionalString (cfg.tmpfs != null && cfg.tmpfs != [])
           "--tmpfs=${concatStringsSep " --tmpfs=" cfg.tmpfs}"
       } \
       ${containerInit cfg} "''${SYSTEM_PATH:-/nix/var/nix/profiles/system}/init"
@@ -297,7 +297,7 @@ let
   kernelVersion = config.boot.kernelPackages.kernel.version;
 
   bindMountOpts =
-    { name, ... }:
+    {name, ...}:
     {
 
       options = {
@@ -325,7 +325,7 @@ let
     };
 
   allowedDeviceOpts =
-    { ... }:
+    {...}:
     {
       options = {
         node = mkOption {
@@ -388,7 +388,7 @@ let
           };
         }
       );
-      default = [ ];
+      default = [];
       example = [
         {
           protocol = "tcp";
@@ -450,11 +450,11 @@ let
   };
 
   dummyConfig = {
-    extraVeths = { };
-    additionalCapabilities = [ ];
+    extraVeths = {};
+    additionalCapabilities = [];
     ephemeral = false;
     timeoutStartSec = "1min";
-    allowedDevices = [ ];
+    allowedDevices = [];
     hostAddress = null;
     hostAddress6 = null;
     localAddress = null;
@@ -508,15 +508,15 @@ in
                       modules =
                         let
                           extraConfig =
-                            { options, ... }:
+                            {options, ...}:
                             {
                               _file = "module at ${__curPos.file}:${toString __curPos.line}";
                               config = {
                                 nixpkgs =
                                   if options.nixpkgs ? hostPlatform && host.options.nixpkgs.hostPlatform.isDefined then
-                                    { inherit (host.config.nixpkgs) hostPlatform; }
+                                    {inherit (host.config.nixpkgs) hostPlatform;}
                                   else
-                                    { inherit (host.config.nixpkgs) localSystem; };
+                                    {inherit (host.config.nixpkgs) localSystem;};
                                 boot.isContainer = true;
                                 networking.hostName = mkDefault name;
                                 networking.useDHCP = false;
@@ -538,7 +538,7 @@ in
                               };
                             };
                         in
-                        [ extraConfig ] ++ (map (x: x.value) defs);
+                        [extraConfig] ++ (map (x: x.value) defs);
                       prefix = [
                         "containers"
                         name
@@ -561,7 +561,7 @@ in
 
               additionalCapabilities = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
+                default = [];
                 example = [
                   "CAP_NET_ADMIN"
                   "CAP_MKNOD"
@@ -590,7 +590,7 @@ in
 
               specialArgs = mkOption {
                 type = types.attrsOf types.unspecified;
-                default = { };
+                default = {};
                 description = lib.mdDoc ''
                   A set of special arguments to be passed to NixOS modules.
                   This will be merged into the `specialArgs` used to evaluate
@@ -643,7 +643,7 @@ in
 
               interfaces = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
+                default = [];
                 example = [
                   "eth1"
                   "eth2"
@@ -655,7 +655,7 @@ in
 
               macvlans = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
+                default = [];
                 example = [
                   "eth1"
                   "eth2"
@@ -668,8 +668,8 @@ in
               };
 
               extraVeths = mkOption {
-                type = with types; attrsOf (submodule { options = networkOptions; });
-                default = { };
+                type = with types; attrsOf (submodule {options = networkOptions;});
+                default = {};
                 description = lib.mdDoc ''
                   Extra veth-pairs to be created for the container.
                 '';
@@ -696,7 +696,7 @@ in
 
               bindMounts = mkOption {
                 type = with types; attrsOf (submodule bindMountOpts);
-                default = { };
+                default = {};
                 example = literalExpression ''
                   { "/home" = { hostPath = "/home/alice";
                                 isReadOnly = false; };
@@ -710,7 +710,7 @@ in
 
               allowedDevices = mkOption {
                 type = with types; listOf (submodule allowedDeviceOpts);
-                default = [ ];
+                default = [];
                 example = [
                   {
                     node = "/dev/net/tun";
@@ -724,8 +724,8 @@ in
 
               tmpfs = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
-                example = [ "/var" ];
+                default = [];
+                example = ["/var"];
                 description = lib.mdDoc ''
                   Mounts a set of tmpfs file systems into the container.
                   Multiple paths can be specified.
@@ -736,8 +736,8 @@ in
 
               extraFlags = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
-                example = [ "--drop-capability=CAP_SYS_CHROOT" ];
+                default = [];
+                example = ["--drop-capability=CAP_SYS_CHROOT"];
                 description = lib.mdDoc ''
                   Extra flags passed to the systemd-nspawn command.
                   See systemd-nspawn(1) for details.
@@ -745,7 +745,7 @@ in
               };
 
               # Removed option. See `checkAssertion` below for the accompanying error message.
-              pkgs = mkOption { visible = false; };
+              pkgs = mkOption {visible = false;};
             } // networkOptions;
 
             config =
@@ -779,7 +779,7 @@ in
         )
       );
 
-      default = { };
+      default = {};
       example = literalExpression ''
         { webserver =
             { path = "/nix/var/nix/profiles/webserver";
@@ -813,7 +813,7 @@ in
 
         unitConfig.RequiresMountsFor = "${stateDirectory}/%i";
 
-        path = [ pkgs.iproute2 ];
+        path = [pkgs.iproute2];
 
         environment = {
           root = "${stateDirectory}/%i";
@@ -840,7 +840,7 @@ in
           ''
         );
 
-      systemd.targets.multi-user.wants = [ "machines.target" ];
+      systemd.targets.multi-user.wants = ["machines.target"];
 
       systemd.services = listToAttrs (
         filter (x: x.value != null) (
@@ -868,10 +868,10 @@ in
                               modifier = "rw";
                             }
                           ];
-                          additionalCapabilities = cfg.additionalCapabilities ++ [ "CAP_NET_ADMIN" ];
+                          additionalCapabilities = cfg.additionalCapabilities ++ ["CAP_NET_ADMIN"];
                         }
                       else
-                        { }
+                        {}
                     );
                 in
                 recursiveUpdate unit {
@@ -886,9 +886,9 @@ in
                 // (
                   if containerConfig.autoStart then
                     {
-                      wantedBy = [ "machines.target" ];
-                      wants = [ "network.target" ];
-                      after = [ "network.target" ];
+                      wantedBy = ["machines.target"];
+                      wants = ["network.target"];
+                      after = ["network.target"];
                       restartTriggers = [
                         containerConfig.path
                         config.environment.etc."${configurationDirectoryName}/${name}.conf".source
@@ -896,7 +896,7 @@ in
                       restartIfChanged = true;
                     }
                   else
-                    { }
+                    {}
                 )
               )
             )
@@ -952,7 +952,7 @@ in
                 ''}
                 EXTRA_NSPAWN_FLAGS="${
                   mkBindFlags cfg.bindMounts
-                  + optionalString (cfg.extraFlags != [ ]) (" " + concatStringsSep " " cfg.extraFlags)
+                  + optionalString (cfg.extraFlags != []) (" " + concatStringsSep " " cfg.extraFlags)
                 }"
               '';
             }
@@ -981,7 +981,7 @@ in
         ENV{INTERFACE}=="v[eb]-*", ENV{NM_UNMANAGED}="1"
       '';
 
-      environment.systemPackages = [ nixos-container ];
+      environment.systemPackages = [nixos-container];
 
       boot.kernelModules = [
         "bridge"

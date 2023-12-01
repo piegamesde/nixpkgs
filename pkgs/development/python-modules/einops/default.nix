@@ -30,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-/bnp8IhDxp8EB/PoW5Dz+7rOru0/odOrts84aq4qyJw=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   nativeCheckInputs = [
     chainer
@@ -52,7 +52,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d);
   '';
 
-  pythonImportsCheck = [ "einops" ];
+  pythonImportsCheck = ["einops"];
 
   disabledTests = [
     # Tests are failing as mxnet is not pulled-in
@@ -62,12 +62,12 @@ buildPythonPackage rec {
     "test_backends_installed"
   ];
 
-  disabledTestPaths = [ "tests/test_layers.py" ];
+  disabledTestPaths = ["tests/test_layers.py"];
 
   meta = with lib; {
     description = "Flexible and powerful tensor operations for readable and reliable code";
     homepage = "https://github.com/arogozhnikov/einops";
     license = licenses.mit;
-    maintainers = with maintainers; [ yl3dy ];
+    maintainers = with maintainers; [yl3dy];
   };
 }

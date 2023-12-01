@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     wayland
     wayland-protocols
-  ] ++ lib.optionals systemdSupport [ systemd ];
+  ] ++ lib.optionals systemdSupport [systemd];
 
   mesonFlags = [
     "-Dman-pages=enabled"
@@ -57,6 +57,6 @@ stdenv.mkDerivation rec {
     inherit (src.meta) homepage;
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
   };
 }

@@ -28,7 +28,7 @@ let
 
     src = fetchFromGitHub (lib.importJSON ./source.json);
 
-    patches = [ ./0001-nulldb.patch ];
+    patches = [./0001-nulldb.patch];
 
     postPatch = ''
       sed -i -e "s|ruby '2.7.4'|ruby '${ruby_2_7.version}'|" Gemfile
@@ -69,16 +69,16 @@ let
       "postgres" # database
     ];
     gemConfig = defaultGemConfig // {
-      pg = attrs: { buildFlags = [ "--with-pg-config=${postgresql}/bin/pg_config" ]; };
+      pg = attrs: {buildFlags = ["--with-pg-config=${postgresql}/bin/pg_config"];};
       rszr = attrs: {
         buildInputs = [
           imlib2
           imlib2.dev
         ];
-        buildFlags = [ "--without-imlib2-config" ];
+        buildFlags = ["--without-imlib2-config"];
       };
       mini_racer = attrs: {
-        buildFlags = [ ''--with-v8-dir="${v8}"'' ];
+        buildFlags = [''--with-v8-dir="${v8}"''];
         dontBuild = false;
         postPatch = ''
           substituteInPlace ext/mini_racer_extension/extconf.rb \
@@ -128,7 +128,7 @@ stdenv.mkDerivation {
   passthru = {
     inherit rubyEnv yarnEnv;
     updateScript = [
-      "${callPackage ./update.nix { }}/bin/update.sh"
+      "${callPackage ./update.nix {}}/bin/update.sh"
       pname
       (toString ./.)
     ];
@@ -138,7 +138,7 @@ stdenv.mkDerivation {
     description = "Zammad, a web-based, open source user support/ticketing solution.";
     homepage = "https://zammad.org";
     license = licenses.agpl3Plus;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     maintainers = with maintainers; [
       n0emis
       garbas

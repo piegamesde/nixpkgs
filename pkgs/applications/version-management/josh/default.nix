@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [
     libgit2
     openssl
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.Security ];
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [darwin.Security];
 
   cargoBuildFlags = [
     "-p"

@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     (if withGtk3 then keybinder3 else keybinder)
     (if withGtk3 then gtk3 else gtk2)
     libX11
-    (libfm.override { inherit withGtk3; })
+    (libfm.override {inherit withGtk3;})
     (if withGtk3 then libwnck else libwnck2)
     libXmu
     libXpm
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
     description = "Lightweight X11 desktop panel for LXDE";
     homepage = "https://lxde.org/";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.ryneeverett ];
+    maintainers = [maintainers.ryneeverett];
     platforms = platforms.linux;
   };
 }

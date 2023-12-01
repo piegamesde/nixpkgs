@@ -23,21 +23,21 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace setup.cfg \
       --replace " --cov=asteval --cov-report xml" ""
   '';
 
-  pythonImportsCheck = [ "asteval" ];
+  pythonImportsCheck = ["asteval"];
 
   meta = with lib; {
     description = "AST evaluator of Python expression using ast module";
     homepage = "https://github.com/newville/asteval";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

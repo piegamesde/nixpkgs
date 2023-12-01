@@ -41,7 +41,7 @@ mkDerivation rec {
     sha256 = "sha256-Licj/sZ2rZablsk/ytCZlkdjSHszr31JURrQkXs1BXE=";
   };
 
-  cmakeFlags = [ "-DUSE_WEBKIT=off" ];
+  cmakeFlags = ["-DUSE_WEBKIT=off"];
 
   nativeBuildInputs = [
     cmake
@@ -72,7 +72,7 @@ mkDerivation rec {
       gpl2Plus
       lgpl21Plus
     ];
-    maintainers = with maintainers; [ poscat ];
+    maintainers = with maintainers; [poscat];
     platforms = platforms.linux;
   };
 }

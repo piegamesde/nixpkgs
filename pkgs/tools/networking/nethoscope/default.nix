@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "0cl0i4m8fxyxfib95x90x6qr284y41wwgwqhflyfa7d3r6qwq8nk";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     alsa-lib
     libpcap
@@ -51,7 +51,7 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/vvilhonen/nethoscope";
     license = licenses.isc;
-    maintainers = with maintainers; [ _0x4A6F ];
+    maintainers = with maintainers; [_0x4A6F];
     platforms = platforms.linux;
   };
 }

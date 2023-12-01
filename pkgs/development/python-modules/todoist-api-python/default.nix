@@ -36,7 +36,7 @@ buildPythonPackage rec {
       })
     ];
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     attrs
@@ -49,13 +49,13 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [ "todoist_api_python" ];
+  pythonImportsCheck = ["todoist_api_python"];
 
   meta = with lib; {
     description = "Library for the Todoist REST API";
     homepage = "https://github.com/Doist/todoist-api-python";
     changelog = "https://github.com/Doist/todoist-api-python/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

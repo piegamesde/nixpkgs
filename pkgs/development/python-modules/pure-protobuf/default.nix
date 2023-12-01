@@ -38,12 +38,12 @@ buildPythonPackage rec {
     pytest-benchmark
   ];
 
-  pythonImportsCheck = [ "pure_protobuf" ];
+  pythonImportsCheck = ["pure_protobuf"];
 
   meta = with lib; {
     description = "Python implementation of Protocol Buffers with dataclass-based schemas";
     homepage = "https://github.com/eigenein/protobuf";
     license = licenses.mit;
-    maintainers = with maintainers; [ chuangzhu ];
+    maintainers = with maintainers; [chuangzhu];
   };
 }

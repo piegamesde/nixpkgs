@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub }:
+{lib, fetchFromGitHub}:
 rec {
   version = "1.4.4";
 
@@ -14,6 +14,6 @@ rec {
   meta = with lib; {
     homepage = "https://tandoor.dev/";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

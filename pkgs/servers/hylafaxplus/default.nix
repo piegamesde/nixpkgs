@@ -114,7 +114,7 @@ stdenv.mkDerivation {
     downloadPage = "https://hylafax.sourceforge.io/download.php";
     homepage = "https://hylafax.sourceforge.io";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.yarny ];
+    maintainers = [lib.maintainers.yarny];
     platforms = lib.platforms.linux;
     longDescription = ''
       HylaFAX is a scalable and time-proven solution

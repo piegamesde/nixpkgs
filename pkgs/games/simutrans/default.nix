@@ -39,7 +39,7 @@ let
   };
 
   # As of 2021/07, many of these paksets have not been updated for years, so are on old versions.
-  pakSpec = lib.mapAttrs (pakName: attrs: mkPak (attrs // { inherit pakName; })) {
+  pakSpec = lib.mapAttrs (pakName: attrs: mkPak (attrs // {inherit pakName;})) {
     pak64 = {
       srcPath = "${ver_dash}/simupak64-${ver_dash}";
       sha256 = "1k335kh8dhm1hdn5iwn3sdgnrlpk0rqxmmgqgqcwsi09cmw45m5c";
@@ -91,7 +91,7 @@ let
       preferLocalBuild = true;
       installPhase =
         let
-          src = fetchurl { inherit url sha256; };
+          src = fetchurl {inherit url sha256;};
         in
         ''
           mkdir -p "$out/share/simutrans/${pakName}"
@@ -115,7 +115,7 @@ let
     paks:
     buildEnv {
       inherit (binaries) name;
-      paths = [ binaries ] ++ paks;
+      paths = [binaries] ++ paks;
       postBuild = ''
         rm "$out/bin" && mkdir "$out/bin"
         cat > "$out/bin/simutrans" <<EOF
@@ -127,7 +127,7 @@ let
       '';
 
       passthru.meta = binaries.meta // {
-        hydraPlatforms = [ ];
+        hydraPlatforms = [];
       };
       passthru.binaries = binaries;
     };
@@ -206,7 +206,7 @@ let
         artistic1
         gpl1Plus
       ];
-      maintainers = with maintainers; [ ];
+      maintainers = with maintainers; [];
       platforms = with platforms; linux; # TODO: ++ darwin;
     };
   };

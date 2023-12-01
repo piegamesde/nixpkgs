@@ -15,11 +15,11 @@ stdenv.mkDerivation rec {
     sha256 = "1c4aa8dde7886be9cbe0f9069c334843b21028f61d344a2d685f88cb1dcf2228";
   };
 
-  buildInputs = [ gmp ];
+  buildInputs = [gmp];
 
-  propagatedBuildInputs = [ isl ];
+  propagatedBuildInputs = [isl];
 
-  configureFlags = [ "--with-isl=system" ];
+  configureFlags = ["--with-isl=system"];
 
   enableParallelBuilding = true;
 

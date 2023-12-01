@@ -18,18 +18,18 @@ buildPythonPackage rec {
     hash = "sha256-MVe+hm/Jck0Heotb9sP8IcOKQUerZk5yRiLf5fr/BIo=";
   };
 
-  propagatedBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "src/zope/cachedescriptors/tests.py" ];
+  pytestFlagsArray = ["src/zope/cachedescriptors/tests.py"];
 
-  pythonImportsCheck = [ "zope.cachedescriptors" ];
+  pythonImportsCheck = ["zope.cachedescriptors"];
 
   meta = {
     description = "Method and property caching decorators";
     homepage = "https://github.com/zopefoundation/zope.cachedescriptors";
     license = lib.licenses.zpl21;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

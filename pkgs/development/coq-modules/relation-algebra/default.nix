@@ -71,7 +71,7 @@ mkCoqDerivation {
 
   meta = with lib; {
     description = "Relation algebra library for Coq";
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
   };

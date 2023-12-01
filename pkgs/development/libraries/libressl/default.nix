@@ -15,8 +15,8 @@ let
     {
       version,
       hash,
-      patches ? [ ],
-      knownVulnerabilities ? [ ],
+      patches ? [],
+      knownVulnerabilities ? [],
     }:
     stdenv.mkDerivation rec {
       pname = "libressl";
@@ -27,7 +27,7 @@ let
         inherit hash;
       };
 
-      nativeBuildInputs = [ cmake ];
+      nativeBuildInputs = [cmake];
 
       cmakeFlags = [
         "-DENABLE_NC=ON"
@@ -111,7 +111,7 @@ in
   libressl_3_4 = generic {
     version = "3.4.3";
     hash = "sha256-/4i//jVIGLPM9UXjyv5FTFAxx6dyFwdPUzJx1jw38I0=";
-    knownVulnerabilities = [ "Support ended 2022-10-14." ];
+    knownVulnerabilities = ["Support ended 2022-10-14."];
     patches = [
       (fetchpatch {
         # https://marc.info/?l=libressl&m=167582148932407&w=2

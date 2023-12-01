@@ -31,12 +31,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "garminconnect_aio" ];
+  pythonImportsCheck = ["garminconnect_aio"];
 
   meta = with lib; {
     description = "Python module to interact with Garmin Connect";
     homepage = "https://github.com/cyberjunky/python-garminconnect-aio";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

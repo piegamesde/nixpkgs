@@ -86,7 +86,7 @@ let
       fakePipSync
       anki-build-python
     ];
-    pathsToLink = [ "/bin" ];
+    pathsToLink = ["/bin"];
   };
 
   yarnOfflineCache = fetchYarnDeps {
@@ -154,7 +154,7 @@ python3.pkgs.buildPythonApplication {
     astroid
   ];
 
-  buildInputs = [ qt6.qtbase ] ++ lib.optional stdenv.isLinux qt6.qtwayland;
+  buildInputs = [qt6.qtbase] ++ lib.optional stdenv.isLinux qt6.qtwayland;
   propagatedBuildInputs =
     with python3.pkgs;
     [

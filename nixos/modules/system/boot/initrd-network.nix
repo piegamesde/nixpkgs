@@ -12,9 +12,9 @@ let
   cfg = config.boot.initrd.network;
 
   dhcpInterfaces = lib.attrNames (
-    lib.filterAttrs (iface: v: v.useDHCP == true) (config.networking.interfaces or { })
+    lib.filterAttrs (iface: v: v.useDHCP == true) (config.networking.interfaces or {})
   );
-  doDhcp = config.networking.useDHCP || dhcpInterfaces != [ ];
+  doDhcp = config.networking.useDHCP || dhcpInterfaces != [];
   dhcpIfShellExpr =
     if config.networking.useDHCP then
       "$(ls /sys/class/net/ | grep -v ^lo$)"
@@ -87,7 +87,7 @@ in
     };
 
     boot.initrd.network.udhcpc.extraArgs = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
       description = lib.mdDoc ''
         Additional command-line arguments passed verbatim to udhcpc if
@@ -108,7 +108,7 @@ in
 
   config = mkIf cfg.enable {
 
-    boot.initrd.kernelModules = [ "af_packet" ];
+    boot.initrd.kernelModules = ["af_packet"];
 
     boot.initrd.extraUtilsCommands = ''
       copy_bin_and_libs ${pkgs.klibc}/lib/klibc/bin.static/ipconfig

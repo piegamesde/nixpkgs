@@ -20,12 +20,12 @@ buildPythonPackage rec {
   # Tests are not included in pypi distribution
   doCheck = false;
 
-  pythonImportsCheck = [ "sabyenc3" ];
+  pythonImportsCheck = ["sabyenc3"];
 
   meta = with lib; {
     description = "yEnc Decoding for Python 3";
     homepage = "https://github.com/sabnzbd/sabyenc/";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
   };
 }

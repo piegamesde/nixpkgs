@@ -1,20 +1,20 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "pass-secret-service";
-    meta.maintainers = [ lib.maintainers.aidalgol ];
+    meta.maintainers = [lib.maintainers.aidalgol];
 
     nodes.machine =
-      { nodes, pkgs, ... }:
+      {nodes, pkgs, ...}:
       {
-        imports = [ ./common/user-account.nix ];
+        imports = [./common/user-account.nix];
 
         services.passSecretService.enable = true;
 
         environment.systemPackages = [
           # Create a script that tries to make a request to the D-Bus secrets API.
           (pkgs.writers.writePython3Bin "secrets-dbus-init"
-            { libraries = [ pkgs.python3Packages.secretstorage ]; }
+            {libraries = [pkgs.python3Packages.secretstorage];}
             ''
               import secretstorage
               print("Initializing dbus connection...")
@@ -37,7 +37,7 @@ import ./make-test-python.nix (
     # Some of the commands are run via a virtual console because they need to be
     # run under a real login session, with D-Bus running in the environment.
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         user = nodes.machine.config.users.users.alice;
         gpg-uid = "alice@example.net";

@@ -14,10 +14,10 @@
   testers,
 
   # Look up dependencies of specified components in component-packages.nix
-  extraComponents ? [ ],
+  extraComponents ? [],
 
   # Additional packages to add to propagatedBuildInputs
-  extraPackages ? ps: [ ],
+  extraPackages ? ps: [],
 
   # Write out info about included extraComponents and extraPackages
   writeText,
@@ -25,7 +25,7 @@
   # Override Python packages using
   # self: super: { pkg = super.pkg.overridePythonAttrs (oldAttrs: { ... }); }
   # Applied after defaultOverrides
-  packageOverrides ? self: super: { },
+  packageOverrides ? self: super: {},
 
   # Skip pip install of required packages on startup
   skipPip ? true,
@@ -60,7 +60,7 @@ let
             substituteInPlace pyproject.toml \
               --replace "poetry.masonry" "poetry.core.masonry"
           '';
-          propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ self.pytz ];
+          propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [self.pytz];
         }
       );
 
@@ -113,7 +113,7 @@ let
       );
 
       # moto tests are a nuissance
-      moto = super.moto.overridePythonAttrs (_: { doCheck = false; });
+      moto = super.moto.overridePythonAttrs (_: {doCheck = false;});
 
       notifications-android-tv = super.notifications-android-tv.overridePythonAttrs (
         oldAttrs: rec {
@@ -127,9 +127,9 @@ let
             hash = "sha256-adkcUuPl0jdJjkBINCTW4Kmc16C/HzL+jaRZB/Qr09A=";
           };
 
-          nativeBuildInputs = with super; [ setuptools ];
+          nativeBuildInputs = with super; [setuptools];
 
-          propagatedBuildInputs = with super; [ requests ];
+          propagatedBuildInputs = with super; [requests];
 
           doCheck = false; # no tests
         }
@@ -261,7 +261,7 @@ let
             self.tornado
             self.urllib3
           ];
-          setupPyGlobalFlags = [ "--with-upstream-urllib3" ];
+          setupPyGlobalFlags = ["--with-upstream-urllib3"];
           postPatch = ''
             rm -r telegram/vendor
             substituteInPlace requirements.txt \
@@ -336,13 +336,13 @@ let
       );
 
       # internal python packages only consumed by home-assistant itself
-      home-assistant-frontend = self.callPackage ./frontend.nix { };
-      home-assistant-intents = self.callPackage ./intents.nix { };
+      home-assistant-frontend = self.callPackage ./frontend.nix {};
+      home-assistant-intents = self.callPackage ./intents.nix {};
     })
   ];
 
   python = python3.override {
-    packageOverrides = lib.composeManyExtensions (defaultOverrides ++ [ packageOverrides ]);
+    packageOverrides = lib.composeManyExtensions (defaultOverrides ++ [packageOverrides]);
   };
 
   componentPackages = import ./component-packages.nix;
@@ -386,7 +386,7 @@ python.pkgs.buildPythonApplication rec {
     hash = "sha256-ddD9hBN+UU9Z3zfNsymD7O5Fi5v1Xuh2wMPmfhrsoO8=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [ setuptools ];
+  nativeBuildInputs = with python3.pkgs; [setuptools];
 
   # copy tests early, so patches apply as they would to the git repo
   prePatch = ''
@@ -553,7 +553,7 @@ python.pkgs.buildPythonApplication rec {
     intents = python.pkgs.home-assistant-intents;
     tests = {
       nixos = nixosTests.home-assistant;
-      components = callPackage ./tests.nix { };
+      components = callPackage ./tests.nix {};
       version = testers.testVersion {
         package = home-assistant;
         command = "hass --version";

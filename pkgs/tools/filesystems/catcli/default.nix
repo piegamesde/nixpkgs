@@ -29,7 +29,7 @@ buildPythonApplication rec {
     description = "The command line catalog tool for your offline data";
     homepage = "https://github.com/deadc0de6/catcli";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ petersjt014 ];
+    maintainers = with maintainers; [petersjt014];
     platforms = platforms.all;
   };
 }

@@ -33,7 +33,7 @@ let
       hash = "sha256-2H6Oi1tK/GrtfMTR1j12tZdRzQkFUxXzMSpfCtGPyWE=";
     };
 
-    nativeBuildInputs = [ hatchling ];
+    nativeBuildInputs = [hatchling];
 
     propagatedBuildInputs = [
       async_generator
@@ -61,14 +61,14 @@ let
     '';
 
     passthru.tests = {
-      check = nbclient.overridePythonAttrs (_: { doCheck = true; });
+      check = nbclient.overridePythonAttrs (_: {doCheck = true;});
     };
 
     meta = with lib; {
       homepage = "https://github.com/jupyter/nbclient";
       description = "A client library for executing notebooks";
       license = licenses.bsd3;
-      maintainers = [ ];
+      maintainers = [];
     };
   };
 in

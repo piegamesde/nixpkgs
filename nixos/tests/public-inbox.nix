@@ -1,10 +1,10 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   let
     orga = "example";
     domain = "${orga}.localdomain";
 
-    tls-cert = pkgs.runCommand "selfSignedCert" { buildInputs = [ pkgs.openssl ]; } ''
+    tls-cert = pkgs.runCommand "selfSignedCert" {buildInputs = [pkgs.openssl];} ''
       openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -days 36500 \
         -subj '/CN=machine.${domain}'
       install -D -t $out key.pem cert.pem
@@ -13,7 +13,7 @@ import ./make-test-python.nix (
   {
     name = "public-inbox";
 
-    meta.maintainers = with pkgs.lib.maintainers; [ julm ];
+    meta.maintainers = with pkgs.lib.maintainers; [julm];
 
     machine =
       {
@@ -36,7 +36,7 @@ import ./make-test-python.nix (
         virtualisation.memorySize = 1 * 1024;
         networking.domain = domain;
 
-        security.pki.certificateFiles = [ "${tls-cert}/cert.pem" ];
+        security.pki.certificateFiles = ["${tls-cert}/cert.pem"];
         # If using security.acme:
         #security.acme.certs."${domain}".postRun = ''
         #  systemctl try-restart public-inbox-nntpd public-inbox-imapd
@@ -47,32 +47,32 @@ import ./make-test-python.nix (
           postfix.enable = true;
           openFirewall = true;
           settings.publicinbox = {
-            css = [ "href=https://machine.${domain}/style/light.css" ];
-            nntpserver = [ "nntps://machine.${domain}" ];
+            css = ["href=https://machine.${domain}/style/light.css"];
+            nntpserver = ["nntps://machine.${domain}"];
             wwwlisting = "match=domain";
           };
           mda = {
             enable = true;
-            args = [ "--no-precheck" ]; # Allow Bcc:
+            args = ["--no-precheck"]; # Allow Bcc:
           };
           http = {
             enable = true;
             port = "/run/public-inbox-http.sock";
             #port = 8080;
-            args = [ "-W0" ];
-            mounts = [ "https://machine.${domain}/inbox" ];
+            args = ["-W0"];
+            mounts = ["https://machine.${domain}/inbox"];
           };
           nntp = {
             enable = true;
             #port = 563;
-            args = [ "-W0" ];
+            args = ["-W0"];
             cert = "${tls-cert}/cert.pem";
             key = "${tls-cert}/key.pem";
           };
           imap = {
             enable = true;
             #port = 993;
-            args = [ "-W0" ];
+            args = ["-W0"];
             cert = "${tls-cert}/cert.pem";
             key = "${tls-cert}/key.pem";
           };
@@ -91,7 +91,7 @@ import ./make-test-python.nix (
                   '';
                   url = "https://machine.${domain}/inbox/${repo}";
                   newsgroup = "inbox.comp.${orga}.${repo}";
-                  coderepo = [ repo ];
+                  coderepo = [repo];
                 }
               ))
               {
@@ -122,7 +122,7 @@ import ./make-test-python.nix (
           adminPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJmoTOQnGqX+//us5oye8UuE+tQBx9QEM7PN13jrwgqY root@localhost";
         };
         systemd.services.public-inbox-httpd = {
-          serviceConfig.SupplementaryGroups = [ gitolite.group ];
+          serviceConfig.SupplementaryGroups = [gitolite.group];
         };
 
         # Use nginx as a reverse proxy for public-inbox-httpd

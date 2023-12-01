@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gQdFqO0as3iMh9OupMwaFO327iJvdkvMOD4CS6Vq2/E=";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   meta = with lib; {
     description = "Disk usage analyzer with an ncurses interface";

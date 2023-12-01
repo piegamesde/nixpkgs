@@ -19,7 +19,7 @@ stdenv.mkDerivation {
     sha256 = "0bpn37h8jvsqd66fkba8ky42nydc8acawa5x31yxqlxc8mc66k74";
   };
 
-  buildInputs = [ libtoxcore ];
+  buildInputs = [libtoxcore];
 
   preConfigure = ''
     substituteInPlace config.mk \
@@ -28,13 +28,13 @@ stdenv.mkDerivation {
     ${lib.optionalString (conf != null) "cp ${configFile} config.def.h"}
   '';
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "FIFO based tox client";
     homepage = "http://ratox.2f30.org/";
     license = licenses.isc;
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
     platforms = platforms.linux;
   };
 }

@@ -18,12 +18,12 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ camomile ];
+  propagatedBuildInputs = [camomile];
 
   meta = with lib; {
     homepage = "https://github.com/frama-c/${pname}";
     description = "Lightweight tool for managing headers in source code files";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ niols ];
+    maintainers = with maintainers; [niols];
   };
 }

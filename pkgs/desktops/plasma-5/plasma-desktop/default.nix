@@ -129,7 +129,7 @@ mkDerivation {
   CXXFLAGS =
     let
       # run gsettings with desktop schemas for using in kcm_accces kcm
-      gsettings-wrapper = runCommandLocal "gsettings-wrapper" { nativeBuildInputs = [ makeWrapper ]; } ''
+      gsettings-wrapper = runCommandLocal "gsettings-wrapper" {nativeBuildInputs = [makeWrapper];} ''
         makeWrapper ${glib}/bin/gsettings $out --prefix XDG_DATA_DIRS : ${gsettings-desktop-schemas.out}/share/gsettings-schemas/${gsettings-desktop-schemas.name}
       '';
     in

@@ -2,7 +2,7 @@
   stdenv,
   lib,
   src,
-  patches ? [ ],
+  patches ? [],
   version,
   coreutils,
   bison,
@@ -134,7 +134,7 @@ stdenv.mkDerivation rec {
       unixODBCDrivers.sqlite
       unixODBCDrivers.mariadb
     ]
-    ++ lib.optionals systemdSupport [ systemd ]
+    ++ lib.optionals systemdSupport [systemd]
     ++ lib.optionals stdenv.isLinux [
       util-linux
       mtdev
@@ -182,8 +182,8 @@ stdenv.mkDerivation rec {
     ++ lib.optional libGLSupported libGL;
 
   buildInputs =
-    [ at-spi2-core ]
-    ++ lib.optionals (!stdenv.isDarwin) [ libinput ]
+    [at-spi2-core]
+    ++ lib.optionals (!stdenv.isDarwin) [libinput]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
       AppKit
       CoreBluetooth
@@ -205,9 +205,9 @@ stdenv.mkDerivation rec {
     cmake
     xmlstarlet
     ninja
-  ] ++ lib.optionals stdenv.isDarwin [ moveBuildTree ];
+  ] ++ lib.optionals stdenv.isDarwin [moveBuildTree];
 
-  propagatedNativeBuildInputs = [ lndir ];
+  propagatedNativeBuildInputs = [lndir];
 
   strictDeps = true;
 

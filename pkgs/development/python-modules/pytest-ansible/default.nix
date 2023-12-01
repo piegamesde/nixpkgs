@@ -29,9 +29,9 @@ buildPythonPackage rec {
       --replace '/usr/bin/env' '${coreutils}/bin/env'
   '';
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  propagatedBuildInputs = [ ansible-core ];
+  propagatedBuildInputs = [ansible-core];
 
   nativeCheckInputs = [
     coverage
@@ -42,7 +42,7 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  pytestFlagsArray = [ "tests/" ];
+  pytestFlagsArray = ["tests/"];
 
   disabledTests = [
     # Host unreachable in the inventory
@@ -52,13 +52,13 @@ buildPythonPackage rec {
     "test_connection_failure_extra_inventory_v2"
   ];
 
-  pythonImportsCheck = [ "pytest_ansible" ];
+  pythonImportsCheck = ["pytest_ansible"];
 
   meta = with lib; {
     description = "Plugin for py.test to simplify calling ansible modules from tests or fixtures";
     homepage = "https://github.com/jlaska/pytest-ansible";
     changelog = "https://github.com/ansible-community/pytest-ansible/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

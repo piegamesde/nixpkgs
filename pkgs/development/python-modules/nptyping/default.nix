@@ -27,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-hz4YrcvARCAA7TXapmneIwle/F4pzcIYLPSmiFHC0VQ=";
   };
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   nativeCheckInputs = [
     beartype
@@ -55,13 +55,13 @@ buildPythonPackage rec {
     "tests/test_wheel.py"
   ];
 
-  pythonImportsCheck = [ "nptyping" ];
+  pythonImportsCheck = ["nptyping"];
 
   meta = with lib; {
     description = "Type hints for numpy";
     homepage = "https://github.com/ramonhagenaars/nptyping";
     changelog = "https://github.com/ramonhagenaars/nptyping/blob/v${version}/HISTORY.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

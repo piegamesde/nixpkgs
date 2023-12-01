@@ -16,7 +16,7 @@ let
   avahiEnabled = config.services.avahi.enable;
   polkitEnabled = config.security.polkit.enable;
 
-  additionalBackends = pkgs.runCommand "additional-cups-backends" { preferLocalBuild = true; } ''
+  additionalBackends = pkgs.runCommand "additional-cups-backends" {preferLocalBuild = true;} ''
     mkdir -p $out
     if [ ! -e ${cups.out}/lib/cups/backend/smb ]; then
       mkdir -p $out/lib/cups/backend
@@ -113,7 +113,7 @@ let
       (writeConf "client.conf" cfg.clientConf)
       (writeConf "snmp.conf" cfg.snmpConf)
     ] ++ optional avahiEnabled browsedFile ++ cfg.drivers;
-    pathsToLink = [ "/etc/cups" ];
+    pathsToLink = ["/etc/cups"];
     ignoreCollisions = true;
   };
 
@@ -148,7 +148,7 @@ in
               ]
               config;
         in
-        if enabled then [ pkgs.gutenprint ] else [ ]
+        if enabled then [pkgs.gutenprint] else []
       )
     )
     (mkRemovedOptionModule
@@ -203,8 +203,8 @@ in
 
       listenAddresses = mkOption {
         type = types.listOf types.str;
-        default = [ "localhost:631" ];
-        example = [ "*:631" ];
+        default = ["localhost:631"];
+        example = ["*:631"];
         description = lib.mdDoc ''
           A list of addresses and ports on which to listen.
         '';
@@ -212,8 +212,8 @@ in
 
       allowFrom = mkOption {
         type = types.listOf types.str;
-        default = [ "localhost" ];
-        example = [ "all" ];
+        default = ["localhost"];
+        example = ["all"];
         apply = concatMapStringsSep "\n" (x: "Allow ${x}");
         description = lib.mdDoc ''
           From which hosts to allow unconditional access.
@@ -323,7 +323,7 @@ in
 
       drivers = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         example = literalExpression "with pkgs; [ gutenprint hplip splix ]";
         description = lib.mdDoc ''
           CUPS drivers to use. Drivers provided by CUPS, cups-filters,
@@ -356,10 +356,10 @@ in
       description = "CUPS printing services";
     };
 
-    environment.systemPackages = [ cups.out ] ++ optional polkitEnabled cups-pk-helper;
+    environment.systemPackages = [cups.out] ++ optional polkitEnabled cups-pk-helper;
     environment.etc.cups.source = "/var/lib/cups";
 
-    services.dbus.packages = [ cups.out ] ++ optional polkitEnabled cups-pk-helper;
+    services.dbus.packages = [cups.out] ++ optional polkitEnabled cups-pk-helper;
     services.udev.packages = cfg.drivers;
 
     # Allow asswordless printer admin for members of wheel group
@@ -375,31 +375,28 @@ in
     # Cups uses libusb to talk to printers, and does not use the
     # linux kernel driver. If the driver is not in a black list, it
     # gets loaded, and then cups cannot access the printers.
-    boot.blacklistedKernelModules = [ "usblp" ];
+    boot.blacklistedKernelModules = ["usblp"];
 
     # Some programs like print-manager rely on this value to get
     # printer test pages.
     environment.sessionVariables.CUPS_DATADIR = "${bindir}/share/cups";
 
-    systemd.packages = [ cups.out ];
+    systemd.packages = [cups.out];
 
     systemd.sockets.cups = mkIf cfg.startWhenNeeded {
-      wantedBy = [ "sockets.target" ];
-      listenStreams =
-        [
-          ""
-          "/run/cups/cups.sock"
-        ]
-        ++ map (x: replaceStrings [ "localhost" ] [ "127.0.0.1" ] (removePrefix "*:" x))
-          cfg.listenAddresses;
+      wantedBy = ["sockets.target"];
+      listenStreams = [
+        ""
+        "/run/cups/cups.sock"
+      ] ++ map (x: replaceStrings ["localhost"] ["127.0.0.1"] (removePrefix "*:" x)) cfg.listenAddresses;
     };
 
     systemd.services.cups = {
-      wantedBy = optionals (!cfg.startWhenNeeded) [ "multi-user.target" ];
-      wants = [ "network.target" ];
-      after = [ "network.target" ];
+      wantedBy = optionals (!cfg.startWhenNeeded) ["multi-user.target"];
+      wants = ["network.target"];
+      after = ["network.target"];
 
-      path = [ cups.out ];
+      path = [cups.out];
 
       preStart =
         lib.optionalString cfg.stateless ''
@@ -452,17 +449,17 @@ in
     systemd.services.cups-browsed = mkIf avahiEnabled {
       description = "CUPS Remote Printer Discovery";
 
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "avahi-daemon.service" ] ++ optional (!cfg.startWhenNeeded) "cups.service";
-      bindsTo = [ "avahi-daemon.service" ] ++ optional (!cfg.startWhenNeeded) "cups.service";
-      partOf = [ "avahi-daemon.service" ] ++ optional (!cfg.startWhenNeeded) "cups.service";
-      after = [ "avahi-daemon.service" ] ++ optional (!cfg.startWhenNeeded) "cups.service";
+      wantedBy = ["multi-user.target"];
+      wants = ["avahi-daemon.service"] ++ optional (!cfg.startWhenNeeded) "cups.service";
+      bindsTo = ["avahi-daemon.service"] ++ optional (!cfg.startWhenNeeded) "cups.service";
+      partOf = ["avahi-daemon.service"] ++ optional (!cfg.startWhenNeeded) "cups.service";
+      after = ["avahi-daemon.service"] ++ optional (!cfg.startWhenNeeded) "cups.service";
 
-      path = [ cups ];
+      path = [cups];
 
       serviceConfig.ExecStart = "${cups-filters}/bin/cups-browsed";
 
-      restartTriggers = [ browsedFile ];
+      restartTriggers = [browsedFile];
     };
 
     services.printing.extraConf = ''
@@ -508,8 +505,8 @@ in
       </Policy>
     '';
 
-    security.pam.services.cups = { };
+    security.pam.services.cups = {};
   };
 
-  meta.maintainers = with lib.maintainers; [ matthewbauer ];
+  meta.maintainers = with lib.maintainers; [matthewbauer];
 }

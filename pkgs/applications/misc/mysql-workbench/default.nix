@@ -205,7 +205,7 @@ stdenv.mkDerivation rec {
 
     homepage = "http://wb.mysql.com/";
     license = licenses.gpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

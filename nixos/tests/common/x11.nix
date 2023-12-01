@@ -1,7 +1,7 @@
-{ lib, ... }:
+{lib, ...}:
 
 {
-  imports = [ ./auto.nix ];
+  imports = [./auto.nix];
 
   services.xserver.enable = true;
 

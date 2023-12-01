@@ -19,6 +19,6 @@ buildPythonPackage {
   meta = with lib; {
     description = "A waitress WSGI server serving django";
     license = licenses.mit;
-    maintainers = with maintainers; [ basvandijk ];
+    maintainers = with maintainers; [basvandijk];
   };
 }

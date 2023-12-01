@@ -69,18 +69,18 @@ buildPythonPackage rec {
     tqdm
     unicrypto
     winsspi
-  ] ++ lib.optionals (stdenv.isDarwin) [ iconv ];
+  ] ++ lib.optionals (stdenv.isDarwin) [iconv];
 
   # Module doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [ "aardwolf" ];
+  pythonImportsCheck = ["aardwolf"];
 
   meta = with lib; {
     description = "Asynchronous RDP protocol implementation";
     homepage = "https://github.com/skelsec/aardwolf";
     changelog = "https://github.com/skelsec/aardwolf/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

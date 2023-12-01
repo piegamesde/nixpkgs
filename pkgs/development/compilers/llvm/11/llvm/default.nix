@@ -57,7 +57,7 @@ let
   python =
     if doCheck then
       let
-        checkDeps = ps: with ps; [ psutil ];
+        checkDeps = ps: with ps; [psutil];
       in
       python3.withPackages checkDeps
     else
@@ -239,7 +239,7 @@ stdenv.mkDerivation (
         flagsForLlvmConfig = [
           "-DLLVM_INSTALL_CMAKE_DIR=${placeholder "dev"}/lib/cmake/llvm/"
           "-DLLVM_ENABLE_RTTI=ON"
-        ] ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ];
+        ] ++ optionals enableSharedLibraries ["-DLLVM_LINK_LLVM_DYLIB=ON"];
       in
       flagsForLlvmConfig
       ++ [
@@ -269,7 +269,7 @@ stdenv.mkDerivation (
         "-DSPHINX_OUTPUT_HTML=OFF"
         "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
       ]
-      ++ optionals (enableGoldPlugin) [ "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include" ]
+      ++ optionals (enableGoldPlugin) ["-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include"]
       ++ optionals isDarwin [
         "-DLLVM_ENABLE_LIBCXX=ON"
         "-DCAN_TARGET_i386=false"
@@ -342,7 +342,7 @@ stdenv.mkDerivation (
 
     checkTarget = "check-all";
 
-    requiredSystemFeatures = [ "big-parallel" ];
+    requiredSystemFeatures = ["big-parallel"];
     meta = llvm_meta // {
       homepage = "https://llvm.org/";
       description = "A collection of modular and reusable compiler and toolchain technologies";
@@ -369,7 +369,7 @@ stdenv.mkDerivation (
       make docs-llvm-man
     '';
 
-    propagatedBuildInputs = [ ];
+    propagatedBuildInputs = [];
 
     installPhase = ''
       make -C docs install
@@ -378,7 +378,7 @@ stdenv.mkDerivation (
     postPatch = null;
     postInstall = null;
 
-    outputs = [ "out" ];
+    outputs = ["out"];
 
     doCheck = false;
 

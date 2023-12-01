@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     python3
     python3.pkgs.libxml2
   ];
-  pythonPath = [ python3.pkgs.libxml2 ];
+  pythonPath = [python3.pkgs.libxml2];
 
   postFixup = ''
     wrapPythonPrograms
@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     description = "XML to PO and back again";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

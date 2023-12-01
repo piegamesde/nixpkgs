@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "0pbahkj43rx7rmv2x40mf5p3g3x9d6i2sz7pzglarf54w5ghd2j1";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     pam
     libkrb5
@@ -35,9 +35,9 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     if !stdenv.isDarwin then
-      [ "--with-libc=libc.so.6" ]
+      ["--with-libc=libc.so.6"]
     else
-      [ "--with-libc=libc${stdenv.targetPlatform.extensions.sharedLibrary}" ];
+      ["--with-libc=libc${stdenv.targetPlatform.extensions.sharedLibrary}"];
 
   dontAddDisableDepTrack = stdenv.isDarwin;
 
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A circuit-level SOCKS client/server that can be used to provide convenient and secure network connectivity";
     homepage = "https://www.inet.no/dante/";
-    maintainers = [ maintainers.arobyn ];
+    maintainers = [maintainers.arobyn];
     license = licenses.bsdOriginal;
     platforms = platforms.linux ++ platforms.darwin;
   };

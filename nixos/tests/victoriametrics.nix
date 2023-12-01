@@ -1,13 +1,13 @@
 # This test runs influxdb and checks if influxdb is up and running
 
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "victoriametrics";
-    meta = with pkgs.lib.maintainers; { maintainers = [ yorickvp ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [yorickvp];};
 
     nodes = {
-      one = { ... }: { services.victoriametrics.enable = true; };
+      one = {...}: {services.victoriametrics.enable = true;};
     };
 
     testScript = ''

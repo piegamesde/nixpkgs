@@ -22,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/devploit/dontgo403";
     changelog = "https://github.com/devploit/dontgo403/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

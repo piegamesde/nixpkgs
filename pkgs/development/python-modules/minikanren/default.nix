@@ -42,13 +42,13 @@ buildPythonPackage rec {
     "--self-contained-html"
   ];
 
-  pythonImportsCheck = [ "kanren" ];
+  pythonImportsCheck = ["kanren"];
 
   meta = with lib; {
     description = "Relational programming in Python";
     homepage = "https://github.com/pythological/kanren";
     changelog = "https://github.com/pythological/kanren/releases";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ Etjean ];
+    maintainers = with maintainers; [Etjean];
   };
 }

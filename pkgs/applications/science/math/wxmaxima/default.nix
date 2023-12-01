@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     gettext
   ];
 
-  cmakeFlags = [ "-DwxWidgets_LIBRARIES=${wxGTK}/lib" ];
+  cmakeFlags = ["-DwxWidgets_LIBRARIES=${wxGTK}/lib"];
 
   preConfigure = ''
     gappsWrapperArgs+=(--prefix PATH ":" ${maxima}/bin)
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     description = "Cross platform GUI for the computer algebra system Maxima";
     license = licenses.gpl2;
     homepage = "https://wxmaxima-developers.github.io/wxmaxima/";
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     platforms = platforms.linux;
   };
 }

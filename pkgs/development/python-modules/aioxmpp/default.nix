@@ -53,15 +53,15 @@ buildPythonPackage rec {
     "aioxmpp.stream"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  disabledTestPaths = [ "benchmarks" ];
+  disabledTestPaths = ["benchmarks"];
 
   meta = {
     changelog = "https://github.com/horazont/aioxmpp/blob/${src.rev}/docs/api/changelog.rst";
     description = "Pure-python XMPP library for asyncio";
     homepage = "https://github.com/horazont/aioxmpp";
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

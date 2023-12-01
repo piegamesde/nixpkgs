@@ -20,7 +20,7 @@ buildPythonPackage rec {
   };
 
   # Optional import, but fixes some re known bugs & allows advanced regex features
-  propagatedBuildInputs = [ regex ];
+  propagatedBuildInputs = [regex];
 
   pythonImportsCheck = [
     "lark"

@@ -21,12 +21,12 @@ buildPythonPackage rec {
     six
   ];
 
-  pythonImportsCheck = [ "xml_marshaller" ];
+  pythonImportsCheck = ["xml_marshaller"];
 
   meta = with lib; {
     description = "This module allows one to marshal simple Python data types into a custom XML format.";
     homepage = "https://www.python.org/community/sigs/current/xml-sig/";
     license = licenses.psfl;
-    maintainers = with maintainers; [ mazurel ];
+    maintainers = with maintainers; [mazurel];
   };
 }

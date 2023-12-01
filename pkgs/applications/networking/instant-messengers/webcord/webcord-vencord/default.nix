@@ -6,10 +6,10 @@
 }:
 webcord.overrideAttrs (
   old: {
-    patches = (old.patches or [ ]) ++ [
+    patches = (old.patches or []) ++ [
       (substituteAll {
         src = ./add-extension.patch;
-        vencord = callPackage ./vencord-web-extension { };
+        vencord = callPackage ./vencord-web-extension {};
       })
     ];
 

@@ -96,7 +96,7 @@ stdenv.mkDerivation {
       gpl2 # nestopiaue
     ];
     mainProgram = "c64debugger";
-    maintainers = [ maintainers.detegr ];
+    maintainers = [maintainers.detegr];
     platforms = platforms.linux;
   };
 }

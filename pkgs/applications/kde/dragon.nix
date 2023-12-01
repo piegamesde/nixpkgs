@@ -36,7 +36,7 @@ mkDerivation {
       fdl12Plus
     ];
     description = "A simple media player for KDE";
-    maintainers = [ lib.maintainers.jonathanreeve ];
+    maintainers = [lib.maintainers.jonathanreeve];
   };
   nativeBuildInputs = [
     extra-cmake-modules

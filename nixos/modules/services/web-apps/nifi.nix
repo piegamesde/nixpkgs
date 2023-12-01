@@ -20,7 +20,7 @@ let
   envFile = pkgs.writeText "nifi.env" (
     lib.concatMapStrings (s: s + "\n") (
       (lib.concatLists (
-        lib.mapAttrsToList (name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ])
+        lib.mapAttrsToList (name: value: if value != null then [''${name}="${toString value}"''] else [])
           env
       ))
     )
@@ -186,11 +186,11 @@ in
 
     systemd.services.nifi = {
       description = "Apache NiFi";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       environment = env;
-      path = [ pkgs.gawk ];
+      path = [pkgs.gawk];
 
       serviceConfig = {
         Type = "forking";
@@ -284,7 +284,7 @@ in
         ProcSubset = "pid";
         ProtectProc = "invisible";
         # Access write directories
-        ReadWritePaths = [ cfg.initPasswordFile ];
+        ReadWritePaths = [cfg.initPasswordFile];
         UMask = "0027";
         # Capabilities
         CapabilityBoundingSet = "";
@@ -303,7 +303,7 @@ in
         ProtectKernelModules = true;
         ProtectKernelLogs = true;
         ProtectControlGroups = true;
-        RestrictAddressFamilies = [ "AF_INET AF_INET6" ];
+        RestrictAddressFamilies = ["AF_INET AF_INET6"];
         RestrictNamespaces = true;
         LockPersonality = true;
         MemoryDenyWriteExecute = false;
@@ -340,6 +340,6 @@ in
       )
     ];
 
-    users.groups = lib.optionalAttrs (cfg.group == "nifi") { nifi = { }; };
+    users.groups = lib.optionalAttrs (cfg.group == "nifi") {nifi = {};};
   };
 }

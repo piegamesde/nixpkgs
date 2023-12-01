@@ -19,15 +19,15 @@ stdenv.mkDerivation {
     sha256 = "0swvdq0pw1msy40qkpn1ar9kacqjyrw2azvf2fy38y0svyac8z2i";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  buildInputs = [ libao ];
+  buildInputs = [libao];
 
   meta = with lib; {
     description = "Morse code training program";
     homepage = "http://aldo.nongnu.org/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

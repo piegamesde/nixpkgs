@@ -22,13 +22,13 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "app/vmagent" ];
+  subPackages = ["app/vmagent"];
 
   meta = with lib; {
     homepage = "https://github.com/VictoriaMetrics/VictoriaMetrics/tree/master/app/vmagent";
     description = "VictoriaMetrics metrics scraper";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ nullx76 ];
+    maintainers = with maintainers; [nullx76];
   };
 }

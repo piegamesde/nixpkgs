@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Anen1YtXsSPhk8DpA4JtADIz9m8oXFl9umlkb4iImf8=";
   };
 
-  nativeBuildInputs = [ ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
   # Use compatible indexing for lapack and blas used
   buildInputs =
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       "JOBS=$(NIX_BUILD_CORES)"
       "MY_METIS_LIB=-lmetis"
     ]
-    ++ lib.optionals blas.isILP64 [ "CFLAGS=-DBLAS64" ]
+    ++ lib.optionals blas.isILP64 ["CFLAGS=-DBLAS64"]
     ++ lib.optionals enableCuda [
       "CUDA_PATH=${cudatoolkit}"
       "CUDART_LIB=${cudatoolkit.lib}/lib/libcudart.so"
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
       gpl2Plus
       lgpl21Plus
     ];
-    maintainers = with maintainers; [ ttuegel ];
+    maintainers = with maintainers; [ttuegel];
     platforms = with platforms; unix;
   };
 }

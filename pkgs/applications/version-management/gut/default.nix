@@ -27,12 +27,12 @@ buildGoModule rec {
   # Checks if `/home` exists
   doCheck = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "An easy-to-use git client for Windows, macOS, and Linux";
     homepage = "https://github.com/slackhq/go-audit";
-    maintainers = [ lib.maintainers.paveloom ];
-    license = [ lib.licenses.mit ];
+    maintainers = [lib.maintainers.paveloom];
+    license = [lib.licenses.mit];
   };
 }

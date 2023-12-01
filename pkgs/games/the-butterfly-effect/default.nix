@@ -22,7 +22,7 @@ mkDerivation rec {
 
   postPatch = "sed '1i#include <vector>' -i src/model/World.h";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     qt5.qtbase
     qt5.qtsvg
@@ -42,7 +42,7 @@ mkDerivation rec {
   meta = with lib; {
     description = "A physics-based game vaguely similar to Incredible Machine";
     homepage = "http://the-butterfly-effect.org/";
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux;
     license = licenses.gpl2;
   };

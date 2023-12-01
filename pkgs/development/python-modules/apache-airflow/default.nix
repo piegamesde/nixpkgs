@@ -75,7 +75,7 @@
   writeScript,
 
   # Extra airflow providers to enable
-  enabledProviders ? [ ],
+  enabledProviders ? [],
 }:
 let
   version = "2.5.1";
@@ -203,9 +203,9 @@ buildPythonPackage rec {
     typing-extensions
     unicodecsv
     werkzeug
-  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-metadata ] ++ providerDependencies;
+  ] ++ lib.optionals (pythonOlder "3.9") [importlib-metadata] ++ providerDependencies;
 
-  buildInputs = [ airflow-frontend ];
+  buildInputs = [airflow-frontend];
 
   nativeCheckInputs = [
     freezegun
@@ -231,7 +231,7 @@ buildPythonPackage rec {
     '';
 
   # allow for gunicorn processes to have access to Python packages
-  makeWrapperArgs = [ "--prefix PYTHONPATH : $PYTHONPATH" ];
+  makeWrapperArgs = ["--prefix PYTHONPATH : $PYTHONPATH"];
 
   postInstall = ''
     cp -rv ${airflow-frontend}/static/dist $out/lib/${python.libPrefix}/site-packages/airflow/www/static
@@ -239,7 +239,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [ "airflow" ] ++ providerImports;
+  pythonImportsCheck = ["airflow"] ++ providerImports;
 
   preCheck = ''
     export AIRFLOW_HOME=$HOME
@@ -252,7 +252,7 @@ buildPythonPackage rec {
     airflow db reset -y
   '';
 
-  pytestFlagsArray = [ "tests/core/test_core.py" ];
+  pytestFlagsArray = ["tests/core/test_core.py"];
 
   disabledTests = lib.optionals stdenv.isDarwin [
     "bash_operator_kill" # psutil.AccessDenied

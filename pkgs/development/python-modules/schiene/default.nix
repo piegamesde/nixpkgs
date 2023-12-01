@@ -27,12 +27,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "schiene" ];
+  pythonImportsCheck = ["schiene"];
 
   meta = with lib; {
     description = "Python library for interacting with Bahn.de";
     homepage = "https://github.com/kennell/schiene";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

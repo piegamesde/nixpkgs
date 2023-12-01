@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   preConfigure = "\n    patchShebangs ./configure\n    patchShebangs ./do_install\n  ";
 
-  buildInputs = [ curl ];
+  buildInputs = [curl];
 
   meta = with lib; {
     description = "Formatted C++17 stdlib man pages (cppreference)";
@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jeaye/stdman";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ maintainers.twey ];
+    maintainers = [maintainers.twey];
   };
 }

@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Bulk, parallel insert of CSV records into PostgreSQL";
     homepage = "https://github.com/timescale/timescaledb-parallel-copy";
     license = licenses.asl20;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

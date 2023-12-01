@@ -140,7 +140,7 @@ python3Packages.buildPythonApplication rec {
       licenses.gpl2Plus # or
       "TGPPLv1+"
     ];
-    maintainers = with lib.maintainers; [ MostAwesomeDude ];
+    maintainers = with lib.maintainers; [MostAwesomeDude];
     platforms = platforms.linux;
   };
 }

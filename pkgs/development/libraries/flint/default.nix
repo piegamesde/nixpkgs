@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     mpir
     mpfr
     ntl
-  ] ++ lib.optionals withBlas [ openblas ];
+  ] ++ lib.optionals withBlas [openblas];
 
   propagatedBuildInputs = [
     mpfr # flint.h includes mpfr.h
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     "--with-mpir=${mpir}"
     "--with-mpfr=${mpfr}"
     "--with-ntl=${ntl}"
-  ] ++ lib.optionals withBlas [ "--with-blas=${openblas}" ];
+  ] ++ lib.optionals withBlas ["--with-blas=${openblas}"];
 
   enableParallelBuilding = true;
 

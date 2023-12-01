@@ -18,11 +18,11 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace "@strip" "#@strip"
   '';
 
-  buildInputs = [ libX11 ];
+  buildInputs = [libX11];
 
-  makeFlags = [ "CC:=$(CC)" ];
+  makeFlags = ["CC:=$(CC)"];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = {
     description = "Prints or set the window manager name property of the root window";

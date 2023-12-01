@@ -14,13 +14,13 @@ stdenv.mkDerivation rec {
     sha256 = "1vpksnjmg6y5zag9li6sxqxj2xapgalfz8krfxgg49vyk0kdy4sx";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
-  configureFlags = [ "--libdir=$(out)/lib" ];
+  configureFlags = ["--libdir=$(out)/lib"];
 
   meta = with lib; {
     description = "REXX interpreter";
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux;
     license = licenses.lgpl2;
   };

@@ -21,11 +21,11 @@ melpaBuild {
     hash = "sha256-wz9DF9mqi8WUt1Ebd+ueUTA314rKkdbjmoWF8cKuS8I=";
   };
 
-  packageRequires = [ ];
+  packageRequires = [];
 
-  buildInputs = [ ];
+  buildInputs = [];
 
-  checkInputs = [ ];
+  checkInputs = [];
 
   recipe = writeText "recipe" ''
     (ligo-mode :fetcher gitlab
@@ -33,12 +33,12 @@ melpaBuild {
                :files ("tools/emacs/ligo-mode.el"))
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "A major mode for editing LIGO source code";
     homepage = "https://gitlab.com/ligolang/ligo";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

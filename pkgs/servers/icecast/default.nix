@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     libopus
   ];
 
-  hardeningEnable = [ "pie" ];
+  hardeningEnable = ["pie"];
 
   meta = {
     description = "Server software for streaming multimedia";
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://www.icecast.org";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ jcumming ];
+    maintainers = with lib.maintainers; [jcumming];
     platforms = with lib.platforms; unix;
   };
 }

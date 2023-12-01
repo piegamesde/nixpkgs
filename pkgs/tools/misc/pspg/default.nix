@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     postgresql
   ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   postInstall = ''
     installManPage pspg.1
@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     description = "Postgres Pager";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = [ maintainers.jlesquembre ];
+    maintainers = [maintainers.jlesquembre];
   };
 }

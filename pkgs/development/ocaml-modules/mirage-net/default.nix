@@ -32,6 +32,6 @@ buildDunePackage rec {
     description = "Network signatures for MirageOS";
     homepage = "https://github.com/mirage/mirage-net";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

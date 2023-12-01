@@ -36,7 +36,7 @@
 }:
 
 let
-  desktopItems = import ./desktop_items.nix { inherit makeDesktopItem pname suiteName; };
+  desktopItems = import ./desktop_items.nix {inherit makeDesktopItem pname suiteName;};
   shortEdition = builtins.substring 2 2 edition;
 in
 stdenv.mkDerivation {
@@ -150,9 +150,9 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "An office suite with a word processor, spreadsheet and presentation program";
     homepage = "https://www.softmaker.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -23,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-hMB/atDuo7CjwhHFUOxVfgJ7Qp4AA9J428iv7hyQFcs=";
   };
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  propagatedBuildInputs = [ pytest-metadata ];
+  propagatedBuildInputs = [pytest-metadata];
 
   nativeCheckInputs = [
     pytest-xdist
@@ -38,12 +38,12 @@ buildPythonPackage rec {
       "test_bug_31"
     ];
 
-  pythonImportsCheck = [ "pytest_jsonreport" ];
+  pythonImportsCheck = ["pytest_jsonreport"];
 
   meta = with lib; {
     description = "Pytest plugin to report test results as JSON";
     homepage = "https://github.com/numirias/pytest-json-report";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

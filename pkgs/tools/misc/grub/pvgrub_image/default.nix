@@ -21,7 +21,7 @@ in
 
     configs = ./configs;
 
-    buildInputs = [ grub2_xen ];
+    buildInputs = [grub2_xen];
 
     buildCommand = ''
       cp "${configs}"/* .

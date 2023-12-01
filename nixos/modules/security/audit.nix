@@ -108,8 +108,8 @@ in
 
       rules = mkOption {
         type = types.listOf types.str; # (types.either types.str (types.submodule rule));
-        default = [ ];
-        example = [ "-a exit,always -F arch=b64 -S execve" ];
+        default = [];
+        example = ["-a exit,always -F arch=b64 -S execve"];
         description = lib.mdDoc ''
           The ordered audit rules, with each string appearing as one line of the audit.rules file.
         '';
@@ -120,14 +120,14 @@ in
   config = {
     systemd.services.audit = {
       description = "Kernel Auditing";
-      wantedBy = [ "basic.target" ];
+      wantedBy = ["basic.target"];
 
       unitConfig = {
         ConditionVirtualization = "!container";
-        ConditionSecurity = [ "audit" ];
+        ConditionSecurity = ["audit"];
       };
 
-      path = [ pkgs.audit ];
+      path = [pkgs.audit];
 
       serviceConfig = {
         Type = "oneshot";

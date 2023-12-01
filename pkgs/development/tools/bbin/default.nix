@@ -18,7 +18,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-5hohAr6a8C9jPwhQi3E66onSa6+P9plS939fQM/fl9Q=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontConfigure = true;
   dontBuild = true;
@@ -45,6 +45,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Install any Babashka script or project with one command";
     license = licenses.mit;
     inherit (babashka.meta) platforms;
-    maintainers = with maintainers; [ sohalt ];
+    maintainers = with maintainers; [sohalt];
   };
 }

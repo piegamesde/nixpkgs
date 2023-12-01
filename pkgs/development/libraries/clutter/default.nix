@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
   nativeBuildInputs = [
     pkg-config
     gobject-introspection
@@ -109,7 +109,7 @@ stdenv.mkDerivation rec {
     license = lib.licenses.lgpl2Plus;
     homepage = "http://www.clutter-project.org/";
 
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 }

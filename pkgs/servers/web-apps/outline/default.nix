@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
   # Replace the inline call to yarn with our sequalize wrapper. This should be
   # the only occurrence:
   # https://github.com/outline/outline/search?l=TypeScript&q=yarn
-  patches = [ ./sequelize-command.patch ];
+  patches = [./sequelize-command.patch];
 
   yarnOfflineCache = yarn2nix-moretea.importOfflineCache ./yarn.nix;
 

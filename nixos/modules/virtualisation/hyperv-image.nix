@@ -14,7 +14,7 @@ in
   options = {
     hyperv = {
       baseImageSize = mkOption {
-        type = with types; either (enum [ "auto" ]) int;
+        type = with types; either (enum ["auto"]) int;
         default = "auto";
         example = 2048;
         description = lib.mdDoc ''

@@ -41,7 +41,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [ arrow-cpp ];
+  buildInputs = [arrow-cpp];
 
   propagatedBuildInputs = [
     cffi
@@ -71,7 +71,7 @@ buildPythonPackage rec {
   PYARROW_WITH_GCS = zero_or_one arrow-cpp.enableGcs;
   PYARROW_BUNDLE_ARROW_CPP_HEADERS = zero_or_one false;
 
-  PYARROW_CMAKE_OPTIONS = [ "-DCMAKE_INSTALL_RPATH=${ARROW_HOME}/lib" ];
+  PYARROW_CMAKE_OPTIONS = ["-DCMAKE_INSTALL_RPATH=${ARROW_HOME}/lib"];
 
   ARROW_HOME = arrow-cpp;
   PARQUET_HOME = arrow-cpp;
@@ -142,7 +142,7 @@ buildPythonPackage rec {
           "--deselect=pyarrow/tests/test_fs.py::test_filesystem_from_uri_gcs"
         ];
 
-  disabledTests = [ "GcsFileSystem" ];
+  disabledTests = ["GcsFileSystem"];
 
   dontUseSetuptoolsCheck = true;
 
@@ -159,7 +159,7 @@ buildPythonPackage rec {
     '';
 
   pythonImportsCheck =
-    [ "pyarrow" ]
+    ["pyarrow"]
     ++ map (module: "pyarrow.${module}") [
       "compute"
       "csv"

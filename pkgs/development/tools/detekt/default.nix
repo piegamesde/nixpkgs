@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -33,14 +33,14 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests.version = testers.testVersion { package = detekt; };
+  passthru.tests.version = testers.testVersion {package = detekt;};
 
   meta = with lib; {
     description = "Static code analysis for Kotlin";
     homepage = "https://detekt.dev/";
     license = licenses.asl20;
     platforms = jre_headless.meta.platforms;
-    maintainers = with maintainers; [ mdr ];
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    maintainers = with maintainers; [mdr];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
   };
 }

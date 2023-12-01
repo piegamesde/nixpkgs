@@ -127,6 +127,6 @@ rustPlatform.buildRustPackage {
     description = "Provides automatic updates for the voxel RPG Veloren.";
     homepage = "https://www.veloren.net";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ yusdacra ];
+    maintainers = with maintainers; [yusdacra];
   };
 }

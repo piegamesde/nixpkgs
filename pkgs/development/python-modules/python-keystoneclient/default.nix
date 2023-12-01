@@ -45,7 +45,7 @@ buildPythonPackage rec {
     stestr run
   '';
 
-  pythonImportsCheck = [ "keystoneclient" ];
+  pythonImportsCheck = ["keystoneclient"];
 
   meta = with lib; {
     description = "Client Library for OpenStack Identity";

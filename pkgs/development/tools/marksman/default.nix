@@ -19,7 +19,7 @@ buildDotnetModule rec {
   };
 
   projectFile = "Marksman/Marksman.fsproj";
-  dotnetBuildFlags = [ "-p:VersionString=${version}" ];
+  dotnetBuildFlags = ["-p:VersionString=${version}"];
 
   doCheck = true;
   testProjectFile = "Tests/Tests.fsproj";
@@ -53,7 +53,7 @@ buildDotnetModule rec {
     '';
     homepage = "https://github.com/artempyanykh/marksman";
     license = licenses.mit;
-    maintainers = with maintainers; [ stasjok ];
+    maintainers = with maintainers; [stasjok];
     platforms = dotnet-sdk.meta.platforms;
   };
 }

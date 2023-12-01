@@ -34,14 +34,14 @@ buildPythonPackage rec {
     ln -s $HOME/.config/matplotlib $HOME/.matplotlib
   '';
 
-  disabledTests = [ "matplotlib_default_colormap_plot" ];
+  disabledTests = ["matplotlib_default_colormap_plot"];
 
-  pythonImportsCheck = [ "colorcet" ];
+  pythonImportsCheck = ["colorcet"];
 
   meta = with lib; {
     description = "Collection of perceptually uniform colormaps";
     homepage = "https://colorcet.pyviz.org";
     license = licenses.cc-by-40;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

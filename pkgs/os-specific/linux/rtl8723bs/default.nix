@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "0pxqya14a61vv2v5ky1ldybc0mjfin9mpvmajlmv0lls904rph7g";
   };
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
-  buildInputs = [ nukeReferences ];
+  buildInputs = [nukeReferences];
 
   makeFlags = [
     "ARCH=${stdenv.hostPlatform.linuxArch}" # Normally not needed, but the Makefile sets ARCH in a broken way.
@@ -42,6 +42,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
     broken = versionAtLeast kernel.version "4.12"; # Now in kernel staging drivers
-    maintainers = with maintainers; [ elitak ];
+    maintainers = with maintainers; [elitak];
   };
 }

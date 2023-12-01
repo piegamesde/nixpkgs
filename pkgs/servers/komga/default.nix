@@ -16,7 +16,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-J8dpw7GzLJnLiiFSFVCoqZFQ6mI2z0zBZHdbmxMgmf8=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildCommand = ''
     makeWrapper ${jdk11_headless}/bin/java $out/bin/komga --add-flags "-jar $src"
@@ -31,6 +31,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://komga.org/";
     license = licenses.mit;
     platforms = jdk11_headless.meta.platforms;
-    maintainers = with maintainers; [ govanify ];
+    maintainers = with maintainers; [govanify];
   };
 }

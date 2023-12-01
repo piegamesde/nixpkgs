@@ -23,12 +23,12 @@ buildPythonPackage {
 
   # no tests
   doCheck = false;
-  pythonImportsCheck = [ "notmuch" ];
+  pythonImportsCheck = ["notmuch"];
 
   meta = with lib; {
     description = "A Python wrapper around notmuch";
     homepage = "https://notmuchmail.org/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

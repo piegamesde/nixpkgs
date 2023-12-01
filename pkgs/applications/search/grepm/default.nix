@@ -37,6 +37,6 @@ stdenv.mkDerivation {
     homepage = "https://www.barsnick.net/sw/grepm.html";
     license = licenses.free;
     platforms = platforms.unix;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

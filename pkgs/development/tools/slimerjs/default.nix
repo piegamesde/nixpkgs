@@ -19,8 +19,8 @@ stdenv.mkDerivation rec {
     rev = version;
   };
 
-  buildInputs = [ zip ];
-  nativeBuildInputs = [ unzip ];
+  buildInputs = [zip];
+  nativeBuildInputs = [unzip];
 
   preConfigure = ''
     test -d src && cd src
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Gecko-based programmatically-driven browser";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
   };
 }

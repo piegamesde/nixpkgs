@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
     description = "A UNIX daemon that executes a script on X input and RandR changes";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ akho ];
+    maintainers = with maintainers; [akho];
   };
 }

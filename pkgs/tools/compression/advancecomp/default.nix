@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-dlVTMd8sm84M8JZsCfVR/s4jXMQWmrVj7xwUVDsehQY=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ zlib ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [zlib];
 
   # autover.sh relies on 'git describe', which obviously doesn't work as we're not cloning
   # the full git repo. so we have to put the version number in `.version`, otherwise
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A set of tools to optimize deflate-compressed files";
     license = licenses.gpl3;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux ++ platforms.darwin;
     homepage = "https://github.com/amadvance/advancecomp";
   };

@@ -15,8 +15,8 @@ let
   arch = if stdenv.isAarch64 then "arm" else "i386";
 in
 appleDerivation {
-  nativeBuildInputs = [ xcbuildHook ];
-  buildInputs = [ libutil ];
+  nativeBuildInputs = [xcbuildHook];
+  buildInputs = [libutil];
 
   env.NIX_CFLAGS_COMPILE = "-I.";
   NIX_LDFLAGS = "-lutil";
@@ -46,6 +46,6 @@ appleDerivation {
 
   meta = {
     platforms = lib.platforms.darwin;
-    maintainers = with lib.maintainers; [ matthewbauer ];
+    maintainers = with lib.maintainers; [matthewbauer];
   };
 }

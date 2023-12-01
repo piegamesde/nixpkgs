@@ -11,7 +11,7 @@
 bundlerApp {
   pname = "ledger_web";
   gemdir = ./.;
-  exes = [ "ledger_web" ];
+  exes = ["ledger_web"];
 
   buildInputs = lib.optional withPostgresql postgresql ++ lib.optional withSqlite sqlite;
 

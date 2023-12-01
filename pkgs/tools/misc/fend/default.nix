@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     pandoc
     installShellFiles
   ];
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.Security];
 
   postBuild = ''
     patchShebangs --build ./documentation/build.sh
@@ -46,6 +46,6 @@ rustPlatform.buildRustPackage rec {
     description = "Arbitrary-precision unit-aware calculator";
     homepage = "https://github.com/printfn/fend";
     license = licenses.mit;
-    maintainers = with maintainers; [ djanatyn ];
+    maintainers = with maintainers; [djanatyn];
   };
 }

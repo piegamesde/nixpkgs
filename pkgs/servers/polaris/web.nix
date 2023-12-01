@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "2XqU4sExF7Or7RxpOK2XU9APtBujfPhM/VkOLKVDvF4=";
   };
 
-  nativeBuildInputs = [ nodejs ];
+  nativeBuildInputs = [nodejs];
 
   buildPhase =
     let
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
                   node_modules/**/node-gyp-build/bin.js \
               '';
 
-              buildInputs = [ cypress ];
+              buildInputs = [cypress];
               # prevent downloading cypress, use the executable in path instead
               CYPRESS_INSTALL_BINARY = "0";
             }
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
     description = "Web client for Polaris";
     homepage = "https://github.com/agersant/polaris-web";
     license = licenses.mit;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
     platforms = platforms.unix;
   };
 }

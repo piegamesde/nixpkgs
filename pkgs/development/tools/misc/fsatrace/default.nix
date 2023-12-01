@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   installDir = "libexec/${pname}-${version}";
 
-  makeFlags = [ "INSTALLDIR=$(out)/$(installDir)" ];
+  makeFlags = ["INSTALLDIR=$(out)/$(installDir)"];
 
   preInstall = ''
     mkdir -p $out/$installDir

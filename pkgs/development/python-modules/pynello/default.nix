@@ -31,12 +31,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pynello" ];
+  pythonImportsCheck = ["pynello"];
 
   meta = with lib; {
     description = "Python library for nello.io intercoms";
     homepage = "https://github.com/pschmitt/pynello";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [fab];
   };
 }

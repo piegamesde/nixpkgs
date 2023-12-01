@@ -108,7 +108,7 @@ in
         forwardXAuth = true;
         logFailures = true;
       };
-      passwd = { };
+      passwd = {};
       # Note: useradd, groupadd etc. aren't setuid root, so it
       # doesn't really matter what the PAM config says as long as it
       # lets root in.

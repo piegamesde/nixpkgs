@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-uUWRKUjS2LvHgT5xrK+LZLQRHc6wMaxGca2OsVxVlRs=";
   };
 
-  buildInputs = [ apacheHttpd ];
+  buildInputs = [apacheHttpd];
 
   buildPhase = ''
     apxs -ca mod_cspnonce.c
@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/wyattoday/mod_cspnonce";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ dasj19 ];
+    maintainers = with maintainers; [dasj19];
   };
 }

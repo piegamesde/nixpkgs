@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-zDw8WGBzO4/HRCgN7yoUxT49ibTz+QkRa5WpBQbl1nI=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontBuild = true;
 
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/lemnos/theme.sh";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "theme.sh";
   };
 }

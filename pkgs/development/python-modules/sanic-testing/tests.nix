@@ -21,5 +21,5 @@ buildPythonPackage {
     sanic
   ];
 
-  pythonImportsCheck = [ "sanic_testing" ];
+  pythonImportsCheck = ["sanic_testing"];
 }

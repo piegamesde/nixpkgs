@@ -22,7 +22,7 @@ stdenv.mkDerivation {
     sha256 = "0fg31g8mrcx14h2rjcf091cbd924n19z55iscaiflspifya30yhd";
   };
 
-  buildInputs = [ ruby ];
+  buildInputs = [ruby];
 
   dontUnpack = true;
 

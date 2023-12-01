@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     ncurses
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   postInstall = ''
     cp ${keymap}.keymap $out/share/gmu/default.keymap

@@ -14,7 +14,7 @@ gccStdenv.mkDerivation rec {
     sha256 = "0jlq9l4hphk7qqlgqj9ihjp4m3rwjbhk6q4v00lsbgbri07574pl";
   };
 
-  buildInputs = [ gmp ];
+  buildInputs = [gmp];
 
   meta = with lib; {
     description = "C/C++ library for numbers, a part of GiNaC";

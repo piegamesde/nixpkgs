@@ -67,16 +67,16 @@ stdenv.mkDerivation rec {
   '';
 
   # Use shared libraries to decrease size
-  buildFlags = [ "shared" ];
+  buildFlags = ["shared"];
 
   makeFlags = [
     "prefix=$(out)"
     "USE_SYSTEM_LIBS=yes"
     "PKG_CONFIG=${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config"
-  ] ++ lib.optionals (!enableX11) [ "HAVE_X11=no" ] ++ lib.optionals (!enableGL) [ "HAVE_GLUT=no" ];
+  ] ++ lib.optionals (!enableX11) ["HAVE_X11=no"] ++ lib.optionals (!enableGL) ["HAVE_GLUT=no"];
 
   nativeBuildInputs =
-    [ pkg-config ]
+    [pkg-config]
     ++ lib.optional (enableGL || enableX11) copyDesktopItems
     ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
 

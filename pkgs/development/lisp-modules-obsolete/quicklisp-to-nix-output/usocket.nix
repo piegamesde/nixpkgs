@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "usocket";
   version = "0.8.3";
 
   description = "Universal socket library for Common Lisp";
 
-  deps = [ args."split-sequence" ];
+  deps = [args."split-sequence"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/usocket/2019-12-27/usocket-0.8.3.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "usocket";
 
-  asdFilesToKeep = [ "usocket.asd" ];
+  asdFilesToKeep = ["usocket.asd"];
   overrides = x: x;
 }
 /* (SYSTEM usocket DESCRIPTION Universal socket library for Common Lisp SHA256

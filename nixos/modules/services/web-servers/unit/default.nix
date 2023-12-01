@@ -87,7 +87,7 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.tmpfiles.rules = [
       "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -"
@@ -96,8 +96,8 @@ in
 
     systemd.services.unit = {
       description = "Unit App Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       preStart = ''
         [ ! -e '${cfg.stateDir}/conf.json' ] || rm -f '${cfg.stateDir}/conf.json'
       '';
@@ -159,6 +159,6 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "unit") { unit = { }; };
+    users.groups = optionalAttrs (cfg.group == "unit") {unit = {};};
   };
 }

@@ -1,12 +1,12 @@
 import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   # copy_from_host works only for store paths
   rec {
     name = "fcitx5";
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        imports = [ ../common/user-account.nix ];
+        imports = [../common/user-account.nix];
 
         environment.systemPackages =
           [
@@ -38,7 +38,7 @@ import ../make-test-python.nix (
       };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         user = nodes.machine.users.users.alice;
         xauth = "${user.home}/.Xauthority";

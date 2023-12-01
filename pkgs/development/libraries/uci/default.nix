@@ -17,9 +17,9 @@ stdenv.mkDerivation {
     sha256 = "1zflxazazzkrycpflzfg420kzp7kgy4dlz85cms279vk07dc1d52";
   };
 
-  hardeningDisable = [ "all" ];
-  cmakeFlags = [ "-DBUILD_LUA=OFF" ];
-  buildInputs = [ libubox ];
+  hardeningDisable = ["all"];
+  cmakeFlags = ["-DBUILD_LUA=OFF"];
+  buildInputs = [libubox];
   nativeBuildInputs = [
     cmake
     pkg-config
@@ -30,6 +30,6 @@ stdenv.mkDerivation {
     homepage = "https://git.openwrt.org/?p=project/uci.git;a=summary";
     license = licenses.lgpl21Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

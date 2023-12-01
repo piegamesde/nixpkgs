@@ -27,7 +27,7 @@ buildPythonPackage rec {
       --replace 'bleak-retry-connector = "^0.15.1"' 'bleak = "*"'
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     bleak
@@ -37,13 +37,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "airthings_ble" ];
+  pythonImportsCheck = ["airthings_ble"];
 
   meta = with lib; {
     description = "Library for Airthings BLE devices";
     homepage = "https://github.com/vincegio/airthings-ble";
     changelog = "https://github.com/vincegio/airthings-ble/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

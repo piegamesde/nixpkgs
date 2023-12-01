@@ -108,13 +108,13 @@ mkDerivation rec {
     file
   ];
 
-  configureFlags = [ "--dvb-path=${linuxHeaders}/include" ];
+  configureFlags = ["--dvb-path=${linuxHeaders}/include"];
 
   meta = with lib; {
     homepage = "https://www.mythtv.org/";
     description = "Open Source DVR";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.titanous ];
+    maintainers = [maintainers.titanous];
   };
 }

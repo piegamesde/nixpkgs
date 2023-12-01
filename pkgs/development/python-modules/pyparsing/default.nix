@@ -21,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-aCRyJQyLf8qQ6NO41q+HC856TjIHzIt0vyVBLV+3teE=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   # circular dependencies with pytest if enabled by default
   doCheck = false;
@@ -31,10 +31,10 @@ buildPythonPackage rec {
     railroad-diagrams
   ];
 
-  pythonImportsCheck = [ "pyparsing" ];
+  pythonImportsCheck = ["pyparsing"];
 
   passthru.tests = {
-    check = pyparsing.overridePythonAttrs (_: { doCheck = true; });
+    check = pyparsing.overridePythonAttrs (_: {doCheck = true;});
   };
 
   meta = with lib; {
@@ -47,6 +47,6 @@ buildPythonPackage rec {
       that client code uses to construct the grammar directly in Python code.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  mesonFlags = [ (lib.mesonBool "demo" false) ];
+  mesonFlags = [(lib.mesonBool "demo" false)];
 
   nativeBuildInputs = [
     meson
@@ -54,6 +54,6 @@ stdenv.mkDerivation rec {
     description = "Client-side decorations library for Wayland clients";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
   };
 }

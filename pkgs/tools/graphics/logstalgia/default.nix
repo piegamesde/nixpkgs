@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     sha256 = "1agwjlwzp1c86hqb1p7rmzqzhd3wpnyh8whsfq4sbx01wj0l0gzd";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     glew
     SDL2
@@ -67,6 +67,6 @@ stdenv.mkDerivation rec {
     '';
 
     platforms = platforms.gnu ++ platforms.linux;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

@@ -31,7 +31,7 @@ stdenvNoCC.mkDerivation rec {
     '';
     homepage = "https://github.com/alerque/libertinus";
     license = licenses.ofl;
-    maintainers = with maintainers; [ siddharthist ];
+    maintainers = with maintainers; [siddharthist];
     platforms = platforms.all;
   };
 }

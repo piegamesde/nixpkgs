@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     zlib
     librevenge
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     homepage = "https://libwpg.sourceforge.net";

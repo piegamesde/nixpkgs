@@ -47,16 +47,16 @@ buildPythonPackage rec {
     sympy
   ];
 
-  pythonImportsCheck = [ "formulaic" ];
+  pythonImportsCheck = ["formulaic"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  disabledTestPaths = [ "tests/transforms/test_poly.py" ];
+  disabledTestPaths = ["tests/transforms/test_poly.py"];
 
   meta = {
     homepage = "https://matthewwardrop.github.io/formulaic/";
     description = "High-performance implementation of Wilkinson formulas for";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ swflint ];
+    maintainers = with lib.maintainers; [swflint];
   };
 }

@@ -1,17 +1,17 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   {
     name = "cage";
-    meta = with pkgs.lib.maintainers; { maintainers = [ matthewbauer ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [matthewbauer];};
 
     nodes.machine =
-      { ... }:
+      {...}:
 
       {
-        imports = [ ./common/user-account.nix ];
+        imports = [./common/user-account.nix];
 
-        fonts.fonts = with pkgs; [ dejavu_fonts ];
+        fonts.fonts = with pkgs; [dejavu_fonts];
 
         services.cage = {
           enable = true;
@@ -20,13 +20,13 @@ import ./make-test-python.nix (
         };
 
         # Need to switch to a different GPU driver than the default one (-vga std) so that Cage can launch:
-        virtualisation.qemu.options = [ "-vga none -device virtio-gpu-pci" ];
+        virtualisation.qemu.options = ["-vga none -device virtio-gpu-pci"];
       };
 
     enableOCR = true;
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         user = nodes.machine.config.users.users.alice;
       in

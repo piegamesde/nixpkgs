@@ -59,7 +59,7 @@ crystal.buildCrystalPackage rec {
           --replace ${lib.escapeShellArg branchTemplate} '"master"' \
           --replace ${lib.escapeShellArg commitTemplate} '"${lib.substring 0 7 versions.invidious.rev}"' \
           --replace ${lib.escapeShellArg versionTemplate} '"${
-            lib.replaceStrings [ "-" ] [ "." ] (lib.substring 9 10 version)
+            lib.replaceStrings ["-"] ["."] (lib.substring 9 10 version)
           }"' \
           --replace ${lib.escapeShellArg assetCommitTemplate} '"${
             lib.substring 0 7 versions.invidious.rev

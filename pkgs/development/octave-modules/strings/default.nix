@@ -16,9 +16,9 @@ buildOctavePackage rec {
     sha256 = "sha256-agpTD9FN1qdp+BYdW5f+GZV0zqZMNzeOdymdo27mTOI=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ pcre2 ];
+  buildInputs = [pcre2];
 
   # The gripes library no longer exists.
   # https://build.opensuse.org/package/view_file/openSUSE:Backports:SLE-15-SP3/octave-forge-strings/octave-forge-strings.spec
@@ -34,7 +34,7 @@ buildOctavePackage rec {
     homepage = "https://octave.sourceforge.io/strings/index.html";
     license = licenses.gpl3Plus;
     # Claims to have a freebsd license, but I found none.
-    maintainers = with maintainers; [ KarlJoad ];
+    maintainers = with maintainers; [KarlJoad];
     description = "Additional functions for manipulation and analysis of strings";
     # Some pcre symbols claimed to be missing
     broken = stdenv.isDarwin;

@@ -23,12 +23,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "pysvg" ];
+  pythonImportsCheck = ["pysvg"];
 
   meta = {
     homepage = "https://github.com/alorence/pysvg-py3";
     description = "Creating SVG with Python";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ davidak ];
+    maintainers = with lib.maintainers; [davidak];
   };
 }

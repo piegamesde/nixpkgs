@@ -35,6 +35,6 @@ stdenv.mkDerivation {
     homepage = "https://cccgoe.de/wiki/Pixelflut";
     license = licenses.unlicense;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mrVanDalo ];
+    maintainers = with maintainers; [mrVanDalo];
   };
 }

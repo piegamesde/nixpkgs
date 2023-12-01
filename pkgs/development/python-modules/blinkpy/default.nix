@@ -32,7 +32,7 @@ buildPythonPackage rec {
     sortedcontainers
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "blinkpy"
@@ -55,6 +55,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/fronzbot/blinkpy";
     changelog = "https://github.com/fronzbot/blinkpy/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -60,6 +60,6 @@ stdenv.mkDerivation rec {
     description = "Weather plugin for the Xfce desktop environment";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    maintainers = with maintainers; [] ++ teams.xfce.members;
   };
 }

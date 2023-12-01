@@ -20,13 +20,13 @@ let
   ];
   env = buildEnv {
     name = "quake3-env";
-    paths = [ ioquake3 ] ++ paks;
+    paths = [ioquake3] ++ paks;
   };
 in
 stdenv.mkDerivation {
   name = "${name}-${ioquake3.name}";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildCommand = ''
     mkdir -p $out/bin

@@ -38,7 +38,7 @@ buildPythonPackage rec {
   '';
 
   # pythonImportsCheck = [ "bpycv" ]; # this import depends on bpy that is only available inside blender
-  nativeCheckInputs = [ blender ];
+  nativeCheckInputs = [blender];
   checkPhase =
     let
       bpycv_example_data = fetchFromGitHub {
@@ -61,6 +61,6 @@ buildPythonPackage rec {
     description = "Computer vision utils for Blender";
     homepage = "https://github.com/DIYer22/bpycv";
     license = licenses.mit;
-    maintainers = with maintainers; [ lucasew ];
+    maintainers = with maintainers; [lucasew];
   };
 }

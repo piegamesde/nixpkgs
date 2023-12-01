@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     pango
   ];
 
-  propagatedBuildInputs = [ wlroots ];
+  propagatedBuildInputs = [wlroots];
 
   nativeCheckInputs = [
     cmake
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
     (lib.mesonEnable "wf-touch:tests" (stdenv.buildPlatform.canExecute stdenv.hostPlatform))
   ];
 
-  passthru.providedSessions = [ "wayfire" ];
+  passthru.providedSessions = ["wayfire"];
 
   meta = with lib; {
     homepage = "https://wayfire.org/";

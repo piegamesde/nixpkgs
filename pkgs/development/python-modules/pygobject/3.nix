@@ -34,7 +34,7 @@ buildPythonPackage rec {
     sha256 = "PGgF0TIb6QzDLmSCFaViQw4NPW7c2o9MXnqdr/ytVxA=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     pkg-config
@@ -48,7 +48,7 @@ buildPythonPackage rec {
       # # .so files link to this
       glib
     ]
-    ++ lib.optionals stdenv.isDarwin [ ncurses ];
+    ++ lib.optionals stdenv.isDarwin [ncurses];
 
   propagatedBuildInputs = [
     pycairo
@@ -75,7 +75,7 @@ buildPythonPackage rec {
     homepage = "https://pygobject.readthedocs.io/";
     description = "Python bindings for Glib";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.unix;
   };
 }

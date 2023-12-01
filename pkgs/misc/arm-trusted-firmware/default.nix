@@ -23,8 +23,8 @@ let
       installDir ? "$out",
       platform ? null,
       platformCanUseHDCPBlob ? false, # set this to true if the platform is able to use hdcp.bin
-      extraMakeFlags ? [ ],
-      extraMeta ? { },
+      extraMakeFlags ? [],
+      extraMeta ? {},
       ...
     }@args:
 
@@ -58,12 +58,12 @@ let
           rm plat/rockchip/rk3399/drivers/dp/hdcp.bin
         '';
 
-        depsBuildBuild = [ buildPackages.stdenv.cc ];
+        depsBuildBuild = [buildPackages.stdenv.cc];
 
         # For Cortex-M0 firmware in RK3399
-        nativeBuildInputs = [ pkgsCross.arm-embedded.stdenv.cc ];
+        nativeBuildInputs = [pkgsCross.arm-embedded.stdenv.cc];
 
-        buildInputs = [ openssl ];
+        buildInputs = [openssl];
 
         makeFlags = [
           "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
@@ -82,7 +82,7 @@ let
           runHook postInstall
         '';
 
-        hardeningDisable = [ "all" ];
+        hardeningDisable = ["all"];
         dontStrip = true;
 
         # Fatal error: can't create build/sun50iw1p1/release/bl31/sunxi_clocks.o: No such file or directory
@@ -95,12 +95,12 @@ let
             description = "A reference implementation of secure world software for ARMv8-A";
             license = [
               licenses.bsd3
-            ] ++ lib.optionals (!deleteHDCPBlobBeforeBuild) [ licenses.unfreeRedistributable ];
-            maintainers = with maintainers; [ lopsided98 ];
+            ] ++ lib.optionals (!deleteHDCPBlobBeforeBuild) [licenses.unfreeRedistributable];
+            maintainers = with maintainers; [lopsided98];
           }
           // extraMeta;
       }
-      // builtins.removeAttrs args [ "extraMeta" ]
+      // builtins.removeAttrs args ["extraMeta"]
     );
 in
 {
@@ -126,25 +126,25 @@ in
 
   armTrustedFirmwareAllwinner = buildArmTrustedFirmware rec {
     platform = "sun50i_a64";
-    extraMeta.platforms = [ "aarch64-linux" ];
-    filesToInstall = [ "build/${platform}/release/bl31.bin" ];
+    extraMeta.platforms = ["aarch64-linux"];
+    filesToInstall = ["build/${platform}/release/bl31.bin"];
   };
 
   armTrustedFirmwareAllwinnerH616 = buildArmTrustedFirmware rec {
     platform = "sun50i_h616";
-    extraMeta.platforms = [ "aarch64-linux" ];
-    filesToInstall = [ "build/${platform}/release/bl31.bin" ];
+    extraMeta.platforms = ["aarch64-linux"];
+    filesToInstall = ["build/${platform}/release/bl31.bin"];
   };
 
   armTrustedFirmwareAllwinnerH6 = buildArmTrustedFirmware rec {
     platform = "sun50i_h6";
-    extraMeta.platforms = [ "aarch64-linux" ];
-    filesToInstall = [ "build/${platform}/release/bl31.bin" ];
+    extraMeta.platforms = ["aarch64-linux"];
+    filesToInstall = ["build/${platform}/release/bl31.bin"];
   };
 
   armTrustedFirmwareQemu = buildArmTrustedFirmware rec {
     platform = "qemu";
-    extraMeta.platforms = [ "aarch64-linux" ];
+    extraMeta.platforms = ["aarch64-linux"];
     filesToInstall = [
       "build/${platform}/release/bl1.bin"
       "build/${platform}/release/bl2.bin"
@@ -153,25 +153,25 @@ in
   };
 
   armTrustedFirmwareRK3328 = buildArmTrustedFirmware rec {
-    extraMakeFlags = [ "bl31" ];
+    extraMakeFlags = ["bl31"];
     platform = "rk3328";
-    extraMeta.platforms = [ "aarch64-linux" ];
-    filesToInstall = [ "build/${platform}/release/bl31/bl31.elf" ];
+    extraMeta.platforms = ["aarch64-linux"];
+    filesToInstall = ["build/${platform}/release/bl31/bl31.elf"];
     platformCanUseHDCPBlob = true;
   };
 
   armTrustedFirmwareRK3399 = buildArmTrustedFirmware rec {
-    extraMakeFlags = [ "bl31" ];
+    extraMakeFlags = ["bl31"];
     platform = "rk3399";
-    extraMeta.platforms = [ "aarch64-linux" ];
-    filesToInstall = [ "build/${platform}/release/bl31/bl31.elf" ];
+    extraMeta.platforms = ["aarch64-linux"];
+    filesToInstall = ["build/${platform}/release/bl31/bl31.elf"];
     platformCanUseHDCPBlob = true;
   };
 
   armTrustedFirmwareS905 = buildArmTrustedFirmware rec {
-    extraMakeFlags = [ "bl31" ];
+    extraMakeFlags = ["bl31"];
     platform = "gxbb";
-    extraMeta.platforms = [ "aarch64-linux" ];
-    filesToInstall = [ "build/${platform}/release/bl31.bin" ];
+    extraMeta.platforms = ["aarch64-linux"];
+    filesToInstall = ["build/${platform}/release/bl31.bin"];
   };
 }

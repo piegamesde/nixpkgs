@@ -22,12 +22,12 @@ buildPythonPackage rec {
   # Circular dependency
   doCheck = false;
 
-  pythonImportsCheck = [ "traits" ];
+  pythonImportsCheck = ["traits"];
 
   meta = with lib; {
     description = "Explicitly typed attributes for Python";
     homepage = "https://pypi.python.org/pypi/traits";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

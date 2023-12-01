@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [
     pcre
-    (python3.withPackages (ps: [ ps.pygments ]))
+    (python3.withPackages (ps: [ps.pygments]))
   ];
 
   makeFlags = [
@@ -87,6 +87,6 @@ stdenv.mkDerivation rec {
     homepage = "http://cppcheck.sourceforge.net/";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ joachifm ];
+    maintainers = with maintainers; [joachifm];
   };
 }

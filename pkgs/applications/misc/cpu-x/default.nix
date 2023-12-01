@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/cpu-x \
-      --prefix PATH : ${lib.makeBinPath [ stdenv.cc ]} \
+      --prefix PATH : ${lib.makeBinPath [stdenv.cc]} \
       --prefix LD_LIBRARY_PATH : ${vulkan-loader}/lib
   '';
 
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
     description = "Free software that gathers information on CPU, motherboard and more";
     homepage = "https://thetumultuousunicornofdarkness.github.io/CPU-X";
     license = licenses.gpl3Plus;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ viraptor ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [viraptor];
   };
 }

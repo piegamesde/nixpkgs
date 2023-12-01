@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     homepage = "https://thebeez.home.xs4all.nl/4tH/index.html";
     description = "A portable Forth compiler";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.unix;
   };
 }

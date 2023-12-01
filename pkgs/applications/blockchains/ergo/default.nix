@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-EChnLRoInWFRuRMfnyRlZbZBWB6/QG9yRdwW9+IiMYc=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontUnpack = true;
 
@@ -26,9 +26,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Open protocol that implements modern scientific ideas in the blockchain area";
     homepage = "https://ergoplatform.org/en/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.cc0;
     platforms = platforms.all;
-    maintainers = with maintainers; [ mmahut ];
+    maintainers = with maintainers; [mmahut];
   };
 }

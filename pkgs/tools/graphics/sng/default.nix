@@ -15,15 +15,15 @@ stdenv.mkDerivation rec {
     sha256 = "06a6ydvx9xb3vxvrzdrg3hq0rjwwj9ibr7fyyxjxq6qx1j3mb70i";
   };
 
-  buildInputs = [ libpng ];
+  buildInputs = [libpng];
 
-  configureFlags = [ "--with-rgbtxt=${netpbm.out}/share/netpbm/misc/rgb.txt" ];
+  configureFlags = ["--with-rgbtxt=${netpbm.out}/share/netpbm/misc/rgb.txt"];
 
   meta = with lib; {
     description = "Minilanguage designed to represent the entire contents of a PNG file in an editable form";
     homepage = "https://sng.sourceforge.net/";
     license = licenses.zlib;
-    maintainers = [ maintainers.dezgeg ];
+    maintainers = [maintainers.dezgeg];
     platforms = platforms.unix;
   };
 }

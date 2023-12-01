@@ -32,13 +32,13 @@ buildPythonPackage rec {
     pandas
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pythonImportsCheck = [ "synergy" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pythonImportsCheck = ["synergy"];
 
   meta = with lib; {
     description = "A Python library for calculating, analyzing, and visualizing drug combination synergy";
     homepage = "https://github.com/djwooten/synergy";
-    maintainers = [ maintainers.ivar ];
+    maintainers = [maintainers.ivar];
     license = licenses.gpl3Plus;
   };
 }

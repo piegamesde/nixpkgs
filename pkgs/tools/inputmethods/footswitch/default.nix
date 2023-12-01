@@ -17,8 +17,8 @@ stdenv.mkDerivation {
     sha256 = "0gfvi2wgrljndyz889cjjh2q13994fnaf11n7hpdd82c4wgg06kj";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ hidapi ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [hidapi];
 
   postPatch = ''
     substituteInPlace Makefile \
@@ -36,6 +36,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/rgerganov/footswitch";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ baloo ];
+    maintainers = with maintainers; [baloo];
   };
 }

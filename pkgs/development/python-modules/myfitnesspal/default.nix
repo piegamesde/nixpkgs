@@ -60,12 +60,12 @@ buildPythonPackage rec {
       "test_integration"
     ];
 
-  pythonImportsCheck = [ "myfitnesspal" ];
+  pythonImportsCheck = ["myfitnesspal"];
 
   meta = with lib; {
     description = "Python module to access meal tracking data stored in MyFitnessPal";
     homepage = "https://github.com/coddingtonbear/python-myfitnesspal";
     license = licenses.mit;
-    maintainers = with maintainers; [ bhipple ];
+    maintainers = with maintainers; [bhipple];
   };
 }

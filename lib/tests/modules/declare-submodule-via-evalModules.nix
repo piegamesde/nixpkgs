@@ -1,4 +1,4 @@
-{ lib, ... }:
+{lib, ...}:
 {
   options.submodule = lib.mkOption {
     inherit
@@ -14,12 +14,12 @@
       })
       type
       ;
-    default = { };
+    default = {};
   };
 
   config.submodule = lib.mkMerge [
     (
-      { lib, ... }:
+      {lib, ...}:
       {
         options.outer = lib.mkOption {
           type = lib.types.bool;

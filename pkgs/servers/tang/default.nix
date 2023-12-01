@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     description = "Server for binding data to network presence";
     homepage = "https://github.com/latchset/tang";
     changelog = "https://github.com/latchset/tang/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ fpletz ];
+    maintainers = with lib.maintainers; [fpletz];
     license = lib.licenses.gpl3Plus;
   };
 }

@@ -17,7 +17,7 @@
 
 mkDerivation {
   pname = "plasma-browser-integration";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     qtbase
     kfilemetadata

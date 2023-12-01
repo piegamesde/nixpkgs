@@ -29,7 +29,7 @@ in
 
     programs.xfs_quota = {
       projects = mkOption {
-        default = { };
+        default = {};
         type = types.attrsOf (
           types.submodule {
             options = {
@@ -81,7 +81,7 @@ in
 
   ###### implementation
 
-  config = mkIf (cfg.projects != { }) {
+  config = mkIf (cfg.projects != {}) {
 
     environment.etc.projects.source = pkgs.writeText "etc-project" (
       concatStringsSep "\n" (mapAttrsToList (name: opts: "${toString opts.id}:${opts.path}") cfg.projects)
@@ -102,10 +102,10 @@ in
               ${pkgs.xfsprogs.bin}/bin/xfs_quota -x -c 'limit -p ${limitOptions opts} ${name}' ${opts.fileSystem}
             '';
 
-            wantedBy = [ "multi-user.target" ];
-            after = [ ((replaceStrings [ "/" ] [ "-" ] opts.fileSystem) + ".mount") ];
+            wantedBy = ["multi-user.target"];
+            after = [((replaceStrings ["/"] ["-"] opts.fileSystem) + ".mount")];
 
-            restartTriggers = [ config.environment.etc.projects.source ];
+            restartTriggers = [config.environment.etc.projects.source];
 
             serviceConfig = {
               Type = "oneshot";

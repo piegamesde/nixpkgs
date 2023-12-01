@@ -42,7 +42,7 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
     meta = {
-      pkgConfigModules = [ "gnome-keyring-1" ];
+      pkgConfigModules = ["gnome-keyring-1"];
       inherit (glib.meta) platforms maintainers;
       homepage = "https://wiki.gnome.org/Projects/GnomeKeyring";
       license = with lib.licenses; [

@@ -31,7 +31,7 @@ buildPythonPackage rec {
     terminaltables
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -43,12 +43,12 @@ buildPythonPackage rec {
       --replace "terminaltables==3.1.0" "terminaltables"
   '';
 
-  pythonImportsCheck = [ "emv" ];
+  pythonImportsCheck = ["emv"];
 
   meta = with lib; {
     description = "Implementation of the EMV chip-and-pin smartcard protocol";
     homepage = "https://github.com/russss/python-emv";
     license = licenses.mit;
-    maintainers = with maintainers; [ lukegb ];
+    maintainers = with maintainers; [lukegb];
   };
 }

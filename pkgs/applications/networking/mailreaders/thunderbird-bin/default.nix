@@ -81,16 +81,16 @@ let
 
   policies = {
     DisableAppUpdate = true;
-  } // config.thunderbird.policies or { };
-  policiesJson = writeText "thunderbird-policies.json" (builtins.toJSON { inherit policies; });
+  } // config.thunderbird.policies or {};
+  policiesJson = writeText "thunderbird-policies.json" (builtins.toJSON {inherit policies;});
 
-  defaultSource = lib.findFirst (sourceMatches "en-US") { } sources;
+  defaultSource = lib.findFirst (sourceMatches "en-US") {} sources;
 
   mozLocale =
     if systemLocale == "ca_ES@valencia" then
       "ca-valencia"
     else
-      lib.replaceStrings [ "_" ] [ "-" ] systemLocale;
+      lib.replaceStrings ["_"] ["-"] systemLocale;
 
   source = lib.findFirst (sourceMatches mozLocale) defaultSource sources;
 in
@@ -152,11 +152,11 @@ stdenv.mkDerivation {
       ffmpeg
     ]
     + ":"
-    + lib.makeSearchPathOutput "lib" "lib64" [ stdenv.cc.cc ];
+    + lib.makeSearchPathOutput "lib" "lib64" [stdenv.cc.cc];
 
   inherit gtk3;
 
-  nativeBuildInputs = [ wrapGAppsHook ];
+  nativeBuildInputs = [wrapGAppsHook];
 
   buildInputs = [
     gtk3
@@ -233,10 +233,10 @@ stdenv.mkDerivation {
     changelog = "https://www.thunderbird.net/en-US/thunderbird/${version}/releasenotes/";
     description = "Mozilla Thunderbird, a full-featured email client (binary package)";
     homepage = "http://www.mozilla.org/thunderbird/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.mpl20;
-    maintainers = with lib.maintainers; [ lovesegfault ];
+    maintainers = with lib.maintainers; [lovesegfault];
     platforms = builtins.attrNames mozillaPlatforms;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

@@ -33,7 +33,7 @@ let
   build-with-compile-into-pwd =
     args:
     let
-      build = (build-asdf-system (args // { version = args.version + "-build"; })).overrideAttrs (
+      build = (build-asdf-system (args // {version = args.version + "-build";})).overrideAttrs (
         o: {
           buildPhase = with builtins; ''
             mkdir __fasls
@@ -55,7 +55,7 @@ let
       args
       // {
         # Patches are already applied in `build`
-        patches = [ ];
+        patches = [];
         src = build;
         # TODO(kasper): handle this with a setup hook
         LD_LIBRARY_PATH =
@@ -88,7 +88,7 @@ let
       ];
     };
 
-    uiop = asdf.overrideLispAttrs (o: { pname = "uiop"; });
+    uiop = asdf.overrideLispAttrs (o: {pname = "uiop";});
 
     cffi =
       let
@@ -111,7 +111,7 @@ let
           babel
           trivial-features
         ];
-        javaLibs = optionals isJVM [ jna ];
+        javaLibs = optionals isJVM [jna];
       };
 
     cffi-libffi = ql.cffi-libffi.overrideLispAttrs (
@@ -120,7 +120,7 @@ let
           url = "https://github.com/cffi/cffi/archive/3f842b92ef808900bf20dae92c2d74232c2f6d3a.tar.gz";
           sha256 = "1jilvmbbfrmb23j07lwmkbffc6r35wnvas5s4zjc84i856ccclm2";
         };
-        patches = [ ./patches/cffi-libffi-darwin-ffi-h.patch ];
+        patches = [./patches/cffi-libffi-darwin-ffi-h.patch];
       }
     );
 
@@ -131,7 +131,7 @@ let
         url = "https://github.com/edicl/cl-unicode/archive/refs/tags/v0.1.6.tar.gz";
         sha256 = "0ykx2s9lqfl74p1px0ik3l2izd1fc9jd1b4ra68s5x34rvjy0hza";
       };
-      systems = [ "cl-unicode" ];
+      systems = ["cl-unicode"];
       lispLibs = with ql; [
         cl-ppcre
         flexi-streams
@@ -145,8 +145,8 @@ let
       };
       version = "0.0.0-20210905-6b201d4208";
       pname = "jzon";
-      lispLibs = [ ql.closer-mop ];
-      systems = [ "com.inuoe.jzon" ];
+      lispLibs = [ql.closer-mop];
+      systems = ["com.inuoe.jzon"];
     };
 
     cl-notify = build-asdf-system {
@@ -156,16 +156,16 @@ let
         url = "https://repo.or.cz/cl-notify.git/snapshot/138ca703861f4a1fbccbed557f92cf4d213668a1.tar.gz";
         sha256 = "0k6ns6fzvjcbpsqgx85r4g5m25fvrdw9481i9vyabwym9q8bbqwx";
       };
-      lispLibs = [ cffi ];
-      nativeLibs = [ pkgs.libnotify ];
+      lispLibs = [cffi];
+      nativeLibs = [pkgs.libnotify];
     };
 
     cl-liballegro-nuklear = build-with-compile-into-pwd {
       inherit (ql.cl-liballegro-nuklear) pname version src;
-      nativeBuildInputs = [ pkgs.allegro5 ];
-      nativeLibs = [ pkgs.allegro5 ];
-      lispLibs = ql.cl-liballegro-nuklear.lispLibs ++ [ ql.cl-liballegro ];
-      patches = [ ./patches/cl-liballegro-nuklear-missing-dll.patch ];
+      nativeBuildInputs = [pkgs.allegro5];
+      nativeLibs = [pkgs.allegro5];
+      lispLibs = ql.cl-liballegro-nuklear.lispLibs ++ [ql.cl-liballegro];
+      patches = [./patches/cl-liballegro-nuklear-missing-dll.patch];
     };
 
     tuple = build-asdf-system {
@@ -226,7 +226,7 @@ let
           parachute
           osicat
         ]
-        ++ [ cl-tar-file ];
+        ++ [cl-tar-file];
       systems = [
         "tar"
         "tar/common-extract"
@@ -269,7 +269,7 @@ let
       lispLibs = [
         lessp
         rollback
-      ] ++ [ ql.local-time ];
+      ] ++ [ql.local-time];
     };
 
     cl-fuse = build-with-compile-into-pwd {
@@ -279,13 +279,13 @@ let
         src
         lispLibs
         ;
-      nativeBuildInputs = [ pkgs.fuse ];
-      nativeLibs = [ pkgs.fuse ];
+      nativeBuildInputs = [pkgs.fuse];
+      nativeLibs = [pkgs.fuse];
     };
 
     cl-containers = build-asdf-system {
       inherit (ql.cl-containers) pname version src;
-      lispLibs = ql.cl-containers.lispLibs ++ [ ql.moptilities ];
+      lispLibs = ql.cl-containers.lispLibs ++ [ql.moptilities];
       systems = [
         "cl-containers"
         "cl-containers/with-moptilities"
@@ -299,7 +299,7 @@ let
         src
         lispLibs
         ;
-      patches = [ ./patches/swank-pure-paths.patch ];
+      patches = [./patches/swank-pure-paths.patch];
       postConfigure = ''
         substituteAllInPlace swank-loader.lisp
       '';
@@ -335,7 +335,7 @@ let
         asds
         lisp
         ;
-      lispLibs = ql.mathkit.lispLibs ++ [ ql.sb-cga ];
+      lispLibs = ql.mathkit.lispLibs ++ [ql.sb-cga];
     };
 
     nyxt-gtk = build-asdf-system {
@@ -357,7 +357,7 @@ let
         sha256 = "12l7ir3q29v06jx0zng5cvlbmap7p709ka3ik6x29lw334qshm9b";
       };
 
-      nativeBuildInputs = [ pkgs.makeWrapper ];
+      nativeBuildInputs = [pkgs.makeWrapper];
       buildInputs = [
         # needed for GSETTINGS_SCHEMAS_PATH
         pkgs.gsettings-desktop-schemas
@@ -420,7 +420,7 @@ let
           hash = "sha256-GAgwT0D9mIkYPTHfCH/KxxIv7b6QGwcxwZE7ehH5xug=";
         };
 
-        buildInputs = [ pkgs.qt4 ];
+        buildInputs = [pkgs.qt4];
         nativeBuildInputs = [
           pkgs.smokegen
           pkgs.smokeqt
@@ -431,7 +431,7 @@ let
           pkgs.smokeqt
         ];
 
-        systems = [ "qt" ];
+        systems = ["qt"];
 
         lispLibs = with ql; [
           cffi
@@ -447,12 +447,12 @@ let
 
     qt-libs = build-with-compile-into-pwd {
       inherit (ql.qt-libs) pname version src;
-      patches = [ ./patches/qt-libs-dont-download.patch ];
+      patches = [./patches/qt-libs-dont-download.patch];
       prePatch = ''
         substituteInPlace systems/*.asd --replace ":qt+libs" ":qt"
         echo "LD Path: $LD_LIBRARY_PATH"
       '';
-      lispLibs = ql.qt-libs.lispLibs ++ [ qt ];
+      lispLibs = ql.qt-libs.lispLibs ++ [qt];
       systems = [
         "qt-libs"
         "commonqt"
@@ -504,8 +504,8 @@ let
         src
         nativeLibs
         ;
-      lispLibs = [ qt ] ++ remove ql.qt_plus_libs ql.qtools.lispLibs ++ [ qt-libs ];
-      patches = [ ./patches/qtools-use-nix-libs.patch ];
+      lispLibs = [qt] ++ remove ql.qt_plus_libs ql.qtools.lispLibs ++ [qt-libs];
+      patches = [./patches/qtools-use-nix-libs.patch];
     };
 
     magicl = build-with-compile-into-pwd {
@@ -515,9 +515,9 @@ let
         src
         lispLibs
         ;
-      nativeBuildInputs = [ pkgs.gfortran ];
-      nativeLibs = [ pkgs.openblas ];
-      patches = [ ./patches/magicl-dont-build-fortran-twice.patch ];
+      nativeBuildInputs = [pkgs.gfortran];
+      nativeLibs = [pkgs.openblas];
+      patches = [./patches/magicl-dont-build-fortran-twice.patch];
     };
   };
 in

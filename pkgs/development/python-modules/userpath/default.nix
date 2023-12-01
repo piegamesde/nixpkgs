@@ -19,14 +19,14 @@ buildPythonPackage rec {
     hash = "sha256-BCM9L8/lz/kRweT7cYl1VkDhUk/4ekuCq51rh1/uV4c=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
-  propagatedBuildInputs = [ click ];
+  propagatedBuildInputs = [click];
 
   # Test suite is difficult to emulate in sandbox due to shell manipulation
   doCheck = false;
 
-  pythonImportsCheck = [ "userpath" ];
+  pythonImportsCheck = ["userpath"];
 
   meta = with lib; {
     description = "Cross-platform tool for adding locations to the user PATH";
@@ -36,6 +36,6 @@ buildPythonPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ yshym ];
+    maintainers = with maintainers; [yshym];
   };
 }

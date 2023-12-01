@@ -79,7 +79,7 @@ buildPythonApplication rec {
     pyxdg
   ];
 
-  mesonFlags = [ "-Dsystemddir=${placeholder "out"}/lib/systemd" ];
+  mesonFlags = ["-Dsystemddir=${placeholder "out"}/lib/systemd"];
 
   preConfigure = ''
     patchShebangs build-aux/meson/postinstall.py
@@ -88,7 +88,7 @@ buildPythonApplication rec {
   strictDeps = false;
   dontWrapGApps = true;
 
-  makeWrapperArgs = [ "\${gappsWrapperArgs[@]}" ];
+  makeWrapperArgs = ["\${gappsWrapperArgs[@]}"];
 
   postFixup = ''
     wrapPythonProgramsIn $out/lib "$out $propagatedBuildInputs"
@@ -98,6 +98,6 @@ buildPythonApplication rec {
     description = "Change the frequency limits of your cpu and its governor";
     homepage = "https://github.com/vagnum08/cpupower-gui/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ unode ];
+    maintainers = with maintainers; [unode];
   };
 }

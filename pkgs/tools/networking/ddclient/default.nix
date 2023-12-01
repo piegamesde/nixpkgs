@@ -11,7 +11,7 @@ perlPackages.buildPerlPackage rec {
   pname = "ddclient";
   version = "3.10.0";
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   src = fetchFromGitHub {
     owner = "ddclient";
@@ -24,7 +24,7 @@ perlPackages.buildPerlPackage rec {
     touch Makefile.PL
   '';
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = with perlPackages; [
     IOSocketINET6
@@ -51,6 +51,6 @@ perlPackages.buildPerlPackage rec {
     homepage = "https://ddclient.net/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

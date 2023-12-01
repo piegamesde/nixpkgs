@@ -70,7 +70,7 @@ buildPythonPackage rec {
   # When tested random tests would fail and not repeatably
   doCheck = false;
 
-  pythonImportsCheck = [ "distributed" ];
+  pythonImportsCheck = ["distributed"];
 
   meta = with lib; {
     description = "Distributed computation in Python";

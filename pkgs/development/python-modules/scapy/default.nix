@@ -43,7 +43,7 @@ buildPythonPackage rec {
     hash = "sha256-xJlovcxUQOQHfOU0Jgin/ayd2T5fOyeN4Jg0DbLHoeU=";
   };
 
-  patches = [ ./find-library.patch ];
+  patches = [./find-library.patch];
 
   postPatch =
     ''
@@ -92,7 +92,7 @@ buildPythonPackage rec {
     patchShebangs .
     .config/ci/test.sh
   '';
-  pythonImportsCheck = [ "scapy" ];
+  pythonImportsCheck = ["scapy"];
 
   meta = with lib; {
     description = "A Python-based network packet manipulation program and library";

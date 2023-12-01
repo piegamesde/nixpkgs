@@ -12,13 +12,13 @@ stdenv.mkDerivation rec {
   pname = "notmuch-mutt";
   version = notmuch.version;
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   dontStrip = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs =
-    [ perl ]
+    [perl]
     ++ (
       with perlPackages; [
         FileRemove
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     description = "Mutt support for notmuch";
     homepage = "https://notmuchmail.org/";
     license = with licenses; gpl3;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.unix;
   };
 }

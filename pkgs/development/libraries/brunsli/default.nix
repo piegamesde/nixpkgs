@@ -45,14 +45,14 @@ stdenv.mkDerivation rec {
       rm -r build
     '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ brotli ];
+  buildInputs = [brotli];
 
   meta = {
     description = "Lossless JPEG repacking library";
     homepage = "https://github.com/google/brunsli";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

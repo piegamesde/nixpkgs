@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
       -e "s,/usr/bin,$out/bin,"
   '';
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
   nativeBuildInputs = [
     makeWrapper
     xsel
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     sed -i "$out/bin/clipctl" -e 's,clipmenud\$,\.clipmenud-wrapped\$,'
 
     wrapProgram "$out/bin/clipmenu" \
-      --prefix PATH : "${lib.makeBinPath [ xsel ]}"
+      --prefix PATH : "${lib.makeBinPath [xsel]}"
 
     wrapProgram "$out/bin/clipmenud" \
       --set PATH "${
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Clipboard management using dmenu";
     inherit (src.meta) homepage;
-    maintainers = with maintainers; [ jb55 ];
+    maintainers = with maintainers; [jb55];
     license = licenses.publicDomain;
   };
 }

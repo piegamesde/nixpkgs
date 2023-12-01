@@ -29,7 +29,7 @@ let
     pname = "${pname}-client";
     inherit version;
 
-    src = runCommand "cp-source" { } ''
+    src = runCommand "cp-source" {} ''
       cp -r ${src}/client $out
     '';
 
@@ -52,10 +52,10 @@ in
 buildNpmPackage {
   inherit pname version src;
 
-  buildInputs = [ util-linux ];
+  buildInputs = [util-linux];
 
   dontNpmBuild = true;
-  npmInstallFlags = [ "--only-production" ];
+  npmInstallFlags = ["--only-production"];
   npmDepsHash = "sha256-0PFeXiS8RSffhrocrHODNpb6d9+nbpulCW5qYIrytDI=";
 
   installPhase = ''
@@ -74,7 +74,7 @@ buildNpmPackage {
     homepage = "https://www.audiobookshelf.org/";
     description = "Self-hosted audiobook and podcast server";
     license = licenses.gpl3;
-    maintainers = [ maintainers.jvanbruegge ];
+    maintainers = [maintainers.jvanbruegge];
     platforms = platforms.linux;
   };
 }

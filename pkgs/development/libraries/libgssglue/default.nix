@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     description = "Exports a gssapi interface which calls other random gssapi libraries";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ corngood ];
+    maintainers = with maintainers; [corngood];
   };
 }

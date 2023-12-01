@@ -50,7 +50,7 @@ stdenv.mkDerivation {
     description = "DirectFB VNC client";
     homepage = "http://drinkmilk.github.io/directvnc/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux;
   };
 }

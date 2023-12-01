@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-wuEsG2VKU4F/phSqpzUN3wChD93V4AE7poVLJu6kpF0=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -30,6 +30,6 @@ buildGoModule rec {
     description = "An extremely simple, lightning fast Kubernetes distribution that runs entirely within containers";
     changelog = "https://github.com/rancher/rke/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
   };
 }

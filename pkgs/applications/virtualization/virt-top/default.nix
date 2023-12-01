@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
       gettext-stub
       ocaml_libvirt
     ]
-    ++ [ libxml2 ];
+    ++ [libxml2];
 
   prePatch = ''
     substituteInPlace ocaml-dep.sh.in --replace '#!/bin/bash' '#!${stdenv.shell}'
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     description = "A top-like utility for showing stats of virtualized domains";
     homepage = "https://people.redhat.com/~rjones/virt-top/";
     license = licenses.gpl2Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

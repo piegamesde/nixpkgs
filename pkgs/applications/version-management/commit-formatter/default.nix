@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ elliot ];
+    maintainers = with maintainers; [elliot];
     mainProgram = "git-cf";
   };
 }

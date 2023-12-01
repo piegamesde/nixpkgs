@@ -21,12 +21,12 @@ stdenv.mkDerivation rec {
   };
 
   patches =
-    [ ./darwin.patch ]
+    [./darwin.patch]
     # Patches from Gentoo
     ++
       builtins.map
         (
-          { pfile, sha256 }:
+          {pfile, sha256}:
           fetchpatch {
             url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/app-cdr/dvd+rw-tools/files/${pfile}?id=b510df361241e8f16314b1f14642305f0111dac6";
             inherit sha256;
@@ -75,8 +75,8 @@ stdenv.mkDerivation rec {
           }
         ];
 
-  nativeBuildInputs = [ m4 ];
-  buildInputs = [ cdrtools ] ++ lib.optionals stdenv.isDarwin [ IOKit ];
+  nativeBuildInputs = [m4];
+  buildInputs = [cdrtools] ++ lib.optionals stdenv.isDarwin [IOKit];
 
   makeFlags = [
     "prefix=${placeholder "out"}"

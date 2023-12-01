@@ -53,9 +53,9 @@ stdenv.mkDerivation rec {
     curl
   ];
 
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
 
-  cmakeFlags = [ "-DUSE_EXTERNAL_GTEST=ON" ];
+  cmakeFlags = ["-DUSE_EXTERNAL_GTEST=ON"];
 
   doCheck = true;
 
@@ -64,6 +64,6 @@ stdenv.mkDerivation rec {
     homepage = "https://proj4.org";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

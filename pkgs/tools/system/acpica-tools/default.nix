@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   ];
 
   env.NIX_CFLAGS_COMPILE = toString (
-    [ "-O3" ]
+    ["-O3"]
     ++
       lib.optionals (stdenv.cc.isGNU)
         [
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
   # Unless we are on Darwin. Upstream makefiles degrade coreutils install to cp if _APPLE is detected.
   INSTALLFLAGS = lib.optionals (!stdenv.isDarwin) "-m 555";
 
-  installFlags = [ "PREFIX=${placeholder "out"}" ];
+  installFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     homepage = "https://www.acpica.org/";
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
       gpl2Only
       bsd3
     ];
-    maintainers = with maintainers; [ tadfisher ];
+    maintainers = with maintainers; [tadfisher];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

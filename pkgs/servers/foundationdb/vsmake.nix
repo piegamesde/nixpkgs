@@ -49,7 +49,7 @@ let
       # if an release is unofficial/a prerelease, then make sure this is set
       officialRelease ? true,
 
-      patches ? [ ],
+      patches ? [],
     }:
     gcc6Stdenv.mkDerivation {
       pname = "foundationdb";
@@ -110,13 +110,13 @@ let
         ]
         # Don't compile FDBLibTLS if we don't need it in 6.0 or later;
         # it gets statically linked in
-        ++ lib.optionals (lib.versionOlder version "6.0") [ "fdb_c" ]
+        ++ lib.optionals (lib.versionOlder version "6.0") ["fdb_c"]
         # Needed environment overrides
         ++ [
           "KVRELEASE=1"
           "NOSTRIP=1"
         ]
-        ++ lib.optionals officialRelease [ "RELEASE=true" ];
+        ++ lib.optionals officialRelease ["RELEASE=true"];
 
       # on 6.0 and later, we can specify all this information manually
       configurePhase = lib.optionalString (lib.versionAtLeast version "6.0") ''
@@ -179,8 +179,8 @@ let
         description = "Open source, distributed, transactional key-value store";
         homepage = "https://www.foundationdb.org";
         license = licenses.asl20;
-        platforms = [ "x86_64-linux" ];
-        maintainers = with maintainers; [ thoughtpolice ];
+        platforms = ["x86_64-linux"];
+        maintainers = with maintainers; [thoughtpolice];
       };
     };
 in

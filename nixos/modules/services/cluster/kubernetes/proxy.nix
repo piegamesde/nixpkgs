@@ -78,8 +78,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.kube-proxy = {
       description = "Kubernetes Proxy Service";
-      wantedBy = [ "kubernetes.target" ];
-      after = [ "kube-apiserver.service" ];
+      wantedBy = ["kubernetes.target"];
+      after = ["kube-apiserver.service"];
       path = with pkgs; [
         iptables
         conntrack-tools
@@ -91,7 +91,7 @@ in
                     --bind-address=${cfg.bindAddress} \
                     ${optionalString (top.clusterCidr != null) "--cluster-cidr=${top.clusterCidr}"} \
                     ${
-                      optionalString (cfg.featureGates != [ ])
+                      optionalString (cfg.featureGates != [])
                         "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"
                     } \
                     --hostname-override=${cfg.hostname} \

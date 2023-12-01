@@ -19,11 +19,11 @@ stdenv.mkDerivation rec {
     autoconf
     perl
   ];
-  buildInputs = [ autoconf ];
+  buildInputs = [autoconf];
 
   setupHook = ./setup-hook.sh;
 
-  patches = [ ./help2man-SOURCE_DATE_EPOCH-support.patch ];
+  patches = [./help2man-SOURCE_DATE_EPOCH-support.patch];
 
   doCheck = false; # takes _a lot_ of time, fails 3 out of 2698 tests, all seem to be related to paths
   doInstallCheck = false; # runs the same thing, fails the same tests

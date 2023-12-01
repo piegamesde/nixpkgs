@@ -17,7 +17,7 @@ let
   optimizedKeymap =
     pkgs.runCommand "keymap"
       {
-        nativeBuildInputs = [ pkgs.buildPackages.kbd ];
+        nativeBuildInputs = [pkgs.buildPackages.kbd];
         LOADKEYS_KEYMAP_PATH = "${consoleEnv pkgs.kbd}/share/keymaps/**";
         preferLocalBuild = true;
       }
@@ -35,7 +35,7 @@ let
     kbd:
     pkgs.buildEnv {
       name = "console-env";
-      paths = [ kbd ] ++ cfg.packages;
+      paths = [kbd] ++ cfg.packages;
       pathsToLink = [
         "/share/consolefonts"
         "/share/consoletrans"
@@ -81,7 +81,7 @@ in
 
     colors = mkOption {
       type = with types; listOf (strMatching "[[:xdigit:]]{6}");
-      default = [ ];
+      default = [];
       example = [
         "002b36"
         "dc322f"
@@ -110,7 +110,7 @@ in
 
     packages = mkOption {
       type = types.listOf types.package;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         List of additional packages that provide console fonts, keymaps and
         other resources for virtual consoles use.
@@ -142,7 +142,7 @@ in
       console.keyMap =
         with config.services.xserver;
         mkIf cfg.useXkbConfig (
-          pkgs.runCommand "xkb-console-keymap" { preferLocalBuild = true; } ''
+          pkgs.runCommand "xkb-console-keymap" {preferLocalBuild = true;} ''
             '${pkgs.buildPackages.ckbcomp}/bin/ckbcomp' \
               ${
                 optionalString (config.environment.sessionVariables ? XKB_CONFIG_ROOT)
@@ -167,7 +167,7 @@ in
     (mkIf cfg.enable (
       mkMerge [
         {
-          environment.systemPackages = [ pkgs.kbd ];
+          environment.systemPackages = [pkgs.kbd];
 
           # Let systemd-vconsole-setup.service do the work of setting up the
           # virtual consoles.
@@ -205,12 +205,12 @@ in
               "${config.boot.initrd.systemd.package.kbd}/bin/loadkeys"
               "${config.boot.initrd.systemd.package.kbd.gzip}/bin/gzip" # Fonts and keyboard layouts are compressed
             ]
-            ++ optionals (cfg.font != null && hasPrefix builtins.storeDir cfg.font) [ "${cfg.font}" ]
-            ++ optionals (hasPrefix builtins.storeDir cfg.keyMap) [ "${cfg.keyMap}" ];
+            ++ optionals (cfg.font != null && hasPrefix builtins.storeDir cfg.font) ["${cfg.font}"]
+            ++ optionals (hasPrefix builtins.storeDir cfg.keyMap) ["${cfg.keyMap}"];
 
           systemd.services.reload-systemd-vconsole-setup = {
             description = "Reset console on configuration changes";
-            wantedBy = [ "multi-user.target" ];
+            wantedBy = ["multi-user.target"];
             restartTriggers = [
               vconsoleConf
               (consoleEnv pkgs.kbd)
@@ -224,7 +224,7 @@ in
           };
         }
 
-        (mkIf (cfg.colors != [ ]) {
+        (mkIf (cfg.colors != []) {
           boot.kernelParams = [
             "vt.default_red=${makeColor 0 cfg.colors}"
             "vt.default_grn=${makeColor 1 cfg.colors}"

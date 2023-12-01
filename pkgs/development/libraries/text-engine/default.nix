@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
       mpl20
       lgpl21Plus
     ];
-    maintainers = with maintainers; [ foo-dogsquared ];
+    maintainers = with maintainers; [foo-dogsquared];
   };
 }

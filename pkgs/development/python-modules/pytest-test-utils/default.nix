@@ -22,18 +22,18 @@ buildPythonPackage rec {
     hash = "sha256-5gB+hnJR2+NQd/n7RGrX1bzfKt8Np7IbWw61SZgNVJY=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pytest_test_utils" ];
+  pythonImportsCheck = ["pytest_test_utils"];
 
   meta = with lib; {
     description = "Pytest utilities for tests";
     homepage = "https://github.com/iterative/pytest-test-utils";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

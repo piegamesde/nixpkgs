@@ -8,7 +8,7 @@
 with lib;
 let
   cfg = config.services.grafana-agent;
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   configFile = settingsFormat.generate "grafana-agent.yaml" cfg.settings;
 in
 {
@@ -34,7 +34,7 @@ in
         Credentials to load at service startup. Keys that are UPPER_SNAKE will be loaded as env vars. Values are absolute paths to the credentials.
       '';
       type = types.attrsOf types.str;
-      default = { };
+      default = {};
 
       example = {
         logs_remote_write_password = "/run/keys/grafana_agent_logs_remote_write_password";
@@ -53,9 +53,9 @@ in
         See https://grafana.com/docs/agent/latest/configuration/
       '';
 
-      type = types.submodule { freeformType = settingsFormat.type; };
+      type = types.submodule {freeformType = settingsFormat.type;};
 
-      default = { };
+      default = {};
       defaultText = lib.literalExpression ''
         {
           metrics = {
@@ -90,15 +90,15 @@ in
                 };
                 relabel_configs = [
                   {
-                    source_labels = [ "__journal__systemd_unit" ];
+                    source_labels = ["__journal__systemd_unit"];
                     target_label = "systemd_unit";
                   }
                   {
-                    source_labels = [ "__journal__hostname" ];
+                    source_labels = ["__journal__hostname"];
                     target_label = "nodename";
                   }
                   {
-                    source_labels = [ "__journal_syslog_identifier" ];
+                    source_labels = ["__journal_syslog_identifier"];
                     target_label = "syslog_identifier";
                   }
                 ];
@@ -134,7 +134,7 @@ in
     };
 
     systemd.services.grafana-agent = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       script = ''
         set -euo pipefail
         shopt -u nullglob

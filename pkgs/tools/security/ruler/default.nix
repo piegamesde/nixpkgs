@@ -21,7 +21,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Tool to abuse Exchange services";
     homepage = "https://github.com/sensepost/ruler";
-    license = with licenses; [ cc-by-nc-40 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [cc-by-nc-40];
+    maintainers = with maintainers; [fab];
   };
 }

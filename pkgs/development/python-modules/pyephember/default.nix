@@ -27,12 +27,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pyephember" ];
+  pythonImportsCheck = ["pyephember"];
 
   meta = with lib; {
     description = "Python client to the EPH Control Systems Ember API";
     homepage = "https://github.com/ttroy50/pyephember";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

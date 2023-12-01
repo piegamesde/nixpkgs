@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     xtl
   ];
 
-  cmakeFlags = [ "-DXEUS_BUILD_TESTS=ON" ];
+  cmakeFlags = ["-DXEUS_BUILD_TESTS=ON"];
 
   doCheck = true;
   preCheck = "export LD_LIBRARY_PATH=$PWD";
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     homepage = "https://xeus.readthedocs.io";
     description = "C++ implementation of the Jupyter Kernel protocol";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ serge_sans_paille ];
+    maintainers = with maintainers; [serge_sans_paille];
     platforms = platforms.all;
   };
 }

@@ -54,7 +54,7 @@ mkDerivation rec {
 
   src = fetchurl {
     url = "https://eagle-updates.circuits.io/downloads/${
-      builtins.replaceStrings [ "." ] [ "_" ] version
+      builtins.replaceStrings ["."] ["_"] version
     }/Autodesk_EAGLE_${version}_English_Linux_64bit.tar.gz";
     sha256 = "18syygnskl286kn8aqfzzdsyzq59d2w19y1h1ynyxsnrvkyv71h0";
   };
@@ -66,7 +66,7 @@ mkDerivation rec {
     comment = "Schematic capture and PCB layout";
     desktopName = "Eagle";
     genericName = "Schematic editor";
-    categories = [ "Development" ];
+    categories = ["Development"];
   };
 
   buildInputs = [
@@ -128,9 +128,9 @@ mkDerivation rec {
   meta = with lib; {
     description = "Schematic editor and PCB layout tool from Autodesk (formerly CadSoft)";
     homepage = "https://www.autodesk.com/products/eagle/overview";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ ];
+    platforms = ["x86_64-linux"];
+    maintainers = [];
   };
 }

@@ -20,14 +20,14 @@ mkDerivation {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
     mkdir -p $out/bin
     tar -xzf $src -C $out/bin
     chmod +x $out/bin/psysh
-    wrapProgram $out/bin/psysh --prefix PATH : "${lib.makeBinPath [ php ]}"
+    wrapProgram $out/bin/psysh --prefix PATH : "${lib.makeBinPath [php]}"
     runHook postInstall
   '';
 

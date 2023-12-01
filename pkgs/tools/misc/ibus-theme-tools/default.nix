@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "0i8vwnikwd1bfpv4xlgzc51gn6s18q58nqhvcdiyjzcmy3z344c2";
   };
 
-  buildInputs = [ gettext ];
+  buildInputs = [gettext];
 
   propagatedBuildInputs = with python3Packages; [
     tinycss2
@@ -26,12 +26,12 @@ python3Packages.buildPythonApplication rec {
   # No test.
   doCheck = false;
 
-  pythonImportsCheck = [ "ibus_theme_tools" ];
+  pythonImportsCheck = ["ibus_theme_tools"];
 
   meta = with lib; {
     description = "Generate the IBus GTK or GNOME Shell theme from existing themes";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ hollowman6 ];
+    maintainers = with maintainers; [hollowman6];
     homepage = "https://github.com/openSUSE/IBus-Theme-Tools";
   };
 }

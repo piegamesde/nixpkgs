@@ -103,8 +103,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.alps = {
       description = "alps is a simple and extensible webmail.";
-      documentation = [ "https://git.sr.ht/~migadu/alps" ];
-      wantedBy = [ "multi-user.target" ];
+      documentation = ["https://git.sr.ht/~migadu/alps"];
+      wantedBy = ["multi-user.target"];
       after = [
         "network.target"
         "network-online.target"

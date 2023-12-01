@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-DozaPVpjTZiVt1xXPJNSwWSGy3XesOB4tf2jTbQkMWU=";
   };
 
-  propagatedBuildInputs = [ protobuf ];
+  propagatedBuildInputs = [protobuf];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -27,7 +27,7 @@ buildPythonPackage rec {
     googleapis-common-protos
   ];
 
-  pythonImportsCheck = [ "proto" ];
+  pythonImportsCheck = ["proto"];
 
   meta = with lib; {
     description = "Beautiful, idiomatic protocol buffers in Python";

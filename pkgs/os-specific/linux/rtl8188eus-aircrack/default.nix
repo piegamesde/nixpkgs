@@ -32,11 +32,11 @@ stdenv.mkDerivation {
     })
   ];
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ bc ] ++ kernel.moduleBuildDependencies;
+  nativeBuildInputs = [bc] ++ kernel.moduleBuildDependencies;
 
   preInstall = ''
     mkdir -p "$out/lib/modules/${kernel.modDirVersion}/kernel/net/wireless/"
@@ -46,7 +46,7 @@ stdenv.mkDerivation {
     description = "RealTek RTL8188eus WiFi driver with monitor mode & frame injection support";
     homepage = "https://github.com/aircrack-ng/rtl8188eus";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ fortuneteller2k ];
+    maintainers = with maintainers; [fortuneteller2k];
     broken =
       (lib.versionAtLeast kernel.version "5.17")
       || ((lib.versions.majorMinor kernel.version) == "5.4" && kernel.isHardened);

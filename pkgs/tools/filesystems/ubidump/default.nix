@@ -44,6 +44,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "View or extract the contents of UBIFS images";
     homepage = "https://github.com/nlitsme/ubidump";
     license = licenses.mit;
-    maintainers = with maintainers; [ sgo ];
+    maintainers = with maintainers; [sgo];
   };
 }

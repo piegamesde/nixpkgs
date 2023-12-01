@@ -23,7 +23,7 @@
 }:
 
 let
-  broker = callPackage ./broker { };
+  broker = callPackage ./broker {};
 in
 stdenv.mkDerivation rec {
   pname = "zeek";
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     openssl
     swig
     zlib
-  ] ++ lib.optionals stdenv.isDarwin [ gettext ];
+  ] ++ lib.optionals stdenv.isDarwin [gettext];
 
   postPatch = ''
     patchShebangs ./auxil/spicy/spicy/scripts

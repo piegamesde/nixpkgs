@@ -1,5 +1,5 @@
 {
-  pkgs ? import <nixpkgs> { inherit system; },
+  pkgs ? import <nixpkgs> {inherit system;},
   system ? builtins.currentSystem,
   noDev ? false,
   php ? pkgs.php,

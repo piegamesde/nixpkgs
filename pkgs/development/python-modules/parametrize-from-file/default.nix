@@ -55,7 +55,7 @@ buildPythonPackage rec {
     toml
   ];
 
-  pythonImportsCheck = [ "parametrize_from_file" ];
+  pythonImportsCheck = ["parametrize_from_file"];
 
   disabledTests =
     [
@@ -68,6 +68,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/kalekundert/parametrize_from_file";
     changelog = "https://github.com/kalekundert/parametrize_from_file/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ jpetrucciani ];
+    maintainers = with maintainers; [jpetrucciani];
   };
 }

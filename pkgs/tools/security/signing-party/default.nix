@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
   };
 
   # TODO: Get this patch upstream...
-  patches = [ ./gpgwrap_makefile.patch ];
+  patches = [./gpgwrap_makefile.patch];
 
   postPatch = ''
     substituteInPlace gpg-mailkeys/gpg-mailkeys --replace \
@@ -210,12 +210,12 @@ stdenv.mkDerivation rec {
           }"
 
         wrapProgram $out/bin/gpgdir --set PERL5LIB \
-          ${with perlPackages; makePerlPath ([ TermReadKey ] ++ GnuPGInterfaceRuntimeDependencies)} \
+          ${with perlPackages; makePerlPath ([TermReadKey] ++ GnuPGInterfaceRuntimeDependencies)} \
           --prefix PATH ":" \
-          "${lib.makeBinPath [ gnupg ]}"
+          "${lib.makeBinPath [gnupg]}"
 
         wrapProgram $out/bin/gpglist --prefix PATH ":" \
-          "${lib.makeBinPath [ gnupg ]}"
+          "${lib.makeBinPath [gnupg]}"
 
         wrapProgram $out/bin/gpgparticipants --prefix PATH ":" \
           "${
@@ -228,33 +228,33 @@ stdenv.mkDerivation rec {
     #    wrapProgram $out/bin/gpgparticipants-prefill
 
         wrapProgram $out/bin/gpgparticipants-filter --prefix PATH ":" \
-          "${lib.makeBinPath [ gnupg ]}"
+          "${lib.makeBinPath [gnupg]}"
 
         wrapProgram $out/bin/gpgsigs --set PERL5LIB \
           ${perlPackages.makePerlPath GnuPGInterfaceRuntimeDependencies} \
           --prefix PATH ":" \
-          "${lib.makeBinPath [ gnupg ]}"
+          "${lib.makeBinPath [gnupg]}"
 
         wrapProgram $out/bin/gpgwrap --prefix PATH ":" \
-          "${lib.makeBinPath [ gnupg ]}"
+          "${lib.makeBinPath [gnupg]}"
 
     #    wrapProgram $out/bin/keyanalyze --set PERL5LIB \
 
         wrapProgram $out/bin/keyart --prefix PATH ":" \
-          "${lib.makeBinPath [ gnupg ]}"
+          "${lib.makeBinPath [gnupg]}"
 
         wrapProgram $out/bin/keylookup --prefix PATH ":" \
-          "${lib.makeBinPath [ gnupg ]}"
+          "${lib.makeBinPath [gnupg]}"
 
         wrapProgram $out/bin/pgp-clean --set PERL5LIB \
           ${perlPackages.makePerlPath GnuPGInterfaceRuntimeDependencies} \
           --prefix PATH ":" \
-          "${lib.makeBinPath [ gnupg ]}"
+          "${lib.makeBinPath [gnupg]}"
 
         wrapProgram $out/bin/pgp-fixkey --set PERL5LIB \
           ${perlPackages.makePerlPath GnuPGInterfaceRuntimeDependencies} \
           --prefix PATH ":" \
-          "${lib.makeBinPath [ gnupg ]}"
+          "${lib.makeBinPath [gnupg]}"
 
     #    wrapProgram $out/bin/pgpring
 
@@ -265,7 +265,7 @@ stdenv.mkDerivation rec {
     #    wrapProgram $out/bin/sig2dot
 
         wrapProgram $out/bin/springgraph --set PERL5LIB \
-          ${with perlPackages; makePerlPath [ GD ]}
+          ${with perlPackages; makePerlPath [GD]}
   '';
 
   meta = with lib; {
@@ -298,7 +298,7 @@ stdenv.mkDerivation rec {
       gpl2Plus
       gpl3Plus
     ];
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
     platforms = platforms.linux;
   };
 }

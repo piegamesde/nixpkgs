@@ -11,10 +11,10 @@ with lib;
 
 let
 
-  randomEncryptionCoerce = enable: { inherit enable; };
+  randomEncryptionCoerce = enable: {inherit enable;};
 
   randomEncryptionOpts =
-    { ... }:
+    {...}:
     {
 
       options = {
@@ -68,7 +68,7 @@ let
     };
 
   swapCfg =
-    { config, options, ... }:
+    {config, options, ...}:
     {
 
       options = {
@@ -152,8 +152,8 @@ let
         };
 
         options = mkOption {
-          default = [ "defaults" ];
-          example = [ "nofail" ];
+          default = ["defaults"];
+          example = ["nofail"];
           type = types.listOf types.nonEmptyStr;
           description = lib.mdDoc ''
             Options used to mount the swap.
@@ -173,7 +173,7 @@ let
 
       config = rec {
         device = mkIf options.label.isDefined "/dev/disk/by-label/${config.label}";
-        deviceName = lib.replaceStrings [ "\\" ] [ "" ] (escapeSystemdPath config.device);
+        deviceName = lib.replaceStrings ["\\"] [""] (escapeSystemdPath config.device);
         realDevice = if config.randomEncryption.enable then "/dev/mapper/${deviceName}" else config.device;
       };
     };
@@ -186,11 +186,11 @@ in
   options = {
 
     swapDevices = mkOption {
-      default = [ ];
+      default = [];
       example = [
-        { device = "/dev/hda7"; }
-        { device = "/var/swapfile"; }
-        { label = "bigswap"; }
+        {device = "/dev/hda7";}
+        {device = "/var/swapfile";}
+        {label = "bigswap";}
       ];
       description = lib.mdDoc ''
         The swap devices and swap files.  These must have been
@@ -225,13 +225,13 @@ in
         (
           sw:
           if sw.size != null && hasPrefix "/dev/" sw.device then
-            [ "Setting the swap size of block device ${sw.device} has no effect" ]
+            ["Setting the swap size of block device ${sw.device} has no effect"]
           else
-            [ ]
+            []
         )
         config.swapDevices;
 
-    system.requiredKernelConfig = with config.lib.kernelConfig; [ (isYes "SWAP") ];
+    system.requiredKernelConfig = with config.lib.kernelConfig; [(isYes "SWAP")];
 
     # Create missing swapfiles.
     systemd.services =
@@ -243,8 +243,8 @@ in
           in
           nameValuePair "mkswap-${sw.deviceName}" {
             description = "Initialisation of swap device ${sw.device}";
-            wantedBy = [ "${realDevice'}.swap" ];
-            before = [ "${realDevice'}.swap" ];
+            wantedBy = ["${realDevice'}.swap"];
+            before = ["${realDevice'}.swap"];
             path = [
               pkgs.util-linux
               pkgs.e2fsprogs
@@ -272,7 +272,7 @@ in
               ''}
             '';
 
-            unitConfig.RequiresMountsFor = [ "${dirOf sw.device}" ];
+            unitConfig.RequiresMountsFor = ["${dirOf sw.device}"];
             unitConfig.DefaultDependencies = false; # needed to prevent a cycle
             serviceConfig.Type = "oneshot";
             serviceConfig.RemainAfterExit = sw.randomEncryption.enable;

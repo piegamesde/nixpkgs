@@ -22,7 +22,7 @@ stdenv.mkDerivation (
       hash = "sha256-VEGJc9VZpGGwBpX6/mjfYvK8c9UGtDaCHXfKPfRUGQs=";
     };
 
-    buildInputs = [ ncurses ];
+    buildInputs = [ncurses];
 
     configureFlags = [
       "--disable-rpath-hacks"
@@ -31,7 +31,7 @@ stdenv.mkDerivation (
       "--with-ncurses${lib.optionalString unicodeSupport "w"}"
     ];
 
-    installTargets = [ "install${lib.optionalString withLibrary "-full"}" ];
+    installTargets = ["install${lib.optionalString withLibrary "-full"}"];
 
     meta = with lib; {
       homepage = "https://invisible-island.net/dialog/dialog.html";

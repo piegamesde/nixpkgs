@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   strictDeps = true;
   propagatedBuildInputs = lib.optional (!stdenv.isLinux) libiconv;
 
-  configureFlags = [ "--with-libiconv-prefix=${libiconv}" ];
+  configureFlags = ["--with-libiconv-prefix=${libiconv}"];
 
   doCheck = false;
 
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.lgpl3Plus;
 
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.all;
   };
 }

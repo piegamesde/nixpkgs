@@ -34,7 +34,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  propagatedBuildInputs = [ ifaddr ] ++ lib.optionals (pythonOlder "3.11") [ async-timeout ];
+  propagatedBuildInputs = [ifaddr] ++ lib.optionals (pythonOlder "3.11") [async-timeout];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -67,6 +67,6 @@ buildPythonPackage rec {
     description = "Python implementation of multicast DNS service discovery";
     homepage = "https://github.com/python-zeroconf/python-zeroconf";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

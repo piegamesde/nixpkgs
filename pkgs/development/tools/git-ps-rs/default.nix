@@ -38,12 +38,12 @@ rustPlatform.buildRustPackage rec {
     openssl
     dbus
     libgpg-error
-  ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  ] ++ lib.optionals stdenv.isDarwin [Security];
 
   meta = with lib; {
     description = "Tool for working with a stack of patches";
     homepage = "https://git-ps.sh/";
     license = licenses.mit;
-    maintainers = with maintainers; [ alizter ];
+    maintainers = with maintainers; [alizter];
   };
 }

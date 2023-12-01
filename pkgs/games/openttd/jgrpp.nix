@@ -17,6 +17,6 @@ openttd.overrideAttrs (
       hash = "sha256-+5AOsop3x1fkX5UfxMFLhrTLeSnt+E0PYoU5n31N3f4=";
     };
 
-    buildInputs = oldAttrs.buildInputs ++ [ zstd ];
+    buildInputs = oldAttrs.buildInputs ++ [zstd];
   }
 )

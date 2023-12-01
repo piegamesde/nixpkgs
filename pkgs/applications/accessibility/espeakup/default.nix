@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linux-speakup/espeakup";
     description = "Lightweight connector for espeak-ng and speakup";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ethindp ];
+    maintainers = with maintainers; [ethindp];
     platforms = with platforms; linux;
   };
 }

@@ -27,12 +27,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "base58" ];
+  pythonImportsCheck = ["base58"];
 
   meta = with lib; {
     description = "Base58 and Base58Check implementation";
     homepage = "https://github.com/keis/base58";
     license = licenses.mit;
-    maintainers = with maintainers; [ nyanloutre ];
+    maintainers = with maintainers; [nyanloutre];
   };
 }

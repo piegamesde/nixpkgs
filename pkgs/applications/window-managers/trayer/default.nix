@@ -22,20 +22,20 @@ stdenv.mkDerivation rec {
     patchShebangs configure
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     gdk-pixbuf
     gtk2
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     homepage = "https://github.com/sargon/trayer-srg";
     license = licenses.mit;
     description = "A lightweight GTK2-based systray for UNIX desktop";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

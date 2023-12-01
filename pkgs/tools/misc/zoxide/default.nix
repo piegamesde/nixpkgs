@@ -20,9 +20,9 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-easHqXEHMrRqLmD7GMudoMGRnFOLsnRrgivVaYfQn8k=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.isDarwin [libiconv];
 
   postPatch = lib.optionalString withFzf ''
     substituteInPlace src/util.rs \
@@ -43,7 +43,7 @@ rustPlatform.buildRustPackage rec {
     description = "A fast cd command that learns your habits";
     homepage = "https://github.com/ajeetdsouza/zoxide";
     changelog = "https://github.com/ajeetdsouza/zoxide/raw/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
+    license = with licenses; [mit];
     maintainers = with maintainers; [
       ysndr
       cole-h

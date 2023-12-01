@@ -42,7 +42,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests/test.py" ];
+  pytestFlagsArray = ["tests/test.py"];
 
   disabledTests = [
     # Tests require network access
@@ -56,13 +56,13 @@ buildPythonPackage rec {
     "test_wrong_user"
   ];
 
-  pythonImportsCheck = [ "reolink_aio" ];
+  pythonImportsCheck = ["reolink_aio"];
 
   meta = with lib; {
     description = "Module to interact with the Reolink IP camera API";
     homepage = "https://github.com/starkillerOG/reolink_aio";
     changelog = "https://github.com/starkillerOG/reolink_aio/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

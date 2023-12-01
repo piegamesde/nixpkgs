@@ -19,7 +19,7 @@ appleDerivation' (if headersOnly then stdenvNoCC else stdenv) (
     arch = if stdenv.isx86_64 then "x86_64" else "arm64";
   in
   {
-    depsBuildBuild = [ buildPackages.stdenv.cc ];
+    depsBuildBuild = [buildPackages.stdenv.cc];
 
     nativeBuildInputs = [
       bootstrap_cmds
@@ -31,7 +31,7 @@ appleDerivation' (if headersOnly then stdenvNoCC else stdenv) (
       python3
     ];
 
-    patches = lib.optionals stdenv.isx86_64 [ ./python3.patch ];
+    patches = lib.optionals stdenv.isx86_64 [./python3.patch];
 
     postPatch =
       ''

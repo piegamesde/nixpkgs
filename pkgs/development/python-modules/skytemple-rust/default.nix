@@ -32,7 +32,7 @@ buildPythonPackage rec {
     Foundation
   ];
   nativeBuildInputs =
-    [ setuptools-rust ]
+    [setuptools-rust]
     ++ (
       with rustPlatform; [
         cargoSetupHook
@@ -40,12 +40,12 @@ buildPythonPackage rec {
         rust.rustc
       ]
     );
-  propagatedBuildInputs = [ range-typed-integers ];
+  propagatedBuildInputs = [range-typed-integers];
 
   GETTEXT_SYSTEM = true;
 
   doCheck = false; # there are no tests
-  pythonImportsCheck = [ "skytemple_rust" ];
+  pythonImportsCheck = ["skytemple_rust"];
 
   meta = with lib; {
     homepage = "https://github.com/SkyTemple/skytemple-rust";

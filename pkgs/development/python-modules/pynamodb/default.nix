@@ -29,10 +29,10 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     python-dateutil
     botocore
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  ] ++ lib.optionals (pythonOlder "3.8") [typing-extensions];
 
   passthru.optional-dependencies = {
-    signal = [ blinker ];
+    signal = [blinker];
   };
 
   nativeCheckInputs = [
@@ -40,7 +40,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ passthru.optional-dependencies.signal;
 
-  pythonImportsCheck = [ "pynamodb" ];
+  pythonImportsCheck = ["pynamodb"];
 
   disabledTests = [
     # Tests requires credentials or network access
@@ -63,6 +63,6 @@ buildPythonPackage rec {
     homepage = "http://jlafon.io/pynamodb.html";
     changelog = "https://github.com/pynamodb/PynamoDB/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

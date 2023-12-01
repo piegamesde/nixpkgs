@@ -69,9 +69,9 @@ in
 
       extraArgs = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "Additional command line parameters";
-        example = [ "-v" ];
+        example = ["-v"];
       };
     };
   };
@@ -80,14 +80,14 @@ in
 
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = mkMerge [
-      (mkIf cfg.openFirewall [ cfg.port ])
-      (mkIf cfg.openTelnet [ 8766 ])
+      (mkIf cfg.openFirewall [cfg.port])
+      (mkIf cfg.openTelnet [8766])
     ];
 
     systemd.services.icecc-scheduler = {
       description = "Icecream scheduling server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = escapeShellArgs (
@@ -109,5 +109,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ emantor ];
+  meta.maintainers = with lib.maintainers; [emantor];
 }

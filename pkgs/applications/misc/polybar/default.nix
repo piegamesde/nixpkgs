@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
       i3
     ];
 
-  patches = [ ./remove-hardcoded-etc.diff ];
+  patches = [./remove-hardcoded-etc.diff];
 
   # Replace hardcoded /etc when copying and reading the default config.
   postPatch = ''

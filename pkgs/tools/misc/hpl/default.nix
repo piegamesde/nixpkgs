@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.netlib.org/benchmark/hpl/";
     platforms = platforms.unix;
     license = licenses.bsdOriginal;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
   };
 }

@@ -15,7 +15,7 @@ in
   options.systemd.services = lib.mkOption {
     type = types.attrsOf (
       types.submodule (
-        { name, config, ... }:
+        {name, config, ...}:
         {
           options.confinement.enable = lib.mkOption {
             type = types.bool;
@@ -46,7 +46,7 @@ in
 
           options.confinement.packages = lib.mkOption {
             type = types.listOf (types.either types.str types.package);
-            default = [ ];
+            default = [];
             description =
               let
                 mkScOption = optName: "{option}`serviceConfig.${optName}`";
@@ -227,7 +227,7 @@ in
           chrootPaths =
             pkgs.runCommand "${mkPathSafeName name}-chroot-paths"
               {
-                closureInfo = pkgs.closureInfo { inherit rootPaths; };
+                closureInfo = pkgs.closureInfo {inherit rootPaths;};
                 serviceName = "${name}.service";
                 excludedPath = rootPaths;
               }

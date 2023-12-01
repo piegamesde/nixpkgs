@@ -29,12 +29,12 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  pythonImportsCheck = [ "clip" ];
+  pythonImportsCheck = ["clip"];
 
   meta = with lib; {
     description = "Contrastive Language-Image Pretraining";
     homepage = "https://github.com/openai/CLIP";
     license = licenses.mit;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

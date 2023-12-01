@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     pkg-config
     bison
-  ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+  ] ++ lib.optionals stdenv.isLinux [autoPatchelfHook];
 
   buildInputs = [
     openssl
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     libmd
     zlib
     ncurses
-  ] ++ lib.optionals stdenv.isDarwin [ libossp_uuid ];
+  ] ++ lib.optionals stdenv.isDarwin [libossp_uuid];
 
   preConfigure = lib.optionalString stdenv.isDarwin ''
     # The configure script assumes dependencies on Darwin are install via

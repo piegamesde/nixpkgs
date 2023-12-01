@@ -68,11 +68,11 @@ stdenv.mkDerivation {
     libpng
   ];
 
-  cmakeFlags = [ "-DINSTALL_HELPER_SCRIPTS=OFF" ];
+  cmakeFlags = ["-DINSTALL_HELPER_SCRIPTS=OFF"];
 
   meta = with lib; {
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
     license = lib.licenses.lgpl3;
     description = "An opensource database of photographic lenses and their characteristics";
     homepage = "https://lensfun.github.io";

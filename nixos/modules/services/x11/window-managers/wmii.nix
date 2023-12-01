@@ -41,6 +41,6 @@ in
           '';
         };
 
-    environment.systemPackages = [ wmii ];
+    environment.systemPackages = [wmii];
   };
 }

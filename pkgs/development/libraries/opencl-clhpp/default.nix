@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  propagatedBuildInputs = [ opencl-headers ];
+  propagatedBuildInputs = [opencl-headers];
 
   strictDeps = true;
 

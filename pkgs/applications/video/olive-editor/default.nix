@@ -31,7 +31,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-lL90+8L7J7pjvhbqfeIVF0WKgl6qQzNun8pL9YPL5Is=";
   };
 
-  cmakeFlags = [ "-DBUILD_QT6=1" ];
+  cmakeFlags = ["-DBUILD_QT6=1"];
 
   # https://github.com/olive-editor/olive/issues/2200
   patchPhase = ''
@@ -70,7 +70,7 @@ stdenv.mkDerivation {
     homepage = "https://www.olivevideoeditor.org/";
     downloadPage = "https://www.olivevideoeditor.org/download.php";
     license = licenses.gpl3;
-    maintainers = [ maintainers.balsoft ];
+    maintainers = [maintainers.balsoft];
     platforms = platforms.unix;
     # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;

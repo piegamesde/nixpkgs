@@ -33,18 +33,18 @@ buildPythonPackage rec {
     pytest
     pytestCheckHook
     responses
-  ] ++ lib.optionals (!isPy3k) [ mock ];
+  ] ++ lib.optionals (!isPy3k) [mock];
 
   preCheck = ''
     cd digitalocean
   '';
 
-  pythonImportsCheck = [ "digitalocean" ];
+  pythonImportsCheck = ["digitalocean"];
 
   meta = with lib; {
     description = "Python API to manage Digital Ocean Droplets and Images";
     homepage = "https://github.com/koalalorenzo/python-digitalocean";
-    license = with licenses; [ lgpl3Only ];
+    license = with licenses; [lgpl3Only];
     maintainers = with maintainers; [
       kiwi
       teh

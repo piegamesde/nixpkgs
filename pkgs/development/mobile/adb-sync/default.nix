@@ -21,8 +21,8 @@ stdenv.mkDerivation {
     sha256 = "1kfpdqs8lmnh144jcm1qmfnmigzrbrz5lvwvqqb7021b2jlf69cl";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ python3 ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [python3];
 
   dontBuild = true;
 
@@ -52,7 +52,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/google/adb-sync";
     license = licenses.asl20;
     platforms = platforms.unix;
-    hydraPlatforms = [ ];
-    maintainers = with maintainers; [ scolobb ];
+    hydraPlatforms = [];
+    maintainers = with maintainers; [scolobb];
   };
 }

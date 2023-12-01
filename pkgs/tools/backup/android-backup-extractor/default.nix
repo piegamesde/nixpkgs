@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
   dontConfigure = true;
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ jre ];
+  buildInputs = [jre];
 
   installPhase = ''
     runHook preInstall
@@ -33,8 +33,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Utility to extract and repack Android backups created with adb backup";
     homepage = "https://github.com/nelenkov/android-backup-extractor";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

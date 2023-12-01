@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "data-frame";
   version = "20210411-git";
 
-  parasites = [ "data-frame/tests" ];
+  parasites = ["data-frame/tests"];
 
   description = "Data frames for Common Lisp";
 
@@ -25,7 +25,7 @@ rec {
 
   packageName = "data-frame";
 
-  asdFilesToKeep = [ "data-frame.asd" ];
+  asdFilesToKeep = ["data-frame.asd"];
   overrides = x: x;
 }
 /* (SYSTEM data-frame DESCRIPTION Data frames for Common Lisp SHA256

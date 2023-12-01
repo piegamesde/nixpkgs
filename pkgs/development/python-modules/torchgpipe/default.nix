@@ -25,9 +25,9 @@ buildPythonPackage rec {
       --replace "'pytest-runner'" ""
   '';
 
-  propagatedBuildInputs = [ torch ];
+  propagatedBuildInputs = [torch];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
   disabledTests = [
     "test_inplace_on_requires_grad"
     "test_input_requiring_grad"
@@ -37,6 +37,6 @@ buildPythonPackage rec {
     description = "GPipe implemented in Pytorch and optimized for CUDA rather than TPU";
     homepage = "https://torchgpipe.readthedocs.io";
     license = licenses.asl20;
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
   };
 }

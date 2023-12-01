@@ -37,6 +37,6 @@ buildPythonPackage rec {
   meta = {
     description = "A commonly-used set of utilities";
     homepage = "https://github.com/thebigmunch/tbm-utils";
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
   };
 }

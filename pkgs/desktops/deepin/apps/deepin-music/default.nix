@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
       ]
     );
 
-  cmakeFlags = [ "-DVERSION=${version}" ];
+  cmakeFlags = ["-DVERSION=${version}"];
 
   strictDeps = true;
 

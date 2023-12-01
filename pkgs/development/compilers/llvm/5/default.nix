@@ -75,7 +75,7 @@ let
     in
     {
 
-      libllvm = callPackage ./llvm { inherit llvm_meta; };
+      libllvm = callPackage ./llvm {inherit llvm_meta;};
 
       # `llvm` historically had the binaries.  When choosing an output explicitly,
       # we need to reintroduce `outputSpecified` to get the expected behavior e.g. of lib.get*
@@ -90,7 +90,7 @@ let
         outputSpecified = false;
       };
 
-      libclang = callPackage ./clang { inherit clang-tools-extra_src llvm_meta; };
+      libclang = callPackage ./clang {inherit clang-tools-extra_src llvm_meta;};
 
       clang-unwrapped = tools.libclang;
 
@@ -121,7 +121,7 @@ let
         cc = tools.clang-unwrapped;
         # libstdcxx is taken from gcc in an ad-hoc way in cc-wrapper.
         libcxx = null;
-        extraPackages = [ targetLlvmLibraries.compiler-rt ];
+        extraPackages = [targetLlvmLibraries.compiler-rt];
         extraBuildCommands = mkExtraBuildCommands cc;
       };
 
@@ -135,9 +135,9 @@ let
         extraBuildCommands = mkExtraBuildCommands cc;
       };
 
-      lld = callPackage ./lld { inherit llvm_meta; };
+      lld = callPackage ./lld {inherit llvm_meta;};
 
-      lldb = callPackage ./lldb { inherit llvm_meta; };
+      lldb = callPackage ./lldb {inherit llvm_meta;};
     }
   );
 
@@ -163,18 +163,18 @@ let
     in
     {
 
-      compiler-rt = callPackage ./compiler-rt { inherit llvm_meta; };
+      compiler-rt = callPackage ./compiler-rt {inherit llvm_meta;};
 
       stdenv = overrideCC stdenv buildLlvmTools.clang;
 
       libcxxStdenv = overrideCC stdenv buildLlvmTools.libcxxClang;
 
-      libcxx = callPackage ./libcxx { inherit llvm_meta; };
+      libcxx = callPackage ./libcxx {inherit llvm_meta;};
 
-      libcxxabi = callPackage ./libcxxabi { inherit llvm_meta; };
+      libcxxabi = callPackage ./libcxxabi {inherit llvm_meta;};
 
-      openmp = callPackage ./openmp { inherit llvm_meta targetLlvm; };
+      openmp = callPackage ./openmp {inherit llvm_meta targetLlvm;};
     }
   );
 in
-{ inherit tools libraries release_version; } // libraries // tools
+{inherit tools libraries release_version;} // libraries // tools

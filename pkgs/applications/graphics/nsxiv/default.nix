@@ -47,11 +47,11 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-linotify";
 
-  makeFlags = [ "CC:=$(CC)" ];
+  makeFlags = ["CC:=$(CC)"];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
-  installTargets = [ "install-all" ];
+  installTargets = ["install-all"];
 
   meta = with lib; {
     homepage = "https://nsxiv.codeberg.page/";

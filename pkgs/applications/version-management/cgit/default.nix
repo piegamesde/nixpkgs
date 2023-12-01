@@ -23,10 +23,10 @@ callPackage
       sha256 = "09lzwa183nblr6l8ib35g2xrjf9wm9yhk3szfvyzkwivdv69c9r2";
     };
 
-    buildInputs = [ luajit ];
+    buildInputs = [luajit];
 
     homepage = "https://git.zx2c4.com/cgit/about/";
     description = "Web frontend for git repositories";
-    maintainers = with lib.maintainers; [ bjornfor ];
+    maintainers = with lib.maintainers; [bjornfor];
   })
-  { }
+  {}

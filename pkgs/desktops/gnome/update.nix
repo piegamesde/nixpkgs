@@ -34,9 +34,9 @@ let
       upperBound = "${lib.versions.major packageVersion}.${builtins.toString nextMinor}";
     in
     if builtins.isBool freeze then
-      lib.optionals (freeze && minorAvailable) [ upperBound ]
+      lib.optionals (freeze && minorAvailable) [upperBound]
     else if builtins.isString freeze then
-      [ freeze ]
+      [freeze]
     else
       throw "“freeze” argument needs to be either a boolean, or a version string.";
   updateScript = writeScript "gnome-update-script" ''
@@ -107,5 +107,5 @@ in
     packageVersion
     versionPolicy
   ] ++ upperBound;
-  supportedFeatures = [ "commit" ];
+  supportedFeatures = ["commit"];
 }

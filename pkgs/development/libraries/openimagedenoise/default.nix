@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     python3
     ispc
   ];
-  buildInputs = [ tbb ];
+  buildInputs = [tbb];
 
   cmakeFlags = [
     "-DTBB_ROOT=${tbb}"
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     homepage = "https://openimagedenoise.github.io";
     description = "High-Performance Denoising Library for Ray Tracing";
     license = licenses.asl20;
-    maintainers = [ maintainers.leshainc ];
+    maintainers = [maintainers.leshainc];
     platforms = platforms.unix;
     changelog = "https://github.com/OpenImageDenoise/oidn/blob/v${version}/CHANGELOG.md";
   };

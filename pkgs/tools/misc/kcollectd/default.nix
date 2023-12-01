@@ -50,8 +50,8 @@ mkDerivation rec {
   meta = with lib; {
     description = "A graphical frontend to collectd";
     homepage = "https://www.antonioerusso.com/projects/kcollectd/";
-    maintainers = [ maintainers.symphorien ];
-    license = [ lib.licenses.gpl3Plus ];
+    maintainers = [maintainers.symphorien];
+    license = [lib.licenses.gpl3Plus];
     platforms = lib.platforms.linux;
   };
 }

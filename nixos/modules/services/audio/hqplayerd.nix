@@ -89,9 +89,9 @@ in
         "hqplayer/hqplayerd.xml" = mkIf (cfg.config != null) {
           source = pkgs.writeText "hqplayerd.xml" cfg.config;
         };
-        "hqplayer/hqplayerd4-key.xml" = mkIf (cfg.licenseFile != null) { source = cfg.licenseFile; };
+        "hqplayer/hqplayerd4-key.xml" = mkIf (cfg.licenseFile != null) {source = cfg.licenseFile;};
       };
-      systemPackages = [ pkg ];
+      systemPackages = [pkg];
     };
 
     networking.firewall = mkIf cfg.openFirewall {
@@ -108,11 +108,11 @@ in
         "d ${stateDir}/home  0755 hqplayer hqplayer - -"
       ];
 
-      packages = [ pkg ];
+      packages = [pkg];
 
       services.hqplayerd = {
-        wantedBy = [ "multi-user.target" ];
-        after = [ "systemd-tmpfiles-setup.service" ];
+        wantedBy = ["multi-user.target"];
+        after = ["systemd-tmpfiles-setup.service"];
 
         environment.HOME = "${stateDir}/home";
 

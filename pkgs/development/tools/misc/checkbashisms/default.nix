@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-Nd1eYCnSe+NblujG44uKpvunkaITcdrC3g+M3uX+M9U=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
-  buildInputs = [ perl ];
+  nativeBuildInputs = [installShellFiles];
+  buildInputs = [perl];
 
   buildPhase = ''
     runHook preBuild
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/checkbaskisms/";
     description = "Check shell scripts for non-portable syntax";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ kaction ];
+    maintainers = with lib.maintainers; [kaction];
     platforms = lib.platforms.unix;
   };
 }

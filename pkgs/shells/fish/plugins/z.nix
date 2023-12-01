@@ -18,6 +18,6 @@ buildFishPlugin rec {
     description = "Pure-fish z directory jumping";
     homepage = "https://github.com/jethrokuan/z";
     license = licenses.mit;
-    maintainers = with maintainers; [ Scrumplex ];
+    maintainers = with maintainers; [Scrumplex];
   };
 }

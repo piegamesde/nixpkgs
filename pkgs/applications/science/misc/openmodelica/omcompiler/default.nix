@@ -26,7 +26,7 @@ mkOpenModelicaDerivation (
     pname = "omcompiler";
     omtarget = "omc";
     omdir = "OMCompiler";
-    omdeps = [ ];
+    omdeps = [];
     omautoconf = true;
 
     nativeBuildInputs = [
@@ -73,5 +73,5 @@ mkOpenModelicaDerivation (
       platforms = platforms.linux;
     };
   }
-  // lib.optionalAttrs isCross { configureFlags = [ "--with-omc=${nativeOMCompiler}/bin/omc" ]; }
+  // lib.optionalAttrs isCross {configureFlags = ["--with-omc=${nativeOMCompiler}/bin/omc"];}
 )

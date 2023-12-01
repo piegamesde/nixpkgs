@@ -6,8 +6,8 @@
   gtk3,
   hicolor-icon-theme,
   jdupes,
-  schemeVariants ? [ ],
-  colorVariants ? [ ], # default is blue
+  schemeVariants ? [],
+  colorVariants ? [], # default is blue
 }:
 
 let
@@ -54,7 +54,7 @@ lib.checkListOfEnum "${pname}: scheme variants"
       jdupes
     ];
 
-    propagatedBuildInputs = [ hicolor-icon-theme ];
+    propagatedBuildInputs = [hicolor-icon-theme];
 
     dontDropIconThemeCache = true;
 
@@ -71,8 +71,8 @@ lib.checkListOfEnum "${pname}: scheme variants"
       runHook preInstall
 
       name= ./install.sh \
-        ${lib.optionalString (schemeVariants != [ ]) ("--scheme " + builtins.toString schemeVariants)} \
-        ${lib.optionalString (colorVariants != [ ]) ("--theme " + builtins.toString colorVariants)} \
+        ${lib.optionalString (schemeVariants != []) ("--scheme " + builtins.toString schemeVariants)} \
+        ${lib.optionalString (colorVariants != []) ("--theme " + builtins.toString colorVariants)} \
         --dest $out/share/icons
 
       jdupes --quiet --link-soft --recurse $out/share
@@ -80,13 +80,13 @@ lib.checkListOfEnum "${pname}: scheme variants"
       runHook postInstall
     '';
 
-    passthru.updateScript = gitUpdater { };
+    passthru.updateScript = gitUpdater {};
 
     meta = with lib; {
       description = "Colloid icon theme";
       homepage = "https://github.com/vinceliuice/colloid-icon-theme";
       license = licenses.gpl3Only;
       platforms = platforms.unix;
-      maintainers = with maintainers; [ romildo ];
+      maintainers = with maintainers; [romildo];
     };
   }

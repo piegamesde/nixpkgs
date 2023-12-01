@@ -42,7 +42,7 @@ in
 
       extraFlags = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "-label kbfs"
           "-mount-type normal"
@@ -66,8 +66,8 @@ in
           # Note that the "Requires" directive will cause a unit to be restarted whenever its dependency is restarted.
           # Do not issue a hard dependency on keybase, because kbfs can reconnect to a restarted service.
           # Do not issue a hard dependency on keybase-redirector, because it's ok if it fails (e.g., if it is disabled).
-          wants = [ "keybase.service" ] ++ optional cfg.enableRedirector "keybase-redirector.service";
-          path = [ "/run/wrappers" ];
+          wants = ["keybase.service"] ++ optional cfg.enableRedirector "keybase-redirector.service";
+          path = ["/run/wrappers"];
           unitConfig.ConditionUser = "!@system";
 
           serviceConfig = {
@@ -86,23 +86,23 @@ in
             Restart = "on-failure";
             PrivateTmp = true;
           };
-          wantedBy = [ "default.target" ];
+          wantedBy = ["default.target"];
         };
 
         services.keybase.enable = true;
 
-        environment.systemPackages = [ pkgs.kbfs ];
+        environment.systemPackages = [pkgs.kbfs];
       }
 
       (mkIf cfg.enableRedirector {
         security.wrappers."keybase-redirector".source = "${pkgs.kbfs}/bin/redirector";
 
-        systemd.tmpfiles.rules = [ "d /keybase 0755 root root 0" ];
+        systemd.tmpfiles.rules = ["d /keybase 0755 root root 0"];
 
         # Upstream: https://github.com/keybase/client/blob/master/packaging/linux/systemd/keybase-redirector.service
         systemd.user.services.keybase-redirector = {
           description = "Keybase Root Redirector for KBFS";
-          wants = [ "keybase.service" ];
+          wants = ["keybase.service"];
           unitConfig.ConditionUser = "!@system";
 
           serviceConfig = {
@@ -116,7 +116,7 @@ in
             PrivateTmp = true;
           };
 
-          wantedBy = [ "default.target" ];
+          wantedBy = ["default.target"];
         };
       })
     ]

@@ -31,8 +31,8 @@ buildPythonPackage rec {
     hash = "sha256-TvYhxiAbK+mpcEE9y79WH96dzeDnvI0xPaUxSYQqyHE=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  propagatedNativeBuildInputs = [ cffi ];
+  nativeBuildInputs = [pkg-config];
+  propagatedNativeBuildInputs = [cffi];
   buildInputs = [
     libinput
     libxkbcommon
@@ -47,13 +47,13 @@ buildPythonPackage rec {
     pywayland
     xkbcommon
   ];
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postBuild = ''
     ${python.pythonForBuild.interpreter} wlroots/ffi_build.py
   '';
 
-  pythonImportsCheck = [ "wlroots" ];
+  pythonImportsCheck = ["wlroots"];
 
   passthru.tests = {
     inherit qtile;
@@ -64,6 +64,6 @@ buildPythonPackage rec {
     description = "Python bindings to wlroots using cffi";
     license = licenses.ncsa;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ chvp ];
+    maintainers = with maintainers; [chvp];
   };
 }

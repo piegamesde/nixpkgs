@@ -13,7 +13,7 @@ let
       fsType = "envfs";
       options = [
         "fallback-path=${
-          pkgs.runCommand "fallback-path" { } (
+          pkgs.runCommand "fallback-path" {} (
             ''
               mkdir -p $out
               ln -s ${config.environment.usrbinenv} $out/env
@@ -27,7 +27,7 @@ let
     "/bin" = {
       device = "/usr/bin";
       fsType = "none";
-      options = [ "bind" ];
+      options = ["bind"];
     };
   };
 in
@@ -59,7 +59,7 @@ in
     };
   };
   config = lib.mkIf (cfg.enable) {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     # we also want these mounts in virtual machines.
     fileSystems = if config.virtualisation ? qemu then lib.mkVMOverride mounts else mounts;
 

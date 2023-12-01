@@ -52,7 +52,7 @@ mkCoqDerivation {
       the study of relation algebra within the ERC CoVeCe project (e.g.,
       soundness and completeness of an axiomatization of graph isomorphism).
     '';
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     license = licenses.cecill-b;
   };
 }

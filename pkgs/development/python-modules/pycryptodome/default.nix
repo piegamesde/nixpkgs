@@ -7,7 +7,7 @@
 }:
 
 let
-  test-vectors = callPackage ./vectors.nix { };
+  test-vectors = callPackage ./vectors.nix {};
 in
 buildPythonPackage rec {
   pname = "pycryptodome";
@@ -26,9 +26,9 @@ buildPythonPackage rec {
       --replace 'load_lib("gmp"' 'load_lib("${gmp}/lib/libgmp.so.10"'
   '';
 
-  nativeCheckInputs = [ test-vectors ];
+  nativeCheckInputs = [test-vectors];
 
-  pythonImportsCheck = [ "Crypto" ];
+  pythonImportsCheck = ["Crypto"];
 
   meta = with lib; {
     description = "Self-contained cryptographic library";
@@ -37,6 +37,6 @@ buildPythonPackage rec {
       bsd2 # and
       asl20
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

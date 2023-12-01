@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     libxml2
   ];
 
-  mesonFlags = [ "-Denable_wdisplays=false" ];
+  mesonFlags = ["-Denable_wdisplays=false"];
 
   meta = with lib; {
     homepage = "https://github.com/WayfireWM/wcm";

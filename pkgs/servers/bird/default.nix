@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     libssh
   ];
 
-  patches = [ ./dont-create-sysconfdir-2.patch ];
+  patches = [./dont-create-sysconfdir-2.patch];
 
   CPP = "${stdenv.cc.targetPrefix}cpp -E";
 
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     description = "BIRD Internet Routing Daemon";
     homepage = "http://bird.network.cz";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ globin ];
+    maintainers = with maintainers; [globin];
     platforms = platforms.linux;
   };
 }

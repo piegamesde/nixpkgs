@@ -64,14 +64,14 @@ stdenv.mkDerivation rec {
       with gst_all_1; [
         gstreamer
         gst-plugins-base
-        (gst-plugins-good.override { gtkSupport = true; })
+        (gst-plugins-good.override {gtkSupport = true;})
         gst-plugins-bad
       ]
     )
-    ++ lib.optionals (enableViewer) [ gtk3 ];
+    ++ lib.optionals (enableViewer) [gtk3];
 
   mesonFlags =
-    [ ]
+    []
     ++ lib.optional enableFastHeartbeat "-Dfast-heartbeat=enabled"
     ++ lib.optional (!enableGstPlugin) "-Dgst-plugin=disabled"
     ++ lib.optional (!enableViewer) "-Dviewer=disabled"
@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
     # the documentation is the best working homepage that's not the Github repo
     homepage = "https://aravisproject.github.io/docs/aravis-0.8";
     license = lib.licenses.lgpl2;
-    maintainers = with lib.maintainers; [ tpw_rules ];
+    maintainers = with lib.maintainers; [tpw_rules];
     platforms = lib.platforms.unix;
   };
 }

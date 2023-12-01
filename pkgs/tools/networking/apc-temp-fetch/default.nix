@@ -19,14 +19,14 @@ buildPythonApplication rec {
     hash = "sha256-lXGj/xrOkdMMYvuyVVSCojjQlzISFUT14VTn//iOARo=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
-  pythonImportsCheck = [ "APC_Temp_fetch" ];
+  pythonImportsCheck = ["APC_Temp_fetch"];
 
   meta = with lib; {
     description = "unified temperature fetcher interface to several UPS network adapters";
     homepage = "https://github.com/YZITE/APC_Temp_fetch";
     license = licenses.asl20;
-    maintainers = [ maintainers.zseri ];
+    maintainers = [maintainers.zseri];
   };
 }

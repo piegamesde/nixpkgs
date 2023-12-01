@@ -50,7 +50,7 @@ resholve.mkDerivation rec {
 
   solutions = {
     git-ftp = {
-      scripts = [ "bin/git-ftp" ];
+      scripts = ["bin/git-ftp"];
       interpreter = "${bash}/bin/bash";
       inputs = [
         coreutils
@@ -68,7 +68,7 @@ resholve.mkDerivation rec {
         # caution: will still be fragile if PATH is bad
         # TODO: fixable once we figure out how to handle
         # this entire class of problem...
-        "external" = [ "security" ];
+        "external" = ["security"];
       };
       keep = {
         # looks like run-time user/env/git-config controlled
@@ -96,7 +96,7 @@ resholve.mkDerivation rec {
     description = "Git powered FTP client written as shell script";
     homepage = "https://git-ftp.github.io/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ tweber ];
+    maintainers = with maintainers; [tweber];
     platforms = platforms.unix;
   };
 }

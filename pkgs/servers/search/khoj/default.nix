@@ -44,11 +44,11 @@ python3.pkgs.buildPythonApplication rec {
       hatch-vcs
       hatchling
     ]
-    ++ (with qt6; [ wrapQtAppsHook ]);
+    ++ (with qt6; [wrapQtAppsHook]);
 
   buildInputs =
-    lib.optionals stdenv.isLinux [ qt6.qtwayland ]
-    ++ lib.optionals stdenv.isDarwin [ qt6.qtbase ];
+    lib.optionals stdenv.isLinux [qt6.qtwayland]
+    ++ lib.optionals stdenv.isDarwin [qt6.qtbase];
 
   propagatedBuildInputs = with python3.pkgs; [
     dateparser
@@ -68,13 +68,13 @@ python3.pkgs.buildPythonApplication rec {
     uvicorn
   ];
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [pytestCheckHook];
 
   preCheck = ''
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [ "khoj" ];
+  pythonImportsCheck = ["khoj"];
 
   disabledTests = [
     # Tests require network access
@@ -104,7 +104,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/debanjum/khoj";
     changelog = "https://github.com/debanjum/khoj/releases/tag/${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
     # src/tcmalloc.cc:333] Attempt to free invalid pointer
     broken = stdenv.isDarwin;
   };

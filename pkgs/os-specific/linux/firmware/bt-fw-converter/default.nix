@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "c259b414a4a273c89a0fa7159b3ef73d1ea62b6de91c3a7c2fcc832868e39f4b";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = [
     perl
@@ -42,6 +42,6 @@ stdenv.mkDerivation rec {
     description = "A tool that converts hex to hcd based on inf file";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zraexy ];
+    maintainers = with maintainers; [zraexy];
   };
 }

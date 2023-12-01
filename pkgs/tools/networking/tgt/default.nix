@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
         "-Wno-error=maybe-uninitialized"
       ];
 
-  installFlags = [ "sysconfdir=${placeholder "out"}/etc" ];
+  installFlags = ["sysconfdir=${placeholder "out"}/etc"];
 
   preConfigure = ''
     sed -i 's|/usr/bin/||' doc/Makefile
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     substituteInPlace $out/sbin/tgt-admin \
-      --replace "#!/usr/bin/perl" "#! ${perl.withPackages (p: [ p.ConfigGeneral ])}/bin/perl"
+      --replace "#!/usr/bin/perl" "#! ${perl.withPackages (p: [p.ConfigGeneral])}/bin/perl"
     wrapProgram $out/sbin/tgt-admin --prefix PATH : \
       ${
         lib.makeBinPath [
@@ -85,6 +85,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/fujita/tgt";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ johnazoidberg ];
+    maintainers = with maintainers; [johnazoidberg];
   };
 }

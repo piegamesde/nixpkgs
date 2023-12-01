@@ -125,7 +125,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "GUI prototyping/mockup tool";
     homepage = "https://pencil.evolus.vn/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.gpl2; # Commercial license is also available
     maintainers = with maintainers; [
       bjornfor

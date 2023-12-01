@@ -50,13 +50,13 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeCheckInputs = [ unittest-cpp ];
+  nativeCheckInputs = [unittest-cpp];
 
   enableParallelBuilding = true;
 
-  installTargets = [ "install" ] ++ lib.optionals docSupport [ "doc" ];
+  installTargets = ["install"] ++ lib.optionals docSupport ["doc"];
 
-  outputs = [ "out" ] ++ lib.optionals docSupport [ "doc" ];
+  outputs = ["out"] ++ lib.optionals docSupport ["doc"];
 
   configureFlags = [
     "--enable-hardsid"
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
       C64 system and the SID chips.
     '';
     homepage = "https://github.com/libsidplayfp/libsidplayfp";
-    license = with licenses; [ gpl2Plus ];
+    license = with licenses; [gpl2Plus];
     maintainers = with maintainers; [
       ramkromberg
       OPNA2608

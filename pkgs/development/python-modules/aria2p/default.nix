@@ -33,7 +33,7 @@ buildPythonPackage rec {
     hash = "sha256-z74ej6J6Yh1aVsXR5fE+XhoCzCS+zfDxQL8gKFd7tBA=";
   };
 
-  nativeBuildInputs = [ pdm-pep517 ];
+  nativeBuildInputs = [pdm-pep517];
 
   propagatedBuildInputs = [
     appdirs
@@ -74,13 +74,13 @@ buildPythonPackage rec {
     "test_resume_method"
   ];
 
-  pythonImportsCheck = [ "aria2p" ];
+  pythonImportsCheck = ["aria2p"];
 
   meta = with lib; {
     homepage = "https://github.com/pawamoy/aria2p";
     changelog = "https://github.com/pawamoy/aria2p/blob/${src.rev}/CHANGELOG.md";
     description = "Command-line tool and library to interact with an aria2c daemon process with JSON-RPC";
     license = licenses.isc;
-    maintainers = with maintainers; [ koral ];
+    maintainers = with maintainers; [koral];
   };
 }

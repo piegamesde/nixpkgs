@@ -371,10 +371,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    system.nssModules = [ pkgs.libnss-mysql ];
-    system.nssDatabases.shadow = [ "mysql" ];
-    system.nssDatabases.group = [ "mysql" ];
-    system.nssDatabases.passwd = [ "mysql" ];
+    system.nssModules = [pkgs.libnss-mysql];
+    system.nssDatabases.shadow = ["mysql"];
+    system.nssDatabases.group = ["mysql"];
+    system.nssDatabases.passwd = ["mysql"];
 
     environment.etc."security/pam_mysql.conf" = {
       user = "root";

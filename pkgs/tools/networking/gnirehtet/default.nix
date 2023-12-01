@@ -61,7 +61,7 @@ rustPlatform.buildRustPackage {
 
   cargoHash = "sha256-3iYOeHIQHwxmh8b8vKUf5fQS2fXP2g3orLquvLXzZwE=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/gnirehtet \
@@ -82,7 +82,7 @@ rustPlatform.buildRustPackage {
       binaryBytecode # gnirehtet.apk
     ];
     license = licenses.asl20;
-    maintainers = with maintainers; [ symphorien ];
+    maintainers = with maintainers; [symphorien];
     platforms = platforms.unix;
   };
 }

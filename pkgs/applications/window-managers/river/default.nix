@@ -67,9 +67,9 @@ stdenv.mkDerivation rec {
      When installFlags is removed, river becomes half broken.
      See https://github.com/riverwm/river/blob/7ffa2f4b9e7abf7d152134f555373c2b63ccfc1d/river/main.zig#L56
   */
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
-  passthru.providedSessions = [ "river" ];
+  passthru.providedSessions = ["river"];
 
   meta = with lib; {
     changelog = "https://github.com/ifreund/river/releases/tag/v${version}";

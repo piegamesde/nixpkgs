@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     cmake
     extra-cmake-modules
   ];
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   outputs = [
     "out"
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Accessibilty tools helper library, used e.g. by screen readers";
     homepage = "https://github.com/KDE/libqaccessibilityclient";
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
     license = with licenses; [
       lgpl3Only # or
       lgpl21Only

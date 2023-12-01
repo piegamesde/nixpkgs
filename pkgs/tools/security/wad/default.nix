@@ -16,14 +16,14 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-/mlmOzFkyKpmK/uk4813Wk0cf/+ynX3Qxafnd1mGR5k=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ six ];
+  propagatedBuildInputs = with python3.pkgs; [six];
 
   nativeCheckInputs = with python3.pkgs; [
     mock
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "wad" ];
+  pythonImportsCheck = ["wad"];
 
   meta = with lib; {
     description = "Tool for detecting technologies used by web applications";
@@ -39,6 +39,6 @@ python3.pkgs.buildPythonApplication rec {
       gpl3Plus
       mit
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

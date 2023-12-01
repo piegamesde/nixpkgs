@@ -46,9 +46,9 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-U/XvllkzEVt4TpDPA5gSRKpIIQagATGdHh7YPFOo4CY=";
 
   buildNoDefaultFeatures = true;
-  buildFeatures = [ "dynamic-grammar-libs" ];
+  buildFeatures = ["dynamic-grammar-libs"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram "$out/bin/diffsitter" \
@@ -68,6 +68,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/afnanenayet/diffsitter";
     description = "A tree-sitter based AST difftool to get meaningful semantic diffs";
     license = licenses.mit;
-    maintainers = with maintainers; [ bbigras ];
+    maintainers = with maintainers; [bbigras];
   };
 }

@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.services.goeland;
-  tomlFormat = pkgs.formats.toml { };
+  tomlFormat = pkgs.formats.toml {};
 in
 {
   options.services.goeland = {
@@ -20,7 +20,7 @@ in
         Configuration of goeland.
         See the [example config file](https://github.com/slurdge/goeland/blob/master/cmd/asset/config.default.toml) for the available options.
       '';
-      default = { };
+      default = {};
       type = tomlFormat.type;
     };
     schedule = mkOption {
@@ -68,7 +68,7 @@ in
       group = "goeland";
       isSystemUser = true;
     };
-    users.groups.goeland = { };
+    users.groups.goeland = {};
 
     warnings = optionals (hasAttr "password" cfg.settings.email) [
       ''
@@ -79,5 +79,5 @@ in
     ];
   };
 
-  meta.maintainers = with maintainers; [ sweenu ];
+  meta.maintainers = with maintainers; [sweenu];
 }

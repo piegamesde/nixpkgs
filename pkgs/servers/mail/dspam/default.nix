@@ -22,7 +22,7 @@
 
 let
   drivers = lib.concatStringsSep "," (
-    [ "hash_drv" ]
+    ["hash_drv"]
     ++ lib.optional withMySQL "mysql_drv"
     ++ lib.optional withPgSQL "pgsql_drv"
     ++ lib.optional withSQLite "sqlite3_drv"
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     ];
 
   buildInputs =
-    [ perlPackages.perl ]
+    [perlPackages.perl]
     ++ lib.optionals withMySQL [
       zlib
       mariadb-connector-c.out
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withPgSQL postgresql
     ++ lib.optional withSQLite sqlite
     ++ lib.optional withDB db;
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   # patch out libmysql >= 5 check, since mariadb-connector is at 3.x
   postPatch = ''
     sed -i 's/atoi(m) >= 5/1/g' configure m4/mysql_drv.m4
@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
 
   # Lots of things are hardwired to paths like sysconfdir. That's why we install with both "prefix" and "DESTDIR"
   # and fix directory structure manually after that.
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   postInstall = ''
     cp -r $out/$out/* $out
@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
     rm -rf $out/var
 
     wrapProgram $out/bin/dspam_notify \
-      --set PERL5LIB "${perlPackages.makePerlPath [ perlPackages.libnet ]}"
+      --set PERL5LIB "${perlPackages.makePerlPath [perlPackages.libnet]}"
 
     # Install SQL scripts
     mkdir -p $out/share/dspam/sql
@@ -147,6 +147,6 @@ stdenv.mkDerivation rec {
     description = "Community Driven Antispam Filter";
     license = licenses.agpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

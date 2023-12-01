@@ -36,7 +36,7 @@ stdenvNoCC.mkDerivation (
       '';
       homepage = "https://www.theleagueofmoveabletype.com/sorts-mill-goudy";
       license = lib.licenses.ofl;
-      maintainers = with lib.maintainers; [ minijackson ];
+      maintainers = with lib.maintainers; [minijackson];
     };
   }
 )

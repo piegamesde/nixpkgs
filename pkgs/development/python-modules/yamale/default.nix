@@ -27,14 +27,14 @@ buildPythonPackage rec {
     ruamel-yaml
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "yamale" ];
+  pythonImportsCheck = ["yamale"];
 
   meta = with lib; {
     description = "A schema and validator for YAML";
     homepage = "https://github.com/23andMe/Yamale";
     license = licenses.mit;
-    maintainers = with maintainers; [ rtburns-jpl ];
+    maintainers = with maintainers; [rtburns-jpl];
   };
 }

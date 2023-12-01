@@ -27,7 +27,7 @@ nimPackages.buildNimPackage rec {
     homepage = "https://github.com/unxsh/nitch";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ michaelBelsanti ];
+    maintainers = with maintainers; [michaelBelsanti];
     mainProgram = "nitch";
   };
 }

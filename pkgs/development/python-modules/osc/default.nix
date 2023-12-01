@@ -21,7 +21,7 @@ buildPythonPackage rec {
     sha256 = "cMltsR4Nxe0plHU5cP2Lj/qqlIqRbCXi6FXP8qx7908=";
   };
 
-  buildInputs = [ bashInteractive ]; # needed for bash-completion helper
+  buildInputs = [bashInteractive]; # needed for bash-completion helper
   nativeCheckInputs = [
     rpm
     diffstat
@@ -49,7 +49,7 @@ buildPythonPackage rec {
     broken = stdenv.isDarwin;
     homepage = "https://github.com/openSUSE/osc";
     description = "opensuse-commander with svn like handling";
-    maintainers = [ maintainers.peti ];
+    maintainers = [maintainers.peti];
     license = licenses.gpl2;
   };
 }

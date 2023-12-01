@@ -29,14 +29,14 @@ buildPythonPackage rec {
 
   doCheck = false; # ModuleNotFoundError: No module named 'testproto'
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "mypy_protobuf" ];
+  pythonImportsCheck = ["mypy_protobuf"];
 
   meta = with lib; {
     description = "Generate mypy stub files from protobuf specs";
     homepage = "https://github.com/dropbox/mypy-protobuf";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lnl7 ];
+    maintainers = with maintainers; [lnl7];
   };
 }

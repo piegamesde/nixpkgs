@@ -26,7 +26,7 @@ let
   ];
   configFile = writeTextFile {
     name = "keter.yml";
-    text = (lib.generators.toYAML { } str);
+    text = (lib.generators.toYAML {} str);
   };
 in
 stdenv.mkDerivation {
@@ -39,5 +39,5 @@ stdenv.mkDerivation {
     mkdir -p $out
     tar -zcvf $out/bundle.tar.gz.keter ./.
   '';
-  buildInputs = [ gnutar ];
+  buildInputs = [gnutar];
 }

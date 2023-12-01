@@ -16,16 +16,16 @@ buildPythonPackage rec {
     sha256 = "1dirf0zdf4hb941w1dvh97vsvcy4h3w9r8jwdgr1ggmhdf9kfx4v";
   };
 
-  propagatedBuildInputs = [ bluepy ];
+  propagatedBuildInputs = [bluepy];
 
   # no tests are present
   doCheck = false;
-  pythonImportsCheck = [ "avea" ];
+  pythonImportsCheck = ["avea"];
 
   meta = with lib; {
     description = "Python module for interacting with Elgato's Avea bulb";
     homepage = "https://github.com/k0rventen/avea";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

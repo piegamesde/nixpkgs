@@ -32,8 +32,8 @@ else
       findlib
       ocamlbuild
     ];
-    nativeCheckInputs = [ qtest ];
-    checkInputs = [ qcheck ];
+    nativeCheckInputs = [qtest];
+    checkInputs = [qcheck];
     propagatedBuildInputs = [
       camlp-streams
       num
@@ -56,6 +56,6 @@ else
       '';
       license = lib.licenses.lgpl21Plus;
       inherit (ocaml.meta) platforms;
-      maintainers = [ lib.maintainers.maggesi ];
+      maintainers = [lib.maintainers.maggesi];
     };
   }

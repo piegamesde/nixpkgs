@@ -78,6 +78,6 @@ python3Packages.buildPythonApplication rec {
     description = "Lightweight taskbar/panel replacement which works as a stand-alone dock";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

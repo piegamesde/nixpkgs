@@ -15,7 +15,7 @@ python3.pkgs.buildPythonApplication rec {
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
-  nativeBuildInputs = [ python3.pkgs.setuptools-scm ];
+  nativeBuildInputs = [python3.pkgs.setuptools-scm];
 
   propagatedBuildInputs = with python3.pkgs; [
     atomicwrites
@@ -34,14 +34,14 @@ python3.pkgs.buildPythonApplication rec {
     export COLUMNS=80
   '';
 
-  pythonImportsCheck = [ "khard" ];
+  pythonImportsCheck = ["khard"];
 
-  passthru.tests.version = testers.testVersion { package = khard; };
+  passthru.tests.version = testers.testVersion {package = khard;};
 
   meta = {
     homepage = "https://github.com/scheibler/khard";
     description = "Console carddav client";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ matthiasbeyer ];
+    maintainers = with lib.maintainers; [matthiasbeyer];
   };
 }

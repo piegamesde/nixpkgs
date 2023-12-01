@@ -28,8 +28,8 @@ stdenv.mkDerivation rec {
     gtk-doc
     gobject-introspection
   ];
-  buildInputs = [ glib ];
-  propagatedBuildInputs = [ gtk ];
+  buildInputs = [glib];
+  propagatedBuildInputs = [gtk];
 
   preAutoreconf = ''
     gtkdocize
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "Provides integration for GTK applications into the Mac desktop";
     license = licenses.lgpl21;
     homepage = "https://wiki.gnome.org/Projects/GTK/OSX/Integration";
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
     platforms = platforms.darwin;
   };
 }

@@ -49,7 +49,7 @@ stdenv.mkDerivation {
   buildInputs = [
     libiberty
     zlib
-  ] ++ lib.optionals stdenv.isDarwin [ libintl ];
+  ] ++ lib.optionals stdenv.isDarwin [libintl];
 
   configurePlatforms = [
     "build"
@@ -74,7 +74,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://www.gnu.org/software/binutils/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ericson2314 ];
+    maintainers = with maintainers; [ericson2314];
     platforms = platforms.unix;
   };
 }

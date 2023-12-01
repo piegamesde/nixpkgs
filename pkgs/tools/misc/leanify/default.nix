@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
       --replace "lib/LZMA/Alloc.o" "lib/LZMA/CpuArch.o lib/LZMA/Alloc.o"
   '';
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.isDarwin [libiconv];
 
   installPhase = ''
     runHook preInstall
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/JayXon/Leanify";
     changelog = "https://github.com/JayXon/Leanify/blob/master/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ maintainers.mynacol ];
+    maintainers = [maintainers.mynacol];
     platforms = platforms.all;
   };
 }

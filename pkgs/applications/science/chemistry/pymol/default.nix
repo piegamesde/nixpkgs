@@ -52,7 +52,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-JdsgcVF1w1xFPZxVcyS+GcWg4a1Bd4SvxFOuSdlz9SM=";
   };
 
-  nativeBuildInputs = [ qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [qt5.wrapQtAppsHook];
   buildInputs = [
     python3Packages.numpy
     python3Packages.pyqt5
@@ -65,7 +65,7 @@ python3Packages.buildPythonApplication rec {
     netcdf
   ];
   env.NIX_CFLAGS_COMPILE = "-I ${libxml2.dev}/include/libxml2";
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   installPhase = ''
     python setup.py install --home="$out"
@@ -94,6 +94,6 @@ python3Packages.buildPythonApplication rec {
     inherit description;
     homepage = "https://www.pymol.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ samlich ];
+    maintainers = with maintainers; [samlich];
   };
 }

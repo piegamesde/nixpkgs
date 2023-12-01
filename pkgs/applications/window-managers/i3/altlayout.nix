@@ -1,4 +1,4 @@
-{ lib, python3Packages }:
+{lib, python3Packages}:
 
 python3Packages.buildPythonApplication rec {
   pname = "i3altlayout";
@@ -17,10 +17,10 @@ python3Packages.buildPythonApplication rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [ "i3altlayout" ];
+  pythonImportsCheck = ["i3altlayout"];
 
   meta = with lib; {
-    maintainers = with maintainers; [ magnetophon ];
+    maintainers = with maintainers; [magnetophon];
     description = "Helps you handle more efficiently your screen real estate in i3wm by auto-splitting windows on their longest side";
     homepage = "https://github.com/deadc0de6/i3altlayout";
     license = licenses.gpl3Only;

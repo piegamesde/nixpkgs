@@ -22,7 +22,7 @@ pythonPackages.buildPythonApplication rec {
     })
   ];
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
   src = fetchFromGitHub {
     owner = "lpechacek";

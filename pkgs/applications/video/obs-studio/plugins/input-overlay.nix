@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Show keyboard, gamepad and mouse input on stream ";
     homepage = "https://github.com/univrsal/input-overlay";
-    maintainers = with maintainers; [ glittershark ];
+    maintainers = with maintainers; [glittershark];
     license = licenses.gpl2;
     platforms = platforms.linux;
     # never built on aarch64-linux since first introduction in nixpkgs

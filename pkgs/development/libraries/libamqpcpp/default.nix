@@ -16,11 +16,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-65/LsH1ZDkeBrtQUmKc5/5C2ce4nw4nSHXnJqZMKenI=";
   };
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  patches = [ ./libamqpcpp-darwin.patch ];
+  patches = [./libamqpcpp-darwin.patch];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   enableParallelBuilding = true;
 
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     description = "Library for communicating with a RabbitMQ server";
     homepage = "https://github.com/CopernicaMarketingSoftware/AMQP-CPP";
     license = licenses.asl20;
-    maintainers = [ maintainers.mjp ];
+    maintainers = [maintainers.mjp];
     platforms = platforms.all;
   };
 }

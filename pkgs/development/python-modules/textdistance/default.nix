@@ -16,12 +16,12 @@ buildPythonPackage rec {
   # There aren't tests
   doCheck = false;
 
-  pythonImportsCheck = [ "textdistance" ];
+  pythonImportsCheck = ["textdistance"];
 
   meta = with lib; {
     description = "Python library for comparing distance between two or more sequences";
     homepage = "https://github.com/life4/textdistance";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -20,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-JWOBGTJFzihoznYFzcgjayAzNof6Ob5u3Jfx2a6zwEk=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   nativeBuildInputs = [
     installShellFiles
@@ -43,6 +43,6 @@ buildGoModule rec {
     description = "Enables communication with gopass via JSON messages";
     homepage = "https://www.gopass.pw/";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxhbr ];
+    maintainers = with maintainers; [maxhbr];
   };
 }

@@ -24,7 +24,7 @@ rec {
   replay-recordreplay = stdenv.mkDerivation rec {
     pname = "replay-recordreplay";
     version = builtins.head (builtins.match ".*/linux-recordreplay-(.*).tgz" metadata.recordreplay.url);
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
     buildInputs = [
       stdenv.cc.cc.lib
       openssl
@@ -39,14 +39,14 @@ rec {
       runHook postInstall
     '';
     postFixup = ''
-      patchelf --set-rpath "$(patchelf --print-rpath $out):${lib.makeLibraryPath [ openssl ]}" $out
+      patchelf --set-rpath "$(patchelf --print-rpath $out):${lib.makeLibraryPath [openssl]}" $out
     '';
     meta = with lib; {
       description = "RecordReplay internal recording library";
       homepage = "https://www.replay.io/";
       license = lib.licenses.unfree;
-      maintainers = with maintainers; [ phryneas ];
-      platforms = [ "x86_64-linux" ];
+      maintainers = with maintainers; [phryneas];
+      platforms = ["x86_64-linux"];
     };
   };
 
@@ -91,8 +91,8 @@ rec {
       downloadPage = "https://www.replay.io/";
       mainProgram = "replay-io";
       license = lib.licenses.mpl20;
-      maintainers = with maintainers; [ phryneas ];
-      platforms = [ "x86_64-linux" ];
+      maintainers = with maintainers; [phryneas];
+      platforms = ["x86_64-linux"];
     };
   };
 
@@ -103,7 +103,7 @@ rec {
       autoPatchelfHook
       makeWrapper
     ];
-    buildInputs = [ stdenv.cc.cc.lib ];
+    buildInputs = [stdenv.cc.cc.lib];
 
     src = (fetchurl metadata.replay-node);
     dontUnpack = true;
@@ -126,7 +126,7 @@ rec {
       description = "Event-driven I/O framework for the V8 JavaScript engine, patched for replay";
       homepage = "https://github.com/RecordReplay/node";
       license = licenses.mit;
-      maintainers = with maintainers; [ phryneas ];
+      maintainers = with maintainers; [phryneas];
       platforms = platforms.linux;
       mainProgram = "replay-node";
     };
@@ -142,7 +142,7 @@ rec {
       sha256 = "04d22q3dvs9vxpb9ps64pdxq9ziwgvnzdgsn6p9p0lzjagh0f5n0";
     };
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
     buildInputs = [
       stdenv.cc.cc.lib
       nodejs
@@ -171,8 +171,8 @@ rec {
       homepage = "https://www.replay.io/";
       mainProgram = "replay-node";
       license = lib.licenses.bsd3;
-      maintainers = with maintainers; [ phryneas ];
-      platforms = [ "x86_64-linux" ];
+      maintainers = with maintainers; [phryneas];
+      platforms = ["x86_64-linux"];
     };
   };
 }

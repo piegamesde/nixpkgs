@@ -15,7 +15,7 @@ qt5.mkDerivation rec {
     sha256 = "sha256-EWxADvkfhnMwHIauJj3pH6SvSkkrc4cwAhsf1pWOOWQ=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
   installPhase = ''
     runHook preInstall
@@ -41,9 +41,9 @@ qt5.mkDerivation rec {
   meta = with lib; {
     description = "A desktop tool to decrypt data encrypted by Cloud Sync.";
     homepage = "https://kb.synology.com/en-global/DSM/help/SynologyCloudSyncDecryptionTool/synologycloudsyncdecryptiontool";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ kalbasit ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [kalbasit];
+    platforms = ["x86_64-linux"];
   };
 }

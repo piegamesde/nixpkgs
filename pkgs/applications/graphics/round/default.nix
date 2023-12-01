@@ -17,12 +17,12 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Round image corners from CLI";
     homepage = "https://github.com/mingrammer/round";
     license = licenses.mit;
-    maintainers = with maintainers; [ addict3d ];
+    maintainers = with maintainers; [addict3d];
   };
 }

@@ -28,7 +28,7 @@ buildNpmPackage rec {
       ./fix-database-permissions.patch
     ];
 
-  nativeBuildInputs = [ python3 ];
+  nativeBuildInputs = [python3];
 
   CYPRESS_INSTALL_BINARY = 0; # Stops Cypress from trying to download binaries
 
@@ -49,7 +49,7 @@ buildNpmPackage rec {
     homepage = "https://github.com/louislam/uptime-kuma";
     changelog = "https://github.com/louislam/uptime-kuma/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ julienmalka ];
+    maintainers = with maintainers; [julienmalka];
     # FileNotFoundError: [Errno 2] No such file or directory: 'xcrun'
     broken = stdenv.isDarwin;
   };

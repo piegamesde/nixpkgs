@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   let
     template-bootstrap3 = pkgs.stdenv.mkDerivation rec {
@@ -41,14 +41,14 @@ import ./make-test-python.nix (
 
     mkNode =
       webserver:
-      { ... }:
+      {...}:
       {
         services.dokuwiki = {
           inherit webserver;
 
           sites = {
             "site1.local" = {
-              templates = [ template-bootstrap3 ];
+              templates = [template-bootstrap3];
               settings = {
                 useacl = false;
                 userewrite = true;
@@ -58,7 +58,7 @@ import ./make-test-python.nix (
             "site2.local" = {
               package = dwWithAcronyms;
               usersFile = "/var/lib/dokuwiki/site2.local/users.auth.php";
-              plugins = [ plugin-icalevents ];
+              plugins = [plugin-icalevents];
               settings = {
                 useacl = true;
                 superuser = "admin";
@@ -89,7 +89,7 @@ import ./make-test-python.nix (
           };
         };
 
-        networking.firewall.allowedTCPPorts = [ 80 ];
+        networking.firewall.allowedTCPPorts = [80];
         networking.hosts."127.0.0.1" = [
           "site1.local"
           "site2.local"

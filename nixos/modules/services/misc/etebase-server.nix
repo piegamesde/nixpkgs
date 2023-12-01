@@ -18,7 +18,7 @@ let
     ]
   );
 
-  iniFmt = pkgs.formats.ini { };
+  iniFmt = pkgs.formats.ini {};
 
   configIni = iniFmt.generate "etebase-server.ini" cfg.settings;
 
@@ -176,7 +176,7 @@ in
             };
           };
         };
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Configuration for `etebase-server`. Refer to
           <https://github.com/etesync/server/blob/master/etebase-server.ini.example>
@@ -205,7 +205,7 @@ in
   config = mkIf cfg.enable {
 
     environment.systemPackages = with pkgs; [
-      (runCommand "etebase-server" { nativeBuildInputs = [ makeWrapper ]; } ''
+      (runCommand "etebase-server" {nativeBuildInputs = [makeWrapper];} ''
         makeWrapper ${pythonEnv}/bin/etebase-server \
           $out/bin/etebase-server \
           --chdir ${escapeShellArg cfg.dataDir} \
@@ -223,8 +223,8 @@ in
         "network.target"
         "systemd-tmpfiles-setup.service"
       ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ pythonEnv ];
+      wantedBy = ["multi-user.target"];
+      path = [pythonEnv];
       serviceConfig = {
         User = cfg.user;
         Restart = "always";
@@ -261,9 +261,9 @@ in
         home = cfg.dataDir;
       };
 
-      groups.${defaultUser} = { };
+      groups.${defaultUser} = {};
     };
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {allowedTCPPorts = [cfg.port];};
   };
 }

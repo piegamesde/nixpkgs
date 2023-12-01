@@ -19,9 +19,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-206Y5Dl/E7OXQS8GVLQneCh7voGN9a9dUe6kAw8xN5E=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ libsecret ];
+  buildInputs = [libsecret];
 
   preBuild = ''
     patchShebangs ./utils/
@@ -39,7 +39,7 @@ buildGoModule rec {
       "-X ${constants}.FullAppName=ProtonMailBridge" # Should be "Proton Mail Bridge", but quoting doesn't seems to work in nix's ldflags
     ];
 
-  subPackages = [ "cmd/Desktop-Bridge" ];
+  subPackages = ["cmd/Desktop-Bridge"];
 
   postInstall = ''
     mv $out/bin/Desktop-Bridge $out/bin/protonmail-bridge # The cli is named like that in other distro packages
@@ -50,7 +50,7 @@ buildGoModule rec {
     changelog = "https://github.com/ProtonMail/proton-bridge/blob/${src.rev}/Changelog.md";
     downloadPage = "https://github.com/ProtonMail/proton-bridge/releases";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ mrfreezeex ];
+    maintainers = with maintainers; [mrfreezeex];
     description = "Use your ProtonMail account with your local e-mail client";
     longDescription = ''
       An application that runs on your computer in the background and seamlessly encrypts

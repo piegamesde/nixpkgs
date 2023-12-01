@@ -10,11 +10,11 @@
 {
   name,
   profile ? "",
-  targetPkgs ? pkgs: [ ],
-  multiPkgs ? pkgs: [ ],
+  targetPkgs ? pkgs: [],
+  multiPkgs ? pkgs: [],
   extraBuildCommands ? "",
   extraBuildCommandsMulti ? "",
-  extraOutputsToInstall ? [ ],
+  extraOutputsToInstall ? [],
 }:
 
 # HOWTO:
@@ -40,7 +40,7 @@ let
 
   # list of packages (usually programs) which are only be installed for the
   # host's architecture
-  targetPaths = targetPkgs pkgs ++ (if multiPkgs == null then [ ] else multiPkgs pkgs);
+  targetPaths = targetPkgs pkgs ++ (if multiPkgs == null then [] else multiPkgs pkgs);
 
   # list of packages which are installed for both x86 and x86_64 on x86_64
   # systems
@@ -69,7 +69,7 @@ let
     bzip2
     xz
   ];
-  baseMultiPkgs = with pkgsi686Linux; [ (toString gcc.cc.lib) ];
+  baseMultiPkgs = with pkgsi686Linux; [(toString gcc.cc.lib)];
 
   etcProfile = writeText "profile" ''
     export PS1='${name}-chrootenv:\u@\h:\w\$ '
@@ -152,7 +152,7 @@ let
   # Composes a /usr-like directory structure
   staticUsrProfileTarget = buildEnv {
     name = "${name}-usr-target";
-    paths = [ etcPkg ] ++ basePkgs ++ targetPaths;
+    paths = [etcPkg] ++ basePkgs ++ targetPaths;
     extraOutputsToInstall = [
       "out"
       "lib"

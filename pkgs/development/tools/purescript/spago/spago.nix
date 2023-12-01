@@ -143,7 +143,7 @@ mkDerivation {
     turtle
     versions
   ];
-  testToolDepends = [ hspec-discover ];
+  testToolDepends = [hspec-discover];
   homepage = "https://github.com/purescript/spago#readme";
   license = lib.licenses.bsd3;
 }

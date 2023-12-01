@@ -31,12 +31,12 @@ buildPythonPackage rec {
     hash = "sha256-kXFrfTb7+68EV+gSENL81IFSR+ue7Fl6R2gsuFFBJhI=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     packaging
     pyproject-hooks
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  ] ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   nativeCheckInputs = [
     filelock
@@ -72,7 +72,7 @@ buildPythonPackage rec {
         "test_can_get_venv_paths_with_conflicting_default_scheme"
       ];
 
-  pythonImportsCheck = [ "build" ];
+  pythonImportsCheck = ["build"];
 
   meta = with lib; {
     description = "Simple, correct PEP517 package builder";
@@ -83,6 +83,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pypa/build";
     changelog = "https://github.com/pypa/build/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

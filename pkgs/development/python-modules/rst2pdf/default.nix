@@ -33,7 +33,7 @@ buildPythonPackage rec {
     "man"
   ];
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     docutils
@@ -47,7 +47,7 @@ buildPythonPackage rec {
     pillow
   ];
 
-  pythonImportsCheck = [ "rst2pdf" ];
+  pythonImportsCheck = ["rst2pdf"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -67,6 +67,6 @@ buildPythonPackage rec {
     description = "Convert reStructured Text to PDF via ReportLab";
     homepage = "https://rst2pdf.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [marsam];
   };
 }

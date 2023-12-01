@@ -25,6 +25,6 @@ buildGoModule rec {
     description = "IMAP/SMTP autodiscover feature for Thunderbird, Apple Mail and Microsoft Outlook";
     homepage = "https://github.com/L11R/go-autoconfig";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

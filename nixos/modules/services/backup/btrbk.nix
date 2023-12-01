@@ -31,7 +31,7 @@ let
   # 3. Sections that may contain (1) or (2).
   # 4. Etc.
   prioOf =
-    { name, value }:
+    {name, value}:
     if !isAttrs value then
       0 # Leaf options.
     else
@@ -46,17 +46,17 @@ let
   genConfig =
     set:
     let
-      pairs = mapAttrsToList (name: value: { inherit name value; }) set;
+      pairs = mapAttrsToList (name: value: {inherit name value;}) set;
       sortedPairs = sort (a: b: prioOf a < prioOf b) pairs;
     in
     concatMap genPair sortedPairs;
   genSection =
     sec: secName: value:
-    [ "${sec} ${secName}" ] ++ map (x: " " + x) (genConfig value);
+    ["${sec} ${secName}"] ++ map (x: " " + x) (genConfig value);
   genPair =
-    { name, value }:
+    {name, value}:
     if !isAttrs value then
-      [ "${name} ${value}" ]
+      ["${name} ${value}"]
     else
       concatLists (mapAttrsToList (genSection name) value);
 
@@ -68,7 +68,7 @@ let
     else
       throw "The btrbk nixos module needs either sudo or doas enabled in the configuration";
 
-  addDefaults = settings: { backend = "btrfs-progs-${sudo_doas}"; } // settings;
+  addDefaults = settings: {backend = "btrfs-progs-${sudo_doas}";} // settings;
 
   mkConfigFile =
     name: settings:
@@ -90,18 +90,18 @@ let
     };
 
   cfg = config.services.btrbk;
-  sshEnabled = cfg.sshAccess != [ ];
-  serviceEnabled = cfg.instances != { };
+  sshEnabled = cfg.sshAccess != [];
+  serviceEnabled = cfg.instances != {};
 in
 {
-  meta.maintainers = with lib.maintainers; [ oxalica ];
+  meta.maintainers = with lib.maintainers; [oxalica];
 
   options = {
     services.btrbk = {
       extraPackages = mkOption {
         description = lib.mdDoc "Extra packages for btrbk, like compression utilities for `stream_compress`";
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         example = literalExpression "[ pkgs.xz ]";
       };
       niceness = mkOption {
@@ -137,11 +137,11 @@ in
                   type =
                     let
                       t = types.attrsOf (
-                        types.either types.str (t // { description = "instances of this type recursively"; })
+                        types.either types.str (t // {description = "instances of this type recursively";})
                       );
                     in
                     t;
-                  default = { };
+                  default = {};
                   example = {
                     snapshot_preserve_min = "2d";
                     snapshot_preserve = "14d";
@@ -149,7 +149,7 @@ in
                       "/mnt/btr_pool" = {
                         target = "/mnt/btr_backup/mylaptop";
                         subvolume = {
-                          "rootfs" = { };
+                          "rootfs" = {};
                           "home" = {
                             snapshot_create = "always";
                           };
@@ -162,7 +162,7 @@ in
               };
             }
           );
-        default = { };
+        default = {};
       };
       sshAccess = mkOption {
         description = lib.mdDoc "SSH keys that should be able to make or push snapshots on this system remotely with btrbk";
@@ -197,41 +197,41 @@ in
               };
             }
           );
-        default = [ ];
+        default = [];
       };
     };
   };
   config = mkIf (sshEnabled || serviceEnabled) {
-    environment.systemPackages = [ pkgs.btrbk ] ++ cfg.extraPackages;
+    environment.systemPackages = [pkgs.btrbk] ++ cfg.extraPackages;
     security.sudo = mkIf (sudo_doas == "sudo") {
       extraRules = [
         {
-          users = [ "btrbk" ];
+          users = ["btrbk"];
           commands = [
             {
               command = "${pkgs.btrfs-progs}/bin/btrfs";
-              options = [ "NOPASSWD" ];
+              options = ["NOPASSWD"];
             }
             {
               command = "${pkgs.coreutils}/bin/mkdir";
-              options = [ "NOPASSWD" ];
+              options = ["NOPASSWD"];
             }
             {
               command = "${pkgs.coreutils}/bin/readlink";
-              options = [ "NOPASSWD" ];
+              options = ["NOPASSWD"];
             }
             # for ssh, they are not the same than the one hard coded in ${pkgs.btrbk}
             {
               command = "/run/current-system/bin/btrfs";
-              options = [ "NOPASSWD" ];
+              options = ["NOPASSWD"];
             }
             {
               command = "/run/current-system/sw/bin/mkdir";
-              options = [ "NOPASSWD" ];
+              options = ["NOPASSWD"];
             }
             {
               command = "/run/current-system/sw/bin/readlink";
-              options = [ "NOPASSWD" ];
+              options = ["NOPASSWD"];
             }
           ];
         }
@@ -241,7 +241,7 @@ in
       extraRules =
         let
           doasCmdNoPass = cmd: {
-            users = [ "btrbk" ];
+            users = ["btrbk"];
             cmd = cmd;
             noPass = true;
           };
@@ -289,7 +289,7 @@ in
           )
           cfg.sshAccess;
     };
-    users.groups.btrbk = { };
+    users.groups.btrbk = {};
     systemd.tmpfiles.rules = [
       "d /var/lib/btrbk 0750 btrbk btrbk"
       "d /var/lib/btrbk/.ssh 0700 btrbk btrbk"
@@ -309,7 +309,7 @@ in
           value = {
             description = "Takes BTRFS snapshots and maintains retention policies.";
             unitConfig.Documentation = "man:btrbk(1)";
-            path = [ "/run/wrappers" ] ++ cfg.extraPackages;
+            path = ["/run/wrappers"] ++ cfg.extraPackages;
             serviceConfig = {
               User = "btrbk";
               Group = "btrbk";
@@ -329,7 +329,7 @@ in
           name = "btrbk-${name}";
           value = {
             description = "Timer to take BTRFS snapshots and maintain retention policies.";
-            wantedBy = [ "timers.target" ];
+            wantedBy = ["timers.target"];
             timerConfig = {
               OnCalendar = instance.onCalendar;
               AccuracySec = "10min";

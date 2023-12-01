@@ -158,13 +158,13 @@ in
 
     services.rpcbind.enable = true;
 
-    boot.supportedFilesystems = [ "nfs" ]; # needed for statd and idmapd
+    boot.supportedFilesystems = ["nfs"]; # needed for statd and idmapd
 
     environment.etc.exports.source = exports;
 
     systemd.services.nfs-server = {
       enable = true;
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         mkdir -p /var/lib/nfs/v4recovery
@@ -173,7 +173,7 @@ in
 
     systemd.services.nfs-mountd = {
       enable = true;
-      restartTriggers = [ exports ];
+      restartTriggers = [exports];
 
       preStart = ''
         mkdir -p /var/lib/nfs

@@ -17,7 +17,7 @@
 }:
 
 let
-  webvault = callPackage ./webvault.nix { };
+  webvault = callPackage ./webvault.nix {};
 in
 
 rustPlatform.buildRustPackage rec {
@@ -35,10 +35,10 @@ rustPlatform.buildRustPackage rec {
     lockFile = ./Cargo.lock;
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     with lib;
-    [ openssl ]
+    [openssl]
     ++ optionals stdenv.isDarwin [
       libiconv
       Security
@@ -52,7 +52,7 @@ rustPlatform.buildRustPackage rec {
   passthru = {
     inherit webvault;
     tests = nixosTests.vaultwarden;
-    updateScript = callPackage ./update.nix { };
+    updateScript = callPackage ./update.nix {};
   };
 
   meta = with lib; {

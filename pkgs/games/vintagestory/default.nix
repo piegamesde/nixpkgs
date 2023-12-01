@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     copyDesktopItems
   ];
 
-  buildInputs = [ mono ];
+  buildInputs = [mono];
 
   runtimeLibs = lib.makeLibraryPath (
     [
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     exec = "vintagestory";
     icon = "vintagestory";
     comment = "Innovate and explore in a sandbox world";
-    categories = [ "Game" ];
+    categories = ["Game"];
   };
 
   installPhase = ''
@@ -88,6 +88,6 @@ stdenv.mkDerivation rec {
     description = "An in-development indie sandbox game about innovation and exploration";
     homepage = "https://www.vintagestory.at/";
     license = licenses.unfree;
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
   };
 }

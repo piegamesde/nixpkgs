@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     description = "Simple and visually-pleasing Pomodoro timer";
     homepage = "https://splode.github.io/pomotroid";
     license = licenses.mit;
-    maintainers = with maintainers; [ wolfangaukang ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [wolfangaukang];
+    platforms = ["x86_64-linux"];
   };
 }

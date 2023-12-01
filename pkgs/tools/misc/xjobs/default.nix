@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     installShellFiles
     which
   ];
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   checkPhase = ''
     runHook preCheck
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.maier-komor.de/xjobs.html";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = [ maintainers.siriobalmelli ];
+    maintainers = [maintainers.siriobalmelli];
     longDescription = ''
       xjobs reads job descriptions line by line and executes them in parallel.
 

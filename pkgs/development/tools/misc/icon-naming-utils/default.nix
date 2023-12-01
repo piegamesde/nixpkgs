@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     librsvg
-    (perl.withPackages (p: [ p.XMLSimple ]))
+    (perl.withPackages (p: [p.XMLSimple]))
   ];
 
   meta = with lib; {

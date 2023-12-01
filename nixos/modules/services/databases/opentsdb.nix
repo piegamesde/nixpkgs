@@ -74,11 +74,11 @@ in
 
     systemd.services.opentsdb = {
       description = "OpenTSDB Server";
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "hbase.service" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["hbase.service"];
 
       environment.JAVA_HOME = "${pkgs.jre}";
-      path = [ pkgs.gnuplot ];
+      path = [pkgs.gnuplot];
 
       preStart = ''
         COMPRESSION=NONE HBASE_HOME=${config.services.hbase.package} ${cfg.package}/share/opentsdb/tools/create_table.sh

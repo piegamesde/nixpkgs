@@ -13,7 +13,7 @@ let
     {
       version,
       sha256,
-      extraNativeBuildInputs ? [ ],
+      extraNativeBuildInputs ? [],
     }:
     stdenv.mkDerivation rec {
       pname = "${varnish.name}-modules";
@@ -34,7 +34,7 @@ let
         varnish.python # use same python version as varnish server
       ];
 
-      buildInputs = [ varnish ];
+      buildInputs = [varnish];
 
       postPatch = ''
         substituteInPlace bootstrap   --replace "''${dataroot}/aclocal"                  "${varnish.dev}/share/aclocal"

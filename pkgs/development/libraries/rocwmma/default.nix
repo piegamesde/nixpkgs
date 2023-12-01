@@ -18,7 +18,7 @@
   buildExtendedTests ? false,
   buildBenchmarks ? false,
   buildSamples ? false,
-  gpuTargets ? [ ], # gpuTargets = [ "gfx908:xnack-" "gfx90a:xnack-" "gfx90a:xnack+" ... ]
+  gpuTargets ? [], # gpuTargets = [ "gfx908:xnack-" "gfx90a:xnack-" "gfx90a:xnack+" ... ]
 }:
 
 let
@@ -44,11 +44,11 @@ stdenv.mkDerivation (
     version = "5.4.3";
 
     outputs =
-      [ "out" ]
-      ++ lib.optionals buildDocs [ "doc" ]
-      ++ lib.optionals (buildTests || buildBenchmarks) [ "test" ]
-      ++ lib.optionals buildBenchmarks [ "benchmark" ]
-      ++ lib.optionals buildSamples [ "sample" ];
+      ["out"]
+      ++ lib.optionals buildDocs ["doc"]
+      ++ lib.optionals (buildTests || buildBenchmarks) ["test"]
+      ++ lib.optionals buildBenchmarks ["benchmark"]
+      ++ lib.optionals buildSamples ["sample"];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -57,7 +57,7 @@ stdenv.mkDerivation (
       hash = "sha256-HUJPb6IahBgl/v+W4kXludBTNAjRm8k6v0jxKAX+qZM=";
     };
 
-    patches = lib.optionals (buildTests || buildBenchmarks) [ ./0000-dont-fetch-googletest.patch ];
+    patches = lib.optionals (buildTests || buildBenchmarks) [./0000-dont-fetch-googletest.patch];
 
     nativeBuildInputs = [
       cmake
@@ -66,7 +66,7 @@ stdenv.mkDerivation (
     ];
 
     buildInputs =
-      [ openmp ]
+      [openmp]
       ++ lib.optionals (buildTests || buildBenchmarks) [
         gtest
         rocblas
@@ -92,8 +92,8 @@ stdenv.mkDerivation (
         "-DCMAKE_INSTALL_LIBDIR=lib"
         "-DCMAKE_INSTALL_INCLUDEDIR=include"
       ]
-      ++ lib.optionals (gpuTargets != [ ]) [ "-DGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}" ]
-      ++ lib.optionals buildExtendedTests [ "-DROCWMMA_BUILD_EXTENDED_TESTS=ON" ]
+      ++ lib.optionals (gpuTargets != []) ["-DGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"]
+      ++ lib.optionals buildExtendedTests ["-DROCWMMA_BUILD_EXTENDED_TESTS=ON"]
       ++ lib.optionals buildBenchmarks [
         "-DROCWMMA_BUILD_BENCHMARK_TESTS=ON"
         "-DROCWMMA_BENCHMARK_WITH_ROCBLAS=ON"
@@ -142,7 +142,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "Mixed precision matrix multiplication and accumulation";
       homepage = "https://github.com/ROCmSoftwarePlatform/rocWMMA";
-      license = with licenses; [ mit ];
+      license = with licenses; [mit];
       maintainers = teams.rocm.members;
       platforms = platforms.linux;
       broken = versions.minor finalAttrs.version != versions.minor hip.version;

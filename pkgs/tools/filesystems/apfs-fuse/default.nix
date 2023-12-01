@@ -27,7 +27,7 @@ stdenv.mkDerivation {
       --replace "/usr/local/lib/libosxfuse.dylib" "fuse"
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     (if stdenv.isDarwin then fuse else fuse3)
@@ -47,7 +47,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/sgan81/apfs-fuse";
     description = "FUSE driver for APFS (Apple File System)";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ealasu ];
+    maintainers = with maintainers; [ealasu];
     platforms = platforms.unix;
   };
 }

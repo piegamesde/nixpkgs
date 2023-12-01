@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     "-DBUILD_TESTING=${if doInstallCheck then "ON" else "OFF"}"
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/drogonframework/drogon";
     description = "C++14/17 based HTTP web application framework";
     license = licenses.mit;
-    maintainers = with maintainers; [ urlordjames ];
+    maintainers = with maintainers; [urlordjames];
     platforms = platforms.all;
   };
 }

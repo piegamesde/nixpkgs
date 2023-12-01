@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "peroxide";
-    meta.maintainers = with lib.maintainers; [ aidalgol ];
+    meta.maintainers = with lib.maintainers; [aidalgol];
 
     nodes.machine =
-      { config, pkgs, ... }:
+      {config, pkgs, ...}:
       {
         networking.hostName = "nixos";
         services.peroxide.enable = true;

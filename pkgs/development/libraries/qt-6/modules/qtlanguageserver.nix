@@ -1,8 +1,8 @@
-{ qtModule, qtbase }:
+{qtModule, qtbase}:
 
 qtModule {
   pname = "qtlanguageserver";
-  qtInputs = [ qtbase ];
+  qtInputs = [qtbase];
 
   # Doesn't have version set
   dontCheckQtModuleVersion = true;

@@ -38,7 +38,7 @@
 }:
 
 let
-  python3Runtime = python3.withPackages (ps: with ps; [ pygobject3 ]);
+  python3Runtime = python3.withPackages (ps: with ps; [pygobject3]);
   python3BuildEnv = python3.buildEnv.override {
     # ImportError: No module named site
     postBuild = ''
@@ -49,7 +49,7 @@ let
   };
   # make-dconf-override-db.sh needs to execute dbus-launch in the sandbox,
   # it will fail to read /etc/dbus-1/session.conf unless we add this flag
-  dbus-launch = runCommand "sandbox-dbus-launch" { nativeBuildInputs = [ makeWrapper ]; } ''
+  dbus-launch = runCommand "sandbox-dbus-launch" {nativeBuildInputs = [makeWrapper];} ''
     makeWrapper ${dbus}/bin/dbus-launch $out/bin/dbus-launch \
       --add-flags --config-file=${dbus}/share/dbus-1/session.conf
   '';
@@ -132,7 +132,7 @@ stdenv.mkDerivation rec {
     dbus-launch
   ];
 
-  propagatedBuildInputs = [ glib ];
+  propagatedBuildInputs = [glib];
 
   buildInputs =
     [

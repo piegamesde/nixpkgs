@@ -71,12 +71,12 @@ python3.pkgs.buildPythonApplication rec {
   # handle setup hooks better
   strictDeps = false;
 
-  passthru.updateScript = nix-update-script { attrPath = pname; };
+  passthru.updateScript = nix-update-script {attrPath = pname;};
 
   meta = with lib; {
     homepage = "https://github.com/dialect-app/dialect";
     description = "A translation app for GNOME";
-    maintainers = with maintainers; [ linsui ];
+    maintainers = with maintainers; [linsui];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

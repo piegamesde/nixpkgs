@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "1scfv9j7jrp50r565haa4rvxn1vk2ss86xssl5qgcr8r45qz42qw";
   };
 
-  buildInputs = [ ladspaH ];
+  buildInputs = [ladspaH];
 
   patchPhase = ''
     sed -i 's@/usr/bin/install@install@g' Makefile
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     version = version;
     homepage = "http://kokkinizita.linuxaudio.org/linuxaudio/ladspa/index.html";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.magnetophon ];
+    maintainers = [lib.maintainers.magnetophon];
     platforms = lib.platforms.linux;
   };
 }

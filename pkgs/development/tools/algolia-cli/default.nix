@@ -18,9 +18,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-QgNL7pp0KH1RUV69BFVtHpaLHrPp4UQhEtOEiRmfAi0=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  subPackages = [ "cmd/algolia" ];
+  subPackages = ["cmd/algolia"];
 
   ldflags = [
     "-s"
@@ -39,6 +39,6 @@ buildGoModule rec {
     description = "Algolia’s official CLI devtool";
     homepage = "https://algolia.com/doc/tools/cli/";
     license = licenses.mit;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

@@ -18,9 +18,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-sFWmZMnucMuvpwDzuowni21KiD3bx0lH1Ts+yhusOYs=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ gtest ];
-  cmakeFlags = [ "-Dtest=ON" ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [gtest];
+  cmakeFlags = ["-Dtest=ON"];
   env.NIX_CFLAGS_COMPILE = "-std=c++11" + lib.optionalString stdenv.isLinux " -pthread";
   postInstall = ''
     mkdir -p $out/include
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     description = "C++ logging library";
     homepage = "https://github.com/amrayn/easyloggingpp";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ acowley ];
+    maintainers = with lib.maintainers; [acowley];
     platforms = lib.platforms.all;
   };
 }

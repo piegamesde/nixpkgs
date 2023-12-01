@@ -29,7 +29,7 @@ with lib;
 {
   version,
   sha256,
-  patches ? [ ],
+  patches ? [],
   license ? lib.licenses.sspl,
 }:
 
@@ -82,7 +82,7 @@ let
     #"stemmer"  -- not nice to package yet (no versioning, no makefile, no shared libs).
     #"valgrind" -- mongodb only requires valgrind.h, which is vendored in the source.
     #"wiredtiger"
-  ] ++ optionals stdenv.isLinux [ "tcmalloc" ];
+  ] ++ optionals stdenv.isLinux ["tcmalloc"];
   inherit (lib) systems subtractLists;
 in
 stdenv.mkDerivation rec {
@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
     inherit sha256;
   };
 
-  nativeBuildInputs = [ variants.scons ] ++ lib.optionals (versionAtLeast version "4.4") [ xz ];
+  nativeBuildInputs = [variants.scons] ++ lib.optionals (versionAtLeast version "4.4") [xz];
 
   buildInputs =
     [
@@ -169,7 +169,7 @@ stdenv.mkDerivation rec {
       "--disable-warnings-as-errors"
       "VARIANT_DIR=nixos" # Needed so we don't produce argument lists that are too long for gcc / ld
     ]
-    ++ lib.optionals (versionAtLeast version "4.4") [ "--link-model=static" ]
+    ++ lib.optionals (versionAtLeast version "4.4") ["--link-model=static"]
     ++ map (lib: "--use-system-${lib}") system-libraries;
 
   preBuild =
@@ -208,7 +208,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  hardeningEnable = [ "pie" ];
+  hardeningEnable = ["pie"];
 
   meta = {
     description = "A scalable, high-performance, open source NoSQL database";

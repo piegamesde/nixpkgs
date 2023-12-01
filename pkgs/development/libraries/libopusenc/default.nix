@@ -22,14 +22,14 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libopus ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libopus];
 
   meta = with lib; {
     description = "Library for encoding .opus audio files and live streams";
     license = licenses.bsd3;
     homepage = "https://www.opus-codec.org/";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ pmiddend ];
+    maintainers = with maintainers; [pmiddend];
   };
 }

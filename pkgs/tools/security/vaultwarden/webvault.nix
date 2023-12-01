@@ -9,7 +9,7 @@
 }:
 
 let
-  buildNpmPackage' = buildNpmPackage.override { nodejs = nodejs_16; };
+  buildNpmPackage' = buildNpmPackage.override {nodejs = nodejs_16;};
 
   version = "2023.3.0b";
 
@@ -39,7 +39,7 @@ buildNpmPackage' rec {
       bash ${bw_web_builds}/scripts/apply_patches.sh
   '';
 
-  nativeBuildInputs = [ python3 ];
+  nativeBuildInputs = [python3];
 
   makeCacheWritable = true;
 

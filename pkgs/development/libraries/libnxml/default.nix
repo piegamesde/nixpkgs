@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "0ix5b9bxd7r517vhgcxwdviq4m0g0pq46s5g3h04gcqnpbin150g";
   };
 
-  buildInputs = [ curl ];
+  buildInputs = [curl];
 
   meta = {
     homepage = "https://www.autistici.org/bakunin/libnxml/";
@@ -22,6 +22,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.lgpl2;
 
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.viric ];
+    maintainers = [lib.maintainers.viric];
   };
 }

@@ -16,7 +16,7 @@ buildGoModule rec {
     fetchSubmodules = true;
   };
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   vendorHash = "sha256-Kiy1JR3X++naY2XNLpnGujrNQt7qlL0zxv8E96cHmHo=";
 
@@ -39,7 +39,7 @@ buildGoModule rec {
     description = "An interactive Unix-like shell written in Go";
     changelog = "https://github.com/Rosettea/Hilbish/releases/tag/v${version}";
     homepage = "https://github.com/Rosettea/Hilbish";
-    maintainers = with maintainers; [ fortuneteller2k ];
+    maintainers = with maintainers; [fortuneteller2k];
     license = licenses.mit;
   };
 }

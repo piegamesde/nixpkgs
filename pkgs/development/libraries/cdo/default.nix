@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://code.mpimet.mpg.de/projects/cdo/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.ltavard ];
+    maintainers = [maintainers.ltavard];
     platforms = with platforms; linux ++ darwin;
   };
 }

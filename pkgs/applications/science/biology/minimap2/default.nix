@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-vK8Z/j6Ndu1vMFYPPzViP4evtIhyVVFwsfTqNCYnXpQ=";
   };
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   makeFlags = lib.optionals stdenv.isAarch64 [
     "arm_neon=1"
@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     homepage = "https://lh3.github.io/minimap2";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [ maintainers.arcadio ];
+    maintainers = [maintainers.arcadio];
   };
 }

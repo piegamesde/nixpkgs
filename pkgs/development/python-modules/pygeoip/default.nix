@@ -17,7 +17,7 @@ buildPythonPackage rec {
   # requires geoip samples
   doCheck = false;
 
-  buildInputs = [ nose ];
+  buildInputs = [nose];
 
   meta = with lib; {
     description = "Pure Python GeoIP API";

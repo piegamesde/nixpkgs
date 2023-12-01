@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "trivial-arguments";
   version = "20200925-git";
 
   description = "A simple library to retrieve the lambda-list of a function.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/trivial-arguments/2020-09-25/trivial-arguments-20200925-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "trivial-arguments";
 
-  asdFilesToKeep = [ "trivial-arguments.asd" ];
+  asdFilesToKeep = ["trivial-arguments.asd"];
   overrides = x: x;
 }
 /* (SYSTEM trivial-arguments DESCRIPTION

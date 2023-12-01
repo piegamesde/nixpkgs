@@ -65,7 +65,7 @@ buildPythonPackage rec {
     "test_png_gray1" # https://gitlab.mister-muffin.de/josch/img2pdf/issues/154
   ];
 
-  pythonImportsCheck = [ "img2pdf" ];
+  pythonImportsCheck = ["img2pdf"];
 
   meta = with lib; {
     description = "Convert images to PDF via direct JPEG inclusion";

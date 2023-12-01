@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
 
   buildFlags =
     if stdenv.hostPlatform.system == "x86_64-darwin" then
-      [ "ARCHES=x86_64" ]
+      ["ARCHES=x86_64"]
     else if stdenv.hostPlatform.system == "aarch64-darwin" then
-      [ "ARCHES=arm64" ]
+      ["ARCHES=arm64"]
     else
       throw "reattach-to-user-namespace isn't being built for ${stdenv.hostPlatform.system} yet.";
 
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A wrapper that provides access to the Mac OS X pasteboard service";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ lnl7 ];
+    maintainers = with maintainers; [lnl7];
     platforms = platforms.darwin;
   };
 }

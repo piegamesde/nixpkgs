@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gCf/ZIeIh84WQNs5wZO1/l3zpnl2sNxsFO7cOa92JUM=";
   };
 
-  nativeBuildInputs = [ go-md2man ];
+  nativeBuildInputs = [go-md2man];
 
-  makeTargets = [ "man" ];
+  makeTargets = ["man"];
 
   installPhase = ''
     install -m 755 -D zfs-prune-snapshots $out/bin/zfs-prune-snapshots
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     description = "Remove snapshots from one or more zpools that match given criteria";
     homepage = "https://github.com/bahamas10/zfs-prune-snapshots";
     license = licenses.mit;
-    maintainers = [ maintainers.ymarkus ];
+    maintainers = [maintainers.ymarkus];
     platforms = platforms.all;
   };
 }

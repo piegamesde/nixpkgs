@@ -19,13 +19,13 @@ buildGoModule rec {
   vendorSha256 = "sha256-MoGaIs2WmJk+E8pTljrahuaJ1VwYBhGBf1XGYVYOVt4=";
 
   modRoot = ".";
-  subPackages = [ "cmd/notify/" ];
+  subPackages = ["cmd/notify/"];
 
   # Test files are not part of the release tarball
   doCheck = false;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -36,6 +36,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/projectdiscovery/notify";
     license = licenses.mit;
-    maintainers = with maintainers; [ hanemile ];
+    maintainers = with maintainers; [hanemile];
   };
 }

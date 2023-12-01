@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "1711xkcw8rpw9xv3bbm7v1aryjz4r341rkq5255192dg38sgq7w2";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     zlib
     python2
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "Structural variant caller";
     license = licenses.gpl3;
     homepage = "https://github.com/Illumina/manta";
-    maintainers = with maintainers; [ jbedo ];
+    maintainers = with maintainers; [jbedo];
     platforms = platforms.x86_64;
   };
 }

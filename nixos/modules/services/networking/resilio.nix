@@ -40,17 +40,17 @@ let
         upload_limit = cfg.uploadLimit;
         lan_encrypt_data = cfg.encryptLAN;
       }
-      // optionalAttrs (cfg.directoryRoot != "") { directory_root = cfg.directoryRoot; }
+      // optionalAttrs (cfg.directoryRoot != "") {directory_root = cfg.directoryRoot;}
       // optionalAttrs cfg.enableWebUI {
         webui =
           {
             listen = "${cfg.httpListenAddr}:${toString cfg.httpListenPort}";
           }
-          // (optionalAttrs (cfg.httpLogin != "") { login = cfg.httpLogin; })
-          // (optionalAttrs (cfg.httpPass != "") { password = cfg.httpPass; })
-          // (optionalAttrs (cfg.apiKey != "") { api_key = cfg.apiKey; });
+          // (optionalAttrs (cfg.httpLogin != "") {login = cfg.httpLogin;})
+          // (optionalAttrs (cfg.httpPass != "") {password = cfg.httpPass;})
+          // (optionalAttrs (cfg.apiKey != "") {api_key = cfg.apiKey;});
       }
-      // optionalAttrs (sharedFoldersRecord != [ ]) { shared_folders = sharedFoldersRecord; }
+      // optionalAttrs (sharedFoldersRecord != []) {shared_folders = sharedFoldersRecord;}
     )
   );
 
@@ -74,7 +74,7 @@ let
   runConfigPath = "/run/rslsync/config.json";
 
   createConfig = pkgs.writeShellScriptBin "create-resilio-config" (
-    if cfg.sharedFolders != [ ] then
+    if cfg.sharedFolders != [] then
       ''
         ${pkgs.jq}/bin/jq \
           '.shared_folders |= map(.secret = $ARGS.named[.dir])' \
@@ -234,7 +234,7 @@ in
       };
 
       sharedFolders = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf (types.attrsOf types.anything);
         example = [
           {
@@ -281,7 +281,7 @@ in
         message = "Device name cannot be empty.";
       }
       {
-        assertion = cfg.enableWebUI -> cfg.sharedFolders == [ ];
+        assertion = cfg.enableWebUI -> cfg.sharedFolders == [];
         message = "If using shared folders, the web UI cannot be enabled.";
       }
       {
@@ -298,12 +298,12 @@ in
       group = "rslsync";
     };
 
-    users.groups.rslsync = { };
+    users.groups.rslsync = {};
 
     systemd.services.resilio = with pkgs; {
       description = "Resilio Sync Service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         Restart = "on-abort";
         UMask = "0002";
@@ -317,5 +317,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ jwoudenberg ];
+  meta.maintainers = with maintainers; [jwoudenberg];
 }

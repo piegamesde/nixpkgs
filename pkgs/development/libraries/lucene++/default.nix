@@ -20,14 +20,14 @@ stdenv.mkDerivation rec {
     sha256 = "12v7r62f7pqh5h210pb74sfx6h70lj4pgfpva8ya2d55fn0qxrr2";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     boost
     gtest
     zlib
   ];
 
-  cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
+  cmakeFlags = ["-DCMAKE_INSTALL_LIBDIR=lib"];
 
   patches = [
     (fetchpatch {

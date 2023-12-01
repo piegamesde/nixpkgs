@@ -9,7 +9,7 @@ with lib;
 let
   cfg = config.services.mbpfan;
   verbose = optionalString cfg.verbose "v";
-  settingsFormat = pkgs.formats.ini { };
+  settingsFormat = pkgs.formats.ini {};
   settingsFile = settingsFormat.generate "mbpfan.ini" cfg.settings;
 in
 {
@@ -36,7 +36,7 @@ in
     };
 
     settings = mkOption {
-      default = { };
+      default = {};
       description = lib.mdDoc "INI configuration for Mbpfan.";
       type = types.submodule {
         freeformType = settingsFormat.type;
@@ -164,17 +164,17 @@ in
       "coretemp"
       "applesmc"
     ];
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     environment.etc."mbpfan.conf".source = settingsFile;
 
     systemd.services.mbpfan = {
       description = "A fan manager daemon for MacBook Pro";
-      wantedBy = [ "sysinit.target" ];
+      wantedBy = ["sysinit.target"];
       after = [
         "syslog.target"
         "sysinit.target"
       ];
-      restartTriggers = [ config.environment.etc."mbpfan.conf".source ];
+      restartTriggers = [config.environment.etc."mbpfan.conf".source];
       serviceConfig = {
         Type = "simple";
         ExecStart = "${cfg.package}/bin/mbpfan -f${verbose}";

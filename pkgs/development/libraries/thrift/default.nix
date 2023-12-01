@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
 
   # Workaround to make the Python wrapper not drop this package:
   # pythonFull.buildEnv.override { extraLibs = [ thrift ]; }
-  pythonPath = [ ];
+  pythonPath = [];
 
   nativeBuildInputs = [
     bison
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ boost ] ++ lib.optionals (!static) [ (python3.withPackages (ps: [ ps.twisted ])) ];
+  buildInputs = [boost] ++ lib.optionals (!static) [(python3.withPackages (ps: [ps.twisted]))];
 
   propagatedBuildInputs = [
     libevent
@@ -132,6 +132,6 @@ stdenv.mkDerivation rec {
     homepage = "https://thrift.apache.org/";
     license = licenses.asl20;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
   };
 }

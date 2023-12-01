@@ -29,7 +29,7 @@ stdenv.mkDerivation (
       pkg-config
     ];
 
-    buildInputs = [ pcre ];
+    buildInputs = [pcre];
 
     doInstallCheck = true;
     installCheckPhase = ''
@@ -56,7 +56,7 @@ stdenv.mkDerivation (
         appropriate with grep. Search patterns are specified as PCRE regexes.
       '';
       license = lib.licenses.gpl3Plus;
-      maintainers = with lib.maintainers; [ AndersonTorres ];
+      maintainers = with lib.maintainers; [AndersonTorres];
       platforms = lib.platforms.unix;
       broken = stdenv.isAarch64 || stdenv.isDarwin;
     };

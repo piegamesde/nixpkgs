@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     let
       copy =
         arch: version:
-        { input, output }:
+        {input, output}:
         "mkdir -p $out/${arch}/${output}; cp ${input}/${version}/${arch}/* $out/${arch}/${output}/.";
       virtio = [
         {
@@ -63,8 +63,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Windows VirtIO Drivers";
     homepage = "https://fedoraproject.org/wiki/Windows_Virtio_Drivers";
-    license = [ licenses.bsd3 ];
-    maintainers = [ ];
+    license = [licenses.bsd3];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

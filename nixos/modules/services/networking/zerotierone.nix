@@ -14,8 +14,8 @@ in
   options.services.zerotierone.enable = mkEnableOption (lib.mdDoc "ZeroTierOne");
 
   options.services.zerotierone.joinNetworks = mkOption {
-    default = [ ];
-    example = [ "a8a2c3c10c1a68de" ];
+    default = [];
+    example = ["a8a2c3c10c1a68de"];
     type = types.listOf types.str;
     description = lib.mdDoc ''
       List of ZeroTier Network IDs to join on startup
@@ -43,11 +43,11 @@ in
     systemd.services.zerotierone = {
       description = "ZeroTierOne";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      wants = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      wants = ["network-online.target"];
 
-      path = [ cfg.package ];
+      path = [cfg.package];
 
       preStart =
         ''
@@ -70,12 +70,12 @@ in
     };
 
     # ZeroTier does not issue DHCP leases, but some strangers might...
-    networking.dhcpcd.denyInterfaces = [ "zt*" ];
+    networking.dhcpcd.denyInterfaces = ["zt*"];
 
     # ZeroTier receives UDP transmissions
-    networking.firewall.allowedUDPPorts = [ cfg.port ];
+    networking.firewall.allowedUDPPorts = [cfg.port];
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     # Prevent systemd from potentially changing the MAC address
     systemd.network.links."50-zerotier" = {

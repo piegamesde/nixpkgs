@@ -1,4 +1,4 @@
-{ version, sha256 }:
+{version, sha256}:
 {
   lib,
   stdenv,
@@ -18,11 +18,11 @@
   makeWrapper,
   runCommand,
   targetPackages,
-  ldcBootstrap ? callPackage ./bootstrap.nix { },
+  ldcBootstrap ? callPackage ./bootstrap.nix {},
 }:
 
 let
-  pathConfig = runCommand "ldc-lib-paths" { } ''
+  pathConfig = runCommand "ldc-lib-paths" {} ''
     mkdir $out
     echo ${tzdata}/share/zoneinfo/ > $out/TZDatabaseDirFile
     echo ${curl.out}/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} > $out/LibcurlPathFile
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   };
 
   # https://issues.dlang.org/show_bug.cgi?id=19553
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   postUnpack =
     ''
@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
       ninja
       unzip
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.apple_sdk.frameworks.Foundation ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [darwin.apple_sdk.frameworks.Foundation]
     ++
       lib.optionals (!stdenv.hostPlatform.isDarwin)
         [
@@ -103,7 +103,7 @@ stdenv.mkDerivation rec {
     export DMD=$PWD/bin/ldmd2
   '';
 
-  makeFlags = [ "DMD=$DMD" ];
+  makeFlags = ["DMD=$DMD"];
 
   fixNames = lib.optionalString stdenv.hostPlatform.isDarwin ''
     fixDarwinDylibNames() {

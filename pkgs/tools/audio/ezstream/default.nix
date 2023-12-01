@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     taglib
     libxml2
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   doCheck = true;
 
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://icecast.org/ezstream/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.barrucadu ];
+    maintainers = [maintainers.barrucadu];
     platforms = platforms.all;
   };
 }

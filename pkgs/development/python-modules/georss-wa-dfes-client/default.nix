@@ -21,16 +21,16 @@ buildPythonPackage rec {
     hash = "sha256-s7qGTlWFdOtw0eMK7idld7HPOxO8CjODCmUi0WmRLdI=";
   };
 
-  propagatedBuildInputs = [ georss-client ];
+  propagatedBuildInputs = [georss-client];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "georss_wa_dfes_client" ];
+  pythonImportsCheck = ["georss_wa_dfes_client"];
 
   meta = with lib; {
     description = "Python library for accessing WA Department of Fire and Emergency Services (DFES) feed";
     homepage = "https://github.com/exxamalte/python-georss-wa-dfes-client";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

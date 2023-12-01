@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     intltool
     libtool
   ];
-  buildInputs = [ readline ];
+  buildInputs = [readline];
 
   preConfigure = ''
     ./autogen.sh
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/scanmem/scanmem";
     description = "Memory scanner for finding and poking addresses in executing processes";
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     license = licenses.gpl3;
   };

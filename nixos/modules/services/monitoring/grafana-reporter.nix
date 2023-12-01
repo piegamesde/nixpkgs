@@ -57,8 +57,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.grafana_reporter = {
       description = "Grafana Reporter Service Daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig =
         let
           args = lib.concatStringsSep " " [

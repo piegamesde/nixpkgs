@@ -57,7 +57,7 @@ mkDerivation rec {
     export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE $(pkg-config --cflags openssl)"
   '';
 
-  qmakeFlags = [ "DEFINES+=RICOCHET_NO_PORTABLE" ];
+  qmakeFlags = ["DEFINES+=RICOCHET_NO_PORTABLE"];
 
   installPhase = ''
     mkdir -p $out/bin

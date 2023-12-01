@@ -55,9 +55,9 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  configureFlags = [ "--with-panel=${desktopSupport}" ];
+  configureFlags = ["--with-panel=${desktopSupport}"];
 
-  patches = [ ./fix-paths.patch ];
+  patches = [./fix-paths.patch];
 
   # Setup hook replaces ${prefix} in pc files so we cannot use
   # --define-variable=prefix=$prefix
@@ -69,6 +69,6 @@ stdenv.mkDerivation rec {
     broken = desktopSupport == "gnomeflashback" || desktopSupport == "xfce4";
     description = "An applet that will display XMonad log information (${desktopSupport} version)";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

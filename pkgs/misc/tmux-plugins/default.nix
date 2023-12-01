@@ -21,7 +21,7 @@ let
   mkTmuxPlugin =
     a@{
       pluginName,
-      rtpFilePath ? (builtins.replaceStrings [ "-" ] [ "_" ] pluginName) + ".tmux",
+      rtpFilePath ? (builtins.replaceStrings ["-"] ["_"] pluginName) + ".tmux",
       namePrefix ? "tmuxplugin-",
       src,
       unpackPhase ? "",
@@ -106,7 +106,7 @@ rec {
       '';
       license = lib.licenses.mit;
       platforms = lib.platforms.unix;
-      maintainers = with lib.maintainers; [ chrispickard ];
+      maintainers = with lib.maintainers; [chrispickard];
     };
   };
 
@@ -127,7 +127,7 @@ rec {
       description = "Soothing pastel theme for Tmux!";
       license = licenses.mit;
       platforms = platforms.unix;
-      maintainers = with maintainers; [ jnsgruk ];
+      maintainers = with maintainers; [jnsgruk];
     };
   };
 
@@ -155,7 +155,7 @@ rec {
       '';
       license = lib.licenses.mit;
       platforms = lib.platforms.unix;
-      maintainers = with lib.maintainers; [ ronanmacf ];
+      maintainers = with lib.maintainers; [ronanmacf];
     };
   };
 
@@ -178,7 +178,7 @@ rec {
       description = "Various copy-mode tools";
       license = lib.licenses.mit;
       platforms = lib.platforms.unix;
-      maintainers = with lib.maintainers; [ deejayem ];
+      maintainers = with lib.maintainers; [deejayem];
     };
   };
 
@@ -229,7 +229,7 @@ rec {
       description = "A feature packed Dracula theme for tmux!";
       license = licenses.mit;
       platforms = platforms.unix;
-      maintainers = with maintainers; [ ethancedwards8 ];
+      maintainers = with maintainers; [ethancedwards8];
     };
   };
 
@@ -242,7 +242,7 @@ rec {
       rev = "de8ac3e8a9fa887382649784ed8cae81f5757f77";
       sha256 = "0mkp9r6mipdm7408w7ls1vfn6i3hj19nmir2bvfcp12b69zlzc47";
     };
-    nativeBuildInputs = [ pkgs.makeWrapper ];
+    nativeBuildInputs = [pkgs.makeWrapper];
     postInstall = ''
       for f in extrakto.sh open.sh tmux-extrakto.sh; do
         wrapProgram $target/scripts/$f \
@@ -262,7 +262,7 @@ rec {
       description = "Fuzzy find your text with fzf instead of selecting it by hand ";
       license = lib.licenses.mit;
       platforms = lib.platforms.unix;
-      maintainers = with lib.maintainers; [ kidd ];
+      maintainers = with lib.maintainers; [kidd];
     };
   };
 
@@ -277,13 +277,12 @@ rec {
       sha256 = "0gp37m3d0irrsih96qv2yalvr1wmf1n64589d4qzyzq16lzyjcr0";
       fetchSubmodules = true;
     };
-    nativeBuildInputs = [ pkgs.makeWrapper ];
+    nativeBuildInputs = [pkgs.makeWrapper];
     postInstall = ''
       for f in config.sh tmux-fingers.sh setup-fingers-mode-bindings.sh; do
       wrapProgram $target/scripts/$f \
         --prefix PATH : ${
-          with pkgs;
-          lib.makeBinPath ([ gawk ] ++ lib.optionals stdenv.isDarwin [ reattach-to-user-namespace ])
+          with pkgs; lib.makeBinPath ([gawk] ++ lib.optionals stdenv.isDarwin [reattach-to-user-namespace])
         }
       done
     '';
@@ -312,7 +311,7 @@ rec {
       rev = "bfd9cf0ef1c35488f0080f0c5ca4fddfdd7e18ec";
       sha256 = "w788xDBkfiLdUVv1oJi0YikFPqVk6LiN6PDfHu8on5E=";
     };
-    nativeBuildInputs = [ pkgs.makeWrapper ];
+    nativeBuildInputs = [pkgs.makeWrapper];
     postInstall = ''
       for f in fuzzback.sh preview.sh supported.sh; do
         chmod +x $target/scripts/$f
@@ -333,7 +332,7 @@ rec {
       description = "Fuzzy search for terminal scrollback";
       license = lib.licenses.mit;
       platforms = lib.platforms.unix;
-      maintainers = with lib.maintainers; [ deejayem ];
+      maintainers = with lib.maintainers; [deejayem];
     };
   };
 
@@ -379,7 +378,7 @@ rec {
       description = "Vimium/Easymotion like navigation for tmux";
       license = licenses.gpl3;
       platforms = platforms.unix;
-      maintainers = with maintainers; [ arnarg ];
+      maintainers = with maintainers; [arnarg];
     };
   };
 
@@ -408,7 +407,7 @@ rec {
       description = "Plugin that displays prompt indicating currently active Tmux mode";
       license = licenses.mit;
       platforms = platforms.unix;
-      maintainers = with maintainers; [ aacebedo ];
+      maintainers = with maintainers; [aacebedo];
     };
   };
 
@@ -559,7 +558,7 @@ rec {
       '';
       license = lib.licenses.mit;
       platforms = lib.platforms.unix;
-      maintainers = with lib.maintainers; [ ronanmacf ];
+      maintainers = with lib.maintainers; [ronanmacf];
     };
   };
 
@@ -625,7 +624,7 @@ rec {
       description = "Plugin which makes tmux work and feel like i3wm";
       license = licenses.mit;
       platforms = platforms.unix;
-      maintainers = with maintainers; [ arnarg ];
+      maintainers = with maintainers; [arnarg];
     };
   };
 
@@ -671,11 +670,11 @@ rec {
       '';
       license = lib.licenses.mit;
       platforms = lib.platforms.unix;
-      maintainers = with lib.maintainers; [ kyleondy ];
+      maintainers = with lib.maintainers; [kyleondy];
     };
   };
 
-  tmux-thumbs = pkgs.callPackage ./tmux-thumbs { inherit mkTmuxPlugin; };
+  tmux-thumbs = pkgs.callPackage ./tmux-thumbs {inherit mkTmuxPlugin;};
 
   urlview = mkTmuxPlugin {
     pluginName = "urlview";
@@ -706,7 +705,7 @@ rec {
       description = "Makes FocusGained and FocusLost autocommand events work in vim when using tmux";
       license = licenses.mit;
       platforms = platforms.unix;
-      maintainers = with maintainers; [ ronanmacf ];
+      maintainers = with maintainers; [ronanmacf];
     };
   };
 
@@ -737,7 +736,7 @@ rec {
       description = "Shows weather in the status line";
       license = licenses.mit;
       platforms = platforms.unix;
-      maintainers = with maintainers; [ jfvillablanca ];
+      maintainers = with maintainers; [jfvillablanca];
     };
   };
 

@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     "devdoc"
   ];
 
-  mesonFlags = [ "-Denable-gtk-doc=true" ];
+  mesonFlags = ["-Denable-gtk-doc=true"];
 
   strictDeps = true;
   nativeBuildInputs = [
@@ -41,15 +41,15 @@ stdenv.mkDerivation rec {
     vala
     gtk-doc
     docbook_xsl
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [mesonEmulatorHook];
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   meta = with lib; {
     description = "DBus API that allows cloud storage sync clients to expose their services";
     homepage = "https://gitlab.gnome.org/World/libcloudproviders";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.unix;
   };
 }

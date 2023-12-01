@@ -21,7 +21,7 @@ stdenv.mkDerivation {
     sha256 = "0jkaz5frm6jr9bxyfympvzh180nczrfvvb3z3qhk21djlas6nr5f";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     SDL
     SDL_gfx
@@ -30,11 +30,11 @@ stdenv.mkDerivation {
     opencv
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
   env.NIX_CFLAGS_COMPILE = "-I${lib.getDev SDL}/include/SDL -I${SDL_gfx}/include/SDL";
 
   # Disable building of linux-only demos on darwin systems
-  patches = lib.optionals stdenv.isDarwin [ ./0001-dont-build-demos.patch ];
+  patches = lib.optionals stdenv.isDarwin [./0001-dont-build-demos.patch];
 
   buildPhase = lib.optionalString stdenv.isDarwin ''
     runHook preBuild
@@ -62,7 +62,7 @@ stdenv.mkDerivation {
   meta = {
     description = "A small QR code decoding library";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.linux ++ [
       "x86_64-darwin"
       "aarch64-darwin"

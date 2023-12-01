@@ -56,12 +56,12 @@ buildPythonPackage rec {
     "test_xmlnode_format_error"
   ];
 
-  pythonImportsCheck = [ "flickrapi" ];
+  pythonImportsCheck = ["flickrapi"];
 
   meta = with lib; {
     description = "A Python interface to the Flickr API";
     homepage = "https://stuvel.eu/flickrapi";
     license = licenses.psfl;
-    maintainers = with maintainers; [ obadz ];
+    maintainers = with maintainers; [obadz];
   };
 }

@@ -16,7 +16,7 @@ buildPythonPackage rec {
   # tests not included in the distribution
   doCheck = false;
 
-  propagatedBuildInputs = [ pyparsing ];
+  propagatedBuildInputs = [pyparsing];
 
   meta = with lib; {
     homepage = "https://github.com/heinzK1X/pylibconfig2";

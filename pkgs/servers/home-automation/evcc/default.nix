@@ -80,7 +80,7 @@ buildGoModule rec {
     tests = {
       inherit (nixosTests) evcc;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -88,6 +88,6 @@ buildGoModule rec {
     homepage = "https://evcc.io";
     changelog = "https://github.com/andig/evcc/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

@@ -86,7 +86,7 @@ in
 
       catalinaOptions = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "-Xms1024m"
           "-Xmx2048m"
@@ -146,7 +146,7 @@ in
       group = cfg.group;
     };
 
-    users.groups.${cfg.group} = { };
+    users.groups.${cfg.group} = {};
 
     systemd.tmpfiles.rules = [
       "d '${cfg.home}' - ${cfg.user} ${cfg.group} - -"
@@ -161,11 +161,11 @@ in
     systemd.services.atlassian-crowd = {
       description = "Atlassian Crowd";
 
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "postgresql.service" ];
-      after = [ "postgresql.service" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["postgresql.service"];
+      after = ["postgresql.service"];
 
-      path = [ cfg.jrePackage ];
+      path = [cfg.jrePackage];
 
       environment = {
         JAVA_HOME = "${cfg.jrePackage}";

@@ -1,4 +1,4 @@
-{ lib }:
+{lib}:
 # Operations on attribute sets.
 
 let
@@ -63,7 +63,7 @@ rec {
     let
       attr = head attrPath;
     in
-    if attrPath == [ ] then
+    if attrPath == [] then
       set
     else if set ? ${attr} then
       attrByPath (tail attrPath) default set.${attr}
@@ -90,7 +90,7 @@ rec {
     let
       attr = head attrPath;
     in
-    if attrPath == [ ] then
+    if attrPath == [] then
       true
     else if e ? ${attr} then
       hasAttrByPath (tail attrPath) e.${attr}
@@ -113,7 +113,7 @@ rec {
     value:
     let
       len = length attrPath;
-      atDepth = n: if n == len then value else { ${elemAt attrPath n} = atDepth (n + 1); };
+      atDepth = n: if n == len then value else {${elemAt attrPath n} = atDepth (n + 1);};
     in
     atDepth 0;
 
@@ -159,7 +159,7 @@ rec {
     flip pipe [
       (mapAttrs f)
       attrValues
-      (foldl' mergeAttrs { })
+      (foldl' mergeAttrs {})
     ];
 
   /* Update or set specific paths of an attribute set.
@@ -226,7 +226,7 @@ rec {
           # Applies only nested modification to the input value
           withNestedMods =
             # Return the value directly if we don't have any nested modifications
-            if split.wrong == [ ] then
+            if split.wrong == [] then
               if hasValue then
                 value
               else
@@ -330,7 +330,7 @@ rec {
        catAttrs :: String -> [AttrSet] -> [Any]
   */
   catAttrs =
-    builtins.catAttrs or (attr: l: concatLists (map (s: if s ? ${attr} then [ s.${attr} ] else [ ]) l));
+    builtins.catAttrs or (attr: l: concatLists (map (s: if s ? ${attr} then [s.${attr}] else []) l));
 
   /* Filter an attribute set by removing all attributes for which the
      given predicate return false.
@@ -354,7 +354,7 @@ rec {
           let
             v = set.${name};
           in
-          if pred name v then [ (nameValuePair name v) ] else [ ]
+          if pred name v then [(nameValuePair name v)] else []
         )
         (attrNames set)
     );
@@ -382,9 +382,9 @@ rec {
             v = set.${name};
           in
           if pred name v then
-            [ (nameValuePair name (if isAttrs v then filterAttrsRecursive pred v else v)) ]
+            [(nameValuePair name (if isAttrs v then filterAttrsRecursive pred v else v))]
           else
-            [ ]
+            []
         )
         (attrNames set)
     );
@@ -462,8 +462,7 @@ rec {
     nul:
     # A list of attribute sets to fold together by key.
     list_of_attrs:
-    foldr (n: a: foldr (name: o: o // { ${name} = op n.${name} (a.${name} or nul); }) a (attrNames n))
-      { }
+    foldr (n: a: foldr (name: o: o // {${name} = op n.${name} (a.${name} or nul);}) a (attrNames n)) {}
       list_of_attrs;
 
   /* Recursively collect sets that verify a given predicate named `pred`
@@ -487,11 +486,11 @@ rec {
     # The attribute set to recursively collect.
     attrs:
     if pred attrs then
-      [ attrs ]
+      [attrs]
     else if isAttrs attrs then
       concatMap (collect pred) (attrValues attrs)
     else
-      [ ];
+      [];
 
   /* Return the cartesian product of attribute set value combinations.
 
@@ -512,10 +511,10 @@ rec {
     foldl'
       (
         listOfAttrs: attrName:
-        concatMap (attrs: map (listValue: attrs // { ${attrName} = listValue; }) attrsOfLists.${attrName})
+        concatMap (attrs: map (listValue: attrs // {${attrName} = listValue;}) attrsOfLists.${attrName})
           listOfAttrs
       )
-      [ { } ]
+      [{}]
       (attrNames attrsOfLists);
 
   /* Utility function that creates a `{name, value}` pair as expected by `builtins.listToAttrs`.
@@ -649,14 +648,11 @@ rec {
         let
           g =
             name: value:
-            if isAttrs value && cond value then
-              recurse (path ++ [ name ]) value
-            else
-              f (path ++ [ name ]) value;
+            if isAttrs value && cond value then recurse (path ++ [name]) value else f (path ++ [name]) value;
         in
         mapAttrs g;
     in
-    recurse [ ] set;
+    recurse [] set;
 
   /* Generate an attribute set by mapping a function over a list of
      attribute names.
@@ -706,7 +702,7 @@ rec {
         type = "derivation";
         name = sanitizeDerivationName (builtins.substring 33 (-1) (baseNameOf path'));
         outPath = path';
-        outputs = [ "out" ];
+        outputs = ["out"];
         out = res;
         outputName = "out";
       };
@@ -730,7 +726,7 @@ rec {
     cond:
     # The attribute set to return if `cond` is `true`.
     as:
-    if cond then as else { };
+    if cond then as else {};
 
   /* Merge sets of attributes and use the function `f` to merge attributes
      values.
@@ -834,7 +830,7 @@ rec {
         zipAttrsWith (
           n: values:
           let
-            here = attrPath ++ [ n ];
+            here = attrPath ++ [n];
           in
           if length values == 1 || pred here (elemAt values 1) (head values) then
             head values
@@ -842,7 +838,7 @@ rec {
             f here values
         );
     in
-    f [ ] [
+    f [] [
       rhs
       lhs
     ];
@@ -957,7 +953,7 @@ rec {
   showAttrPath =
     # Attribute path to render to a string
     path:
-    if path == [ ] then "<root attribute path>" else concatMapStringsSep "." escapeNixIdentifier path;
+    if path == [] then "<root attribute path>" else concatMapStringsSep "." escapeNixIdentifier path;
 
   /* Get a package output.
      If no output is found, fallback to `.out` and then to the default.
@@ -1048,7 +1044,7 @@ rec {
   */
   recurseIntoAttrs =
     # An attribute set to scan for derivations.
-    attrs: attrs // { recurseForDerivations = true; };
+    attrs: attrs // {recurseForDerivations = true;};
 
   /* Undo the effect of recurseIntoAttrs.
 
@@ -1057,7 +1053,7 @@ rec {
   */
   dontRecurseIntoAttrs =
     # An attribute set to not scan for derivations.
-    attrs: attrs // { recurseForDerivations = false; };
+    attrs: attrs // {recurseForDerivations = false;};
 
   /* `unionOfDisjoint x y` is equal to `x // y // z` where the
      attrnames in `z` are the intersection of the attrnames in `x` and

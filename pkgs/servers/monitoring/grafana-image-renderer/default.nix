@@ -64,7 +64,7 @@ mkYarnPackage rec {
     homepage = "https://github.com/grafana/grafana-image-renderer";
     description = "A Grafana backend plugin that handles rendering of panels & dashboards to PNGs using headless browser (Chromium/Chrome)";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ma27 ];
+    maintainers = with maintainers; [ma27];
     platforms = platforms.linux;
   };
 }

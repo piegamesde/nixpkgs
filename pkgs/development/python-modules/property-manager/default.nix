@@ -34,6 +34,6 @@ buildPythonPackage rec {
     description = "Useful property variants for Python programming";
     homepage = "https://github.com/xolox/python-property-manager";
     license = licenses.mit;
-    maintainers = with maintainers; [ eyjhb ];
+    maintainers = with maintainers; [eyjhb];
   };
 }

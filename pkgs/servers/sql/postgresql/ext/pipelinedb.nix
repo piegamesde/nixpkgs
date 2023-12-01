@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     libkrb5
   ];
 
-  makeFlags = [ "USE_PGXS=1" ];
+  makeFlags = ["USE_PGXS=1"];
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-lsodium";
 
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.pipelinedb.com/";
     license = licenses.asl20;
     platforms = postgresql.meta.platforms;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
     broken = versions.major postgresql.version != "11";
   };
 }

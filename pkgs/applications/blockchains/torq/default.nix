@@ -23,7 +23,7 @@ let
     npmDepsHash = "sha256-WulYJE2pdVa5hquV/7UjR1z9PkglJXOq5fv8nLa4wos=";
 
     # copied from upstream Dockerfile
-    npmInstallFlags = [ "--legacy-peer-deps" ];
+    npmInstallFlags = ["--legacy-peer-deps"];
     TSX_COMPILE_ON_ERROR = "true";
     ESLINT_NO_DEV_ERRORS = "true";
 
@@ -39,7 +39,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-bvisI589Gq9IdyJEqI+uzs3iDPOTUkq95P3n/KoFhF0=";
 
-  subPackages = [ "cmd/torq" ];
+  subPackages = ["cmd/torq"];
 
   ldflags = [
     "-s"

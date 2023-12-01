@@ -33,10 +33,10 @@ buildPythonPackage rec {
     gtk3
     numpy
   ];
-  nativeCheckInputs = [ xvfb-run ];
+  nativeCheckInputs = [xvfb-run];
 
   postInstall = ''
-    wrapProgram "$out/bin/xdot" --prefix PATH : "${lib.makeBinPath [ graphviz ]}"
+    wrapProgram "$out/bin/xdot" --prefix PATH : "${lib.makeBinPath [graphviz]}"
   '';
 
   checkPhase = ''

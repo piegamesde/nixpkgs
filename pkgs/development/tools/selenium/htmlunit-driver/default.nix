@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
       offline
     ];
     platforms = platforms.all;
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
   };
 }

@@ -25,7 +25,7 @@ buildDunePackage rec {
     sha256 = "sha256-PQBgJBNx3IcE6/vyNIf26a2xStU22LBhff8eM6UPaJ4=";
   };
 
-  nativeBuildInputs = [ cppo ];
+  nativeBuildInputs = [cppo];
   propagatedBuildInputs = [
     logs
     ptime
@@ -43,7 +43,7 @@ buildDunePackage rec {
   meta = {
     description = "Unified interface to relational database libraries";
     license = "LGPL-3.0-or-later WITH OCaml-LGPL-linking-exception";
-    maintainers = with lib.maintainers; [ bcc32 ];
+    maintainers = with lib.maintainers; [bcc32];
     homepage = "https://github.com/paurkedal/ocaml-caqti";
   };
 }

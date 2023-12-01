@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "06c1mskl9ixbf26v88w0lvn6v2xd6n5f0jd5mckqrn9j4vmh70hs";
   };
 
-  buildInputs = [ curl ];
+  buildInputs = [curl];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   enableParallelBuilding = true;
 
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     description = "Small Footprint CIM Client Library";
     homepage = "https://sourceforge.net/projects/sblim/";
     license = licenses.cpl10;
-    maintainers = with maintainers; [ deepfire ];
+    maintainers = with maintainers; [deepfire];
     platforms = platforms.unix;
   };
 }

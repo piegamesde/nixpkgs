@@ -35,9 +35,9 @@ let
     ];
     passthru.static = self.out;
 
-    nativeBuildInputs = [ m4 ];
+    nativeBuildInputs = [m4];
 
-    patches = [ ./5.1.3-CVE-2021-43618.patch ] ++ lib.optionals stdenv.isDarwin [ ./need-size-t.patch ];
+    patches = [./5.1.3-CVE-2021-43618.patch] ++ lib.optionals stdenv.isDarwin [./need-size-t.patch];
 
     configureFlags =
       [
@@ -91,7 +91,7 @@ let
       '';
 
       platforms = platforms.all;
-      badPlatforms = [ "x86_64-darwin" ];
+      badPlatforms = ["x86_64-darwin"];
       # never built on aarch64-darwin since first introduction in nixpkgs
       broken = stdenv.isDarwin && stdenv.isAarch64;
     };

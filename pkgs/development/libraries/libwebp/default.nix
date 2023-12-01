@@ -79,16 +79,16 @@ stdenv.mkDerivation rec {
     libtool
   ];
   buildInputs =
-    [ ]
+    []
     ++ lib.optionals openglSupport [
       freeglut
       libGL
       libGLU
     ]
-    ++ lib.optionals pngSupport [ libpng ]
-    ++ lib.optionals jpegSupport [ libjpeg ]
-    ++ lib.optionals tiffSupport [ libtiff ]
-    ++ lib.optionals gifSupport [ giflib ];
+    ++ lib.optionals pngSupport [libpng]
+    ++ lib.optionals jpegSupport [libjpeg]
+    ++ lib.optionals tiffSupport [libtiff]
+    ++ lib.optionals gifSupport [giflib];
 
   enableParallelBuilding = true;
 
@@ -112,6 +112,6 @@ stdenv.mkDerivation rec {
     homepage = "https://developers.google.com/speed/webp/";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ajs124 ];
+    maintainers = with maintainers; [ajs124];
   };
 }

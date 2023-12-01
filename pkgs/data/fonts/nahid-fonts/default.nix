@@ -28,6 +28,6 @@ stdenvNoCC.mkDerivation rec {
     description = "A Persian (Farsi) Font - قلم (فونت) فارسی ناهید";
     license = licenses.free;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

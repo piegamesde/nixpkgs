@@ -23,8 +23,8 @@ buildGraalvmNativeImage rec {
   meta = with lib; {
     description = "CLI to transform between JSON, EDN, YAML and Transit, powered with a minimal query language";
     homepage = "https://github.com/borkdude/jet";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.epl10;
-    maintainers = with maintainers; [ ericdallo ];
+    maintainers = with maintainers; [ericdallo];
   };
 }

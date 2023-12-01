@@ -30,8 +30,8 @@ let
   inherit (haskellPackages) arion-compose;
 
   cabalOverrides = o: {
-    buildTools = (o.buildTools or [ ]) ++ [ buildPackages.makeWrapper ];
-    passthru = (o.passthru or { }) // {
+    buildTools = (o.buildTools or []) ++ [buildPackages.makeWrapper];
+    passthru = (o.passthru or {}) // {
       inherit eval build;
     };
     src = arion-compose.src;
@@ -52,14 +52,14 @@ let
             mv $out/bin/arion $out/libexec
             makeWrapper $out/libexec/arion $out/bin/arion \
               --unset PYTHONPATH \
-              --prefix PATH : ${lib.makeBinPath [ pkgs.docker-compose_1 ]} \
+              --prefix PATH : ${lib.makeBinPath [pkgs.docker-compose_1]} \
               ;
     '';
   };
 
   # Unpacked sources for evaluation by `eval`
   srcUnpacked =
-    runCommand "arion-src" { }
+    runCommand "arion-src" {}
       "mkdir $out; tar -C $out --strip-components=1 -xf ${arion-compose.src}";
 
   /* Function for evaluating a composition
@@ -68,8 +68,7 @@ let
 
      Returns the module system's `config` and `options` variables.
   */
-  eval =
-    args@{ ... }: import (srcUnpacked + "/src/nix/eval-composition.nix") ({ inherit pkgs; } // args);
+  eval = args@{...}: import (srcUnpacked + "/src/nix/eval-composition.nix") ({inherit pkgs;} // args);
 
   /* Function to derivation of the docker compose yaml file
       NOTE: The output will change: https://github.com/hercules-ci/arion/issues/82
@@ -78,7 +77,7 @@ let
      to image tarballs may not always be desirable.
   */
   build =
-    args@{ ... }:
+    args@{...}:
     let
       composition = eval args;
     in

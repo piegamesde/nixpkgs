@@ -18,11 +18,11 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-SOsHvcfDdUpb0x5VZ1vZJnGaIiWWOPgnAwKYNXzfUfI=";
   };
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.isDarwin [libiconv];
 
   cargoHash = "sha256-aimPeGIE5jP0pdrqwnzUzBqW0jz9+kcfpLdCN0r30xU=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd flavours \

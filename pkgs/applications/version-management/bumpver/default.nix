@@ -46,6 +46,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Bump version numbers in project files";
     homepage = "https://pypi.org/project/bumpver/";
     license = licenses.mit;
-    maintainers = with maintainers; [ kfollesdal ];
+    maintainers = with maintainers; [kfollesdal];
   };
 }

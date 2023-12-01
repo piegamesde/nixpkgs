@@ -52,7 +52,7 @@ beamPackages.mixRelease rec {
             rev = "31f7fbe4b71b79ba27efc2a5085746c4011ceb8f";
             sha256 = "sha256-2PZP+YnwnHt69HtIAQvjMBqBbfdbkRSoMzb1AL2Zsyc=";
           };
-          beamDeps = with final; [ prometheus ];
+          beamDeps = with final; [prometheus];
         };
         captcha = beamPackages.buildMix rec {
           name = "captcha";
@@ -66,7 +66,7 @@ beamPackages.mixRelease rec {
             rev = "e0f16822d578866e186a0974d65ad58cddc1e2ab";
             sha256 = "0qbf86l59kmpf1nd82v4141ba9ba75xwmnqzpgbm23fa1hh8pi9c";
           };
-          beamDeps = with final; [ ];
+          beamDeps = with final; [];
 
           postInstall = "mv priv/* $out/lib/erlang/lib/${name}-${version}/priv/";
         };
@@ -103,9 +103,9 @@ beamPackages.mixRelease rec {
             rev = "9cd8f248c9381ffedc799905050abce194a97514";
             sha256 = "0211z4bxb0bc0zcrhnph9kbbvvi1f2v95madpr96pqzr60y21cam";
           };
-          beamDeps = with final; [ prometheus_ex ];
+          beamDeps = with final; [prometheus_ex];
         };
-        majic = prev.majic.override { buildInputs = [ file ]; };
+        majic = prev.majic.override {buildInputs = [file];};
         # Some additional build inputs and build fixes
         http_signatures = prev.http_signatures.override {
           patchPhase = ''
@@ -113,10 +113,10 @@ beamPackages.mixRelease rec {
           '';
         };
         fast_html = prev.fast_html.override {
-          nativeBuildInputs = [ cmake ];
+          nativeBuildInputs = [cmake];
           dontUseCmakeConfigure = true;
         };
-        syslog = prev.syslog.override { buildPlugins = with beamPackages; [ pc ]; };
+        syslog = prev.syslog.override {buildPlugins = with beamPackages; [pc];};
 
         # This needs a different version (1.0.14 -> 1.0.18) to build properly with
         # our Erlang/OTP version.
@@ -133,9 +133,9 @@ beamPackages.mixRelease rec {
           patchPhase = ''
             echo '{plugins, [pc]}.' >> rebar.config
           '';
-          buildPlugins = with beamPackages; [ pc ];
+          buildPlugins = with beamPackages; [pc];
 
-          beamDeps = with final; [ p1_utils ];
+          beamDeps = with final; [p1_utils];
         };
         # Required by eimp
         p1_utils = beamPackages.buildRebar3 rec {
@@ -148,7 +148,7 @@ beamPackages.mixRelease rec {
             sha256 = "120znzz0yw1994nk6v28zql9plgapqpv51n9g6qm6md1f4x7gj0z";
           };
 
-          beamDeps = [ ];
+          beamDeps = [];
         };
 
         mime = prev.mime.override {
@@ -176,7 +176,7 @@ beamPackages.mixRelease rec {
             version = prev.crypt.version;
           in
           prev.crypt.override {
-            buildInputs = [ libxcrypt-legacy ];
+            buildInputs = [libxcrypt-legacy];
             postInstall = "mv $out/lib/erlang/lib/crypt-${version}/priv/{hex-source-crypt-${version},crypt}.so";
           };
       });

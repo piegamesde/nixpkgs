@@ -30,7 +30,7 @@ let
       Exec=${steam-gamescope}/bin/steam-gamescope
       Type=Application
     '').overrideAttrs
-      (_: { passthru.providedSessions = [ "steam" ]; });
+      (_: {passthru.providedSessions = ["steam"];});
 in
 {
   options.programs.steam = {
@@ -60,13 +60,13 @@ in
             extraLibraries =
               pkgs:
               let
-                prevLibs = if prev ? extraLibraries then prev.extraLibraries pkgs else [ ];
+                prevLibs = if prev ? extraLibraries then prev.extraLibraries pkgs else [];
                 additionalLibs =
                   with config.hardware.opengl;
                   if pkgs.stdenv.hostPlatform.is64bit then
-                    [ package ] ++ extraPackages
+                    [package] ++ extraPackages
                   else
-                    [ package32 ] ++ extraPackages32;
+                    [package32] ++ extraPackages32;
               in
               prevLibs ++ additionalLibs;
           }
@@ -104,13 +104,13 @@ in
 
     gamescopeSession = mkOption {
       description = mdDoc "Run a GameScope driven Steam session from your display-manager";
-      default = { };
+      default = {};
       type = types.submodule {
         options = {
           enable = mkEnableOption (mdDoc "GameScope Session");
           args = mkOption {
             type = types.listOf types.string;
-            default = [ ];
+            default = [];
             description = mdDoc ''
               Arguments to be passed to GameScope for the session.
             '';
@@ -118,7 +118,7 @@ in
 
           env = mkOption {
             type = types.attrsOf types.string;
-            default = { };
+            default = {};
             description = mdDoc ''
               Environmental variables to be passed to GameScope for the session.
             '';
@@ -163,7 +163,7 @@ in
 
     networking.firewall = lib.mkMerge [
       (mkIf cfg.remotePlay.openFirewall {
-        allowedTCPPorts = [ 27036 ];
+        allowedTCPPorts = [27036];
         allowedUDPPortRanges = [
           {
             from = 27031;
@@ -173,11 +173,11 @@ in
       })
 
       (mkIf cfg.dedicatedServer.openFirewall {
-        allowedTCPPorts = [ 27015 ]; # SRCDS Rcon port
-        allowedUDPPorts = [ 27015 ]; # Gameplay traffic
+        allowedTCPPorts = [27015]; # SRCDS Rcon port
+        allowedUDPPorts = [27015]; # Gameplay traffic
       })
     ];
   };
 
-  meta.maintainers = with maintainers; [ mkg20001 ];
+  meta.maintainers = with maintainers; [mkg20001];
 }

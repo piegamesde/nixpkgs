@@ -15,8 +15,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-L9ww8vVSkVQc/2utpMYiPEbbS9l2WzR9HEKmok9R7UI=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jre];
 
   dontUnpack = true;
 
@@ -36,9 +36,9 @@ stdenv.mkDerivation rec {
       Conventions, but is highly configurable.
     '';
     homepage = "http://checkstyle.sourceforge.net/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = jre.meta.platforms;
   };
 }

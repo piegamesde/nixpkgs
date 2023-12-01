@@ -35,14 +35,14 @@ stdenv.mkDerivation rec {
   # The build enables -O2 by default for everything else.
   hardeningDisable = lib.optional stdenv.cc.isClang "fortify";
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
-  buildInputs = [ libgpg-error ] ++ lib.optional enableCapabilities libcap;
+  buildInputs = [libgpg-error] ++ lib.optional enableCapabilities libcap;
 
   strictDeps = true;
 
   configureFlags =
-    [ "--with-libgpg-error-prefix=${libgpg-error.dev}" ]
+    ["--with-libgpg-error-prefix=${libgpg-error.dev}"]
     ++ lib.optional
       (stdenv.hostPlatform.isMusl || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64))
       "--disable-asm"; # for darwin see https://dev.gnupg.org/T5157

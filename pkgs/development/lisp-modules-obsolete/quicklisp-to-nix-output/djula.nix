@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "djula";
   version = "20211209-git";
@@ -45,7 +45,7 @@ rec {
 
   packageName = "djula";
 
-  asdFilesToKeep = [ "djula.asd" ];
+  asdFilesToKeep = ["djula.asd"];
   overrides = x: x;
 }
 /* (SYSTEM djula DESCRIPTION

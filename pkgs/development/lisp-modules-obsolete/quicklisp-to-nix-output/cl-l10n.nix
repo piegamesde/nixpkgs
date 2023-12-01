@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-l10n";
   version = "20211209-git";
 
-  parasites = [ "cl-l10n/test" ];
+  parasites = ["cl-l10n/test"];
 
   description = "Portable CL Locale Support";
 
@@ -36,7 +36,7 @@ rec {
 
   packageName = "cl-l10n";
 
-  asdFilesToKeep = [ "cl-l10n.asd" ];
+  asdFilesToKeep = ["cl-l10n.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-l10n DESCRIPTION Portable CL Locale Support SHA256

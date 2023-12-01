@@ -31,7 +31,7 @@ buildPythonPackage rec {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "openstackdocstheme" ];
+  pythonImportsCheck = ["openstackdocstheme"];
 
   meta = with lib; {
     description = "Sphinx theme for RST-sourced documentation published to docs.openstack.org";

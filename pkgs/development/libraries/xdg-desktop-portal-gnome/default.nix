@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     wayland # required by GTK 4
   ];
 
-  mesonFlags = [ "-Dsystemduserunitdir=${placeholder "out"}/lib/systemd/user" ];
+  mesonFlags = ["-Dsystemduserunitdir=${placeholder "out"}/lib/systemd/user"];
 
   postInstall = ''
     # Pull in WebP support for gnome-backgrounds.
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = pname; };
+    updateScript = gnome.updateScript {packageName = pname;};
   };
 
   meta = with lib; {

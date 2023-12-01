@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  buildInputs = [ libX11 ];
+  buildInputs = [libX11];
 
   buildPhase = ''
     gcc -Wall -lX11 ${src} -o xgeometry-select
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Select a region with mouse and prints geometry information (x/y/w/h)";
     homepage = "https://bbs.archlinux.org/viewtopic.php?pid=660837";
-    maintainers = with maintainers; [ obadz ];
+    maintainers = with maintainers; [obadz];
     platforms = platforms.linux;
   };
 }

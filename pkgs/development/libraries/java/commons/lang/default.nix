@@ -22,8 +22,8 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://commons.apache.org/proper/commons-lang";
     description = "Provides additional methods to manipulate standard Java library classes";
-    maintainers = with lib.maintainers; [ copumpkin ];
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    maintainers = with lib.maintainers; [copumpkin];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.asl20;
     platforms = with lib.platforms; unix;
   };

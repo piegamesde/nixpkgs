@@ -54,13 +54,13 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  pythonImportsCheck = [ "hass_nabucasa" ];
+  pythonImportsCheck = ["hass_nabucasa"];
 
   meta = with lib; {
     homepage = "https://github.com/NabuCasa/hass-nabucasa";
     description = "Python module for the Home Assistant cloud integration";
     changelog = "https://github.com/NabuCasa/hass-nabucasa/releases/tag/${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ Scriptkiddi ];
+    maintainers = with maintainers; [Scriptkiddi];
   };
 }

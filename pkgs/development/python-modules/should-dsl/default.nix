@@ -21,6 +21,6 @@ buildPythonPackage rec {
     description = "Should assertions in Python as clear and readable as possible";
     homepage = "http://www.should-dsl.info/";
     license = licenses.mit;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

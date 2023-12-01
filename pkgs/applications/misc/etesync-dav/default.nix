@@ -26,12 +26,12 @@ let
             inherit version;
             hash = "sha256-/xdxhfiRMC3CU0N/5jCB56RqTpmsph3+CG+yPlT/8tw=";
           };
-          disabledTests = [ "test_outside_request" ];
+          disabledTests = ["test_outside_request"];
           disabledTestPaths = [
             "tests/test_form.py"
             "tests/test_html5.py"
           ];
-          patches = [ ];
+          patches = [];
         }
       );
       werkzeug = super.werkzeug.overridePythonAttrs (
@@ -73,7 +73,7 @@ python.pkgs.buildPythonApplication rec {
       flask-wtf
       msgpack
       setuptools
-      (python.pkgs.toPythonModule (radicale3.override { python3 = python; }))
+      (python.pkgs.toPythonModule (radicale3.override {python3 = python;}))
       requests
       types-setuptools
     ]

@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage {
     export HOME=$(mktemp -d)
   '';
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
+  buildInputs = [openssl] ++ lib.optionals stdenv.isDarwin [CoreServices];
   nativeBuildInputs = [
     pkg-config
     git
@@ -57,6 +57,6 @@ rustPlatform.buildRustPackage {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
   };
 }

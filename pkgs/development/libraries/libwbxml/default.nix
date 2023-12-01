@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-WCVKfIk6R2rVaz1SbJL9eLqNC0f4VzL74Sw2IKdDE9I=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ expat ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [expat];
 
   postPatch = ''
     sed -i 's/^SET.*$//' cmake/CMakeLists.txt
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/libwbxml/libwbxml";
     description = "The WBXML Library (aka libwbxml) contains a library and its associated tools to Parse, Encode and Handle WBXML documents";
-    maintainers = with maintainers; [ mh ];
+    maintainers = with maintainers; [mh];
     platforms = platforms.linux;
     license = licenses.lgpl21Plus;
   };

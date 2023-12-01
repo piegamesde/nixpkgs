@@ -9,20 +9,20 @@
   requiredPythonModules,
 
   # extra opts
-  extraLibs ? [ ],
-  extraOutputsToInstall ? [ ],
+  extraLibs ? [],
+  extraOutputsToInstall ? [],
   postBuild ? "",
   ignoreCollisions ? false,
   permitUserSite ? false,
   # Wrap executables with the given argument.
-  makeWrapperArgs ? [ ],
+  makeWrapperArgs ? [],
 }:
 
 # Create a python executable that knows about additional packages.
 let
   env =
     let
-      paths = requiredPythonModules (extraLibs ++ [ python ]);
+      paths = requiredPythonModules (extraLibs ++ [python]);
       pythonPath = "${placeholder "out"}/${python.sitePackages}";
       pythonExecutable = "${placeholder "out"}/bin/${python.executable}";
     in
@@ -31,9 +31,9 @@ let
 
       inherit paths;
       inherit ignoreCollisions;
-      extraOutputsToInstall = [ "out" ] ++ extraOutputsToInstall;
+      extraOutputsToInstall = ["out"] ++ extraOutputsToInstall;
 
-      nativeBuildInputs = [ makeBinaryWrapper ];
+      nativeBuildInputs = [makeBinaryWrapper];
 
       postBuild =
         ''
@@ -67,7 +67,7 @@ let
         inherit python;
         env = stdenv.mkDerivation {
           name = "interactive-${python.name}-environment";
-          nativeBuildInputs = [ env ];
+          nativeBuildInputs = [env];
 
           buildCommand = ''
             echo >&2 ""

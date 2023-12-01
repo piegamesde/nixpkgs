@@ -15,13 +15,13 @@ buildPythonPackage rec {
     sha256 = "sha256-USw+U0BDUnqPrioLcVGqJV8towPnf9QPfc9CoeCRzCY=";
   };
 
-  nativeCheckInputs = [ mock ];
-  pythonImportsCheck = [ "file_read_backwards" ];
+  nativeCheckInputs = [mock];
+  pythonImportsCheck = ["file_read_backwards"];
 
   meta = with lib; {
     homepage = "https://github.com/RobinNil/file_read_backwards";
     description = "Memory efficient way of reading files line-by-line from the end of file";
     license = licenses.mit;
-    maintainers = with maintainers; [ j0hax ];
+    maintainers = with maintainers; [j0hax];
   };
 }

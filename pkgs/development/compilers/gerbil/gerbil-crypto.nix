@@ -13,9 +13,9 @@ gerbil-support.gerbilPackage {
   git-version = "0.0-6-ga228862";
   gerbil-package = "clan/crypto";
   gerbil = gerbil-unstable;
-  gerbilInputs = [ gerbil-support.gerbilPackages-unstable.gerbil-utils ];
-  nativeBuildInputs = [ pkgs.pkg-config ];
-  buildInputs = [ pkgs.secp256k1 ];
+  gerbilInputs = [gerbil-support.gerbilPackages-unstable.gerbil-utils];
+  nativeBuildInputs = [pkgs.pkg-config];
+  buildInputs = [pkgs.secp256k1];
   gambit-params = gambit-support.unstable-params;
   version-path = "version";
   softwareName = "Gerbil-crypto";
@@ -30,6 +30,6 @@ gerbil-support.gerbilPackage {
     homepage = "https://github.com/fare/gerbil-crypto";
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ fare ];
+    maintainers = with lib.maintainers; [fare];
   };
 }

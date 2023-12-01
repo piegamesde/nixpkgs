@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     alsa-lib
     boost
@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     homepage = "https://drobilla.net/software/patchage.html";
     license = lib.licenses.lgpl3;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.nico202 ];
+    maintainers = [lib.maintainers.nico202];
   };
 }

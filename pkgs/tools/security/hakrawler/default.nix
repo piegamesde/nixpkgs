@@ -25,6 +25,6 @@ buildGoModule rec {
       and assets within a web application.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

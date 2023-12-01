@@ -22,6 +22,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ricmoo/pyscrypt/";
     description = "Pure-Python implementation of Scrypt PBKDF and scrypt file format library";
     license = licenses.mit;
-    maintainers = with maintainers; [ valodim ];
+    maintainers = with maintainers; [valodim];
   };
 }

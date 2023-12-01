@@ -19,7 +19,7 @@ javaPackages.mavenfod rec {
 
   mvnHash = "sha256-kDYhXTEOAWH/dcRJalKtbwBpoxcD1aX9eqcRKs6ewbE=";
 
-  nativeBuildInputs = [ maven ];
+  nativeBuildInputs = [maven];
 
   installPhase = ''
     EAR=$(find -iname "*.ear")
@@ -34,6 +34,6 @@ javaPackages.mavenfod rec {
       binaryBytecode # dependencies
     ];
     license = licenses.bsd3;
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
   };
 }

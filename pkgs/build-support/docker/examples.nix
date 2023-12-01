@@ -23,9 +23,9 @@ let
   nixosLib = import ../../../nixos/lib {
     # Experimental features need testing too, but there's no point in warning
     # about it, so we enable the feature flag.
-    featureFlags.minimalModules = { };
+    featureFlags.minimalModules = {};
   };
-  evalMinimalConfig = module: nixosLib.evalModules { modules = [ module ]; };
+  evalMinimalConfig = module: nixosLib.evalModules {modules = [module];};
 in
 
 rec {
@@ -35,8 +35,8 @@ rec {
     tag = "latest";
     copyToRoot = pkgs.buildEnv {
       name = "image-root";
-      paths = [ pkgs.bashInteractive ];
-      pathsToLink = [ "/bin" ];
+      paths = [pkgs.bashInteractive];
+      pathsToLink = ["/bin"];
     };
   };
 
@@ -51,8 +51,8 @@ rec {
 
     copyToRoot = pkgs.buildEnv {
       name = "image-root";
-      paths = [ pkgs.redis ];
-      pathsToLink = [ "/bin" ];
+      paths = [pkgs.redis];
+      pathsToLink = ["/bin"];
     };
 
     runAsRoot = ''
@@ -60,10 +60,10 @@ rec {
     '';
 
     config = {
-      Cmd = [ "/bin/redis-server" ];
+      Cmd = ["/bin/redis-server"];
       WorkingDir = "/data";
       Volumes = {
-        "/data" = { };
+        "/data" = {};
       };
     };
   };
@@ -116,7 +116,7 @@ rec {
           nginxConf
         ];
         ExposedPorts = {
-          "${nginxPort}/tcp" = { };
+          "${nginxPort}/tcp" = {};
         };
       };
     };
@@ -144,7 +144,7 @@ rec {
     name = "editors";
     copyToRoot = pkgs.buildEnv {
       name = "image-root";
-      pathsToLink = [ "/bin" ];
+      pathsToLink = ["/bin"];
       paths = [
         pkgs.coreutils
         pkgs.bash
@@ -162,7 +162,7 @@ rec {
     tag = "latest";
     copyToRoot = pkgs.buildEnv {
       name = "image-root";
-      pathsToLink = [ "/bin" ];
+      pathsToLink = ["/bin"];
       paths = [
         # nix-store uses cat program to display results as specified by
         # the image env variable NIX_PAGER.
@@ -189,8 +189,8 @@ rec {
     fromImage = nixFromDockerHub;
     copyToRoot = pkgs.buildEnv {
       name = "image-root";
-      pathsToLink = [ "/bin" ];
-      paths = [ pkgs.hello ];
+      pathsToLink = ["/bin"];
+      paths = [pkgs.hello];
     };
   };
 
@@ -201,8 +201,8 @@ rec {
     tag = "latest";
     copyToRoot = pkgs.buildEnv {
       name = "image-root";
-      pathsToLink = [ "/bin" ];
-      paths = [ pkgs.coreutils ];
+      pathsToLink = ["/bin"];
+      paths = [pkgs.coreutils];
     };
     # The parens here are to create problematic bash to embed and eval. In case
     # this is *embedded* into the script (with nix expansion) the initial quotes
@@ -218,8 +218,8 @@ rec {
     tag = "latest";
     copyToRoot = pkgs.buildEnv {
       name = "image-root";
-      pathsToLink = [ "/bin" ];
-      paths = [ pkgs.coreutils ];
+      pathsToLink = ["/bin"];
+      paths = [pkgs.coreutils];
     };
     created = "now";
   };
@@ -229,7 +229,7 @@ rec {
     name = "layered-image";
     tag = "latest";
     extraCommands = ''echo "(extraCommand)" > extraCommands'';
-    config.Cmd = [ "${pkgs.hello}/bin/hello" ];
+    config.Cmd = ["${pkgs.hello}/bin/hello"];
     contents = [
       pkgs.hello
       pkgs.bash
@@ -247,7 +247,7 @@ rec {
       chmod 777 ./example-output
     '';
     config = {
-      Env = [ "PATH=${pkgs.coreutils}/bin/" ];
+      Env = ["PATH=${pkgs.coreutils}/bin/"];
       WorkingDir = "/example-output";
       Cmd = [
         "${pkgs.bash}/bin/bash"
@@ -267,7 +267,7 @@ rec {
       chmod 777 ./example-output
     '';
     config = {
-      Env = [ "PATH=${pkgs.coreutils}/bin/" ];
+      Env = ["PATH=${pkgs.coreutils}/bin/"];
       WorkingDir = "/example-output";
       Cmd = [
         "${pkgs.bash}/bin/bash"
@@ -321,8 +321,8 @@ rec {
       tag = "latest";
       copyToRoot = pkgs.buildEnv {
         name = "image-root";
-        pathsToLink = [ "/bin" ];
-        paths = [ pkgs.coreutils ];
+        pathsToLink = ["/bin"];
+        paths = [pkgs.coreutils];
       };
       extraCommands = ''
         mkdir -p tmp
@@ -350,8 +350,8 @@ rec {
     tag = "latest";
     copyToRoot = pkgs.buildEnv {
       name = "image-root";
-      pathsToLink = [ "/bin" ];
-      paths = [ pkgs.coreutils ];
+      pathsToLink = ["/bin"];
+      paths = [pkgs.coreutils];
     };
     config = {
       Env = [
@@ -365,7 +365,7 @@ rec {
     name = "child";
     fromImage = environmentVariablesParent;
     tag = "latest";
-    contents = [ pkgs.coreutils ];
+    contents = [pkgs.coreutils];
     config = {
       Env = [
         "FROM_CHILD=true"
@@ -378,14 +378,14 @@ rec {
   another-layered-image = pkgs.dockerTools.buildLayeredImage {
     name = "another-layered-image";
     tag = "latest";
-    config.Cmd = [ "${pkgs.hello}/bin/hello" ];
+    config.Cmd = ["${pkgs.hello}/bin/hello"];
   };
 
   # 17. Create a layered image with only 2 layers
   two-layered-image = pkgs.dockerTools.buildLayeredImage {
     name = "two-layered-image";
     tag = "latest";
-    config.Cmd = [ "${pkgs.hello}/bin/hello" ];
+    config.Cmd = ["${pkgs.hello}/bin/hello"];
     contents = [
       pkgs.bash
       pkgs.hello
@@ -467,9 +467,9 @@ rec {
       '')
     ];
     config = {
-      Cmd = [ "myscript" ];
+      Cmd = ["myscript"];
       # For some reason 'nix-store --verify' requires this environment variable
-      Env = [ "USER=root" ];
+      Env = ["USER=root"];
     };
   };
 
@@ -478,7 +478,7 @@ rec {
   unstableDateLayered = pkgs.dockerTools.buildLayeredImage {
     name = "unstable-date-layered";
     tag = "latest";
-    contents = [ pkgs.coreutils ];
+    contents = [pkgs.coreutils];
     created = "now";
   };
 
@@ -494,8 +494,8 @@ rec {
           fromImage = parent;
           copyToRoot = pkgs.buildEnv {
             name = "image-root";
-            pathsToLink = [ "/bin" ];
-            paths = [ pkgs.coreutils ];
+            pathsToLink = ["/bin"];
+            paths = [pkgs.coreutils];
           };
           runAsRoot = ''
             #!${pkgs.runtimeShell}
@@ -587,8 +587,8 @@ rec {
       tag = "latest";
       copyToRoot = pkgs.buildEnv {
         name = "image-root";
-        pathsToLink = [ "/bin" ];
-        paths = [ crossPkgs.hello ];
+        pathsToLink = ["/bin"];
+        paths = [crossPkgs.hello];
       };
     };
 
@@ -596,7 +596,7 @@ rec {
   layeredStoreSymlink =
     let
       target = pkgs.writeTextDir "dir/target" "Content doesn't matter.";
-      symlink = pkgs.runCommand "symlink" { } "ln -s ${target} $out";
+      symlink = pkgs.runCommand "symlink" {} "ln -s ${target} $out";
     in
     pkgs.dockerTools.buildLayeredImage {
       name = "layeredstoresymlink";
@@ -616,21 +616,21 @@ rec {
   prefixedImage = pkgs.dockerTools.buildImage {
     name = "registry-1.docker.io/image";
     tag = "latest";
-    config.Cmd = [ "${pkgs.hello}/bin/hello" ];
+    config.Cmd = ["${pkgs.hello}/bin/hello"];
   };
 
   # layered image with registry/ prefix
   prefixedLayeredImage = pkgs.dockerTools.buildLayeredImage {
     name = "registry-1.docker.io/layered-image";
     tag = "latest";
-    config.Cmd = [ "${pkgs.hello}/bin/hello" ];
+    config.Cmd = ["${pkgs.hello}/bin/hello"];
   };
 
   # layered image with files owned by a user other than root
   layeredImageWithFakeRootCommands = pkgs.dockerTools.buildLayeredImage {
     name = "layered-image-with-fake-root-commands";
     tag = "latest";
-    contents = [ pkgs.pkgsStatic.busybox ];
+    contents = [pkgs.pkgsStatic.busybox];
     fakeRootCommands = ''
       mkdir -p ./home/alice
       chown 1000 ./home/alice
@@ -638,9 +638,7 @@ rec {
         pkgs.hello.overrideAttrs (
           o: {
             # A unique `hello` to make sure that it isn't included via another mechanism by accident.
-            configureFlags = o.configureFlags or [ ] ++ [
-              " --program-prefix=layeredImageWithFakeRootCommands-"
-            ];
+            configureFlags = o.configureFlags or [] ++ [" --program-prefix=layeredImageWithFakeRootCommands-"];
             doCheck = false;
           }
         )
@@ -673,10 +671,10 @@ rec {
     contents = [
       (pkgs.buildEnv {
         name = "hello-root";
-        paths = [ pkgs.hello ];
+        paths = [pkgs.hello];
       })
     ];
-    config.Cmd = [ "hello" ];
+    config.Cmd = ["hello"];
   };
 
   helloOnRootNoStore = pkgs.dockerTools.streamLayeredImage {
@@ -685,10 +683,10 @@ rec {
     contents = [
       (pkgs.buildEnv {
         name = "hello-root";
-        paths = [ pkgs.hello ];
+        paths = [pkgs.hello];
       })
     ];
-    config.Cmd = [ "hello" ];
+    config.Cmd = ["hello"];
     includeStorePaths = false;
   };
 
@@ -697,7 +695,7 @@ rec {
       inherit (pkgs) lib;
       nixosCore =
         (evalMinimalConfig (
-          { config, ... }:
+          {config, ...}:
           {
             imports = [
               pkgs.pkgsModule
@@ -729,12 +727,12 @@ rec {
     };
 
   # Example export of the bash image
-  exportBash = pkgs.dockerTools.exportImage { fromImage = bash; };
+  exportBash = pkgs.dockerTools.exportImage {fromImage = bash;};
 
   imageViaFakeChroot = pkgs.dockerTools.streamLayeredImage {
     name = "image-via-fake-chroot";
     tag = "latest";
-    config.Cmd = [ "hello" ];
+    config.Cmd = ["hello"];
     enableFakechroot = true;
     # Crucially, instead of a relative path, this creates /bin, which is
     # intercepted by fakechroot.
@@ -798,7 +796,7 @@ rec {
       ];
     };
 
-    config = { };
+    config = {};
   };
 
   nix-shell-basic = streamNixShellImage {
@@ -821,7 +819,7 @@ rec {
   nix-shell-inputs = streamNixShellImage {
     name = "nix-shell-inputs";
     tag = "latest";
-    drv = pkgs.mkShell { nativeBuildInputs = [ pkgs.hello ]; };
+    drv = pkgs.mkShell {nativeBuildInputs = [pkgs.hello];};
     command = ''
       hello
     '';
@@ -832,7 +830,7 @@ rec {
     tag = "latest";
     drv = pkgs.mkShell {
       str = "this is a string";
-      passAsFile = [ "str" ];
+      passAsFile = ["str"];
     };
     command = ''
       cat "$strPath"
@@ -842,7 +840,7 @@ rec {
   nix-shell-run = streamNixShellImage {
     name = "nix-shell-run";
     tag = "latest";
-    drv = pkgs.mkShell { };
+    drv = pkgs.mkShell {};
     run = ''
       case "$-" in
       *i*) echo This shell is interactive ;;
@@ -854,7 +852,7 @@ rec {
   nix-shell-command = streamNixShellImage {
     name = "nix-shell-command";
     tag = "latest";
-    drv = pkgs.mkShell { };
+    drv = pkgs.mkShell {};
     command = ''
       case "$-" in
       *i*) echo This shell is interactive ;;
@@ -866,7 +864,7 @@ rec {
   nix-shell-writable-home = streamNixShellImage {
     name = "nix-shell-writable-home";
     tag = "latest";
-    drv = pkgs.mkShell { };
+    drv = pkgs.mkShell {};
     run = ''
       if [[ "$HOME" != "$(eval "echo ~$(whoami)")" ]]; then
         echo "\$HOME ($HOME) is not the same as ~\$(whoami) ($(eval "echo ~$(whoami)"))"
@@ -884,7 +882,7 @@ rec {
   nix-shell-nonexistent-home = streamNixShellImage {
     name = "nix-shell-nonexistent-home";
     tag = "latest";
-    drv = pkgs.mkShell { };
+    drv = pkgs.mkShell {};
     homeDirectory = "/homeless-shelter";
     run = ''
       if [[ "$HOME" != "$(eval "echo ~$(whoami)")" ]]; then

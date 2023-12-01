@@ -10,9 +10,9 @@ with lib;
 let
 
   cfg = config.services.thinkfan;
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   configFile = settingsFormat.generate "thinkfan.yaml" cfg.settings;
-  thinkfan = pkgs.thinkfan.override { inherit (cfg) smartSupport; };
+  thinkfan = pkgs.thinkfan.override {inherit (cfg) smartSupport;};
 
   # fan-speed and temperature levels
   levelType =
@@ -104,7 +104,7 @@ let
 
   # removes NixOS special and unused attributes
   sensorToConf =
-    { type, query, ... }@args:
+    {type, query, ...}@args:
     (filterAttrs
       (
         k: v:
@@ -152,7 +152,7 @@ in
           other hardware you will have configure it more carefully.
           :::
         '';
-        relatedPackages = [ "thinkfan" ];
+        relatedPackages = ["thinkfan"];
       };
 
       smartSupport = mkOption {
@@ -247,7 +247,7 @@ in
 
       extraArgs = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "-b"
           "0"
@@ -260,7 +260,7 @@ in
 
       settings = mkOption {
         type = types.attrsOf settingsFormat.type;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Thinkfan settings. Use this option to configure thinkfan
           settings not exposed in a NixOS option or to bypass one.
@@ -274,7 +274,7 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ thinkfan ];
+    environment.systemPackages = [thinkfan];
 
     services.thinkfan.settings = mapAttrs (k: v: mkDefault v) {
       sensors = map sensorToConf cfg.sensors;
@@ -282,7 +282,7 @@ in
       levels = cfg.levels;
     };
 
-    systemd.packages = [ thinkfan ];
+    systemd.packages = [thinkfan];
 
     systemd.services = {
       thinkfan.environment.THINKFAN_ARGS = escapeShellArgs (
@@ -294,9 +294,9 @@ in
       );
 
       # must be added manually, see issue #81138
-      thinkfan.wantedBy = [ "multi-user.target" ];
-      thinkfan-wakeup.wantedBy = [ "sleep.target" ];
-      thinkfan-sleep.wantedBy = [ "sleep.target" ];
+      thinkfan.wantedBy = ["multi-user.target"];
+      thinkfan-wakeup.wantedBy = ["sleep.target"];
+      thinkfan-sleep.wantedBy = ["sleep.target"];
     };
 
     boot.extraModprobeConfig = "options thinkpad_acpi experimental=1 fan_control=1";

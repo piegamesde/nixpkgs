@@ -26,7 +26,7 @@ buildGoModule rec {
     description = "Shell script prometheus exporter";
     homepage = "https://github.com/adhocteam/script_exporter";
     license = licenses.mit;
-    maintainers = with maintainers; [ Flakebi ];
+    maintainers = with maintainers; [Flakebi];
     platforms = platforms.linux;
   };
 }

@@ -82,7 +82,7 @@ buildPythonPackage rec {
     "cheroot/test/test_ssl.py"
   ];
 
-  pythonImportsCheck = [ "cheroot" ];
+  pythonImportsCheck = ["cheroot"];
 
   # Some of the tests use localhost networking.
   __darwinAllowLocalNetworking = true;
@@ -91,6 +91,6 @@ buildPythonPackage rec {
     description = "High-performance, pure-Python HTTP";
     homepage = "https://github.com/cherrypy/cheroot";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

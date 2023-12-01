@@ -71,7 +71,7 @@ in
 
     configure = mkOption {
       type = types.attrs;
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           customRC = '''
@@ -106,7 +106,7 @@ in
     };
 
     runtime = mkOption {
-      default = { };
+      default = {};
       example = literalExpression ''
         { "ftplugin/c.vim".text = "setlocal omnifunc=v:lua.vim.lsp.omnifunc"; }
       '';
@@ -118,7 +118,7 @@ in
         with types;
         attrsOf (
           submodule (
-            { name, config, ... }:
+            {name, config, ...}:
             {
               options = {
 
@@ -159,7 +159,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.finalPackage ];
+    environment.systemPackages = [cfg.finalPackage];
     environment.variables.EDITOR = mkIf cfg.defaultEditor (mkOverride 900 "nvim");
 
     environment.etc = listToAttrs (

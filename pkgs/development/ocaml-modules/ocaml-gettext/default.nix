@@ -19,7 +19,7 @@ buildDunePackage rec {
     sha256 = "19ynsldb21r539fiwz1f43apsdnx7hj2a2d9qr9wg2hva9y2qrwb";
   };
 
-  nativeBuildInputs = [ cppo ];
+  nativeBuildInputs = [cppo];
 
   propagatedBuildInputs = [
     gettext
@@ -29,7 +29,7 @@ buildDunePackage rec {
   # Tests for version 0.4.2 are not compatible with OUnit 2.2.6
   doCheck = false;
 
-  checkInputs = [ ounit ];
+  checkInputs = [ounit];
 
   dontStrip = true;
 
@@ -37,7 +37,7 @@ buildDunePackage rec {
     description = "OCaml Bindings to gettext";
     homepage = "https://github.com/gildor478/ocaml-gettext";
     license = licenses.lgpl21;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "ocaml-gettext";
   };
 }

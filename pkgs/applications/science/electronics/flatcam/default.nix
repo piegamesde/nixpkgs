@@ -85,6 +85,6 @@ python.pkgs.buildPythonApplication rec {
     description = "2-D post processing for PCB fabrication on CNC routers";
     homepage = "https://bitbucket.org/jpcgt/flatcam";
     license = licenses.mit;
-    maintainers = with maintainers; [ trepetti ];
+    maintainers = with maintainers; [trepetti];
   };
 }

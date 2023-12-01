@@ -61,14 +61,14 @@ buildPythonApplication rec {
     tinyprog # needed for upload to TinyFPGA
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "--offline" ];
+  pytestFlagsArray = ["--offline"];
 
   meta = with lib; {
     description = "Open source ecosystem for open FPGA boards";
     homepage = "https://github.com/FPGAwars/apio";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
   };
 }

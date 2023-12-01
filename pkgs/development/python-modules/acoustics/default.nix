@@ -24,7 +24,7 @@ buildPythonPackage rec {
   };
   format = "pyproject";
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     matplotlib
@@ -34,7 +34,7 @@ buildPythonPackage rec {
     tabulate
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -42,7 +42,7 @@ buildPythonPackage rec {
     echo "backend: ps" > $HOME/.matplotlib/matplotlibrc
   '';
 
-  pytestFlagsArray = [ "-Wignore::DeprecationWarning" ];
+  pytestFlagsArray = ["-Wignore::DeprecationWarning"];
 
   disabledTestPaths =
     [
@@ -50,12 +50,12 @@ buildPythonPackage rec {
       "tests/standards/test_iso_1996_2_2007.py"
     ];
 
-  pythonImportsCheck = [ "acoustics" ];
+  pythonImportsCheck = ["acoustics"];
 
   meta = with lib; {
     description = "Python package for acousticians";
-    maintainers = with maintainers; [ fridh ];
-    license = with licenses; [ bsd3 ];
+    maintainers = with maintainers; [fridh];
+    license = with licenses; [bsd3];
     homepage = "https://github.com/python-acoustics/python-acoustics";
   };
 }

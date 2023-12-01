@@ -57,7 +57,7 @@ stdenvNoCC.mkDerivation {
   dontUnpack = true;
   dontInstall = true;
 
-  buildInputs = [ unrar-wrapper ];
+  buildInputs = [unrar-wrapper];
 
   buildPhase =
     ''

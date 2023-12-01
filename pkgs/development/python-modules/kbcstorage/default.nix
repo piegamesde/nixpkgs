@@ -32,7 +32,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     azure-storage-blob
@@ -61,6 +61,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/keboola/sapi-python-client";
     changelog = "https://github.com/keboola/sapi-python-client/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ mrmebelman ];
+    maintainers = with maintainers; [mrmebelman];
   };
 }

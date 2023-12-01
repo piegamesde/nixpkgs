@@ -22,7 +22,7 @@ in
 
   hiddenDir = testers.invalidateFetcherByDrvHash fetchzip {
     url = "file://${
-      runCommand "hiddendir.tar" { } ''
+      runCommand "hiddendir.tar" {} ''
         mkdir .foo
         tar -cf $out .foo
       ''

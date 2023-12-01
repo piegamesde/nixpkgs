@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     makeWrapper
     perl
   ];
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   makeFlags = [
     "PERL=perl"
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   postInstall = ''
     rm -r $out/lib/systemd
     for i in "$out/sbin/"*; do
-      wrapProgram "$i" --prefix PATH : "${lib.makeBinPath [ iptables ]}"
+      wrapProgram "$i" --prefix PATH : "${lib.makeBinPath [iptables]}"
     done
   '';
 
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       language, which can contain levels and lists.
     '';
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ mic92 ];
+    maintainers = with lib.maintainers; [mic92];
     platforms = lib.platforms.linux;
   };
 }

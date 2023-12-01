@@ -17,9 +17,9 @@ callPackage ./generic.nix {
     sha256 = "sha256-iwJsq0FN9npxveIoMiB7zL5j1V72IExtEpzGj6lwLXQ=";
   };
 
-  extraNativeBuildInputs = [ autoPatchelfHook ];
+  extraNativeBuildInputs = [autoPatchelfHook];
 
-  extraBuildInputs = [ zlib ];
+  extraBuildInputs = [zlib];
 
   postInstall =
     let

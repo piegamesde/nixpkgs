@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Iil+dfjuWYPbzmSjgwKTKScSE/IsWuHEKQ5HsBJDqWM=";
   };
 
-  nativeBuildInputs = [ mbuild ];
+  nativeBuildInputs = [mbuild];
 
   buildPhase = ''
     patchShebangs mfile.py
@@ -47,6 +47,6 @@ stdenv.mkDerivation rec {
     homepage = "https://intelxed.github.io/";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ arturcygan ];
+    maintainers = with maintainers; [arturcygan];
   };
 }

@@ -23,7 +23,7 @@ stdenv.mkDerivation (
     pname = "roctracer";
     version = "5.4.3";
 
-    outputs = [ "out" ] ++ lib.optionals buildDocs [ "doc" ] ++ lib.optionals buildTests [ "test" ];
+    outputs = ["out"] ++ lib.optionals buildDocs ["doc"] ++ lib.optionals buildTests ["test"];
 
     src = fetchFromGitHub {
       owner = "ROCm-Developer-Tools";
@@ -110,7 +110,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "Tracer callback/activity library";
       homepage = "https://github.com/ROCm-Developer-Tools/roctracer";
-      license = with licenses; [ mit ]; # mitx11
+      license = with licenses; [mit]; # mitx11
       maintainers = teams.rocm.members;
       platforms = platforms.linux;
       broken = versions.minor finalAttrs.version != versions.minor hip.version;

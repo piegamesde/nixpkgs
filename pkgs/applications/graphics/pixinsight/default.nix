@@ -160,11 +160,11 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Scientific image processing program for astrophotography";
     homepage = "https://pixinsight.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ maintainers.sheepforce ];
-    hydraPlatforms = [ ];
+    platforms = ["x86_64-linux"];
+    maintainers = [maintainers.sheepforce];
+    hydraPlatforms = [];
     mainProgram = "PixInsight";
   };
 }

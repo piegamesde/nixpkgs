@@ -58,7 +58,7 @@ let
       file = "libs/linux/libjSSC-2.8_x86.so";
     };
   # abiVersion 6 is default, but we need 5 for `avrdude_bin` executable
-  ncurses5 = ncurses.override { abiVersion = "5"; };
+  ncurses5 = ncurses.override {abiVersion = "5";};
   teensy_libpath = lib.makeLibraryPath [
     atk
     cairo
@@ -146,7 +146,7 @@ stdenv.mkDerivation rec {
     zlib
     ncurses5
     readline
-  ] ++ lib.optionals withTeensyduino [ upx ];
+  ] ++ lib.optionals withTeensyduino [upx];
   downloadSrcList = builtins.attrValues externalDownloads;
   downloadDstList = builtins.attrNames externalDownloads;
 
@@ -175,8 +175,8 @@ stdenv.mkDerivation rec {
 
   # This will be patched into `arduino` wrapper script
   # Java loads gtk dynamically, so we need to provide it using LD_LIBRARY_PATH
-  dynamicLibraryPath = lib.makeLibraryPath [ gtk3 ];
-  javaPath = lib.makeBinPath [ jdk ];
+  dynamicLibraryPath = lib.makeLibraryPath [gtk3];
+  javaPath = lib.makeBinPath [jdk];
 
   # Everything else will be patched into rpath
   rpath = lib.makeLibraryPath [
@@ -250,7 +250,7 @@ stdenv.mkDerivation rec {
 
     ${lib.concatMapStringsSep "\n"
       (
-        { jar, file }:
+        {jar, file}:
         ''
           jar xvf $out/${jar} ${file}
           patchelf --set-rpath $rpath ${file}
@@ -262,7 +262,7 @@ stdenv.mkDerivation rec {
 
     # avrdude_bin is linked against libtinfo.so.5
     mkdir $out/lib/
-    ln -s ${lib.makeLibraryPath [ ncurses5 ]}/libtinfo.so.5 $out/lib/libtinfo.so.5
+    ln -s ${lib.makeLibraryPath [ncurses5]}/libtinfo.so.5 $out/lib/libtinfo.so.5
 
     ${lib.optionalString withTeensyduino ''
       # Patch the Teensy loader binary

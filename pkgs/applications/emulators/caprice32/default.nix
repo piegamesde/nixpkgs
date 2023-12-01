@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  patches = [ ./string.patch ];
+  patches = [./string.patch];
 
   makeFlags = [
     "APP_PATH=${placeholder "out"}/share/caprice32"
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     description = "A complete emulation of CPC464, CPC664 and CPC6128";
     homepage = "https://github.com/ColinPitrat/caprice32";
     license = licenses.gpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

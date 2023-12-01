@@ -40,13 +40,13 @@ rustPlatform.buildRustPackage rec {
       automake
     ];
 
-  buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
+  buildInputs = [openssl] ++ lib.optional stdenv.isDarwin Security;
 
   meta = with lib; {
     description = ''A Matrix bot which can generate "This Week in X" like blog posts '';
     homepage = "https://github.com/haecker-felix/hebbot";
     changelog = "https://github.com/haecker-felix/hebbot/releases/tag/v${version}";
-    license = with licenses; [ agpl3 ];
-    maintainers = with maintainers; [ a-kenji ];
+    license = with licenses; [agpl3];
+    maintainers = with maintainers; [a-kenji];
   };
 }

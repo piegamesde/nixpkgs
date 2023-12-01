@@ -12,7 +12,7 @@
 
 mkDerivation {
   pname = "kactivities";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     boost
     kconfig
@@ -21,5 +21,5 @@ mkDerivation {
     kwindowsystem
     qtdeclarative
   ];
-  propagatedBuildInputs = [ qtbase ];
+  propagatedBuildInputs = [qtbase];
 }

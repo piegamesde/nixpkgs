@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "1gdp5wm8khn02g2miz381llw3191k7309qj8s3jd6sasj01rhf23";
   };
 
-  nativeBuildInputs = [ cmake ];
-  cmakeFlags = [ "-DUSE_CPP14=ON" ];
+  nativeBuildInputs = [cmake];
+  cmakeFlags = ["-DUSE_CPP14=ON"];
 
   patches = [
     # https://github.com/catchorg/Catch2/pull/2151

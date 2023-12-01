@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0CGs3k+77T2T662YFCL2cfSNZrKeyI196DZC7Pv/T9A=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     e2fsprogs
     ncurses
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     homepage = "https://dump.sourceforge.io/";
     description = "Linux Ext2 filesystem dump/restore utilities";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ falsifian ];
+    maintainers = with maintainers; [falsifian];
   };
 }

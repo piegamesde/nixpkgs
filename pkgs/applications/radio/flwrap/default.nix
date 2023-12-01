@@ -21,13 +21,13 @@ stdenv.mkDerivation rec {
     libjpeg
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = {
     description = "Digital modem file transfer program";
     homepage = "https://sourceforge.net/projects/fldigi/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ dysinger ];
+    maintainers = with lib.maintainers; [dysinger];
     platforms = lib.platforms.linux;
   };
 }

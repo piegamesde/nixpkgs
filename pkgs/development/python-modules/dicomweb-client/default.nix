@@ -38,13 +38,13 @@ buildPythonPackage rec {
     pytest-localserver
   ];
 
-  pythonImportsCheck = [ "dicomweb_client" ];
+  pythonImportsCheck = ["dicomweb_client"];
 
   meta = with lib; {
     description = "Python client for DICOMweb RESTful services";
     homepage = "https://dicomweb-client.readthedocs.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     mainProgram = "dicomweb_client";
   };
 }

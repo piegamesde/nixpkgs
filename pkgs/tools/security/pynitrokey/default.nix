@@ -38,7 +38,7 @@ buildPythonApplication rec {
     typing-extensions
   ];
 
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  nativeBuildInputs = [pythonRelaxDepsHook];
 
   pythonRelaxDeps = [
     "cryptography"
@@ -50,12 +50,12 @@ buildPythonApplication rec {
 
   # libnitrokey is not propagated to users of pynitrokey
   # It is only usable from the wrapped bin/nitropy
-  makeWrapperArgs = [ "--set LIBNK_PATH ${lib.makeLibraryPath [ libnitrokey ]}" ];
+  makeWrapperArgs = ["--set LIBNK_PATH ${lib.makeLibraryPath [libnitrokey]}"];
 
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pynitrokey" ];
+  pythonImportsCheck = ["pynitrokey"];
 
   meta = with lib; {
     description = "Python client for Nitrokey devices";
@@ -64,7 +64,7 @@ buildPythonApplication rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ frogamic ];
+    maintainers = with maintainers; [frogamic];
     mainProgram = "nitropy";
   };
 }

@@ -23,6 +23,6 @@ buildPythonPackage rec {
     description = "Time manipulation utilities for Python";
     homepage = "https://hiro.readthedocs.io/en/latest/";
     license = licenses.mit;
-    maintainers = with maintainers; [ nyarly ];
+    maintainers = with maintainers; [nyarly];
   };
 }

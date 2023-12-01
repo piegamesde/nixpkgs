@@ -21,9 +21,9 @@ stdenv.mkDerivation {
     patchShebangs .
   '';
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = {
     description = "Multiple Repository management tool";

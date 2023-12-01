@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     ocaml
     eprover
   ];
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   preConfigure = "patchShebangs .";
 

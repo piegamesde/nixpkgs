@@ -23,19 +23,19 @@
   copyGemFiles ? false, # Copy gem files instead of symlinking
   gemConfig ? defaultGemConfig,
   postBuild ? null,
-  document ? [ ],
-  meta ? { },
+  document ? [],
+  meta ? {},
   groups ? null,
   ignoreCollisions ? false,
-  nativeBuildInputs ? [ ],
-  buildInputs ? [ ],
-  extraConfigPaths ? [ ],
+  nativeBuildInputs ? [],
+  buildInputs ? [],
+  extraConfigPaths ? [],
   ...
 }@args:
 
 assert name == null -> pname != null;
 
-with import ./functions.nix { inherit lib gemConfig; };
+with import ./functions.nix {inherit lib gemConfig;};
 
 let
   gemFiles = bundlerFiles args;
@@ -43,7 +43,7 @@ let
   importedGemset =
     if builtins.typeOf gemFiles.gemset != "set" then import gemFiles.gemset else gemFiles.gemset;
 
-  filteredGemset = filterGemset { inherit ruby groups; } importedGemset;
+  filteredGemset = filterGemset {inherit ruby groups;} importedGemset;
 
   configuredGemset = lib.flip lib.mapAttrs filteredGemset (
     name: attrs:
@@ -58,7 +58,7 @@ let
 
   hasBundler = builtins.hasAttr "bundler" filteredGemset;
 
-  bundler = if hasBundler then gems.bundler else defs.bundler.override (attrs: { inherit ruby; });
+  bundler = if hasBundler then gems.bundler else defs.bundler.override (attrs: {inherit ruby;});
 
   gems = lib.flip lib.mapAttrs configuredGemset (name: attrs: buildGem name attrs);
 
@@ -97,7 +97,7 @@ let
   # We have to normalize the Gemfile.lock, otherwise bundler tries to be
   # helpful by doing so at run time, causing executables to immediately bail
   # out. Yes, I'm serious.
-  confFiles = runCommand "gemfile-and-lockfile" { } ''
+  confFiles = runCommand "gemfile-and-lockfile" {} ''
     mkdir -p $out
     ${maybeCopyAll mainGemName}
     cp ${gemFiles.gemfile} $out/Gemfile || ls -l $out/Gemfile
@@ -126,7 +126,7 @@ let
     name = name';
 
     paths = envPaths;
-    pathsToLink = [ "/lib" ];
+    pathsToLink = ["/lib"];
 
     postBuild =
       genStubsScript (
@@ -155,7 +155,7 @@ let
       wrappedRuby = stdenv.mkDerivation {
         name = "wrapped-ruby-${pname'}";
 
-        nativeBuildInputs = [ makeBinaryWrapper ];
+        nativeBuildInputs = [makeBinaryWrapper];
 
         dontUnpack = true;
 

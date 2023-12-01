@@ -27,8 +27,8 @@ let
           rev = version;
           sha256 = "sha256-69Svno0qLaUifMscnVuPUJlCo9d8Lee+1qiYx34G3Po=";
         };
-        env = { };
-        buildInputs = [ camlp-streams ];
+        env = {};
+        buildInputs = [camlp-streams];
       }
     else if check "3.12" then
       {
@@ -62,10 +62,10 @@ stdenv.mkDerivation {
     gtk2
     libgnomecanvas
     gtksourceview
-  ] ++ param.buildInputs or [ ];
+  ] ++ param.buildInputs or [];
 
-  configureFlags = [ "--with-libdir=$(out)/lib/ocaml/${ocaml.version}/site-lib" ];
-  buildFlags = [ "world" ];
+  configureFlags = ["--with-libdir=$(out)/lib/ocaml/${ocaml.version}/site-lib"];
+  buildFlags = ["world"];
 
   preInstall = ''
     mkdir -p $out/lib/ocaml/${ocaml.version}/site-lib

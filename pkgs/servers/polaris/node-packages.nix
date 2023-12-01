@@ -7,7 +7,7 @@
   nix-gitignore,
   stdenv,
   lib,
-  globalBuildInputs ? [ ],
+  globalBuildInputs ? [],
 }:
 
 let
@@ -3578,7 +3578,7 @@ let
       (
         sources."@babel/highlight-7.16.10"
         // {
-          dependencies = [ sources."@babel/helper-validator-identifier-7.16.7" ];
+          dependencies = [sources."@babel/helper-validator-identifier-7.16.7"];
         }
       )
       sources."@babel/parser-7.17.8"
@@ -3603,7 +3603,7 @@ let
           ];
         }
       )
-      (sources."@cypress/xvfb-1.2.4" // { dependencies = [ sources."debug-3.2.7" ]; })
+      (sources."@cypress/xvfb-1.2.4" // {dependencies = [sources."debug-3.2.7"];})
       (
         sources."@parcel/bundler-default-2.3.2"
         // {
@@ -3646,7 +3646,7 @@ let
       )
       sources."@parcel/diagnostic-2.3.2"
       sources."@parcel/events-2.3.2"
-      (sources."@parcel/fs-2.3.2" // { dependencies = [ sources."@parcel/types-2.3.2" ]; })
+      (sources."@parcel/fs-2.3.2" // {dependencies = [sources."@parcel/types-2.3.2"];})
       sources."@parcel/fs-search-2.3.2"
       sources."@parcel/graph-2.3.2"
       sources."@parcel/hash-2.3.2"
@@ -3719,7 +3719,7 @@ let
           ];
         }
       )
-      (sources."@parcel/package-manager-2.3.2" // { dependencies = [ sources."@parcel/types-2.3.2" ]; })
+      (sources."@parcel/package-manager-2.3.2" // {dependencies = [sources."@parcel/types-2.3.2"];})
       (
         sources."@parcel/packager-css-2.3.2"
         // {
@@ -3978,8 +3978,8 @@ let
           ];
         }
       )
-      (sources."@parcel/watcher-2.0.5" // { dependencies = [ sources."node-gyp-build-4.3.0" ]; })
-      (sources."@parcel/workers-2.3.2" // { dependencies = [ sources."@parcel/types-2.3.2" ]; })
+      (sources."@parcel/watcher-2.0.5" // {dependencies = [sources."node-gyp-build-4.3.0"];})
+      (sources."@parcel/workers-2.3.2" // {dependencies = [sources."@parcel/types-2.3.2"];})
       sources."@samverschueren/stream-to-observable-0.3.1"
       sources."@swc/helpers-0.2.14"
       sources."@trysound/sax-0.2.0"
@@ -4053,7 +4053,7 @@ let
       sources."caniuse-api-3.0.0"
       sources."caniuse-lite-1.0.30001319"
       sources."caseless-0.12.0"
-      (sources."chalk-2.4.2" // { dependencies = [ sources."supports-color-5.5.0" ]; })
+      (sources."chalk-2.4.2" // {dependencies = [sources."supports-color-5.5.0"];})
       sources."check-more-types-2.24.0"
       sources."chrome-trace-event-1.0.2"
       sources."ci-info-2.0.0"
@@ -4155,7 +4155,7 @@ let
       sources."has-ansi-2.0.0"
       sources."has-flag-3.0.0"
       sources."htmlnano-2.0.0"
-      (sources."htmlparser2-7.2.0" // { dependencies = [ sources."entities-3.0.1" ]; })
+      (sources."htmlparser2-7.2.0" // {dependencies = [sources."entities-3.0.1"];})
       sources."import-fresh-3.3.0"
       sources."indent-string-3.2.0"
       sources."inflight-1.0.6"
@@ -4349,7 +4349,7 @@ let
       sources."strip-ansi-3.0.1"
       sources."strip-eof-1.0.0"
       sources."stylehacks-5.1.0"
-      (sources."supports-color-7.2.0" // { dependencies = [ sources."has-flag-4.0.0" ]; })
+      (sources."supports-color-7.2.0" // {dependencies = [sources."has-flag-4.0.0"];})
       sources."svgo-2.8.0"
       sources."symbol-observable-1.2.0"
       (
@@ -4372,7 +4372,7 @@ let
       sources."typedarray-0.0.6"
       sources."universalify-0.1.2"
       sources."untildify-4.0.0"
-      (sources."url-0.11.0" // { dependencies = [ sources."punycode-1.3.2" ]; })
+      (sources."url-0.11.0" // {dependencies = [sources."punycode-1.3.2"];})
       sources."util-deprecate-1.0.2"
       sources."utility-types-3.10.0"
       sources."v8-compile-cache-2.3.0"

@@ -1,8 +1,8 @@
-{ runCommand }:
+{runCommand}:
 
 firmware:
 
-runCommand "${firmware.name}-xz" { } ''
+runCommand "${firmware.name}-xz" {} ''
   mkdir -p $out/lib
   (cd ${firmware} && find lib/firmware -type d -print0) |
       (cd $out && xargs -0 mkdir -v --)

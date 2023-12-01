@@ -18,14 +18,14 @@ let
   # interface options
 
   interfaceOpts =
-    { ... }:
+    {...}:
     {
 
       options = {
 
         ips = mkOption {
-          example = [ "192.168.2.1/24" ];
-          default = [ ];
+          example = ["192.168.2.1/24"];
+          default = [];
           type = with types; listOf str;
           description = lib.mdDoc "The IP addresses of the interface.";
         };
@@ -108,7 +108,7 @@ let
         };
 
         peers = mkOption {
-          default = [ ];
+          default = [];
           description = lib.mdDoc "Peers linked to the interface.";
           type = with types; listOf (submodule peerOpts);
         };
@@ -301,10 +301,10 @@ let
     assert values.generatePrivateKeyFile;
     nameValuePair "wireguard-${name}-key" {
       description = "WireGuard Tunnel - ${name} - Key Generator";
-      wantedBy = [ "wireguard-${name}.service" ];
-      requiredBy = [ "wireguard-${name}.service" ];
-      before = [ "wireguard-${name}.service" ];
-      path = with pkgs; [ wireguard-tools ];
+      wantedBy = ["wireguard-${name}.service"];
+      requiredBy = ["wireguard-${name}.service"];
+      before = ["wireguard-${name}.service"];
+      path = with pkgs; [wireguard-tools];
 
       serviceConfig = {
         Type = "oneshot";
@@ -373,13 +373,13 @@ let
     in
     nameValuePair serviceName {
       description = "WireGuard Peer - ${interfaceName} - ${peer.publicKey}";
-      requires = [ "wireguard-${interfaceName}.service" ];
-      wants = [ "network-online.target" ];
+      requires = ["wireguard-${interfaceName}.service"];
+      wants = ["network-online.target"];
       after = [
         "wireguard-${interfaceName}.service"
         "network-online.target"
       ];
-      wantedBy = [ "wireguard-${interfaceName}.service" ];
+      wantedBy = ["wireguard-${interfaceName}.service"];
       environment.DEVICE = interfaceName;
       environment.WG_ENDPOINT_RESOLUTION_RETRIES = "infinity";
       path = with pkgs; [
@@ -409,18 +409,18 @@ let
               else
                 peer.dynamicEndpointRefreshSeconds;
           };
-      unitConfig = lib.optionalAttrs dynamicRefreshEnabled { StartLimitIntervalSec = 0; };
+      unitConfig = lib.optionalAttrs dynamicRefreshEnabled {StartLimitIntervalSec = 0;};
 
       script =
         let
           wg_setup = concatStringsSep " " (
-            [ ''${wg} set ${interfaceName} peer "${peer.publicKey}"'' ]
+            [''${wg} set ${interfaceName} peer "${peer.publicKey}"'']
             ++ optional (psk != null) ''preshared-key "${psk}"''
             ++ optional (peer.endpoint != null) ''endpoint "${peer.endpoint}"''
             ++
               optional (peer.persistentKeepalive != null)
                 ''persistent-keepalive "${toString peer.persistentKeepalive}"''
-            ++ optional (peer.allowedIPs != [ ]) ''allowed-ips "${concatStringsSep "," peer.allowedIPs}"''
+            ++ optional (peer.allowedIPs != []) ''allowed-ips "${concatStringsSep "," peer.allowedIPs}"''
           );
           route_setup = optionalString interfaceCfg.allowedIPsAsRoutes (
             concatMapStringsSep "\n"
@@ -473,8 +473,8 @@ let
     in
     nameValuePair "wireguard-${name}" rec {
       description = "WireGuard Tunnel - ${name}";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "wireguard-${name}.service" ] ++ map mkPeerUnit values.peers;
+      wantedBy = ["multi-user.target"];
+      wants = ["wireguard-${name}.service"] ++ map mkPeerUnit values.peers;
       after = wants;
     };
 
@@ -497,9 +497,9 @@ let
     in
     nameValuePair "wireguard-${name}" {
       description = "WireGuard Tunnel - ${name}";
-      after = [ "network-pre.target" ];
-      wants = [ "network.target" ];
-      before = [ "network.target" ];
+      after = ["network-pre.target"];
+      wants = ["network.target"];
+      before = ["network.target"];
       environment.DEVICE = name;
       path = with pkgs; [
         kmod
@@ -527,7 +527,7 @@ let
         ${concatMapStringsSep "\n" (ip: ''${ipPostMove} address add "${ip}" dev "${name}"'') values.ips}
 
         ${concatStringsSep " " (
-          [ ''${wg} set "${name}" private-key "${privKey}"'' ]
+          [''${wg} set "${name}" private-key "${privKey}"'']
           ++ optional (values.listenPort != null) ''listen-port "${toString values.listenPort}"''
           ++ optional (values.fwMark != null) ''fwmark "${values.fwMark}"''
         )}
@@ -573,7 +573,7 @@ in
         '';
         type = types.bool;
         # 2019-05-25: Backwards compatibility.
-        default = cfg.interfaces != { };
+        default = cfg.interfaces != {};
         defaultText = literalExpression "config.${opt.interfaces} != { }";
         example = true;
       };
@@ -586,14 +586,14 @@ in
           and is better maintained. When building new things, it is advised to
           use that instead.
         '';
-        default = { };
+        default = {};
         example = {
           wg0 = {
-            ips = [ "192.168.20.4/24" ];
+            ips = ["192.168.20.4/24"];
             privateKey = "yAnz5TF+lXXJte14tji3zlMNq+hd2rYUIgJBgB3fBmk=";
             peers = [
               {
-                allowedIPs = [ "192.168.20.1/32" ];
+                allowedIPs = ["192.168.20.1/32"];
                 publicKey = "xTIBA5rboUvnH4htodjb6e697QjLERt1NAB4mZqp8Dg=";
                 endpoint = "demo.wireguard.io:12913";
               }
@@ -613,7 +613,7 @@ in
         mapAttrsToList
           (
             interfaceName: interfaceCfg:
-            map (peer: { inherit interfaceName interfaceCfg peer; }) interfaceCfg.peers
+            map (peer: {inherit interfaceName interfaceCfg peer;}) interfaceCfg.peers
           )
           cfg.interfaces
       );
@@ -640,7 +640,7 @@ in
         ++
           map
             (
-              { interfaceName, peer, ... }:
+              {interfaceName, peer, ...}:
               {
                 assertion = (peer.presharedKey == null) || (peer.presharedKeyFile == null);
                 message = "networking.wireguard.interfaces.${interfaceName} peer «${peer.publicKey}» has both presharedKey and presharedKeyFile set, but only one can be used.";
@@ -649,7 +649,7 @@ in
             all_peers;
 
       boot.extraModulePackages = optional (versionOlder kernel.kernel.version "5.6") kernel.wireguard;
-      environment.systemPackages = [ pkgs.wireguard-tools ];
+      environment.systemPackages = [pkgs.wireguard-tools];
 
       systemd.services =
         (mapAttrs' generateInterfaceUnit cfg.interfaces)

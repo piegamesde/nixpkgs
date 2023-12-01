@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     freetype
   ];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   preInstall = ''
     mkdir -p $OCAMLFIND_DESTDIR/stublibs
@@ -55,6 +55,6 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/gd4o/";
     description = "OCaml wrapper for the GD graphics library";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

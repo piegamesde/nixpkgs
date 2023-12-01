@@ -20,14 +20,14 @@ buildPythonPackage rec {
     hash = "sha256-IqlbFYbEyJPlcmT3DIQIwsjQEAGeIGRtFNx4jWwNtjE=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "btsocket" ];
+  pythonImportsCheck = ["btsocket"];
 
   meta = with lib; {
     description = "Library to interact with the Bluez Bluetooth Management API";
     homepage = "https://github.com/ukBaz/python-btsocket";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

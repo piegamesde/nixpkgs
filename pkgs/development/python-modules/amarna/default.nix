@@ -27,14 +27,14 @@ buildPythonPackage rec {
     pydot
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "amarna" ];
+  pythonImportsCheck = ["amarna"];
 
   meta = with lib; {
     description = "Static-analyzer and linter for the Cairo programming language";
     homepage = "https://github.com/crytic/amarna";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ raitobezarius ];
+    maintainers = with maintainers; [raitobezarius];
   };
 }

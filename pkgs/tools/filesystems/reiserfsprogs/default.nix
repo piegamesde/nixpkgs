@@ -15,9 +15,9 @@ stdenv.mkDerivation rec {
     sha256 = "0q07df9wxxih8714a3mdp61h5n347l7j2a0l351acs3xapzgwi3y";
   };
 
-  patches = [ ./reiserfsprogs-ar-fix.patch ];
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ libuuid ];
+  patches = [./reiserfsprogs-ar-fix.patch];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [libuuid];
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-std=gnu90"

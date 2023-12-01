@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
 
   configureScript = "./autogen.sh";
 
-  configureFlags = [ "--disable-gp" ];
+  configureFlags = ["--disable-gp"];
 
   preBuild = ''
     substituteInPlace tools/insert-file-as-string.pl --replace "/usr/bin/perl" "${perl}/bin/perl"

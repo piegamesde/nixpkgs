@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     sha256 = "c22K2+hhX2y8j8//mEXcmF/RDhZinaI2tLUtvt8KNIs=";
   };
 
-  patches = [ ./add-option-for-installation-sysconfdir.patch ];
+  patches = [./add-option-for-installation-sysconfdir.patch];
 
   nativeBuildInputs = [
     meson

@@ -36,12 +36,12 @@ buildPythonPackage rec {
   # failing on NixOS
   doCheck = false;
 
-  pythonImportsCheck = [ "imantics" ];
+  pythonImportsCheck = ["imantics"];
 
   meta = with lib; {
     description = "Convert and visualize many annotation formats for object dectection and localization";
     homepage = "https://github.com/jsbroks/imantics";
-    license = with licenses; [ mit ];
-    maintainers = [ maintainers.rakesh4g ];
+    license = with licenses; [mit];
+    maintainers = [maintainers.rakesh4g];
   };
 }

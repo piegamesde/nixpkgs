@@ -104,7 +104,7 @@ in
 
       users = mkOption {
         type = with types; listOf str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Usernames to be added to the "openrazer" group, so that they
           can start and interact with the OpenRazer userspace daemon.
@@ -114,15 +114,15 @@ in
   };
 
   config = mkIf cfg.enable {
-    boot.extraModulePackages = [ kernelPackages.openrazer ];
+    boot.extraModulePackages = [kernelPackages.openrazer];
     boot.kernelModules = drivers;
 
     # Makes the man pages available so you can successfully run
     # > systemctl --user help openrazer-daemon
-    environment.systemPackages = [ pkgs.python3Packages.openrazer-daemon.man ];
+    environment.systemPackages = [pkgs.python3Packages.openrazer-daemon.man];
 
-    services.udev.packages = [ kernelPackages.openrazer ];
-    services.dbus.packages = [ dbusServiceFile ];
+    services.udev.packages = [kernelPackages.openrazer];
+    services.dbus.packages = [dbusServiceFile];
 
     # A user must be a member of the openrazer group in order to start
     # the openrazer-daemon. Therefore we make sure that the group
@@ -136,8 +136,8 @@ in
       unitConfig.Documentation = "man:openrazer-daemon(8)";
       # Requires a graphical session so the daemon knows when the screensaver
       # starts. See the 'devicesOffOnScreensaver' option.
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      partOf = ["graphical-session.target"];
       serviceConfig = {
         Type = "dbus";
         BusName = "org.razer";
@@ -148,6 +148,6 @@ in
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ roelvandijk ];
+    maintainers = with lib.maintainers; [roelvandijk];
   };
 }

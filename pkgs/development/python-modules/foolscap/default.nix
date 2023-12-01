@@ -33,8 +33,8 @@ buildPythonPackage rec {
   ] ++ twisted.optional-dependencies.tls;
 
   passthru.optional-dependencies = {
-    i2p = [ txi2p-tahoe ];
-    tor = [ txtorcon ];
+    i2p = [txi2p-tahoe];
+    tor = [txtorcon];
   };
 
   nativeCheckInputs = [
@@ -42,7 +42,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
-  pythonImportsCheck = [ "foolscap" ];
+  pythonImportsCheck = ["foolscap"];
 
   meta = with lib; {
     description = "RPC protocol for Python that follows the distributed object-capability model";
@@ -53,6 +53,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/warner/foolscap";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

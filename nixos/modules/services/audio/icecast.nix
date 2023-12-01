@@ -117,9 +117,9 @@ in
   config = mkIf cfg.enable {
 
     systemd.services.icecast = {
-      after = [ "network.target" ];
+      after = ["network.target"];
       description = "Icecast Network Audio Streaming Server";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       preStart = "mkdir -p ${cfg.logDir} && chown ${cfg.user}:${cfg.group} ${cfg.logDir}";
       serviceConfig = {

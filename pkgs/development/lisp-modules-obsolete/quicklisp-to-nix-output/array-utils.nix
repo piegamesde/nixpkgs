@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "array-utils";
   version = "20201220-git";
 
   description = "A few utilities for working with arrays.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/array-utils/2020-12-20/array-utils-20201220-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "array-utils";
 
-  asdFilesToKeep = [ "array-utils.asd" ];
+  asdFilesToKeep = ["array-utils.asd"];
   overrides = x: x;
 }
 /* (SYSTEM array-utils DESCRIPTION A few utilities for working with arrays.

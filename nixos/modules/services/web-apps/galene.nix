@@ -140,8 +140,8 @@ in
 
     systemd.services.galene = {
       description = "galene";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         ${optionalString (cfg.insecure != true) ''
@@ -167,15 +167,15 @@ in
           # Upstream Requirements
           LimitNOFILE = 65536;
           StateDirectory =
-            [ ]
+            []
             ++ optional (cfg.stateDir == defaultstateDir) "galene"
             ++ optional (cfg.dataDir == defaultdataDir) "galene/data"
             ++ optional (cfg.groupsDir == defaultgroupsDir) "galene/groups"
             ++ optional (cfg.recordingsDir == defaultrecordingsDir) "galene/recordings";
 
           # Hardening
-          CapabilityBoundingSet = [ "" ];
-          DeviceAllow = [ "" ];
+          CapabilityBoundingSet = [""];
+          DeviceAllow = [""];
           LockPersonality = true;
           MemoryDenyWriteExecute = true;
           NoNewPrivileges = true;
@@ -219,7 +219,7 @@ in
       };
     };
 
-    users.groups = mkIf (cfg.group == "galene") { galene = { }; };
+    users.groups = mkIf (cfg.group == "galene") {galene = {};};
   };
-  meta.maintainers = with lib.maintainers; [ rgrunbla ];
+  meta.maintainers = with lib.maintainers; [rgrunbla];
 }

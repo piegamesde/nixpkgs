@@ -34,6 +34,6 @@ buildPythonPackage rec {
     description = "Python with the SmartyPants";
     homepage = "https://github.com/leohemsted/smartypants.py";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

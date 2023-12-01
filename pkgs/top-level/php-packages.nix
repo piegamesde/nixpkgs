@@ -73,10 +73,10 @@ lib.makeScope pkgs.newScope (
           lib.extends
             (_: previousAttrs: {
               pname = "php-${previousAttrs.pname}";
-              passthru = (previousAttrs.passthru or { }) // {
-                updateScript = nix-update-script { };
+              passthru = (previousAttrs.passthru or {}) // {
+                updateScript = nix-update-script {};
               };
-              meta = (previousAttrs.meta or { }) // {
+              meta = (previousAttrs.meta or {}) // {
                 mainProgram = previousAttrs.meta.mainProgram or previousAttrs.pname;
               };
             })
@@ -96,17 +96,17 @@ lib.makeScope pkgs.newScope (
     mkExtension = lib.makeOverridable (
       {
         name,
-        configureFlags ? [ "--enable-${extName}" ],
-        internalDeps ? [ ],
+        configureFlags ? ["--enable-${extName}"],
+        internalDeps ? [],
         postPhpize ? "",
-        buildInputs ? [ ],
+        buildInputs ? [],
         zendExtension ? false,
         doCheck ? true,
         extName ? name,
         ...
       }@args:
       stdenv.mkDerivation (
-        (builtins.removeAttrs args [ "name" ])
+        (builtins.removeAttrs args ["name"])
         // {
           pname = "php-${name}";
           extensionName = extName;
@@ -135,7 +135,7 @@ lib.makeScope pkgs.newScope (
             doCheck
             ;
 
-          preConfigurePhases = [ "cdToExtensionRootPhase" ];
+          preConfigurePhases = ["cdToExtensionRootPhase"];
 
           cdToExtensionRootPhase = ''
             # Go to extension source root.
@@ -195,35 +195,35 @@ lib.makeScope pkgs.newScope (
 
     # This is a set of interactive tools based on PHP.
     tools = {
-      box = callPackage ../development/php-packages/box { };
+      box = callPackage ../development/php-packages/box {};
 
-      composer = callPackage ../development/php-packages/composer { };
+      composer = callPackage ../development/php-packages/composer {};
 
-      deployer = callPackage ../development/php-packages/deployer { };
+      deployer = callPackage ../development/php-packages/deployer {};
 
-      grumphp = callPackage ../development/php-packages/grumphp { };
+      grumphp = callPackage ../development/php-packages/grumphp {};
 
-      phan = callPackage ../development/php-packages/phan { };
+      phan = callPackage ../development/php-packages/phan {};
 
-      phing = callPackage ../development/php-packages/phing { };
+      phing = callPackage ../development/php-packages/phing {};
 
-      phive = callPackage ../development/php-packages/phive { };
+      phive = callPackage ../development/php-packages/phive {};
 
-      php-cs-fixer = callPackage ../development/php-packages/php-cs-fixer { };
+      php-cs-fixer = callPackage ../development/php-packages/php-cs-fixer {};
 
-      php-parallel-lint = callPackage ../development/php-packages/php-parallel-lint { };
+      php-parallel-lint = callPackage ../development/php-packages/php-parallel-lint {};
 
-      phpcbf = callPackage ../development/php-packages/phpcbf { };
+      phpcbf = callPackage ../development/php-packages/phpcbf {};
 
-      phpcs = callPackage ../development/php-packages/phpcs { };
+      phpcs = callPackage ../development/php-packages/phpcs {};
 
-      phpmd = callPackage ../development/php-packages/phpmd { };
+      phpmd = callPackage ../development/php-packages/phpmd {};
 
-      phpstan = callPackage ../development/php-packages/phpstan { };
+      phpstan = callPackage ../development/php-packages/phpstan {};
 
-      psalm = callPackage ../development/php-packages/psalm { };
+      psalm = callPackage ../development/php-packages/psalm {};
 
-      psysh = callPackage ../development/php-packages/psysh { };
+      psysh = callPackage ../development/php-packages/psysh {};
     };
 
     # This is a set of PHP extensions meant to be used in php.buildEnv
@@ -231,49 +231,49 @@ lib.makeScope pkgs.newScope (
     # interpreter.
     extensions =
       {
-        amqp = callPackage ../development/php-packages/amqp { };
+        amqp = callPackage ../development/php-packages/amqp {};
 
-        apcu = callPackage ../development/php-packages/apcu { };
+        apcu = callPackage ../development/php-packages/apcu {};
 
-        ast = callPackage ../development/php-packages/ast { };
+        ast = callPackage ../development/php-packages/ast {};
 
-        blackfire = pkgs.callPackage ../development/tools/misc/blackfire/php-probe.nix { inherit php; };
+        blackfire = pkgs.callPackage ../development/tools/misc/blackfire/php-probe.nix {inherit php;};
 
-        couchbase = callPackage ../development/php-packages/couchbase { };
+        couchbase = callPackage ../development/php-packages/couchbase {};
 
-        datadog_trace = callPackage ../development/php-packages/datadog_trace { };
+        datadog_trace = callPackage ../development/php-packages/datadog_trace {};
 
-        ds = callPackage ../development/php-packages/ds { };
+        ds = callPackage ../development/php-packages/ds {};
 
-        event = callPackage ../development/php-packages/event { };
+        event = callPackage ../development/php-packages/event {};
 
-        gnupg = callPackage ../development/php-packages/gnupg { };
+        gnupg = callPackage ../development/php-packages/gnupg {};
 
-        grpc = callPackage ../development/php-packages/grpc { };
+        grpc = callPackage ../development/php-packages/grpc {};
 
-        igbinary = callPackage ../development/php-packages/igbinary { };
+        igbinary = callPackage ../development/php-packages/igbinary {};
 
-        imagick = callPackage ../development/php-packages/imagick { };
+        imagick = callPackage ../development/php-packages/imagick {};
 
-        inotify = callPackage ../development/php-packages/inotify { };
+        inotify = callPackage ../development/php-packages/inotify {};
 
-        mailparse = callPackage ../development/php-packages/mailparse { };
+        mailparse = callPackage ../development/php-packages/mailparse {};
 
-        maxminddb = callPackage ../development/php-packages/maxminddb { };
+        maxminddb = callPackage ../development/php-packages/maxminddb {};
 
-        memcached = callPackage ../development/php-packages/memcached { };
+        memcached = callPackage ../development/php-packages/memcached {};
 
-        mongodb = callPackage ../development/php-packages/mongodb { };
+        mongodb = callPackage ../development/php-packages/mongodb {};
 
-        msgpack = callPackage ../development/php-packages/msgpack { };
+        msgpack = callPackage ../development/php-packages/msgpack {};
 
-        oci8 = callPackage ../development/php-packages/oci8 { };
+        oci8 = callPackage ../development/php-packages/oci8 {};
 
-        openswoole = callPackage ../development/php-packages/openswoole { };
+        openswoole = callPackage ../development/php-packages/openswoole {};
 
-        pdlib = callPackage ../development/php-packages/pdlib { };
+        pdlib = callPackage ../development/php-packages/pdlib {};
 
-        pcov = callPackage ../development/php-packages/pcov { };
+        pcov = callPackage ../development/php-packages/pcov {};
 
         pdo_oci = buildPecl rec {
           inherit (php.unwrapped) src version;
@@ -281,10 +281,10 @@ lib.makeScope pkgs.newScope (
           pname = "pdo_oci";
           sourceRoot = "php-${version}/ext/pdo_oci";
 
-          buildInputs = [ pkgs.oracle-instantclient ];
-          configureFlags = [ "--with-pdo-oci=instantclient,${pkgs.oracle-instantclient.lib}/lib" ];
+          buildInputs = [pkgs.oracle-instantclient];
+          configureFlags = ["--with-pdo-oci=instantclient,${pkgs.oracle-instantclient.lib}/lib"];
 
-          internalDeps = [ php.extensions.pdo ];
+          internalDeps = [php.extensions.pdo];
 
           postPatch = ''
             sed -i -e 's|OCISDKMANINC=`.*$|OCISDKMANINC="${pkgs.oracle-instantclient.dev}/include"|' config.m4
@@ -293,29 +293,29 @@ lib.makeScope pkgs.newScope (
           meta.maintainers = lib.teams.php.members;
         };
 
-        pdo_sqlsrv = callPackage ../development/php-packages/pdo_sqlsrv { };
+        pdo_sqlsrv = callPackage ../development/php-packages/pdo_sqlsrv {};
 
-        pinba = callPackage ../development/php-packages/pinba { };
+        pinba = callPackage ../development/php-packages/pinba {};
 
-        protobuf = callPackage ../development/php-packages/protobuf { };
+        protobuf = callPackage ../development/php-packages/protobuf {};
 
-        rdkafka = callPackage ../development/php-packages/rdkafka { };
+        rdkafka = callPackage ../development/php-packages/rdkafka {};
 
-        redis = callPackage ../development/php-packages/redis { };
+        redis = callPackage ../development/php-packages/redis {};
 
-        smbclient = callPackage ../development/php-packages/smbclient { };
+        smbclient = callPackage ../development/php-packages/smbclient {};
 
-        snuffleupagus = callPackage ../development/php-packages/snuffleupagus { };
+        snuffleupagus = callPackage ../development/php-packages/snuffleupagus {};
 
-        sqlsrv = callPackage ../development/php-packages/sqlsrv { };
+        sqlsrv = callPackage ../development/php-packages/sqlsrv {};
 
-        ssh2 = callPackage ../development/php-packages/ssh2 { };
+        ssh2 = callPackage ../development/php-packages/ssh2 {};
 
-        swoole = callPackage ../development/php-packages/swoole { };
+        swoole = callPackage ../development/php-packages/swoole {};
 
-        xdebug = callPackage ../development/php-packages/xdebug { };
+        xdebug = callPackage ../development/php-packages/xdebug {};
 
-        yaml = callPackage ../development/php-packages/yaml { };
+        yaml = callPackage ../development/php-packages/yaml {};
       }
       // (
         let
@@ -324,30 +324,30 @@ lib.makeScope pkgs.newScope (
           #
           # These will be passed as arguments to mkExtension above.
           extensionData = [
-            { name = "bcmath"; }
+            {name = "bcmath";}
             {
               name = "bz2";
-              buildInputs = [ bzip2 ];
-              configureFlags = [ "--with-bz2=${bzip2.dev}" ];
+              buildInputs = [bzip2];
+              configureFlags = ["--with-bz2=${bzip2.dev}"];
             }
-            { name = "calendar"; }
-            { name = "ctype"; }
+            {name = "calendar";}
+            {name = "ctype";}
             {
               name = "curl";
-              buildInputs = [ curl ];
-              configureFlags = [ "--with-curl=${curl.dev}" ];
+              buildInputs = [curl];
+              configureFlags = ["--with-curl=${curl.dev}"];
               doCheck = false;
             }
-            { name = "dba"; }
+            {name = "dba";}
             {
               name = "dom";
-              buildInputs = [ libxml2 ];
-              configureFlags = [ "--enable-dom" ];
+              buildInputs = [libxml2];
+              configureFlags = ["--enable-dom"];
             }
             {
               name = "enchant";
-              buildInputs = [ enchant2 ];
-              configureFlags = [ "--with-enchant" ];
+              buildInputs = [enchant2];
+              configureFlags = ["--with-enchant"];
               doCheck = false;
             }
             {
@@ -356,19 +356,19 @@ lib.makeScope pkgs.newScope (
             }
             {
               name = "ffi";
-              buildInputs = [ libffi ];
+              buildInputs = [libffi];
             }
             {
               name = "fileinfo";
-              buildInputs = [ pcre2 ];
+              buildInputs = [pcre2];
             }
             {
               name = "filter";
-              buildInputs = [ pcre2 ];
+              buildInputs = [pcre2];
             }
             {
               name = "ftp";
-              buildInputs = [ openssl ];
+              buildInputs = [openssl];
             }
             {
               name = "gd";
@@ -385,18 +385,18 @@ lib.makeScope pkgs.newScope (
             }
             {
               name = "gettext";
-              buildInputs = [ gettext ];
+              buildInputs = [gettext];
               postPhpize = ''substituteInPlace configure --replace 'as_fn_error $? "Cannot locate header file libintl.h" "$LINENO" 5' ':' '';
-              configureFlags = [ "--with-gettext=${gettext}" ];
+              configureFlags = ["--with-gettext=${gettext}"];
             }
             {
               name = "gmp";
-              buildInputs = [ gmp ];
-              configureFlags = [ "--with-gmp=${gmp.dev}" ];
+              buildInputs = [gmp];
+              configureFlags = ["--with-gmp=${gmp.dev}"];
             }
             {
               name = "iconv";
-              configureFlags = [ "--with-iconv${lib.optionalString stdenv.isDarwin "=${libiconv}"}" ];
+              configureFlags = ["--with-iconv${lib.optionalString stdenv.isDarwin "=${libiconv}"}"];
               doCheck = false;
             }
             {
@@ -416,7 +416,7 @@ lib.makeScope pkgs.newScope (
             }
             {
               name = "intl";
-              buildInputs = [ icu64 ];
+              buildInputs = [icu64];
             }
             {
               name = "ldap";
@@ -429,7 +429,7 @@ lib.makeScope pkgs.newScope (
                 "LDAP_DIR=${openldap.dev}"
                 "LDAP_INCDIR=${openldap.dev}/include"
                 "LDAP_LIBDIR=${openldap.out}/lib"
-              ] ++ lib.optionals stdenv.isLinux [ "--with-ldap-sasl=${cyrus_sasl.dev}" ];
+              ] ++ lib.optionals stdenv.isLinux ["--with-ldap-sasl=${cyrus_sasl.dev}"];
               doCheck = false;
             }
             {
@@ -442,7 +442,7 @@ lib.makeScope pkgs.newScope (
             }
             {
               name = "mysqli";
-              internalDeps = [ php.extensions.mysqlnd ];
+              internalDeps = [php.extensions.mysqlnd];
               configureFlags = [
                 "--with-mysqli=mysqlnd"
                 "--with-mysql-sock=/run/mysqld/mysqld.sock"
@@ -478,7 +478,7 @@ lib.makeScope pkgs.newScope (
             }
             {
               name = "opcache";
-              buildInputs = [ pcre2 ] ++ lib.optionals (!stdenv.isDarwin) [ valgrind.dev ];
+              buildInputs = [pcre2] ++ lib.optionals (!stdenv.isDarwin) [valgrind.dev];
               zendExtension = true;
               postPatch = lib.optionalString stdenv.isDarwin ''
                 # Tests are flaky on darwin
@@ -494,8 +494,8 @@ lib.makeScope pkgs.newScope (
             }
             {
               name = "openssl";
-              buildInputs = if (lib.versionAtLeast php.version "8.1") then [ openssl ] else [ openssl_1_1 ];
-              configureFlags = [ "--with-openssl" ];
+              buildInputs = if (lib.versionAtLeast php.version "8.1") then [openssl] else [openssl_1_1];
+              configureFlags = ["--with-openssl"];
               doCheck = false;
             }
             # This provides a legacy OpenSSL PHP extension
@@ -504,19 +504,19 @@ lib.makeScope pkgs.newScope (
             {
               name = "openssl-legacy";
               extName = "openssl";
-              buildInputs = [ openssl_1_1 ];
-              configureFlags = [ "--with-openssl" ];
+              buildInputs = [openssl_1_1];
+              configureFlags = ["--with-openssl"];
               doCheck = false;
             }
-            { name = "pcntl"; }
+            {name = "pcntl";}
             {
               name = "pdo";
               doCheck = false;
             }
             {
               name = "pdo_dblib";
-              internalDeps = [ php.extensions.pdo ];
-              configureFlags = [ "--with-pdo-dblib=${freetds}" ];
+              internalDeps = [php.extensions.pdo];
+              configureFlags = ["--with-pdo-dblib=${freetds}"];
               # Doesn't seem to work on darwin.
               enable = (!stdenv.isDarwin);
               doCheck = false;
@@ -535,27 +535,27 @@ lib.makeScope pkgs.newScope (
             }
             {
               name = "pdo_odbc";
-              internalDeps = [ php.extensions.pdo ];
-              configureFlags = [ "--with-pdo-odbc=unixODBC,${unixODBC}" ];
+              internalDeps = [php.extensions.pdo];
+              configureFlags = ["--with-pdo-odbc=unixODBC,${unixODBC}"];
               doCheck = false;
             }
             {
               name = "pdo_pgsql";
-              internalDeps = [ php.extensions.pdo ];
-              configureFlags = [ "--with-pdo-pgsql=${postgresql}" ];
+              internalDeps = [php.extensions.pdo];
+              configureFlags = ["--with-pdo-pgsql=${postgresql}"];
               doCheck = false;
             }
             {
               name = "pdo_sqlite";
-              internalDeps = [ php.extensions.pdo ];
-              buildInputs = [ sqlite ];
-              configureFlags = [ "--with-pdo-sqlite=${sqlite.dev}" ];
+              internalDeps = [php.extensions.pdo];
+              buildInputs = [sqlite];
+              configureFlags = ["--with-pdo-sqlite=${sqlite.dev}"];
               doCheck = false;
             }
             {
               name = "pgsql";
-              buildInputs = [ pcre2 ];
-              configureFlags = [ "--with-pgsql=${postgresql}" ];
+              buildInputs = [pcre2];
+              configureFlags = ["--with-pgsql=${postgresql}"];
               doCheck = false;
             }
             {
@@ -564,12 +564,12 @@ lib.makeScope pkgs.newScope (
             }
             {
               name = "pspell";
-              configureFlags = [ "--with-pspell=${aspell}" ];
+              configureFlags = ["--with-pspell=${aspell}"];
             }
             {
               name = "readline";
-              buildInputs = [ readline ];
-              configureFlags = [ "--with-readline=${readline.dev}" ];
+              buildInputs = [readline];
+              configureFlags = ["--with-readline=${readline.dev}"];
               postPatch = ''
                 # Fix `--with-readline` option not being available.
                 # `PHP_ALWAYS_SHARED` generated by phpize enables all options
@@ -588,14 +588,14 @@ lib.makeScope pkgs.newScope (
               name = "session";
               doCheck = false;
             }
-            { name = "shmop"; }
+            {name = "shmop";}
             {
               name = "simplexml";
               buildInputs = [
                 libxml2
                 pcre2
               ];
-              configureFlags = [ "--enable-simplexml" ];
+              configureFlags = ["--enable-simplexml"];
             }
             {
               name = "snmp";
@@ -603,15 +603,15 @@ lib.makeScope pkgs.newScope (
                 net-snmp
                 openssl
               ];
-              configureFlags = [ "--with-snmp" ];
+              configureFlags = ["--with-snmp"];
               # net-snmp doesn't build on darwin.
               enable = (!stdenv.isDarwin);
               doCheck = false;
             }
             {
               name = "soap";
-              buildInputs = [ libxml2 ];
-              configureFlags = [ "--enable-soap" ];
+              buildInputs = [libxml2];
+              configureFlags = ["--enable-soap"];
               doCheck = false;
             }
             {
@@ -620,18 +620,18 @@ lib.makeScope pkgs.newScope (
             }
             {
               name = "sodium";
-              buildInputs = [ libsodium ];
+              buildInputs = [libsodium];
             }
             {
               name = "sqlite3";
-              buildInputs = [ sqlite ];
+              buildInputs = [sqlite];
             }
-            { name = "sysvmsg"; }
-            { name = "sysvsem"; }
-            { name = "sysvshm"; }
+            {name = "sysvmsg";}
+            {name = "sysvsem";}
+            {name = "sysvshm";}
             {
               name = "tidy";
-              configureFlags = [ "--with-tidy=${html-tidy}" ];
+              configureFlags = ["--with-tidy=${html-tidy}"];
               doCheck = false;
             }
             {
@@ -642,25 +642,25 @@ lib.makeScope pkgs.newScope (
             }
             {
               name = "xml";
-              buildInputs = [ libxml2 ];
-              configureFlags = [ "--enable-xml" ];
+              buildInputs = [libxml2];
+              configureFlags = ["--enable-xml"];
               doCheck = false;
             }
             {
               name = "xmlreader";
-              buildInputs = [ libxml2 ];
-              internalDeps = [ php.extensions.dom ];
+              buildInputs = [libxml2];
+              internalDeps = [php.extensions.dom];
               env.NIX_CFLAGS_COMPILE = toString [
                 "-I../.."
                 "-DHAVE_DOM"
               ];
               doCheck = false;
-              configureFlags = [ "--enable-xmlreader" ];
+              configureFlags = ["--enable-xmlreader"];
             }
             {
               name = "xmlwriter";
-              buildInputs = [ libxml2 ];
-              configureFlags = [ "--enable-xmlwriter" ];
+              buildInputs = [libxml2];
+              configureFlags = ["--enable-xmlwriter"];
             }
             {
               name = "xsl";
@@ -669,22 +669,22 @@ lib.makeScope pkgs.newScope (
                 libxml2
               ];
               doCheck = false;
-              configureFlags = [ "--with-xsl=${libxslt.dev}" ];
+              configureFlags = ["--with-xsl=${libxslt.dev}"];
             }
-            { name = "zend_test"; }
+            {name = "zend_test";}
             {
               name = "zip";
               buildInputs = [
                 libzip
                 pcre2
               ];
-              configureFlags = [ "--with-zip" ];
+              configureFlags = ["--with-zip"];
               doCheck = false;
             }
             {
               name = "zlib";
-              buildInputs = [ zlib ];
-              configureFlags = [ "--with-zlib" ];
+              buildInputs = [zlib];
+              configureFlags = ["--with-zlib"];
             }
           ];
 

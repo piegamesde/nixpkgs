@@ -7,8 +7,8 @@
   jdupes,
   librsvg,
   gitUpdater,
-  colorVariants ? [ ], # default: all
-  themeVariants ? [ ], # default: blue
+  colorVariants ? [], # default: all
+  themeVariants ? [], # default: blue
 }:
 
 let
@@ -44,14 +44,14 @@ lib.checkListOfEnum "${pname}: color variants"
       sha256 = "mr9X7p/H8H2QKZxAQC9j/8OLK4D3EnWLxriFlh16diE=";
     };
 
-    nativeBuildInputs = [ jdupes ];
+    nativeBuildInputs = [jdupes];
 
     buildInputs = [
       gdk-pixbuf
       librsvg
     ];
 
-    propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+    propagatedUserEnvPkgs = [gtk-engine-murrine];
 
     postPatch = ''
       patchShebangs install.sh
@@ -63,8 +63,8 @@ lib.checkListOfEnum "${pname}: color variants"
       mkdir -p $out/share/themes
 
       name= ./install.sh \
-        ${lib.optionalString (colorVariants != [ ]) "--color " + builtins.toString colorVariants} \
-        ${lib.optionalString (themeVariants != [ ]) "--theme " + builtins.toString themeVariants} \
+        ${lib.optionalString (colorVariants != []) "--color " + builtins.toString colorVariants} \
+        ${lib.optionalString (themeVariants != []) "--theme " + builtins.toString themeVariants} \
         --dest $out/share/themes
 
       mkdir -p $out/share/doc/${pname}
@@ -75,13 +75,13 @@ lib.checkListOfEnum "${pname}: color variants"
       runHook postInstall
     '';
 
-    passthru.updateScript = gitUpdater { };
+    passthru.updateScript = gitUpdater {};
 
     meta = with lib; {
       description = "A stylish flat Design theme for GTK based desktop environments";
       homepage = "https://vinceliuice.github.io/theme-matcha";
       license = licenses.gpl3Only;
       platforms = platforms.unix;
-      maintainers = [ maintainers.romildo ];
+      maintainers = [maintainers.romildo];
     };
   }

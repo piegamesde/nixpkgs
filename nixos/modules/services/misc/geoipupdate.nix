@@ -115,7 +115,7 @@ in
                 attrset or not (refer to [](#opt-services.geoipupdate.settings) for
                 details).
               '';
-              apply = x: if isAttrs x then x else { _secret = x; };
+              apply = x: if isAttrs x then x else {_secret = x;};
             };
 
             DatabaseDirectory = lib.mkOption {
@@ -156,14 +156,14 @@ in
 
     systemd.services.geoipupdate = {
       description = "GeoIP Updater";
-      requires = [ "geoipupdate-create-db-dir.service" ];
+      requires = ["geoipupdate-create-db-dir.service"];
       after = [
         "geoipupdate-create-db-dir.service"
         "network-online.target"
         "nss-lookup.target"
       ];
-      path = [ pkgs.replace-secret ];
-      wants = [ "network-online.target" ];
+      path = [pkgs.replace-secret];
+      wants = ["network-online.target"];
       startAt = cfg.interval;
       serviceConfig = {
         ExecStartPre =
@@ -186,7 +186,7 @@ in
                   else if isSecret v then
                     hashString "sha256" v._secret
                   else
-                    throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}";
+                    throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty {}) v}";
               };
             };
             secretPaths = lib.catAttrs "_secret" (lib.collect isSecret cfg.settings);
@@ -250,7 +250,7 @@ in
     };
 
     systemd.timers.geoipupdate-initial-run = {
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       unitConfig.ConditionPathExists = "!${cfg.settings.DatabaseDirectory}";
       timerConfig = {
         Unit = "geoipupdate.service";
@@ -259,5 +259,5 @@ in
     };
   };
 
-  meta.maintainers = [ lib.maintainers.talyz ];
+  meta.maintainers = [lib.maintainers.talyz];
 }

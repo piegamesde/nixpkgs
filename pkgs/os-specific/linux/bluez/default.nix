@@ -105,9 +105,9 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional withExperimental "--enable-experimental";
 
   # Work around `make install' trying to create /var/lib/bluetooth.
-  installFlags = [ "statedir=$(TMPDIR)/var/lib/bluetooth" ];
+  installFlags = ["statedir=$(TMPDIR)/var/lib/bluetooth"];
 
-  makeFlags = [ "rulesdir=${placeholder "out"}/lib/udev/rules.d" ];
+  makeFlags = ["rulesdir=${placeholder "out"}/lib/udev/rules.d"];
 
   doCheck = stdenv.hostPlatform.isx86_64;
 

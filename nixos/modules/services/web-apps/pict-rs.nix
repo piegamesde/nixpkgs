@@ -9,7 +9,7 @@ let
   cfg = config.services.pict-rs;
 in
 {
-  meta.maintainers = with maintainers; [ happysalada ];
+  meta.maintainers = with maintainers; [happysalada];
   meta.doc = ./pict-rs.md;
 
   options.services.pict-rs = {
@@ -42,7 +42,7 @@ in
         PICTRS_PATH = cfg.dataDir;
         PICTRS_ADDR = "${cfg.address}:${toString cfg.port}";
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         DynamicUser = true;
         StateDirectory = "pict-rs";

@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     description = "A simple face detector for batch processing";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = [ maintainers.rycee ];
+    maintainers = [maintainers.rycee];
   };
 }

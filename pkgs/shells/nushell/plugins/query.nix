@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage {
     CoreFoundation
   ];
 
-  cargoBuildFlags = [ "--package nu_plugin_query" ];
+  cargoBuildFlags = ["--package nu_plugin_query"];
 
   # compilation fails with a missing symbol
   doCheck = false;
@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage {
     description = "A Nushell plugin to query JSON, XML, and various web data";
     homepage = "https://github.com/nushell/nushell/tree/main/crates/nu_plugin_query";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
     platforms = with platforms; all;
   };
 }

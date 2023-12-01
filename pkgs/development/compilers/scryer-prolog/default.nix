@@ -28,7 +28,7 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     openssl
     gmp
@@ -42,7 +42,7 @@ rustPlatform.buildRustPackage rec {
     broken = stdenv.isDarwin;
     description = "A modern Prolog implementation written mostly in Rust";
     homepage = "https://github.com/mthom/scryer-prolog";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ malbarbo ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [malbarbo];
   };
 }

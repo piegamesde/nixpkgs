@@ -27,7 +27,7 @@ buildPythonPackage rec {
     ply
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths =
     [
@@ -35,12 +35,12 @@ buildPythonPackage rec {
       "tests/test_jsonpath_rw_ext.py"
     ];
 
-  pythonImportsCheck = [ "bc_jsonpath_ng" ];
+  pythonImportsCheck = ["bc_jsonpath_ng"];
 
   meta = with lib; {
     description = "JSONPath implementation for Python";
     homepage = "https://github.com/bridgecrewio/jsonpath-ng";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

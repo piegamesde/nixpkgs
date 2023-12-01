@@ -14,14 +14,14 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
   checkInputs = [
     gen
     iter
     qcheck-core
   ];
 
-  propagatedBuildInputs = [ containers ];
+  propagatedBuildInputs = [containers];
 
   meta = containers.meta // {
     description = "A set of advanced datatypes for containers";

@@ -15,9 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-j9WJbocYpDcvDqnMnZb2QXybmG4jpNEW3aJrYswp0EY=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pkginfo" ];
+  pythonImportsCheck = ["pkginfo"];
 
   meta = with lib; {
     description = "Query metadatdata from sdists, bdists or installed packages";
@@ -31,6 +31,6 @@ buildPythonPackage rec {
       setup.py develop).
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -34,11 +34,11 @@ stdenv.mkDerivation rec {
     "CC:=$(CC)"
     "AR:=$(AR)"
   ];
-  hardeningEnable = [ "stackprotector" ];
+  hardeningEnable = ["stackprotector"];
 
   buildFlags = lib.optional enableStatic "static" ++ lib.optional enableShared "dynamic";
 
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
 
   installPhase =
     ''
@@ -56,6 +56,6 @@ stdenv.mkDerivation rec {
     description = "Quick-n-dirty BSD licensed clone of the GNU libc backtrace facility";
     license = licenses.bsd2;
     homepage = "https://www.freshports.org/devel/libexecinfo";
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
   };
 }

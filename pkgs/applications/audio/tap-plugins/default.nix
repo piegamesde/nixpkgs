@@ -17,7 +17,7 @@ stdenv.mkDerivation (
       hash = "sha256-bwybMxIAbOzPr43QGshjbnRK5GdziGiYDsTutZdSj4s=";
     };
 
-    buildInputs = [ ladspa-sdk ];
+    buildInputs = [ladspa-sdk];
 
     postPatch = ''
       substituteInPlace Makefile --replace /usr/local "$out"
@@ -35,7 +35,7 @@ stdenv.mkDerivation (
         TubeWarmth, TAP Vibrato.
       '';
       license = lib.licenses.gpl3Plus;
-      maintainers = [ lib.maintainers.AndersonTorres ];
+      maintainers = [lib.maintainers.AndersonTorres];
       platforms = lib.platforms.unix;
     };
   }

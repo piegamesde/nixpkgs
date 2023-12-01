@@ -35,12 +35,12 @@ let
     UMask = "0022";
     StateDirectoryMode = "750";
     ProtectSystem = "strict";
-    ReadWritePaths = [ "/var/lib/acme" ];
+    ReadWritePaths = ["/var/lib/acme"];
     PrivateTmp = true;
 
     WorkingDirectory = "/tmp";
 
-    CapabilityBoundingSet = [ "" ];
+    CapabilityBoundingSet = [""];
     DevicePolicy = "closed";
     LockPersonality = true;
     MemoryDenyWriteExecute = true;
@@ -79,7 +79,7 @@ let
   selfsignCAService = {
     description = "Generate self-signed certificate authority";
 
-    path = with pkgs; [ minica ];
+    path = with pkgs; [minica];
 
     unitConfig = {
       ConditionPathExists = "!/var/lib/acme/.minica/key.pem";
@@ -151,12 +151,12 @@ let
       acmeServer = data.server;
       useDns = data.dnsProvider != null;
       destPath = "/var/lib/acme/${cert}";
-      selfsignedDeps = optionals (cfg.preliminarySelfsigned) [ "acme-selfsigned-${cert}.service" ];
+      selfsignedDeps = optionals (cfg.preliminarySelfsigned) ["acme-selfsigned-${cert}.service"];
 
       # Minica and lego have a "feature" which replaces * with _. We need
       # to make this substitution to reference the output files from both programs.
       # End users never see this since we rename the certs.
-      keyName = builtins.replaceStrings [ "*" ] [ "_" ] data.domain;
+      keyName = builtins.replaceStrings ["*"] ["_"] data.domain;
 
       # FIXME when mkChangedOptionModule supports submodules, change to that.
       # This is a workaround
@@ -188,7 +188,7 @@ let
               "--dns"
               data.dnsProvider
             ]
-            ++ optionals (!data.dnsPropagationCheck) [ "--dns.disable-cp" ]
+            ++ optionals (!data.dnsPropagationCheck) ["--dns.disable-cp"]
             ++ optionals (data.dnsResolver != null) [
               "--dns.resolvers"
               data.dnsResolver
@@ -236,10 +236,7 @@ let
       # Although --must-staple is common to both modes, it is not declared as a
       # mode-agnostic argument in lego and thus must come after the mode.
       runOpts = escapeShellArgs (
-        commonOpts
-        ++ [ "run" ]
-        ++ optionals data.ocspMustStaple [ "--must-staple" ]
-        ++ data.extraLegoRunFlags
+        commonOpts ++ ["run"] ++ optionals data.ocspMustStaple ["--must-staple"] ++ data.extraLegoRunFlags
       );
       renewOpts = escapeShellArgs (
         commonOpts
@@ -247,7 +244,7 @@ let
           "renew"
           "--no-random-sleep"
         ]
-        ++ optionals data.ocspMustStaple [ "--must-staple" ]
+        ++ optionals data.ocspMustStaple ["--must-staple"]
         ++ data.extraLegoRenewFlags
       );
 
@@ -264,7 +261,7 @@ let
 
       renewTimer = {
         description = "Renew ACME Certificate for ${cert}";
-        wantedBy = [ "timers.target" ];
+        wantedBy = ["timers.target"];
         timerConfig = {
           OnCalendar = data.renewInterval;
           Unit = "acme-${cert}.service";
@@ -294,7 +291,7 @@ let
           "acme-fixperms.service"
         ];
 
-        path = with pkgs; [ minica ];
+        path = with pkgs; [minica];
 
         unitConfig = {
           ConditionPathExists = "!/var/lib/acme/${cert}/key.pem";
@@ -320,7 +317,7 @@ let
           minica \
             --ca-key ca/key.pem \
             --ca-cert ca/cert.pem \
-            --domains ${escapeShellArg (builtins.concatStringsSep "," ([ data.domain ] ++ extraDomains))}
+            --domains ${escapeShellArg (builtins.concatStringsSep "," ([data.domain] ++ extraDomains))}
 
           # Create files to match directory layout for real certificates
           cd '${keyName}'
@@ -351,7 +348,7 @@ let
         ] ++ selfsignedDeps;
 
         # https://github.com/NixOS/nixpkgs/pull/81371#issuecomment-605526099
-        wantedBy = optionals (!config.boot.isContainer) [ "multi-user.target" ];
+        wantedBy = optionals (!config.boot.isContainer) ["multi-user.target"];
 
         path = with pkgs; [
           lego
@@ -396,7 +393,7 @@ let
                   rm renewed
                   ${data.postRun}
                   ${
-                    optionalString (data.reloadServices != [ ])
+                    optionalString (data.reloadServices != [])
                       "systemctl --no-block try-reload-or-restart ${escapeShellArgs data.reloadServices}"
                   }
                 fi
@@ -405,8 +402,8 @@ let
           //
             optionalAttrs (data.listenHTTP != null && toInt (elemAt (splitString ":" data.listenHTTP) 1) < 1024)
               {
-                CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-                AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+                CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
+                AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
               };
 
         # Working directory will be /tmp
@@ -516,7 +513,7 @@ let
   # security.acme.defaults or security.acme.certs.<name>
   inheritableModule =
     isDefaults:
-    { config, ... }:
+    {config, ...}:
     let
       defaultAndText = name: default: {
         # When ! isDefaults then this is the option declaration for the
@@ -593,7 +590,7 @@ let
 
         reloadServices = mkOption {
           type = types.listOf types.str;
-          inherit (defaultAndText "reloadServices" [ ]) default defaultText;
+          inherit (defaultAndText "reloadServices" []) default defaultText;
           description = lib.mdDoc ''
             The list of systemd services to call `systemctl try-reload-or-restart`
             on.
@@ -678,7 +675,7 @@ let
 
         extraLegoFlags = mkOption {
           type = types.listOf types.str;
-          inherit (defaultAndText "extraLegoFlags" [ ]) default defaultText;
+          inherit (defaultAndText "extraLegoFlags" []) default defaultText;
           description = lib.mdDoc ''
             Additional global flags to pass to all lego commands.
           '';
@@ -686,7 +683,7 @@ let
 
         extraLegoRenewFlags = mkOption {
           type = types.listOf types.str;
-          inherit (defaultAndText "extraLegoRenewFlags" [ ]) default defaultText;
+          inherit (defaultAndText "extraLegoRenewFlags" []) default defaultText;
           description = lib.mdDoc ''
             Additional flags to pass to lego renew.
           '';
@@ -694,7 +691,7 @@ let
 
         extraLegoRunFlags = mkOption {
           type = types.listOf types.str;
-          inherit (defaultAndText "extraLegoRunFlags" [ ]) default defaultText;
+          inherit (defaultAndText "extraLegoRunFlags" []) default defaultText;
           description = lib.mdDoc ''
             Additional flags to pass to lego run.
           '';
@@ -703,7 +700,7 @@ let
     };
 
   certOpts =
-    { name, config, ... }:
+    {name, config, ...}:
     {
       options = {
         # user option has been removed
@@ -739,7 +736,7 @@ let
 
         extraDomainNames = mkOption {
           type = types.listOf types.str;
-          default = [ ];
+          default = [];
           example = literalExpression ''
             [
               "example.org"
@@ -823,7 +820,7 @@ in
       };
 
       certs = mkOption {
-        default = { };
+        default = {};
         type =
           with types;
           attrsOf (
@@ -981,7 +978,7 @@ in
   ];
 
   config = mkMerge [
-    (mkIf (cfg.certs != { }) {
+    (mkIf (cfg.certs != {}) {
 
       # FIXME Most of these custom warnings and filters for security.acme.certs.* are required
       # because using mkRemovedOptionModule/mkChangedOptionModule with attrsets isn't possible.
@@ -1091,7 +1088,7 @@ in
         isSystemUser = true;
       };
 
-      users.groups.acme = { };
+      users.groups.acme = {};
 
       systemd.services =
         {
@@ -1117,9 +1114,9 @@ in
               (
                 cert: conf:
                 nameValuePair "acme-finished-${cert}" {
-                  wantedBy = [ "default.target" ];
-                  requires = [ "acme-${cert}.service" ];
-                  after = [ "acme-${cert}.service" ];
+                  wantedBy = ["default.target"];
+                  requires = ["acme-${cert}.service"];
+                  after = ["acme-${cert}.service"];
                 }
               )
               certConfigs;
@@ -1144,8 +1141,8 @@ in
                 nameValuePair "acme-account-${hash}" {
                   requiredBy = dependantServices;
                   before = dependantServices;
-                  requires = [ leader ];
-                  after = [ leader ];
+                  requires = [leader];
+                  after = [leader];
                 }
               )
               (groupBy (conf: conf.accountHash) (attrValues certConfigs));

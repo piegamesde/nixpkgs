@@ -10,12 +10,12 @@ helm:
 let
   wrapper =
     {
-      plugins ? [ ],
+      plugins ? [],
       extraMakeWrapperArgs ? "",
     }:
     let
 
-      initialMakeWrapperArgs = [ ];
+      initialMakeWrapperArgs = [];
 
       pluginsDir = symlinkJoin {
         name = "helm-plugins";
@@ -38,14 +38,14 @@ let
 
       preferLocalBuild = true;
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
       passthru = {
         unwrapped = helm;
       };
 
       meta = helm.meta // {
         # To prevent builds on hydra
-        hydraPlatforms = [ ];
+        hydraPlatforms = [];
         # prefer wrapper over the package
         priority = (helm.meta.priority or 0) - 1;
       };

@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-XjnLBtm56xijIYtFoHxru4Afs1O3dOtb93SfiRtQDKk=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildCommand = ''
     mkdir -p "$out/bin" "$out/share" "$out/webapps"
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "An extendable open source continuous integration server";
     homepage = "https://jenkins-ci.org";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.mit;
     maintainers = with maintainers; [
       coconnor

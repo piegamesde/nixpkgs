@@ -18,7 +18,7 @@
 let
   version = "3.20.0";
   owner = "erlang";
-  deps = import ./rebar-deps.nix { inherit fetchFromGitHub fetchgit fetchHex; };
+  deps = import ./rebar-deps.nix {inherit fetchFromGitHub fetchgit fetchHex;};
   rebar3 = stdenv.mkDerivation rec {
     pname = "rebar3";
     inherit version erlang;
@@ -32,7 +32,7 @@ let
       sha256 = "1mh5cd3cpnvfv2cwm5bs64ldd2d7iqvikn47v9bpfd76nck3h8nh";
     };
 
-    buildInputs = [ erlang ];
+    buildInputs = [erlang];
 
     postPatch = ''
       mkdir -p _checkouts _build/default/lib/
@@ -95,7 +95,7 @@ let
           git
           gnused
           nix
-          (rebar3WithPlugins { globalPlugins = [ rebar3-nix ]; })
+          (rebar3WithPlugins {globalPlugins = [rebar3-nix];})
         ]
       }
       latest=$(list-git-tags | sed -n '/[\d\.]\+/p' | sort -V | tail -1)
@@ -117,8 +117,8 @@ let
 
   rebar3WithPlugins =
     {
-      plugins ? [ ],
-      globalPlugins ? [ ],
+      plugins ? [],
+      globalPlugins ? [],
       rebar3 ? _rebar3,
     }:
     let

@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
     shared-mime-info
     vala
     wrapGAppsNoGuiHook
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [mesonEmulatorHook];
 
   buildInputs = [
     argyllcms
@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
     sane-backends
     sqlite
     systemd
-  ] ++ lib.optionals enableDaemon [ polkit ];
+  ] ++ lib.optionals enableDaemon [polkit];
 
   postInstall = ''
     glib-compile-schemas $out/share/glib-2.0/schemas
@@ -119,7 +119,7 @@ stdenv.mkDerivation rec {
     description = "System service to manage, install and generate color profiles to accurately color manage input and output devices";
     homepage = "https://www.freedesktop.org/software/colord/";
     license = licenses.lgpl2Plus;
-    maintainers = [ maintainers.marcweber ] ++ teams.freedesktop.members;
+    maintainers = [maintainers.marcweber] ++ teams.freedesktop.members;
     platforms = platforms.linux;
   };
 }

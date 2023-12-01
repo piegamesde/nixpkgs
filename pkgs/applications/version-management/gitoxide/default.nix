@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
   buildInputs =
-    [ curl ]
+    [curl]
     ++ (
       if stdenv.isDarwin then
         [
@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage rec {
           SystemConfiguration
         ]
       else
-        [ openssl ]
+        [openssl]
     );
 
   # Needed to get openssl-sys to use pkg-config.
@@ -53,6 +53,6 @@ rustPlatform.buildRustPackage rec {
       mit # or
       asl20
     ];
-    maintainers = with maintainers; [ syberant ];
+    maintainers = with maintainers; [syberant];
   };
 }

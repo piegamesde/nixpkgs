@@ -22,19 +22,19 @@ buildPythonPackage rec {
     hash = "sha256-RPHpqknjpuAMXYg4nFOtLp8CXh10/w0RuO/bseTBN5o=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   # pytest-socket require network for majority of tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pytest_socket" ];
+  pythonImportsCheck = ["pytest_socket"];
 
   meta = with lib; {
     description = "Pytest Plugin to disable socket calls during tests";
     homepage = "https://github.com/miketheman/pytest-socket";
     license = licenses.mit;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

@@ -52,7 +52,7 @@ buildPythonPackage rec {
     pytz
   ];
 
-  pythonImportsCheck = [ "flask_babel" ];
+  pythonImportsCheck = ["flask_babel"];
 
   checkInputs = [
     pytest-mock
@@ -68,7 +68,7 @@ buildPythonPackage rec {
       installed automatically for you if you install this library.
     '';
     license = licenses.bsd2;
-    maintainers = teams.sage.members ++ (with maintainers; [ matejc ]);
+    maintainers = teams.sage.members ++ (with maintainers; [matejc]);
     homepage = "https://github.com/python-babel/flask-babel";
   };
 }

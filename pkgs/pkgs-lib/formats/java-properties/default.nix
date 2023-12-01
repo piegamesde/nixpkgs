@@ -1,4 +1,4 @@
-{ lib, pkgs }:
+{lib, pkgs}:
 let
   inherit (lib) types;
   inherit (types)
@@ -99,7 +99,7 @@ in
             #    libraries, but we can't rely on this in
             #    general.
 
-            passAsFile = [ "value" ];
+            passAsFile = ["value"];
             value = builtins.toJSON value;
             nativeBuildInputs = [
               pkgs.jq

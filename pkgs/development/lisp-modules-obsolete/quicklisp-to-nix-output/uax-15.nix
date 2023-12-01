@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "uax-15";
   version = "20211209-git";
 
-  parasites = [ "uax-15/tests" ];
+  parasites = ["uax-15/tests"];
 
   description = "Common lisp implementation of Unicode normalization functions :nfc, :nfd, :nfkc and :nfkd (Uax-15)";
 
@@ -21,7 +21,7 @@ rec {
 
   packageName = "uax-15";
 
-  asdFilesToKeep = [ "uax-15.asd" ];
+  asdFilesToKeep = ["uax-15.asd"];
   overrides = x: x;
 }
 /* (SYSTEM uax-15 DESCRIPTION

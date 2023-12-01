@@ -18,7 +18,7 @@ let
     '';
 in
 {
-  meta.maintainers = [ maintainers.bachp ];
+  meta.maintainers = [maintainers.bachp];
 
   options.services.minio = {
     enable = mkEnableOption (lib.mdDoc "Minio Object Storage");
@@ -36,7 +36,7 @@ in
     };
 
     dataDir = mkOption {
-      default = [ "/var/lib/minio/data" ];
+      default = ["/var/lib/minio/data"];
       type = types.listOf types.path;
       description = lib.mdDoc "The list of data directories for storing the objects. Use one path for regular operation and the minimum of 4 endpoints for Erasure Code mode.";
     };
@@ -113,8 +113,8 @@ in
 
         services.minio = {
           description = "Minio Object Storage";
-          after = [ "network-online.target" ];
-          wantedBy = [ "multi-user.target" ];
+          after = ["network-online.target"];
+          wantedBy = ["multi-user.target"];
           serviceConfig = {
             ExecStart = "${cfg.package}/bin/minio server --json --address ${cfg.listenAddress} --console-address ${cfg.consoleAddress} --config-dir=${cfg.configDir} ${toString cfg.dataDir}";
             Type = "simple";
@@ -143,10 +143,10 @@ in
         # The service will not restart if the credentials file has
         # been changed. This can cause stale root credentials.
         paths.minio-root-credentials = {
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
 
           pathConfig = {
-            PathChanged = [ cfg.rootCredentialsFile ];
+            PathChanged = [cfg.rootCredentialsFile];
             Unit = "minio-restart.service";
           };
         };

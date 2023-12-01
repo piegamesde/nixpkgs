@@ -28,7 +28,7 @@
 }:
 
 let
-  i686_NIX_GCC = pkgsi686Linux.callPackage ({ gcc }: gcc) { };
+  i686_NIX_GCC = pkgsi686Linux.callPackage ({gcc}: gcc) {};
   ld32 =
     if stdenv.hostPlatform.system == "x86_64-linux" then
       "${stdenv.cc}/nix-support/dynamic-linker-m32"
@@ -42,7 +42,7 @@ let
   version = "5.40";
   dl = "6/0100009236/10";
 
-  versionNoDots = builtins.replaceStrings [ "." ] [ "" ] version;
+  versionNoDots = builtins.replaceStrings ["."] [""] version;
   src_canon = fetchurl {
     url = "http://gdlp01.c-wss.com/gds/${dl}/linux-UFRII-drv-v${versionNoDots}-usen-20.tar.gz";
     sha256 = "sha256:069z6ijmql62mcdyxnzc9mf0dxa6z1107cd0ab4i1adk8kr3d75k";
@@ -231,7 +231,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "CUPS Linux drivers for Canon printers";
     homepage = "http://www.canon.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     maintainers =
       with maintainers;

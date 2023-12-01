@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     '';
 
   # Doesn't recognize platform flags
-  configurePlatforms = [ ];
+  configurePlatforms = [];
 
   outputs = [
     "out"
@@ -71,6 +71,6 @@ stdenv.mkDerivation rec {
     homepage = "https://git.kernel.dk/cgit/liburing/";
     license = licenses.lgpl21;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

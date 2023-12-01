@@ -14,7 +14,7 @@ bundlerApp {
 
   installManpages = false;
 
-  exes = [ "schleuder-cli" ];
+  exes = ["schleuder-cli"];
 
   passthru.updateScript = bundlerUpdateScript "schleuder-cli";
 
@@ -28,6 +28,6 @@ bundlerApp {
     homepage = "https://schleuder.org";
     changelog = "https://0xacab.org/schleuder/schleuder-cli/-/blob/main/CHANGELOG.md";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

@@ -39,7 +39,7 @@ mkDerivation rec {
     description = "Advanced IRC Client";
     homepage = "http://www.kvirc.net/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.suhr ];
+    maintainers = [maintainers.suhr];
     platforms = platforms.linux;
   };
 }

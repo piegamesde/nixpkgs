@@ -32,11 +32,11 @@ in
 
   config = mkIf cfg.enable {
 
-    boot.kernelModules = [ "facetimehd" ];
+    boot.kernelModules = ["facetimehd"];
 
-    boot.blacklistedKernelModules = [ "bdc_pci" ];
+    boot.blacklistedKernelModules = ["bdc_pci"];
 
-    boot.extraModulePackages = [ kernelPackages.facetimehd ];
+    boot.extraModulePackages = [kernelPackages.facetimehd];
 
     hardware.firmware = [
       pkgs.facetimehd-firmware

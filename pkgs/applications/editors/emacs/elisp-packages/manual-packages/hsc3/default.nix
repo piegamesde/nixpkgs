@@ -19,7 +19,7 @@ stdenv.mkDerivation {
     sha256 = "2f3b15655419cf8ebe25ab1c6ec22993b2589b4ffca7c3a75ce478ca78a0bde6";
   };
 
-  buildInputs = [ emacs ];
+  buildInputs = [emacs];
 
   installPhase = ''
     mkdir -p "$out/share/emacs/site-lisp"

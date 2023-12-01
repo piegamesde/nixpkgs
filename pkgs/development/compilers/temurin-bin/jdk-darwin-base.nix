@@ -2,7 +2,7 @@
   name-prefix ? "temurin",
   brand-name ? "Eclipse Temurin",
   sourcePerArch,
-  knownVulnerabilities ? [ ],
+  knownVulnerabilities ? [],
 }:
 
 {
@@ -27,7 +27,7 @@ let
         "${name-prefix}-${sourcePerArch.packageType}-bin";
     version = sourcePerArch.${cpuName}.version or (throw "unsupported CPU ${cpuName}");
 
-    src = fetchurl { inherit (sourcePerArch.${cpuName}) url sha256; };
+    src = fetchurl {inherit (sourcePerArch.${cpuName}) url sha256;};
 
     # See: https://github.com/NixOS/patchelf/issues/10
     dontStrip = 1;
@@ -68,7 +68,7 @@ let
       license = licenses.gpl2Classpath;
       description = "${brand-name}, prebuilt OpenJDK binary";
       platforms = builtins.map (arch: arch + "-darwin") providedCpuTypes; # some inherit jre.meta.platforms
-      maintainers = with maintainers; [ taku0 ];
+      maintainers = with maintainers; [taku0];
       inherit knownVulnerabilities;
       mainProgram = "java";
     };

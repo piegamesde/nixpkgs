@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       gpl3Only
     ];
     homepage = "https://github.com/dftd3/simple-dftd3";
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ maintainers.sheepforce ];
+    platforms = ["x86_64-linux"];
+    maintainers = [maintainers.sheepforce];
   };
 }

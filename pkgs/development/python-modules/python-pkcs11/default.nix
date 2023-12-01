@@ -34,12 +34,12 @@ buildPythonPackage rec {
   # Test require additional setup
   doCheck = false;
 
-  pythonImportsCheck = [ "pkcs11" ];
+  pythonImportsCheck = ["pkcs11"];
 
   meta = with lib; {
     description = "PKCS#11/Cryptoki support for Python";
     homepage = "https://github.com/danni/python-pkcs11";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

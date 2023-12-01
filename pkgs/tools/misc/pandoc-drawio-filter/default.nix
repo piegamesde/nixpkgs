@@ -51,7 +51,7 @@ let
       homepage = "https://github.com/tfc/pandoc-drawio-filter";
       description = "Pandoc filter which converts draw.io diagrams to PDF";
       license = licenses.mit;
-      maintainers = with maintainers; [ tfc ];
+      maintainers = with maintainers; [tfc];
     };
   };
 in

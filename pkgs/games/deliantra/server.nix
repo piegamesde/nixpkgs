@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     glib
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   patches = [
     ./0001-abs.patch
@@ -85,6 +85,6 @@ stdenv.mkDerivation rec {
       agpl3Plus
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ToxicFrog ];
+    maintainers = with maintainers; [ToxicFrog];
   };
 }

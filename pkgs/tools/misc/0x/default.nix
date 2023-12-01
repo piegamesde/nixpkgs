@@ -27,6 +27,6 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/mcy/0x";
     description = "A colorful, configurable xxd";
     license = licenses.asl20;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
   };
 }

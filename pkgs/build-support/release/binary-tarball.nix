@@ -75,7 +75,7 @@ stdenv.mkDerivation (
         test -n "$releaseName" && (echo "$releaseName" >> $out/nix-support/hydra-release-name)
       '';
 
-      meta = (if args ? meta then args.meta else { }) // {
+      meta = (if args ? meta then args.meta else {}) // {
         description = "Build of a generic binary distribution";
       };
     }

@@ -17,14 +17,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xF6QIXfsI+6WqshcG74/J98MgjSkYjRkTW64zeH6DDY=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   nativeCheckInputs = [
     check
     subunit
   ];
 
-  cmakeFlags = [ "-DBUILD_ORCANIA_TESTING=on" ];
+  cmakeFlags = ["-DBUILD_ORCANIA_TESTING=on"];
 
   doCheck = true;
 
@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
     description = "Potluck with different functions for different purposes that can be shared among C programs";
     homepage = "https://github.com/babelouest/orcania";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ johnazoidberg ];
+    maintainers = with maintainers; [johnazoidberg];
   };
 }

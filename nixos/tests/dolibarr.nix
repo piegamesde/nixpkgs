@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "dolibarr";
-    meta.maintainers = [ lib.maintainers.raitobezarius ];
+    meta.maintainers = [lib.maintainers.raitobezarius];
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
         services.dolibarr = {
           enable = true;
@@ -16,7 +16,7 @@ import ./make-test-python.nix (
           };
         };
 
-        networking.firewall.allowedTCPPorts = [ 80 ];
+        networking.firewall.allowedTCPPorts = [80];
       };
 
     testScript = ''

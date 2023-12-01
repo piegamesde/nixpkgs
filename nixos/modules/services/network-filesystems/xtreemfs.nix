@@ -79,11 +79,11 @@ let
     ${cfg.osd.extraConfig}
   '';
 
-  optionalDir = optionals cfg.dir.enable [ "xtreemfs-dir.service" ];
+  optionalDir = optionals cfg.dir.enable ["xtreemfs-dir.service"];
 
   systemdOptionalDependencies = {
-    after = [ "network.target" ] ++ optionalDir;
-    wantedBy = [ "multi-user.target" ] ++ optionalDir;
+    after = ["network.target"] ++ optionalDir;
+    wantedBy = ["multi-user.target"] ++ optionalDir;
   };
 in
 
@@ -467,7 +467,7 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    environment.systemPackages = [ xtreemfs ];
+    environment.systemPackages = [xtreemfs];
 
     users.users.xtreemfs = {
       uid = config.ids.uids.xtreemfs;
@@ -482,8 +482,8 @@ in
 
     systemd.services.xtreemfs-dir = mkIf cfg.dir.enable {
       description = "XtreemFS-DIR Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         User = "xtreemfs";
         ExecStart = "${startupScript "org.xtreemfs.dir.DIR" dirConfig}";

@@ -148,15 +148,15 @@ in
 
     # The user tools that talk to `gnunetd' should come from the same source,
     # so install them globally.
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     environment.etc."gnunet.conf".text = configFile;
 
     systemd.services.gnunet = {
       description = "GNUnet";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ configFile ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      restartTriggers = [configFile];
       path = [
         cfg.package
         pkgs.miniupnpc

@@ -9,7 +9,7 @@ lib.makePackageOverridable (
   {
     # Arguments passed through to `buildDhallPackage`
     name,
-    dependencies ? [ ],
+    dependencies ? [],
     source ? false,
 
     # The directory containing the Dhall files, if other than the root of the

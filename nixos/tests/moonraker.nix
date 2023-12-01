@@ -1,12 +1,12 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "moonraker";
-    meta = with pkgs.lib.maintainers; { maintainers = [ zhaofengli ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [zhaofengli];};
 
     nodes = {
       printer =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         {
           security.polkit.enable = true;
 
@@ -31,7 +31,7 @@ import ./make-test-python.nix (
             group = "moonraker";
 
             # No mcu configured so won't even enter `ready` state
-            settings = { };
+            settings = {};
           };
         };
     };

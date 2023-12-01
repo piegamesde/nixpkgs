@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-n/Xp/HghqcQUreez+QbR3Mi5hE1U4zoOJCdFqD+pVBk=";
   };
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
   nativeCheckInputs = [
     factory_boy
@@ -41,12 +41,12 @@ buildPythonPackage rec {
     "no:randomly"
   ];
 
-  pythonImportsCheck = [ "pytest_randomly" ];
+  pythonImportsCheck = ["pytest_randomly"];
 
   meta = with lib; {
     description = "Pytest plugin to randomly order tests and control random.seed";
     homepage = "https://github.com/pytest-dev/pytest-randomly";
     license = licenses.mit;
-    maintainers = with maintainers; [ sternenseemann ];
+    maintainers = with maintainers; [sternenseemann];
   };
 }

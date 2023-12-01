@@ -201,7 +201,7 @@ in
   };
 
   meta = {
-    maintainers = with maintainers; [ ma27 ];
+    maintainers = with maintainers; [ma27];
     doc = ./grocy.md;
   };
 }

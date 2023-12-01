@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     broken = true; # sendmsg.c:(.text+0x1099): undefined reference to `pthread_yield'
     homepage = "https://syncterm.bbsdev.net/";
     description = "BBS terminal emulator";
-    maintainers = with maintainers; [ embr ];
+    maintainers = with maintainers; [embr];
     platforms = platforms.unix;
     license = licenses.gpl2Plus;
   };

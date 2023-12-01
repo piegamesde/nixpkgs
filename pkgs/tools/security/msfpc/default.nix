@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "UIdE0oSaNu16pf+M96x8AnNju88hdzokv86wm8uBYDQ=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     description = "MSFvenom Payload Creator";
     homepage = "https://github.com/g0tmi1k/msfpc";
     license = licenses.mit;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.unix;
   };
 }

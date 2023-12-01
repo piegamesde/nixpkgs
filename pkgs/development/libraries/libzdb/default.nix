@@ -14,13 +14,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-oZV4Jvq3clSE/Ft0eApqfQ2Lf14uVNJuEGs5ngqGvrA=";
   };
 
-  buildInputs = [ sqlite ];
+  buildInputs = [sqlite];
 
   meta = {
     homepage = "http://www.tildeslash.com/libzdb/";
     description = "A small, easy to use Open Source Database Connection Pool Library";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

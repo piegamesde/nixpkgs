@@ -70,8 +70,8 @@
 let
 
   # Not always evaluated
-  blas' = if use64BitIdx then blas.override { isILP64 = true; } else blas;
-  lapack' = if use64BitIdx then lapack.override { isILP64 = true; } else lapack;
+  blas' = if use64BitIdx then blas.override {isILP64 = true;} else blas;
+  lapack' = if use64BitIdx then lapack.override {isILP64 = true;} else lapack;
   qrupdate' = qrupdate.override {
     # If use64BitIdx is false, this override doesn't evaluate to a new
     # derivation, as blas and lapack are not overridden.
@@ -146,14 +146,14 @@ let
         qtsvg
         qscintilla
       ]
-      ++ lib.optionals (ghostscript != null) [ ghostscript ]
-      ++ lib.optionals (hdf5 != null) [ hdf5 ]
-      ++ lib.optionals (glpk != null) [ glpk ]
-      ++ lib.optionals (suitesparse != null) [ suitesparse' ]
-      ++ lib.optionals (enableJava) [ jdk ]
-      ++ lib.optionals (sundials != null) [ sundials ]
-      ++ lib.optionals (gnuplot != null) [ gnuplot ]
-      ++ lib.optionals (python != null) [ python ]
+      ++ lib.optionals (ghostscript != null) [ghostscript]
+      ++ lib.optionals (hdf5 != null) [hdf5]
+      ++ lib.optionals (glpk != null) [glpk]
+      ++ lib.optionals (suitesparse != null) [suitesparse']
+      ++ lib.optionals (enableJava) [jdk]
+      ++ lib.optionals (sundials != null) [sundials]
+      ++ lib.optionals (gnuplot != null) [gnuplot]
+      ++ lib.optionals (python != null) [python]
       ++ lib.optionals (!stdenv.isDarwin) [
         libGL
         libGLU
@@ -173,7 +173,7 @@ let
         fftwSinglePrec
         texinfo
       ]
-      ++ lib.optionals (sundials != null) [ sundials ]
+      ++ lib.optionals (sundials != null) [sundials]
       ++ lib.optionals enableQt [
         qtscript
         qttools
@@ -195,10 +195,10 @@ let
         "--with-lapack=lapack"
         (if use64BitIdx then "--enable-64" else "--disable-64")
       ]
-      ++ lib.optionals stdenv.isDarwin [ "--enable-link-all-dependencies" ]
-      ++ lib.optionals enableReadline [ "--enable-readline" ]
-      ++ lib.optionals stdenv.isDarwin [ "--with-x=no" ]
-      ++ lib.optionals enableQt [ "--with-qt=5" ];
+      ++ lib.optionals stdenv.isDarwin ["--enable-link-all-dependencies"]
+      ++ lib.optionals enableReadline ["--enable-readline"]
+      ++ lib.optionals stdenv.isDarwin ["--with-x=no"]
+      ++ lib.optionals enableQt ["--with-qt=5"];
 
     # Keep a copy of the octave tests detailed results in the output
     # derivation, because someone may care
@@ -224,7 +224,7 @@ let
         inherit octavePackages wrapOctave;
         inherit (octavePackages) computeRequiredOctavePackages;
       };
-      withPackages = import ./with-packages.nix { inherit buildEnv octavePackages; };
+      withPackages = import ./with-packages.nix {inherit buildEnv octavePackages;};
       pkgs = octavePackages;
       interpreter = "${self}/bin/octave";
     };

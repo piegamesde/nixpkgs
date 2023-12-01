@@ -8,7 +8,7 @@ buildGoModule rec {
   pname = "govc";
   version = "0.30.4";
 
-  subPackages = [ "govc" ];
+  subPackages = ["govc"];
 
   src = fetchFromGitHub {
     rev = "v${version}";
@@ -29,6 +29,6 @@ buildGoModule rec {
     description = "A vSphere CLI built on top of govmomi";
     homepage = "https://github.com/vmware/govmomi/tree/master/govc";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ nicknovitski ];
+    maintainers = with lib.maintainers; [nicknovitski];
   };
 }

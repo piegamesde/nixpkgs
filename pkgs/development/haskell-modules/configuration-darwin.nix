@@ -1,6 +1,6 @@
 # DARWIN-SPECIFIC OVERRIDES FOR THE HASKELL PACKAGE SET IN NIXPKGS
 
-{ pkgs, haskellLib }:
+{pkgs, haskellLib}:
 
 let
   inherit (pkgs) lib darwin;
@@ -16,10 +16,10 @@ self: super:
     # see: https://github.com/psibi/shell-conduit/issues/12
     shell-conduit = dontCheck super.shell-conduit;
 
-    conduit-extra = super.conduit-extra.overrideAttrs (drv: { __darwinAllowLocalNetworking = true; });
+    conduit-extra = super.conduit-extra.overrideAttrs (drv: {__darwinAllowLocalNetworking = true;});
 
     streaming-commons = super.streaming-commons.overrideAttrs (
-      _: { __darwinAllowLocalNetworking = true; }
+      _: {__darwinAllowLocalNetworking = true;}
     );
 
     halive = addBuildDepend darwin.apple_sdk.frameworks.AppKit super.halive;
@@ -28,7 +28,7 @@ self: super:
     hakyll =
       overrideCabal
         {
-          testToolDepends = [ ];
+          testToolDepends = [];
           doCheck = false;
         }
         super.hakyll;
@@ -40,7 +40,7 @@ self: super:
     streamly = addBuildDepend darwin.apple_sdk.frameworks.Cocoa super.streamly;
 
     apecs-physics =
-      addPkgconfigDepends [ darwin.apple_sdk.frameworks.ApplicationServices ]
+      addPkgconfigDepends [darwin.apple_sdk.frameworks.ApplicationServices]
         super.apecs-physics;
 
     # Framework deps are hidden behind a flag
@@ -87,7 +87,7 @@ self: super:
         (drv: {
           libraryFrameworkDepends = [
             darwin.apple_sdk.frameworks.OpenAL
-          ] ++ (drv.libraryFrameworkDepends or [ ]);
+          ] ++ (drv.libraryFrameworkDepends or []);
         })
         super.al;
 
@@ -150,7 +150,7 @@ self: super:
         (drv: {
           libraryFrameworkDepends = [
             darwin.apple_sdk.frameworks.Accelerate
-          ] ++ (drv.libraryFrameworkDepends or [ ]);
+          ] ++ (drv.libraryFrameworkDepends or []);
         })
         super.blas-hs;
 
@@ -158,8 +158,8 @@ self: super:
     OpenGLRaw =
       overrideCabal
         (drv: {
-          librarySystemDepends = [ ];
-          libraryHaskellDepends = drv.libraryHaskellDepends ++ [ darwin.apple_sdk.frameworks.OpenGL ];
+          librarySystemDepends = [];
+          libraryHaskellDepends = drv.libraryHaskellDepends ++ [darwin.apple_sdk.frameworks.OpenGL];
           preConfigure =
             ''
               frameworkPaths=($(for i in $nativeBuildInputs; do if [ -d "$i"/Library/Frameworks ]; then echo "-F$i/Library/Frameworks"; fi done))
@@ -172,14 +172,14 @@ self: super:
     GLURaw =
       overrideCabal
         (drv: {
-          librarySystemDepends = [ ];
-          libraryHaskellDepends = drv.libraryHaskellDepends ++ [ darwin.apple_sdk.frameworks.OpenGL ];
+          librarySystemDepends = [];
+          libraryHaskellDepends = drv.libraryHaskellDepends ++ [darwin.apple_sdk.frameworks.OpenGL];
         })
         super.GLURaw;
     bindings-GLFW =
       overrideCabal
         (drv: {
-          librarySystemDepends = [ ];
+          librarySystemDepends = [];
           libraryHaskellDepends = drv.libraryHaskellDepends ++ [
             darwin.apple_sdk.frameworks.AGL
             darwin.apple_sdk.frameworks.Cocoa
@@ -194,8 +194,8 @@ self: super:
     OpenCL =
       overrideCabal
         (drv: {
-          librarySystemDepends = [ ];
-          libraryHaskellDepends = drv.libraryHaskellDepends ++ [ darwin.apple_sdk.frameworks.OpenCL ];
+          librarySystemDepends = [];
+          libraryHaskellDepends = drv.libraryHaskellDepends ++ [darwin.apple_sdk.frameworks.OpenCL];
         })
         super.OpenCL;
 
@@ -213,7 +213,7 @@ self: super:
           librarySystemDepends = [
             darwin.libobjc
             darwin.apple_sdk.frameworks.AppKit
-          ] ++ (drv.librarySystemDepends or [ ]);
+          ] ++ (drv.librarySystemDepends or []);
         })
         super.FractalArt;
 
@@ -224,7 +224,7 @@ self: super:
             darwin.apple_sdk.frameworks.Foundation
             darwin.apple_sdk.frameworks.Carbon
             darwin.apple_sdk.frameworks.IOKit
-          ] ++ (drv.librarySystemDepends or [ ]);
+          ] ++ (drv.librarySystemDepends or []);
         })
         super.arbtt;
 
@@ -242,8 +242,7 @@ self: super:
 
     # conditional dependency via a cabal flag
     cas-store =
-      overrideCabal
-        (drv: { libraryHaskellDepends = [ self.kqueue ] ++ (drv.libraryHaskellDepends or [ ]); })
+      overrideCabal (drv: {libraryHaskellDepends = [self.kqueue] ++ (drv.libraryHaskellDepends or []);})
         super.cas-store;
 
     # 2021-05-25: Tests fail and I have no way to debug them.
@@ -324,7 +323,7 @@ self: super:
     acid-state = dontCheck super.acid-state;
 
     # Otherwise impure gcc is used, which is Apple's weird wrapper
-    c2hsc = addTestToolDepends [ pkgs.gcc ] super.c2hsc;
+    c2hsc = addTestToolDepends [pkgs.gcc] super.c2hsc;
 
     http-client-tls =
       overrideCabal
@@ -385,10 +384,10 @@ self: super:
     # Build segfaults unless `fixity-th` is disabled.
     # https://github.com/tweag/ormolu/issues/927
     ormolu =
-      overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; })
+      overrideCabal (drv: {libraryHaskellDepends = drv.libraryHaskellDepends ++ [self.file-embed];})
         (disableCabalFlag "fixity-th" super.ormolu);
     fourmolu =
-      overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; })
+      overrideCabal (drv: {libraryHaskellDepends = drv.libraryHaskellDepends ++ [self.file-embed];})
         (disableCabalFlag "fixity-th" super.fourmolu);
 
     # https://github.com/NixOS/nixpkgs/issues/149692

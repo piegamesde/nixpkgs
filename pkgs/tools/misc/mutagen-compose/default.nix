@@ -21,14 +21,14 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/mutagen-compose" ];
+  subPackages = ["cmd/mutagen-compose"];
 
   meta = with lib; {
     broken = stdenv.isDarwin;
     description = "Compose with Mutagen integration";
     homepage = "https://mutagen.io/";
     changelog = "https://github.com/mutagen-io/mutagen-compose/releases/tag/v${version}";
-    maintainers = [ maintainers.matthewpi ];
+    maintainers = [maintainers.matthewpi];
     license = licenses.mit;
   };
 }

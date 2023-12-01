@@ -108,7 +108,7 @@ stdenv.mkDerivation rec {
     ln -s ${semver-cpp} lib/semver
   '';
 
-  NIX_CFLAGS_COMPILE = [ "-Wno-error=deprecated-declarations" ];
+  NIX_CFLAGS_COMPILE = ["-Wno-error=deprecated-declarations"];
 
   # Somehow some of the install destination paths in the build system still
   # gets transformed to point to /var/empty/share, even though they are at least
@@ -152,6 +152,6 @@ stdenv.mkDerivation rec {
     homepage = "https://soundux.rocks/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ aidalgol ];
+    maintainers = with maintainers; [aidalgol];
   };
 }

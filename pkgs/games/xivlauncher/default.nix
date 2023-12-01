@@ -75,7 +75,7 @@ buildDotnetModule rec {
       echo ${aria2} >> $out/nix-support/depends
     '';
 
-  executables = [ "XIVLauncher.Core" ];
+  executables = ["XIVLauncher.Core"];
 
   runtimeDeps = [
     SDL2
@@ -91,7 +91,7 @@ buildDotnetModule rec {
       icon = "xivlauncher";
       desktopName = "XIVLauncher";
       comment = meta.description;
-      categories = [ "Game" ];
+      categories = ["Game"];
       startupWMClass = "XIVLauncher.Core";
     })
   ];
@@ -104,7 +104,7 @@ buildDotnetModule rec {
       sersorrel
       witchof0x20
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     mainProgram = "XIVLauncher.Core";
   };
 }

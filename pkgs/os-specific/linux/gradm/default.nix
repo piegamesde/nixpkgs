@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     bison
     flex
   ];
-  buildInputs = [ pam ];
+  buildInputs = [pam];
 
   enableParallelBuilding = true;
 

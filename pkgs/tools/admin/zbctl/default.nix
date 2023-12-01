@@ -39,13 +39,13 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://docs.camunda.io/docs/apis-clients/cli-client/";
     downloadPage = "https://github.com/camunda/zeebe/releases";
     changelog = "https://github.com/camunda/zeebe/releases/tag/${version}";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.asl20;
     platforms = [
       "x86_64-darwin"
       "x86_64-linux"
     ];
-    maintainers = with maintainers; [ thetallestjj ];
+    maintainers = with maintainers; [thetallestjj];
     longDescription = ''
       A command line interface for Camunda Platform 8 designed to create and read resources inside a Zeebe broker.
       It can be used for regular development and maintenance tasks such as:

@@ -18,21 +18,21 @@ buildPythonApplication rec {
     sha256 = "sha256-MsvhVS3lqhgBJ+S/cjXFP70I3rM5WBYT7TyVlRWhNWw=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   disabled = pythonOlder "3.8";
 
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "legendary" ];
+  pythonImportsCheck = ["legendary"];
 
   meta = with lib; {
     description = "A free and open-source Epic Games Launcher alternative";
     homepage = "https://github.com/derrod/legendary";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ equirosa ];
+    maintainers = with maintainers; [equirosa];
   };
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 }

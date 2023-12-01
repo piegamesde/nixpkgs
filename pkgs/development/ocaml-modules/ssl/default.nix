@@ -22,12 +22,12 @@ buildDunePackage rec {
     sha256 = "sha256-Ws7QZOvZVy0QixMiBFJZEOnYzYlCWrZ1d95gOp/a5a0=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [ openssl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [dune-configurator];
+  propagatedBuildInputs = [openssl];
 
   doCheck = lib.versionAtLeast ocaml.version "4.08";
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
   preCheck = ''
     mkdir -p _build/default/tests/
     cp tests/digicert_certificate.pem _build/default/tests/

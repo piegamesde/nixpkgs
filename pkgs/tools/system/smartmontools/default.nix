@@ -24,7 +24,7 @@ let
       gnused
       hostname
     ]
-    ++ lib.optionals enableMail [ mailutils ]
+    ++ lib.optionals enableMail [mailutils]
   );
 in
 stdenv.mkDerivation rec {
@@ -45,9 +45,9 @@ stdenv.mkDerivation rec {
     cp -v ${driverdb} drivedb.h
   '';
 
-  configureFlags = [ "--with-scriptpath=${scriptPath}" ];
+  configureFlags = ["--with-scriptpath=${scriptPath}"];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = lib.optionals stdenv.isDarwin [
     IOKit
     ApplicationServices
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     description = "Tools for monitoring the health of hard drives";
     homepage = "https://www.smartmontools.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ Frostman ];
+    maintainers = with maintainers; [Frostman];
     platforms = with platforms; linux ++ darwin;
     mainProgram = "smartctl";
   };

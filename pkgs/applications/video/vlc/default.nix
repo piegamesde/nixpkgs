@@ -207,7 +207,7 @@ stdenv.mkDerivation rec {
       unzip
       wrapGAppsHook
     ]
-    ++ optionals withQt5 [ wrapQtAppsHook ]
+    ++ optionals withQt5 [wrapQtAppsHook]
     ++ optionals waylandSupport [
       wayland
       wayland-protocols
@@ -291,7 +291,7 @@ stdenv.mkDerivation rec {
     description = "Cross-platform media player and streaming server";
     homepage = "http://www.videolan.org/vlc/";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.linux;
   };
 }

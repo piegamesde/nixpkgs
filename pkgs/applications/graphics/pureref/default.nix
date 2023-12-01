@@ -22,8 +22,8 @@ appimageTools.wrapType1 rec {
     description = "Reference Image Viewer";
     homepage = "https://www.pureref.com";
     license = licenses.unfree;
-    maintainers = with maintainers; [ elnudev ];
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    maintainers = with maintainers; [elnudev];
+    platforms = ["x86_64-linux"];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 }

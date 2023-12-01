@@ -22,7 +22,7 @@ buildPythonApplication rec {
     hash = "sha256-YCcnqaH4Npmct5IBHsnufswRz8bS7mUb1YFwTta/Dxc=";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook ];
+  nativeBuildInputs = [wrapGAppsHook];
 
   # prevent double wrapping
   dontWrapGApps = true;
@@ -45,7 +45,7 @@ buildPythonApplication rec {
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-  nativeCheckInputs = with python3.pkgs; [ unittestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [unittestCheckHook];
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -56,6 +56,6 @@ buildPythonApplication rec {
     description = "MeerK40t LaserCutter Software";
     homepage = "https://github.com/meerk40t/meerk40t";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

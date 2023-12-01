@@ -27,7 +27,7 @@ import ../make-test-python.nix (
     };
 
     nodes.machine =
-      { config, ... }:
+      {config, ...}:
       {
         services.netbox = {
           enable = true;
@@ -140,9 +140,9 @@ import ../make-test-python.nix (
           };
         };
 
-        users.users.nginx.extraGroups = [ "netbox" ];
+        users.users.nginx.extraGroups = ["netbox"];
 
-        networking.firewall.allowedTCPPorts = [ 80 ];
+        networking.firewall.allowedTCPPorts = [80];
       };
 
     testScript =

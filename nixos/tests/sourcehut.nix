@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   let
     domain = "sourcehut.localdomain";
 
     # Note that wildcard certificates just under the TLD (eg. *.com)
     # would be rejected by clients like curl.
-    tls-cert = pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
+    tls-cert = pkgs.runCommand "selfSignedCerts" {buildInputs = [pkgs.openssl];} ''
       openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -days 36500 \
         -subj '/CN=${domain}' -extensions v3_req \
         -addext 'subjectAltName = DNS:*.${domain}'
@@ -16,7 +16,7 @@ import ./make-test-python.nix (
       nixos.unstable.x86_64 =
         let
           systemConfig =
-            { pkgs, ... }:
+            {pkgs, ...}:
             {
               # passwordless ssh server
               services.openssh = {
@@ -33,7 +33,7 @@ import ./make-test-python.nix (
                 extraUsers."build" = {
                   isNormalUser = true;
                   uid = 1000;
-                  extraGroups = [ "wheel" ];
+                  extraGroups = ["wheel"];
                   password = "";
                 };
                 users.root.password = "";
@@ -66,7 +66,7 @@ import ./make-test-python.nix (
                   # Google
                   "8.8.8.8"
                 ];
-                firewall.allowedTCPPorts = [ 22 ];
+                firewall.allowedTCPPorts = [22];
               };
 
               environment.systemPackages = [
@@ -77,9 +77,9 @@ import ./make-test-python.nix (
               ];
             };
           qemuConfig =
-            { pkgs, ... }:
+            {pkgs, ...}:
             {
-              imports = [ systemConfig ];
+              imports = [systemConfig];
               fileSystems."/".device = "/dev/disk/by-label/nixos";
               boot.initrd.availableKernelModules = [
                 "ahci"
@@ -104,7 +104,7 @@ import ./make-test-python.nix (
           config =
             (import (pkgs.path + "/nixos/lib/eval-config.nix") {
               inherit pkgs;
-              modules = [ qemuConfig ];
+              modules = [qemuConfig];
               system = "x86_64-linux";
             }).config;
         in
@@ -131,7 +131,7 @@ import ./make-test-python.nix (
   {
     name = "sourcehut";
 
-    meta.maintainers = [ pkgs.lib.maintainers.tomberek ];
+    meta.maintainers = [pkgs.lib.maintainers.tomberek];
 
     nodes.machine =
       {
@@ -233,8 +233,8 @@ import ./make-test-python.nix (
           };
         };
 
-        networking.firewall.allowedTCPPorts = [ 443 ];
-        security.pki.certificateFiles = [ "${tls-cert}/cert.pem" ];
+        networking.firewall.allowedTCPPorts = [443];
+        security.pki.certificateFiles = ["${tls-cert}/cert.pem"];
         services.nginx = {
           enable = true;
           recommendedGzipSettings = true;

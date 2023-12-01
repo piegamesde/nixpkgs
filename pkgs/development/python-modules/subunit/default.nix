@@ -36,7 +36,7 @@ buildPythonPackage {
     check
     cppunit
   ];
-  propagatedBuildInputs = [ testtools ];
+  propagatedBuildInputs = [testtools];
 
   nativeCheckInputs = [
     testscenarios
@@ -45,7 +45,7 @@ buildPythonPackage {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "python/subunit" ];
+  pytestFlagsArray = ["python/subunit"];
 
   disabledTestPaths = [
     # these tests require testtools and don't work with pytest

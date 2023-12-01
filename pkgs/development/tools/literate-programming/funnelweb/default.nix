@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.ross.net/funnelweb/";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
   };
 }
 #TODO: implement it for other platforms

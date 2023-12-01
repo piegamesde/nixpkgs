@@ -25,12 +25,12 @@ buildPythonApplication rec {
     poetry-core
   ];
 
-  propagatedBuildInputs = [ configargparse ];
+  propagatedBuildInputs = [configargparse];
 
-  pythonImportsCheck = [ "rofi_rbw" ];
+  pythonImportsCheck = ["rofi_rbw"];
 
   preFixup = ''
-    makeWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ rbw ]})
+    makeWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [rbw]})
   '';
 
   meta = with lib; {

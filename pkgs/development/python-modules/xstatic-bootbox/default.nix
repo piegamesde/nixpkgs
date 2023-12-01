@@ -20,6 +20,6 @@ buildPythonPackage rec {
     homepage = "http://bootboxjs.com";
     description = "Bootboxjs packaged static files for python";
     license = licenses.mit;
-    maintainers = with maintainers; [ makefu ];
+    maintainers = with maintainers; [makefu];
   };
 }

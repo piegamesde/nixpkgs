@@ -17,7 +17,7 @@ python3Packages.buildPythonApplication rec {
   };
 
   LC_ALL = "en_US.UTF-8";
-  buildInputs = [ glibcLocales ];
+  buildInputs = [glibcLocales];
   propagatedBuildInputs = [
     python3Packages.pyyaml
     python3Packages.i3-py
@@ -35,7 +35,7 @@ python3Packages.buildPythonApplication rec {
     '';
     homepage = "https://github.com/carlesso/i3minator";
     license = lib.licenses.wtfpl;
-    maintainers = with maintainers; [ domenkozar ];
+    maintainers = with maintainers; [domenkozar];
     platforms = lib.platforms.linux;
   };
 }

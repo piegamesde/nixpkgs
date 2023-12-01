@@ -27,6 +27,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.libxl.com/";
     license = licenses.unfree;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

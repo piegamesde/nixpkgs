@@ -68,7 +68,7 @@ with lib; {
 
     extraSettings = mkOption {
       type = types.attrs;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Extra configuration options. See
         [pantalaimon(5)](https://github.com/matrix-org/pantalaimon/blob/master/docs/man/pantalaimon.5.md)

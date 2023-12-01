@@ -29,10 +29,10 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   passthru.optional-dependencies = {
-    table = [ tabulate ];
+    table = [tabulate];
     markdown = [
       tabulate
       matplotlib
@@ -46,15 +46,15 @@ buildPythonPackage rec {
     pytest-test-utils
   ] ++ passthru.optional-dependencies.table ++ passthru.optional-dependencies.markdown;
 
-  disabledTestPaths = lib.optionals stdenv.isDarwin [ "tests/test_vega.py" ];
+  disabledTestPaths = lib.optionals stdenv.isDarwin ["tests/test_vega.py"];
 
-  pythonImportsCheck = [ "dvc_render" ];
+  pythonImportsCheck = ["dvc_render"];
 
   meta = with lib; {
     description = "Library for rendering DVC plots";
     homepage = "https://github.com/iterative/dvc-render";
     changelog = "https://github.com/iterative/dvc-render/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

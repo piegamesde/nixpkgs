@@ -44,7 +44,7 @@ buildPythonPackage rec {
     hash = "sha256-KJUtAWENS3+VAs3Iai1aKYzMYtfetMeI0MHeQ6NraNY=";
   };
 
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  nativeBuildInputs = [pythonRelaxDepsHook];
 
   pythonRelaxDeps = [
     "bincopy"
@@ -58,7 +58,7 @@ buildPythonPackage rec {
     "typing-extensions"
   ];
 
-  pythonRemoveDeps = [ "pyocd-pemicro" ];
+  pythonRemoveDeps = ["pyocd-pemicro"];
 
   propagatedBuildInputs = [
     asn1crypto
@@ -93,7 +93,7 @@ buildPythonPackage rec {
     voluptuous
   ];
 
-  pythonImportsCheck = [ "spsdk" ];
+  pythonImportsCheck = ["spsdk"];
 
   meta = with lib; {
     description = "NXP Secure Provisioning SDK";

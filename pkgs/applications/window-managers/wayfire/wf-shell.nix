@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     pulseaudio
   ];
 
-  mesonFlags = [ "--sysconfdir /etc" ];
+  mesonFlags = ["--sysconfdir /etc"];
 
   meta = with lib; {
     homepage = "https://github.com/WayfireWM/wf-shell";

@@ -1,8 +1,8 @@
-{ qtModule, qtdeclarative }:
+{qtModule, qtdeclarative}:
 
 qtModule {
   pname = "qtquickcontrols2";
-  qtInputs = [ qtdeclarative ];
+  qtInputs = [qtdeclarative];
   outputs = [
     "out"
     "dev"

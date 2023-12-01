@@ -13,7 +13,7 @@
 }:
 
 let
-  deps = import ./cdn-deps.nix { inherit fetchurl; };
+  deps = import ./cdn-deps.nix {inherit fetchurl;};
   linkDeps = writeScript "link-deps.sh" (
     lib.concatMapStringsSep "\n"
       (
@@ -107,7 +107,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.unrealengine.com/what-is-unreal-engine-4";
     license = lib.licenses.unfree;
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     # See issue https://github.com/NixOS/nixpkgs/issues/17162
     broken = true;
   };

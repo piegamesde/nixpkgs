@@ -31,10 +31,10 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    css = [ tinycss2 ];
+    css = [tinycss2];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests =
     [
@@ -42,7 +42,7 @@ buildPythonPackage rec {
       "protocols"
     ];
 
-  pythonImportsCheck = [ "bleach" ];
+  pythonImportsCheck = ["bleach"];
 
   meta = with lib; {
     description = "An easy, HTML5, whitelisting HTML sanitizer";
@@ -60,6 +60,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mozilla/bleach";
     downloadPage = "https://github.com/mozilla/bleach/releases";
     license = licenses.asl20;
-    maintainers = with maintainers; [ prikhi ];
+    maintainers = with maintainers; [prikhi];
   };
 }

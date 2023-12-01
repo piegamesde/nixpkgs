@@ -10,7 +10,7 @@
 with lib;
 
 {
-  imports = [ ../../../modules/virtualisation/cloudstack-config.nix ];
+  imports = [../../../modules/virtualisation/cloudstack-config.nix];
 
   system.build.cloudstackImage = import ../../../lib/make-disk-image.nix {
     inherit lib config pkgs;

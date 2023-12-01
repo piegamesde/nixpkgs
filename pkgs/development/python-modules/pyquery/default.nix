@@ -34,7 +34,7 @@ buildPythonPackage rec {
     lxml
   ];
 
-  pythonImportsCheck = [ "pyquery" ];
+  pythonImportsCheck = ["pyquery"];
 
   checkInputs = [
     pytestCheckHook

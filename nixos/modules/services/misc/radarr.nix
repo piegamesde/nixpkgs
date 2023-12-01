@@ -50,12 +50,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -"];
 
     systemd.services.radarr = {
       description = "Radarr";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "simple";
@@ -66,7 +66,7 @@ in
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ 7878 ]; };
+    networking.firewall = mkIf cfg.openFirewall {allowedTCPPorts = [7878];};
 
     users.users = mkIf (cfg.user == "radarr") {
       radarr = {
@@ -76,6 +76,6 @@ in
       };
     };
 
-    users.groups = mkIf (cfg.group == "radarr") { radarr.gid = config.ids.gids.radarr; };
+    users.groups = mkIf (cfg.group == "radarr") {radarr.gid = config.ids.gids.radarr;};
   };
 }

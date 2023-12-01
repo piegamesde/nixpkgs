@@ -48,9 +48,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "The most complete, free, teleprompter app on the web";
-    license = [ licenses.gpl3Plus ];
+    license = [licenses.gpl3Plus];
     homepage = "https://github.com/ImaginarySense/Teleprompter-Core";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ Scriptkiddi ];
+    maintainers = with maintainers; [Scriptkiddi];
   };
 }

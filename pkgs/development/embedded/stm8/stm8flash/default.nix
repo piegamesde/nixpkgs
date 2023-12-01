@@ -27,13 +27,13 @@ stdenv.mkDerivation rec {
     export DESTDIR=$out;
   '';
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libusb1 ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libusb1];
 
   meta = with lib; {
     homepage = "https://github.com/vdudouyt/stm8flash";
     description = "A tool for flashing STM8 MCUs via ST-LINK (V1 and V2)";
-    maintainers = with maintainers; [ pkharvey ];
+    maintainers = with maintainers; [pkharvey];
     license = licenses.gpl2;
     platforms = platforms.all;
   };

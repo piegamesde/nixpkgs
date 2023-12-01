@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "dbd-sqlite3";
   version = "cl-dbi-20211020-git";
@@ -27,7 +27,7 @@ rec {
 
   packageName = "dbd-sqlite3";
 
-  asdFilesToKeep = [ "dbd-sqlite3.asd" ];
+  asdFilesToKeep = ["dbd-sqlite3.asd"];
   overrides = x: x;
 }
 /* (SYSTEM dbd-sqlite3 DESCRIPTION Database driver for SQLite3. SHA256

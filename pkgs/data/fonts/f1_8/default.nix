@@ -32,7 +32,7 @@ stdenvNoCC.mkDerivation (
       homepage = "http://dotcolon.net/font/${finalAttrs.pname}/";
       description = "A weighted decorative font";
       platforms = platforms.all;
-      maintainers = with maintainers; [ minijackson ];
+      maintainers = with maintainers; [minijackson];
       license = licenses.ofl;
     };
   }

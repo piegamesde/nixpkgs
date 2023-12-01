@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     "--enable-extras"
     "--with-mount-helper=${mount}/bin/mount"
     "--with-umount-helper=${mount}/bin/umount"
-  ] ++ lib.optionals stdenv.isLinux [ "--with-modprobe-helper=${kmod}/bin/modprobe" ];
+  ] ++ lib.optionals stdenv.isLinux ["--with-modprobe-helper=${kmod}/bin/modprobe"];
 
   postInstall = ''
     # Prefer ntfs-3g over the ntfs driver in the kernel.
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/tuxera/ntfs-3g";
     description = "FUSE-based NTFS driver with full write support";
-    maintainers = with maintainers; [ dezgeg ];
+    maintainers = with maintainers; [dezgeg];
     platforms = with platforms; darwin ++ linux;
     license = with licenses; [
       gpl2Plus # ntfs-3g itself

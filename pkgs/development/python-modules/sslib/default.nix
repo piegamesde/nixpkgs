@@ -22,6 +22,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jqueiroz/python-sslib";
     description = "A Python3 library for sharing secrets";
     license = licenses.mit;
-    maintainers = with maintainers; [ jqueiroz ];
+    maintainers = with maintainers; [jqueiroz];
   };
 }

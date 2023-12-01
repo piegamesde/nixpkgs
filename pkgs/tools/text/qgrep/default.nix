@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     description = "Fast regular expression grep for source code with incremental index updates";
     homepage = "https://github.com/zeux/qgrep";
     license = licenses.mit;
-    maintainers = [ maintainers.yrashk ];
+    maintainers = [maintainers.yrashk];
     platforms = platforms.all;
   };
 }

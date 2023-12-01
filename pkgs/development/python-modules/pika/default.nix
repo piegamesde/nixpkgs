@@ -56,6 +56,6 @@ buildPythonPackage rec {
     description = "Pure-Python implementation of the AMQP 0-9-1 protocol";
     homepage = "https://pika.readthedocs.org";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

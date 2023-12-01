@@ -26,6 +26,6 @@ buildGoModule rec {
     description = "Exporter for NATS metrics";
     homepage = "https://github.com/nats-io/prometheus-nats-exporter";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bbigras ];
+    maintainers = with maintainers; [bbigras];
   };
 }

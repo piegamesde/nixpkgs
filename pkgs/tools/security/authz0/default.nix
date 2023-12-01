@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Automated authorization test tool";
     homepage = "https://github.com/hahwul/authz0";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

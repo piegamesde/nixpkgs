@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "1hl6rjvplapgsyrap8xj46kc9kqwdlm6ya6gp3lv0ihm0c24wy80";
   };
 
-  buildInputs = [ ppp ];
+  buildInputs = [ppp];
 
   preConfigure = ''
     cd src
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     sed -i Makefile -e 's@PPPOESERVER_PPPD_OPTIONS=@&$(out)@'
   '';
 
-  makeFlags = [ "AR:=$(AR)" ];
+  makeFlags = ["AR:=$(AR)"];
 
   meta = with lib; {
     description = "Roaring Penguin Point-to-Point over Ethernet tool";

@@ -30,13 +30,13 @@ stdenv.mkDerivation rec {
     gettext
   ];
 
-  configureFlags = [ "--prefix=$(out)" ];
+  configureFlags = ["--prefix=$(out)"];
 
   meta = {
     homepage = "https://github.com/dvorka/hstr";
     description = "Shell history suggest box - easily view, navigate, search and use your command history";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.matthiasbeyer ];
+    maintainers = [lib.maintainers.matthiasbeyer];
     platforms = with lib.platforms; linux ++ darwin;
   };
 }

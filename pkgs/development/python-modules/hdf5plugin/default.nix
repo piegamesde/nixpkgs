@@ -17,12 +17,12 @@ buildPythonPackage rec {
     hash = "sha256-w3jgIKfJPlu8F2rJXATmbHKyabp3PQLVmCYj3RsYL3c=";
   };
 
-  propagatedBuildInputs = [ h5py ];
+  propagatedBuildInputs = [h5py];
 
   checkPhase = ''
     python test/test.py
   '';
-  pythonImportsCheck = [ "hdf5plugin" ];
+  pythonImportsCheck = ["hdf5plugin"];
 
   preBuild = ''
     mkdir src/hdf5plugin/plugins
@@ -36,6 +36,6 @@ buildPythonPackage rec {
     '';
     homepage = "http://www.silx.org/doc/hdf5plugin/latest/";
     license = licenses.mit;
-    maintainers = with maintainers; [ bhipple ];
+    maintainers = with maintainers; [bhipple];
   };
 }

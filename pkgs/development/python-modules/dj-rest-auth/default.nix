@@ -28,11 +28,11 @@ buildPythonPackage rec {
       --replace "==" ">="
   '';
 
-  buildInputs = [ django ];
+  buildInputs = [django];
 
-  propagatedBuildInputs = [ djangorestframework ];
+  propagatedBuildInputs = [djangorestframework];
 
-  passthru.optional-dependencies.with_social = [ django-allauth ];
+  passthru.optional-dependencies.with_social = [django-allauth];
 
   nativeCheckInputs = [
     djangorestframework-simplejwt
@@ -52,12 +52,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "dj_rest_auth" ];
+  pythonImportsCheck = ["dj_rest_auth"];
 
   meta = with lib; {
     description = "Authentication for Django Rest Framework";
     homepage = "https://github.com/iMerica/dj-rest-auth";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

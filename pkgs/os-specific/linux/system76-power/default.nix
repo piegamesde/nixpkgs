@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-RuYDG4eZE599oa04xUR+W5B3/IPOpQUss1x7hzoydUQ=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     dbus
     libusb1
@@ -40,6 +40,6 @@ rustPlatform.buildRustPackage rec {
       "i686-linux"
       "x86_64-linux"
     ];
-    maintainers = [ maintainers.jwoudenberg ];
+    maintainers = [maintainers.jwoudenberg];
   };
 }

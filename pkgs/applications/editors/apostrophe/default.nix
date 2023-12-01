@@ -96,6 +96,6 @@ stdenv.mkDerivation rec {
     description = "A distraction free Markdown editor for GNU/Linux";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

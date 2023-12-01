@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "plotinus";
     meta = {
@@ -7,10 +7,10 @@ import ./make-test-python.nix (
     };
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
 
       {
-        imports = [ ./common/x11.nix ];
+        imports = [./common/x11.nix];
         programs.plotinus.enable = true;
         environment.systemPackages = [
           pkgs.gnome.gnome-calculator

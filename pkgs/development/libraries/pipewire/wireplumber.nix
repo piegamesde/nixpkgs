@@ -48,8 +48,8 @@ stdenv.mkDerivation rec {
       pkg-config
       ninja
     ]
-    ++ lib.optionals enableDocs [ graphviz ]
-    ++ lib.optionals enableGI [ gobject-introspection ]
+    ++ lib.optionals enableDocs [graphviz]
+    ++ lib.optionals enableGI [gobject-introspection]
     ++ lib.optionals (enableDocs || enableGI) [
       doxygen
       (python3.pythonForBuild.withPackages (
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
           sphinx-rtd-theme
           breathe
         ]
-        ++ lib.optionals enableGI [ lxml ]
+        ++ lib.optionals enableGI [lxml]
       ))
     ];
 
@@ -81,13 +81,13 @@ stdenv.mkDerivation rec {
     "-Dsysconfdir=/etc"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "A modular session / policy manager for PipeWire";
     homepage = "https://pipewire.org";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ k900 ];
+    maintainers = with maintainers; [k900];
   };
 }

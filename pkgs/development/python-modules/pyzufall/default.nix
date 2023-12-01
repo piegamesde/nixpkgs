@@ -25,7 +25,7 @@ buildPythonPackage rec {
     nose
     coverage
   ];
-  propagatedBuildInputs = [ future ];
+  propagatedBuildInputs = [future];
 
   checkPhase = ''
     ${python.interpreter} setup.py nosetests
@@ -35,6 +35,6 @@ buildPythonPackage rec {
     homepage = "https://pyzufall.readthedocs.io/de/latest/";
     description = "Library for generating random data and sentences in german language";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ davidak ];
+    maintainers = with maintainers; [davidak];
   };
 }

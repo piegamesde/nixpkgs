@@ -28,20 +28,20 @@ buildPythonPackage rec {
     rm -r vendor
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ igraph ];
+  buildInputs = [igraph];
 
-  propagatedBuildInputs = [ texttable ];
+  propagatedBuildInputs = [texttable];
 
   # NB: We want to use our igraph, not vendored igraph, but even with
   # pkg-config on the PATH, their custom setup.py still needs to be explicitly
   # told to do it. ~ C.
-  setupPyGlobalFlags = [ "--use-pkg-config" ];
+  setupPyGlobalFlags = ["--use-pkg-config"];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "igraph" ];
+  pythonImportsCheck = ["igraph"];
 
   meta = with lib; {
     description = "High performance graph data structures and algorithms";

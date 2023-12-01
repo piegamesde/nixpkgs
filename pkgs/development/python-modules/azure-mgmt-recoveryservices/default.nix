@@ -28,17 +28,17 @@ buildPythonPackage rec {
     azure-mgmt-core
     msrest
     msrestazure
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  ] ++ lib.optionals (pythonOlder "3.8") [typing-extensions];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "azure.mgmt.recoveryservices" ];
+  pythonImportsCheck = ["azure.mgmt.recoveryservices"];
 
   meta = with lib; {
     description = "This is the Microsoft Azure Recovery Services Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxwilson ];
+    maintainers = with maintainers; [maxwilson];
   };
 }

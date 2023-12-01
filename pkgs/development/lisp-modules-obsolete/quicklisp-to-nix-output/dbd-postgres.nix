@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "dbd-postgres";
   version = "cl-dbi-20211020-git";
@@ -29,7 +29,7 @@ rec {
 
   packageName = "dbd-postgres";
 
-  asdFilesToKeep = [ "dbd-postgres.asd" ];
+  asdFilesToKeep = ["dbd-postgres.asd"];
   overrides = x: x;
 }
 /* (SYSTEM dbd-postgres DESCRIPTION Database driver for PostgreSQL. SHA256

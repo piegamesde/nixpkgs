@@ -19,7 +19,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-WQvZn+SWamEqEXPutIZVDZTIczybtHUG9QsN8XxUeg8=";
   };
 
-  nativeBuildInputs = with python3Packages; [ poetry-core ];
+  nativeBuildInputs = with python3Packages; [poetry-core];
 
   meta = with lib; {
     description = "A program that allows to copy/paste from a terminal using osc-52 control sequences.";

@@ -1,15 +1,15 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   let
     dataDir = "/var/lib/foobar";
   in
   {
     name = "etebase-server";
-    meta = with pkgs.lib.maintainers; { maintainers = [ felschr ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [felschr];};
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         services.etebase-server = {
           inherit dataDir;

@@ -8,7 +8,7 @@ build-idris-package {
   pname = "lightyear";
   version = "2017-09-10";
 
-  idrisDeps = [ effects ];
+  idrisDeps = [effects];
 
   src = fetchFromGitHub {
     owner = "ziman";

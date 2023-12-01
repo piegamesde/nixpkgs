@@ -46,6 +46,6 @@ stdenv.mkDerivation rec {
     license = {
       url = "https://github.com/mattes/epeg#license";
     };
-    maintainers = with maintainers; [ nh2 ];
+    maintainers = with maintainers; [nh2];
   };
 }

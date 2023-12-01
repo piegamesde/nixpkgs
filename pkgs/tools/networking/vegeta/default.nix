@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-v9Hu9eQJSmm4Glt49F7EN40rKjrg4acyll9Bfgey+Mw=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags =
     (lib.mapAttrsToList (n: v: "-X main.${n}=${v}") {
@@ -42,6 +42,6 @@ buildGoModule rec {
     homepage = "https://github.com/tsenart/vegeta/";
     changelog = "https://github.com/tsenart/vegeta/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ mmahut ];
+    maintainers = with maintainers; [mmahut];
   };
 }

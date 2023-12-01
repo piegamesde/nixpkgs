@@ -46,7 +46,7 @@ resholve.mkDerivation {
 
   solutions = {
     default = {
-      scripts = [ "bin/s0ix-selftest-tool" ];
+      scripts = ["bin/s0ix-selftest-tool"];
       interpreter = lib.getExe bash;
       inputs = [
         acpica-tools
@@ -76,6 +76,6 @@ resholve.mkDerivation {
     description = "A tool for testing the S2idle path CPU Package C-state and S0ix failures";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ adamcstephens ];
+    maintainers = with maintainers; [adamcstephens];
   };
 }

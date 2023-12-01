@@ -27,19 +27,19 @@ buildPythonPackage rec {
     qtpy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Requires https://github.com/boylea/qtbot which is unmaintained
   doCheck = false;
 
-  pythonImportsCheck = [ "qtawesome" ];
+  pythonImportsCheck = ["qtawesome"];
 
   meta = with lib; {
     description = "Iconic fonts in PyQt and PySide applications";
     homepage = "https://github.com/spyder-ide/qtawesome";
     changelog = "https://github.com/spyder-ide/qtawesome/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux; # fails on Darwin
   };
 }

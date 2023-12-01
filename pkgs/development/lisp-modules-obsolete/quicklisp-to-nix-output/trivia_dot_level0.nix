@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "trivia_dot_level0";
   version = "trivia-20211020-git";
 
   description = "Bootstrapping Pattern Matching Library for implementing Trivia";
 
-  deps = [ args."alexandria" ];
+  deps = [args."alexandria"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/trivia/2021-10-20/trivia-20211020-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "trivia.level0";
 
-  asdFilesToKeep = [ "trivia.level0.asd" ];
+  asdFilesToKeep = ["trivia.level0.asd"];
   overrides = x: x;
 }
 /* (SYSTEM trivia.level0 DESCRIPTION

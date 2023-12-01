@@ -72,6 +72,6 @@ stdenv.mkDerivation rec {
     description = "A GTK greeter for LightDM";
     platforms = platforms.linux;
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ bobby285271 ];
+    maintainers = with maintainers; [bobby285271];
   };
 }

@@ -16,7 +16,7 @@ trivialBuild rec {
   meta = with lib; {
     description = "Major mode for editing .pod-files";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     platforms = platforms.all;
   };
 }

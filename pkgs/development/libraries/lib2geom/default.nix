@@ -55,9 +55,9 @@ stdenv.mkDerivation rec {
     double-conversion
   ];
 
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
 
-  cmakeFlags = [ "-D2GEOM_BUILD_SHARED=ON" ];
+  cmakeFlags = ["-D2GEOM_BUILD_SHARED=ON"];
 
   doCheck = true;
 
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       licenses.lgpl21Only
       licenses.mpl11
     ];
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.unix;
   };
 }

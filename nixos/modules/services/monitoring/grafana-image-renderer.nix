@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.services.grafana-image-renderer;
 
-  format = pkgs.formats.json { };
+  format = pkgs.formats.json {};
 
   configFile = format.generate "grafana-image-renderer-config.json" cfg.settings;
 in
@@ -91,7 +91,7 @@ in
             };
             args = mkOption {
               type = types.listOf types.str;
-              default = [ "--no-sandbox" ];
+              default = ["--no-sandbox"];
               description = lib.mdDoc ''
                 List of CLI flags passed to `chromium`.
               '';
@@ -100,7 +100,7 @@ in
         };
       };
 
-      default = { };
+      default = {};
 
       description = lib.mdDoc ''
         Configuration attributes for `grafana-image-renderer`.
@@ -143,8 +143,8 @@ in
     };
 
     systemd.services.grafana-image-renderer = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       description = " A Grafana backend plugin that handles rendering of panels & dashboards to PNGs using headless browser (Chromium/Chrome)";
 
       environment = {
@@ -160,5 +160,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ ma27 ];
+  meta.maintainers = with maintainers; [ma27];
 }

@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://clayo.org/osmo/";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

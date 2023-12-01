@@ -70,7 +70,7 @@ python3Packages.buildPythonApplication rec {
       ]
     }"
     # make xdg-open overrideable at runtime
-    "--suffix PATH : ${lib.makeBinPath [ xdg-utils ]}"
+    "--suffix PATH : ${lib.makeBinPath [xdg-utils]}"
   ];
 
   postPatch = ''
@@ -125,7 +125,7 @@ python3Packages.buildPythonApplication rec {
   # No tests
   doCheck = false;
 
-  pythonImportsCheck = [ "grapejuice" ];
+  pythonImportsCheck = ["grapejuice"];
 
   meta = with lib; {
     homepage = "https://gitlab.com/brinkervii/grapejuice";

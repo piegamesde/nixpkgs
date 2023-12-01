@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "rstudio-server-test";
     meta.maintainers = with pkgs.lib.maintainers; [
@@ -28,7 +28,7 @@ import ./make-test-python.nix (
       {
         services.rstudio-server = {
           enable = true;
-          package = pkgs.rstudioServerWrapper.override { packages = [ pkgs.rPackages.ggplot2 ]; };
+          package = pkgs.rstudioServerWrapper.override {packages = [pkgs.rPackages.ggplot2];};
         };
       };
 

@@ -21,10 +21,10 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-AbdGyRCeypmsBc2QdR4Tdl3MeUlK9xmNmB63axpUfFI=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       Security
       SystemConfiguration
@@ -37,7 +37,7 @@ rustPlatform.buildRustPackage rec {
     description = "Simple, extendable and embeddable scripting language.";
     homepage = "https://github.com/sagiegurari/duckscript";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
     mainProgram = "duck";
   };
 }

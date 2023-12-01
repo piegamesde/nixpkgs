@@ -22,8 +22,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.xfce.xfconf ];
+    environment.systemPackages = [pkgs.xfce.xfconf];
 
-    services.dbus.packages = [ pkgs.xfce.xfconf ];
+    services.dbus.packages = [pkgs.xfce.xfconf];
   };
 }

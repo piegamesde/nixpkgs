@@ -30,9 +30,9 @@ buildPythonPackage rec {
     stringly
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "nutils" ];
+  pythonImportsCheck = ["nutils"];
 
   disabledTestPaths =
     [
@@ -45,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://www.nutils.org/";
     license = licenses.mit;
     broken = stdenv.hostPlatform.isAarch64;
-    maintainers = with maintainers; [ Scriptkiddi ];
+    maintainers = with maintainers; [Scriptkiddi];
   };
 }

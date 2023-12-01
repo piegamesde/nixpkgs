@@ -1,4 +1,4 @@
-{ lib, python3 }:
+{lib, python3}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "luigi";
@@ -20,7 +20,7 @@ python3.pkgs.buildPythonApplication rec {
   doCheck = false;
 
   # This enables accessing modules stored in cwd
-  makeWrapperArgs = [ "--prefix PYTHONPATH . :" ];
+  makeWrapperArgs = ["--prefix PYTHONPATH . :"];
 
   meta = with lib; {
     description = "Python package that helps you build complex pipelines of batch jobs";
@@ -30,7 +30,7 @@ python3.pkgs.buildPythonApplication rec {
     '';
     homepage = "https://github.com/spotify/luigi";
     changelog = "https://github.com/spotify/luigi/releases/tag/${version}";
-    license = [ licenses.asl20 ];
-    maintainers = [ maintainers.bhipple ];
+    license = [licenses.asl20];
+    maintainers = [maintainers.bhipple];
   };
 }

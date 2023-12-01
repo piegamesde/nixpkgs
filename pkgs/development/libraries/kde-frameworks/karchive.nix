@@ -21,7 +21,7 @@ mkDerivation {
     zlib
     zstd
   ];
-  propagatedBuildInputs = [ qtbase ];
+  propagatedBuildInputs = [qtbase];
   outputs = [
     "out"
     "dev"

@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     sed -i -e '/includedir/d' wayland-eglstream.pc.in
   '';
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     meson
@@ -64,13 +64,13 @@ stdenv.mkDerivation rec {
     wayland-protocols
   ];
 
-  propagatedBuildInputs = [ eglexternalplatform ];
+  propagatedBuildInputs = [eglexternalplatform];
 
   meta = with lib; {
     description = "The EGLStream-based Wayland external platform";
     homepage = "https://github.com/NVIDIA/egl-wayland/";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ hedning ];
+    maintainers = with maintainers; [hedning];
   };
 }

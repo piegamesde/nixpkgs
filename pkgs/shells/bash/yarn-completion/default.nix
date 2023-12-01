@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   installPhase = ''
     runHook preInstall
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/dsifford/yarn-completion/";
     description = "Bash completion for Yarn";
     license = licenses.mit;
-    maintainers = with maintainers; [ DamienCassou ];
+    maintainers = with maintainers; [DamienCassou];
   };
 }

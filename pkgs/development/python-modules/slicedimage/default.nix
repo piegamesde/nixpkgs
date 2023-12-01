@@ -43,17 +43,17 @@ buildPythonPackage rec {
       enum34
     ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Ignore tests which require setup, check again if disabledTestFiles can be used
-  pytestFlagsArray = [ "--ignore tests/io_" ];
+  pytestFlagsArray = ["--ignore tests/io_"];
 
-  pythonImportsCheck = [ "slicedimage" ];
+  pythonImportsCheck = ["slicedimage"];
 
   meta = with lib; {
     description = "Library to access sliced imaging data";
     homepage = "https://github.com/spacetx/slicedimage";
     license = licenses.mit;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

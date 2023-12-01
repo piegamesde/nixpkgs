@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     description = "Genealogy tool with ncurses interface";
     homepage = "https://lifelines.github.io/lifelines/";
     license = licenses.mit;
-    maintainers = with maintainers; [ disassembler ];
+    maintainers = with maintainers; [disassembler];
     platforms = platforms.linux;
   };
 }

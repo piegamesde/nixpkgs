@@ -50,7 +50,7 @@ mkDerivation rec {
     knewstuff
   ];
 
-  patches = [ ./0001-Disable-autostart.patch ];
+  patches = [./0001-Disable-autostart.patch];
 
   postInstall = ''
     mkdir -p $out/etc/xdg/autostart
@@ -62,6 +62,6 @@ mkDerivation rec {
     homepage = "https://invent.kde.org/plasma/latte-dock";
     license = licenses.gpl2;
     platforms = platforms.unix;
-    maintainers = [ maintainers.ysndr ];
+    maintainers = [maintainers.ysndr];
   };
 }

@@ -92,7 +92,7 @@ let
       "application/java-vm"
       "application/java-archive"
     ];
-    categories = [ "Development" ];
+    categories = ["Development"];
   };
 in
 stdenv.mkDerivation rec {
@@ -131,7 +131,7 @@ stdenv.mkDerivation rec {
     makeWrapper ${jdk11}/bin/java $out/bin/${pname} --add-flags "-jar $out/share/${pname}/${pname}.jar" "''${gappsWrapperArgs[@]}"
   '';
 
-  desktopItems = [ desktopItem ];
+  desktopItems = [desktopItem];
 
   meta = with lib; {
     broken = stdenv.isDarwin;
@@ -142,7 +142,7 @@ stdenv.mkDerivation rec {
       binaryBytecode # deps
     ];
     license = licenses.bsd3;
-    maintainers = with maintainers; [ wirew0rm ];
+    maintainers = with maintainers; [wirew0rm];
     platforms = platforms.all;
   };
 }

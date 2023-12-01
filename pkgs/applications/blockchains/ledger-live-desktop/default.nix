@@ -14,7 +14,7 @@ let
     hash = "sha256-fXvCj9eBEp/kGPSiNUdir19eU0x461KzXgl5YgeapHI=";
   };
 
-  appimageContents = appimageTools.extractType2 { inherit pname version src; };
+  appimageContents = appimageTools.extractType2 {inherit pname version src;};
 in
 appimageTools.wrapType2 rec {
   inherit pname version src;
@@ -41,6 +41,6 @@ appimageTools.wrapType2 rec {
       th0rgal
       WeebSorceress
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

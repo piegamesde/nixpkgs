@@ -29,13 +29,13 @@ buildPythonPackage rec {
   # Missing dependencies
   doCheck = false;
 
-  pythonImportsCheck = [ "neo4j" ];
+  pythonImportsCheck = ["neo4j"];
 
   meta = with lib; {
     description = "Neo4j Bolt Driver for Python";
     homepage = "https://github.com/neo4j/neo4j-python-driver";
     changelog = "https://github.com/neo4j/neo4j-python-driver/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

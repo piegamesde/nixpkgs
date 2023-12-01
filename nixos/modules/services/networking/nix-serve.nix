@@ -74,8 +74,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.nix-serve = {
       description = "nix-serve binary cache server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       path = [
         config.nix.package.out
@@ -102,6 +102,6 @@ in
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {allowedTCPPorts = [cfg.port];};
   };
 }

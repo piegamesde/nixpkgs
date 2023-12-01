@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "0i0zg8di8nbh96qnyyr156ikwcsq1w9b2291bazm5whb351flmqx";
   };
 
-  nativeBuildInputs = [ jam ];
+  nativeBuildInputs = [jam];
   buildInputs = [
     openssl
     perl
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     homepage = "http://archiveopteryx.org/";
     description = "An advanced PostgreSQL-based IMAP/POP server";
     license = licenses.postgresql;
-    maintainers = [ maintainers.phunehehe ];
+    maintainers = [maintainers.phunehehe];
     platforms = platforms.linux;
   };
 }

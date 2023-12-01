@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-TViBclvCJeoOInTt13B7297JDtRkwvOjIf6AVAbpanU=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ];
+  buildInputs = lib.optionals stdenv.isDarwin [CoreServices];
 
   passthru = {
     tests = {
@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
     description = "Create books from MarkDown";
     homepage = "https://github.com/rust-lang/mdBook";
     changelog = "https://github.com/rust-lang/mdBook/blob/v${version}/CHANGELOG.md";
-    license = [ licenses.mpl20 ];
+    license = [licenses.mpl20];
     maintainers = with maintainers; [
       havvy
       Frostman

@@ -16,7 +16,7 @@ stdenvNoCC.mkDerivation rec {
     hash = source.sourceHash;
   };
 
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   # Firmware blobs do not need fixing and should not be modified
   dontFixup = true;
@@ -30,7 +30,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git";
     license = licenses.unfreeRedistributableFirmware;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
     priority = 6; # give precedence to kernel firmware
   };
 

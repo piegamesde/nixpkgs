@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     url = "https://github.com/otfried/ipe/releases/download/v${version}/ipe-${version}-src.tar.gz";
     sha256 = "sha256-5J0AV5E6SlFrIBfwDZrbJnkDUoVZ0fDH669s2RQ1CqU=";
   };
-  patches = [ ./headers-lookup.patch ];
+  patches = [./headers-lookup.patch];
 
   nativeBuildInputs = [
     pkg-config
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     lua5
     qtbase
     zlib
-  ] ++ (lib.optionals withTeXLive [ texlive ]);
+  ] ++ (lib.optionals withTeXLive [texlive]);
 
   makeFlags = [
     "-C src"
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     "IPE_NO_SPELLCHECK=1" # qtSpell is not yet packaged
   ];
 
-  qtWrapperArgs = lib.optional withTeXLive [ "--prefix PATH : ${lib.makeBinPath [ texlive ]}" ];
+  qtWrapperArgs = lib.optional withTeXLive ["--prefix PATH : ${lib.makeBinPath [texlive]}"];
 
   enableParallelBuilding = true;
 
@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
       It supports making small figures for inclusion into LaTeX-documents
       as well as presentations in PDF.
     '';
-    maintainers = with maintainers; [ ttuegel ];
+    maintainers = with maintainers; [ttuegel];
     platforms = platforms.linux;
   };
 }

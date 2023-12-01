@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     sed -i $'/^\t.*LIBSO/d' src/Makefile
   '';
 
-  nativeBuildInputs = [ flex ];
+  nativeBuildInputs = [flex];
 
   makeFlags = [
     "PREFIX=$(out)"
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     description = "SELinux binary policy manipulation library";
     homepage = "http://userspace.selinuxproject.org";
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     license = lib.licenses.gpl2Plus;
   };
 }

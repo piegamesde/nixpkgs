@@ -45,14 +45,14 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  makeFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = ["DESTDIR=$(out)"];
 
   meta = with lib; {
     broken = stdenv.isDarwin;
     homepage = "http://www.drpetter.se/project_sfxr.html";
     description = "A videogame sound effect generator";
     license = licenses.mit;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.unix;
   };
 }

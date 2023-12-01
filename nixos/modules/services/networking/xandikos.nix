@@ -48,7 +48,7 @@ in
       };
 
       extraOptions = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         example = literalExpression ''
           [ "--autocreate"
@@ -63,7 +63,7 @@ in
       };
 
       nginx = mkOption {
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Configuration for nginx reverse proxy.
         '';
@@ -93,12 +93,12 @@ in
   config = mkIf cfg.enable (
     mkMerge [
       {
-        meta.maintainers = with lib.maintainers; [ _0x4A6F ];
+        meta.maintainers = with lib.maintainers; [_0x4A6F];
 
         systemd.services.xandikos = {
           description = "A Simple Calendar and Contact Server";
-          after = [ "network.target" ];
-          wantedBy = [ "multi-user.target" ];
+          after = ["network.target"];
+          wantedBy = ["multi-user.target"];
 
           serviceConfig = {
             User = "xandikos";

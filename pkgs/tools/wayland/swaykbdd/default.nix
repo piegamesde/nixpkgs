@@ -25,13 +25,13 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
   ];
-  buildInputs = [ json_c ];
+  buildInputs = [json_c];
 
   meta = with lib; {
     description = "Per-window keyboard layout for Sway";
     homepage = "https://github.com/artemsen/swaykbdd";
     license = licenses.mit;
-    maintainers = with maintainers; [ ivankovnatsky ];
+    maintainers = with maintainers; [ivankovnatsky];
     platforms = platforms.linux;
   };
 }

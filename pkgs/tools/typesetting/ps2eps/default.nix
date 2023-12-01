@@ -26,7 +26,7 @@ perlPackages.buildPerlPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   configurePhase = "true";
 
@@ -64,6 +64,6 @@ perlPackages.buildPerlPackage rec {
     description = "Calculate correct bounding boxes for PostScript and PDF files";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.doronbehar ];
+    maintainers = [maintainers.doronbehar];
   };
 }

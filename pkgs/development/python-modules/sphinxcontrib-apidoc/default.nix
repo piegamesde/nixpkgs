@@ -19,7 +19,7 @@ buildPythonPackage rec {
     rm test-requirements.txt requirements.txt
   '';
 
-  propagatedBuildInputs = [ pbr ];
+  propagatedBuildInputs = [pbr];
 
   # Check is disabled due to circular dependency of sphinx
   doCheck = false;

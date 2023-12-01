@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-SbgvkAy7UTZKzgNPUQ17YwSo50yigiMLpITcenOODGw=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     ffmpeg
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     description = "Linux client for DroidCam app";
     homepage = "https://github.com/aramg/droidcam";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.suhr ];
+    maintainers = [maintainers.suhr];
     platforms = platforms.linux;
   };
 }

@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     description = "Interactive fiction mapper";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

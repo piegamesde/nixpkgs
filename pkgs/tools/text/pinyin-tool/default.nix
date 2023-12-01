@@ -19,12 +19,12 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "1ixl4bsb8c8dmz9s28a2v5l5f2hi3g9xjy6ribmhybpwmfs4mr4d";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [Security];
 
   meta = with lib; {
     description = "A simple command line tool for converting Chinese characters to space-separate pinyin words";
     homepage = "https://github.com/briankung/pinyin-tool";
     license = licenses.mit;
-    maintainers = with maintainers; [ neonfuz ];
+    maintainers = with maintainers; [neonfuz];
   };
 }

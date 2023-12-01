@@ -27,7 +27,7 @@
     meta = with lib; {
       homepage = "https://github.com/enabling-languages/tai-languages";
       description = "Unicode-compliant Tai Ahom font";
-      maintainers = with maintainers; [ mathnerd314 ];
+      maintainers = with maintainers; [mathnerd314];
       license = licenses.ofl; # See font metadata
       platforms = platforms.all;
     };

@@ -25,13 +25,13 @@ stdenv.mkDerivation rec {
     systemd
   ];
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
   meta = with lib; {
     description = "The fre:ac audio converter project";
     license = licenses.gpl2Plus;
     homepage = "https://www.freac.org/";
-    maintainers = with maintainers; [ shamilton ];
+    maintainers = with maintainers; [shamilton];
     platforms = platforms.linux;
   };
 }

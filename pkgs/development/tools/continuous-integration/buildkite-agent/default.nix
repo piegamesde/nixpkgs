@@ -28,7 +28,7 @@ buildGoModule rec {
     substituteInPlace bootstrap/shell/shell.go --replace /bin/bash ${bash}/bin/bash
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   doCheck = false;
 

@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
   buildInputs = [
     trousers
     openssl
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://sourceforge.net/projects/trousers/files/tpm-tools/";
     license = licenses.cpl10;
-    maintainers = [ maintainers.ak ];
+    maintainers = [maintainers.ak];
     platforms = platforms.unix;
   };
 }

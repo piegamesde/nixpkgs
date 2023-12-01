@@ -21,16 +21,16 @@ buildPythonPackage rec {
     hash = "sha256-WQkIw/tuT/KwRBVQ2+u2NXioAzisV0hCvTN8tfN+lRY=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "archinfo" ];
+  pythonImportsCheck = ["archinfo"];
 
   meta = with lib; {
     description = "Classes with architecture-specific information";
     homepage = "https://github.com/angr/archinfo";
-    license = with licenses; [ bsd2 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd2];
+    maintainers = with maintainers; [fab];
   };
 }

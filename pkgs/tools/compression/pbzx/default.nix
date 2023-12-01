@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     description = "Stream parser of Apple's pbzx compression format";
     platforms = platforms.unix;
     license = licenses.gpl3;
-    maintainers = [ maintainers.matthewbauer ];
+    maintainers = [maintainers.matthewbauer];
   };
 }

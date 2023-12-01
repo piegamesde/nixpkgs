@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.services.go-neb;
 
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   configFile = settingsFormat.generate "config.yaml" cfg.config;
 in
 {
@@ -58,8 +58,8 @@ in
       in
       {
         description = "Extensible matrix bot written in Go";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
         environment = {
           BASE_URL = cfg.baseUrl;
           BIND_ADDRESS = cfg.bindAddress;

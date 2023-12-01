@@ -1,12 +1,12 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
   {
     name = "doh-proxy-rust";
-    meta = with lib.maintainers; { maintainers = [ stephank ]; };
+    meta = with lib.maintainers; {maintainers = [stephank];};
 
     nodes = {
       machine =
-        { pkgs, lib, ... }:
+        {pkgs, lib, ...}:
         {
           services.bind = {
             enable = true;
@@ -24,13 +24,13 @@ import ./make-test-python.nix (
           };
           services.doh-proxy-rust = {
             enable = true;
-            flags = [ "--server-address=127.0.0.1:53" ];
+            flags = ["--server-address=127.0.0.1:53"];
           };
         };
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       ''
         url = "http://localhost:3000/dns-query"
         query = "AAABAAABAAAAAAAAAm5zB2V4YW1wbGUDb3JnAAABAAE="  # IN A ns.example.org.

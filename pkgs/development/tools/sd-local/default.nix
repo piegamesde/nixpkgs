@@ -17,12 +17,12 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-sgCUho8KFt0iFEuupQdMV6IZTVCsTXsNqv2ab5jp0mI=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "screwdriver.cd local mode";
     homepage = "https://github.com/screwdriver-cd/sd-local";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ midchildan ];
+    maintainers = with maintainers; [midchildan];
   };
 }

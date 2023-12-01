@@ -31,11 +31,11 @@ stdenv.mkDerivation {
     autoreconfHook
     pkg-config
   ];
-  propagatedBuildInputs = [ p4est-sc ];
+  propagatedBuildInputs = [p4est-sc];
   buildInputs = lib.optional withMetis metis;
   inherit debugEnable mpiSupport withMetis;
 
-  patches = [ ./p4est-metis.patch ];
+  patches = [./p4est-metis.patch];
   postPatch = ''
     sed -i -e "s:\(^\s*ACLOCAL_AMFLAGS.*\)\s@P4EST_SC_AMFLAGS@\s*$:\1 -I ${p4est-sc}/share/aclocal:" Makefile.am
   '';
@@ -47,7 +47,7 @@ stdenv.mkDerivation {
   '';
 
   configureFlags =
-    p4est-sc.configureFlags ++ [ "--with-sc=${p4est-sc}" ] ++ lib.optional withMetis "--with-metis";
+    p4est-sc.configureFlags ++ ["--with-sc=${p4est-sc}"] ++ lib.optional withMetis "--with-metis";
 
   inherit (p4est-sc)
     makeFlags
@@ -68,6 +68,6 @@ stdenv.mkDerivation {
     homepage = "https://www.p4est.org/";
     downloadPage = "https://github.com/cburstedde/p4est.git";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.cburstedde ];
+    maintainers = [lib.maintainers.cburstedde];
   };
 }

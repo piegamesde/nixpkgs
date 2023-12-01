@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
   };
 
   # tests require `bgzip` from the htslib package
-  nativeCheckInputs = [ htslib ];
+  nativeCheckInputs = [htslib];
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   buildInputs = [
     zlib
@@ -35,9 +35,9 @@ stdenv.mkDerivation rec {
   makeFlags = lib.optional stdenv.hostPlatform.isStatic "AR=${stdenv.cc.targetPrefix}ar";
 
   configureFlags =
-    [ "--with-htslib=${htslib}" ]
+    ["--with-htslib=${htslib}"]
     ++ lib.optional (ncurses == null) "--without-curses"
-    ++ lib.optionals stdenv.hostPlatform.isStatic [ "--without-curses" ];
+    ++ lib.optionals stdenv.hostPlatform.isStatic ["--without-curses"];
 
   preCheck = ''
     patchShebangs test/

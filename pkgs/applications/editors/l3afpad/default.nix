@@ -27,13 +27,13 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
     intltool
   ];
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   meta = with lib; {
     description = "Simple text editor forked from Leafpad using GTK+ 3.x";
     homepage = "https://github.com/stevenhoneyman/l3afpad";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ckie ];
+    maintainers = with maintainers; [ckie];
     license = licenses.gpl2;
   };
 }

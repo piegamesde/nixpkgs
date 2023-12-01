@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-w2/S7MnL/LFYzNFtC2YbBjJRhVA5kLvwd3IWVHC+o9Q=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = [
     which
@@ -169,7 +169,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://munin-monitoring.org/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
     platforms = platforms.linux;
   };
 }

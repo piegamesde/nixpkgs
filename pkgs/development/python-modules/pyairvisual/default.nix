@@ -27,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-xzTho4HsIU2YLURz9DfFfaRL3tsrtVi8n5IA2bRkyzw=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -49,13 +49,13 @@ buildPythonPackage rec {
       "examples/"
     ];
 
-  pythonImportsCheck = [ "pyairvisual" ];
+  pythonImportsCheck = ["pyairvisual"];
 
   meta = with lib; {
     description = "Python library for interacting with AirVisual";
     homepage = "https://github.com/bachya/pyairvisual";
     changelog = "https://github.com/bachya/pyairvisual/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

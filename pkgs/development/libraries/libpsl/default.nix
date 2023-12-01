@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     pkg-config
     python3
     libxslt
-  ] ++ lib.optionals enableValgrindTests [ valgrind ];
+  ] ++ lib.optionals enableValgrindTests [valgrind];
 
   buildInputs = [
     libidn2
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     libxslt
   ];
 
-  propagatedBuildInputs = [ publicsuffix-list ];
+  propagatedBuildInputs = [publicsuffix-list];
 
   postPatch = ''
     patchShebangs src/psl-make-dafsa
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     "--with-psl-distfile=${publicsuffix-list}/share/publicsuffix/public_suffix_list.dat"
     "--with-psl-file=${publicsuffix-list}/share/publicsuffix/public_suffix_list.dat"
     "--with-psl-testfile=${publicsuffix-list}/share/publicsuffix/test_psl.txt"
-  ] ++ lib.optionals enableValgrindTests [ "--enable-valgrind-tests" ];
+  ] ++ lib.optionals enableValgrindTests ["--enable-valgrind-tests"];
 
   enableParallelBuilding = true;
 
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
     homepage = "https://rockdaboot.github.io/libpsl/";
     changelog = "https://raw.githubusercontent.com/rockdaboot/${pname}/${pname}-${version}/NEWS";
     license = licenses.mit;
-    maintainers = [ maintainers.c0bw3b ];
+    maintainers = [maintainers.c0bw3b];
     mainProgram = "psl";
     platforms = platforms.unix;
   };

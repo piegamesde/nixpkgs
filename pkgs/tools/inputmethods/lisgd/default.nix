@@ -7,7 +7,7 @@
   libX11,
   wayland,
   conf ? null,
-  patches ? [ ],
+  patches ? [],
 }:
 
 stdenv.mkDerivation rec {
@@ -38,13 +38,13 @@ stdenv.mkDerivation rec {
     wayland
   ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     description = "Bind gestures via libinput touch events";
     homepage = "https://git.sr.ht/~mil/lisgd";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

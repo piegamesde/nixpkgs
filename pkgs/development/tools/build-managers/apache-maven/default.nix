@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xwR6SN62Jqvyb3GrNkPSltubHmfx+qfZiGN96sh2tak=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   inherit jdk;
 
@@ -28,6 +28,6 @@ stdenv.mkDerivation rec {
     homepage = "https://maven.apache.org/";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ cko ];
+    maintainers = with maintainers; [cko];
   };
 }

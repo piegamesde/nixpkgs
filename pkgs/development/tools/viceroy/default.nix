@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-BT1wslIrCCmehWfs9QuT5/HqKJVq5BkoyfKvUIx2nQw=";
 
-  cargoTestFlags = [ "--package viceroy-lib" ];
+  cargoTestFlags = ["--package viceroy-lib"];
 
   meta = with lib; {
     description = "Viceroy provides local testing for developers working with Compute@Edge";

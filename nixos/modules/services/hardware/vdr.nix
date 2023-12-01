@@ -36,7 +36,7 @@ in
 
       extraArguments = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "Additional command line arguments to pass to VDR.";
       };
 
@@ -56,7 +56,7 @@ in
 
         systemd.services.vdr = {
           description = "VDR";
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
           serviceConfig = {
             ExecStart = ''
               ${cfg.package}/bin/vdr \
@@ -77,13 +77,13 @@ in
           isSystemUser = true;
         };
 
-        users.groups.vdr = { };
+        users.groups.vdr = {};
       }
 
       (mkIf cfg.enableLirc {
         services.lirc.enable = true;
-        users.users.vdr.extraGroups = [ "lirc" ];
-        services.vdr.extraArguments = [ "--lirc=${config.passthru.lirc.socket}" ];
+        users.users.vdr.extraGroups = ["lirc"];
+        services.vdr.extraArguments = ["--lirc=${config.passthru.lirc.socket}"];
       })
     ]
   );

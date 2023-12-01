@@ -78,7 +78,7 @@ stdenvNoCC.mkDerivation (
         null;
 
     nativeBuildInputs =
-      [ validatePkgConfig ]
+      [validatePkgConfig]
       ++ (
         if stdenvNoCC.isDarwin then
           [
@@ -86,7 +86,7 @@ stdenvNoCC.mkDerivation (
             darwin.cctools
           ]
         else
-          [ rpmextract ]
+          [rpmextract]
       );
 
     buildPhase =
@@ -210,13 +210,13 @@ stdenvNoCC.mkDerivation (
         threading models.
       '';
       homepage = "https://software.intel.com/en-us/mkl";
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
       license = licenses.issl;
       platforms = [
         "x86_64-linux"
         "x86_64-darwin"
       ];
-      maintainers = with maintainers; [ bhipple ];
+      maintainers = with maintainers; [bhipple];
     };
   }
   // lib.optionalAttrs stdenvNoCC.isDarwin {

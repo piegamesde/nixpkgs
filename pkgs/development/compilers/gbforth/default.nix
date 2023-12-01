@@ -17,7 +17,7 @@ stdenv.mkDerivation {
     hash = "sha256-v1bdwT15Wg1VKpo74Cc3tsTl1uOKvKdlHWtbZkJ/qbA=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontBuild = true;
 
@@ -48,6 +48,6 @@ stdenv.mkDerivation {
     '';
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

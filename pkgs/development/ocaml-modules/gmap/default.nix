@@ -31,6 +31,6 @@ buildDunePackage rec {
     description = "Heterogenous maps over a GADT";
     homepage = "https://github.com/hannesm/gmap";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

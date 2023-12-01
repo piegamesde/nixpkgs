@@ -17,17 +17,17 @@ buildPythonPackage rec {
     hash = "sha256-cCvwOw64S47y2NrFy5JeHmhdzpj3exJVabxv0rO1gig=";
   };
 
-  propagatedBuildInputs = [ pyserial ];
+  propagatedBuildInputs = [pyserial];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "aioserial" ];
+  pythonImportsCheck = ["aioserial"];
 
   meta = with lib; {
     description = "Python module for async serial communication";
     homepage = "https://github.com/changyuheng/aioserial";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

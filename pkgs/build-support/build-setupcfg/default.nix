@@ -10,7 +10,7 @@ lib: pythonPackages:
 {
   src,
   info,
-  meta ? { },
+  meta ? {},
   application ? false,
   doCheck ? true,
 }:
@@ -24,8 +24,8 @@ build {
   inherit src meta doCheck;
 
   nativeBuildInputs = map (p: pythonPackages.${p}) (
-    (info.setup_requires or [ ]) ++ (lib.optionals doCheck (info.tests_require or [ ]))
+    (info.setup_requires or []) ++ (lib.optionals doCheck (info.tests_require or []))
   );
 
-  propagatedBuildInputs = map (p: pythonPackages.${p}) (info.install_requires or [ ]);
+  propagatedBuildInputs = map (p: pythonPackages.${p}) (info.install_requires or []);
 }

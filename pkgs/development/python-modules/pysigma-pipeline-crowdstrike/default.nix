@@ -22,18 +22,18 @@ buildPythonPackage rec {
     hash = "sha256-KHHs39RGksE7Rww8nHHo73+WOUzZaNiD4sZMhBPqqYQ=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ pysigma ];
+  propagatedBuildInputs = [pysigma];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "sigma.pipelines.crowdstrike" ];
+  pythonImportsCheck = ["sigma.pipelines.crowdstrike"];
 
   meta = with lib; {
     description = "Library to support CrowdStrike pipeline for pySigma";
     homepage = "https://github.com/SigmaHQ/pySigma-pipeline-crowdstrike";
-    license = with licenses; [ lgpl21Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [lgpl21Only];
+    maintainers = with maintainers; [fab];
   };
 }

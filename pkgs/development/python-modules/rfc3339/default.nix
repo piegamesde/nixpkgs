@@ -16,12 +16,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "rfc3339" ];
+  pythonImportsCheck = ["rfc3339"];
 
   meta = with lib; {
     description = "Format dates according to the RFC 3339";
     homepage = "https://hg.sr.ht/~henryprecheur/rfc3339";
     license = licenses.isc;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

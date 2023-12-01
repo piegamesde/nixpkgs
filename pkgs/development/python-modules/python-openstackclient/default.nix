@@ -53,7 +53,7 @@ buildPythonPackage rec {
     stestr run
   '';
 
-  pythonImportsCheck = [ "openstackclient" ];
+  pythonImportsCheck = ["openstackclient"];
 
   meta = with lib; {
     description = "OpenStack Command-line Client";

@@ -4,7 +4,7 @@
   fetchpatch,
   nixosTests,
 
-  plugins ? ps: [ ],
+  plugins ? ps: [],
 }:
 
 let

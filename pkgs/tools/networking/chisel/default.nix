@@ -36,7 +36,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/jpillora/chisel";
     changelog = "https://github.com/jpillora/chisel/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-PdylVOnunbB36dbZX/wzd9A8CJPDv/xH5HPLAUkRu28=";
   };
 
-  patches = [ ./rtmidipath.patch ];
+  patches = [./rtmidipath.patch];
 
   nativeBuildInputs = [
     qmake
@@ -62,6 +62,6 @@ stdenv.mkDerivation rec {
     homepage = "https://csoundqt.github.io/";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ hlolli ];
+    maintainers = with maintainers; [hlolli];
   };
 }

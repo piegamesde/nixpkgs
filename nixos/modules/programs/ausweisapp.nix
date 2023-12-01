@@ -24,7 +24,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ AusweisApp2 ];
-    networking.firewall.allowedUDPPorts = lib.optionals cfg.openFirewall [ 24727 ];
+    environment.systemPackages = with pkgs; [AusweisApp2];
+    networking.firewall.allowedUDPPorts = lib.optionals cfg.openFirewall [24727];
   };
 }

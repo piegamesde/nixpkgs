@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-6a1CIzHj9kmNgWN6QPNNUbiugkyfSrrIb7Fbz0ocr6o=";
   };
 
-  patches = [ ./fix-locations.patch ];
+  patches = [./fix-locations.patch];
 
   propagatedBuildInputs = [
     packaging
@@ -30,7 +30,7 @@ buildPythonPackage rec {
     sympy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -40,6 +40,6 @@ buildPythonPackage rec {
     description = "Tool to convert qmake .pro files to CMakeLists.txt";
     homepage = "https://wiki.qt.io/Qmake2cmake";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 }

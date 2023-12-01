@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = [
     "--cross-prefix=${stdenv.cc.targetPrefix}"
-  ] ++ lib.optionals (!enableX11) [ "--disable-x11" ];
+  ] ++ lib.optionals (!enableX11) ["--disable-x11"];
 
   makeFlags = [
     # is actually used as BUILD_CC
@@ -60,6 +60,6 @@ stdenv.mkDerivation rec {
     homepage = "https://bellard.org/qemacs/";
     description = "Very small but powerful UNIX editor";
     license = licenses.lgpl2Only;
-    maintainers = with maintainers; [ iblech ];
+    maintainers = with maintainers; [iblech];
   };
 }

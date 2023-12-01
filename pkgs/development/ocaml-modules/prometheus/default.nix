@@ -33,6 +33,6 @@ buildDunePackage rec {
   meta = {
     description = "Client library for Prometheus monitoring";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

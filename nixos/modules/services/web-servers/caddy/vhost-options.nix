@@ -1,4 +1,4 @@
-{ cfg }:
+{cfg}:
 {
   config,
   lib,
@@ -19,7 +19,7 @@ in
 
     serverAliases = mkOption {
       type = with types; listOf str;
-      default = [ ];
+      default = [];
       example = [
         "www.example.org"
         "example.org"
@@ -34,7 +34,7 @@ in
       description = lib.mdDoc ''
         A list of host interfaces to bind to for this virtual host.
       '';
-      default = [ ];
+      default = [];
       example = [
         "127.0.0.1"
         "::1"

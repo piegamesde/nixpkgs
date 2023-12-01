@@ -5,7 +5,7 @@
 }:
 
 appleDerivation {
-  buildInputs = [ developer_cmds ];
+  buildInputs = [developer_cmds];
 
   installPhase = ''
     export DSTROOT=$out
@@ -19,7 +19,7 @@ appleDerivation {
   '';
 
   meta = with lib; {
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
     platforms = platforms.darwin;
     license = licenses.apsl20;
   };

@@ -28,7 +28,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  pythonRelaxDeps = [ "awkward" ];
+  pythonRelaxDeps = ["awkward"];
 
   nativeBuildInputs = [
     hatch-vcs
@@ -46,7 +46,7 @@ buildPythonPackage rec {
     pyarrow
   ];
 
-  pythonImportsCheck = [ "dask_awkward" ];
+  pythonImportsCheck = ["dask_awkward"];
 
   disabledTests = [
     # Tests require network access
@@ -59,6 +59,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/dask-contrib/dask-awkward";
     changelog = "https://github.com/dask-contrib/dask-awkward/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

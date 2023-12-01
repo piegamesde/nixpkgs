@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     sha256 = "1rkz6lwjcd5mwv72kf07ghvx6z46kf3xs250mjbmnmjpn7r5sxwv";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     xorg.libICE
     xorg.libX11

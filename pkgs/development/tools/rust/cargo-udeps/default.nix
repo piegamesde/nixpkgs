@@ -24,11 +24,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-Q5sLn9JrspnxMPi8zoP3i/G92PP1zPVCKlQXdTiSXJM=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   # TODO figure out how to use provided curl instead of compiling curl from curl-sys
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       CoreServices
       Security
@@ -43,6 +43,6 @@ rustPlatform.buildRustPackage rec {
     description = "Find unused dependencies in Cargo.toml";
     homepage = "https://github.com/est31/cargo-udeps";
     license = licenses.mit;
-    maintainers = with maintainers; [ b4dm4n ];
+    maintainers = with maintainers; [b4dm4n];
   };
 }

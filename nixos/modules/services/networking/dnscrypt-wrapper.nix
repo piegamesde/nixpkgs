@@ -131,12 +131,12 @@ let
             description = "A tool for securing communications between a client and a DNS resolver";
             homepage = "https://github.com/dyne/dnscrypt-proxy";
             license = licenses.isc;
-            maintainers = with maintainers; [ rnhmjoj ];
+            maintainers = with maintainers; [rnhmjoj];
             platforms = platforms.linux;
           };
         }
       )
-      { };
+      {};
 in
 {
 
@@ -237,7 +237,7 @@ in
       isSystemUser = true;
       group = "dnscrypt-wrapper";
     };
-    users.groups.dnscrypt-wrapper = { };
+    users.groups.dnscrypt-wrapper = {};
 
     security.polkit.extraConfig = ''
       // Allow dnscrypt-wrapper user to restart dnscrypt-wrapper.service
@@ -252,9 +252,9 @@ in
 
     systemd.services.dnscrypt-wrapper = {
       description = "dnscrypt-wrapper daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.dnscrypt-wrapper ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.dnscrypt-wrapper];
 
       serviceConfig = {
         User = "dnscrypt-wrapper";
@@ -267,8 +267,8 @@ in
     };
 
     systemd.services.dnscrypt-wrapper-rotate = {
-      after = [ "network.target" ];
-      requires = [ "dnscrypt-wrapper.service" ];
+      after = ["network.target"];
+      requires = ["dnscrypt-wrapper.service"];
       description = "Rotates DNSCrypt wrapper keys if soon to expire";
 
       path = with pkgs; [
@@ -282,7 +282,7 @@ in
 
     systemd.timers.dnscrypt-wrapper-rotate = {
       description = "Periodically check DNSCrypt wrapper keys for expiration";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       timerConfig = {
         Unit = "dnscrypt-wrapper-rotate.service";
@@ -301,5 +301,5 @@ in
     ];
   };
 
-  meta.maintainers = with lib.maintainers; [ rnhmjoj ];
+  meta.maintainers = with lib.maintainers; [rnhmjoj];
 }

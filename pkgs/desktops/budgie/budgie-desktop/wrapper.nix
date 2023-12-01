@@ -5,7 +5,7 @@
   xorg,
   wrapGAppsHook,
   budgie-desktop,
-  plugins ? [ ],
+  plugins ? [],
 }:
 
 stdenv.mkDerivation {
@@ -14,9 +14,9 @@ stdenv.mkDerivation {
 
   src = null;
 
-  paths = [ budgie-desktop ] ++ plugins;
+  paths = [budgie-desktop] ++ plugins;
 
-  passAsFile = [ "paths" ];
+  passAsFile = ["paths"];
 
   nativeBuildInputs = [
     glib

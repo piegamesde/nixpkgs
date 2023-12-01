@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [
     sqlite
     xdg-utils
-  ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  ] ++ lib.optionals stdenv.isDarwin [Security];
 
   cargoLock = {
     lockFile = ./Cargo.lock;
@@ -35,6 +35,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/Acizza/anup";
     description = "An anime tracker for AniList featuring a TUI";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ natto1784 ];
+    maintainers = with maintainers; [natto1784];
   };
 }

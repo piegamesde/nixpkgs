@@ -27,15 +27,15 @@ buildPythonPackage rec {
     hash = "sha256-SIBzn57UNn/sLuDWt391M/kcCyjCocHmL5qi2cSX2iA=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs =
     [
       lazy-object-proxy
       wrapt
     ]
-    ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ]
-    ++ lib.optionals (!isPyPy && pythonOlder "3.8") [ typed-ast ];
+    ++ lib.optionals (pythonOlder "3.11") [typing-extensions]
+    ++ lib.optionals (!isPyPy && pythonOlder "3.8") [typed-ast];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -57,6 +57,6 @@ buildPythonPackage rec {
     description = "An abstract syntax tree for Python with inference support";
     homepage = "https://github.com/PyCQA/astroid";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

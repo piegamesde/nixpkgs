@@ -33,7 +33,7 @@ in
 
     extraOptions = mkOption {
       type = with types; listOf str;
-      default = [ ];
+      default = [];
       description = mdDoc ''
         Extra command line options.
 
@@ -145,7 +145,7 @@ in
   config = mkIf cfg.enable {
     systemd.services.kthxbye = {
       description = "kthxbye Alertmanager ack management daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       script = ''
         ${cfg.package}/bin/kthxbye \
           -alertmanager.timeout ${cfg.alertmanager.timeout} \
@@ -166,6 +166,6 @@ in
       };
     };
 
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.port];
   };
 }

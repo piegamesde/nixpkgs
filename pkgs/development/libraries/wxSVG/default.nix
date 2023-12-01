@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-rkcykfjQpf6voGzScMgmxr6tS86yud1vzs8tt8JeJII=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     cairo
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       Graphics (SVG) files with the wxWidgets toolkit.
     '';
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     inherit (wxGTK.meta) platforms;
   };
 }

@@ -18,16 +18,16 @@ buildPythonPackage rec {
     hash = "sha256-7pbxi/mwDy3rTjQGykoFCTqoDi7wV4Ulo7TTLs3/Ep0=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     flask
     brotli
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "flask_compress" ];
+  pythonImportsCheck = ["flask_compress"];
 
   meta = with lib; {
     description = "Compress responses in your Flask app with gzip";

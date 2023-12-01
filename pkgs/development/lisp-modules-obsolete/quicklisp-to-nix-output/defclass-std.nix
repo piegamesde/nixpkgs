@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "defclass-std";
   version = "20201220-git";
@@ -18,7 +18,7 @@ rec {
 
   packageName = "defclass-std";
 
-  asdFilesToKeep = [ "defclass-std.asd" ];
+  asdFilesToKeep = ["defclass-std.asd"];
   overrides = x: x;
 }
 /* (SYSTEM defclass-std DESCRIPTION

@@ -54,24 +54,24 @@ in
         name = "vswitch.db";
         dontUnpack = true;
         buildPhase = "true";
-        buildInputs = with pkgs; [ cfg.package ];
+        buildInputs = with pkgs; [cfg.package];
         installPhase = "mkdir -p $out";
       };
     in
     {
-      environment.systemPackages = [ cfg.package ];
+      environment.systemPackages = [cfg.package];
       boot.kernelModules = [
         "tun"
         "openvswitch"
       ];
 
-      boot.extraModulePackages = [ cfg.package ];
+      boot.extraModulePackages = [cfg.package];
 
       systemd.services.ovsdb = {
         description = "Open_vSwitch Database Server";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "systemd-udev-settle.service" ];
-        path = [ cfg.package ];
+        wantedBy = ["multi-user.target"];
+        after = ["systemd-udev-settle.service"];
+        path = [cfg.package];
         restartTriggers = [
           db
           cfg.package
@@ -121,10 +121,10 @@ in
 
       systemd.services.ovs-vswitchd = {
         description = "Open_vSwitch Daemon";
-        wantedBy = [ "multi-user.target" ];
-        bindsTo = [ "ovsdb.service" ];
-        after = [ "ovsdb.service" ];
-        path = [ cfg.package ];
+        wantedBy = ["multi-user.target"];
+        bindsTo = ["ovsdb.service"];
+        after = ["ovsdb.service"];
+        path = [cfg.package];
         serviceConfig = {
           ExecStart = ''
             ${cfg.package}/bin/ovs-vswitchd \
@@ -155,5 +155,5 @@ in
     )
   ];
 
-  meta.maintainers = with maintainers; [ netixx ];
+  meta.maintainers = with maintainers; [netixx];
 }

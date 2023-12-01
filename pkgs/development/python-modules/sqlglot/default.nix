@@ -21,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-ZFc2aOhCTRFlrzgnYDSdIZxRqKZ8FvkYSZRU0OMHI34=";
   };
 
-  propagatedBuildInputs = [ python-dateutil ];
+  propagatedBuildInputs = [python-dateutil];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -30,14 +30,14 @@ buildPythonPackage rec {
   ];
 
   # these integration tests assume a running Spark instance
-  disabledTestPaths = [ "tests/dataframe/integration" ];
+  disabledTestPaths = ["tests/dataframe/integration"];
 
-  pythonImportsCheck = [ "sqlglot" ];
+  pythonImportsCheck = ["sqlglot"];
 
   meta = with lib; {
     description = "A no dependency Python SQL parser, transpiler, and optimizer";
     homepage = "https://github.com/tobymao/sqlglot";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

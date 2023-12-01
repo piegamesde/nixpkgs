@@ -16,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-e4Ssm2Sq/v1YZ7ZudAqgQ7Cz2ffwWbSmLFoKhaZvTPg=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jre];
 
   dontUnpack = true;
 
@@ -37,10 +37,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Graphical network monitoring and documentation tool";
     homepage = "http://www.rakudave.ch/jnetmap/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.gpl3Plus;
     # Upstream supports macOS and Windows too.
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

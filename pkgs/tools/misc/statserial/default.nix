@@ -48,6 +48,6 @@ stdenv.mkDerivation rec {
     '';
 
     platforms = platforms.unix;
-    maintainers = with maintainers; [ rps ];
+    maintainers = with maintainers; [rps];
   };
 }

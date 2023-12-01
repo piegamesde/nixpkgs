@@ -17,8 +17,8 @@ buildGoModule rec {
   };
 
   vendorHash = "sha256-UhSdYpK54c4+BAP/d/zU91LIBE05joOLHoV1XkNMYNw=";
-  nativeBuildInputs = [ installShellFiles ];
-  subPackages = [ "cmd/doggo" ];
+  nativeBuildInputs = [installShellFiles];
+  subPackages = ["cmd/doggo"];
 
   ldflags = [
     "-w -s"
@@ -40,6 +40,6 @@ buildGoModule rec {
     '';
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ georgesalkhouri ];
+    maintainers = with maintainers; [georgesalkhouri];
   };
 }

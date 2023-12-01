@@ -1,4 +1,4 @@
-{ lib, python }:
+{lib, python}:
 
 python.pkgs.buildPythonApplication rec {
   pname = "alibuild";
@@ -22,6 +22,6 @@ python.pkgs.buildPythonApplication rec {
     homepage = "https://alisw.github.io/alibuild/";
     description = "Build tool for ALICE experiment software";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ktf ];
+    maintainers = with maintainers; [ktf];
   };
 }

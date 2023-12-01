@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-iGXQt3tcsThR3WAaWK0sgry1LafKEG8FOMV4fxJzaKY=";
   };
 
-  patches = [ ./tests.patch ];
+  patches = [./tests.patch];
 
   postPatch = ''
     substituteInPlace green/test/test_integration.py \
@@ -44,12 +44,12 @@ buildPythonPackage rec {
       green.test.test_command
   '';
 
-  pythonImportsCheck = [ "green" ];
+  pythonImportsCheck = ["green"];
 
   meta = with lib; {
     description = "Python test runner";
     homepage = "https://github.com/CleanCut/green";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

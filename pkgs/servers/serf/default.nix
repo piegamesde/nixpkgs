@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-6Kw0Co6vaBNkvVyK64wo9/39YF5UwuJg04EPoYwCP1c=";
 
-  subPackages = [ "cmd/serf" ];
+  subPackages = ["cmd/serf"];
 
   # These values are expected by version/version.go
   # https://github.com/hashicorp/serf/blob/7faa1b06262f70780c3c35ac25a4c96d754f06f3/version/version.go#L8-L22
@@ -39,6 +39,6 @@ buildGoModule rec {
     '';
     homepage = "https://www.serf.io";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ pradeepchhetri ];
+    maintainers = with maintainers; [pradeepchhetri];
   };
 }

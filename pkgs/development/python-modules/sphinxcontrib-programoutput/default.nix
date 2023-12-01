@@ -15,17 +15,17 @@ buildPythonPackage rec {
     hash = "sha256-MA7puMrug1XSXMdLTRx+/RLmCNKtFl4xQdMeb7wVK38=";
   };
 
-  buildInputs = [ sphinx ];
+  buildInputs = [sphinx];
 
   # fails to import sphinxcontrib.serializinghtml
   doCheck = false;
 
-  pythonImportsCheck = [ "sphinxcontrib.programoutput" ];
+  pythonImportsCheck = ["sphinxcontrib.programoutput"];
 
   meta = with lib; {
     description = "Sphinx extension to include program output";
     homepage = "https://github.com/NextThought/sphinxcontrib-programoutput";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

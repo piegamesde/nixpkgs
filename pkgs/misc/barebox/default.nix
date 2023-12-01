@@ -18,7 +18,7 @@ let
       filesToInstall,
       installDir ? "$out",
       defconfig,
-      extraMeta ? { },
+      extraMeta ? {},
       ...
     }@args:
     stdenv.mkDerivation rec {
@@ -44,9 +44,9 @@ let
         lzop
         pkg-config
       ];
-      depsBuildBuild = [ buildPackages.stdenv.cc ];
+      depsBuildBuild = [buildPackages.stdenv.cc];
 
-      hardeningDisable = [ "all" ];
+      hardeningDisable = ["all"];
 
       makeFlags = [
         "DTC=dtc"
@@ -80,11 +80,11 @@ let
           homepage = "https://www.barebox.org";
           description = "The Swiss Army Knive for bare metal";
           license = licenses.gpl2;
-          maintainers = with maintainers; [ emantor ];
+          maintainers = with maintainers; [emantor];
         }
         // extraMeta;
     }
-    // removeAttrs args [ "extraMeta" ];
+    // removeAttrs args ["extraMeta"];
 in
 {
   inherit buildBarebox;

@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "Multimedia Messaging Service Daemon - The Next Generation";
     homepage = "https://gitlab.com/kop316/mmsd";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ julm ];
+    maintainers = with maintainers; [julm];
     platforms = platforms.linux;
   };
 }

@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/clarkwang/passh";
     description = "An sshpass alternative for non-interactive ssh auth";
     license = licenses.gpl3;
-    maintainers = [ maintainers.lovesegfault ];
+    maintainers = [maintainers.lovesegfault];
     platforms = platforms.unix;
   };
 }

@@ -18,17 +18,17 @@ stdenv.mkDerivation rec {
     url = "mirror://debian/pool/main/libr/libresample/libresample_${version}.orig.tar.gz";
     sha256 = "05a8mmh1bw5afqx0kfdqzmph4x2npcs4idx0p0v6q95lwf22l8i0";
   };
-  patches = [ patch ];
+  patches = [patch];
   preConfigure = ''
     cat debian/patches/1001_shlib-cmake.patch | patch -p1
   '';
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = {
     description = "A real-time library for sampling rate conversion library";
     license = lib.licenses.lgpl2Plus;
     homepage = "https://ccrma.stanford.edu/~jos/resample/Free_Resampling_Software.html";
-    maintainers = [ lib.maintainers.sander ];
+    maintainers = [lib.maintainers.sander];
     platforms = lib.platforms.unix;
   };
 }

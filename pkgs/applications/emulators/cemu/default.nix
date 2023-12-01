@@ -119,7 +119,7 @@ stdenv.mkDerivation rec {
 
   preFixup =
     let
-      libs = [ vulkan-loader ] ++ cubeb.passthru.backendLibs;
+      libs = [vulkan-loader] ++ cubeb.passthru.backendLibs;
     in
     ''
       gappsWrapperArgs+=(
@@ -127,13 +127,13 @@ stdenv.mkDerivation rec {
       )
     '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Cemu is a Wii U emulator";
     homepage = "https://cemu.info";
     license = licenses.mpl20;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     maintainers = with maintainers; [
       zhaofengli
       baduhai

@@ -61,7 +61,7 @@ let
     genericName = onlykey.packageName;
   };
 in
-runCommand "${onlykey.packageName}-${onlykey.version}" { } ''
+runCommand "${onlykey.packageName}-${onlykey.version}" {} ''
   mkdir -p $out/bin
   ln -s ${script} $out/bin/onlykey
 ''

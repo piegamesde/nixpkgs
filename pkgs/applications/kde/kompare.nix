@@ -15,7 +15,7 @@ mkDerivation {
   meta = {
     homepage = "https://apps.kde.org/kompare/";
     description = "Diff/patch frontend";
-    license = with lib.licenses; [ gpl2 ];
+    license = with lib.licenses; [gpl2];
   };
   nativeBuildInputs = [
     extra-cmake-modules

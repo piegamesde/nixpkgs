@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     automake
     pkg-config
   ];
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   configureFlags = [
     "--with-tcl=${tcl}/lib"

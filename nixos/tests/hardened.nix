@@ -1,8 +1,8 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "hardened";
-    meta = with pkgs.lib.maintainers; { maintainers = [ joachifm ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [joachifm];};
 
     nodes.machine =
       {
@@ -14,19 +14,17 @@ import ./make-test-python.nix (
       with lib; {
         users.users.alice = {
           isNormalUser = true;
-          extraGroups = [ "proc" ];
+          extraGroups = ["proc"];
         };
         users.users.sybil = {
           isNormalUser = true;
           group = "wheel";
         };
-        imports = [ ../modules/profiles/hardened.nix ];
+        imports = [../modules/profiles/hardened.nix];
         environment.memoryAllocator.provider = "graphene-hardened";
         nix.settings.sandbox = false;
-        nixpkgs.overlays = [
-          (final: super: { dhcpcd = super.dhcpcd.override { enablePrivSep = false; }; })
-        ];
-        virtualisation.emptyDiskImages = [ 4096 ];
+        nixpkgs.overlays = [(final: super: {dhcpcd = super.dhcpcd.override {enablePrivSep = false;};})];
+        virtualisation.emptyDiskImages = [4096];
         boot.initrd.postDeviceCommands = ''
           ${pkgs.dosfstools}/bin/mkfs.vfat -n EFISYS /dev/vdb
         '';
@@ -34,13 +32,13 @@ import ./make-test-python.nix (
           "/efi" = {
             device = "/dev/disk/by-label/EFISYS";
             fsType = "vfat";
-            options = [ "noauto" ];
+            options = ["noauto"];
           };
         };
         boot.extraModulePackages =
           optional (versionOlder config.boot.kernelPackages.kernel.version "5.6")
             config.boot.kernelPackages.wireguard;
-        boot.kernelModules = [ "wireguard" ];
+        boot.kernelModules = ["wireguard"];
       };
 
     testScript =

@@ -1,19 +1,17 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
   {
     name = "please";
-    meta.maintainers = with lib.maintainers; [ azahi ];
+    meta.maintainers = with lib.maintainers; [azahi];
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
         users.users =
           with lib;
           mkMerge [
-            (listToAttrs (
-              map (n: nameValuePair n { isNormalUser = true; }) (genList (x: "user${toString x}") 6)
-            ))
-            { user0.extraGroups = [ "wheel" ]; }
+            (listToAttrs (map (n: nameValuePair n {isNormalUser = true;}) (genList (x: "user${toString x}") 6)))
+            {user0.extraGroups = ["wheel"];}
           ];
 
         security.please = {

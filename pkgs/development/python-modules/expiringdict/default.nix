@@ -37,12 +37,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "expiringdict" ];
+  pythonImportsCheck = ["expiringdict"];
 
   meta = with lib; {
     description = "Dictionary with auto-expiring values for caching purposes";
     homepage = "https://github.com/mailgun/expiringdict";
     license = licenses.asl20;
-    maintainers = with maintainers; [ gravndal ];
+    maintainers = with maintainers; [gravndal];
   };
 }

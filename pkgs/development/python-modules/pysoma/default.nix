@@ -20,12 +20,12 @@ buildPythonPackage rec {
   # Project has no test
   doCheck = false;
 
-  pythonImportsCheck = [ "api" ];
+  pythonImportsCheck = ["api"];
 
   meta = with lib; {
     description = "Python wrapper for the HTTP API provided by SOMA Connect";
     homepage = "https://pypi.org/project/pysoma";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -29,9 +29,9 @@ stdenv.mkDerivation rec {
 
   separateDebugInfo = !stdenv.hostPlatform.isStatic;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ libpng ];
+  buildInputs = [libpng];
 
   configureFlags =
     lib.optional stdenv.isAarch32 "--disable-arm-iwmmxt"

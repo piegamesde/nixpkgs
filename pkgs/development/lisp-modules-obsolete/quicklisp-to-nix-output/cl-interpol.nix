@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-interpol";
   version = "20201220-git";
 
-  parasites = [ "cl-interpol-test" ];
+  parasites = ["cl-interpol-test"];
 
   description = "System lacks description";
 
@@ -22,7 +22,7 @@ rec {
 
   packageName = "cl-interpol";
 
-  asdFilesToKeep = [ "cl-interpol.asd" ];
+  asdFilesToKeep = ["cl-interpol.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-interpol DESCRIPTION System lacks description SHA256

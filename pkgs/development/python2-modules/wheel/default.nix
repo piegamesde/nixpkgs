@@ -32,10 +32,10 @@ buildPythonPackage rec {
 
   # No tests in archive
   doCheck = false;
-  pythonImportsCheck = [ "wheel" ];
+  pythonImportsCheck = ["wheel"];
 
   # We add this flag to ignore the copy installed by bootstrapped-pip
-  pipInstallFlags = [ "--ignore-installed" ];
+  pipInstallFlags = ["--ignore-installed"];
 
   meta = with lib; {
     homepage = "https://github.com/pypa/wheel";
@@ -52,7 +52,7 @@ buildPythonPackage rec {
       It should be noted that wheel is not intended to be used as a library,
       and as such there is no stable, public API.
     '';
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ siriobalmelli ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [siriobalmelli];
   };
 }

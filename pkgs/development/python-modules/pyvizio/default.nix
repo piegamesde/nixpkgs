@@ -32,12 +32,12 @@ buildPythonPackage rec {
 
   # Project has no tests
   doCheck = false;
-  pythonImportsCheck = [ "pyvizio" ];
+  pythonImportsCheck = ["pyvizio"];
 
   meta = with lib; {
     description = "Python client for Vizio SmartCast";
     homepage = "https://github.com/vkorn/pyvizio";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [fab];
   };
 }

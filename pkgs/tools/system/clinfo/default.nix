@@ -23,9 +23,9 @@ stdenv.mkDerivation rec {
       ocl-icd
       opencl-headers
     ]
-    ++ lib.optionals stdenv.isDarwin [ OpenCL ];
+    ++ lib.optionals stdenv.isDarwin [OpenCL];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     description = "Print all known information about all available OpenCL platforms and devices in the system";

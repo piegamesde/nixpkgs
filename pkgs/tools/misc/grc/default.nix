@@ -24,7 +24,7 @@ buildPythonApplication rec {
     done
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   installPhase = ''
     runHook preInstall

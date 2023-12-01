@@ -9,7 +9,7 @@ let
   cfg = config.hardware.printers;
   ppdOptionsString =
     options:
-    optionalString (options != { }) (
+    optionalString (options != {}) (
       concatStringsSep " " (mapAttrsToList (name: value: "-o '${name}'='${value}'") options)
     );
   ensurePrinter = p: ''
@@ -49,7 +49,7 @@ in
           and remove printers with {command}`lpadmin -x <printer-name>`.
           Printers not listed here can still be manually configured.
         '';
-        default = [ ];
+        default = [];
         type = types.listOf (
           types.submodule {
             options = {
@@ -104,7 +104,7 @@ in
                   PageSize = "A4";
                   Duplex = "DuplexNoTumble";
                 };
-                default = { };
+                default = {};
                 description = lib.mdDoc ''
                   Sets PPD options for the printer.
                   {command}`lpoptions [-p printername] -l` shows supported PPD options for the given printer.
@@ -117,12 +117,12 @@ in
     };
   };
 
-  config = mkIf (cfg.ensurePrinters != [ ] && config.services.printing.enable) {
+  config = mkIf (cfg.ensurePrinters != [] && config.services.printing.enable) {
     systemd.services.ensure-printers = {
       description = "Ensure NixOS-configured CUPS printers";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "cups.service" ];
-      after = [ "cups.service" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["cups.service"];
+      after = ["cups.service"];
 
       serviceConfig = {
         Type = "oneshot";

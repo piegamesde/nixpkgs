@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-qrencode";
   version = "20191007-git";
@@ -19,7 +19,7 @@ rec {
 
   packageName = "cl-qrencode";
 
-  asdFilesToKeep = [ "cl-qrencode.asd" ];
+  asdFilesToKeep = ["cl-qrencode.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-qrencode DESCRIPTION QR code 2005 encoder in Common Lisp SHA256

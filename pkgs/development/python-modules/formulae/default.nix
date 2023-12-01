@@ -27,7 +27,7 @@ buildPythonPackage rec {
     scipy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
   # use assertions of form `assert pytest.approx(...)`, which is now disallowed:
   disabledTests = [
     "test_basic"
@@ -42,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://bambinos.github.io/formulae";
     description = "Formulas for mixed-effects models in Python";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

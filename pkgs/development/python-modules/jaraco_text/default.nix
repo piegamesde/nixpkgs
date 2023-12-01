@@ -25,25 +25,25 @@ buildPythonPackage rec {
     hash = "sha256-Mzpd8hSPcTlxhgfN81L+HZUWKXGnKZw4Dcwk2rAWiYA=";
   };
 
-  pythonNamespaces = [ "jaraco" ];
+  pythonNamespaces = ["jaraco"];
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     autocommand
     jaraco-context
     jaraco_functools
     inflect
-  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  ] ++ lib.optionals (pythonOlder "3.9") [importlib-resources];
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ lib.optionals (pythonOlder "3.10") [ pathlib2 ];
+  nativeCheckInputs = [pytestCheckHook] ++ lib.optionals (pythonOlder "3.10") [pathlib2];
 
-  pythonImportsCheck = [ "jaraco.text" ];
+  pythonImportsCheck = ["jaraco.text"];
 
   meta = with lib; {
     description = "Module for text manipulation";
     homepage = "https://github.com/jaraco/jaraco.text";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
     homepage = "https://postgis.net/";
     changelog = "https://git.osgeo.org/gitea/postgis/postgis/raw/tag/${version}/NEWS";
     license = licenses.gpl2;
-    maintainers = [ maintainers.marcweber ];
+    maintainers = [maintainers.marcweber];
     inherit (postgresql.meta) platforms;
   };
 }

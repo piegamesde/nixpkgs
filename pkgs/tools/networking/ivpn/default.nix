@@ -62,10 +62,10 @@ builtins.mapAttrs
     ivpn-service = {
       modRoot = "daemon";
       vendorHash = "sha256-9Rk6ruMpyWtQe+90kw4F8OLq7/JcDSrG6ufkfcrS4W8=";
-      nativeBuildInputs = [ makeWrapper ];
-      buildInputs = [ wirelesstools ];
+      nativeBuildInputs = [makeWrapper];
+      buildInputs = [wirelesstools];
 
-      patches = [ ./permissions.patch ];
+      patches = [./permissions.patch];
       postPatch = ''
         substituteInPlace daemon/service/platform/platform_linux.go \
           --replace 'openVpnBinaryPath = "/usr/sbin/openvpn"' \

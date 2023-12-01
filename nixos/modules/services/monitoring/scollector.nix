@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.services.scollector;
 
-  collectors = pkgs.runCommand "collectors" { preferLocalBuild = true; } ''
+  collectors = pkgs.runCommand "collectors" {preferLocalBuild = true;} ''
     mkdir -p $out
     ${lib.concatStringsSep "\n" (
       lib.mapAttrsToList
@@ -83,7 +83,7 @@ in
 
       collectors = mkOption {
         type = with types; attrsOf (listOf path);
-        default = { };
+        default = {};
         example = literalExpression ''{ "0" = [ "''${postgresStats}/bin/collect-stats" ]; }'';
         description = lib.mdDoc ''
           An attribute set mapping the frequency of collection to a list of
@@ -94,8 +94,8 @@ in
 
       extraOpts = mkOption {
         type = with types; listOf str;
-        default = [ ];
-        example = [ "-d" ];
+        default = [];
+        example = ["-d"];
         description = lib.mdDoc ''
           Extra scollector command line options
         '';
@@ -115,7 +115,7 @@ in
 
     systemd.services.scollector = {
       description = "scollector metrics collector (part of Bosun)";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       path = [
         pkgs.coreutils

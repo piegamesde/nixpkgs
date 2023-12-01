@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "0lj4clb851fzpaq446wgj0sfy922zs5l5misbpwv6w7qrqrz4cjg";
   };
 
-  buildInputs = [ libpng ];
+  buildInputs = [libpng];
 
   LDFLAGS = lib.optional static "-static";
   # Workaround for crash in cexcept.h. See

@@ -19,13 +19,13 @@ stdenv.mkDerivation rec {
   # There are no checks, it seems.
   doCheck = false;
 
-  buildInputs = [ libjpeg ];
+  buildInputs = [libjpeg];
 
   meta = with lib; {
     description = "Optimize JPEG files";
     homepage = "https://www.kokkonen.net/tjko/projects.html";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.aristid ];
+    maintainers = [maintainers.aristid];
     platforms = platforms.all;
   };
 }

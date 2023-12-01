@@ -27,16 +27,16 @@ buildPythonPackage rec {
     pycryptodomex
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dsinternals" ];
+  pythonImportsCheck = ["dsinternals"];
 
-  pytestFlagsArray = [ "tests/*.py" ];
+  pytestFlagsArray = ["tests/*.py"];
 
   meta = with lib; {
     description = "Module to interact with Windows Active Directory";
     homepage = "https://github.com/p0dalirius/pydsinternals";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

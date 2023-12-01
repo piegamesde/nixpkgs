@@ -27,7 +27,7 @@ buildPythonApplication rec {
       transform those to other chars.
     '';
     homepage = "https://github.com/cytopia/badchars";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -22,13 +22,13 @@ buildPythonPackage rec {
 
   # No tests are available
   doCheck = false;
-  pythonImportsCheck = [ "pyfakewebcam" ];
+  pythonImportsCheck = ["pyfakewebcam"];
 
   meta = with lib; {
     description = "A library for writing RGB frames to a fake webcam device on Linux";
     homepage = "https://github.com/jremmons/pyfakewebcam";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.linux;
   };
 }

@@ -35,9 +35,9 @@ buildPythonApplication rec {
     pillow
   ];
 
-  patches = [ ./pysolfc-datadir.patch ];
+  patches = [./pysolfc-datadir.patch];
 
-  nativeBuildInputs = [ desktop-file-utils ];
+  nativeBuildInputs = [desktop-file-utils];
   postPatch = ''
     desktop-file-edit --set-key Icon --set-value ${placeholder "out"}/share/icons/pysol01.png data/pysol.desktop
     desktop-file-edit --set-key Comment --set-value "${meta.description}" data/pysol.desktop
@@ -55,6 +55,6 @@ buildPythonApplication rec {
     description = "A collection of more than 1000 solitaire card games";
     homepage = "https://pysolfc.sourceforge.io";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ kierdavis ];
+    maintainers = with maintainers; [kierdavis];
   };
 }

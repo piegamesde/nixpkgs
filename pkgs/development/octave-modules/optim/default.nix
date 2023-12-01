@@ -34,7 +34,7 @@ buildOctavePackage rec {
       publicDomain
     ];
     # Modified BSD code seems removed
-    maintainers = with maintainers; [ KarlJoad ];
+    maintainers = with maintainers; [KarlJoad];
     description = "Non-linear optimization toolkit";
   };
 }

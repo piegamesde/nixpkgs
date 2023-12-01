@@ -58,11 +58,11 @@ stdenv.mkDerivation rec {
   # INSTALL says "parallel make will fail"
   enableParallelBuilding = false;
 
-  patches = [ ./fix-paths.patch ];
+  patches = [./fix-paths.patch];
 
   # configure does not support --sbindir and the likes (as introduced by multiple-outputs.sh)
   # so man, doc outputs must be handled manually
-  preConfigurePhases = [ "prePreConfigurePhase" ];
+  preConfigurePhases = ["prePreConfigurePhase"];
   prePreConfigurePhase = ''
     preConfigureHooks="''${preConfigureHooks//_multioutConfig/}"
     prependToVar configureFlags --mandir="$man"/share/man
@@ -77,6 +77,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.regressive.org/snobol4/csnobol4/";
     license = licenses.bsd2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ xworld21 ];
+    maintainers = with maintainers; [xworld21];
   };
 }

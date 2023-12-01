@@ -11,9 +11,9 @@ let
     with self; {
 
       # Libs
-      libcprime = libsForQt5.callPackage ../applications/misc/cubocore-packages/libcprime { };
+      libcprime = libsForQt5.callPackage ../applications/misc/cubocore-packages/libcprime {};
 
-      libcsys = libsForQt5.callPackage ../applications/misc/cubocore-packages/libcsys { };
+      libcsys = libsForQt5.callPackage ../applications/misc/cubocore-packages/libcsys {};
 
       # Apps
       coreaction = libsForQt5.callPackage ../applications/misc/cubocore-packages/coreaction {

@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "0db6xiphk6xnlpbxraiy31c5xzj0ql6k4rfkmqzh665yyj0nqfkm";
   };
 
-  configureFlags = [ "--with-ssl-headers=${openssl.dev}/include/openssl" ];
+  configureFlags = ["--with-ssl-headers=${openssl.dev}/include/openssl"];
 
   nativeBuildInputs = [
     pkg-config
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     description = "Opensource disk backup software";
     homepage = "https://www.partimage.org";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.marcweber ];
+    maintainers = [lib.maintainers.marcweber];
     platforms = lib.platforms.linux;
   };
 }

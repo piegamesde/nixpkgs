@@ -20,19 +20,19 @@ buildPythonPackage rec {
     hash = "sha256-L/ZUEqqHmsyXG5eShcITII36ttwQlZN5GBngo+GcCdw=";
   };
 
-  propagatedBuildInputs = [ flask ];
+  propagatedBuildInputs = [flask];
 
   nativeCheckInputs = [
     unittestCheckHook
     mock
   ];
 
-  pythonImportsCheck = [ "flask_seasurf" ];
+  pythonImportsCheck = ["flask_seasurf"];
 
   meta = with lib; {
     description = "A Flask extension for preventing cross-site request forgery";
     homepage = "https://github.com/maxcountryman/flask-seasurf";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ zhaofengli ];
+    maintainers = with maintainers; [zhaofengli];
   };
 }

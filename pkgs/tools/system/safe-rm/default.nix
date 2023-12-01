@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
       --replace "/bin/rm" "${coreutils}/bin/rm"
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # uses lots of absolute paths outside of the sandbox
   doCheck = false;
@@ -37,6 +37,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://launchpad.net/safe-rm";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

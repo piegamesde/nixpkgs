@@ -1,15 +1,15 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   {
     name = "searx";
-    meta = with pkgs.lib.maintainers; { maintainers = [ rnhmjoj ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [rnhmjoj];};
 
     # basic setup: searx running the built-in webserver
     nodes.base =
-      { ... }:
+      {...}:
       {
-        imports = [ ../modules/profiles/minimal.nix ];
+        imports = [../modules/profiles/minimal.nix];
 
         services.searx = {
           enable = true;
@@ -39,9 +39,9 @@ import ./make-test-python.nix (
 
     # fancy setup: run in uWSGI and use nginx as proxy
     nodes.fancy =
-      { ... }:
+      {...}:
       {
-        imports = [ ../modules/profiles/minimal.nix ];
+        imports = [../modules/profiles/minimal.nix];
 
         services.searx = {
           enable = true;
@@ -72,7 +72,7 @@ import ./make-test-python.nix (
         };
 
         # allow nginx access to the searx socket
-        users.users.nginx.extraGroups = [ "searx" ];
+        users.users.nginx.extraGroups = ["searx"];
       };
 
     testScript = ''

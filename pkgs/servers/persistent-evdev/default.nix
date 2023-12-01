@@ -43,7 +43,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/aiberia/persistent-evdev";
     description = "Persistent virtual input devices for qemu/libvirt/evdev hotplug support";
     license = licenses.mit;
-    maintainers = [ maintainers.lodi ];
+    maintainers = [maintainers.lodi];
     platforms = platforms.linux;
   };
 }

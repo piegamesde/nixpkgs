@@ -23,7 +23,7 @@ buildPythonPackage rec {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "mpl_toolkits.basemap_data" ];
+  pythonImportsCheck = ["mpl_toolkits.basemap_data"];
 
   meta = with lib; {
     homepage = "https://matplotlib.org/basemap/";
@@ -32,6 +32,6 @@ buildPythonPackage rec {
       mit
       lgpl3Plus
     ];
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

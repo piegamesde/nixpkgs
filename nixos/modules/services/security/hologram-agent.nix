@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.services.hologram-agent;
 
-  cfgFile = pkgs.writeText "hologram-agent.json" (builtins.toJSON { host = cfg.dialAddress; });
+  cfgFile = pkgs.writeText "hologram-agent.json" (builtins.toJSON {host = cfg.dialAddress;});
 in
 {
   options = {
@@ -36,7 +36,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    boot.kernelModules = [ "dummy" ];
+    boot.kernelModules = ["dummy"];
 
     networking.interfaces.dummy0.ipv4.addresses = [
       {
@@ -47,8 +47,8 @@ in
 
     systemd.services.hologram-agent = {
       description = "Provide EC2 instance credentials to machines outside of EC2";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       requires = [
         "network-link-dummy0.service"
         "network-addresses-dummy0.service"
@@ -62,5 +62,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ ];
+  meta.maintainers = with lib.maintainers; [];
 }

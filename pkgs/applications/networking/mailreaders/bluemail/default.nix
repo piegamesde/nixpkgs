@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
         udev
       ]
     }"
-    "--prefix PATH : ${lib.makeBinPath [ stdenv.cc ]}"
+    "--prefix PATH : ${lib.makeBinPath [stdenv.cc]}"
   ];
 
   preFixup = ''
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
     homepage = "https://bluemail.me";
     license = licenses.unfree;
     platforms = platforms.linux;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ onny ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    maintainers = with maintainers; [onny];
   };
 }

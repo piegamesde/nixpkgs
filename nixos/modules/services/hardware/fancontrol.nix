@@ -36,10 +36,10 @@ in
   config = mkIf cfg.enable {
 
     systemd.services.fancontrol = {
-      documentation = [ "man:fancontrol(8)" ];
+      documentation = ["man:fancontrol(8)"];
       description = "software fan control";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "lm_sensors.service" ];
+      wantedBy = ["multi-user.target"];
+      after = ["lm_sensors.service"];
 
       serviceConfig = {
         Restart = "on-failure";
@@ -54,5 +54,5 @@ in
     '';
   };
 
-  meta.maintainers = [ maintainers.evils ];
+  meta.maintainers = [maintainers.evils];
 }

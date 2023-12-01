@@ -23,9 +23,9 @@ mkDerivation rec {
     qmake
     makeWrapper
   ];
-  buildInputs = [ qtsvg ];
+  buildInputs = [qtsvg];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   preBuild = ''
     substituteInPlace app/app.pro \
@@ -46,7 +46,7 @@ mkDerivation rec {
     description = "Smart manager for information collecting";
     homepage = "https://webhamster.ru/site/page/index/articles/projectcode/138";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

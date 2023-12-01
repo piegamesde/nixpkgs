@@ -23,8 +23,8 @@ buildPythonPackage rec {
   # UnicodeEncodeError on Python 2
   doCheck = isPy3k;
 
-  nativeCheckInputs = [ glibcLocales ];
-  propagatedBuildInputs = [ future ];
+  nativeCheckInputs = [glibcLocales];
+  propagatedBuildInputs = [future];
 
   meta = with lib; {
     description = "Python parser for the CommonMark Markdown spec";

@@ -58,11 +58,11 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  configureFlags = [ "--with-cajadir=$$out/lib/caja/extensions-2.0" ];
+  configureFlags = ["--with-cajadir=$$out/lib/caja/extensions-2.0"];
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "Set of extensions for Caja file manager";

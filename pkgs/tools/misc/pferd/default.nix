@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-m9u4CLvyF2n61JQyxEKlVzWZCUhzVEVqpSZMNDZXCAo=";
   };
 
-  nativeBuildInputs = with python3Packages; [ setuptools ];
+  nativeBuildInputs = with python3Packages; [setuptools];
 
   propagatedBuildInputs = with python3Packages; [
     aiohttp
@@ -30,6 +30,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/Garmelon/PFERD";
     description = "Tool for downloading course-related files from ILIAS";
     license = licenses.mit;
-    maintainers = with maintainers; [ _0xbe7a ];
+    maintainers = with maintainers; [_0xbe7a];
   };
 }

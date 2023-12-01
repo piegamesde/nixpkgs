@@ -18,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-FsIE4dcZOP24/DX6TLnmoCHMYe4f9gWqmv2L25ujqu4=";
   };
 
-  propagatedBuildInputs = [ dacite ];
+  propagatedBuildInputs = [dacite];
 
-  pythonImportsCheck = [ "chip.clusters" ];
+  pythonImportsCheck = ["chip.clusters"];
 
   doCheck = false; # no tests
 
@@ -30,6 +30,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/home-assistant-libs/chip-wheels/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = teams.home-assistant.members;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
   };
 }

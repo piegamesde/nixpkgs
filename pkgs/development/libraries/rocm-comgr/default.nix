@@ -30,7 +30,7 @@ stdenv.mkDerivation (
       hash = "sha256-qLsrBTeSop7lIQv8gZDwgpvGZJOAq90zsvMi1QpfbAs=";
     };
 
-    patches = [ ./cmake.patch ];
+    patches = [./cmake.patch];
     sourceRoot = "${finalAttrs.src.name}/lib/comgr";
 
     nativeBuildInputs = [
@@ -43,7 +43,7 @@ stdenv.mkDerivation (
       libxml2
     ];
 
-    cmakeFlags = [ "-DLLVM_TARGETS_TO_BUILD=AMDGPU;X86" ];
+    cmakeFlags = ["-DLLVM_TARGETS_TO_BUILD=AMDGPU;X86"];
 
     passthru.updateScript = rocmUpdateScript {
       name = finalAttrs.pname;
@@ -55,7 +55,7 @@ stdenv.mkDerivation (
       description = "APIs for compiling and inspecting AMDGPU code objects";
       homepage = "https://github.com/RadeonOpenCompute/ROCm-CompilerSupport/tree/amd-stg-open/lib/comgr";
       license = licenses.ncsa;
-      maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
+      maintainers = with maintainers; [lovesegfault] ++ teams.rocm.members;
       platforms = platforms.linux;
       broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
     };

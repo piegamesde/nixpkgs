@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   let
     inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
     ssh-config = builtins.toFile "ssh.conf" ''
@@ -9,11 +9,11 @@ import ./make-test-python.nix (
   in
   {
     name = "nix-ssh-serve";
-    meta.maintainers = [ lib.maintainers.shlevy ];
+    meta.maintainers = [lib.maintainers.shlevy];
     nodes = {
       server.nix.sshServe = {
         enable = true;
-        keys = [ snakeOilPublicKey ];
+        keys = [snakeOilPublicKey];
         protocol = "ssh-ng";
       };
       server.nix.package = pkgs.nix;

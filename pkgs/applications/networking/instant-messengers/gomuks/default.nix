@@ -27,8 +27,8 @@ buildGoModule rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ olm ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [olm];
 
   postInstall = ''
     cp -r ${

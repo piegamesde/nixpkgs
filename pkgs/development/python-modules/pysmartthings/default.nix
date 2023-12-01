@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-AzAiMn88tRRPwMpwSnKoS1XUERHbKz0sVm/TjcbTsGs=";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -34,13 +34,13 @@ buildPythonPackage rec {
       --replace "aiohttp>=3.8.0,<4.0.0" "aiohttp<=4.0.0"
   '';
 
-  pythonImportsCheck = [ "pysmartthings" ];
+  pythonImportsCheck = ["pysmartthings"];
 
   meta = with lib; {
     description = "Python library for interacting with the SmartThings cloud API";
     homepage = "https://github.com/andrewsayre/pysmartthings";
     changelog = "https://github.com/andrewsayre/pysmartthings/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

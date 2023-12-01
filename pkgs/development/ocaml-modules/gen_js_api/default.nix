@@ -44,6 +44,6 @@ buildDunePackage rec {
       gen_js_api is to be used with the js_of_ocaml compiler.
     '';
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.bcc32 ];
+    maintainers = [lib.maintainers.bcc32];
   };
 }

@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-nn/P9ZZNf1Zts4JiJ2kXWAAG/HT1GnlYHXcPijYiBlU=";
 
-  cargoPatches = [ ./0001-patch-version.patch ];
+  cargoPatches = [./0001-patch-version.patch];
 
   buildInputs = rpathLibs;
 
@@ -45,7 +45,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/leftwm/leftwm";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ yanganto ];
+    maintainers = with maintainers; [yanganto];
     changelog = "https://github.com/leftwm/leftwm/blob/${version}/CHANGELOG";
   };
 }

@@ -22,7 +22,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-0psvz4bnhGuwwSAXvQp0ju0GebxoUyY2Rjp/D43KF78=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   # requires network access
   doCheck = false;

@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-hAU9143R/LDqDBgX3Y+gBG+dt4dpIIPDdO6HgH0ZTfg=";
   };
 
-  propagatedBuildInputs = [ httpx ];
+  propagatedBuildInputs = [httpx];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -35,13 +35,13 @@ buildPythonPackage rec {
       "tests/test_client.py"
     ];
 
-  pythonImportsCheck = [ "whodap" ];
+  pythonImportsCheck = ["whodap"];
 
   meta = with lib; {
     description = "Python RDAP utility for querying and parsing information about domain names";
     homepage = "https://github.com/pogzyb/whodap";
     changelog = "https://github.com/pogzyb/whodap/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -37,11 +37,11 @@ stdenv.mkDerivation rec {
       asciidoctor
       makeWrapper
     ]
-    ++ lib.optionals stdenv.isDarwin [ sigtool ];
+    ++ lib.optionals stdenv.isDarwin [sigtool];
 
-  buildInputs = [ libkrun ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs = [libkrun] ++ lib.optionals stdenv.isDarwin [libiconv];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   postPatch = ''
     # do not pollute etc
@@ -61,14 +61,14 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     wrapProgram $out/bin/krunvm \
-      --prefix PATH : ${lib.makeBinPath [ buildah ]} \
+      --prefix PATH : ${lib.makeBinPath [buildah]} \
   '';
 
   meta = with lib; {
     description = "A CLI-based utility for creating microVMs from OCI images";
     homepage = "https://github.com/containers/krunvm";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
     platforms = libkrun.meta.platforms;
   };
 }

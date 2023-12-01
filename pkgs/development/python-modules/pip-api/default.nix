@@ -21,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-oF3yx6qbcVc3S89Cc1RCAaDHuuYKnGW8+E85We84lvM=";
   };
 
-  propagatedBuildInputs = [ pip ];
+  propagatedBuildInputs = [pip];
 
   nativeCheckInputs = [
     pretend
@@ -29,7 +29,7 @@ buildPythonPackage rec {
     virtualenv
   ];
 
-  pythonImportsCheck = [ "pip_api" ];
+  pythonImportsCheck = ["pip_api"];
 
   disabledTests = [
     "test_hash"
@@ -43,7 +43,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Importable pip API";
     homepage = "https://github.com/di/pip-api";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

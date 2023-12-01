@@ -18,8 +18,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-7xjGuN7jcLgfGkaBoSj+WsBpM806PPGzeBs7DnI+fwc=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ fuse ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [fuse];
 
   meta = with lib; {
     inherit (src.meta) homepage;

@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "closer-mop";
   version = "20211209-git";
 
   description = "Closer to MOP is a compatibility layer that rectifies many of the absent or incorrect CLOS MOP features across a broad range of Common Lisp implementations.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/closer-mop/2021-12-09/closer-mop-20211209-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "closer-mop";
 
-  asdFilesToKeep = [ "closer-mop.asd" ];
+  asdFilesToKeep = ["closer-mop.asd"];
   overrides = x: x;
 }
 /* (SYSTEM closer-mop DESCRIPTION

@@ -67,7 +67,7 @@ buildPythonPackage rec {
     pyrevolve
     scipy
     sympy
-  ] ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
+  ] ++ lib.optionals stdenv.cc.isClang [llvmPackages.openmp];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -107,13 +107,13 @@ buildPythonPackage rec {
     "tests/test_gradient.py"
   ];
 
-  pythonImportsCheck = [ "devito" ];
+  pythonImportsCheck = ["devito"];
 
   meta = with lib; {
     description = "Code generation framework for automated finite difference computation";
     homepage = "https://www.devitoproject.org/";
     changelog = "https://github.com/devitocodes/devito/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ atila ];
+    maintainers = with maintainers; [atila];
   };
 }

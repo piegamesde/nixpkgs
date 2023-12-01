@@ -67,6 +67,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "http://projecthamster.org/";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = [ maintainers.fabianhauser ];
+    maintainers = [maintainers.fabianhauser];
   };
 }

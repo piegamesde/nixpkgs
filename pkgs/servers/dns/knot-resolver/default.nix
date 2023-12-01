@@ -157,7 +157,7 @@ let # un-indented, over the whole file
   wrapped-full =
     runCommand unwrapped.name
       {
-        nativeBuildInputs = [ makeWrapper ];
+        nativeBuildInputs = [makeWrapper];
         buildInputs = with luajitPackages; [
           # For http module, prefill module, trust anchor bootstrap.
           # It brings lots of deps; some are useful elsewhere (e.g. cqueues).

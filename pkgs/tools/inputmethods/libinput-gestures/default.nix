@@ -25,8 +25,8 @@ stdenv.mkDerivation rec {
     ./0002-paths.patch
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ python3 ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [python3];
 
   postPatch = ''
     substituteInPlace libinput-gestures-setup --replace /usr/ /
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     substituteInPlace "$out/share/applications/libinput-gestures.desktop" --replace "/usr" "$out"
     chmod +x "$out/share/applications/libinput-gestures.desktop"
     wrapProgram "$out/bin/libinput-gestures" --prefix PATH : "${
-      lib.makeBinPath ([ coreutils ] ++ extraUtilsPath)
+      lib.makeBinPath ([coreutils] ++ extraUtilsPath)
     }"
   '';
 
@@ -56,6 +56,6 @@ stdenv.mkDerivation rec {
     description = "Gesture mapper for libinput";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ teozkr ];
+    maintainers = with maintainers; [teozkr];
   };
 }

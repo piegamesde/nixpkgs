@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-4SJk4niSpLPjymwTCD0kHOrqpMf+vE3J/O7DiffUSJ4=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   nativeCheckInputs = [
     gbenchmark
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     description = "PoW algorithm for Ethereum 1.0 based on Dagger-Hashimoto";
     homepage = "https://github.com/ethereum/ethash";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.asl20;
   };
 }

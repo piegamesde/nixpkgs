@@ -20,8 +20,8 @@ stdenv.mkDerivation rec {
     sha256 = "0wagsrz3q7yrkzb5ws0m5faq68rqnqfap9p98sgk5jl6x7krf1y6";
   };
 
-  buildInputs = [ cups ];
-  patches = [ ./fix-includes.patch ];
+  buildInputs = [cups];
+  patches = [./fix-includes.patch];
 
   makeFlags = [
     "cupsfilterdir=$(out)/lib/cups/filter"
@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
     description = "CUPS Linux drivers and SDK for DYMO printers";
     homepage = "https://www.dymo.com/";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ makefu ];
+    maintainers = with lib.maintainers; [makefu];
   };
 }

@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-cJ7XmnC4x8lhZ+JRqobeQxTTps4Oz95zYdlFtr3KC1A=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     pkg-config
     meson
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       mit
       zlib
     ];
-    maintainers = with maintainers; [ polykernel ];
+    maintainers = with maintainers; [polykernel];
     platforms = platforms.linux;
   };
 }

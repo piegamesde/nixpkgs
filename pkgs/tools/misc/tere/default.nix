@@ -25,6 +25,6 @@ rustPlatform.buildRustPackage rec {
     description = "A faster alternative to cd + ls";
     homepage = "https://github.com/mgunyho/tere";
     license = licenses.eupl12;
-    maintainers = with maintainers; [ ProducerMatt ];
+    maintainers = with maintainers; [ProducerMatt];
   };
 }

@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/orhun/linuxwave";
     changelog = "https://github.com/orhun/linuxwave/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     platforms = platforms.all;
   };
 }

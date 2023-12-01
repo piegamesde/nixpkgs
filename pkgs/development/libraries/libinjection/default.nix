@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "0chsgam5dqr9vjfhdcp8cgk7la6nf3lq44zs6z6si98cq743550g";
   };
 
-  nativeBuildInputs = [ python3 ];
+  nativeBuildInputs = [python3];
 
   strictDeps = true;
 
@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/client9/libinjection";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

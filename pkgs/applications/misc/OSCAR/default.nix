@@ -26,12 +26,12 @@ mkDerivation rec {
     qtserialport
     libGLU
   ];
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
   postPatch = ''
     substituteInPlace oscar/oscar.pro --replace "/bin/bash" "${stdenv.shell}"
   '';
 
-  qmakeFlags = [ "OSCAR_QT.pro" ];
+  qmakeFlags = ["OSCAR_QT.pro"];
 
   installPhase = ''
     runHook preInstall
@@ -55,7 +55,7 @@ mkDerivation rec {
     homepage = "https://www.sleepfiles.com/OSCAR/";
     description = "Software for reviewing and exploring data produced by CPAP and related machines used in the treatment of sleep apnea";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.roconnor ];
+    maintainers = [maintainers.roconnor];
     # Someone needs to create a suitable installPhase for Darwin and Windows.
     # See https://gitlab.com/pholy/OSCAR-code/-/tree/master/Building.
     platforms = platforms.linux;

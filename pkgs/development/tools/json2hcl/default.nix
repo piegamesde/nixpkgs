@@ -26,6 +26,6 @@ buildGoModule rec {
     description = "Convert JSON to HCL, and vice versa";
     homepage = "https://github.com/kvz/json2hcl";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
   };
 }

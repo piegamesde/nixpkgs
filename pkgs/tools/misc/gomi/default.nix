@@ -17,12 +17,12 @@ buildGoModule rec {
 
   vendorHash = "sha256-n31LUfdgbLQ/KmcFi8LdqmDHXgzbSCc+dnustGvc5SY=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Replacement for UNIX rm command";
     homepage = "https://github.com/b4b4r07/gomi";
     license = licenses.mit;
-    maintainers = with maintainers; [ ozkutuk ];
+    maintainers = with maintainers; [ozkutuk];
   };
 }

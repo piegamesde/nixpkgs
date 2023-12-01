@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-fonrf4DZI5HhUY08yZmAHp2SKJYA2OywVBa31W7O1qU=";
   };
 
-  patches = [ ./no-static-lib.patch ];
+  patches = [./no-static-lib.patch];
 
   cargoDeps = rustPlatform.importCargoLock {
     lockFile = ./Cargo.lock;
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
         rust.cargo
       ]
     )
-    ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+    ++ lib.optionals stdenv.isDarwin [fixDarwinDylibNames];
 
   buildInputs =
     [
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
       libiconv
     ];
 
-  nativeCheckInputs = with rustPlatform; [ cargoCheckHook ];
+  nativeCheckInputs = with rustPlatform; [cargoCheckHook];
 
   passthru.tests = {
     python = python3.pkgs.deltachat;

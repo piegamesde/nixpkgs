@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
 
   # brasero checks that the applications it uses aren't symlinks, but this
   # will obviously not work on nix
-  patches = [ ./remove-symlink-check.patch ];
+  patches = [./remove-symlink-check.patch];
 
   enableParallelBuilding = true;
 
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A Gnome CD/DVD Burner";
     homepage = "https://wiki.gnome.org/Apps/Brasero";
-    maintainers = [ maintainers.bdimcheff ];
+    maintainers = [maintainers.bdimcheff];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

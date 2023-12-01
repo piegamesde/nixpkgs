@@ -7,7 +7,7 @@
 }:
 
 let
-  librewolf-src = callPackage ./librewolf.nix { };
+  librewolf-src = callPackage ./librewolf.nix {};
 in
 ((buildMozillaMach rec {
   pname = "librewolf";
@@ -25,7 +25,7 @@ in
   meta = {
     description = "A fork of Firefox, focused on privacy, security and freedom";
     homepage = "https://librewolf.net/";
-    maintainers = with lib.maintainers; [ squalus ];
+    maintainers = with lib.maintainers; [squalus];
     platforms = lib.platforms.unix;
     badPlatforms = lib.platforms.darwin;
     broken = stdenv.buildPlatform.is32bit;
@@ -34,12 +34,12 @@ in
     maxSilent = 14400; # 4h, double the default of 7200s (c.f. #129212, #129115)
     license = lib.licenses.mpl20;
   };
-  tests = [ nixosTests.librewolf ];
-  updateScript = callPackage ./update.nix { attrPath = "librewolf-unwrapped"; };
+  tests = [nixosTests.librewolf];
+  updateScript = callPackage ./update.nix {attrPath = "librewolf-unwrapped";};
 }).override
   {
     crashreporterSupport = false;
     enableOfficialBranding = false;
   }
 ).overrideAttrs
-  (prev: { MOZ_REQUIRE_SIGNING = ""; })
+  (prev: {MOZ_REQUIRE_SIGNING = "";})

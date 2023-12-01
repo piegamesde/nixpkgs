@@ -43,6 +43,6 @@ python3Packages.buildPythonApplication {
     homepage = "https://github.com/simone36050/PosteID-seed-extractor";
     description = "Extract OTP seed instead of using PosteID app";
     license = licenses.mit;
-    maintainers = with maintainers; [ aciceri ];
+    maintainers = with maintainers; [aciceri];
   };
 }

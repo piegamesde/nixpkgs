@@ -35,7 +35,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/fatih/motion";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

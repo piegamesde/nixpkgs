@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-AIH0BKk3y7F885IlC9pEyAubIgNSElpjU8nL6gl98FU=";
   };
 
-  buildInputs = [ postgresql ];
+  buildInputs = [postgresql];
 
   installPhase = ''
     install -D -t $out/lib *.so
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Materialized views with IVM (Incremental View Maintenance) for PostgreSQL";
     homepage = "https://github.com/sraoss/pg_ivm";
-    maintainers = with maintainers; [ ivan ];
+    maintainers = with maintainers; [ivan];
     platforms = postgresql.meta.platforms;
     license = licenses.postgresql;
     broken = versionOlder postgresql.version "13";

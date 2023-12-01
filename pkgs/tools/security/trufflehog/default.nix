@@ -33,14 +33,14 @@ buildGoModule rec {
   '';
 
   passthru = {
-    tests.version = testers.testVersion { package = trufflehog; };
+    tests.version = testers.testVersion {package = trufflehog;};
   };
 
   meta = with lib; {
     description = "Find credentials all over the place";
     homepage = "https://github.com/trufflesecurity/trufflehog";
     changelog = "https://github.com/trufflesecurity/trufflehog/releases/tag/v${version}";
-    license = with licenses; [ agpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [agpl3Only];
+    maintainers = with maintainers; [fab];
   };
 }

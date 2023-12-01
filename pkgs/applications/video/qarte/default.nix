@@ -25,7 +25,7 @@ mkDerivation {
     sha256 = "sha256:18ky9qwfvbifd0xrbmnfm3cm2vyy5jgf9rrca2hby46sjf2745h4";
   };
 
-  buildInputs = [ pythonEnv ];
+  buildInputs = [pythonEnv];
 
   installPhase = ''
     runHook preInstall
@@ -53,7 +53,7 @@ mkDerivation {
     homepage = "https://launchpad.net/qarte";
     description = "A recorder for Arte TV Guide and Arte Concert";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ vbgl ];
+    maintainers = with maintainers; [vbgl];
     platforms = platforms.linux;
   };
 }

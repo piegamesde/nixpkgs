@@ -32,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-HS8C06Ylc/OOaKI3kBGLeYF5HCvtK18i96NqIhwoh1Y=";
   };
 
-  nativeBuildInputs = [ pbr ];
+  nativeBuildInputs = [pbr];
 
   propagatedBuildInputs = [
     ansible-core
@@ -91,12 +91,12 @@ buildPythonPackage rec {
       "test/unit/config/test__base.py"
     ];
 
-  pythonImportsCheck = [ "ansible_runner" ];
+  pythonImportsCheck = ["ansible_runner"];
 
   meta = with lib; {
     description = "Helps when interfacing with Ansible";
     homepage = "https://github.com/ansible/ansible-runner";
     license = licenses.asl20;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

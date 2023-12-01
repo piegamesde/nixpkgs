@@ -1,5 +1,5 @@
 import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
     inherit (import ./../ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
 
@@ -23,7 +23,7 @@ import ../make-test-python.nix (
       # the server provides both the the mocked google metadata server and the ssh server
       server = (import ./server.nix pkgs);
 
-      client = { ... }: { };
+      client = {...}: {};
     };
     testScript = ''
       MOCKUSER = "mockuser_nixos_org"

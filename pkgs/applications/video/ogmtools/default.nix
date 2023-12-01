@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     libdvdread
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-std=c++14" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-std=c++14"];
 
   meta = {
     description = "Tools for modifying and inspecting OGG media streams";

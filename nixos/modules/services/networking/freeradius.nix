@@ -13,9 +13,9 @@ let
 
   freeradiusService = cfg: {
     description = "FreeRadius server";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "network.target" ];
-    wants = [ "network.target" ];
+    wantedBy = ["multi-user.target"];
+    after = ["network.target"];
+    wants = ["network.target"];
     preStart = ''
       ${pkgs.freeradius}/bin/radiusd -C -d ${cfg.configDir} -l stdout
     '';

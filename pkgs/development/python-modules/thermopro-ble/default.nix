@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-z3RrPOV7NGl3aNor+baeVivn+DKwYHcrdlM5sNMGVD0=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     bluetooth-data-tools
@@ -32,20 +32,20 @@ buildPythonPackage rec {
     sensor-state-data
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace " --cov=thermopro_ble --cov-report=term-missing:skip-covered" ""
   '';
 
-  pythonImportsCheck = [ "thermopro_ble" ];
+  pythonImportsCheck = ["thermopro_ble"];
 
   meta = with lib; {
     description = "Library for Thermopro BLE devices";
     homepage = "https://github.com/bluetooth-devices/thermopro-ble";
     changelog = "https://github.com/Bluetooth-Devices/thermopro-ble/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

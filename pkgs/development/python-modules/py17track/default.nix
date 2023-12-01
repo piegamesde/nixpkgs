@@ -27,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-T0Jjdu6QC8rTqZwe4cdsBbs0hQXUY6CkrImCgYwWL9o=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -54,12 +54,12 @@ buildPythonPackage rec {
       "examples/"
     ];
 
-  pythonImportsCheck = [ "py17track" ];
+  pythonImportsCheck = ["py17track"];
 
   meta = with lib; {
     description = "Python library to track package info from 17track.com";
     homepage = "https://github.com/bachya/py17track";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

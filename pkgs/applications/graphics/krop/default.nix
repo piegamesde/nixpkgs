@@ -24,10 +24,10 @@ python3Packages.buildPythonApplication rec {
     poppler-qt5
     ghostscript
   ];
-  buildInputs = [ libsForQt5.poppler ];
+  buildInputs = [libsForQt5.poppler];
 
-  nativeBuildInputs = [ qt5.wrapQtAppsHook ];
-  makeWrapperArgs = [ "\${qtWrapperArgs[@]}" ];
+  nativeBuildInputs = [qt5.wrapQtAppsHook];
+  makeWrapperArgs = ["\${qtWrapperArgs[@]}"];
 
   postInstall = ''
     install -m666 -Dt $out/share/applications krop.desktop
@@ -48,7 +48,7 @@ python3Packages.buildPythonApplication rec {
       interface.
     '';
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ leenaars ];
+    maintainers = with lib.maintainers; [leenaars];
     platforms = lib.platforms.linux;
   };
 }

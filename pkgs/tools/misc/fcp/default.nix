@@ -19,7 +19,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "0gw7gjfwc4r03rg6z65ml0y37sh4yf716isqs0mb4jqkp7rwfbc9";
 
-  nativeBuildInputs = [ expect ];
+  nativeBuildInputs = [expect];
 
   # character_device fails with "File name too long" on darwin
   doCheck = !stdenv.isDarwin;
@@ -34,6 +34,6 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/svetlitski/fcp/releases/tag/v${version}";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

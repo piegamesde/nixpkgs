@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/fulhax/ncpamixer";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ StijnDW ] ++ teams.c3d2.members;
+    maintainers = with maintainers; [StijnDW] ++ teams.c3d2.members;
   };
 }

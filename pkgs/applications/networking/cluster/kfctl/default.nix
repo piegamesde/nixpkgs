@@ -18,9 +18,9 @@ buildGoModule rec {
 
   vendorSha256 = null; # vendorSha256 = "";
 
-  subPackages = [ "cmd/kfctl" ];
+  subPackages = ["cmd/kfctl"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd eksctl \
@@ -32,7 +32,7 @@ buildGoModule rec {
     description = "A CLI for deploying and managing Kubeflow";
     homepage = "https://github.com/kubeflow/kfctl";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mvnetbiz ];
+    maintainers = with maintainers; [mvnetbiz];
     broken = true; # vendor isn't reproducible with go > 1.17: nix-build -A $name.go-modules --check
   };
 }

@@ -25,11 +25,11 @@ else
     ];
     strictDeps = true;
 
-    buildFlags = [ "release" ];
+    buildFlags = ["release"];
 
     dontAddPrefix = true;
     dontAddStaticConfigureFlags = true;
-    configurePlatforms = [ ];
+    configurePlatforms = [];
 
     installFlags = [
       "PREFIX=${placeholder "out"}"

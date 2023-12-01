@@ -30,9 +30,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-THlP/JuaZzDq9QctidwLRiUVFxRhGNhRKleWbQiqsgg=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ TextMarkdown ] ++ lib.optionals usePandoc [ pandoc ];
+  buildInputs = [TextMarkdown] ++ lib.optionals usePandoc [pandoc];
 
   patches = [
     (substituteAll {
@@ -59,6 +59,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/cfenollosa/bashblog";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ wolfangaukang ];
+    maintainers = with maintainers; [wolfangaukang];
   };
 }

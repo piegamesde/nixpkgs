@@ -23,13 +23,11 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--program-prefix=sphinxsearch-"
     "--enable-id64"
-  ] ++ lib.optionals (!enableMysql) [ "--without-mysql" ];
+  ] ++ lib.optionals (!enableMysql) ["--without-mysql"];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs =
-    lib.optionals enableMysql [ libmysqlclient ]
-    ++ lib.optionals enableXmlpipe2 [ expat ];
+  buildInputs = lib.optionals enableMysql [libmysqlclient] ++ lib.optionals enableXmlpipe2 [expat];
 
   CXXFLAGS =
     with lib;

@@ -32,9 +32,9 @@ buildPythonPackage rec {
     onnxconverter-common
   ];
 
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  nativeBuildInputs = [pythonRelaxDepsHook];
 
-  pythonRelaxDeps = [ "scikit-learn" ];
+  pythonRelaxDeps = ["scikit-learn"];
 
   nativeCheckInputs = [
     onnxruntime
@@ -52,7 +52,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Convert scikit-learn models to ONNX";
-    maintainers = with lib.maintainers; [ fridh ];
-    license = with lib.licenses; [ asl20 ];
+    maintainers = with lib.maintainers; [fridh];
+    license = with lib.licenses; [asl20];
   };
 }

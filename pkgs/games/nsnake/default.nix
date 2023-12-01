@@ -16,14 +16,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-MixwIhyymruruV8G8PjmR9EoZBpaDVBCKBccSFL0lS8=";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = {
     description = "ncurses based snake game for the terminal";
     homepage = "https://github.com/alexdantas/nSnake";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ clerie ];
+    maintainers = with lib.maintainers; [clerie];
   };
 }

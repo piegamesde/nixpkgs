@@ -8,7 +8,7 @@
 
 let
   version = "6.21";
-  downloadVersion = lib.replaceStrings [ "." ] [ "" ] version;
+  downloadVersion = lib.replaceStrings ["."] [""] version;
   # Use `nix store prefetch-file <url>` to generate the hashes for the other systems
   # TODO: create update script
   srcUrl =
@@ -45,9 +45,9 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  buildInputs = lib.optionals stdenv.isLinux [ stdenv.cc.cc.lib ];
+  buildInputs = lib.optionals stdenv.isLinux [stdenv.cc.cc.lib];
 
-  nativeBuildInputs = [ installShellFiles ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = [installShellFiles] ++ lib.optionals stdenv.isLinux [autoPatchelfHook];
 
   installPhase = ''
     runHook preInstall
@@ -67,9 +67,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Utility for RAR archives";
     homepage = "https://www.rarlab.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ thiagokokada ];
+    maintainers = with maintainers; [thiagokokada];
     platforms = with platforms; linux ++ darwin;
   };
 }

@@ -24,7 +24,7 @@ python3.pkgs.buildPythonPackage rec {
     sha256 = sha256Hash;
   };
 
-  nativeBuildInputs = [ wrapQtAppsHook ];
+  nativeBuildInputs = [wrapQtAppsHook];
 
   propagatedBuildInputs = with python3.pkgs; [
     distro
@@ -33,7 +33,7 @@ python3.pkgs.buildPythonPackage rec {
     sentry-sdk
     setuptools
     sip_4
-    (pyqt5.override { withWebSockets = true; })
+    (pyqt5.override {withWebSockets = true;})
   ];
 
   doCheck = false; # Failing
@@ -62,6 +62,6 @@ python3.pkgs.buildPythonPackage rec {
     changelog = "https://github.com/GNS3/gns3-gui/releases/tag/v${version}";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ anthonyroussel ];
+    maintainers = with maintainers; [anthonyroussel];
   };
 }

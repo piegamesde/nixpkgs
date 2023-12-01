@@ -38,7 +38,7 @@ buildGoModule rec {
     description = "Temporal CLI";
     homepage = "https://temporal.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ aaronjheng ];
+    maintainers = with maintainers; [aaronjheng];
     mainProgram = "tctl";
   };
 }

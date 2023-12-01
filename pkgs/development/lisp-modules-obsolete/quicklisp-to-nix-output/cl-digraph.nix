@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-digraph";
   version = "20211020-hg";
 
   description = "Simple directed graphs for Common Lisp.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-digraph/2021-10-20/cl-digraph-20211020-hg.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "cl-digraph";
 
-  asdFilesToKeep = [ "cl-digraph.asd" ];
+  asdFilesToKeep = ["cl-digraph.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-digraph DESCRIPTION Simple directed graphs for Common Lisp.

@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       --replace /usr/share/fonts/truetype/ttf-bitstream-vera "${ttf_bitstream_vera}/share/fonts/truetype"
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     alsa-lib
     freetype
@@ -62,6 +62,6 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "i686-linux"
     ]; # fails on ARM and Darwin
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
   };
 }

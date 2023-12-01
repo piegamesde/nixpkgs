@@ -26,12 +26,12 @@ buildPythonPackage rec {
     pkgconfig
   ];
 
-  buildInputs = [ capnproto ];
+  buildInputs = [capnproto];
 
   # Tests depend on schema_capnp which fails to generate
   doCheck = false;
 
-  pythonImportsCheck = [ "capnp" ];
+  pythonImportsCheck = ["capnp"];
 
   meta = with lib; {
     homepage = "https://capnproto.github.io/pycapnp/";

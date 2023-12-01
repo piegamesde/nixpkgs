@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-4DTYtUltmZ+nkm4ZLac+6JbBW3z+qby7sP33LwEXtcQ=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ ncurses ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [ncurses];
   makeFlags = [
     "DESTDIR=$(out)"
     "TARGET=iotop-c"
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "iotop identifies processes that use high amount of input/output requests on your machine";
     homepage = "https://github.com/Tomas-M/iotop";
-    maintainers = [ maintainers.arezvov ];
+    maintainers = [maintainers.arezvov];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

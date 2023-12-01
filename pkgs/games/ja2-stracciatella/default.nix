@@ -58,7 +58,7 @@ stdenv.mkDerivation {
       Cocoa
     ];
 
-  patches = [ ./remove-rust-buildstep.patch ];
+  patches = [./remove-rust-buildstep.patch];
 
   preConfigure = ''
     # Use rust library built with nix

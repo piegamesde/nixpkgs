@@ -25,7 +25,7 @@ buildPythonPackage rec {
     aiohttp
   ];
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   # Package has no tests.
   doCheck = false;
@@ -34,6 +34,6 @@ buildPythonPackage rec {
     homepage = "https://git.sr.ht/~whynothugo/aiohttp-oauthlib";
     description = "oauthlib integration for aiohttp clients";
     license = licenses.isc;
-    maintainers = with maintainers; [ sumnerevans ];
+    maintainers = with maintainers; [sumnerevans];
   };
 }

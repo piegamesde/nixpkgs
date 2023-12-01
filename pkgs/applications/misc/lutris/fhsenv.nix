@@ -2,8 +2,8 @@
   lib,
   buildFHSEnv,
   lutris-unwrapped,
-  extraPkgs ? pkgs: [ ],
-  extraLibraries ? pkgs: [ ],
+  extraPkgs ? pkgs: [],
+  extraLibraries ? pkgs: [],
   steamSupport ? true,
 }:
 

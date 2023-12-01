@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     inherit (src.meta) homepage;
     description = "Apple AirPlay and RAOP protocol server";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.unix;
   };
 }

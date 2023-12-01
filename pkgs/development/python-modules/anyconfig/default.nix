@@ -20,9 +20,9 @@ buildPythonPackage rec {
       --replace "--cov=src -vv" ""
   '';
 
-  propagatedBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests =
     [
@@ -36,12 +36,12 @@ buildPythonPackage rec {
       "tests/schema/test_jsonschema.py"
     ];
 
-  pythonImportsCheck = [ "anyconfig" ];
+  pythonImportsCheck = ["anyconfig"];
 
   meta = with lib; {
     description = "Python library provides common APIs to load and dump configuration files in various formats";
     homepage = "https://github.com/ssato/python-anyconfig";
     license = licenses.mit;
-    maintainers = with maintainers; [ tboerger ];
+    maintainers = with maintainers; [tboerger];
   };
 }

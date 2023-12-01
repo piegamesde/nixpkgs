@@ -30,16 +30,16 @@ buildPythonPackage rec {
     rm setup.cfg
   '';
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ jinja2 ];
+  propagatedBuildInputs = [jinja2];
 
   nativeCheckInputs = [
     pytestCheckHook
     selenium
   ];
 
-  pythonImportsCheck = [ "branca" ];
+  pythonImportsCheck = ["branca"];
 
   disabledTestPaths =
     [
@@ -56,7 +56,7 @@ buildPythonPackage rec {
     description = "Generate complex HTML+JS pages with Python";
     homepage = "https://github.com/python-visualization/branca";
     changelog = "https://github.com/python-visualization/branca/blob/v${version}/CHANGES.txt";
-    license = with licenses; [ mit ];
-    maintainers = with lib.maintainers; [ ];
+    license = with licenses; [mit];
+    maintainers = with lib.maintainers; [];
   };
 }

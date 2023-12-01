@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     description = "Garry's Mod Addon Creator and Extractor";
     homepage = "https://github.com/Facepunch/gmad";
     license = lib.licenses.unfree;
-    maintainers = [ lib.maintainers.abigailbuccaneer ];
+    maintainers = [lib.maintainers.abigailbuccaneer];
     platforms = lib.platforms.all;
   };
 

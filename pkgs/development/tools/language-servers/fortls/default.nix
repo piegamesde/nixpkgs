@@ -18,7 +18,7 @@ buildPythonApplication rec {
     hash = "sha256-kFk2Dlnb0FXM3Ysvsy+g2AAMgpWmwzxuyJPovDm/FJU=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     json5
@@ -33,7 +33,7 @@ buildPythonApplication rec {
   meta = with lib; {
     description = "Fortran Language Server ";
     homepage = "https://github.com/fortran-lang/fortls";
-    license = [ licenses.mit ];
-    maintainers = [ maintainers.sheepforce ];
+    license = [licenses.mit];
+    maintainers = [maintainers.sheepforce];
   };
 }

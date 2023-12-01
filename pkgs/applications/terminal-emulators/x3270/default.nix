@@ -33,13 +33,13 @@ stdenv.mkDerivation rec {
     sha256 = "0km24rgll0s4ji6iz8lvy5ra76ds162s95y33w5px6697cwqkp9j";
   };
 
-  buildFlags = [ "unix" ];
+  buildFlags = ["unix"];
 
   postConfigure = ''
     pushd c3270 ; ./configure ; popd
   '';
 
-  nativeBuildInputs = [ m4 ];
+  nativeBuildInputs = [m4];
   buildInputs = [
     expat
     libX11
@@ -62,6 +62,6 @@ stdenv.mkDerivation rec {
     description = "IBM 3270 terminal emulator for the X Window System";
     homepage = "http://x3270.bgp.nu/index.html";
     license = licenses.bsd3;
-    maintainers = [ maintainers.anna328p ];
+    maintainers = [maintainers.anna328p];
   };
 }

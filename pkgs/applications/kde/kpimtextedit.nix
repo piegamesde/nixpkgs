@@ -47,7 +47,7 @@ mkDerivation {
     qttools
     qtspeech
   ];
-  propagatedBuildInputs = [ ktextwidgets ];
+  propagatedBuildInputs = [ktextwidgets];
   outputs = [
     "out"
     "dev"

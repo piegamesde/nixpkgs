@@ -16,13 +16,13 @@ stdenv.mkDerivation (
       hash = "sha256-T4feegblOeG+NU+c+PAobf8HT8KDSfcINkRAa1hNpkY=";
     };
 
-    configureFlags = [ "--enable-mcpplib" ];
+    configureFlags = ["--enable-mcpplib"];
 
     meta = with lib; {
       homepage = "https://github.com/museoa/mcpp";
       description = "Matsui's C preprocessor";
       license = licenses.bsd2;
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       platforms = platforms.unix;
     };
   }

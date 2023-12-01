@@ -74,7 +74,7 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  pythonImportsCheck = [ "tensorflow_datasets" ];
+  pythonImportsCheck = ["tensorflow_datasets"];
 
   nativeCheckInputs = [
     apache-beam
@@ -148,6 +148,6 @@ buildPythonPackage rec {
     description = "Library of datasets ready to use with TensorFlow";
     homepage = "https://www.tensorflow.org/datasets/overview";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ndl ];
+    maintainers = with maintainers; [ndl];
   };
 }

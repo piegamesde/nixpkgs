@@ -17,7 +17,7 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  buildInputs = [ ppx_cstruct ];
+  buildInputs = [ppx_cstruct];
 
   propagatedBuildInputs = [
     shared-memory-ring
@@ -28,7 +28,7 @@ buildDunePackage {
   ];
 
   doCheck = true;
-  checkInputs = [ ounit ];
+  checkInputs = [ounit];
 
   meta = shared-memory-ring.meta // {
     description = "Shared memory rings for RPC and bytestream communications using Lwt";

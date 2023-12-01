@@ -1,4 +1,4 @@
-{ fetchFromGitHub, libgit2, ... }:
+{fetchFromGitHub, libgit2, ...}:
 
 libgit2.overrideAttrs (
   oldAttrs: {
@@ -22,6 +22,6 @@ libgit2.overrideAttrs (
       sha256 = "sha256-mXCmspM3fqI14DF9sAIMH5vGdMMjWkdDjdME4EiQuqY=";
     };
 
-    patches = [ ];
+    patches = [];
   }
 )

@@ -27,13 +27,13 @@ stdenv.mkDerivation rec {
     libxslt.bin
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     homepage = "https://knightos.org/";
     description = "Patches jumptables into TI calculator ROM files and generates an include file";
     license = licenses.mit;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.unix;
   };
 }

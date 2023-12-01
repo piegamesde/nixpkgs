@@ -24,10 +24,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-n24P56ZrF8qEpM45uIFr7bJhlzuAexNr6siEsF219uA=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
-    [ sqlite ]
+    [sqlite]
     ++ (
       if stdenv.isDarwin then
         [
@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
           Security
         ]
       else
-        [ openssl ]
+        [openssl]
     );
 
   meta = with lib; {
@@ -43,6 +43,6 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://codeberg.org/elomatreb/listenbrainz-mpd/src/tag/v${version}/CHANGELOG.md";
     description = "ListenBrainz submission client for MPD";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ DeeUnderscore ];
+    maintainers = with maintainers; [DeeUnderscore];
   };
 }

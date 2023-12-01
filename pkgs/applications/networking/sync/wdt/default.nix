@@ -24,7 +24,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-fH4Inqy7DfMJbW1FYWanScLATu8cZA1n+Vas8ee3xwA=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     folly
     boost
@@ -41,17 +41,17 @@ stdenv.mkDerivation {
     ln -s $sourceRoot wdt
   '';
 
-  cmakeFlags = [ "-DWDT_USE_SYSTEM_FOLLY=ON" ];
+  cmakeFlags = ["-DWDT_USE_SYSTEM_FOLLY=ON"];
 
   passthru = {
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   meta = with lib; {
     description = "Warp speed Data Transfer";
     homepage = "https://github.com/facebook/wdt";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ nickcao ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [nickcao];
+    platforms = ["x86_64-linux"];
   };
 }

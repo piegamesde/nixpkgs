@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VtJtAyojFOkMLBfpQ6N+8fDDkcJtVCflWjwsdq8OD0w=";
   };
 
-  buildInputs = [ bashInteractive ];
+  buildInputs = [bashInteractive];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   makeFlags = [
     "DESTDIR="
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     description = "A Risk of Rain 2 Mod Manager in Bash";
     homepage = "https://github.com/foldex/r2mod_cli";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.reedrw ];
+    maintainers = [maintainers.reedrw];
     mainProgram = "r2mod";
     platforms = platforms.unix;
   };

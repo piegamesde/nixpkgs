@@ -39,7 +39,7 @@ buildPythonPackage rec {
     tubes
     werkzeug
     zope_interface
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  ] ++ lib.optionals (pythonOlder "3.8") [typing-extensions];
 
   nativeCheckInputs = [
     hypothesis
@@ -50,12 +50,12 @@ buildPythonPackage rec {
     ${python.interpreter} -m twisted.trial klein
   '';
 
-  pythonImportsCheck = [ "klein" ];
+  pythonImportsCheck = ["klein"];
 
   meta = with lib; {
     description = "Klein Web Micro-Framework";
     homepage = "https://github.com/twisted/klein";
     license = licenses.mit;
-    maintainers = with maintainers; [ exarkun ];
+    maintainers = with maintainers; [exarkun];
   };
 }

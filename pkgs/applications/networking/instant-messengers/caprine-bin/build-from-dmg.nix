@@ -6,7 +6,7 @@
   pname,
   version,
   sha256,
-  metaCommon ? { },
+  metaCommon ? {},
 }:
 
 stdenvNoCC.mkDerivation {
@@ -20,7 +20,7 @@ stdenvNoCC.mkDerivation {
 
   sourceRoot = "Caprine.app";
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   installPhase = ''
     mkdir -p "$out/Applications/Caprine.app"

@@ -23,13 +23,13 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
   ];
-  buildInputs = [ lv2 ];
+  buildInputs = [lv2];
 
   meta = with lib; {
     description = "Airwindows plugins (ported to LV2)";
     homepage = "https://github.com/hannesbraun/airwindows-lv2";
     license = licenses.mit;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.unix;
   };
 }

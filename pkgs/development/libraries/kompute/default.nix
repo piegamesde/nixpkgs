@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     cmake
     ninja
   ];
-  buildInputs = [ fmt ];
+  buildInputs = [fmt];
   propagatedBuildInputs = [
     glslang
     vulkan-headers
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://kompute.cc/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ atila ];
+    maintainers = with maintainers; [atila];
     platforms = platforms.linux;
   };
 }

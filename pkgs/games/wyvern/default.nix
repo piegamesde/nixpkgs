@@ -22,13 +22,13 @@ rustPlatform.buildRustPackage rec {
     cmake
     pkg-config
   ];
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   meta = with lib; {
     description = "A simple CLI client for installing and maintaining linux GOG games";
     homepage = "https://git.sr.ht/~nicohman/wyvern";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ _0x4A6F ];
+    maintainers = with maintainers; [_0x4A6F];
     platforms = platforms.linux;
   };
 }

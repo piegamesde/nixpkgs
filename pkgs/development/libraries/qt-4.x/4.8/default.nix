@@ -203,7 +203,7 @@ stdenv.mkDerivation rec {
 
   prefixKey = "-prefix ";
 
-  configurePlatforms = [ ];
+  configurePlatforms = [];
   configureFlags =
     let
       mk = cond: name: "-${lib.optionalString (!cond) "no-"}${name}";
@@ -321,7 +321,7 @@ stdenv.mkDerivation rec {
       libtiff
       icu
     ]
-    ++ lib.optionals (libmysqlclient != null) [ libmysqlclient ]
+    ++ lib.optionals (libmysqlclient != null) [libmysqlclient]
     ++ lib.optionals gtkStyle [
       gtk2
       gdk-pixbuf

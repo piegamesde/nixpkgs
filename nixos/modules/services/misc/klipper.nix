@@ -12,10 +12,10 @@ let
     listToValue =
       l:
       if builtins.length l == 1 then
-        generators.mkValueStringDefault { } (head l)
+        generators.mkValueStringDefault {} (head l)
       else
-        lib.concatMapStrings (s: "\n  ${generators.mkValueStringDefault { } s}") l;
-    mkKeyValue = generators.mkKeyValueDefault { } ":";
+        lib.concatMapStrings (s: "\n  ${generators.mkValueStringDefault {} s}") l;
+    mkKeyValue = generators.mkKeyValueDefault {} ":";
   };
 in
 {
@@ -104,7 +104,7 @@ in
 
       firmwares = mkOption {
         description = lib.mdDoc "Firmwares klipper should manage";
-        default = { };
+        default = {};
         type =
           with types;
           attrsOf (
@@ -190,8 +190,8 @@ in
       in
       {
         description = "Klipper 3D Printer Firmware";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
         preStart = ''
           mkdir -p ${cfg.mutableConfigFolder}
           ${lib.optionalString (cfg.mutableConfig) ''
@@ -208,7 +208,7 @@ in
             ExecStart = "${cfg.package}/lib/klipper/klippy.py ${klippyArgs} ${printerConfigPath}";
             RuntimeDirectory = "klipper";
             StateDirectory = "klipper";
-            SupplementaryGroups = [ "dialout" ];
+            SupplementaryGroups = ["dialout"];
             WorkingDirectory = "${cfg.package}/lib";
             OOMScoreAdjust = "-999";
             CPUSchedulingPolicy = "rr";
@@ -267,7 +267,7 @@ in
             )
             firmwares;
       in
-      [ klipper-genconf ] ++ firmwareFlasher ++ attrValues firmwares;
+      [klipper-genconf] ++ firmwareFlasher ++ attrValues firmwares;
   };
-  meta.maintainers = [ maintainers.cab404 ];
+  meta.maintainers = [maintainers.cab404];
 }

@@ -23,9 +23,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-aG7U8jP3pvOeFDetYVOx+cE78ys0uSkKNjSgB09ste8=";
   };
 
-  patches = [ ./libdatovka-deprecated-fn-curl.patch ];
+  patches = [./libdatovka-deprecated-fn-curl.patch];
 
-  configureFlags = [ "--with-docbook-xsl-stylesheets=${docbook_xsl}/xml/xsl/docbook" ];
+  configureFlags = ["--with-docbook-xsl-stylesheets=${docbook_xsl}/xml/xsl/docbook"];
 
   nativeBuildInputs = [
     pkg-config
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     description = "Client library for accessing SOAP services of Czech government-provided Databox infomation system";
     homepage = "https://gitlab.nic.cz/datovka/libdatovka";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.ovlach ];
+    maintainers = [maintainers.ovlach];
     platforms = platforms.linux;
   };
 }

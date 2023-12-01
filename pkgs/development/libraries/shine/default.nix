@@ -16,12 +16,12 @@ stdenv.mkDerivation rec {
     sha256 = "06nwylqqji0i1isdprm2m5qsdj4qiywcgnp69c5b55pnw43f07qg";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     description = "Fast fixed-point mp3 encoding library";
     homepage = "https://github.com/toots/shine";
     license = licenses.lgpl2Only;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

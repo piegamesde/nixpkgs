@@ -24,13 +24,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-2uBrd1AJyKPJBgMp2ANng9dSjye3iTNaUg+tuLsKEts=";
 
-  ldflags = [ "-buildid=" ];
+  ldflags = ["-buildid="];
 
-  nativeBuildInputs = lib.optionals hsmSupport [ pkg-config ];
+  nativeBuildInputs = lib.optionals hsmSupport [pkg-config];
 
   buildInputs =
-    lib.optionals (hsmSupport && stdenv.isLinux) [ pcsclite ]
-    ++ lib.optionals (hsmSupport && stdenv.isDarwin) [ PCSC ];
+    lib.optionals (hsmSupport && stdenv.isLinux) [pcsclite]
+    ++ lib.optionals (hsmSupport && stdenv.isDarwin) [PCSC];
 
   postPatch = ''
     substituteInPlace systemd/step-ca.service --replace "/bin/kill" "${coreutils}/bin/kill"
@@ -49,7 +49,7 @@ buildGoModule rec {
   __darwinAllowLocalNetworking = true;
   # Tests need to run in a reproducible order, otherwise they run unreliably on
   # (at least) x86_64-linux.
-  checkFlags = [ "-p 1" ];
+  checkFlags = ["-p 1"];
 
   passthru.tests.step-ca = nixosTests.step-ca;
 

@@ -22,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     description = "Duration conversion between units";
     homepage = "https://codeberg.org/annaaurora/didu";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ annaaurora ];
+    maintainers = with maintainers; [annaaurora];
   };
 }

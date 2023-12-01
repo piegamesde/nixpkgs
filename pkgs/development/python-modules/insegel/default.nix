@@ -14,17 +14,17 @@ buildPythonPackage rec {
     sha256 = "1d055dd64f6eb335580a485271511ba2f4e3b5e315f48f827f58da3cace4b4ae";
   };
 
-  propagatedBuildInputs = [ pygments ];
+  propagatedBuildInputs = [pygments];
 
   # No tests included
   doCheck = false;
 
-  pythonImportsCheck = [ "insegel" ];
+  pythonImportsCheck = ["insegel"];
 
   meta = with lib; {
     homepage = "https://github.com/autophagy/insegel";
     description = "A monochrome 2 column Sphinx theme";
     license = licenses.mit;
-    maintainers = with maintainers; [ autophagy ];
+    maintainers = with maintainers; [autophagy];
   };
 }

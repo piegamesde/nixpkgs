@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ SDL2 ] ++ lib.optional stdenv.isDarwin darwin.libobjc;
+  buildInputs = [SDL2] ++ lib.optional stdenv.isDarwin darwin.libobjc;
 
   outputs = [
     "out"
@@ -54,6 +54,6 @@ stdenv.mkDerivation rec {
     description = "SDL2 MPEG Player Library";
     license = licenses.lgpl2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

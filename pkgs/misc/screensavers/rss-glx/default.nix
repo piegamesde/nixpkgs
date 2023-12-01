@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     bzip2
   ];
 
-  patches = [ ./cstddef.patch ];
+  patches = [./cstddef.patch];
 
   env.NIX_CFLAGS_COMPILE = "-I${imagemagick6.dev}/include/ImageMagick";
 

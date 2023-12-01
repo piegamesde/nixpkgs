@@ -25,6 +25,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ pkgs.evilwm ];
+    environment.systemPackages = [pkgs.evilwm];
   };
 }

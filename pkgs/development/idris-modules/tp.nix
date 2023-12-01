@@ -21,6 +21,6 @@ build-idris-package {
     description = "Strongly Typed Paths for Idris";
     homepage = "https://github.com/superfunc/tp";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

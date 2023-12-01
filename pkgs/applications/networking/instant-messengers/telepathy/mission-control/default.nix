@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     sha256 = "0ibs575pfr0wmhfcw6ln6iz7gw2y45l3bah11rksf6g9jlwsxy1d";
   };
 
-  buildInputs = [ python3 ]; # ToDo: optional stuff missing
+  buildInputs = [python3]; # ToDo: optional stuff missing
 
   nativeBuildInputs = [
     pkg-config
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  propagatedBuildInputs = [ telepathy-glib ];
+  propagatedBuildInputs = [telepathy-glib];
 
   doCheck = true;
 
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "An account manager and channel dispatcher for the Telepathy framework";
     homepage = "https://telepathy.freedesktop.org/components/telepathy-mission-control/";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
     # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;

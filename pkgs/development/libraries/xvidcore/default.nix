@@ -28,15 +28,15 @@ stdenv.mkDerivation rec {
     '';
 
   configureFlags =
-    [ ]
+    []
     # Undocumented darwin hack (assembly is probably disabled due to an
     # issue with nasm, however yasm is now used)
     ++ lib.optional stdenv.isDarwin "--enable-macosx_module --disable-assembly";
 
-  nativeBuildInputs = [ ] ++ lib.optional (!stdenv.isDarwin) yasm;
+  nativeBuildInputs = [] ++ lib.optional (!stdenv.isDarwin) yasm;
 
   buildInputs =
-    [ ]
+    []
     # Undocumented darwin hack
     ++ lib.optionals stdenv.isDarwin [
       autoconf

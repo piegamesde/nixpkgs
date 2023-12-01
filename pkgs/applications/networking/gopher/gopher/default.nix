@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "1j6xh5l8v231d4mwl9gj1c34dc0jmazz6zg1qqfxmqr9y609jq3h";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   preConfigure = "export LIBS=-lncurses";
 
@@ -25,6 +25,6 @@ stdenv.mkDerivation rec {
     description = "A ncurses gopher client";
     platforms = platforms.linux; # clang doesn't like local regex.h
     license = licenses.gpl2;
-    maintainers = with maintainers; [ sternenseemann ];
+    maintainers = with maintainers; [sternenseemann];
   };
 }

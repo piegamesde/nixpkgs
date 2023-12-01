@@ -48,7 +48,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "fire" ];
+  pythonImportsCheck = ["fire"];
 
   meta = with lib; {
     description = "A library for automatically generating command line interfaces";
@@ -73,6 +73,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/google/python-fire";
     changelog = "https://github.com/google/python-fire/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
   };
 }

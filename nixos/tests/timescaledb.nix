@@ -3,11 +3,11 @@
 
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
 
 let
@@ -46,10 +46,10 @@ let
     postgresql-name: postgresql-package:
     makeTest {
       name = postgresql-name;
-      meta = with pkgs.lib.maintainers; { maintainers = [ typetetris ]; };
+      meta = with pkgs.lib.maintainers; {maintainers = [typetetris];};
 
       nodes.machine =
-        { ... }:
+        {...}:
         {
           services.postgresql = {
             enable = true;

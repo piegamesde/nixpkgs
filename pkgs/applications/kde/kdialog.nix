@@ -18,7 +18,7 @@ mkDerivation {
       gpl2Plus
       fdl12Plus
     ];
-    maintainers = with lib.maintainers; [ peterhoeg ];
+    maintainers = with lib.maintainers; [peterhoeg];
   };
 
   nativeBuildInputs = [

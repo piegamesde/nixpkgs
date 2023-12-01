@@ -32,6 +32,6 @@ stdenvNoCC.mkDerivation rec {
     description = "A variable font family designed to aid in reading proficiency";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ fufexan ];
+    maintainers = with maintainers; [fufexan];
   };
 }

@@ -14,9 +14,9 @@ stdenv.mkDerivation rec {
   };
 
   # https://github.com/svaarala/duktape/issues/2464
-  LDFLAGS = [ "-lm" ];
+  LDFLAGS = ["-lm"];
 
-  nativeBuildInputs = [ validatePkgConfig ];
+  nativeBuildInputs = [validatePkgConfig];
 
   buildPhase = ''
     make -f Makefile.sharedlibrary
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     homepage = "https://duktape.org/";
     downloadPage = "https://duktape.org/download.html";
     license = licenses.mit;
-    maintainers = [ maintainers.fgaz ];
+    maintainers = [maintainers.fgaz];
     mainProgram = "duk";
     platforms = platforms.all;
   };

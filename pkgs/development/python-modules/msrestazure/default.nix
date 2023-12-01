@@ -34,7 +34,7 @@ buildPythonPackage rec {
     httpretty
     mock
     pytest
-  ] ++ lib.optionals isPy3k [ pytest-asyncio ];
+  ] ++ lib.optionals isPy3k [pytest-asyncio];
 
   checkPhase = ''
     pytest tests/

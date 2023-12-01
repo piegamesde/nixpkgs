@@ -128,7 +128,7 @@ else
     disableIda = "--disable-ida";
     disableGhidra = "--disable-ghidra";
 
-    patches = [ ./curses_is_ncurses.patch ];
+    patches = [./curses_is_ncurses.patch];
 
     preConfigure = ''
       substituteInPlace oasis/elf-loader --replace bitstring.ppx ppx_bitstring
@@ -143,7 +143,7 @@ else
       description = "Platform for binary analysis. It is written in OCaml, but can be used from other languages.";
       homepage = "https://github.com/BinaryAnalysisPlatform/bap/";
       license = licenses.mit;
-      maintainers = [ maintainers.maurer ];
+      maintainers = [maintainers.maurer];
       mainProgram = "bap";
     };
   }

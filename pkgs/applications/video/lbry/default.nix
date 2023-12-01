@@ -22,7 +22,7 @@ appimageTools.wrapAppImage rec {
   };
 
   # At runtime, Lbry likes to have access to Ffmpeg
-  extraPkgs = pkgs: with pkgs; [ ffmpeg ];
+  extraPkgs = pkgs: with pkgs; [ffmpeg];
 
   # General fixup
   extraInstallCommands = ''
@@ -46,7 +46,7 @@ appimageTools.wrapAppImage rec {
     homepage = "https://lbry.com/";
     downloadPage = "https://lbry.com/get/";
     changelog = "https://github.com/lbryio/lbry-desktop/blob/master/CHANGELOG.md";
-    maintainers = with maintainers; [ enderger ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [enderger];
+    platforms = ["x86_64-linux"];
   };
 }

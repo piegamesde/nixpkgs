@@ -38,8 +38,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Break timer that forces you to take a break";
     homepage = "https://github.com/cdepillabout/break-time";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ cdepillabout ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [cdepillabout];
     platforms = platforms.linux;
   };
 }

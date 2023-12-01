@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Page Cache stat: get page cache stats for files on Linux";
     homepage = "https://github.com/tobert/pcstat";
     license = licenses.asl20;
-    maintainers = with maintainers; [ aminechikhaoui ];
+    maintainers = with maintainers; [aminechikhaoui];
   };
 }

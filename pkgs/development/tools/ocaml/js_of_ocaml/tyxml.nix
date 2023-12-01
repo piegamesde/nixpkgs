@@ -13,7 +13,7 @@ buildDunePackage {
   inherit (js_of_ocaml-compiler) version src;
   duneVersion = "3";
 
-  buildInputs = [ js_of_ocaml-ppx ];
+  buildInputs = [js_of_ocaml-ppx];
 
   propagatedBuildInputs = [
     js_of_ocaml
@@ -21,5 +21,5 @@ buildDunePackage {
     tyxml
   ];
 
-  meta = builtins.removeAttrs js_of_ocaml-compiler.meta [ "mainProgram" ];
+  meta = builtins.removeAttrs js_of_ocaml-compiler.meta ["mainProgram"];
 }

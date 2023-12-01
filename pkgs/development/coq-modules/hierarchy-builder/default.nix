@@ -42,11 +42,11 @@ let
     release."0.10.0".sha256 = "1a3vry9nzavrlrdlq3cys3f8kpq3bz447q8c4c7lh2qal61wb32h";
     releaseRev = v: "v${v}";
 
-    propagatedBuildInputs = [ coq-elpi ];
+    propagatedBuildInputs = [coq-elpi];
 
     mlPlugin = true;
 
-    extraInstallFlags = [ "VFILES=structures.v" ];
+    extraInstallFlags = ["VFILES=structures.v"];
 
     meta = with lib; {
       description = "High level commands to declare a hierarchy based on packed classes";
@@ -64,6 +64,6 @@ hb.overrideAttrs (
     buildPhase = "make build";
   }
   // lib.optionalAttrs (lib.versions.isGe "1.1.0" o.version || o.version == "dev") {
-    installFlags = [ "DESTDIR=$(out)" ] ++ o.installFlags;
+    installFlags = ["DESTDIR=$(out)"] ++ o.installFlags;
   }
 )

@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-rIb6tQimwrUj+623IU5zDyKNWsNYYBElLQClOsP+5Dc=";
   };
 
-  patches = [ ./force-cxx-as-linker.patch ];
+  patches = [./force-cxx-as-linker.patch];
 
   nativeBuildInputs = [
     bison
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     rm mruby/mrbgems/mruby-compiler/core/y.tab.c
   '';
 
-  installTargets = [ "pack" ];
+  installTargets = ["pack"];
 
   postInstall = ''
     ln -s "$out/zest" "$out/zyn-fusion"
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     description = "The Zest Framework used in ZynAddSubFX's UI";
     homepage = "https://github.com/mruby-zest";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
     platforms = platforms.all;
   };
 }

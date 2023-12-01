@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildFeatures =
-    [ ]
+    []
     ++ lib.optional withNotification "notification"
     ++ lib.optional withYubikey "yubikey"
     ++ lib.optional withStrictCaller "strict-caller"
@@ -46,6 +46,6 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/Frederick888/git-credential-keepassxc";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

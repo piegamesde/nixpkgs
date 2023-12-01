@@ -36,7 +36,7 @@ buildPythonPackage rec {
   version = "1.10.7";
   format = "setuptools";
 
-  outputs = [ "out" ] ++ lib.optionals withDocs [ "doc" ];
+  outputs = ["out"] ++ lib.optionals withDocs ["doc"];
 
   disabled = pythonOlder "3.7";
 
@@ -51,10 +51,10 @@ buildPythonPackage rec {
     sed -i '/flake8/ d' Makefile
   '';
 
-  buildInputs = lib.optionals (pythonOlder "3.9") [ libxcrypt ];
+  buildInputs = lib.optionals (pythonOlder "3.9") [libxcrypt];
 
   nativeBuildInputs =
-    [ cython ]
+    [cython]
     ++ lib.optionals withDocs [
       # dependencies for building documentation
       autoflake
@@ -77,8 +77,8 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    dotenv = [ python-dotenv ];
-    email = [ email-validator ];
+    dotenv = [python-dotenv];
+    email = [email-validator];
   };
 
   nativeCheckInputs = [
@@ -110,12 +110,12 @@ buildPythonPackage rec {
 
   enableParallelBuilding = true;
 
-  pythonImportsCheck = [ "pydantic" ];
+  pythonImportsCheck = ["pydantic"];
 
   meta = with lib; {
     homepage = "https://github.com/samuelcolvin/pydantic";
     description = "Data validation and settings management using Python type hinting";
     license = licenses.mit;
-    maintainers = with maintainers; [ wd15 ];
+    maintainers = with maintainers; [wd15];
   };
 }

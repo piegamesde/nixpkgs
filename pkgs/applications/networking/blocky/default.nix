@@ -37,6 +37,6 @@ buildGoModule rec {
     homepage = "https://0xerr0r.github.io/blocky";
     changelog = "https://github.com/0xERR0R/blocky/releases";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ratsclub ];
+    maintainers = with maintainers; [ratsclub];
   };
 }

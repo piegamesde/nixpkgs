@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
   let
 
     keyfile = pkgs.writeText "luks-keyfile" ''
@@ -12,17 +12,17 @@ import ./make-test-python.nix (
     name = "systemd-initrd-luks-keyfile";
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         # Use systemd-boot
         virtualisation = {
-          emptyDiskImages = [ 512 ];
+          emptyDiskImages = [512];
           useBootLoader = true;
           useEFIBoot = true;
         };
         boot.loader.systemd-boot.enable = true;
 
-        environment.systemPackages = with pkgs; [ cryptsetup ];
+        environment.systemPackages = with pkgs; [cryptsetup];
         boot.initrd.systemd = {
           enable = true;
           emergencyAccess = true;

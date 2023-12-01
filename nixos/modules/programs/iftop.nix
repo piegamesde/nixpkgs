@@ -15,7 +15,7 @@ in
     programs.iftop.enable = mkEnableOption (lib.mdDoc "iftop + setcap wrapper");
   };
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.iftop ];
+    environment.systemPackages = [pkgs.iftop];
     security.wrappers.iftop = {
       owner = "root";
       group = "root";

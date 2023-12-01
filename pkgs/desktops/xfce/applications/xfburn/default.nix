@@ -32,6 +32,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "Disc burner and project creator for Xfce";
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    maintainers = with maintainers; [] ++ teams.xfce.members;
   };
 }

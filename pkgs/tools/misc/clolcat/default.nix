@@ -17,13 +17,13 @@ stdenv.mkDerivation rec {
 
   preInstall = "mkdir -p $out/bin";
 
-  makeFlags = [ "DESTDIR=$(out)/bin" ];
+  makeFlags = ["DESTDIR=$(out)/bin"];
 
   meta = with lib; {
     description = "Much faster lolcat";
     homepage = "https://github.com/IchMageBaume/clolcat";
     platforms = platforms.all;
-    maintainers = [ maintainers.felipeqq2 ];
+    maintainers = [maintainers.felipeqq2];
     license = licenses.wtfpl;
   };
 }

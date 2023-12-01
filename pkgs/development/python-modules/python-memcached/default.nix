@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-tHqkwNloPTXOrEGtuDLu1cTw4SKJ4auv8UUbqdNp698=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   nativeCheckInputs = [
     mock
@@ -28,12 +28,12 @@ buildPythonPackage rec {
   # all tests fail
   doCheck = false;
 
-  pythonImportsCheck = [ "memcache" ];
+  pythonImportsCheck = ["memcache"];
 
   meta = with lib; {
     description = "Pure python memcached client";
     homepage = "https://github.com/linsomniac/python-memcached";
     license = licenses.psfl;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

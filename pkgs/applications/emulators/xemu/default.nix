@@ -80,7 +80,7 @@ stdenv.mkDerivation (
       "--disable-werror"
     ];
 
-    buildFlags = [ "qemu-system-i386" ];
+    buildFlags = ["qemu-system-i386"];
 
     desktopItems = [
       (makeDesktopItem {

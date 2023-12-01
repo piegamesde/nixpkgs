@@ -19,9 +19,9 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "internal" ];
+  subPackages = ["internal"];
 
-  ldflags = [ "-X github.com/coreos/butane/internal/version.Raw=v${version}" ];
+  ldflags = ["-X github.com/coreos/butane/internal/version.Raw=v${version}"];
 
   postInstall = ''
     mv $out/bin/{internal,butane}

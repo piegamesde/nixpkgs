@@ -18,7 +18,7 @@ buildGoModule rec {
   vendorHash = "sha256-0wHXULDKyXYBTGxfSQXT/5NidPtSnx7ujb8vyczmE38=";
 
   # Not a go module required by the project, contains development utilities
-  excludedPackages = [ "scripts" ];
+  excludedPackages = ["scripts"];
 
   ldflags = [
     "-s"
@@ -30,6 +30,6 @@ buildGoModule rec {
     changelog = "https://github.com/muety/wakapi/releases/tag/${version}";
     description = "A minimalist self-hosted WakaTime-compatible backend for coding statistics";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ t4ccer ];
+    maintainers = with maintainers; [t4ccer];
   };
 }

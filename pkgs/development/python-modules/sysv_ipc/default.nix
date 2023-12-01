@@ -17,6 +17,6 @@ buildPythonPackage rec {
     description = "SysV IPC primitives (semaphores, shared memory and message queues)";
     license = licenses.bsd3;
     homepage = "http://semanchuk.com/philip/sysv_ipc/";
-    maintainers = with maintainers; [ ris ];
+    maintainers = with maintainers; [ris];
   };
 }

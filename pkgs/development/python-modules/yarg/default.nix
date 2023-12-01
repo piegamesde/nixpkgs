@@ -18,7 +18,7 @@ buildPythonPackage rec {
     sha256 = "1isq02s404fp9whkm8w2kvb2ik1sz0r258iby0q532zw81lga0d0";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   nativeCheckInputs = [
     nose
@@ -32,6 +32,6 @@ buildPythonPackage rec {
     description = "An easy to use PyPI client";
     homepage = "https://yarg.readthedocs.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ psyanticy ];
+    maintainers = with maintainers; [psyanticy];
   };
 }

@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-+1M8dUfjjrT4llS0C6WYDyNxJ9QZ5s9v+W185TbgwMw=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cargoSha256 = "sha256-hCtkR20+xs1UHZP7oJVpJACVGcMQLQmSS1QE2tmIVhs=";
 
@@ -23,6 +23,6 @@ rustPlatform.buildRustPackage rec {
     description = "A tool to identify potentially unused code";
     homepage = "https://unused.codes";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

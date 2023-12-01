@@ -43,7 +43,7 @@ assert dmenuSupport && x11Support -> dmenu != null && xdotool != null;
 assert dmenuSupport && waylandSupport -> dmenu-wayland != null && ydotool != null;
 
 let
-  passExtensions = import ./extensions { inherit pkgs; };
+  passExtensions = import ./extensions {inherit pkgs;};
 
   env =
     extensions:
@@ -56,7 +56,7 @@ let
       # lib.getExe looks for name, so we keep it the same as mainProgram
       name = "pass";
       paths = selected;
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
       buildInputs = lib.concatMap (x: x.buildInputs) selected;
 
       postBuild = ''
@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
     ./extension-dir.patch
   ] ++ lib.optional stdenv.isDarwin ./no-darwin-getopt.patch;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installFlags = [
     "PREFIX=$(out)"
@@ -186,7 +186,7 @@ stdenv.mkDerivation rec {
   doCheck = false;
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ git ];
+  nativeInstallCheckInputs = [git];
   installCheckTarget = "test";
 
   passthru = {

@@ -11,7 +11,7 @@ let
 in
 {
   meta = {
-    maintainers = with lib.maintainers; [ numkem ];
+    maintainers = with lib.maintainers; [numkem];
   };
 
   options = {
@@ -27,9 +27,9 @@ in
         ExecStart = "${pkgs.espanso}/bin/espanso daemon";
         Restart = "on-failure";
       };
-      wantedBy = [ "default.target" ];
+      wantedBy = ["default.target"];
     };
 
-    environment.systemPackages = [ pkgs.espanso ];
+    environment.systemPackages = [pkgs.espanso];
   };
 }

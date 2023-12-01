@@ -125,13 +125,13 @@ stdenv.mkDerivation rec {
       "$static/lib/libexiv2-xmp.a"
   '';
 
-  disallowedReferences = [ stdenv.cc.cc ];
+  disallowedReferences = [stdenv.cc.cc];
 
   meta = with lib; {
     homepage = "https://exiv2.org";
     description = "A library and command-line utility to manage image metadata";
     platforms = platforms.all;
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 }

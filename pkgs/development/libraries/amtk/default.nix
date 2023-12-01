@@ -39,9 +39,9 @@ stdenv.mkDerivation rec {
     gobject-introspection
     gtk-doc
     docbook-xsl-nons
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [mesonEmulatorHook];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   doCheck = stdenv.isLinux;
   checkPhase = ''
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Projects/Amtk";
     description = "Actions, Menus and Toolbars Kit for GTK applications";
-    maintainers = [ maintainers.manveru ];
+    maintainers = [maintainers.manveru];
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
   };

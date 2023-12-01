@@ -19,9 +19,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-Ff5vGc90VxmyKQSsjUfoI1NL95DmD1SJx3eC1SP6rt4=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = [ libxcb ];
+  buildInputs = [libxcb];
 
   postInstall = ''
     installManPage $releaseDir/../man/kmon.8

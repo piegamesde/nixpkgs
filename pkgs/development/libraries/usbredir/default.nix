@@ -28,9 +28,9 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
-  propagatedBuildInputs = [ libusb1 ];
+  propagatedBuildInputs = [libusb1];
 
   mesonFlags = [
     "-Dgit_werror=disabled"
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     description = "USB traffic redirection protocol";
     homepage = "https://www.spice-space.org/usbredir.html";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     platforms = platforms.unix;
   };
 }

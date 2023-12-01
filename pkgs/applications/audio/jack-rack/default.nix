@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     url = "mirror://sourceforge/${pname}/${pname}-${version}.tar.bz2";
     sha256 = "1lmibx9gicagcpcisacj6qhq6i08lkl5x8szysjqvbgpxl9qg045";
   };
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libjack2
     ladspaH
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://jack-rack.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.astsmtl ];
+    maintainers = [lib.maintainers.astsmtl];
     platforms = lib.platforms.linux;
   };
 }

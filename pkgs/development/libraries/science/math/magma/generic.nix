@@ -18,7 +18,7 @@
   fetchurl,
   gfortran,
   cudaCapabilities ? cudaPackages.cudaFlags.cudaCapabilities,
-  gpuTargets ? [ ], # Non-CUDA targets, that is HIP
+  gpuTargets ? [], # Non-CUDA targets, that is HIP
   hip,
   hipblas,
   hipsparse,
@@ -56,7 +56,7 @@ let
   # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
   gpuArchWarner =
     supported: unsupported:
-    trivial.throwIf (supported == [ ])
+    trivial.throwIf (supported == [])
       (
         "No supported GPU targets specified. Requested GPU targets: "
         + strings.concatStringsSep ", " unsupported
@@ -64,13 +64,13 @@ let
       supported;
 
   gpuTargetString = strings.concatStringsSep "," (
-    if gpuTargets != [ ] then
+    if gpuTargets != [] then
       # If gpuTargets is specified, it always takes priority.
       gpuArchWarner supportedCustomGpuTargets unsupportedCustomGpuTargets
     else if rocmSupport then
       gpuArchWarner supportedRocmArches unsupportedRocmArches
     else if cudaSupport then
-      [ ] # It's important we pass explicit -DGPU_TARGET to reset magma's defaults
+      [] # It's important we pass explicit -DGPU_TARGET to reset magma's defaults
     else
       throw "No GPU targets specified"
   );
@@ -132,7 +132,7 @@ stdenv.mkDerivation {
     cmake
     ninja
     gfortran
-  ] ++ lists.optionals cudaSupport [ cuda-native-redist ];
+  ] ++ lists.optionals cudaSupport [cuda-native-redist];
 
   buildInputs =
     [
@@ -140,7 +140,7 @@ stdenv.mkDerivation {
       lapack
       blas
     ]
-    ++ lists.optionals cudaSupport [ cuda-redist ]
+    ++ lists.optionals cudaSupport [cuda-redist]
     ++ lists.optionals rocmSupport [
       hip
       hipblas
@@ -149,7 +149,7 @@ stdenv.mkDerivation {
     ];
 
   cmakeFlags =
-    [ "-DGPU_TARGET=${gpuTargetString}" ]
+    ["-DGPU_TARGET=${gpuTargetString}"]
     ++ lists.optionals cudaSupport [
       "-DCMAKE_CUDA_ARCHITECTURES=${cudaArchitecturesString}"
       "-DMIN_ARCH=${minArch}" # Disarms magma's asserts
@@ -179,7 +179,7 @@ stdenv.mkDerivation {
     license = licenses.bsd3;
     homepage = "http://icl.cs.utk.edu/magma/index.html";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ connorbaker ];
+    maintainers = with maintainers; [connorbaker];
     # CUDA and ROCm are mutually exclusive
     broken = cudaSupport && rocmSupport || cudaSupport && strings.versionOlder cudaVersion "9";
   };

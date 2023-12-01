@@ -37,12 +37,12 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [ "duecredit" ];
+  pythonImportsCheck = ["duecredit"];
 
   meta = with lib; {
     homepage = "https://github.com/duecredit/duecredit";
     description = "Simple framework to embed references in code";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

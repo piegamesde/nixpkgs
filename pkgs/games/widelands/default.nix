@@ -108,6 +108,6 @@ stdenv.mkDerivation rec {
       jcumming
     ];
     platforms = platforms.linux;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

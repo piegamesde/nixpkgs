@@ -27,7 +27,7 @@ python.pkgs.buildPythonPackage {
     sourceRoot=$(echo gurobi*/*64)
     runHook postUnpack
   '';
-  patches = [ ./no-clever-setup.patch ];
+  patches = [./no-clever-setup.patch];
   postInstall = "mv lib/lib*.so $out/lib";
   postFixup = ''
     install_name_tool -change \

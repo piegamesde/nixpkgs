@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ fuse3 ];
+  buildInputs = [fuse3];
 
   enableParallelBuilding = true;
   strictDeps = true;
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "FUSE implementation for overlayfs";
     longDescription = "An implementation of overlay+shiftfs in FUSE for rootless containers.";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ma9e ] ++ teams.podman.members;
+    maintainers = with maintainers; [ma9e] ++ teams.podman.members;
     platforms = platforms.linux;
     inherit (src.meta) homepage;
   };

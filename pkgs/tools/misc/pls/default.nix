@@ -16,7 +16,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-h93Kz+ETdHfnzypa8JjMvbzA1o/KS1UuTG8/vhEt7Vo=";
   };
 
-  nativeBuildInputs = [ python3.pkgs.poetry-core ];
+  nativeBuildInputs = [python3.pkgs.poetry-core];
 
   propagatedBuildInputs = with python3.pkgs; [
     pyyaml
@@ -40,12 +40,12 @@ python3.pkgs.buildPythonApplication rec {
     "--ignore=tests/e2e"
   ];
 
-  pythonImportsCheck = [ "pls" ];
+  pythonImportsCheck = ["pls"];
 
   meta = with lib; {
     homepage = "https://dhruvkb.github.io/pls/";
     description = "Prettier and powerful ls";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ arjan-s ];
+    maintainers = with maintainers; [arjan-s];
   };
 }

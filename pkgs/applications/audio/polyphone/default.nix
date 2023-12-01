@@ -64,7 +64,7 @@ mkDerivation rec {
     description = "A soundfont editor for creating musical instruments";
     homepage = "https://www.polyphone-soundfonts.com/";
     license = licenses.gpl3;
-    maintainers = [ maintainers.maxdamantus ];
+    maintainers = [maintainers.maxdamantus];
     platforms = platforms.linux;
   };
 }

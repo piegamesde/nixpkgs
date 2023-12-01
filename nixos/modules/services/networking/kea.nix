@@ -11,24 +11,24 @@ let
   cfg = config.services.kea;
 
   xor = x: y: (!x && y) || (x && !y);
-  format = pkgs.formats.json { };
+  format = pkgs.formats.json {};
 
   chooseNotNull = x: y: if x != null then x else y;
 
   ctrlAgentConfig = chooseNotNull cfg.ctrl-agent.configFile (
-    format.generate "kea-ctrl-agent.conf" { Control-agent = cfg.ctrl-agent.settings; }
+    format.generate "kea-ctrl-agent.conf" {Control-agent = cfg.ctrl-agent.settings;}
   );
 
   dhcp4Config = chooseNotNull cfg.dhcp4.configFile (
-    format.generate "kea-dhcp4.conf" { Dhcp4 = cfg.dhcp4.settings; }
+    format.generate "kea-dhcp4.conf" {Dhcp4 = cfg.dhcp4.settings;}
   );
 
   dhcp6Config = chooseNotNull cfg.dhcp6.configFile (
-    format.generate "kea-dhcp6.conf" { Dhcp6 = cfg.dhcp6.settings; }
+    format.generate "kea-dhcp6.conf" {Dhcp6 = cfg.dhcp6.settings;}
   );
 
   dhcpDdnsConfig = chooseNotNull cfg.dhcp-ddns.configFile (
-    format.generate "kea-dhcp-ddns.conf" { DhcpDdns = cfg.dhcp-ddns.settings; }
+    format.generate "kea-dhcp-ddns.conf" {DhcpDdns = cfg.dhcp-ddns.settings;}
   );
 
   package = pkgs.kea;
@@ -39,14 +39,14 @@ in
       description = lib.mdDoc ''
         Kea Control Agent configuration
       '';
-      default = { };
+      default = {};
       type = submodule {
         options = {
           enable = mkEnableOption (lib.mdDoc "Kea Control Agent");
 
           extraArgs = mkOption {
             type = listOf str;
-            default = [ ];
+            default = [];
             description = lib.mdDoc ''
               List of additional arguments to pass to the daemon.
             '';
@@ -78,14 +78,14 @@ in
       description = lib.mdDoc ''
         DHCP4 Server configuration
       '';
-      default = { };
+      default = {};
       type = submodule {
         options = {
           enable = mkEnableOption (lib.mdDoc "Kea DHCP4 server");
 
           extraArgs = mkOption {
             type = listOf str;
-            default = [ ];
+            default = [];
             description = lib.mdDoc ''
               List of additional arguments to pass to the daemon.
             '';
@@ -110,7 +110,7 @@ in
               renew-timer = 1000;
               rebind-timer = 2000;
               interfaces-config = {
-                interfaces = [ "eth0" ];
+                interfaces = ["eth0"];
               };
               lease-database = {
                 type = "memfile";
@@ -120,7 +120,7 @@ in
               subnet4 = [
                 {
                   subnet = "192.0.2.0/24";
-                  pools = [ { pool = "192.0.2.100 - 192.0.2.240"; } ];
+                  pools = [{pool = "192.0.2.100 - 192.0.2.240";}];
                 }
               ];
             };
@@ -136,14 +136,14 @@ in
       description = lib.mdDoc ''
         DHCP6 Server configuration
       '';
-      default = { };
+      default = {};
       type = submodule {
         options = {
           enable = mkEnableOption (lib.mdDoc "Kea DHCP6 server");
 
           extraArgs = mkOption {
             type = listOf str;
-            default = [ ];
+            default = [];
             description = lib.mdDoc ''
               List of additional arguments to pass to the daemon.
             '';
@@ -169,7 +169,7 @@ in
               rebind-timer = 2000;
               preferred-lifetime = 3000;
               interfaces-config = {
-                interfaces = [ "eth0" ];
+                interfaces = ["eth0"];
               };
               lease-database = {
                 type = "memfile";
@@ -179,7 +179,7 @@ in
               subnet6 = [
                 {
                   subnet = "2001:db8:1::/64";
-                  pools = [ { pool = "2001:db8:1::1-2001:db8:1::ffff"; } ];
+                  pools = [{pool = "2001:db8:1::1-2001:db8:1::ffff";}];
                 }
               ];
             };
@@ -195,14 +195,14 @@ in
       description = lib.mdDoc ''
         Kea DHCP-DDNS configuration
       '';
-      default = { };
+      default = {};
       type = submodule {
         options = {
           enable = mkEnableOption (lib.mdDoc "Kea DDNS server");
 
           extraArgs = mkOption {
             type = listOf str;
-            default = [ ];
+            default = [];
             description = lib.mdDoc ''
               List of additional arguments to pass to the daemon.
             '';
@@ -228,12 +228,12 @@ in
               dns-server-timeout = 100;
               ncr-protocol = "UDP";
               ncr-format = "JSON";
-              tsig-keys = [ ];
+              tsig-keys = [];
               forward-ddns = {
-                ddns-domains = [ ];
+                ddns-domains = [];
               };
               reverse-ddns = {
-                ddns-domains = [ ];
+                ddns-domains = [];
               };
             };
             description = lib.mdDoc ''
@@ -259,7 +259,7 @@ in
     in
     mkIf (cfg.ctrl-agent.enable || cfg.dhcp4.enable || cfg.dhcp6.enable || cfg.dhcp-ddns.enable) (
       mkMerge [
-        { environment.systemPackages = [ package ]; }
+        {environment.systemPackages = [package];}
 
         (mkIf cfg.ctrl-agent.enable {
           assertions = [
@@ -293,7 +293,7 @@ in
               KEA_LOCKFILE_DIR = "/run/kea";
             };
 
-            restartTriggers = [ ctrlAgentConfig ];
+            restartTriggers = [ctrlAgentConfig];
 
             serviceConfig = {
               ExecStart = "${package}/bin/kea-ctrl-agent -c /etc/kea/ctrl-agent.conf ${lib.escapeShellArgs cfg.ctrl-agent.extraArgs}";
@@ -324,14 +324,14 @@ in
               "network-online.target"
               "time-sync.target"
             ];
-            wantedBy = [ "multi-user.target" ];
+            wantedBy = ["multi-user.target"];
 
             environment = {
               KEA_PIDFILE_DIR = "/run/kea";
               KEA_LOCKFILE_DIR = "/run/kea";
             };
 
-            restartTriggers = [ dhcp4Config ];
+            restartTriggers = [dhcp4Config];
 
             serviceConfig = {
               ExecStart = "${package}/bin/kea-dhcp4 -c /etc/kea/dhcp4-server.conf ${lib.escapeShellArgs cfg.dhcp4.extraArgs}";
@@ -369,20 +369,20 @@ in
               "network-online.target"
               "time-sync.target"
             ];
-            wantedBy = [ "multi-user.target" ];
+            wantedBy = ["multi-user.target"];
 
             environment = {
               KEA_PIDFILE_DIR = "/run/kea";
               KEA_LOCKFILE_DIR = "/run/kea";
             };
 
-            restartTriggers = [ dhcp6Config ];
+            restartTriggers = [dhcp6Config];
 
             serviceConfig = {
               ExecStart = "${package}/bin/kea-dhcp6 -c /etc/kea/dhcp6-server.conf ${lib.escapeShellArgs cfg.dhcp6.extraArgs}";
               # Kea does not request capabilities by itself
-              AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-              CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+              AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
+              CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
             } // commonServiceConfig;
           };
         })
@@ -408,26 +408,26 @@ in
               "network-online.target"
               "time-sync.target"
             ];
-            wantedBy = [ "multi-user.target" ];
+            wantedBy = ["multi-user.target"];
 
             environment = {
               KEA_PIDFILE_DIR = "/run/kea";
               KEA_LOCKFILE_DIR = "/run/kea";
             };
 
-            restartTriggers = [ dhcpDdnsConfig ];
+            restartTriggers = [dhcpDdnsConfig];
 
             serviceConfig = {
               ExecStart = "${package}/bin/kea-dhcp-ddns -c /etc/kea/dhcp-ddns.conf ${lib.escapeShellArgs cfg.dhcp-ddns.extraArgs}";
-              AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-              CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+              AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
+              CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
             } // commonServiceConfig;
           };
         })
       ]
     );
 
-  meta.maintainers = with maintainers; [ hexa ];
+  meta.maintainers = with maintainers; [hexa];
   # uses attributes of the linked package
   meta.buildDocsInSandbox = false;
 }

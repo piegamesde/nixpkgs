@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "ZooKeeper co-process for instance monitoring, backup/recovery, cleanup and visualization";
     homepage = "https://github.com/soabase/exhibitor";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
     mainProgram = "startExhibitor.sh";
     platforms = platforms.unix;
@@ -60,6 +60,6 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     mkdir -p $out/share/java
     mv target/$name.jar $out/share/java/
-    makeWrapper ${jdk}/bin/java $out/bin/startExhibitor.sh --add-flags "-jar $out/share/java/$name.jar" --suffix PATH : ${lib.makeBinPath [ jdk ]}
+    makeWrapper ${jdk}/bin/java $out/bin/startExhibitor.sh --add-flags "-jar $out/share/java/$name.jar" --suffix PATH : ${lib.makeBinPath [jdk]}
   '';
 }

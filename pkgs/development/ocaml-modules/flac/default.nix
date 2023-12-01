@@ -19,8 +19,8 @@ buildDunePackage rec {
     sha256 = "sha256-oMmxZtphEX/OPfyTumjkWQJidAjSRqriygaTjVJTCG0=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dune-configurator ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     ogg
     flac.dev
@@ -30,6 +30,6 @@ buildDunePackage rec {
     homepage = "https://github.com/savonet/ocaml-flac";
     description = "Bindings for flac";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

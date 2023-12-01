@@ -24,6 +24,6 @@ nimPackages.buildNimPackage rec {
     homepage = "https://github.com/marcusramberg/promexplorer";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ marcusramberg ];
+    maintainers = with maintainers; [marcusramberg];
   };
 }

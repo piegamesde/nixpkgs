@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     gtk3
   ];
 
-  makeFlags = [ "INSTALLDIR=${placeholder "out"}/bin" ];
+  makeFlags = ["INSTALLDIR=${placeholder "out"}/bin"];
 
   preInstall = ''
     mkdir -p $out/bin
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Nooo37/pinsel";
     # no license
     license = licenses.unfree;
-    maintainers = with maintainers; [ lom ];
+    maintainers = with maintainers; [lom];
     mainProgram = "pinsel";
   };
 }

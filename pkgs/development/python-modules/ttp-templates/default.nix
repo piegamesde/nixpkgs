@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-NlTTydGdjn+hwAKYEyINg/9k/EdnLq2gU9cnujpZQLM=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   postPatch = ''
     # Drop circular dependency on ttp
@@ -35,6 +35,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/dmulyalin/ttp_templates";
     changelog = "https://github.com/dmulyalin/ttp_templates/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

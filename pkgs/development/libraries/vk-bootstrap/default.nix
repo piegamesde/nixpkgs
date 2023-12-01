@@ -30,20 +30,20 @@ stdenv.mkDerivation rec {
     sed -iE 's=Catch2==g' tests/CMakeLists.txt
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     vulkan-headers
     glfw
     catch2
   ];
 
-  cmakeFlags = [ "-DVK_BOOTSTRAP_VULKAN_HEADER_DIR=${vulkan-headers}/include" ];
+  cmakeFlags = ["-DVK_BOOTSTRAP_VULKAN_HEADER_DIR=${vulkan-headers}/include"];
 
   meta = with lib; {
     description = "Vulkan Bootstrapping Library";
     license = licenses.mit;
     homepage = "https://github.com/charles-lunarg/vk-bootstrap";
-    maintainers = with maintainers; [ shamilton ];
+    maintainers = with maintainers; [shamilton];
     platforms = platforms.all;
   };
 }

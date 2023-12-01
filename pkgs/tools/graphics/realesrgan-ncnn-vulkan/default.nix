@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     "-DGLSLANG_TARGET_DIR=${glslang}/lib/cmake"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     vulkan-headers
     vulkan-loader
@@ -67,6 +67,6 @@ stdenv.mkDerivation rec {
     description = "NCNN implementation of Real-ESRGAN. Real-ESRGAN aims at developing Practical Algorithms for General Image Restoration.";
     homepage = "https://github.com/xinntao/Real-ESRGAN-ncnn-vulkan";
     license = licenses.mit;
-    maintainers = with maintainers; [ tilcreator ];
+    maintainers = with maintainers; [tilcreator];
   };
 }

@@ -47,7 +47,7 @@ in
         (checkOpt "enableZshIntegration")
       ];
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     programs.bash.interactiveShellInit = lib.mkIf cfg.enableBashIntegration ''
       source ${cfg.package}/etc/profile.d/command-not-found.sh

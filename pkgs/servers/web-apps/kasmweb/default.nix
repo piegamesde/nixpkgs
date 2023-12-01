@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.kasmweb.com/";
     description = "Streaming containerized apps and desktops to end-users";
     license = licenses.unfree;
-    maintainers = with maintainers; [ s1341 ];
+    maintainers = with maintainers; [s1341];
   };
 }

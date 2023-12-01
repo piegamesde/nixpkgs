@@ -82,10 +82,10 @@ buildFHSEnv {
     '';
     homepage = "https://portswigger.net/burp/";
     downloadPage = "https://portswigger.net/burp/freedownload";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.unfree;
     platforms = jdk.meta.platforms;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
     maintainers = with maintainers; [
       bennofs
       stepech

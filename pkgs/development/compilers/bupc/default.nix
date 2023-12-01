@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   # Used during the configure phase
   ENVCMD = "${coreutils}/bin/env";
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   meta = with lib; {
     description = "A compiler for the Berkely Unified Parallel C language";
@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
     homepage = "https://upc.lbl.gov/";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zimbatm ];
+    maintainers = with maintainers; [zimbatm];
   };
 }

@@ -26,7 +26,7 @@ python3.pkgs.buildPythonApplication rec {
       jinja2
       requests
     ]
-    ++ lib.optionals (python3.pythonOlder "3.11") [ tomli ];
+    ++ lib.optionals (python3.pythonOlder "3.11") [tomli];
 
   nativeCheckInputs = with python3.pkgs; [
     pytestCheckHook
@@ -47,7 +47,7 @@ python3.pkgs.buildPythonApplication rec {
     ];
 
   passthru.tests = {
-    version = testers.testVersion { package = scriv; };
+    version = testers.testVersion {package = scriv;};
   };
 
   meta = {
@@ -55,6 +55,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/nedbat/scriv";
     changelog = "https://github.com/nedbat/scriv/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ amesgen ];
+    maintainers = with lib.maintainers; [amesgen];
   };
 }

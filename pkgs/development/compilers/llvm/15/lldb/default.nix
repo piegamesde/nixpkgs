@@ -37,7 +37,7 @@ stdenv.mkDerivation (
     pname = "lldb";
     inherit version;
 
-    src = runCommand "${pname}-src-${version}" { } ''
+    src = runCommand "${pname}-src-${version}" {} ''
       mkdir -p "$out"
       cp -r ${monorepoSrc}/cmake "$out"
       cp -r ${monorepoSrc}/${pname} "$out"
@@ -48,7 +48,7 @@ stdenv.mkDerivation (
     patches =
       [
         ./procfs.patch
-        (runCommand "resource-dir.patch" { clangLibDir = "${libclang.lib}/lib"; } ''
+        (runCommand "resource-dir.patch" {clangLibDir = "${libclang.lib}/lib";} ''
           substitute '${./resource-dir.patch}' "$out" --subst-var clangLibDir
         '')
         ./gnu-install-dirs.patch
@@ -117,14 +117,14 @@ stdenv.mkDerivation (
       # See here for context:
       # https://github.com/NixOS/nixpkgs/pull/194634#issuecomment-1272129132
       ++ lib.optional (stdenv.targetPlatform.isDarwin && !stdenv.targetPlatform.isAarch64) (
-        runCommand "bsm-audit-session-header" { } ''
+        runCommand "bsm-audit-session-header" {} ''
           install -Dm444 \
             "${lib.getDev darwin.apple_sdk.sdk}/include/bsm/audit_session.h" \
             "$out/include/bsm/audit_session.h"
         ''
       );
 
-    hardeningDisable = [ "format" ];
+    hardeningDisable = ["format"];
 
     cmakeFlags =
       [
@@ -133,7 +133,7 @@ stdenv.mkDerivation (
         "-DClang_DIR=${libclang.dev}/lib/cmake"
         "-DLLVM_EXTERNAL_LIT=${lit}/bin/lit"
       ]
-      ++ lib.optionals stdenv.isDarwin [ "-DLLDB_USE_SYSTEM_DEBUGSERVER=ON" ]
+      ++ lib.optionals stdenv.isDarwin ["-DLLDB_USE_SYSTEM_DEBUGSERVER=ON"]
       ++ lib.optionals (!stdenv.isDarwin) [
         "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
       ]
@@ -186,9 +186,9 @@ stdenv.mkDerivation (
   // lib.optionalAttrs enableManpages {
     pname = "lldb-manpages";
 
-    ninjaFlags = [ "docs-lldb-man" ];
+    ninjaFlags = ["docs-lldb-man"];
 
-    propagatedBuildInputs = [ ];
+    propagatedBuildInputs = [];
 
     # manually install lldb man page
     installPhase = ''
@@ -199,7 +199,7 @@ stdenv.mkDerivation (
     postPatch = null;
     postInstall = null;
 
-    outputs = [ "out" ];
+    outputs = ["out"];
 
     doCheck = false;
 

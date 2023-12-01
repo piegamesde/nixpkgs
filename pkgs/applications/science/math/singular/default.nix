@@ -57,8 +57,8 @@ stdenv.mkDerivation rec {
       "--with-ntl=${ntl}"
       "--disable-pyobject-module"
     ]
-    ++ lib.optionals enableDocs [ "--enable-doc-build" ]
-    ++ lib.optionals enableGfanlib [ "--enable-gfanlib" ];
+    ++ lib.optionals enableDocs ["--enable-doc-build"]
+    ++ lib.optionals enableGfanlib ["--enable-gfanlib"];
 
   prePatch = ''
     # don't let the tests depend on `hostname`
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
     flint
     lrcalc
     gfan
-  ] ++ lib.optionals enableGfanlib [ cddlib ];
+  ] ++ lib.optionals enableGfanlib [cddlib];
 
   nativeBuildInputs =
     [
@@ -97,8 +97,8 @@ stdenv.mkDerivation rec {
       texinfo4
       texlive.combined.scheme-small
     ]
-    ++ lib.optionals stdenv.isDarwin [ getconf ];
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+    ++ lib.optionals stdenv.isDarwin [getconf];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   preAutoreconf = ''
     find . -type f -readable -writable -exec sed \

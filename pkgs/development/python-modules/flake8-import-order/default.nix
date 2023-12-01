@@ -21,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-4jlB+JLaPgwJ1xG6u7DHO8c1JC6bIWtyZhZ1ipINkA4=";
   };
 
-  propagatedBuildInputs = [ pycodestyle ];
+  propagatedBuildInputs = [pycodestyle];
 
   nativeCheckInputs = [
     flake8
@@ -30,7 +30,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "flake8_import_order" ];
+  pythonImportsCheck = ["flake8_import_order"];
 
   meta = with lib; {
     description = "Flake8 and pylama plugin that checks the ordering of import statements";
@@ -40,6 +40,6 @@ buildPythonPackage rec {
       lgpl3
       mit
     ];
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     description = "A library to support generic input method implementation";
     homepage = "https://github.com/fcitx/libime";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ poscat ];
+    maintainers = with maintainers; [poscat];
     platforms = platforms.linux;
   };
 }

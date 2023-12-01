@@ -29,7 +29,7 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     sed -i "/--cov/d" tox.ini
@@ -41,7 +41,7 @@ buildPythonPackage rec {
     "test_yaml_no_ordered_dict"
   ];
 
-  pythonImportsCheck = [ "cfn_flip" ];
+  pythonImportsCheck = ["cfn_flip"];
 
   meta = with lib; {
     description = "Tool for converting AWS CloudFormation templates between JSON and YAML formats";

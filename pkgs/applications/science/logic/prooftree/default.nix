@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   nativeBuildInputs =
-    [ pkg-config ]
+    [pkg-config]
     ++ (
       with ocamlPackages; [
         ocaml
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
         camlp5
       ]
     );
-  buildInputs = [ ncurses ] ++ (with ocamlPackages; [ lablgtk ]);
+  buildInputs = [ncurses] ++ (with ocamlPackages; [lablgtk]);
 
   dontAddPrefix = true;
   configureFlags = [
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://askra.de/software/prooftree";
     platforms = platforms.unix;
-    maintainers = [ maintainers.jwiegley ];
+    maintainers = [maintainers.jwiegley];
     license = licenses.gpl3;
   };
 }

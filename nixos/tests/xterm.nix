@@ -1,13 +1,13 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "xterm";
-    meta = with pkgs.lib.maintainers; { maintainers = [ nequissimus ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [nequissimus];};
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        imports = [ ./common/x11.nix ];
+        imports = [./common/x11.nix];
         services.xserver.desktopManager.xterm.enable = false;
       };
 

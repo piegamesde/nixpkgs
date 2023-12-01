@@ -29,12 +29,12 @@ buildPythonPackage rec {
 
   doCheck = false; # no tests
 
-  pythonImportsCheck = [ "mac_vendor_lookup" ];
+  pythonImportsCheck = ["mac_vendor_lookup"];
 
   meta = with lib; {
     description = "Find the vendor for a given MAC address";
     homepage = "https://github.com/bauerj/mac_vendor_lookup";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

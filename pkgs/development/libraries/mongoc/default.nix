@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     openssl
     zlib
     cyrus_sasl
-  ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  ] ++ lib.optionals stdenv.isDarwin [Security];
   propagatedBuildInputs = [
     libbson
     snappy
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     homepage = "http://mongoc.org";
     license = licenses.asl20;
     mainProgram = "mongoc-stat";
-    maintainers = with maintainers; [ archer-65 ];
+    maintainers = with maintainers; [archer-65];
     platforms = platforms.all;
   };
 }

@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     sed -i -e '/^CFLAGS *?= *-g *$/d' Makefile
   '';
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     homepage = "https://github.com/mpereira/tty-solitaire";
     platforms = ncurses.meta.platforms;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     mainProgram = "ttysolitaire";
   };
 }

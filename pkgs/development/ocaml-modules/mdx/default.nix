@@ -29,7 +29,7 @@ buildDunePackage rec {
     hash = "sha256-MqCDmBAK/S0ueYi8O0XJtplxJx96twiFHe04Q8lHBmE=";
   };
 
-  nativeBuildInputs = [ cppo ];
+  nativeBuildInputs = [cppo];
   propagatedBuildInputs = [
     astring
     fmt
@@ -59,14 +59,14 @@ buildDunePackage rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     description = "Executable OCaml code blocks inside markdown files";
     homepage = "https://github.com/realworldocaml/mdx";
     changelog = "https://github.com/realworldocaml/mdx/raw/${version}/CHANGES.md";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.romildo ];
+    maintainers = [lib.maintainers.romildo];
     mainProgram = "ocaml-mdx";
   };
 }

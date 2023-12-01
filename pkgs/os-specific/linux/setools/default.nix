@@ -22,13 +22,13 @@ buildPythonApplication rec {
     sha256 = "sha256-4T5FIdnKi35JSm+IoYA2gIBBRV0nN0YLEw9xvDqNcgo=";
   };
 
-  nativeBuildInputs = [ cython ];
-  buildInputs = [ libsepol ];
+  nativeBuildInputs = [cython];
+  buildInputs = [libsepol];
   propagatedBuildInputs = [
     enum34
     libselinux
     networkx
-  ] ++ optionals withGraphics [ pyqt5 ];
+  ] ++ optionals withGraphics [pyqt5];
 
   nativeCheckInputs = [
     tox
@@ -38,7 +38,7 @@ buildPythonApplication rec {
     export CHECKPOLICY=${checkpolicy}/bin/checkpolicy
   '';
 
-  setupPyBuildFlags = [ "-i" ];
+  setupPyBuildFlags = ["-i"];
 
   preBuild = ''
     export SEPOL="${lib.getLib libsepol}/lib/libsepol.a"

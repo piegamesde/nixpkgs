@@ -34,6 +34,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Bring your favorite shell wherever you go through SSH";
     homepage = "https://github.com/xxh/xxh";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ pasqui23 ];
+    maintainers = with maintainers; [pasqui23];
   };
 }

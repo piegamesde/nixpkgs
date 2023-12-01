@@ -31,19 +31,19 @@ buildPythonPackage rec {
     rsa
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace setup.py \
       --replace '"pytest-runner",' ""
   '';
 
-  pythonImportsCheck = [ "jose" ];
+  pythonImportsCheck = ["jose"];
 
   meta = with lib; {
     homepage = "https://github.com/mpdavis/python-jose";
     description = "A JOSE implementation in Python";
     license = licenses.mit;
-    maintainers = with maintainers; [ jhhuh ];
+    maintainers = with maintainers; [jhhuh];
   };
 }

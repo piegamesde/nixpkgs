@@ -135,7 +135,7 @@ let
       markuskowa
       sheepforce
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 
   codeGen = stdenv.mkDerivation {
@@ -209,7 +209,7 @@ let
       ./autogen.sh
     '';
 
-    makeFlags = [ "export" ];
+    makeFlags = ["export"];
 
     installPhase = ''
       mkdir -p $out
@@ -240,7 +240,7 @@ let
     # AVX support is advertised, but does not work in 2.6 (possibly in 2.7).
     # Fortran interface is incompatible with changing the LIBINT2_REALTYPE.
     cmakeFlags =
-      [ "-DLIBINT2_SHGAUSS_ORDERING=${shGaussOrd}" ]
+      ["-DLIBINT2_SHGAUSS_ORDERING=${shGaussOrd}"]
       ++ lib.optional enableFortran "-DENABLE_FORTRAN=ON"
       ++ lib.optional enableSSE "-DLIBINT2_REALTYPE=libint2::simd::VectorSSEDouble";
 

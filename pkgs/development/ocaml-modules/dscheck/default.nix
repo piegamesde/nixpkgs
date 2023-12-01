@@ -29,6 +29,6 @@ buildDunePackage rec {
     description = "Traced atomics";
     homepage = "https://github.com/ocaml-multicore/dscheck";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

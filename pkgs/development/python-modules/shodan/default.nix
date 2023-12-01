@@ -33,12 +33,12 @@ buildPythonPackage rec {
   # The tests require a shodan api key, so skip them.
   doCheck = false;
 
-  pythonImportsCheck = [ "shodan" ];
+  pythonImportsCheck = ["shodan"];
 
   meta = with lib; {
     description = "Python library and command-line utility for Shodan";
     homepage = "https://github.com/achillean/shodan-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ lihop ];
+    maintainers = with maintainers; [lihop];
   };
 }

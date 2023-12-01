@@ -13,9 +13,9 @@ stdenv.mkDerivation rec {
     sha256 = "202ee45af747f18642ae0a088d7c4553521714a511a1a9ec99b8144cf9928317";
   };
 
-  patches = [ ./gcc6.patch ];
+  patches = [./gcc6.patch];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-std=c++11" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-std=c++11"];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

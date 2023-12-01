@@ -27,6 +27,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/grpc-ecosystem/grpc-gateway";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ happyalu ];
+    maintainers = with maintainers; [happyalu];
   };
 }

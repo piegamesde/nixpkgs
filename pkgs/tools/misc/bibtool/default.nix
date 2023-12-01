@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   };
 
   # Perl for running test suite.
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   installTargets = [
     "install"
@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.gerd-neugebauer.de/software/TeX/BibTool/index.en.html";
     license = licenses.gpl2;
     platforms = platforms.all;
-    maintainers = [ maintainers.rycee ];
+    maintainers = [maintainers.rycee];
   };
 }

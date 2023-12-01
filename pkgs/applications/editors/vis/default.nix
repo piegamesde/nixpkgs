@@ -15,7 +15,7 @@
 }:
 
 let
-  luaEnv = lua.withPackages (ps: [ ps.lpeg ]);
+  luaEnv = lua.withPackages (ps: [ps.lpeg]);
 in
 stdenv.mkDerivation rec {
   pname = "vis";

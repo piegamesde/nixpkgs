@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     postgresql
   ];
 
-  makeFlags = [ "USE_PGXS=1" ];
+  makeFlags = ["USE_PGXS=1"];
 
   installPhase = ''
     install -D -t $out/lib *.so
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Open Source PostgreSQL Audit Logging";
     homepage = "https://github.com/pgaudit/pgaudit";
-    maintainers = with maintainers; [ idontgetoutmuch ];
+    maintainers = with maintainers; [idontgetoutmuch];
     platforms = postgresql.meta.platforms;
     license = licenses.postgresql;
   };

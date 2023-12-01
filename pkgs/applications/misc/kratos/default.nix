@@ -18,9 +18,9 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-9zXoJ+c1aPWDqasechC4ModWE0+sfMqZzp/Pph/mYcs=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  tags = [ "sqlite" ];
+  tags = ["sqlite"];
 
   doCheck = false;
 
@@ -39,7 +39,7 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    maintainers = with maintainers; [ mrmebelman ];
+    maintainers = with maintainers; [mrmebelman];
     homepage = "https://www.ory.sh/kratos/";
     license = licenses.asl20;
     description = "An API-first Identity and User Management system that is built according to cloud architecture best practices";

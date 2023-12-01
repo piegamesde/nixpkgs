@@ -19,14 +19,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dx0Q6cuA66lG4nwR7quW5Tvs9sdxjdV4gtpxXirI4nY=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libarcus
     stb
     protobuf
   ];
 
-  cmakeFlags = [ "-DCURA_ENGINE_VERSION=${version}" ];
+  cmakeFlags = ["-DCURA_ENGINE_VERSION=${version}"];
 
   meta = with lib; {
     description = "A powerful, fast and robust engine for processing 3D models into 3D printing instruction";

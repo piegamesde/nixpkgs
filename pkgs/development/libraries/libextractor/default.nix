@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
               -e "s|pexe[[:blank:]]*=.*$|pexe = strdup(\"$out/lib/\");|g"
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     [
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
       libgsf
       rpm
     ]
-    ++ lib.optionals gstreamerSupport ([ gst_all_1.gstreamer ] ++ gstPlugins gst_all_1)
+    ++ lib.optionals gstreamerSupport ([gst_all_1.gstreamer] ++ gstPlugins gst_all_1)
     ++ lib.optionals gtkSupport [
       glib
       gtk3
@@ -126,7 +126,7 @@ stdenv.mkDerivation rec {
 
     license = licenses.gpl3Plus;
 
-    maintainers = [ maintainers.jorsn ];
+    maintainers = [maintainers.jorsn];
     platforms = platforms.linux;
   };
 }

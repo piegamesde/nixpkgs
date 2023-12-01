@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{config, lib, ...}:
 
 with lib;
 
@@ -27,9 +27,9 @@ in
 
   config = mkIf cfg.enable {
 
-    boot.kernelModules = [ "i2c-dev" ];
+    boot.kernelModules = ["i2c-dev"];
 
-    users.groups = mkIf (cfg.group == "i2c") { i2c = { }; };
+    users.groups = mkIf (cfg.group == "i2c") {i2c = {};};
 
     services.udev.extraRules = ''
       # allow group ${cfg.group} and users with a seat use of i2c devices
@@ -37,5 +37,5 @@ in
     '';
   };
 
-  meta.maintainers = [ maintainers.rnhmjoj ];
+  meta.maintainers = [maintainers.rnhmjoj];
 }

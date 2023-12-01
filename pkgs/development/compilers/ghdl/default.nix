@@ -35,9 +35,9 @@ stdenv.mkDerivation rec {
 
   LIBRARY_PATH = "${stdenv.cc.libc}/lib";
 
-  nativeBuildInputs = [ gnat ];
-  buildInputs = [ zlib ] ++ lib.optionals (backend == "llvm") [ llvm ];
-  propagatedBuildInputs = [ ] ++ lib.optionals (backend == "llvm") [ zlib ];
+  nativeBuildInputs = [gnat];
+  buildInputs = [zlib] ++ lib.optionals (backend == "llvm") [llvm];
+  propagatedBuildInputs = [] ++ lib.optionals (backend == "llvm") [zlib];
 
   preConfigure = ''
     # If llvm 7.0 works, 7.x releases should work too.
@@ -48,9 +48,9 @@ stdenv.mkDerivation rec {
     # See https://github.com/ghdl/ghdl/pull/2058
     "--disable-werror"
     "--enable-synth"
-  ] ++ lib.optionals (backend == "llvm") [ "--with-llvm-config=${llvm.dev}/bin/llvm-config" ];
+  ] ++ lib.optionals (backend == "llvm") ["--with-llvm-config=${llvm.dev}/bin/llvm-config"];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   enableParallelBuilding = true;
 
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     # nix-build -A ghdl-mcode.passthru.tests
     # nix-build -A ghdl-llvm.passthru.tests
     tests = {
-      simple = callPackage ./test-simple.nix { inherit backend; };
+      simple = callPackage ./test-simple.nix {inherit backend;};
     };
   };
 

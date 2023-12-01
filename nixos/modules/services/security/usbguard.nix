@@ -137,7 +137,7 @@ in
 
       IPCAllowedUsers = mkOption {
         type = types.listOf types.str;
-        default = [ "root" ];
+        default = ["root"];
         example = [
           "root"
           "yourusername"
@@ -149,8 +149,8 @@ in
 
       IPCAllowedGroups = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "wheel" ];
+        default = [];
+        example = ["wheel"];
         description = lib.mdDoc ''
           A list of groupnames that the daemon will accept IPC connections
           from.
@@ -171,13 +171,13 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.usbguard = {
       description = "USBGuard daemon";
 
-      wantedBy = [ "basic.target" ];
-      wants = [ "systemd-udevd.service" ];
+      wantedBy = ["basic.target"];
+      wants = ["systemd-udevd.service"];
 
       # make sure an empty rule file exists
       preStart = ''[ -f "${ruleFile}" ] || touch ${ruleFile}'';

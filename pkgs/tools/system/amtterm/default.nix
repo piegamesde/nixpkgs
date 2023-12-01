@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     perl
     SOAPLite
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   src = fetchurl {
     url = "https://www.kraxel.org/cgit/amtterm/snapshot/${pname}-${version}.tar.gz";
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "Intel AMT® SoL client + tools";
     homepage = "https://www.kraxel.org/cgit/amtterm/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.ehmry ];
+    maintainers = [maintainers.ehmry];
     platforms = platforms.linux;
   };
 }

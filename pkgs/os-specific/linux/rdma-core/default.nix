@@ -70,6 +70,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linux-rdma/rdma-core";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ markuskowa ];
+    maintainers = with maintainers; [markuskowa];
   };
 }

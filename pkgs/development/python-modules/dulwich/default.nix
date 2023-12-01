@@ -37,12 +37,12 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    fastimport = [ fastimport ];
+    fastimport = [fastimport];
     pgp = [
       gpgme
       gnupg
     ];
-    paramiko = [ paramiko ];
+    paramiko = [paramiko];
   };
 
   nativeCheckInputs =
@@ -74,7 +74,7 @@ buildPythonPackage rec {
       "dulwich/contrib/test_swift_smoke.py"
     ];
 
-  pythonImportsCheck = [ "dulwich" ];
+  pythonImportsCheck = ["dulwich"];
 
   meta = with lib; {
     description = "Implementation of the Git file formats and protocols";
@@ -88,6 +88,6 @@ buildPythonPackage rec {
       asl20
       gpl2Plus
     ];
-    maintainers = with maintainers; [ koral ];
+    maintainers = with maintainers; [koral];
   };
 }

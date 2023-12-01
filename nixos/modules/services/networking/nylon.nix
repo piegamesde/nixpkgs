@@ -30,7 +30,7 @@ let
     '';
 
   nylonOpts =
-    { name, ... }:
+    {name, ...}:
     {
 
       options = {
@@ -113,7 +113,7 @@ let
 
         deniedIPRanges = mkOption {
           type = with types; listOf str;
-          default = [ "0.0.0.0/0" ];
+          default = ["0.0.0.0/0"];
           description = lib.mdDoc ''
             Denied client IP ranges, these gets evaluated after the allowed IP ranges, defaults to all IPv4 addresses:
               [ "0.0.0.0/0" ]
@@ -129,8 +129,8 @@ let
   mkNamedNylon = cfg: {
     "nylon-${cfg.name}" = {
       description = "Nylon, a lightweight SOCKS proxy server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         User = "nylon";
         Group = "nylon";
@@ -152,7 +152,7 @@ in
   options = {
 
     services.nylon = mkOption {
-      default = { };
+      default = {};
       description = lib.mdDoc "Collection of named nylon instances";
       type = with types; attrsOf (submodule nylonOpts);
       internal = true;
@@ -173,6 +173,6 @@ in
 
     users.groups.nylon.gid = config.ids.gids.nylon;
 
-    systemd.services = foldr (a: b: a // b) { } nylonUnits;
+    systemd.services = foldr (a: b: a // b) {} nylonUnits;
   };
 }

@@ -1,15 +1,15 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   {
     name = "incron";
-    meta.maintainers = [ lib.maintainers.aanderse ];
+    meta.maintainers = [lib.maintainers.aanderse];
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
         services.incron.enable = true;
-        services.incron.extraPackages = [ pkgs.coreutils ];
+        services.incron.extraPackages = [pkgs.coreutils];
         services.incron.systab = ''
           /test IN_CREATE,IN_MODIFY,IN_CLOSE_WRITE,IN_MOVED_FROM,IN_MOVED_TO echo "$@/$# $%" >> /root/incron.log
         '';

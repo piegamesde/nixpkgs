@@ -1,4 +1,4 @@
-{ lib, ... }:
+{lib, ...}:
 lib.recurseIntoAttrs {
 
   # https://github.com/NixOS/nixpkgs/issues/175196
@@ -6,7 +6,7 @@ lib.recurseIntoAttrs {
     let
       pkgs = import ../.. {
         config = {
-          permittedInsecurePackages = tempAllow pkgs.authy "2.1.0" [ "electron-9.4.4" ];
+          permittedInsecurePackages = tempAllow pkgs.authy "2.1.0" ["electron-9.4.4"];
         };
       };
       # A simplification of `tempAllow` that doesn't check the version, but

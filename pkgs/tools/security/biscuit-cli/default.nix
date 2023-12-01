@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
   meta = {
     description = "CLI to generate and inspect biscuit tokens";
     homepage = "https://www.biscuitsec.org/";
-    maintainers = [ lib.maintainers.shlevy ];
+    maintainers = [lib.maintainers.shlevy];
     license = lib.licenses.bsd3;
   };
 }

@@ -25,12 +25,12 @@ buildPythonPackage rec {
   # tests are not packaged in pypi tarball
   doCheck = false;
 
-  pythonImportsCheck = [ "citext" ];
+  pythonImportsCheck = ["citext"];
 
   meta = with lib; {
     description = "A sqlalchemy plugin that allows postgres use of CITEXT";
     homepage = "https://github.com/mahmoudimus/sqlalchemy-citext";
     license = licenses.mit;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

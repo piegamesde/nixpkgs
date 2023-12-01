@@ -9,7 +9,7 @@
 
 qtModule {
   pname = "qtimageformats";
-  qtInputs = [ qtbase ];
+  qtInputs = [qtbase];
   buildInputs = [
     libwebp
     jasper

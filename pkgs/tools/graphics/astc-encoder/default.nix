@@ -14,17 +14,17 @@ with rec {
     if simdExtensions != null then
       lib.toList simdExtensions
     else if avx2Support then
-      [ "AVX2" ]
+      ["AVX2"]
     else if sse4_1Support then
-      [ "SSE41" ]
+      ["SSE41"]
     else if isx86_64 then
-      [ "SSE2" ]
+      ["SSE2"]
     else if isAarch64 then
-      [ "NEON" ]
+      ["NEON"]
     else
-      [ "NONE" ];
+      ["NONE"];
 
-  archFlags = lib.optionals stdenv.hostPlatform.isAarch64 [ "-DARCH=aarch64" ];
+  archFlags = lib.optionals stdenv.hostPlatform.isAarch64 ["-DARCH=aarch64"];
 
   # CMake Build flags for the selected ISAs. For a list of flags, see
   # https://github.com/ARM-software/astc-encoder/blob/main/Docs/Building.md
@@ -63,9 +63,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-pJmMquORG+vN2uLPywAZY1iZTuHB4SdMP/eriAjnyUU=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  cmakeFlags = isaFlags ++ archFlags ++ [ "-DCMAKE_BUILD_TYPE=RelWithDebInfo" ];
+  cmakeFlags = isaFlags ++ archFlags ++ ["-DCMAKE_BUILD_TYPE=RelWithDebInfo"];
 
   # Set a fixed build year to display within help output (otherwise, it would be 1980)
   postPatch = ''
@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
     '';
     platforms = platforms.unix;
     license = licenses.asl20;
-    maintainers = with maintainers; [ dasisdormax ];
+    maintainers = with maintainers; [dasisdormax];
     broken = !stdenv.is64bit;
   };
 }

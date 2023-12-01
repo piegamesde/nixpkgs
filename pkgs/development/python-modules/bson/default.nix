@@ -23,12 +23,12 @@ buildPythonPackage rec {
   # 0.5.10 was not tagged, https://github.com/py-bson/bson/issues/108
   doCheck = false;
 
-  pythonImportsCheck = [ "bson" ];
+  pythonImportsCheck = ["bson"];
 
   meta = with lib; {
     description = "BSON codec for Python";
     homepage = "https://github.com/py-bson/bson";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

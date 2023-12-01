@@ -26,6 +26,6 @@ buildGoPackage rec {
     # As per README
     platforms = platforms.linux ++ platforms.freebsd ++ platforms.darwin;
     license = licenses.gpl2;
-    maintainers = with maintainers; [ nh2 ];
+    maintainers = with maintainers; [nh2];
   };
 }

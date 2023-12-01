@@ -25,6 +25,6 @@ stdenvNoCC.mkDerivation {
   };
 
   meta = {
-    platforms = [ "msp430-none" ];
+    platforms = ["msp430-none"];
   };
 }

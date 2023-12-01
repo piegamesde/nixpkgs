@@ -25,7 +25,7 @@ lib.checkListOfEnum "${pname}: theme accent"
     "Teal"
     "Yellow"
   ]
-  [ accent ]
+  [accent]
   lib.checkListOfEnum
   "${pname}: color variant"
   [
@@ -34,7 +34,7 @@ lib.checkListOfEnum "${pname}: theme accent"
     "Macchiato"
     "Mocha"
   ]
-  [ variant ]
+  [variant]
 
   stdenvNoCC.mkDerivation
   {
@@ -60,6 +60,6 @@ lib.checkListOfEnum "${pname}: theme accent"
       homepage = "https://github.com/catppuccin/Kvantum";
       license = licenses.mit;
       platforms = platforms.linux;
-      maintainers = with maintainers; [ ggwpaiushtha ];
+      maintainers = with maintainers; [ggwpaiushtha];
     };
   }

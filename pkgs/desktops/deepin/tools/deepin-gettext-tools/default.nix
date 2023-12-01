@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     substituteInPlace src/generate_mo.py --replace "sudo cp" "cp"
   '';
 
-  nativeBuildInputs = [ python3Packages.wrapPython ];
+  nativeBuildInputs = [python3Packages.wrapPython];
 
   buildInputs = [
     gettext
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     perlPackages.XMLLibXML
   ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   postFixup = ''
     wrapPythonPrograms

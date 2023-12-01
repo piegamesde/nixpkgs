@@ -22,7 +22,7 @@ buildGoModule {
 
   vendorHash = "sha256-VMI20IP1jVkUK3rJm35szaFDfZGEEingUEL/xfVJ1cc=";
 
-  subPackages = [ "cmd/elvish" ];
+  subPackages = ["cmd/elvish"];
 
   ldflags = [
     "-s"

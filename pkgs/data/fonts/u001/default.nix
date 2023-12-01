@@ -39,6 +39,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://fontlibrary.org/en/font/u001";
     license = licenses.aladdin;
     platforms = platforms.all;
-    maintainers = with maintainers; [ toastal ];
+    maintainers = with maintainers; [toastal];
   };
 }

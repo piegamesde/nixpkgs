@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-5uINDCX4Jr4bSSwqBjvkS3f5wTMnZvsRGq1DeCw8Y+M=";
   };
 
-  propagatedBuildInputs = [ appdirs ];
+  propagatedBuildInputs = [appdirs];
 
   nativeCheckInputs = [
     py
@@ -34,6 +34,6 @@ buildPythonPackage rec {
     description = "A python Lex/Yacc that works with RPython";
     homepage = "https://github.com/alex/rply";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ nixy ];
+    maintainers = with maintainers; [nixy];
   };
 }

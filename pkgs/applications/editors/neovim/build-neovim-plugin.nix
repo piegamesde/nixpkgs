@@ -6,7 +6,7 @@
 }:
 let
   # sanitizeDerivationName
-  normalizeName = lib.replaceStrings [ "." ] [ "-" ];
+  normalizeName = lib.replaceStrings ["."] ["-"];
 in
 
 # function to create vim plugin from lua packages that are already packaged in
@@ -38,8 +38,7 @@ let
 
   finalDrv = toVimPlugin (
     luaDrv.overrideAttrs (
-      oa:
-      attrs // { nativeBuildInputs = oa.nativeBuildInputs or [ ] ++ [ lua.pkgs.luarocksMoveDataFolder ]; }
+      oa: attrs // {nativeBuildInputs = oa.nativeBuildInputs or [] ++ [lua.pkgs.luarocksMoveDataFolder];}
     )
   );
 in

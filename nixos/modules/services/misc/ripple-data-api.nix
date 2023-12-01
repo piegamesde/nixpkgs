@@ -149,7 +149,7 @@ in
         "redis.service"
         "ripple-data-api-importer.service"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       environment = {
         NODE_ENV = "production";
@@ -165,9 +165,9 @@ in
     };
 
     systemd.services.ripple-data-importer = {
-      after = [ "couchdb.service" ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.curl ];
+      after = ["couchdb.service"];
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.curl];
 
       environment = {
         NODE_ENV = "production";
@@ -206,6 +206,6 @@ in
       isSystemUser = true;
       group = "ripple-data-api";
     };
-    users.groups.ripple-data-api = { };
+    users.groups.ripple-data-api = {};
   };
 }

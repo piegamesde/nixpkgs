@@ -1,14 +1,14 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "bpf";
-    meta.maintainers = with pkgs.lib.maintainers; [ martinetd ];
+    meta.maintainers = with pkgs.lib.maintainers; [martinetd];
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         programs.bcc.enable = true;
-        environment.systemPackages = with pkgs; [ bpftrace ];
+        environment.systemPackages = with pkgs; [bpftrace];
       };
 
     testScript = ''

@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://uhexen2.sourceforge.net/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ xdhampus ];
+    maintainers = with maintainers; [xdhampus];
     platforms = platforms.all;
   };
 }

@@ -26,6 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "http://ftp.math.utah.edu/pub/bibclean";
     license = licenses.gpl2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
   };
 }

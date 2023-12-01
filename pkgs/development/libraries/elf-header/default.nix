@@ -35,13 +35,13 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = libc.meta // {
-    outputsToInstall = [ "out" ];
+    outputsToInstall = ["out"];
     description = "The datastructures of ELF according to the target platform's libc";
     longDescription = ''
       The Executable and Linkable Format (ELF, formerly named Extensible Linking
       Format), is usually defined in a header like this.
     '';
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.ericson2314 ];
+    maintainers = [lib.maintainers.ericson2314];
   };
 }

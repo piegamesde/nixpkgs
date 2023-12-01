@@ -26,8 +26,8 @@ stdenv.mkDerivation {
     description = "Font containing stroke order diagrams for over 6500 kanji, 180 kana and other characters";
     homepage = "https://sites.google.com/site/nihilistorguk/";
 
-    license = [ licenses.bsd3 ];
-    maintainers = with maintainers; [ ptrhlm ];
+    license = [licenses.bsd3];
+    maintainers = with maintainers; [ptrhlm];
     platforms = platforms.all;
   };
 }

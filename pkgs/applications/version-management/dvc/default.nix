@@ -76,12 +76,12 @@ python3.pkgs.buildPythonApplication rec {
       voluptuous
       zc_lockfile
     ]
-    ++ lib.optionals enableGoogle [ dvc-gs ]
-    ++ lib.optionals enableAWS [ dvc-s3 ]
-    ++ lib.optionals enableAzure [ dvc-azure ]
-    ++ lib.optionals enableSSH [ dvc-ssh ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+    ++ lib.optionals enableGoogle [dvc-gs]
+    ++ lib.optionals enableAWS [dvc-s3]
+    ++ lib.optionals enableAzure [dvc-azure]
+    ++ lib.optionals enableSSH [dvc-ssh]
+    ++ lib.optionals (pythonOlder "3.8") [importlib-metadata]
+    ++ lib.optionals (pythonOlder "3.9") [importlib-resources];
 
   # Tests require access to real cloud services
   doCheck = false;

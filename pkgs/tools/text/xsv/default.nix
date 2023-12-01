@@ -28,6 +28,6 @@ rustPlatform.buildRustPackage rec {
       unlicense # or
       mit
     ];
-    maintainers = [ maintainers.jgertm ];
+    maintainers = [maintainers.jgertm];
   };
 }

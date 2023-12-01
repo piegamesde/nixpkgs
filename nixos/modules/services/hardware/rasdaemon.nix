@@ -75,9 +75,9 @@ in
 
     extraModules = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc "extra kernel modules to load";
-      example = [ "i7core_edac" ];
+      example = ["i7core_edac"];
     };
 
     testing = mkEnableOption (lib.mdDoc "error injection infrastructure");
@@ -101,7 +101,7 @@ in
       };
     };
     environment.systemPackages =
-      [ pkgs.rasdaemon ]
+      [pkgs.rasdaemon]
       ++ optionals (cfg.testing) (
         with pkgs.error-inject; [
           edac-inject
@@ -145,8 +145,8 @@ in
     systemd.services = {
       rasdaemon = {
         description = "the RAS logging daemon";
-        documentation = [ "man:rasdaemon(1)" ];
-        wantedBy = [ "multi-user.target" ];
+        documentation = ["man:rasdaemon(1)"];
+        wantedBy = ["multi-user.target"];
 
         serviceConfig = {
           StateDirectory = optionalString (cfg.record) "rasdaemon";
@@ -164,8 +164,8 @@ in
       };
       ras-mc-ctl = mkIf (cfg.labels != "") {
         description = "register DIMM labels on startup";
-        documentation = [ "man:ras-mc-ctl(8)" ];
-        wantedBy = [ "multi-user.target" ];
+        documentation = ["man:ras-mc-ctl(8)"];
+        wantedBy = ["multi-user.target"];
         serviceConfig = {
           Type = "oneshot";
           ExecStart = "${pkgs.rasdaemon}/bin/ras-mc-ctl --register-labels";
@@ -175,5 +175,5 @@ in
     };
   };
 
-  meta.maintainers = [ maintainers.evils ];
+  meta.maintainers = [maintainers.evils];
 }

@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
 
   configureScript = "../configure";
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   doCheck = true;
 
@@ -57,6 +57,6 @@ stdenv.mkDerivation rec {
     ];
     homepage = "https://libvdwxc.org/";
     platforms = platforms.unix;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

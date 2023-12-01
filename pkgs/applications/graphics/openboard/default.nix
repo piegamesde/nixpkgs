@@ -45,8 +45,8 @@ let
       sha256 = "19zhgsimy0f070caikc4vrrqyc8kv2h6rl37sy3iggks8z0g98gf";
     };
 
-    nativeBuildInputs = [ qmake ];
-    buildInputs = [ qtbase ];
+    nativeBuildInputs = [qmake];
+    buildInputs = [qtbase];
     dontWrapQtApps = true;
 
     installPhase = ''
@@ -105,9 +105,9 @@ stdenv.mkDerivation {
     libXfixes
   ];
 
-  propagatedBuildInputs = [ importer ];
+  propagatedBuildInputs = [importer];
 
-  makeFlags = [ "release-install" ];
+  makeFlags = ["release-install"];
 
   desktopItems = [
     (makeDesktopItem {
@@ -116,8 +116,8 @@ stdenv.mkDerivation {
       icon = "OpenBoard";
       comment = "OpenBoard, an interactive white board application";
       desktopName = "OpenBoard";
-      mimeTypes = [ "application/ubz" ];
-      categories = [ "Education" ];
+      mimeTypes = ["application/ubz"];
+      categories = ["Education"];
       startupNotify = true;
     })
   ];
@@ -147,7 +147,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Interactive whiteboard application";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fufexan ];
+    maintainers = with maintainers; [fufexan];
     platforms = platforms.linux;
   };
 }

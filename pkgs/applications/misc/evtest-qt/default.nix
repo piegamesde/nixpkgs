@@ -17,14 +17,14 @@ mkDerivation rec {
     sha256 = "1wfzkgq81764qzxgk0y5vvpxcrb3icvrr4dd4mj8njrqgbwmn0mw";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   meta = with lib; {
     description = "Simple input device tester for linux with Qt GUI";
     homepage = "https://github.com/Grumbel/evtest-qt";
-    maintainers = with maintainers; [ alexarice ];
+    maintainers = with maintainers; [alexarice];
     platforms = platforms.linux;
     license = licenses.gpl3;
   };

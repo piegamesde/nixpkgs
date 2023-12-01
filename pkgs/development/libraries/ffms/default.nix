@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/FFMS/ffms2/";
     description = "FFmpeg based source library for easy frame accurate access";
     license = licenses.mit;
-    maintainers = with maintainers; [ tadeokondrak ];
+    maintainers = with maintainers; [tadeokondrak];
     platforms = platforms.unix;
   };
 }

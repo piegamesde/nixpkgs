@@ -49,8 +49,8 @@ stdenv.mkDerivation rec {
     pkg-config
     mandoc
   ];
-  buildInputs = [ popt ];
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  buildInputs = [popt];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   makeFlags = [
     "prefix=$(out)"

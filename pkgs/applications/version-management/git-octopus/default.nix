@@ -13,9 +13,9 @@ stdenv.mkDerivation rec {
   pname = "git-octopus";
   version = "1.4";
 
-  installFlags = [ "prefix=$(out)" ];
+  installFlags = ["prefix=$(out)"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   # perl provides shasum
   postInstall = ''
@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
     description = "The continuous merge workflow";
     license = licenses.lgpl3;
     platforms = platforms.unix;
-    maintainers = [ maintainers.mic92 ];
+    maintainers = [maintainers.mic92];
   };
 }

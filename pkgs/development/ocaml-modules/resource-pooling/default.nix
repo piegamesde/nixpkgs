@@ -18,7 +18,7 @@ buildDunePackage rec {
     sha256 = "sha256-GNYPxjMTo7y40y7aQdseuFyeVF/hSCZKXfEaH/WIO9w=";
   };
 
-  propagatedBuildInputs = [ lwt_log ];
+  propagatedBuildInputs = [lwt_log];
 
   doCheck = true;
 
@@ -26,6 +26,6 @@ buildDunePackage rec {
     inherit (src.meta) homepage;
     description = "A library for pooling resources like connections, threads, or similar";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

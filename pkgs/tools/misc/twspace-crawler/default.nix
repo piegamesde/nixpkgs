@@ -22,6 +22,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/HitomaruKonpaku/twspace-crawler";
     changelog = "https://github.com/HitomaruKonpaku/twspace-crawler/raw/v${version}/CHANGELOG.md";
     license = licenses.isc;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

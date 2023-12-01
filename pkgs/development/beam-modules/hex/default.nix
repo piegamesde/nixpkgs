@@ -11,7 +11,7 @@ let
     drv:
     stdenv.mkDerivation {
       name = "interactive-shell-${drv.name}";
-      buildInputs = [ drv ];
+      buildInputs = [drv];
     };
 
   pkg =
@@ -33,7 +33,7 @@ let
 
       dontStrip = true;
 
-      buildInputs = [ elixir ];
+      buildInputs = [elixir];
 
       buildPhase = ''
         runHook preBuild
@@ -57,7 +57,7 @@ let
         description = "Package manager for the Erlang VM https://hex.pm";
         license = lib.licenses.mit;
         homepage = "https://github.com/hexpm/hex";
-        maintainers = with lib.maintainers; [ ericbmerritt ];
+        maintainers = with lib.maintainers; [ericbmerritt];
       };
 
       passthru = {

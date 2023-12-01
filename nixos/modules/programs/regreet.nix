@@ -6,7 +6,7 @@
 }:
 let
   cfg = config.programs.regreet;
-  settingsFormat = pkgs.formats.toml { };
+  settingsFormat = pkgs.formats.toml {};
 in
 {
   options.programs.regreet = {
@@ -31,11 +31,11 @@ in
           "greetd"
           "regreet"
         ]
-        { };
+        {};
 
     settings = lib.mkOption {
       type = lib.types.either lib.types.path settingsFormat.type;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         ReGreet configuration file. Refer
         <https://github.com/rharish101/ReGreet/blob/main/regreet.sample.toml>
@@ -62,7 +62,7 @@ in
 
     environment.etc = {
       "greetd/regreet.css" =
-        if lib.isPath cfg.extraCss then { source = cfg.extraCss; } else { text = cfg.extraCss; };
+        if lib.isPath cfg.extraCss then {source = cfg.extraCss;} else {text = cfg.extraCss;};
 
       "greetd/regreet.toml".source =
         if lib.isPath cfg.settings then

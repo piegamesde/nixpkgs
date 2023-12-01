@@ -19,8 +19,8 @@ stdenv.mkDerivation (
       hash = "sha256-EaHtI1ywjEHioWptuHvCllJ3dENtSClVoE6NpWTOa9I=";
     };
 
-    nativeBuildInputs = [ cmake ];
-    buildInputs = [ libxml2 ];
+    nativeBuildInputs = [cmake];
+    buildInputs = [libxml2];
 
     postPatch = ''
       substituteInPlace CMakeLists.txt \
@@ -43,7 +43,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "Convert CUDA to Portable C++ Code";
       homepage = "https://github.com/ROCm-Developer-Tools/HIPIFY";
-      license = with licenses; [ mit ];
+      license = with licenses; [mit];
       maintainers = teams.rocm.members;
       platforms = platforms.linux;
       broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;

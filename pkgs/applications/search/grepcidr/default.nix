@@ -13,13 +13,13 @@ stdenv.mkDerivation rec {
     sha256 = "1yzpa1nigmmp4hir6377hrkpp0z6jnxgccaw2jbqgydbglvnm231";
   };
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Filter IPv4 and IPv6 addresses matching CIDR patterns";
     homepage = "http://www.pc-tools.net/unix/grepcidr/";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = [ maintainers.fadenb ];
+    maintainers = [maintainers.fadenb];
   };
 }

@@ -17,11 +17,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-xoudhPad4diGGE8iZaY1/4LiENlKT2dYcIR6wlQdlTU=";
   };
 
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installManPage doc/beanstalkd.1
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     homepage = "http://kr.github.io/beanstalkd/";
     description = "A simple, fast work queue";
     license = licenses.mit;
-    maintainers = [ maintainers.zimbatm ];
+    maintainers = [maintainers.zimbatm];
     platforms = platforms.all;
   };
 }

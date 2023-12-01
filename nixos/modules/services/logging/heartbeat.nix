@@ -42,7 +42,7 @@ in
 
       tags = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "Tags to place on the shipped log messages";
       };
 
@@ -67,11 +67,11 @@ in
 
   config = mkIf cfg.enable {
 
-    systemd.tmpfiles.rules = [ "d '${cfg.stateDir}' - nobody nogroup - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.stateDir}' - nobody nogroup - -"];
 
     systemd.services.heartbeat = with pkgs; {
       description = "heartbeat log shipper";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       preStart = ''
         mkdir -p "${cfg.stateDir}"/{data,logs}
       '';

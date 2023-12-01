@@ -26,12 +26,12 @@ buildPythonPackage rec {
 
   # Project has no tests
   doCheck = false;
-  pythonImportsCheck = [ "solaredge" ];
+  pythonImportsCheck = ["solaredge"];
 
   meta = with lib; {
     description = "Python wrapper for Solaredge monitoring service";
     homepage = "https://github.com/bertouttier/solaredge";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

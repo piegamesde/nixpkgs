@@ -35,12 +35,12 @@ buildPythonPackage rec {
   # No tests are present
   doCheck = false;
 
-  pythonImportsCheck = [ "webthing" ];
+  pythonImportsCheck = ["webthing"];
 
   meta = with lib; {
     description = "Python implementation of a Web Thing server";
     homepage = "https://github.com/WebThingsIO/webthing-python";
-    license = with licenses; [ mpl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mpl20];
+    maintainers = with maintainers; [fab];
   };
 }

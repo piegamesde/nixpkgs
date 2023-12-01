@@ -30,7 +30,7 @@ buildPythonPackage rec {
       --replace "xsel" "${pkgs.xsel}/bin/xsel"
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -50,12 +50,12 @@ buildPythonPackage rec {
     "test_process_event_text_ctrl_x"
   ];
 
-  disabledTestPaths = [ "tests/test_performance/test_text_performance.py" ];
+  disabledTestPaths = ["tests/test_performance/test_text_performance.py"];
 
   meta = with lib; {
     description = "A GUI system for pygame";
     homepage = "https://github.com/MyreMylar/pygame_gui";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ emilytrau ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [emilytrau];
   };
 }

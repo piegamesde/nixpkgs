@@ -19,7 +19,7 @@ sway-unwrapped.overrideAttrs (
     meta = with lib; {
       description = "A Beautiful Sway Fork";
       homepage = "https://github.com/WillPower3309/swayfx";
-      maintainers = with maintainers; [ ricarch97 ];
+      maintainers = with maintainers; [ricarch97];
       license = licenses.mit;
       platforms = platforms.linux;
 

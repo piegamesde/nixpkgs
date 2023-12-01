@@ -30,7 +30,7 @@ buildPythonPackage rec {
     pkg-config
   ];
 
-  buildInputs = [ fuse ];
+  buildInputs = [fuse];
 
   preConfigure = ''
     substituteInPlace setup.py \

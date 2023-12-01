@@ -33,12 +33,12 @@ buildPythonPackage rec {
   ];
 
   # tries to open connection to wikipedia
-  disabledTests = [ "event_stream" ];
+  disabledTests = ["event_stream"];
 
   meta = with lib; {
     description = "Client library for reading Server Sent Event streams";
     homepage = "https://github.com/btubbs/sseclient";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

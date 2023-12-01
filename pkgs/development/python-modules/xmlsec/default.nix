@@ -37,7 +37,7 @@ buildPythonPackage rec {
     libtool
   ];
 
-  propagatedBuildInputs = [ lxml ];
+  propagatedBuildInputs = [lxml];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -52,12 +52,12 @@ buildPythonPackage rec {
     "tests/test_xmlsec.py"
   ];
 
-  pythonImportsCheck = [ "xmlsec" ];
+  pythonImportsCheck = ["xmlsec"];
 
   meta = with lib; {
     description = "Python bindings for the XML Security Library";
     homepage = "https://github.com/mehcode/python-xmlsec";
     license = licenses.mit;
-    maintainers = with maintainers; [ zhaofengli ];
+    maintainers = with maintainers; [zhaofengli];
   };
 }

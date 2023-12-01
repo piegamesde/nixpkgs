@@ -27,7 +27,7 @@ stdenv.mkDerivation (
     src = fetchFromGitHub {
       owner = "openMSX";
       repo = "openMSX";
-      rev = "RELEASE_${builtins.replaceStrings [ "." ] [ "_" ] finalAttrs.version}";
+      rev = "RELEASE_${builtins.replaceStrings ["."] ["_"] finalAttrs.version}";
       sha256 = "sha256-4V2B+OQbPVRmkRuqfeqyd+7pz9Z1YISjI79WqZS0Qhc=";
       fetchSubmodules = true;
     };
@@ -75,7 +75,7 @@ stdenv.mkDerivation (
         boost
         gpl2Plus
       ];
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       platforms = platforms.unix;
     };
   }

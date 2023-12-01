@@ -19,6 +19,6 @@ buildFishPlugin rec {
     description = "Text Expansions for Fish";
     homepage = "https://github.com/nickeb96/puffer-fish";
     license = licenses.mit;
-    maintainers = with maintainers; [ quantenzitrone ];
+    maintainers = with maintainers; [quantenzitrone];
   };
 }

@@ -14,11 +14,11 @@ mkDerivation {
     extra-cmake-modules
   ];
 
-  buildInputs = [ qtsystems ];
+  buildInputs = [qtsystems];
 
   meta = with lib; {
     homepage = "https://invent.kde.org/maui/mauiman";
     description = "Maui Manager Library. Server and public library API";
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   version = "22.01";
 
   src = fetchurl {
-    url = "https://7-zip.org/a/7z${lib.replaceStrings [ "." ] [ "" ] version}-src.tar.xz";
+    url = "https://7-zip.org/a/7z${lib.replaceStrings ["."] [""] version}-src.tar.xz";
     hash =
       {
         free = "sha256-mp3cFXOEiVptkUdD1+X8XxwoJhBGs+Ns5qk3HBByfLg=";
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     ./fix-build-on-darwin.patch
     ./fix-cross-mingw-build.patch
   ];
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
 
   postPatch = lib.optionalString stdenv.hostPlatform.isMinGW ''
     substituteInPlace CPP/7zip/7zip_gcc.mak C/7zip_gcc_c.mak \
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
   '';
 
   env.NIX_CFLAGS_COMPILE = toString (
-    lib.optionals stdenv.isDarwin [ "-Wno-deprecated-copy-dtor" ]
+    lib.optionals stdenv.isDarwin ["-Wno-deprecated-copy-dtor"]
     ++ lib.optionals stdenv.hostPlatform.isMinGW [
       "-Wno-conversion"
       "-Wno-unused-macros"
@@ -84,19 +84,19 @@ stdenv.mkDerivation rec {
       "CC=${stdenv.cc.targetPrefix}cc"
       "CXX=${stdenv.cc.targetPrefix}c++"
     ]
-    ++ lib.optionals useUasm [ "MY_ASM=uasm" ]
+    ++ lib.optionals useUasm ["MY_ASM=uasm"]
     # We need at minimum 10.13 here because of utimensat, however since
     # we need a bump anyway, let's set the same minimum version as the one in
     # aarch64-darwin so we don't need additional changes for it
-    ++ lib.optionals stdenv.isDarwin [ "MACOSX_DEPLOYMENT_TARGET=10.16" ]
+    ++ lib.optionals stdenv.isDarwin ["MACOSX_DEPLOYMENT_TARGET=10.16"]
     # it's the compression code with the restriction, see DOC/License.txt
-    ++ lib.optionals (!enableUnfree) [ "DISABLE_RAR_COMPRESS=true" ]
+    ++ lib.optionals (!enableUnfree) ["DISABLE_RAR_COMPRESS=true"]
     ++ lib.optionals (stdenv.hostPlatform.isMinGW) [
       "IS_MINGW=1"
       "MSYSTEM=1"
     ];
 
-  nativeBuildInputs = lib.optionals useUasm [ uasm ];
+  nativeBuildInputs = lib.optionals useUasm [uasm];
 
   enableParallelBuilding = true;
 
@@ -133,7 +133,7 @@ stdenv.mkDerivation rec {
       ++
         # and CPP/7zip/Compress/Rar* are unfree with the unRAR license restriction
         # the unRAR compression code is disabled by default
-        lib.optionals enableUnfree [ unfree ];
+        lib.optionals enableUnfree [unfree];
     maintainers = with maintainers; [
       anna328p
       peterhoeg

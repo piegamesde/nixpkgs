@@ -1,14 +1,14 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "ndppd";
-    meta = with pkgs.lib.maintainers; { maintainers = [ fpletz ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [fpletz];};
 
     nodes = {
       upstream =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
-          environment.systemPackages = [ pkgs.tcpdump ];
+          environment.systemPackages = [pkgs.tcpdump];
           networking.useDHCP = false;
           networking.interfaces = {
             eth1 = {
@@ -28,13 +28,13 @@ import ./make-test-python.nix (
           };
         };
       server =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           boot.kernel.sysctl = {
             "net.ipv6.conf.all.forwarding" = "1";
             "net.ipv6.conf.default.forwarding" = "1";
           };
-          environment.systemPackages = [ pkgs.tcpdump ];
+          environment.systemPackages = [pkgs.tcpdump];
           networking.useDHCP = false;
           networking.interfaces = {
             eth1 = {
@@ -48,7 +48,7 @@ import ./make-test-python.nix (
           };
           services.ndppd = {
             enable = true;
-            proxies.eth1.rules."fd42::/112" = { };
+            proxies.eth1.rules."fd42::/112" = {};
           };
           containers.client = {
             autoStart = true;
@@ -57,7 +57,7 @@ import ./make-test-python.nix (
             localAddress = "192.168.255.2";
             hostAddress6 = "fd42::1";
             localAddress6 = "fd42::2";
-            config = { };
+            config = {};
           };
         };
     };

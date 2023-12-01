@@ -11,7 +11,7 @@ let
   cfg = config.services.public-inbox;
   stateDir = "/var/lib/public-inbox";
 
-  gitIni = pkgs.formats.gitIni { listsAsDuplicateKeys = true; };
+  gitIni = pkgs.formats.gitIni {listsAsDuplicateKeys = true;};
   iniAtom =
     elemAt
       gitIni.type # attrsOf
@@ -27,7 +27,7 @@ let
   publicInboxDaemonOptions = proto: defaultPort: {
     args = mkOption {
       type = with types; listOf str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc "Command-line arguments to pass to {manpage}`public-inbox-${proto}d(1)`.";
     };
     port = mkOption {
@@ -63,19 +63,19 @@ let
     {
       serviceConfig = {
         # Enable JIT-compiled C (via Inline::C)
-        Environment = [ "PERL_INLINE_DIRECTORY=/run/public-inbox-${srv}/perl-inline" ];
+        Environment = ["PERL_INLINE_DIRECTORY=/run/public-inbox-${srv}/perl-inline"];
         # NonBlocking is REQUIRED to avoid a race condition
         # if running simultaneous services.
         NonBlocking = true;
         #LimitNOFILE = 30000;
         User = config.users.users."public-inbox".name;
         Group = config.users.groups."public-inbox".name;
-        RuntimeDirectory = [ "public-inbox-${srv}/perl-inline" ];
+        RuntimeDirectory = ["public-inbox-${srv}/perl-inline"];
         RuntimeDirectoryMode = "700";
         # This is for BindPaths= and BindReadOnlyPaths=
         # to allow traversal of directories they create inside RootDirectory=
         UMask = "0066";
-        StateDirectory = [ "public-inbox" ];
+        StateDirectory = ["public-inbox"];
         StateDirectoryMode = "0750";
         WorkingDirectory = stateDir;
         BindReadOnlyPaths =
@@ -111,7 +111,7 @@ let
         #ProtectSystem = "strict";
         RemoveIPC = true;
         RestrictAddressFamilies =
-          [ "AF_UNIX" ]
+          ["AF_UNIX"]
           ++ optionals needNetwork [
             "AF_INET"
             "AF_INET6"
@@ -175,7 +175,7 @@ in
     };
     path = mkOption {
       type = with types; listOf package;
-      default = [ ];
+      default = [];
       example = literalExpression "with pkgs; [ spamassassin ]";
       description = lib.mdDoc ''
         Additional packages to place in the path of public-inbox-mda,
@@ -186,10 +186,10 @@ in
       description = lib.mdDoc ''
         Inboxes to configure, where attribute names are inbox names.
       '';
-      default = { };
+      default = {};
       type = types.attrsOf (
         types.submodule (
-          { name, ... }:
+          {name, ...}:
           {
             freeformType = types.attrsOf iniAtom;
             options.inboxdir = mkOption {
@@ -221,9 +221,9 @@ in
             };
             options.watch = mkOption {
               type = with types; listOf str;
-              default = [ ];
+              default = [];
               description = lib.mdDoc "Paths for {manpage}`public-inbox-watch(1)` to monitor for new mail.";
-              example = [ "maildir:/path/to/test.example.com.git" ];
+              example = ["maildir:/path/to/test.example.com.git"];
             };
             options.watchheader = mkOption {
               type = with types; nullOr str;
@@ -238,7 +238,7 @@ in
               type = (types.listOf (types.enum (attrNames cfg.settings.coderepo))) // {
                 description = "list of coderepo names";
               };
-              default = [ ];
+              default = [];
               description = lib.mdDoc "Nicknames of a 'coderepo' section associated with the inbox.";
             };
           }
@@ -252,8 +252,8 @@ in
       enable = mkEnableOption (lib.mdDoc "the public-inbox HTTP server");
       mounts = mkOption {
         type = with types; listOf str;
-        default = [ "/" ];
-        example = [ "/lists/archives" ];
+        default = ["/"];
+        example = ["/lists/archives"];
         description = lib.mdDoc ''
           Root paths or URLs that public-inbox will be served on.
           If domain parts are present, only requests to those
@@ -278,7 +278,7 @@ in
       enable = mkEnableOption (lib.mdDoc "the public-inbox Mail Delivery Agent");
       args = mkOption {
         type = with types; listOf str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "Command-line arguments to pass to {manpage}`public-inbox-mda(1)`.";
       };
     };
@@ -296,11 +296,11 @@ in
       description = lib.mdDoc ''
         Settings for the [public-inbox config file](https://public-inbox.org/public-inbox-config.html).
       '';
-      default = { };
+      default = {};
       type = types.submodule {
         freeformType = gitIni.type;
         options.publicinbox = mkOption {
-          default = { };
+          default = {};
           description = lib.mdDoc "public inboxes";
           type = types.submodule {
             # Keeping in line with the tradition of unnecessarily specific types, allow users to set
@@ -317,12 +317,12 @@ in
 
             options.css = mkOption {
               type = with types; listOf str;
-              default = [ ];
+              default = [];
               description = lib.mdDoc "The local path name of a CSS file for the PSGI web interface.";
             };
             options.nntpserver = mkOption {
               type = with types; listOf str;
-              default = [ ];
+              default = [];
               example = [
                 "nntp://news.public-inbox.org"
                 "nntps://news.public-inbox.org"
@@ -381,7 +381,7 @@ in
           '';
         };
         options.coderepo = mkOption {
-          default = { };
+          default = {};
           description = lib.mdDoc "code repositories";
           type = types.attrsOf (
             types.submodule {
@@ -413,7 +413,7 @@ in
         '';
       }
       {
-        assertion = cfg.path != [ ] || !useSpamAssassin;
+        assertion = cfg.path != [] || !useSpamAssassin;
         message = ''
           public-inbox is configured to use SpamAssassin, but there is
           no spamc executable in services.public-inbox.path.  If you
@@ -432,12 +432,11 @@ in
         group = "public-inbox";
         isSystemUser = true;
       };
-      groups.public-inbox = { };
+      groups.public-inbox = {};
     };
     networking.firewall = mkIf cfg.openFirewall {
       allowedTCPPorts = mkMerge (
-        map
-          (proto: (mkIf (cfg.${proto}.enable && types.port.check cfg.${proto}.port) [ cfg.${proto}.port ]))
+        map (proto: (mkIf (cfg.${proto}.enable && types.port.check cfg.${proto}.port) [cfg.${proto}.port]))
           [
             "imap"
             "http"
@@ -488,8 +487,8 @@ in
           proto:
           mkIf (cfg.${proto}.enable && cfg.${proto}.port != null) {
             "public-inbox-${proto}d" = {
-              listenStreams = [ (toString cfg.${proto}.port) ];
-              wantedBy = [ "sockets.target" ];
+              listenStreams = [(toString cfg.${proto}.port)];
+              wantedBy = ["sockets.target"];
             };
           }
         )
@@ -508,10 +507,10 @@ in
               "public-inbox-init.service"
               "public-inbox-watch.service"
             ];
-            requires = [ "public-inbox-init.service" ];
+            requires = ["public-inbox-init.service"];
             serviceConfig = {
               ExecStart = escapeShellArgs (
-                [ "${cfg.package}/bin/public-inbox-imapd" ]
+                ["${cfg.package}/bin/public-inbox-imapd"]
                 ++ cfg.imap.args
                 ++ optionals (cfg.imap.cert != null) [
                   "--cert"
@@ -534,10 +533,10 @@ in
               "public-inbox-init.service"
               "public-inbox-watch.service"
             ];
-            requires = [ "public-inbox-init.service" ];
+            requires = ["public-inbox-init.service"];
             serviceConfig = {
               ExecStart = escapeShellArgs (
-                [ "${cfg.package}/bin/public-inbox-httpd" ]
+                ["${cfg.package}/bin/public-inbox-httpd"]
                 ++ cfg.http.args
                 ++
                   # See https://public-inbox.org/public-inbox.git/tree/examples/public-inbox.psgi
@@ -586,10 +585,10 @@ in
               "public-inbox-init.service"
               "public-inbox-watch.service"
             ];
-            requires = [ "public-inbox-init.service" ];
+            requires = ["public-inbox-init.service"];
             serviceConfig = {
               ExecStart = escapeShellArgs (
-                [ "${cfg.package}/bin/public-inbox-nntpd" ]
+                ["${cfg.package}/bin/public-inbox-nntpd"]
                 ++ cfg.nntp.args
                 ++ optionals (cfg.nntp.cert != null) [
                   "--cert"
@@ -606,7 +605,7 @@ in
       })
       (mkIf
         (
-          any (inbox: inbox.watch != [ ]) (attrValues cfg.inboxes)
+          any (inbox: inbox.watch != []) (attrValues cfg.inboxes)
           || cfg.settings.publicinboxwatch.watchspam != null
         )
         {
@@ -614,11 +613,11 @@ in
             (serviceConfig "watch")
             {
               inherit (cfg) path;
-              wants = [ "public-inbox-init.service" ];
+              wants = ["public-inbox-init.service"];
               requires = [
                 "public-inbox-init.service"
               ] ++ optional (cfg.settings.publicinboxwatch.spamcheck == "spamc") "spamassassin.service";
-              wantedBy = [ "multi-user.target" ];
+              wantedBy = ["multi-user.target"];
               serviceConfig = {
                 ExecStart = "${cfg.package}/bin/public-inbox-watch";
                 ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
@@ -637,9 +636,9 @@ in
           mkMerge [
             (serviceConfig "init")
             {
-              wantedBy = [ "multi-user.target" ];
+              wantedBy = ["multi-user.target"];
               restartIfChanged = true;
-              restartTriggers = [ PI_CONFIG ];
+              restartTriggers = [PI_CONFIG];
               script =
                 ''
                   set -ux
@@ -713,7 +712,7 @@ in
           ];
       })
     ];
-    environment.systemPackages = with pkgs; [ cfg.package ];
+    environment.systemPackages = with pkgs; [cfg.package];
   };
   meta.maintainers = with lib.maintainers; [
     julm

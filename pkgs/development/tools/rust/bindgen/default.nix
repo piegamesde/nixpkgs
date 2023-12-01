@@ -24,19 +24,19 @@ let
             '';
         };
         passthru.tests = {
-          simple-c = runCommandCC "simple-c-bindgen-tests" { } ''
+          simple-c = runCommandCC "simple-c-bindgen-tests" {} ''
             echo '#include <stdlib.h>' > a.c
             ${self}/bin/bindgen a.c --allowlist-function atoi | tee output
             grep atoi output
             touch $out
           '';
-          simple-cpp = runCommandCC "simple-cpp-bindgen-tests" { } ''
+          simple-cpp = runCommandCC "simple-cpp-bindgen-tests" {} ''
             echo '#include <cmath>' > a.cpp
             ${self}/bin/bindgen a.cpp --allowlist-function erf -- -xc++ | tee output
             grep erf output
             touch $out
           '';
-          with-lib = runCommandCC "zlib-bindgen-tests" { buildInputs = [ zlib ]; } ''
+          with-lib = runCommandCC "zlib-bindgen-tests" {buildInputs = [zlib];} ''
             echo '#include <zlib.h>' > a.c
             ${self}/bin/bindgen a.c --allowlist-function compress | tee output
             grep compress output

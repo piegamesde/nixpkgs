@@ -33,7 +33,7 @@ buildPythonPackage rec {
       (fetchpatch {
         name = "use-docformatter-1.5.1.patch";
         url = "https://github.com/tefra/xsdata/commit/040692db47e6e51028fd959c793e757858c392d7.patch";
-        excludes = [ "setup.cfg" ];
+        excludes = ["setup.cfg"];
         hash = "sha256-ncecMJLJUiUb4lB8ys+nyiGU/UmayK++o89h3sAwREQ=";
       })
     ];
@@ -51,17 +51,17 @@ buildPythonPackage rec {
       jinja2
       toposort
     ];
-    lxml = [ lxml ];
-    soap = [ requests ];
+    lxml = [lxml];
+    soap = [requests];
   };
 
   nativeCheckInputs =
-    [ pytestCheckHook ]
+    [pytestCheckHook]
     ++ passthru.optional-dependencies.cli
     ++ passthru.optional-dependencies.lxml
     ++ passthru.optional-dependencies.soap;
 
-  disabledTestPaths = [ "tests/integration/benchmarks" ];
+  disabledTestPaths = ["tests/integration/benchmarks"];
 
   pythonImportsCheck = [
     "xsdata.formats.dataclass.context"
@@ -83,6 +83,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/tefra/xsdata";
     changelog = "https://github.com/tefra/xsdata/blob/v${version}/CHANGES.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

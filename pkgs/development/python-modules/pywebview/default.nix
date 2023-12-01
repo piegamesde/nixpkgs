@@ -29,14 +29,14 @@ buildPythonPackage rec {
     hash = "sha256-awgX862p1jU/LWdg7QMC9by0OJMkzGwnC0yrc93I/c0=";
   };
 
-  nativeBuildInputs = [ qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [qt5.wrapQtAppsHook];
 
   propagatedBuildInputs = [
     bottle
     pyqtwebengine
     proxy_tools
     six
-  ] ++ lib.optionals (pythonOlder "3.7") [ importlib-resources ];
+  ] ++ lib.optionals (pythonOlder "3.7") [importlib-resources];
 
   nativeCheckInputs = [
     pygobject3
@@ -63,12 +63,12 @@ buildPythonPackage rec {
     popd
   '';
 
-  pythonImportsCheck = [ "webview" ];
+  pythonImportsCheck = ["webview"];
 
   meta = with lib; {
     description = "Lightweight cross-platform wrapper around a webview";
     homepage = "https://github.com/r0x0r/pywebview";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jojosch ];
+    maintainers = with maintainers; [jojosch];
   };
 }

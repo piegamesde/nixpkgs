@@ -14,7 +14,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-t60e2wKl3a0RfKlPAm64RQtRUE0ugbw6A4deEtTnayU=";
   };
 
-  nativeBuildInputs = [ xorg.mkfontscale ];
+  nativeBuildInputs = [xorg.mkfontscale];
 
   dontBuild = true;
 
@@ -36,6 +36,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Monospaced bitmap fonts";
     homepage = "https://www.cambus.net/spleen-monospaced-bitmap-fonts";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
   };
 }

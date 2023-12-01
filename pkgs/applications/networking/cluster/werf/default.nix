@@ -24,13 +24,13 @@ buildGoModule rec {
 
   proxyVendor = true;
 
-  subPackages = [ "cmd/werf" ];
+  subPackages = ["cmd/werf"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   buildInputs =
-    lib.optionals stdenv.isLinux [ btrfs-progs ]
-    ++ lib.optionals stdenv.hostPlatform.isGnu [ stdenv.cc.libc.static ];
+    lib.optionals stdenv.isLinux [btrfs-progs]
+    ++ lib.optionals stdenv.hostPlatform.isGnu [stdenv.cc.libc.static];
 
   CGO_ENABLED = if stdenv.isLinux then 1 else 0;
 
@@ -102,6 +102,6 @@ buildGoModule rec {
     homepage = "https://werf.io";
     changelog = "https://github.com/werf/werf/releases/tag/${src.rev}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
   };
 }

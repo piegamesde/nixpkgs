@@ -21,9 +21,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-yDfUD5Uag3UM/2Q7ofvh6iGcB3n21m1gKo7SKqTWamc=";
 
-  buildFeatures = [ "gtk4_8" ];
+  buildFeatures = ["gtk4_8"];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     glib
     gtk4
@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage rec {
     description = "Clean and customizable greeter for greetd";
     homepage = "https://github.com/rharish101/ReGreet";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fufexan ];
+    maintainers = with maintainers; [fufexan];
     platforms = platforms.linux;
   };
 }

@@ -31,7 +31,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
       homepage = "https://erratique.ch/software/note";
       description = "An OCaml module for functional reactive programming";
       license = lib.licenses.isc;
-      maintainers = [ lib.maintainers.vbgl ];
+      maintainers = [lib.maintainers.vbgl];
       inherit (ocaml.meta) platforms;
     };
   }

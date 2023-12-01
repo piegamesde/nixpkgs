@@ -38,7 +38,7 @@ resholve.mkDerivation rec {
   '';
 
   solutions.default = {
-    scripts = [ "bin/wgnord" ];
+    scripts = ["bin/wgnord"];
     interpreter = "${bash}/bin/sh";
     inputs = [
       coreutils
@@ -60,7 +60,7 @@ resholve.mkDerivation rec {
     description = "A NordVPN Wireguard (NordLynx) client in POSIX shell";
     homepage = "https://github.com/phirecc/wgnord";
     changelog = "https://github.com/phirecc/wgnord/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ urandom ];
+    maintainers = with lib.maintainers; [urandom];
     license = licenses.mit;
   };
 }

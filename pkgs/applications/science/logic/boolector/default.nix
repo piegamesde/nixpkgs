@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     sed s@REPLACEME@file://${gtest.src}@ ${./cmake-gtest.patch} | patch -p1
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     lingeling
     btor2tools
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     "-DUSE_LINGELING=YES"
   ] ++ (lib.optional (gmp != null) "-DUSE_GMP=YES");
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
   doCheck = true;
   preCheck =
     let
@@ -81,6 +81,6 @@ stdenv.mkDerivation rec {
     homepage = "https://boolector.github.io";
     license = licenses.mit;
     platforms = with platforms; linux ++ darwin;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

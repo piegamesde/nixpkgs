@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-PKWJ2CZ/wacbJnrCZdYwYJzbFVhjIGAw60UGhdw11Mc=";
   };
 
-  buildInputs = [ undmg ];
+  buildInputs = [undmg];
   installPhase = ''
     mkdir -p "$out/Applications/${appName}.app"
     cp -R . "$out/Applications/${appName}.app"
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     description = "The Kubernetes IDE";
     homepage = "https://k8slens.dev/";
     license = licenses.mit;
-    maintainers = with maintainers; [ dbirks ];
-    platforms = [ "aarch64-darwin" ];
+    maintainers = with maintainers; [dbirks];
+    platforms = ["aarch64-darwin"];
   };
 }

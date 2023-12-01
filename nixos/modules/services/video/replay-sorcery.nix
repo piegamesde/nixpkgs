@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.services.replay-sorcery;
-  configFile = generators.toKeyValue { } cfg.settings;
+  configFile = generators.toKeyValue {} cfg.settings;
 in
 {
   options = with types; {
@@ -36,7 +36,7 @@ in
             int
           ]
         );
-        default = { };
+        default = {};
         description = lib.mdDoc "System-wide configuration for ReplaySorcery (/etc/replay-sorcery.conf).";
         example = literalExpression ''
           {
@@ -50,7 +50,7 @@ in
 
   config = mkIf cfg.enable {
     environment = {
-      systemPackages = [ pkgs.replay-sorcery ];
+      systemPackages = [pkgs.replay-sorcery];
       etc."replay-sorcery.conf".text = configFile;
     };
 
@@ -64,10 +64,10 @@ in
     };
 
     systemd = {
-      packages = [ pkgs.replay-sorcery ];
+      packages = [pkgs.replay-sorcery];
       user.services.replay-sorcery = {
-        wantedBy = mkIf cfg.autoStart [ "graphical-session.target" ];
-        partOf = mkIf cfg.autoStart [ "graphical-session.target" ];
+        wantedBy = mkIf cfg.autoStart ["graphical-session.target"];
+        partOf = mkIf cfg.autoStart ["graphical-session.target"];
         serviceConfig = {
           ExecStart = mkIf cfg.enableSysAdminCapability [
             "" # Tell systemd to clear the existing ExecStart list, to prevent appending to it.
@@ -79,6 +79,6 @@ in
   };
 
   meta = {
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
   };
 }

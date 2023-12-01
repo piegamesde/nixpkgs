@@ -18,7 +18,7 @@ let
     paths = cfg.modulePackages;
   };
 
-  listenerPorts = concatMap (l: optional (l ? Port) l.Port) (attrValues (cfg.config.Listener or { }));
+  listenerPorts = concatMap (l: optional (l ? Port) l.Port) (attrValues (cfg.config.Listener or {}));
 
   # Converts the config option to a string
   semanticString =
@@ -45,12 +45,12 @@ let
       encode =
         name: value:
         {
-          null = [ ];
-          bool = [ "${name} = ${boolToString value}" ];
-          int = [ "${name} = ${toString value}" ];
+          null = [];
+          bool = ["${name} = ${boolToString value}"];
+          int = ["${name} = ${toString value}"];
 
           # extraConfig should be inserted verbatim
-          string = [ (if name == "extraConfig" then value else "${name} = ${value}") ];
+          string = [(if name == "extraConfig" then value else "${name} = ${value}")];
 
           # Values like `Foo = [ "bar" "baz" ];` should be transformed into
           #   Foo=bar
@@ -67,7 +67,7 @@ let
               (
                 subname:
                 optionals (value.${subname} != null) (
-                  [ "<${name} ${subname}>" ] ++ map (line: "	${line}") (toLines value.${subname}) ++ [ "</${name}>" ]
+                  ["<${name} ${subname}>"] ++ map (line: "	${line}") (toLines value.${subname}) ++ ["</${name}>"]
                 )
               )
               (filter (v: v != null) (attrNames value));
@@ -107,7 +107,7 @@ in
 
 {
 
-  imports = [ ./options.nix ];
+  imports = [./options.nix];
 
   options = {
     services.znc = {
@@ -154,7 +154,7 @@ in
 
       config = mkOption {
         type = semanticTypes.zncConf;
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             LoadModule = [ "webadmin" "adminlog" ];
@@ -219,7 +219,7 @@ in
 
       modulePackages = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         example = literalExpression "[ pkgs.zncModules.fish pkgs.zncModules.push ]";
         description = lib.mdDoc ''
           A list of global znc module packages to add to znc.
@@ -244,8 +244,8 @@ in
       };
 
       extraFlags = mkOption {
-        default = [ ];
-        example = [ "--debug" ];
+        default = [];
+        example = ["--debug"];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           Extra arguments to use for executing znc.
@@ -271,8 +271,8 @@ in
 
     systemd.services.znc = {
       description = "ZNC Server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
@@ -281,7 +281,7 @@ in
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         ExecStop = "${pkgs.coreutils}/bin/kill -INT $MAINPID";
         # Hardening
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         DevicePolicy = "closed";
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
@@ -299,7 +299,7 @@ in
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
         ProtectSystem = "strict";
-        ReadWritePaths = [ cfg.dataDir ];
+        ReadWritePaths = [cfg.dataDir];
         RemoveIPC = true;
         RestrictAddressFamilies = [
           "AF_INET"
@@ -356,7 +356,7 @@ in
     users.groups = optionalAttrs (cfg.user == defaultUser) {
       ${defaultUser} = {
         gid = config.ids.gids.znc;
-        members = [ defaultUser ];
+        members = [defaultUser];
       };
     };
   };

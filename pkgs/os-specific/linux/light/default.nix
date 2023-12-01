@@ -28,9 +28,9 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  configureFlags = [ "--with-udev" ];
+  configureFlags = ["--with-udev"];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   # ensure udev rules can find the commands used
   postPatch = ''

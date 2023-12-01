@@ -16,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "14b8r3s24zq0l3addy3irzxs5cyqn3763y5s310lmzzswgj1v7r4";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "Instant compile time C++ 11 metaprogramming library";
@@ -25,7 +25,7 @@ stdenv.mkDerivation {
       Everything you were doing with Boost.MPL can be done with Brigand. And if that's not the case, open an issue!'';
     homepage = "https://github.com/edouarda/brigand";
     license = licenses.boost;
-    maintainers = with maintainers; [ pmiddend ];
+    maintainers = with maintainers; [pmiddend];
     platforms = platforms.all;
   };
 }

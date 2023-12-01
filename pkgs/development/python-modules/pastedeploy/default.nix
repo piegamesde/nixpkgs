@@ -25,9 +25,9 @@ buildPythonPackage rec {
       --replace " --cov" ""
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "paste.deploy" ];
+  pythonImportsCheck = ["paste.deploy"];
 
   meta = with lib; {
     description = "Load, configure, and compose WSGI applications and servers";

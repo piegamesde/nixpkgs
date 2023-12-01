@@ -24,14 +24,14 @@ stdenv.mkDerivation {
     perl
     makeWrapper
   ];
-  buildInputs = [ sysfsutils ];
+  buildInputs = [sysfsutils];
 
   configureFlags = [
     "--sysconfdir=/etc"
     "--localstatedir=/var"
   ];
 
-  installFlags = [ "sysconfdir=\${out}/etc" ];
+  installFlags = ["sysconfdir=\${out}/etc"];
 
   postInstall = ''
     wrapProgram "$out/sbin/edac-ctl" \

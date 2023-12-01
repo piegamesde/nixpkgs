@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
 
   # SDK built with stackprotector produces broken enclaves which crash at runtime.
   # Disable all to be safe, SDK build configures compiler mitigations manually.
-  hardeningDisable = [ "all" ];
+  hardeningDisable = ["all"];
 
   nativeBuildInputs = [
     autoconf
@@ -96,18 +96,18 @@ stdenv.mkDerivation rec {
   # avoid patching the Makefile for reproducibility issues.
   preBuild =
     let
-      ipp-crypto-no_mitigation = callPackage ./ipp-crypto.nix { };
+      ipp-crypto-no_mitigation = callPackage ./ipp-crypto.nix {};
 
       sgx-asm-pp = "python ${src}/build-scripts/sgx-asm-pp.py --assembler=nasm";
 
       nasm-load = writeShellScript "nasm-load" "${sgx-asm-pp} --MITIGATION-CVE-2020-0551=LOAD $@";
       ipp-crypto-cve_2020_0551_load = callPackage ./ipp-crypto.nix {
-        extraCmakeFlags = [ "-DCMAKE_ASM_NASM_COMPILER=${nasm-load}" ];
+        extraCmakeFlags = ["-DCMAKE_ASM_NASM_COMPILER=${nasm-load}"];
       };
 
       nasm-cf = writeShellScript "nasm-cf" "${sgx-asm-pp} --MITIGATION-CVE-2020-0551=CF $@";
       ipp-crypto-cve_2020_0551_cf = callPackage ./ipp-crypto.nix {
-        extraCmakeFlags = [ "-DCMAKE_ASM_NASM_COMPILER=${nasm-cf}" ];
+        extraCmakeFlags = ["-DCMAKE_ASM_NASM_COMPILER=${nasm-cf}"];
       };
     in
     ''
@@ -132,7 +132,7 @@ stdenv.mkDerivation rec {
       popd
     '';
 
-  buildFlags = [ "sdk_install_pkg" ] ++ lib.optionals debug [ "DEBUG=1" ];
+  buildFlags = ["sdk_install_pkg"] ++ lib.optionals debug ["DEBUG=1"];
 
   enableParallelBuilding = true;
 
@@ -252,13 +252,13 @@ stdenv.mkDerivation rec {
     postHooks+=(sgxsdk)
   '';
 
-  passthru.tests = callPackage ../samples { sgxMode = "SIM"; };
+  passthru.tests = callPackage ../samples {sgxMode = "SIM";};
 
   # Run tests in SGX hardware mode on an SGX-enabled machine
   # $(nix-build -A sgx-sdk.runTestsHW)/bin/run-tests-hw
   passthru.runTestsHW =
     let
-      testsHW = lib.filterAttrs (_: v: v ? "name") (callPackage ../samples { sgxMode = "HW"; });
+      testsHW = lib.filterAttrs (_: v: v ? "name") (callPackage ../samples {sgxMode = "HW";});
       testsHWLinked = linkFarmFromDrvs "sgx-samples-hw-bundle" (lib.attrValues testsHW);
     in
     writeShellApplication {
@@ -280,7 +280,7 @@ stdenv.mkDerivation rec {
       arturcygan
       veehaitch
     ];
-    platforms = [ "x86_64-linux" ];
-    license = with licenses; [ bsd3 ];
+    platforms = ["x86_64-linux"];
+    license = with licenses; [bsd3];
   };
 }

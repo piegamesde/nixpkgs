@@ -42,6 +42,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/redislabs/memtier_benchmark";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ thoughtpolice ];
+    maintainers = with lib.maintainers; [thoughtpolice];
   };
 }

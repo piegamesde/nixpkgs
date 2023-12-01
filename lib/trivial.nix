@@ -1,4 +1,4 @@
-{ lib }:
+{lib}:
 
 rec {
 
@@ -426,7 +426,7 @@ rec {
     let
       unexpected = lib.subtractLists valid given;
     in
-    lib.throwIfNot (unexpected == [ ])
+    lib.throwIfNot (unexpected == [])
       "${msg}: ${
         builtins.concatStringsSep ", " (builtins.map builtins.toString unexpected)
       } unexpected; valid ones: ${builtins.concatStringsSep ", " (builtins.map builtins.toString valid)}";
@@ -530,13 +530,13 @@ rec {
       go =
         i:
         if i < base then
-          [ i ]
+          [i]
         else
           let
             r = i - ((i / base) * base);
             q = (i - r) / base;
           in
-          [ r ] ++ go q;
+          [r] ++ go q;
     in
     assert (isInt base);
     assert (isInt i);

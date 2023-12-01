@@ -23,19 +23,19 @@ buildGoModule rec {
   # but it requires networking as it git clones a repo from github
   doCheck = false;
 
-  ldflags = [ "-X main.version=${version}" ];
+  ldflags = ["-X main.version=${version}"];
 
   passthru.tests.version = testers.testVersion {
     package = gitmux;
     command = "gitmux -V";
   };
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Git in your tmux status bar";
     homepage = "https://github.com/arl/gitmux";
     license = licenses.mit;
-    maintainers = with maintainers; [ nialov ];
+    maintainers = with maintainers; [nialov];
   };
 }

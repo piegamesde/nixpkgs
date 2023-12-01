@@ -45,14 +45,14 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  mesonFlags = [ "-Dupdate-mimedb=true" ];
+  mesonFlags = ["-Dupdate-mimedb=true"];
 
   meta = with lib; {
     description = "A database of common MIME types";
     homepage = "http://freedesktop.org/wiki/Software/shared-mime-info";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = teams.freedesktop.members ++ [ maintainers.mimame ];
+    maintainers = teams.freedesktop.members ++ [maintainers.mimame];
     mainProgram = "update-mime-database";
   };
 }

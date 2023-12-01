@@ -44,11 +44,11 @@ stdenv.mkDerivation rec {
     "out"
   ];
 
-  propagatedBuildInputs = [ ] ++ lib.optionals stdenv.isDarwin [ Security ];
-  nativeBuildInputs = [ autoreconfHook ];
+  propagatedBuildInputs = [] ++ lib.optionals stdenv.isDarwin [Security];
+  nativeBuildInputs = [autoreconfHook];
 
   doCheck = true;
-  nativeCheckInputs = [ openssl ];
+  nativeCheckInputs = [openssl];
 
   postInstall = ''
     # fix recursive cycle:
@@ -63,6 +63,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.wolfssl.com/";
     platforms = platforms.all;
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -32,7 +32,7 @@ stdenvNoCC.mkDerivation rec {
     description = "C++ standard library reference";
     homepage = "https://en.cppreference.com";
     license = licenses.cc-by-sa-30;
-    maintainers = with maintainers; [ panicgh ];
+    maintainers = with maintainers; [panicgh];
     platforms = platforms.all;
   };
 }

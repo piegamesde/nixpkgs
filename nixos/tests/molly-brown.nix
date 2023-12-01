@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   let
     testString = "NixOS Gemini test successful";
@@ -7,12 +7,12 @@ import ./make-test-python.nix (
   {
 
     name = "molly-brown";
-    meta = with pkgs.lib.maintainers; { maintainers = [ ehmry ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [ehmry];};
 
     nodes = {
 
       geminiServer =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         let
           inherit (config.networking) hostName;
           cfg = config.services.molly-brown;
@@ -45,7 +45,7 @@ import ./make-test-python.nix (
             '')
           ];
 
-          networking.firewall.allowedTCPPorts = [ cfg.settings.Port ];
+          networking.firewall.allowedTCPPorts = [cfg.settings.Port];
 
           services.molly-brown = {
             enable = true;

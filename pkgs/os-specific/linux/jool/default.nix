@@ -7,7 +7,7 @@
 }:
 
 let
-  sourceAttrs = (import ./source.nix) { inherit fetchFromGitHub; };
+  sourceAttrs = (import ./source.nix) {inherit fetchFromGitHub;};
 in
 
 stdenv.mkDerivation {
@@ -16,7 +16,7 @@ stdenv.mkDerivation {
   src = sourceAttrs.src;
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   patches = [
     (fetchpatch {
@@ -41,6 +41,6 @@ stdenv.mkDerivation {
     description = "Fairly compliant SIIT and Stateful NAT64 for Linux - kernel modules";
     platforms = platforms.linux;
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
   };
 }

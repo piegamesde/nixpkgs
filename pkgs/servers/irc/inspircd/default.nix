@@ -24,7 +24,7 @@ let
   # libcs in nixpkgs (musl and glibc).
   compatible =
     lib: drv:
-    lib.any (lic: lic == (drv.meta.license or { })) [
+    lib.any (lic: lic == (drv.meta.license or {})) [
       lib.licenses.mit # musl
       lib.licenses.lgpl2Plus # glibc
     ];
@@ -40,7 +40,7 @@ let
   # we could enable "regex_stdlib" automatically, but only if
   # we are using libcxxStdenv which is compatible with GPLv2,
   # since the gcc libstdc++ license is GPLv2-incompatible
-  libcxxModules = [ "regex_stdlib" ];
+  libcxxModules = ["regex_stdlib"];
 
   compatibleModules =
     lib: stdenv:
@@ -100,24 +100,24 @@ let
         }
       )
     ];
-    ldap = [ openldap ];
-    mysql = [ libmysqlclient ];
-    pgsql = [ postgresql ];
-    regex_pcre = [ pcre ];
-    regex_pcre2 = [ pcre2 ];
-    regex_re2 = [ re2 ];
-    regex_tre = [ tre ];
-    sqlite3 = [ sqlite ];
-    ssl_gnutls = [ gnutls ];
+    ldap = [openldap];
+    mysql = [libmysqlclient];
+    pgsql = [postgresql];
+    regex_pcre = [pcre];
+    regex_pcre2 = [pcre2];
+    regex_re2 = [re2];
+    regex_tre = [tre];
+    sqlite3 = [sqlite];
+    ssl_gnutls = [gnutls];
     # depends on stdenv.cc.libc
-    regex_posix = [ ];
-    sslrehashsignal = [ ];
+    regex_posix = [];
+    sslrehashsignal = [];
     # depends on used libc++
-    regex_stdlib = [ ];
+    regex_stdlib = [];
     # GPLv2 incompatible
-    geo_maxmind = [ libmaxminddb ];
-    ssl_mbedtls = [ mbedtls ];
-    ssl_openssl = [ openssl ];
+    geo_maxmind = [libmaxminddb];
+    ssl_mbedtls = [mbedtls];
+    ssl_openssl = [openssl];
   };
 
   # buildInputs necessary for the enabled extraModules
@@ -137,9 +137,9 @@ let
   getLicenses =
     drv:
     let
-      lics = drv.meta.license or [ ];
+      lics = drv.meta.license or [];
     in
-    if lib.isAttrs lics || lib.isString lics then [ lics ] else lics;
+    if lib.isAttrs lics || lib.isString lics then [lics] else lics;
 
   # Whether any member of list1 is also member of list2, i. e. set intersection.
   anyMembers = list1: list2: lib.any (m1: lib.elem m1 list2) list1;
@@ -215,7 +215,7 @@ stdenv.mkDerivation rec {
     {
       description = "A modular C++ IRC server";
       license =
-        [ lib.licenses.gpl2Only ]
+        [lib.licenses.gpl2Only]
         ++ lib.concatMap getLicenses extraInputs
         ++ lib.optionals (anyMembers extraModules libcModules) (getLicenses stdenv.cc.libc)
         # FIXME(sternenseemann): get license of used lib(std)c++ somehow
@@ -224,7 +224,7 @@ stdenv.mkDerivation rec {
         # a GPL 2 incompatibility even if it is not in a top-level attribute,
         # but pulled in indirectly somehow.
         ++ lib.optional gpl2Conflict lib.licenses.unfree;
-      maintainers = [ lib.maintainers.sternenseemann ];
+      maintainers = [lib.maintainers.sternenseemann];
       # windows is theoretically possible, but requires extra work
       # which I am not willing to do and can't test.
       # https://github.com/inspircd/inspircd/blob/master/win/README.txt
@@ -234,6 +234,6 @@ stdenv.mkDerivation rec {
     // lib.optionalAttrs gpl2Conflict {
       # make sure we never distribute a GPLv2-violating module
       # in binary form. They can be built locally of course.
-      hydraPlatforms = [ ];
+      hydraPlatforms = [];
     };
 }

@@ -38,7 +38,7 @@ buildPythonPackage rec {
       --replace "--cov=django_extensions --cov-report html --cov-report term" ""
   '';
 
-  propagatedBuildInputs = [ django ];
+  propagatedBuildInputs = [django];
 
   __darwinAllowLocalNetworking = true;
 

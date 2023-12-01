@@ -79,6 +79,6 @@ buildPythonPackage rec {
     description = "High-level training library for PyTorch";
     homepage = "https://pytorch.org/ignite";
     license = licenses.bsd3;
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
   };
 }

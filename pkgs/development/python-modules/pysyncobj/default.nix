@@ -22,13 +22,13 @@ buildPythonPackage rec {
   # Tests require network features
   doCheck = false;
 
-  pythonImportsCheck = [ "pysyncobj" ];
+  pythonImportsCheck = ["pysyncobj"];
 
   meta = with lib; {
     description = "Python library for replicating your class";
     homepage = "https://github.com/bakwc/PySyncObj";
     changelog = "https://github.com/bakwc/PySyncObj/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

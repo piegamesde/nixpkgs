@@ -1,5 +1,5 @@
 import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
     username = "custom_admin_username";
     # This will be used both for redis and postgresql
@@ -13,16 +13,16 @@ import ../make-test-python.nix (
   in
   {
     name = "nextcloud-with-declarative-redis";
-    meta = with pkgs.lib.maintainers; { maintainers = [ eqyiel ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [eqyiel];};
 
     nodes = {
       # The only thing the client needs to do is download a file.
-      client = { ... }: { };
+      client = {...}: {};
 
       nextcloud =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         {
-          networking.firewall.allowedTCPPorts = [ 80 ];
+          networking.firewall.allowedTCPPorts = [80];
 
           services.nextcloud = {
             enable = true;
@@ -61,8 +61,8 @@ import ../make-test-python.nix (
           services.redis.servers."nextcloud".port = 6379;
 
           systemd.services.nextcloud-setup = {
-            requires = [ "postgresql.service" ];
-            after = [ "postgresql.service" ];
+            requires = ["postgresql.service"];
+            after = ["postgresql.service"];
           };
 
           services.postgresql = {

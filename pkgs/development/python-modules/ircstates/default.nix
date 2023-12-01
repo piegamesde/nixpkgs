@@ -29,12 +29,12 @@ buildPythonPackage rec {
     ${python.interpreter} -m unittest test
   '';
 
-  pythonImportsCheck = [ "ircstates" ];
+  pythonImportsCheck = ["ircstates"];
 
   meta = with lib; {
     description = "sans-I/O IRC session state parsing library";
     license = licenses.mit;
     homepage = "https://github.com/jesopo/ircstates";
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

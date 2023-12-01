@@ -42,7 +42,7 @@ let
       unset -f git
     '';
 
-    buildFlags = [ "ETC_PREFIX=/var/run/bees/configs" ];
+    buildFlags = ["ETC_PREFIX=/var/run/bees/configs"];
 
     makeFlags = [
       "SHELL=bash"
@@ -58,7 +58,7 @@ let
       longDescription = "Best-Effort Extent-Same: bees finds not just identical files, but also identical extents within files that differ";
       license = licenses.gpl3;
       platforms = platforms.linux;
-      maintainers = with maintainers; [ chaduffy ];
+      maintainers = with maintainers; [chaduffy];
     };
   };
 in

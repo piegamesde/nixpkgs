@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
   # https://github.com/stsdc/monitor/issues/292
   NIX_LDFLAGS = "-lXext";
 
-  mesonFlags = [ "-Dindicator-wingpanel=enabled" ];
+  mesonFlags = ["-Dindicator-wingpanel=enabled"];
 
   postPatch = ''
     chmod +x meson/post_install.py
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gitUpdater { ignoredVersions = "ci.*"; };
+    updateScript = gitUpdater {ignoredVersions = "ci.*";};
   };
 
   meta = with lib; {
@@ -96,7 +96,7 @@ stdenv.mkDerivation rec {
       section in the NixOS manual.
     '';
     homepage = "https://github.com/stsdc/monitor";
-    maintainers = with maintainers; [ xiorcale ] ++ teams.pantheon.members;
+    maintainers = with maintainers; [xiorcale] ++ teams.pantheon.members;
     platforms = platforms.linux;
     license = licenses.gpl3Plus;
     mainProgram = "com.github.stsdc.monitor";

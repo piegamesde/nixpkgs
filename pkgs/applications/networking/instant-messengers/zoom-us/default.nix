@@ -129,7 +129,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs =
-    [ makeWrapper ]
+    [makeWrapper]
     ++ lib.optionals stdenv.isDarwin [
       xar
       cpio
@@ -202,7 +202,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://zoom.us/";
     description = "zoom.us video conferencing application";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     platforms = builtins.attrNames srcs;
     maintainers = with maintainers; [

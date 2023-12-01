@@ -37,12 +37,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "picobox" ];
+  pythonImportsCheck = ["picobox"];
 
   meta = with lib; {
     description = "Opinionated dependency injection framework";
     homepage = "https://github.com/ikalnytskyi/picobox";
     license = licenses.mit;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
   };
 }

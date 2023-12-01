@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "An extremely fast file and directory name linter";
     homepage = "https://ls-lint.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
   };
 }

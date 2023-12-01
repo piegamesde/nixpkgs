@@ -1,4 +1,4 @@
-{ pkgs }:
+{pkgs}:
 let
   inherit (pkgs) lib formats;
 in
@@ -9,7 +9,7 @@ let
     format: args: def:
     let
       formatSet = format args;
-      config = formatSet.type.merge [ ] (
+      config = formatSet.type.merge [] (
         imap1
           (n: def: {
             # We check the input values, so that
@@ -22,17 +22,17 @@ let
                 def;
             file = "def${toString n}";
           })
-          [ def ]
+          [def]
       );
     in
     formatSet.generate "test-format-file" config;
 
   runBuildTest =
     name:
-    { drv, expected }:
+    {drv, expected}:
     pkgs.runCommand name
       {
-        passAsFile = [ "expected" ];
+        passAsFile = ["expected"];
         inherit expected drv;
       }
       ''
@@ -59,7 +59,7 @@ in
 runBuildTests {
 
   testJsonAtoms = {
-    drv = evalFormat formats.json { } {
+    drv = evalFormat formats.json {} {
       null = null;
       false = false;
       true = true;
@@ -94,7 +94,7 @@ runBuildTests {
   };
 
   testYamlAtoms = {
-    drv = evalFormat formats.yaml { } {
+    drv = evalFormat formats.yaml {} {
       null = null;
       false = false;
       true = true;
@@ -123,7 +123,7 @@ runBuildTests {
   };
 
   testIniAtoms = {
-    drv = evalFormat formats.ini { } {
+    drv = evalFormat formats.ini {} {
       foo = {
         bool = true;
         int = 10;
@@ -141,7 +141,7 @@ runBuildTests {
   };
 
   testIniDuplicateKeys = {
-    drv = evalFormat formats.ini { listsAsDuplicateKeys = true; } {
+    drv = evalFormat formats.ini {listsAsDuplicateKeys = true;} {
       foo = {
         bar = [
           null
@@ -169,7 +169,7 @@ runBuildTests {
   testIniListToValue = {
     drv =
       evalFormat formats.ini
-        { listToValue = concatMapStringsSep ", " (generators.mkValueStringDefault { }); }
+        {listToValue = concatMapStringsSep ", " (generators.mkValueStringDefault {});}
         {
           foo = {
             bar = [
@@ -192,7 +192,7 @@ runBuildTests {
   };
 
   testKeyValueAtoms = {
-    drv = evalFormat formats.keyValue { } {
+    drv = evalFormat formats.keyValue {} {
       bool = true;
       int = 10;
       float = 3.141;
@@ -207,7 +207,7 @@ runBuildTests {
   };
 
   testKeyValueDuplicateKeys = {
-    drv = evalFormat formats.keyValue { listsAsDuplicateKeys = true; } {
+    drv = evalFormat formats.keyValue {listsAsDuplicateKeys = true;} {
       bar = [
         null
         true
@@ -232,7 +232,7 @@ runBuildTests {
   testKeyValueListToValue = {
     drv =
       evalFormat formats.keyValue
-        { listToValue = concatMapStringsSep ", " (generators.mkValueStringDefault { }); }
+        {listToValue = concatMapStringsSep ", " (generators.mkValueStringDefault {});}
         {
           bar = [
             null
@@ -252,7 +252,7 @@ runBuildTests {
   };
 
   testTomlAtoms = {
-    drv = evalFormat formats.toml { } {
+    drv = evalFormat formats.toml {} {
       false = false;
       true = true;
       int = 10;
@@ -286,7 +286,7 @@ runBuildTests {
   #   2. providing a more readable example test
   # Whereas java-properties/default.nix tests the low level escaping, etc.
   testJavaProperties = {
-    drv = evalFormat formats.javaProperties { } {
+    drv = evalFormat formats.javaProperties {} {
       floaty = 3.1415;
       tautologies = true;
       contradictions = false;

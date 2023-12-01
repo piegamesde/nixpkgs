@@ -17,6 +17,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/sorki/python-mnist";
     description = "Simple MNIST data parser written in Python";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ cmcdragonkai ];
+    maintainers = with maintainers; [cmcdragonkai];
   };
 }

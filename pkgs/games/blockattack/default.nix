@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     homepage = "https://blockattack.net/";
     description = "An open source clone of Panel de Pon (aka Tetris Attack)";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.unix;
     broken = stdenv.isDarwin;
   };

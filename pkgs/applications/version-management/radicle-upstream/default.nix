@@ -25,15 +25,15 @@ let
   };
   src = srcs.${stdenv.hostPlatform.system};
 
-  contents = appimageTools.extract { inherit name src; };
+  contents = appimageTools.extract {inherit name src;};
 
   git-remote-rad = stdenv.mkDerivation rec {
     pname = "git-remote-rad";
     inherit version;
     src = contents;
 
-    nativeBuildInputs = [ autoPatchelfHook ];
-    buildInputs = [ zlib ];
+    nativeBuildInputs = [autoPatchelfHook];
+    buildInputs = [zlib];
 
     installPhase = ''
       mkdir -p $out/bin/
@@ -73,7 +73,7 @@ let
       meta
       ;
 
-    nativeBuildInputs = [ undmg ];
+    nativeBuildInputs = [undmg];
 
     sourceRoot = ".";
 
@@ -87,7 +87,7 @@ let
     description = "A decentralized app for code collaboration";
     homepage = "https://radicle.xyz/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ d-xo ];
+    maintainers = with maintainers; [d-xo];
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"

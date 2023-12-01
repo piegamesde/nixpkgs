@@ -61,6 +61,6 @@ stdenv.mkDerivation rec {
     ];
     homepage = "https://github.com/tblite/tblite";
     platforms = platforms.linux;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

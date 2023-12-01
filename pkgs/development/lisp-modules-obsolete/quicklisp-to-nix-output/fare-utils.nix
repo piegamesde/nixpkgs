@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "fare-utils";
   version = "20170124-git";
 
   description = "Basic functions and macros, interfaces, pure and stateful datastructures";
 
-  deps = [ args."asdf" ];
+  deps = [args."asdf"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/fare-utils/2017-01-24/fare-utils-20170124-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "fare-utils";
 
-  asdFilesToKeep = [ "fare-utils.asd" ];
+  asdFilesToKeep = ["fare-utils.asd"];
   overrides = x: x;
 }
 /* (SYSTEM fare-utils DESCRIPTION

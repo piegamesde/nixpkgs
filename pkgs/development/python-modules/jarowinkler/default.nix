@@ -38,7 +38,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [ jarowinkler-cpp ];
+  buildInputs = [jarowinkler-cpp];
 
   preBuild = ''
     export JAROWINKLER_BUILD_EXTENSION=1
@@ -51,13 +51,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "jarowinkler" ];
+  pythonImportsCheck = ["jarowinkler"];
 
   meta = with lib; {
     description = "Library for fast approximate string matching using Jaro and Jaro-Winkler similarity";
     homepage = "https://github.com/maxbachmann/JaroWinkler";
     changelog = "https://github.com/maxbachmann/JaroWinkler/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -17,12 +17,12 @@ buildPythonPackage rec {
   # Neither the PyPI tarball nor the repository has tests
   doCheck = false;
 
-  propagatedBuildInputs = [ robotframework-seleniumlibrary ];
+  propagatedBuildInputs = [robotframework-seleniumlibrary];
 
   meta = with lib; {
     description = "Web testing library for Robot Framework";
     homepage = "https://github.com/robotframework/Selenium2Library";
     license = licenses.asl20;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

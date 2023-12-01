@@ -13,7 +13,7 @@ let
     hash = "sha256-CzvhOaWfZ4rt2HmL/yv6P7IxEPLoyuBhftOxcjdMInU=";
   };
 
-  appimageContents = appimageTools.extractType2 { inherit pname version src; };
+  appimageContents = appimageTools.extractType2 {inherit pname version src;};
 in
 appimageTools.wrapType2 {
   inherit pname version src;
@@ -34,7 +34,7 @@ appimageTools.wrapType2 {
     description = "Modern desktop RSS reader built with Electron, React, and Fluent UI";
     homepage = "https://hyliu.me/fluent-reader";
     license = licenses.bsd3;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ zendo ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [zendo];
   };
 }

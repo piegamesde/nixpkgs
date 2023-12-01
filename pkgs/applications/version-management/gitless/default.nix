@@ -16,7 +16,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-xo5EWtP2aN8YzP8ro3bnxZwUGUp0PHD0g8hk+Y+gExE=";
   };
 
-  nativeBuildInputs = [ python3.pkgs.pythonRelaxDepsHook ];
+  nativeBuildInputs = [python3.pkgs.pythonRelaxDepsHook];
 
   propagatedBuildInputs = with python3.pkgs; [
     sh
@@ -24,17 +24,17 @@ python3.pkgs.buildPythonApplication rec {
     clint
   ];
 
-  pythonRelaxDeps = [ "pygit2" ];
+  pythonRelaxDeps = ["pygit2"];
 
   doCheck = false;
 
-  pythonImportsCheck = [ "gitless" ];
+  pythonImportsCheck = ["gitless"];
 
   meta = with lib; {
     description = "Version control system built on top of Git";
     homepage = "https://gitless.com/";
     license = licenses.mit;
-    maintainers = with maintainers; [ cransom ];
+    maintainers = with maintainers; [cransom];
     platforms = platforms.all;
   };
 }

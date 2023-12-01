@@ -17,7 +17,7 @@
   deepin-screen-recorder,
   deepin-system-monitor,
   extraGSettingsOverrides ? "",
-  extraGSettingsOverridePackages ? [ ],
+  extraGSettingsOverridePackages ? [],
 }:
 
 let
@@ -39,7 +39,7 @@ in
 with lib;
 
 # TODO: Having https://github.com/NixOS/nixpkgs/issues/54150 would supersede this
-runCommand "nixos-gsettings-desktop-schemas" { } ''
+runCommand "nixos-gsettings-desktop-schemas" {} ''
   schema_dir=$out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas
 
   mkdir -p $schema_dir

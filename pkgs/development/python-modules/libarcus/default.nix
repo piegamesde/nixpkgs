@@ -34,9 +34,9 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.4";
 
-  propagatedBuildInputs = [ sip_4 ];
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ protobuf ];
+  propagatedBuildInputs = [sip_4];
+  nativeBuildInputs = [cmake];
+  buildInputs = [protobuf];
 
   postPatch = ''
     sed -i 's#''${Python3_SITEARCH}#${placeholder "out"}/${python.sitePackages}#' cmake/SIPMacros.cmake

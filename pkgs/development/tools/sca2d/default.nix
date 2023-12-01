@@ -18,7 +18,7 @@ let
             sha256 = "sha256-ctdPPKPSD4weidyhyj7RCV89baIhmuxucF3/Ojx1Efo=";
           };
 
-          disabledTestPaths = [ "tests/test_nearley/test_nearley.py" ];
+          disabledTestPaths = ["tests/test_nearley/test_nearley.py"];
         }
       );
     };
@@ -42,13 +42,13 @@ python.pkgs.buildPythonApplication rec {
     colorama
   ];
 
-  pythonImportsCheck = [ "sca2d" ];
+  pythonImportsCheck = ["sca2d"];
 
   meta = with lib; {
     description = "An experimental static code analyser for OpenSCAD";
     homepage = "https://gitlab.com/bath_open_instrumentation_group/sca2d";
     changelog = "https://gitlab.com/bath_open_instrumentation_group/sca2d/-/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ traxys ];
+    maintainers = with maintainers; [traxys];
   };
 }

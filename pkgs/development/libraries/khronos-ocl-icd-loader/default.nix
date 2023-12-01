@@ -20,14 +20,14 @@ stdenv.mkDerivation rec {
 
   patches = lib.optional withTracing ./tracing.patch;
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ opencl-headers ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [opencl-headers];
 
   meta = with lib; {
     description = "Official Khronos OpenCL ICD Loader";
     homepage = "https://github.com/KhronosGroup/OpenCL-ICD-Loader";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ davidtwco ];
+    maintainers = with maintainers; [davidtwco];
   };
 }

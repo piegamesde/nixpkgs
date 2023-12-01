@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     python3Packages.wrapPython
     installShellFiles
   ];
-  propagatedBuildInputs = with python3Packages; [ pyserial ];
+  propagatedBuildInputs = with python3Packages; [pyserial];
   installPhase = ''
     mkdir $out
     cp -rT $src $out
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Makefile for Arduino sketches";
     homepage = "https://github.com/sudar/Arduino-Makefile";
     license = licenses.lgpl21;
-    maintainers = [ maintainers.eyjhb ];
+    maintainers = [maintainers.eyjhb];
     platforms = platforms.unix;
   };
 }

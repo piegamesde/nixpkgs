@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.services.netdata;
 
-  wrappedPlugins = pkgs.runCommand "wrapped-plugins" { preferLocalBuild = true; } ''
+  wrappedPlugins = pkgs.runCommand "wrapped-plugins" {preferLocalBuild = true;} ''
     mkdir -p $out/libexec/netdata/plugins.d
     ln -s /run/wrappers/bin/apps.plugin $out/libexec/netdata/plugins.d/apps.plugin
     ln -s /run/wrappers/bin/cgroup-network $out/libexec/netdata/plugins.d/cgroup-network
@@ -24,7 +24,7 @@ let
     "${wrappedPlugins}/libexec/netdata/plugins.d"
   ] ++ cfg.extraPluginPaths;
 
-  configDirectory = pkgs.runCommand "netdata-config-d" { } ''
+  configDirectory = pkgs.runCommand "netdata-config-d" {} ''
     mkdir $out
     ${concatStringsSep "\n" (
       mapAttrsToList
@@ -50,7 +50,7 @@ let
       "use unified cgroups" = "yes";
     };
   };
-  mkConfig = generators.toINI { } (recursiveUpdate localConfig cfg.config);
+  mkConfig = generators.toINI {} (recursiveUpdate localConfig cfg.config);
   configFile = pkgs.writeText "netdata.conf" (
     if cfg.configText != null then cfg.configText else mkConfig
   );
@@ -103,7 +103,7 @@ in
         };
         extraPackages = mkOption {
           type = types.functionTo (types.listOf types.package);
-          default = ps: [ ];
+          default = ps: [];
           defaultText = literalExpression "ps: []";
           example = literalExpression ''
             ps: [
@@ -121,7 +121,7 @@ in
 
       extraPluginPaths = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         example = literalExpression ''
           [ "/path/to/plugins.d" ]
         '';
@@ -139,7 +139,7 @@ in
 
       config = mkOption {
         type = types.attrsOf types.attrs;
-        default = { };
+        default = {};
         description = lib.mdDoc "netdata.conf configuration as nix attributes. cannot be combined with configText.";
         example = literalExpression ''
           global = {
@@ -152,7 +152,7 @@ in
 
       configDir = mkOption {
         type = types.attrsOf types.path;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Complete netdata config directory except netdata.conf.
           The default configuration is merged with changes
@@ -186,7 +186,7 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion = cfg.config != { } -> cfg.configText == null;
+        assertion = cfg.config != {} -> cfg.configText == null;
         message = "Cannot specify both config and configText";
       }
     ];
@@ -196,8 +196,8 @@ in
 
     systemd.services.netdata = {
       description = "Real time performance monitoring";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       path =
         (
           with pkgs; [
@@ -213,7 +213,7 @@ in
         ++ lib.optional config.virtualisation.libvirtd.enable (config.virtualisation.libvirtd.package);
       environment = {
         PYTHONPATH = "${cfg.package}/libexec/netdata/python.d/python_modules";
-      } // lib.optionalAttrs (!cfg.enableAnalyticsReporting) { DO_NOT_TRACK = "1"; };
+      } // lib.optionalAttrs (!cfg.enableAnalyticsReporting) {DO_NOT_TRACK = "1";};
       restartTriggers = [
         config.environment.etc."netdata/netdata.conf".source
         config.environment.etc."netdata/conf.d".source
@@ -337,6 +337,6 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == defaultUser) { ${defaultUser} = { }; };
+    users.groups = optionalAttrs (cfg.group == defaultUser) {${defaultUser} = {};};
   };
 }

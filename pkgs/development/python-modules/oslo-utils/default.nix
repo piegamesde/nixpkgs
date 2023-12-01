@@ -38,7 +38,7 @@ buildPythonPackage rec {
     rm test-requirements.txt
   '';
 
-  nativeBuildInputs = [ pbr ];
+  nativeBuildInputs = [pbr];
 
   propagatedBuildInputs = [
     debtcollector
@@ -69,7 +69,7 @@ buildPythonPackage rec {
     stestr run
   '';
 
-  pythonImportsCheck = [ "oslo_utils" ];
+  pythonImportsCheck = ["oslo_utils"];
 
   meta = with lib; {
     description = "Oslo Utility library";

@@ -51,9 +51,9 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    entrypoints = [ ];
-    abfs = [ adlfs ];
-    adl = [ adlfs ];
+    entrypoints = [];
+    abfs = [adlfs];
+    adl = [adlfs];
     dask = [
       dask
       distributed
@@ -63,25 +63,25 @@ buildPythonPackage rec {
       requests
       dropbox
     ];
-    gcs = [ gcsfs ];
-    git = [ pygit2 ];
-    github = [ requests ];
-    gs = [ gcsfs ];
-    hdfs = [ pyarrow ];
-    arrow = [ pyarrow ];
+    gcs = [gcsfs];
+    git = [pygit2];
+    github = [requests];
+    gs = [gcsfs];
+    hdfs = [pyarrow];
+    arrow = [pyarrow];
     http = [
       aiohttp
       requests
     ];
-    sftp = [ paramiko ];
-    s3 = [ s3fs ];
-    oci = [ ocifs ];
-    smb = [ smbprotocol ];
-    ssh = [ paramiko ];
-    fuse = [ fusepy ];
-    libarchive = [ libarchive-c ];
-    gui = [ panel ];
-    tqdm = [ tqdm ];
+    sftp = [paramiko];
+    s3 = [s3fs];
+    oci = [ocifs];
+    smb = [smbprotocol];
+    ssh = [paramiko];
+    fuse = [fusepy];
+    libarchive = [libarchive-c];
+    gui = [panel];
+    tqdm = [tqdm];
   };
 
   nativeCheckInputs = [
@@ -114,13 +114,13 @@ buildPythonPackage rec {
       "test_touch"
     ];
 
-  pythonImportsCheck = [ "fsspec" ];
+  pythonImportsCheck = ["fsspec"];
 
   meta = with lib; {
     description = "A specification that Python filesystems should adhere to";
     homepage = "https://github.com/fsspec/filesystem_spec";
     changelog = "https://github.com/fsspec/filesystem_spec/raw/${version}/docs/source/changelog.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

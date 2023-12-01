@@ -22,9 +22,9 @@ buildPythonPackage rec {
     pkg-config
   ];
 
-  buildInputs = [ lrcalc ];
+  buildInputs = [lrcalc];
 
-  pythonImportsCheck = [ "lrcalc" ];
+  pythonImportsCheck = ["lrcalc"];
 
   meta = with lib; {
     description = "Littlewood-Richardson Calculator bindings";

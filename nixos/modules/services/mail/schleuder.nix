@@ -6,7 +6,7 @@
 }:
 let
   cfg = config.services.schleuder;
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   postfixMap =
     entries: lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value: "${name} ${value}") entries);
   writePostfixMap = name: entries: pkgs.writeText name (postfixMap entries);
@@ -38,7 +38,7 @@ in
         schleuder-cli.
       '';
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       example = [
         "widget-team@example.com"
         "security@example.com"
@@ -70,7 +70,7 @@ in
           default = "keys.openpgp.org";
         };
       };
-      default = { };
+      default = {};
     };
     extraSettingsFile = lib.mkOption {
       description = lib.mdDoc "YAML file to merge into the schleuder config at runtime. This can be used for secrets such as API keys.";
@@ -84,7 +84,7 @@ in
         Check the [example configuration](https://0xacab.org/schleuder/schleuder/-/blob/master/etc/list-defaults.yml) for possible values.
       '';
       type = settingsFormat.type;
-      default = { };
+      default = {};
     };
   };
   config = lib.mkIf cfg.enable {
@@ -96,7 +96,7 @@ in
         '';
       }
       {
-        assertion = !(lib.any (db: db ? password) (lib.attrValues cfg.settings.database or { }));
+        assertion = !(lib.any (db: db ? password) (lib.attrValues cfg.settings.database or {}));
         message = ''
           A password is defined for at least one database in services.schleuder.settings.database. Defining passwords via NixOS config results in them being copied to the world-readable Nix store. Please use the extraSettingsFile option to store database passwords in a non-public location.
         '';
@@ -104,19 +104,19 @@ in
     ];
     users.users.schleuder.isSystemUser = true;
     users.users.schleuder.group = "schleuder";
-    users.groups.schleuder = { };
-    environment.systemPackages = [ pkgs.schleuder-cli ];
+    users.groups.schleuder = {};
+    environment.systemPackages = [pkgs.schleuder-cli];
     services.postfix = lib.mkIf cfg.enablePostfix {
       extraMasterConf = ''
         schleuder  unix  -       n       n       -       -       pipe
           flags=DRhu user=schleuder argv=/${pkgs.schleuder}/bin/schleuder work ''${recipient}
       '';
-      transport = lib.mkIf (cfg.lists != [ ]) (postfixMap (lib.genAttrs cfg.lists (_: "schleuder:")));
+      transport = lib.mkIf (cfg.lists != []) (postfixMap (lib.genAttrs cfg.lists (_: "schleuder:")));
       extraConfig = ''
         schleuder_destination_recipient_limit = 1
       '';
       # review: does this make sense?
-      localRecipients = lib.mkIf (cfg.lists != [ ]) cfg.lists;
+      localRecipients = lib.mkIf (cfg.lists != []) cfg.lists;
     };
     systemd.services =
       let
@@ -133,8 +133,8 @@ in
       {
         schleuder-init = {
           serviceConfig = commonServiceConfig // {
-            ExecStartPre = lib.mkIf (cfg.extraSettingsFile != null) [ "+${configScript}" ];
-            ExecStart = [ "${pkgs.schleuder}/bin/schleuder install" ];
+            ExecStartPre = lib.mkIf (cfg.extraSettingsFile != null) ["+${configScript}"];
+            ExecStart = ["${pkgs.schleuder}/bin/schleuder install"];
             Type = "oneshot";
           };
         };
@@ -144,10 +144,10 @@ in
             "network.target"
             "schleuder-init.service"
           ];
-          wantedBy = [ "multi-user.target" ];
-          requires = [ "schleuder-init.service" ];
+          wantedBy = ["multi-user.target"];
+          requires = ["schleuder-init.service"];
           serviceConfig = commonServiceConfig // {
-            ExecStart = [ "${pkgs.schleuder}/bin/schleuder-api-daemon" ];
+            ExecStart = ["${pkgs.schleuder}/bin/schleuder-api-daemon"];
           };
         };
         schleuder-weekly-key-maintenance = {

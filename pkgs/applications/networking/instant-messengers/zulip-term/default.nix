@@ -18,7 +18,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-ZouUU4p1FSGMxPuzDo5P971R+rDXpBdJn2MqvkJO+Fw=";
   };
 
-  patches = [ ./pytest-executable-name.patch ];
+  patches = [./pytest-executable-name.patch];
 
   propagatedBuildInputs = with python3.pkgs; [
     beautifulsoup4
@@ -35,7 +35,7 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   nativeCheckInputs =
-    [ glibcLocales ]
+    [glibcLocales]
     ++ (
       with python3.pkgs; [
         pytestCheckHook
@@ -48,13 +48,13 @@ python3.pkgs.buildPythonApplication rec {
     "--prefix"
     "PATH"
     ":"
-    (lib.makeBinPath [ libnotify ])
+    (lib.makeBinPath [libnotify])
   ];
 
   meta = with lib; {
     description = "Zulip's official terminal client";
     homepage = "https://github.com/zulip/zulip-terminal";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

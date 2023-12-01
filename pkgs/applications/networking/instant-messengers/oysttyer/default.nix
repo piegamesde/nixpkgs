@@ -19,8 +19,8 @@ stdenv.mkDerivation rec {
     sha256 = "0cm1hvi68iqgjsg15xdii271pklgzjn9j9afb1c460z71kgy3wz2";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ perl ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [perl];
 
   propagatedBuildInputs = with perlPackages; [
     DateTimeFormatDateParse
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Perl Console Twitter Client";
     homepage = "http://oysttyer.github.io/";
-    maintainers = with maintainers; [ woffs ];
-    license = with licenses; [ ffsl ];
+    maintainers = with maintainers; [woffs];
+    license = with licenses; [ffsl];
   };
 }

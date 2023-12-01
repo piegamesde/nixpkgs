@@ -21,7 +21,7 @@
   tzlocal,
   simplegeneric,
   pytestCheckHook,
-  extraRPackages ? [ ],
+  extraRPackages ? [],
 }:
 
 buildPythonPackage rec {
@@ -89,13 +89,13 @@ buildPythonPackage rec {
 
   doCheck = !stdenv.isDarwin;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     homepage = "https://rpy2.github.io/";
     description = "Python interface to R";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ joelmo ];
+    maintainers = with lib.maintainers; [joelmo];
   };
 }

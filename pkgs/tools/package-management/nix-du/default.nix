@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage rec {
     boost
     nix
     nlohmann_json
-  ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  ] ++ lib.optionals stdenv.isDarwin [Security];
 
   nativeBuildInputs = [
     pkg-config
@@ -45,7 +45,7 @@ rustPlatform.buildRustPackage rec {
     description = "A tool to determine which gc-roots take space in your nix store";
     homepage = "https://github.com/symphorien/nix-du";
     license = licenses.lgpl3Only;
-    maintainers = [ maintainers.symphorien ];
+    maintainers = [maintainers.symphorien];
     platforms = platforms.unix;
   };
 }

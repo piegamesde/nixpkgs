@@ -15,7 +15,7 @@ stdenv.mkDerivation {
     sha256 = "1kx4h8iv7yb30c6zjmj8zs9x12vxhi0jwkiwxsxj9swf6bww6p1g";
   };
 
-  buildFlags = [ "libdclxvipairing.so" ];
+  buildFlags = ["libdclxvipairing.so"];
 
   patchPhase =
     ''

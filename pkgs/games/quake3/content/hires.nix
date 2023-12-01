@@ -25,6 +25,6 @@ stdenv.mkDerivation {
     description = "Quake 3 high-resolution textures";
     license = licenses.cc0;
     platforms = platforms.all;
-    maintainers = with maintainers; [ rvolosatovs ];
+    maintainers = with maintainers; [rvolosatovs];
   };
 }

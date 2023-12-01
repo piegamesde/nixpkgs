@@ -31,12 +31,12 @@ buildPythonPackage rec {
   # Not running tests as aiomysql is missing support for pymysql>=0.9.3
   doCheck = false;
 
-  pythonImportsCheck = [ "asyncmy" ];
+  pythonImportsCheck = ["asyncmy"];
 
   meta = with lib; {
     description = "Python module to interact with MySQL/mariaDB";
     homepage = "https://github.com/long2ice/asyncmy";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

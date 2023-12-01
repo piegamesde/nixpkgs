@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "49f2c1fd2b579c1fffbac1386a2670b3f6f475cc7ff6cc04d8b984888c2d9e1e";
   };
 
-  propagatedBuildInputs = [ pillow ];
+  propagatedBuildInputs = [pillow];
 
   # error: invalid command 'test'
   doCheck = false;
@@ -30,7 +30,7 @@ buildPythonPackage rec {
     description = "ASCII art to image converter";
     homepage = "https://launchpad.net/aafigure/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
     platforms = platforms.unix;
   };
 }

@@ -1,4 +1,4 @@
-{ lib, python3 }:
+{lib, python3}:
 
 let
   inherit (python3.pkgs) buildPythonApplication fetchPypi pythonOlder;
@@ -17,6 +17,6 @@ buildPythonApplication rec {
     description = "Format paragraphs, comments and doc strings";
     homepage = "https://github.com/dmerejkowsky/dfmt";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ cole-h ];
+    maintainers = with maintainers; [cole-h];
   };
 }

@@ -23,13 +23,13 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-cPdFRBU8B4C2el9N069QooiJdpopns8RJEyavemYdUc=";
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       libgit2
       Security
     ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     description = "Tool for determining the time a print will take using the Klipper firmware";
@@ -37,6 +37,6 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/Annex-Engineering/klipper_estimator/releases/tag/v${version}";
     mainProgram = "klipper_estimator";
     license = licenses.mit;
-    maintainers = with maintainers; [ tmarkus ];
+    maintainers = with maintainers; [tmarkus];
   };
 }

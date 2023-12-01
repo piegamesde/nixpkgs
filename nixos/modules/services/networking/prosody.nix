@@ -10,7 +10,7 @@ let
   cfg = config.services.prosody;
 
   sslOpts =
-    { ... }:
+    {...}:
     {
 
       options = {
@@ -28,7 +28,7 @@ let
 
         extraOptions = mkOption {
           type = types.attrs;
-          default = { };
+          default = {};
           description = lib.mdDoc "Extra SSL configuration options.";
         };
       };
@@ -290,7 +290,7 @@ let
   '';
 
   mucOpts =
-    { ... }:
+    {...}:
     {
       options = {
         domain = mkOption {
@@ -412,7 +412,7 @@ let
     };
 
   uploadHttpOpts =
-    { ... }:
+    {...}:
     {
       options = {
         domain = mkOption {
@@ -451,7 +451,7 @@ let
     };
 
   vHostOpts =
-    { ... }:
+    {...}:
     {
 
       options = {
@@ -544,7 +544,7 @@ in
 
       disco_items = mkOption {
         type = types.listOf (types.submodule discoOpts);
-        default = [ ];
+        default = [];
         description = lib.mdDoc "List of discoverable items you want to advertise.";
       };
 
@@ -586,7 +586,7 @@ in
       httpPorts = mkOption {
         type = types.listOf types.int;
         description = lib.mdDoc "Listening HTTP ports list for this service.";
-        default = [ 5280 ];
+        default = [5280];
       };
 
       httpInterfaces = mkOption {
@@ -601,7 +601,7 @@ in
       httpsPorts = mkOption {
         type = types.listOf types.int;
         description = lib.mdDoc "Listening HTTPS ports list for this service.";
-        default = [ 5281 ];
+        default = [5281];
       };
 
       httpsInterfaces = mkOption {
@@ -645,8 +645,8 @@ in
 
       s2sInsecureDomains = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "insecure.example.com" ];
+        default = [];
+        example = ["insecure.example.com"];
         description = lib.mdDoc ''
           Some servers have invalid or self-signed certificates. You can list
           remote domains here that will not be required to authenticate using
@@ -657,8 +657,8 @@ in
 
       s2sSecureDomains = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "jabber.org" ];
+        default = [];
+        example = ["jabber.org"];
         description = lib.mdDoc ''
           Even if you leave s2s_secure_auth disabled, you can still require valid
           certificates for some domains by specifying a list here.
@@ -669,13 +669,13 @@ in
 
       extraModules = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "Enable custom modules";
       };
 
       extraPluginPaths = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "Additional path in which to look find plugins/modules";
       };
 
@@ -692,8 +692,8 @@ in
 
       muc = mkOption {
         type = types.listOf (types.submodule mucOpts);
-        default = [ ];
-        example = [ { domain = "conference.my-xmpp-example-host.org"; } ];
+        default = [];
+        example = [{domain = "conference.my-xmpp-example-host.org";}];
         description = lib.mdDoc "Multi User Chat (MUC) configuration";
       };
 
@@ -726,7 +726,7 @@ in
 
       admins = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "admin1@example.com"
           "admin2@example.com"
@@ -793,7 +793,7 @@ in
       in
       errors;
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     environment.etc."prosody/prosody.cfg.lua".text =
       let
@@ -806,7 +806,7 @@ in
               }
             ]
           else
-            [ ];
+            [];
         mucDiscoItems =
           builtins.foldl'
             (
@@ -819,7 +819,7 @@ in
               ]
               ++ acc
             )
-            [ ]
+            []
             cfg.muc;
         discoItems = cfg.disco_items ++ httpDiscoItems ++ mucDiscoItems;
       in
@@ -933,20 +933,20 @@ in
       home = cfg.dataDir;
     };
 
-    users.groups.prosody = mkIf (cfg.group == "prosody") { gid = config.ids.gids.prosody; };
+    users.groups.prosody = mkIf (cfg.group == "prosody") {gid = config.ids.gids.prosody;};
 
     systemd.services.prosody = {
       description = "Prosody XMPP server";
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ config.environment.etc."prosody/prosody.cfg.lua".source ];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
+      restartTriggers = [config.environment.etc."prosody/prosody.cfg.lua".source];
       serviceConfig = mkMerge [
         {
           User = cfg.user;
           Group = cfg.group;
           Type = "forking";
-          RuntimeDirectory = [ "prosody" ];
+          RuntimeDirectory = ["prosody"];
           PIDFile = "/run/prosody/prosody.pid";
           ExecStart = "${cfg.package}/bin/prosodyctl start";
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
@@ -964,7 +964,7 @@ in
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
         }
-        (mkIf (cfg.dataDir == "/var/lib/prosody") { StateDirectory = "prosody"; })
+        (mkIf (cfg.dataDir == "/var/lib/prosody") {StateDirectory = "prosody";})
       ];
     };
   };

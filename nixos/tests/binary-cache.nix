@@ -1,18 +1,18 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
 
   with lib;
 
   {
     name = "binary-cache";
-    meta.maintainers = with maintainers; [ thomasjm ];
+    meta.maintainers = with maintainers; [thomasjm];
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        imports = [ ../modules/installer/cd-dvd/channel.nix ];
-        environment.systemPackages = with pkgs; [ python3 ];
-        system.extraDependencies = with pkgs; [ hello.inputDerivation ];
+        imports = [../modules/installer/cd-dvd/channel.nix];
+        environment.systemPackages = with pkgs; [python3];
+        system.extraDependencies = with pkgs; [hello.inputDerivation];
         nix.extraOptions = ''
           experimental-features = nix-command
         '';

@@ -22,11 +22,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-y2BoV59oJPMBf9rUgMhHu87teurwPSNowRbuPfXubGA=";
 
-  nativeBuildInputs = lib.optionals robloxSupport [ pkg-config ];
+  nativeBuildInputs = lib.optionals robloxSupport [pkg-config];
 
   buildInputs =
-    lib.optionals robloxSupport [ openssl ]
-    ++ lib.optionals (robloxSupport && stdenv.isDarwin) [ darwin.apple_sdk.frameworks.Security ];
+    lib.optionals robloxSupport [openssl]
+    ++ lib.optionals (robloxSupport && stdenv.isDarwin) [darwin.apple_sdk.frameworks.Security];
 
   buildNoDefaultFeatures = !robloxSupport;
 
@@ -35,6 +35,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/kampfkarren/selene";
     changelog = "https://github.com/kampfkarren/selene/blob/${version}/CHANGELOG.md";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

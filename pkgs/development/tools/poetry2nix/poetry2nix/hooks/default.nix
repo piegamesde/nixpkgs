@@ -13,9 +13,9 @@ let
   pythonInterpreter = python.pythonForBuild.interpreter;
   pythonSitePackages = python.sitePackages;
 
-  nonOverlayedPython = pkgs.python3.pythonForBuild.withPackages (ps: [ ps.tomlkit ]);
+  nonOverlayedPython = pkgs.python3.pythonForBuild.withPackages (ps: [ps.tomlkit]);
   makeRemoveSpecialDependenciesHook =
-    { fields, kind }:
+    {fields, kind}:
     nonOverlayedPython.pkgs.callPackage
       (
         _:
@@ -25,7 +25,7 @@ let
             substitutions = {
               # NOTE: We have to use a non-overlayed Python here because otherwise we run into an infinite recursion
               # because building of tomlkit and its dependencies also use these hooks.
-              pythonPath = nonOverlayedPython.pkgs.makePythonPath [ nonOverlayedPython ];
+              pythonPath = nonOverlayedPython.pkgs.makePythonPath [nonOverlayedPython];
               pythonInterpreter = nonOverlayedPython.interpreter;
               pyprojectPatchScript = "${./pyproject-without-special-deps.py}";
               inherit fields;
@@ -34,17 +34,17 @@ let
           }
           ./remove-special-dependencies.sh
       )
-      { };
+      {};
   makeSetupHookArgs =
     deps:
     if lib.elem "propagatedBuildInputs" (builtins.attrNames (builtins.functionArgs makeSetupHook)) then
-      { propagatedBuildInputs = deps; }
+      {propagatedBuildInputs = deps;}
     else
-      { inherit deps; };
+      {inherit deps;};
 in
 {
   removePathDependenciesHook = makeRemoveSpecialDependenciesHook {
-    fields = [ "path" ];
+    fields = ["path"];
     kind = "path";
   };
 
@@ -61,7 +61,7 @@ in
   pipBuildHook =
     callPackage
       (
-        { pip, wheel }:
+        {pip, wheel}:
         makeSetupHook
           (
             {
@@ -77,7 +77,7 @@ in
           )
           ./pip-build-hook.sh
       )
-      { };
+      {};
 
   poetry2nixFixupHook =
     callPackage
@@ -97,7 +97,7 @@ in
           }
           ./fixup-hook.sh
       )
-      { };
+      {};
 
   # As of 2023-03 a newer version of packaging introduced a new behaviour where python-requires
   # cannot contain version wildcards. This behaviour is complaint with PEP440
@@ -122,7 +122,7 @@ in
             '';
           };
 
-          pythonPath = [ ] ++ lib.optional (lib.versionOlder python.version "3.9") unparser;
+          pythonPath = [] ++ lib.optional (lib.versionOlder python.version "3.9") unparser;
         in
         makeSetupHook
           {
@@ -134,11 +134,11 @@ in
           }
           ./python-requires-patch-hook.sh
       )
-      { };
+      {};
 
   # When the "wheel" package itself is a wheel the nixpkgs hook (which pulls in "wheel") leads to infinite recursion
   # It doesn't _really_ depend on wheel though, it just copies the wheel.
   wheelUnpackHook =
-    callPackage (_: makeSetupHook { name = "wheel-unpack-hook.sh"; } ./wheel-unpack-hook.sh)
-      { };
+    callPackage (_: makeSetupHook {name = "wheel-unpack-hook.sh";} ./wheel-unpack-hook.sh)
+      {};
 }

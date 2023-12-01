@@ -41,7 +41,7 @@ rustPlatform.buildRustPackage rec {
     broken = (stdenv.isLinux && stdenv.isAarch64) || stdenv.isDarwin;
     description = "An automatic music sorter (based on ID3 tags)";
     homepage = "https://github.com/quebin31/muso";
-    license = with licenses; [ gpl3Plus ];
-    maintainers = with maintainers; [ ];
+    license = with licenses; [gpl3Plus];
+    maintainers = with maintainers; [];
   };
 }

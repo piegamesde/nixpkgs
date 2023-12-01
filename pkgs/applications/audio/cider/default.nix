@@ -15,7 +15,7 @@ appimageTools.wrapType2 rec {
 
   extraInstallCommands =
     let
-      contents = appimageTools.extract { inherit pname version src; };
+      contents = appimageTools.extract {inherit pname version src;};
     in
     ''
       mv $out/bin/${pname}-${version} $out/bin/${pname}
@@ -30,7 +30,7 @@ appimageTools.wrapType2 rec {
     description = "A new look into listening and enjoying Apple Music in style and performance.";
     homepage = "https://github.com/ciderapp/Cider";
     license = licenses.agpl3;
-    maintainers = [ maintainers.cigrainger ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.cigrainger];
+    platforms = ["x86_64-linux"];
   };
 }

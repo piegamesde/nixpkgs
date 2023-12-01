@@ -9,7 +9,7 @@
 }:
 
 import ./versions.nix (
-  { version, sha256, ... }:
+  {version, sha256, ...}:
   stdenv.mkDerivation {
     pname = "zabbix-agent";
     inherit version;
@@ -19,7 +19,7 @@ import ./versions.nix (
       inherit sha256;
     };
 
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
     buildInputs = [
       libiconv
       openssl

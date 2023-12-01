@@ -10,7 +10,7 @@ let
 
   prettyJSON =
     conf:
-    pkgs.runCommandLocal "promtail-config.json" { } ''
+    pkgs.runCommandLocal "promtail-config.json" {} ''
       echo '${builtins.toJSON conf}' | ${pkgs.buildPackages.jq}/bin/jq 'del(._module)' > $out
     '';
 
@@ -25,7 +25,7 @@ in
     enable = mkEnableOption (lib.mdDoc "the Promtail ingresser");
 
     configuration = mkOption {
-      type = (pkgs.formats.json { }).type;
+      type = (pkgs.formats.json {}).type;
       description = lib.mdDoc ''
         Specify the configuration for Promtail in Nix.
       '';
@@ -33,8 +33,8 @@ in
 
     extraFlags = mkOption {
       type = listOf str;
-      default = [ ];
-      example = [ "--server.http-listen-port=3101" ];
+      default = [];
+      example = ["--server.http-listen-port=3101"];
       description = lib.mdDoc ''
         Specify a list of additional command line flags,
         which get escaped and are then passed to Loki.
@@ -47,7 +47,7 @@ in
 
     systemd.services.promtail = {
       description = "Promtail log ingress";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       stopIfChanged = false;
 
       serviceConfig =
@@ -93,7 +93,7 @@ in
         });
     };
 
-    users.groups.promtail = { };
+    users.groups.promtail = {};
     users.users.promtail = {
       description = "Promtail service user";
       isSystemUser = true;

@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-/Bspy94uIP/e4uJY8qo+UPK1tnPjglxiMWeYWx2qoHk=";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   # Integration tests fail
@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage rec {
         Security
       ]
     else
-      [ openssl ];
+      [openssl];
 
   nativeBuildInputs = [
     pkg-config
@@ -48,7 +48,7 @@ rustPlatform.buildRustPackage rec {
 
   # Depends at run-time on having rustup in PATH
   postInstall = ''
-    wrapProgram $out/bin/cargo-msrv --prefix PATH : ${lib.makeBinPath [ rustup ]};
+    wrapProgram $out/bin/cargo-msrv --prefix PATH : ${lib.makeBinPath [rustup]};
   '';
 
   meta = with lib; {
@@ -58,6 +58,6 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ otavio ];
+    maintainers = with maintainers; [otavio];
   };
 }

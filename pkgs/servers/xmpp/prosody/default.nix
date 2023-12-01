@@ -12,10 +12,10 @@
   withLibevent ? true,
   withDBI ? true,
   # use withExtraLibs to add additional dependencies of community modules
-  withExtraLibs ? [ ],
-  withExtraLuaPackages ? _: [ ],
-  withOnlyInstalledCommunityModules ? [ ],
-  withCommunityModules ? [ ],
+  withExtraLibs ? [],
+  withExtraLuaPackages ? _: [],
+  withOnlyInstalledCommunityModules ? [],
+  withCommunityModules ? [],
 }:
 
 with lib;
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-oaWs2D5z1LtvhtZMlaZPLNoNNL/1TIZLZwFfC3vtRUo=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     luaEnv
     libidn
@@ -105,6 +105,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     homepage = "https://prosody.im";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ globin ];
+    maintainers = with maintainers; [globin];
   };
 }

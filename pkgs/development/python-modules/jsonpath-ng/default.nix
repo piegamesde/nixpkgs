@@ -26,7 +26,7 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths =
     [
@@ -34,12 +34,12 @@ buildPythonPackage rec {
       "tests/test_jsonpath_rw_ext.py"
     ];
 
-  pythonImportsCheck = [ "jsonpath_ng" ];
+  pythonImportsCheck = ["jsonpath_ng"];
 
   meta = with lib; {
     description = "JSONPath implementation for Python";
     homepage = "https://github.com/h2non/jsonpath-ng";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

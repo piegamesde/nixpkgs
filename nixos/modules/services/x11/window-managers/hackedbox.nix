@@ -25,6 +25,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ pkgs.hackedbox ];
+    environment.systemPackages = [pkgs.hackedbox];
   };
 }

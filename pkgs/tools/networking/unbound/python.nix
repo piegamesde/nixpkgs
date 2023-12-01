@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   inherit (unbound) version src;
   patches = unbound.patches or null;
 
-  nativeBuildInputs = [ swig ];
+  nativeBuildInputs = [swig];
 
   buildInputs = [
     openssl
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
     description = "Python library for Unbound, the validating, recursive, and caching DNS resolver";
     license = licenses.bsd3;
     homepage = "https://www.unbound.net";
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
     platforms = platforms.unix;
   };
 }

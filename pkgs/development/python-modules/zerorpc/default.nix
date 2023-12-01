@@ -30,6 +30,6 @@ buildPythonPackage rec {
     description = "An easy to use, intuitive, and cross-language RPC";
     homepage = "https://www.zerorpc.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ xeji ];
+    maintainers = with maintainers; [xeji];
   };
 }

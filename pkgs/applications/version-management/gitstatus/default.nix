@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-mVfB3HWjvk4X8bmLEC/U8SKBRytTh/gjjuReqzN5qTk=";
   };
 
-  buildInputs = [ (callPackage ./romkatv_libgit2.nix { }) ];
+  buildInputs = [(callPackage ./romkatv_libgit2.nix {})];
 
   postPatch = ''
     sed -i '1i GITSTATUS_AUTO_INSTALL=''${GITSTATUS_AUTO_INSTALL-0}' gitstatus.plugin.sh

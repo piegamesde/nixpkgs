@@ -20,16 +20,16 @@ buildPythonPackage rec {
     sha256 = "113aymffyz1nki3a43j5cyj87qa0762j38qlz0wd5px7diwjxsfl";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "huisbaasje.huisbaasje" ];
+  pythonImportsCheck = ["huisbaasje.huisbaasje"];
 
   meta = with lib; {
     description = "Client for Huisbaasje";
     homepage = "https://github.com/dennisschroer/huisbaasje-client";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

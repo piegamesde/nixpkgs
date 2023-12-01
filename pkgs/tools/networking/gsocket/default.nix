@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-pY4tjrMbx+OxkJfr8czo5fbhfcmJbiNX4B+FibzUc7w=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [openssl];
   dontDisableStatic = true;
 
   meta = with lib; {
@@ -26,6 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gsocket.io";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = [ maintainers.msm ];
+    maintainers = [maintainers.msm];
   };
 }

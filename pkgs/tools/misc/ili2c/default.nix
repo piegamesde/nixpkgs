@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
       binaryBytecode # source bundles dependencies as jars
     ];
     license = licenses.lgpl21Plus;
-    maintainers = [ maintainers.das-g ];
+    maintainers = [maintainers.das-g];
     platforms = platforms.linux;
   };
 }

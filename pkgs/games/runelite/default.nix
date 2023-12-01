@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     comment = "Open source Old School RuneScape client";
     desktopName = "RuneLite";
     genericName = "Oldschool Runescape";
-    categories = [ "Game" ];
+    categories = ["Game"];
   };
 
   nativeBuildInputs = [
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
       binaryNativeCode
     ];
     license = licenses.bsd2;
-    maintainers = with maintainers; [ kmeakin ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [kmeakin];
+    platforms = ["x86_64-linux"];
   };
 }

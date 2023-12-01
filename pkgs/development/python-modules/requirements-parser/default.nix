@@ -23,21 +23,21 @@ buildPythonPackage rec {
     hash = "sha256-e2dfVBMh1uGRMDw7OdPefO4/eRxc3BGwvy/D7u5ipkk=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     setuptools
     types-setuptools
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "requirements" ];
+  pythonImportsCheck = ["requirements"];
 
   meta = with lib; {
     description = "Pip requirements file parser";
     homepage = "https://github.com/davidfischer/requirements-parser";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

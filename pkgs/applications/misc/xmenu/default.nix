@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     description = "A menu utility for X";
     homepage = "https://github.com/phillbush/xmenu";
     license = licenses.mit;
-    maintainers = with maintainers; [ neonfuz ];
+    maintainers = with maintainers; [neonfuz];
     platforms = platforms.all;
   };
 }

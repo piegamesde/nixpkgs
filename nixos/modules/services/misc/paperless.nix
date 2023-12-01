@@ -25,8 +25,8 @@ let
       PAPERLESS_NLTK_DIR = nltkDir;
       GUNICORN_CMD_ARGS = "--bind=${cfg.address}:${toString cfg.port}";
     }
-    // optionalAttrs (config.time.timeZone != null) { PAPERLESS_TIME_ZONE = config.time.timeZone; }
-    // optionalAttrs enableRedis { PAPERLESS_REDIS = "unix://${redisServer.unixSocket}"; }
+    // optionalAttrs (config.time.timeZone != null) {PAPERLESS_TIME_ZONE = config.time.timeZone;}
+    // optionalAttrs enableRedis {PAPERLESS_REDIS = "unix://${redisServer.unixSocket}";}
     // (lib.mapAttrs (_: toString) cfg.extraConfig);
 
   manage =
@@ -197,7 +197,7 @@ in
 
     extraConfig = mkOption {
       type = types.attrs;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Extra paperless config options.
 
@@ -240,7 +240,7 @@ in
 
     systemd.services.paperless-scheduler = {
       description = "Paperless Celery Beat";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       wants = [
         "paperless-consumer.service"
         "paperless-web.service"
@@ -292,17 +292,17 @@ in
             echo "$superuserState" > "$superuserStateFile"
           fi
         '';
-    } // optionalAttrs enableRedis { after = [ "redis-paperless.service" ]; };
+    } // optionalAttrs enableRedis {after = ["redis-paperless.service"];};
 
     systemd.services.paperless-task-queue = {
       description = "Paperless Celery Workers";
-      after = [ "paperless-scheduler.service" ];
+      after = ["paperless-scheduler.service"];
       serviceConfig = defaultServiceConfig // {
         User = cfg.user;
         ExecStart = "${pkg}/bin/celery --app paperless worker --loglevel INFO";
         Restart = "on-failure";
         # The `mbind` syscall is needed for running the classifier.
-        SystemCallFilter = defaultServiceConfig.SystemCallFilter ++ [ "mbind" ];
+        SystemCallFilter = defaultServiceConfig.SystemCallFilter ++ ["mbind"];
         # Needs to talk to mail server for automated import rules
         PrivateNetwork = false;
       };
@@ -311,8 +311,8 @@ in
 
     # Reading the user-provided password file requires root access
     systemd.services.paperless-copy-password = mkIf (cfg.passwordFile != null) {
-      requiredBy = [ "paperless-scheduler.service" ];
-      before = [ "paperless-scheduler.service" ];
+      requiredBy = ["paperless-scheduler.service"];
+      before = ["paperless-scheduler.service"];
       serviceConfig = {
         ExecStart = ''
           ${pkgs.coreutils}/bin/install --mode 600 --owner '${cfg.user}' --compare \
@@ -324,16 +324,16 @@ in
 
     # Download NLTK corpus data
     systemd.services.paperless-download-nltk-data = {
-      wantedBy = [ "paperless-scheduler.service" ];
-      before = [ "paperless-scheduler.service" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["paperless-scheduler.service"];
+      before = ["paperless-scheduler.service"];
+      after = ["network-online.target"];
       serviceConfig = defaultServiceConfig // {
         User = cfg.user;
         Type = "oneshot";
         # Enable internet access
         PrivateNetwork = false;
         # Restrict write access
-        BindPaths = [ ];
+        BindPaths = [];
         BindReadOnlyPaths = [
           "/nix/store"
           "-/etc/resolv.conf"
@@ -345,7 +345,7 @@ in
         ];
         ExecStart =
           let
-            pythonWithNltk = pkg.python.withPackages (ps: [ ps.nltk ]);
+            pythonWithNltk = pkg.python.withPackages (ps: [ps.nltk]);
           in
           ''
             ${pythonWithNltk}/bin/python -m nltk.downloader -d '${nltkDir}' punkt snowball_data stopwords
@@ -357,8 +357,8 @@ in
       description = "Paperless document consumer";
       # Bind to `paperless-scheduler` so that the consumer never runs
       # during migrations
-      bindsTo = [ "paperless-scheduler.service" ];
-      after = [ "paperless-scheduler.service" ];
+      bindsTo = ["paperless-scheduler.service"];
+      after = ["paperless-scheduler.service"];
       serviceConfig = defaultServiceConfig // {
         User = cfg.user;
         ExecStart = "${pkg}/bin/paperless-ngx document_consumer";
@@ -371,8 +371,8 @@ in
       description = "Paperless web server";
       # Bind to `paperless-scheduler` so that the web server never runs
       # during migrations
-      bindsTo = [ "paperless-scheduler.service" ];
-      after = [ "paperless-scheduler.service" ];
+      bindsTo = ["paperless-scheduler.service"];
+      after = ["paperless-scheduler.service"];
       serviceConfig =
         defaultServiceConfig
         // {
@@ -384,13 +384,13 @@ in
           Restart = "on-failure";
 
           # gunicorn needs setuid, liblapack needs mbind
-          SystemCallFilter = defaultServiceConfig.SystemCallFilter ++ [ "@setuid mbind" ];
+          SystemCallFilter = defaultServiceConfig.SystemCallFilter ++ ["@setuid mbind"];
           # Needs to serve web page
           PrivateNetwork = false;
         }
         // lib.optionalAttrs (cfg.port < 1024) {
-          AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-          CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+          AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
+          CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
         };
       environment = env // {
         PATH = mkForce pkg.path;

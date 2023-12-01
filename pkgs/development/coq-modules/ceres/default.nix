@@ -18,6 +18,6 @@ mkCoqDerivation {
   meta = with lib; {
     description = "Library for serialization to S-expressions";
     license = licenses.mit;
-    maintainers = with maintainers; [ Zimmi48 ];
+    maintainers = with maintainers; [Zimmi48];
   };
 }

@@ -16,12 +16,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-TCAxofSRbyIdwowhHhPn483UA+QOHkLMz0P2LIi0ncA=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     description = "Small Fast S-Expression Library";
     homepage = "https://github.com/mjsottile/sfsexp";
-    maintainers = with maintainers; [ jb55 ];
+    maintainers = with maintainers; [jb55];
     license = licenses.lgpl21Plus;
     platforms = platforms.all;
   };

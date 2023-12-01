@@ -88,7 +88,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    users.groups.${cfg.group} = { };
+    users.groups.${cfg.group} = {};
     users.users.${cfg.user} = {
       description = "Oxidized service user";
       group = cfg.group;
@@ -98,8 +98,8 @@ in
     };
 
     systemd.services.oxidized = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       preStart = ''
         mkdir -p ${cfg.dataDir}/.config/oxidized

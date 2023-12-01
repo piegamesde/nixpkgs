@@ -29,7 +29,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     click
@@ -40,9 +40,9 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "threat9_test_bed" ];
+  pythonImportsCheck = ["threat9_test_bed"];
 
   disabledTests = [
     # Assertion issue with the response codes
@@ -55,6 +55,6 @@ buildPythonPackage rec {
     description = "Module for adding unittests.mock as view functions";
     homepage = "https://github.com/threat9/threat9-test-bed";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

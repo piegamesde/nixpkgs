@@ -19,7 +19,7 @@ buildDunePackage rec {
     hash = "sha256-mngHM5JYDoNJFI+jq0sbLpidydMNB0AbBMlrfGDwPmI=";
   };
 
-  buildInputs = [ fmt ];
+  buildInputs = [fmt];
 
   doCheck = true;
   checkInputs = [
@@ -31,6 +31,6 @@ buildDunePackage rec {
     description = "Access C-like structures directly from OCaml";
     license = lib.licenses.isc;
     homepage = "https://github.com/mirage/ocaml-cstruct";
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

@@ -21,15 +21,15 @@ stdenv.mkDerivation rec {
     cmake
     smokegen
   ];
-  buildInputs = [ qt4 ];
+  buildInputs = [qt4];
 
-  cmakeFlags = [ "-DCMAKE_CXX_STANDARD=98" ];
+  cmakeFlags = ["-DCMAKE_CXX_STANDARD=98"];
 
   meta = with lib; {
     description = "Bindings for the Qt libraries";
     homepage = "https://invent.kde.org/unmaintained/smokeqt";
     license = licenses.gpl2Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ uthar ];
+    maintainers = with maintainers; [uthar];
   };
 }

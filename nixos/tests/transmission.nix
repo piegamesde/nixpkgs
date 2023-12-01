@@ -1,15 +1,15 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "transmission";
-    meta = with pkgs.lib.maintainers; { maintainers = [ coconnor ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [coconnor];};
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
-        imports = [ ../modules/profiles/minimal.nix ];
+        imports = [../modules/profiles/minimal.nix];
 
-        networking.firewall.allowedTCPPorts = [ 9091 ];
+        networking.firewall.allowedTCPPorts = [9091];
 
         security.apparmor.enable = true;
 

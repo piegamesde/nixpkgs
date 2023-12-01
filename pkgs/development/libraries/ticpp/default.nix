@@ -16,9 +16,9 @@ stdenv.mkDerivation {
     sha256 = "0xk4cy0xbkr6326cqd1vd6b2x0rfsx4iz2sq8f5jz3yl3slxgjm2";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  cmakeFlags = [ "-DBUILD_TICPP_DLL=1" ];
+  cmakeFlags = ["-DBUILD_TICPP_DLL=1"];
 
   installPhase = ''
     cd ..

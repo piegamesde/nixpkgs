@@ -27,7 +27,7 @@
 }:
 
 let
-  versions = callPackage ./versions.nix { };
+  versions = callPackage ./versions.nix {};
 
   matching-versions = lib.sort (v1: v2: lib.versionAtLeast v1.version v2.version) (
     lib.filter (v: v.lang == lang && (version == null || isMatching v.version version) && matchesDoc v)
@@ -35,7 +35,7 @@ let
   );
 
   found-version =
-    if matching-versions == [ ] then
+    if matching-versions == [] then
       throw (
         "No registered Mathematica version found to match"
         + " version=${toString version} and language=${lang},"
@@ -78,8 +78,8 @@ callPackage real-drv {
     description = "Wolfram Mathematica computational software system";
     homepage = "http://www.wolfram.com/mathematica/";
     license = licenses.unfree;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ herberteuler ];
-    platforms = [ "x86_64-linux" ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    maintainers = with maintainers; [herberteuler];
+    platforms = ["x86_64-linux"];
   };
 }

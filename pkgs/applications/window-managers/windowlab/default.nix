@@ -20,7 +20,7 @@ stdenv.mkDerivation {
     sha256 = "1fx4jwq4s98p2wpvawsiww7d6568bpjgcjpks61dzfj8p2j32s4d";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libX11
     libXext
@@ -42,7 +42,7 @@ stdenv.mkDerivation {
     description = "Small and simple stacking window manager";
     homepage = "http://nickgravgaard.com/windowlab/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
     platforms = platforms.linux;
   };
 }

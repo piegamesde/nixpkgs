@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     ncurses
   ];
 
-  configureFlags = [ "--with-gpgme-prefix=${gpgme.dev}" ];
+  configureFlags = ["--with-gpgme-prefix=${gpgme.dev}"];
 
   preConfigure = ''
     export PYTHON="${buildPackages.python3}/bin/python"
@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
     description = "A library for manipulating storage volume encryption keys and storing them separately from volumes to handle forgotten passphrases, and the associated command-line tool";
     homepage = "https://pagure.io/volume_key/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

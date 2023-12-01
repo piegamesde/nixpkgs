@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     sha256 = "0m2zy986kzcpg0g3bvvm815ap9n5ann5f6bdy7pfj6jv482bm5mg";
   };
 
-  nativeBuildInputs = [ wrapQtAppsHook ];
+  nativeBuildInputs = [wrapQtAppsHook];
 
   buildInputs = [
     fontconfig
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
       There is also a C library, if you're into that kind of thing.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ jb55 ];
+    maintainers = with maintainers; [jb55];
     platforms = platforms.unix;
   };
 }

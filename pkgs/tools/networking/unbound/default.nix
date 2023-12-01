@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     makeWrapper
     pkg-config
-  ] ++ lib.optionals withPythonModule [ swig ];
+  ] ++ lib.optionals withPythonModule [swig];
 
   buildInputs =
     [
@@ -74,9 +74,9 @@ stdenv.mkDerivation rec {
       expat
       libevent
     ]
-    ++ lib.optionals withSystemd [ systemd ]
-    ++ lib.optionals withDoH [ libnghttp2 ]
-    ++ lib.optionals withPythonModule [ python ];
+    ++ lib.optionals withSystemd [systemd]
+    ++ lib.optionals withDoH [libnghttp2]
+    ++ lib.optionals withPythonModule [python];
 
   enableParallelBuilding = true;
 
@@ -92,11 +92,11 @@ stdenv.mkDerivation rec {
       "--enable-pie"
       "--enable-relro-now"
     ]
-    ++ lib.optionals stdenv.hostPlatform.isStatic [ "--disable-flto" ]
-    ++ lib.optionals withSystemd [ "--enable-systemd" ]
-    ++ lib.optionals withPythonModule [ "--with-pythonmodule" ]
-    ++ lib.optionals withDoH [ "--with-libnghttp2=${libnghttp2.dev}" ]
-    ++ lib.optionals withECS [ "--enable-subnet" ]
+    ++ lib.optionals stdenv.hostPlatform.isStatic ["--disable-flto"]
+    ++ lib.optionals withSystemd ["--enable-systemd"]
+    ++ lib.optionals withPythonModule ["--with-pythonmodule"]
+    ++ lib.optionals withDoH ["--with-libnghttp2=${libnghttp2.dev}"]
+    ++ lib.optionals withECS ["--enable-subnet"]
     ++ lib.optionals withDNSCrypt [
       "--enable-dnscrypt"
       "--with-libsodium=${
@@ -133,7 +133,7 @@ stdenv.mkDerivation rec {
       sed -E '/CONFCMDLINE/ s;${storeDir}/[a-z0-9]{32}-;${storeDir}/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-;g' -i config.h
     '';
 
-  nativeCheckInputs = [ bison ];
+  nativeCheckInputs = [bison];
 
   doCheck = true;
 
@@ -142,13 +142,13 @@ stdenv.mkDerivation rec {
       --replace "\$(DESTDIR)\$(PYTHON_SITE_PKG)" "$out/${python.sitePackages}"
   '';
 
-  installFlags = [ "configfile=\${out}/etc/unbound/unbound.conf" ];
+  installFlags = ["configfile=\${out}/etc/unbound/unbound.conf"];
 
   postInstall =
     ''
       make unbound-event-install
       wrapProgram $out/bin/unbound-control-setup \
-        --prefix PATH : ${lib.makeBinPath [ openssl ]}
+        --prefix PATH : ${lib.makeBinPath [openssl]}
     ''
     + lib.optionalString withPythonModule ''
       wrapProgram $out/bin/unbound \
@@ -189,7 +189,7 @@ stdenv.mkDerivation rec {
     description = "Validating, recursive, and caching DNS resolver";
     license = licenses.bsd3;
     homepage = "https://www.unbound.net";
-    maintainers = with maintainers; [ ajs124 ];
+    maintainers = with maintainers; [ajs124];
     platforms = platforms.unix;
   };
 }

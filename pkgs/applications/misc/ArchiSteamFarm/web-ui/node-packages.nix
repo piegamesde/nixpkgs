@@ -7,7 +7,7 @@
   nix-gitignore,
   stdenv,
   lib,
-  globalBuildInputs ? [ ],
+  globalBuildInputs ? [],
 }:
 
 let
@@ -6455,10 +6455,7 @@ let
     src = ./.;
     dependencies = [
       (
-        sources."@ampproject/remapping-2.2.0"
-        // {
-          dependencies = [ sources."@jridgewell/gen-mapping-0.1.1" ];
-        }
+        sources."@ampproject/remapping-2.2.0" // {dependencies = [sources."@jridgewell/gen-mapping-0.1.1"];}
       )
       sources."@babel/code-frame-7.21.4"
       sources."@babel/compat-data-7.21.4"
@@ -6592,7 +6589,7 @@ let
       sources."@babel/plugin-transform-typeof-symbol-7.18.9"
       sources."@babel/plugin-transform-unicode-escapes-7.18.10"
       sources."@babel/plugin-transform-unicode-regex-7.18.6"
-      (sources."@babel/preset-env-7.21.4" // { dependencies = [ sources."semver-6.3.0" ]; })
+      (sources."@babel/preset-env-7.21.4" // {dependencies = [sources."semver-6.3.0"];})
       sources."@babel/preset-modules-0.1.5"
       sources."@babel/regjsgen-0.8.0"
       sources."@babel/runtime-7.14.6"
@@ -6743,7 +6740,7 @@ let
           ];
         }
       )
-      (sources."babel-plugin-polyfill-corejs2-0.3.3" // { dependencies = [ sources."semver-6.3.0" ]; })
+      (sources."babel-plugin-polyfill-corejs2-0.3.3" // {dependencies = [sources."semver-6.3.0"];})
       sources."babel-plugin-polyfill-corejs3-0.6.0"
       sources."babel-plugin-polyfill-regenerator-0.4.1"
       sources."balanced-match-1.0.0"
@@ -6752,7 +6749,7 @@ let
       sources."big.js-5.2.2"
       sources."binary-extensions-2.2.0"
       sources."bluebird-3.7.2"
-      (sources."body-parser-1.19.2" // { dependencies = [ sources."bytes-3.1.2" ]; })
+      (sources."body-parser-1.19.2" // {dependencies = [sources."bytes-3.1.2"];})
       (
         sources."bonjour-service-1.0.11"
         // {
@@ -6790,7 +6787,7 @@ let
       sources."confusing-browser-globals-1.0.10"
       sources."connect-history-api-fallback-2.0.0"
       sources."consolidate-0.15.1"
-      (sources."content-disposition-0.5.4" // { dependencies = [ sources."safe-buffer-5.2.1" ]; })
+      (sources."content-disposition-0.5.4" // {dependencies = [sources."safe-buffer-5.2.1"];})
       sources."content-type-1.0.4"
       sources."convert-source-map-1.8.0"
       sources."cookie-0.4.2"
@@ -6837,7 +6834,7 @@ let
       sources."depd-1.1.2"
       sources."destroy-1.0.4"
       sources."detect-node-2.1.0"
-      (sources."dir-glob-3.0.1" // { dependencies = [ sources."path-type-4.0.0" ]; })
+      (sources."dir-glob-3.0.1" // {dependencies = [sources."path-type-4.0.0"];})
       sources."dns-equal-1.0.0"
       sources."doctrine-3.0.0"
       sources."dom-converter-0.2.0"
@@ -6883,7 +6880,7 @@ let
           ];
         }
       )
-      (sources."eslint-config-airbnb-base-15.0.0" // { dependencies = [ sources."semver-6.3.0" ]; })
+      (sources."eslint-config-airbnb-base-15.0.0" // {dependencies = [sources."semver-6.3.0"];})
       (
         sources."eslint-import-resolver-node-0.3.7"
         // {
@@ -6928,8 +6925,8 @@ let
       sources."eslint-scope-5.1.1"
       sources."eslint-visitor-keys-3.4.0"
       sources."espree-9.5.1"
-      (sources."esquery-1.4.2" // { dependencies = [ sources."estraverse-5.2.0" ]; })
-      (sources."esrecurse-4.3.0" // { dependencies = [ sources."estraverse-5.2.0" ]; })
+      (sources."esquery-1.4.2" // {dependencies = [sources."estraverse-5.2.0"];})
+      (sources."esrecurse-4.3.0" // {dependencies = [sources."estraverse-5.2.0"];})
       sources."estraverse-4.2.0"
       sources."esutils-2.0.2"
       sources."etag-1.8.1"
@@ -7001,11 +6998,11 @@ let
       sources."get-stream-6.0.1"
       sources."get-symbol-description-1.0.0"
       sources."glob-7.1.3"
-      (sources."glob-parent-5.1.2" // { dependencies = [ sources."is-glob-4.0.1" ]; })
+      (sources."glob-parent-5.1.2" // {dependencies = [sources."is-glob-4.0.1"];})
       sources."glob-to-regexp-0.4.1"
       sources."globals-11.12.0"
       sources."globalthis-1.0.3"
-      (sources."globby-6.1.0" // { dependencies = [ sources."pify-2.3.0" ]; })
+      (sources."globby-6.1.0" // {dependencies = [sources."pify-2.3.0"];})
       sources."gopd-1.0.1"
       sources."graceful-fs-4.2.9"
       sources."grapheme-splitter-1.0.4"
@@ -7020,13 +7017,13 @@ let
       sources."has-tostringtag-1.0.0"
       sources."hash-sum-1.0.2"
       sources."he-1.2.0"
-      (sources."hpack.js-2.1.6" // { dependencies = [ sources."readable-stream-2.3.7" ]; })
+      (sources."hpack.js-2.1.6" // {dependencies = [sources."readable-stream-2.3.7"];})
       sources."html-entities-2.3.2"
-      (sources."html-minifier-terser-6.0.2" // { dependencies = [ sources."commander-8.3.0" ]; })
+      (sources."html-minifier-terser-6.0.2" // {dependencies = [sources."commander-8.3.0"];})
       sources."html-webpack-plugin-5.5.0"
       sources."htmlparser2-6.1.0"
       sources."http-deceiver-1.2.7"
-      (sources."http-errors-1.8.1" // { dependencies = [ sources."inherits-2.0.4" ]; })
+      (sources."http-errors-1.8.1" // {dependencies = [sources."inherits-2.0.4"];})
       sources."http-parser-js-0.5.5"
       sources."http-proxy-1.18.1"
       sources."http-proxy-middleware-2.0.4"
@@ -7036,7 +7033,7 @@ let
       sources."icss-utils-5.1.0"
       sources."ignore-5.2.0"
       sources."immutable-4.0.0"
-      (sources."import-fresh-3.3.0" // { dependencies = [ sources."resolve-from-4.0.0" ]; })
+      (sources."import-fresh-3.3.0" // {dependencies = [sources."resolve-from-4.0.0"];})
       (
         sources."import-local-3.0.3"
         // {
@@ -7109,7 +7106,7 @@ let
       sources."linkify-html-4.1.1"
       sources."linkifyjs-4.1.1"
       sources."loader-runner-4.2.0"
-      (sources."loader-utils-1.4.0" // { dependencies = [ sources."emojis-list-3.0.0" ]; })
+      (sources."loader-utils-1.4.0" // {dependencies = [sources."emojis-list-3.0.0"];})
       sources."locate-path-6.0.0"
       sources."lodash-4.17.21"
       sources."lodash-es-4.17.21"
@@ -7117,7 +7114,7 @@ let
       sources."lodash.merge-4.6.2"
       sources."lower-case-2.0.2"
       sources."lru-cache-4.1.5"
-      (sources."make-dir-3.1.0" // { dependencies = [ sources."semver-6.3.0" ]; })
+      (sources."make-dir-3.1.0" // {dependencies = [sources."semver-6.3.0"];})
       sources."media-typer-0.3.0"
       sources."memfs-3.4.1"
       sources."merge-descriptors-1.0.1"
@@ -7125,7 +7122,7 @@ let
       sources."merge-stream-2.0.0"
       sources."merge2-1.4.1"
       sources."methods-1.1.2"
-      (sources."micromatch-4.0.4" // { dependencies = [ sources."picomatch-2.3.0" ]; })
+      (sources."micromatch-4.0.4" // {dependencies = [sources."picomatch-2.3.0"];})
       sources."mime-2.5.2"
       sources."mime-db-1.52.0"
       sources."mime-types-2.1.35"
@@ -7189,7 +7186,7 @@ let
       sources."prettier-1.19.1"
       sources."pretty-error-4.0.0"
       sources."process-nextick-args-2.0.1"
-      (sources."proxy-addr-2.0.7" // { dependencies = [ sources."ipaddr.js-1.9.1" ]; })
+      (sources."proxy-addr-2.0.7" // {dependencies = [sources."ipaddr.js-1.9.1"];})
       sources."proxy-from-env-1.1.0"
       sources."pseudomap-1.0.2"
       sources."punycode-2.1.1"
@@ -7197,7 +7194,7 @@ let
       sources."queue-microtask-1.2.3"
       sources."randombytes-2.1.0"
       sources."range-parser-1.2.1"
-      (sources."raw-body-2.4.3" // { dependencies = [ sources."bytes-3.1.2" ]; })
+      (sources."raw-body-2.4.3" // {dependencies = [sources."bytes-3.1.2"];})
       sources."readable-stream-3.6.0"
       sources."readdirp-3.6.0"
       sources."rechoir-0.7.1"
@@ -7207,7 +7204,7 @@ let
       sources."regenerator-transform-0.15.1"
       sources."regexp.prototype.flags-1.4.3"
       sources."regexpu-core-5.3.2"
-      (sources."regjsparser-0.9.1" // { dependencies = [ sources."jsesc-0.5.0" ]; })
+      (sources."regjsparser-0.9.1" // {dependencies = [sources."jsesc-0.5.0"];})
       sources."relateurl-0.2.7"
       sources."renderkid-3.0.0"
       sources."require-from-string-2.0.2"
@@ -7303,7 +7300,7 @@ let
         // {
           dependencies = [
             sources."source-map-0.7.3"
-            (sources."source-map-support-0.5.20" // { dependencies = [ sources."source-map-0.6.1" ]; })
+            (sources."source-map-support-0.5.20" // {dependencies = [sources."source-map-0.6.1"];})
           ];
         }
       )
@@ -7390,7 +7387,7 @@ let
           ];
         }
       )
-      (sources."webpack-cli-4.10.0" // { dependencies = [ sources."commander-7.2.0" ]; })
+      (sources."webpack-cli-4.10.0" // {dependencies = [sources."commander-7.2.0"];})
       (
         sources."webpack-dev-middleware-5.3.1"
         // {

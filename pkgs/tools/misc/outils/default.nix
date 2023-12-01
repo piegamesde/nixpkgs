@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xYjILa0Km57q/xNP+M34r29WLGC15tzUNoUgPzQTtIs=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     homepage = "https://github.com/leahneukirchen/outils";
@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
       publicDomain
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ somasis ];
+    maintainers = with maintainers; [somasis];
   };
 }

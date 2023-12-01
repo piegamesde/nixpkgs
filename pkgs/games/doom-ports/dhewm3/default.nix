@@ -57,17 +57,17 @@ stdenv.mkDerivation rec {
       name = "dhewm3";
       exec = "dhewm3";
       desktopName = "Doom 3";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     homepage = "https://github.com/dhewm/dhewm3";
     description = "Doom 3 port to SDL";
     license = lib.licenses.gpl3;
-    maintainers = with maintainers; [ MP2E ];
+    maintainers = with maintainers; [MP2E];
     platforms = with platforms; linux;
   };
 }

@@ -29,7 +29,7 @@ buildPythonPackage rec {
       --replace "--cov=aiojobs/ --cov=tests/" ""
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     aiohttp
@@ -41,13 +41,13 @@ buildPythonPackage rec {
     pytest-aiohttp
   ];
 
-  pythonImportsCheck = [ "aiojobs" ];
+  pythonImportsCheck = ["aiojobs"];
 
   meta = with lib; {
     description = "Jobs scheduler for managing background task (asyncio)";
     homepage = "https://github.com/aio-libs/aiojobs";
     changelog = "https://github.com/aio-libs/aiojobs/blob/v${version}/CHANGES.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ cmcdragonkai ];
+    maintainers = with maintainers; [cmcdragonkai];
   };
 }

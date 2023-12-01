@@ -25,7 +25,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.light ];
-    services.udev.packages = [ pkgs.light ];
+    environment.systemPackages = [pkgs.light];
+    services.udev.packages = [pkgs.light];
   };
 }

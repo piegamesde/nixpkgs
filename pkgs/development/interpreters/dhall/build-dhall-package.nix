@@ -12,7 +12,7 @@
   name,
 
   # Expressions to add to the cache before interpreting the code
-  dependencies ? [ ],
+  dependencies ? [],
 
   # A Dhall expression
   #
@@ -71,7 +71,7 @@ let
 
   sourceFile = "source.dhall";
 in
-runCommand name { inherit dependencies; } ''
+runCommand name {inherit dependencies;} ''
   set -eu
 
   mkdir -p ${cacheDhall}
@@ -100,7 +100,7 @@ runCommand name { inherit dependencies; } ''
     mkdir -p $out/${dataDhall}
 
     XDG_DATA_HOME=$out/${data} ${dhall-docs}/bin/dhall-docs --output-link $out/docs ${
-      lib.cli.toGNUCommandLineShell { } {
+      lib.cli.toGNUCommandLineShell {} {
         base-import-url = baseImportUrl;
 
         input = documentationRoot;

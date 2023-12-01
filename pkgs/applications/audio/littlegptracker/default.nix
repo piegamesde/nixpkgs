@@ -19,9 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "0f2ip8z5wxk8fvlw47mczsbcrzh4nh1hgw1fwf5gjrqnzm8v111x";
   };
 
-  buildInputs = [
-    SDL
-  ] ++ lib.optional stdenv.isDarwin Foundation ++ lib.optional stdenv.isLinux jack2;
+  buildInputs = [SDL] ++ lib.optional stdenv.isDarwin Foundation ++ lib.optional stdenv.isLinux jack2;
 
   patches =
     [
@@ -33,12 +31,11 @@ stdenv.mkDerivation rec {
   preBuild = "cd projects";
 
   makeFlags =
-    [ "CXX=${stdenv.cc.targetPrefix}c++" ]
-    ++ lib.optionals stdenv.isLinux [ "PLATFORM=DEB" ]
-    ++ lib.optionals stdenv.isDarwin [ "PLATFORM=OSX" ];
+    ["CXX=${stdenv.cc.targetPrefix}c++"]
+    ++ lib.optionals stdenv.isLinux ["PLATFORM=DEB"] ++ lib.optionals stdenv.isDarwin ["PLATFORM=OSX"];
 
   env.NIX_CFLAGS_COMPILE = toString (
-    [ "-fpermissive" ] ++ lib.optional stdenv.hostPlatform.isAarch64 "-Wno-error=narrowing"
+    ["-fpermissive"] ++ lib.optional stdenv.hostPlatform.isAarch64 "-Wno-error=narrowing"
   );
 
   NIX_LDFLAGS = lib.optional stdenv.isDarwin "-framework Foundation";
@@ -72,7 +69,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.littlegptracker.com/";
     downloadPage = "https://www.littlegptracker.com/download.php";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
     # https://github.com/NixOS/nixpkgs/pull/91766#issuecomment-688751821
     broken = stdenv.isDarwin;

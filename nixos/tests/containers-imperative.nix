@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "containers-imperative";
     meta = {
@@ -19,12 +19,12 @@ import ./make-test-python.nix (
         ...
       }:
       {
-        imports = [ ../modules/installer/cd-dvd/channel.nix ];
+        imports = [../modules/installer/cd-dvd/channel.nix];
 
         # XXX: Sandbox setup fails while trying to hardlink files from the host's
         #      store file system into the prepared chroot directory.
         nix.settings.sandbox = false;
-        nix.settings.substituters = [ ]; # don't try to access cache.nixos.org
+        nix.settings.substituters = []; # don't try to access cache.nixos.org
 
         virtualisation.writableStore = true;
         # Make sure we always have all the required dependencies for creating a

@@ -42,25 +42,25 @@ stdenv.mkDerivation rec {
     boost
     jdk
     python3
-  ] ++ lib.optionals (!stdenv.isDarwin) [ cln ];
+  ] ++ lib.optionals (!stdenv.isDarwin) [cln];
   configureFlags = [
     "--enable-language-bindings=c,c++,java"
     "--enable-gpl"
     "--with-readline"
     "--with-boost=${boost.dev}"
-  ] ++ lib.optionals (!stdenv.isDarwin) [ "--with-cln" ];
+  ] ++ lib.optionals (!stdenv.isDarwin) ["--with-cln"];
 
   prePatch = ''
     patch -p1 -i ${./minisat-fenv.patch} -d src/prop/minisat
     patch -p1 -i ${./minisat-fenv.patch} -d src/prop/bvminisat
   '';
 
-  patches = [ ./cvc4-bash-patsub-replacement.patch ];
+  patches = [./cvc4-bash-patsub-replacement.patch];
 
   preConfigure = ''
     patchShebangs ./src/
   '';
-  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Production" ];
+  cmakeFlags = ["-DCMAKE_BUILD_TYPE=Production"];
 
   meta = with lib; {
     description = "A high-performance theorem prover and SMT solver";

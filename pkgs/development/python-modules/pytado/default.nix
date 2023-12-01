@@ -18,16 +18,16 @@ buildPythonPackage rec {
     sha256 = "Y1FxEzs/AF0ZTPdOK/1v+2U2fidfu+AmZbPddJCWIFc=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "PyTado" ];
+  pythonImportsCheck = ["PyTado"];
 
   meta = with lib; {
     description = "Python binding for Tado web API";
     homepage = "https://github.com/wmalgadey/PyTado";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

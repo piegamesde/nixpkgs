@@ -16,7 +16,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-X8PIUDxlcdPoD7+aLDWzlWV++P3mmu52BwY7irhypww=";
   };
 
-  propagatedBuildInputs = [ bcc ];
+  propagatedBuildInputs = [bcc];
 
   format = "other"; # none
 
@@ -25,6 +25,6 @@ python3.pkgs.buildPythonApplication rec {
   meta = src.meta // {
     description = "Dump unix domain socket traffic with bpf";
     license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
   };
 }

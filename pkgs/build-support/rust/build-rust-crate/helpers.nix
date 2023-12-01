@@ -1,4 +1,4 @@
-{ stdenv, lib }:
+{stdenv, lib}:
 {
   kernel = stdenv.hostPlatform.parsed.kernel.name;
   abi = stdenv.hostPlatform.parsed.abi.name;
@@ -8,15 +8,14 @@
     lib.deepSeq f (
       lib.foldl' (features: fun: fun features) (lib.attrsets.recursiveUpdate f up) functions
     );
-  mapFeatures = features: map (fun: fun { features = features; });
+  mapFeatures = features: map (fun: fun {features = features;});
   mkFeatures =
     feat:
     lib.foldl
       (
-        features: featureName:
-        if feat.${featureName} or false then [ featureName ] ++ features else features
+        features: featureName: if feat.${featureName} or false then [featureName] ++ features else features
       )
-      [ ]
+      []
       (lib.attrNames feat);
   include =
     includedFiles: src:

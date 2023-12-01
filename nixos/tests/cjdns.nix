@@ -4,7 +4,7 @@ let
   carolPassword = "678287829ce4c67bc8b227e56d94422ee1b85fa11618157b2f591de6c6322b52";
 
   basicConfig =
-    { ... }:
+    {...}:
     {
       services.cjdns.enable = true;
 
@@ -18,31 +18,31 @@ let
 in
 
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "cjdns";
-    meta = with pkgs.lib.maintainers; { maintainers = [ ehmry ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [ehmry];};
 
     nodes = {
       # Alice finds peers over over ETHInterface.
       alice =
-        { ... }:
+        {...}:
         {
-          imports = [ basicConfig ];
+          imports = [basicConfig];
 
           services.cjdns.ETHInterface.bind = "eth1";
 
           services.httpd.enable = true;
           services.httpd.adminAddr = "foo@example.org";
-          networking.firewall.allowedTCPPorts = [ 80 ];
+          networking.firewall.allowedTCPPorts = [80];
         };
 
       # Bob explicitly connects to Carol over UDPInterface.
       bob =
-        { ... }:
+        {...}:
 
         {
-          imports = [ basicConfig ];
+          imports = [basicConfig];
 
           networking.interfaces.eth1.ipv4.addresses = [
             {
@@ -65,9 +65,9 @@ import ./make-test-python.nix (
       # Carol listens on ETHInterface and UDPInterface,
       # but knows neither Alice or Bob.
       carol =
-        { ... }:
+        {...}:
         {
-          imports = [ basicConfig ];
+          imports = [basicConfig];
 
           environment.etc."cjdns.keys".text = ''
             CJDNS_PRIVATE_KEY=${carolKey}
@@ -82,11 +82,11 @@ import ./make-test-python.nix (
           ];
 
           services.cjdns = {
-            authorizedPasswords = [ carolPassword ];
+            authorizedPasswords = [carolPassword];
             ETHInterface.bind = "eth1";
             UDPInterface.bind = "192.168.0.1:1024";
           };
-          networking.firewall.allowedUDPPorts = [ 1024 ];
+          networking.firewall.allowedUDPPorts = [1024];
         };
     };
 

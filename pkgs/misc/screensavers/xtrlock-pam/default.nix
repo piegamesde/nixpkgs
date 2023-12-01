@@ -19,7 +19,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-TFfs418fpjBrAJNGW8U3jE0K7jQkfL4vCquAViKkXPw=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     python2
     pam
@@ -36,7 +36,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/aanatoly/xtrlock-pam";
     description = "PAM based X11 screen locker";
     license = "unknown";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = with lib.platforms; linux;
   };
 }

@@ -76,7 +76,7 @@ stdenv.mkDerivation (
         runHook postConfigure
       '';
 
-    makeFlags = [ "PREFIX=${placeholder "out"}" ];
+    makeFlags = ["PREFIX=${placeholder "out"}"];
 
     doCheck = true;
 
@@ -98,7 +98,7 @@ stdenv.mkDerivation (
       homepage = "http://harelang.org/";
       description = "A systems programming language designed to be simple, stable, and robust";
       license = lib.licenses.gpl3Only;
-      maintainers = [ lib.maintainers.AndersonTorres ];
+      maintainers = [lib.maintainers.AndersonTorres];
       inherit (harec.meta) platforms badPlatforms;
       broken = stdenv.isAarch64; # still figuring how to set cross-compiling stuff
     };

@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       ./disable-nodejs-version-check-7.patch
     ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/libexec/kibana $out/bin

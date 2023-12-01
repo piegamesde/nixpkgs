@@ -16,9 +16,9 @@ buildGoModule rec {
     sha256 = "sha256-lEMwPGXvgI8wtXska9ngAy9R2tr41Jq5yO6xQk9V5n4=";
   };
 
-  subPackages = [ "cmd/cheat" ];
+  subPackages = ["cmd/cheat"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installManPage doc/cheat.1
@@ -31,7 +31,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description = "Create and view interactive cheatsheets on the command-line";
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
     license = with licenses; [
       gpl3
       mit

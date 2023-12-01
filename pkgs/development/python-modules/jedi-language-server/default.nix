@@ -29,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-+3VgONZzlobgs4wujCaGTTYpIgYrWgWwYgKQqirS7t8=";
   };
 
-  pythonRelaxDeps = [ "pygls" ];
+  pythonRelaxDeps = ["pygls"];
 
   nativeBuildInputs = [
     poetry-core
@@ -54,13 +54,13 @@ buildPythonPackage rec {
     HOME="$(mktemp -d)"
   '';
 
-  pythonImportsCheck = [ "jedi_language_server" ];
+  pythonImportsCheck = ["jedi_language_server"];
 
   meta = with lib; {
     description = "A Language Server for the latest version(s) of Jedi";
     homepage = "https://github.com/pappasam/jedi-language-server";
     changelog = "https://github.com/pappasam/jedi-language-server/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

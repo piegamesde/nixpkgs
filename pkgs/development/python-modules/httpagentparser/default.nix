@@ -20,12 +20,12 @@ buildPythonPackage rec {
   # PyPi version does not include test directory
   doCheck = false;
 
-  pythonImportsCheck = [ "httpagentparser" ];
+  pythonImportsCheck = ["httpagentparser"];
 
   meta = with lib; {
     description = "Module to extract OS, Browser, etc. information from http user agent string";
     homepage = "https://github.com/shon/httpagentparser";
     license = licenses.mit;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

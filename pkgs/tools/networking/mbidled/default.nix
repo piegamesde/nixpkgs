@@ -36,7 +36,7 @@ stdenv.mkDerivation {
     description = "run command on mailbox change";
     homepage = "https://github.com/zsugabubus/mbidled";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ laalsaas ];
+    maintainers = with maintainers; [laalsaas];
     platforms = platforms.linux;
   };
 }

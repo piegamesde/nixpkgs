@@ -34,7 +34,7 @@ else
       sha256 = "0l4p9bp6kclr570mxma8wafibr1g5fsjj8h10yr4b507g0hmlh0l";
     };
 
-    patches = [ ./META.patch ];
+    patches = [./META.patch];
 
     strictDeps = true;
 
@@ -71,7 +71,7 @@ else
       cp META $out/lib/ocaml/${ocaml.version}/site-lib/cairo/
     '';
 
-    makeFlags = [ "INSTALLDIR=$(out)/lib/ocaml/${ocaml.version}/site-lib/cairo" ];
+    makeFlags = ["INSTALLDIR=$(out)/lib/ocaml/${ocaml.version}/site-lib/cairo"];
 
     meta = {
       homepage = "http://cairographics.org/cairo-ocaml";

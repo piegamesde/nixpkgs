@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     description = "SystemVerilog 2017 Pre-processor, Parser, Elaborator, UHDM Compiler";
     homepage = "https://github.com/chipsalliance/Surelog";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ matthuszagh ];
+    maintainers = with lib.maintainers; [matthuszagh];
     platforms = lib.platforms.all;
   };
 }

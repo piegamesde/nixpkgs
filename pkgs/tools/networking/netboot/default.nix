@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     db4
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   # Disable parallel build, errors:
   #  link: `parseopt.lo' is not a valid libtool object
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Mini PXE server";
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

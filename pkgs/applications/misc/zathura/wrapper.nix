@@ -4,7 +4,7 @@
   makeWrapper,
   zathura_core,
   file,
-  plugins ? [ ],
+  plugins ? [],
 }:
 symlinkJoin {
   name = "zathura-with-plugins-${zathura_core.version}";
@@ -18,7 +18,7 @@ symlinkJoin {
     ]
     ++ plugins;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild =
     let
@@ -26,7 +26,7 @@ symlinkJoin {
     in
     ''
       makeWrapper ${zathura_core.bin}/bin/zathura $out/bin/zathura \
-        --prefix PATH ":" "${lib.makeBinPath [ file ]}" \
+        --prefix PATH ":" "${lib.makeBinPath [file]}" \
         --prefix ZATHURA_PLUGINS_PATH : "$out/lib/zathura"
 
       # zathura fish completion references the zathura_core derivation to

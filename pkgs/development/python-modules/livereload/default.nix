@@ -19,14 +19,14 @@ buildPythonPackage rec {
     sha256 = "1alp83h3l3771l915jqa1ylyllad7wxnmblayan0z0zj37jkp9n7";
   };
 
-  buildInputs = [ django ];
+  buildInputs = [django];
 
   propagatedBuildInputs = [
     tornado
     six
   ];
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
   # TODO: retry running all tests after v2.6.1
   checkPhase = "NOSE_EXCLUDE=test_watch_multiple_dirs nosetests -s";
 

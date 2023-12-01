@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "zpng";
   version = "1.2.2";
@@ -18,7 +18,7 @@ rec {
 
   packageName = "zpng";
 
-  asdFilesToKeep = [ "zpng.asd" ];
+  asdFilesToKeep = ["zpng.asd"];
   overrides = x: x;
 }
 /* (SYSTEM zpng DESCRIPTION Create PNG files SHA256

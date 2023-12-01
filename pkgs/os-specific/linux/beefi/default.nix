@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "1180avalbw414q1gnfqdgc9zg3k9y0401kw9qvcn51qph81d04v5";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   buildInputs = [
     binutils-unwrapped
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "A small script to create bootable EFISTUB kernel images";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ tu-maurice ];
+    maintainers = with maintainers; [tu-maurice];
     homepage = "https://github.com/jfeick/beefi";
   };
 }

@@ -25,12 +25,12 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no unittest just sample files
   doCheck = false;
 
-  pythonImportsCheck = [ "rstfmt" ];
+  pythonImportsCheck = ["rstfmt"];
 
   meta = with lib; {
     description = "A formatter for reStructuredText";
     homepage = "https://github.com/dzhu/rstfmt";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -2,18 +2,18 @@
   stdenv,
   haskellPackages,
   makeWrapper,
-  packages ? (pkgSet: [ ]),
+  packages ? (pkgSet: []),
   nixosTests,
 }:
 
 let
-  termonadEnv = haskellPackages.ghcWithPackages (self: [ self.termonad ] ++ packages self);
+  termonadEnv = haskellPackages.ghcWithPackages (self: [self.termonad] ++ packages self);
 in
 stdenv.mkDerivation {
   pname = "termonad-with-packages";
   inherit (termonadEnv) version;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildCommand = ''
     mkdir -p $out/bin $out/share

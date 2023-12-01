@@ -18,9 +18,9 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ mono ];
+  buildInputs = [mono];
 
   installPhase = ''
     runHook preInstall
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.juniper-lang.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

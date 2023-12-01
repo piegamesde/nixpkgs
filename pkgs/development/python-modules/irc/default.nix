@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-tvc3ky3UeR87GOMZ3nt9rwLSKFpr6iY9EB9NjlU4B+w=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     six
@@ -41,12 +41,12 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [ "irc" ];
+  pythonImportsCheck = ["irc"];
 
   meta = with lib; {
     description = "IRC (Internet Relay Chat) protocol library for Python";
     homepage = "https://github.com/jaraco/irc";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

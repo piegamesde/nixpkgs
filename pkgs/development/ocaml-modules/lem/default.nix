@@ -37,7 +37,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.07")
       num
     ];
 
-    installFlags = [ "INSTALL_DIR=$(out)" ];
+    installFlags = ["INSTALL_DIR=$(out)"];
 
     createFindlibDestdir = true;
 
@@ -48,7 +48,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.07")
     meta = with lib; {
       homepage = "https://github.com/rems-project/lem";
       description = "A tool for lightweight executable mathematics";
-      maintainers = with maintainers; [ genericnerdyusername ];
+      maintainers = with maintainers; [genericnerdyusername];
       license = with licenses; [
         bsd3
         gpl2

@@ -23,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-1+xIqOogRUt+blX7AZSKIiU8lpR4AzKIIW/smCSft94=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -35,12 +35,12 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [ "pyvera" ];
+  pythonImportsCheck = ["pyvera"];
 
   meta = with lib; {
     description = "Python library to control devices via the Vera hub";
     homepage = "https://github.com/pavoni/pyvera";
-    license = with licenses; [ gpl2Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl2Only];
+    maintainers = with maintainers; [fab];
   };
 }

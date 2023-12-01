@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-speedy-queue";
   version = "20150302-git";
 
   description = "cl-speedy-queue is a portable, non-consing, optimized queue implementation.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-speedy-queue/2015-03-02/cl-speedy-queue-20150302-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "cl-speedy-queue";
 
-  asdFilesToKeep = [ "cl-speedy-queue.asd" ];
+  asdFilesToKeep = ["cl-speedy-queue.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-speedy-queue DESCRIPTION

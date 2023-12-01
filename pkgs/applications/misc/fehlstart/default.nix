@@ -18,8 +18,8 @@ stdenv.mkDerivation {
     sha256 = "1rfzh7w6n2s9waprv7m1bhvqrk36a77ada7w655pqiwkhdj5q95i";
   };
 
-  patches = [ ./use-nix-profiles.patch ];
-  nativeBuildInputs = [ pkg-config ];
+  patches = [./use-nix-profiles.patch];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gtk2
     keybinder
@@ -33,7 +33,7 @@ stdenv.mkDerivation {
     description = "Small desktop application launcher with reasonable memory footprint";
     homepage = "https://gitlab.com/fehlstart/fehlstart";
     license = licenses.gpl3;
-    maintainers = [ maintainers.mounium ];
+    maintainers = [maintainers.mounium];
     platforms = platforms.all;
   };
 }

@@ -27,8 +27,8 @@ stdenv.mkDerivation {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jdk ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jdk];
 
   installPhase = ''
     mkdir -p $out/share/lib/selendroid
@@ -48,9 +48,9 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "http://selendroid.io/";
     description = "Test automation for native or hybrid Android apps and the mobile web";
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     platforms = platforms.all;
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
   };
 }

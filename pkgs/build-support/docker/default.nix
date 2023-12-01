@@ -45,7 +45,7 @@ let
   mkDbExtraCommand =
     contents:
     let
-      contentsList = if builtins.isList contents then contents else [ contents ];
+      contentsList = if builtins.isList contents then contents else [contents];
     in
     ''
       echo "Generating the nix database..."
@@ -58,7 +58,7 @@ let
       # https://github.com/NixOS/nix/blob/9348f9291e5d9e4ba3c4347ea1b235640f54fd79/src/libutil/util.cc#L478
       export USER=nobody
       ${buildPackages.nix}/bin/nix-store --load-db < ${
-        closureInfo { rootPaths = contentsList; }
+        closureInfo {rootPaths = contentsList;}
       }/registration
 
       mkdir -p nix/var/nix/gcroots/docker/
@@ -140,7 +140,7 @@ rec {
         outputHashAlgo = "sha256";
         outputHash = sha256;
 
-        nativeBuildInputs = [ skopeo ];
+        nativeBuildInputs = [skopeo];
         SSL_CERT_FILE = "${cacert.out}/etc/ssl/certs/ca-bundle.crt";
 
         sourceURL = "docker://${imageName}@${imageDigest}";
@@ -168,7 +168,7 @@ rec {
       derivations,
       onlyDeps ? false,
     }:
-    runCommand "merge-drvs" { inherit derivations onlyDeps; } ''
+    runCommand "merge-drvs" {inherit derivations onlyDeps;} ''
       if [[ -n "$onlyDeps" ]]; then
         echo $derivations > $out
         exit 0
@@ -484,7 +484,7 @@ rec {
         buildVMMemorySize
         ;
 
-      preMount = lib.optionalString (copyToRoot != null && copyToRoot != [ ]) ''
+      preMount = lib.optionalString (copyToRoot != null && copyToRoot != []) ''
         echo "Adding contents..."
         for item in ${escapeShellArgs (map (c: "${c}") (toList copyToRoot))}; do
           echo "Adding $item..."
@@ -537,7 +537,7 @@ rec {
     };
 
   buildLayeredImage =
-    { name, ... }@args:
+    {name, ...}@args:
     let
       stream = streamLayeredImage args;
     in
@@ -547,7 +547,7 @@ rec {
         passthru = {
           inherit (stream) imageTag;
         };
-        nativeBuildInputs = [ pigz ];
+        nativeBuildInputs = [pigz];
       }
       "${stream} | pigz -nTR > $out";
 
@@ -620,7 +620,7 @@ rec {
           impure =
             runCommand "${baseName}-config.json"
               {
-                nativeBuildInputs = [ jq ];
+                nativeBuildInputs = [jq];
                 preferLocalBuild = true;
               }
               ''
@@ -874,19 +874,19 @@ rec {
 
   # This provides a /usr/bin/env, for shell scripts using the
   # "#!/usr/bin/env executable" shebang.
-  usrBinEnv = runCommand "usr-bin-env" { } ''
+  usrBinEnv = runCommand "usr-bin-env" {} ''
     mkdir -p $out/usr/bin
     ln -s ${coreutils}/bin/env $out/usr/bin
   '';
 
   # This provides /bin/sh, pointing to bashInteractive.
-  binSh = runCommand "bin-sh" { } ''
+  binSh = runCommand "bin-sh" {} ''
     mkdir -p $out/bin
     ln -s ${bashInteractive}/bin/bash $out/bin/sh
   '';
 
   # This provides the ca bundle in common locations
-  caCertificates = runCommand "ca-certificates" { } ''
+  caCertificates = runCommand "ca-certificates" {} ''
     mkdir -p $out/etc/ssl/certs $out/etc/pki/tls/certs
     # Old NixOS compatibility.
     ln -s ${cacert}/etc/ssl/certs/ca-bundle.crt $out/etc/ssl/certs/ca-bundle.crt
@@ -908,7 +908,7 @@ rec {
       extraCommands ? "",
       ...
     }:
-    (buildImage (args // { extraCommands = (mkDbExtraCommand copyToRoot) + extraCommands; }));
+    (buildImage (args // {extraCommands = (mkDbExtraCommand copyToRoot) + extraCommands;}));
 
   # TODO: add the dependencies of the config json.
   buildLayeredImageWithNixDb =
@@ -917,7 +917,7 @@ rec {
       extraCommands ? "",
       ...
     }:
-    (buildLayeredImage (args // { extraCommands = (mkDbExtraCommand contents) + extraCommands; }));
+    (buildLayeredImage (args // {extraCommands = (mkDbExtraCommand contents) + extraCommands;}));
 
   streamLayeredImage =
     {
@@ -928,9 +928,9 @@ rec {
       # Parent image, to append to.
       fromImage ? null,
       # Files to put on the image (a nix store path or list of paths).
-      contents ? [ ],
+      contents ? [],
       # Docker config; e.g. what command to run on the container.
-      config ? { },
+      config ? {},
       # Image architecture, defaults to the architecture of the `hostPlatform` when unset
       architecture ? defaultArchitecture,
       # Time of creation of the image. Passing "now" will make the
@@ -953,7 +953,7 @@ rec {
       # efficiently via other means, such as bind mounting the host store.
       includeStorePaths ? true,
       # Passthru arguments for the underlying derivation.
-      passthru ? { },
+      passthru ? {},
     }:
     assert (lib.assertMsg (maxLayers > 1)
       "the maxLayers argument of dockerTools.buildLayeredImage function must be greather than 1 (current value: ${toString maxLayers})"
@@ -961,7 +961,7 @@ rec {
     let
       baseName = baseNameOf name;
 
-      streamScript = writePython3 "stream" { } ./stream_layered_image.py;
+      streamScript = writePython3 "stream" {} ./stream_layered_image.py;
       baseJson = writeText "${baseName}-base.json" (
         builtins.toJSON {
           inherit config architecture;
@@ -969,7 +969,7 @@ rec {
         }
       );
 
-      contentsList = if builtins.isList contents then contents else [ contents ];
+      contentsList = if builtins.isList contents then contents else [contents];
 
       # We store the customisation layer as a tarball, to make sure that
       # things like permissions set on 'extraCommands' are not overridden
@@ -979,7 +979,7 @@ rec {
         paths = contentsList;
         inherit extraCommands fakeRootCommands;
         nativeBuildInputs =
-          [ fakeroot ]
+          [fakeroot]
           ++ optionals enableFakechroot [
             fakechroot
             # for chroot
@@ -1037,7 +1037,7 @@ rec {
             passthru.imageTag =
               if tag != null then tag else lib.head (lib.strings.splitString "-" (baseNameOf conf.outPath));
             paths = buildPackages.referencesByPopularity overallClosure;
-            nativeBuildInputs = [ jq ];
+            nativeBuildInputs = [jq];
           }
           ''
             ${if (tag == null) then
@@ -1132,7 +1132,7 @@ rec {
               # take images can know in advance how the image is supposed to be used.
               isExe = true;
             };
-            nativeBuildInputs = [ makeWrapper ];
+            nativeBuildInputs = [makeWrapper];
           }
           ''
             makeWrapper ${streamScript} $out --add-flags ${conf}
@@ -1176,7 +1176,7 @@ rec {
         }
       '';
 
-      staticPath = "${dirOf shell}:${lib.makeBinPath [ builder ]}";
+      staticPath = "${dirOf shell}:${lib.makeBinPath [builder]}";
 
       # https://github.com/NixOS/nix/blob/2.8.0/src/nix-build/nix-build.cc#L493-L526
       rcfile = writeText "nix-shell-rc" ''
@@ -1228,7 +1228,7 @@ rec {
             let
               str = stringValue value;
             in
-            if lib.elem name (drv.drvAttrs.passAsFile or [ ]) then
+            if lib.elem name (drv.drvAttrs.passAsFile or []) then
               lib.nameValuePair "${name}Path" (writeText "pass-as-text-${name}" str)
             else
               lib.nameValuePair name str
@@ -1296,7 +1296,7 @@ rec {
           extraPasswdLines = [
             "nixbld:x:${toString uid}:${toString gid}:Build user:${homeDirectory}:/noshell"
           ];
-          extraGroupLines = [ "nixbld:!:${toString gid}:" ];
+          extraGroupLines = ["nixbld:!:${toString gid}:"];
         })
       ];
 
@@ -1335,7 +1335,7 @@ rec {
 
   # Wrapper around streamNixShellImage to build an image from the result
   buildNixShellImage =
-    { drv, ... }@args:
+    {drv, ...}@args:
     let
       stream = streamNixShellImage args;
     in
@@ -1345,7 +1345,7 @@ rec {
         passthru = {
           inherit (stream) imageTag;
         };
-        nativeBuildInputs = [ pigz ];
+        nativeBuildInputs = [pigz];
       }
       "${stream} | pigz -nTR > $out";
 }

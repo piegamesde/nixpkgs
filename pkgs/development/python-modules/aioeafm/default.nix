@@ -31,9 +31,9 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   nativeCheckInputs = [
     pytest-aiohttp
@@ -42,12 +42,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aioeafm" ];
+  pythonImportsCheck = ["aioeafm"];
 
   meta = with lib; {
     description = "Python client for access the Real Time flood monitoring API";
     homepage = "https://github.com/Jc2k/aioeafm";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

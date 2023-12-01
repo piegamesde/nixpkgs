@@ -27,11 +27,11 @@ stdenv.mkDerivation {
     autoreconfHook269
     varnish.python
   ];
-  buildInputs = [ varnish ];
+  buildInputs = [varnish];
   postPatch = ''
     substituteInPlace Makefile.am --replace "''${LIBVARNISHAPI_DATAROOTDIR}/aclocal" "${varnish.dev}/share/aclocal"
   '';
-  configureFlags = [ "VMOD_DIR=$(out)/lib/varnish/vmods" ];
+  configureFlags = ["VMOD_DIR=$(out)/lib/varnish/vmods"];
 
   meta = with lib; {
     description = "Dynamic director similar to the DNS director from Varnish 3";

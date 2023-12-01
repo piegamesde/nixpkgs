@@ -22,12 +22,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "utils" ];
+  pythonImportsCheck = ["utils"];
 
   meta = with lib; {
     description = "Python set of utility functions and objects";
     homepage = "https://github.com/haaksmash/pyutils";
-    license = with licenses; [ lgpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [lgpl3Only];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -26,6 +26,6 @@ buildGoModule rec {
     homepage = "https://github.com/guptarohit/asciigraph";
     description = "Lightweight ASCII line graph ╭┈╯ command line app";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ mmahut ];
+    maintainers = with maintainers; [mmahut];
   };
 }

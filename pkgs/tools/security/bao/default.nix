@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   meta = {
     description = "An implementation of BLAKE3 verified streaming";
     homepage = "https://github.com/oconnor663/bao";
-    maintainers = with lib.maintainers; [ amarshall ];
+    maintainers = with lib.maintainers; [amarshall];
     license = with lib.licenses; [
       cc0
       asl20

@@ -41,8 +41,8 @@ stdenv.mkDerivation rec {
     ./patches/0002-reintroduce-tlp-sleep-service.patch
   ];
 
-  buildInputs = [ perl ];
-  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [perl];
+  nativeBuildInputs = [makeWrapper];
 
   # XXX: While [1] states that DESTDIR should not be used, and that the correct
   # variable to set is, in fact, PREFIX, tlp thinks otherwise. The Makefile for
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
     perlcritic
     shellcheck
   ];
-  checkTarget = [ "checkall" ];
+  checkTarget = ["checkall"];
 
   # TODO: Consider using resholve here
   postInstall =

@@ -21,15 +21,15 @@ buildGoModule rec {
   vendorHash = "sha256-fyGC6k9/xER5GwVelBhy5C5tiq6NMhwSmYjSpvenrfA=";
   proxyVendor = true;
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ ffmpeg_4 ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [ffmpeg_4];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = with lib; {
     homepage = "https://github.com/bakape/hydron";
     description = "High performance media tagger and organizer";
-    license = with licenses; [ lgpl3Plus ];
-    maintainers = with maintainers; [ Madouura ];
+    license = with licenses; [lgpl3Plus];
+    maintainers = with maintainers; [Madouura];
   };
 }

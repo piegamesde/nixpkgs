@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HqellbKh2ZDHxslXl7SSIXtpjV1sodtgVwh8hgTC3Dc=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ]; # Some patches impact ./configure.
-  buildInputs = [ elfutils ];
-  nativeCheckInputs = [ dejagnu ];
+  nativeBuildInputs = [autoreconfHook]; # Some patches impact ./configure.
+  buildInputs = [elfutils];
+  nativeCheckInputs = [dejagnu];
 
   # Import Fedora's (very) large patch series: bug fixes, architecture support,
   # etc. RH/Fedora are currently working with upstream to merge all these
@@ -68,6 +68,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.ltrace.org/";
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ delroth ];
+    maintainers = with maintainers; [delroth];
   };
 }

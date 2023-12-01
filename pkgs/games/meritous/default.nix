@@ -49,7 +49,7 @@ stdenv.mkDerivation {
     description = "Action-adventure dungeon crawl game";
     homepage = "http://www.asceai.net/meritous/";
     license = licenses.gpl3;
-    maintainers = [ maintainers.alexvorobiev ];
+    maintainers = [maintainers.alexvorobiev];
     platforms = platforms.linux;
   };
 }

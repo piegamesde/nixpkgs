@@ -33,7 +33,7 @@ stdenv.mkDerivation {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = lib.optionals stdenv.isLinux [autoPatchelfHook];
 
   dontBuild = true;
 
@@ -45,7 +45,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Perforce Helix Core Server";
     homepage = "https://www.perforce.com";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     mainProgram = "p4d";
     platforms = builtins.attrNames srcs;

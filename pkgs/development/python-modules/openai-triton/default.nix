@@ -49,7 +49,7 @@ let
       ];
       # Upstream CI sets these too:
       # targetProjects = [ "mlir" ];
-      extraCMakeFlags = [ "-DLLVM_INSTALL_UTILS=ON" ];
+      extraCMakeFlags = ["-DLLVM_INSTALL_UTILS=ON"];
     });
 in
 buildPythonPackage {
@@ -132,7 +132,7 @@ buildPythonPackage {
         # Bash was getting weird without linting,
         # but basically upstream contains [cc, ..., "-lcuda", ...]
         # and we replace it with [..., "-lcuda", "-L/run/opengl-driver/lib", "-L$stubs", ...]
-        old = [ "-lcuda" ];
+        old = ["-lcuda"];
         new = [
           "-lcuda"
           "-L${addOpenGLRunpath.driverLink}"
@@ -177,7 +177,7 @@ buildPythonPackage {
     zlib
   ];
 
-  propagatedBuildInputs = [ filelock ];
+  propagatedBuildInputs = [filelock];
 
   # Avoid GLIBCXX mismatch with other cuda-enabled python packages
   preConfigure = ''
@@ -203,7 +203,7 @@ buildPythonPackage {
 
   # CMake is run by setup.py instead
   dontUseCmakeConfigure = true;
-  cmakeFlags = [ "-DMLIR_DIR=${llvmPackages.mlir}/lib/cmake/mlir" ];
+  cmakeFlags = ["-DMLIR_DIR=${llvmPackages.mlir}/lib/cmake/mlir"];
 
   postFixup =
     let
@@ -252,6 +252,6 @@ buildPythonPackage {
     homepage = "https://github.com/openai/triton/";
     platforms = lib.platforms.unix;
     license = licenses.mit;
-    maintainers = with maintainers; [ SomeoneSerge ];
+    maintainers = with maintainers; [SomeoneSerge];
   };
 }

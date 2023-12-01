@@ -40,14 +40,14 @@ in
   config = {
     systemd.services.digitalocean-init = mkIf cfg.rebuildFromUserData {
       description = "Reconfigure the system from Digital Ocean userdata on startup";
-      wantedBy = [ "network-online.target" ];
+      wantedBy = ["network-online.target"];
       unitConfig = {
         ConditionPathExists = "!/etc/nixos/do-userdata.nix";
         After = [
           "digitalocean-metadata.service"
           "network-online.target"
         ];
-        Requires = [ "digitalocean-metadata.service" ];
+        Requires = ["digitalocean-metadata.service"];
         X-StopOnRemoval = false;
       };
       serviceConfig = {

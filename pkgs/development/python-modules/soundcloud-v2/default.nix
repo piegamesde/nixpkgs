@@ -25,12 +25,12 @@ buildPythonPackage rec {
   # tests require network
   doCheck = false;
 
-  pythonImportsCheck = [ "soundcloud" ];
+  pythonImportsCheck = ["soundcloud"];
 
   meta = with lib; {
     description = "Python wrapper for the v2 SoundCloud API";
     homepage = "https://github.com/7x11x13/soundcloud.py";
     license = licenses.mit;
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [marsam];
   };
 }

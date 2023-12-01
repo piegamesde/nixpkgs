@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     hash = "sha256-+EUZluBtgZiziTEIfXIhkRIBu/Pe78qmL18TQHkfHO4=";
   };
-  buildInputs = [ fuse ];
+  buildInputs = [fuse];
   installPhase = ''
     runHook preInstall
     install -D lfs $out/bin/${pname}
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   meta = src.meta // {
     description = "A FUSE wrapper that puts the littlefs in user-space";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
     inherit (fuse.meta) platforms;
   };
 }

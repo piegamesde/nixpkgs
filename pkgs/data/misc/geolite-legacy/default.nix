@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jViHQ+w9SEqFCbWf4KtNiTdWXT0RuCTjZ9dus0a3F0k=";
   };
 
-  nativeBuildInputs = [ zstd ];
+  nativeBuildInputs = [zstd];
 
   buildCommand = ''
     tar -xaf ${geoip}
@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
     homepage = "https://mailfud.org/geoip-legacy/";
     license = licenses.cc-by-sa-40;
     platforms = platforms.all;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
   };
 }

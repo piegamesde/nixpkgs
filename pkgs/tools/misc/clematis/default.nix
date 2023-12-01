@@ -22,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/TorchedSammy/Clematis";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ misterio77 ];
+    maintainers = with maintainers; [misterio77];
   };
 }

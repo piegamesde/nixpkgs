@@ -60,9 +60,9 @@ buildPythonPackage rec {
     pyqt-builder
   ];
 
-  buildInputs = with qt6Packages; [ qtwebengine ];
+  buildInputs = with qt6Packages; [qtwebengine];
 
-  propagatedBuildInputs = [ pyqt6 ];
+  propagatedBuildInputs = [pyqt6];
 
   passthru = {
     inherit sip;

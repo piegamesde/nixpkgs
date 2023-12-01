@@ -40,7 +40,7 @@ buildPythonApplication rec {
     hash = "sha256-MIy7dmfPju+x9gB3Hgke4BAC9UVagwTsBLql21HMvMc=";
   };
 
-  nativeBuildInputs = [ pdm-backend ];
+  nativeBuildInputs = [pdm-backend];
 
   propagatedBuildInputs =
     [
@@ -62,8 +62,8 @@ buildPythonApplication rec {
       virtualenv
     ]
     ++ cachecontrol.optional-dependencies.filecache
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+    ++ lib.optionals (pythonOlder "3.11") [tomli]
+    ++ lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -72,7 +72,7 @@ buildPythonApplication rec {
     pytest-xdist
   ];
 
-  pytestFlagsArray = [ "-m 'not network'" ];
+  pytestFlagsArray = ["-m 'not network'"];
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -93,6 +93,6 @@ buildPythonApplication rec {
     changelog = "https://github.com/pdm-project/pdm/releases/tag/${version}";
     description = "A modern Python package manager with PEP 582 support";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

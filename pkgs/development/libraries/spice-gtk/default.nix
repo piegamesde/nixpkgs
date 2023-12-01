@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-k4ARfxgRrR+qGBLLZgJHm2KQ1KDYzEQtREJ/f2wOelg=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs =
     [
@@ -94,8 +94,8 @@ stdenv.mkDerivation rec {
       python3.pkgs.six
       vala
     ]
-    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ mesonEmulatorHook ]
-    ++ lib.optionals stdenv.isLinux [ wayland-scanner ];
+    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [mesonEmulatorHook]
+    ++ lib.optionals stdenv.isLinux [wayland-scanner];
 
   propagatedBuildInputs = [
     gst_all_1.gst-plugins-base
@@ -139,7 +139,7 @@ stdenv.mkDerivation rec {
       "-Dusb-acl-helper-dir=${placeholder "out"}/bin"
       "-Dusb-ids-path=${hwdata}/share/hwdata/usb.ids"
     ]
-    ++ lib.optionals (!withPolkit) [ "-Dpolkit=disabled" ]
+    ++ lib.optionals (!withPolkit) ["-Dpolkit=disabled"]
     ++ lib.optionals (!stdenv.isLinux) [
       "-Dlibcap-ng=disabled"
       "-Degl=disabled"
@@ -171,7 +171,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://www.spice-space.org/";
     license = licenses.lgpl21;
-    maintainers = [ maintainers.xeji ];
+    maintainers = [maintainers.xeji];
     platforms = platforms.unix;
   };
 }

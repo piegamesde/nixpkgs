@@ -59,7 +59,7 @@ let
 
                 passthru = {
                   wpName = pname;
-                } // (args.passthru or { });
+                } // (args.passthru or {});
               }
               // lib.optionalAttrs (type == "language") {
                 nativeBuildInputs = [
@@ -87,14 +87,14 @@ let
               ]
             )
           )
-          { };
+          {};
 
       # Create a derivation from the official wordpress.org packages.
       # This takes the type, the pname and the data generated from the go tool.
       mkOfficialWordpressDerivation =
         self.callPackage
           (
-            { mkWordpressDerivation, fetchWordpress }:
+            {mkWordpressDerivation, fetchWordpress}:
             {
               type,
               pname,
@@ -107,7 +107,7 @@ let
               src = fetchWordpress type data;
             }
           )
-          { };
+          {};
 
       # Filter out all characters that might occur in a version string but that that are not allowed
       # in store paths.
@@ -159,7 +159,7 @@ let
       fetchWordpress =
         self.callPackage
           (
-            { fetchsvn }:
+            {fetchsvn}:
             type: data:
             fetchsvn {
               inherit (data) rev sha256;
@@ -176,7 +176,7 @@ let
                   throw "fetchWordpress: invalid package type ${type}";
             }
           )
-          { };
+          {};
     }
     //
       lib.mapAttrs
@@ -199,5 +199,5 @@ let
 in
 # This creates an extensible scope.
 lib.recursiveUpdate
-  ((lib.makeExtensible (_: (lib.makeScope newScope packages))).extend (selfWP: superWP: { }))
-  (callPackage ./thirdparty.nix { })
+  ((lib.makeExtensible (_: (lib.makeScope newScope packages))).extend (selfWP: superWP: {}))
+  (callPackage ./thirdparty.nix {})

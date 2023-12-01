@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ libebml ];
+  buildInputs = [libebml];
 
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=YES"
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     description = "A library to parse Matroska files";
     homepage = "https://matroska.org/";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ spwhitt ];
+    maintainers = with maintainers; [spwhitt];
     platforms = platforms.unix;
   };
 }

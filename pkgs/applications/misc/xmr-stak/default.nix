@@ -30,14 +30,14 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fix-libmicrohttpd-0-9-71.patch";
       url = "https://github.com/fireice-uk/xmr-stak/compare/06e08780eab54dbc025ce3f38c948e4eef2726a0...8adb208987f5881946992ab9cd9a45e4e2a4b870.patch";
-      excludes = [ "CMakeLists.txt.user" ];
+      excludes = ["CMakeLists.txt.user"];
       hash = "sha256-Yv0U5EO1P5eikn1fKvUXEwemoUIjjeTjpP9p5J8pbC0=";
     })
   ];
 
-  cmakeFlags = [ "-DCUDA_ENABLE=OFF" ] ++ lib.optional (!openclSupport) "-DOpenCL_ENABLE=OFF";
+  cmakeFlags = ["-DCUDA_ENABLE=OFF"] ++ lib.optional (!openclSupport) "-DOpenCL_ENABLE=OFF";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs =
     [
       libmicrohttpd
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     description = "Unified All-in-one Monero miner";
     homepage = "https://github.com/fireice-uk/xmr-stak";
     license = licenses.gpl3Plus;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ bfortz ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [bfortz];
   };
 }

@@ -22,9 +22,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-hHXA/n/HQeBaD4QZ2b6Okw66poBRwNTpQWF0qBhLp/o=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       Security
@@ -34,6 +34,6 @@ rustPlatform.buildRustPackage rec {
     description = "A TUI interface to the StackExchange network";
     homepage = "https://github.com/samtay/so";
     license = licenses.mit;
-    maintainers = with maintainers; [ mredaelli ];
+    maintainers = with maintainers; [mredaelli];
   };
 }

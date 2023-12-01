@@ -98,20 +98,20 @@ in
 
   config = mkIf config.sound.enable {
 
-    environment.systemPackages = [ alsa-utils ];
+    environment.systemPackages = [alsa-utils];
 
     environment.etc = mkIf (!pulseaudioEnabled && config.sound.extraConfig != "") {
       "asound.conf".text = config.sound.extraConfig;
     };
 
     # ALSA provides a udev rule for restoring volume settings.
-    services.udev.packages = [ alsa-utils ];
+    services.udev.packages = [alsa-utils];
 
     boot.kernelModules = optional config.sound.enableOSSEmulation "snd_pcm_oss";
 
     systemd.services.alsa-store = {
       description = "Store Sound Card State";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       unitConfig.RequiresMountsFor = "/var/lib/alsa";
       unitConfig.ConditionVirtualization = "!systemd-nspawn";
       serviceConfig = {
@@ -127,14 +127,14 @@ in
       bindings = [
         # "Mute" media key
         {
-          keys = [ 113 ];
-          events = [ "key" ];
+          keys = [113];
+          events = ["key"];
           command = "${alsa-utils}/bin/amixer -q set Master toggle";
         }
 
         # "Lower Volume" media key
         {
-          keys = [ 114 ];
+          keys = [114];
           events = [
             "key"
             "rep"
@@ -144,7 +144,7 @@ in
 
         # "Raise Volume" media key
         {
-          keys = [ 115 ];
+          keys = [115];
           events = [
             "key"
             "rep"
@@ -154,8 +154,8 @@ in
 
         # "Mic Mute" media key
         {
-          keys = [ 190 ];
-          events = [ "key" ];
+          keys = [190];
+          events = ["key"];
           command = "${alsa-utils}/bin/amixer -q set Capture toggle";
         }
       ];

@@ -36,14 +36,14 @@ stdenv.mkDerivation rec {
   ];
 
   strictDeps = true;
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   nativeBuildInputs =
-    [ autoreconfHook ]
+    [autoreconfHook]
     ++ lib.optionals enablePython [
       python3
       swig
     ];
-  buildInputs = [ bash ];
+  buildInputs = [bash];
 
   configureFlags = [
     # z/OS plugin is not useful on Linux,
@@ -78,6 +78,6 @@ stdenv.mkDerivation rec {
     homepage = "https://people.redhat.com/sgrubb/audit/";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

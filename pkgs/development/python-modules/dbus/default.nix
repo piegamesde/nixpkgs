@@ -29,7 +29,7 @@ buildPythonPackage rec {
     sha256 = "0q3jrw515z98mqdk9x822nd95rky455zz9876f1nqna5igkd3gcj";
   };
 
-  patches = [ ./fix-includedir.patch ];
+  patches = [./fix-includedir.patch];
 
   preConfigure =
     lib.optionalString (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11" && stdenv.isDarwin)
@@ -37,9 +37,9 @@ buildPythonPackage rec {
         MACOSX_DEPLOYMENT_TARGET=10.16
       '';
 
-  configureFlags = [ "PYTHON=${python.pythonForBuild.interpreter}" ];
+  configureFlags = ["PYTHON=${python.pythonForBuild.interpreter}"];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       dbus
@@ -63,6 +63,6 @@ buildPythonPackage rec {
     description = "Python DBus bindings";
     license = licenses.mit;
     platforms = dbus.meta.platforms;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

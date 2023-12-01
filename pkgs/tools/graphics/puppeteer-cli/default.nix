@@ -17,7 +17,7 @@ mkYarnPackage rec {
   packageJSON = ./package.json;
   yarnLock = ./yarn.lock;
   yarnNix = ./yarn.nix;
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   postInstall = ''
     wrapProgram $out/bin/puppeteer \
       --set PUPPETEER_EXECUTABLE_PATH ${chromium}/bin/chromium

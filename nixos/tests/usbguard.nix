@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "usbguard";
-    meta = with pkgs.lib.maintainers; { maintainers = [ tnias ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [tnias];};
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
         services.usbguard = {
           enable = true;
@@ -20,7 +20,7 @@ import ./make-test-python.nix (
             allow with-interface equals { 09:00:00 }
           '';
         };
-        imports = [ ./common/user-account.nix ];
+        imports = [./common/user-account.nix];
       };
 
     testScript = ''

@@ -18,9 +18,9 @@ buildPythonPackage rec {
     sha256 = "f7bb5f611fc600d15fa47b3974c8aa16e93724513b49b5f95c81e6624c83fa43";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
-  pythonImportsCheck = [ "multipart" ];
+  pythonImportsCheck = ["multipart"];
 
   preCheck = ''
     # https://github.com/andrew-d/python-multipart/issues/41
@@ -38,6 +38,6 @@ buildPythonPackage rec {
     description = "A streaming multipart parser for Python";
     homepage = "https://github.com/andrew-d/python-multipart";
     license = licenses.asl20;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

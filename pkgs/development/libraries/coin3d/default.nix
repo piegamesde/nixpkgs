@@ -21,7 +21,7 @@ stdenv.mkDerivation (
       hash = "sha256-lXS7GxtoPsZe2SJfr0uY99Q0ZtYG0KFlauY1PBuFleo=";
     };
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
     buildInputs = [
       boost
@@ -30,7 +30,7 @@ stdenv.mkDerivation (
       libX11
     ];
 
-    cmakeFlags = [ "-DCOIN_USE_CPACK=OFF" ];
+    cmakeFlags = ["-DCOIN_USE_CPACK=OFF"];
 
     meta = with lib; {
       homepage = "https://github.com/coin3d/coin";

@@ -19,7 +19,7 @@ let
     builder = buildRebar3;
     overrides =
       (self: super: {
-        proper = super.proper.overrideAttrs (_: { configurePhase = "true"; });
+        proper = super.proper.overrideAttrs (_: {configurePhase = "true";});
         redbug = super.redbug.overrideAttrs (
           _: {
             patchPhase = ''
@@ -46,7 +46,7 @@ rebar3Relx {
     rm apps/els_lsp/test/els_diagnostics_SUITE.erl
   '';
 
-  buildPlugins = [ rebar3-proper ];
+  buildPlugins = [rebar3-proper];
   buildPhase = "HOME=. make";
   # based on https://github.com/erlang-ls/erlang_ls/blob/main/.github/workflows/build.yml
   # these tests are excessively long and we should probably skip them

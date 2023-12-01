@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/man/man1 $out/bin $out/share $out/etc
   '';
 
-  buildInputs = [ libdvdread ];
+  buildInputs = [libdvdread];
 
   meta = {
     broken = (stdenv.isLinux && stdenv.isAarch64);

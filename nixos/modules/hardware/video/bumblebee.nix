@@ -20,7 +20,7 @@ let
 
   useBbswitch = cfg.pmMethod == "bbswitch" || cfg.pmMethod == "auto" && useNvidia;
 
-  primus = pkgs.primus.override { inherit useNvidia; };
+  primus = pkgs.primus.override {inherit useNvidia;};
 in
 
 {
@@ -101,8 +101,8 @@ in
 
     systemd.services.bumblebeed = {
       description = "Bumblebee Hybrid Graphics Switcher";
-      wantedBy = [ "multi-user.target" ];
-      before = [ "display-manager.service" ];
+      wantedBy = ["multi-user.target"];
+      before = ["display-manager.service"];
       serviceConfig = {
         ExecStart = "${bumblebee}/bin/bumblebeed --use-syslog -g ${cfg.group} --driver ${cfg.driver} --pm-method ${cfg.pmMethod}";
       };

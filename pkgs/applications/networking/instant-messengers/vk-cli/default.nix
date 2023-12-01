@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Y40oLjddunrd7ZF1JbCcgjSCn8jFTubq69jhAVxInXw=";
   };
 
-  nativeBuildInputs = [ p7zip ];
+  nativeBuildInputs = [p7zip];
 
   buildInputs = [
     curl
@@ -51,9 +51,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A console (ncurses) client for vk.com written in D";
     homepage = "https://github.com/vk-cli/vk";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.asl20;
-    maintainers = with maintainers; [ dan4ik605743 ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [dan4ik605743];
+    platforms = ["x86_64-linux"];
   };
 }

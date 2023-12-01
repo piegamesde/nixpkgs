@@ -17,6 +17,6 @@ buildPythonPackage rec {
     description = "Typing stubs for futures";
     homepage = "https://github.com/python/typeshed";
     license = licenses.asl20;
-    maintainers = with maintainers; [ andersk ];
+    maintainers = with maintainers; [andersk];
   };
 }

@@ -26,7 +26,7 @@ buildDunePackage rec {
 
   inherit (irmin) version src strictDeps;
 
-  nativeBuildInputs = [ ppx_irmin ];
+  nativeBuildInputs = [ppx_irmin];
 
   propagatedBuildInputs = [
     index

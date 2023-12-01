@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+5Rh9cuf6l4H6RiCMRsMiLQ+iEOwF+usBeta9pqjTBU=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     pkg-config
     meson
@@ -108,7 +108,7 @@ stdenv.mkDerivation rec {
     description = "An X server for interfacing X11 apps with the Wayland protocol";
     homepage = "https://wayland.freedesktop.org/xserver.html";
     license = licenses.mit;
-    maintainers = with maintainers; [ emantor ];
+    maintainers = with maintainers; [emantor];
     platforms = platforms.linux;
   };
 }

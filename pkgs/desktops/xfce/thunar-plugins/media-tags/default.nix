@@ -33,6 +33,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "Thunar plugin providing tagging and renaming features for media files";
-    maintainers = with maintainers; [ ncfavier ] ++ teams.xfce.members;
+    maintainers = with maintainers; [ncfavier] ++ teams.xfce.members;
   };
 }

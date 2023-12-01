@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
 
   installPhase = ''
     install -D dmg2img $out/bin/dmg2img

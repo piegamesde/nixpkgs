@@ -19,7 +19,7 @@ with builtins;
 with lib;
 
 let
-  mavenMinimal = import ./maven-minimal.nix { inherit lib pkgs; };
+  mavenMinimal = import ./maven-minimal.nix {inherit lib pkgs;};
 in
 stdenv.mkDerivation rec {
   inherit
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
 
   flatDeps = unique (flatten (mavenDeps ++ mavenMinimal.mavenMinimal));
 
-  propagatedBuildInput = [ maven ] ++ flatDeps;
+  propagatedBuildInput = [maven] ++ flatDeps;
 
   find = "find ${
     concatStringsSep " " (map (x: x + "/m2") flatDeps)

@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-AOzbxUnrn1qgscjdOKf4dordnSKtIg3nSVaYWK1jbuc=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   installPhase = ''
     install -m755 -D VeryFastTree $out/bin/VeryFastTree
@@ -26,6 +26,6 @@ stdenv.mkDerivation rec {
     description = "Speeding up the estimation of phylogenetic trees for large alignments through parallelization and vectorization strategies";
     license = licenses.gpl3Plus;
     homepage = "https://github.com/citiususc/veryfasttree";
-    maintainers = with maintainers; [ thyol ];
+    maintainers = with maintainers; [thyol];
   };
 }

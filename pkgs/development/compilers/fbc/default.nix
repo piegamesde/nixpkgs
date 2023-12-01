@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fbc-tests-Fix-stack-corruption.patch";
       url = "https://github.com/freebasic/fbc/commit/42f4f6dfdaafdd5302a647152f16cda78e4ec904.patch";
-      excludes = [ "changelog.txt" ];
+      excludes = ["changelog.txt"];
       sha256 = "sha256-Bn+mnTIkM2/uM2k/b9+Up4HJ7SJWwfD3bWLJsSycFRE=";
     })
     # Respect SOURCE_DATE_EPOCH when set
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fbc-SOURCE_DATE_EPOCH-support.patch";
       url = "https://github.com/freebasic/fbc/commit/74ea6efdcfe9a90d1c860f64d11ab4a6cd607269.patch";
-      excludes = [ "changelog.txt" ];
+      excludes = ["changelog.txt"];
       sha256 = "sha256-v5FTi4vKOvSV03kigZDiOH8SEGEphhzkBL6p1hd+NtU=";
     })
   ];
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   makeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
     "TARGET=${stdenv.hostPlatform.config}"
@@ -120,7 +120,7 @@ stdenv.mkDerivation rec {
     buildFlagsArray+=("FBC=$PWD/patched-fbc/bin/fbc${stdenv.buildPlatform.extensions.executable} -i $PWD/inc")
   '';
 
-  installFlags = [ "prefix=${placeholder "out"}" ];
+  installFlags = ["prefix=${placeholder "out"}"];
 
   # Tests do not work when cross-compiling even if build platform can execute
   # host binaries, compiler struggles to find the cross compiler's libgcc_s
@@ -161,7 +161,7 @@ stdenv.mkDerivation rec {
       and many others.
     '';
     license = licenses.gpl2Plus; # runtime & graphics libraries are LGPLv2+ w/ static linking exception
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = with platforms; windows ++ linux;
   };
 }

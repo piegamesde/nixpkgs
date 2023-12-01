@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     pkg-config
     meson
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     libxkbcommon
     wayland
     wayland-protocols
-  ] ++ lib.optionals withGtkLayerShell [ gtk-layer-shell ];
+  ] ++ lib.optionals withGtkLayerShell [gtk-layer-shell];
 
   postPatch = ''
     substituteInPlace style.css \
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ArtsyMacaw/wlogout";
     description = "A wayland based logout menu";
     license = licenses.mit;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.linux;
   };
 }

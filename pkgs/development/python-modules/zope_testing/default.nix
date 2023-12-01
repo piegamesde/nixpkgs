@@ -29,6 +29,6 @@ buildPythonPackage rec {
     description = "Zope testing helpers";
     homepage = "http://pypi.python.org/pypi/zope.testing";
     license = licenses.zpl20;
-    maintainers = with maintainers; [ goibhniu ];
+    maintainers = with maintainers; [goibhniu];
   };
 }

@@ -21,18 +21,18 @@ buildPythonPackage rec {
     hash = "sha256-JMGBgYjnjHQ5JpzDwJcR2nVZfzmQ8ZZtcB0GsJ9Q4Jc=";
   };
 
-  propagatedBuildInputs = [ jsonpointer ];
+  propagatedBuildInputs = [jsonpointer];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "jsonpatch" ];
+  pythonImportsCheck = ["jsonpatch"];
 
-  pytestFlagsArray = [ "tests.py" ];
+  pytestFlagsArray = ["tests.py"];
 
   meta = with lib; {
     description = "Library to apply JSON Patches according to RFC 6902";
     homepage = "https://github.com/stefankoegl/python-json-patch";
     license = licenses.bsd2; # "Modified BSD license, says pypi"
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -24,7 +24,7 @@ buildPythonPackage rec {
     zeep
   ];
 
-  pythonImportsCheck = [ "onvif" ];
+  pythonImportsCheck = ["onvif"];
 
   # Tests are not shipped
   doCheck = false;
@@ -32,7 +32,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "ONVIF Client Implementation in Python";
     homepage = "https://github.com/hunterjm/python-onvif-zeep-async";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -10,7 +10,7 @@ let
     drv:
     stdenv.mkDerivation {
       name = "interactive-shell-${drv.name}";
-      buildInputs = [ drv ];
+      buildInputs = [drv];
     };
 
   pkg =
@@ -32,7 +32,7 @@ let
         description = "Erlang PostgreSQL Driver";
         license = lib.licenses.mit;
         homepage = "https://github.com/semiocast/pgsql";
-        maintainers = with lib.maintainers; [ ericbmerritt ];
+        maintainers = with lib.maintainers; [ericbmerritt];
       };
 
       passthru = {

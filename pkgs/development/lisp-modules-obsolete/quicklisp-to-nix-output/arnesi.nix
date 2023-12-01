@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "arnesi";
   version = "20170403-git";
@@ -28,7 +28,7 @@ rec {
 
   packageName = "arnesi";
 
-  asdFilesToKeep = [ "arnesi.asd" ];
+  asdFilesToKeep = ["arnesi.asd"];
   overrides = x: x;
 }
 /* (SYSTEM arnesi DESCRIPTION

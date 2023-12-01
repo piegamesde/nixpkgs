@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "smug";
   version = "20160421-git";
 
   description = "SMUG: Simple Monadic Uber Go-into, Parsing made easy.";
 
-  deps = [ args."asdf-package-system" ];
+  deps = [args."asdf-package-system"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/smug/2016-04-21/smug-20160421-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "smug";
 
-  asdFilesToKeep = [ "smug.asd" ];
+  asdFilesToKeep = ["smug.asd"];
   overrides = x: x;
 }
 /* (SYSTEM smug DESCRIPTION

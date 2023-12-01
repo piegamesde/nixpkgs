@@ -124,12 +124,12 @@ in
 
   config = mkIf cfg.enable {
 
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -"];
 
     systemd.services.ergo = {
       description = "ergo server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
@@ -141,7 +141,7 @@ in
     };
 
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.listen.port ] ++ [ cfg.api.listen.port ];
+      allowedTCPPorts = [cfg.listen.port] ++ [cfg.api.listen.port];
     };
 
     users.users.${cfg.user} = {
@@ -152,6 +152,6 @@ in
       isSystemUser = true;
     };
 
-    users.groups.${cfg.group} = { };
+    users.groups.${cfg.group} = {};
   };
 }

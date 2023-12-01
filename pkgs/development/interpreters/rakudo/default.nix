@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-/RaGqizzLrnw630Nb5bfyJfPU8z4ntp9Iltoc4CTqhE=";
   };
 
-  nativeBuildInputs = [ removeReferencesTo ];
+  nativeBuildInputs = [removeReferencesTo];
 
   buildInputs = [
     icu
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     "--with-nqp=${nqp}/bin/nqp"
   ];
 
-  disallowedReferences = [ stdenv.cc.cc ];
+  disallowedReferences = [stdenv.cc.cc];
   postFixup = ''
     remove-references-to -t ${stdenv.cc.cc} "$(readlink -f $out/share/perl6/runtime/dynext/libperl6_ops_moar${stdenv.hostPlatform.extensions.sharedLibrary})"
   '';

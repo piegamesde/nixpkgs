@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
   preBuild = ''
     export PYTHONPATH="$PYTHONPATH:$out/lib/python${python.pythonVersion}/site-packages"
     export PATH="$PATH:$out/bin"
-    export LD_LIBRARY_PATH="${lib.makeLibraryPath [ libXtst ]}"
+    export LD_LIBRARY_PATH="${lib.makeLibraryPath [libXtst]}"
   '';
 
   postInstall = ''
@@ -81,6 +81,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/intel/fMBT";
     license = licenses.lgpl21;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
   };
 }

@@ -33,7 +33,7 @@ stdenvNoCC.mkDerivation {
     '';
     homepage = "https://github.com/edent/SuperTinyIcons";
     license = licenses.mit;
-    maintainers = [ maintainers.h7x4 ];
+    maintainers = [maintainers.h7x4];
     platforms = platforms.all;
   };
 }

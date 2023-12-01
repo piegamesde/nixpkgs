@@ -40,8 +40,8 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    asyncio = [ async-timeout ];
-    trio = [ trio ];
+    asyncio = [async-timeout];
+    trio = [trio];
   };
 
   nativeCheckInputs = [
@@ -54,7 +54,7 @@ buildPythonPackage rec {
     yarl
   ];
 
-  pythonImportsCheck = [ "httpx_socks" ];
+  pythonImportsCheck = ["httpx_socks"];
 
   disabledTests = [
     # Tests don't work in the sandbox
@@ -67,6 +67,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/romis2012/httpx-socks";
     changelog = "https://github.com/romis2012/httpx-socks/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

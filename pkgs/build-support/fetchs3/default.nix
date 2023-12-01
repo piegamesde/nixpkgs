@@ -32,7 +32,7 @@ in
 runCommand name
   (
     {
-      nativeBuildInputs = [ awscli ];
+      nativeBuildInputs = [awscli];
 
       outputHashAlgo = "sha256";
       outputHash = sha256;

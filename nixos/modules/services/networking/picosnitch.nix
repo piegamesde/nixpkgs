@@ -15,10 +15,10 @@ in
     enable = mkEnableOption (lib.mdDoc "picosnitch daemon");
   };
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.picosnitch ];
+    environment.systemPackages = [pkgs.picosnitch];
     systemd.services.picosnitch = {
       description = "picosnitch";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "simple";
         Restart = "always";

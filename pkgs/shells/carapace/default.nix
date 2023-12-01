@@ -25,20 +25,20 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-  subPackages = [ "./cmd/carapace" ];
+  subPackages = ["./cmd/carapace"];
 
-  tags = [ "release" ];
+  tags = ["release"];
 
   preBuild = ''
     go generate ./...
   '';
 
-  passthru.tests.version = testers.testVersion { package = carapace; };
+  passthru.tests.version = testers.testVersion {package = carapace;};
 
   meta = with lib; {
     description = "Multi-shell multi-command argument completer";
     homepage = "https://rsteube.github.io/carapace-bin/";
-    maintainers = with maintainers; [ star-szr ];
+    maintainers = with maintainers; [star-szr];
     license = licenses.mit;
     platforms = platforms.unix;
   };

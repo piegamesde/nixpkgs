@@ -10,11 +10,11 @@ let
   cfg = config.virtualisation.azureImage;
 in
 {
-  imports = [ ./azure-common.nix ];
+  imports = [./azure-common.nix];
 
   options = {
     virtualisation.azureImage.diskSize = mkOption {
-      type = with types; either (enum [ "auto" ]) int;
+      type = with types; either (enum ["auto"]) int;
       default = "auto";
       example = 2048;
       description = lib.mdDoc ''
@@ -50,7 +50,7 @@ in
         "waagent.service"
       ];
 
-      path = [ pkgs.coreutils ];
+      path = [pkgs.coreutils];
       script = ''
         eval "$(cat /metadata/CustomData.bin)"
         if ! [ -z "$ssh_host_ecdsa_key" ]; then

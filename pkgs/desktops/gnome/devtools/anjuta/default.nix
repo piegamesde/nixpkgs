@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     description = "Software development studio";
     homepage = "http://anjuta.org/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

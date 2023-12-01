@@ -58,12 +58,12 @@ buildPythonPackage rec {
       "test_doubleQuote"
     ];
 
-  pythonImportsCheck = [ "csvw" ];
+  pythonImportsCheck = ["csvw"];
 
   meta = with lib; {
     description = "CSV on the Web";
     homepage = "https://github.com/cldf/csvw";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

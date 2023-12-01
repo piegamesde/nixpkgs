@@ -37,13 +37,13 @@ buildPythonPackage rec {
   # Tests requires a server on localhost
   doCheck = false;
 
-  pythonImportsCheck = [ "axis" ];
+  pythonImportsCheck = ["axis"];
 
   meta = with lib; {
     description = "Python library for communicating with devices from Axis Communications";
     homepage = "https://github.com/Kane610/axis";
     changelog = "https://github.com/Kane610/axis/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

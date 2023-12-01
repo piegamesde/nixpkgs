@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "clack-socket";
   version = "clack-20211209-git";
 
   description = "System lacks description";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/clack/2021-12-09/clack-20211209-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "clack-socket";
 
-  asdFilesToKeep = [ "clack-socket.asd" ];
+  asdFilesToKeep = ["clack-socket.asd"];
   overrides = x: x;
 }
 /* (SYSTEM clack-socket DESCRIPTION System lacks description SHA256

@@ -19,8 +19,8 @@ stdenv.mkDerivation rec {
     sha256 = "0b7wc2gvgnyp54rxf1n9arn6ymrvdb633v6b3ah138hw4gg8lx7k";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ curl ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [curl];
 
   unpackPhase = ''
     tar -xf $src
@@ -46,8 +46,8 @@ stdenv.mkDerivation rec {
   meta = {
     description = "A web content scanner";
     homepage = "https://dirb.sourceforge.net/";
-    maintainers = with lib.maintainers; [ bennofs ];
-    license = with lib.licenses; [ gpl2 ];
+    maintainers = with lib.maintainers; [bennofs];
+    license = with lib.licenses; [gpl2];
     platforms = lib.platforms.unix;
   };
 }

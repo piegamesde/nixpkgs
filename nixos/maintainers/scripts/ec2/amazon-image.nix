@@ -13,7 +13,7 @@ let
 in
 {
 
-  imports = [ ../../../modules/virtualisation/amazon-image.nix ];
+  imports = [../../../modules/virtualisation/amazon-image.nix];
 
   # Amazon recomments setting this to the highest possible value for a good EBS
   # experience, which prior to 4.15 was 255.
@@ -26,7 +26,7 @@ in
         else
           "255";
     in
-    [ "nvme_core.io_timeout=${timeout}" ];
+    ["nvme_core.io_timeout=${timeout}"];
 
   options.amazonImage = {
     name = mkOption {
@@ -42,7 +42,7 @@ in
           }
         ]
       '';
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         This option lists files to be copied to fixed locations in the
         generated image. Glob patterns work.
@@ -50,7 +50,7 @@ in
     };
 
     sizeMB = mkOption {
-      type = with types; either (enum [ "auto" ]) int;
+      type = with types; either (enum ["auto"]) int;
       default = 2048;
       example = 8192;
       description = lib.mdDoc "The size in MB of the image";
@@ -85,7 +85,7 @@ in
       zfsBuilder = import ../../../lib/make-multi-disk-zfs-image.nix {
         inherit lib config configFile;
         inherit (cfg) contents format name;
-        pkgs = import ../../../.. { inherit (pkgs) system; }; # ensure we use the regular qemu-kvm package
+        pkgs = import ../../../.. {inherit (pkgs) system;}; # ensure we use the regular qemu-kvm package
 
         includeChannel = true;
 
@@ -135,7 +135,7 @@ in
         inherit lib config configFile;
 
         inherit (cfg) contents format name;
-        pkgs = import ../../../.. { inherit (pkgs) system; }; # ensure we use the regular qemu-kvm package
+        pkgs = import ../../../.. {inherit (pkgs) system;}; # ensure we use the regular qemu-kvm package
 
         fsType = "ext4";
         partitionTableType = if config.ec2.efi then "efi" else "legacy+gpt";

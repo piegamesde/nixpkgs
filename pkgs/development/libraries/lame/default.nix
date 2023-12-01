@@ -32,10 +32,10 @@ stdenv.mkDerivation rec {
   ]; # a small single header
   outputMan = "out";
 
-  nativeBuildInputs = [ ] ++ lib.optional nasmSupport nasm;
+  nativeBuildInputs = [] ++ lib.optional nasmSupport nasm;
 
   buildInputs =
-    [ ]
+    []
     #++ optional efenceSupport libefence
     #++ optional mp3xSupport gtk1
     ++ lib.optional sndfileFileIOSupport libsndfile;
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     description = "A high quality MPEG Audio Layer III (MP3) encoder";
     homepage = "http://lame.sourceforge.net";
     license = licenses.lgpl2;
-    maintainers = with maintainers; [ codyopel ];
+    maintainers = with maintainers; [codyopel];
     platforms = platforms.all;
   };
 }

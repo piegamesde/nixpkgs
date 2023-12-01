@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
   pname = "libmusicbrainz";
   version = "3.0.3";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     neon
     libdiscid

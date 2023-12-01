@@ -25,6 +25,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Preprocessor for Markdown files to generate a table of contents and other documentation needs";
     license = licenses.mit;
     homepage = "https://github.com/jreese/markdown-pp";
-    maintainers = with maintainers; [ zgrannan ];
+    maintainers = with maintainers; [zgrannan];
   };
 }

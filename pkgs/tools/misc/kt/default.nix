@@ -27,7 +27,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Kafka command line tool";
     homepage = "https://github.com/fgeller/kt";
-    maintainers = with maintainers; [ utdemir ];
+    maintainers = with maintainers; [utdemir];
     platforms = with platforms; unix;
     license = licenses.mit;
   };

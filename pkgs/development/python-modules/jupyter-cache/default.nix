@@ -26,7 +26,7 @@ buildPythonPackage rec {
     sha256 = "sha256-Jvg5ARQ+30ry8/9akeLSrSmORuLO4DyAcdN6I6Y8y/w=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     attrs
@@ -39,12 +39,12 @@ buildPythonPackage rec {
     tabulate
   ];
 
-  pythonImportsCheck = [ "jupyter_cache" ];
+  pythonImportsCheck = ["jupyter_cache"];
 
   meta = with lib; {
     description = "A defined interface for working with a cache of jupyter notebooks";
     homepage = "https://github.com/executablebooks/jupyter-cache";
     license = licenses.mit;
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [marsam];
   };
 }

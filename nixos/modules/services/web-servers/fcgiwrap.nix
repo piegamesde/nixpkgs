@@ -59,7 +59,7 @@ in
 
   config = mkIf cfg.enable {
     systemd.services.fcgiwrap = {
-      after = [ "nss-user-lookup.target" ];
+      after = ["nss-user-lookup.target"];
       wantedBy = optional (cfg.socketType != "unix") "multi-user.target";
 
       serviceConfig =
@@ -75,7 +75,7 @@ in
               Group = cfg.group;
             }
           else
-            { }
+            {}
         );
     };
 
@@ -83,11 +83,11 @@ in
       if (cfg.socketType == "unix") then
         {
           fcgiwrap = {
-            wantedBy = [ "sockets.target" ];
+            wantedBy = ["sockets.target"];
             socketConfig.ListenStream = cfg.socketAddress;
           };
         }
       else
-        { };
+        {};
   };
 }

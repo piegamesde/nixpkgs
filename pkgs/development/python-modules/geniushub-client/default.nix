@@ -27,17 +27,17 @@ buildPythonPackage rec {
       --replace "version=VERSION," 'version="${version}",'
   '';
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "geniushubclient" ];
+  pythonImportsCheck = ["geniushubclient"];
 
   meta = with lib; {
     description = "Module to interact with Genius Hub systems";
     homepage = "https://github.com/manzanotti/geniushub-client";
     changelog = "https://github.com/manzanotti/geniushub-client/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

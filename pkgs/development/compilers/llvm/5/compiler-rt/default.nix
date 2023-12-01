@@ -45,7 +45,7 @@ stdenv.mkDerivation {
       "-DCOMPILER_RT_BUILD_XRAY=OFF"
       "-DCOMPILER_RT_BUILD_LIBFUZZER=OFF"
     ]
-    ++ lib.optionals (useLLVM || bareMetal) [ "-DCOMPILER_RT_BUILD_PROFILE=OFF" ]
+    ++ lib.optionals (useLLVM || bareMetal) ["-DCOMPILER_RT_BUILD_PROFILE=OFF"]
     ++ lib.optionals (useLLVM || bareMetal) [
       "-DCMAKE_C_COMPILER_WORKS=ON"
       "-DCMAKE_CXX_COMPILER_WORKS=ON"
@@ -58,7 +58,7 @@ stdenv.mkDerivation {
       #https://stackoverflow.com/questions/53633705/cmake-the-c-compiler-is-not-able-to-compile-a-simple-test-program
       "-DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY"
     ]
-    ++ lib.optionals (bareMetal) [ "-DCOMPILER_RT_OS_DIR=baremetal" ]
+    ++ lib.optionals (bareMetal) ["-DCOMPILER_RT_OS_DIR=baremetal"]
     ++
       lib.optionals (stdenv.hostPlatform.isDarwin)
         [

@@ -17,13 +17,13 @@ buildPythonPackage rec {
     sha256 = "0pcbjqj21c2ixhl414bh2h8khi8y1igzfpkyqwan1pakix0lq45a";
   };
 
-  propagatedBuildInputs = [ ua-parser ];
+  propagatedBuildInputs = [ua-parser];
 
   meta = with lib; {
     description = "A Python library to identify devices by parsing user agent strings";
     homepage = "https://github.com/selwin/python-user-agents";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

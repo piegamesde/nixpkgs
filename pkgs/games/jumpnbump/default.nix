@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     sha256 = "0f1k26jicmb95bx19wgcdpwsbbl343i7mqqqc2z9lkb8drlsyqcy";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   nativeBuildInputs = [
     python3Packages.wrapPython
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     description = "cute, true multiplayer platform game with bunnies";
     homepage = "https://libregames.gitlab.io/jumpnbump/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ iblech ];
+    maintainers = with maintainers; [iblech];
     platforms = platforms.unix;
   };
 }

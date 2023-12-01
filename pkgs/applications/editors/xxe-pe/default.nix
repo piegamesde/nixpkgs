@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       '';
     fetchurl {
       url = "https://www.xmlmind.com/xmleditor/_download/xxe-perso-${
-        builtins.replaceStrings [ "." ] [ "_" ] version
+        builtins.replaceStrings ["."] ["_"] version
       }.zip";
       sha256 = "sha256-JZ9nQwMrQL/1HKGwvXoWlnTx55ZK/UYjMJAddCtm0rw=";
     };
@@ -73,14 +73,14 @@ stdenv.mkDerivation rec {
   postFixup = ''
     mkdir -p "$out/bin"
     makeWrapper "${pkg_path}/bin/xxe" "$out/bin/xxe" \
-      --prefix PATH : ${lib.makeBinPath [ openjdk11 ]}
+      --prefix PATH : ${lib.makeBinPath [openjdk11]}
   '';
 
   meta = with lib; {
     description = "Strictly validating, near WYSIWYG, XML editor with DocBook support";
     homepage = "https://www.xmlmind.com/xmleditor/";
     license = licenses.unfree;
-    maintainers = [ ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [];
+    platforms = ["x86_64-linux"];
   };
 }

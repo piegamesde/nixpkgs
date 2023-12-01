@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/mity/md4c";
     license = licenses.mit;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     mainProgram = "md2html";
     platforms = platforms.all;
   };

@@ -86,10 +86,10 @@ in
         group = cfg.group;
         isSystemUser = true;
       };
-      groups."${cfg.group}" = { };
+      groups."${cfg.group}" = {};
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     environment.etc."/pleroma/config.exs".text = ''
       ${lib.concatMapStrings (x: "${x}") cfg.configs}
@@ -109,8 +109,8 @@ in
         "network-online.target"
         "postgresql.service"
       ];
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ config.environment.etc."/pleroma/config.exs".source ];
+      wantedBy = ["multi-user.target"];
+      restartTriggers = [config.environment.etc."/pleroma/config.exs".source];
       environment.RELEASE_COOKIE = "/var/lib/pleroma/.cookie";
       serviceConfig = {
         User = cfg.user;
@@ -155,9 +155,9 @@ in
         CapabilityBoundingSet = "~CAP_SYS_ADMIN";
       };
       # disksup requires bash
-      path = [ pkgs.bash ];
+      path = [pkgs.bash];
     };
   };
-  meta.maintainers = with lib.maintainers; [ ninjatrappeur ];
+  meta.maintainers = with lib.maintainers; [ninjatrappeur];
   meta.doc = ./pleroma.md;
 }

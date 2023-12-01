@@ -32,6 +32,6 @@ buildGoModule rec {
     homepage = "https://devspace.sh/";
     changelog = "https://github.com/loft-sh/devspace/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ darkonion0 ];
+    maintainers = with maintainers; [darkonion0];
   };
 }

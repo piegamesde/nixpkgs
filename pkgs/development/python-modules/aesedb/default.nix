@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-TXGRXo3754dEgRotDO5vSl9vj119Xday/176yem3cqk=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     aiowinreg
@@ -38,13 +38,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "aesedb" ];
+  pythonImportsCheck = ["aesedb"];
 
   meta = with lib; {
     description = "Parser for JET databases";
     homepage = "https://github.com/skelsec/aesedb";
     changelog = "https://github.com/skelsec/aesedb/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

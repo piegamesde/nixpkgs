@@ -35,9 +35,9 @@ stdenv.mkDerivation rec {
     librsvg
   ];
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
-  mesonFlags = [ "-D gnome_version=${lib.versions.majorMinor gnome.gnome-shell.version}" ];
+  mesonFlags = ["-D gnome_version=${lib.versions.majorMinor gnome.gnome-shell.version}"];
 
   postFixup = ''
     gtk-update-icon-cache "$out"/share/icons/Lounge-aux;
@@ -48,6 +48,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/monday15/lounge-gtk-theme";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

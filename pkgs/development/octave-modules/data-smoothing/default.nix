@@ -14,12 +14,12 @@ buildOctavePackage rec {
     sha256 = "0q0vqdmp8ygyfhk296xbxcpsh5wvpa2kfgv4v0rys68nd2lxfaq1";
   };
 
-  requiredOctavePackages = [ optim ];
+  requiredOctavePackages = [optim];
 
   meta = with lib; {
     homepage = "https://octave.sourceforge.io/data-smoothing/index.html";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ KarlJoad ];
+    maintainers = with maintainers; [KarlJoad];
     description = "Algorithms for smoothing noisy data";
   };
 }

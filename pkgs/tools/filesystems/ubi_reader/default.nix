@@ -16,7 +16,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-tjQs1F9kcFrC9FDkfdnax0C8O8Bg7blkpL7GU56eeWU=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ python-lzo ];
+  propagatedBuildInputs = with python3.pkgs; [python-lzo];
 
   # There are no tests in the source
   doCheck = false;
@@ -25,6 +25,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Collection of Python scripts for reading information about and extracting data from UBI and UBIFS images";
     homepage = "https://github.com/jrspruitt/ubi_reader";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ vlaci ];
+    maintainers = with maintainers; [vlaci];
   };
 }

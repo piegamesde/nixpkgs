@@ -12,7 +12,7 @@ let
     sha256 = "0pj32sj6jcdnpa5v75af0hnvx4z0ky0m1k2522cfdx4cb1r2lna9";
   };
 in
-runCommand "Dell-5130cdn-Color-Laser-1.3-1" { } ''
+runCommand "Dell-5130cdn-Color-Laser-1.3-1" {} ''
   mkdir -p usr/share/cups/model
   ${rpm}/bin/rpm2cpio ${src} | ${cpio}/bin/cpio -i
   mkdir -p $out/share/ppd

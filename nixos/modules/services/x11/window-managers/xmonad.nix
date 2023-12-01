@@ -25,11 +25,11 @@ let
       self.xmonad-extras
     ];
 
-  xmonad-vanilla = pkgs.xmonad-with-packages.override { inherit ghcWithPackages packages; };
+  xmonad-vanilla = pkgs.xmonad-with-packages.override {inherit ghcWithPackages packages;};
 
   xmonad-config =
     let
-      xmonadAndPackages = self: [ self.xmonad ] ++ packages self;
+      xmonadAndPackages = self: [self.xmonad] ++ packages self;
       xmonadEnv = ghcWithPackages xmonadAndPackages;
       configured =
         pkgs.writers.writeHaskellBin "xmonad"
@@ -40,7 +40,7 @@ let
           }
           cfg.config;
     in
-    pkgs.runCommandLocal "xmonad" { nativeBuildInputs = [ pkgs.makeWrapper ]; } (
+    pkgs.runCommandLocal "xmonad" {nativeBuildInputs = [pkgs.makeWrapper];} (
       ''
         install -D ${xmonadEnv}/share/man/man1/xmonad.1.gz $out/share/man/man1/xmonad.1.gz
         makeWrapper ${configured}/bin/xmonad $out/bin/xmonad \
@@ -81,7 +81,7 @@ in
 
       extraPackages = mkOption {
         type = types.functionTo (types.listOf types.package);
-        default = self: [ ];
+        default = self: [];
         defaultText = literalExpression "self: []";
         example = literalExpression ''
           haskellPackages: [
@@ -193,7 +193,7 @@ in
       };
 
       xmonadCliArgs = mkOption {
-        default = [ ];
+        default = [];
         type = with lib.types; listOf str;
         description = lib.mdDoc ''
           Command line arguments passed to the xmonad binary.
@@ -201,7 +201,7 @@ in
       };
 
       ghcArgs = mkOption {
-        default = [ ];
+        default = [];
         type = with lib.types; listOf str;
         description = lib.mdDoc ''
           Command line arguments passed to the compiler (ghc)
@@ -223,6 +223,6 @@ in
       ];
     };
 
-    environment.systemPackages = [ xmonad ];
+    environment.systemPackages = [xmonad];
   };
 }

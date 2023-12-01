@@ -15,7 +15,7 @@
   stdenv,
   version,
 
-  features ? { },
+  features ? {},
 }:
 
 with lib;

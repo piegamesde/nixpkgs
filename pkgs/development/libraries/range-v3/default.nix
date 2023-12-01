@@ -17,13 +17,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-bRSX91+ROqG1C3nB9HSQaKgLzOHEFy9mrD2WW3PRBWU=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # Building the tests currently fails on AArch64 due to internal compiler
   # errors (with GCC 9.2):
-  cmakeFlags = [
-    "-DRANGES_ENABLE_WERROR=OFF"
-  ] ++ lib.optional stdenv.isAarch64 "-DRANGE_V3_TESTS=OFF";
+  cmakeFlags = ["-DRANGES_ENABLE_WERROR=OFF"] ++ lib.optional stdenv.isAarch64 "-DRANGE_V3_TESTS=OFF";
 
   doCheck = !stdenv.isAarch64;
   checkTarget = "test";
@@ -34,6 +32,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/ericniebler/range-v3/releases/tag/${version}";
     license = licenses.boost;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

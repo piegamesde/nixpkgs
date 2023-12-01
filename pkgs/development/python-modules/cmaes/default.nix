@@ -22,20 +22,20 @@ buildPythonPackage rec {
     hash = "sha256-dd5vLT4Q0cI5ts0WgBpjPtOA81exGNjWSNHEiPggYbg=";
   };
 
-  nativeBuildInputs = [ setuptools ];
-  propagatedBuildInputs = [ numpy ];
+  nativeBuildInputs = [setuptools];
+  propagatedBuildInputs = [numpy];
 
   nativeCheckInputs = [
     pytestCheckHook
     hypothesis
   ];
 
-  pythonImportsCheck = [ "cmaes" ];
+  pythonImportsCheck = ["cmaes"];
 
   meta = with lib; {
     description = "Python library for CMA evolution strategy";
     homepage = "https://github.com/CyberAgentAILab/cmaes";
     license = licenses.mit;
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
   };
 }

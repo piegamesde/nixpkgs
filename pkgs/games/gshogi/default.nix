@@ -25,7 +25,7 @@ python3.pkgs.buildPythonApplication rec {
     gobject-introspection
   ];
 
-  nativeBuildInputs = [ wrapGAppsHook ];
+  nativeBuildInputs = [wrapGAppsHook];
 
   propagatedBuildInputs = with python3.pkgs; [
     pygobject3
@@ -37,6 +37,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "A graphical implementation of the Shogi board game, also known as Japanese Chess";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.ciil ];
+    maintainers = [maintainers.ciil];
   };
 }

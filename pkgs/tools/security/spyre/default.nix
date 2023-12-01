@@ -19,14 +19,14 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-qZkt5WwicDXrExwMT0tCO+FZgClIHhrVtMR8xNsdAaQ=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ yara ];
+  buildInputs = [yara];
 
   meta = with lib; {
     description = "YARA-based IOC scanner";
     homepage = "https://github.com/spyre-project/spyre";
-    license = with licenses; [ lgpl3Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [lgpl3Plus];
+    maintainers = with maintainers; [fab];
   };
 }

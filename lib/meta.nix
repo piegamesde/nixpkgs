@@ -2,7 +2,7 @@
    name attribute.
 */
 
-{ lib }:
+{lib}:
 
 rec {
 
@@ -12,22 +12,22 @@ rec {
      Example:
        addMetaAttrs {description = "Bla blah";} somePkg
   */
-  addMetaAttrs = newAttrs: drv: drv // { meta = (drv.meta or { }) // newAttrs; };
+  addMetaAttrs = newAttrs: drv: drv // {meta = (drv.meta or {}) // newAttrs;};
 
   # Disable Hydra builds of given derivation.
-  dontDistribute = drv: addMetaAttrs { hydraPlatforms = [ ]; } drv;
+  dontDistribute = drv: addMetaAttrs {hydraPlatforms = [];} drv;
 
   /* Change the symbolic name of a package for presentation purposes
      (i.e., so that nix-env users can tell them apart).
   */
-  setName = name: drv: drv // { inherit name; };
+  setName = name: drv: drv // {inherit name;};
 
   /* Like `setName`, but takes the previous name as an argument.
 
      Example:
        updateName (oldName: oldName + "-experimental") somePkg
   */
-  updateName = updater: drv: drv // { name = updater (drv.name); };
+  updateName = updater: drv: drv // {name = updater (drv.name);};
 
   /* Append a suffix to the name of a package (before the version
      part).
@@ -47,7 +47,7 @@ rec {
     f: set: lib.mapAttrs (name: pkg: if lib.isDerivation pkg then (f pkg) else pkg) set;
 
   # Set the nix-env priority of the package.
-  setPrio = priority: addMetaAttrs { inherit priority; };
+  setPrio = priority: addMetaAttrs {inherit priority;};
 
   /* Decrease the nix-env priority of the package, i.e., other
      versions/variants of the package will be preferred.
@@ -84,11 +84,11 @@ rec {
     let
       pattern =
         if builtins.isString elem then
-          { system = elem; }
+          {system = elem;}
         else if elem ? parsed then
           elem
         else
-          { parsed = elem; };
+          {parsed = elem;};
     in
     lib.matchAttrs pattern platform;
 
@@ -104,7 +104,7 @@ rec {
   availableOn =
     platform: pkg:
     ((!pkg ? meta.platforms) || lib.any (platformMatch platform) pkg.meta.platforms)
-    && lib.all (elem: !platformMatch platform elem) (pkg.meta.badPlatforms or [ ]);
+    && lib.all (elem: !platformMatch platform elem) (pkg.meta.badPlatforms or []);
 
   /* Get the corresponding attribute in lib.licenses
      from the SPDX ID.

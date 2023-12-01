@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-UOchXeBX+sDuLhwWQRVFCj9loJUyr4IltiAKsQoh5/c=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libXrandr
@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Minimal X screenshot utility";
     homepage = "https://github.com/neXromancers/shotgun";
-    license = with licenses; [ mpl20 ];
+    license = with licenses; [mpl20];
     maintainers = with maintainers; [
       figsoda
       lumi

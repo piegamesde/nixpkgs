@@ -20,6 +20,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/mrjackwills/oxker";
     changelog = "https://github.com/mrjackwills/oxker/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ siph ];
+    maintainers = with maintainers; [siph];
   };
 }

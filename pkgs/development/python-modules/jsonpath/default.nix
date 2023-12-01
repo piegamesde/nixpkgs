@@ -17,6 +17,6 @@ buildPythonPackage rec {
     description = "An XPath for JSON";
     homepage = "https://github.com/json-path/JsonPath";
     license = licenses.mit;
-    maintainers = [ maintainers.mic92 ];
+    maintainers = [maintainers.mic92];
   };
 }

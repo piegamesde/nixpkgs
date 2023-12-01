@@ -34,7 +34,7 @@ let
     {
       name,
       gawkextlib,
-      extraBuildInputs ? [ ],
+      extraBuildInputs ? [],
       doCheck ? true,
     }:
     let
@@ -64,14 +64,14 @@ let
         gettext
       ];
 
-      buildInputs = [ gawk ] ++ extraBuildInputs;
+      buildInputs = [gawk] ++ extraBuildInputs;
       propagatedBuildInputs = lib.optional is_extension gawkextlib;
 
       setupHook = if is_extension then ./setup-hook.sh else null;
       inherit gawk;
 
       inherit doCheck;
-      nativeCheckInputs = [ more ];
+      nativeCheckInputs = [more];
 
       meta = with lib; {
         homepage = "https://sourceforge.net/projects/gawkextlib/";
@@ -86,7 +86,7 @@ let
         '';
         license = licenses.gpl3Plus;
         platforms = platforms.unix;
-        maintainers = with maintainers; [ tomberek ];
+        maintainers = with maintainers; [tomberek];
       };
     }
   );
@@ -102,7 +102,7 @@ let
     aregex = buildExtension {
       inherit gawkextlib;
       name = "aregex";
-      extraBuildInputs = [ tre ];
+      extraBuildInputs = [tre];
     };
     csv = buildExtension {
       inherit gawkextlib;
@@ -115,22 +115,22 @@ let
     gd = buildExtension {
       inherit gawkextlib;
       name = "gd";
-      extraBuildInputs = [ gd ];
+      extraBuildInputs = [gd];
     };
     haru = buildExtension {
       inherit gawkextlib;
       name = "haru";
-      extraBuildInputs = [ libharu ];
+      extraBuildInputs = [libharu];
     };
     json = buildExtension {
       inherit gawkextlib;
       name = "json";
-      extraBuildInputs = [ rapidjson ];
+      extraBuildInputs = [rapidjson];
     };
     lmdb = buildExtension {
       inherit gawkextlib;
       name = "lmdb";
-      extraBuildInputs = [ lmdb ];
+      extraBuildInputs = [lmdb];
       #  mdb_env_open(env, /dev/null)
       #! No such device
       #  mdb_env_open(env, /dev/null)
@@ -140,7 +140,7 @@ let
     mbs = buildExtension {
       inherit gawkextlib;
       name = "mbs";
-      extraBuildInputs = [ glibcLocales ];
+      extraBuildInputs = [glibcLocales];
       #! "spät": length: 5, mbs_length: 6, wcswidth: 4
       doCheck = !stdenv.isDarwin;
     };
@@ -159,12 +159,12 @@ let
     pgsql = buildExtension {
       inherit gawkextlib;
       name = "pgsql";
-      extraBuildInputs = [ postgresql ];
+      extraBuildInputs = [postgresql];
     };
     redis = buildExtension {
       inherit gawkextlib;
       name = "redis";
-      extraBuildInputs = [ hiredis ];
+      extraBuildInputs = [hiredis];
     };
     select = buildExtension {
       inherit gawkextlib;

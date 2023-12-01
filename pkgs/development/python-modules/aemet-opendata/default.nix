@@ -30,12 +30,12 @@ buildPythonPackage rec {
   # no tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [ "aemet_opendata.interface" ];
+  pythonImportsCheck = ["aemet_opendata.interface"];
 
   meta = with lib; {
     description = "Python client for AEMET OpenData Rest API";
     homepage = "https://github.com/Noltari/AEMET-OpenData";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

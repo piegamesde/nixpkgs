@@ -32,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-Kewd6/4yawpRuyCe8Na0BGUMo59tr2fc97VlGbVJ8mI=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     docutils
@@ -52,7 +52,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ markdown-it-py.optional-dependencies.linkify;
 
-  pythonImportsCheck = [ "myst_parser" ];
+  pythonImportsCheck = ["myst_parser"];
 
   disabledTests = [
     # AssertionError due to different files
@@ -74,6 +74,6 @@ buildPythonPackage rec {
     homepage = "https://myst-parser.readthedocs.io/";
     changelog = "https://raw.githubusercontent.com/executablebooks/MyST-Parser/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ loicreynier ];
+    maintainers = with maintainers; [loicreynier];
   };
 }

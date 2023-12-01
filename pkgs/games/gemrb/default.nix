@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     zlib
   ] ++ optional withVLC libvlc;
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # libvlc isn't being detected properly as of 0.9.0, so set it
   LIBVLC_INCLUDE_PATH = optionalString withVLC "${lib.getDev libvlc}/include";
@@ -82,6 +82,6 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://gemrb.org/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

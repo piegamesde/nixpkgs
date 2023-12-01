@@ -25,7 +25,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  excludedPackages = [ "generatetables" ];
+  excludedPackages = ["generatetables"];
 
   ldflags = [
     "-s"

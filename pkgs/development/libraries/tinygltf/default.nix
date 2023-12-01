@@ -17,15 +17,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-uQlv+mUWnqUJIXnPf2pVuRg1akcXAfqyBIzPPmm4Np4=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Header only C++11 tiny glTF 2.0 library";
     homepage = "https://github.com/syoyo/tinygltf";
     license = licenses.mit;
-    maintainers = with maintainers; [ jansol ];
+    maintainers = with maintainers; [jansol];
     platforms = platforms.all;
   };
 }

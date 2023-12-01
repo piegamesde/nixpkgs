@@ -74,9 +74,9 @@ stdenvNoCC.mkDerivation rec {
     description = "Android GPU Inspector";
     homepage = "https://gpuinspector.dev";
     changelog = "https://github.com/google/agi/releases/tag/v${version}";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     license = licenses.asl20;
-    maintainers = [ maintainers.ivar ];
+    maintainers = [maintainers.ivar];
     sourceProvenance = with sourceTypes; [
       binaryBytecode
       binaryNativeCode

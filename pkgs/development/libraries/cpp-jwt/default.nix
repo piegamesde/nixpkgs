@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   };
 
   # fix reported version
-  patches = [ ./fix-version.patch ];
+  patches = [./fix-version.patch];
 
   cmakeFlags = [
     "-DCPP_JWT_USE_VENDORED_NLOHMANN_JSON=OFF"
@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     description = "JSON Web Token library for C++";
     homepage = "https://github.com/arun11299/cpp-jwt";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fpletz ];
+    maintainers = with lib.maintainers; [fpletz];
   };
 }

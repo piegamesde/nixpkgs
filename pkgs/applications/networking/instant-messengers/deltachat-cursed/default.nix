@@ -15,7 +15,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-Cv2QT8GsPAcA5TTZGfNvFNwnUITSR0PmQE0QCO1nFNk=";
   };
 
-  nativeBuildInputs = [ python3.pkgs.setuptools-scm ];
+  nativeBuildInputs = [python3.pkgs.setuptools-scm];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
@@ -32,6 +32,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Lightweight Delta Chat client";
     homepage = "https://github.com/adbenitez/deltachat-cursed";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -49,13 +49,13 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  pythonImportsCheck = [ "ical" ];
+  pythonImportsCheck = ["ical"];
 
   meta = with lib; {
     description = "Library for handling iCalendar";
     homepage = "https://github.com/allenporter/ical";
     changelog = "https://github.com/allenporter/ical/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

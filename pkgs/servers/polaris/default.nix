@@ -56,7 +56,7 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/agersant/polaris";
     license = licenses.mit;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
     platforms = platforms.unix;
   };
 }

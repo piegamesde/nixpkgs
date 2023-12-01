@@ -22,19 +22,19 @@ buildPythonPackage rec {
     hash = "sha256-3Xl/IC+ImFUxxLry15MIIVRf6aR+gA9K5S2IQomkv+o=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ wrapt ];
+  propagatedBuildInputs = [wrapt];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "deprecat" ];
+  pythonImportsCheck = ["deprecat"];
 
   meta = with lib; {
     description = "Decorator to deprecate old python classes, functions or methods";
     homepage = "https://github.com/mjhajharia/deprecat";
     changelog = "https://github.com/mjhajharia/deprecat/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

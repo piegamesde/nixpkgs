@@ -22,14 +22,14 @@ buildPythonPackage rec {
     hash = "sha256-6q0mKWyTTlNJ/DCeAsck1meM5dQovYBcV2EqmjlABvc=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   nativeCheckInputs = [
     pytestCheckHook
     testfixtures
   ];
 
-  pythonImportsCheck = [ "openerz_api" ];
+  pythonImportsCheck = ["openerz_api"];
 
   disabledTests =
     [
@@ -41,7 +41,7 @@ buildPythonPackage rec {
     description = "Python module to interact with the OpenERZ API";
     homepage = "https://github.com/misialq/openerz-api";
     changelog = "https://github.com/misialq/openerz-api/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

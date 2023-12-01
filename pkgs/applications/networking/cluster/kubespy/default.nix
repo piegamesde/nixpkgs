@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-brs4QIo4QoLHU95llBHN51zYcgQgN7kbMJDMy2OYOsk=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   doCheck = false;
 
@@ -38,7 +38,7 @@ buildGoModule rec {
     description = "A tool to observe Kubernetes resources in real time";
     homepage = "https://github.com/pulumi/kubespy";
     license = licenses.asl20;
-    maintainers = with maintainers; [ blaggacao ];
+    maintainers = with maintainers; [blaggacao];
     platforms = platforms.unix;
   };
 }

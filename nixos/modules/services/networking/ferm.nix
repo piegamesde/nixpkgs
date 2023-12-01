@@ -52,10 +52,10 @@ in
     systemd.services.firewall.enable = false;
     systemd.services.ferm = {
       description = "Ferm Firewall";
-      after = [ "ipset.target" ];
-      before = [ "network-pre.target" ];
-      wants = [ "network-pre.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["ipset.target"];
+      before = ["network-pre.target"];
+      wants = ["network-pre.target"];
+      wantedBy = ["multi-user.target"];
       reloadIfChanged = true;
       serviceConfig = {
         Type = "oneshot";

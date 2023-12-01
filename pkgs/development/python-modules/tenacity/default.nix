@@ -35,12 +35,12 @@ buildPythonPackage rec {
     typeguard
   ];
 
-  pythonImportsCheck = [ "tenacity" ];
+  pythonImportsCheck = ["tenacity"];
 
   meta = with lib; {
     homepage = "https://github.com/jd/tenacity";
     description = "Retrying library for Python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jakewaksbaum ];
+    maintainers = with maintainers; [jakewaksbaum];
   };
 }

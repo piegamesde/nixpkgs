@@ -20,7 +20,7 @@ buildPythonPackage rec {
     unittestCheckHook
     postgresql
   ];
-  propagatedBuildInputs = [ postgresql ];
+  propagatedBuildInputs = [postgresql];
 
   meta = with lib; {
     homepage = "https://github.com/markdrago/pgsanity";
@@ -33,6 +33,6 @@ buildPythonPackage rec {
       let ecpg report on the syntax errors of the SQL.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ nalbyuites ];
+    maintainers = with maintainers; [nalbyuites];
   };
 }

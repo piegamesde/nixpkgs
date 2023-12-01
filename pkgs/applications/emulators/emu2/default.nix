@@ -15,13 +15,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-Jafl0Pw2k5RCF9GgpdAWcQ+HBTsiX7dOKSMCWPHQ+2E=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     homepage = "https://github.com/dmsc/emu2/";
     description = "A simple text-mode x86 + DOS emulator";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     license = licenses.gpl2Plus;
   };
 }

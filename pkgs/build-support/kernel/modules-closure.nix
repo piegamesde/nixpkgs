@@ -26,5 +26,5 @@ stdenvNoCC.mkDerivation {
     rootModules
     allowMissing
     ;
-  allowedReferences = [ "out" ];
+  allowedReferences = ["out"];
 }

@@ -45,7 +45,7 @@ python3.pkgs.buildPythonApplication rec {
     libadwaita
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [ pygobject3 ];
+  propagatedBuildInputs = with python3.pkgs; [pygobject3];
 
   # Prevent double wrapping
   dontWrapGApps = true;
@@ -53,7 +53,7 @@ python3.pkgs.buildPythonApplication rec {
   preFixup = ''
     makeWrapperArgs+=(
       "''${gappsWrapperArgs[@]}"
-      --prefix PATH ":" "${lib.makeBinPath [ cava ]}"
+      --prefix PATH ":" "${lib.makeBinPath [cava]}"
     )
   '';
 
@@ -62,6 +62,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/fsobolev/cavalier";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

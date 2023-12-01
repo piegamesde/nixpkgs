@@ -15,7 +15,7 @@
 mkDerivation {
   pname = "mauikit-calendar";
 
-  patches = [ ./add-akonadi-calendar.patch ];
+  patches = [./add-akonadi-calendar.patch];
 
   nativeBuildInputs = [
     cmake
@@ -36,6 +36,6 @@ mkDerivation {
     homepage = "https://invent.kde.org/maui/mauikit-calendar";
     description = "Calendar support components for Maui applications";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

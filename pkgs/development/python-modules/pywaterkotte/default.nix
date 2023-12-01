@@ -23,22 +23,22 @@ buildPythonPackage rec {
     hash = "sha256-zK0x6LyXPPNPA20Zq+S1B1q7ZWGxQmWf4JxEfjNkPQw=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   nativeCheckInputs = [
     pytestCheckHook
     responses
   ];
 
-  pythonImportsCheck = [ "pywaterkotte" ];
+  pythonImportsCheck = ["pywaterkotte"];
 
   meta = with lib; {
     description = "Library to communicate with Waterkotte heatpumps";
     homepage = "https://github.com/chboland/pywaterkotte";
     changelog = "https://github.com/chboland/pywaterkotte/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

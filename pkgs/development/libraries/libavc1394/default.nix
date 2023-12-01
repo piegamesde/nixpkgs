@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = lib.optional stdenv.hostPlatform.isMusl argp-standalone;
-  nativeBuildInputs = [ pkg-config ];
-  propagatedBuildInputs = [ libraw1394 ];
+  nativeBuildInputs = [pkg-config];
+  propagatedBuildInputs = [libraw1394];
 
   NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isMusl "-largp";
 

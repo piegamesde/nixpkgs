@@ -41,6 +41,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/oSumAtrIX/DownOnSpot";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

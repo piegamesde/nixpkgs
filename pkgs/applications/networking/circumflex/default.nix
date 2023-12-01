@@ -20,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-rztg2mIuyoqpI9SKQsp0ASMT4HO4h0/bxLX7+xtfLzo=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/clx \
@@ -36,7 +36,7 @@ buildGoModule rec {
     description = "A command line tool for browsing Hacker News in your terminal";
     homepage = "https://github.com/bensadeh/circumflex";
     license = licenses.agpl3;
-    maintainers = with maintainers; [ mktip ];
+    maintainers = with maintainers; [mktip];
     mainProgram = "clx";
   };
 }

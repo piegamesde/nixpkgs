@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-AbWZa33DNrDM0FdjoFSVMnz4Ph7mUiUe/erhI3w7GQQ";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postPatch = ''
     substituteInPlace sherlock/sherlock.py \
@@ -61,6 +61,6 @@ stdenv.mkDerivation rec {
     homepage = "https://sherlock-project.github.io/";
     description = "Hunt down social media accounts by username across social networks";
     license = licenses.mit;
-    maintainers = with maintainers; [ applePrincess ];
+    maintainers = with maintainers; [applePrincess];
   };
 }

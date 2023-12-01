@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     inherit (klipper.meta) homepage license;
     description = "Firmware part of Klipper";
-    maintainers = with maintainers; [ vtuan10 ];
+    maintainers = with maintainers; [vtuan10];
     platforms = platforms.linux;
   };
 }

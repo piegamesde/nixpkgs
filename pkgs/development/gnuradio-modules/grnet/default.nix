@@ -103,7 +103,7 @@ mkDerivation {
     description = "GNURadio TCP/UDP source and sink blocks rewritten in C++/Boost";
     homepage = "https://github.com/ghostop14/gr-grnet";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ chuangzhu ];
+    maintainers = with maintainers; [chuangzhu];
     platforms = platforms.unix;
   };
 }

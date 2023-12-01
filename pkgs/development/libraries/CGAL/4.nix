@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     gmp
     mpfr
   ];
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   doCheck = false;
 
@@ -58,6 +58,6 @@ stdenv.mkDerivation rec {
       lgpl3Plus
     ];
     platforms = platforms.all;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
   };
 }

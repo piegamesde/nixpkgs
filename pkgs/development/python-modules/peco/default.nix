@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-zL0tBTwm+l5eyxlWr2xoE+nLpMfUKri1/yD+WgTUqHQ=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     aiohttp
@@ -30,12 +30,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "peco" ];
+  pythonImportsCheck = ["peco"];
 
   meta = with lib; {
     description = "Library for interacting with the PECO outage map";
     homepage = "https://github.com/IceBotYT/peco-outage-api";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -64,7 +64,7 @@ stdenv.mkDerivation {
   meta = {
     description = "Crossplatform openarena client";
     homepage = "http://openarena.ws/";
-    maintainers = [ lib.maintainers.wyvie ];
+    maintainers = [lib.maintainers.wyvie];
     platforms = [
       "i386-linux"
       "x86_64-linux"

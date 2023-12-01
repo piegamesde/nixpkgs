@@ -26,7 +26,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-Yywurr+RM96qJGH/WvuLDtf6bLzw9C5hG2d0ID9w1pQ=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd nsc \
@@ -43,8 +43,8 @@ buildGoModule rec {
   meta = {
     description = "A tool for creating NATS account and user access configurations";
     homepage = "https://github.com/nats-io/nsc";
-    license = with lib.licenses; [ asl20 ];
-    maintainers = with lib.maintainers; [ cbrewster ];
+    license = with lib.licenses; [asl20];
+    maintainers = with lib.maintainers; [cbrewster];
     mainProgram = "nsc";
     broken = stdenv.isDarwin;
   };

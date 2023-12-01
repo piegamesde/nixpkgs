@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
     openrgb.overrideAttrs (
       old: {
         qmakeFlags =
-          old.qmakeFlags or [ ]
+          old.qmakeFlags or []
           ++ [
             # Welcome to Escape Hell, we have backslashes
             ''DEFINES+=OPENRGB_EXTRA_PLUGIN_DIRECTORY=\\\""${
@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Open source RGB lighting control";
     homepage = "https://gitlab.com/CalcProgrammer1/OpenRGB";
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

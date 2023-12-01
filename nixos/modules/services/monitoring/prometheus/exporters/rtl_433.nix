@@ -47,7 +47,7 @@ in
       };
       channels = lib.mkOption {
         type = mkMatcherOptionType "channel" "Channel to match.";
-        default = [ ];
+        default = [];
         example = [
           {
             name = "Acurite";
@@ -61,7 +61,7 @@ in
       };
       ids = lib.mkOption {
         type = mkMatcherOptionType "id" "ID to match.";
-        default = [ ];
+        default = [];
         example = [
           {
             name = "Nexus";
@@ -82,7 +82,7 @@ in
       # rtl_433 needs rw access to the USB radio.
       PrivateDevices = lib.mkForce false;
       DeviceAllow = lib.mkForce "char-usb_device rw";
-      RestrictAddressFamilies = [ "AF_NETLINK" ];
+      RestrictAddressFamilies = ["AF_NETLINK"];
 
       ExecStart =
         let

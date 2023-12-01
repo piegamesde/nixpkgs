@@ -22,7 +22,7 @@ buildPythonPackage rec {
     coverage
     nose
   ];
-  propagatedBuildInputs = [ pbkdf2 ];
+  propagatedBuildInputs = [pbkdf2];
 
   # TODO: tests fail: TypeError: object of type 'NoneType' has no len()
   doCheck = false;
@@ -31,5 +31,5 @@ buildPythonPackage rec {
   # https://bitbucket.org/dholth/cryptacular/issues/11
   disabled = isPy27 || pythonAtLeast "3.6";
 
-  meta = with lib; { maintainers = with maintainers; [ domenkozar ]; };
+  meta = with lib; {maintainers = with maintainers; [domenkozar];};
 }

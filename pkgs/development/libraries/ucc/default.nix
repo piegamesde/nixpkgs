@@ -43,10 +43,10 @@ stdenv.mkDerivation rec {
     automake
     autoconf
   ];
-  buildInputs = [ ucx ] ++ lib.optional enableCuda cudatoolkit;
+  buildInputs = [ucx] ++ lib.optional enableCuda cudatoolkit;
 
   configureFlags =
-    [ ]
+    []
     ++ lib.optional enableSse41 "--with-sse41"
     ++ lib.optional enableSse42 "--with-sse42"
     ++ lib.optional enableAvx "--with-avx"
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Collective communication operations API";
     license = licenses.bsd3;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
     platforms = platforms.linux;
   };
 }

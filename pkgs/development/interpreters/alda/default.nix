@@ -22,11 +22,11 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase =
     let
-      binPath = lib.makeBinPath [ jre ];
+      binPath = lib.makeBinPath [jre];
     in
     ''
       install -D $src_alda $out/bin/alda
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "A music programming language for musicians";
     homepage = "https://alda.io";
     license = licenses.epl10;
-    maintainers = [ maintainers.ericdallo ];
+    maintainers = [maintainers.ericdallo];
     platforms = jre.meta.platforms;
   };
 }

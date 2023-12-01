@@ -26,6 +26,6 @@ buildGoModule rec {
     homepage = "https://github.com/kubernetes-sigs/metrics-server";
     description = "Kubernetes container resource metrics collector";
     license = licenses.asl20;
-    maintainers = with maintainers; [ eskytthe ];
+    maintainers = with maintainers; [eskytthe];
   };
 }

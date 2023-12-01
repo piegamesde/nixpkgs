@@ -191,7 +191,7 @@ in
       };
     };
 
-    sdImage.storePaths = [ config.system.build.toplevel ];
+    sdImage.storePaths = [config.system.build.toplevel];
 
     system.build.sdImage =
       pkgs.callPackage
@@ -294,7 +294,7 @@ in
             '';
           }
         )
-        { };
+        {};
 
     boot.postBootCommands = lib.mkIf config.sdImage.expandOnBoot ''
       # On the first boot do some maintenance tasks

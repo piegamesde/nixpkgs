@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "1wwpg0w47f49rnivn2d26vrxgyfl9gpqx3vmzbl5lhx6x5l3fqbd";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out
@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     '';
 
     platforms = platforms.linux;
-    maintainers = [ maintainers.skeidel ];
+    maintainers = [maintainers.skeidel];
   };
 }

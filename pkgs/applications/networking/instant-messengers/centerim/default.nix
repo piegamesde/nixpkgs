@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     ${gnused}/bin/sed -i '1,1i#include <stdio.h>' libicq2000/libicq2000/sigslot.h
   '';
 
-  configureFlags = [ "--with-openssl=${openssl.dev}" ];
+  configureFlags = ["--with-openssl=${openssl.dev}"];
 
   meta = {
     homepage = "https://www.centerim.org/";

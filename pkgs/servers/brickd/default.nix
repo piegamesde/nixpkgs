@@ -29,7 +29,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-6w2Ew+dLMmdRf9CF3TdKHa0d5ZgmX5lKIR+5t3QAWFQ=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libusb1
     pmutils
@@ -67,7 +67,7 @@ stdenv.mkDerivation {
   meta = {
     homepage = "https://www.tinkerforge.com/";
     description = "A daemon (or service on Windows) that acts as a bridge between the Bricks/Bricklets and the API bindings for the different programming languages";
-    maintainers = [ lib.maintainers.qknight ];
+    maintainers = [lib.maintainers.qknight];
     license = lib.licenses.gpl2;
     platforms = lib.platforms.all;
   };

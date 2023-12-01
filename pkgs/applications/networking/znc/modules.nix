@@ -48,7 +48,7 @@ in
       description = "Request backlog for IRC channels.";
       homepage = "https://github.com/fruitiex/znc-backlog/";
       license = licenses.asl20;
-      maintainers = with maintainers; [ infinisil ];
+      maintainers = with maintainers; [infinisil];
     };
   };
 
@@ -91,7 +91,7 @@ in
       description = "ZNC clientaway module";
       homepage = "https://github.com/kylef/znc-contrib";
       license = licenses.gpl2;
-      maintainers = with maintainers; [ kiwi ];
+      maintainers = with maintainers; [kiwi];
     };
   };
 
@@ -111,7 +111,7 @@ in
     meta = {
       description = "ZNC FiSH module";
       homepage = "https://github.com/dctrwatson/znc-fish";
-      maintainers = [ lib.maintainers.offline ];
+      maintainers = [lib.maintainers.offline];
     };
   };
 
@@ -131,7 +131,7 @@ in
       description = "ZNC ignore module";
       homepage = "https://github.com/kylef/znc-contrib";
       license = licenses.gpl2;
-      maintainers = with maintainers; [ kiwi ];
+      maintainers = with maintainers; [kiwi];
     };
   };
 
@@ -174,7 +174,7 @@ in
       description = "An advanced playback module for ZNC";
       homepage = "https://github.com/jpnurmi/znc-playback";
       license = licenses.asl20;
-      maintainers = with maintainers; [ hrdinka ];
+      maintainers = with maintainers; [hrdinka];
     };
   };
 

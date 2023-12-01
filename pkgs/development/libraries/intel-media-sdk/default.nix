@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     libXdmcp
     libpthreadstubs
   ];
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
 
   cmakeFlags = [
     "-DBUILD_SAMPLES=OFF"
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Intel Media SDK";
     license = licenses.mit;
-    maintainers = with maintainers; [ midchildan ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [midchildan];
+    platforms = ["x86_64-linux"];
   };
 }

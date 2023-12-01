@@ -24,6 +24,6 @@ stdenv.mkDerivation {
     description = "The libipfix C-library implements the IPFIX protocol defined by the IP Flow Information Export working group of the IETF";
     license = licenses.lgpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ lewo ];
+    maintainers = with maintainers; [lewo];
   };
 }

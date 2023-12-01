@@ -51,7 +51,7 @@ mkDerivation rec {
     description = "Matrix-Mixer for the Jack-Audio-connection-Kit";
     homepage = "https://github.com/kampfschlaefer/jackmix";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ kampfschlaefer ];
+    maintainers = with maintainers; [kampfschlaefer];
     platforms = platforms.linux;
   };
 }

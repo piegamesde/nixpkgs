@@ -35,8 +35,8 @@ in
 
   config = mkIf cfg.enable {
     systemd.services.gotify-server = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       description = "Simple server for sending and receiving messages";
 
       environment = {

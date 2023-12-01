@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/reorg/pg_repack";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ danbst ];
+    maintainers = with maintainers; [danbst];
     inherit (postgresql.meta) platforms;
   };
 }

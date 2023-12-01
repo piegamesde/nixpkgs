@@ -15,7 +15,7 @@ let
     extensionPack = if cfg.enableExtensionPack then pkgs.virtualboxExtpack else null;
   };
 
-  kernelModules = config.boot.kernelPackages.virtualbox.override { inherit virtualbox; };
+  kernelModules = config.boot.kernelPackages.virtualbox.override {inherit virtualbox;};
 in
 
 {
@@ -103,8 +103,8 @@ in
           "vboxnetadp"
           "vboxnetflt"
         ];
-        boot.extraModulePackages = [ kernelModules ];
-        environment.systemPackages = [ virtualbox ];
+        boot.extraModulePackages = [kernelModules];
+        environment.systemPackages = [virtualbox];
 
         security.wrappers =
           let
@@ -155,13 +155,13 @@ in
       (mkIf cfg.addNetworkInterface {
         systemd.services.vboxnet0 = {
           description = "VirtualBox vboxnet0 Interface";
-          requires = [ "dev-vboxnetctl.device" ];
-          after = [ "dev-vboxnetctl.device" ];
+          requires = ["dev-vboxnetctl.device"];
+          after = ["dev-vboxnetctl.device"];
           wantedBy = [
             "network.target"
             "sys-subsystem-net-devices-vboxnet0.device"
           ];
-          path = [ virtualbox ];
+          path = [virtualbox];
           serviceConfig.RemainAfterExit = true;
           serviceConfig.Type = "oneshot";
           serviceConfig.PrivateTmp = true;
@@ -185,7 +185,7 @@ in
         ];
         # Make sure NetworkManager won't assume this interface being up
         # means we have internet access.
-        networking.networkmanager.unmanaged = [ "vboxnet0" ];
+        networking.networkmanager.unmanaged = ["vboxnet0"];
       })
       (mkIf config.networking.useNetworkd {
         systemd.network.networks."40-vboxnet0".extraConfig = ''

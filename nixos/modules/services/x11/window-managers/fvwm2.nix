@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.services.xserver.windowManager.fvwm2;
-  fvwm2 = pkgs.fvwm2.override { enableGestures = cfg.gestures; };
+  fvwm2 = pkgs.fvwm2.override {enableGestures = cfg.gestures;};
 in
 
 {
@@ -56,6 +56,6 @@ in
       '';
     };
 
-    environment.systemPackages = [ fvwm2 ];
+    environment.systemPackages = [fvwm2];
   };
 }

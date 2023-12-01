@@ -25,7 +25,7 @@
   tsm-client, # Tivoli Storage Manager Backup Client from IBM
 }:
 
-with (import ./srcs.nix { inherit fetchurl; });
+with (import ./srcs.nix {inherit fetchurl;});
 let
   inherit (lib) optional optionalString optionals;
 in
@@ -33,7 +33,7 @@ stdenv.mkDerivation {
   pname = "openafs";
   inherit version srcs;
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   nativeBuildInputs =
     [
       autoconf
@@ -50,7 +50,7 @@ stdenv.mkDerivation {
       dblatex
     ];
 
-  buildInputs = [ libkrb5 ] ++ optional withNcurses ncurses;
+  buildInputs = [libkrb5] ++ optional withNcurses ncurses;
 
   patches = [
     ./bosserver.patch
@@ -105,7 +105,7 @@ stdenv.mkDerivation {
       export XBSA_CFLAGS="-Dxbsa -DNEW_XBSA -I${tsm-client}/lib64/sample -DXBSA_TSMLIB=\\\"${tsm-client}/lib64/libApiTSM64.so\\\""
     '';
 
-  buildFlags = [ "all_nolibafs" ];
+  buildFlags = ["all_nolibafs"];
 
   postBuild =
     ''

@@ -75,6 +75,6 @@ stdenv.mkDerivation rec {
     homepage = "https://lxi-tools.github.io/";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.vq ];
+    maintainers = [maintainers.vq];
   };
 }

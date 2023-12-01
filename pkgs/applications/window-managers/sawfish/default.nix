@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
       extensibility or redefinition.
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.unix;
   };
 }

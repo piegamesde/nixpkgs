@@ -30,16 +30,16 @@ buildPythonPackage rec {
       --replace "--isort --flake8 --cov --no-cov-on-fail" ""
   '';
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  propagatedBuildInputs = [ webencodings ];
+  propagatedBuildInputs = [webencodings];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Low-level CSS parser for Python";
     homepage = "https://github.com/Kozea/tinycss2";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

@@ -40,7 +40,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -63,13 +63,13 @@ buildPythonPackage rec {
     "test_answer_links_using_l_option"
   ];
 
-  pythonImportsCheck = [ "howdoi" ];
+  pythonImportsCheck = ["howdoi"];
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64) || stdenv.isDarwin;
     description = "Instant coding answers via the command line";
     homepage = "https://github.com/gleitz/howdoi";
     license = licenses.mit;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

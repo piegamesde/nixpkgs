@@ -30,7 +30,7 @@ python3.pkgs.buildPythonPackage rec {
   };
   doCheck = false;
 
-  buildInputs = with python3.pkgs; [ distro ];
+  buildInputs = with python3.pkgs; [distro];
   runtimeDeps = [
     findutils
     gnugrep
@@ -62,6 +62,6 @@ python3.pkgs.buildPythonPackage rec {
                          manages Linux provisioning and VM interaction with the Azure
                          Fabric Controller'';
     homepage = "https://github.com/Azure/WALinuxAgent";
-    license = with lib.licenses; [ asl20 ];
+    license = with lib.licenses; [asl20];
   };
 }

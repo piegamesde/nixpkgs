@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     homepage = "http://quvi.sf.net";
     license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     broken = true; # missing glibc-2.34 support, no upstream activity
   };
 }

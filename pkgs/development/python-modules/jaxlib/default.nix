@@ -43,7 +43,7 @@
 
   # CUDA flags:
   cudaSupport ? false,
-  cudaPackages ? { },
+  cudaPackages ? {},
 
   # MKL:
   mklSupport ? true,
@@ -65,7 +65,7 @@ let
     description = "JAX is Autograd and XLA, brought together for high-performance machine learning research.";
     homepage = "https://github.com/google/jax";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ndl ];
+    maintainers = with maintainers; [ndl];
     platforms = platforms.unix;
     # aarch64-darwin is broken because of https://github.com/bazelbuild/rules_cc/pull/136
     # however even with that fix applied, it doesn't work for everyone:
@@ -159,7 +159,7 @@ let
       setuptools
       wheel
       which
-    ] ++ lib.optionals stdenv.isDarwin [ cctools ];
+    ] ++ lib.optionals stdenv.isDarwin [cctools];
 
     buildInputs =
       [
@@ -183,14 +183,14 @@ let
         cudatoolkit
         cudnn
       ]
-      ++ lib.optionals stdenv.isDarwin [ IOKit ]
-      ++ lib.optionals (!stdenv.isDarwin) [ nsync ];
+      ++ lib.optionals stdenv.isDarwin [IOKit]
+      ++ lib.optionals (!stdenv.isDarwin) [nsync];
 
     postPatch = ''
       rm -f .bazelversion
     '';
 
-    bazelTargets = [ "//build:build_wheel" ];
+    bazelTargets = ["//build:build_wheel"];
 
     removeRulesCC = false;
 
@@ -227,7 +227,7 @@ let
     # Make sure Bazel knows about our configuration flags during fetching so that the
     # relevant dependencies can be downloaded.
     bazelFlags =
-      [ "-c opt" ]
+      ["-c opt"]
       ++ lib.optionals stdenv.cc.isClang [
         # bazel depends on the compiler frontend automatically selecting these flags based on file
         # extension but our clang doesn't.
@@ -242,10 +242,10 @@ let
     fetchAttrs = {
       TF_SYSTEM_LIBS = lib.concatStringsSep "," tf_system_libs;
       # we have to force @mkl_dnn_v1 since it's not needed on darwin
-      bazelTargets = bazelTargets ++ [ "@mkl_dnn_v1//:mkl_dnn" ];
+      bazelTargets = bazelTargets ++ ["@mkl_dnn_v1//:mkl_dnn"];
       bazelFlags =
         bazelFlags
-        ++ [ "--config=avx_posix" ]
+        ++ ["--config=avx_posix"]
         ++
           lib.optionals cudaSupport
             [
@@ -255,7 +255,7 @@ let
               # have access to darwin machines
               "--config=cuda"
             ]
-        ++ [ "--config=mkl_open_source_only" ];
+        ++ ["--config=mkl_open_source_only"];
 
       sha256 =
         if cudaSupport then
@@ -265,7 +265,7 @@ let
     };
 
     buildAttrs = {
-      outputs = [ "out" ];
+      outputs = ["out"];
 
       TF_SYSTEM_LIBS = lib.concatStringsSep "," (
         tf_system_libs
@@ -279,8 +279,8 @@ let
         ++ lib.optionals (stdenv.targetPlatform.isx86_64 && stdenv.targetPlatform.isUnix) [
           "--config=avx_posix"
         ]
-        ++ lib.optionals cudaSupport [ "--config=cuda" ]
-        ++ lib.optionals mklSupport [ "--config=mkl_open_source_only" ];
+        ++ lib.optionals cudaSupport ["--config=cuda"]
+        ++ lib.optionals mklSupport ["--config=mkl_open_source_only"];
       # Note: we cannot do most of this patching at `patch` phase as the deps are not available yet.
       # 1) Fix pybind11 include paths.
       # 2) Link protobuf from nixpkgs (through TF_SYSTEM_LIBS when using gcc) to prevent crashes on
@@ -343,7 +343,7 @@ buildPythonPackage {
 
   src =
     let
-      cp = "cp${builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
+      cp = "cp${builtins.replaceStrings ["."] [""] python.pythonVersion}";
     in
     "${bazel-build}/jaxlib-${version}-${cp}-${cp}-${platformTag}.whl";
 
@@ -377,7 +377,7 @@ buildPythonPackage {
     snappy
   ];
 
-  pythonImportsCheck = [ "jaxlib" ];
+  pythonImportsCheck = ["jaxlib"];
 
   # Without it there are complaints about libcudart.so.11.0 not being found
   # because RPATH path entries added above are stripped.

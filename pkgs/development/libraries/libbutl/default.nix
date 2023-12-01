@@ -23,20 +23,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-yzs6DFt6peJPPaMQ3rtx+kiYu7H+bUuShcdnEN90WWI=";
   };
 
-  nativeBuildInputs = [ build2 ];
+  nativeBuildInputs = [build2];
 
   strictDeps = true;
 
   # Should be true for anything built with build2,
   # but especially important when bootstrapping
-  disallowedReferences = [ build2 ];
+  disallowedReferences = [build2];
 
   postPatch = lib.optionalString stdenv.isLinux ''
     substituteInPlace libbutl/uuid-linux.cxx \
       --replace '"libuuid.so' '"${lib.getLib libuuid}/lib/libuuid.so'
   '';
 
-  build2ConfigureFlags = [ "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}" ];
+  build2ConfigureFlags = ["config.bin.lib=${build2.configSharedStatic enableShared enableStatic}"];
 
   doCheck = true;
 
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     homepage = "https://build2.org/";
     changelog = "https://git.build2.org/cgit/libbutl/log";
     license = licenses.mit;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
     platforms = platforms.all;
   };
 }

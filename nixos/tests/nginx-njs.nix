@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "nginx-njs";
 
@@ -13,7 +13,7 @@ import ./make-test-python.nix (
       {
         services.nginx = {
           enable = true;
-          additionalModules = [ pkgs.nginxModules.njs ];
+          additionalModules = [pkgs.nginxModules.njs];
           commonHttpConfig = ''
             js_import http from ${builtins.toFile "http.js" ''
               function hello(r) {

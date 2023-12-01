@@ -20,8 +20,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-NGwWmqP4D5LdXTwo+B+cj+i66Ec9fB723h2kggugLgg=";
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
-  buildInputs = [ libusb1 ] ++ lib.optionals stdenv.isDarwin [ AppKit ];
+  nativeBuildInputs = [pkg-config] ++ lib.optionals stdenv.isDarwin [DarwinTools];
+  buildInputs = [libusb1] ++ lib.optionals stdenv.isDarwin [AppKit];
 
   meta = with lib; {
     description = "A cargo extension for working with microcontrollers";

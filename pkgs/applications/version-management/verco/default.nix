@@ -21,6 +21,6 @@ rustPlatform.buildRustPackage rec {
     description = "A simple Git/Mercurial/PlasticSCM tui client based on keyboard shortcuts";
     homepage = "https://vamolessa.github.io/verco";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

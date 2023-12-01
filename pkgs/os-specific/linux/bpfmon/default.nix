@@ -22,13 +22,13 @@ stdenv.mkDerivation rec {
     yascreen
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "BPF based visual packet rate monitor";
     homepage = "https://github.com/bbonev/bpfmon";
     changelog = "https://github.com/bbonev/bpfmon/releases/tag/v${version}";
-    maintainers = with maintainers; [ arezvov ];
+    maintainers = with maintainers; [arezvov];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

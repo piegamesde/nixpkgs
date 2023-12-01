@@ -30,12 +30,12 @@ buildPythonPackage rec {
   # There are none
   doCheck = false;
 
-  pythonImportsCheck = [ "domeneshop" ];
+  pythonImportsCheck = ["domeneshop"];
 
   meta = with lib; {
     description = "Python library for working with the Domeneshop API";
     homepage = "https://api.domeneshop.no/docs/";
     license = licenses.mit;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

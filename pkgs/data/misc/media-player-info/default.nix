@@ -30,13 +30,13 @@ stdenv.mkDerivation rec {
     patchShebangs ./tools
   '';
 
-  configureFlags = [ "--with-udevdir=${placeholder "out"}/lib/udev" ];
+  configureFlags = ["--with-udevdir=${placeholder "out"}/lib/udev"];
 
   meta = with lib; {
     description = "A repository of data files describing media player capabilities";
     homepage = "https://www.freedesktop.org/wiki/Software/media-player-info/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ttuegel ];
+    maintainers = with maintainers; [ttuegel];
     platforms = with platforms; linux;
   };
 }

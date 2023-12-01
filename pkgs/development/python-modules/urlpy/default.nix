@@ -19,9 +19,9 @@ buildPythonPackage rec {
 
   dontConfigure = true;
 
-  propagatedBuildInputs = [ publicsuffix2 ];
+  propagatedBuildInputs = [publicsuffix2];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests =
     lib.optionals (pythonAtLeast "3.9")
@@ -30,12 +30,12 @@ buildPythonPackage rec {
         "test_unknown_protocol"
       ];
 
-  pythonImportsCheck = [ "urlpy" ];
+  pythonImportsCheck = ["urlpy"];
 
   meta = with lib; {
     description = "Simple URL parsing, canonicalization and equivalence";
     homepage = "https://github.com/nexB/urlpy";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

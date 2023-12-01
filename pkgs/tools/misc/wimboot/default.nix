@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     zlib
     libiberty
   ];
-  makeFlags = [ "wimboot.x86_64.efi" ];
+  makeFlags = ["wimboot.x86_64.efi"];
 
   env.NIX_CFLAGS_COMPILE =
     toString
@@ -47,6 +47,6 @@ stdenv.mkDerivation rec {
       das_j
       ajs124
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   preInstall = "\n    substituteInPlace Makefile --replace '-o root -g root' ''\n  ";
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
   buildInputs = [
     pam
     openldap

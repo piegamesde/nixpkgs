@@ -31,7 +31,7 @@ else
       ocaml
       findlib
     ];
-    buildInputs = [ freeglut ];
+    buildInputs = [freeglut];
     propagatedBuildInputs =
       [
         libGLU

@@ -31,7 +31,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "distrax" ];
+  pythonImportsCheck = ["distrax"];
 
   disabledTestPaths = [
     # TypeErrors
@@ -52,7 +52,7 @@ buildPythonPackage rec {
     description = "Probability distributions in JAX";
     homepage = "https://github.com/deepmind/distrax";
     license = licenses.asl20;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
     # Broken on all platforms (starting 2022-07-27)
     broken = true;
   };

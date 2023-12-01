@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-zqtPBxjTJ+/XxVpfVpyFIwvlj5xCcnTrUv2RGzP8UQc=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libsodium
     openssl
@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/nats-io/nats.c";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

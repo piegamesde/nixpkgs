@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     sha256 = "0qd13fndbhgkkmhxbprpzmj2l2v9ihacxagpdqi9sg9nrzvahr9h";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     curl
     libGL
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     description = "Improved Quake III Arena engine";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pmiddend ];
+    maintainers = with maintainers; [pmiddend];
     badPlatforms = platforms.aarch64;
     # never built on aarch64-linux since first introduction in nixpkgs
     broken = stdenv.isLinux && stdenv.isAarch64;

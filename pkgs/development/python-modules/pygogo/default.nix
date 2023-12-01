@@ -22,9 +22,9 @@ buildPythonPackage rec {
     sha256 = "19rdf4sjrm5lp1vq1bki21a9lrkzz8sgrfwgjdkq4sgy90hn1jn9";
   };
 
-  nativeBuildInputs = [ pkutils ];
+  nativeBuildInputs = [pkutils];
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
   postPatch = ''
     substituteInPlace dev-requirements.txt \
@@ -37,12 +37,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "pygogo" ];
+  pythonImportsCheck = ["pygogo"];
 
   meta = with lib; {
     description = "Python logging library";
     homepage = "https://github.com/reubano/pygogo/";
     license = licenses.mit;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

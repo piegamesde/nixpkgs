@@ -59,7 +59,7 @@ let
       libsecret
     ];
 
-    propagatedBuildInputs = [ sqlite ];
+    propagatedBuildInputs = [sqlite];
 
     mesonFlags = [
       "-Dbus_type=session"
@@ -77,12 +77,12 @@ let
       description = "D-Bus service which performs user authentication on behalf of its clients";
       homepage = "https://gitlab.com/accounts-sso/gsignond";
       license = licenses.lgpl21Plus;
-      maintainers = with maintainers; [ ];
+      maintainers = with maintainers; [];
       platforms = platforms.linux;
     };
   };
 in
-if plugins == [ ] then
+if plugins == [] then
   unwrapped
 else
   import ./wrapper.nix {

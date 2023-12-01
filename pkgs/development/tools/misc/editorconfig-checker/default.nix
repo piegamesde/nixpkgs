@@ -22,15 +22,15 @@ buildGoModule rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  ldflags = [ "-X main.version=${version}" ];
+  ldflags = ["-X main.version=${version}"];
 
   postInstall = ''
     installManPage docs/editorconfig-checker.1
   '';
 
-  passthru.tests.version = testers.testVersion { package = editorconfig-checker; };
+  passthru.tests.version = testers.testVersion {package = editorconfig-checker;};
 
   meta = with lib; {
     description = "A tool to verify that your files are in harmony with your .editorconfig";

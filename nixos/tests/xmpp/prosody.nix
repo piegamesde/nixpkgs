@@ -1,7 +1,7 @@
 let
   cert =
     pkgs:
-    pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
+    pkgs.runCommand "selfSignedCerts" {buildInputs = [pkgs.openssl];} ''
       openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -subj '/CN=example.com/CN=uploads.example.com/CN=conference.example.com' -days 36500
       mkdir -p $out
       cp key.pem cert.pem $out
@@ -48,7 +48,7 @@ import ../make-test-python.nix {
         ...
       }:
       {
-        security.pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
+        security.pki.certificateFiles = ["${cert pkgs}/cert.pem"];
         console.keyMap = "fr-bepo";
         networking.extraHosts = ''
           ${nodes.server.config.networking.primaryIPAddress} example.com
@@ -56,13 +56,13 @@ import ../make-test-python.nix {
           ${nodes.server.config.networking.primaryIPAddress} uploads.example.com
         '';
         environment.systemPackages = [
-          (pkgs.callPackage ./xmpp-sendmessage.nix { connectTo = "example.com"; })
+          (pkgs.callPackage ./xmpp-sendmessage.nix {connectTo = "example.com";})
         ];
       };
     server =
-      { config, pkgs, ... }:
+      {config, pkgs, ...}:
       {
-        security.pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
+        security.pki.certificateFiles = ["${cert pkgs}/cert.pem"];
         console.keyMap = "fr-bepo";
         networking.extraHosts = ''
           ${config.networking.primaryIPAddress} example.com
@@ -84,7 +84,7 @@ import ../make-test-python.nix {
             ssl.cert = "${cert pkgs}/cert.pem";
             ssl.key = "${cert pkgs}/key.pem";
           };
-          muc = [ { domain = "conference.example.com"; } ];
+          muc = [{domain = "conference.example.com";}];
           uploadHttp = {
             domain = "uploads.example.com";
           };
@@ -93,7 +93,7 @@ import ../make-test-python.nix {
   };
 
   testScript =
-    { nodes, ... }:
+    {nodes, ...}:
     ''
       # Check with sqlite storage
       start_all()

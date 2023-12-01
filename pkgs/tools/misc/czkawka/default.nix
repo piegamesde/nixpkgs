@@ -44,7 +44,7 @@ rustPlatform.buildRustPackage rec {
     gtk4
   ];
 
-  nativeCheckInputs = [ xvfb-run ];
+  nativeCheckInputs = [xvfb-run];
 
   checkPhase = ''
     runHook preCheck
@@ -61,7 +61,7 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/qarmin/czkawka/raw/${version}/Changelog.md";
     description = "A simple, fast and easy to use app to remove unnecessary files from your computer";
     homepage = "https://github.com/qarmin/czkawka";
-    license = with licenses; [ mit ];
+    license = with licenses; [mit];
     maintainers = with maintainers; [
       yanganto
       _0x4A6F

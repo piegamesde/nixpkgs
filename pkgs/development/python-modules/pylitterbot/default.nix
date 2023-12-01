@@ -27,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-nF6njY2qNoHW2ZGNDHNeTBTjSBbitJxitPgyayLaqSE=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -48,13 +48,13 @@ buildPythonPackage rec {
       --replace 'deepdiff = "^5.8.1"' 'deepdiff = ">=5.8.1"'
   '';
 
-  pythonImportsCheck = [ "pylitterbot" ];
+  pythonImportsCheck = ["pylitterbot"];
 
   meta = with lib; {
     description = "Modulefor controlling a Litter-Robot";
     homepage = "https://github.com/natekspencer/pylitterbot";
     changelog = "https://github.com/natekspencer/pylitterbot/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

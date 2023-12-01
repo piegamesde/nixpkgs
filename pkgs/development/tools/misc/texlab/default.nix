@@ -27,9 +27,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-gEwsnVXY84mTO+JZvcI7EEYCOnVFM07m4VvcWI6zFT0=";
 
-  outputs = [ "out" ] ++ lib.optional (!isCross) "man";
+  outputs = ["out"] ++ lib.optional (!isCross) "man";
 
-  nativeBuildInputs = [ installShellFiles ] ++ lib.optional (!isCross) help2man;
+  nativeBuildInputs = [installShellFiles] ++ lib.optional (!isCross) help2man;
 
   buildInputs = lib.optionals stdenv.isDarwin [
     libiconv
@@ -46,7 +46,7 @@ rustPlatform.buildRustPackage rec {
     installManPage texlab.1
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "An implementation of the Language Server Protocol for LaTeX";

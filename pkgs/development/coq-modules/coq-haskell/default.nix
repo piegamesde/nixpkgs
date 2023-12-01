@@ -16,7 +16,7 @@ mkCoqDerivation {
   release."20171215".sha256 = "09dq1vvshhlhgjccrhqgbhnq2hrys15xryfszqq11rzpgvl2zgdv";
 
   mlPlugin = true;
-  extraInstallFlags = [ "-f Makefile.coq" ];
+  extraInstallFlags = ["-f Makefile.coq"];
   propagatedBuildInputs = [
     coq
     ssreflect
@@ -25,6 +25,6 @@ mkCoqDerivation {
 
   meta = {
     description = "A library for formalizing Haskell types and functions in Coq";
-    maintainers = with lib.maintainers; [ jwiegley ];
+    maintainers = with lib.maintainers; [jwiegley];
   };
 }

@@ -36,7 +36,7 @@ rustPlatform.buildRustPackage rec {
   # false positives of this package being broken due to failed runs on
   # Hydra (e.g. https://hydra.nixos.org/build/187667794/)
   doCheck = (stdenv.system != "x86_64-darwin");
-  cargoTestFlags = [ "--package wasmtime-runtime" ];
+  cargoTestFlags = ["--package wasmtime-runtime"];
 
   postInstall = ''
     # move libs from out to dev

@@ -17,6 +17,6 @@ buildPythonPackage rec {
     description = "The module provide the class Week. Instances represent specific weeks spanning Monday to Sunday.";
     homepage = "https://github.com/gisle/isoweek";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ mrmebelman ];
+    maintainers = with maintainers; [mrmebelman];
   };
 }

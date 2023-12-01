@@ -46,7 +46,7 @@ stdenvNoCC.mkDerivation (
         terminal emulator.
       '';
       license = licenses.bsd3;
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       platforms = platforms.all;
     };
   }

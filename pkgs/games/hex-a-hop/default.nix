@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     SDL_ttf
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   postFixup = ''
     install -Dm644 ${icon} $out/share/icons/${pname}.png
@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
       lgpl3Plus # source files from Lips of Suna
     ];
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ rampoina ];
+    maintainers = with lib.maintainers; [rampoina];
   };
 }

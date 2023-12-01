@@ -36,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     openssl
     oniguruma
     libsass
-  ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
+  ] ++ lib.optionals stdenv.isDarwin [CoreServices];
 
   RUSTONIG_SYSTEM_LIBONIG = true;
 
@@ -47,7 +47,7 @@ rustPlatform.buildRustPackage rec {
       --zsh <($out/bin/zola completion zsh)
   '';
 
-  passthru.tests.version = testers.testVersion { package = zola; };
+  passthru.tests.version = testers.testVersion {package = zola;};
 
   meta = with lib; {
     description = "A fast static site generator with everything built-in";

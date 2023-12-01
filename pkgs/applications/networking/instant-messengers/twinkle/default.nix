@@ -65,7 +65,7 @@ mkDerivation rec {
     description = "A SIP-based VoIP client";
     homepage = "http://twinkle.dolezel.info/";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.mkg20001 ];
+    maintainers = [maintainers.mkg20001];
     platforms = platforms.linux;
   };
 }

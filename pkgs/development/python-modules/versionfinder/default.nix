@@ -45,13 +45,13 @@ buildPythonPackage rec {
       "TestFindPipInfo"
     ];
 
-  pythonImportsCheck = [ "versionfinder" ];
+  pythonImportsCheck = ["versionfinder"];
 
   meta = with lib; {
     description = "Find the version of another package, whether installed via pip, setuptools or git";
     homepage = "https://github.com/jantman/versionfinder";
     changelog = "https://github.com/jantman/versionfinder/blob/${version}/CHANGES.rst";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ zakame ];
+    maintainers = with maintainers; [zakame];
   };
 }

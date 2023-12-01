@@ -20,18 +20,18 @@ buildPythonPackage rec {
     sha256 = "1hvvlk3j28i6nswb6gy3mq7278nq0mgfnpxh1rv6jvi7xhd7qmlc";
   };
 
-  buildInputs = [ openssl ];
-  nativeCheckInputs = [ pytest ];
+  buildInputs = [openssl];
+  nativeCheckInputs = [pytest];
   propagatedBuildInputs = [
     cffi
     six
   ];
-  propagatedNativeBuildInputs = [ cffi ];
+  propagatedNativeBuildInputs = [cffi];
 
   meta = with lib; {
     homepage = "https://github.com/Ayrx/python-fastpbkdf2";
     description = "Python bindings for fastpbkdf2";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jqueiroz ];
+    maintainers = with maintainers; [jqueiroz];
   };
 }

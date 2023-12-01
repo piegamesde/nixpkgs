@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "1s7r4f2d3lk1i8h089v2vyrr02hh0y9i3ihl9kqgk9s87hqw8q5b";
   };
 
-  buildInputs = [ libX11 ];
+  buildInputs = [libX11];
 
   dontConfigure = true;
 
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
       - Focus windows with the mouse pointer (X does this on its own)
     '';
     homepage = "http://incise.org/tinywm.html";
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = libX11.meta.platforms;
     license = licenses.publicDomain;
   };

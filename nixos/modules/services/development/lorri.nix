@@ -35,7 +35,7 @@ in
   config = lib.mkIf cfg.enable {
     systemd.user.sockets.lorri = {
       description = "Socket for Lorri Daemon";
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
       socketConfig = {
         ListenStream = "%t/${socketPath}";
         RuntimeDirectory = "lorri";
@@ -44,8 +44,8 @@ in
 
     systemd.user.services.lorri = {
       description = "Lorri Daemon";
-      requires = [ "lorri.socket" ];
-      after = [ "lorri.socket" ];
+      requires = ["lorri.socket"];
+      after = ["lorri.socket"];
       path = with pkgs; [
         config.nix.package
         git

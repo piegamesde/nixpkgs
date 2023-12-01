@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
   MYSQL_CONFIG = lib.optionalString withMysql "${lib.getDev libmysqlclient}/bin/mysql_config";
 
   configureFlags =
-    [ "--with-pcap-includes=${libpcap}/include" ]
+    ["--with-pcap-includes=${libpcap}/include"]
     ++ lib.optional withJansson "--enable-jansson"
     ++ lib.optional withNflog "--enable-nflog"
     ++ lib.optional withSQLite "--enable-sqlite3"
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.pmacct.net/";
     changelog = "https://github.com/pmacct/pmacct/blob/v${version}/ChangeLog";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ _0x4A6F ];
+    maintainers = with maintainers; [_0x4A6F];
     platforms = platforms.unix;
   };
 }

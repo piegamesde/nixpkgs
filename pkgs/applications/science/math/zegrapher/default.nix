@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     qmake
     wrapQtAppsHook
   ];
-  buildInputs = [ boost ];
+  buildInputs = [boost];
 
   meta = with lib; {
     homepage = "https://zegrapher.com/";
@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
       sequences, parametric equations and data on the plane.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
   };
 }

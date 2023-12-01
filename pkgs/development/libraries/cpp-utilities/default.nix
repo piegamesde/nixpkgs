@@ -18,8 +18,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-c36FzKDAaalKVIrqVSCoslrKVopW77cGdGwfiMbaXe4=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  nativeCheckInputs = [ cppunit ];
+  nativeBuildInputs = [cmake];
+  nativeCheckInputs = [cppunit];
   buildInputs = lib.optionals stdenv.isDarwin [
     iconv # needed on Darwin, see https://github.com/Martchus/cpp-utilities/issues/4
   ];
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Martchus/cpp-utilities";
     description = "Common C++ classes and routines used by @Martchus' applications featuring argument parser, IO and conversion utilities";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

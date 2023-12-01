@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "12bwhqkxfbkh3mm4wfvqflwhmbzpmlhlfykdpy6h7p9ih9ky8w6r";
   };
 
-  buildInputs = [ binutils ];
+  buildInputs = [binutils];
 
   doCheck = false;
 
@@ -51,9 +51,9 @@ stdenv.mkDerivation rec {
         analyses, editors, code-review applications, and more — to share
         information with each other smoothly.  '';
     homepage = "https://kythe.io/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = [ maintainers.mpickering ];
+    maintainers = [maintainers.mpickering];
   };
 }

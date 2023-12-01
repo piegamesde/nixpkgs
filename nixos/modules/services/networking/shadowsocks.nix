@@ -23,7 +23,7 @@ let
       plugin = cfg.plugin;
       plugin_opts = cfg.pluginOpts;
     }
-    // optionalAttrs (cfg.password != null) { password = cfg.password; }
+    // optionalAttrs (cfg.password != null) {password = cfg.password;}
     // cfg.extraConfig;
 
   configFile = pkgs.writeText "shadowsocks.json" (builtins.toJSON opts);
@@ -128,7 +128,7 @@ in
 
       extraConfig = mkOption {
         type = types.attrs;
-        default = { };
+        default = {};
         example = {
           nameserver = "8.8.8.8";
         };
@@ -154,8 +154,8 @@ in
 
     systemd.services.shadowsocks-libev = {
       description = "shadowsocks-libev Daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       path = [
         pkgs.shadowsocks-libev
       ] ++ optional (cfg.plugin != null) cfg.plugin ++ optional (cfg.passwordFile != null) pkgs.jq;

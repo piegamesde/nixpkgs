@@ -66,8 +66,8 @@ in
 
     systemd.services.sabnzbd = {
       description = "sabnzbd server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         Type = "forking";
         GuessMainPID = "no";

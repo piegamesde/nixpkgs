@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   {
     name = "systemd-oomd";
@@ -7,7 +7,7 @@ import ./make-test-python.nix (
     # This test is a simplified version of systemd's testsuite-55.
     # https://github.com/systemd/systemd/blob/v251/test/units/testsuite-55.sh
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         # Limit VM resource usage.
         virtualisation.memorySize = 1024;

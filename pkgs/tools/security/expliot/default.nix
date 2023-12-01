@@ -42,7 +42,7 @@ buildPythonApplication rec {
     "zeroconf"
   ];
 
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  nativeBuildInputs = [pythonRelaxDepsHook];
 
   propagatedBuildInputs = [
     aiocoap
@@ -66,7 +66,7 @@ buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "expliot" ];
+  pythonImportsCheck = ["expliot"];
 
   meta = with lib; {
     description = "IoT security testing and exploitation framework";
@@ -79,7 +79,7 @@ buildPythonApplication rec {
       purpose of the framework i.e. IoT exploitation.
     '';
     homepage = "https://expliot.readthedocs.io/";
-    license = with licenses; [ agpl3Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [agpl3Plus];
+    maintainers = with maintainers; [fab];
   };
 }

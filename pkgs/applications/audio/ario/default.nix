@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     description = "GTK client for MPD (Music player daemon)";
     homepage = "https://ario-player.sourceforge.net/";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.garrison ];
+    maintainers = [maintainers.garrison];
     platforms = platforms.all;
   };
 }

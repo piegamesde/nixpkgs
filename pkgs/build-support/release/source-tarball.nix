@@ -4,7 +4,7 @@
 
 {
   officialRelease ? false,
-  buildInputs ? [ ],
+  buildInputs ? [],
   name ? "source-tarball",
   version ? "0",
   versionSuffix ? if officialRelease then "" else "pre${toString (src.rev or src.revCount or "")}",
@@ -125,7 +125,7 @@ stdenv.mkDerivation (
         version = version + versionSuffix;
       };
 
-      meta = (if args ? meta then args.meta else { }) // {
+      meta = (if args ? meta then args.meta else {}) // {
         description = "Source distribution";
 
         # Tarball builds are generally important, so give them a high

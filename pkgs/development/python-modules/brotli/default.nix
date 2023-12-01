@@ -21,14 +21,14 @@ buildPythonPackage rec {
   # only returns information how to really build
   dontConfigure = true;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "python/tests" ];
+  pytestFlagsArray = ["python/tests"];
 
   meta = with lib; {
     homepage = "https://github.com/google/brotli";
     description = "Generic-purpose lossless compression algorithm";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

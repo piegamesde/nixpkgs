@@ -26,7 +26,7 @@ rec {
       postInstall ? "",
       path ? ".",
       addonInfo ? null,
-      meta ? { },
+      meta ? {},
       ...
     }@attrs:
     let

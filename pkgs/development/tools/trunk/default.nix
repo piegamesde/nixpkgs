@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-6o+frbLtuw+DwJiWv4x11qX4GUffhxF19pi/7FLYmHA=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     if stdenv.isDarwin then
       [
@@ -30,17 +30,17 @@ rustPlatform.buildRustPackage rec {
         Security
       ]
     else
-      [ openssl ];
+      [openssl];
 
   # requires network
-  checkFlags = [ "--skip=tools::tests::download_and_install_binaries" ];
+  checkFlags = ["--skip=tools::tests::download_and_install_binaries"];
 
   cargoSha256 = "sha256-j/i2io1JfcNA7eeAXAAKMBtHORZm4J5dOFFNnzvx2cg=";
 
   meta = with lib; {
     homepage = "https://github.com/thedodd/trunk";
     description = "Build, bundle & ship your Rust WASM application to the web";
-    maintainers = with maintainers; [ freezeboy ];
-    license = with licenses; [ asl20 ];
+    maintainers = with maintainers; [freezeboy];
+    license = with licenses; [asl20];
   };
 }

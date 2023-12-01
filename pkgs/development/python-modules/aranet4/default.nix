@@ -27,14 +27,14 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "aranet4" ];
+  pythonImportsCheck = ["aranet4"];
 
   meta = with lib; {
     description = "Module to interact with Aranet4 devices";
     homepage = "https://github.com/Anrijs/Aranet4-Python";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

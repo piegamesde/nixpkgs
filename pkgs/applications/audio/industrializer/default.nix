@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://sourceforge.net/projects/industrializer/";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.magnetophon ];
+    maintainers = [lib.maintainers.magnetophon];
     platforms = lib.platforms.linux;
   };
 }

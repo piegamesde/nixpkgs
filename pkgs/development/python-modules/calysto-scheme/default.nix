@@ -24,15 +24,15 @@ buildPythonPackage rec {
     metakernel
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "calysto_scheme" ];
+  pythonImportsCheck = ["calysto_scheme"];
 
   meta = with lib; {
     description = "A Scheme kernel for Jupyter that can use Python libraries";
     homepage = "https://github.com/Calysto/calysto_scheme";
     changelog = "https://github.com/Calysto/calysto_scheme/blob/${src.rev}/ChangeLog.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ kranzes ];
+    maintainers = with maintainers; [kranzes];
   };
 }

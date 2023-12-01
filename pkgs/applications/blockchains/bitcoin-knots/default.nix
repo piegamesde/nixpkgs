@@ -38,10 +38,10 @@ stdenv.mkDerivation rec {
       autoreconfHook
       pkg-config
     ]
-    ++ lib.optionals stdenv.isLinux [ util-linux ]
-    ++ lib.optionals stdenv.isDarwin [ hexdump ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ]
-    ++ lib.optionals withGui [ wrapQtAppsHook ];
+    ++ lib.optionals stdenv.isLinux [util-linux]
+    ++ lib.optionals stdenv.isDarwin [hexdump]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [autoSignDarwinBinariesHook]
+    ++ lib.optionals withGui [wrapQtAppsHook];
 
   buildInputs =
     [
@@ -70,18 +70,18 @@ stdenv.mkDerivation rec {
       "--disable-tests"
       "--disable-gui-tests"
     ]
-    ++ lib.optionals (!withWallet) [ "--disable-wallet" ]
+    ++ lib.optionals (!withWallet) ["--disable-wallet"]
     ++ lib.optionals withGui [
       "--with-gui=qt5"
       "--with-qt-bindir=${qtbase.dev}/bin:${qttools.dev}/bin"
     ];
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
 
   doCheck = true;
 
   checkFlags =
-    [ "LC_ALL=en_US.UTF-8" ]
+    ["LC_ALL=en_US.UTF-8"]
     # QT_PLUGIN_PATH needs to be set when executing QT, which is needed when testing Bitcoin's GUI.
     # See also https://github.com/NixOS/nixpkgs/issues/24256
     ++ lib.optional withGui "QT_PLUGIN_PATH=${qtbase}/${qtbase.qtPluginPrefix}";

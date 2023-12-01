@@ -35,7 +35,7 @@ in
 
       extraArguments = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "Extra arguments to lircd.";
       };
     };
@@ -50,11 +50,11 @@ in
 
     passthru.lirc.socket = "/run/lirc/lircd";
 
-    environment.systemPackages = [ pkgs.lirc ];
+    environment.systemPackages = [pkgs.lirc];
 
     systemd.sockets.lircd = {
       description = "LIRC daemon socket";
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
       socketConfig = {
         ListenStream = config.passthru.lirc.socket;
         SocketUser = "lirc";
@@ -68,9 +68,9 @@ in
       in
       {
         description = "LIRC daemon service";
-        after = [ "network.target" ];
+        after = ["network.target"];
 
-        unitConfig.Documentation = [ "man:lircd(8)" ];
+        unitConfig.Documentation = ["man:lircd(8)"];
 
         serviceConfig = {
           RuntimeDirectory = [
@@ -87,7 +87,7 @@ in
           # 2. fix runtime folder owner-ship, happens when socket activation
           #    creates the folder
           PermissionsStartOnly = true;
-          ExecStartPre = [ "${pkgs.coreutils}/bin/chown lirc /run/lirc/" ];
+          ExecStartPre = ["${pkgs.coreutils}/bin/chown lirc /run/lirc/"];
 
           ExecStart = ''
             ${pkgs.lirc}/bin/lircd --nodaemon \

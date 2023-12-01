@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gaAWKd5/DZrIPaaQzx9l0KtCMW9LPw17vvNPsnopZA0=";
   };
 
-  patches = [ ./fix-lex-to-flex.patch ];
+  patches = [./fix-lex-to-flex.patch];
 
   postPatch = ''
     sed -i "/TST/d" source/OMakefile
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     bison
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   env.NIX_CFLAGS_COMPILE = "-I${ocaml}/include";
 
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "An efficient implementation of the Lambda Prolog language";
     homepage = "https://github.com/teyjus/teyjus";
     license = lib.licenses.gpl3;
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
     platforms = platforms.unix;
   };
 }

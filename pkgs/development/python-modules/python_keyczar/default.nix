@@ -24,7 +24,7 @@ buildPythonPackage rec {
     description = "Toolkit for safe and simple cryptography";
     homepage = "https://pypi.python.org/pypi/python-keyczar";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     platforms = platforms.unix;
   };
 }

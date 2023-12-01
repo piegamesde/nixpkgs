@@ -18,7 +18,7 @@ let
     description = "A graph database written in rust ";
     homepage = "https://github.com/indradb/indradb";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
     platforms = platforms.unix;
   };
 in

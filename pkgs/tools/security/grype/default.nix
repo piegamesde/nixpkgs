@@ -31,11 +31,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-NMKdMW/DRod/C5nL8GZR0pKTRzF58dARoWQD1o+i3Y4=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  nativeCheckInputs = [ openssl ];
+  nativeCheckInputs = [openssl];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   excludedPackages = "test/integration";
 
@@ -101,7 +101,7 @@ buildGoModule rec {
       As a vulnerability scanner grype is able to scan the contents of a
       container image or filesystem to find known vulnerabilities.
     '';
-    license = with licenses; [ asl20 ];
+    license = with licenses; [asl20];
     maintainers = with maintainers; [
       fab
       jk

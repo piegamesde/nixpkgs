@@ -39,6 +39,6 @@ buildPythonPackage rec {
     description = "Convenience command line tool for fullstop. audit reporting.";
     homepage = "https://github.com/zalando-stups/stups-fullstop-cli";
     license = licenses.asl20;
-    maintainers = [ maintainers.mschuwalow ];
+    maintainers = [maintainers.mschuwalow];
   };
 }

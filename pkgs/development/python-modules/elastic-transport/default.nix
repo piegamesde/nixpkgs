@@ -48,7 +48,7 @@ buildPythonPackage rec {
     trustme
   ];
 
-  pythonImportsCheck = [ "elastic_transport" ];
+  pythonImportsCheck = ["elastic_transport"];
 
   disabledTests = [
     # Tests require network access
@@ -66,6 +66,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/elasticsearch/elastic-transport-python";
     changelog = "https://github.com/elastic/elastic-transport-python/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -17,7 +17,7 @@ buildPythonPackage rec {
   # require docker-credential-helpers binaries
   doCheck = false;
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   meta = with lib; {
     description = "Python bindings for the docker credentials store API.";

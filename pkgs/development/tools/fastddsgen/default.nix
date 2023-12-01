@@ -111,7 +111,7 @@ stdenv.mkDerivation {
       order to define the data type of a topic, which will later be
       used to publish or subscribe.
     '';
-    maintainers = with maintainers; [ wentasah ];
+    maintainers = with maintainers; [wentasah];
     platforms = openjdk17.meta.platforms;
   };
 }

@@ -17,13 +17,13 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-+JJVuKUdnjJoQJ4a2EE0O6jZdVoFxPwbPgfD2LfiDPI=";
   };
 
-  buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ];
+  buildInputs = lib.optionals stdenv.isDarwin [CoreServices];
   cargoSha256 = "sha256-XT4FQVE+buORuZAFZK5Qnf/Fl3QSvw4SHUuCzWhxUdk=";
 
   # fac includes a unit test called ls_files_works which assumes it's
   # running in a git repo. Nix's sandbox runs cargo build outside git,
   # so this test won't work.
-  checkFlagsArray = [ "--skip=ls_files_works" ];
+  checkFlagsArray = ["--skip=ls_files_works"];
 
   # fac calls git at runtime, expecting it to be in the PATH,
   # so we need to patch it to call git by absolute path instead.
@@ -53,7 +53,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://physics.oregonstate.edu/~roundyd/fac";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ dpercy ];
+    maintainers = with maintainers; [dpercy];
     mainProgram = "fac";
   };
 }

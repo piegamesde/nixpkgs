@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "70d05ec8dc568f42e70fc919a442e0daadc2a905a1cfb7ca77f549d49d6e7801";
   };
 
-  buildInputs = [ pkgs.db ];
+  buildInputs = [pkgs.db];
 
   checkPhase = ''
     ${python.interpreter} test.py
@@ -32,7 +32,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python bindings for Oracle Berkeley DB";
     homepage = "https://www.jcea.es/programacion/pybsddb.htm";
-    license = with licenses; [ agpl3 ]; # License changed from bsd3 to agpl3 since 6.x
-    maintainers = [ maintainers.costrouc ];
+    license = with licenses; [agpl3]; # License changed from bsd3 to agpl3 since 6.x
+    maintainers = [maintainers.costrouc];
   };
 }

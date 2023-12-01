@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
     sha256 = "07zzmk776j8ydyxhrnnjiscbhhmz182a62r6aix6kfk5kq2cwia2";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  cmakeFlags = [ "-DBUILD_WASI=simple" ];
+  cmakeFlags = ["-DBUILD_WASI=simple"];
 
   installPhase = ''
     runHook preInstal
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/wasm3/wasm3";
     description = "The fastest WebAssembly interpreter, and the most universal runtime.";
     platforms = platforms.all;
-    maintainers = with maintainers; [ malbarbo ];
+    maintainers = with maintainers; [malbarbo];
     license = licenses.mit;
     knownVulnerabilities = [
       # wasm3 expects all wasm code to be pre-validated, any users

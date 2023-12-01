@@ -42,13 +42,13 @@ stdenv.mkDerivation rec {
     cp ${libglvnd.dev}/include/KHR/khrplatform.h include/KHR/khrplatform.h
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Simple OpenGL core profile loading";
     homepage = "https://github.com/skaslev/gl3w";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ lilyinstarlight ];
+    maintainers = with maintainers; [lilyinstarlight];
     platforms = platforms.unix;
   };
 }

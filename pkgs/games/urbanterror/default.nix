@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
   buildInputs = [
     SDL
     libGL
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     patchelf --set-rpath $cur_rpath:${libGL}/lib:${libGLU}/lib $p
   '';
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     description = "A multiplayer tactical FPS on top of Quake 3 engine";
@@ -86,8 +86,8 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.urbanterror.info";
     license = licenses.unfreeRedistributable;
-    maintainers = with maintainers; [ astsmtl ];
+    maintainers = with maintainers; [astsmtl];
     platforms = platforms.linux;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

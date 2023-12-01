@@ -43,9 +43,9 @@ stdenv.mkDerivation rec {
       libXtst
       libX11
     ]
-    ++ optionals (!legacy) [ libinput ];
+    ++ optionals (!legacy) [libinput];
 
-  makeFlags = optionals (!legacy) [ "libinput=1" ];
+  makeFlags = optionals (!legacy) ["libinput=1"];
 
   installPhase = ''
     runHook preInstall
@@ -69,6 +69,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/zevv/bucklespring";
     license = licenses.gpl2Only;
     platforms = platforms.unix;
-    maintainers = [ maintainers.evils ];
+    maintainers = [maintainers.evils];
   };
 }

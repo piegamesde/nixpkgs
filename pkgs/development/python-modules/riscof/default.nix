@@ -36,7 +36,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/riscv-software-src/riscof";
     description = "RISC-V Architectural Test Framework";
-    maintainers = with maintainers; [ genericnerdyusername ];
+    maintainers = with maintainers; [genericnerdyusername];
     license = licenses.bsd3;
   };
 }

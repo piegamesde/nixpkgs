@@ -22,27 +22,27 @@ buildPythonPackage rec {
     hash = "sha256-xARX8lSOftNVYY4InR5vU4OiguCJJJZv/W76G9eLgNY=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   passthru.optional-dependencies = {
-    aio = [ httpx ];
+    aio = [httpx];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "tests/" ];
+  pytestFlagsArray = ["tests/"];
 
-  disabledTests = [ "test_get_page" ];
+  disabledTests = ["test_get_page"];
 
   doCheck = true;
 
-  pythonImportsCheck = [ "telegraph" ];
+  pythonImportsCheck = ["telegraph"];
 
   meta = with lib; {
     description = "Telegraph API wrapper";
     homepage = "https://github.com/python273/telegraph";
     changelog = "https://github.com/python273/telegraph/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ gp2112 ];
+    maintainers = with maintainers; [gp2112];
   };
 }

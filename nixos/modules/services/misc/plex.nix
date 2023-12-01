@@ -60,7 +60,7 @@ in
 
       extraPlugins = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           A list of paths to extra plugin bundles to install in Plex's plugin
           directory. Every time the systemd unit for Plex starts up, all of the
@@ -84,7 +84,7 @@ in
 
       extraScanners = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           A list of paths to extra scanners to install in Plex's scanners
           directory.
@@ -121,8 +121,8 @@ in
     # Most of this is just copied from the RPM package's systemd service file.
     systemd.services.plex = {
       description = "Plex Media Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "simple";

@@ -25,7 +25,7 @@ stdenv.mkDerivation (
     };
 
     strictDeps = true;
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
     buildInputs = [
       cmocka # cmake expects cmocka module
@@ -39,11 +39,11 @@ stdenv.mkDerivation (
     # https://github.com/NixOS/nixpkgs/issues/213623
     doCheck = !stdenv.hostPlatform.isStatic && stdenv.hostPlatform == stdenv.buildPlatform;
 
-    nativeCheckInputs = [ cmocka ];
+    nativeCheckInputs = [cmocka];
 
     passthru.tests = {
       inherit libfido2 mysql80;
-      openssh = (openssh.override { withFIDO = true; });
+      openssh = (openssh.override {withFIDO = true;});
       systemd =
         (systemd.override {
           withFido2 = true;
@@ -55,7 +55,7 @@ stdenv.mkDerivation (
       description = "CBOR protocol implementation for C and others";
       homepage = "https://github.com/PJK/libcbor";
       license = licenses.mit;
-      maintainers = with maintainers; [ dtzWill ];
+      maintainers = with maintainers; [dtzWill];
     };
   }
 )

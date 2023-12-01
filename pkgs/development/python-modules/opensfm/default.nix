@@ -100,7 +100,7 @@ buildPythonPackage rec {
     xmltodict
     cloudpickle
   ];
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   dontUseCmakeBuildDir = true;
   cmakeFlags = [
@@ -113,11 +113,11 @@ buildPythonPackage rec {
     "test_reconstruction_triangulation"
   ];
 
-  pythonImportsCheck = [ "opensfm" ];
+  pythonImportsCheck = ["opensfm"];
 
   meta = {
     broken = stdenv.isDarwin;
-    maintainers = [ lib.maintainers.SomeoneSerge ];
+    maintainers = [lib.maintainers.SomeoneSerge];
     license = lib.licenses.bsd2;
     changelog = "https://github.com/mapillary/OpenSfM/blob/${src.rev}/CHANGELOG.md";
     description = "Open source Structure-from-Motion pipeline from Mapillary";

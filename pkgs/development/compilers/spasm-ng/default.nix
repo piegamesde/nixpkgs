@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "0xspxmp2fir604b4xsk4hi1gjv61rnq2ypppr7cj981jlhicmvjj";
   };
 
-  nativeBuildInputs = [ gcc ];
+  nativeBuildInputs = [gcc];
 
   buildInputs = [
     gmp
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/alberthdev/spasm-ng";
     description = "Z80 assembler with extra features to support development for TI calculators";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.unix;
   };
 }

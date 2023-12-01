@@ -15,7 +15,7 @@ tcl.mkTclDerivation rec {
   };
 
   dontBuild = true;
-  propagatedBuildInputs = [ tk ];
+  propagatedBuildInputs = [tk];
 
   installPhase = ''
     mkdir -p "$out/lib/bwidget${version}"
@@ -25,7 +25,7 @@ tcl.mkTclDerivation rec {
   meta = {
     homepage = "https://sourceforge.net/projects/tcllib";
     description = "High-level widget set for Tcl/Tk";
-    maintainers = with lib.maintainers; [ agbrooks ];
+    maintainers = with lib.maintainers; [agbrooks];
     license = lib.licenses.tcltk;
     platforms = lib.platforms.unix;
   };

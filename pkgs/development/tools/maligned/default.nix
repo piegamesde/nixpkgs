@@ -21,12 +21,12 @@ buildGoModule rec {
 
   allowGoReference = true;
 
-  nativeCheckInputs = [ go ];
+  nativeCheckInputs = [go];
 
   meta = with lib; {
     description = "Tool to detect Go structs that would take less memory if their fields were sorted";
     homepage = "https://github.com/mdempsky/maligned";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
   };
 }

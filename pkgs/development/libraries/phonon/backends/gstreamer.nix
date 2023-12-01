@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     homepage = "https://phonon.kde.org/";
     description = "GStreamer backend for Phonon";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ttuegel ];
+    maintainers = with maintainers; [ttuegel];
     license = licenses.lgpl21;
   };
 
@@ -80,5 +80,5 @@ stdenv.mkDerivation rec {
     qttools
   ];
 
-  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=${if debug then "Debug" else "Release"}" ];
+  cmakeFlags = ["-DCMAKE_BUILD_TYPE=${if debug then "Debug" else "Release"}"];
 }

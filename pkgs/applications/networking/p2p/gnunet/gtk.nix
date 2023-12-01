@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     libxml2
   ];
 
-  configureFlags = [ "--with-gnunet=${gnunet}" ];
+  configureFlags = ["--with-gnunet=${gnunet}"];
 
   patchPhase = "patchShebangs pixmaps/icon-theme-installer";
 

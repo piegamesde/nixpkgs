@@ -17,11 +17,11 @@ let
     pname = "hyperv-daemons-bin";
     inherit (kernel) src version;
 
-    nativeBuildInputs = [ makeWrapper ];
-    buildInputs = [ (if lib.versionOlder version "4.19" then python2 else python3) ];
+    nativeBuildInputs = [makeWrapper];
+    buildInputs = [(if lib.versionOlder version "4.19" then python2 else python3)];
 
     # as of 4.9 compilation will fail due to -Werror=format-security
-    hardeningDisable = [ "format" ];
+    hardeningDisable = ["format"];
 
     postPatch = ''
       cd tools/hv
@@ -87,7 +87,7 @@ stdenv.mkDerivation {
     "out"
   ];
 
-  buildInputs = [ daemons ];
+  buildInputs = [daemons];
 
   buildCommand = ''
     system=$lib/lib/systemd/system
@@ -124,7 +124,7 @@ stdenv.mkDerivation {
       we use that name here.
     '';
     homepage = "https://kernel.org";
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = kernel.meta.platforms;
   };
 }

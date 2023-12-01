@@ -22,7 +22,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace "--flake8" ""
   '';
 
-  buildInputs = [ glibcLocales ];
+  buildInputs = [glibcLocales];
 
   propagatedBuildInputs = with python3.pkgs; [
     argon2-cffi-bindings

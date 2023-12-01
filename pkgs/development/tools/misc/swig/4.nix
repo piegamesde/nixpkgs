@@ -27,9 +27,9 @@ stdenv.mkDerivation rec {
     libtool
     bison
   ];
-  buildInputs = [ pcre ];
+  buildInputs = [pcre];
 
-  configureFlags = [ "--without-tcl" ];
+  configureFlags = ["--without-tcl"];
 
   # Disable ccache documentation as it needs yodl
   postPatch = ''
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     homepage = "https://swig.org/";
     # Different types of licenses available: http://www.swig.org/Release/LICENSE .
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = with platforms; linux ++ darwin;
   };
 }

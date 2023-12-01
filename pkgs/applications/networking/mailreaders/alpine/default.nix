@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     libxcrypt
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   configureFlags = [
     "--with-ssl-include-dir=${openssl.dev}/include/openssl"
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     "--with-c-client-target=slx"
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = with lib; {
     description = "Console mail reader";

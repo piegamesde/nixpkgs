@@ -23,11 +23,11 @@ buildPythonPackage rec {
   # recognizes some non-tests as tests and fails.
   doCheck = false;
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
-  pythonImportsCheck = [ "pkuseg" ];
+  pythonImportsCheck = ["pkuseg"];
 
   meta = with lib; {
     description = "Toolkit for multi-domain Chinese word segmentation";

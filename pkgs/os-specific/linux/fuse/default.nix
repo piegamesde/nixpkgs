@@ -1,7 +1,7 @@
-{ callPackage, util-linux }:
+{callPackage, util-linux}:
 
 let
-  mkFuse = args: callPackage (import ./common.nix args) { inherit util-linux; };
+  mkFuse = args: callPackage (import ./common.nix args) {inherit util-linux;};
 in
 {
   fuse_2 = mkFuse {

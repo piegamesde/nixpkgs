@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     pidgin
     libsodium
   ];
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     broken = true; # unmaintained and not compatible with current Tox API.

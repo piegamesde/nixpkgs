@@ -23,11 +23,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-TDDfGQig4i/DpsilTPqMQ1oT0mXK5DKlZmwsPPLrzFc=";
 
-  buildInputs = [ libtirpc ] ++ lib.optional enablePAM pam;
-  nativeBuildInputs = [ rpcsvc-proto ];
+  buildInputs = [libtirpc] ++ lib.optional enablePAM pam;
+  nativeBuildInputs = [rpcsvc-proto];
 
   buildNoDefaultFeatures = true;
-  buildFeatures = [ "quota" ] ++ lib.optional enablePAM "pam";
+  buildFeatures = ["quota"] ++ lib.optional enablePAM "pam";
 
   postPatch = ''
     substituteInPlace fs_quota/build.rs \
@@ -43,6 +43,6 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/miquels/webdav-server-rs";
     license = licenses.asl20;
-    maintainers = with maintainers; [ pmy ];
+    maintainers = with maintainers; [pmy];
   };
 }

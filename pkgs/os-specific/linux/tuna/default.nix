@@ -55,13 +55,13 @@ buildPythonApplication rec {
 
   # contains no tests
   doCheck = false;
-  pythonImportsCheck = [ "tuna" ];
+  pythonImportsCheck = ["tuna"];
 
   meta = with lib; {
     description = "Thread and IRQ affinity setting GUI and cmd line tool";
     homepage = "https://git.kernel.org/pub/scm/utils/tuna/tuna.git";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ elohmeier ];
+    maintainers = with maintainers; [elohmeier];
   };
 }

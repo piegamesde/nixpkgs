@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "enchant";
   version = "cl-20211209-git";
@@ -20,7 +20,7 @@ rec {
 
   packageName = "enchant";
 
-  asdFilesToKeep = [ "enchant.asd" ];
+  asdFilesToKeep = ["enchant.asd"];
   overrides = x: x;
 }
 /* (SYSTEM enchant DESCRIPTION

@@ -31,7 +31,7 @@ buildPythonPackage rec {
     itemadapter
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # Test are failing (AssertionError: Lists differ: ...)
@@ -39,13 +39,13 @@ buildPythonPackage rec {
     "test_nested_xpath"
   ];
 
-  pythonImportsCheck = [ "itemloaders" ];
+  pythonImportsCheck = ["itemloaders"];
 
   meta = with lib; {
     description = "Base library for scrapy's ItemLoader";
     homepage = "https://github.com/scrapy/itemloaders";
     changelog = "https://github.com/scrapy/itemloaders/raw/v${version}/docs/release-notes.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [marsam];
   };
 }

@@ -1,12 +1,12 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
 
   {
     name = "mailcatcher";
-    meta.maintainers = [ lib.maintainers.aanderse ];
+    meta.maintainers = [lib.maintainers.aanderse];
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         services.mailcatcher.enable = true;
 
@@ -18,7 +18,7 @@ import ./make-test-python.nix (
           };
         };
 
-        environment.systemPackages = [ pkgs.mailutils ];
+        environment.systemPackages = [pkgs.mailutils];
       };
 
     testScript = ''

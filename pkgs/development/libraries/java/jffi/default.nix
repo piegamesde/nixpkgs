@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     texinfo
     pkg-config
   ];
-  buildInputs = [ libffi ];
+  buildInputs = [libffi];
 
   buildPhase = ''
     # The pkg-config script in the build.xml doesn't work propery
@@ -58,6 +58,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jnr/jffi";
     platforms = platforms.unix;
     license = licenses.asl20;
-    maintainers = with maintainers; [ bachp ];
+    maintainers = with maintainers; [bachp];
   };
 }

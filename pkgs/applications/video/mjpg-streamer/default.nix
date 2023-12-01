@@ -21,8 +21,8 @@ stdenv.mkDerivation {
     cd mjpg-streamer-experimental
   '';
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ libjpeg ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [libjpeg];
 
   postFixup = ''
     patchelf --set-rpath "$(patchelf --print-rpath $out/bin/mjpg_streamer):$out/lib/mjpg-streamer" $out/bin/mjpg_streamer
@@ -33,6 +33,6 @@ stdenv.mkDerivation {
     description = "Takes JPGs from Linux-UVC compatible webcams, filesystem or other input plugins and streams them as M-JPEG via HTTP to webbrowsers, VLC and other software";
     platforms = platforms.linux;
     license = licenses.gpl2;
-    maintainers = with maintainers; [ gebner ];
+    maintainers = with maintainers; [gebner];
   };
 }

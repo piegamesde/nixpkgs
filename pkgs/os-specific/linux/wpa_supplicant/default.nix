@@ -129,7 +129,7 @@ stdenv.mkDerivation rec {
     libnl
   ] ++ optional dbusSupport dbus ++ optional withReadline readline ++ optional withPcsclite pcsclite;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   postInstall =
     ''

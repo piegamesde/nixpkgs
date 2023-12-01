@@ -188,7 +188,7 @@ in
       group = "unifi-video";
       isSystemUser = true;
     };
-    users.groups.unifi-video = { };
+    users.groups.unifi-video = {};
 
     networking.firewall = mkIf cfg.openFirewall {
       # https://help.ui.com/hc/en-us/articles/217875218-UniFi-Video-Ports-Used
@@ -249,8 +249,8 @@ in
 
     systemd.services.unifi-video = {
       description = "UniFi Video NVR daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       unitConfig.RequiresMountsFor = stateDir;
       # Make sure package upgrades trigger a service restart
       restartTriggers = [
@@ -294,5 +294,5 @@ in
     )
   ];
 
-  meta.maintainers = with lib.maintainers; [ rsynnest ];
+  meta.maintainers = with lib.maintainers; [rsynnest];
 }

@@ -24,16 +24,16 @@ buildPythonPackage rec {
     substituteInPlace setup.cfg --replace "!=3.10.*," ""
   '';
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   doCheck = false; # requires SimpleITK python package (not in Nixpkgs)
 
-  pythonImportsCheck = [ "pymedio" ];
+  pythonImportsCheck = ["pymedio"];
 
   meta = with lib; {
     description = "Read medical image files into Numpy arrays";
     homepage = "https://github.com/jcreinhold/pymedio";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

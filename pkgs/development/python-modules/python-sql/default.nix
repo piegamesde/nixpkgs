@@ -18,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-b+dkCC9IiR2Ffqfm+kJfpU8TUx3fa4nyTAmOZGrRtLY=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "sql" ];
+  pythonImportsCheck = ["sql"];
 
   meta = with lib; {
     description = "Library to write SQL queries in a pythonic way";
     homepage = "https://pypi.org/project/python-sql/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ johbo ];
+    maintainers = with maintainers; [johbo];
   };
 }

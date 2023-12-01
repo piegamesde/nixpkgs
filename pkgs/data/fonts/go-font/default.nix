@@ -30,7 +30,7 @@ stdenvNoCC.mkDerivation rec {
     description = "The Go font family";
     changelog = "https://go.googlesource.com/image/+log/refs/heads/master/font/gofont";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ sternenseemann ];
+    maintainers = with maintainers; [sternenseemann];
     platforms = lib.platforms.all;
   };
 }

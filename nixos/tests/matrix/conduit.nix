@@ -1,5 +1,5 @@
 import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
     name = "conduit";
   in
@@ -26,13 +26,13 @@ import ../make-test-python.nix (
             };
           };
         };
-        networking.firewall.allowedTCPPorts = [ 80 ];
+        networking.firewall.allowedTCPPorts = [80];
       };
       client =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           environment.systemPackages = [
-            (pkgs.writers.writePython3Bin "do_test" { libraries = [ pkgs.python3Packages.matrix-nio ]; } ''
+            (pkgs.writers.writePython3Bin "do_test" {libraries = [pkgs.python3Packages.matrix-nio];} ''
               import asyncio
 
               from nio import AsyncClient

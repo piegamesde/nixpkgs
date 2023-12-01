@@ -6,7 +6,7 @@
 }:
 let
   cfg = config.virtualisation.podman;
-  json = pkgs.formats.json { };
+  json = pkgs.formats.json {};
 
   inherit (lib) mkOption types;
 
@@ -15,7 +15,7 @@ let
       extraPackages =
         cfg.extraPackages
         # setuid shadow
-        ++ [ "/run/wrappers" ]
+        ++ ["/run/wrappers"]
         ++ lib.optional (builtins.elem "zfs" config.boot.supportedFilesystems) config.boot.zfs.package;
     });
 
@@ -112,7 +112,7 @@ in
 
     extraPackages = mkOption {
       type = with types; listOf package;
-      default = [ ];
+      default = [];
       example = lib.literalExpression ''
         [
           pkgs.gvisor
@@ -136,8 +136,8 @@ in
 
       flags = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "--all" ];
+        default = [];
+        example = ["--all"];
         description = lib.mdDoc ''
           Any additional flags passed to {command}`podman system prune`.
         '';
@@ -165,7 +165,7 @@ in
 
     defaultNetwork.settings = lib.mkOption {
       type = json.type;
-      default = { };
+      default = {};
       example = lib.literalExpression "{ dns_enabled = true; }";
       description = lib.mdDoc ''
         Settings for podman's default network.
@@ -174,10 +174,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ] ++ lib.optional cfg.dockerCompat dockerCompat;
+    environment.systemPackages = [cfg.package] ++ lib.optional cfg.dockerCompat dockerCompat;
 
     # https://github.com/containers/podman/blob/097cc6eb6dd8e598c0e8676d21267b4edb11e144/docs/tutorials/basic_networking.md#default-network
-    environment.etc."containers/networks/podman.json" = lib.mkIf (cfg.defaultNetwork.settings != { }) {
+    environment.etc."containers/networks/podman.json" = lib.mkIf (cfg.defaultNetwork.settings != {}) {
       source = json.generate "podman.json" (
         {
           dns_enabled = false;
@@ -209,13 +209,13 @@ in
         }
         // lib.optionalAttrs cfg.enableNvidia {
           engine = {
-            conmon_env_vars = [ "PATH=${lib.makeBinPath [ pkgs.nvidia-podman ]}" ];
-            runtimes.nvidia = [ "${pkgs.nvidia-podman}/bin/nvidia-container-runtime" ];
+            conmon_env_vars = ["PATH=${lib.makeBinPath [pkgs.nvidia-podman]}"];
+            runtimes.nvidia = ["${pkgs.nvidia-podman}/bin/nvidia-container-runtime"];
           };
         };
     };
 
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
 
     systemd.services.podman-prune = {
       description = "Prune podman resources";
@@ -230,20 +230,20 @@ in
       '';
 
       startAt = lib.optional cfg.autoPrune.enable cfg.autoPrune.dates;
-      after = [ "podman.service" ];
-      requires = [ "podman.service" ];
+      after = ["podman.service"];
+      requires = ["podman.service"];
     };
 
-    systemd.sockets.podman.wantedBy = [ "sockets.target" ];
+    systemd.sockets.podman.wantedBy = ["sockets.target"];
     systemd.sockets.podman.socketConfig.SocketGroup = "podman";
 
-    systemd.user.sockets.podman.wantedBy = [ "sockets.target" ];
+    systemd.user.sockets.podman.wantedBy = ["sockets.target"];
 
     systemd.tmpfiles.packages =
       [
         # The /run/podman rule interferes with our podman group, so we remove
         # it and let the systemd socket logic take care of it.
-        (pkgs.runCommand "podman-tmpfiles-nixos" { package = cfg.package; } ''
+        (pkgs.runCommand "podman-tmpfiles-nixos" {package = cfg.package;} ''
           mkdir -p $out/lib/tmpfiles.d/
           grep -v 'D! /run/podman 0700 root root' \
             <$package/lib/tmpfiles.d/podman.conf \
@@ -255,7 +255,7 @@ in
       "L! /run/docker.sock - - - - /run/podman/podman.sock"
     ];
 
-    users.groups.podman = { };
+    users.groups.podman = {};
 
     assertions = [
       {

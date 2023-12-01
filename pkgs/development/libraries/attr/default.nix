@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  nativeBuildInputs = [ gettext ];
+  nativeBuildInputs = [gettext];
 
   postPatch = ''
     for script in install-sh include/install-sh; do

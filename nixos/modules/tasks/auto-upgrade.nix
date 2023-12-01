@@ -65,7 +65,7 @@ in
 
       flags = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "-I"
           "stuff=/home/alice/nixos-stuff"
@@ -183,13 +183,13 @@ in
     system.autoUpgrade.flags =
       (
         if cfg.flake == null then
-          [ "--no-build-output" ]
+          ["--no-build-output"]
           ++ optionals (cfg.channel != null) [
             "-I"
             "nixpkgs=${cfg.channel}/nixexprs.tar.xz"
           ]
         else
-          [ "--flake ${cfg.flake}" ]
+          ["--flake ${cfg.flake}"]
       );
 
     systemd.services.nixos-upgrade = {
@@ -274,8 +274,8 @@ in
 
       startAt = cfg.dates;
 
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
     };
 
     systemd.timers.nixos-upgrade = {

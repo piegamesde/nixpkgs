@@ -88,8 +88,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Emulator of x86-based machines based on PCem.";
     homepage = "https://86box.net/";
-    license = with licenses; [ gpl2Only ] ++ optional unfreeEnableDiscord unfree;
-    maintainers = [ maintainers.jchw ];
+    license = with licenses; [gpl2Only] ++ optional unfreeEnableDiscord unfree;
+    maintainers = [maintainers.jchw];
     platforms = platforms.linux;
   };
 }

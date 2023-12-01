@@ -18,7 +18,7 @@ stdenv.mkDerivation (
       hash = "sha256-jkDtd4FlgfmtlaysLtaaL7KseFDkM9Gc1oQZOkWCZ5k=";
     };
 
-    nativeBuildInputs = [ installShellFiles ];
+    nativeBuildInputs = [installShellFiles];
 
     dontConfigure = true;
 
@@ -40,7 +40,7 @@ stdenv.mkDerivation (
       homepage = "https://www.floodgap.com/retrotech/xa/";
       description = "Andre Fachat's open-source 6502 disassembler";
       license = lib.licenses.gpl2Plus;
-      maintainers = with lib.maintainers; [ AndersonTorres ];
+      maintainers = with lib.maintainers; [AndersonTorres];
       platforms = with lib.platforms; unix;
     };
   }

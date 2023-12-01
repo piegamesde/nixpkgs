@@ -23,12 +23,12 @@ buildPythonPackage rec {
   '';
 
   # Skipping tests due to most relying on DISPLAY being set
-  pythonImportsCheck = [ "mss" ];
+  pythonImportsCheck = ["mss"];
 
   meta = with lib; {
     description = "Cross-platform multiple screenshots module";
     homepage = "https://github.com/BoboTiG/python-mss";
     license = licenses.mit;
-    maintainers = with maintainers; [ austinbutler ];
+    maintainers = with maintainers; [austinbutler];
   };
 }

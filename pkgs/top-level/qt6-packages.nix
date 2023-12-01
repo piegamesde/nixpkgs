@@ -37,11 +37,11 @@
 
       inherit (kdeFrameworks) kcoreaddons;
 
-      qtpbfimageplugin = callPackage ../development/libraries/qtpbfimageplugin { };
+      qtpbfimageplugin = callPackage ../development/libraries/qtpbfimageplugin {};
 
-      quazip = callPackage ../development/libraries/quazip { };
+      quazip = callPackage ../development/libraries/quazip {};
 
-      qxlsx = callPackage ../development/libraries/qxlsx { };
+      qxlsx = callPackage ../development/libraries/qxlsx {};
 
       poppler = callPackage ../development/libraries/poppler {
         lcms = pkgs.lcms2;

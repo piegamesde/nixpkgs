@@ -63,14 +63,14 @@ stdenv.mkDerivation rec {
     ++ optional (htpasswdSupport) "-DDO_HTPASSWD";
 
   _LDADD =
-    [ "-lm" ]
+    ["-lm"]
     ++ optional (stdenv.hostPlatform.libc != "libSystem") "-lcrypt"
     ++ optional (luaSupport) "-llua"
     ++ optionals (sslSupport) [
       "-lssl"
       "-lcrypto"
     ];
-  makeFlags = [ "LDADD=$(_LDADD)" ];
+  makeFlags = ["LDADD=$(_LDADD)"];
 
   doCheck = true;
   nativeCheckInputs = [
@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.eterna.com.au/bozohttpd/";
     changelog = "http://www.eterna.com.au/bozohttpd/CHANGES";
     license = licenses.bsd2;
-    maintainers = [ maintainers.embr ];
+    maintainers = [maintainers.embr];
     platforms = platforms.all;
   };
 }

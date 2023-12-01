@@ -30,10 +30,10 @@ let
         # Work around the "unpacker appears to have produced no directories"
         # case that happens when the archive doesn't have a subdirectory.
         setSourceRoot = "sourceRoot=$(pwd)";
-        nativeBuildInputs = [ unzip ];
+        nativeBuildInputs = [unzip];
         meta = a.meta // {
           platforms = elasticsearch.meta.platforms;
-          maintainers = (a.meta.maintainers or [ ]) ++ (with lib.maintainers; [ offline ]);
+          maintainers = (a.meta.maintainers or []) ++ (with lib.maintainers; [offline]);
         };
       }
     );

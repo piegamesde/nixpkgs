@@ -28,7 +28,7 @@ buildPythonPackage rec {
       --replace "version = version," "version = '${version}',"
   '';
 
-  propagatedBuildInputs = [ pyserial ];
+  propagatedBuildInputs = [pyserial];
 
   nativeCheckInputs = [
     mock
@@ -36,12 +36,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pylacrosse" ];
+  pythonImportsCheck = ["pylacrosse"];
 
   meta = with lib; {
     description = "Python library for Jeelink LaCrosse";
     homepage = "https://github.com/hthiery/python-lacrosse";
-    license = with licenses; [ lgpl2Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [lgpl2Plus];
+    maintainers = with maintainers; [fab];
   };
 }

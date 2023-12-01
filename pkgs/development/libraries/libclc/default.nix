@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     clang-unwrapped
   ];
   strictDeps = true;
-  cmakeFlags = [ "-DCMAKE_INSTALL_INCLUDEDIR=include" ];
+  cmakeFlags = ["-DCMAKE_INSTALL_INCLUDEDIR=include"];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

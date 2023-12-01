@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
     description = "Open-source streaming video service with sub-second latency";
     homepage = "https://ovenmediaengine.com";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ lukegb ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [lukegb];
+    platforms = ["x86_64-linux"];
   };
 }

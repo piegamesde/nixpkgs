@@ -31,7 +31,7 @@ buildPythonPackage {
     libmpc
   ];
 
-  pythonImportsCheck = [ "gmpy2" ];
+  pythonImportsCheck = ["gmpy2"];
 
   meta = with lib; {
     description = "GMP/MPIR, MPFR, and MPC interface to Python 2.6+ and 3.x";

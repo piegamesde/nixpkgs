@@ -27,10 +27,10 @@ mkYarnPackage rec {
     which
     makeWrapper
   ];
-  extraBuildInputs = [ python3 ];
+  extraBuildInputs = [python3];
 
   packageJSON = ./package.json;
-  yarnFlags = [ "--production" ];
+  yarnFlags = ["--production"];
 
   offlineCache = fetchYarnDeps {
     yarnLock = src + "/yarn.lock";
@@ -84,7 +84,7 @@ mkYarnPackage rec {
     description = "Realtime collaborative markdown notes on all platforms";
     license = licenses.agpl3;
     homepage = "https://hedgedoc.org";
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
     platforms = platforms.linux;
   };
 }

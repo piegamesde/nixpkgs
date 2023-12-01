@@ -43,7 +43,7 @@ let
       COLUMNS = "80";
       PGPASSFILE = "${baseDir}/pgpass-www"; # grrr
     }
-    // (optionalAttrs cfg.debugServer { DBIC_TRACE = "1"; });
+    // (optionalAttrs cfg.debugServer {DBIC_TRACE = "1";});
 
   localDB = "dbi:Pg:dbname=hydra;user=hydra;";
 
@@ -57,8 +57,8 @@ let
     in
     pkgs.buildEnv rec {
       name = "hydra-env";
-      nativeBuildInputs = [ pkgs.makeWrapper ];
-      paths = [ cfg.package ];
+      nativeBuildInputs = [pkgs.makeWrapper];
+      paths = [cfg.package];
 
       postBuild = ''
         if [ -L "$out/bin" ]; then
@@ -204,7 +204,7 @@ in
 
       extraEnv = mkOption {
         type = types.attrsOf types.str;
-        default = { };
+        default = {};
         description = lib.mdDoc "Extra environment variables for Hydra.";
       };
 
@@ -216,7 +216,7 @@ in
 
       buildMachinesFiles = mkOption {
         type = types.listOf types.path;
-        default = optional (config.nix.buildMachines != [ ]) "/etc/nix/machines";
+        default = optional (config.nix.buildMachines != []) "/etc/nix/machines";
         defaultText = literalExpression ''optional (config.nix.buildMachines != []) "/etc/nix/machines"'';
         example = [
           "/etc/nix/machines"
@@ -285,7 +285,7 @@ in
       use-substitutes = ${if cfg.useSubstitutes then "1" else "0"}
     '';
 
-    environment.systemPackages = [ hydra-package ];
+    environment.systemPackages = [hydra-package];
 
     environment.variables = hydraEnv;
 
@@ -293,7 +293,7 @@ in
       {
         keep-outputs = true;
         keep-derivations = true;
-        trusted-users = [ "hydra-queue-runner" ];
+        trusted-users = ["hydra-queue-runner"];
       }
 
       (mkIf (versionOlder (getVersion config.nix.package.out) "2.4pre") {
@@ -304,13 +304,13 @@ in
     ];
 
     systemd.services.hydra-init = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       requires = optional haveLocalDB "postgresql.service";
       after = optional haveLocalDB "postgresql.service";
       environment = env // {
         HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-init";
       };
-      path = [ pkgs.util-linux ];
+      path = [pkgs.util-linux];
       preStart = ''
         mkdir -p ${baseDir}
         chown hydra:hydra ${baseDir}
@@ -366,13 +366,13 @@ in
     };
 
     systemd.services.hydra-server = {
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "hydra-init.service" ];
-      after = [ "hydra-init.service" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["hydra-init.service"];
+      after = ["hydra-init.service"];
       environment = serverEnv // {
         HYDRA_DBI = "${serverEnv.HYDRA_DBI};application_name=hydra-server";
       };
-      restartTriggers = [ hydraConf ];
+      restartTriggers = [hydraConf];
       serviceConfig = {
         ExecStart =
           "@${hydra-package}/bin/hydra-server hydra-server -f -h '${cfg.listenHost}' "
@@ -385,8 +385,8 @@ in
     };
 
     systemd.services.hydra-queue-runner = {
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "hydra-init.service" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["hydra-init.service"];
       after = [
         "hydra-init.service"
         "network.target"
@@ -398,7 +398,7 @@ in
         pkgs.bzip2
         config.nix.package
       ];
-      restartTriggers = [ hydraConf ];
+      restartTriggers = [hydraConf];
       environment = env // {
         PGPASSFILE = "${baseDir}/pgpass-queue-runner"; # grrr
         IN_SYSTEMD = "1"; # to get log severity levels
@@ -417,8 +417,8 @@ in
     };
 
     systemd.services.hydra-evaluator = {
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "hydra-init.service" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["hydra-init.service"];
       after = [
         "hydra-init.service"
         "network.target"
@@ -429,7 +429,7 @@ in
         nettools
         jq
       ];
-      restartTriggers = [ hydraConf ];
+      restartTriggers = [hydraConf];
       environment = env // {
         HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-evaluator";
       };
@@ -442,8 +442,8 @@ in
     };
 
     systemd.services.hydra-update-gc-roots = {
-      requires = [ "hydra-init.service" ];
-      after = [ "hydra-init.service" ];
+      requires = ["hydra-init.service"];
+      after = ["hydra-init.service"];
       environment = env // {
         HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-update-gc-roots";
       };
@@ -455,8 +455,8 @@ in
     };
 
     systemd.services.hydra-send-stats = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "hydra-init.service" ];
+      wantedBy = ["multi-user.target"];
+      after = ["hydra-init.service"];
       environment = env // {
         HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-send-stats";
       };
@@ -467,10 +467,10 @@ in
     };
 
     systemd.services.hydra-notify = {
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "hydra-init.service" ];
-      after = [ "hydra-init.service" ];
-      restartTriggers = [ hydraConf ];
+      wantedBy = ["multi-user.target"];
+      requires = ["hydra-init.service"];
+      after = ["hydra-init.service"];
+      restartTriggers = [hydraConf];
       environment = env // {
         PGPASSFILE = "${baseDir}/pgpass-queue-runner";
         HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-notify";
@@ -504,7 +504,7 @@ in
     # logs automatically after a step finishes, but this doesn't work
     # if the queue runner is stopped prematurely.
     systemd.services.hydra-compress-logs = {
-      path = [ pkgs.bzip2 ];
+      path = [pkgs.bzip2];
       script = ''
         find /var/lib/hydra/build-logs -type f -name "*.drv" -mtime +3 -size +0c | xargs -r bzip2 -v -f
       '';

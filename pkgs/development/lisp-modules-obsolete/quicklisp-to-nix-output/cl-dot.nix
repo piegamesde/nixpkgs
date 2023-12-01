@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-dot";
   version = "20200925-git";
 
   description = "Generate Dot Output from Arbitrary Lisp Data";
 
-  deps = [ args."uiop" ];
+  deps = [args."uiop"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-dot/2020-09-25/cl-dot-20200925-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "cl-dot";
 
-  asdFilesToKeep = [ "cl-dot.asd" ];
+  asdFilesToKeep = ["cl-dot.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-dot DESCRIPTION Generate Dot Output from Arbitrary Lisp Data

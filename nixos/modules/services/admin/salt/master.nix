@@ -30,7 +30,7 @@ in
       enable = mkEnableOption (lib.mdDoc "Salt master service");
       configuration = mkOption {
         type = types.attrs;
-        default = { };
+        default = {};
         description = lib.mdDoc "Salt master configuration as Nix attribute set.";
       };
     };
@@ -43,12 +43,12 @@ in
       # - passing --config-dir to all salt commands, not just the master unit,
       # - setting a global environment variable,
       etc."salt/master".source = pkgs.writeText "master" (builtins.toJSON fullConfig);
-      systemPackages = with pkgs; [ salt ];
+      systemPackages = with pkgs; [salt];
     };
     systemd.services.salt-master = {
       description = "Salt Master";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       path = with pkgs; [
         util-linux # for dmesg
       ];
@@ -58,9 +58,9 @@ in
         Type = "notify";
         NotifyAccess = "all";
       };
-      restartTriggers = [ config.environment.etc."salt/master".source ];
+      restartTriggers = [config.environment.etc."salt/master".source];
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ Flakebi ];
+  meta.maintainers = with lib.maintainers; [Flakebi];
 }

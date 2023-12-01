@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     install -Dm644 doc/abuse.png $out/share/pixmaps/abuse.png
   '';
 
-  nativeBuildInputs = [ copyDesktopItems ];
+  nativeBuildInputs = [copyDesktopItems];
   buildInputs = [
     SDL
     SDL_mixer
@@ -60,12 +60,12 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Side-scroller action game that pits you against ruthless alien killers";
     homepage = "http://abuse.zoy.org/";
-    license = with licenses; [ unfree ];
+    license = with licenses; [unfree];
     # Most of abuse is free (public domain, GPL2+, WTFPL), however the creator
     # of its sfx and music only gave Debian permission to redistribute the
     # files. Our friends from Debian thought about it some more:
     # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=648272
-    maintainers = with maintainers; [ iblech ];
+    maintainers = with maintainers; [iblech];
     platforms = platforms.unix;
     broken = stdenv.isDarwin;
   };

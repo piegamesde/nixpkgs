@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://xournal.sourceforge.net/";
     description = "Note-taking application (supposes stylus)";
-    maintainers = [ maintainers.guibert ];
+    maintainers = [maintainers.guibert];
     license = licenses.gpl2;
     platforms = with platforms; linux ++ darwin;
   };

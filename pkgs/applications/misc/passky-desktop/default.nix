@@ -23,12 +23,12 @@ let
   src =
     srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
-  appimageContents = appimageTools.extract { inherit pname version src; };
+  appimageContents = appimageTools.extract {inherit pname version src;};
   meta = with lib; {
     homepage = "https://passky.org";
     downloadPage = "https://github.com/Rabbit-Company/Passky-Desktop/releases";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ akkesm ];
+    maintainers = with maintainers; [akkesm];
     platforms = builtins.attrNames srcs;
   };
 
@@ -61,7 +61,7 @@ let
       meta
       ;
 
-    nativeBuildInputs = [ undmg ];
+    nativeBuildInputs = [undmg];
 
     sourceRoot = ".";
 

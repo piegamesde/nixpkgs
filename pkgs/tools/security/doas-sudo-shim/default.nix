@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.tests = {
-    helpTest = runCommand "${pname}-helpTest" { } ''
+    helpTest = runCommand "${pname}-helpTest" {} ''
       ${doas-sudo-shim}/bin/sudo -h > $out
       grep -q "Execute a command as another user using doas(1)" $out
     '';
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jirutka/doas-sudo-shim";
     license = licenses.isc;
     mainProgram = "sudo";
-    maintainers = with maintainers; [ dsuetin ];
+    maintainers = with maintainers; [dsuetin];
     platforms = platforms.linux;
   };
 }

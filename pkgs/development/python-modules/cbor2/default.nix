@@ -20,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-uJNQDbD+Az5XDDrclWr27vxX4oACa9LYb9U9qfHllNc=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -35,12 +35,12 @@ buildPythonPackage rec {
     "test_huge_truncated_string"
   ];
 
-  pythonImportsCheck = [ "cbor2" ];
+  pythonImportsCheck = ["cbor2"];
 
   meta = with lib; {
     description = "Python CBOR (de)serializer with extensive tag support";
     homepage = "https://github.com/agronholm/cbor2";
     license = licenses.mit;
-    maintainers = with maintainers; [ taneb ];
+    maintainers = with maintainers; [taneb];
   };
 }

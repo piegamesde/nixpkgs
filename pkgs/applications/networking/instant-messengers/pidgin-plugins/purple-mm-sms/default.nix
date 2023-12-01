@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     "PLUGIN_DIR_PURPLE=$(out)/lib/purple-2"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     glibmm
     pidgin
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     description = "A libpurple plugin for sending and receiving SMS via Modemmanager";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ tomfitzhenry ];
+    maintainers = with maintainers; [tomfitzhenry];
   };
 }

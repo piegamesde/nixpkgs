@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "openbabel";
     repo = "openbabel";
-    rev = "openbabel-${lib.replaceStrings [ "." ] [ "-" ] version}";
+    rev = "openbabel-${lib.replaceStrings ["."] ["-"] version}";
     sha256 = "sha256-wQpgdfCyBAoh4pmj9j7wPTlMtraJ62w/EShxi/olVMY=";
   };
 
@@ -70,6 +70,6 @@ stdenv.mkDerivation rec {
     homepage = "http://openbabel.org";
     platforms = platforms.all;
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ danielbarter ];
+    maintainers = with maintainers; [danielbarter];
   };
 }

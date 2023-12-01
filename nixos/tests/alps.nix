@@ -3,15 +3,15 @@ let
   domain = certs.domain;
 in
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "alps";
-    meta = with pkgs.lib.maintainers; { maintainers = [ hmenke ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [hmenke];};
 
     nodes = {
       server = {
-        imports = [ ./common/user-account.nix ];
-        security.pki.certificateFiles = [ certs.ca.cert ];
+        imports = [./common/user-account.nix];
+        security.pki.certificateFiles = [certs.ca.cert];
         networking.extraHosts = ''
           127.0.0.1 ${domain}
         '';
@@ -38,9 +38,9 @@ import ./make-test-python.nix (
       };
 
       client =
-        { nodes, config, ... }:
+        {nodes, config, ...}:
         {
-          security.pki.certificateFiles = [ certs.ca.cert ];
+          security.pki.certificateFiles = [certs.ca.cert];
           networking.extraHosts = ''
             ${nodes.server.config.networking.primaryIPAddress} ${domain}
           '';
@@ -57,7 +57,7 @@ import ./make-test-python.nix (
             };
           };
           environment.systemPackages = [
-            (pkgs.writers.writePython3Bin "test-alps-login" { } ''
+            (pkgs.writers.writePython3Bin "test-alps-login" {} ''
               from urllib.request import build_opener, HTTPCookieProcessor, Request
               from urllib.parse import urlencode, urljoin
               from http.cookiejar import CookieJar
@@ -96,7 +96,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       ''
         server.start()
         server.wait_for_unit("postfix.service")

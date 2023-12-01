@@ -36,10 +36,10 @@ buildPythonPackage rec {
     numpy
     pytestCheckHook
   ];
-  nativeBuildInputs = [ dos2unix ];
+  nativeBuildInputs = [dos2unix];
   propagatedBuildInputs = [
     cffi
-  ] ++ lib.optionals gurobiSupport ([ gurobipy ] ++ lib.optional (gurobiHome == null) gurobi);
+  ] ++ lib.optionals gurobiSupport ([gurobipy] ++ lib.optional (gurobiHome == null) gurobi);
 
   # Source files have CRLF terminators, which make patch error out when supplied
   # with diffs made on *nix machines
@@ -79,6 +79,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/coin-or/python-mip/releases";
     changelog = "https://github.com/coin-or/python-mip/releases/tag/${version}";
     license = licenses.epl20;
-    maintainers = with maintainers; [ nessdoor ];
+    maintainers = with maintainers; [nessdoor];
   };
 }

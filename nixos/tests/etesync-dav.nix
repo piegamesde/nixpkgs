@@ -1,12 +1,12 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
 
     name = "etesync-dav";
-    meta = with pkgs.lib.maintainers; { maintainers = [ _3699n ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [_3699n];};
 
     nodes.machine =
-      { config, pkgs, ... }:
+      {config, pkgs, ...}:
       {
         environment.systemPackages = [
           pkgs.curl

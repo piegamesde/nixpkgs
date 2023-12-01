@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     darwin.apple_sdk.frameworks.Security
   ];
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   # remove timeouts in tests to make them less flaky
   TEST_SRVC_DISABLE_TIMEOUT = 1;
@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/insilica/rs-srvc";
     changelog = "https://github.com/insilica/rs-srvc/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ john-shaffer ];
+    maintainers = with maintainers; [john-shaffer];
     mainProgram = "sr";
   };
 }

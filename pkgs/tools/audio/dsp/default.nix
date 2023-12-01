@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-S1pzVQ/ceNsx0vGmzdDWw2TjPVLiRgzR4edFblWsekY=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     fftw
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/bmc0/dsp";
     description = "An audio processing program with an interactive mode";
     license = licenses.isc;
-    maintainers = with maintainers; [ aaronjheng ];
+    maintainers = with maintainers; [aaronjheng];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

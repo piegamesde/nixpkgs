@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Standard screen manager of LXDE";
     homepage = "https://lxde.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ rawkode ];
+    maintainers = with maintainers; [rawkode];
     platforms = platforms.linux;
   };
 }

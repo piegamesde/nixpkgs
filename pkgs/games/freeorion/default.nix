@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       enablePython = true;
       python = python3;
     })
-    (python3.withPackages (p: with p; [ pycodestyle ]))
+    (python3.withPackages (p: with p; [pycodestyle]))
     SDL2
     freetype
     glew
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
   ];
 
   # as of 0.5 FreeOrion doesn't work with "-DOpenGL_GL_PREFERENCE=GLVND"
-  cmakeFlags = [ "-DOpenGL_GL_PREFERENCE=LEGACY" ];
+  cmakeFlags = ["-DOpenGL_GL_PREFERENCE=LEGACY"];
 
   postInstall = ''
     mkdir -p $out/libexec
@@ -89,6 +89,6 @@ stdenv.mkDerivation rec {
       cc-by-sa-30
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ tex ];
+    maintainers = with maintainers; [tex];
   };
 }

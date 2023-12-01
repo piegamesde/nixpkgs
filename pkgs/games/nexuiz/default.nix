@@ -28,7 +28,7 @@
 let
   version = "2.5.2";
 
-  version_short = lib.replaceStrings [ "." ] [ "" ] version;
+  version_short = lib.replaceStrings ["."] [""] version;
 in
 stdenv.mkDerivation {
   pname = "nexuiz";
@@ -39,7 +39,7 @@ stdenv.mkDerivation {
     sha256 = "0010jrxc68qqinkvdh1qn2b8z3sa5v1kcd8d1m4llp3pr6y7xqm5";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
   buildInputs = [
     # glx
     libX11

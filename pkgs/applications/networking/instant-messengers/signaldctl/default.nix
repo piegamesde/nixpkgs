@@ -28,13 +28,13 @@ buildGoModule rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = with lib; {
     description = "A golang library for communicating with signald";
     homepage = "https://signald.org/signaldctl/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ colinsane ];
+    maintainers = with maintainers; [colinsane];
     platforms = platforms.unix;
   };
 }

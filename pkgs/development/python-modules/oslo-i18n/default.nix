@@ -24,7 +24,7 @@ buildPythonPackage rec {
     rm test-requirements.txt
   '';
 
-  nativeBuildInputs = [ pbr ];
+  nativeBuildInputs = [pbr];
 
   nativeCheckInputs = [
     oslotest
@@ -43,7 +43,7 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "oslo_i18n" ];
+  pythonImportsCheck = ["oslo_i18n"];
 
   meta = with lib; {
     description = "Oslo i18n library";

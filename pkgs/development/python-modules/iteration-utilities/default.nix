@@ -16,14 +16,14 @@ buildPythonPackage rec {
     hash = "sha256-Q/ZuwAf+NPikN8/eltwaUilnLw4DKFm864tUe6GLDak=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "iteration_utilities" ];
+  pythonImportsCheck = ["iteration_utilities"];
 
   meta = with lib; {
     description = "Utilities based on Pythons iterators and generators";
     homepage = "https://github.com/MSeifert04/iteration_utilities";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

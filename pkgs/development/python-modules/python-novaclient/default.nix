@@ -52,7 +52,7 @@ buildPythonPackage rec {
     ")
   '';
 
-  pythonImportsCheck = [ "novaclient" ];
+  pythonImportsCheck = ["novaclient"];
 
   meta = with lib; {
     description = "Client library for OpenStack Compute API";

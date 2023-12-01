@@ -36,7 +36,7 @@ else
       description = "A bit vector library for OCaml";
       license = lib.licenses.lgpl21;
       homepage = "https://github.com/backtracking/bitv";
-      maintainers = [ lib.maintainers.vbgl ];
+      maintainers = [lib.maintainers.vbgl];
       inherit (ocaml.meta) platforms;
     };
   }

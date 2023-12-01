@@ -14,13 +14,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3JhQg0SNlwfULkm+2CaiR8Db2mkTyHDppdm/fHSTllk=";
   };
 
-  buildInputs = [ libjpeg ];
+  buildInputs = [libjpeg];
 
   meta = with lib; {
     description = "Prints information and tests integrity of JPEG/JFIF files";
     homepage = "https://www.kokkonen.net/tjko/projects.html";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
     platforms = platforms.all;
   };
 }

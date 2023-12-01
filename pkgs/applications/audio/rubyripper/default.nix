@@ -21,9 +21,9 @@ stdenv.mkDerivation rec {
 
   preConfigure = "patchShebangs .";
 
-  configureFlags = [ "--enable-cli" ];
+  configureFlags = ["--enable-cli"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = [
     cddiscid

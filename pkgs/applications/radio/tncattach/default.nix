@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
     sha256 = "0n7ad4gqvpgabw2i67s51lfz386wmv0cvnhxq9ygxpsqmx9aynxk";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  makeFlags = [ "compiler=$(CC)" ];
+  makeFlags = ["compiler=$(CC)"];
 
   installPhase = ''
     runHook preInstall
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     description = "Attach KISS TNC devices as network interfaces";
     homepage = "https://github.com/markqvist/tncattach";
     license = licenses.mit;
-    maintainers = with maintainers; [ sarcasticadmin ];
+    maintainers = with maintainers; [sarcasticadmin];
     platforms = platforms.linux;
   };
 }

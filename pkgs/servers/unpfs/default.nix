@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     description = "9P2000.L server implementation in Rust";
     homepage = "https://github.com/pfpacket/rust-9p";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
 
     # macOS build fails: https://github.com/pfpacket/rust-9p/issues/7
     platforms = with platforms; linux;

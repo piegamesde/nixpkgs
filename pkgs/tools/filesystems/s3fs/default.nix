@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  configureFlags = [ "--with-openssl" ];
+  configureFlags = ["--with-openssl"];
 
   postInstall = ''
     ln -s $out/bin/s3fs $out/bin/mount.s3fs

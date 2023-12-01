@@ -24,19 +24,19 @@ buildPythonPackage rec {
     pythonImportsCheckHook
   ];
 
-  pythonImportsCheck = [ "hjson" ];
+  pythonImportsCheck = ["hjson"];
 
   postInstall = ''
     rm $out/bin/hjson.cmd
     wrapProgram $out/bin/hjson  \
       --set PYTHONPATH "$PYTHONPATH" \
-      --prefix PATH : ${lib.makeBinPath [ python ]}
+      --prefix PATH : ${lib.makeBinPath [python]}
   '';
 
   meta = with lib; {
     description = "A user interface for JSON";
     homepage = "https://github.com/hjson/hjson-py";
     license = licenses.mit;
-    maintainers = with maintainers; [ bhipple ];
+    maintainers = with maintainers; [bhipple];
   };
 }

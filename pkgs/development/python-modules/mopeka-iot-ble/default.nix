@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-x/cKg2NC6kssUQeBuQH4yghlRDgs/fJ0bWWL+qnHgcM=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     bluetooth-data-tools
@@ -34,20 +34,20 @@ buildPythonPackage rec {
     sensor-state-data
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace " --cov=mopeka_iot_ble --cov-report=term-missing:skip-covered" ""
   '';
 
-  pythonImportsCheck = [ "mopeka_iot_ble" ];
+  pythonImportsCheck = ["mopeka_iot_ble"];
 
   meta = with lib; {
     description = "Library for Mopeka IoT BLE devices";
     homepage = "https://github.com/bluetooth-devices/mopeka-iot-ble";
     changelog = "https://github.com/Bluetooth-Devices/mopeka-iot-ble/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

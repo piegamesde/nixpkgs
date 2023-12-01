@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
       binaryNativeCode
     ];
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = [
       "x86_64-linux"
       "aarch64-darwin"

@@ -47,10 +47,10 @@ in
         '';
       }
     ];
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     systemd.services.argononed = {
       description = "Argon One Raspberry Pi case Daemon Service";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "forking";
         ExecStart = "${cfg.package}/bin/argononed";
@@ -60,5 +60,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ misterio77 ];
+  meta.maintainers = with lib.maintainers; [misterio77];
 }

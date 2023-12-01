@@ -20,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -43,6 +43,6 @@ buildGoModule rec {
     homepage = "https://github.com/McKael/madonctl";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ aaronjheng ];
+    maintainers = with maintainers; [aaronjheng];
   };
 }

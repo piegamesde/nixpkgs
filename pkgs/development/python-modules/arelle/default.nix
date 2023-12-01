@@ -33,7 +33,7 @@ buildPythonPackage rec {
     "out"
     "doc"
   ];
-  patches = [ ./tests.patch ];
+  patches = [./tests.patch];
   postPatch = "rm testParser2.py";
   nativeBuildInputs = [
     sphinx
@@ -44,7 +44,7 @@ buildPythonPackage rec {
     isodate
     numpy
     openpyxl
-  ] ++ lib.optionals gui [ tkinter ];
+  ] ++ lib.optionals gui [tkinter];
 
   # arelle-gui is useless without gui dependencies, so delete it when !gui.
   postInstall =
@@ -80,6 +80,6 @@ buildPythonPackage rec {
     homepage = "http://arelle.org/";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ roberth ];
+    maintainers = with maintainers; [roberth];
   };
 }

@@ -40,7 +40,7 @@ let
     (
       ps:
       with ps;
-      [ mako ]
+      [mako]
       ++ optionals (enablePythonApi) [
         numpy
         setuptools
@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
     # TODO: Check if this still needed
     # ABI differences GCC 7.1
     # /nix/store/wd6r25miqbk9ia53pp669gn4wrg9n9cj-gcc-7.3.0/include/c++/7.3.0/bits/vector.tcc:394:7: note: parameter passing for argument of type 'std::vector<uhd::range_t>::iterator {aka __gnu_cxx::__normal_iterator<uhd::range_t*, std::vector<uhd::range_t> >}' changed in GCC 7.1
-    ++ [ (lib.optionalString stdenv.isAarch32 "-DCMAKE_CXX_FLAGS=-Wno-psabi") ];
+    ++ [(lib.optionalString stdenv.isAarch32 "-DCMAKE_CXX_FLAGS=-Wno-psabi")];
 
   pythonEnv = python3.withPackages pythonEnvArg;
 
@@ -123,8 +123,8 @@ stdenv.mkDerivation rec {
       ncurses
       ncurses.dev
     ]
-    ++ optionals (enablePythonApi || enableUtils) [ pythonEnv ]
-    ++ optionals (enableDpdk) [ dpdk ];
+    ++ optionals (enablePythonApi || enableUtils) [pythonEnv]
+    ++ optionals (enableDpdk) [dpdk];
 
   # many tests fails on darwin, according to ofborg
   doCheck = !stdenv.isDarwin;
@@ -142,7 +142,7 @@ stdenv.mkDerivation rec {
   postPhases = [
     "installFirmware"
     "removeInstalledTests"
-  ] ++ optionals (enableUtils && stdenv.targetPlatform.isLinux) [ "moveUdevRules" ];
+  ] ++ optionals (enableUtils && stdenv.targetPlatform.isLinux) ["moveUdevRules"];
 
   # UHD expects images in `$CMAKE_INSTALL_PREFIX/share/uhd/images`
   installFirmware = ''

@@ -77,7 +77,7 @@ mkDerivation rec {
     #license = licenses.lgpl21; # For the libraries / headers only.
     license = licenses.gpl3; # With the examples (under bin) and most likely some of the optional dependencies used.
     homepage = "http://www.qtav.org/";
-    maintainers = [ maintainers.jraygauthier ];
+    maintainers = [maintainers.jraygauthier];
     platforms = platforms.linux;
   };
 }

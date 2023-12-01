@@ -16,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VtXkgixgElKKOT26uKN9feXDVjjtSgTWvcgk5o5MLmw=";
     rev = "refs/tags/v${version}";
   };
-  buildInputs = [ (lib.getOutput "static" stdenv.cc.libc) ];
-  makeFlags = [ "PREFIX=$(out)" ];
+  buildInputs = [(lib.getOutput "static" stdenv.cc.libc)];
+  makeFlags = ["PREFIX=$(out)"];
   preConfigure =
     ""
     + (lib.optionalString (rcinit != null)
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A very minimal Linux init implementation from suckless.org";
     license = licenses.mit;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
     homepage = "https://tools.suckless.org/sinit";
     downloadPage = "https://git.suckless.org/sinit";

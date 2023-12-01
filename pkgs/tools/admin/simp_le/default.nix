@@ -31,7 +31,7 @@ python3Packages.buildPythonApplication rec {
     idna
   ];
 
-  nativeCheckInputs = with python3Packages; [ mock ];
+  nativeCheckInputs = with python3Packages; [mock];
 
   meta = with lib; {
     homepage = "https://github.com/zenhack/simp_le";

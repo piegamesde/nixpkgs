@@ -67,9 +67,9 @@ buildPythonPackage rec {
     python-dateutil
     pathvalidate
     jsonpickle
-  ] ++ lib.optionals stdenv.isDarwin [ ifconfig-parser ];
+  ] ++ lib.optionals stdenv.isDarwin [ifconfig-parser];
 
-  pythonImportsCheck = [ "jaraco.net" ];
+  pythonImportsCheck = ["jaraco.net"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -93,6 +93,6 @@ buildPythonPackage rec {
     description = "Networking tools by jaraco";
     homepage = "https://github.com/jaraco/jaraco.net";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

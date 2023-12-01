@@ -26,7 +26,7 @@ buildPythonPackage rec {
   ];
 
   # this is still needed for when the version is overrided
-  pythonNamespaces = [ "azure.mgmt" ];
+  pythonNamespaces = ["azure.mgmt"];
 
   # has no tests
   doCheck = false;

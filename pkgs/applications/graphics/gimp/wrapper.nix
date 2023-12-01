@@ -19,9 +19,9 @@ in
 symlinkJoin {
   name = "gimp-with-plugins-${gimp.version}";
 
-  paths = [ gimp ] ++ selectedPlugins;
+  paths = [gimp] ++ selectedPlugins;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     for each in gimp-${versionBranch} gimp-console-${versionBranch}; do

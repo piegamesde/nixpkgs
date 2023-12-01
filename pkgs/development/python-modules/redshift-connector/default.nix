@@ -49,7 +49,7 @@ buildPythonPackage rec {
   ];
 
   # integration tests require a Redshift cluster
-  pytestFlagsArray = [ "test/unit" ];
+  pytestFlagsArray = ["test/unit"];
 
   __darwinAllowLocalNetworking = true; # required for tests
 
@@ -58,6 +58,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/aws/amazon-redshift-python-driver";
     changelog = "https://github.com/aws/amazon-redshift-python-driver/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ mcwitt ];
+    maintainers = with lib.maintainers; [mcwitt];
   };
 }

@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
     domain = "whatever.example.com";
     password = "false;foo;exit;withspecialcharacters";
@@ -8,12 +8,12 @@ import ./make-test-python.nix (
     name = "iodine";
     nodes = {
       server =
-        { ... }:
+        {...}:
 
         {
           networking.firewall = {
-            allowedUDPPorts = [ 53 ];
-            trustedInterfaces = [ "dns0" ];
+            allowedUDPPorts = [53];
+            trustedInterfaces = ["dns0"];
           };
           boot.kernel.sysctl = {
             "net.ipv4.ip_forward" = 1;
@@ -35,7 +35,7 @@ import ./make-test-python.nix (
         };
 
       client =
-        { ... }:
+        {...}:
         {
           services.iodine.clients.testClient = {
             # test that ProtectHome is "read-only"
@@ -43,8 +43,8 @@ import ./make-test-python.nix (
             relay = "server";
             server = domain;
           };
-          systemd.tmpfiles.rules = [ "f /root/pw 0666 root root - ${password}" ];
-          environment.systemPackages = [ pkgs.nagiosPluginsOfficial ];
+          systemd.tmpfiles.rules = ["f /root/pw 0666 root root - ${password}"];
+          environment.systemPackages = [pkgs.nagiosPluginsOfficial];
         };
     };
 

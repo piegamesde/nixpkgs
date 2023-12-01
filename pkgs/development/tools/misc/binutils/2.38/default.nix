@@ -128,21 +128,21 @@ stdenv.mkDerivation {
   ];
 
   strictDeps = true;
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   nativeBuildInputs =
     [
       bison
       perl
       texinfo
     ]
-    ++ lib.optionals targetPlatform.isiOS [ autoreconfHook ]
+    ++ lib.optionals targetPlatform.isiOS [autoreconfHook]
     ++ lib.optionals buildPlatform.isDarwin [
       autoconf269
       automake
       gettext
       libtool
     ]
-    ++ lib.optionals targetPlatform.isVc4 [ flex ];
+    ++ lib.optionals targetPlatform.isVc4 [flex];
 
   buildInputs = [
     zlib
@@ -217,7 +217,7 @@ stdenv.mkDerivation {
       # what we want it to be.
       "--program-prefix=${targetPrefix}"
     ]
-    ++ lib.optionals withAllTargets [ "--enable-targets=all" ]
+    ++ lib.optionals withAllTargets ["--enable-targets=all"]
     ++ lib.optionals enableGold [
       "--enable-gold"
       "--enable-plugins"

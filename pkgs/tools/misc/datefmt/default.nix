@@ -15,15 +15,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HgW/vOGVEmAbm8k3oIwIa+cogq7qmX7MfTmHqxv9lhY=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
-  passthru.tests.version = testers.testVersion { package = datefmt; };
+  passthru.tests.version = testers.testVersion {package = datefmt;};
 
   meta = with lib; {
     homepage = "https://jb55.com/datefmt";
     description = "A tool that formats timestamps in text streams";
     platforms = platforms.all;
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ jb55 ];
+    maintainers = with maintainers; [jb55];
   };
 }

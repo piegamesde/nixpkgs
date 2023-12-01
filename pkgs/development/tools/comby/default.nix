@@ -15,8 +15,8 @@ let
   mkCombyPackage =
     {
       pname,
-      extraBuildInputs ? [ ],
-      extraNativeInputs ? [ ],
+      extraBuildInputs ? [],
+      extraNativeInputs ? [],
       preBuild ? "",
     }:
     ocamlPackages.buildDunePackage rec {
@@ -33,7 +33,7 @@ let
         sha256 = "sha256-yQrfSzJgJm0OWJxhxst2XjZULIVHeEfPMvMIwH7BYDc=";
       };
 
-      patches = [ ./comby.patch ];
+      patches = [./comby.patch];
 
       nativeBuildInputs = extraNativeInputs;
 
@@ -50,7 +50,7 @@ let
         ocamlPackages.ppx_sexp_message
       ] ++ extraBuildInputs;
 
-      nativeCheckInputs = [ cacert ];
+      nativeCheckInputs = [cacert];
 
       meta = {
         description = "Tool for searching and changing code structure";
@@ -59,10 +59,10 @@ let
       };
     };
 
-  combyKernel = mkCombyPackage { pname = "comby-kernel"; };
+  combyKernel = mkCombyPackage {pname = "comby-kernel";};
   combySemantic = mkCombyPackage {
     pname = "comby-semantic";
-    extraBuildInputs = [ ocamlPackages.cohttp-lwt-unix ];
+    extraBuildInputs = [ocamlPackages.cohttp-lwt-unix];
   };
 in
 mkCombyPackage {
@@ -101,7 +101,7 @@ mkCombyPackage {
     ocamlPackages.dune-configurator
     combyKernel
     combySemantic
-  ] ++ (if !stdenv.isAarch32 && !stdenv.isAarch64 then [ ocamlPackages.hack_parallel ] else [ ]);
+  ] ++ (if !stdenv.isAarch32 && !stdenv.isAarch64 then [ocamlPackages.hack_parallel] else []);
 
   extraNativeInputs = [
     autoconf

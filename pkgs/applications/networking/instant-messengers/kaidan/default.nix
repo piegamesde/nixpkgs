@@ -72,7 +72,7 @@ mkDerivation rec {
       asl20
       cc-by-sa-40
     ];
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
     platforms = with platforms; linux;
   };
 }

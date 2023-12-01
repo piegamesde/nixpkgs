@@ -92,7 +92,7 @@ let
       "GTK"
       "Utility"
     ];
-    mimeTypes = [ "x-scheme-handler/electron-fiddle" ];
+    mimeTypes = ["x-scheme-handler/electron-fiddle"];
   };
 in
 buildFHSEnv {
@@ -169,7 +169,7 @@ buildFHSEnv {
     description = "The easiest way to get started with Electron";
     homepage = "https://www.electronjs.org/fiddle";
     license = licenses.mit;
-    maintainers = with maintainers; [ andersk ];
+    maintainers = with maintainers; [andersk];
     platforms = electron.meta.platforms;
   };
 }

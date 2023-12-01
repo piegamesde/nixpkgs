@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [ pciutils ];
+  buildInputs = [pciutils];
 
   postBuild = ''
     patchShebangs lsmsr/createheader.py
@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
     ];
     license = lib.licenses.gpl2;
     homepage = "https://github.com/kernelslacker/x86info";
-    maintainers = with lib.maintainers; [ jcumming ];
+    maintainers = with lib.maintainers; [jcumming];
   };
 }

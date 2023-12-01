@@ -17,16 +17,16 @@ buildPythonPackage rec {
     hash = "sha256-HGeVapv2Z5GtPwSp3+dvUwAH0bFqu+Bmk5E6SRr7NO4=";
   };
 
-  propagatedBuildInputs = [ colorama ];
+  propagatedBuildInputs = [colorama];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ansimarkup" ];
+  pythonImportsCheck = ["ansimarkup"];
 
   meta = with lib; {
     description = "An XML-like markup for producing colored terminal text.";
     homepage = "https://github.com/gvalkov/python-ansimarkup";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-colors";
   version = "20180328-git";
 
-  parasites = [ "cl-colors-tests" ];
+  parasites = ["cl-colors-tests"];
 
   description = "Simple color library for Common Lisp";
 
@@ -22,7 +22,7 @@ rec {
 
   packageName = "cl-colors";
 
-  asdFilesToKeep = [ "cl-colors.asd" ];
+  asdFilesToKeep = ["cl-colors.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-colors DESCRIPTION Simple color library for Common Lisp SHA256

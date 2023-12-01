@@ -9,7 +9,7 @@ build-idris-package {
   version = "2016-07-05";
 
   ipkgName = "idris-yampa";
-  idrisDeps = [ bifunctors ];
+  idrisDeps = [bifunctors];
 
   src = fetchFromGitHub {
     owner = "BartAdv";
@@ -21,6 +21,6 @@ build-idris-package {
   meta = {
     description = "Idris implementation of Yampa FRP library as described in Reactive Programming through Dependent Types";
     homepage = "https://github.com/BartAdv/idris-yampa";
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

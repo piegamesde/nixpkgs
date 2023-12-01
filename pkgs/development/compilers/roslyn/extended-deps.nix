@@ -1,8 +1,8 @@
 # Some required nuget packages are not picked up by the deps generation script,
 # since they are referenced as a SDK reference, which unfortunately only gets
 # downloaded during build time. So we include them manually.
-{ fetchNuGet }:
-(import ./deps.nix { inherit fetchNuGet; })
+{fetchNuGet}:
+(import ./deps.nix {inherit fetchNuGet;})
 ++ [
   (fetchNuGet rec {
     pname = "Microsoft.DotNet.Arcade.Sdk";

@@ -8,8 +8,8 @@
 }:
 let
   inherit (lib) makeBinPath;
-  filename = lib.strings.replaceStrings [ "_" ] [ "." ] generation + ".json";
-  regex = lib.strings.replaceStrings [ "_" ] [ "[.]" ] generation;
+  filename = lib.strings.replaceStrings ["_"] ["."] generation + ".json";
+  regex = lib.strings.replaceStrings ["_"] ["[.]"] generation;
 in
 writeScript "update-cassandra_${generation}" ''
   #!${runtimeShell}

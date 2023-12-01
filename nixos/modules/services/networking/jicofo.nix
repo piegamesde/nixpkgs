@@ -89,8 +89,8 @@ in
     };
 
     config = mkOption {
-      type = (pkgs.formats.json { }).type;
-      default = { };
+      type = (pkgs.formats.json {}).type;
+      default = {};
       example = literalExpression ''
         {
           jicofo.bridge.max-bridge-participants = 42;
@@ -121,7 +121,7 @@ in
       };
     };
 
-    users.groups.jitsi-meet = { };
+    users.groups.jitsi-meet = {};
 
     systemd.services.jicofo =
       let
@@ -134,10 +134,10 @@ in
       in
       {
         description = "JItsi COnference FOcus";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
 
-        restartTriggers = [ configFile ];
+        restartTriggers = [configFile];
         environment.JAVA_SYS_PROPS = concatStringsSep " " (
           mapAttrsToList (k: v: "${k}=${toString v}") jicofoProps
         );

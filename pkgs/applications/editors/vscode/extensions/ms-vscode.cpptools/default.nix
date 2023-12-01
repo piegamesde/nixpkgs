@@ -87,7 +87,7 @@ vscode-utils.buildVscodeMarketplaceExtension rec {
   '';
 
   postFixup = lib.optionalString gdbUseFixed ''
-    wrapProgram $out/share/vscode/extensions/ms-vscode.cpptools/debugAdapters/bin/OpenDebugAD7 --prefix PATH : ${lib.makeBinPath [ gdb ]}
+    wrapProgram $out/share/vscode/extensions/ms-vscode.cpptools/debugAdapters/bin/OpenDebugAD7 --prefix PATH : ${lib.makeBinPath [gdb]}
   '';
 
   meta = {
@@ -98,6 +98,6 @@ vscode-utils.buildVscodeMarketplaceExtension rec {
       lib.maintainers.jraygauthier
       lib.maintainers.stargate01
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

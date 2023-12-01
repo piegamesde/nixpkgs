@@ -26,7 +26,7 @@ buildGoModule rec {
     "-X golang.stackrox.io/kube-linter/internal/version.version=${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd kube-linter \

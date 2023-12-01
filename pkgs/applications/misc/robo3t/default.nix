@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     ];
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   ldLibraryPath = lib.makeLibraryPath [
     stdenv.cc.cc
@@ -94,9 +94,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://robomongo.org/";
     description = "Query GUI for mongodb. Formerly called Robomongo";
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    platforms = ["x86_64-linux"];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ eperuffo ];
+    maintainers = with maintainers; [eperuffo];
   };
 }

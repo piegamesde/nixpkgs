@@ -45,14 +45,14 @@ let
     "--set DEVICE_LIB_PATH ${rocm-device-libs}/amdgcn/bitcode"
     "--set HSA_PATH ${rocm-runtime}"
     "--set ROCM_PATH $out"
-  ] ++ lib.optionals useNVIDIA [ "--set CUDA_PATH ${cudatoolkit}" ];
+  ] ++ lib.optionals useNVIDIA ["--set CUDA_PATH ${cudatoolkit}"];
 in
 stdenv.mkDerivation (
   finalAttrs: {
     pname = "hip-${hipPlatform}";
     version = "5.4.4";
 
-    outputs = [ "out" ] ++ lib.optionals buildDocs [ "doc" ];
+    outputs = ["out"] ++ lib.optionals buildDocs ["doc"];
 
     src = fetchFromGitHub {
       owner = "ROCm-Developer-Tools";
@@ -106,7 +106,7 @@ stdenv.mkDerivation (
       rocm-device-libs
       rocm-runtime
       rocm-opencl-runtime
-    ] ++ lib.optionals useNVIDIA [ cudatoolkit ];
+    ] ++ lib.optionals useNVIDIA [cudatoolkit];
 
     cmakeFlags = [
       "-DROCM_PATH=${rocminfo}"
@@ -122,7 +122,7 @@ stdenv.mkDerivation (
       "-DCMAKE_INSTALL_BINDIR=bin"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
       "-DCMAKE_INSTALL_LIBDIR=lib"
-    ] ++ lib.optionals buildTests [ "-DHIP_CATCH_TEST=1" ];
+    ] ++ lib.optionals buildTests ["-DHIP_CATCH_TEST=1"];
 
     postPatch =
       ''
@@ -185,8 +185,8 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "C++ Heterogeneous-Compute Interface for Portability specifically for AMD platform";
       homepage = "https://github.com/ROCm-Developer-Tools/hipamd";
-      license = with licenses; [ mit ];
-      maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
+      license = with licenses; [mit];
+      maintainers = with maintainers; [lovesegfault] ++ teams.rocm.members;
       platforms = platforms.linux;
       # Tests require GPU, also include issues
       broken =

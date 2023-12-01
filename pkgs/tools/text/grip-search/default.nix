@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  buildInputs = [ boost ];
+  buildInputs = [boost];
 
   patchPhase = ''
     substituteInPlace src/general/config.h --replace "CUSTOM-BUILD" "${version}"
@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/sc0ty/grip";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ tex ];
+    maintainers = with maintainers; [tex];
   };
 }

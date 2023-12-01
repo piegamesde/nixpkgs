@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-4Bv7stW5PKcODQanup37YbiUWrEGR6BuSFXibAHmwn0=";
   };
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   postInstall = ''
     install -dm755 "$out/share/licenses/reap/"
@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/leahneukirchen/reap";
     description = "run process until all its spawned processes are dead ";
-    license = with licenses; [ publicDomain ];
+    license = with licenses; [publicDomain];
     platforms = platforms.linux;
-    maintainers = [ maintainers.leahneukirchen ];
+    maintainers = [maintainers.leahneukirchen];
   };
 }

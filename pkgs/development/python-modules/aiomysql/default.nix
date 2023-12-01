@@ -27,17 +27,17 @@ buildPythonPackage rec {
     setuptools-scm-git-archive
   ];
 
-  propagatedBuildInputs = [ pymysql ];
+  propagatedBuildInputs = [pymysql];
 
   # Tests require MySQL database
   doCheck = false;
 
-  pythonImportsCheck = [ "aiomysql" ];
+  pythonImportsCheck = ["aiomysql"];
 
   meta = with lib; {
     description = "MySQL driver for asyncio";
     homepage = "https://github.com/aio-libs/aiomysql";
     license = licenses.mit;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

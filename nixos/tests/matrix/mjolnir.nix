@@ -1,8 +1,8 @@
 import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
     # Set up SSL certs for Synapse to be happy.
-    runWithOpenSSL = file: cmd: pkgs.runCommand file { buildInputs = [ pkgs.openssl ]; } cmd;
+    runWithOpenSSL = file: cmd: pkgs.runCommand file {buildInputs = [pkgs.openssl];} cmd;
 
     ca_key = runWithOpenSSL "ca-key.pem" "openssl genrsa -out $out 2048";
     ca_pem = runWithOpenSSL "ca.pem" ''
@@ -33,7 +33,7 @@ import ../make-test-python.nix (
 
     nodes = {
       homeserver =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           services.matrix-synapse = {
             enable = true;
@@ -48,16 +48,16 @@ import ../make-test-python.nix (
               listeners = [
                 {
                   # The default but tls=false
-                  bind_addresses = [ "0.0.0.0" ];
+                  bind_addresses = ["0.0.0.0"];
                   port = 8448;
                   resources = [
                     {
                       compress = true;
-                      names = [ "client" ];
+                      names = ["client"];
                     }
                     {
                       compress = false;
-                      names = [ "federation" ];
+                      names = ["federation"];
                     }
                   ];
                   tls = false;
@@ -68,7 +68,7 @@ import ../make-test-python.nix (
             };
           };
 
-          networking.firewall.allowedTCPPorts = [ 8448 ];
+          networking.firewall.allowedTCPPorts = [8448];
 
           environment.systemPackages = [
             (pkgs.writeShellScriptBin "register_mjolnir_user" ''
@@ -91,7 +91,7 @@ import ../make-test-python.nix (
         };
 
       mjolnir =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           services.mjolnir = {
             enable = true;
@@ -106,11 +106,11 @@ import ../make-test-python.nix (
         };
 
       client =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           environment.systemPackages = [
             (pkgs.writers.writePython3Bin "create_management_room_and_invite_mjolnir"
-              { libraries = with pkgs.python3Packages; [ matrix-nio ] ++ matrix-nio.optional-dependencies.e2e; }
+              {libraries = with pkgs.python3Packages; [matrix-nio] ++ matrix-nio.optional-dependencies.e2e;}
               ''
                 import asyncio
 

@@ -82,12 +82,12 @@ in
           };
         }
       ];
-      ensureDatabases = [ dbName ];
+      ensureDatabases = [dbName];
     };
 
     systemd.services.miniflux-dbsetup = {
       description = "Miniflux database setup";
-      requires = [ "postgresql.service" ];
+      requires = ["postgresql.service"];
       after = [
         "network.target"
         "postgresql.service"
@@ -101,8 +101,8 @@ in
 
     systemd.services.miniflux = {
       description = "Miniflux service";
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "miniflux-dbsetup.service" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["miniflux-dbsetup.service"];
       after = [
         "network.target"
         "postgresql.service"
@@ -117,8 +117,8 @@ in
         RuntimeDirectoryMode = "0700";
         EnvironmentFile = cfg.adminCredentialsFile;
         # Hardening
-        CapabilityBoundingSet = [ "" ];
-        DeviceAllow = [ "" ];
+        CapabilityBoundingSet = [""];
+        DeviceAllow = [""];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         PrivateDevices = true;
@@ -150,6 +150,6 @@ in
 
       environment = cfg.config;
     };
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-aMIjywcQxki0cKlNznPAMfvrtGj3qcR95D4/BDuPZZM=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     mesa
@@ -74,13 +74,13 @@ stdenv.mkDerivation rec {
     ${lib.optionalString pulseSupport "patchelf --add-needed ${libpulseaudio}/lib/libpulse.so $out/lib/libraylib.so.${version}"}
   '';
 
-  passthru.tests = [ raylib-games ];
+  passthru.tests = [raylib-games];
 
   meta = with lib; {
     description = "A simple and easy-to-use library to enjoy videogames programming";
     homepage = "https://www.raylib.com/";
     license = licenses.zlib;
-    maintainers = with maintainers; [ adamlwgriffiths ];
+    maintainers = with maintainers; [adamlwgriffiths];
     platforms = platforms.linux;
     changelog = "https://github.com/raysan5/raylib/blob/${version}/CHANGELOG";
   };

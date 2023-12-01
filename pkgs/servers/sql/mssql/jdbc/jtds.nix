@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     cp jtds-*.jar $out/share/java/jtds-jdbc.jar
   '';
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   meta = with lib; {
     description = "Pure Java (type 4) JDBC 3.0 driver for Microsoft SQL Server";

@@ -21,10 +21,10 @@ let
         url = "https://code.call-cc.org/egg-tarballs/5/${pname}/${pname}-${version}.tar.gz";
       };
 
-    eggDerivation = callPackage ./eggDerivation.nix { };
+    eggDerivation = callPackage ./eggDerivation.nix {};
 
     chicken = callPackage ./chicken.nix {
-      bootstrap-chicken = self.chicken.override { bootstrap-chicken = null; };
+      bootstrap-chicken = self.chicken.override {bootstrap-chicken = null;};
     };
 
     chickenEggs = recurseIntoAttrs (
@@ -40,7 +40,7 @@ let
           }:
           self.eggDerivation {
             name = "${pname}-${version}";
-            src = self.fetchegg (eggData // { inherit pname; });
+            src = self.fetchegg (eggData // {inherit pname;});
             buildInputs = map (x: self.chickenEggs.${x}) dependencies;
             meta.homepage = "https://code.call-cc.org/cgi-bin/gitweb.cgi?p=eggs-5-latest.git;a=tree;f=${pname}/${version}";
             meta.description = synopsis;
@@ -58,7 +58,7 @@ let
         (importTOML ./deps.toml)
     );
 
-    egg2nix = callPackage ./egg2nix.nix { };
+    egg2nix = callPackage ./egg2nix.nix {};
   };
 in
 lib.recurseIntoAttrs self

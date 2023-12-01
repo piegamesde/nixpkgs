@@ -41,9 +41,9 @@ let
     dontStrip = true;
     dontPatchShebangs = true;
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
-    buildInputs = [ jre ];
+    buildInputs = [jre];
 
     installPhase = ''
       runHook preInstall

@@ -9,11 +9,11 @@ import ./make-test-python.nix (
     name = "disable-installer-tools";
 
     nodes.machine =
-      { pkgs, lib, ... }:
+      {pkgs, lib, ...}:
       {
         system.disableInstallerTools = true;
         boot.enableContainers = false;
-        environment.defaultPackages = [ ];
+        environment.defaultPackages = [];
       };
 
     testScript = ''

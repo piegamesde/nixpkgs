@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
   ];
 
-  nativeCheckInputs = [ dbus ];
+  nativeCheckInputs = [dbus];
 
   enableParallelBuilding = true;
 

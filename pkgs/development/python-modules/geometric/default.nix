@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-y8dh4vZ/d1KL1EpDrle8CH/KIDMCKKZdAyJVgUFjx/o=";
   };
 
-  patches = [ ./ase-is-optional.patch ];
+  patches = [./ase-is-optional.patch];
 
   propagatedBuildInputs = [
     networkx
@@ -33,12 +33,12 @@ buildPythonPackage rec {
     export OMP_NUM_THREADS=2
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Geometry optimization code for molecular structures";
     homepage = "https://github.com/leeping/geomeTRIC";
-    license = [ licenses.bsd3 ];
-    maintainers = [ maintainers.markuskowa ];
+    license = [licenses.bsd3];
+    maintainers = [maintainers.markuskowa];
   };
 }

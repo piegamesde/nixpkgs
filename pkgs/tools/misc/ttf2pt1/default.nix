@@ -25,8 +25,8 @@ stdenv.mkDerivation rec {
     makeFlags="INSTDIR=$out OWNER=`id -u`"
   '';
 
-  buildInputs = [ freetype ];
-  nativeBuildInputs = [ perl ];
+  buildInputs = [freetype];
+  nativeBuildInputs = [perl];
 
   patches = ./gentoo-makefile.patch; # also contains the freetype patch
 

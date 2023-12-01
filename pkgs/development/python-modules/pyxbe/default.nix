@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-oOY0g1F5sxGUxXAT19Ygq5q7pnxEhIAKmyYELR1PHEA=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Update location for run with pytest
   preCheck = ''
@@ -28,12 +28,12 @@ buildPythonPackage rec {
       --replace "'xbefiles'" "'tests/xbefiles'"
   '';
 
-  pythonImportsCheck = [ "xbe" ];
+  pythonImportsCheck = ["xbe"];
 
   meta = with lib; {
     description = "Library to work with XBE files";
     homepage = "https://github.com/mborgerson/pyxbe";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

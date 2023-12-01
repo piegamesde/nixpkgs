@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XnT2ziES94Y4uzWmaxSw7nWegJFQjAqFUG8PkwK5nLU=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  cmakeFlags = [ "-H.." ];
+  cmakeFlags = ["-H.."];
 
   meta = with lib; {
     description = "A multi-paradigm automated test framework for C++ and Objective-C (and, maybe, C)";
@@ -28,6 +28,6 @@ stdenv.mkDerivation rec {
       edwtjo
       knedlsepp
     ];
-    platforms = platforms.unix ++ [ "x86_64-windows" ];
+    platforms = platforms.unix ++ ["x86_64-windows"];
   };
 }

@@ -40,14 +40,14 @@ stdenv.mkDerivation rec {
     libbfd
     libxml2
     zlib
-  ] ++ lib.optionals (enableGui) [ gtk2 ];
+  ] ++ lib.optionals (enableGui) [gtk2];
 
   configureScript = "./build.sh";
   configureFlags = [
     "--configure-only"
     # See https://sourceforge.net/p/gtk-gnutella/bugs/555/
     "--disable-malloc"
-  ] ++ lib.optionals (!enableGui) [ "--topless" ];
+  ] ++ lib.optionals (!enableGui) ["--topless"];
 
   enableParallelBuilding = true;
 
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     description = "A GTK Gnutella client, optimized for speed and scalability";
     homepage = "https://gtk-gnutella.sourceforge.net/"; # Code: https://github.com/gtk-gnutella/gtk-gnutella
     changelog = "https://raw.githubusercontent.com/gtk-gnutella/gtk-gnutella/v${version}/ChangeLog";
-    maintainers = [ maintainers.doronbehar ];
+    maintainers = [maintainers.doronbehar];
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
   };

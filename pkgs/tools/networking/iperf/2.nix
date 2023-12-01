@@ -13,10 +13,10 @@ stdenv.mkDerivation rec {
     sha256 = "1yflnj2ni988nm0p158q8lnkiq2gn2chmvsglyn2gqmqhwp3jaq6";
   };
 
-  hardeningDisable = [ "format" ];
-  configureFlags = [ "--enable-fastsampling" ];
+  hardeningDisable = ["format"];
+  configureFlags = ["--enable-fastsampling"];
 
-  makeFlags = [ "AR:=$(AR)" ];
+  makeFlags = ["AR:=$(AR)"];
 
   postInstall = ''
     mv $out/bin/iperf $out/bin/iperf2

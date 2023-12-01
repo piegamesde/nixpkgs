@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  makeFlagsArray = [ "PREFIX=$(out)" ];
+  makeFlagsArray = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Converts SACD image files, Philips DSDIFF and Sony DSF files to 24-bit high resolution wave files. Handles both DST and DSD streams. ";
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/Sound-Linux-More/sacd";
     license = licenses.gpl3;
-    maintainers = [ maintainers.doronbehar ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.doronbehar];
+    platforms = ["x86_64-linux"];
   };
 }

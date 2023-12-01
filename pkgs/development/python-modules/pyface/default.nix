@@ -28,13 +28,13 @@ buildPythonPackage rec {
 
   doCheck = false; # Needs X server
 
-  pythonImportsCheck = [ "pyface" ];
+  pythonImportsCheck = ["pyface"];
 
   meta = with lib; {
     description = "Traits-capable windowing framework";
     homepage = "https://github.com/enthought/pyface";
     changelog = "https://github.com/enthought/pyface/releases/tag/${version}";
-    maintainers = with maintainers; [ knedlsepp ];
+    maintainers = with maintainers; [knedlsepp];
     license = licenses.bsdOriginal;
   };
 }

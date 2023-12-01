@@ -1,11 +1,11 @@
-{ lib, mkspiffs }:
+{lib, mkspiffs}:
 
 # We provide the same presets as the upstream
 
 lib.mapAttrs
   (
     name:
-    { CPPFLAGS }:
+    {CPPFLAGS}:
     mkspiffs.overrideAttrs (
       drv: {
         inherit CPPFLAGS;
@@ -19,7 +19,7 @@ lib.mapAttrs
       "-DSPIFFS_ALIGNED_OBJECT_INDEX_TABLES=1"
     ];
 
-    arduino-esp32.CPPFLAGS = [ "-DSPIFFS_OBJ_META_LEN=4" ];
+    arduino-esp32.CPPFLAGS = ["-DSPIFFS_OBJ_META_LEN=4"];
 
-    esp-idf.CPPFLAGS = [ "-DSPIFFS_OBJ_META_LEN=4" ];
+    esp-idf.CPPFLAGS = ["-DSPIFFS_OBJ_META_LEN=4"];
   }

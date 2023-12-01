@@ -41,7 +41,7 @@ assert client || enableDaemon -> !monolithic;
 assert !buildClient -> !withKDE; # KDE is used by the client only
 
 let
-  edf = flag: feature: [ ("-D" + feature + (if flag then "=ON" else "=OFF")) ];
+  edf = flag: feature: [("-D" + feature + (if flag then "=ON" else "=OFF"))];
 in
 (if !buildClient then stdenv.mkDerivation else mkDerivation) rec {
   pname = "quassel${tag}";
@@ -119,7 +119,7 @@ in
       as WeeChat, but graphical (based on Qt4/KDE4 or Qt5/KF5).
     '';
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ttuegel ];
+    maintainers = with maintainers; [ttuegel];
     inherit (qtbase.meta) platforms;
   };
 }

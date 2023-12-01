@@ -28,6 +28,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Pan-unicode version of Fixedsys, a classic DOS font";
     platforms = lib.platforms.all;
     license = lib.licenses.publicDomain;
-    maintainers = [ lib.maintainers.ninjatrappeur ];
+    maintainers = [lib.maintainers.ninjatrappeur];
   };
 }

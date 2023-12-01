@@ -64,7 +64,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "subliminal" ];
+  pythonImportsCheck = ["subliminal"];
 
   disabledTests = [
     # Tests rewuire network access
@@ -90,6 +90,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Diaoul/subliminal";
     changelog = "https://github.com/Diaoul/subliminal/blob/${version}/HISTORY.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

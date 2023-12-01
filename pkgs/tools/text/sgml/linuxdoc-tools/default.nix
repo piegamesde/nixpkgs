@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  configureFlags = [ ("--enable-docs=txt info lyx html rtf" + lib.optionalString withLatex " pdf") ];
+  configureFlags = [("--enable-docs=txt info lyx html rtf" + lib.optionalString withLatex " pdf")];
 
   LEX = "flex";
 
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     perl
     gnused
     coreutils
-  ] ++ lib.optionals withLatex [ texlive.combined.scheme-medium ];
+  ] ++ lib.optionals withLatex [texlive.combined.scheme-medium];
 
   meta = with lib; {
     description = "Toolset for processing LinuxDoc DTD SGML files";
@@ -92,6 +92,6 @@ stdenv.mkDerivation rec {
       sgmlug
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ p-h ];
+    maintainers = with maintainers; [p-h];
   };
 }

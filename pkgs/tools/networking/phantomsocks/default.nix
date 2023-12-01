@@ -25,6 +25,6 @@ buildGoModule rec {
       to implement TCB desync to bypass detection and censoring.
     '';
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ oluceps ];
+    maintainers = with maintainers; [oluceps];
   };
 }

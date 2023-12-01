@@ -56,14 +56,14 @@ stdenv.mkDerivation rec {
   cmakeFlags = lib.optional enableGui "-DUSE_QT_GUI=ON";
 
   passthru.tests = {
-    version = testers.testVersion { package = lgogdownloader; };
+    version = testers.testVersion {package = lgogdownloader;};
   };
 
   meta = with lib; {
     description = "Unofficial downloader to GOG.com for Linux users. It uses the same API as the official GOGDownloader";
     homepage = "https://github.com/Sude-/lgogdownloader";
     license = licenses.wtfpl;
-    maintainers = with maintainers; [ _0x4A6F ];
+    maintainers = with maintainers; [_0x4A6F];
     platforms = platforms.linux;
   };
 }

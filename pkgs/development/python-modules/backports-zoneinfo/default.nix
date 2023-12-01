@@ -52,9 +52,9 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ tzdata ] ++ lib.optionals (pythonOlder "3.7") [ importlib-resources ];
+  propagatedBuildInputs = [tzdata] ++ lib.optionals (pythonOlder "3.7") [importlib-resources];
 
-  pythonImportsCheck = [ "backports.zoneinfo" ];
+  pythonImportsCheck = ["backports.zoneinfo"];
 
   nativeCheckInputs = [
     hypothesis
@@ -74,6 +74,6 @@ buildPythonPackage rec {
     description = "Backport of the standard library module zoneinfo";
     homepage = "https://github.com/pganssle/zoneinfo";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

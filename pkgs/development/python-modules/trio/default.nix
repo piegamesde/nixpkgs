@@ -38,7 +38,7 @@ buildPythonPackage rec {
     idna
     outcome
     sniffio
-  ] ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ];
+  ] ++ lib.optionals (pythonOlder "3.11") [exceptiongroup];
 
   # tests are failing on Darwin
   doCheck = !stdenv.isDarwin;
@@ -80,6 +80,6 @@ buildPythonPackage rec {
       mit
       asl20
     ];
-    maintainers = with lib.maintainers; [ catern ];
+    maintainers = with lib.maintainers; [catern];
   };
 }

@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "http://www.arkkra.com/ftp/pub/unix/mup${
-      builtins.replaceStrings [ "." ] [ "" ] version
+      builtins.replaceStrings ["."] [""] version
     }src.tar.gz";
     sha256 = "06bv5nyl8rcibyb83zzrfdq6x6f93g3rgnv47i5gsjcaw5w6l31y";
   };
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     libjpeg
   ];
 
-  patches = [ ./ghostscript-permit-file-write.patch ];
+  patches = [./ghostscript-permit-file-write.patch];
 
   postPatch = ''
     for f in Makefile.am doc/Makefile.am doc/htmldocs/Makefile.am src/mupmate/Preferences.C; do
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.arkkra.com/";
     description = "Music typesetting program (ASCII to PostScript and MIDI)";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = platforms.linux;
   };
 }

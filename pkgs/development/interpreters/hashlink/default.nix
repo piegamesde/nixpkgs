@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     sha256 = "lpHW0JWxbLtOBns3By56ZBn47CZsDzwOFBuW9MlERrE=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   buildInputs = [
     libGL
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     sqlite
   ];
 
-  nativeBuildInputs = [ getconf ];
+  nativeBuildInputs = [getconf];
 
   postFixup = lib.optionalString stdenv.isDarwin ''
     install_name_tool -change libhl.dylib $out/lib/libhl.dylib $out/bin/hl

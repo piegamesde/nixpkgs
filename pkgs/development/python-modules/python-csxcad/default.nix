@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   sourceRoot = "source/python";
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
   propagatedBuildInputs = [
     openems
@@ -41,7 +41,7 @@ buildPythonPackage rec {
     description = "Python interface to CSXCAD";
     homepage = "http://openems.de/index.php/Main_Page.html";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ matthuszagh ];
+    maintainers = with maintainers; [matthuszagh];
     platforms = platforms.linux;
   };
 }

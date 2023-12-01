@@ -24,7 +24,7 @@ buildPythonPackage rec {
     construct
   ];
 
-  propagatedNativeBuildInputs = [ cffi ];
+  propagatedNativeBuildInputs = [cffi];
 
   nativeCheckInputs = [
     pytest

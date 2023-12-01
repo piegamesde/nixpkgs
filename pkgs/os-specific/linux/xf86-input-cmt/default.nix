@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     ./apply_patches.sh
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     xorgserver
     xorgproto
@@ -34,13 +34,13 @@ stdenv.mkDerivation rec {
     libevdevc
   ];
 
-  configureFlags = [ "--with-sdkdir=${placeholder "out"}" ];
+  configureFlags = ["--with-sdkdir=${placeholder "out"}"];
 
   meta = with lib; {
     description = "Chromebook touchpad driver";
     license = licenses.bsd3;
     platforms = platforms.linux;
     homepage = "https://www.github.com/hugegreenbug/xf86-input-cmt";
-    maintainers = with maintainers; [ kcalvinalvin ];
+    maintainers = with maintainers; [kcalvinalvin];
   };
 }

@@ -17,7 +17,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "1qnmkhqmjd1m3if05jj29dvr5hn6kayq9bkkkh881w472c0zhp8v";
   };
 
-  propagatedBuildInputs = with python3Packages; [ six ];
+  propagatedBuildInputs = with python3Packages; [six];
 
   patches = [
     ./fix_pluginpath.patch
@@ -28,7 +28,7 @@ python3Packages.buildPythonApplication rec {
     })
   ];
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
   # remove deprecation warnings
   preFixup = ''
@@ -41,7 +41,7 @@ python3Packages.buildPythonApplication rec {
     description = "Versatile resource statistics tool";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     changelog = "https://github.com/dstat-real/dstat/blob/v${version}/ChangeLog";
   };
 }

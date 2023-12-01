@@ -25,7 +25,7 @@ mkDerivation rec {
   buildInputs = [
     kauth
     krunner
-    (pass.withExtensions (p: with p; [ pass-otp ]))
+    (pass.withExtensions (p: with p; [pass-otp]))
   ];
 
   nativeBuildInputs = [
@@ -42,7 +42,7 @@ mkDerivation rec {
     ./pass-path.patch
   ];
 
-  CXXFLAGS = [ ''-DNIXPKGS_PASS=\"${lib.getBin pass}/bin/pass\"'' ];
+  CXXFLAGS = [''-DNIXPKGS_PASS=\"${lib.getBin pass}/bin/pass\"''];
 
   cmakeFlags = [
     # there are *lots* of pointless warnings in v1.3.0
@@ -55,7 +55,7 @@ mkDerivation rec {
     description = "Integrates krunner with pass the unix standard password manager (https://www.passwordstore.org/)";
     homepage = "https://github.com/akermu/krunner-pass";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ysndr ];
+    maintainers = with maintainers; [ysndr];
     platforms = platforms.unix;
   };
 }

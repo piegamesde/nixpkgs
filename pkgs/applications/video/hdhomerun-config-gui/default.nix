@@ -16,14 +16,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-vzrSk742Ca2I8Uk0uGo44SxpEoVY1QBn62Ahwz8E7p8=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gtk2
     libhdhomerun
   ];
 
-  configureFlags = [ "CPPFLAGS=-I${libhdhomerun}/include/hdhomerun" ];
-  makeFlags = [ "SUBDIRS=src" ];
+  configureFlags = ["CPPFLAGS=-I${libhdhomerun}/include/hdhomerun"];
+  makeFlags = ["SUBDIRS=src"];
 
   installPhase = ''
     runHook preInstall
@@ -36,6 +36,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.silicondust.com/support/linux";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.louisdk1 ];
+    maintainers = [maintainers.louisdk1];
   };
 }

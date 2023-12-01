@@ -95,7 +95,7 @@ in
         ExecStop = "${cfg.package}/bin/emacsclient --eval (kill-emacs)";
         Restart = "always";
       };
-    } // optionalAttrs cfg.enable { wantedBy = [ "default.target" ]; };
+    } // optionalAttrs cfg.enable {wantedBy = ["default.target"];};
 
     environment.systemPackages = [
       cfg.package

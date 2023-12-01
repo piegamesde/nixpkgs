@@ -23,12 +23,12 @@ buildPythonPackage {
 
   # contains no tests
   doCheck = false;
-  pythonImportsCheck = [ "dopy" ];
+  pythonImportsCheck = ["dopy"];
 
   meta = with pkgs.lib; {
     description = "Digital Ocean API python wrapper";
     homepage = "https://github.com/Wiredcraft/dopy";
     license = licenses.mit;
-    maintainers = with maintainers; [ lihop ];
+    maintainers = with maintainers; [lihop];
   };
 }

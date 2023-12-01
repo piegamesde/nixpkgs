@@ -13,7 +13,7 @@ let
     sha256 = "1igg8wnshmg9f23qqw1gqb85h1aa3461c1n7dmgw6sn4lrrrh5ms";
   };
 
-  appimageContents = appimageTools.extract { inherit name src; };
+  appimageContents = appimageTools.extract {inherit name src;};
 in
 appimageTools.wrapType2 {
   inherit name src;
@@ -30,7 +30,7 @@ appimageTools.wrapType2 {
     description = "OCR tool to convert pictures to LaTeX.";
     homepage = "https://mathpix.com/";
     license = licenses.unfree;
-    maintainers = [ maintainers.hiro98 ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.hiro98];
+    platforms = ["x86_64-linux"];
   };
 }

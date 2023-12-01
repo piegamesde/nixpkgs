@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sed -i -e "s,/sbin/,$out/sbin/," src/halt.c src/init.c src/paths.h
   '';
 
-  buildInputs = [ libxcrypt ];
+  buildInputs = [libxcrypt];
 
   makeFlags = [
     "SULOGINLIBS=-lcrypt"

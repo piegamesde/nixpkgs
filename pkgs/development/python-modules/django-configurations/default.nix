@@ -25,9 +25,9 @@ buildPythonPackage rec {
     hash = "sha256-psJcFDg05nsg00dRUS0IsykGhPJQmO4hKx7jaASlkIU=";
   };
 
-  buildInputs = [ setuptools-scm ];
+  buildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ django ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [django] ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   nativeCheckInputs = [
     mock
@@ -47,12 +47,12 @@ buildPythonPackage rec {
   # django.core.exceptions.ImproperlyConfigured: django-configurations settings importer wasn't correctly installed
   doCheck = false;
 
-  pythonImportsCheck = [ "configurations" ];
+  pythonImportsCheck = ["configurations"];
 
   meta = with lib; {
     description = "A helper for organizing Django settings";
     homepage = "https://django-configurations.readthedocs.io/";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

@@ -31,7 +31,7 @@ mkDerivation rec {
     qttools
   ];
 
-  cmakeFlags = [ "-DWITH_MODEMMANAGER_SUPPORT=ON" ];
+  cmakeFlags = ["-DWITH_MODEMMANAGER_SUPPORT=ON"];
 
   buildInputs = [
     qtbase
@@ -43,7 +43,7 @@ mkDerivation rec {
     description = "Simple Network Manager frontend written in Qt";
     homepage = "https://github.com/palinek/nm-tray";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
     platforms = platforms.linux;
   };
 }

@@ -1,14 +1,14 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "wild-package-inferred-system";
   version = "20200325-git";
 
-  parasites = [ "wild-package-inferred-system/test" ];
+  parasites = ["wild-package-inferred-system/test"];
 
   description = "Introduces the wildcards `*' and `**' into package-inferred-system";
 
-  deps = [ args."fiveam" ];
+  deps = [args."fiveam"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/wild-package-inferred-system/2020-03-25/wild-package-inferred-system-20200325-git.tgz";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "wild-package-inferred-system";
 
-  asdFilesToKeep = [ "wild-package-inferred-system.asd" ];
+  asdFilesToKeep = ["wild-package-inferred-system.asd"];
   overrides = x: x;
 }
 /* (SYSTEM wild-package-inferred-system DESCRIPTION

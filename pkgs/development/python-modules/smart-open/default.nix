@@ -43,14 +43,14 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "smart_open" ];
+  pytestFlagsArray = ["smart_open"];
 
-  pythonImportsCheck = [ "smart_open" ];
+  pythonImportsCheck = ["smart_open"];
 
   meta = with lib; {
     description = "Library for efficient streaming of very large file";
     homepage = "https://github.com/RaRe-Technologies/smart_open";
     license = licenses.mit;
-    maintainers = with maintainers; [ jyp ];
+    maintainers = with maintainers; [jyp];
   };
 }

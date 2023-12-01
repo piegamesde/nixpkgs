@@ -34,6 +34,6 @@ buildPythonPackage rec {
     description = ''Looks at Python code to search for things which look "dodgy" such as passwords or diffs'';
     homepage = "https://github.com/landscapeio/dodgy";
     license = licenses.mit;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

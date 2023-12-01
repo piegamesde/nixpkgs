@@ -20,7 +20,7 @@ buildPythonPackage rec {
     sha256 = "07vdv3y89qzv89ws0y48h92yplqsx208b9cizx80w644dazb398g";
   };
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
   propagatedBuildInputs = [
     pytest-shutil
     pytest-fixture-config
@@ -37,6 +37,6 @@ buildPythonPackage rec {
     description = "Extensible server fixures for py.test";
     homepage = "https://github.com/manahl/pytest-plugins";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

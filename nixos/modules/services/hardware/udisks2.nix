@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.services.udisks2;
   settingsFormat = pkgs.formats.ini {
-    listToValue = concatMapStringsSep "," (generators.mkValueStringDefault { });
+    listToValue = concatMapStringsSep "," (generators.mkValueStringDefault {});
   };
   configFiles = mapAttrs (name: value: (settingsFormat.generate name value)) (
     mapAttrs' (name: value: nameValuePair name value) config.services.udisks2.settings
@@ -45,7 +45,7 @@ in
         default = {
           "udisks2.conf" = {
             udisks2 = {
-              modules = [ "*" ];
+              modules = ["*"];
               modules_load_preference = "ondemand";
             };
             defaults = {
@@ -75,10 +75,10 @@ in
 
   config = mkIf config.services.udisks2.enable {
 
-    environment.systemPackages = [ pkgs.udisks2 ];
+    environment.systemPackages = [pkgs.udisks2];
 
     environment.etc =
-      (mapAttrs' (name: value: nameValuePair "udisks2/${name}" { source = value; }) configFiles)
+      (mapAttrs' (name: value: nameValuePair "udisks2/${name}" {source = value;}) configFiles)
       // {
         # We need to make sure /etc/libblockdev/conf.d is populated to avoid
         # warnings
@@ -88,18 +88,18 @@ in
 
     security.polkit.enable = true;
 
-    services.dbus.packages = [ pkgs.udisks2 ];
+    services.dbus.packages = [pkgs.udisks2];
 
     systemd.tmpfiles.rules = [
       "d /var/lib/udisks2 0755 root root -"
     ] ++ optional cfg.mountOnMedia "D! /media 0755 root root -";
 
-    services.udev.packages = [ pkgs.udisks2 ];
+    services.udev.packages = [pkgs.udisks2];
 
     services.udev.extraRules = optionalString cfg.mountOnMedia ''
       ENV{ID_FS_USAGE}=="filesystem", ENV{UDISKS_FILESYSTEM_SHARED}="1"
     '';
 
-    systemd.packages = [ pkgs.udisks2 ];
+    systemd.packages = [pkgs.udisks2];
   };
 }

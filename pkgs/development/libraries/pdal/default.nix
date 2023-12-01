@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     xercesc
     zlib
     zstd
-  ] ++ lib.optionals enableE57 [ libe57format ];
+  ] ++ lib.optionals enableE57 [libe57format];
 
   cmakeFlags = [
     "-DBUILD_PLUGIN_E57=${if enableE57 then "ON" else "OFF"}"
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
     description = "PDAL is Point Data Abstraction Library. GDAL for point cloud data";
     homepage = "https://pdal.io";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ nh2 ];
+    maintainers = with maintainers; [nh2];
     platforms = platforms.all;
   };
 }

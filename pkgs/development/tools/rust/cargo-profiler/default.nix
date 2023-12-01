@@ -31,6 +31,6 @@ buildRustPackage rec {
     description = "Cargo subcommand for profiling Rust binaries";
     homepage = "https://github.com/svenstaro/cargo-profiler";
     license = licenses.mit;
-    maintainers = with maintainers; [ lucperkins ];
+    maintainers = with maintainers; [lucperkins];
   };
 }

@@ -52,13 +52,13 @@ python3.pkgs.buildPythonApplication rec {
     "dmarc_metrics_exporter/tests/test_imap_queue.py"
   ];
 
-  pythonImportsCheck = [ "dmarc_metrics_exporter" ];
+  pythonImportsCheck = ["dmarc_metrics_exporter"];
 
   meta = {
     description = "Export Prometheus metrics from DMARC reports";
     homepage = "https://github.com/jgosmann/dmarc-metrics-exporter";
     changelog = "https://github.com/jgosmann/dmarc-metrics-exporter/blob/v${version}/CHANGELOG.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ma27 ];
+    maintainers = with lib.maintainers; [ma27];
   };
 }

@@ -1,10 +1,10 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
   {
     name = "systemd-initrd-simple";
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         boot.initrd.systemd = {
           enable = true;

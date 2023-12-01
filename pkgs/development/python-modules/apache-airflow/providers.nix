@@ -11,7 +11,7 @@
     ];
   };
   alibaba = {
-    deps = [ "oss2" ];
+    deps = ["oss2"];
     imports = [
       "airflow.providers.alibaba.cloud.hooks.oss"
       "airflow.providers.alibaba.cloud.operators.oss"
@@ -223,11 +223,11 @@
     ];
   };
   apache_cassandra = {
-    deps = [ "cassandra-driver" ];
-    imports = [ "airflow.providers.apache.cassandra.hooks.cassandra" ];
+    deps = ["cassandra-driver"];
+    imports = ["airflow.providers.apache.cassandra.hooks.cassandra"];
   };
   apache_drill = {
-    deps = [ ];
+    deps = [];
     imports = [
       "airflow.providers.apache.drill.hooks.drill"
       "airflow.providers.apache.drill.operators.drill"
@@ -308,7 +308,7 @@
     ];
   };
   apache_hdfs = {
-    deps = [ ];
+    deps = [];
     imports = [
       "airflow.providers.apache.hdfs.hooks.hdfs"
       "airflow.providers.apache.hdfs.hooks.webhdfs"
@@ -389,7 +389,7 @@
     ];
   };
   apache_kylin = {
-    deps = [ ];
+    deps = [];
     imports = [
       "airflow.providers.apache.kylin.hooks.kylin"
       "airflow.providers.apache.kylin.operators.kylin_cube"
@@ -406,18 +406,18 @@
     ];
   };
   apache_pig = {
-    deps = [ ];
+    deps = [];
     imports = [
       "airflow.providers.apache.pig.hooks.pig"
       "airflow.providers.apache.pig.operators.pig"
     ];
   };
   apache_pinot = {
-    deps = [ "ciso8601" ];
-    imports = [ "airflow.providers.apache.pinot.hooks.pinot" ];
+    deps = ["ciso8601"];
+    imports = ["airflow.providers.apache.pinot.hooks.pinot"];
   };
   apache_spark = {
-    deps = [ "pyspark" ];
+    deps = ["pyspark"];
     imports = [
       "airflow.providers.apache.spark.hooks.spark_jdbc"
       "airflow.providers.apache.spark.hooks.spark_jdbc_script"
@@ -429,28 +429,28 @@
     ];
   };
   apache_sqoop = {
-    deps = [ ];
+    deps = [];
     imports = [
       "airflow.providers.apache.sqoop.hooks.sqoop"
       "airflow.providers.apache.sqoop.operators.sqoop"
     ];
   };
   arangodb = {
-    deps = [ ];
+    deps = [];
     imports = [
       "airflow.providers.arangodb.hooks.arangodb"
       "airflow.providers.arangodb.operators.arangodb"
     ];
   };
   asana = {
-    deps = [ "asana" ];
+    deps = ["asana"];
     imports = [
       "airflow.providers.asana.hooks.asana"
       "airflow.providers.asana.operators.asana_tasks"
     ];
   };
   atlassian_jira = {
-    deps = [ "jira" ];
+    deps = ["jira"];
     imports = [
       "airflow.providers.atlassian.jira.hooks.jira"
       "airflow.providers.atlassian.jira.operators.jira"
@@ -461,11 +461,11 @@
       "celery"
       "flower"
     ];
-    imports = [ ];
+    imports = [];
   };
   cloudant = {
-    deps = [ ];
-    imports = [ "airflow.providers.cloudant.hooks.cloudant" ];
+    deps = [];
+    imports = ["airflow.providers.cloudant.hooks.cloudant"];
   };
   cncf_kubernetes = {
     deps = [
@@ -479,7 +479,7 @@
     ];
   };
   common_sql = {
-    deps = [ "sqlparse" ];
+    deps = ["sqlparse"];
     imports = [
       "airflow.providers.common.sql.hooks.sql"
       "airflow.providers.common.sql.operators.sql"
@@ -501,8 +501,8 @@
     ];
   };
   datadog = {
-    deps = [ "datadog" ];
-    imports = [ "airflow.providers.datadog.hooks.datadog" ];
+    deps = ["datadog"];
+    imports = ["airflow.providers.datadog.hooks.datadog"];
   };
   dbt_cloud = {
     deps = [
@@ -535,7 +535,7 @@
     ];
   };
   docker = {
-    deps = [ "docker" ];
+    deps = ["docker"];
     imports = [
       "airflow.providers.docker.hooks.docker"
       "airflow.providers.docker.operators.docker"
@@ -547,25 +547,25 @@
       "elasticsearch"
       "elasticsearch-dsl"
     ];
-    imports = [ "airflow.providers.elasticsearch.hooks.elasticsearch" ];
+    imports = ["airflow.providers.elasticsearch.hooks.elasticsearch"];
   };
   exasol = {
-    deps = [ "pandas" ];
+    deps = ["pandas"];
     imports = [
       "airflow.providers.exasol.hooks.exasol"
       "airflow.providers.exasol.operators.exasol"
     ];
   };
   facebook = {
-    deps = [ ];
-    imports = [ "airflow.providers.facebook.ads.hooks.ads" ];
+    deps = [];
+    imports = ["airflow.providers.facebook.ads.hooks.ads"];
   };
   ftp = {
-    deps = [ ];
-    imports = [ "airflow.providers.ftp.hooks.ftp" ];
+    deps = [];
+    imports = ["airflow.providers.ftp.hooks.ftp"];
   };
   github = {
-    deps = [ "pygithub" ];
+    deps = ["pygithub"];
     imports = [
       "airflow.providers.github.hooks.github"
       "airflow.providers.github.operators.github"
@@ -837,7 +837,7 @@
       "thrift"
       "vertica-python"
     ];
-    imports = [ "airflow.providers.hashicorp.hooks.vault" ];
+    imports = ["airflow.providers.hashicorp.hooks.vault"];
   };
   http = {
     deps = [
@@ -850,8 +850,8 @@
     ];
   };
   imap = {
-    deps = [ ];
-    imports = [ "airflow.providers.imap.hooks.imap" ];
+    deps = [];
+    imports = ["airflow.providers.imap.hooks.imap"];
   };
   influxdb = {
     deps = [
@@ -864,21 +864,21 @@
     ];
   };
   jdbc = {
-    deps = [ "jaydebeapi" ];
+    deps = ["jaydebeapi"];
     imports = [
       "airflow.providers.jdbc.hooks.jdbc"
       "airflow.providers.jdbc.operators.jdbc"
     ];
   };
   jenkins = {
-    deps = [ "python-jenkins" ];
+    deps = ["python-jenkins"];
     imports = [
       "airflow.providers.jenkins.hooks.jenkins"
       "airflow.providers.jenkins.operators.jenkins_job_trigger"
     ];
   };
   jira = {
-    deps = [ "jira" ];
+    deps = ["jira"];
     imports = [
       "airflow.providers.jira.hooks.jira"
       "airflow.providers.jira.operators.jira"
@@ -991,21 +991,21 @@
     ];
   };
   microsoft_mssql = {
-    deps = [ ];
+    deps = [];
     imports = [
       "airflow.providers.microsoft.mssql.hooks.mssql"
       "airflow.providers.microsoft.mssql.operators.mssql"
     ];
   };
   microsoft_psrp = {
-    deps = [ "pypsrp" ];
+    deps = ["pypsrp"];
     imports = [
       "airflow.providers.microsoft.psrp.hooks.psrp"
       "airflow.providers.microsoft.psrp.operators.psrp"
     ];
   };
   microsoft_winrm = {
-    deps = [ "pywinrm" ];
+    deps = ["pywinrm"];
     imports = [
       "airflow.providers.microsoft.winrm.hooks.winrm"
       "airflow.providers.microsoft.winrm.operators.winrm"
@@ -1016,7 +1016,7 @@
       "dnspython"
       "pymongo"
     ];
-    imports = [ "airflow.providers.mongo.hooks.mongo" ];
+    imports = ["airflow.providers.mongo.hooks.mongo"];
   };
   mysql = {
     deps = [
@@ -1092,22 +1092,22 @@
     ];
   };
   neo4j = {
-    deps = [ "neo4j" ];
+    deps = ["neo4j"];
     imports = [
       "airflow.providers.neo4j.hooks.neo4j"
       "airflow.providers.neo4j.operators.neo4j"
     ];
   };
   odbc = {
-    deps = [ "pyodbc" ];
-    imports = [ "airflow.providers.odbc.hooks.odbc" ];
+    deps = ["pyodbc"];
+    imports = ["airflow.providers.odbc.hooks.odbc"];
   };
   openfaas = {
-    deps = [ ];
-    imports = [ "airflow.providers.openfaas.hooks.openfaas" ];
+    deps = [];
+    imports = ["airflow.providers.openfaas.hooks.openfaas"];
   };
   opsgenie = {
-    deps = [ ];
+    deps = [];
     imports = [
       "airflow.providers.opsgenie.hooks.opsgenie"
       "airflow.providers.opsgenie.hooks.opsgenie_alert"
@@ -1116,25 +1116,25 @@
     ];
   };
   oracle = {
-    deps = [ ];
+    deps = [];
     imports = [
       "airflow.providers.oracle.hooks.oracle"
       "airflow.providers.oracle.operators.oracle"
     ];
   };
   pagerduty = {
-    deps = [ ];
+    deps = [];
     imports = [
       "airflow.providers.pagerduty.hooks.pagerduty"
       "airflow.providers.pagerduty.hooks.pagerduty_events"
     ];
   };
   papermill = {
-    deps = [ ];
-    imports = [ "airflow.providers.papermill.operators.papermill" ];
+    deps = [];
+    imports = ["airflow.providers.papermill.operators.papermill"];
   };
   plexus = {
-    deps = [ "arrow" ];
+    deps = ["arrow"];
     imports = [
       "airflow.providers.plexus.hooks.plexus"
       "airflow.providers.plexus.operators.job"
@@ -1281,10 +1281,10 @@
       "thrift"
       "vertica-python"
     ];
-    imports = [ "airflow.providers.presto.hooks.presto" ];
+    imports = ["airflow.providers.presto.hooks.presto"];
   };
   qubole = {
-    deps = [ "qds_sdk" ];
+    deps = ["qds_sdk"];
     imports = [
       "airflow.providers.qubole.hooks.qubole"
       "airflow.providers.qubole.hooks.qubole_check"
@@ -1293,7 +1293,7 @@
     ];
   };
   redis = {
-    deps = [ "redis" ];
+    deps = ["redis"];
     imports = [
       "airflow.providers.redis.hooks.redis"
       "airflow.providers.redis.operators.redis_publish"
@@ -1311,19 +1311,19 @@
     ];
   };
   samba = {
-    deps = [ "smbprotocol" ];
-    imports = [ "airflow.providers.samba.hooks.samba" ];
+    deps = ["smbprotocol"];
+    imports = ["airflow.providers.samba.hooks.samba"];
   };
   segment = {
-    deps = [ ];
+    deps = [];
     imports = [
       "airflow.providers.segment.hooks.segment"
       "airflow.providers.segment.operators.segment_track_event"
     ];
   };
   sendgrid = {
-    deps = [ "sendgrid" ];
-    imports = [ ];
+    deps = ["sendgrid"];
+    imports = [];
   };
   sftp = {
     deps = [
@@ -1337,8 +1337,8 @@
     ];
   };
   singularity = {
-    deps = [ ];
-    imports = [ "airflow.providers.singularity.operators.singularity" ];
+    deps = [];
+    imports = ["airflow.providers.singularity.operators.singularity"];
   };
   slack = {
     deps = [
@@ -1367,7 +1367,7 @@
     ];
   };
   sqlite = {
-    deps = [ ];
+    deps = [];
     imports = [
       "airflow.providers.sqlite.hooks.sqlite"
       "airflow.providers.sqlite.operators.sqlite"
@@ -1384,7 +1384,7 @@
     ];
   };
   tableau = {
-    deps = [ ];
+    deps = [];
     imports = [
       "airflow.providers.tableau.hooks.tableau"
       "airflow.providers.tableau.operators.tableau"
@@ -1392,11 +1392,11 @@
     ];
   };
   tabular = {
-    deps = [ ];
-    imports = [ "airflow.providers.tabular.hooks.tabular" ];
+    deps = [];
+    imports = ["airflow.providers.tabular.hooks.tabular"];
   };
   telegram = {
-    deps = [ "python-telegram-bot" ];
+    deps = ["python-telegram-bot"];
     imports = [
       "airflow.providers.telegram.hooks.telegram"
       "airflow.providers.telegram.operators.telegram"
@@ -1476,14 +1476,14 @@
     ];
   };
   vertica = {
-    deps = [ "vertica-python" ];
+    deps = ["vertica-python"];
     imports = [
       "airflow.providers.vertica.hooks.vertica"
       "airflow.providers.vertica.operators.vertica"
     ];
   };
   yandex = {
-    deps = [ ];
+    deps = [];
     imports = [
       "airflow.providers.yandex.hooks.yandex"
       "airflow.providers.yandex.hooks.yandexcloud_dataproc"
@@ -1491,7 +1491,7 @@
     ];
   };
   zendesk = {
-    deps = [ ];
-    imports = [ "airflow.providers.zendesk.hooks.zendesk" ];
+    deps = [];
+    imports = ["airflow.providers.zendesk.hooks.zendesk"];
   };
 }

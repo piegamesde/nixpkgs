@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "1017rd0wsjfyq2jvpjjhpszaa7kmig6q1nimw76qx3cjz2868lrn";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   buildPhase = ''
     make -C build/gmake.unix/
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     description = "A simple build configuration and project generation tool using lua";
     homepage = "https://premake.github.io/";
     license = lib.licenses.bsd3;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
     mainProgram = "premake4";
     platforms = platforms.unix;
   };

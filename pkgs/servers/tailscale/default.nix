@@ -23,7 +23,7 @@ buildGoModule rec {
   };
   vendorHash = "sha256-lirn07XE3JOS6oiwZBMwxzywkbXHowOJUMWWLrZtccY=";
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ makeWrapper ];
+  nativeBuildInputs = lib.optionals stdenv.isLinux [makeWrapper];
 
   CGO_ENABLED = 0;
 
@@ -50,7 +50,7 @@ buildGoModule rec {
         shadow
       ]
     }
-    wrapProgram $out/bin/tailscale --suffix PATH : ${lib.makeBinPath [ procps ]}
+    wrapProgram $out/bin/tailscale --suffix PATH : ${lib.makeBinPath [procps]}
 
     sed -i -e "s#/usr/sbin#$out/bin#" -e "/^EnvironmentFile/d" ./cmd/tailscaled/tailscaled.service
     install -D -m0444 -t $out/lib/systemd/system ./cmd/tailscaled/tailscaled.service

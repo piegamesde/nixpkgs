@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
   pname = "xskat";
   version = "4.0";
 
-  nativeBuildInputs = [ gccmakedep ];
+  nativeBuildInputs = [gccmakedep];
   buildInputs = [
     libX11
     imake

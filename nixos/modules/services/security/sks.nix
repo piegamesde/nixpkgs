@@ -118,7 +118,7 @@ in
           pkgs.db
         ];
       };
-      groups.sks = { };
+      groups.sks = {};
     };
 
     systemd.services =
@@ -129,8 +129,8 @@ in
       {
         sks-db = {
           description = "SKS database server";
-          after = [ "network.target" ];
-          wantedBy = [ "multi-user.target" ];
+          after = ["network.target"];
+          wantedBy = ["multi-user.target"];
           preStart = ''
             ${lib.optionalString (cfg.webroot != null) ''ln -sfT "${cfg.webroot}" web''}
             mkdir -p dump

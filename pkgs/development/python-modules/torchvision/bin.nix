@@ -14,7 +14,7 @@
 }:
 
 let
-  pyVerNoDot = builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion;
+  pyVerNoDot = builtins.replaceStrings ["."] [""] python.pythonVersion;
   srcs = import ./binary-hashes.nix version;
   unsupported = throw "Unsupported system";
   version = "0.15.1";
@@ -51,7 +51,7 @@ buildPythonPackage {
   # The wheel-binary is not stripped to avoid the error of `ImportError: libtorch_cuda_cpp.so: ELF load command address/offset not properly aligned.`.
   dontStrip = true;
 
-  pythonImportsCheck = [ "torchvision" ];
+  pythonImportsCheck = ["torchvision"];
 
   preInstall = ''
     addAutoPatchelfSearchPath "${torch-bin}/${python.sitePackages}/torch"
@@ -65,8 +65,8 @@ buildPythonPackage {
     # https://docs.nvidia.com/cuda/eula/index.html
     # https://www.intel.com/content/www/us/en/developer/articles/license/onemkl-license-faq.html
     license = licenses.bsd3;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ junjihashimoto ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [junjihashimoto];
   };
 }

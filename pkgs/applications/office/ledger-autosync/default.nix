@@ -21,7 +21,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "0n3y4qxsv1cyvyap95h3rj4bj1sinyfgsajygm7s8di3j5aabqr2";
   };
 
-  nativeBuildInputs = with python3Packages; [ poetry-core ];
+  nativeBuildInputs = with python3Packages; [poetry-core];
 
   propagatedBuildInputs =
     with python3Packages;
@@ -70,6 +70,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/egh/ledger-autosync";
     description = "OFX/CSV autosync for ledger and hledger";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ eamsden ];
+    maintainers = with maintainers; [eamsden];
   };
 }

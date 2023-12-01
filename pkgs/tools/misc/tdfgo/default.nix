@@ -23,6 +23,6 @@ buildGoModule rec {
     homepage = "https://github.com/digitallyserviced/tdfgo";
     license = licenses.cc0;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ crinklywrappr ];
+    maintainers = with maintainers; [crinklywrappr];
   };
 }

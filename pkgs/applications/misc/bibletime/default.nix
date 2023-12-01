@@ -61,7 +61,7 @@ stdenv.mkDerivation (
       homepage = "http://www.bibletime.info/";
       description = "A powerful cross platform Bible study tool";
       license = licenses.gpl2Plus;
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       platforms = platforms.linux;
     };
   }

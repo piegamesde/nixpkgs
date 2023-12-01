@@ -27,7 +27,7 @@ buildGoModule rec {
     description = "Refactoring tools for Go";
     homepage = "https://github.com/davidrjenni/reftools";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

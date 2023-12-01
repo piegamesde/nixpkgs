@@ -78,7 +78,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.asusctl ];
+    environment.systemPackages = [pkgs.asusctl];
 
     environment.etc =
       let
@@ -99,9 +99,9 @@ in
       };
 
     services.dbus.enable = true;
-    systemd.packages = [ pkgs.asusctl ];
-    services.dbus.packages = [ pkgs.asusctl ];
-    services.udev.packages = [ pkgs.asusctl ];
+    systemd.packages = [pkgs.asusctl];
+    services.dbus.packages = [pkgs.asusctl];
+    services.udev.packages = [pkgs.asusctl];
     services.supergfxd.enable = lib.mkDefault true;
 
     systemd.user.services.asusd-user.enable = cfg.enableUserService;

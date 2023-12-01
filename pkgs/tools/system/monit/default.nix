@@ -25,19 +25,19 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     bison
     flex
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.apple_sdk.frameworks.DiskArbitration ];
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [darwin.apple_sdk.frameworks.DiskArbitration];
 
   buildInputs = [
     zlib.dev
     libxcrypt
-  ] ++ lib.optionals useSSL [ openssl ] ++ lib.optionals usePAM [ pam ];
+  ] ++ lib.optionals useSSL [openssl] ++ lib.optionals usePAM [pam];
 
   preConfigure = lib.optionalString stdenv.hostPlatform.isDarwin ''
     substituteInPlace configure --replace "-framework System" "-lSystem"
   '';
 
   configureFlags =
-    [ (lib.withFeature usePAM "pam") ]
+    [(lib.withFeature usePAM "pam")]
     ++ (
       if useSSL then
         [
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
           "--with-ssl-lib-dir=${lib.getLib openssl}/lib"
         ]
       else
-        [ "--without-ssl" ]
+        ["--without-ssl"]
     )
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       # will need to check both these are true for musl

@@ -23,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-gLOYwljqnYkGsdbny7+f93QgroLBaLLnDBRpoCe8uEg=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  buildInputs = [ setuptools ];
+  buildInputs = [setuptools];
 
   postPatch =
     ''
@@ -65,12 +65,12 @@ buildPythonPackage rec {
     mv cocotb cocotb.hidden
   '';
 
-  pythonImportsCheck = [ "cocotb" ];
+  pythonImportsCheck = ["cocotb"];
 
   meta = with lib; {
     description = "Coroutine based cosimulation library for writing VHDL and Verilog testbenches in Python";
     homepage = "https://github.com/cocotb/cocotb";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ matthuszagh ];
+    maintainers = with maintainers; [matthuszagh];
   };
 }

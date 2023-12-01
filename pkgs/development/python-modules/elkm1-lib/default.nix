@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-UrdnEafmzO/l1kTcGmPWhujbThVWv4uBH57D2uZB/kw=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     async-timeout
@@ -37,13 +37,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "elkm1_lib" ];
+  pythonImportsCheck = ["elkm1_lib"];
 
   meta = with lib; {
     description = "Python module for interacting with ElkM1 alarm/automation panel";
     homepage = "https://github.com/gwww/elkm1";
     changelog = "https://github.com/gwww/elkm1/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -28,9 +28,9 @@ buildPythonPackage rec {
       --replace "--cov=pymarshal --cov-report=html --cov-report=term" ""
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ bson ];
+  propagatedBuildInputs = [bson];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -38,12 +38,12 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  pytestFlagsArray = [ "test" ];
+  pytestFlagsArray = ["test"];
 
   meta = {
     description = "Python data serialization library";
     homepage = "https://github.com/stargateaudio/pymarshal";
-    maintainers = with lib.maintainers; [ yuu ];
+    maintainers = with lib.maintainers; [yuu];
     license = lib.licenses.bsd2;
   };
 }

@@ -33,7 +33,7 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.03";
   useDune2 = true;
 
-  buildInputs = [ parmap ];
+  buildInputs = [parmap];
 
   propagatedBuildInputs = [
     base64

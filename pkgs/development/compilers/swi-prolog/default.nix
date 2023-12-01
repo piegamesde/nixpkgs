@@ -62,7 +62,7 @@
   #   swiProlog = pkgs.swiProlog.override { extraPacks = map (dep-path: "'file://${dep-path}'") [
   #     julian delay list_util typedef
   #   ]; };
-  extraPacks ? [ ],
+  extraPacks ? [],
   withGui ? false,
 }:
 
@@ -119,9 +119,9 @@ stdenv.mkDerivation {
     ++ extraLibraries
     ++ lib.optional stdenv.isDarwin Security;
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  cmakeFlags = [ "-DSWIPL_INSTALL_IN_LIB=ON" ];
+  cmakeFlags = ["-DSWIPL_INSTALL_IN_LIB=ON"];
 
   preInstall = ''
     mkdir -p $out/lib/swipl/pack
@@ -135,6 +135,6 @@ stdenv.mkDerivation {
     license = lib.licenses.bsd2;
     mainProgram = "swipl";
     platforms = lib.platforms.linux ++ lib.optionals (!withGui) lib.platforms.darwin;
-    maintainers = [ lib.maintainers.meditans ];
+    maintainers = [lib.maintainers.meditans];
   };
 }

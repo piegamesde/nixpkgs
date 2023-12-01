@@ -36,7 +36,7 @@ buildPythonApplication rec {
     gobject-introspection # for Gio typelib
   ];
 
-  pythonPath = [ pygobject3 ];
+  pythonPath = [pygobject3];
 
   postPatch = ''
     patchShebangs contrib/merge_json.py
@@ -50,7 +50,7 @@ buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-browser-connector"; };
+    updateScript = gnome.updateScript {packageName = "gnome-browser-connector";};
   };
 
   meta = with lib; {

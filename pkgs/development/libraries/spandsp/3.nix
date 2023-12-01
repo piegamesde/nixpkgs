@@ -10,7 +10,7 @@
   callPackage,
 }:
 
-(callPackage ./common.nix { }).overrideAttrs (
+(callPackage ./common.nix {}).overrideAttrs (
   finalAttrs: {
     version = "3.0.0";
     src = fetchFromGitHub {

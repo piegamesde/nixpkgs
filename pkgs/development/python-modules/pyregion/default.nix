@@ -79,6 +79,6 @@ buildPythonPackage rec {
     description = "Python parser for ds9 region files";
     homepage = "https://github.com/astropy/pyregion";
     license = licenses.mit;
-    maintainers = [ maintainers.smaret ];
+    maintainers = [maintainers.smaret];
   };
 }

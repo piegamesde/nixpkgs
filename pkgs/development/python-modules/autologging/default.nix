@@ -18,6 +18,6 @@ buildPythonPackage rec {
     homepage = "https://ninthtest.info/python-autologging/";
     description = "Easier logging and tracing for Python classes";
     license = licenses.mit;
-    maintainers = with maintainers; [ twey ];
+    maintainers = with maintainers; [twey];
   };
 }

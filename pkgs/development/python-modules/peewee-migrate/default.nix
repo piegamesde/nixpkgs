@@ -28,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-s7/Ev4nAKUr5OBgziETVCtjlxvBoeoZXriUBuAUi4eE=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   postPatch = ''
     sed -i '/addopts/d' pyproject.toml
@@ -39,7 +39,7 @@ buildPythonPackage rec {
     click
   ];
 
-  pythonImportsCheck = [ "peewee_migrate" ];
+  pythonImportsCheck = ["peewee_migrate"];
 
   nativeCheckInputs = [
     psycopg2
@@ -50,6 +50,6 @@ buildPythonPackage rec {
     description = "Simple migration engine for Peewee";
     homepage = "https://github.com/klen/peewee_migrate";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

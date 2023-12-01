@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "http://files.basex.org/releases/${version}/BaseX${
-      builtins.replaceStrings [ "." ] [ "" ] version
+      builtins.replaceStrings ["."] [""] version
     }.zip";
     hash = "sha256-lwPEy4VVe2D36T3t0vnEodL6L8/Q6adOTGqWI0m7YpM=";
   };
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     unzip
     copyDesktopItems
   ];
-  buildInputs = [ jre ];
+  buildInputs = [jre];
 
   desktopItems = lib.optional (!stdenv.isDarwin) (
     makeDesktopItem {
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
         "Utility"
         "Database"
       ];
-      mimeTypes = [ "text/xml" ];
+      mimeTypes = ["text/xml"];
     }
   );
 
@@ -80,9 +80,9 @@ stdenv.mkDerivation rec {
       modes, BaseX offers a client/server architecture.
     '';
     homepage = "https://basex.org/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

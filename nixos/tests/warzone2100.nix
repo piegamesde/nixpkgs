@@ -1,16 +1,16 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "warzone2100";
-    meta = with pkgs.lib.maintainers; { maintainers = [ fgaz ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [fgaz];};
 
     nodes.machine =
-      { config, pkgs, ... }:
+      {config, pkgs, ...}:
       {
-        imports = [ ./common/x11.nix ];
+        imports = [./common/x11.nix];
 
         services.xserver.enable = true;
-        environment.systemPackages = [ pkgs.warzone2100 ];
+        environment.systemPackages = [pkgs.warzone2100];
       };
 
     enableOCR = true;

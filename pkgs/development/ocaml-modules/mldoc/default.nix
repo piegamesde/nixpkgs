@@ -20,7 +20,7 @@ let
   angstrom' = angstrom.overrideAttrs (
     attrs: {
       patches =
-        attrs.patches or [ ]
+        attrs.patches or []
         ++ [
           # mldoc requires Angstrom to expose `unsafe_lookahead`
           (fetchpatch {
@@ -30,7 +30,7 @@ let
         ];
     }
   );
-  uri' = uri.override { angstrom = angstrom'; };
+  uri' = uri.override {angstrom = angstrom';};
 in
 buildDunePackage rec {
   pname = "mldoc";
@@ -69,6 +69,6 @@ buildDunePackage rec {
     homepage = "https://github.com/logseq/mldoc";
     description = "Another Emacs Org-mode and Markdown parser";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [marsam];
   };
 }

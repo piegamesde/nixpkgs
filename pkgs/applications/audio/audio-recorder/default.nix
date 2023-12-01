@@ -68,6 +68,6 @@ stdenv.mkDerivation rec {
     homepage = "https://launchpad.net/~audio-recorder";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.msteen ];
+    maintainers = [maintainers.msteen];
   };
 }

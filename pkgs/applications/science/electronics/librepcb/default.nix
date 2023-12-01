@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     qttools
     wrapQtAppsHook
   ];
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   meta = with lib; {
     description = "A free EDA software to develop printed circuit boards";

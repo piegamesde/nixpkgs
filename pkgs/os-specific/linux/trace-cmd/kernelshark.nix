@@ -26,7 +26,7 @@ mkDerivation rec {
     sha256 = "sha256-VkUah8qAlOck9245f/zngtVpHmJdx6eQXqwzLwK2xjU=";
   };
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   nativeBuildInputs = [
     pkg-config
@@ -55,6 +55,6 @@ mkDerivation rec {
     homepage = "https://kernelshark.org/";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ basvandijk ];
+    maintainers = with maintainers; [basvandijk];
   };
 }

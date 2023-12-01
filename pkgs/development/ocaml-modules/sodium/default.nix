@@ -46,6 +46,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/dsheets/ocaml-sodium";
     description = "Binding to libsodium 1.0.9+";
     inherit (ocaml.meta) platforms;
-    maintainers = [ maintainers.rixed ];
+    maintainers = [maintainers.rixed];
   };
 }

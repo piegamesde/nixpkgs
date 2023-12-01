@@ -31,14 +31,14 @@ buildGoModule rec {
     unset subPackages
   '';
 
-  subPackages = [ "cmd/auth0" ];
+  subPackages = ["cmd/auth0"];
 
   meta = with lib; {
     description = "Supercharge your developer workflow";
     homepage = "https://auth0.github.io/auth0-cli";
     changelog = "https://github.com/auth0/auth0-cli/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
     mainProgram = "auth0";
   };
 }

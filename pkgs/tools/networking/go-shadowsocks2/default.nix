@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Fresh implementation of Shadowsocks in Go";
     homepage = "https://github.com/shadowsocks/go-shadowsocks2/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
   };
 }

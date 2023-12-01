@@ -25,10 +25,7 @@ let
   removeRecurseForDerivations =
     alias:
     with lib;
-    if alias.recurseForDerivations or false then
-      removeAttrs alias [ "recurseForDerivations" ]
-    else
-      alias;
+    if alias.recurseForDerivations or false then removeAttrs alias ["recurseForDerivations"] else alias;
 
   # Disabling distribution prevents top-level aliases for non-recursed package
   # sets from building on Hydra.

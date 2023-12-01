@@ -27,9 +27,9 @@ stdenv.mkDerivation rec {
       --replace '/usr/sbin/usbrelayd' "$out/bin/usbrelayd"
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = [ python ];
+  buildInputs = [python];
 
   dontBuild = true;
 

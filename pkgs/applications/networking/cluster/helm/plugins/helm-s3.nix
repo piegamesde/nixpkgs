@@ -36,6 +36,6 @@ buildGoModule rec {
     description = "A Helm plugin that shows a diff";
     homepage = "https://github.com/hypnoglow/helm-s3";
     license = licenses.mit;
-    maintainers = with maintainers; [ yurrriq ];
+    maintainers = with maintainers; [yurrriq];
   };
 }

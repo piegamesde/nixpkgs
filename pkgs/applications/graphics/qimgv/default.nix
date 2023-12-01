@@ -46,13 +46,13 @@ mkDerivation rec {
 
   # Wrap the library path so it can see `libqimgv_player_mpv.so`, which is used
   # to play video files within qimgv itself.
-  qtWrapperArgs = [ "--prefix LD_LIBRARY_PATH : ${placeholder "out"}/lib" ];
+  qtWrapperArgs = ["--prefix LD_LIBRARY_PATH : ${placeholder "out"}/lib"];
 
   meta = with lib; {
     description = "A Qt5 image viewer with optional video support";
     homepage = "https://github.com/easymodo/qimgv";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ cole-h ];
+    maintainers = with maintainers; [cole-h];
   };
 }

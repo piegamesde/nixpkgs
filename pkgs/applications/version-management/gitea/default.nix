@@ -30,15 +30,15 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  patches = [ ./static-root-path.patch ];
+  patches = [./static-root-path.patch];
 
   postPatch = ''
     substituteInPlace modules/setting/setting.go --subst-var data
   '';
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = lib.optional pamSupport pam;
 

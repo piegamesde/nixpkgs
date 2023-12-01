@@ -38,7 +38,7 @@ buildGoModule rec {
     description = "Analyzes resource usage and performance characteristics of running docker containers";
     homepage = "https://github.com/google/cadvisor";
     license = licenses.asl20;
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     platforms = platforms.linux;
   };
 }

@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-BYMRPjGRVSnYzkdbxypkuE0YkeVLPJ32iGZ1b0R6wto=";
   };
 
-  buildInputs = [ libxkbcommon ];
+  buildInputs = [libxkbcommon];
 
   nativeBuildInputs = [
     cmake
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Terminal-emulator State Machine";
     homepage = "http://www.freedesktop.org/wiki/Software/kmscon/libtsm/";
     license = licenses.mit;
-    maintainers = with maintainers; [ cstrahan ];
+    maintainers = with maintainers; [cstrahan];
     platforms = platforms.linux;
   };
 }

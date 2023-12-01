@@ -81,6 +81,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/rpm-software-management/libdnf";
     license = licenses.gpl2Plus;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ rb2k ];
+    maintainers = with maintainers; [rb2k];
   };
 }

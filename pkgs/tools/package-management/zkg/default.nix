@@ -29,13 +29,13 @@ python3.pkgs.buildPythonApplication rec {
   # No tests available
   doCheck = false;
 
-  pythonImportsCheck = [ "zeekpkg" ];
+  pythonImportsCheck = ["zeekpkg"];
 
   meta = with lib; {
     description = "Package manager for Zeek";
     homepage = "https://github.com/zeek/package-manager";
     changelog = "https://github.com/zeek/package-manager/blob/${version}/CHANGES";
     license = licenses.ncsa;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

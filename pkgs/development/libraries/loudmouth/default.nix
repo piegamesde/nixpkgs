@@ -18,9 +18,9 @@ stdenv.mkDerivation rec {
     sha256 = "0b6kd5gpndl9nzis3n6hcl0ldz74bnbiypqgqa1vgb0vrcar8cjl";
   };
 
-  patches = [ ];
+  patches = [];
 
-  configureFlags = [ "--with-ssl=openssl" ];
+  configureFlags = ["--with-ssl=openssl"];
 
   propagatedBuildInputs = [
     openssl
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     description = "A lightweight C library for the Jabber protocol";

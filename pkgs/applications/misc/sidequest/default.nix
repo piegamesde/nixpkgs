@@ -37,7 +37,7 @@ let
       sha256 = "8ac3d97400a8e3ce86902b5bea7b8d042a092acd888d20e5139490a38507f995";
     };
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     buildCommand = ''
       mkdir -p "$out/lib/SideQuest" "$out/bin"
@@ -72,13 +72,13 @@ buildFHSEnv {
       description = "An open app store and side-loading tool for Android-based VR devices such as the Oculus Go, Oculus Quest or Moverio BT 300";
       homepage = "https://github.com/SideQuestVR/SideQuest";
       downloadPage = "https://github.com/SideQuestVR/SideQuest/releases";
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
       license = licenses.mit;
       maintainers = with maintainers; [
         joepie91
         rvolosatovs
       ];
-      platforms = [ "x86_64-linux" ];
+      platforms = ["x86_64-linux"];
     };
   };
 

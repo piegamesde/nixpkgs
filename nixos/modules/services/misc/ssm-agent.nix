@@ -28,7 +28,7 @@ in
     package = mkOption {
       type = types.path;
       description = lib.mdDoc "The SSM agent package to use";
-      default = pkgs.ssm-agent.override { overrideEtc = false; };
+      default = pkgs.ssm-agent.override {overrideEtc = false;};
       defaultText = literalExpression "pkgs.ssm-agent.override { overrideEtc = false; }";
     };
   };
@@ -36,8 +36,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.ssm-agent = {
       inherit (cfg.package.meta) description;
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       path = [
         fake-lsb-release
@@ -57,18 +57,18 @@ in
     # This is consistent with Amazon Linux 2 images.
     security.sudo.extraRules = [
       {
-        users = [ "ssm-user" ];
+        users = ["ssm-user"];
         commands = [
           {
             command = "ALL";
-            options = [ "NOPASSWD" ];
+            options = ["NOPASSWD"];
           }
         ];
       }
     ];
     # On Amazon Linux 2 images, the ssm-user user is pretty much a
     # normal user with its own group. We do the same.
-    users.groups.ssm-user = { };
+    users.groups.ssm-user = {};
     users.users.ssm-user = {
       isNormalUser = true;
       group = "ssm-user";

@@ -11,7 +11,7 @@
 {
   pname,
   version,
-  nativeBuildInputs ? [ ],
+  nativeBuildInputs ? [],
   enableParallelBuilding ? true,
   ...
 }@args:
@@ -41,7 +41,7 @@ else
 
       inherit enableParallelBuilding;
       dontAddStaticConfigureFlags = true;
-      configurePlatforms = [ ];
+      configurePlatforms = [];
 
       buildPhase = ''
         runHook preBuild
@@ -81,7 +81,7 @@ else
         findlib
       ] ++ nativeBuildInputs;
 
-      meta = (args.meta or { }) // {
+      meta = (args.meta or {}) // {
         platforms = args.meta.platforms or ocaml.meta.platforms;
       };
     }

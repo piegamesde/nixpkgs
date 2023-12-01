@@ -89,8 +89,8 @@ with lib;
 
         xl2tpd-ppp-wrapped = pkgs.stdenv.mkDerivation {
           name = "xl2tpd-ppp-wrapped";
-          phases = [ "installPhase" ];
-          nativeBuildInputs = with pkgs; [ makeWrapper ];
+          phases = ["installPhase"];
+          nativeBuildInputs = with pkgs; [makeWrapper];
           installPhase = ''
             mkdir -p $out/bin
 
@@ -107,8 +107,8 @@ with lib;
       {
         description = "xl2tpd server";
 
-        requires = [ "network-online.target" ];
-        wantedBy = [ "multi-user.target" ];
+        requires = ["network-online.target"];
+        wantedBy = ["multi-user.target"];
 
         preStart = ''
           mkdir -p -m 700 /etc/xl2tpd

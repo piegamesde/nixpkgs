@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "141gfmrqa1mf2qas87qig4phym9fg9gbrcfl2idzd5gi91824dn9";
   };
 
-  buildInputs = [ jre ];
+  buildInputs = [jre];
   nativeBuildInputs = [
     makeWrapper
     unzip
@@ -34,9 +34,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.astrolabeproject.com";
     description = "A Java-based tool for generating EPS files for constructing astrolabes and related tools";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "AstrolabeGenerator";
     platforms = platforms.all;
   };

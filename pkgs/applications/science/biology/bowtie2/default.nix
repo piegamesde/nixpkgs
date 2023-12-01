@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HaiZmWU6akHXJVWBmCvkG2E61NDrAP7UIxx9DNCEZqE=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     tbb
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "An ultrafast and memory-efficient tool for aligning sequencing reads to long reference sequences";
     license = licenses.gpl3;
     homepage = "http://bowtie-bio.sf.net/bowtie2";
-    maintainers = with maintainers; [ rybern ];
+    maintainers = with maintainers; [rybern];
     platforms = platforms.all;
     broken = stdenv.isAarch64; # only x86 is supported
   };

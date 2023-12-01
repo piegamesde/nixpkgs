@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-nKOPCkS2b3ObmBnk/7FTv4o4vwUX+tOtZI5OQQ4HSTY=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     brotli
@@ -57,12 +57,12 @@ buildPythonPackage rec {
       --replace 'oauthlib = "^3.1.0"' 'oauthlib = "*"'
   '';
 
-  pythonImportsCheck = [ "pysnow" ];
+  pythonImportsCheck = ["pysnow"];
 
   meta = with lib; {
     description = "ServiceNow HTTP client library written in Python";
     homepage = "https://github.com/rbw/pysnow";
     license = licenses.mit;
-    maintainers = with maintainers; [ almac ];
+    maintainers = with maintainers; [almac];
   };
 }

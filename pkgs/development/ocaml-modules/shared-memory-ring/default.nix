@@ -19,9 +19,9 @@ buildDunePackage rec {
     hash = "sha256-KW8grij/OAnFkdUdRRZF21X39DvqayzkTWeRKwF8uoU=";
   };
 
-  buildInputs = [ ppx_cstruct ];
+  buildInputs = [ppx_cstruct];
 
-  propagatedBuildInputs = [ cstruct ];
+  propagatedBuildInputs = [cstruct];
 
   doCheck = true;
   checkInputs = [
@@ -33,6 +33,6 @@ buildDunePackage rec {
     description = "Shared memory rings for RPC and bytestream communications";
     license = licenses.isc;
     homepage = "https://github.com/mirage/shared-memory-ring";
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

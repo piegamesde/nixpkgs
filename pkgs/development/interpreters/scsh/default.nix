@@ -18,15 +18,15 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ scheme48 ];
-  configureFlags = [ "--with-scheme48=${scheme48}" ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [scheme48];
+  configureFlags = ["--with-scheme48=${scheme48}"];
 
   meta = with lib; {
     description = "A Scheme shell";
     homepage = "http://www.scsh.net/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ joachifm ];
+    maintainers = with maintainers; [joachifm];
     platforms = with platforms; unix;
   };
 }

@@ -16,6 +16,6 @@ perlPackages.buildPerlPackage {
     description = "Render/convert graphs in/from various formats";
     license = licenses.gpl1Only;
     platforms = platforms.unix;
-    maintainers = [ maintainers.jensbin ];
+    maintainers = [maintainers.jensbin];
   };
 }

@@ -67,14 +67,14 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  configureFlags = [ "--enable-verbose-make" ];
+  configureFlags = ["--enable-verbose-make"];
 
   installTargets = [
     "install"
     "install-lib"
   ];
 
-  passthru.withProvers = callPackage ./with-provers.nix { };
+  passthru.withProvers = callPackage ./with-provers.nix {};
 
   meta = with lib; {
     description = "A platform for deductive program verification";

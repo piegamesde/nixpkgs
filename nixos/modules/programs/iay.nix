@@ -19,7 +19,7 @@ in
 {
   options.programs.iay = {
     enable = mkEnableOption (lib.mdDoc "iay");
-    package = mkPackageOptionMD pkgs "iay" { };
+    package = mkPackageOptionMD pkgs "iay" {};
 
     minimalPrompt = mkOption {
       type = types.bool;

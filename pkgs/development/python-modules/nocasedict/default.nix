@@ -15,16 +15,16 @@ buildPythonPackage rec {
     hash = "sha256-lgy2mfEgnagKw546tQqnNC/oyp9wYGwjRHpRBVBDXlA=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "nocasedict" ];
+  pythonImportsCheck = ["nocasedict"];
 
   meta = with lib; {
     description = "A case-insensitive ordered dictionary for Python";
     homepage = "https://github.com/pywbem/nocasedict";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
   };
 }

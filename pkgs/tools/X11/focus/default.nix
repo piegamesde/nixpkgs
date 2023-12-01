@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     libXinerama
   ];
 
-  makeFlags = [ "PREFIX=\${out}" ];
+  makeFlags = ["PREFIX=\${out}"];
 
   meta = with lib; {
     description = "Focus window, workspace or monitor by direction or cycle through them";
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/phillbush/focus";
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
     platforms = platforms.unix;
   };
 }

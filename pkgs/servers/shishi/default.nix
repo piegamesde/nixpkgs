@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     ./freebsd-unistd.patch
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libgcrypt
     libgpg-error
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  installFlags = [ "sysconfdir=\${out}/etc" ];
+  installFlags = ["sysconfdir=\${out}/etc"];
 
   # Fix *.la files
   postInstall =
@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/shishi/";
     description = "An implementation of the Kerberos 5 network security system";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     platforms = platforms.linux;
   };
 }

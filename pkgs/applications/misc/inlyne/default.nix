@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-mH8tu8koprmHo6JJ9AwYMexy2SFR2yukZmFT060cuZ4=";
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ pkg-config ];
+  nativeBuildInputs = lib.optionals stdenv.isLinux [pkg-config];
 
   buildInputs =
     lib.optionals stdenv.isLinux [
@@ -75,6 +75,6 @@ rustPlatform.buildRustPackage rec {
     description = "A GPU powered browserless markdown viewer";
     homepage = "https://github.com/trimental/inlyne";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

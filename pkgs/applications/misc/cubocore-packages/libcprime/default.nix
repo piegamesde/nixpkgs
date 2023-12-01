@@ -20,7 +20,7 @@ mkDerivation rec {
     sha256 = "sha256-6kkKmF9mARhSm93ZrWJiwRNmpkiCxyhSD3W7X3gYuu4=";
   };
 
-  patches = [ ./0001-fix-application-dirs.patch ];
+  patches = [./0001-fix-application-dirs.patch];
 
   nativeBuildInputs = [
     cmake
@@ -37,7 +37,7 @@ mkDerivation rec {
     description = "A library for bookmarking, saving recent activites, managing settings of C-Suite";
     homepage = "https://gitlab.com/cubocore/coreapps/libcprime";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dan4ik605743 ];
+    maintainers = with maintainers; [dan4ik605743];
     platforms = platforms.linux;
   };
 }

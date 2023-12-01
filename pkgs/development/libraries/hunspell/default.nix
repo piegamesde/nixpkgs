@@ -29,22 +29,22 @@ stdenv.mkDerivation rec {
     ncurses
     readline
   ];
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  patches = [ ./0001-Make-hunspell-look-in-XDG_DATA_DIRS-for-dictionaries.patch ];
+  patches = [./0001-Make-hunspell-look-in-XDG_DATA_DIRS-for-dictionaries.patch];
 
   postPatch = ''
     patchShebangs tests
   '';
 
-  autoreconfFlags = [ "-vfi" ];
+  autoreconfFlags = ["-vfi"];
 
   configureFlags = [
     "--with-ui"
     "--with-readline"
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     homepage = "https://hunspell.sourceforge.net";
@@ -75,6 +75,6 @@ stdenv.mkDerivation rec {
       lgpl21
       mpl11
     ];
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

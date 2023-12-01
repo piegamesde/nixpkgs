@@ -36,15 +36,15 @@ stdenv.mkDerivation rec {
     sfml
   ];
 
-  patches = [ ./install_path_fix.patch ];
+  patches = [./install_path_fix.patch];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=format-security";
 
   meta = with lib; {
     description = "Lightweight, cross-platform & full-featured shader IDE";
     homepage = "https://github.com/dfranx/SHADERed";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ Scriptkiddi ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [Scriptkiddi];
     broken = true;
   };
 }

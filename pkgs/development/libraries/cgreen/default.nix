@@ -23,13 +23,13 @@ stdenv.mkDerivation (
       done
     '';
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
     meta = {
       homepage = "https://github.com/cgreen-devs/cgreen";
       description = "The Modern Unit Test and Mocking Framework for C and C++";
       license = lib.licenses.isc;
-      maintainers = [ lib.maintainers.AndersonTorres ];
+      maintainers = [lib.maintainers.AndersonTorres];
       platforms = lib.platforms.unix;
     };
   }

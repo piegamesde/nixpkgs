@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "metabang-bind";
   version = "20200218-git";
 
   description = "Bind is a macro that generalizes multiple-value-bind, let, let*, destructuring-bind, structure and slot accessors, and a whole lot more.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/metabang-bind/2020-02-18/metabang-bind-20200218-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "metabang-bind";
 
-  asdFilesToKeep = [ "metabang-bind.asd" ];
+  asdFilesToKeep = ["metabang-bind.asd"];
   overrides = x: x;
 }
 /* (SYSTEM metabang-bind DESCRIPTION

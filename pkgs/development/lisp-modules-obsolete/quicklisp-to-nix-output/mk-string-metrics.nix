@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "mk-string-metrics";
   version = "20180131-git";
 
   description = "efficient implementations of various string metric algorithms";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/mk-string-metrics/2018-01-31/mk-string-metrics-20180131-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "mk-string-metrics";
 
-  asdFilesToKeep = [ "mk-string-metrics.asd" ];
+  asdFilesToKeep = ["mk-string-metrics.asd"];
   overrides = x: x;
 }
 /* (SYSTEM mk-string-metrics DESCRIPTION

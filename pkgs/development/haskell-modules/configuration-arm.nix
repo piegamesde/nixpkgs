@@ -19,7 +19,7 @@
 # in practice since that is the only platform we can test on
 # Hydra. Also take care to group overrides by the issue they
 # solve, so refactors and updates to this file are less tedious.
-{ pkgs, haskellLib }:
+{pkgs, haskellLib}:
 
 let
   inherit (pkgs) lib;
@@ -44,11 +44,11 @@ self: super:
     overrideCabal
       (
         {
-          librarySystemDepends ? [ ],
+          librarySystemDepends ? [],
           ...
         }:
         {
-          librarySystemDepends = librarySystemDepends ++ [ pkgs.wiringpi ];
+          librarySystemDepends = librarySystemDepends ++ [pkgs.wiringpi];
         }
       )
       super.wiringPi;

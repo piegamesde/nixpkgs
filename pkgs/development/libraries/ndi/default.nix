@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     '';
   };
 
-  buildInputs = [ avahi ];
+  buildInputs = [avahi];
 
   unpackPhase = ''
     unpackFile ${src}
@@ -69,9 +69,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://ndi.tv/sdk/";
     description = "NDI Software Developer Kit";
-    platforms = [ "x86_64-linux" ];
-    hydraPlatforms = [ ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    platforms = ["x86_64-linux"];
+    hydraPlatforms = [];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
   };
 }

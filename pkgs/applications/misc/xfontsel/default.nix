@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.x.org/";
     description = "Allows testing the fonts available in an X server";
     license = licenses.free;
-    maintainers = with maintainers; [ viric ];
+    maintainers = with maintainers; [viric];
     platforms = platforms.unix;
   };
 }

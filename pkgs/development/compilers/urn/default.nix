@@ -8,7 +8,7 @@
   luajit,
   readline,
   useLuaJit ? false,
-  extraLibraries ? [ ],
+  extraLibraries ? [],
 }:
 
 let
@@ -26,14 +26,14 @@ let
           readline
         ]
       else
-        [ lua ];
+        [lua];
   };
 
   inherit (lib) optionalString concatMapStringsSep;
 in
 
 stdenv.mkDerivation {
-  pname = "urn${optionalString (extraLibraries != [ ]) "-with-libraries"}";
+  pname = "urn${optionalString (extraLibraries != []) "-with-libraries"}";
   inherit version;
 
   src = fetchFromGitLab {
@@ -43,12 +43,12 @@ stdenv.mkDerivation {
     sha256 = "0nclr3d8ap0y5cg36i7g4ggdqci6m5q27y9f26b57km8p266kcpy";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   # Any packages that depend on the compiler have a transitive
   # dependency on the Urn runtime support.
-  propagatedBuildInputs = [ urn-rt ];
+  propagatedBuildInputs = [urn-rt];
 
-  makeFlags = [ "-B" ];
+  makeFlags = ["-B"];
 
   installPhase = ''
     mkdir -p $out/bin $out/lib
@@ -65,7 +65,7 @@ stdenv.mkDerivation {
     homepage = "https://urn-lang.com";
     description = "Yet another Lisp variant which compiles to Lua";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ CrazedProgrammer ];
+    maintainers = with maintainers; [CrazedProgrammer];
     platforms = platforms.all;
   };
 

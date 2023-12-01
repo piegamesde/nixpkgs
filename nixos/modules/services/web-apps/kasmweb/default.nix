@@ -132,7 +132,7 @@ in
 
     systemd.services = {
       "init-kasmweb" = {
-        wantedBy = [ "docker-kasm_db.service" ];
+        wantedBy = ["docker-kasm_db.service"];
         before = [
           "docker-kasm_db.service"
           "docker-kasm_redis.service"
@@ -188,7 +188,7 @@ in
             "${cfg.datastorePath}/conf/database/:/tmp/"
             "kasmweb_db:/var/lib/postgresql/data"
           ];
-          extraOptions = [ "--network=kasm_default_network" ];
+          extraOptions = ["--network=kasm_default_network"];
         };
         kasm_db_init = {
           image = "kasmweb/api:${pkgs.kasmweb.version}";
@@ -197,9 +197,9 @@ in
             "${cfg.datastorePath}/:/opt/kasm/current/"
             "kasmweb_api_data:/tmp"
           ];
-          dependsOn = [ "kasm_db" ];
+          dependsOn = ["kasm_db"];
           entrypoint = "/bin/bash";
-          cmd = [ "/opt/kasm/current/init_seeds.sh" ];
+          cmd = ["/opt/kasm/current/init_seeds.sh"];
           extraOptions = [
             "--network=kasm_default_network"
             "--userns=host"
@@ -224,7 +224,7 @@ in
             "${cfg.datastorePath}/:/opt/kasm/current/"
             "kasmweb_api_data:/tmp"
           ];
-          dependsOn = [ "kasm_db_init" ];
+          dependsOn = ["kasm_db_init"];
           extraOptions = [
             "--network=kasm_default_network"
             "--userns=host"
@@ -233,7 +233,7 @@ in
         kasm_manager = {
           image = "kasmweb/manager:${pkgs.kasmweb.version}";
           user = "root:root";
-          volumes = [ "${cfg.datastorePath}/:/opt/kasm/current/" ];
+          volumes = ["${cfg.datastorePath}/:/opt/kasm/current/"];
           dependsOn = [
             "kasm_db"
             "kasm_api"
@@ -253,7 +253,7 @@ in
             "${pkgs.docker}/bin/docker:/usr/bin/docker"
             "${cfg.datastorePath}/conf/nginx:/etc/nginx/conf.d"
           ];
-          dependsOn = [ "kasm_manager" ];
+          dependsOn = ["kasm_manager"];
           extraOptions = [
             "--network=kasm_default_network"
             "--userns=host"
@@ -263,7 +263,7 @@ in
         kasm_share = {
           image = "kasmweb/share:${pkgs.kasmweb.version}";
           user = "root:root";
-          volumes = [ "${cfg.datastorePath}/:/opt/kasm/current/" ];
+          volumes = ["${cfg.datastorePath}/:/opt/kasm/current/"];
           dependsOn = [
             "kasm_db"
             "kasm_redis"
@@ -277,7 +277,7 @@ in
         kasm_guac = {
           image = "kasmweb/kasm-guac:${pkgs.kasmweb.version}";
           user = "root:root";
-          volumes = [ "${cfg.datastorePath}/:/opt/kasm/current/" ];
+          volumes = ["${cfg.datastorePath}/:/opt/kasm/current/"];
           dependsOn = [
             "kasm_db"
             "kasm_redis"
@@ -290,7 +290,7 @@ in
         };
         kasm_proxy = {
           image = "kasmweb/nginx:latest";
-          ports = [ "${cfg.listenAddress}:${toString cfg.listenPort}:443" ];
+          ports = ["${cfg.listenAddress}:${toString cfg.listenPort}:443"];
           user = "root:root";
           volumes = [
             "${cfg.datastorePath}/conf/nginx:/etc/nginx/conf.d:ro"

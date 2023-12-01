@@ -39,7 +39,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d);
   '';
 
-  pythonImportsCheck = [ "aeppl" ];
+  pythonImportsCheck = ["aeppl"];
 
   disabledTests =
     [
@@ -52,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/aesara-devs/aeppl";
     changelog = "https://github.com/aesara-devs/aeppl/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -5,7 +5,7 @@
 }:
 
 let
-  common = callPackage ./common.nix { };
+  common = callPackage ./common.nix {};
 in
 stdenvNoCC.mkDerivation rec {
   pname = "semgrep-core";
@@ -20,6 +20,6 @@ stdenvNoCC.mkDerivation rec {
 
   meta = common.meta // {
     description = common.meta.description + " - core binary";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 }

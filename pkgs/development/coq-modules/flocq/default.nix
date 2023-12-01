@@ -53,6 +53,6 @@ mkCoqDerivation {
   meta = with lib; {
     description = "A floating-point formalization for the Coq system";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ jwiegley ];
+    maintainers = with maintainers; [jwiegley];
   };
 }

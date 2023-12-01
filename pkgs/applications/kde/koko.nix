@@ -80,6 +80,6 @@ mkDerivation rec {
       licenses.lgpl3Only
       licenses.lgpl21Only
     ];
-    maintainers = with maintainers; [ samueldr ];
+    maintainers = with maintainers; [samueldr];
   };
 }

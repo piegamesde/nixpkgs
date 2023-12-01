@@ -72,7 +72,7 @@ self: super: {
       description = "Kakoune support for rendering ANSI code";
       homepage = "https://github.com/eraserhd/kak-ansi";
       license = licenses.unlicense;
-      maintainers = with maintainers; [ eraserhd ];
+      maintainers = with maintainers; [eraserhd];
       platforms = platforms.all;
     };
   };
@@ -102,7 +102,7 @@ self: super: {
       description = "Kakoune integration with the Plan 9 plumber";
       homepage = "https://github.com/eraserhd/kak-plumb";
       license = licenses.unlicense;
-      maintainers = with maintainers; [ eraserhd ];
+      maintainers = with maintainers; [eraserhd];
       platforms = platforms.all;
     };
   };
@@ -135,7 +135,7 @@ self: super: {
       description = "Help Kakoune save and restore state between sessions";
       homepage = "https://gitlab.com/Screwtapello/kakoune-state-save";
       license = licenses.mit;
-      maintainers = with maintainers; [ Flakebi ];
+      maintainers = with maintainers; [Flakebi];
       platforms = platforms.all;
     };
   };
@@ -159,7 +159,7 @@ self: super: {
       sha256 = "0y1g3zpa2ql8l9rl5i2w84bka8a09kig9nq9zdchaff5pw660mcx";
     };
 
-    buildInputs = [ lua5_3 ];
+    buildInputs = [lua5_3];
 
     installPhase = ''
       mkdir -p $out/share/kak/autoload/plugins/
@@ -172,7 +172,7 @@ self: super: {
       description = "Highlight f and t jump positions";
       homepage = "https://sr.ht/~voroskoi/quickscope.kak/";
       license = licenses.unlicense;
-      maintainers = with maintainers; [ eraserhd ];
+      maintainers = with maintainers; [eraserhd];
       platforms = platforms.all;
     };
   };

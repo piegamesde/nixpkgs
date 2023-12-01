@@ -28,7 +28,7 @@ buildGoModule {
     substituteInPlace cmd/gg/editor_unix.go \
       --replace /bin/sh ${bash}/bin/sh
   '';
-  subPackages = [ "cmd/gg" ];
+  subPackages = ["cmd/gg"];
   ldflags = [
     "-s"
     "-w"
@@ -75,6 +75,6 @@ buildGoModule {
     homepage = "https://gg-scm.io/";
     changelog = "https://github.com/gg-scm/gg/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ zombiezen ];
+    maintainers = with maintainers; [zombiezen];
   };
 }

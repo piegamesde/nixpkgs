@@ -26,6 +26,6 @@ buildGoModule rec {
     description = "Exports Prometheus metrics about S3 buckets and objects";
     homepage = "https://github.com/ribbybibby/s3_exporter";
     license = licenses.asl20;
-    maintainers = [ maintainers.mmahut ];
+    maintainers = [maintainers.mmahut];
   };
 }

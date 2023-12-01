@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
     homepage = "https://survex.com/";
     changelog = "https://github.com/ojwb/survex/raw/v${version}/NEWS";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.matthewcroughan ];
+    maintainers = [maintainers.matthewcroughan];
     platforms = platforms.all;
   };
 }

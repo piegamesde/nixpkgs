@@ -20,13 +20,13 @@ buildPythonPackage rec {
     hash = "sha256-n+H6H2ORLizv9cn1P5Cd8wHDWMNonPrs+x+XMQbEzZQ=";
   };
 
-  propagatedBuildInputs = [ requests ];
-  nativeCheckInputs = [ pytestCheckHook ];
+  propagatedBuildInputs = [requests];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Python binding for Tado web API. Pythonize your central heating!";
     homepage = "https://github.com/wmalgadey/PyTado";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ jamiemagee ];
+    maintainers = with maintainers; [jamiemagee];
   };
 }

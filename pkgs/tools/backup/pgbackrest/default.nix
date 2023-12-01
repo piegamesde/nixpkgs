@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wm7wNxxwRAmFG7ZsZMR8TXp+xVu673g6w95afLalnc8=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     postgresql
     openssl
@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     homepage = "https://pgbackrest.org/";
     changelog = "https://github.com/pgbackrest/pgbackrest/releases";
     license = licenses.mit;
-    maintainers = with maintainers; [ zaninime ];
+    maintainers = with maintainers; [zaninime];
   };
 }

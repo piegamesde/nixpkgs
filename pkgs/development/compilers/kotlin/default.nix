@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "1mwggqll6117sw5ldkl1kmlp6mh9z36jhb6r0hnljryhk9bcahvf";
   };
 
-  propagatedBuildInputs = [ jre ];
+  propagatedBuildInputs = [jre];
   nativeBuildInputs = [
     makeWrapper
     unzip
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://kotlinlang.org/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ SubhrajyotiSen ];
+    maintainers = with lib.maintainers; [SubhrajyotiSen];
     platforms = lib.platforms.all;
   };
 }

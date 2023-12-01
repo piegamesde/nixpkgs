@@ -123,16 +123,16 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "opendkim") { opendkim.gid = config.ids.gids.opendkim; };
+    users.groups = optionalAttrs (cfg.group == "opendkim") {opendkim.gid = config.ids.gids.opendkim;};
 
-    environment.systemPackages = [ pkgs.opendkim ];
+    environment.systemPackages = [pkgs.opendkim];
 
-    systemd.tmpfiles.rules = [ "d '${cfg.keyPath}' - ${cfg.user} ${cfg.group} - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.keyPath}' - ${cfg.user} ${cfg.group} - -"];
 
     systemd.services.opendkim = {
       description = "OpenDKIM signing and verification daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         cd "${cfg.keyPath}"
@@ -152,9 +152,9 @@ in
         RuntimeDirectory = optional (cfg.socket == defaultSock) "opendkim";
         StateDirectory = "opendkim";
         StateDirectoryMode = "0700";
-        ReadWritePaths = [ cfg.keyPath ];
+        ReadWritePaths = [cfg.keyPath];
 
-        AmbientCapabilities = [ ];
+        AmbientCapabilities = [];
         CapabilityBoundingSet = "";
         DevicePolicy = "closed";
         LockPersonality = true;

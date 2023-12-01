@@ -120,7 +120,7 @@ let
 
   mkExporterOpts =
     (
-      { name, port }:
+      {name, port}:
       {
         enable = mkEnableOption (lib.mdDoc "the prometheus ${name} exporter");
         port = mkOption {
@@ -139,7 +139,7 @@ let
         };
         extraFlags = mkOption {
           type = types.listOf types.str;
-          default = [ ];
+          default = [];
           description = lib.mdDoc ''
             Extra commandline options to pass to the ${name} exporter.
           '';
@@ -192,30 +192,30 @@ let
         type = types.submodule [
           {
             inherit imports;
-            options = (mkExporterOpts { inherit name port; } // extraOpts);
+            options = (mkExporterOpts {inherit name port;} // extraOpts);
           }
           (
-            { config, ... }:
+            {config, ...}:
             mkIf config.openFirewall {
               firewallFilter = mkDefault "-p tcp -m tcp --dport ${toString config.port}";
             }
           )
         ];
         internal = true;
-        default = { };
+        default = {};
       };
     };
 
   mkSubModules =
-    (foldl' (a: b: a // b) { } (
+    (foldl' (a: b: a // b) {} (
       mapAttrsToList
         (
           name: opts:
           mkSubModule {
             inherit name;
             inherit (opts) port;
-            extraOpts = opts.extraOpts or { };
-            imports = opts.imports or [ ];
+            extraOpts = opts.extraOpts or {};
+            imports = opts.imports or [];
           }
         )
         exporterOpts
@@ -231,7 +231,7 @@ let
       enableDynamicUser = serviceOpts.serviceConfig.DynamicUser or true;
     in
     mkIf conf.enable {
-      warnings = conf.warnings or [ ];
+      warnings = conf.warnings or [];
       users.users."${name}-exporter" =
         (mkIf (conf.user == "${name}-exporter" && !enableDynamicUser) {
           description = "Prometheus ${name} exporter service user";
@@ -239,7 +239,7 @@ let
           inherit (conf) group;
         });
       users.groups =
-        (mkIf (conf.group == "${name}-exporter" && !enableDynamicUser) { "${name}-exporter" = { }; });
+        (mkIf (conf.group == "${name}-exporter" && !enableDynamicUser) {"${name}-exporter" = {};});
       networking.firewall.extraCommands = mkIf conf.openFirewall (
         concatStrings [
           "ip46tables -A nixos-fw ${conf.firewallFilter} "
@@ -248,8 +248,8 @@ let
       );
       systemd.services."prometheus-${name}-exporter" = mkMerge ([
         {
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
+          wantedBy = ["multi-user.target"];
+          after = ["network.target"];
           serviceConfig.Restart = mkDefault "always";
           serviceConfig.PrivateTmp = mkDefault true;
           serviceConfig.WorkingDirectory = mkDefault /tmp;
@@ -257,8 +257,8 @@ let
           serviceConfig.User = mkDefault conf.user;
           serviceConfig.Group = conf.group;
           # Hardening
-          serviceConfig.CapabilityBoundingSet = mkDefault [ "" ];
-          serviceConfig.DeviceAllow = [ "" ];
+          serviceConfig.CapabilityBoundingSet = mkDefault [""];
+          serviceConfig.DeviceAllow = [""];
           serviceConfig.LockPersonality = true;
           serviceConfig.MemoryDenyWriteExecute = true;
           serviceConfig.NoNewPrivileges = true;
@@ -322,11 +322,11 @@ in
       options = (mkSubModules);
       imports = [
         ../../../misc/assertions.nix
-        (lib.mkRenamedOptionModule [ "unifi-poller" ] [ "unpoller" ])
+        (lib.mkRenamedOptionModule ["unifi-poller"] ["unpoller"])
       ];
     };
     description = lib.mdDoc "Prometheus exporter configuration";
-    default = { };
+    default = {};
     example = literalExpression ''
       {
         node = {
@@ -437,6 +437,6 @@ in
 
   meta = {
     doc = ./exporters.md;
-    maintainers = [ maintainers.willibutz ];
+    maintainers = [maintainers.willibutz];
   };
 }

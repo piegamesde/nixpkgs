@@ -14,24 +14,24 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = "Release_${builtins.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "Release_${builtins.replaceStrings ["."] ["_"] version}";
     hash = "sha256-cywneIM0sHt1iQsNfjyQDoDfdRjxpz4l3rfysi9YN20=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = [
     glpk
     gmp
   ];
 
-  installFlags = [ "install-exec" ];
+  installFlags = ["install-exec"];
 
   meta = with lib; {
     homepage = "https://4ti2.github.io/";
     description = "A software package for algebraic, geometric and combinatorial problems on linear spaces";
-    license = with licenses; [ gpl2Plus ];
-    maintainers = with maintainers; [ AndersonTorres ];
+    license = with licenses; [gpl2Plus];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.all;
   };
 }

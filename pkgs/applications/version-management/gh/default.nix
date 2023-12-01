@@ -20,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-iTPdOolvWINUSSYiPZAwn5ZF44x/x1tIWnKUHAn8ITA=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # upstream unsets these to handle cross but it breaks our build
   postPatch = ''
@@ -49,13 +49,13 @@ buildGoModule rec {
   # most tests require network access
   doCheck = false;
 
-  passthru.tests.version = testers.testVersion { package = gh; };
+  passthru.tests.version = testers.testVersion {package = gh;};
 
   meta = with lib; {
     description = "GitHub CLI tool";
     homepage = "https://cli.github.com/";
     changelog = "https://github.com/cli/cli/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ zowoq ];
+    maintainers = with maintainers; [zowoq];
   };
 }

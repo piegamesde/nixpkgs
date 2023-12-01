@@ -68,7 +68,7 @@ let
       # Always set DB_PASSWORD even when passwordFile is not set. This is the
       # default Wordpress behaviour.
       DB_PASSWORD =
-        if (cfg.database.passwordFile != null) then { _file = cfg.database.passwordFile; } else "";
+        if (cfg.database.passwordFile != null) then {_file = cfg.database.passwordFile;} else "";
     }
     // cfg.settings;
 
@@ -116,7 +116,7 @@ let
     else if isHasAttr "_raw" then
       v._raw
     else
-      abort "The Wordpress config value ${lib.generators.toPretty { } v} can not be encoded.";
+      abort "The Wordpress config value ${lib.generators.toPretty {} v} can not be encoded.";
 
   secretsVars = [
     "AUTH_KEY"
@@ -191,7 +191,7 @@ let
                 )
               )
               (attrsOf path);
-          default = { };
+          default = {};
           description = lib.mdDoc ''
             Path(s) to respective plugin(s) which are copied from the 'plugins' directory.
 
@@ -237,7 +237,7 @@ let
 
         languages = mkOption {
           type = types.listOf types.path;
-          default = [ ];
+          default = [];
           description = lib.mdDoc ''
             List of path(s) to respective language(s) which are copied from the 'languages' directory.
           '';
@@ -363,7 +363,7 @@ let
 
         settings = mkOption {
           type = types.attrsOf types.anything;
-          default = { };
+          default = {};
           description = lib.mdDoc ''
             Structural Wordpress configuration.
             Refer to <https://developer.wordpress.org/apis/wp-config-php>
@@ -425,7 +425,7 @@ in
 
       sites = mkOption {
         type = types.attrsOf (types.submodule siteOpts);
-        default = { };
+        default = {};
         description = lib.mdDoc "Specification of one or more WordPress sites to serve";
       };
 
@@ -450,7 +450,7 @@ in
   };
 
   # implementation
-  config = mkIf (eachSite != { }) (
+  config = mkIf (eachSite != {}) (
     mkMerge [
       {
 
@@ -504,7 +504,7 @@ in
       (mkIf (cfg.webserver == "httpd") {
         services.httpd = {
           enable = true;
-          extraModules = [ "proxy_fcgi" ];
+          extraModules = ["proxy_fcgi"];
           virtualHosts =
             mapAttrs
               (
@@ -568,8 +568,8 @@ in
             (
               hostName: cfg:
               (nameValuePair "wordpress-init-${hostName}" {
-                wantedBy = [ "multi-user.target" ];
-                before = [ "phpfpm-wordpress-${hostName}.service" ];
+                wantedBy = ["multi-user.target"];
+                before = ["phpfpm-wordpress-${hostName}.service"];
                 after = optional cfg.database.createLocally "mysql.service";
                 script = secretsScript (stateDir hostName);
 
@@ -584,7 +584,7 @@ in
           )
 
           (optionalAttrs (any (v: v.database.createLocally) (attrValues eachSite)) {
-            httpd.after = [ "mysql.service" ];
+            httpd.after = ["mysql.service"];
           })
         ];
 

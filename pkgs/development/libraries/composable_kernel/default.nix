@@ -12,7 +12,7 @@
   gtest,
   buildTests ? false,
   buildExamples ? false,
-  gpuTargets ? [ ], # gpuTargets = [ "gfx803" "gfx900" "gfx1030" ... ]
+  gpuTargets ? [], # gpuTargets = [ "gfx803" "gfx900" "gfx1030" ... ]
 }:
 
 let
@@ -22,9 +22,7 @@ let
       pname = "composable_kernel";
       version = "unstable-2023-01-16";
 
-      outputs = [
-        "out"
-      ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildExamples [ "example" ];
+      outputs = ["out"] ++ lib.optionals buildTests ["test"] ++ lib.optionals buildExamples ["example"];
 
       # ROCm 5.6 should release composable_kernel as stable with a tag in the future
       src = fetchFromGitHub {
@@ -41,14 +39,14 @@ let
         clang-tools-extra
       ];
 
-      buildInputs = [ openmp ];
+      buildInputs = [openmp];
 
       cmakeFlags =
         [
           "-DCMAKE_C_COMPILER=hipcc"
           "-DCMAKE_CXX_COMPILER=hipcc"
         ]
-        ++ lib.optionals (gpuTargets != [ ]) [
+        ++ lib.optionals (gpuTargets != []) [
           "-DGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
           "-DAMDGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
         ]
@@ -77,19 +75,19 @@ let
           mv $out/bin/example_* $example/bin
         '';
 
-      passthru.updateScript = unstableGitUpdater { };
+      passthru.updateScript = unstableGitUpdater {};
 
       meta = with lib; {
         description = "Performance portable programming model for machine learning tensor operators";
         homepage = "https://github.com/ROCmSoftwarePlatform/composable_kernel";
-        license = with licenses; [ mit ];
+        license = with licenses; [mit];
         maintainers = teams.rocm.members;
         platforms = platforms.linux;
       };
     }
   );
 
-  ckProfiler = runCommand "ckProfiler" { preferLocalBuild = true; } ''
+  ckProfiler = runCommand "ckProfiler" {preferLocalBuild = true;} ''
     cp -a ${ck}/bin/ckProfiler $out
   '';
 in

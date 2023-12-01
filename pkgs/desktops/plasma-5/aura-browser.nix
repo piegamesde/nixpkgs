@@ -8,7 +8,7 @@
 }:
 mkDerivation {
   pname = "aura-browser";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     qtwebengine
     qtquickcontrols2

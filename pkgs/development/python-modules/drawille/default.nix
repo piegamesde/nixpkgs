@@ -17,13 +17,13 @@ buildPythonPackage rec {
 
   doCheck = false; # pypi package has no tests, git has no tags
 
-  pythonImportsCheck = [ "drawille" ];
+  pythonImportsCheck = ["drawille"];
 
   meta = with lib; {
     description = "Drawing in terminal with unicode braille characters";
     homepage = "https://github.com/asciimoo/drawille";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ nobbz ];
+    maintainers = with maintainers; [nobbz];
     platforms = platforms.all;
   };
 }

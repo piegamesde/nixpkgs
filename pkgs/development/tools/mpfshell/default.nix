@@ -22,7 +22,7 @@ python3Packages.buildPythonPackage rec {
   ];
 
   doCheck = false;
-  pythonImportsCheck = [ "mp.mpfshell" ];
+  pythonImportsCheck = ["mp.mpfshell"];
 
   meta = with lib; {
     homepage = "https://github.com/wendlers/mpfshell";

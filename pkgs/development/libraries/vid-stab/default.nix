@@ -17,15 +17,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-p1VRnkBeUpET3O2FmaJMyN5/EoSOQLdmRIVbzZcQaKY=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  propagatedBuildInputs = lib.optionals stdenv.cc.isClang [ openmp ];
+  propagatedBuildInputs = lib.optionals stdenv.cc.isClang [openmp];
 
   meta = with lib; {
     description = "Video stabilization library";
     homepage = "http://public.hronopik.de/vid.stab/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ codyopel ];
+    maintainers = with maintainers; [codyopel];
     platforms = platforms.all;
   };
 }

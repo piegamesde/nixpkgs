@@ -20,7 +20,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Scanning and validation toolkit for the Log4J vulnerability";
     homepage = "https://github.com/0xInfection/LogMePwn";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -22,13 +22,13 @@ stdenv.mkDerivation {
   '';
 
   passthru = {
-    scripts = [ "colorize_nicks.py" ];
+    scripts = ["colorize_nicks.py"];
   };
 
   meta = with lib; {
     inherit (weechat.meta) platforms;
     description = "Use the weechat nick colors in the chat area";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
   };
 }

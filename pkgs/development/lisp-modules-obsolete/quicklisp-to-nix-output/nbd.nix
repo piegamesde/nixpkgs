@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "nbd";
   version = "20200925-git";
 
-  parasites = [ "nbd/simple-in-memory" ];
+  parasites = ["nbd/simple-in-memory"];
 
   description = "Network Block Device server library.";
 
@@ -22,7 +22,7 @@ rec {
 
   packageName = "nbd";
 
-  asdFilesToKeep = [ "nbd.asd" ];
+  asdFilesToKeep = ["nbd.asd"];
   overrides = x: x;
 }
 /* (SYSTEM nbd DESCRIPTION Network Block Device server library. SHA256

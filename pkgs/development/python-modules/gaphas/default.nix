@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-I+/DsXppY//KOZgydDR4/Ks5qEsL4hLIiH+GaaFZHpA=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   buildInputs = [
     gobject-introspection
@@ -36,13 +36,13 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "gaphas" ];
+  pythonImportsCheck = ["gaphas"];
 
   meta = with lib; {
     description = "GTK+ based diagramming widget";
     homepage = "https://github.com/gaphor/gaphas";
     changelog = "https://github.com/gaphor/gaphas/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ wolfangaukang ];
+    maintainers = with maintainers; [wolfangaukang];
   };
 }

@@ -18,7 +18,7 @@ buildGoModule rec {
   };
   vendorHash = "sha256-rjYV69BWkqIkgyeauAo4KEfbB7cxnwn3VSjLrMrCu1c=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -83,7 +83,7 @@ buildGoModule rec {
       Tail your API request logs in real-time
       Create, retrieve, update, or delete API objects.
     '';
-    license = with licenses; [ asl20 ];
+    license = with licenses; [asl20];
     maintainers = with maintainers; [
       RaghavSood
       jk

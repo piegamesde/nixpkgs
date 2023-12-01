@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-vOr67DWfAyOT3dVgrizI0WNhODPsY8k85xifhZBOU9Y=";
   };
 
-  nativeBuildInputs = [ twine ];
+  nativeBuildInputs = [twine];
 
   nativeCheckInputs = [
     numpy
@@ -33,12 +33,12 @@ buildPythonPackage rec {
       "test_check_users"
     ];
 
-  pythonImportsCheck = [ "nagiosplugin" ];
+  pythonImportsCheck = ["nagiosplugin"];
 
   meta = with lib; {
     description = "Python class library which helps with writing Nagios (Icinga) compatible plugins";
     homepage = "https://github.com/mpounsett/nagiosplugin";
     license = licenses.zpl21;
-    maintainers = with maintainers; [ symphorien ];
+    maintainers = with maintainers; [symphorien];
   };
 }

@@ -6,9 +6,9 @@
 
 stdenv.mkDerivation {
   name = "print-reexports";
-  src = lib.sourceFilesBySuffices ./. [ ".c" ];
+  src = lib.sourceFilesBySuffices ./. [".c"];
 
-  buildInputs = [ libyaml ];
+  buildInputs = [libyaml];
 
   buildPhase = ''
     $CC -lyaml -o print-reexports main.c

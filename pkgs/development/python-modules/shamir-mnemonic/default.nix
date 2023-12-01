@@ -28,14 +28,14 @@ buildPythonPackage rec {
     colorama
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "shamir_mnemonic" ];
+  pythonImportsCheck = ["shamir_mnemonic"];
 
   meta = with lib; {
     description = "Reference implementation of SLIP-0039";
     homepage = "https://github.com/trezor/python-shamir-mnemonic";
     license = licenses.mit;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

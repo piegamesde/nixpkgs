@@ -43,7 +43,7 @@ in
   config = mkIf cfg.enable {
     systemd.services.fireqos = {
       description = "FireQOS";
-      after = [ "network.target" ];
+      after = ["network.target"];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;

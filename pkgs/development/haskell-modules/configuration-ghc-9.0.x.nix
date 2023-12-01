@@ -1,4 +1,4 @@
-{ pkgs, haskellLib }:
+{pkgs, haskellLib}:
 
 with haskellLib;
 
@@ -63,19 +63,19 @@ self: super: {
   hackage-security = doJailbreak super.hackage-security;
   hashable = pkgs.lib.pipe super.hashable [
     (overrideCabal (
-      drv: { postPatch = "sed -i -e 's,integer-gmp .*<1.1,integer-gmp < 2,' hashable.cabal"; }
+      drv: {postPatch = "sed -i -e 's,integer-gmp .*<1.1,integer-gmp < 2,' hashable.cabal";}
     ))
     doJailbreak
     dontCheck
     (addBuildDepend self.base-orphans)
   ];
   hashable-time = doJailbreak super.hashable-time;
-  HTTP = overrideCabal (drv: { postPatch = "sed -i -e 's,! Socket,!Socket,' Network/TCP.hs"; }) (
+  HTTP = overrideCabal (drv: {postPatch = "sed -i -e 's,! Socket,!Socket,' Network/TCP.hs";}) (
     doJailbreak super.HTTP
   );
   integer-logarithms =
     overrideCabal
-      (drv: { postPatch = "sed -i -e 's,integer-gmp <1.1,integer-gmp < 2,' integer-logarithms.cabal"; })
+      (drv: {postPatch = "sed -i -e 's,integer-gmp <1.1,integer-gmp < 2,' integer-logarithms.cabal";})
       (doJailbreak super.integer-logarithms);
   lukko = doJailbreak super.lukko;
   parallel = doJailbreak super.parallel;
@@ -196,8 +196,7 @@ self: super: {
 
   # 2021-09-18: cabal2nix does not detect the need for ghc-api-compat.
   hiedb =
-    overrideCabal
-      (old: { libraryHaskellDepends = old.libraryHaskellDepends ++ [ self.ghc-api-compat ]; })
+    overrideCabal (old: {libraryHaskellDepends = old.libraryHaskellDepends ++ [self.ghc-api-compat];})
       super.hiedb;
 
   # 2021-09-18: https://github.com/haskell/haskell-language-server/issues/2206
@@ -210,7 +209,7 @@ self: super: {
   # We use a GHC patch to support the fix for https://github.com/fpco/inline-c/issues/127
   # which means that the upstream cabal file isn't allowed to add the flag.
   inline-c-cpp =
-    (if isDarwin then appendConfigureFlags [ "--ghc-option=-fcompact-unwind" ] else x: x)
+    (if isDarwin then appendConfigureFlags ["--ghc-option=-fcompact-unwind"] else x: x)
       super.inline-c-cpp;
 
   # 2022-05-31: weeder 2.3.0 requires GHC 9.2
@@ -226,8 +225,8 @@ self: super: {
 
   apply-refact = self.apply-refact_0_9_3_0;
 
-  hls-hlint-plugin = super.hls-hlint-plugin.override { inherit (self) apply-refact; };
+  hls-hlint-plugin = super.hls-hlint-plugin.override {inherit (self) apply-refact;};
 
   # Needs OneTuple for ghc < 9.2
-  binary-orphans = addBuildDepends [ self.OneTuple ] super.binary-orphans;
+  binary-orphans = addBuildDepends [self.OneTuple] super.binary-orphans;
 }

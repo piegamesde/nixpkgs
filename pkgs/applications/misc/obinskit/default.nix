@@ -16,7 +16,7 @@ let
     icon = "obinskit";
     desktopName = "Obinskit";
     genericName = "Obinskit keyboard configurator";
-    categories = [ "Utility" ];
+    categories = ["Utility"];
   };
   electron = electron_13;
 in
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "ObinsKit_${version}_x64";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontConfigure = true;
   dontBuild = true;
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     description = "Graphical configurator for Anne Pro and Anne Pro II keyboards";
     homepage = "https://www.hexcore.xyz/obinskit";
     license = licenses.unfree;
-    maintainers = with maintainers; [ shou ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [shou];
+    platforms = ["x86_64-linux"];
   };
 }

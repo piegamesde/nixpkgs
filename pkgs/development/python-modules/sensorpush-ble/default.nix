@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-17Yzpbcy/r+GlkLktgghehfAEboZHMbB/Dze1no4I80=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     bluetooth-sensor-state-data
@@ -32,20 +32,20 @@ buildPythonPackage rec {
     sensor-state-data
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace " --cov=sensorpush_ble --cov-report=term-missing:skip-covered" ""
   '';
 
-  pythonImportsCheck = [ "sensorpush_ble" ];
+  pythonImportsCheck = ["sensorpush_ble"];
 
   meta = with lib; {
     description = "Library for SensorPush BLE devices";
     homepage = "https://github.com/Bluetooth-Devices/sensorpush-ble";
     changelog = "https://github.com/Bluetooth-Devices/sensorpush-ble/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

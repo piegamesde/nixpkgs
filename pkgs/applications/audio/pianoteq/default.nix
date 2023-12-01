@@ -15,7 +15,7 @@
   makeWrapper,
 }:
 let
-  versionForFile = v: builtins.replaceStrings [ "." ] [ "" ] v;
+  versionForFile = v: builtins.replaceStrings ["."] [""] v;
 
   mkPianoteq =
     {
@@ -76,7 +76,7 @@ let
           "x86_64-linux"
           "aarch64-linux"
         ];
-        maintainers = [ maintainers.mausch ];
+        maintainers = [maintainers.mausch];
       };
     };
 
@@ -85,7 +85,7 @@ let
       name,
       sha256,
       script,
-      impureEnvVars ? [ ],
+      impureEnvVars ? [],
     }:
     stdenv.mkDerivation {
       inherit name;
@@ -113,7 +113,7 @@ let
         ${script}
 
       '';
-      nativeBuildInputs = [ curl ];
+      nativeBuildInputs = [curl];
       outputHashAlgo = "sha256";
       outputHash = sha256;
 
@@ -127,7 +127,7 @@ let
     };
 
   fetchPianoteqTrial =
-    { name, sha256 }:
+    {name, sha256}:
     fetchWithCurlScript {
       inherit name sha256;
       script = ''
@@ -161,7 +161,7 @@ let
     };
 
   fetchPianoteqWithLogin =
-    { name, sha256 }:
+    {name, sha256}:
     fetchWithCurlScript {
       inherit name sha256;
 

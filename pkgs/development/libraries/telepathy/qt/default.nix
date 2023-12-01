@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     telepathy-farstream
     telepathy-glib
   ];
-  buildInputs = [ dbus-glib ];
+  buildInputs = [dbus-glib];
   nativeCheckInputs = [
     dbus
     dbus-python

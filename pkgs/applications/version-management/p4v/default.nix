@@ -20,7 +20,7 @@ let
   };
 
   mkDerivation =
-    if stdenv.isDarwin then callPackage ./darwin.nix { } else libsForQt5.callPackage ./linux.nix { };
+    if stdenv.isDarwin then callPackage ./darwin.nix {} else libsForQt5.callPackage ./linux.nix {};
 in
 mkDerivation {
   pname = "p4v";
@@ -32,7 +32,7 @@ mkDerivation {
   meta = {
     description = "Perforce Helix Visual Client";
     homepage = "https://www.perforce.com";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfreeRedistributable;
     platforms = builtins.attrNames srcs;
     maintainers = with lib.maintainers; [

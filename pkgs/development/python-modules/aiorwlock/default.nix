@@ -21,12 +21,12 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  pythonImportsCheck = [ "aiorwlock" ];
+  pythonImportsCheck = ["aiorwlock"];
 
   meta = with lib; {
     description = "Read write lock for asyncio";
     homepage = "https://github.com/aio-libs/aiorwlock";
     license = licenses.asl20;
-    maintainers = with maintainers; [ billhuang ];
+    maintainers = with maintainers; [billhuang];
   };
 }

@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jt70NpHp//BxAA4pFmx8GtQgwJVukGgVEGHogcisl+k=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libX11
     libXpm
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     description = "A system tray for Windowmaker";
     homepage = "http://wmsystemtray.sourceforge.net";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.bstrik ];
+    maintainers = [maintainers.bstrik];
     platforms = platforms.linux;
   };
 }

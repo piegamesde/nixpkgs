@@ -132,8 +132,8 @@ in
 
     systemd.services.cloud-init-local = {
       description = "Initial cloud-init job (pre-networking)";
-      wantedBy = [ "multi-user.target" ];
-      before = [ "systemd-networkd.service" ];
+      wantedBy = ["multi-user.target"];
+      before = ["systemd-networkd.service"];
       path = path;
       serviceConfig = {
         Type = "oneshot";
@@ -146,7 +146,7 @@ in
 
     systemd.services.cloud-init = {
       description = "Initial cloud-init job (metadata service crawler)";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       wants = [
         "network-online.target"
         "cloud-init-local.service"
@@ -161,7 +161,7 @@ in
         "sshd.service"
         "sshd-keygen.service"
       ];
-      requires = [ "network.target" ];
+      requires = ["network.target"];
       path = path;
       serviceConfig = {
         Type = "oneshot";
@@ -174,8 +174,8 @@ in
 
     systemd.services.cloud-config = {
       description = "Apply the settings specified in cloud-config";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
       after = [
         "network-online.target"
         "syslog.target"
@@ -194,15 +194,15 @@ in
 
     systemd.services.cloud-final = {
       description = "Execute cloud user/final scripts";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
       after = [
         "network-online.target"
         "syslog.target"
         "cloud-config.service"
         "rc-local.service"
       ];
-      requires = [ "cloud-config.target" ];
+      requires = ["cloud-config.target"];
       path = path;
       serviceConfig = {
         Type = "oneshot";

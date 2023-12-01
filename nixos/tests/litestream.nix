@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "litestream";
-    meta = with pkgs.lib.maintainers; { maintainers = [ jwygoda ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [jwygoda];};
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         services.litestream = {
           enable = true;
@@ -13,7 +13,7 @@ import ./make-test-python.nix (
             dbs = [
               {
                 path = "/var/lib/grafana/data/grafana.db";
-                replicas = [ { url = "sftp://foo:bar@127.0.0.1:22/home/foo/grafana"; } ];
+                replicas = [{url = "sftp://foo:bar@127.0.0.1:22/home/foo/grafana";}];
               }
             ];
           };
@@ -64,7 +64,7 @@ import ./make-test-python.nix (
           isNormalUser = true;
           password = "bar";
         };
-        users.users.litestream.extraGroups = [ "grafana" ];
+        users.users.litestream.extraGroups = ["grafana"];
       };
 
     testScript = ''

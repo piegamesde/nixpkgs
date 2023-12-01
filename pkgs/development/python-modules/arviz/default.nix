@@ -77,7 +77,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d);
   '';
 
-  pytestFlagsArray = [ "arviz/tests/base_tests/" ];
+  pytestFlagsArray = ["arviz/tests/base_tests/"];
 
   disabledTestPaths =
     [
@@ -96,12 +96,12 @@ buildPythonPackage rec {
     "test_plot_pair"
   ];
 
-  pythonImportsCheck = [ "arviz" ];
+  pythonImportsCheck = ["arviz"];
 
   meta = with lib; {
     description = "Library for exploratory analysis of Bayesian models";
     homepage = "https://arviz-devs.github.io/arviz/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ omnipotententity ];
+    maintainers = with maintainers; [omnipotententity];
   };
 }

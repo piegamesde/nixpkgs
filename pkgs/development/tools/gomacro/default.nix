@@ -17,12 +17,12 @@ buildGoModule rec {
   };
 
   vendorSha256 = "1ib4h57drikyy5aq4ms6vc1p29djlpjrh7xd3bgyykr9zmm2w1kx";
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Interactive Go interpreter and debugger with generics and macros";
     homepage = "https://github.com/cosmos72/gomacro";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ shofius ];
+    maintainers = with maintainers; [shofius];
   };
 }

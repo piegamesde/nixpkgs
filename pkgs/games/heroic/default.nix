@@ -24,7 +24,7 @@ mkYarnPackage rec {
   yarnLock = ./yarn.lock;
   yarnNix = ./yarn.nix;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   DISABLE_ESLINT_PLUGIN = "true";
 
@@ -64,14 +64,14 @@ mkYarnPackage rec {
       ln -s "${deps}/flatpak/com.heroicgameslauncher.hgl.png" "$out/share/icons/hicolor/512x512/apps"
     '';
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = with lib; {
     description = "A Native GOG and Epic Games Launcher for Linux, Windows and Mac";
     homepage = "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ aidalgol ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [aidalgol];
+    platforms = ["x86_64-linux"];
     mainProgram = "heroic";
   };
 }

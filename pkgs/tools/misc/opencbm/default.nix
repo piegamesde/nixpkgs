@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "https://spiro.trikaliotis.net/opencbm";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.sander ];
+    maintainers = [maintainers.sander];
   };
 }

@@ -29,14 +29,14 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "overpy" ];
+  pythonImportsCheck = ["overpy"];
 
   meta = with lib; {
     description = "Python Wrapper to access the Overpass API";
     homepage = "https://github.com/DinoTools/python-overpy";
     license = licenses.mit;
-    maintainers = with maintainers; [ firefly-cpp ];
+    maintainers = with maintainers; [firefly-cpp];
   };
 }

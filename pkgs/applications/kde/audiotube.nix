@@ -70,6 +70,6 @@ mkDerivation rec {
       gpl2Only
       gpl3Only
     ];
-    maintainers = with maintainers; [ samueldr ];
+    maintainers = with maintainers; [samueldr];
   };
 }

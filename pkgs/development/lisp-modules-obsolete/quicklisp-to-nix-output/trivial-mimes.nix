@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "trivial-mimes";
   version = "20200715-git";
 
   description = "Tiny library to detect mime types in files.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/trivial-mimes/2020-07-15/trivial-mimes-20200715-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "trivial-mimes";
 
-  asdFilesToKeep = [ "trivial-mimes.asd" ];
+  asdFilesToKeep = ["trivial-mimes.asd"];
   overrides = x: x;
 }
 /* (SYSTEM trivial-mimes DESCRIPTION

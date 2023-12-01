@@ -12,7 +12,7 @@
   gtest,
   capnproto,
   pkg-config,
-  plugins ? [ ],
+  plugins ? [],
 }:
 
 let
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     homepage = "https://rime.im/";
     description = "Rime Input Method Engine, the core library";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ vonfry ];
+    maintainers = with maintainers; [vonfry];
     platforms = platforms.linux;
   };
 }

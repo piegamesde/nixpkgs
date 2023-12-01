@@ -18,8 +18,8 @@ buildPythonPackage rec {
     sha256 = "16zbvjxf71dl4yfbgcr6idyim3mdrfvix1dv8b95p0s9z07372pj";
   };
 
-  nativeCheckInputs = [ nose ];
-  propagatedBuildInputs = [ forbiddenfruit ];
+  nativeCheckInputs = [nose];
+  propagatedBuildInputs = [forbiddenfruit];
 
   meta = with lib; {
     description = "Python Assertion Helpers inspired by Shouldly";

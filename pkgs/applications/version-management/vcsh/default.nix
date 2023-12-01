@@ -22,10 +22,10 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [ git ];
+  buildInputs = [git];
 
   nativeCheckInputs =
-    [ ]
+    []
     ++ (
       with perlPackages; [
         perl

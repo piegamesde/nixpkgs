@@ -26,7 +26,7 @@ stdenv.mkDerivation {
       })
     ];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     strip -s wavegain
@@ -39,6 +39,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/MestreLion/wavegain";
     license = lib.licenses.lgpl21;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.robbinch ];
+    maintainers = [lib.maintainers.robbinch];
   };
 }

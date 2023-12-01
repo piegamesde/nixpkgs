@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       exec = "gitnuro";
       icon = "com.jetpackduba.Gitnuro";
       desktopName = "Gitnuro";
-      categories = [ "Development" ];
+      categories = ["Development"];
       comment = meta.description;
     })
   ];
@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitnuro.jetpackduba.com";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

@@ -70,12 +70,12 @@ buildPythonPackage rec {
     "test_verbosity"
   ];
 
-  passthru.tests.version = testers.testVersion { package = vdirsyncer; };
+  passthru.tests.version = testers.testVersion {package = vdirsyncer;};
 
   meta = with lib; {
     homepage = "https://github.com/pimutils/vdirsyncer";
     description = "Synchronize calendars and contacts";
     license = licenses.mit;
-    maintainers = with maintainers; [ loewenheim ];
+    maintainers = with maintainers; [loewenheim];
   };
 }

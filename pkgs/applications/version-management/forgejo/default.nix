@@ -27,7 +27,7 @@ let
 
     npmDepsHash = "sha256-dB/uBuS0kgaTwsPYnqklT450ejLHcPAqBdDs3JT8Uxg=";
 
-    patches = [ ./package-json-npm-build-frontend.patch ];
+    patches = [./package-json-npm-build-frontend.patch];
 
     # override npmInstallHook
     installPhase = ''
@@ -50,17 +50,17 @@ buildGoModule rec {
 
   vendorHash = "sha256-bnLcHmwOh/fw6ecgsndX2BmVf11hJWllE+f2J8YSzec=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   outputs = [
     "out"
     "data"
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = lib.optional pamSupport pam;
 
-  patches = [ ./../gitea/static-root-path.patch ];
+  patches = [./../gitea/static-root-path.patch];
 
   postPatch = ''
     substituteInPlace modules/setting/setting.go --subst-var data

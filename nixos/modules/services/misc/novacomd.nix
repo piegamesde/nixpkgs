@@ -20,11 +20,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.webos.novacom ];
+    environment.systemPackages = [pkgs.webos.novacom];
 
     systemd.services.novacomd = {
       description = "Novacom WebOS daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = "${pkgs.webos.novacomd}/sbin/novacomd";
@@ -32,5 +32,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ dtzWill ];
+  meta.maintainers = with maintainers; [dtzWill];
 }

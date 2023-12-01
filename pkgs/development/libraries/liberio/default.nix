@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
   ];
 
-  buildInputs = [ systemd ];
+  buildInputs = [systemd];
 
   doCheck = true;
 
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     description = "Ettus Research DMA I/O Library";
     homepage = "https://github.com/EttusResearch/liberio";
     license = licenses.gpl2;
-    maintainers = [ maintainers.doronbehar ];
+    maintainers = [maintainers.doronbehar];
     platforms = platforms.all;
   };
 }

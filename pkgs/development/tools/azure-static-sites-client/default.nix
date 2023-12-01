@@ -33,7 +33,7 @@ stdenv.mkDerivation {
 
   src = sources.${stdenv.targetPlatform.system} or (throw "Unsupported platform");
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
   buildInputs = [
     curl
@@ -85,7 +85,7 @@ stdenv.mkDerivation {
     tests =
       with lib;
       genAttrs (map (x: x.version) versions) (
-        versionFlavor: azure-static-sites-client.override { inherit versionFlavor; }
+        versionFlavor: azure-static-sites-client.override {inherit versionFlavor;}
       );
     updateScript = ./update.sh;
   };
@@ -93,10 +93,10 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Azure static sites client";
     homepage = "https://github.com/Azure/static-web-apps-cli";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     mainProgram = "StaticSitesClient";
-    maintainers = with maintainers; [ veehaitch ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [veehaitch];
+    platforms = ["x86_64-linux"];
   };
 }

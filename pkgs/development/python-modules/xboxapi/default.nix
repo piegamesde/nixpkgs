@@ -17,16 +17,16 @@ buildPythonPackage rec {
     sha256 = "10mhvallkwf5lw91hj5rv16sziqhhjq7sgcgr28sqqnlgjnyazdd";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "xboxapi" ];
+  pythonImportsCheck = ["xboxapi"];
 
   meta = with lib; {
     description = "Python XBOX One API wrapper";
     homepage = "https://github.com/mKeRix/xboxapi-python";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

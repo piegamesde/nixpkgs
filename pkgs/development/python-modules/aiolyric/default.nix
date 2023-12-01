@@ -21,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-yKeG0UCQ8haT1hvywoIwKQ519GK2wFg0wXaRTFeKYIk=";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests =
     [
@@ -31,13 +31,13 @@ buildPythonPackage rec {
       "test_location"
     ];
 
-  pythonImportsCheck = [ "aiolyric" ];
+  pythonImportsCheck = ["aiolyric"];
 
   meta = with lib; {
     description = "Python module for the Honeywell Lyric Platform";
     homepage = "https://github.com/timmo001/aiolyric";
     changelog = "https://github.com/timmo001/aiolyric/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

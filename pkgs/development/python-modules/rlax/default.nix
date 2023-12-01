@@ -39,7 +39,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "rlax" ];
+  pythonImportsCheck = ["rlax"];
 
   disabledTests = [
     # RuntimeErrors
@@ -60,6 +60,6 @@ buildPythonPackage rec {
     description = "Library of reinforcement learning building blocks in JAX";
     homepage = "https://github.com/deepmind/rlax";
     license = licenses.asl20;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

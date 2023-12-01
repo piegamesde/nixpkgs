@@ -10,7 +10,7 @@
   callPackage,
 }:
 
-(callPackage ./common.nix { }).overrideAttrs (
+(callPackage ./common.nix {}).overrideAttrs (
   _: rec {
     version = "0.0.6";
     src = fetchurl {

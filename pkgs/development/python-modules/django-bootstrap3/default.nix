@@ -18,11 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-cJW3xmqJ87rreOoCh5nr15XSlzn8hgJGBCLnwqGUrTA=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  buildInputs = [ django ];
+  buildInputs = [django];
 
-  pythonImportsCheck = [ "bootstrap3" ];
+  pythonImportsCheck = ["bootstrap3"];
 
   nativeCheckInputs = [
     pytest-django
@@ -36,6 +36,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/zostera/django-bootstrap3";
     changelog = "https://github.com/zostera/django-bootstrap3/blob/${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

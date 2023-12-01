@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   };
 
   # needed for aarch64-darwin
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = [
     gfortran
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     homepage = "https://apfel.mi.infn.it/";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

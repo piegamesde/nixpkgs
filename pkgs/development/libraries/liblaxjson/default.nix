@@ -16,13 +16,13 @@ stdenv.mkDerivation rec {
     sha256 = "01iqbpbhnqfifhv82m6hi8190w5sdim4qyrkss7z1zyv3gpchc5s";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "Library for parsing JSON config files";
     homepage = "https://github.com/andrewrk/liblaxjson";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ maintainers.andrewrk ];
+    maintainers = [maintainers.andrewrk];
   };
 }

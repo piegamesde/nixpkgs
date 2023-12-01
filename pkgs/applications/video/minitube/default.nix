@@ -49,7 +49,7 @@ mkDerivation rec {
     mpv
   ];
 
-  qmakeFlags = [ "DEFINES+=APP_GOOGLE_API_KEY=${withAPIKey}" ];
+  qmakeFlags = ["DEFINES+=APP_GOOGLE_API_KEY=${withAPIKey}"];
 
   meta = with lib; {
     description = "Stand-alone YouTube video player";
@@ -61,6 +61,6 @@ mkDerivation rec {
     homepage = "https://flavio.tordini.org/minitube";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

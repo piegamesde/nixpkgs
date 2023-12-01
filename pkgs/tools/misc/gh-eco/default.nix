@@ -27,6 +27,6 @@ buildGoModule rec {
     homepage = "https://github.com/coloradocolby/gh-eco";
     description = "gh extension to explore the ecosystem";
     license = licenses.mit;
-    maintainers = with maintainers; [ helium ];
+    maintainers = with maintainers; [helium];
   };
 }

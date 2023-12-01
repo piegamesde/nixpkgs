@@ -20,7 +20,7 @@ buildDunePackage rec {
     sha256 = "sha256-Xd3fHBN1f+tvgRFCxD/Gz8/lIvezknz7Zy3EtdqoTEM=";
   };
 
-  nativeBuildInputs = [ menhir ];
+  nativeBuildInputs = [menhir];
 
   propagatedBuildInputs = [
     menhirLib
@@ -31,7 +31,7 @@ buildDunePackage rec {
     description = "A TOML parsing and manipulation library for OCaml";
     changelog = "https://github.com/dmbaturin/otoml/raw/${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     inherit (src.meta) homepage;
   };
 }

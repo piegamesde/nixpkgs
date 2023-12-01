@@ -125,7 +125,7 @@ stdenv.mkDerivation rec {
         "Chat"
       ];
       startupWMClass = "schildichat";
-      mimeTypes = [ "x-scheme-handler/element" ];
+      mimeTypes = ["x-scheme-handler/element"];
     })
   ];
 

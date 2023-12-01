@@ -10,7 +10,7 @@ with lib;
 
 let
   cfg = config.services.netbox;
-  pythonFmt = pkgs.formats.pythonVars { };
+  pythonFmt = pkgs.formats.pythonVars {};
   staticDir = cfg.dataDir + "/static";
 
   settingsFile = pythonFmt.generate "netbox-settings.py" cfg.settings;
@@ -36,7 +36,7 @@ let
           '';
       }
     )).override
-      { inherit (cfg) plugins; };
+      {inherit (cfg) plugins;};
   netboxManageScript =
     with pkgs;
     (writeScriptBin "netbox-manage" ''
@@ -64,7 +64,7 @@ in
         See the [documentation](https://docs.netbox.dev/en/stable/configuration/) for more possible options.
       '';
 
-      default = { };
+      default = {};
 
       type = lib.types.submodule {
         freeformType = pythonFmt.type;
@@ -72,7 +72,7 @@ in
         options = {
           ALLOWED_HOSTS = lib.mkOption {
             type = with lib.types; listOf str;
-            default = [ "*" ];
+            default = ["*"];
             description = lib.mdDoc ''
               A list of valid fully-qualified domain names (FQDNs) and/or IP
               addresses that can be used to reach the NetBox service.
@@ -112,7 +112,7 @@ in
 
     plugins = mkOption {
       type = types.functionTo (types.listOf types.package);
-      default = _: [ ];
+      default = _: [];
       defaultText = literalExpression ''
         python3Packages: with python3Packages; [];
       '';
@@ -192,7 +192,7 @@ in
 
   config = mkIf cfg.enable {
     services.netbox = {
-      plugins = mkIf cfg.enableLdap (ps: [ ps.django-auth-ldap ]);
+      plugins = mkIf cfg.enableLdap (ps: [ps.django-auth-ldap]);
       settings = {
         STATIC_ROOT = staticDir;
         MEDIA_ROOT = "${cfg.dataDir}/media";
@@ -236,7 +236,7 @@ in
           # log to console/systemd instead of file
           root = {
             level = "INFO";
-            handlers = [ "console" ];
+            handlers = ["console"];
           };
         };
       };
@@ -251,7 +251,7 @@ in
 
     services.postgresql = {
       enable = true;
-      ensureDatabases = [ "netbox" ];
+      ensureDatabases = ["netbox"];
       ensureUsers = [
         {
           name = "netbox";
@@ -262,11 +262,11 @@ in
       ];
     };
 
-    environment.systemPackages = [ netboxManageScript ];
+    environment.systemPackages = [netboxManageScript];
 
     systemd.targets.netbox = {
       description = "Target for all NetBox services";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network-online.target"
         "redis-netbox.service"
@@ -287,7 +287,7 @@ in
       {
         netbox-migration = {
           description = "NetBox migrations";
-          wantedBy = [ "netbox.target" ];
+          wantedBy = ["netbox.target"];
 
           environment = {
             PYTHONPATH = pkg.pythonPath;
@@ -303,8 +303,8 @@ in
 
         netbox = {
           description = "NetBox WSGI Service";
-          wantedBy = [ "netbox.target" ];
-          after = [ "netbox-migration.service" ];
+          wantedBy = ["netbox.target"];
+          after = ["netbox-migration.service"];
 
           preStart = ''
             ${pkg}/bin/netbox trace_paths --no-input
@@ -327,8 +327,8 @@ in
 
         netbox-rq = {
           description = "NetBox Request Queue Worker";
-          wantedBy = [ "netbox.target" ];
-          after = [ "netbox.service" ];
+          wantedBy = ["netbox.target"];
+          after = ["netbox.service"];
 
           environment = {
             PYTHONPATH = pkg.pythonPath;
@@ -343,7 +343,7 @@ in
 
         netbox-housekeeping = {
           description = "NetBox housekeeping job";
-          after = [ "netbox.service" ];
+          after = ["netbox.service"];
 
           environment = {
             PYTHONPATH = pkg.pythonPath;
@@ -360,7 +360,7 @@ in
 
     systemd.timers.netbox-housekeeping = {
       description = "Run NetBox housekeeping job";
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
 
       timerConfig = {
         OnCalendar = "daily";
@@ -372,7 +372,7 @@ in
       isSystemUser = true;
       group = "netbox";
     };
-    users.groups.netbox = { };
-    users.groups."${config.services.redis.servers.netbox.user}".members = [ "netbox" ];
+    users.groups.netbox = {};
+    users.groups."${config.services.redis.servers.netbox.user}".members = ["netbox"];
   };
 }

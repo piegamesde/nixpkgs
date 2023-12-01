@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     autoconf-archive
   ];
 
-  buildInputs = [ fontforge ];
+  buildInputs = [fontforge];
 
   meta = with lib; {
     description = "A collection of Thai scalable fonts available under free licenses";
@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
       lppl13c
       free
     ];
-    maintainers = [ maintainers.yrashk ];
+    maintainers = [maintainers.yrashk];
   };
 }

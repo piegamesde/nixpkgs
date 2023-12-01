@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "16isapn8f39lnffc3dp4dan05b7x6mnc76v6q5nn8ysxvvvwy19b";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   # GNU Gettext is needed on non-GNU platforms.
   buildInputs = [
@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.gnu.org/software/sharutils/";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

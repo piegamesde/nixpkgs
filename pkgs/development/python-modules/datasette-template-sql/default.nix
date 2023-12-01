@@ -21,17 +21,17 @@ buildPythonPackage rec {
     hash = "sha256-VmdIEDk3iCBFrTPMm6ud00Z5CWqO0Wk707IQ4oVx5ak=";
   };
 
-  propagatedBuildInputs = [ datasette ];
+  propagatedBuildInputs = [datasette];
 
   # Tests require a running datasette instance
   doCheck = false;
 
-  pythonImportsCheck = [ "datasette_template_sql" ];
+  pythonImportsCheck = ["datasette_template_sql"];
 
   meta = with lib; {
     description = "Datasette plugin for executing SQL queries from templates";
     homepage = "https://datasette.io/plugins/datasette-template-sql";
     license = licenses.asl20;
-    maintainers = with maintainers; [ MostAwesomeDude ];
+    maintainers = with maintainers; [MostAwesomeDude];
   };
 }

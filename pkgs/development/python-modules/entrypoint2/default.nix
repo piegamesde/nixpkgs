@@ -26,12 +26,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "entrypoint2" ];
+  pythonImportsCheck = ["entrypoint2"];
 
   meta = with lib; {
     description = "Easy to use command-line interface for python modules";
     homepage = "https://github.com/ponty/entrypoint2/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ austinbutler ];
+    maintainers = with maintainers; [austinbutler];
   };
 }

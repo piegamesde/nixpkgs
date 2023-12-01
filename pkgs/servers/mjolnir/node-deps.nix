@@ -7,7 +7,7 @@
   nix-gitignore,
   stdenv,
   lib,
-  globalBuildInputs ? [ ],
+  globalBuildInputs ? [],
 }:
 
 let
@@ -3904,7 +3904,7 @@ let
       sources."abab-2.0.6"
       sources."accepts-1.3.8"
       sources."acorn-8.7.1"
-      (sources."acorn-globals-6.0.0" // { dependencies = [ sources."acorn-7.4.1" ]; })
+      (sources."acorn-globals-6.0.0" // {dependencies = [sources."acorn-7.4.1"];})
       sources."acorn-jsx-5.3.2"
       sources."acorn-walk-7.2.0"
       (
@@ -3931,7 +3931,7 @@ let
       sources."aws-sign2-0.7.0"
       sources."aws4-1.11.0"
       sources."balanced-match-1.0.2"
-      (sources."basic-auth-2.0.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
+      (sources."basic-auth-2.0.1" // {dependencies = [sources."safe-buffer-5.1.2"];})
       sources."bcrypt-pbkdf-1.0.2"
       sources."binary-extensions-2.2.0"
       sources."bluebird-3.7.2"
@@ -3965,7 +3965,7 @@ let
       sources."cross-spawn-7.0.3"
       sources."crypto-js-4.1.1"
       sources."cssom-0.4.4"
-      (sources."cssstyle-2.3.0" // { dependencies = [ sources."cssom-0.3.8" ]; })
+      (sources."cssstyle-2.3.0" // {dependencies = [sources."cssom-0.3.8"];})
       sources."dashdash-1.14.1"
       sources."data-urls-2.0.0"
       sources."debug-2.6.9"
@@ -3982,7 +3982,7 @@ let
       sources."doctrine-3.0.0"
       sources."dom-serializer-1.4.1"
       sources."domelementtype-2.3.0"
-      (sources."domexception-2.0.1" // { dependencies = [ sources."webidl-conversions-5.0.0" ]; })
+      (sources."domexception-2.0.1" // {dependencies = [sources."webidl-conversions-5.0.0"];})
       sources."domhandler-4.3.1"
       sources."domutils-2.8.0"
       sources."ecc-jsbn-0.1.2"
@@ -4020,8 +4020,8 @@ let
           ];
         }
       )
-      (sources."eslint-scope-5.1.1" // { dependencies = [ sources."estraverse-4.3.0" ]; })
-      (sources."eslint-utils-2.1.0" // { dependencies = [ sources."eslint-visitor-keys-1.3.0" ]; })
+      (sources."eslint-scope-5.1.1" // {dependencies = [sources."estraverse-4.3.0"];})
+      (sources."eslint-utils-2.1.0" // {dependencies = [sources."eslint-visitor-keys-1.3.0"];})
       sources."eslint-visitor-keys-2.1.0"
       (
         sources."espree-7.3.1"
@@ -4126,7 +4126,7 @@ let
       sources."jest-diff-27.5.1"
       sources."jest-get-type-27.5.1"
       sources."jest-matcher-utils-27.5.1"
-      (sources."jest-message-util-27.5.1" // { dependencies = [ sources."@babel/code-frame-7.18.6" ]; })
+      (sources."jest-message-util-27.5.1" // {dependencies = [sources."@babel/code-frame-7.18.6"];})
       sources."js-tokens-4.0.0"
       sources."js-yaml-4.1.0"
       sources."jsbn-0.1.1"
@@ -4172,8 +4172,8 @@ let
         // {
           dependencies = [
             sources."ansi-colors-4.1.1"
-            (sources."debug-4.3.3" // { dependencies = [ sources."ms-2.1.2" ]; })
-            (sources."glob-7.2.0" // { dependencies = [ sources."minimatch-3.1.2" ]; })
+            (sources."debug-4.3.3" // {dependencies = [sources."ms-2.1.2"];})
+            (sources."glob-7.2.0" // {dependencies = [sources."minimatch-3.1.2"];})
             sources."minimatch-4.2.1"
             sources."ms-2.1.3"
             sources."nanoid-3.3.1"
@@ -4182,7 +4182,7 @@ let
         }
       )
       sources."moo-0.5.1"
-      (sources."morgan-1.10.0" // { dependencies = [ sources."on-finished-2.3.0" ]; })
+      (sources."morgan-1.10.0" // {dependencies = [sources."on-finished-2.3.0"];})
       sources."ms-2.0.0"
       sources."nanoid-3.3.4"
       sources."natural-compare-1.4.0"
@@ -4215,7 +4215,7 @@ let
       sources."pify-3.0.0"
       sources."postcss-8.4.14"
       sources."prelude-ls-1.1.2"
-      (sources."pretty-format-27.5.1" // { dependencies = [ sources."ansi-styles-5.2.0" ]; })
+      (sources."pretty-format-27.5.1" // {dependencies = [sources."ansi-styles-5.2.0"];})
       sources."progress-2.0.3"
       sources."proxy-addr-2.0.7"
       sources."pseudomap-1.0.2"
@@ -4240,7 +4240,7 @@ let
           ];
         }
       )
-      (sources."request-promise-4.2.6" // { dependencies = [ sources."tough-cookie-2.5.0" ]; })
+      (sources."request-promise-4.2.6" // {dependencies = [sources."tough-cookie-2.5.0"];})
       sources."request-promise-core-1.1.4"
       sources."require-directory-2.1.1"
       sources."require-from-string-2.0.2"
@@ -4254,7 +4254,7 @@ let
       sources."saxes-5.0.1"
       sources."selderee-0.6.0"
       sources."semver-7.3.7"
-      (sources."send-0.18.0" // { dependencies = [ sources."ms-2.1.3" ]; })
+      (sources."send-0.18.0" // {dependencies = [sources."ms-2.1.3"];})
       sources."serialize-javascript-6.0.0"
       sources."serve-static-1.15.0"
       sources."setprototypeof-1.2.0"
@@ -4270,7 +4270,7 @@ let
       sources."source-map-support-0.5.21"
       sources."sprintf-js-1.0.3"
       sources."sshpk-1.17.0"
-      (sources."stack-utils-2.0.5" // { dependencies = [ sources."escape-string-regexp-2.0.0" ]; })
+      (sources."stack-utils-2.0.5" // {dependencies = [sources."escape-string-regexp-2.0.0"];})
       sources."statuses-2.0.1"
       sources."stealthy-require-1.1.1"
       sources."steno-0.4.4"
@@ -4305,7 +4305,7 @@ let
           ];
         }
       )
-      (sources."tsconfig-paths-3.14.1" // { dependencies = [ sources."json5-1.0.1" ]; })
+      (sources."tsconfig-paths-3.14.1" // {dependencies = [sources."json5-1.0.1"];})
       sources."tslib-1.14.1"
       (
         sources."tslint-6.1.3"

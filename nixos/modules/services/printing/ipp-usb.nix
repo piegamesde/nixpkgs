@@ -19,9 +19,9 @@
         "cups.service"
         "avahi-daemon.service"
       ];
-      wants = [ "avahi-daemon.service" ];
+      wants = ["avahi-daemon.service"];
       serviceConfig = {
-        ExecStart = [ "${pkgs.ipp-usb}/bin/ipp-usb" ];
+        ExecStart = ["${pkgs.ipp-usb}/bin/ipp-usb"];
         Type = "simple";
         Restart = "on-failure";
         StateDirectory = "ipp-usb";
@@ -60,7 +60,7 @@
     };
 
     # starts the systemd service
-    services.udev.packages = [ pkgs.ipp-usb ];
+    services.udev.packages = [pkgs.ipp-usb];
     services.avahi = {
       enable = true;
       publish = {
@@ -72,6 +72,6 @@
     services.printing.enable = lib.mkDefault true;
     hardware.sane.enable = lib.mkDefault true;
     # so that sane discovers scanners
-    hardware.sane.extraBackends = [ pkgs.sane-airscan ];
+    hardware.sane.extraBackends = [pkgs.sane-airscan];
   };
 }

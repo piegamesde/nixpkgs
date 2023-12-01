@@ -25,7 +25,7 @@ buildPythonPackage rec {
     azure-mgmt-datalake-nspkg
   ];
 
-  pythonNamespaces = [ "azure.mgmt.datalake" ];
+  pythonNamespaces = ["azure.mgmt.datalake"];
 
   # has no tests
   doCheck = false;

@@ -15,12 +15,12 @@ stdenv.mkDerivation rec {
     rev = "releases/${version}";
   };
 
-  configureFlags = [ "--with-openmp-flag=-fopenmp" ];
+  configureFlags = ["--with-openmp-flag=-fopenmp"];
 
   meta = with lib; {
     description = "Automatic Differentiation of C/C++";
     homepage = "https://github.com/coin-or/ADOL-C";
-    maintainers = [ maintainers.bzizou ];
+    maintainers = [maintainers.bzizou];
     license = licenses.gpl2Plus;
   };
 }

@@ -48,7 +48,7 @@ buildPythonPackage rec {
       --replace 'numpy = "^1.22"' 'numpy = "*"'
   '';
 
-  pythonImportsCheck = [ "timezonefinder" ];
+  pythonImportsCheck = ["timezonefinder"];
 
   preCheck = ''
     # Some tests need the CLI on the PATH
@@ -60,6 +60,6 @@ buildPythonPackage rec {
     description = "Module for finding the timezone of any point on earth (coordinates) offline";
     homepage = "https://github.com/MrMinimal64/timezonefinder";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

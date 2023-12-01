@@ -19,7 +19,7 @@ buildDunePackage rec {
   minimumOCamlVersion = "4.07";
   useDune2 = true;
 
-  buildInputs = [ stdlib-shims ];
+  buildInputs = [stdlib-shims];
 
   doCheck = true;
 
@@ -27,7 +27,7 @@ buildDunePackage rec {
     description = "Parser combinators based on Earley Algorithm";
     homepage = "https://github.com/rlepigre/ocaml-earley";
     license = lib.licenses.cecill-b;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     mainProgram = "pa_ocaml";
   };
 }

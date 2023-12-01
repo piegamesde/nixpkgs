@@ -17,14 +17,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-w8gHCqOfmZg4JZgg1nZBtTJ553Rbp0a0JsoQVDFjehM=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  ldflags = [ "-X main.Version=${version}" ];
+  ldflags = ["-X main.Version=${version}"];
 
   meta = with lib; {
     description = "A Vault CLI";
     homepage = "https://github.com/starkandwayne/safe";
     license = licenses.mit;
-    maintainers = with maintainers; [ eonpatapon ];
+    maintainers = with maintainers; [eonpatapon];
   };
 }

@@ -33,12 +33,12 @@ stdenv.mkDerivation rec {
     lz4
   ];
 
-  configureFlags = [ "--enable-fuse" ];
+  configureFlags = ["--enable-fuse"];
 
   meta = with lib; {
     description = "Userspace utilities for linux-erofs file system";
-    license = with licenses; [ gpl2 ];
-    maintainers = with maintainers; [ ehmry ];
+    license = with licenses; [gpl2];
+    maintainers = with maintainers; [ehmry];
     platforms = platforms.linux;
   };
 }

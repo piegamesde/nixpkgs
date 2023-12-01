@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
     description = "A simple and elegant cross-platform IRC client";
     homepage = "https://github.com/communi/communi-desktop";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ hrdinka ];
+    maintainers = with maintainers; [hrdinka];
     platforms = platforms.all;
   };
 }

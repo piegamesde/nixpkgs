@@ -104,6 +104,6 @@ mkDerivation rec {
     homepage = "https://amarok.kde.org";
     description = "A powerful music player with an intuitive interface";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

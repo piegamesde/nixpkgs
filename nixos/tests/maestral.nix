@@ -1,8 +1,8 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "maestral";
-    meta = with pkgs.lib.maintainers; { maintainers = [ peterhoeg ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [peterhoeg];};
 
     nodes =
       let
@@ -10,7 +10,7 @@ import ./make-test-python.nix (
           attrs:
           pkgs.lib.recursiveUpdate
             {
-              imports = [ ./common/user-account.nix ];
+              imports = [./common/user-account.nix];
               systemd.user.services.maestral = {
                 description = "Maestral Dropbox Client";
                 serviceConfig.Type = "exec";
@@ -20,16 +20,16 @@ import ./make-test-python.nix (
       in
       {
         cli =
-          { ... }:
+          {...}:
           common {
             systemd.user.services.maestral = {
-              wantedBy = [ "default.target" ];
+              wantedBy = ["default.target"];
               serviceConfig.ExecStart = "${pkgs.maestral}/bin/maestral start --foreground";
             };
           };
 
         gui =
-          { ... }:
+          {...}:
           common {
             services.xserver = {
               enable = true;
@@ -45,7 +45,7 @@ import ./make-test-python.nix (
 
             systemd.user.services = {
               maestral = {
-                wantedBy = [ "graphical-session.target" ];
+                wantedBy = ["graphical-session.target"];
                 serviceConfig.ExecStart = "${pkgs.maestral-gui}/bin/maestral_qt";
               };
               # PowerDevil doesn't like our VM
@@ -55,7 +55,7 @@ import ./make-test-python.nix (
       };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         user = nodes.cli.config.users.users.alice;
       in

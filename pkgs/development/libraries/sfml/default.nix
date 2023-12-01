@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs =
     [
       freetype
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
       It is written in C++, and has bindings for various languages such as C, .Net, Ruby, Python.
     '';
     license = licenses.zlib;
-    maintainers = [ maintainers.astsmtl ];
+    maintainers = [maintainers.astsmtl];
     platforms = platforms.unix;
   };
 }

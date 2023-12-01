@@ -1,4 +1,4 @@
-{ lib, python3 }:
+{lib, python3}:
 
 let
   python = python3.override {
@@ -53,7 +53,7 @@ python.pkgs.buildPythonApplication rec {
     description = "Open source self-hosted web archiving";
     homepage = "https://archivebox.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.unix;
   };
 }

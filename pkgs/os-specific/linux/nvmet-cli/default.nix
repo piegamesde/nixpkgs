@@ -13,9 +13,9 @@ python3Packages.buildPythonApplication rec {
     sha256 = "051y1b9w46azy35118154c353v3mhjkdzh6h59brdgn5054hayj2";
   };
 
-  buildInputs = with python3Packages; [ nose2 ];
+  buildInputs = with python3Packages; [nose2];
 
-  propagatedBuildInputs = with python3Packages; [ configshell ];
+  propagatedBuildInputs = with python3Packages; [configshell];
 
   # This package requires the `nvmet` kernel module to be loaded for tests.
   doCheck = false;
@@ -24,6 +24,6 @@ python3Packages.buildPythonApplication rec {
     description = "NVMe target CLI";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ hoverbear ];
+    maintainers = with maintainers; [hoverbear];
   };
 }

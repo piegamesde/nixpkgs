@@ -53,12 +53,12 @@ stdenv.mkDerivation rec {
     gtk4
     gtksourceview5
     libadwaita
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Foundation ];
+  ] ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.Foundation];
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/World/design/icon-library";
     description = "Symbolic icons for your apps";
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
   };

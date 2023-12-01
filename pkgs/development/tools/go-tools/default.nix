@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-o9UtS6AMgRYuAkOWdktG2Kr3QDBDQTOGSlya69K2br8=";
 
-  excludedPackages = [ "website" ];
+  excludedPackages = ["website"];
 
   doCheck = false;
 

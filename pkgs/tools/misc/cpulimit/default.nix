@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     description = "CPU usage limiter";
     platforms = platforms.unix;
     license = licenses.gpl2;
-    maintainers = [ maintainers.jsoo1 ];
+    maintainers = [maintainers.jsoo1];
   };
 }

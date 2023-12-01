@@ -19,8 +19,8 @@ buildGoPackage rec {
     sha256 = "sha256-MboNj0zC3azavDUsmeNNafCcUa0GeoySl610+WOtNww=";
   };
 
-  nativeBuildInputs = [ glib ];
-  buildInputs = [ go-lib ];
+  nativeBuildInputs = [glib];
+  buildInputs = [go-lib];
 
   postPatch = ''
     # Relocate files path for backgrounds and wallpapers

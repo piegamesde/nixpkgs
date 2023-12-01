@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   ];
 
   # waf bin has #!/usr/bin/env python
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   configurePhase = ''
     python waf-light configure
@@ -48,6 +48,6 @@ stdenv.mkDerivation rec {
     homepage = "https://waf.io";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ vrthra ];
+    maintainers = with maintainers; [vrthra];
   };
 }

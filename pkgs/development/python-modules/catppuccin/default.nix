@@ -15,14 +15,14 @@ buildPythonPackage rec {
     hash = "sha256-mHNuV3yIuFL2cixDOr+//+/b9iD2fN82cfLzZkegxKc=";
   };
 
-  propagatedBuildInputs = [ pygments ];
+  propagatedBuildInputs = [pygments];
 
-  pythonImportsCheck = [ "catppuccin" ];
+  pythonImportsCheck = ["catppuccin"];
 
   meta = with lib; {
     description = "Soothing pastel theme for Python";
     homepage = "https://github.com/catppuccin/python";
-    maintainers = with maintainers; [ fufexan ];
+    maintainers = with maintainers; [fufexan];
     license = licenses.mit;
   };
 }

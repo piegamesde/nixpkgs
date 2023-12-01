@@ -62,7 +62,7 @@ python3Packages.buildPythonApplication rec {
       ]
     )
     # Run-time GTK dependency required by the Tray module
-    ++ [ libdbusmenu-gtk3 ];
+    ++ [libdbusmenu-gtk3];
 
   postInstall = ''
     mkdir -p $out/share/{applications,pixmaps}
@@ -93,6 +93,6 @@ python3Packages.buildPythonApplication rec {
     description = "GTK3-based panel for Sway window manager";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

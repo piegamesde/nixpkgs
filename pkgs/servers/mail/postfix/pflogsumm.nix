@@ -17,7 +17,7 @@ perlPackages.buildPerlPackage rec {
     "out"
     "man"
   ];
-  buildInputs = [ perlPackages.DateCalc ];
+  buildInputs = [perlPackages.DateCalc];
 
   preConfigure = ''
     touch Makefile.PL
@@ -34,7 +34,7 @@ perlPackages.buildPerlPackage rec {
 
   meta = {
     homepage = "http://jimsun.linxnet.com/postfix_contrib.html";
-    maintainers = with lib.maintainers; [ schneefux ];
+    maintainers = with lib.maintainers; [schneefux];
     description = "Postfix activity overview";
     license = lib.licenses.gpl2Plus;
   };

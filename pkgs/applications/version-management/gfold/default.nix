@@ -42,7 +42,7 @@ rustPlatform.buildRustPackage {
     description = "CLI tool to help keep track of your Git repositories, written in Rust";
     homepage = "https://github.com/nickgerace/gfold";
     license = licenses.asl20;
-    maintainers = [ maintainers.shanesveller ];
+    maintainers = [maintainers.shanesveller];
     platforms = platforms.unix;
   };
 }

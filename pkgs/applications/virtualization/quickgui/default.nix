@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     dpkg
   ];
 
-  buildInputs = [ wrapGAppsHook ];
+  buildInputs = [wrapGAppsHook];
 
   unpackCmd = "dpkg-deb -x $curSrc source";
 
@@ -39,9 +39,9 @@ stdenv.mkDerivation rec {
     description = "A Flutter frontend for quickemu";
     homepage = "https://github.com/quickemu-project/quickgui";
     changelog = "https://github.com/quickemu-project/quickgui/releases/tag/v${version}";
-    maintainers = [ lib.maintainers.heyimnova ];
+    maintainers = [lib.maintainers.heyimnova];
     platforms = lib.platforms.linux;
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     mainProgram = "quickgui";
   };
 }

@@ -81,18 +81,18 @@ stdenv.mkDerivation rec {
     ( set +o pipefail; yes "" | make oldconfig )
   '';
 
-  hardeningDisable = [ "stackprotector" ];
+  hardeningDisable = ["stackprotector"];
 
   # Cross stripping hurts.
   dontStrip = isCross;
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   makeFlags = [
     "ARCH=${stdenv.hostPlatform.linuxArch}"
     "TARGET_ARCH=${stdenv.hostPlatform.linuxArch}"
     "VERBOSE=1"
-  ] ++ lib.optionals (isCross) [ "CROSS=${stdenv.cc.targetPrefix}" ];
+  ] ++ lib.optionals (isCross) ["CROSS=${stdenv.cc.targetPrefix}"];
 
   # `make libpthread/nptl/sysdeps/unix/sysv/linux/lowlevelrwlock.h`:
   # error: bits/sysnum.h: No such file or directory

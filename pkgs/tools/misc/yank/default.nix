@@ -16,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-sZiZki2Zl0Tfmls5KrLGxT94Bdf9TA9EwoaLoFOX9B4=";
   };
 
-  installFlags = [ "PREFIX=$(out)" ];
-  makeFlags = [ "YANKCMD=${xsel}/bin/xsel" ];
+  installFlags = ["PREFIX=$(out)"];
+  makeFlags = ["YANKCMD=${xsel}/bin/xsel"];
 
   meta = with lib; {
     homepage = "https://github.com/mptre/yank";
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     '';
     downloadPage = "https://github.com/mptre/yank/releases";
     license = licenses.mit;
-    maintainers = [ maintainers.dochang ];
+    maintainers = [maintainers.dochang];
     platforms = platforms.unix;
   };
 }

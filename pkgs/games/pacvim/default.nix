@@ -26,13 +26,13 @@ stdenv.mkDerivation {
       })
     ];
 
-  buildInputs = [ ncurses ];
-  makeFlags = [ "PREFIX=$(out)" ];
+  buildInputs = [ncurses];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     homepage = "https://github.com/jmoon018/PacVim";
     description = "A game that teaches you vim commands";
-    maintainers = with maintainers; [ infinisil ];
+    maintainers = with maintainers; [infinisil];
     license = licenses.lgpl3;
     platforms = platforms.unix;
   };

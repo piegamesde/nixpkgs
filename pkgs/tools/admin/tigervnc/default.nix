@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     "-DCMAKE_INSTALL_LIBEXECDIR=${placeholder "out"}/bin"
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=array-bounds" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-error=array-bounds"];
 
   postBuild =
     lib.optionalString stdenv.isLinux ''
@@ -187,7 +187,7 @@ stdenv.mkDerivation rec {
     homepage = "https://tigervnc.org/";
     license = lib.licenses.gpl2Plus;
     description = "Fork of tightVNC, made in cooperation with VirtualGL";
-    maintainers = with lib.maintainers; [ viric ];
+    maintainers = with lib.maintainers; [viric];
     platforms = lib.platforms.unix;
     # Prevent a store collision.
     priority = 4;

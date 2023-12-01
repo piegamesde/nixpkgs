@@ -34,6 +34,6 @@ buildDunePackage rec {
     description = "A high-level and functional interface to the Format module of the OCaml standard library";
     homepage = "https://github.com/ocaml-community/easy-format";
     license = licenses.bsd3;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
   };
 }

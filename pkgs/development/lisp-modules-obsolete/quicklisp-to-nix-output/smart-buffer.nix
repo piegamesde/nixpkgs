@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "smart-buffer";
   version = "20211020-git";
@@ -20,7 +20,7 @@ rec {
 
   packageName = "smart-buffer";
 
-  asdFilesToKeep = [ "smart-buffer.asd" ];
+  asdFilesToKeep = ["smart-buffer.asd"];
   overrides = x: x;
 }
 /* (SYSTEM smart-buffer DESCRIPTION Smart octets buffer SHA256

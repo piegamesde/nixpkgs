@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-2lgWybEPi6HEUMYuGDRWMjWoc94CrFHPP5IeKUjj0q4=";
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
 
   useNextest = true;
 
@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/brettcannon/python-launcher";
     changelog = "https://github.com/brettcannon/python-launcher/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "py";
   };
 }

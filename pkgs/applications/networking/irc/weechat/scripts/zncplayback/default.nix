@@ -21,12 +21,12 @@ stdenv.mkDerivation {
   '';
 
   passthru = {
-    scripts = [ "zncplayback.py" ];
+    scripts = ["zncplayback.py"];
   };
 
   meta = with lib; {
     description = "Add support for the ZNC Playback module";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
   };
 }

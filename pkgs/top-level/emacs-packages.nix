@@ -31,7 +31,7 @@
 let
 
   mkElpaPackages =
-    { pkgs, lib }:
+    {pkgs, lib}:
     import ../applications/editors/emacs/elisp-packages/elpa-packages.nix {
       inherit (pkgs)
         stdenv
@@ -45,7 +45,7 @@ let
     };
 
   mkNongnuPackages =
-    { pkgs, lib }:
+    {pkgs, lib}:
     import ../applications/editors/emacs/elisp-packages/nongnu-packages.nix {
       inherit (pkgs) buildPackages;
       inherit lib;
@@ -53,15 +53,15 @@ let
 
   # Contains both melpa stable & unstable
   melpaGeneric =
-    { pkgs, lib }:
-    import ../applications/editors/emacs/elisp-packages/melpa-packages.nix { inherit lib pkgs; };
+    {pkgs, lib}:
+    import ../applications/editors/emacs/elisp-packages/melpa-packages.nix {inherit lib pkgs;};
 
   mkManualPackages =
-    { pkgs, lib }:
-    import ../applications/editors/emacs/elisp-packages/manual-packages.nix { inherit lib pkgs; };
+    {pkgs, lib}:
+    import ../applications/editors/emacs/elisp-packages/manual-packages.nix {inherit lib pkgs;};
 
   emacsWithPackages =
-    { pkgs, lib }:
+    {pkgs, lib}:
     import ../build-support/emacs/wrapper.nix {
       inherit (pkgs) makeWrapper runCommand gcc;
       inherit (pkgs.xorg) lndir;
@@ -75,14 +75,14 @@ makeScope pkgs'.newScope (
       {
         pkgs ? pkgs',
         lib ? pkgs.lib,
-        elpaPackages ? mkElpaPackages { inherit pkgs lib; } self,
-        nongnuPackages ? mkNongnuPackages { inherit pkgs lib; } self,
-        melpaStablePackages ? melpaGeneric { inherit pkgs lib; } "stable" self,
-        melpaPackages ? melpaGeneric { inherit pkgs lib; } "unstable" self,
-        manualPackages ? mkManualPackages { inherit pkgs lib; } self,
+        elpaPackages ? mkElpaPackages {inherit pkgs lib;} self,
+        nongnuPackages ? mkNongnuPackages {inherit pkgs lib;} self,
+        melpaStablePackages ? melpaGeneric {inherit pkgs lib;} "stable" self,
+        melpaPackages ? melpaGeneric {inherit pkgs lib;} "unstable" self,
+        manualPackages ? mkManualPackages {inherit pkgs lib;} self,
       }:
       (
-        { }
+        {}
         // elpaPackages
         // {
           inherit elpaPackages;
@@ -108,18 +108,18 @@ makeScope pkgs'.newScope (
           # Propagate overridden scope
           emacs = emacs'.overrideAttrs (
             old: {
-              passthru = (old.passthru or { }) // {
+              passthru = (old.passthru or {}) // {
                 pkgs = dontRecurseIntoAttrs self;
               };
             }
           );
 
-          trivialBuild = pkgs.callPackage ../build-support/emacs/trivial.nix { inherit (self) emacs; };
+          trivialBuild = pkgs.callPackage ../build-support/emacs/trivial.nix {inherit (self) emacs;};
 
-          melpaBuild = pkgs.callPackage ../build-support/emacs/melpa.nix { inherit (self) emacs; };
+          melpaBuild = pkgs.callPackage ../build-support/emacs/melpa.nix {inherit (self) emacs;};
 
-          emacsWithPackages = emacsWithPackages { inherit pkgs lib; } self;
-          withPackages = emacsWithPackages { inherit pkgs lib; } self;
+          emacsWithPackages = emacsWithPackages {inherit pkgs lib;} self;
+          withPackages = emacsWithPackages {inherit pkgs lib;} self;
         }
         // {
 
@@ -131,5 +131,5 @@ makeScope pkgs'.newScope (
         }
       )
     )
-    { }
+    {}
 )

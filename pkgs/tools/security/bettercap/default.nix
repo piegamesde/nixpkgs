@@ -25,7 +25,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       libpcap
@@ -44,7 +44,7 @@ buildGoModule rec {
       in realtime, sniff for credentials and much more.
     '';
     homepage = "https://www.bettercap.org/";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ y0no ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [y0no];
   };
 }

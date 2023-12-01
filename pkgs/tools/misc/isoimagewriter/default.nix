@@ -42,6 +42,6 @@ mkDerivation rec {
     homepage = "https://invent.kde.org/utilities/isoimagewriter";
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ k900 ];
+    maintainers = with lib.maintainers; [k900];
   };
 }

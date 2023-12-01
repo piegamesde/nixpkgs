@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "A multiplayer space combat game (client part)";
     homepage = "http://bloodspilot.sf.net/";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.linux;
   };
 }

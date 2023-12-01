@@ -21,6 +21,6 @@ rustPlatform.buildRustPackage rec {
     description = "Append lines from stdin to a file if they don't already exist in the file";
     homepage = "https://github.com/ysf/anewer";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

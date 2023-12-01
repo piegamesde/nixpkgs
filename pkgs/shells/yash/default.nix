@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     homepage = "https://yash.osdn.jp/index.html.en";
     description = "Yet another POSIX-compliant shell";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ qbit ];
+    maintainers = with maintainers; [qbit];
     platforms = platforms.all;
   };
 

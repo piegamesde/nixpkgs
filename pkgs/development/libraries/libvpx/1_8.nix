@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
   ];
   setOutputFlags = false;
 
-  configurePlatforms = [ ];
+  configurePlatforms = [];
   configureFlags =
     [
       (enableFeature (vp8EncoderSupport || vp8DecoderSupport) "vp8")
@@ -200,7 +200,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ ]
+    []
     ++ optionals unitTestsSupport [
       coreutils
       curl
@@ -218,7 +218,7 @@ stdenv.mkDerivation rec {
     description = "WebM VP8/VP9 codec SDK";
     homepage = "https://www.webmproject.org/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ codyopel ];
+    maintainers = with maintainers; [codyopel];
     platforms = platforms.all;
   };
 }

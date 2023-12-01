@@ -31,6 +31,6 @@ buildPythonPackage rec {
     description = "Generates unicode slugs";
     homepage = "https://pypi.org/project/unicode-slugify/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ mmai ];
+    maintainers = with maintainers; [mmai];
   };
 }

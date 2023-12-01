@@ -15,7 +15,7 @@ let
   dbIsLocal = cfg.database.host == "localhost";
   dbURL = "mysql://${cfg.database.user}@${cfg.database.host}/${cfg.database.name}";
 
-  format = pkgs.formats.toml { };
+  format = pkgs.formats.toml {};
   settings = {
     human_logs = true;
     syncstorage = {
@@ -229,7 +229,7 @@ in
             };
           };
         };
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Settings for the sync server. These take priority over values computed
           from NixOS options.
@@ -247,7 +247,7 @@ in
   config = lib.mkIf cfg.enable {
     services.mysql = lib.mkIf cfg.database.createLocally {
       enable = true;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -259,9 +259,9 @@ in
     };
 
     systemd.services.firefox-syncserver = {
-      wantedBy = [ "multi-user.target" ];
-      requires = lib.mkIf dbIsLocal [ "mysql.service" ];
-      after = lib.mkIf dbIsLocal [ "mysql.service" ];
+      wantedBy = ["multi-user.target"];
+      requires = lib.mkIf dbIsLocal ["mysql.service"];
+      after = lib.mkIf dbIsLocal ["mysql.service"];
       restartTriggers = lib.optional cfg.singleNode.enable setupScript;
       environment.RUST_LOG = cfg.logLevel;
       serviceConfig = {
@@ -272,7 +272,7 @@ in
 
         # hardening
         RemoveIPC = true;
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         DynamicUser = true;
         NoNewPrivileges = true;
         PrivateDevices = true;
@@ -310,11 +310,11 @@ in
     };
 
     systemd.services.firefox-syncserver-setup = lib.mkIf cfg.singleNode.enable {
-      wantedBy = [ "firefox-syncserver.service" ];
-      requires = [ "firefox-syncserver.service" ] ++ lib.optional dbIsLocal "mysql.service";
-      after = [ "firefox-syncserver.service" ] ++ lib.optional dbIsLocal "mysql.service";
-      path = [ config.services.mysql.package ];
-      serviceConfig.ExecStart = [ "${setupScript}" ];
+      wantedBy = ["firefox-syncserver.service"];
+      requires = ["firefox-syncserver.service"] ++ lib.optional dbIsLocal "mysql.service";
+      after = ["firefox-syncserver.service"] ++ lib.optional dbIsLocal "mysql.service";
+      path = [config.services.mysql.package];
+      serviceConfig.ExecStart = ["${setupScript}"];
     };
 
     services.nginx.virtualHosts = lib.mkIf cfg.singleNode.enableNginx {
@@ -333,7 +333,7 @@ in
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ pennae ];
+    maintainers = with lib.maintainers; [pennae];
     doc = ./firefox-syncserver.md;
   };
 }

@@ -1,5 +1,5 @@
 # THIS IS A GENERATED FILE.  DO NOT EDIT!
-{ lib, pixman }:
+{lib, pixman}:
 
 self:
 with self; {
@@ -31,7 +31,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             xorgproto
@@ -40,7 +40,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   bdftopcf =
@@ -65,12 +65,12 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ xorgproto ];
+          nativeBuildInputs = [pkg-config];
+          buildInputs = [xorgproto];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   bitmap =
@@ -116,7 +116,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   editres =
@@ -160,7 +160,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   encodings =
@@ -189,11 +189,11 @@ with self; {
             pkg-config
             mkfontscale
           ];
-          buildInputs = [ ];
+          buildInputs = [];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontadobe100dpi =
@@ -226,13 +226,13 @@ with self; {
             fontutil
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontadobe75dpi =
@@ -265,13 +265,13 @@ with self; {
             fontutil
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontadobeutopia100dpi =
@@ -304,13 +304,13 @@ with self; {
             fontutil
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontadobeutopia75dpi =
@@ -343,13 +343,13 @@ with self; {
             fontutil
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontadobeutopiatype1 =
@@ -379,13 +379,13 @@ with self; {
             pkg-config
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontalias =
@@ -409,12 +409,12 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ ];
+          nativeBuildInputs = [pkg-config];
+          buildInputs = [];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontarabicmisc =
@@ -446,13 +446,13 @@ with self; {
             bdftopcf
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbh100dpi =
@@ -485,13 +485,13 @@ with self; {
             fontutil
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbh75dpi =
@@ -524,13 +524,13 @@ with self; {
             fontutil
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbhlucidatypewriter100dpi =
@@ -563,13 +563,13 @@ with self; {
             fontutil
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbhlucidatypewriter75dpi =
@@ -602,13 +602,13 @@ with self; {
             fontutil
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbhttf =
@@ -638,13 +638,13 @@ with self; {
             pkg-config
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbhtype1 =
@@ -674,13 +674,13 @@ with self; {
             pkg-config
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbitstream100dpi =
@@ -712,13 +712,13 @@ with self; {
             bdftopcf
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbitstream75dpi =
@@ -750,13 +750,13 @@ with self; {
             bdftopcf
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbitstreamtype1 =
@@ -786,13 +786,13 @@ with self; {
             pkg-config
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontcronyxcyrillic =
@@ -824,13 +824,13 @@ with self; {
             bdftopcf
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontcursormisc =
@@ -862,13 +862,13 @@ with self; {
             bdftopcf
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontdaewoomisc =
@@ -900,13 +900,13 @@ with self; {
             bdftopcf
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontdecmisc =
@@ -938,13 +938,13 @@ with self; {
             bdftopcf
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontibmtype1 =
@@ -974,13 +974,13 @@ with self; {
             pkg-config
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontisasmisc =
@@ -1012,13 +1012,13 @@ with self; {
             bdftopcf
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontjismisc =
@@ -1050,13 +1050,13 @@ with self; {
             bdftopcf
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontmicromisc =
@@ -1088,13 +1088,13 @@ with self; {
             bdftopcf
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontmisccyrillic =
@@ -1126,13 +1126,13 @@ with self; {
             bdftopcf
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontmiscethiopic =
@@ -1162,13 +1162,13 @@ with self; {
             pkg-config
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontmiscmeltho =
@@ -1198,13 +1198,13 @@ with self; {
             pkg-config
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontmiscmisc =
@@ -1237,13 +1237,13 @@ with self; {
             fontutil
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontmuttmisc =
@@ -1275,13 +1275,13 @@ with self; {
             bdftopcf
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontschumachermisc =
@@ -1314,13 +1314,13 @@ with self; {
             fontutil
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontscreencyrillic =
@@ -1352,13 +1352,13 @@ with self; {
             bdftopcf
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontsonymisc =
@@ -1390,13 +1390,13 @@ with self; {
             bdftopcf
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontsunmisc =
@@ -1428,13 +1428,13 @@ with self; {
             bdftopcf
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fonttosfnt =
@@ -1461,7 +1461,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libfontenc
             freetype
@@ -1470,7 +1470,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontutil =
@@ -1494,12 +1494,12 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ ];
+          nativeBuildInputs = [pkg-config];
+          buildInputs = [];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontwinitzkicyrillic =
@@ -1531,13 +1531,13 @@ with self; {
             bdftopcf
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontxfree86type1 =
@@ -1567,13 +1567,13 @@ with self; {
             pkg-config
             mkfontscale
           ];
-          buildInputs = [ fontutil ];
-          configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
+          buildInputs = [fontutil];
+          configureFlags = ["--with-fontrootdir=$(out)/lib/X11/fonts"];
           postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   gccmakedep =
@@ -1597,12 +1597,12 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ ];
+          nativeBuildInputs = [pkg-config];
+          buildInputs = [];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   iceauth =
@@ -1628,7 +1628,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libICE
             xorgproto
@@ -1636,7 +1636,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   ico =
@@ -1662,7 +1662,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             xorgproto
@@ -1670,7 +1670,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   imake =
@@ -1695,12 +1695,12 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ xorgproto ];
+          nativeBuildInputs = [pkg-config];
+          buildInputs = [xorgproto];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libAppleWM =
@@ -1727,7 +1727,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libX11
@@ -1736,7 +1736,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libFS =
@@ -1762,7 +1762,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             xtrans
@@ -1770,7 +1770,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libICE =
@@ -1796,7 +1796,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             xtrans
@@ -1804,7 +1804,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libSM =
@@ -1832,7 +1832,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libICE
             libuuid
@@ -1842,7 +1842,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libWindowsWM =
@@ -1869,7 +1869,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libX11
@@ -1878,7 +1878,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libX11 =
@@ -1906,7 +1906,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libpthreadstubs
@@ -1916,7 +1916,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXScrnSaver =
@@ -1943,7 +1943,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libX11
@@ -1952,7 +1952,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXTrap =
@@ -1980,7 +1980,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libX11
@@ -1990,7 +1990,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXau =
@@ -2015,12 +2015,12 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ xorgproto ];
+          nativeBuildInputs = [pkg-config];
+          buildInputs = [xorgproto];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXaw =
@@ -2050,7 +2050,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             libXext
@@ -2062,7 +2062,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXcomposite =
@@ -2089,7 +2089,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libX11
@@ -2098,7 +2098,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXcursor =
@@ -2126,7 +2126,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libX11
@@ -2136,7 +2136,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXdamage =
@@ -2163,7 +2163,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libX11
@@ -2172,7 +2172,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXdmcp =
@@ -2197,12 +2197,12 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ xorgproto ];
+          nativeBuildInputs = [pkg-config];
+          buildInputs = [xorgproto];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXext =
@@ -2228,7 +2228,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             xorgproto
@@ -2236,7 +2236,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXfixes =
@@ -2262,7 +2262,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libX11
@@ -2270,7 +2270,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXfont =
@@ -2299,7 +2299,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libfontenc
             xorgproto
@@ -2310,7 +2310,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXfont2 =
@@ -2339,7 +2339,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libfontenc
             xorgproto
@@ -2350,7 +2350,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXft =
@@ -2379,7 +2379,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             fontconfig
             freetype
@@ -2390,7 +2390,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXi =
@@ -2418,7 +2418,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libX11
@@ -2428,7 +2428,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXinerama =
@@ -2455,7 +2455,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             libXext
@@ -2464,7 +2464,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXmu =
@@ -2492,7 +2492,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             libXext
@@ -2502,7 +2502,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXp =
@@ -2530,7 +2530,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libX11
@@ -2540,7 +2540,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXpm =
@@ -2582,7 +2582,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXpresent =
@@ -2608,7 +2608,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libX11
@@ -2616,7 +2616,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXrandr =
@@ -2644,7 +2644,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libX11
@@ -2654,7 +2654,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXrender =
@@ -2680,7 +2680,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libX11
@@ -2688,7 +2688,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXres =
@@ -2715,7 +2715,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libX11
@@ -2724,7 +2724,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXt =
@@ -2752,7 +2752,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libICE
             xorgproto
@@ -2762,7 +2762,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXtst =
@@ -2790,7 +2790,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libX11
@@ -2800,7 +2800,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXv =
@@ -2827,7 +2827,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libX11
@@ -2836,7 +2836,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXvMC =
@@ -2864,7 +2864,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libX11
@@ -2874,7 +2874,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXxf86dga =
@@ -2901,7 +2901,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             libXext
@@ -2910,7 +2910,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXxf86misc =
@@ -2937,7 +2937,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             libXext
@@ -2946,7 +2946,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXxf86vm =
@@ -2973,7 +2973,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             libXext
@@ -2982,7 +2982,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libdmx =
@@ -3009,7 +3009,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libX11
@@ -3018,7 +3018,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libfontenc =
@@ -3044,7 +3044,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             zlib
@@ -3052,7 +3052,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libpciaccess =
@@ -3078,16 +3078,16 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             hwdata
             zlib
           ];
-          configureFlags = [ "--with-pciids-path=${hwdata}/share/hwdata" ];
+          configureFlags = ["--with-pciids-path=${hwdata}/share/hwdata"];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libpthreadstubs =
@@ -3111,12 +3111,12 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ ];
+          nativeBuildInputs = [pkg-config];
+          buildInputs = [];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libxcb =
@@ -3160,7 +3160,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libxcvt =
@@ -3191,11 +3191,11 @@ with self; {
             meson
             ninja
           ];
-          buildInputs = [ ];
+          buildInputs = [];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libxkbfile =
@@ -3221,7 +3221,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libX11
@@ -3229,7 +3229,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libxshmfence =
@@ -3254,12 +3254,12 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ xorgproto ];
+          nativeBuildInputs = [pkg-config];
+          buildInputs = [xorgproto];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   listres =
@@ -3287,7 +3287,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libXaw
             libXmu
@@ -3297,7 +3297,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   lndir =
@@ -3322,12 +3322,12 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ xorgproto ];
+          nativeBuildInputs = [pkg-config];
+          buildInputs = [xorgproto];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   luit =
@@ -3351,12 +3351,12 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ ];
+          nativeBuildInputs = [pkg-config];
+          buildInputs = [];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   makedepend =
@@ -3381,12 +3381,12 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ xorgproto ];
+          nativeBuildInputs = [pkg-config];
+          buildInputs = [xorgproto];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   mkfontscale =
@@ -3414,7 +3414,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libfontenc
             freetype
@@ -3424,7 +3424,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   oclock =
@@ -3468,7 +3468,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   sessreg =
@@ -3493,12 +3493,12 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ xorgproto ];
+          nativeBuildInputs = [pkg-config];
+          buildInputs = [xorgproto];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   setxkbmap =
@@ -3524,7 +3524,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             libxkbfile
@@ -3532,7 +3532,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   smproxy =
@@ -3560,7 +3560,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libICE
             libSM
@@ -3570,7 +3570,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   transset =
@@ -3596,7 +3596,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             xorgproto
@@ -3604,7 +3604,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   twm =
@@ -3635,7 +3635,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libICE
             libSM
@@ -3648,7 +3648,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   utilmacros =
@@ -3672,12 +3672,12 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ ];
+          nativeBuildInputs = [pkg-config];
+          buildInputs = [];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   viewres =
@@ -3717,7 +3717,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   x11perf =
@@ -3747,7 +3747,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             libXext
@@ -3759,7 +3759,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xauth =
@@ -3788,7 +3788,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             libXau
@@ -3799,7 +3799,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xbacklight =
@@ -3825,7 +3825,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libxcb
             xcbutil
@@ -3833,7 +3833,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xbitmaps =
@@ -3857,12 +3857,12 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ ];
+          nativeBuildInputs = [pkg-config];
+          buildInputs = [];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcalc =
@@ -3904,7 +3904,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbproto =
@@ -3933,11 +3933,11 @@ with self; {
             pkg-config
             python3
           ];
-          buildInputs = [ ];
+          buildInputs = [];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutil =
@@ -3977,7 +3977,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutilcursor =
@@ -4021,7 +4021,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutilerrors =
@@ -4065,7 +4065,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutilimage =
@@ -4107,7 +4107,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutilkeysyms =
@@ -4147,7 +4147,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutilrenderutil =
@@ -4187,7 +4187,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutilwm =
@@ -4227,7 +4227,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xclock =
@@ -4277,7 +4277,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcmsdb =
@@ -4302,12 +4302,12 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ libX11 ];
+          nativeBuildInputs = [pkg-config];
+          buildInputs = [libX11];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcompmgr =
@@ -4336,7 +4336,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libXcomposite
             libXdamage
@@ -4347,7 +4347,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xconsole =
@@ -4391,7 +4391,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcursorgen =
@@ -4418,7 +4418,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libpng
             libX11
@@ -4427,7 +4427,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcursorthemes =
@@ -4452,12 +4452,12 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ libXcursor ];
+          nativeBuildInputs = [pkg-config];
+          buildInputs = [libXcursor];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xdm =
@@ -4515,7 +4515,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xdpyinfo =
@@ -4552,7 +4552,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libdmx
             libX11
@@ -4571,7 +4571,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xdriinfo =
@@ -4598,7 +4598,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libGL
             xorgproto
@@ -4607,7 +4607,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xev =
@@ -4634,7 +4634,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             xorgproto
@@ -4643,7 +4643,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xeyes =
@@ -4675,7 +4675,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             libxcb
@@ -4689,7 +4689,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputevdev =
@@ -4718,7 +4718,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libevdev
@@ -4729,7 +4729,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputjoystick =
@@ -4755,7 +4755,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             xorgserver
@@ -4763,7 +4763,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputkeyboard =
@@ -4789,7 +4789,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             xorgserver
@@ -4797,7 +4797,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputlibinput =
@@ -4824,7 +4824,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libinput
@@ -4833,7 +4833,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputmouse =
@@ -4859,7 +4859,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             xorgserver
@@ -4867,7 +4867,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputsynaptics =
@@ -4897,7 +4897,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libevdev
@@ -4909,7 +4909,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputvmmouse =
@@ -4936,7 +4936,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             udev
@@ -4945,7 +4945,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputvoid =
@@ -4971,7 +4971,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgserver
             xorgproto
@@ -4979,7 +4979,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoamdgpu =
@@ -5009,7 +5009,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             mesa
@@ -5021,7 +5021,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoapm =
@@ -5048,7 +5048,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libpciaccess
@@ -5057,7 +5057,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoark =
@@ -5084,7 +5084,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libpciaccess
@@ -5093,7 +5093,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoast =
@@ -5120,7 +5120,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libpciaccess
@@ -5129,7 +5129,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoati =
@@ -5160,7 +5160,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             mesa
@@ -5173,7 +5173,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videochips =
@@ -5200,7 +5200,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libpciaccess
@@ -5209,7 +5209,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videocirrus =
@@ -5236,7 +5236,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libpciaccess
@@ -5245,7 +5245,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videodummy =
@@ -5271,7 +5271,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             xorgserver
@@ -5279,7 +5279,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videofbdev =
@@ -5306,7 +5306,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libpciaccess
@@ -5315,7 +5315,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videogeode =
@@ -5342,7 +5342,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libpciaccess
@@ -5351,7 +5351,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoglide =
@@ -5377,7 +5377,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             xorgserver
@@ -5385,7 +5385,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoglint =
@@ -5412,7 +5412,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libpciaccess
             xorgproto
@@ -5421,7 +5421,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoi128 =
@@ -5448,7 +5448,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libpciaccess
@@ -5457,7 +5457,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoi740 =
@@ -5484,7 +5484,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libpciaccess
@@ -5493,7 +5493,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videointel =
@@ -5536,7 +5536,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             cairo
             xorgproto
@@ -5561,7 +5561,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videomga =
@@ -5589,7 +5589,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libdrm
@@ -5599,7 +5599,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoneomagic =
@@ -5626,7 +5626,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libpciaccess
@@ -5635,7 +5635,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videonewport =
@@ -5661,7 +5661,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             xorgserver
@@ -5669,7 +5669,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videonouveau =
@@ -5698,7 +5698,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libdrm
@@ -5709,7 +5709,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videonv =
@@ -5736,7 +5736,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libpciaccess
@@ -5745,7 +5745,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoomap =
@@ -5772,7 +5772,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libdrm
@@ -5781,7 +5781,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoopenchrome =
@@ -5813,7 +5813,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libdrm
@@ -5827,7 +5827,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoqxl =
@@ -5856,7 +5856,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libdrm
@@ -5867,7 +5867,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videor128 =
@@ -5895,7 +5895,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libdrm
@@ -5905,7 +5905,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videorendition =
@@ -5932,7 +5932,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libpciaccess
@@ -5941,7 +5941,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videos3virge =
@@ -5968,7 +5968,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libpciaccess
@@ -5977,7 +5977,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosavage =
@@ -6005,7 +6005,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libdrm
@@ -6015,7 +6015,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosiliconmotion =
@@ -6042,7 +6042,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libpciaccess
@@ -6051,7 +6051,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosis =
@@ -6079,7 +6079,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libdrm
@@ -6089,7 +6089,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosisusb =
@@ -6116,7 +6116,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libpciaccess
@@ -6125,7 +6125,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosuncg6 =
@@ -6151,7 +6151,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             xorgserver
@@ -6159,7 +6159,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosunffb =
@@ -6185,7 +6185,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             xorgserver
@@ -6193,7 +6193,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosunleo =
@@ -6219,7 +6219,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             xorgserver
@@ -6227,7 +6227,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videotdfx =
@@ -6255,7 +6255,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libdrm
@@ -6265,7 +6265,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videotga =
@@ -6292,7 +6292,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libpciaccess
@@ -6301,7 +6301,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videotrident =
@@ -6328,7 +6328,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libpciaccess
@@ -6337,7 +6337,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videov4l =
@@ -6363,7 +6363,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             xorgserver
@@ -6371,7 +6371,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videovboxvideo =
@@ -6398,7 +6398,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libpciaccess
@@ -6407,7 +6407,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videovesa =
@@ -6434,7 +6434,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libpciaccess
@@ -6443,7 +6443,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videovmware =
@@ -6474,7 +6474,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libdrm
@@ -6487,7 +6487,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videovoodoo =
@@ -6514,7 +6514,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libpciaccess
@@ -6523,7 +6523,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videowsfb =
@@ -6549,7 +6549,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgserver
             xorgproto
@@ -6557,7 +6557,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoxgi =
@@ -6585,7 +6585,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libdrm
@@ -6595,7 +6595,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xfd =
@@ -6647,7 +6647,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xfontsel =
@@ -6689,7 +6689,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xfs =
@@ -6716,7 +6716,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libXfont2
             xorgproto
@@ -6725,7 +6725,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xfsinfo =
@@ -6751,7 +6751,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libFS
             xorgproto
@@ -6759,7 +6759,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xgamma =
@@ -6786,7 +6786,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             xorgproto
@@ -6795,7 +6795,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xgc =
@@ -6833,7 +6833,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xhost =
@@ -6875,7 +6875,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xinit =
@@ -6901,7 +6901,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             xorgproto
@@ -6909,7 +6909,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xinput =
@@ -6939,7 +6939,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libX11
@@ -6951,7 +6951,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xkbcomp =
@@ -6978,7 +6978,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             libxkbfile
@@ -6987,7 +6987,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xkbevd =
@@ -7013,7 +7013,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             libxkbfile
@@ -7021,7 +7021,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xkbprint =
@@ -7048,7 +7048,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             libxkbfile
@@ -7057,7 +7057,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xkbutils =
@@ -7085,7 +7085,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             libX11
@@ -7095,7 +7095,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xkeyboardconfig =
@@ -7133,7 +7133,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xkill =
@@ -7160,7 +7160,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             libXmu
@@ -7169,7 +7169,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xload =
@@ -7215,7 +7215,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xlsatoms =
@@ -7240,12 +7240,12 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ libxcb ];
+          nativeBuildInputs = [pkg-config];
+          buildInputs = [libxcb];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xlsclients =
@@ -7270,12 +7270,12 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ libxcb ];
+          nativeBuildInputs = [pkg-config];
+          buildInputs = [libxcb];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xlsfonts =
@@ -7301,7 +7301,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             xorgproto
@@ -7309,7 +7309,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xmag =
@@ -7351,7 +7351,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xmessage =
@@ -7389,7 +7389,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xmodmap =
@@ -7415,7 +7415,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             xorgproto
@@ -7423,7 +7423,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xmore =
@@ -7461,7 +7461,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xorgcffiles =
@@ -7485,12 +7485,12 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ ];
+          nativeBuildInputs = [pkg-config];
+          buildInputs = [];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xorgdocs =
@@ -7514,12 +7514,12 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ ];
+          nativeBuildInputs = [pkg-config];
+          buildInputs = [];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xorgproto =
@@ -7549,11 +7549,11 @@ with self; {
             pkg-config
             python3
           ];
-          buildInputs = [ libXt ];
+          buildInputs = [libXt];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xorgserver =
@@ -7590,7 +7590,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             xorgproto
             openssl
@@ -7609,7 +7609,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xorgsgmldoctools =
@@ -7633,12 +7633,12 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ ];
+          nativeBuildInputs = [pkg-config];
+          buildInputs = [];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xpr =
@@ -7665,7 +7665,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             libXmu
@@ -7674,7 +7674,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xprop =
@@ -7700,7 +7700,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             xorgproto
@@ -7708,7 +7708,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xrandr =
@@ -7736,7 +7736,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             xorgproto
@@ -7746,7 +7746,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xrdb =
@@ -7773,7 +7773,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             libXmu
@@ -7782,7 +7782,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xrefresh =
@@ -7808,7 +7808,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             xorgproto
@@ -7816,7 +7816,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xset =
@@ -7845,7 +7845,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             libXext
@@ -7856,7 +7856,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xsetroot =
@@ -7885,7 +7885,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             xbitmaps
@@ -7896,7 +7896,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xsm =
@@ -7940,7 +7940,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xstdcmap =
@@ -7967,7 +7967,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             libXmu
@@ -7976,7 +7976,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xtrans =
@@ -8000,12 +8000,12 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ ];
+          nativeBuildInputs = [pkg-config];
+          buildInputs = [];
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xtrap =
@@ -8032,7 +8032,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             libXt
@@ -8041,7 +8041,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xvinfo =
@@ -8068,7 +8068,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             xorgproto
@@ -8077,7 +8077,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xwd =
@@ -8104,7 +8104,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libxkbfile
             libX11
@@ -8113,7 +8113,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xwininfo =
@@ -8140,7 +8140,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             libxcb
@@ -8149,7 +8149,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xwud =
@@ -8175,7 +8175,7 @@ with self; {
             "relro"
           ];
           strictDeps = true;
-          nativeBuildInputs = [ pkg-config ];
+          nativeBuildInputs = [pkg-config];
           buildInputs = [
             libX11
             xorgproto
@@ -8183,5 +8183,5 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { };
+      {};
 }

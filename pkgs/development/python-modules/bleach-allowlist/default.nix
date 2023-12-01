@@ -14,17 +14,17 @@ buildPythonPackage rec {
     hash = "sha256-VuIghgeaDmoxAK6Z5NuvIOslhUhlmOsOmUAIoRQo2ps=";
   };
 
-  propagatedBuildInputs = [ bleach ];
+  propagatedBuildInputs = [bleach];
 
   # No tests
   doCheck = false;
 
-  pythonImportsCheck = [ "bleach_allowlist" ];
+  pythonImportsCheck = ["bleach_allowlist"];
 
   meta = with lib; {
     description = "Curated lists of tags and attributes for sanitizing html";
     homepage = "https://github.com/yourcelf/bleach-allowlist";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

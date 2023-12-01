@@ -23,6 +23,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.antlr3.org/";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ vbgl ];
+    maintainers = with maintainers; [vbgl];
   };
 }

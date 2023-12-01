@@ -25,7 +25,7 @@ let
             hash = "sha256-WnRbsy/PJcotZqY9mJPLadrYqkXykOVifLIbDyNf4s4=";
           };
 
-          nativeBuildInputs = [ ];
+          nativeBuildInputs = [];
 
           nativeCheckInputs = with self; [
             pytestCheckHook
@@ -145,6 +145,6 @@ python.pkgs.buildPythonApplication rec {
     description = "Open Source ERP and CRM";
     homepage = "https://www.odoo.com/";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
   };
 }

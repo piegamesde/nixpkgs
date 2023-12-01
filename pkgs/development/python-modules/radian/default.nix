@@ -65,12 +65,12 @@ buildPythonPackage rec {
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${R}/lib/R/lib
   '';
 
-  pythonImportsCheck = [ "radian" ];
+  pythonImportsCheck = ["radian"];
 
   meta = with lib; {
     description = "A 21 century R console";
     homepage = "https://github.com/randy3k/radian";
     license = licenses.mit;
-    maintainers = with maintainers; [ savyajha ];
+    maintainers = with maintainers; [savyajha];
   };
 }

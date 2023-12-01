@@ -6,12 +6,12 @@
 
 {
   src,
-  patches ? [ ],
+  patches ? [],
   pname,
   version,
   mvnSha256 ? "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
   mvnHash ? "sha256-${mvnSha256}",
-  mvnFetchExtraArgs ? { },
+  mvnFetchExtraArgs ? {},
   mvnParameters ? "",
   ...
 }@args:
@@ -26,7 +26,7 @@ stdenv.mkDerivation (
         name = "${pname}-${version}-maven-deps";
         inherit src;
 
-        buildInputs = [ maven ];
+        buildInputs = [maven];
 
         buildPhase = ''
           mvn package -Dmaven.repo.local=$out/.m2 ${mvnParameters}
@@ -58,5 +58,5 @@ stdenv.mkDerivation (
       runHook postBuild
     '';
   }
-  // builtins.removeAttrs args [ "mvnFetchExtraArgs" ]
+  // builtins.removeAttrs args ["mvnFetchExtraArgs"]
 )

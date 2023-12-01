@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-uVvlW95UD1dhJfNuKgo7XvbdXrHl95OhaEpWfn0RH/E=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     sqlite
     gtest

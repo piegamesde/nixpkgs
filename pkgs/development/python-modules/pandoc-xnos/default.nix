@@ -19,14 +19,14 @@ buildPythonPackage rec {
     hash = "sha256-beiGvN0DS6s8wFjcDKozDuwAM2OApX3lTRaUDRUqLeU=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     pandocfilters
     psutil
   ];
 
-  pythonImportsCheck = [ "pandocxnos" ];
+  pythonImportsCheck = ["pandocxnos"];
 
   # tests need some patching
   doCheck = false;
@@ -35,6 +35,6 @@ buildPythonPackage rec {
     description = "Pandoc filter suite providing facilities for cross-referencing in markdown documents";
     homepage = "https://github.com/tomduck/pandoc-xnos";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ ppenguin ];
+    maintainers = with maintainers; [ppenguin];
   };
 }

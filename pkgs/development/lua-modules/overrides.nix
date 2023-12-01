@@ -54,14 +54,14 @@ with prev; {
       # Small patch in order to no longer redefine a Lua 5.2 function that Luajit
       # 2.1 also provides, see https://github.com/LuaJIT/LuaJIT/issues/325 for
       # more
-      patches = [ ./bit32.patch ];
+      patches = [./bit32.patch];
       meta.broken = luaOlder "5.1" || luaAtLeast "5.4";
     }
   );
 
   busted = prev.busted.overrideAttrs (
     oa: {
-      nativeBuildInputs = oa.nativeBuildInputs ++ [ installShellFiles ];
+      nativeBuildInputs = oa.nativeBuildInputs ++ [installShellFiles];
       postConfigure = ''
         substituteInPlace ''${rockspecFilename} \
           --replace "'lua_cliargs = 3.0-1'," "'lua_cliargs >= 3.0-1',"
@@ -89,7 +89,7 @@ with prev; {
 
       meta.broken = luaOlder "5.1" || luaAtLeast "5.4";
 
-      nativeBuildInputs = oa.nativeBuildInputs ++ [ gnum4 ];
+      nativeBuildInputs = oa.nativeBuildInputs ++ [gnum4];
 
       externalDeps = [
         {
@@ -135,7 +135,7 @@ with prev; {
 
   fennel = prev.fennel.overrideAttrs (
     oa: {
-      nativeBuildInputs = oa.nativeBuildInputs ++ [ installShellFiles ];
+      nativeBuildInputs = oa.nativeBuildInputs ++ [installShellFiles];
       postInstall = ''
         installManPage fennel.1
       '';
@@ -158,7 +158,7 @@ with prev; {
     }
   );
 
-  lpty = prev.lpty.overrideAttrs (oa: { meta.broken = luaOlder "5.1" || luaAtLeast "5.3"; });
+  lpty = prev.lpty.overrideAttrs (oa: {meta.broken = luaOlder "5.1" || luaAtLeast "5.3";});
 
   ldbus = prev.ldbus.overrideAttrs (
     oa: {
@@ -167,7 +167,7 @@ with prev; {
         DBUS_ARCH_INCDIR = "${dbus.lib}/lib/dbus-1.0/include";
         DBUS_INCDIR = "${dbus.dev}/include/dbus-1.0";
       };
-      buildInputs = [ dbus ];
+      buildInputs = [dbus];
     }
   );
 
@@ -194,7 +194,7 @@ with prev; {
 
   lgi = prev.lgi.overrideAttrs (
     oa: {
-      nativeBuildInputs = oa.nativeBuildInputs ++ [ pkg-config ];
+      nativeBuildInputs = oa.nativeBuildInputs ++ [pkg-config];
       buildInputs = [
         glib
         gobject-introspection
@@ -277,7 +277,7 @@ with prev; {
     }
   );
 
-  lrexlib-gnu = prev.lrexlib-gnu.overrideAttrs (oa: { buildInputs = oa.buildInputs ++ [ gnulib ]; });
+  lrexlib-gnu = prev.lrexlib-gnu.overrideAttrs (oa: {buildInputs = oa.buildInputs ++ [gnulib];});
 
   lrexlib-pcre = prev.lrexlib-pcre.overrideAttrs (
     oa: {
@@ -291,12 +291,12 @@ with prev; {
   );
 
   lrexlib-posix = prev.lrexlib-posix.overrideAttrs (
-    oa: { buildInputs = oa.buildInputs ++ [ glibc.dev ]; }
+    oa: {buildInputs = oa.buildInputs ++ [glibc.dev];}
   );
 
-  lua-curl = prev.lua-curl.overrideAttrs (oa: { buildInputs = oa.buildInputs ++ [ curl.dev ]; });
+  lua-curl = prev.lua-curl.overrideAttrs (oa: {buildInputs = oa.buildInputs ++ [curl.dev];});
 
-  lua-iconv = prev.lua-iconv.overrideAttrs (oa: { buildInputs = oa.buildInputs ++ [ libiconv ]; });
+  lua-iconv = prev.lua-iconv.overrideAttrs (oa: {buildInputs = oa.buildInputs ++ [libiconv];});
 
   lua-lsp = prev.lua-lsp.overrideAttrs (
     oa: {
@@ -310,7 +310,7 @@ with prev; {
 
   lua-zlib = prev.lua-zlib.overrideAttrs (
     oa: {
-      buildInputs = oa.buildInputs ++ [ zlib.dev ];
+      buildInputs = oa.buildInputs ++ [zlib.dev];
       meta.broken = luaOlder "5.1" || luaAtLeast "5.4";
     }
   );
@@ -330,7 +330,7 @@ with prev; {
   );
 
   luadbi-postgresql = prev.luadbi-postgresql.overrideAttrs (
-    oa: { buildInputs = oa.buildInputs ++ [ postgresql ]; }
+    oa: {buildInputs = oa.buildInputs ++ [postgresql];}
   );
 
   luadbi-sqlite3 = prev.luadbi-sqlite3.overrideAttrs (
@@ -346,7 +346,7 @@ with prev; {
 
   luaevent = prev.luaevent.overrideAttrs (
     oa: {
-      propagatedBuildInputs = oa.propagatedBuildInputs ++ [ luasocket ];
+      propagatedBuildInputs = oa.propagatedBuildInputs ++ [luasocket];
       externalDeps = [
         {
           name = "EVENT";
@@ -444,12 +444,12 @@ with prev; {
   );
 
   luasystem = prev.luasystem.overrideAttrs (
-    oa: lib.optionalAttrs stdenv.isLinux { buildInputs = [ glibc.out ]; }
+    oa: lib.optionalAttrs stdenv.isLinux {buildInputs = [glibc.out];}
   );
 
-  luazip = prev.luazip.overrideAttrs (oa: { buildInputs = oa.buildInputs ++ [ zziplib ]; });
+  luazip = prev.luazip.overrideAttrs (oa: {buildInputs = oa.buildInputs ++ [zziplib];});
 
-  lua-yajl = prev.lua-yajl.overrideAttrs (oa: { buildInputs = oa.buildInputs ++ [ yajl ]; });
+  lua-yajl = prev.lua-yajl.overrideAttrs (oa: {buildInputs = oa.buildInputs ++ [yajl];});
 
   luaunbound = prev.luaunbound.overrideAttrs (
     oa: {
@@ -463,10 +463,10 @@ with prev; {
   );
 
   lua-subprocess = prev.lua-subprocess.overrideAttrs (
-    oa: { meta.broken = luaOlder "5.1" || luaAtLeast "5.4"; }
+    oa: {meta.broken = luaOlder "5.1" || luaAtLeast "5.4";}
   );
 
-  lush-nvim = prev.lush-nvim.overrideAttrs (drv: { doCheck = false; });
+  lush-nvim = prev.lush-nvim.overrideAttrs (drv: {doCheck = false;});
 
   luuid = prev.luuid.overrideAttrs (
     oa: {
@@ -481,8 +481,8 @@ with prev; {
       # Upstreams:
       # 5.1: http://webserver2.tecgraf.puc-rio.br/~lhf/ftp/lua/5.1/luuid.tar.gz
       # 5.2: http://webserver2.tecgraf.puc-rio.br/~lhf/ftp/lua/5.2/luuid.tar.gz
-      patchFlags = [ "-p2" ];
-      patches = [ ./luuid.patch ];
+      patchFlags = ["-p2"];
+      patches = [./luuid.patch];
       postConfigure = ''
         sed -Ei ''${rockspecFilename} -e 's|lua >= 5.2|lua >= 5.1,|'
       '';
@@ -521,14 +521,14 @@ with prev; {
     nativeBuildInputs = [
       pkg-config
       cmake
-    ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+    ] ++ lib.optionals stdenv.isDarwin [fixDarwinDylibNames];
   };
 
   luv = prev.luv.overrideAttrs (
     oa: {
 
-      nativeBuildInputs = oa.nativeBuildInputs ++ [ pkg-config ];
-      buildInputs = [ libuv ];
+      nativeBuildInputs = oa.nativeBuildInputs ++ [pkg-config];
+      buildInputs = [libuv];
 
       # Use system libuv instead of building local and statically linking
       extraVariables = {
@@ -544,11 +544,11 @@ with prev; {
     }
   );
 
-  lyaml = prev.lyaml.overrideAttrs (oa: { buildInputs = [ libyaml ]; });
+  lyaml = prev.lyaml.overrideAttrs (oa: {buildInputs = [libyaml];});
 
   mpack = prev.mpack.overrideAttrs (
     drv: {
-      buildInputs = (drv.buildInputs or [ ]) ++ [ libmpack ];
+      buildInputs = (drv.buildInputs or []) ++ [libmpack];
       env = {
         # the rockspec doesn't use the makefile so you may need to export more flags
         USE_SYSTEM_LUA = "yes";
@@ -568,7 +568,7 @@ with prev; {
 
   readline = prev.readline.overrideAttrs (
     oa: {
-      propagatedBuildInputs = oa.propagatedBuildInputs ++ [ readline.out ];
+      propagatedBuildInputs = oa.propagatedBuildInputs ++ [readline.out];
       extraVariables = rec {
         READLINE_INCDIR = "${readline.dev}/include";
         HISTORY_INCDIR = READLINE_INCDIR;
@@ -623,7 +623,7 @@ with prev; {
     }
   );
 
-  vstruct = prev.vstruct.overrideAttrs (_: { meta.broken = (luaOlder "5.1" || luaAtLeast "5.3"); });
+  vstruct = prev.vstruct.overrideAttrs (_: {meta.broken = (luaOlder "5.1" || luaAtLeast "5.3");});
 
   vusted = prev.vusted.overrideAttrs (
     _: {

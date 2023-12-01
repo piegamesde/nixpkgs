@@ -8,7 +8,7 @@ with lib;
 let
   concatAndSort =
     name: files:
-    pkgs.runCommand name { } ''
+    pkgs.runCommand name {} ''
       awk 1 ${lib.escapeShellArgs files} | sed '{ /^\s*$/d; s/^\s\+//; s/\s\+$// }' | sort | uniq > $out
     '';
 in
@@ -21,7 +21,7 @@ in
         type = types.attrsOf (types.nonEmptyListOf types.path);
 
         default = {
-          WORDLIST = [ "${pkgs.scowl}/share/dict/words.txt" ];
+          WORDLIST = ["${pkgs.scowl}/share/dict/words.txt"];
         };
 
         defaultText = literalExpression ''

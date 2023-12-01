@@ -29,7 +29,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "All the color schemes for use in base16 packages";
       homepage = finalAttrs.src.meta.homepage;
-      maintainers = [ maintainers.DamienCassou ];
+      maintainers = [maintainers.DamienCassou];
       license = licenses.mit;
     };
   }

@@ -88,7 +88,7 @@ in
 
   config = mkIf config.services.firebird.enable {
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.tmpfiles.rules = [
       "d '${dataDir}' 0700 ${cfg.user} - - -"
@@ -98,7 +98,7 @@ in
     systemd.services.firebird = {
       description = "Firebird Super-Server";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       # TODO: moving security2.fdb into the data directory works, maybe there
       # is a better way

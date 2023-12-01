@@ -21,7 +21,7 @@ buildPythonPackage rec {
     laszip
   ];
 
-  checkInputs = [ pytestCheckHook ];
+  checkInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "laspy"
@@ -32,6 +32,6 @@ buildPythonPackage rec {
     description = "Interface for reading/modifying/creating .LAS LIDAR files";
     homepage = "https://github.com/laspy/laspy";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
   };
 }

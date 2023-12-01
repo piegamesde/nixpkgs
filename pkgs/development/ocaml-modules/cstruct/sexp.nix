@@ -19,7 +19,7 @@ else
     duneVersion = "3";
 
     doCheck = true;
-    checkInputs = [ alcotest ];
+    checkInputs = [alcotest];
 
     propagatedBuildInputs = [
       cstruct

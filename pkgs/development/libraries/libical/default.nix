@@ -60,11 +60,11 @@ stdenv.mkDerivation rec {
       # previously with https://github.com/NixOS/nixpkgs/pull/61657#issuecomment-495579489
       # gtk-doc docbook_xsl docbook_xml_dtd_43 # for docs
     ]
-    ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+    ++ lib.optionals stdenv.isDarwin [fixDarwinDylibNames];
   nativeInstallCheckInputs =
     [
       # running libical-glib tests
-      (python3.pythonForBuild.withPackages (pkgs: with pkgs; [ pygobject3 ]))
+      (python3.pythonForBuild.withPackages (pkgs: with pkgs; [pygobject3]))
     ];
 
   buildInputs = [

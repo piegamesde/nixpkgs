@@ -30,6 +30,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "Screenshot utility for the Xfce desktop";
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    maintainers = with maintainers; [] ++ teams.xfce.members;
   };
 }

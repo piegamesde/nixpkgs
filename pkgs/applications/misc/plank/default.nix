@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
   ];
 
   # Make plank's application launcher hidden in Pantheon
-  patches = [ ./hide-in-pantheon.patch ];
+  patches = [./hide-in-pantheon.patch];
 
   postPatch = ''
     substituteInPlace ./configure \
@@ -83,6 +83,6 @@ stdenv.mkDerivation rec {
     homepage = "https://launchpad.net/plank";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ davidak ] ++ teams.pantheon.members;
+    maintainers = with maintainers; [davidak] ++ teams.pantheon.members;
   };
 }

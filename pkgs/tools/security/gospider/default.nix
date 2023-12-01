@@ -29,6 +29,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/jaeles-project/gospider";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

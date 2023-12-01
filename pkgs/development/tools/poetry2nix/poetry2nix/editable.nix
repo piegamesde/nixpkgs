@@ -26,12 +26,12 @@ let
   );
 
   entryPointsFile = builtins.toFile "${name}-entry_points.txt" (
-    lib.generators.toINI { } pyProject.tool.poetry.plugins
+    lib.generators.toINI {} pyProject.tool.poetry.plugins
   );
 
   # A python package that contains simple .egg-info and .pth files for an editable installation
   editablePackage = python.pkgs.toPythonModule (
-    pkgs.runCommand "${name}-editable" { } ''
+    pkgs.runCommand "${name}-editable" {} ''
       mkdir -p "$out/${python.sitePackages}"
       cd "$out/${python.sitePackages}"
 

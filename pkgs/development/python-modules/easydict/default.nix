@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   doCheck = false; # No tests in archive
 
-  pythonImportsCheck = [ "easydict" ];
+  pythonImportsCheck = ["easydict"];
 
   meta = with lib; {
     homepage = "https://github.com/makinacorpus/easydict";

@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     "-DDOWNLOAD_TEST_DATA=OFF"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     expat
     nifticlib
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.nitrc.org/projects/gifti";
     description = "Medical imaging geometry format C API";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = platforms.unix;
     license = licenses.publicDomain;
   };

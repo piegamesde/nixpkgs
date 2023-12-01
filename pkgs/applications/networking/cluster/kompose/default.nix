@@ -39,7 +39,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  checkFlags = [ "-short" ];
+  checkFlags = ["-short"];
 
   postInstall = ''
     for shell in bash zsh; do

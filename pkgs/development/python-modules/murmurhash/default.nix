@@ -23,17 +23,17 @@ buildPythonPackage rec {
       --replace "'wheel>=0.32.0,<0.33.0'" ""
   '';
 
-  buildInputs = [ cython ];
+  buildInputs = [cython];
 
   # No test
   doCheck = false;
 
-  pythonImportsCheck = [ "murmurhash" ];
+  pythonImportsCheck = ["murmurhash"];
 
   meta = with lib; {
     description = "Cython bindings for MurmurHash2";
     homepage = "https://github.com/explosion/murmurhash";
     license = licenses.mit;
-    maintainers = with maintainers; [ aborsu ];
+    maintainers = with maintainers; [aborsu];
   };
 }

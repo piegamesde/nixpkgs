@@ -29,14 +29,14 @@ let
       end
     '';
 
-    rust = writeRustBin "test-writers-rust-bin" { } ''
+    rust = writeRustBin "test-writers-rust-bin" {} ''
       fn main(){
         println!("success")
       }
     '';
 
     haskell =
-      writeHaskellBin "test-writers-haskell-bin" { libraries = [ haskellPackages.acme-default ]; }
+      writeHaskellBin "test-writers-haskell-bin" {libraries = [haskellPackages.acme-default];}
         ''
           import Data.Default
 
@@ -49,7 +49,7 @@ let
             _ -> print "fail"
         '';
 
-    js = writeJSBin "test-writers-js-bin" { libraries = [ nodePackages.semver ]; } ''
+    js = writeJSBin "test-writers-js-bin" {libraries = [nodePackages.semver];} ''
       var semver = require('semver');
 
       if (semver.valid('1.2.3')) {
@@ -59,12 +59,12 @@ let
       }
     '';
 
-    perl = writePerlBin "test-writers-perl-bin" { libraries = [ perlPackages.boolean ]; } ''
+    perl = writePerlBin "test-writers-perl-bin" {libraries = [perlPackages.boolean];} ''
       use boolean;
       print "success\n" if true;
     '';
 
-    pypy2 = writePyPy2Bin "test-writers-pypy2-bin" { libraries = [ pypy2Packages.enum ]; } ''
+    pypy2 = writePyPy2Bin "test-writers-pypy2-bin" {libraries = [pypy2Packages.enum];} ''
       from enum import Enum
 
 
@@ -75,7 +75,7 @@ let
       print Test.a
     '';
 
-    python3 = writePython3Bin "test-writers-python3-bin" { libraries = [ python3Packages.pyyaml ]; } ''
+    python3 = writePython3Bin "test-writers-python3-bin" {libraries = [python3Packages.pyyaml];} ''
       import yaml
 
       y = yaml.load("""
@@ -84,7 +84,7 @@ let
       print(y[0]['test'])
     '';
 
-    pypy3 = writePyPy3Bin "test-writers-pypy3-bin" { libraries = [ pypy3Packages.pyyaml ]; } ''
+    pypy3 = writePyPy3Bin "test-writers-pypy3-bin" {libraries = [pypy3Packages.pyyaml];} ''
       import yaml
 
       y = yaml.load("""
@@ -109,7 +109,7 @@ let
       end
     '';
 
-    haskell = writeHaskell "test-writers-haskell" { libraries = [ haskellPackages.acme-default ]; } ''
+    haskell = writeHaskell "test-writers-haskell" {libraries = [haskellPackages.acme-default];} ''
       import Data.Default
 
       int :: Int
@@ -121,7 +121,7 @@ let
         _ -> print "fail"
     '';
 
-    js = writeJS "test-writers-js" { libraries = [ nodePackages.semver ]; } ''
+    js = writeJS "test-writers-js" {libraries = [nodePackages.semver];} ''
       var semver = require('semver');
 
       if (semver.valid('1.2.3')) {
@@ -131,12 +131,12 @@ let
       }
     '';
 
-    perl = writePerl "test-writers-perl" { libraries = [ perlPackages.boolean ]; } ''
+    perl = writePerl "test-writers-perl" {libraries = [perlPackages.boolean];} ''
       use boolean;
       print "success\n" if true;
     '';
 
-    pypy2 = writePyPy2 "test-writers-pypy2" { libraries = [ pypy2Packages.enum ]; } ''
+    pypy2 = writePyPy2 "test-writers-pypy2" {libraries = [pypy2Packages.enum];} ''
       from enum import Enum
 
 
@@ -147,7 +147,7 @@ let
       print Test.a
     '';
 
-    python3 = writePython3 "test-writers-python3" { libraries = [ python3Packages.pyyaml ]; } ''
+    python3 = writePython3 "test-writers-python3" {libraries = [python3Packages.pyyaml];} ''
       import yaml
 
       y = yaml.load("""
@@ -156,7 +156,7 @@ let
       print(y[0]['test'])
     '';
 
-    pypy3 = writePyPy3 "test-writers-pypy3" { libraries = [ pypy3Packages.pyyaml ]; } ''
+    pypy3 = writePyPy3 "test-writers-pypy3" {libraries = [pypy3Packages.pyyaml];} ''
       import yaml
 
       y = yaml.load("""
@@ -169,7 +169,7 @@ let
       makeFSharpWriter
         {
           libraries =
-            { fetchNuGet }:
+            {fetchNuGet}:
             [
               (fetchNuGet {
                 pname = "FSharp.SystemTextJson";
@@ -198,15 +198,15 @@ let
           |> printfn "%s"
         '';
 
-    pypy2NoLibs = writePyPy2 "test-writers-pypy2-no-libs" { } ''
+    pypy2NoLibs = writePyPy2 "test-writers-pypy2-no-libs" {} ''
       print("success")
     '';
 
-    python3NoLibs = writePython3 "test-writers-python3-no-libs" { } ''
+    python3NoLibs = writePython3 "test-writers-python3-no-libs" {} ''
       print("success")
     '';
 
-    pypy3NoLibs = writePyPy3 "test-writers-pypy3-no-libs" { } ''
+    pypy3NoLibs = writePyPy3 "test-writers-pypy3-no-libs" {} ''
       print("success")
     '';
 
@@ -221,21 +221,19 @@ let
         if [[ "test" == "test" ]]; then echo "success"; fi
       ''
     );
-    haskell =
-      writeHaskell "test-writers-haskell-path" { libraries = [ haskellPackages.acme-default ]; }
-        (
-          writeText "test" ''
-            import Data.Default
+    haskell = writeHaskell "test-writers-haskell-path" {libraries = [haskellPackages.acme-default];} (
+      writeText "test" ''
+        import Data.Default
 
-            int :: Int
-            int = def
+        int :: Int
+        int = def
 
-            main :: IO ()
-            main = case int of
-              18871 -> putStrLn $ id "success"
-              _ -> print "fail"
-          ''
-        );
+        main :: IO ()
+        main = case int of
+          18871 -> putStrLn $ id "success"
+          _ -> print "fail"
+      ''
+    );
   };
 
   writeTest =

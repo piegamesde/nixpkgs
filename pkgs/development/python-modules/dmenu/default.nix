@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "06v2fq0ciallbib7sbk4kncj0n3gdqp1kz8n5k2669x49wyh34wm";
   };
 
-  propagatedBuildInputs = [ dmenu ];
+  propagatedBuildInputs = [dmenu];
 
   # No tests existing
   doCheck = false;
@@ -24,6 +24,6 @@ buildPythonPackage rec {
     description = "A Python wrapper for dmenu";
     homepage = "https://dmenu.readthedocs.io";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.nico202 ];
+    maintainers = [lib.maintainers.nico202];
   };
 }

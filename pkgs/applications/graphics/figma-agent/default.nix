@@ -25,7 +25,7 @@ buildRustPackage {
 
   cargoSha256 = "sha256-Gc94Uk/Ikxjnb541flQL7AeblgU/yS6zQ/187ZGRYco=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     fontconfig
@@ -41,6 +41,6 @@ buildRustPackage {
     homepage = "https://github.com/neetly/figma-agent-linux";
     description = "Figma Agent for Linux (a.k.a. Font Helper)";
     license = licenses.mit;
-    maintainers = with maintainers; [ ercao ];
+    maintainers = with maintainers; [ercao];
   };
 }

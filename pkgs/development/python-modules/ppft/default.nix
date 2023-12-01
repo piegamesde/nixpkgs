@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-+TPwQE8+gIvIYHRayzt5zU/jHqGaIIiaZF+QBBW+YPE=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   # darwin seems to hang
   doCheck = !stdenv.isDarwin;
@@ -30,12 +30,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "ppft" ];
+  pythonImportsCheck = ["ppft"];
 
   meta = with lib; {
     description = "Distributed and parallel Python";
     homepage = "https://ppft.readthedocs.io/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

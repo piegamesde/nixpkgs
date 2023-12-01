@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = lib.optional localBios nasm ++ lib.optional sdlSupport SDL;
 
-  makeFlags = [ "8086tiny" ];
+  makeFlags = ["8086tiny"];
 
   postBuild = lib.optionalString localBios ''
     pushd bios_source
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       "unobfuscated" version :)
     '';
     license = licenses.mit;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     platforms = platforms.linux;
   };
 }

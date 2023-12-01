@@ -23,7 +23,7 @@ stdenv.mkDerivation {
     pkg-config
     doxygen
   ];
-  buildInputs = with pkgs; [ libuecc ];
+  buildInputs = with pkgs; [libuecc];
 
   meta = with lib; {
     description = "Tiny collection of programs used for ECDSA (keygen, sign, verify)";
@@ -32,7 +32,7 @@ stdenv.mkDerivation {
       mit
       bsd2
     ];
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

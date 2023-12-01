@@ -32,7 +32,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/thytom/dwmbar";
     description = "A Modular Status Bar for dwm";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ baitinq ];
+    maintainers = with maintainers; [baitinq];
     platforms = platforms.linux;
   };
 }

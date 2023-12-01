@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A high-performance event loop/event model with lots of features";
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.all;
     license = lib.licenses.bsd2; # or GPL2+
   };

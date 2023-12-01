@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       gpl3
       mit
     ];
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     platforms = platforms.linux;
   };
 }

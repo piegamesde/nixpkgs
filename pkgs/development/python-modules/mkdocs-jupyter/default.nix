@@ -33,7 +33,7 @@ buildPythonPackage rec {
       --replace "[\"mkdocs\"," "[\"${mkdocs.out}/bin/mkdocs\","
   '';
 
-  pythonRelaxDeps = [ "nbconvert" ];
+  pythonRelaxDeps = ["nbconvert"];
 
   nativeBuildInputs = [
     hatchling
@@ -49,15 +49,15 @@ buildPythonPackage rec {
     pygments
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "mkdocs_jupyter" ];
+  pythonImportsCheck = ["mkdocs_jupyter"];
 
   meta = with lib; {
     description = "Use Jupyter Notebook in mkdocs";
     homepage = "https://github.com/danielfrg/mkdocs-jupyter";
     changelog = "https://github.com/danielfrg/mkdocs-jupyter/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ net-mist ];
+    maintainers = with maintainers; [net-mist];
   };
 }

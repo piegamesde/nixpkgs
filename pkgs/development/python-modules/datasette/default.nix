@@ -80,7 +80,7 @@ buildPythonPackage rec {
   # takes 30-180 mins to run entire test suite, not worth the CPU resources, slows down reviews
   # with pytest-xdist, it still takes around 10 mins with 32 cores
   # just run the csv tests, as this should give some indictation of correctness
-  pytestFlagsArray = [ "tests/test_csv.py" ];
+  pytestFlagsArray = ["tests/test_csv.py"];
 
   disabledTests = [
     "facet"
@@ -101,6 +101,6 @@ buildPythonPackage rec {
     description = "Multi-tool for exploring and publishing data";
     homepage = "https://datasette.io/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

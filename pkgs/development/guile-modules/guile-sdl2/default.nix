@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     "--with-libsdl2-ttf-prefix=${SDL2_ttf}"
   ];
 
-  makeFlags = [ "GUILE_AUTO_COMPILE=0" ];
+  makeFlags = ["GUILE_AUTO_COMPILE=0"];
 
   meta = with lib; {
     homepage = "https://dthompson.us/projects/guile-sdl2.html";

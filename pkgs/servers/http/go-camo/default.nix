@@ -33,6 +33,6 @@ buildGoModule rec {
     homepage = "https://github.com/cactus/go-camo";
     changelog = "https://github.com/cactus/go-camo/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ viraptor ];
+    maintainers = with maintainers; [viraptor];
   };
 }

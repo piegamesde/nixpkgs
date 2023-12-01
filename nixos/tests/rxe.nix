@@ -1,18 +1,18 @@
 import ./make-test-python.nix (
-  { ... }:
+  {...}:
 
   let
     node =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         networking = {
           firewall = {
-            allowedUDPPorts = [ 4791 ]; # open RoCE port
-            allowedTCPPorts = [ 4800 ]; # port for test utils
+            allowedUDPPorts = [4791]; # open RoCE port
+            allowedTCPPorts = [4800]; # port for test utils
           };
           rxe = {
             enable = true;
-            interfaces = [ "eth1" ];
+            interfaces = ["eth1"];
           };
         };
 

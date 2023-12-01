@@ -35,7 +35,7 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # require networking
@@ -45,12 +45,12 @@ buildPythonPackage rec {
     "test_stop_http_mock"
   ];
 
-  pythonImportsCheck = [ "mock_services" ];
+  pythonImportsCheck = ["mock_services"];
 
   meta = with lib; {
     description = "Mock an entire service API based on requests-mock";
     homepage = "https://github.com/peopledoc/mock-services";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "global-vars";
   version = "20141106-git";
 
   description = "Define efficient global variables.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/global-vars/2014-11-06/global-vars-20141106-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "global-vars";
 
-  asdFilesToKeep = [ "global-vars.asd" ];
+  asdFilesToKeep = ["global-vars.asd"];
   overrides = x: x;
 }
 /* (SYSTEM global-vars DESCRIPTION Define efficient global variables. SHA256

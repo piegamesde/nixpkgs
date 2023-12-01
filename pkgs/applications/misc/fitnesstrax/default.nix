@@ -41,6 +41,6 @@ rustPlatform.buildRustPackage rec {
     description = "Privacy-first fitness tracking";
     homepage = "https://github.com/luminescent-dreams/fitnesstrax";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ savannidgerinel ];
+    maintainers = with maintainers; [savannidgerinel];
   };
 }

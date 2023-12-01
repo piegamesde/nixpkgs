@@ -28,7 +28,7 @@ buildPythonPackage rec {
     sed -i 's/3\.5\.\*/3.5/' setup.py
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     aiofiles
@@ -42,13 +42,13 @@ buildPythonPackage rec {
     pytest-mock
     pytest-asyncio
     pytestCheckHook
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  ] ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   # Tests for 2.0.0 currently fail on python3.11
   # https://github.com/timofurrer/w1thermsensor/issues/116
   doCheck = pythonOlder "3.11";
 
-  pythonImportsCheck = [ "w1thermsensor" ];
+  pythonImportsCheck = ["w1thermsensor"];
 
   meta = with lib; {
     description = "Python interface to 1-Wire temperature sensors";
@@ -59,7 +59,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/timofurrer/w1thermsensor";
     license = licenses.mit;
-    maintainers = with maintainers; [ quentin ];
+    maintainers = with maintainers; [quentin];
     platforms = platforms.all;
   };
 }

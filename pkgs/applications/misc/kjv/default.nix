@@ -36,9 +36,9 @@ stdenv.mkDerivation {
     add-install-target
   ];
 
-  buildInputs = [ readline ];
+  buildInputs = [readline];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     description = "The Bible, King James Version";

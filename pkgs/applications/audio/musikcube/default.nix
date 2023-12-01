@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
       portaudio
       taglib
     ]
-    ++ lib.optionals systemdSupport [ systemd ]
+    ++ lib.optionals systemdSupport [systemd]
     ++ lib.optionals stdenv.isLinux [
       alsa-lib
       pulseaudio
@@ -80,11 +80,11 @@ stdenv.mkDerivation rec {
       Cocoa
       SystemConfiguration
     ]
-    ++ lib.optionals coreaudioSupport [ CoreAudio ]
-    ++ lib.optionals sndioSupport [ sndio ]
-    ++ lib.optionals pipewireSupport [ pipewire ];
+    ++ lib.optionals coreaudioSupport [CoreAudio]
+    ++ lib.optionals sndioSupport [sndio]
+    ++ lib.optionals pipewireSupport [pipewire];
 
-  cmakeFlags = [ "-DDISABLE_STRIP=true" ];
+  cmakeFlags = ["-DDISABLE_STRIP=true"];
 
   postFixup = lib.optionalString stdenv.isDarwin ''
     install_name_tool -add_rpath $out/share/${pname} $out/share/${pname}/${pname}

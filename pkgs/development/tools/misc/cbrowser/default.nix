@@ -15,10 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "1050mirjab23qsnq3lp3a9vwcbavmh9kznzjm7dr5vkx8b7ffcji";
   };
 
-  patches = [ ./backslashes-quotes.diff ];
+  patches = [./backslashes-quotes.diff];
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ tk ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [tk];
 
   installPhase = ''
     mkdir -p $out/bin $out/share/${pname}-${version}
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://sourceforge.net/projects/cbrowser/";
 
-    maintainers = with lib.maintainers; [ viric ];
+    maintainers = with lib.maintainers; [viric];
 
     platforms = with lib.platforms; linux;
   };

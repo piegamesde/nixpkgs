@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-apKmIB34uqkqSCtTUzrUOhcRC5a2UG6KCdhp1jnXUgQ=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     boost
@@ -41,13 +41,13 @@ stdenv.mkDerivation rec {
     "-DHIGHFIVE_EXAMPLES=OFF"
     "-DHIGHFIVE_UNIT_TESTS=OFF"
     "-DHIGHFIVE_USE_INSTALL_DEPS=ON"
-  ] ++ (lib.optionals mpiSupport [ "-DHIGHFIVE_PARALLEL_HDF5=ON" ]);
+  ] ++ (lib.optionals mpiSupport ["-DHIGHFIVE_PARALLEL_HDF5=ON"]);
 
   meta = with lib; {
     description = "Header-only C++ HDF5 interface";
     license = licenses.boost;
     homepage = "https://bluebrain.github.io/HighFive/";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ robertodr ];
+    maintainers = with maintainers; [robertodr];
   };
 }

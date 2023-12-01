@@ -1,7 +1,7 @@
 # this test creates a simple GNU image with docker tools and sees if it executes
 
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "docker-tools-overlay";
     meta = with pkgs.lib.maintainers; {
@@ -13,7 +13,7 @@ import ./make-test-python.nix (
 
     nodes = {
       docker =
-        { ... }:
+        {...}:
         {
           virtualisation.docker.enable = true;
           virtualisation.docker.storageDriver = "overlay"; # defaults to overlay2

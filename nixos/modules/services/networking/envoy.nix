@@ -9,11 +9,11 @@ with lib;
 
 let
   cfg = config.services.envoy;
-  format = pkgs.formats.json { };
+  format = pkgs.formats.json {};
   conf = format.generate "envoy.json" cfg.settings;
   validateConfig =
     required: file:
-    pkgs.runCommand "validate-envoy-conf" { } ''
+    pkgs.runCommand "validate-envoy-conf" {} ''
       ${cfg.package}/bin/envoy --log-level error --mode validate -c "${file}" ${
         lib.optionalString (!required) "|| true"
       }
@@ -25,7 +25,7 @@ in
   options.services.envoy = {
     enable = mkEnableOption (lib.mdDoc "Envoy reverse proxy");
 
-    package = mkPackageOptionMD pkgs "envoy" { };
+    package = mkPackageOptionMD pkgs "envoy" {};
 
     requireValidConfig = mkOption {
       type = types.bool;
@@ -39,7 +39,7 @@ in
 
     settings = mkOption {
       type = format.type;
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           admin = {
@@ -65,21 +65,21 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     systemd.services.envoy = {
       description = "Envoy reverse proxy";
-      after = [ "network-online.target" ];
-      requires = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network-online.target"];
+      requires = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/envoy -c ${validateConfig cfg.requireValidConfig conf}";
-        CacheDirectory = [ "envoy" ];
-        LogsDirectory = [ "envoy" ];
+        CacheDirectory = ["envoy"];
+        LogsDirectory = ["envoy"];
         Restart = "no";
         # Hardening
-        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-        DeviceAllow = [ "" ];
+        AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
+        CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
+        DeviceAllow = [""];
         DevicePolicy = "closed";
         DynamicUser = true;
         LockPersonality = true;

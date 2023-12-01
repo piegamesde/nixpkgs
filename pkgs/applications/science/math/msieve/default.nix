@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://sourceforge/msieve/msieve/Msieve%20v${version}/msieve${
-      lib.replaceStrings [ "." ] [ "" ] version
+      lib.replaceStrings ["."] [""] version
     }_src.tar.gz";
     sha256 = "1d1vv7j4rh3nnxsmvafi73qy7lw7n3akjlm5pjl3m936yapvmz65";
   };
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     description = "A C library implementing a suite of algorithms to factor large integers";
     license = lib.licenses.publicDomain;
     homepage = "http://msieve.sourceforge.net/";
-    maintainers = [ lib.maintainers.roconnor ];
-    platforms = [ "x86_64-linux" ] ++ lib.platforms.darwin;
+    maintainers = [lib.maintainers.roconnor];
+    platforms = ["x86_64-linux"] ++ lib.platforms.darwin;
   };
 }

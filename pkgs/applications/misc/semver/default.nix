@@ -17,12 +17,12 @@ buildGoModule rec {
   };
 
   vendorSha256 = null;
-  nativeBuildInputs = [ git ];
+  nativeBuildInputs = [git];
 
   meta = with lib; {
     homepage = "https://github.com/catouc/semver-go";
     description = "A small CLI to fish out the current or next semver version from a git repository";
-    maintainers = with maintainers; [ catouc ];
+    maintainers = with maintainers; [catouc];
     license = licenses.mit;
   };
 }

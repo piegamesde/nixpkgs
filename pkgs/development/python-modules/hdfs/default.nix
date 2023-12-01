@@ -34,12 +34,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "hdfs" ];
+  pythonImportsCheck = ["hdfs"];
 
   meta = with lib; {
     description = "Python API and command line interface for HDFS";
     homepage = "https://github.com/mtth/hdfs";
     license = licenses.mit;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

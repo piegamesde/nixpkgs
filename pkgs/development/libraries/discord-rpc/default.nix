@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
     sha256 = "04cxhqdv5r92lrpnhxf8702a8iackdf3sfk1050z7pijbijiql2a";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ rapidjson ] ++ lib.optional stdenv.isDarwin AppKit;
+  buildInputs = [rapidjson] ++ lib.optional stdenv.isDarwin AppKit;
 
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=true"
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     description = "Official library to interface with the Discord client";
     homepage = "https://github.com/discordapp/discord-rpc";
     license = licenses.mit;
-    maintainers = with maintainers; [ tadeokondrak ];
+    maintainers = with maintainers; [tadeokondrak];
     platforms = platforms.all;
   };
 }

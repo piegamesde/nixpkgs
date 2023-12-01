@@ -48,7 +48,7 @@ let
     ((kernel.config.isEnabled or (x: false)) "IP_NF_MATCH_RPFILTER")
     || (kernel.features.netfilterRPFilter or false);
 
-  helpers = import ./helpers.nix { inherit config lib; };
+  helpers = import ./helpers.nix {inherit config lib;};
 
   writeShScript =
     name: text:
@@ -356,12 +356,12 @@ in
 
     systemd.services.firewall = {
       description = "Firewall";
-      wantedBy = [ "sysinit.target" ];
-      wants = [ "network-pre.target" ];
-      before = [ "network-pre.target" ];
-      after = [ "systemd-modules-load.service" ];
+      wantedBy = ["sysinit.target"];
+      wants = ["network-pre.target"];
+      before = ["network-pre.target"];
+      after = ["systemd-modules-load.service"];
 
-      path = [ cfg.package ] ++ cfg.extraPackages;
+      path = [cfg.package] ++ cfg.extraPackages;
 
       # FIXME: this module may also try to load kernel modules, but
       # containers don't have CAP_SYS_MODULE.  So the host system had

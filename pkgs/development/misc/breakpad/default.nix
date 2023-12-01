@@ -34,7 +34,7 @@ stdenv.mkDerivation {
     description = "An open-source multi-platform crash reporting system";
     homepage = "https://chromium.googlesource.com/breakpad";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ berberman ];
+    maintainers = with maintainers; [berberman];
     platforms = platforms.all;
   };
 }

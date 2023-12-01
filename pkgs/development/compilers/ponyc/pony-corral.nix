@@ -16,7 +16,7 @@ stdenv.mkDerivation (rec {
     hash = "sha256-jTx/7iFvmwOdjGVf/6NUy+FTkv6Mkv8DeotJ67pvmtc=";
   };
 
-  buildInputs = [ ponyc ];
+  buildInputs = [ponyc];
 
   installFlags = [
     "prefix=${placeholder "out"}"
@@ -28,7 +28,7 @@ stdenv.mkDerivation (rec {
     homepage = "https://www.ponylang.io";
     changelog = "https://github.com/ponylang/corral/blob/${version}/CHANGELOG.md";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ redvers ];
+    maintainers = with maintainers; [redvers];
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"

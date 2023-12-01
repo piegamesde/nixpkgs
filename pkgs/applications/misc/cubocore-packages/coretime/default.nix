@@ -37,7 +37,7 @@ mkDerivation rec {
     description = "A time related task manager from the C Suite";
     homepage = "https://gitlab.com/cubocore/coreapps/coretime";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dan4ik605743 ];
+    maintainers = with maintainers; [dan4ik605743];
     platforms = platforms.linux;
   };
 }

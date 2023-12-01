@@ -37,8 +37,8 @@ in
       }
     ];
 
-    environment.etc."mlvwm/mlvwmrc" = mkIf (cfg.configFile != null) { source = cfg.configFile; };
+    environment.etc."mlvwm/mlvwmrc" = mkIf (cfg.configFile != null) {source = cfg.configFile;};
 
-    environment.systemPackages = [ pkgs.mlvwm ];
+    environment.systemPackages = [pkgs.mlvwm];
   };
 }

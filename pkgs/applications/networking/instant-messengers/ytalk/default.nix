@@ -14,13 +14,13 @@ stdenv.mkDerivation rec {
     sha256 = "1d3jhnj8rgzxyxjwfa22vh45qwzjvxw1qh8fz6b7nfkj3zvk9jvf";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   meta = {
     homepage = "http://ytalk.ourproject.org";
     description = "A terminal based talk client";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ taeer ];
+    maintainers = with lib.maintainers; [taeer];
     license = lib.licenses.gpl2Plus;
   };
 }

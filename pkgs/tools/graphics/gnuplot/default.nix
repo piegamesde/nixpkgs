@@ -63,7 +63,7 @@ in
       readline
       zlib
     ]
-    ++ lib.optional withTeXLive (texlive.combine { inherit (texlive) scheme-small; })
+    ++ lib.optional withTeXLive (texlive.combine {inherit (texlive) scheme-small;})
     ++ lib.optional withLua lua
     ++ lib.optional withCaca libcaca
     ++ lib.optionals withX [
@@ -115,6 +115,6 @@ in
       # provided you: ...
       url = "https://sourceforge.net/p/gnuplot/gnuplot-main/ci/master/tree/Copyright";
     };
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
   };
 }

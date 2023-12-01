@@ -19,7 +19,7 @@ buildKodiAddon rec {
     homepage = "https://github.com/osmc/skin.osmc";
     description = "The default skin for OSMC";
     platforms = platforms.all;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.cc-by-nc-sa-30;
   };
 }

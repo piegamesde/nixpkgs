@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     ant
   ];
 
-  patches = [ ./javacup-0.11b_beta20160615-build-xml-git.patch ];
+  patches = [./javacup-0.11b_beta20160615-build-xml-git.patch];
 
   buildPhase = "ant";
 
@@ -42,6 +42,6 @@ stdenv.mkDerivation rec {
     description = "LALR parser generator for Java";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.romildo ];
+    maintainers = [lib.maintainers.romildo];
   };
 }

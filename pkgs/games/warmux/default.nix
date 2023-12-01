@@ -70,7 +70,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "Ballistics turn-based battle game between teams - unofficial copy";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
     license = with licenses; [
       gpl2

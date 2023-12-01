@@ -1,10 +1,10 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
   {
     name = "nomad";
     nodes = {
       default_server =
-        { pkgs, lib, ... }:
+        {pkgs, lib, ...}:
         {
           networking = {
             interfaces.eth1.ipv4.addresses = lib.mkOverride 0 [
@@ -15,7 +15,7 @@ import ./make-test-python.nix (
             ];
           };
 
-          environment.etc."nomad.custom.json".source = (pkgs.formats.json { }).generate "nomad.custom.json" {
+          environment.etc."nomad.custom.json".source = (pkgs.formats.json {}).generate "nomad.custom.json" {
             region = "universe";
             datacenter = "earth";
           };
@@ -30,13 +30,13 @@ import ./make-test-python.nix (
               };
             };
 
-            extraSettingsPaths = [ "/etc/nomad.custom.json" ];
+            extraSettingsPaths = ["/etc/nomad.custom.json"];
             enableDocker = false;
           };
         };
 
       custom_state_dir_server =
-        { pkgs, lib, ... }:
+        {pkgs, lib, ...}:
         {
           networking = {
             interfaces.eth1.ipv4.addresses = lib.mkOverride 0 [
@@ -47,7 +47,7 @@ import ./make-test-python.nix (
             ];
           };
 
-          environment.etc."nomad.custom.json".source = (pkgs.formats.json { }).generate "nomad.custom.json" {
+          environment.etc."nomad.custom.json".source = (pkgs.formats.json {}).generate "nomad.custom.json" {
             region = "universe";
             datacenter = "earth";
           };
@@ -64,7 +64,7 @@ import ./make-test-python.nix (
               };
             };
 
-            extraSettingsPaths = [ "/etc/nomad.custom.json" ];
+            extraSettingsPaths = ["/etc/nomad.custom.json"];
             enableDocker = false;
           };
 

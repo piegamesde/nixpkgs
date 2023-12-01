@@ -18,12 +18,12 @@ buildDotnetModule rec {
     hash = "sha512-aUjjT5Qf64wrKRn1vkwJadMOBWMkvsXUjtZ7S3/ZWAh1CCDkQNO84mSbtbVc9ny0fKeJEqaDX2tJNwq7pYqAbA==";
   };
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
-  buildInputs = [ stdenv.cc.cc.lib ];
+  nativeBuildInputs = lib.optionals stdenv.isLinux [autoPatchelfHook];
+  buildInputs = [stdenv.cc.cc.lib];
 
   projectFile = "inklecate/inklecate.csproj";
   nugetDeps = ./deps.nix;
-  executables = [ "inklecate" ];
+  executables = ["inklecate"];
 
   dotnet-sdk = dotnetCorePackages.sdk_6_0;
   dotnet-runtime = dotnetCorePackages.runtime_6_0;
@@ -39,6 +39,6 @@ buildDotnetModule rec {
     license = licenses.mit;
     platforms = platforms.unix;
     badPlatforms = platforms.aarch64;
-    maintainers = with maintainers; [ shreerammodi ];
+    maintainers = with maintainers; [shreerammodi];
   };
 }

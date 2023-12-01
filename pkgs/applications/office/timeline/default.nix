@@ -100,6 +100,6 @@ python3.pkgs.buildPythonApplication rec {
       cc-by-sa-30
     ];
     platforms = with platforms; unix;
-    maintainers = with maintainers; [ davidak ];
+    maintainers = with maintainers; [davidak];
   };
 }

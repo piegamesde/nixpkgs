@@ -34,7 +34,7 @@ buildPythonPackage rec {
     hash = "sha256-sk/HGfiiNKrgnf5fPaxoOySvAEpnAXnLFmK0yah51ww=";
   };
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
   propagatedBuildInputs = [
     cons
@@ -64,7 +64,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [ "pytensor" ];
+  pythonImportsCheck = ["pytensor"];
 
   disabledTests = [
     # benchmarks (require pytest-benchmark):
@@ -86,7 +86,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/pymc-devs/pytensor";
     changelog = "https://github.com/pymc-devs/pytensor/releases";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     broken = (stdenv.isLinux && stdenv.isAarch64);
   };
 }

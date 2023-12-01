@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "0vm1r1jlaiagj0l9yf7j6zn9w3733dr2169911c0svgrr3gwiwn9";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   meta = {
     description = "An AST-based Python refactoring library";
@@ -22,6 +22,6 @@ buildPythonPackage rec {
     # Usually the tag message contains a one-line summary of the changes.
     changelog = "https://github.com/google/pasta/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ timokau ];
+    maintainers = with lib.maintainers; [timokau];
   };
 }

@@ -47,7 +47,7 @@ stdenv.mkDerivation (
       [
         # The icon validator copied from Flatpak needs to access the gdk-pixbuf loaders
         # in the Nix store and cannot bind FHS paths since those are not available on NixOS.
-        (runCommand "icon-validator.patch" { } ''
+        (runCommand "icon-validator.patch" {} ''
           # Flatpak uses a different path
           substitute "${flatpak.icon-validator-patch}" "$out" \
             --replace "/icon-validator/validate-icon.c" "/src/validate-icon.c"
@@ -79,12 +79,12 @@ stdenv.mkDerivation (
       librsvg
 
       # For document-fuse installed test.
-      (python3.withPackages (pp: with pp; [ pygobject3 ]))
-    ] ++ lib.optionals enableGeoLocation [ geoclue2 ];
+      (python3.withPackages (pp: with pp; [pygobject3]))
+    ] ++ lib.optionals enableGeoLocation [geoclue2];
 
     configureFlags = [
       "--enable-installed-tests"
-    ] ++ lib.optionals (!enableGeoLocation) [ "--disable-geoclue" ];
+    ] ++ lib.optionals (!enableGeoLocation) ["--disable-geoclue"];
 
     makeFlags = [
       "installed_testdir=${placeholder "installedTests"}/libexec/installed-tests/xdg-desktop-portal"
@@ -95,7 +95,7 @@ stdenv.mkDerivation (
       tests = {
         installedTests = nixosTests.installed-tests.xdg-desktop-portal;
 
-        validate-icon = runCommand "test-icon-validation" { } ''
+        validate-icon = runCommand "test-icon-validation" {} ''
           ${finalAttrs.finalPackage}/libexec/xdg-desktop-portal-validate-icon --sandbox 512 512 ${../../../applications/audio/zynaddsubfx/ZynLogo.svg} > "$out"
           grep format=svg "$out"
         '';
@@ -105,7 +105,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "Desktop integration portals for sandboxed apps";
       license = licenses.lgpl2Plus;
-      maintainers = with maintainers; [ jtojnar ];
+      maintainers = with maintainers; [jtojnar];
       platforms = platforms.linux;
     };
   }
